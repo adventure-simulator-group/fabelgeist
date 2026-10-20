@@ -233,6 +233,10 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
           cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server startup::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-server-startup.log
           grep -Eq '^test result: ok\. [1-9][0-9]* passed; 0 failed;' target/rig-contracts/tactical-server-startup.log
+      - name: Test authoritative maneuver consumers
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server player_projection::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/maneuver-consumers.log
       - name: Export semantic family baseline snapshot
         env:
           EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -256,7 +260,7 @@ jobs:
               raise SystemExit("Recorded rig revision does not match the required PR head")
           required = [
               "rig", "autoresolve", "contact-defense", "mhr",
-              "animation", "audio", "equipment",
+              "animation", "audio", "equipment", "maneuver-consumers",
               "creator-armor-frames", "creator-clothing",
               "creator-device-frames", "creator-gorget-bib",
               "creator-gorget-collar", "creator-wrapped-tasset",

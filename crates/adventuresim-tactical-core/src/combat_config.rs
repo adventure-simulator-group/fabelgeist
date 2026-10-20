@@ -515,12 +515,6 @@ impl TacticalCombatConfig {
             movement.motor.slide_drag_coefficient,
             movement.motor.maximum_step_height_metres,
             movement.motor.maximum_walkable_slope_degrees,
-            movement.maneuvers.get_up_seconds.seconds(),
-            movement.maneuvers.roll_seconds,
-            movement.maneuvers.dive_seconds,
-            movement.maneuvers.backward_dive_seconds,
-            movement.maneuvers.slide_seconds,
-            movement.maneuvers.quickstep_duration_seconds.seconds(),
         ];
         if !movement_values
             .into_iter()

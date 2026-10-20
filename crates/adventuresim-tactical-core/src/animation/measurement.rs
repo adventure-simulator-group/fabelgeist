@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 #[serde(try_from = "f32", into = "f32")]
 pub struct NonnegativeLength(f32);
 
-/// Positive elapsed seconds for settings used as divisors or decay lengths.
+/// Positive elapsed seconds for action durations, divisors and decay lengths.
 #[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into)]
 #[serde(try_from = "f32", into = "f32")]
 #[into(f32)]

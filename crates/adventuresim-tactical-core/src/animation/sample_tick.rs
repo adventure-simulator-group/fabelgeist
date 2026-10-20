@@ -1,5 +1,6 @@
 //! Identity of a sampled authoritative animation observation.
 
+use super::{AnimationSampleRate, PositiveAnimationDuration};
 use bevy::prelude::Reflect;
 use derive_more::{Debug, Display, From};
 use serde::{Deserialize, Serialize};
@@ -82,6 +83,17 @@ impl AnimationSampleTick {
 impl AnimationSampleSpan {
     pub const ZERO: Self = Self(0);
     pub const ONE: Self = Self(1);
+
+    /// Quantize a positive action duration at its sample rate. Preserve
+    /// multiply, round, minimum-one, then native saturating count conversion;
+    /// even a finite duration whose product overflows reaches the maximum span.
+    pub fn from_positive_duration(
+        duration: PositiveAnimationDuration,
+        rate: AnimationSampleRate,
+    ) -> Self {
+        Self((duration.seconds() * rate.hertz()).round().max(1.0) as u64)
+    }
+
     pub fn saturating_add(self, other: Self) -> Self {
         Self(self.0.saturating_add(other.0))
     }

@@ -1497,27 +1497,22 @@ fn apply_posture_action(
         }
     };
     let transition = transition?;
-    let duration = match transition {
+    let duration_seconds = match transition {
         PostureTransitionKind::DiveToDowned {
             trajectory: DiveTrajectory::GroundedSlide,
             ..
-        } => combat_seconds_to_ticks(config.movement.maneuvers.slide_seconds),
+        } => config.movement.maneuvers.slide_seconds,
         PostureTransitionKind::DiveToDowned {
             direction: DiveDirection::Backward,
             ..
-        } => combat_seconds_to_ticks(config.movement.maneuvers.backward_dive_seconds),
-        PostureTransitionKind::DiveToDowned { .. } => {
-            combat_seconds_to_ticks(config.movement.maneuvers.dive_seconds)
-        }
+        } => config.movement.maneuvers.backward_dive_seconds,
+        PostureTransitionKind::DiveToDowned { .. } => config.movement.maneuvers.dive_seconds,
         PostureTransitionKind::ProneToSupine { .. }
-        | PostureTransitionKind::SupineToProne { .. } => {
-            combat_seconds_to_ticks(config.movement.maneuvers.roll_seconds)
-        }
-        _ => config
-            .movement
-            .maneuvers
-            .get_up_sample_span(locomotion_sample_rate()),
+        | PostureTransitionKind::SupineToProne { .. } => config.movement.maneuvers.roll_seconds,
+        _ => config.movement.maneuvers.get_up_seconds,
     };
+    let duration =
+        AnimationSampleSpan::from_positive_duration(duration_seconds, locomotion_sample_rate());
     if !skeleton.begin_posture_transition(transition, tick, duration) {
         return None;
     }
@@ -1542,18 +1537,10 @@ pub(crate) fn begin_get_up_transition_configured(
     skeleton.begin_posture_transition(
         transition,
         skeleton.locomotion_sample_tick,
-        config
-            .movement
-            .maneuvers
-            .get_up_sample_span(locomotion_sample_rate()),
-    )
-}
-
-fn combat_seconds_to_ticks(seconds: f32) -> AnimationSampleSpan {
-    AnimationSampleSpan::from(
-        (seconds * locomotion_sample_rate().hertz())
-            .round()
-            .max(1.0) as u64,
+        AnimationSampleSpan::from_positive_duration(
+            config.movement.maneuvers.get_up_seconds,
+            locomotion_sample_rate(),
+        ),
     )
 }
 
@@ -2359,15 +2346,15 @@ mod tests {
         GROUND_POSTURE_TRANSITION_TICKS, MeleeAttackAuthority, Player, RECONNECT_GRACE_SECS,
         ROLL_POSTURE_TRANSITION_TICKS, RangedAttackAuthority, ReconnectSession, WeaponGuardState,
         apply_posture_action, authoritative_weapon_guard, begin_authoritative_quickstep,
-        combat_seconds_to_ticks, downed_tank_controller_input, input, mission_enemy_health_scale,
-        mission_enemy_scale, on_client_disconnected, player_collider, queue_replication_rebind,
+        downed_tank_controller_input, input, mission_enemy_health_scale, mission_enemy_scale,
+        on_client_disconnected, player_collider, queue_replication_rebind,
         reconnect_matches, restore_authoritative_movement_intent, sequence_is_newer,
         tactical_movement_speed_for_guard, try_claim_reconnect, update_character_motion_snapshots,
         validate_player_input,
     };
     use adventuresim_tactical_core::animation::{
         AnimationElapsed, AnimationSampleSpan, AnimationSampleTick, DownedFacingStep,
-        SignedHalfTurns,
+        SignedHalfTurns, locomotion_sample_rate,
     };
     use adventuresim_tactical_core::physics::tactical_character_controller;
     use adventuresim_tactical_core::prelude::{
@@ -3135,7 +3122,10 @@ mod tests {
         );
         assert!(input.jumped.is_none());
 
-        let duration = combat_seconds_to_ticks(config.movement.maneuvers.slide_seconds);
+        let duration = AnimationSampleSpan::from_positive_duration(
+            config.movement.maneuvers.slide_seconds,
+            locomotion_sample_rate(),
+        );
         skeleton
             .advance_posture_transition(AnimationSampleTick::ZERO.saturating_add(duration))
             .unwrap();
