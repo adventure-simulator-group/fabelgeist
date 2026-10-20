@@ -139,7 +139,6 @@ pub fn melee_lunge_arrival(
     ))
 }
 
-#[must_use]
 pub fn conservative_forward_lunge_acceleration(
     motor: &crate::combat_config::CharacterMotorConfig,
 ) -> AnimationValueResult<ForwardLungeAcceleration> {
