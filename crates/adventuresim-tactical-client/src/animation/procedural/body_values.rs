@@ -191,7 +191,7 @@ impl BodyAngularMagnitude {
         }
         Ok(Self(radians))
     }
-    fn radians(self) -> f32 {
+    pub(super) fn radians(self) -> f32 {
         self.0.radians()
     }
 }

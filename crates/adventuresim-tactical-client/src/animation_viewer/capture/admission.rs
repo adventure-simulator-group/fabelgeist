@@ -1,7 +1,7 @@
 //! Terminal capture admission rejection, separate from loading/readiness waits.
 
 use super::*;
-use adventuresim_tactical_core::animation::AnimationValueError;
+use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError, UnitInterval};
 
 /// One terminal authority: a rejected admission cannot return to driving.
 pub(super) enum CaptureAdmission {
@@ -21,12 +21,47 @@ impl CaptureSequence {
         &mut self,
         skeleton: &SkeletonState,
         speed: NonnegativeSpeed,
-    ) -> Option<(f32, f32)> {
+    ) -> Option<(
+        adventuresim_tactical_core::animation::UnitInterval,
+        adventuresim_tactical_core::animation::UnitInterval,
+    )> {
         match locomotion_support_weights(skeleton, speed) {
             Ok(weights) => Some(weights),
             Err(error) => {
                 self.admission =
                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+                None
+            }
+        }
+    }
+
+    /// Active IK owns these observations; absent observations cannot become flight.
+    pub(super) fn admit_ik_support(
+        &mut self,
+        diagnostics: LegIkDiagnostics,
+        cadence: (UnitInterval, UnitInterval),
+        skeleton: &SkeletonState,
+        terrain_ik: TerrainIkMode,
+    ) -> Option<(UnitInterval, UnitInterval)> {
+        let ordinary_support_required =
+            terrain_ik.is_enabled() && crate::animation::authored_locomotion_ik_owns(skeleton);
+        if !ordinary_support_required
+            && diagnostics.left_solve_target.is_none()
+            && diagnostics.right_solve_target.is_none()
+        {
+            return Some(cadence);
+        }
+        match diagnostics
+            .left_support_weight
+            .zip(diagnostics.right_support_weight)
+        {
+            Some(weights) => Some(weights),
+            None => {
+                self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(
+                    AnimationValueError::UnavailableObservation {
+                        quantity: AnimationQuantity::SupportObservation,
+                    },
+                ));
                 None
             }
         }

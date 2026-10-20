@@ -1,0 +1,121 @@
+//! Complete native authored-leg terrain solve after the shared root correction.
+
+use super::*;
+
+#[derive(Clone, Copy)]
+pub(super) struct OrdinaryLeg {
+    pub(super) upper_role: BoneRole,
+    pub(super) lower_role: BoneRole,
+    pub(super) foot_role: BoneRole,
+    pub(super) weight: UnitInterval,
+    pub(super) foot_side: LeadFoot,
+}
+
+impl OrdinaryLeg {
+    pub(super) fn solve(
+        self,
+        rig: &HumanoidRig,
+        target: Vec3,
+        frame: ObservedRigFrame,
+        terrain: Option<&SceneTerrain>,
+        parents: &Query<&ChildOf>,
+        transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
+    ) -> Option<UnitInterval> {
+        let Self {
+            upper_role,
+            lower_role,
+            foot_role,
+            foot_side,
+            ..
+        } = self;
+        let (Some(target), Some(&upper), Some(&lower), Some(&foot)) = (
+            Some(target),
+            rig.get(&upper_role),
+            rig.get(&lower_role),
+            rig.get(&foot_role),
+        ) else {
+            return None;
+        };
+        let Some((upper_snapshot, lower_snapshot, foot_snapshot)) =
+            snapshot_chain(upper, lower, foot, parents, &transforms.p0())
+        else {
+            return None;
+        };
+        if target.distance(foot_snapshot.global.translation()) <= 0.0001 {
+            // Preserve an already-clear authored chain exactly. Solving an
+            // identity ankle target can still rotate it through a newly
+            // selected knee pole.
+            return Some(self.weight);
+        }
+        let LimbSegments {
+            upper: upper_length,
+            lower: lower_length,
+        } = match LimbSegments::measure(
+            upper_snapshot.global.translation(),
+            lower_snapshot.global.translation(),
+            foot_snapshot.global.translation(),
+        ) {
+            Ok(segments) => segments,
+            Err(error) => {
+                warn!(%error, "IK segment measurement rejected");
+                return None;
+            }
+        };
+        let canonical = canonical_knee_pole_world(foot_side, frame.rotation());
+        let pole = authored_knee_pole_world(
+            upper_snapshot.global.translation(),
+            lower_snapshot.global.translation(),
+            target,
+            canonical,
+        )
+        .unwrap_or(canonical);
+        let pole = constrain_rendered_leg_pole(
+            rig,
+            foot_side,
+            upper_snapshot.global.translation(),
+            foot_snapshot.global.translation(),
+            target,
+            pole,
+            parents,
+            &transforms.p0(),
+        );
+        let solution = solve_two_bone_with_reach(
+            TwoBoneChain::new(
+                upper_snapshot.global.translation(),
+                lower_snapshot.global.translation(),
+                foot_snapshot.global.translation(),
+                upper_length,
+                lower_length,
+                pole,
+            ),
+            target,
+            maximum_reach(upper_length, lower_length),
+        )?;
+        apply_two_bone_solution(upper, lower, foot, solution, parents, transforms);
+        self.align_surface(rig, target, foot, terrain, parents, transforms);
+        Some(self.weight)
+    }
+
+    fn align_surface(
+        self,
+        rig: &HumanoidRig,
+        target: Vec3,
+        foot: Entity,
+        terrain: Option<&SceneTerrain>,
+        parents: &Query<&ChildOf>,
+        transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
+    ) {
+        let Self {
+            weight, foot_side, ..
+        } = self;
+        if weight.fraction() > 0.001
+            && let (Some(_), Some(normal), Some(sole_axis)) = (
+                terrain,
+                terrain.and_then(|terrain| terrain.normal_at(target.xz())),
+                rig.sole_axis(foot_side),
+            )
+        {
+            align_foot_to_slope_weighted(foot, sole_axis, normal, weight, parents, transforms);
+        }
+    }
+}

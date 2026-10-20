@@ -9,6 +9,38 @@ use adventuresim_building_generator::spatial_geometry::SignedLength;
 use adventuresim_tactical_core::animation::{CyclePhase, UnitInterval};
 
 impl LocomotionHeightState {
+    /// Apply the landing-only metre offset in the actual pelvis parent frame.
+    pub(super) fn apply_landing_pelvis_compression(
+        &self,
+        rig: &HumanoidRig,
+        parents: &Query<&ChildOf>,
+        transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
+    ) {
+        if let Some(&pelvis) = rig.get(&BoneRole::Pelvis) {
+            let local_delta = parents
+                .get(pelvis)
+                .ok()
+                .and_then(|parent| {
+                    transforms
+                        .p0()
+                        .compute_global_transform(parent.parent())
+                        .ok()
+                })
+                .map(|parent| {
+                    parent
+                        .affine()
+                        .inverse()
+                        .transform_vector3(Vec3::NEG_Y * self.landing_compression.metres())
+                })
+                .unwrap_or(Vec3::NEG_Y * self.landing_compression.metres());
+            if local_delta.is_finite()
+                && let Ok(mut transform) = transforms.p1().get_mut(pelvis)
+            {
+                transform.translation += local_delta;
+            }
+        }
+    }
+
     pub(super) fn advance_height(mut self, skeleton: &SkeletonState) -> AnimationValueResult<Self> {
         if skeleton.is_quickstep() {
             self.amplitude = HeightDistance::ZERO;

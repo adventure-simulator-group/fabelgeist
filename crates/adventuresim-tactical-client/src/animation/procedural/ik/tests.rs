@@ -1,3 +1,4 @@
+use super::terminal::TerminalReach;
 use super::*;
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 
@@ -49,18 +50,21 @@ mod coordination_tests {
             next: LeadFoot::Right,
         };
         assert_eq!(planted.swing_foot(), None);
-        assert_eq!(planted.progress(), 0.0);
+        assert_eq!(planted.progress(), None);
 
         let swinging = GuardStepState::RightSwing {
             left_support: Vec3::NEG_X,
             right: GuardSwing {
                 start: Vec3::X,
                 end: Vec3::X + Vec3::Z,
-                progress: 0.4,
+                progress: UnitInterval::from_fraction(0.4).unwrap(),
             },
         };
         assert_eq!(swinging.swing_foot(), Some(LeadFoot::Right));
-        assert_eq!(swinging.progress(), 0.4);
+        assert_eq!(
+            swinging.progress(),
+            Some(UnitInterval::from_fraction(0.4).unwrap())
+        );
     }
 
     fn guard_test_geometry() -> ([GuardLegGeometry; 2], GuardTargetRequest) {
@@ -68,11 +72,11 @@ mod coordination_tests {
             [
                 GuardLegGeometry {
                     hip: Vec3::new(-0.12, 0.0, 0.0),
-                    maximum_reach: 1.0,
+                    maximum_reach: ReachLimit::from(NonnegativeLength::from_metres(1.0).unwrap()),
                 },
                 GuardLegGeometry {
                     hip: Vec3::new(0.12, 0.0, 0.0),
-                    maximum_reach: 1.0,
+                    maximum_reach: ReachLimit::from(NonnegativeLength::from_metres(1.0).unwrap()),
                 },
             ],
             GuardTargetRequest {
@@ -160,7 +164,8 @@ mod coordination_tests {
                 planted,
                 nearby,
                 AnimationElapsed::from_seconds(1.0 / 64.0).unwrap()
-            ),
+            )
+            .unwrap(),
             planted
         );
 
@@ -173,13 +178,15 @@ mod coordination_tests {
             planted,
             turned,
             AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
-        );
+        )
+        .unwrap();
         assert!(matches!(first, GuardStepState::LeftSwing { .. }));
         let second = advance_stationary_turn_step(
             first,
             turned,
             AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
-        );
+        )
+        .unwrap();
         let GuardStepState::LeftSwing {
             right_support,
             left: swing,
@@ -188,7 +195,7 @@ mod coordination_tests {
             panic!("turn adjustment should remain a one-foot swing");
         };
         assert_eq!(right_support, right);
-        assert!(swing.progress > 0.0);
+        assert!(swing.progress.fraction() > 0.0);
         assert!(guard_swing_target(swing).y > swing.start.y);
 
         let vertical_settle = GuardStepState::Stationary {
@@ -201,7 +208,8 @@ mod coordination_tests {
                 planted,
                 vertical_settle,
                 AnimationElapsed::from_seconds(1.0 / 64.0).unwrap()
-            ),
+            )
+            .unwrap(),
             planted
         );
     }
@@ -222,7 +230,7 @@ mod coordination_tests {
             left: GuardSwing {
                 start: Vec3::NEG_X,
                 end: Vec3::NEG_Z,
-                progress: 0.5,
+                progress: UnitInterval::from_fraction(0.5).unwrap(),
             },
         };
         assert_eq!(state.contact_foot(), Some(LeadFoot::Right));
@@ -231,7 +239,7 @@ mod coordination_tests {
             right: GuardSwing {
                 start: Vec3::X,
                 end: Vec3::Z,
-                progress: 0.5,
+                progress: UnitInterval::from_fraction(0.5).unwrap(),
             },
         };
         assert_eq!(state.contact_foot(), Some(LeadFoot::Left));
@@ -274,12 +282,15 @@ mod coordination_tests {
                 left: Vec3::NEG_X,
                 right: Vec3::X,
             },
-            raised_pelvis_shift: -ik_tuning().guard_reach_pelvis_drop_metres.metres(),
+            raised_pelvis_shift: SignedLength::from_metres(
+                -ik_tuning().guard_reach_pelvis_drop_metres.metres(),
+            )
+            .unwrap(),
             ..default()
         };
         release_raised_state_for_authored_locomotion(&mut memory);
         assert_eq!(memory.quickstep_handoff, QuickstepContactHandoff::None);
-        assert_eq!(memory.raised_pelvis_shift, 0.0);
+        assert_eq!(memory.raised_pelvis_shift.metres(), 0.0);
         assert_eq!(memory.left_support_weight, None);
         assert_eq!(memory.right_support_weight, None);
     }
@@ -294,16 +305,21 @@ mod coordination_tests {
 
         assert!(seed_quickstep_contact_handoff(
             &mut memory,
-            origin,
-            rotation,
+            ObservedRigFrame::from_native(origin, rotation).unwrap(),
             origin + rotation * left_local,
             origin + rotation * right_local,
         ));
         let (left, right) = memory.quickstep_handoff.targets().unwrap();
         assert!(left.distance(left_local) <= 1.0e-6);
         assert!(right.distance(right_local) <= 1.0e-6);
-        assert_eq!(memory.rig_origin, Some(origin));
-        assert_eq!(memory.rig_rotation, Some(rotation));
+        assert_eq!(
+            memory.owner_frame.map(ObservedRigFrame::origin),
+            Some(origin)
+        );
+        assert_eq!(
+            memory.owner_frame.map(ObservedRigFrame::rotation),
+            Some(rotation)
+        );
     }
 
     #[test]
@@ -398,30 +414,36 @@ mod coordination_tests {
 
     #[test]
     fn run_contact_approach_reaches_the_plant_at_support_entry() {
-        let radius = run_locomotion_profile().support_phase_radius;
+        let radius = run_locomotion_profile().support_phase_radius.cycles();
         let ready = radius + ik_tuning().run_contact_chain_settle_phase.fraction();
         assert_eq!(
             run_contact_approach_progress(
                 CycleDelta::from_cycles(ik_tuning().run_contact_approach_phase.fraction()).unwrap(),
-                ik_tuning().run_contact_approach_phase.fraction(),
-                ready,
-            ),
+                CycleDelta::from_unit_cycles(ik_tuning().run_contact_approach_phase),
+                CycleDelta::from_cycles(ready).unwrap(),
+            )
+            .unwrap()
+            .fraction(),
             0.0
         );
         assert_eq!(
             run_contact_approach_progress(
                 CycleDelta::from_cycles(ready).unwrap(),
-                ik_tuning().run_contact_approach_phase.fraction(),
-                ready
-            ),
+                CycleDelta::from_unit_cycles(ik_tuning().run_contact_approach_phase),
+                CycleDelta::from_cycles(ready).unwrap()
+            )
+            .unwrap()
+            .fraction(),
             1.0
         );
         assert_eq!(
             run_contact_approach_progress(
                 CycleDelta::from_cycles(radius).unwrap(),
-                ik_tuning().run_contact_approach_phase.fraction(),
-                ready
-            ),
+                CycleDelta::from_unit_cycles(ik_tuning().run_contact_approach_phase),
+                CycleDelta::from_cycles(ready).unwrap()
+            )
+            .unwrap()
+            .fraction(),
             1.0
         );
         let middle = run_contact_approach_progress(
@@ -429,21 +451,41 @@ mod coordination_tests {
                 (ik_tuning().run_contact_approach_phase.fraction() + ready) * 0.5,
             )
             .unwrap(),
-            ik_tuning().run_contact_approach_phase.fraction(),
-            ready,
-        );
+            CycleDelta::from_unit_cycles(ik_tuning().run_contact_approach_phase),
+            CycleDelta::from_cycles(ready).unwrap(),
+        )
+        .unwrap()
+        .fraction();
         assert!((middle - 0.5).abs() < 0.0001);
         let release_finished_phase = 0.81;
         assert_eq!(
             run_contact_approach_progress(
                 CycleDelta::from_cycles(release_finished_phase).unwrap(),
-                release_finished_phase,
-                ready,
-            ),
+                CycleDelta::from_cycles(release_finished_phase).unwrap(),
+                CycleDelta::from_cycles(ready).unwrap(),
+            )
+            .unwrap()
+            .fraction(),
             0.0
         );
-        assert!(run_swing_clearance(CycleDelta::from_cycles(radius).unwrap(), Some(1.0)) <= 0.0);
-        assert!(run_swing_clearance(CycleDelta::from_cycles(0.3375).unwrap(), Some(0.5)) > 0.08);
+        assert!(
+            run_swing_clearance(
+                CycleDelta::from_cycles(radius).unwrap(),
+                Some(UnitInterval::from_fraction(1.0).unwrap())
+            )
+            .unwrap()
+            .metres()
+                <= 0.0
+        );
+        assert!(
+            run_swing_clearance(
+                CycleDelta::from_cycles(0.3375).unwrap(),
+                Some(UnitInterval::from_fraction(0.5).unwrap())
+            )
+            .unwrap()
+            .metres()
+                > 0.08
+        );
 
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
@@ -455,16 +497,20 @@ mod coordination_tests {
         let mut phase_to_contact = ik_tuning().run_contact_approach_phase.fraction();
         let mut previous_progress = run_contact_approach_progress(
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
-            ik_tuning().run_contact_approach_phase.fraction(),
-            ready,
-        );
+            CycleDelta::from_unit_cycles(ik_tuning().run_contact_approach_phase),
+            CycleDelta::from_cycles(ready).unwrap(),
+        )
+        .unwrap()
+        .fraction();
         while phase_to_contact > ready {
             phase_to_contact = (phase_to_contact - phase_step).max(ready);
             let progress = run_contact_approach_progress(
                 CycleDelta::from_cycles(phase_to_contact).unwrap(),
-                ik_tuning().run_contact_approach_phase.fraction(),
-                ready,
-            );
+                CycleDelta::from_unit_cycles(ik_tuning().run_contact_approach_phase),
+                CycleDelta::from_cycles(ready).unwrap(),
+            )
+            .unwrap()
+            .fraction();
             let three_metre_world_step = 3.0 * (progress - previous_progress);
             let root_step = 5.5 / 64.0;
             assert!((three_metre_world_step - root_step).abs() <= 0.095);
@@ -474,18 +520,22 @@ mod coordination_tests {
 
     #[test]
     fn planned_run_contact_anticipates_a_bounded_pelvis_reach_drop() {
-        let radius = run_locomotion_profile().support_phase_radius;
+        let radius = run_locomotion_profile().support_phase_radius.cycles();
         let ready = radius + ik_tuning().run_contact_chain_settle_phase.fraction();
         let early = run_contact_approach_progress(
             CycleDelta::from_cycles(ik_tuning().run_contact_approach_phase.fraction()).unwrap(),
-            ik_tuning().run_contact_approach_phase.fraction(),
-            ready,
-        );
+            CycleDelta::from_unit_cycles(ik_tuning().run_contact_approach_phase),
+            CycleDelta::from_cycles(ready).unwrap(),
+        )
+        .unwrap()
+        .fraction();
         let late = run_contact_approach_progress(
             CycleDelta::from_cycles(ready).unwrap(),
-            ik_tuning().run_contact_approach_phase.fraction(),
-            ready,
-        );
+            CycleDelta::from_unit_cycles(ik_tuning().run_contact_approach_phase),
+            CycleDelta::from_cycles(ready).unwrap(),
+        )
+        .unwrap()
+        .fraction();
         assert_eq!(early, 0.0);
         assert_eq!(late, 1.0);
 
@@ -506,11 +556,13 @@ mod coordination_tests {
         assert_eq!(late_target, required_reach_shift);
         assert!(
             advance_scalar_at_speed(
-                0.0,
-                late_target,
+                SignedLength::from_metres(0.0).unwrap(),
+                SignedLength::from_metres(late_target).unwrap(),
                 AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
                 ik_tuning().run_pelvis_correction_speed_metres_per_second
             )
+            .unwrap()
+            .metres()
             .abs()
                 <= 0.01
         );
@@ -522,9 +574,9 @@ mod coordination_tests {
         // plan geometry that previously froze an unreachable -6.117 m plant.
         let upper = Vec3::new(0.1, 3.109, -2.847);
         let velocity = Vec3::NEG_Z * 5.5;
-        let ready = run_locomotion_profile().support_phase_radius
+        let ready = run_locomotion_profile().support_phase_radius.cycles()
             + ik_tuning().run_contact_chain_settle_phase.fraction();
-        let reach = 0.953;
+        let reach = ReachLimit::Fixed(NonnegativeLength::from_metres(0.953).unwrap());
         let phase_to_contact = 0.744;
         let travel_per_phase = ordinary_step_distance(
             adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
@@ -535,9 +587,9 @@ mod coordination_tests {
         let downhill = |xz: Vec2| Some(2.38 + xz.y * 0.08);
         let current_height = downhill(upper.xz()).unwrap();
         let predicted_roots = [
-            phase_to_contact - run_locomotion_profile().support_phase_radius,
+            phase_to_contact - run_locomotion_profile().support_phase_radius.cycles(),
             phase_to_contact,
-            phase_to_contact + run_locomotion_profile().support_phase_radius,
+            phase_to_contact + run_locomotion_profile().support_phase_radius.cycles(),
         ]
         .map(|remaining_phase| {
             let mut root = upper + Vec3::NEG_Z * (remaining_phase * travel_per_phase);
@@ -554,13 +606,14 @@ mod coordination_tests {
             velocity,
             ordinary_step_distance(NonnegativeSpeed::from_metres_per_second(5.5).unwrap()).unwrap(),
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
-            ready,
+            CycleDelta::from_cycles(ready).unwrap(),
             reach,
             downhill,
-        );
+        )
+        .unwrap();
         assert!(frozen.is_finite());
         for predicted_root in predicted_roots {
-            assert!(frozen.distance(predicted_root) <= reach + 0.001);
+            assert!(frozen.distance(predicted_root) <= reach.native_metres().unwrap() + 0.001);
         }
         assert_eq!(
             frozen,
@@ -571,10 +624,11 @@ mod coordination_tests {
                 ordinary_step_distance(NonnegativeSpeed::from_metres_per_second(5.5).unwrap())
                     .unwrap(),
                 CycleDelta::from_cycles(phase_to_contact).unwrap(),
-                ready,
+                CycleDelta::from_cycles(ready).unwrap(),
                 reach,
                 downhill,
             )
+            .unwrap()
         );
 
         let flat_predicted_center = upper + Vec3::NEG_Z * (phase_to_contact * travel_per_phase)
@@ -590,10 +644,11 @@ mod coordination_tests {
             velocity,
             ordinary_step_distance(NonnegativeSpeed::from_metres_per_second(5.5).unwrap()).unwrap(),
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
-            ready,
+            CycleDelta::from_cycles(ready).unwrap(),
             reach,
             |_| Some(flat_height),
-        );
+        )
+        .unwrap();
         assert!(flat.distance(flat_candidate) <= 0.0001);
     }
 
@@ -603,20 +658,25 @@ mod coordination_tests {
         let authored_upper = Vec3::new(0.1, 3.04, -6.25);
         let pelvis_shift = (0..20).fold(0.0, |shift, _| {
             advance_scalar_at_speed(
-                shift,
-                -ik_tuning()
-                    .run_maximum_planned_reach_pelvis_drop_metres
-                    .metres(),
+                SignedLength::from_metres(shift).unwrap(),
+                SignedLength::from_metres(
+                    -ik_tuning()
+                        .run_maximum_planned_reach_pelvis_drop_metres
+                        .metres(),
+                )
+                .unwrap(),
                 AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
                 ik_tuning().run_pelvis_correction_speed_metres_per_second,
             )
+            .unwrap()
+            .metres()
         });
         let upper = authored_upper + Vec3::Y * pelvis_shift;
-        let reach = 0.953;
+        let reach = ReachLimit::Fixed(NonnegativeLength::from_metres(0.953).unwrap());
         let swing_end =
-            acquisition_planted_target(planted, upper, reach, LocomotionGait::Run, false);
+            acquisition_planted_target(planted, upper, reach, LocomotionGait::Run, false).unwrap();
         let first_acquired =
-            acquisition_planted_target(planted, upper, reach, LocomotionGait::Run, true);
+            acquisition_planted_target(planted, upper, reach, LocomotionGait::Run, true).unwrap();
         assert_eq!(swing_end, planted);
         assert_eq!(first_acquired, swing_end);
 
@@ -624,13 +684,27 @@ mod coordination_tests {
         let authored_foot = authored_knee + Vec3::new(0.0, -0.43, -0.04);
         let pole = Vec3::NEG_Z;
         let before = solve_two_bone_with_reach(
-            TwoBoneChain::new(upper, authored_knee, authored_foot, 0.523, 0.430, pole),
+            TwoBoneChain::new(
+                upper,
+                authored_knee,
+                authored_foot,
+                NonnegativeLength::from_metres(0.523).unwrap(),
+                NonnegativeLength::from_metres(0.430).unwrap(),
+                pole,
+            ),
             swing_end,
             reach,
         )
         .unwrap();
         let after = solve_two_bone_with_reach(
-            TwoBoneChain::new(upper, authored_knee, authored_foot, 0.523, 0.430, pole),
+            TwoBoneChain::new(
+                upper,
+                authored_knee,
+                authored_foot,
+                NonnegativeLength::from_metres(0.523).unwrap(),
+                NonnegativeLength::from_metres(0.430).unwrap(),
+                pole,
+            ),
             first_acquired,
             reach,
         )
@@ -652,14 +726,17 @@ mod coordination_tests {
         let target = Vec3::new(-0.120271, 2.308135, -11.034_69);
         let authored_knee = first_root + Vec3::new(0.0, -0.52, -0.05);
         let authored_foot = authored_knee + Vec3::new(0.0, -0.43, -0.04);
-        let terrain_reach = terrain_maximum_reach(0.523, 0.430);
+        let terrain_reach = terrain_maximum_reach(
+            NonnegativeLength::from_metres(0.523).unwrap(),
+            NonnegativeLength::from_metres(0.430).unwrap(),
+        );
         let first = solve_two_bone_with_reach(
             TwoBoneChain::new(
                 first_root,
                 authored_knee,
                 authored_foot,
-                0.523,
-                0.430,
+                NonnegativeLength::from_metres(0.523).unwrap(),
+                NonnegativeLength::from_metres(0.430).unwrap(),
                 retained,
             ),
             target,
@@ -671,8 +748,8 @@ mod coordination_tests {
                 next_root,
                 authored_knee + (next_root - first_root),
                 authored_foot + (next_root - first_root),
-                0.523,
-                0.430,
+                NonnegativeLength::from_metres(0.523).unwrap(),
+                NonnegativeLength::from_metres(0.430).unwrap(),
                 retained,
             ),
             target,
@@ -780,7 +857,7 @@ mod coordination_tests {
             Vec3::X,
             leg_direction,
             foot_facing,
-            std::f32::consts::FRAC_PI_8,
+            BodyAngularMagnitude::from_radians(std::f32::consts::FRAC_PI_8).unwrap(),
         )
         .unwrap();
 
@@ -796,7 +873,7 @@ mod coordination_tests {
             Vec3::X,
             leg_direction,
             foot_facing,
-            std::f32::consts::FRAC_PI_8,
+            BodyAngularMagnitude::from_radians(std::f32::consts::FRAC_PI_8).unwrap(),
         )
         .unwrap();
 
@@ -812,7 +889,7 @@ mod coordination_tests {
             expected,
             leg_direction,
             Vec3::Z,
-            std::f32::consts::FRAC_PI_8,
+            BodyAngularMagnitude::from_radians(std::f32::consts::FRAC_PI_8).unwrap(),
         )
         .unwrap();
 
@@ -937,7 +1014,7 @@ mod coordination_tests {
             Some(desired),
             CycleDelta::from_cycles(phase_to_contact).unwrap()
         ));
-        let ready = run_locomotion_profile().support_phase_radius
+        let ready = run_locomotion_profile().support_phase_radius.cycles()
             + ik_tuning().run_contact_chain_settle_phase.fraction();
         let bounded = bound_late_run_contact(
             start,
@@ -945,7 +1022,7 @@ mod coordination_tests {
             NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             ordinary_step_distance(NonnegativeSpeed::from_metres_per_second(5.5).unwrap()).unwrap(),
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
-            ready,
+            CycleDelta::from_cycles(ready).unwrap(),
         );
         assert!(bounded.xz().distance(desired.xz()) > 0.5);
 
@@ -958,14 +1035,18 @@ mod coordination_tests {
         .cycles();
         let first_progress = run_contact_approach_progress(
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
-            phase_to_contact,
-            ready,
-        );
+            CycleDelta::from_cycles(phase_to_contact).unwrap(),
+            CycleDelta::from_cycles(ready).unwrap(),
+        )
+        .unwrap()
+        .fraction();
         let second_progress = run_contact_approach_progress(
             CycleDelta::from_cycles(phase_to_contact - phase_step).unwrap(),
-            phase_to_contact,
-            ready,
-        );
+            CycleDelta::from_cycles(phase_to_contact).unwrap(),
+            CycleDelta::from_cycles(ready).unwrap(),
+        )
+        .unwrap()
+        .fraction();
         assert_eq!(start.lerp(bounded, first_progress).xz(), start.xz());
         let first_step = start
             .lerp(bounded, second_progress)
@@ -983,13 +1064,14 @@ mod coordination_tests {
 
     #[test]
     fn reach_released_support_lobe_cannot_reenter_before_true_flight() {
-        let (still_exhausted, effective_support) = support_after_exhausted_lobe(true, 0.4);
+        let (still_exhausted, effective_support) =
+            support_after_exhausted_lobe(true, UnitInterval::from_fraction(0.4).unwrap());
         assert!(still_exhausted);
-        assert_eq!(effective_support, 0.0);
+        assert_eq!(effective_support.fraction(), 0.0);
         assert!(!run_planned_contact_allowed(
             still_exhausted,
             CycleDelta::from_cycles(0.2).unwrap(),
-            0.75
+            CycleDelta::from_cycles(0.75).unwrap()
         ));
 
         let visible_release = Vec3::new(0.1, 0.2, -8.757);
@@ -1012,13 +1094,14 @@ mod coordination_tests {
                     + 0.0001
         );
 
-        let (cleared, flight_support) = support_after_exhausted_lobe(true, 0.0);
+        let (cleared, flight_support) =
+            support_after_exhausted_lobe(true, UnitInterval::from_fraction(0.0).unwrap());
         assert!(!cleared);
-        assert_eq!(flight_support, 0.0);
+        assert_eq!(flight_support.fraction(), 0.0);
         assert!(run_planned_contact_allowed(
             cleared,
             CycleDelta::from_cycles(0.75).unwrap(),
-            0.75
+            CycleDelta::from_cycles(0.75).unwrap()
         ));
     }
 
@@ -1027,28 +1110,28 @@ mod coordination_tests {
         assert!(unplanned_run_support_requires_flight(
             LocomotionGait::Run,
             NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
-            0.8,
+            UnitInterval::from_fraction(0.8).unwrap(),
             false,
             None,
         ));
         assert!(!unplanned_run_support_requires_flight(
             LocomotionGait::Run,
             NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
-            0.8,
+            UnitInterval::from_fraction(0.8).unwrap(),
             true,
             None,
         ));
         assert!(!unplanned_run_support_requires_flight(
             LocomotionGait::Run,
             NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
-            0.8,
+            UnitInterval::from_fraction(0.8).unwrap(),
             false,
             Some(Vec3::NEG_Z),
         ));
         assert!(!unplanned_run_support_requires_flight(
             LocomotionGait::Run,
             NonnegativeSpeed::from_metres_per_second(0.0).unwrap(),
-            0.8,
+            UnitInterval::from_fraction(0.8).unwrap(),
             false,
             None,
         ));
@@ -1056,10 +1139,26 @@ mod coordination_tests {
 
     #[test]
     fn newly_acquired_contact_keeps_orientation_blending_until_converged() {
-        assert!(update_contact_orientation_blend(false, Some(0.0), 1.0));
-        assert!(update_contact_orientation_blend(true, Some(1.0), 1.0));
-        assert!(!update_contact_orientation_blend(false, Some(1.0), 1.0));
-        assert!(!update_contact_orientation_blend(true, Some(1.0), 0.0));
+        assert!(update_contact_orientation_blend(
+            false,
+            Some(UnitInterval::from_fraction(0.0).unwrap()),
+            UnitInterval::from_fraction(1.0).unwrap()
+        ));
+        assert!(update_contact_orientation_blend(
+            true,
+            Some(UnitInterval::from_fraction(1.0).unwrap()),
+            UnitInterval::from_fraction(1.0).unwrap()
+        ));
+        assert!(!update_contact_orientation_blend(
+            false,
+            Some(UnitInterval::from_fraction(1.0).unwrap()),
+            UnitInterval::from_fraction(1.0).unwrap()
+        ));
+        assert!(!update_contact_orientation_blend(
+            true,
+            Some(UnitInterval::from_fraction(1.0).unwrap()),
+            UnitInterval::from_fraction(0.0).unwrap()
+        ));
 
         let airborne = Quat::IDENTITY;
         let contact = Quat::from_rotation_x(63.54_f32.to_radians());
@@ -1071,7 +1170,9 @@ mod coordination_tests {
         );
         assert!(
             airborne.angle_between(first_contact).to_degrees()
-                <= ik_tuning().airborne_foot_rotation_speed_degrees_per_second
+                <= ik_tuning()
+                    .airborne_foot_rotation_speed_degrees_per_second
+                    .degrees_per_second()
                     / ik_tuning().continuity_sample_hz.hertz()
                     + 0.0001
         );
@@ -1084,7 +1185,7 @@ mod coordination_tests {
             * ik_tuning().continuity_sample_hz.hertz())
             / ik_tuning().continuity_sample_hz.hertz();
         assert!(
-            maximum_target_step * ik_tuning().maximum_knee_target_amplification
+            maximum_target_step * ik_tuning().maximum_knee_target_amplification.factor()
                 < ik_tuning().maximum_knee_step_metres.metres()
         );
         assert!(maximum_target_step < 3.4 / ik_tuning().continuity_sample_hz.hertz());
@@ -1149,7 +1250,7 @@ mod coordination_tests {
             swing_start: Vec3::new(0.2, 0.1, 0.0),
             capture_point: Vec3::ZERO,
             landing_target: Vec3::new(-0.2, 0.1, -0.3),
-            progress: 0.0,
+            progress: SettleProgress::from_progress(0.0).unwrap(),
             elapsed_seconds: AnimationElapsed::from_seconds(0.0).unwrap(),
             raised_handoff: true,
         };
@@ -1170,12 +1271,14 @@ mod coordination_tests {
                 terrain_ik_is_required(crate::animation::TerrainIkMode::Disabled, true, false),
                 "tick {tick}"
             );
-            assert!(settle.progress > 0.0 && settle.progress < 1.0);
+            assert!(settle.progress.fraction() > 0.0 && settle.progress.fraction() < 1.0);
         }
         assert!(
-            (settle.progress
-                - 4.0 / ik_tuning().continuity_sample_hz.hertz() / ik_tuning().settle_step_seconds)
-                .abs()
+            (settle.progress.fraction()
+                - 4.0
+                    / ik_tuning().continuity_sample_hz.hertz()
+                    / ik_tuning().settle_step_seconds.seconds())
+            .abs()
                 < 0.0001
         );
         assert_eq!(
@@ -1196,7 +1299,7 @@ mod coordination_tests {
             (ik_tuning().raised_settle_step_metres.metres()
                 * ik_tuning().continuity_sample_hz.hertz())
                 / ik_tuning().continuity_sample_hz.hertz()
-                * ik_tuning().maximum_knee_target_amplification
+                * ik_tuning().maximum_knee_target_amplification.factor()
                 + ik_tuning().raised_settle_pelvis_knee_budget_metres.metres()
                 < ik_tuning().maximum_knee_step_metres.metres()
         );
@@ -1214,14 +1317,14 @@ mod coordination_tests {
             swing_start: Vec3::ZERO,
             capture_point: Vec3::Z,
             landing_target: Vec3::NEG_Z,
-            progress: 0.4,
+            progress: SettleProgress::from_progress(0.4).unwrap(),
             elapsed_seconds: AnimationElapsed::from_seconds(0.1).unwrap(),
             raised_handoff: false,
         };
         let mut memory = LegIkMemory {
             settle: Some(settle),
-            left_foot_plant: Some(Vec3::new(-0.1, 0.085, -0.8)),
-            right_foot_plant: Some(Vec3::new(0.1, 0.085, -0.9)),
+            left_foot_plant: FootPlant::Acquiring(Vec3::new(-0.1, 0.085, -0.8)),
+            right_foot_plant: FootPlant::Acquiring(Vec3::new(0.1, 0.085, -0.9)),
             left_last_rendered_world: Some(Vec3::new(-0.1, 0.14, -0.4)),
             right_last_rendered_world: Some(Vec3::new(0.1, 0.15, -0.5)),
             left_last_rendered_owner: Some(Vec3::new(-0.1, -0.8, -0.4)),
@@ -1240,7 +1343,9 @@ mod coordination_tests {
             restarted_velocity.with_y(0.0)
         );
         assert!(memory.left_release_active && memory.right_release_active);
-        assert!(memory.left_foot_plant.is_none() && memory.right_foot_plant.is_none());
+        assert!(
+            memory.left_foot_plant.target().is_none() && memory.right_foot_plant.target().is_none()
+        );
         assert_eq!(
             memory.left_foot_world_target,
             memory.left_last_rendered_world
@@ -1251,8 +1356,14 @@ mod coordination_tests {
         );
         assert_eq!(memory.left_foot_target, memory.left_last_rendered_owner);
         assert_eq!(memory.right_foot_target, memory.right_last_rendered_owner);
-        assert_eq!(memory.left_transition_support_weight, Some(0.0));
-        assert_eq!(memory.right_transition_support_weight, Some(0.0));
+        assert_eq!(
+            memory.left_transition_support_weight,
+            Some(UnitInterval::from_fraction(0.0).unwrap())
+        );
+        assert_eq!(
+            memory.right_transition_support_weight,
+            Some(UnitInterval::from_fraction(0.0).unwrap())
+        );
     }
 
     #[test]
@@ -1318,8 +1429,9 @@ mod coordination_tests {
             FootTargetSpeeds::configured()
                 .unwrap()
                 .run_sample(false, true),
-            |_| Some(-100.0),
-        );
+            |_| checked_world_height(-100.0).map(Some),
+        )
+        .unwrap();
         assert!(
             (resolved_ankle - current_root).distance(previous_owner)
                 <= (ik_tuning().airborne_release_step_metres.metres()
@@ -1347,12 +1459,15 @@ mod coordination_tests {
                 current_hip,
                 previous_knee,
                 previous_ankle,
-                upper_length,
-                lower_length,
+                NonnegativeLength::from_metres(upper_length).unwrap(),
+                NonnegativeLength::from_metres(lower_length).unwrap(),
                 pole,
             ),
             resolved_ankle,
-            maximum_reach(upper_length, lower_length),
+            maximum_reach(
+                NonnegativeLength::from_metres(upper_length).unwrap(),
+                NonnegativeLength::from_metres(lower_length).unwrap(),
+            ),
         )
         .expect("the bounded restart target remains reachable");
         let knee_root_relative_step =
@@ -1371,18 +1486,18 @@ mod coordination_tests {
             rendered_ankle,
             rendered_toe,
             Vec2::new(0.14, -1.7),
-            ik_tuning()
-                .terrain_transition_flight_toe_clearance_metres
-                .metres(),
+            ik_tuning().terrain_transition_flight_toe_clearance_metres,
             |_| Some(0.0),
         )
+        .unwrap()
         .unwrap();
-        assert!((minimum - 0.14365956).abs() <= 0.000001);
+        assert!((minimum.metres() - 0.14365956).abs() <= 0.000001);
         let rotation_safe_clearance = transition_toe_clearance_with_rotation_margin(
             rendered_ankle,
             rendered_toe,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
         );
+        let rotation_safe_clearance = rotation_safe_clearance.unwrap().metres();
         assert!(rotation_safe_clearance > 0.03);
         let resolved = advance_run_airborne_world_target(
             Some(rendered_ankle),
@@ -1395,9 +1510,10 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| Some(minimum),
-        );
-        assert!(resolved.y + 0.000001 >= minimum);
+            |_| Ok(Some(minimum)),
+        )
+        .unwrap();
+        assert!(resolved.y + 0.000001 >= minimum.metres());
         assert!(
             resolved.distance(rendered_ankle)
                 <= (ik_tuning().airborne_release_step_metres.metres()
@@ -1410,12 +1526,13 @@ mod coordination_tests {
             Vec3::new(0.21, 0.085, 0.0),
             Vec3::new(0.21, -0.015733838, -0.1),
             Vec2::new(0.21, 0.0),
-            ik_tuning().terrain_contact_toe_clearance_metres.metres(),
+            ik_tuning().terrain_contact_toe_clearance_metres,
             |_| Some(0.0),
         )
+        .unwrap()
         .unwrap();
-        assert!(contact_minimum > measured_ankle_sole_offset_metres().metres());
-        assert!((contact_minimum - 0.09173384).abs() <= 0.000001);
+        assert!(contact_minimum.metres() > measured_ankle_sole_offset_metres().metres());
+        assert!((contact_minimum.metres() - 0.09173384).abs() <= 0.000001);
     }
 
     #[test]
@@ -1433,8 +1550,9 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| Some(measured_ankle_sole_offset_metres().metres()),
-        );
+            |_| checked_world_height(measured_ankle_sole_offset_metres().metres()).map(Some),
+        )
+        .unwrap();
         assert!(contact_candidate.distance_squared(contact) <= 0.000001);
 
         let flight_candidate = advance_run_airborne_world_target(
@@ -1448,8 +1566,9 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| Some(0.14365956),
-        );
+            |_| checked_world_height(0.14365956).map(Some),
+        )
+        .unwrap();
         assert!(flight_candidate.distance_squared(contact) > 0.000001);
         // The production branch selects contact_candidate in this state, so
         // the same sample can report truthful support instead of reclamping
@@ -1467,11 +1586,11 @@ mod coordination_tests {
                 swing_start: right,
                 capture_point: Vec3::NEG_Z,
                 landing_target: right,
-                progress: 1.0,
+                progress: SettleProgress::from_progress(1.0).unwrap(),
                 elapsed_seconds: AnimationElapsed::from_seconds(0.5).unwrap(),
                 raised_handoff: false,
             }),
-            pelvis_shift: -0.21,
+            pelvis_shift: SignedLength::from_metres(-0.21).unwrap(),
             left_last_rendered_world: Some(left),
             right_last_rendered_world: Some(right),
             ..default()
@@ -1483,8 +1602,14 @@ mod coordination_tests {
             Quat::IDENTITY,
             |_| Some(0.0),
         ));
-        assert_eq!(memory.terminal_reach_shift, -0.21);
-        assert!(memory.terminal_reach_target_shift.is_none());
+        assert_eq!(memory.terminal_contacts.shift().metres(), -0.21);
+        assert!(matches!(
+            memory.terminal_contacts,
+            TerminalContacts::Prepared(TerminalReach {
+                target_shift: None,
+                ..
+            })
+        ));
     }
 
     #[test]
@@ -1495,12 +1620,12 @@ mod coordination_tests {
                 swing_start: Vec3::ZERO,
                 capture_point: Vec3::NEG_Z,
                 landing_target: Vec3::new(0.2, 0.085, -0.4),
-                progress: 1.0,
+                progress: SettleProgress::from_progress(1.0).unwrap(),
                 elapsed_seconds: AnimationElapsed::from_seconds(0.4).unwrap(),
                 raised_handoff: false,
             }),
             recent_movement_velocity: Vec3::NEG_Z * 5.5,
-            left_foot_plant: Some(Vec3::NEG_Z),
+            left_foot_plant: FootPlant::Acquiring(Vec3::NEG_Z),
             left_foot_world_target: Some(Vec3::new(-0.2, 0.085, 0.0)),
             right_foot_world_target: Some(Vec3::new(0.2, 0.085, -0.5)),
             left_release_active: true,
@@ -1514,11 +1639,23 @@ mod coordination_tests {
 
         assert!(memory.settle.is_none());
         assert_eq!(memory.recent_movement_velocity, Vec3::ZERO);
-        assert_eq!(memory.left_foot_plant, memory.left_foot_world_target);
-        assert_eq!(memory.right_foot_plant, memory.right_foot_world_target);
-        assert!(memory.left_foot_plant_acquired && memory.right_foot_plant_acquired);
-        assert_eq!(memory.left_transition_support_weight, Some(1.0));
-        assert_eq!(memory.right_transition_support_weight, Some(1.0));
+        assert_eq!(
+            memory.left_foot_plant.target(),
+            memory.left_foot_world_target
+        );
+        assert_eq!(
+            memory.right_foot_plant.target(),
+            memory.right_foot_world_target
+        );
+        assert!(memory.left_foot_plant.is_acquired() && memory.right_foot_plant.is_acquired());
+        assert_eq!(
+            memory.left_transition_support_weight,
+            Some(UnitInterval::from_fraction(1.0).unwrap())
+        );
+        assert_eq!(
+            memory.right_transition_support_weight,
+            Some(UnitInterval::from_fraction(1.0).unwrap())
+        );
         assert!(!memory.left_support_exhausted_until_flight);
         assert!(!memory.right_support_exhausted_until_flight);
         assert!(!memory.left_release_active && !memory.right_release_active);
@@ -1533,7 +1670,7 @@ mod coordination_tests {
                 swing_start: Vec3::ZERO,
                 capture_point: Vec3::NEG_Z,
                 landing_target: Vec3::new(0.2, 0.085, -0.4),
-                progress: 0.99,
+                progress: SettleProgress::from_progress(0.99).unwrap(),
                 elapsed_seconds: AnimationElapsed::from_seconds(0.4).unwrap(),
                 raised_handoff: false,
             },
@@ -1569,15 +1706,21 @@ mod coordination_tests {
         finish_settle_for_idle(&mut memory);
         assert!(memory.settle.is_none());
         assert_eq!(
-            memory.left_foot_plant.unwrap().y,
+            memory.left_foot_plant.target().unwrap().y,
             measured_ankle_sole_offset_metres().metres()
         );
         assert_eq!(
-            memory.right_foot_plant.unwrap().y,
+            memory.right_foot_plant.target().unwrap().y,
             measured_ankle_sole_offset_metres().metres()
         );
-        assert_eq!(memory.left_support_weight, Some(1.0));
-        assert_eq!(memory.right_support_weight, Some(1.0));
+        assert_eq!(
+            memory.left_support_weight,
+            Some(UnitInterval::from_fraction(1.0).unwrap())
+        );
+        assert_eq!(
+            memory.right_support_weight,
+            Some(UnitInterval::from_fraction(1.0).unwrap())
+        );
     }
 
     #[test]
@@ -1588,19 +1731,24 @@ mod coordination_tests {
         // a bounded shared-root drop instead of promoting false support.
         let upper = Vec3::new(-0.10, 3.08, -1.00);
         let target = Vec3::new(-0.12, 2.13, -1.38);
-        let reach = 0.953;
-        let required = required_hip_shift_for_reach(upper, target, reach).clamp(-0.25, 0.0);
+        let reach = ReachLimit::Fixed(NonnegativeLength::from_metres(0.953).unwrap());
+        let required = reach
+            .terrain_pelvis_shift(upper, target, UnitInterval::ONE)
+            .unwrap()
+            .metres();
         assert!(required < -0.05);
 
         let mut shift = 0.0;
         let base_root = Vec3::new(0.0, 1.0, 0.0);
         for _ in 0..16 {
             let next = advance_pelvis_shift(
-                shift,
-                required,
+                SignedLength::from_metres(shift).unwrap(),
+                SignedLength::from_metres(required).unwrap(),
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz())
                     .unwrap(),
-            );
+            )
+            .unwrap()
+            .metres();
             assert!(
                 (next - shift).abs() <= maximum_pelvis_correction_step_metres().metres() + 0.0001
             );
@@ -1616,7 +1764,7 @@ mod coordination_tests {
         assert!((applied_root.y - (base_root.y + required)).abs() <= 0.0001);
 
         let lowered_upper = upper + Vec3::Y * shift;
-        assert!(lowered_upper.distance(target) <= reach + 0.0001);
+        assert!(lowered_upper.distance(target) <= reach.native_metres().unwrap() + 0.0001);
 
         let memory = LegIkMemory {
             settle: Some(LocomotionSettleState {
@@ -1624,7 +1772,7 @@ mod coordination_tests {
                 swing_start: target,
                 capture_point: target,
                 landing_target: target,
-                progress: 1.0,
+                progress: SettleProgress::from_progress(1.0).unwrap(),
                 elapsed_seconds: AnimationElapsed::from_seconds(1.0).unwrap(),
                 raised_handoff: false,
             }),
@@ -1681,7 +1829,7 @@ mod coordination_tests {
                 swing_start: visible_right,
                 capture_point: Vec3::ZERO,
                 landing_target: stale_right,
-                progress: 1.0,
+                progress: SettleProgress::from_progress(1.0).unwrap(),
                 elapsed_seconds: AnimationElapsed::from_seconds(1.0).unwrap(),
                 raised_handoff: false,
             }),
@@ -1704,8 +1852,8 @@ mod coordination_tests {
         assert_eq!(right.xz(), visible_right.xz());
         assert_eq!(left.y, measured_ankle_sole_offset_metres().metres());
         assert_eq!(right.y, measured_ankle_sole_offset_metres().metres());
-        assert_eq!(memory.left_foot_plant, Some(left));
-        assert_eq!(memory.right_foot_plant, Some(right));
+        assert_eq!(memory.left_foot_plant.target(), Some(left));
+        assert_eq!(memory.right_foot_plant.target(), Some(right));
 
         memory.left_last_rendered_world = Some(visible_left + Vec3::Z * 0.2);
         memory.right_last_rendered_world = Some(visible_right - Vec3::Z * 0.2);
@@ -1729,35 +1877,44 @@ mod coordination_tests {
                 swing_start: right,
                 capture_point: Vec3::ZERO,
                 landing_target: right,
-                progress: 1.0,
+                progress: SettleProgress::from_progress(1.0).unwrap(),
                 elapsed_seconds: AnimationElapsed::from_seconds(1.0).unwrap(),
                 raised_handoff: false,
             }),
             left_foot_world_target: Some(left),
             right_foot_world_target: Some(right),
-            left_foot_plant: Some(left),
-            right_foot_plant: Some(right),
-            terminal_contacts_prepared: true,
-            terminal_reach_shift: -0.08,
-            terminal_reach_target_shift: Some(-0.08),
+            left_foot_plant: FootPlant::Acquiring(left),
+            right_foot_plant: FootPlant::Acquiring(right),
+            terminal_contacts: TerminalContacts::Prepared(TerminalReach {
+                base_translation: None,
+                shift: SignedLength::from_metres(-0.08).unwrap(),
+                target_shift: Some(SignedLength::from_metres(-0.08).unwrap()),
+            }),
             ..default()
         };
 
         finish_settle_for_idle(&mut memory);
-        assert_eq!(memory.pelvis_shift, -0.08);
+        assert_eq!(memory.pelvis_shift.metres(), -0.08);
         for _ in 0..20 {
             memory.pelvis_shift = advance_pelvis_shift(
                 memory.pelvis_shift,
-                -0.08,
+                SignedLength::from_metres(-0.08).unwrap(),
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz())
                     .unwrap(),
-            );
-            assert_eq!(memory.pelvis_shift, -0.08);
+            )
+            .unwrap();
+            assert_eq!(memory.pelvis_shift.metres(), -0.08);
             assert!(memory.settle.is_none());
-            assert_eq!(memory.left_foot_plant, Some(left));
-            assert_eq!(memory.right_foot_plant, Some(right));
-            assert_eq!(memory.left_support_weight, Some(1.0));
-            assert_eq!(memory.right_support_weight, Some(1.0));
+            assert_eq!(memory.left_foot_plant.target(), Some(left));
+            assert_eq!(memory.right_foot_plant.target(), Some(right));
+            assert_eq!(
+                memory.left_support_weight,
+                Some(UnitInterval::from_fraction(1.0).unwrap())
+            );
+            assert_eq!(
+                memory.right_support_weight,
+                Some(UnitInterval::from_fraction(1.0).unwrap())
+            );
         }
     }
 
@@ -1820,9 +1977,12 @@ mod coordination_tests {
         );
         retain_settle_support(&mut memory, LeadFoot::Right, Some(left), Some(right), true);
 
-        assert_eq!(memory.right_foot_plant, Some(right));
-        assert!(memory.right_foot_plant_acquired);
-        assert_eq!(memory.right_transition_support_weight, Some(1.0));
+        assert_eq!(memory.right_foot_plant.target(), Some(right));
+        assert!(memory.right_foot_plant.is_acquired());
+        assert_eq!(
+            memory.right_transition_support_weight,
+            Some(UnitInterval::from_fraction(1.0).unwrap())
+        );
         assert!(memory.left_planned_contact.is_none());
         assert!(memory.right_planned_contact.is_none());
     }
@@ -1831,8 +1991,8 @@ mod coordination_tests {
     fn stop_settle_visible_airborne_support_remains_unacquired() {
         let airborne_right = Vec3::new(0.1, 2.16, -0.64);
         let mut memory = LegIkMemory {
-            right_support_weight: Some(0.0),
-            right_foot_plant_acquired: false,
+            right_support_weight: Some(UnitInterval::from_fraction(0.0).unwrap()),
+
             ..default()
         };
 
@@ -1844,9 +2004,12 @@ mod coordination_tests {
             false,
         );
 
-        assert_eq!(memory.right_foot_plant, Some(airborne_right));
-        assert!(!memory.right_foot_plant_acquired);
-        assert_eq!(memory.right_transition_support_weight, Some(1.0));
+        assert_eq!(memory.right_foot_plant.target(), Some(airborne_right));
+        assert!(!memory.right_foot_plant.is_acquired());
+        assert_eq!(
+            memory.right_transition_support_weight,
+            Some(UnitInterval::from_fraction(1.0).unwrap())
+        );
     }
 
     #[test]
@@ -1861,32 +2024,37 @@ mod coordination_tests {
     #[test]
     fn truthful_reported_support_does_not_erase_solver_ownership() {
         let mut memory = LegIkMemory {
-            left_support_weight: Some(1.0),
-            left_transition_support_weight: Some(1.0),
+            left_support_weight: Some(UnitInterval::from_fraction(1.0).unwrap()),
+            left_transition_support_weight: Some(UnitInterval::from_fraction(1.0).unwrap()),
             ..default()
         };
-        memory.left_support_weight = Some(0.0);
-        assert_eq!(memory.left_support_weight, Some(0.0));
-        assert_eq!(memory.left_transition_support_weight, Some(1.0));
+        memory.left_support_weight = Some(UnitInterval::from_fraction(0.0).unwrap());
+        assert_eq!(
+            memory.left_support_weight,
+            Some(UnitInterval::from_fraction(0.0).unwrap())
+        );
+        assert_eq!(
+            memory.left_transition_support_weight,
+            Some(UnitInterval::from_fraction(1.0).unwrap())
+        );
     }
 
     #[test]
     fn repeated_fixed_tick_leaves_advanced_ik_memory_identical() {
         let mut memory = LegIkMemory {
-            left_foot_plant: Some(Vec3::new(-0.1, 0.085, -2.0)),
-            left_foot_plant_acquired: true,
+            left_foot_plant: FootPlant::Acquired(Vec3::new(-0.1, 0.085, -2.0)),
             left_foot_world_target: Some(Vec3::new(-0.1, 0.085, -2.0)),
-            left_support_weight: Some(0.4),
-            left_transition_support_weight: Some(0.4),
+            left_support_weight: Some(UnitInterval::from_fraction(0.4).unwrap()),
+            left_transition_support_weight: Some(UnitInterval::from_fraction(0.4).unwrap()),
             left_release_active: false,
             evaluation_tick: Some(AnimationSampleTick::from(91u64)),
             ..default()
         };
         let advanced = memory;
         if !repeated_fixed_tick_skips_ik(true, false) {
-            memory.left_foot_plant = None;
-            memory.left_support_weight = Some(0.0);
-            memory.left_transition_support_weight = Some(0.0);
+            memory.left_foot_plant = FootPlant::Absent;
+            memory.left_support_weight = Some(UnitInterval::from_fraction(0.0).unwrap());
+            memory.left_transition_support_weight = Some(UnitInterval::from_fraction(0.0).unwrap());
             memory.left_release_active = true;
         }
         assert_eq!(memory, advanced);
@@ -1899,19 +2067,19 @@ mod coordination_tests {
         let plant = Vec3::new(-0.1, 0.1, -2.0);
         let divergent_authored_swing = Vec3::new(-0.1, 0.6, 0.5);
         assert!(!ordinary_plant_requires_clear(
-            0.2,
+            UnitInterval::from_fraction(0.2).unwrap(),
             true,
             Some(plant),
             divergent_authored_swing,
         ));
         assert!(ordinary_plant_requires_clear(
-            0.0,
+            UnitInterval::from_fraction(0.0).unwrap(),
             true,
             Some(plant),
             divergent_authored_swing,
         ));
         assert!(ordinary_plant_requires_clear(
-            0.2,
+            UnitInterval::from_fraction(0.2).unwrap(),
             false,
             Some(plant),
             divergent_authored_swing,
@@ -1923,8 +2091,13 @@ mod coordination_tests {
         let plant = Vec3::new(-0.1, 0.085, -2.0);
         let authored_swing = Vec3::new(-0.1, 0.5, -1.0);
 
-        let retained = coordinated_support_weight(LocomotionGait::Walk, 0.0, true, false);
-        assert_eq!(retained, 1.0);
+        let retained = coordinated_support_weight(
+            LocomotionGait::Walk,
+            UnitInterval::from_fraction(0.0).unwrap(),
+            true,
+            false,
+        );
+        assert_eq!(retained.fraction(), 1.0);
         assert!(!ordinary_plant_requires_clear(
             retained,
             true,
@@ -1932,8 +2105,13 @@ mod coordination_tests {
             authored_swing,
         ));
 
-        let handed_off = coordinated_support_weight(LocomotionGait::Walk, 0.0, true, true);
-        assert_eq!(handed_off, 0.0);
+        let handed_off = coordinated_support_weight(
+            LocomotionGait::Walk,
+            UnitInterval::from_fraction(0.0).unwrap(),
+            true,
+            true,
+        );
+        assert_eq!(handed_off.fraction(), 0.0);
         assert!(ordinary_plant_requires_clear(
             handed_off,
             true,
@@ -1943,8 +2121,13 @@ mod coordination_tests {
 
         // Explicit reach failure clears the plant before coordination, so the
         // phase-independent owner cannot retain an unreachable footprint.
-        let reach_released = coordinated_support_weight(LocomotionGait::Walk, 0.0, false, false);
-        assert_eq!(reach_released, 0.0);
+        let reach_released = coordinated_support_weight(
+            LocomotionGait::Walk,
+            UnitInterval::from_fraction(0.0).unwrap(),
+            false,
+            false,
+        );
+        assert_eq!(reach_released.fraction(), 0.0);
         assert!(ordinary_plant_requires_clear(
             reach_released,
             true,
@@ -1952,8 +2135,13 @@ mod coordination_tests {
             authored_swing,
         ));
 
-        let run_flight = coordinated_support_weight(LocomotionGait::Run, 0.0, true, false);
-        assert_eq!(run_flight, 0.0);
+        let run_flight = coordinated_support_weight(
+            LocomotionGait::Run,
+            UnitInterval::from_fraction(0.0).unwrap(),
+            true,
+            false,
+        );
+        assert_eq!(run_flight.fraction(), 0.0);
         assert!(ordinary_plant_requires_clear(
             run_flight,
             true,
@@ -1962,26 +2150,62 @@ mod coordination_tests {
         ));
 
         assert_eq!(
-            run_toe_off_support_weight(LocomotionGait::Run, 0.773, true, false),
-            (false, 0.773)
+            run_toe_off_support_weight(
+                LocomotionGait::Run,
+                UnitInterval::from_fraction(0.773).unwrap(),
+                true,
+                false
+            ),
+            (false, UnitInterval::from_fraction(0.773).unwrap())
         );
         assert_eq!(
-            run_toe_off_support_weight(LocomotionGait::Run, 0.0, true, true),
-            (true, 0.0)
+            run_toe_off_support_weight(
+                LocomotionGait::Run,
+                UnitInterval::from_fraction(0.0).unwrap(),
+                true,
+                true
+            ),
+            (true, UnitInterval::from_fraction(0.0).unwrap())
         );
         assert_eq!(
-            run_retained_support_through_lobe_edge(LocomotionGait::Run, 0.0, true, false,),
+            run_retained_support_through_lobe_edge(
+                LocomotionGait::Run,
+                UnitInterval::from_fraction(0.0).unwrap(),
+                true,
+                false,
+            )
+            .fraction(),
             1.0
         );
         assert_eq!(
-            run_retained_support_through_lobe_edge(LocomotionGait::Run, 0.26, true, false,),
+            run_retained_support_through_lobe_edge(
+                LocomotionGait::Run,
+                UnitInterval::from_fraction(0.26).unwrap(),
+                true,
+                false,
+            )
+            .fraction(),
             1.0
         );
         assert_eq!(
-            run_retained_support_through_lobe_edge(LocomotionGait::Run, 0.0, true, true,),
+            run_retained_support_through_lobe_edge(
+                LocomotionGait::Run,
+                UnitInterval::from_fraction(0.0).unwrap(),
+                true,
+                true,
+            )
+            .fraction(),
             0.0
         );
-        assert!(run_swing_clearance(CycleDelta::from_cycles(0.82).unwrap(), Some(0.0)) >= 0.05);
+        assert!(
+            run_swing_clearance(
+                CycleDelta::from_cycles(0.82).unwrap(),
+                Some(UnitInterval::from_fraction(0.0).unwrap())
+            )
+            .unwrap()
+            .metres()
+                >= 0.05
+        );
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
@@ -1994,12 +2218,22 @@ mod coordination_tests {
             / ik_tuning().continuity_sample_hz.hertz();
         assert!(unsupported_seconds <= 0.12);
         assert_eq!(
-            run_toe_off_support_weight(LocomotionGait::Run, 0.260, false, true),
-            (false, 0.260)
+            run_toe_off_support_weight(
+                LocomotionGait::Run,
+                UnitInterval::from_fraction(0.260).unwrap(),
+                false,
+                true
+            ),
+            (false, UnitInterval::from_fraction(0.260).unwrap())
         );
         assert_eq!(
-            run_toe_off_support_weight(LocomotionGait::Walk, 0.260, true, true),
-            (false, 0.260)
+            run_toe_off_support_weight(
+                LocomotionGait::Walk,
+                UnitInterval::from_fraction(0.260).unwrap(),
+                true,
+                true
+            ),
+            (false, UnitInterval::from_fraction(0.260).unwrap())
         );
         for rising_phase in [0.853, 0.877, 0.901, 0.926] {
             assert!(!run_is_at_support_exit(
@@ -2008,8 +2242,13 @@ mod coordination_tests {
                 run_locomotion_profile().support_phase_radius,
             ));
             assert_eq!(
-                run_toe_off_support_weight(LocomotionGait::Run, 0.21, true, false),
-                (false, 0.21)
+                run_toe_off_support_weight(
+                    LocomotionGait::Run,
+                    UnitInterval::from_fraction(0.21).unwrap(),
+                    true,
+                    false
+                ),
+                (false, UnitInterval::from_fraction(0.21).unwrap())
             );
         }
         for retained_phase in [0.602, 0.626, 0.650] {
@@ -2033,15 +2272,22 @@ mod coordination_tests {
         assert!(run_release_edge(true, false));
         assert!(!run_release_edge(false, false));
         assert_eq!(
-            run_toe_off_support_weight(LocomotionGait::Run, 0.0, true, true),
-            (true, 0.0)
+            run_toe_off_support_weight(
+                LocomotionGait::Run,
+                UnitInterval::from_fraction(0.0).unwrap(),
+                true,
+                true
+            ),
+            (true, UnitInterval::from_fraction(0.0).unwrap())
         );
-        let (still_exhausted, suppressed_reentry) = support_after_exhausted_lobe(true, 0.2);
+        let (still_exhausted, suppressed_reentry) =
+            support_after_exhausted_lobe(true, UnitInterval::from_fraction(0.2).unwrap());
         assert!(still_exhausted);
-        assert_eq!(suppressed_reentry, 0.0);
-        let (cleared_in_flight, flight_weight) = support_after_exhausted_lobe(true, 0.0);
+        assert_eq!(suppressed_reentry.fraction(), 0.0);
+        let (cleared_in_flight, flight_weight) =
+            support_after_exhausted_lobe(true, UnitInterval::from_fraction(0.0).unwrap());
         assert!(!cleared_in_flight);
-        assert_eq!(flight_weight, 0.0);
+        assert_eq!(flight_weight.fraction(), 0.0);
     }
 
     #[test]
@@ -2072,21 +2318,21 @@ mod coordination_tests {
         assert!(!acquisition_lobe_exited_without_contact(
             plan,
             false,
-            Some(0.2),
-            0.8,
+            Some(UnitInterval::from_fraction(0.2).unwrap()),
+            UnitInterval::from_fraction(0.8).unwrap(),
         ));
         assert!(acquired_plan_can_clear(true));
         assert!(!acquisition_lobe_exited_without_contact(
             plan,
             true,
-            Some(0.2),
-            0.0,
+            Some(UnitInterval::from_fraction(0.2).unwrap()),
+            UnitInterval::from_fraction(0.0).unwrap(),
         ));
         assert!(acquisition_lobe_exited_without_contact(
             plan,
             false,
-            Some(0.2),
-            0.0,
+            Some(UnitInterval::from_fraction(0.2).unwrap()),
+            UnitInterval::from_fraction(0.0).unwrap(),
         ));
     }
 
@@ -2111,13 +2357,15 @@ mod coordination_tests {
         assert_eq!(start, Some(visible));
         assert_eq!(phase_start.map(CycleDelta::cycles), Some(replacement_phase));
 
-        let ready = run_locomotion_profile().support_phase_radius
+        let ready = run_locomotion_profile().support_phase_radius.cycles()
             + ik_tuning().run_contact_chain_settle_phase.fraction();
         let first = run_contact_approach_progress(
             CycleDelta::from_cycles(replacement_phase).unwrap(),
-            phase_start.unwrap().cycles(),
-            ready,
-        );
+            phase_start.unwrap(),
+            CycleDelta::from_cycles(ready).unwrap(),
+        )
+        .unwrap()
+        .fraction();
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
@@ -2127,9 +2375,11 @@ mod coordination_tests {
         .cycles();
         let second = run_contact_approach_progress(
             CycleDelta::from_cycles(replacement_phase - phase_step).unwrap(),
-            phase_start.unwrap().cycles(),
-            ready,
-        );
+            phase_start.unwrap(),
+            CycleDelta::from_cycles(ready).unwrap(),
+        )
+        .unwrap()
+        .fraction();
         assert_eq!(visible.lerp(replacement, first), visible);
         let world_step = visible.lerp(replacement, second).distance(visible);
         let root_step = 5.5 / ik_tuning().continuity_sample_hz.hertz();
@@ -2148,7 +2398,7 @@ mod coordination_tests {
         let endpoint = Vec3::new(0.1199, 2.1157, -9.2572);
         let mut phase_to_contact = 0.856;
         let phase_start = phase_to_contact;
-        let ready = run_locomotion_profile().support_phase_radius
+        let ready = run_locomotion_profile().support_phase_radius.cycles()
             + ik_tuning().run_contact_chain_settle_phase.fraction();
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
@@ -2163,9 +2413,11 @@ mod coordination_tests {
             phase_to_contact = (phase_to_contact - phase_step).max(ready);
             let progress = run_contact_approach_progress(
                 CycleDelta::from_cycles(phase_to_contact).unwrap(),
-                phase_start,
-                ready,
-            );
+                CycleDelta::from_cycles(phase_start).unwrap(),
+                CycleDelta::from_cycles(ready).unwrap(),
+            )
+            .unwrap()
+            .fraction();
             let target = start.lerp(endpoint, progress);
             let root_relative_step = (target.distance(previous) - root_step).max(0.0);
             assert!(root_relative_step <= 0.095);
@@ -2179,7 +2431,7 @@ mod coordination_tests {
         let start = Vec3::new(-0.1208, 1.9523, -7.4717);
         let endpoint = Vec3::new(-0.1210, 2.3074, -11.0308);
         let phase_start = 0.8674;
-        let ready = run_locomotion_profile().support_phase_radius
+        let ready = run_locomotion_profile().support_phase_radius.cycles()
             + ik_tuning().run_contact_chain_settle_phase.fraction();
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
@@ -2189,29 +2441,51 @@ mod coordination_tests {
         .unwrap()
         .cycles();
         assert_eq!(
-            run_toe_off_support_weight(LocomotionGait::Run, 0.773, true, false),
-            (false, 0.773)
+            run_toe_off_support_weight(
+                LocomotionGait::Run,
+                UnitInterval::from_fraction(0.773).unwrap(),
+                true,
+                false
+            ),
+            (false, UnitInterval::from_fraction(0.773).unwrap())
         );
-        let (toe_off, first_weight) =
-            run_toe_off_support_weight(LocomotionGait::Run, 0.0, true, true);
+        let (toe_off, first_weight) = run_toe_off_support_weight(
+            LocomotionGait::Run,
+            UnitInterval::from_fraction(0.0).unwrap(),
+            true,
+            true,
+        );
         assert!(toe_off);
-        assert_eq!(first_weight, 0.0);
-        assert!(run_swing_clearance(CycleDelta::from_cycles(0.86).unwrap(), Some(0.0)) >= 0.05);
+        assert_eq!(first_weight.fraction(), 0.0);
+        assert!(
+            run_swing_clearance(
+                CycleDelta::from_cycles(0.86).unwrap(),
+                Some(UnitInterval::from_fraction(0.0).unwrap())
+            )
+            .unwrap()
+            .metres()
+                >= 0.05
+        );
 
         let frozen = (Some(endpoint), Some(start), Some(phase_start));
         let mut exhausted = toe_off;
         let mut previous = start;
         for (index, raw_support) in [0.0, 0.0, 0.0].into_iter().enumerate() {
-            let (next_exhausted, effective) = support_after_exhausted_lobe(exhausted, raw_support);
+            let (next_exhausted, effective) = support_after_exhausted_lobe(
+                exhausted,
+                UnitInterval::from_fraction(raw_support).unwrap(),
+            );
             exhausted = next_exhausted;
-            assert_eq!(effective, 0.0);
+            assert_eq!(effective.fraction(), 0.0);
             assert_eq!(frozen, (Some(endpoint), Some(start), Some(phase_start)));
             let phase = phase_start - phase_step * (index as f32 + 1.0);
             let progress = run_contact_approach_progress(
                 CycleDelta::from_cycles(phase).unwrap(),
-                phase_start,
-                ready,
-            );
+                CycleDelta::from_cycles(phase_start).unwrap(),
+                CycleDelta::from_cycles(ready).unwrap(),
+            )
+            .unwrap()
+            .fraction();
             let target = start.lerp(endpoint, progress);
             let root_relative = (target.distance(previous)
                 - 5.5 / ik_tuning().continuity_sample_hz.hertz())
@@ -2224,29 +2498,29 @@ mod coordination_tests {
     #[test]
     fn raw_run_cycle_clears_toe_off_latch_and_reacquires_rising_plan() {
         let profile = run_locomotion_profile();
-        let radius = profile.support_phase_radius;
+        let radius = profile.support_phase_radius.cycles();
         let endpoint = Vec3::new(0.1, measured_ankle_sole_offset_metres().metres(), -9.256);
 
         // The acquired right foot owns the post-contact shoulder until its
         // signed support exit, where toe-off exhausts only this lobe.
         let exit_phase = 0.698;
         let (_, exit_raw) =
-            gait_support_weights(profile, CyclePhase::from_cycles(exit_phase).unwrap());
+            gait_support_weights(profile, CyclePhase::from_cycles(exit_phase).unwrap()).unwrap();
         assert!(run_is_at_support_exit(
             CyclePhase::from_cycles(exit_phase).unwrap(),
             LeadFoot::Right,
-            radius
+            CycleDelta::from_cycles(radius).unwrap(),
         ));
         let (mut exhausted, effective) =
             run_toe_off_support_weight(LocomotionGait::Run, exit_raw, true, true);
         assert!(exhausted);
-        assert_eq!(effective, 0.0);
+        assert_eq!(effective.fraction(), 0.0);
 
         // The raw cadence, not the support value suppressed by the latch,
         // proves that this foot crossed flight and begins a fresh cycle.
         let flight_phase = 0.75;
         let (_, flight_raw) =
-            gait_support_weights(profile, CyclePhase::from_cycles(flight_phase).unwrap());
+            gait_support_weights(profile, CyclePhase::from_cycles(flight_phase).unwrap()).unwrap();
         assert!(!terrain_leg_has_support(flight_raw));
         exhausted = exhausted_latch_after_raw_cadence(exhausted, flight_raw);
         assert!(!exhausted);
@@ -2257,13 +2531,13 @@ mod coordination_tests {
         // by phase .35-.40 instead of remaining pinned above terrain.
         let rising_phase = 0.36;
         let (_, rising_raw) =
-            gait_support_weights(profile, CyclePhase::from_cycles(rising_phase).unwrap());
+            gait_support_weights(profile, CyclePhase::from_cycles(rising_phase).unwrap()).unwrap();
         assert!(terrain_leg_has_support(rising_raw));
         assert!(run_plan_is_on_rising_support(
             LocomotionGait::Run,
             CyclePhase::from_cycles(rising_phase).unwrap(),
             LeadFoot::Right,
-            radius,
+            CycleDelta::from_cycles(radius).unwrap(),
             rising_raw,
             Some(endpoint),
             false,
@@ -2275,7 +2549,7 @@ mod coordination_tests {
             LocomotionGait::Run,
             CyclePhase::from_cycles(rising_phase).unwrap(),
             LeadFoot::Right,
-            radius,
+            CycleDelta::from_cycles(radius).unwrap(),
             rising_raw,
             Some(endpoint),
             false,
@@ -2300,7 +2574,7 @@ mod coordination_tests {
             LocomotionGait::Run,
             CyclePhase::from_cycles(rising_phase).unwrap(),
             LeadFoot::Right,
-            radius,
+            CycleDelta::from_cycles(radius).unwrap(),
             rising_raw,
             reachable,
         );
@@ -2310,11 +2584,18 @@ mod coordination_tests {
                 CyclePhase::from_cycles(rising_phase)
                     .unwrap()
                     .until_contact(LeadFoot::Right),
-                Some(1.0),
+                Some(UnitInterval::from_fraction(1.0).unwrap()),
                 eligible,
-            ) <= 0.0
+            )
+            .unwrap()
+            .metres()
+                <= 0.0
         );
-        let lowered_y = run_clearance_target_height(prior_floor.y, endpoint.y, eligible);
+        let lowered_y =
+            FootClearanceFloor::Measured(SignedLength::from_metres(endpoint.y).unwrap())
+                .apply(prior_floor, eligible)
+                .unwrap()
+                .y;
         assert!(lowered_y < prior_floor.y);
         assert!((lowered_y - endpoint.y) == 0.0);
         let descended = advance_run_airborne_world_target(
@@ -2328,21 +2609,25 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| Some(endpoint.y),
-        );
+            |_| checked_world_height(endpoint.y).map(Some),
+        )
+        .unwrap();
         assert!(descended.y < prior_floor.y);
         assert!(descended.distance(endpoint) <= 0.0001);
         assert_eq!(
-            run_clearance_target_height(endpoint.y, prior_floor.y, false),
+            FootClearanceFloor::Measured(SignedLength::from_metres(prior_floor.y).unwrap())
+                .apply(endpoint, false)
+                .unwrap()
+                .y,
             prior_floor.y
         );
         let (_, post_contact_raw) =
-            gait_support_weights(profile, CyclePhase::from_cycles(0.65).unwrap());
+            gait_support_weights(profile, CyclePhase::from_cycles(0.65).unwrap()).unwrap();
         assert!(!run_support_eligible_for_descent(
             LocomotionGait::Run,
             CyclePhase::from_cycles(0.65).unwrap(),
             LeadFoot::Right,
-            radius,
+            CycleDelta::from_cycles(radius).unwrap(),
             post_contact_raw,
             true,
         ));
@@ -2355,7 +2640,7 @@ mod coordination_tests {
             LocomotionGait::Run,
             CyclePhase::from_cycles(rising_phase).unwrap(),
             LeadFoot::Right,
-            radius,
+            CycleDelta::from_cycles(radius).unwrap(),
             rising_raw,
             Some(endpoint),
             false,
@@ -2374,7 +2659,9 @@ mod coordination_tests {
             CycleDelta::from_cycles(0.81).unwrap(),
             None,
             false,
-        );
+        )
+        .unwrap()
+        .metres();
         assert_eq!(
             release_clearance,
             ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
@@ -2385,7 +2672,10 @@ mod coordination_tests {
                 CycleDelta::from_cycles(0.81).unwrap(),
                 None,
                 false
-            ) > release_clearance
+            )
+            .unwrap()
+            .metres()
+                > release_clearance
         );
         let previous_root = Vec3::new(0.0, 3.10, -4.2109);
         let next_root =
@@ -2434,8 +2724,9 @@ mod coordination_tests {
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
             FootTargetSpeeds::configured().unwrap().run_airborne(true),
-            uphill_minimum_y,
-        );
+            |xz| uphill_minimum_y(xz).map(checked_world_height).transpose(),
+        )
+        .unwrap();
         let uphill_release_owner = uphill_release - uphill_next_root;
         assert!(
             uphill_release_owner.distance(uphill_owner)
@@ -2445,7 +2736,9 @@ mod coordination_tests {
                     + 0.0001
         );
         assert!(uphill_release.y + 0.0001 >= uphill_minimum_y(uphill_release.xz()).unwrap());
-        assert!(uphill_release.y - uphill_minimum_y(uphill_release.xz()).unwrap() <= 0.0001);
+        assert!(
+            uphill_release.y - uphill_minimum_y(uphill_release.xz()).unwrap().metres() <= 0.0001
+        );
         assert!(uphill_release.z < uphill_plant.z);
         assert!(uphill_release.z > uphill_plant.z - 5.5 / ik_tuning().continuity_sample_hz.hertz());
         let captured_toe_offset = Vec3::new(-0.0108, 0.0007, -0.1370);
@@ -2515,7 +2808,10 @@ mod coordination_tests {
     fn unreachable_run_contact_keeps_flight_floor_until_chain_can_land() {
         let upper_root = Vec3::new(-0.10032953, 2.5767426, -6.794999);
         let contact = Vec3::new(-0.12013094, 1.902308, -7.4767027);
-        let reach = terrain_maximum_reach(0.5230801, 0.42998108);
+        let reach = terrain_maximum_reach(
+            NonnegativeLength::from_metres(0.5230801).unwrap(),
+            NonnegativeLength::from_metres(0.42998108).unwrap(),
+        );
         assert!(!run_contact_within_leg_reach(contact, upper_root, reach));
 
         let flight_floor =
@@ -2529,37 +2825,13 @@ mod coordination_tests {
             run_airborne_clearance_for_sample(
                 false,
                 CycleDelta::from_cycles(0.133).unwrap(),
-                Some(1.0),
+                Some(UnitInterval::from_fraction(1.0).unwrap()),
                 false
-            ),
+            )
+            .unwrap()
+            .metres(),
             ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
         );
-    }
-
-    #[test]
-    fn captured_run_swing_step_keeps_target_inside_knee_budget_margin() {
-        let previous_root = Vec3::new(0.0, 3.0811288, -4.46875);
-        let next_root = Vec3::new(0.0, 3.0736096, -4.5546875);
-        let previous_target = Vec3::new(-0.11504456, 2.3028326, -3.8614511);
-        let desired_target = Vec3::new(-0.1152586, 2.310206, -4.0351343);
-        let previous_owner = previous_target - previous_root;
-        let advanced = advance_run_airborne_world_target(
-            Some(previous_owner),
-            desired_target,
-            next_root,
-            Quat::IDENTITY,
-            AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
-            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
-                ik_tuning().run_airborne_owner_step_metres.metres()
-                    * ik_tuning().continuity_sample_hz.hertz(),
-            )
-            .unwrap(),
-            |_| Some(f32::NEG_INFINITY),
-        );
-        let target_step = (advanced - next_root).distance(previous_owner);
-        assert!(target_step <= 0.0875 + 0.0001);
-        assert!(target_step > 5.5 / ik_tuning().continuity_sample_hz.hertz());
-        assert!(target_step < 0.089);
     }
 
     #[test]
@@ -2584,31 +2856,6 @@ mod coordination_tests {
             ),
             propagated
         );
-    }
-
-    #[test]
-    fn first_run_release_searches_off_chord_for_terrain_clearance() {
-        let start = Vec3::ZERO;
-        let desired = Vec3::new(0.0, 0.0, 0.08);
-        let maximum_step = 0.094;
-        let minimum_y = |xz: Vec2| {
-            // The direct chord is a raised ridge; a lateral point within the
-            // same motion sphere satisfies both clearance and continuity.
-            Some(if xz.x.abs() < 0.02 { 0.12 } else { 0.02 })
-        };
-        let target = advance_run_airborne_world_target(
-            Some(start),
-            desired,
-            Vec3::ZERO,
-            Quat::IDENTITY,
-            AnimationElapsed::from_seconds(1.0).unwrap(),
-            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(maximum_step)
-                .unwrap(),
-            minimum_y,
-        );
-        assert!(target.x.abs() >= 0.02);
-        assert!(target.y + 0.0001 >= minimum_y(target.xz()).unwrap());
-        assert!(target.distance(start) <= maximum_step + 0.0001);
     }
 
     #[test]
@@ -2726,8 +2973,9 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| Some(-100.0),
-        );
+            |_| checked_world_height(-100.0).map(Some),
+        )
+        .unwrap();
         let resolved_owner = resolved - after_root;
         assert!(
             resolved_owner.distance(before_owner)
@@ -2749,8 +2997,9 @@ mod coordination_tests {
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
             FootTargetSpeeds::configured().unwrap().run_airborne,
-            |_| Some(-100.0),
-        );
+            |_| checked_world_height(-100.0).map(Some),
+        )
+        .unwrap();
         assert!(
             (support_path - after_root).distance(before_owner)
                 <= (ik_tuning().run_airborne_owner_step_metres.metres()
@@ -2771,8 +3020,9 @@ mod coordination_tests {
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz())
                     .unwrap(),
                 FootTargetSpeeds::configured().unwrap().run_airborne,
-                |_| Some(-100.0)
-            ),
+                |_| checked_world_height(-100.0).map(Some)
+            )
+            .unwrap(),
             desired_solve,
         );
         let bounded_owner = support_path - after_root;
@@ -2798,8 +3048,8 @@ mod coordination_tests {
         let planted_target = authored + Vec3::NEG_Z * 0.20;
         assert!(unplanned_support_release_is_owned(
             false,
-            Some(0.0),
-            Some(1.0),
+            Some(UnitInterval::from_fraction(0.0).unwrap()),
+            Some(UnitInterval::from_fraction(1.0).unwrap()),
             None,
             preliminary_target,
             planted_target,
@@ -2807,8 +3057,8 @@ mod coordination_tests {
         ));
         assert!(!unplanned_support_release_is_owned(
             false,
-            Some(0.0),
-            Some(0.0),
+            Some(UnitInterval::from_fraction(0.0).unwrap()),
+            Some(UnitInterval::from_fraction(0.0).unwrap()),
             None,
             authored,
             authored,
@@ -2816,8 +3066,8 @@ mod coordination_tests {
         ));
         assert!(unplanned_support_release_is_owned(
             false,
-            Some(0.0),
-            Some(1.0),
+            Some(UnitInterval::from_fraction(0.0).unwrap()),
+            Some(UnitInterval::from_fraction(1.0).unwrap()),
             None,
             authored,
             authored,
@@ -2836,8 +3086,9 @@ mod coordination_tests {
             right_foot_target: Some(Vec3::new(8.0, 8.0, 8.0)),
             right_release_target: Some(Vec3::new(7.0, 7.0, 7.0)),
             right_release_active: true,
-            rig_origin: Some(steady_before_root),
-            rig_rotation: Some(Quat::IDENTITY),
+            owner_frame: Some(
+                ObservedRigFrame::from_native(steady_before_root, Quat::IDENTITY).unwrap(),
+            ),
             ..default()
         };
         assert!(airborne_unplanned_release_uses_resolved_end(
@@ -2888,35 +3139,6 @@ mod coordination_tests {
     }
 
     #[test]
-    fn uphill_airborne_projection_preserves_clearance_and_step_budget() {
-        let previous_owner = Vec3::new(0.0, 0.15, 0.0);
-        let desired = Vec3::new(0.0, 0.2, -0.3);
-        let minimum_y = |xz: Vec2| Some(0.15 + (-xz.y).max(0.0) * 0.4);
-        let resolved = advance_run_airborne_world_target(
-            Some(previous_owner),
-            desired,
-            Vec3::ZERO,
-            Quat::IDENTITY,
-            AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
-            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
-                ik_tuning().run_airborne_owner_step_metres.metres()
-                    * ik_tuning().continuity_sample_hz.hertz(),
-            )
-            .unwrap(),
-            minimum_y,
-        );
-        assert!(resolved.is_finite());
-        assert!(resolved.y + 0.000001 >= minimum_y(resolved.xz()).unwrap());
-        assert!(
-            resolved.distance(previous_owner)
-                <= (ik_tuning().run_airborne_owner_step_metres.metres()
-                    * ik_tuning().continuity_sample_hz.hertz())
-                    / ik_tuning().continuity_sample_hz.hertz()
-                    + 0.0001
-        );
-    }
-
-    #[test]
     fn unacquired_run_support_entry_keeps_using_bounded_follower() {
         let previous_owner = Vec3::new(0.1, 0.15, -0.5);
         let frozen_plant = Vec3::new(0.1, 0.085, -0.8);
@@ -2931,8 +3153,9 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| Some(0.085),
-        );
+            |_| checked_world_height(0.085).map(Some),
+        )
+        .unwrap();
         assert!(
             resolved.distance(previous_owner)
                 <= (ik_tuning().run_airborne_owner_step_metres.metres()
@@ -2946,15 +3169,34 @@ mod coordination_tests {
         // flight, then may descend to exact contact on the first eligible
         // support sample without bypassing the follower above.
         assert_eq!(
-            run_airborne_clearance(CycleDelta::from_cycles(0.34).unwrap(), Some(1.0), false),
+            run_airborne_clearance(
+                CycleDelta::from_cycles(0.34).unwrap(),
+                Some(UnitInterval::from_fraction(1.0).unwrap()),
+                false
+            )
+            .unwrap()
+            .metres(),
             ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
         );
         assert_eq!(
-            run_airborne_clearance(CycleDelta::from_cycles(0.17).unwrap(), Some(1.0), false),
+            run_airborne_clearance(
+                CycleDelta::from_cycles(0.17).unwrap(),
+                Some(UnitInterval::from_fraction(1.0).unwrap()),
+                false
+            )
+            .unwrap()
+            .metres(),
             ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
         );
         assert!(
-            run_airborne_clearance(CycleDelta::from_cycles(0.17).unwrap(), Some(1.0), true) <= 0.0
+            run_airborne_clearance(
+                CycleDelta::from_cycles(0.17).unwrap(),
+                Some(UnitInterval::from_fraction(1.0).unwrap()),
+                true
+            )
+            .unwrap()
+            .metres()
+                <= 0.0
         );
     }
 
@@ -2983,8 +3225,9 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| Some(0.085),
-        );
+            |_| checked_world_height(0.085).map(Some),
+        )
+        .unwrap();
         assert!(resolved.distance(fixed_contact) < 0.0001);
 
         let far_contact = fixed_contact + Vec3::NEG_Z * 0.3;
@@ -2996,7 +3239,13 @@ mod coordination_tests {
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap()
         ));
         assert_eq!(
-            run_airborne_clearance(CycleDelta::from_cycles(0.17).unwrap(), Some(1.0), false),
+            run_airborne_clearance(
+                CycleDelta::from_cycles(0.17).unwrap(),
+                Some(UnitInterval::from_fraction(1.0).unwrap()),
+                false
+            )
+            .unwrap()
+            .metres(),
             ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
         );
     }
@@ -3025,9 +3274,9 @@ mod coordination_tests {
             fixed_contact,
             current_root,
             Quat::IDENTITY,
-            1.0,
+            FootTrackSide::PositiveX,
             Vec3::new(0.1, 0.9, current_root.z - 0.5),
-            1.0,
+            ReachLimit::Fixed(NonnegativeLength::from_metres(1.0).unwrap()),
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
             |_| Some(0.0),
         )
@@ -3056,8 +3305,9 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| Some(measured_ankle_sole_offset_metres().metres()),
-        );
+            |_| checked_world_height(measured_ankle_sole_offset_metres().metres()).map(Some),
+        )
+        .unwrap();
         assert!(landed.distance(transported) < 0.0001);
         assert!(
             landed.distance(current_root + previous_owner)
@@ -3085,7 +3335,10 @@ mod coordination_tests {
         let previous_owner = previous_ankle - previous_root;
         let upper_root = Vec3::new(-0.10032953, 2.5767426, -6.794999);
         let frozen_contact = Vec3::new(-0.12020548, 1.9023025, -7.475421);
-        let solve_reach = maximum_reach(0.523, 0.430);
+        let solve_reach = maximum_reach(
+            NonnegativeLength::from_metres(0.523).unwrap(),
+            NonnegativeLength::from_metres(0.430).unwrap(),
+        );
         assert!(run_contact_within_follower_motion_step(
             Some(previous_owner),
             frozen_contact,
@@ -3093,7 +3346,7 @@ mod coordination_tests {
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap()
         ));
-        assert!(frozen_contact.distance(upper_root) > solve_reach + 0.001);
+        assert!(frozen_contact.distance(upper_root) > solve_reach.native_metres().unwrap() + 0.001);
 
         let terrain_height = frozen_contact.y - measured_ankle_sole_offset_metres().metres();
         let reachable_contact = retarget_unacquired_run_contact_for_descent(
@@ -3101,7 +3354,7 @@ mod coordination_tests {
             frozen_contact,
             current_root,
             Quat::IDENTITY,
-            -1.0,
+            FootTrackSide::NegativeX,
             upper_root,
             solve_reach,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
@@ -3109,7 +3362,9 @@ mod coordination_tests {
         )
         .expect("the final footprint should move just inside current downhill reach");
         assert!(reachable_contact.xz().distance(frozen_contact.xz()) > 0.001);
-        assert!(reachable_contact.distance(upper_root) <= solve_reach + 0.001);
+        assert!(
+            reachable_contact.distance(upper_root) <= solve_reach.native_metres().unwrap() + 0.001
+        );
         assert!(run_contact_within_follower_motion_step(
             Some(previous_owner),
             reachable_contact,
@@ -3132,8 +3387,9 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| Some(reachable_contact.y),
-        );
+            |_| checked_world_height(reachable_contact.y).map(Some),
+        )
+        .unwrap();
         assert!(landed.distance(reachable_contact) < 0.0001);
     }
 }

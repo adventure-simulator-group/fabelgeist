@@ -6,87 +6,6 @@ use super::*;
 // remains capped at the authored leg extension, preventing a final
 // recovery-frame foot lift or snap without introducing a straight-leg target.
 
-pub(in crate::animation::procedural) fn plant_is_continuous(
-    plant: Vec3,
-    current_foot: Vec3,
-) -> bool {
-    plant.is_finite()
-        && current_foot.is_finite()
-        && plant.distance(current_foot) <= ik_tuning().maximum_plant_discontinuity_metres.metres()
-}
-
-pub(in crate::animation::procedural) fn advance_pelvis_shift(
-    current: f32,
-    desired: f32,
-    delta_seconds: AnimationElapsed,
-) -> f32 {
-    let maximum_step = (ik_tuning()
-        .pelvis_correction_speed_metres_per_second
-        .metres_per_second()
-        * delta_seconds.seconds())
-    .min(maximum_pelvis_correction_step_metres().metres());
-    current + (desired - current).clamp(-maximum_step, maximum_step)
-}
-
-pub(in crate::animation::procedural) fn maximum_reach(upper_length: f32, lower_length: f32) -> f32 {
-    (upper_length * upper_length
-        + lower_length * lower_length
-        + 2.0
-            * upper_length
-            * lower_length
-            * ik_tuning().minimum_knee_flexion_degrees.to_radians().cos())
-    .sqrt()
-}
-
-pub(in crate::animation::procedural) fn landing_maximum_reach(
-    upper_length: f32,
-    lower_length: f32,
-    authored_reach: f32,
-    compression: f32,
-) -> f32 {
-    let reserved_reach = maximum_reach(upper_length, lower_length);
-    let full_reach = upper_length + lower_length - 0.0001;
-    let released_reach = authored_reach.clamp(reserved_reach, full_reach);
-    let reserve_weight = smoothstep(
-        ik_tuning()
-            .landing_knee_reserve_release_compression_metres
-            .metres(),
-        ik_tuning()
-            .landing_knee_reserve_full_compression_metres
-            .metres(),
-        compression,
-    );
-    released_reach.lerp(reserved_reach, reserve_weight)
-}
-
-pub(in crate::animation::procedural) fn constrain_target_to_reach(
-    target: Vec3,
-    root: Vec3,
-    maximum_reach: f32,
-) -> Vec3 {
-    let vertical = target.y - root.y;
-    let maximum_horizontal = (maximum_reach * maximum_reach - vertical * vertical)
-        .max(0.0)
-        .sqrt();
-    let horizontal = (target - root).xz().clamp_length_max(maximum_horizontal);
-    Vec3::new(root.x + horizontal.x, target.y, root.z + horizontal.y)
-}
-
-pub(in crate::animation::procedural) fn canonical_knee_pole_world(
-    foot: LeadFoot,
-    rig_rotation: Quat,
-) -> Vec3 {
-    let side = match foot {
-        LeadFoot::Left => -1.0,
-        LeadFoot::Right => 1.0,
-    };
-    pole_to_world(rig_rotation, canonical_knee_pole(side))
-}
-
-pub(in crate::animation::procedural) fn canonical_knee_pole(side: f32) -> Vec3 {
-    (Vec3::Z + Vec3::X * side * 0.18).normalize()
-}
-
 #[derive(Debug, Clone, Copy)]
 pub(in crate::animation::procedural) struct TwoBoneSolution {
     pub(in crate::animation::procedural) knee: Vec3,
@@ -99,8 +18,8 @@ pub(in crate::animation::procedural) struct TwoBoneChain {
     root: Vec3,
     current_knee: Vec3,
     current_end: Vec3,
-    upper_length: f32,
-    lower_length: f32,
+    upper_length: NonnegativeLength,
+    lower_length: NonnegativeLength,
     pole_direction: Vec3,
 }
 
@@ -109,8 +28,8 @@ impl TwoBoneChain {
         root: Vec3,
         current_knee: Vec3,
         current_end: Vec3,
-        upper_length: f32,
-        lower_length: f32,
+        upper_length: NonnegativeLength,
+        lower_length: NonnegativeLength,
         pole_direction: Vec3,
     ) -> Self {
         Self {
@@ -122,6 +41,88 @@ impl TwoBoneChain {
             pole_direction,
         }
     }
+}
+
+pub(in crate::animation::procedural) fn plant_is_continuous(
+    plant: Vec3,
+    current_foot: Vec3,
+) -> bool {
+    plant.is_finite()
+        && current_foot.is_finite()
+        && plant.distance(current_foot) <= ik_tuning().maximum_plant_discontinuity_metres.metres()
+}
+
+pub(in crate::animation::procedural) fn advance_pelvis_shift(
+    current: SignedLength,
+    desired: SignedLength,
+    delta_seconds: AnimationElapsed,
+) -> AnimationValueResult<SignedLength> {
+    let maximum_step = (ik_tuning()
+        .pelvis_correction_speed_metres_per_second
+        .metres_per_second()
+        * delta_seconds.seconds())
+    .min(maximum_pelvis_correction_step_metres().metres());
+    SignedLength::from_metres(
+        current.metres() + (desired.metres() - current.metres()).clamp(-maximum_step, maximum_step),
+    )
+    .map_err(|_| AnimationValueError::Overflow {
+        quantity: AnimationQuantity::HeightOffset,
+    })
+}
+
+pub(in crate::animation::procedural) fn maximum_reach(
+    upper_length: NonnegativeLength,
+    lower_length: NonnegativeLength,
+) -> ReachLimit {
+    ReachLimit::Flexed {
+        upper: upper_length,
+        lower: lower_length,
+        minimum_flexion: ik_tuning().minimum_knee_flexion_degrees,
+    }
+}
+
+pub(in crate::animation::procedural) fn landing_maximum_reach(
+    upper_length: NonnegativeLength,
+    lower_length: NonnegativeLength,
+    authored_reach: NonnegativeLength,
+    compression: HeightDistance,
+) -> ReachLimit {
+    ReachLimit::Landing {
+        upper: upper_length,
+        lower: lower_length,
+        authored: authored_reach,
+        compression,
+    }
+}
+
+pub(in crate::animation::procedural) fn constrain_target_to_reach(
+    target: Vec3,
+    root: Vec3,
+    maximum_reach: ReachLimit,
+) -> Option<Vec3> {
+    let maximum_reach = maximum_reach.native_metres()?;
+    let vertical = target.y - root.y;
+    let maximum_horizontal = (maximum_reach * maximum_reach - vertical * vertical)
+        .max(0.0)
+        .sqrt();
+    let horizontal = (target - root).xz().clamp_length_max(maximum_horizontal);
+    Some(Vec3::new(
+        root.x + horizontal.x,
+        target.y,
+        root.z + horizontal.y,
+    ))
+}
+
+pub(in crate::animation::procedural) fn canonical_knee_pole_world(
+    foot: LeadFoot,
+    rig_rotation: Quat,
+) -> Vec3 {
+    let side = FootTrackSide::for_foot(foot);
+    pole_to_world(rig_rotation, canonical_knee_pole(side))
+}
+
+pub(in crate::animation::procedural) fn canonical_knee_pole(side: FootTrackSide) -> Vec3 {
+    (Vec3::Z + Vec3::X * side.coefficient() * 0.18).normalize()
 }
 
 pub(in crate::animation::procedural) fn solve_two_bone(
@@ -139,28 +140,28 @@ pub(in crate::animation::procedural) fn solve_two_bone(
 pub(in crate::animation::procedural) fn solve_landing_two_bone(
     chain: TwoBoneChain,
     target: Vec3,
-    compression: f32,
-) -> Option<TwoBoneSolution> {
-    solve_two_bone_internal(
+    compression: HeightDistance,
+) -> AnimationValueResult<Option<TwoBoneSolution>> {
+    Ok(solve_two_bone_internal(
         chain,
         target,
         landing_maximum_reach(
             chain.upper_length,
             chain.lower_length,
-            chain.root.distance(chain.current_end),
+            NonnegativeLength::from_arithmetic(chain.root.distance(chain.current_end))?,
             compression,
         ),
         // Landing supplies a foot-facing-constrained leg pole. Reblending the
         // authored knee here would occur after that constraint and could
         // recreate an anatomically impossible sideways bend.
         false,
-    )
+    ))
 }
 
 pub(in crate::animation::procedural) fn solve_two_bone_with_reach(
     chain: TwoBoneChain,
     target: Vec3,
-    maximum_target_reach: f32,
+    maximum_target_reach: ReachLimit,
 ) -> Option<TwoBoneSolution> {
     solve_two_bone_internal(chain, target, maximum_target_reach, false)
 }
@@ -184,7 +185,7 @@ pub(in crate::animation::procedural) fn advance_foot_target_at_speed(
 fn solve_two_bone_internal(
     chain: TwoBoneChain,
     target: Vec3,
-    maximum_target_reach: f32,
+    maximum_target_reach: ReachLimit,
     preserve_authored_bend: bool,
 ) -> Option<TwoBoneSolution> {
     let TwoBoneChain {
@@ -195,6 +196,8 @@ fn solve_two_bone_internal(
         lower_length,
         pole_direction,
     } = chain;
+    let upper_length = upper_length.metres();
+    let lower_length = lower_length.metres();
     if !root.is_finite() || !target.is_finite() || upper_length <= 0.0001 || lower_length <= 0.0001
     {
         return None;
@@ -204,10 +207,16 @@ fn solve_two_bone_internal(
         .try_normalize()
         .or_else(|| (current_end - root).try_normalize())
         .unwrap_or(Vec3::NEG_Y);
-    let distance = target_offset.length().clamp(
-        (upper_length - lower_length).abs() + 0.0001,
-        maximum_target_reach.min(upper_length + lower_length - 0.0001),
-    );
+    let target_distance = target_offset.length();
+    let minimum_distance = (upper_length - lower_length).abs() + 0.0001;
+    let maximum_distance = maximum_target_reach
+        .native_metres()?
+        .min(upper_length + lower_length - 0.0001);
+    if minimum_distance > maximum_distance || minimum_distance.is_nan() || maximum_distance.is_nan()
+    {
+        return None;
+    }
+    let distance = target_distance.clamp(minimum_distance, maximum_distance);
     let end = root + target_direction * distance;
     let along = (upper_length * upper_length - lower_length * lower_length + distance * distance)
         / (2.0 * distance);
@@ -379,7 +388,14 @@ mod tests {
         let end = Vec3::new(0.0, -2.0, 0.0);
         let target = Vec3::new(0.3, -1.85, 0.0);
         let solved = solve_two_bone(
-            TwoBoneChain::new(root, knee, end, 1.0, 1.0, Vec3::NEG_Z),
+            TwoBoneChain::new(
+                root,
+                knee,
+                end,
+                NonnegativeLength::from_metres(1.0).unwrap(),
+                NonnegativeLength::from_metres(1.0).unwrap(),
+                Vec3::NEG_Z,
+            ),
             target,
         )
         .unwrap();
@@ -395,8 +411,8 @@ mod tests {
                 Vec3::ZERO,
                 Vec3::new(0.0, -1.0, 0.1),
                 Vec3::new(0.0, -2.0, 0.0),
-                1.0,
-                1.0,
+                NonnegativeLength::from_metres(1.0).unwrap(),
+                NonnegativeLength::from_metres(1.0).unwrap(),
                 Vec3::NEG_Z,
             ),
             Vec3::new(0.0, -20.0, 0.0),
@@ -413,8 +429,8 @@ mod tests {
                 Vec3::ZERO,
                 Vec3::NEG_Y,
                 Vec3::NEG_Y * 2.0,
-                1.0,
-                1.0,
+                NonnegativeLength::from_metres(1.0).unwrap(),
+                NonnegativeLength::from_metres(1.0).unwrap(),
                 Vec3::Z,
             ),
             Vec3::new(0.0, -1.8, 0.0),
@@ -431,8 +447,8 @@ mod tests {
                 Vec3::ZERO,
                 Vec3::new(0.0, -1.0, 0.1),
                 Vec3::NEG_Y * 2.0,
-                1.0,
-                1.0,
+                NonnegativeLength::from_metres(1.0).unwrap(),
+                NonnegativeLength::from_metres(1.0).unwrap(),
                 Vec3::NEG_Z,
             ),
             Vec3::new(0.0, -1.8, 0.0),
@@ -448,8 +464,8 @@ mod tests {
                 Vec3::ZERO,
                 Vec3::new(0.1, -1.0, 0.1),
                 Vec3::NEG_Y * 2.0,
-                1.0,
-                1.0,
+                NonnegativeLength::from_metres(1.0).unwrap(),
+                NonnegativeLength::from_metres(1.0).unwrap(),
                 Vec3::Z,
             ),
             Vec3::new(0.0, -1.8, 0.0),
@@ -484,8 +500,8 @@ mod tests {
                 Vec3::ZERO,
                 Vec3::NEG_Y,
                 Vec3::NEG_Y * 2.0,
-                1.0,
-                1.0,
+                NonnegativeLength::from_metres(1.0).unwrap(),
+                NonnegativeLength::from_metres(1.0).unwrap(),
                 Vec3::NEG_Z,
             ),
             Vec3::new(0.45, -1.75, 0.0),
@@ -517,20 +533,29 @@ mod tests {
 
     #[test]
     fn leg_solver_keeps_minimum_flexion_and_anatomical_hemisphere() {
-        let pole = canonical_knee_pole(-1.0);
+        let pole = canonical_knee_pole(FootTrackSide::NegativeX);
         let solved = solve_two_bone(
             TwoBoneChain::new(
                 Vec3::ZERO,
                 Vec3::new(0.0, -1.0, -0.1),
                 Vec3::NEG_Y * 2.0,
-                1.0,
-                1.0,
+                NonnegativeLength::from_metres(1.0).unwrap(),
+                NonnegativeLength::from_metres(1.0).unwrap(),
                 pole,
             ),
             Vec3::NEG_Y * 20.0,
         )
         .unwrap();
-        assert!(solved.end.length() <= maximum_reach(1.0, 1.0) + 0.0001);
+        assert!(
+            solved.end.length()
+                <= maximum_reach(
+                    NonnegativeLength::from_metres(1.0).unwrap(),
+                    NonnegativeLength::from_metres(1.0).unwrap()
+                )
+                .native_metres()
+                .unwrap()
+                    + 0.0001
+        );
         let bend = (solved.knee)
             .reject_from_normalized(solved.end_direction)
             .normalize();

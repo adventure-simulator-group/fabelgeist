@@ -1,6 +1,7 @@
 use adventuresim_tactical_core::animation::AnimationElapsed;
+pub use adventuresim_tactical_core::animation::ResponseShapingTime;
 use collision::{CameraFrame, CameraVolume};
-pub use config::{CameraProfile, CameraRigConfig, CameraShapingTime};
+pub use config::{CameraProfile, CameraRigConfig};
 use rig_history::CameraRigState;
 use smoothing::{camera_view_metrics, critical_damp_scalar, damp_focus, sweet_spot_target};
 

@@ -2,8 +2,10 @@ use super::{
     AnimationElapsed, AnimationPlayback, AnimationValueError, AnimationValueResult,
     AuthoredBindTransform, BlendWeight, PresentedSkeleton,
 };
-use adventuresim_tactical_core::animation::AnimationQuantity;
 use adventuresim_tactical_core::animation::{AnimationPackId, LandingImpactSpeed};
+use adventuresim_tactical_core::animation::{
+    AnimationQuantity, NonnegativeLength, SettleProgress, UnitInterval,
+};
 use adventuresim_tactical_core::prelude::*;
 use bevy::{math::Affine3A, prelude::*};
 pub(in crate::animation) use body_response::apply_locomotion_body_response;
@@ -30,19 +32,18 @@ pub(crate) use ik::{
     sole_contact_tolerance_metres,
 };
 use ik::{
-    TwoBoneChain, apply_two_bone_solution, canonical_knee_pole, constrain_rendered_leg_pole,
-    smoothstep, snapshot_chain, solve_landing_two_bone,
+    FootTrackSide, LimbSegments, TwoBoneChain, apply_two_bone_solution, canonical_knee_pole,
+    constrain_rendered_leg_pole, smoothstep, snapshot_chain, solve_landing_two_bone,
 };
 #[cfg(test)]
 use ik::{
     TwoBoneSolution, advance_foot_target_at_speed, advance_pelvis_shift, authored_knee_pole_world,
-    balance_recovery_direction, constrain_foot_to_track, constrain_target_to_reach,
-    foot_track_inner_metres, landing_maximum_reach, maximum_pelvis_correction_step_metres,
-    maximum_reach, minimum_inter_foot_separation_metres, plan_settle_landing, plant_is_continuous,
-    projected_capture_point, raised_footwork_posture_is_valid, retained_plant_requires_release,
-    secondary_grip_world, settle_swing_side, slope_aligned_world_rotation, sole_is_at_contact,
-    solve_two_bone, terrain_conformed_guard_target, terrain_ik_posture_is_valid,
-    terrain_leg_has_support,
+    constrain_foot_to_track, constrain_target_to_reach, foot_track_inner_metres,
+    landing_maximum_reach, maximum_pelvis_correction_step_metres, maximum_reach,
+    minimum_inter_foot_separation_metres, plant_is_continuous, raised_footwork_posture_is_valid,
+    retained_plant_requires_release, secondary_grip_world, slope_aligned_world_rotation,
+    sole_is_at_contact, solve_two_bone, terrain_conformed_guard_target,
+    terrain_ik_posture_is_valid, terrain_leg_has_support,
 };
 pub(super) use ik::{
     apply_arm_and_weapon_constraints, apply_terrain_leg_ik, enforce_anatomical_knee_yaw,
@@ -99,7 +100,7 @@ struct BoneSnapshot {
     parent_rotation: Quat,
 }
 
-pub(super) fn authored_locomotion_ik_owns(skeleton: &SkeletonState) -> bool {
+pub(crate) fn authored_locomotion_ik_owns(skeleton: &SkeletonState) -> bool {
     ik::authored_locomotion_owns(skeleton)
 }
 
@@ -577,30 +578,8 @@ pub(super) fn apply_landing_leg_compression(
         height.landing_plant_tick = Some(skeleton.locomotion_sample_tick);
         height.landing_plant_owner_position = Some(owner_position);
         // Native root-local displacement enters the skeletal vector kernel here.
-        let landing_compression = height.landing_compression.metres();
-        if let Some(&pelvis) = rig.get(&BoneRole::Pelvis) {
-            let local_delta = parents
-                .get(pelvis)
-                .ok()
-                .and_then(|parent| {
-                    transforms
-                        .p0()
-                        .compute_global_transform(parent.parent())
-                        .ok()
-                })
-                .map(|parent| {
-                    parent
-                        .affine()
-                        .inverse()
-                        .transform_vector3(Vec3::NEG_Y * landing_compression)
-                })
-                .unwrap_or(Vec3::NEG_Y * landing_compression);
-            if local_delta.is_finite()
-                && let Ok(mut transform) = transforms.p1().get_mut(pelvis)
-            {
-                transform.translation += local_delta;
-            }
-        }
+        let landing_compression = height.landing_compression;
+        height.apply_landing_pelvis_compression(rig, &parents, &mut transforms);
         for (upper_role, lower_role, foot_role, foot_side) in [
             (
                 BoneRole::ThighLeft,
@@ -627,14 +606,20 @@ pub(super) fn apply_landing_leg_compression(
             else {
                 continue;
             };
-            let upper_length = upper_snapshot
-                .global
-                .translation()
-                .distance(lower_snapshot.global.translation());
-            let lower_length = lower_snapshot
-                .global
-                .translation()
-                .distance(foot_snapshot.global.translation());
+            let LimbSegments {
+                upper: upper_length,
+                lower: lower_length,
+            } = match LimbSegments::measure(
+                upper_snapshot.global.translation(),
+                lower_snapshot.global.translation(),
+                foot_snapshot.global.translation(),
+            ) {
+                Ok(segments) => segments,
+                Err(error) => {
+                    warn!(%error, "landing segment measurement rejected");
+                    continue;
+                }
+            };
             let retained_target = match foot_side {
                 LeadFoot::Left => &mut height.landing_left_foot_target,
                 LeadFoot::Right => &mut height.landing_right_foot_target,
@@ -642,8 +627,8 @@ pub(super) fn apply_landing_leg_compression(
             let target =
                 retain_landing_foot_target(retained_target, previous_world_positions[&foot]);
             let side = match foot_side {
-                LeadFoot::Left => -1.0,
-                LeadFoot::Right => 1.0,
+                LeadFoot::Left => FootTrackSide::NegativeX,
+                LeadFoot::Right => FootTrackSide::PositiveX,
             };
             let pole = owner_transform.rotation() * canonical_knee_pole(side);
             let pole = constrain_rendered_leg_pole(
@@ -656,7 +641,7 @@ pub(super) fn apply_landing_leg_compression(
                 &parents,
                 &transforms.p0(),
             );
-            if let Some(solution) = solve_landing_two_bone(
+            let solution = match solve_landing_two_bone(
                 TwoBoneChain::new(
                     upper_snapshot.global.translation(),
                     lower_snapshot.global.translation(),
@@ -668,6 +653,13 @@ pub(super) fn apply_landing_leg_compression(
                 target,
                 landing_compression,
             ) {
+                Ok(solution) => solution,
+                Err(error) => {
+                    warn!(%error, "landing geometry rejected");
+                    continue;
+                }
+            };
+            if let Some(solution) = solution {
                 apply_two_bone_solution(upper, lower, foot, solution, &parents, &mut transforms);
             }
         }
@@ -937,7 +929,10 @@ mod contract_tests {
 #[cfg(test)]
 mod ik_tests {
     use super::*;
+    use crate::animation::procedural::ik::ReachLimit;
+    use adventuresim_building_generator::spatial_geometry::SignedLength;
     use adventuresim_core::linear_speed::NonnegativeSpeed;
+    use adventuresim_tactical_core::animation::NonnegativeLength;
 
     #[test]
     fn canonical_mhr_role_names_are_recognized() {
@@ -1049,13 +1044,18 @@ mod ik_tests {
             let (run_left, run_right) = gait_support_weights(
                 run_locomotion_profile(),
                 CyclePhase::from_cycles(phase).unwrap(),
+            )
+            .unwrap();
+            assert_eq!(
+                (run_left, run_right),
+                (UnitInterval::ZERO, UnitInterval::ZERO)
             );
-            assert_eq!((run_left, run_right), (0.0, 0.0));
             let (walk_left, walk_right) = gait_support_weights(
                 walk_locomotion_profile(),
                 CyclePhase::from_cycles(phase).unwrap(),
-            );
-            assert!(walk_left + walk_right > 0.0);
+            )
+            .unwrap();
+            assert!(walk_left.fraction() + walk_right.fraction() > 0.0);
         }
 
         let phase_step = gait_cycle_phase_delta(
@@ -1072,8 +1072,9 @@ mod ik_tests {
             let (left, right) = gait_support_weights(
                 run_locomotion_profile(),
                 CyclePhase::from_cycles(phase).unwrap(),
-            );
-            if left <= 0.001 && right <= 0.001 {
+            )
+            .unwrap();
+            if left.fraction() <= 0.001 && right.fraction() <= 0.001 {
                 current += 1;
                 longest = longest.max(current);
             } else {
@@ -1366,7 +1367,14 @@ mod ik_tests {
         let upper = root.distance(knee);
         let lower = knee.distance(compressed_foot);
         let solution = solve_two_bone(
-            TwoBoneChain::new(root, knee, compressed_foot, upper, lower, Vec3::Z),
+            TwoBoneChain::new(
+                root,
+                knee,
+                compressed_foot,
+                NonnegativeLength::from_metres(upper).unwrap(),
+                NonnegativeLength::from_metres(lower).unwrap(),
+                Vec3::Z,
+            ),
             target,
         )
         .expect("compressed leg should reach its pre-compression foot");
@@ -1423,9 +1431,21 @@ mod ik_tests {
         let upper = 0.9;
         let lower = 0.9;
         let authored_reach = 1.79;
-        let reserved_reach = maximum_reach(upper, lower);
+        let reserved_reach = maximum_reach(
+            NonnegativeLength::from_metres(upper).unwrap(),
+            NonnegativeLength::from_metres(lower).unwrap(),
+        )
+        .native_metres()
+        .unwrap();
 
-        let peak_reach = landing_maximum_reach(upper, lower, authored_reach, 0.04);
+        let peak_reach = landing_maximum_reach(
+            NonnegativeLength::from_metres(upper).unwrap(),
+            NonnegativeLength::from_metres(lower).unwrap(),
+            NonnegativeLength::from_metres(authored_reach).unwrap(),
+            HeightDistance::from_metres(0.04).unwrap(),
+        )
+        .native_metres()
+        .unwrap();
         assert!((peak_reach - reserved_reach) == 0.0);
         let peak_flexion = 180.0
             - ((upper * upper + lower * lower - peak_reach * peak_reach) / (2.0 * upper * lower))
@@ -1435,8 +1455,16 @@ mod ik_tests {
         assert!(peak_flexion >= 10.0);
 
         let release_samples = [0.04, 0.033, 0.026, 0.019, 0.012];
-        let reaches = release_samples
-            .map(|compression| landing_maximum_reach(upper, lower, authored_reach, compression));
+        let reaches = release_samples.map(|compression| {
+            landing_maximum_reach(
+                NonnegativeLength::from_metres(upper).unwrap(),
+                NonnegativeLength::from_metres(lower).unwrap(),
+                NonnegativeLength::from_metres(authored_reach).unwrap(),
+                HeightDistance::from_metres(compression).unwrap(),
+            )
+            .native_metres()
+            .unwrap()
+        });
         for pair in reaches.windows(2) {
             assert!(pair[1] >= pair[0]);
             assert!(pair[1] - pair[0] < 0.01);
@@ -1449,29 +1477,21 @@ mod ik_tests {
             let root = Vec3::Y * (authored_reach - compression);
             let current_end = Vec3::NEG_Y * compression;
             let solution = solve_landing_two_bone(
-                TwoBoneChain::new(root, current_knee, current_end, upper, lower, Vec3::Z),
+                TwoBoneChain::new(
+                    root,
+                    current_knee,
+                    current_end,
+                    NonnegativeLength::from_metres(upper).unwrap(),
+                    NonnegativeLength::from_metres(lower).unwrap(),
+                    Vec3::Z,
+                ),
                 target,
-                compression,
+                HeightDistance::from_metres(compression).unwrap(),
             )
+            .unwrap()
             .expect("late landing recovery should remain solvable");
             assert!(solution.end.distance(target) <= 0.0001);
         }
-    }
-
-    #[test]
-    fn settle_landing_is_ahead_of_the_capture_point() {
-        let com = Vec3::new(0.0, 1.0, 0.0);
-        let velocity = Vec3::new(0.8, 0.0, -2.0);
-        let direction = velocity.normalize();
-        let capture = projected_capture_point(
-            com,
-            velocity,
-            adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(1.0)
-                .unwrap(),
-        );
-        let landing = plan_settle_landing(Vec3::ZERO, Quat::IDENTITY, capture, direction, -1.0);
-        assert!((landing - capture).dot(direction) >= 0.119);
-        assert!(landing.is_finite());
     }
 
     #[test]
@@ -1482,7 +1502,7 @@ mod ik_tests {
             Some(previous),
             desired,
             AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
-            3.4,
+            NonnegativeSpeed::from_metres_per_second(3.4).unwrap(),
         );
         assert!(next.distance(previous) <= 0.053_126);
         assert!(next.distance(desired) < previous.distance(desired));
@@ -1491,7 +1511,7 @@ mod ik_tests {
                 None,
                 desired,
                 AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
-                3.4
+                NonnegativeSpeed::from_metres_per_second(3.4).unwrap()
             ),
             desired
         );
@@ -1500,7 +1520,7 @@ mod ik_tests {
                 Some(previous),
                 Vec3::NAN,
                 AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
-                3.4
+                NonnegativeSpeed::from_metres_per_second(3.4).unwrap()
             ),
             previous
         );
@@ -1519,38 +1539,6 @@ mod ik_tests {
             exact_ankle + sole_contact_tolerance_metres().metres() + 0.0001,
             terrain_height
         ));
-    }
-
-    #[test]
-    fn settle_landing_retains_the_actual_swing_track() {
-        let origin = Vec3::new(2.0, 0.0, -3.0);
-        let rotation = Quat::from_rotation_y(0.7);
-        for local_x in [-0.14_f32, 0.14_f32] {
-            let swing_start = origin + rotation * Vec3::new(local_x, 0.085, 0.2);
-            let support_foot = if local_x < 0.0 {
-                LeadFoot::Left
-            } else {
-                LeadFoot::Right
-            };
-            let side = settle_swing_side(origin, rotation, swing_start, support_foot);
-            assert_eq!(side, local_x.signum());
-            let capture = origin + rotation * Vec3::NEG_Z * 0.2;
-            let landing =
-                plan_settle_landing(origin, rotation, capture, rotation * Vec3::NEG_Z, side);
-            let landing_local = rotation.inverse() * (landing - origin);
-            assert!(landing_local.x * local_x.signum() >= foot_track_inner_metres().metres());
-        }
-    }
-
-    #[test]
-    fn unsupported_idle_recovers_from_feet_toward_projected_com() {
-        let com = Vec3::new(0.0, 1.0, -0.45);
-        let left = Vec3::new(-0.12, 0.085, 0.0);
-        let right = Vec3::new(0.12, 0.085, 0.1);
-        let direction = balance_recovery_direction(com, Some(left), Some(right), Vec3::Z);
-        assert!(direction.dot(Vec3::NEG_Z) > 0.95);
-        let landing = plan_settle_landing(Vec3::ZERO, Quat::IDENTITY, com, direction, -1.0);
-        assert!((landing - com).dot(direction) >= 0.119);
     }
 
     #[test]
@@ -1606,11 +1594,17 @@ mod ik_tests {
             .unwrap();
         assert_eq!(
             locomotion_support_weights(&dodge, dodge.animation_speed().unwrap()).unwrap(),
-            (0.0, 0.0)
+            (UnitInterval::ZERO, UnitInterval::ZERO)
         );
-        assert!(!terrain_leg_has_support(0.0));
-        assert!(!terrain_leg_has_support(0.01));
-        assert!(terrain_leg_has_support(0.1));
+        assert!(!terrain_leg_has_support(
+            UnitInterval::from_fraction(0.0).unwrap()
+        ));
+        assert!(!terrain_leg_has_support(
+            UnitInterval::from_fraction(0.01).unwrap()
+        ));
+        assert!(terrain_leg_has_support(
+            UnitInterval::from_fraction(0.1).unwrap()
+        ));
     }
 
     #[test]
@@ -1693,8 +1687,8 @@ mod ik_tests {
     fn foot_tracks_prevent_crossing_and_keep_minimum_separation() {
         let rotation = Quat::from_rotation_y(0.6);
         let origin = Vec3::new(2.0, 0.0, -3.0);
-        let left = constrain_foot_to_track(origin, origin, rotation, -1.0);
-        let right = constrain_foot_to_track(origin, origin, rotation, 1.0);
+        let left = constrain_foot_to_track(origin, origin, rotation, FootTrackSide::NegativeX);
+        let right = constrain_foot_to_track(origin, origin, rotation, FootTrackSide::PositiveX);
         let left_local = rotation.inverse() * (left - origin);
         let right_local = rotation.inverse() * (right - origin);
         assert!(left_local.x < 0.0 && right_local.x > 0.0);
@@ -1713,7 +1707,12 @@ mod ik_tests {
 
         let root = Vec3::Y;
         let target = Vec3::new(-0.2, 0.0, 3.0);
-        let constrained = constrain_target_to_reach(target, root, 1.5);
+        let constrained = constrain_target_to_reach(
+            target,
+            root,
+            ReachLimit::from(NonnegativeLength::from_metres(1.5).unwrap()),
+        )
+        .unwrap();
         assert!(constrained.distance(root) <= 1.5001);
         assert_eq!(constrained.y, target.y);
     }
@@ -1723,10 +1722,12 @@ mod ik_tests {
         fn simulate(step_seconds: f32, evaluations: usize) -> f32 {
             (0..evaluations).fold(0.0, |current, _| {
                 advance_pelvis_shift(
-                    current,
-                    -1.0,
+                    SignedLength::from_metres(current).unwrap(),
+                    SignedLength::from_metres(-1.0).unwrap(),
                     AnimationElapsed::from_seconds(step_seconds).unwrap(),
                 )
+                .unwrap()
+                .metres()
             })
         }
 
@@ -1735,8 +1736,13 @@ mod ik_tests {
         assert!((at_64_hz - at_128_hz).abs() < 0.0001);
         assert!((at_64_hz + 0.3).abs() < 0.0001);
 
-        let after_hitch =
-            advance_pelvis_shift(0.0, -1.0, AnimationElapsed::from_seconds(1.0).unwrap());
+        let after_hitch = advance_pelvis_shift(
+            SignedLength::from_metres(0.0).unwrap(),
+            SignedLength::from_metres(-1.0).unwrap(),
+            AnimationElapsed::from_seconds(1.0).unwrap(),
+        )
+        .unwrap()
+        .metres();
         assert!((after_hitch + maximum_pelvis_correction_step_metres().metres()).abs() < 0.0001);
     }
 

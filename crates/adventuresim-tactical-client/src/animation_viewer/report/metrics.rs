@@ -4,9 +4,11 @@ use super::*;
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 pub(super) use catastrophic_contacts::catastrophic_foot_displacement;
 use height_peaks::prominent_height_peaks;
+use support_slip::supported_foot_slip;
 
 mod catastrophic_contacts;
 mod height_peaks;
+mod support_slip;
 
 pub(super) const RAISED_MINIMUM_INTER_FOOT_SEPARATION_METRES: f32 = 0.16;
 pub(super) const RAISED_MAXIMUM_PELVIS_VERTICAL_STEP_METRES: f32 = 0.05;
@@ -87,7 +89,9 @@ pub(super) fn both_feet_behind_hips(frames: &[FrameSample]) -> bool {
     false
 }
 
-pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
+pub(super) fn scenario_metrics(
+    frames: &[FrameSample],
+) -> AnimationValueResult<Vec<ScenarioMetrics>> {
     let mut grouped = BTreeMap::<&ScenarioMetadata<'static>, Vec<&FrameSample>>::new();
     for frame in frames {
         grouped.entry(&frame.scenario).or_default().push(frame);
@@ -117,9 +121,6 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
             // (1→2) without exempting any movement frame.
             for pair in metric_frames.windows(2).skip(1) {
                 let (before, after) = (pair[0], pair[1]);
-                let body_turn = Quat::from_array(before.body_rotation_xyzw)
-                    .angle_between(Quat::from_array(after.body_rotation_xyzw))
-                    .to_degrees();
                 for (name, before_bone) in &before.bones {
                     let Some(after_bone) = after.bones.get(*name) else {
                         continue;
@@ -161,40 +162,16 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
                         });
                     }
                 }
-                for (foot, support) in [
-                    (
-                        BoneRole::FootLeft,
-                        before.left_support_weight.min(after.left_support_weight),
-                    ),
-                    (
-                        BoneRole::FootRight,
-                        before.right_support_weight.min(after.right_support_weight),
-                    ),
-                ] {
-                    // A body turn deliberately slides an old world plant onto
-                    // its new anatomical side corridor. Treat that bounded
-                    // adaptation separately from skating under a stable body.
-                    let procedural_plant_active = metadata.kind() == ScenarioKind::Terrain
-                        || (before.guard_action && after.guard_action);
-                    if procedural_plant_active
-                        && support >= 0.9
-                        && body_turn <= 0.5
-                        && let (Some(a), Some(b)) = (before.bones.get(foot), after.bones.get(foot))
-                    {
-                        maximum_slip = maximum_slip.max(
-                            (Vec3::from_array(b.position) - Vec3::from_array(a.position))
-                                .xz()
-                                .length(),
-                        );
-                    }
-                }
+                maximum_slip =
+                    maximum_slip.max(supported_foot_slip(metadata, before, after)?.metres());
             }
             let maximum_plant_drift = maximum_planted_foot_drift(metadata, &metric_frames);
             let seam = LoopSeamMetrics::measure(metadata, &frames);
             let (visual_height_peak_count, visual_height_peaks_in_passing_windows) =
                 visual_height_peaks(&metric_frames);
             let guard_liveness = guard_step_liveness_metrics(&metric_frames);
-            ScenarioMetrics {
+            let contact_sole_range = contact_sole_clearance_range(&metric_frames)?;
+            Ok(ScenarioMetrics {
                 scenario: (*scenario).clone(),
                 frame_count: frames.len(),
                 maximum_root_relative_step_metres: maximum_step,
@@ -224,12 +201,10 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
                 visual_height_peaks_in_passing_windows,
                 maximum_no_support_seconds: maximum_no_support_seconds(&metric_frames),
                 minimum_flight_sole_clearance_metres: minimum_flight_sole_clearance(&metric_frames),
-                minimum_contact_sole_clearance_metres: contact_sole_clearance_range(&metric_frames)
-                    .0,
-                maximum_contact_sole_clearance_metres: contact_sole_clearance_range(&metric_frames)
-                    .1,
-                minimum_flight_toe_clearance_metres: minimum_toe_clearance(&metric_frames, false),
-                minimum_contact_toe_clearance_metres: minimum_toe_clearance(&metric_frames, true),
+                minimum_contact_sole_clearance_metres: contact_sole_range.0,
+                maximum_contact_sole_clearance_metres: contact_sole_range.1,
+                minimum_flight_toe_clearance_metres: minimum_toe_clearance(&metric_frames, false)?,
+                minimum_contact_toe_clearance_metres: minimum_toe_clearance(&metric_frames, true)?,
                 head_vertical_range_metres: root_relative_vertical_range(
                     &metric_frames,
                     BoneRole::Head,
@@ -261,7 +236,7 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
                 minimum_guard_swing_clearance_gain_metres: guard_liveness
                     .minimum_swing_clearance_gain_metres,
                 minimum_foot_clearance_metres: minimum_foot_clearance(&metric_frames),
-            }
+            })
         })
         .collect()
 }
@@ -315,8 +290,9 @@ pub(super) fn guard_step_liveness_metrics(frames: &[&FrameSample]) -> GuardStepL
 
         let start = frames[interval_start];
         let end = frames[interval_end];
-        let left_gain = end.left_support_weight - start.left_support_weight;
-        let right_gain = end.right_support_weight - start.right_support_weight;
+        let left_gain = end.left_support_weight.fraction() - start.left_support_weight.fraction();
+        let right_gain =
+            end.right_support_weight.fraction() - start.right_support_weight.fraction();
         let (
             swing_foot,
             start_swing_support,
@@ -326,18 +302,18 @@ pub(super) fn guard_step_liveness_metrics(frames: &[&FrameSample]) -> GuardStepL
         ) = if left_gain >= right_gain {
             (
                 BoneRole::FootLeft,
-                start.left_support_weight,
-                end.left_support_weight,
-                start.right_support_weight,
-                end.right_support_weight,
+                start.left_support_weight.fraction(),
+                end.left_support_weight.fraction(),
+                start.right_support_weight.fraction(),
+                end.right_support_weight.fraction(),
             )
         } else {
             (
                 BoneRole::FootRight,
-                start.right_support_weight,
-                end.right_support_weight,
-                start.left_support_weight,
-                end.left_support_weight,
+                start.right_support_weight.fraction(),
+                end.right_support_weight.fraction(),
+                start.left_support_weight.fraction(),
+                end.left_support_weight.fraction(),
             )
         };
 
@@ -816,9 +792,11 @@ pub(super) fn maximum_no_support_seconds(frames: &[&FrameSample]) -> f32 {
     let mut maximum = 0.0_f32;
     let mut began = None;
     for frame in frames {
-        if frame.left_support_weight <= 0.001 && frame.right_support_weight <= 0.001 {
-            began.get_or_insert(frame.time_seconds.seconds());
-            maximum = maximum.max(frame.time_seconds.seconds() - began.unwrap());
+        if frame.left_support_weight.fraction() <= 0.001
+            && frame.right_support_weight.fraction() <= 0.001
+        {
+            let began = began.get_or_insert(frame.time_seconds.seconds());
+            maximum = maximum.max(frame.time_seconds.seconds() - *began);
         } else {
             began = None;
         }
@@ -854,12 +832,14 @@ pub(super) fn ordinary_swing_frame_is_owned(frame: &FrameSample) -> bool {
     .into_iter()
     .all(
         |(_side, support, authored, solved, planned, release_active)| {
-            support > 0.05
-                || authored.zip(solved).is_some_and(|(authored, solved)| {
-                    let authored = Vec3::from_array(authored);
-                    let solved = Vec3::from_array(solved);
-                    planned.is_some() || release_active || solved.distance(authored) <= 0.03
-                })
+            support.is_some_and(|support| {
+                support.fraction() > 0.05
+                    || authored.zip(solved).is_some_and(|(authored, solved)| {
+                        let authored = Vec3::from_array(authored);
+                        let solved = Vec3::from_array(solved);
+                        planned.is_some() || release_active || solved.distance(authored) <= 0.03
+                    })
+            })
         },
     )
 }
@@ -923,7 +903,7 @@ pub(super) fn ordinary_planned_transition_is_valid(
     after_plan: Option<[f32; 3]>,
     before_solve: Option<[f32; 3]>,
     after_solve: Option<[f32; 3]>,
-    after_support: f32,
+    after_support: UnitInterval,
     release_active: bool,
 ) -> bool {
     before_plan
@@ -936,10 +916,10 @@ pub(super) fn ordinary_planned_transition_is_valid(
             let after_solve_world = Vec3::from_array(after_solve);
             if frame_uses_run_motion_budget(after) {
                 let plan_is_frozen = before_plan.distance(after_plan) <= 0.002;
-                let atomic_acquisition_retarget = after_support > 0.05
+                let atomic_acquisition_retarget = after_support.fraction() > 0.05
                     && !release_active
                     && after_solve_world.distance(after_plan) <= 0.02;
-                let owned_airborne_replan = after_support <= 0.5 && release_active;
+                let owned_airborne_replan = after_support.fraction() <= 0.5 && release_active;
                 let rendered_step = before.bones.get(foot).zip(after.bones.get(foot)).map(
                     |(before_foot, after_foot)| {
                         target_body_local(after, Vec3::from_array(after_foot.position)).distance(
@@ -960,7 +940,10 @@ pub(super) fn ordinary_planned_transition_is_valid(
 pub(super) fn minimum_flight_sole_clearance(frames: &[&FrameSample]) -> f32 {
     let minimum = frames
         .iter()
-        .filter(|frame| frame.left_support_weight <= 0.001 && frame.right_support_weight <= 0.001)
+        .filter(|frame| {
+            frame.left_support_weight.fraction() <= 0.001
+                && frame.right_support_weight.fraction() <= 0.001
+        })
         .flat_map(|frame| [BoneRole::FootLeft, BoneRole::FootRight].map(|foot| (frame, foot)))
         .filter_map(|(frame, foot)| {
             frame
@@ -973,82 +956,85 @@ pub(super) fn minimum_flight_sole_clearance(frames: &[&FrameSample]) -> f32 {
     if minimum.is_finite() { minimum } else { 0.0 }
 }
 
-pub(super) fn contact_sole_clearance_range(frames: &[&FrameSample]) -> (f32, f32) {
-    let (minimum, maximum) = frames
-        .iter()
-        .flat_map(|frame| {
-            let procedural_solve_active =
-                frame.ik_left_solve_target.is_some() || frame.ik_right_solve_target.is_some();
-            [
-                (BoneRole::FootLeft, frame.ik_left_support_weight, true),
-                (BoneRole::FootRight, frame.ik_right_support_weight, false),
-            ]
-            .into_iter()
-            .filter_map(move |(foot, support, left)| {
-                let is_contact = if procedural_solve_active {
-                    support >= 0.95
+pub(super) fn contact_sole_clearance_range(
+    frames: &[&FrameSample],
+) -> AnimationValueResult<(f32, f32)> {
+    let mut minimum = f32::INFINITY;
+    let mut maximum = f32::NEG_INFINITY;
+    for frame in frames {
+        let procedural_solve_active =
+            frame.ik_left_solve_target.is_some() || frame.ik_right_solve_target.is_some();
+        let support = if procedural_solve_active {
+            Some(frame.required_ik_support()?)
+        } else {
+            None
+        };
+        for (foot, left) in [(BoneRole::FootLeft, true), (BoneRole::FootRight, false)] {
+            let is_contact = if let Some((left_support, right_support)) = support {
+                (if left { left_support } else { right_support }).fraction() >= 0.95
+            } else {
+                let phase = frame.gait_phase.cycles().rem_euclid(1.0);
+                let distance = if left {
+                    phase.min(1.0 - phase)
                 } else {
-                    let phase = frame.gait_phase.cycles().rem_euclid(1.0);
-                    let distance = if left {
-                        phase.min(1.0 - phase)
-                    } else {
-                        (phase - 0.5).abs()
-                    };
-                    distance <= 0.035
+                    (phase - 0.5).abs()
                 };
-                if !is_contact {
-                    return None;
-                }
-                frame
+                distance <= 0.035
+            };
+            if is_contact
+                && let Some(ankle) = frame
                     .bones
-                    .get(foot)?
-                    .terrain_clearance_metres
-                    .map(|ankle| ankle - measured_ankle_sole_offset_metres().metres())
-            })
-        })
-        .fold(
-            (f32::INFINITY, f32::NEG_INFINITY),
-            |(minimum, maximum), clearance| (minimum.min(clearance), maximum.max(clearance)),
-        );
-    if minimum.is_finite() && maximum.is_finite() {
+                    .get(foot)
+                    .and_then(|bone| bone.terrain_clearance_metres)
+            {
+                let clearance = ankle - measured_ankle_sole_offset_metres().metres();
+                minimum = minimum.min(clearance);
+                maximum = maximum.max(clearance);
+            }
+        }
+    }
+    Ok(if minimum.is_finite() && maximum.is_finite() {
         (minimum, maximum)
     } else {
         (0.0, 0.0)
-    }
+    })
 }
 
-pub(super) fn minimum_toe_clearance(frames: &[&FrameSample], contact: bool) -> f32 {
-    let minimum = frames
-        .iter()
-        .filter(|frame| {
-            contact
-                || transition_flight_toe_sample_is_active(
-                    &frame.scenario,
-                    frame.speed_metres_per_second,
-                    frame.ik_settle_progress,
-                )
-        })
-        .flat_map(|frame| {
-            let (left_support, right_support) = if frame.scenario.procedural_solver() {
-                (frame.ik_left_support_weight, frame.ik_right_support_weight)
-            } else {
-                (frame.left_support_weight, frame.right_support_weight)
-            };
-            [
-                (BoneRole::ToeLeft, left_support),
-                (BoneRole::ToeRight, right_support),
-            ]
-            .into_iter()
-            .filter(move |(_, support)| (*support > 0.05) == contact)
-            .filter_map(move |(toe, _)| {
-                frame
+pub(super) fn minimum_toe_clearance(
+    frames: &[&FrameSample],
+    contact: bool,
+) -> AnimationValueResult<f32> {
+    let mut minimum = f32::INFINITY;
+    for frame in frames {
+        if !contact
+            && !transition_flight_toe_sample_is_active(
+                &frame.scenario,
+                frame.speed_metres_per_second,
+                frame.ik_settle_progress,
+            )
+        {
+            continue;
+        }
+        let (left_support, right_support) = if frame.scenario.procedural_solver() {
+            frame.required_ik_support()?
+        } else {
+            (frame.left_support_weight, frame.right_support_weight)
+        };
+        for (toe, support) in [
+            (BoneRole::ToeLeft, left_support),
+            (BoneRole::ToeRight, right_support),
+        ] {
+            if (support.fraction() > 0.05) == contact
+                && let Some(clearance) = frame
                     .bones
                     .get(toe)
                     .and_then(|bone| bone.terrain_clearance_metres)
-            })
-        })
-        .fold(f32::INFINITY, f32::min);
-    if minimum.is_finite() { minimum } else { 0.0 }
+            {
+                minimum = minimum.min(clearance);
+            }
+        }
+    }
+    Ok(if minimum.is_finite() { minimum } else { 0.0 })
 }
 
 pub(super) fn transition_flight_toe_sample_is_active(
@@ -1102,8 +1088,8 @@ pub(super) fn reported_support_contacts_are_valid(frames: &[FrameSample]) -> boo
             } else {
                 false
             };
-            support.is_finite()
-                && (support < 0.95
+            support.is_some_and(|support| {
+                support.fraction() < 0.95
                     || quickstep_toe_contact
                     || frame
                         .bones
@@ -1119,7 +1105,8 @@ pub(super) fn reported_support_contacts_are_valid(frames: &[FrameSample]) -> boo
                                 } else {
                                     tolerance.metres()
                                 }
-                        }))
+                        })
+            })
         })
     })
 }
@@ -1136,14 +1123,13 @@ pub(super) fn terrain_run_contacts_are_valid(frames: &[FrameSample]) -> bool {
     let mut acquisitions = Vec::new();
     let mut last = None;
     for frame in &warmed {
-        let support = if frame
-            .ik_left_support_weight
-            .max(frame.ik_right_support_weight)
-            < 0.5
-        {
+        let Ok((left, right)) = frame.required_ik_support() else {
+            return false;
+        };
+        let support = if left.fraction().max(right.fraction()) < 0.5 {
             None
         } else {
-            Some(frame.ik_left_support_weight >= frame.ik_right_support_weight)
+            Some(left.fraction() >= right.fraction())
         };
         if support != last {
             if let Some(left) = support {
@@ -1199,9 +1185,9 @@ fn maximum_planted_foot_drift(metadata: &ScenarioMetadata<'_>, frames: &[&FrameS
                 continue;
             }
             let support = if left {
-                frame.left_support_weight
+                frame.left_support_weight.fraction()
             } else {
-                frame.right_support_weight
+                frame.right_support_weight.fraction()
             };
             // The IK target deliberately releases continuously below full
             // support. Measure cumulative plant drift only while the solver is
@@ -1338,8 +1324,8 @@ mod tests {
             attack_animation: None,
             strike_family: StrikeFamily::Thrust,
             guard_action: false,
-            left_support_weight,
-            right_support_weight: 0.0,
+            left_support_weight: UnitInterval::from_fraction(left_support_weight).unwrap(),
+            right_support_weight: UnitInterval::from_fraction(0.0).unwrap(),
             desired_left_foot_target: None,
             desired_right_foot_target: None,
             ik_left_authored_target: None,
@@ -1349,8 +1335,8 @@ mod tests {
             ik_settle_capture_point: None,
             ik_left_solve_target: None,
             ik_right_solve_target: None,
-            ik_left_support_weight: 0.0,
-            ik_right_support_weight: 0.0,
+            ik_left_support_weight: Some(UnitInterval::from_fraction(0.0).unwrap()),
+            ik_right_support_weight: Some(UnitInterval::from_fraction(0.0).unwrap()),
             ik_left_release_active: false,
             ik_right_release_active: false,
             ik_left_release_target: None,
@@ -1506,8 +1492,8 @@ mod tests {
             attack_animation: None,
             strike_family: StrikeFamily::Thrust,
             guard_action: false,
-            left_support_weight: 1.0,
-            right_support_weight: 1.0,
+            left_support_weight: UnitInterval::from_fraction(1.0).unwrap(),
+            right_support_weight: UnitInterval::from_fraction(1.0).unwrap(),
             desired_left_foot_target: None,
             desired_right_foot_target: None,
             ik_left_authored_target: None,
@@ -1517,8 +1503,8 @@ mod tests {
             ik_settle_capture_point: None,
             ik_left_solve_target: None,
             ik_right_solve_target: None,
-            ik_left_support_weight: 0.0,
-            ik_right_support_weight: 0.0,
+            ik_left_support_weight: Some(UnitInterval::from_fraction(0.0).unwrap()),
+            ik_right_support_weight: Some(UnitInterval::from_fraction(0.0).unwrap()),
             ik_left_release_active: false,
             ik_right_release_active: false,
             ik_left_release_target: None,
@@ -1649,7 +1635,7 @@ mod tests {
             plan,
             before_solve,
             bounded_run_solve,
-            0.0,
+            UnitInterval::from_fraction(0.0).unwrap(),
             false,
         ));
 
@@ -1664,7 +1650,7 @@ mod tests {
             plan,
             before_solve,
             over_budget_solve,
-            0.0,
+            UnitInterval::from_fraction(0.0).unwrap(),
             false,
         ));
 
@@ -1678,7 +1664,7 @@ mod tests {
             plan,
             before_solve,
             bounded_run_solve,
-            0.0,
+            UnitInterval::from_fraction(0.0).unwrap(),
             false,
         ));
 
@@ -1695,7 +1681,7 @@ mod tests {
             retarget,
             plan,
             retarget,
-            0.205,
+            UnitInterval::from_fraction(0.205).unwrap(),
             false,
         ));
 
@@ -1709,7 +1695,7 @@ mod tests {
             replacement,
             before_solve,
             hidden_solve_jump,
-            0.0,
+            UnitInterval::from_fraction(0.0).unwrap(),
             true,
         ));
         after.bones.get_mut(BoneRole::FootLeft).unwrap().position =
@@ -1722,7 +1708,7 @@ mod tests {
             replacement,
             before_solve,
             hidden_solve_jump,
-            0.0,
+            UnitInterval::from_fraction(0.0).unwrap(),
             true,
         ));
     }
@@ -1756,7 +1742,11 @@ mod tests {
         for frame in &mut frames {
             frame.scenario = "raised-guard-right".into();
             frame.weapon_guard = WeaponGuardState::Raised;
-            frame.right_support_weight = if frame.scenario_frame < 2 { 1.0 } else { 0.0 };
+            frame.right_support_weight = if frame.scenario_frame < 2 {
+                UnitInterval::ONE
+            } else {
+                UnitInterval::ZERO
+            };
         }
         frames[2].contact_sequence = ContactSequence::from(1u64);
         frames[2].contact_foot = LeadFoot::Right;
@@ -1772,8 +1762,8 @@ mod tests {
         let mut frame = foot_metric_frame(0, 0.0, 1.0, 0.0, 0.0);
         frame.ik_left_solve_target = Some(Vec3::ZERO.to_array());
         frame.ik_right_solve_target = Some(Vec3::ZERO.to_array());
-        frame.ik_left_support_weight = 0.0;
-        frame.ik_right_support_weight = 1.0;
+        frame.ik_left_support_weight = Some(UnitInterval::from_fraction(0.0).unwrap());
+        frame.ik_right_support_weight = Some(UnitInterval::from_fraction(1.0).unwrap());
         frame
             .bones
             .get_mut(BoneRole::FootLeft)
@@ -1788,7 +1778,7 @@ mod tests {
         // Gait phase zero identifies the left foot, but the solver reports it
         // airborne and the right foot supported. Only the supported sole is a
         // contact-clearance sample.
-        assert_eq!(contact_sole_clearance_range(&[&frame]), (0.0, 0.0));
+        assert_eq!(contact_sole_clearance_range(&[&frame]).unwrap(), (0.0, 0.0));
     }
 
     #[test]
@@ -1805,7 +1795,7 @@ mod tests {
             .unwrap()
             .terrain_clearance_metres = Some(0.145);
 
-        let (minimum, maximum) = contact_sole_clearance_range(&[&frame]);
+        let (minimum, maximum) = contact_sole_clearance_range(&[&frame]).unwrap();
         assert!((minimum - 0.01).abs() < 0.0001);
         assert!((maximum - 0.01).abs() < 0.0001);
     }
@@ -1814,7 +1804,7 @@ mod tests {
     fn viewer_rejects_reported_support_beyond_the_shared_contact_tolerance() {
         let mut frame = foot_metric_frame(0, 0.0, 0.0, 0.0, 0.0);
         frame.scenario = "terrain-steady-run-5.5".into();
-        frame.ik_left_support_weight = 1.0;
+        frame.ik_left_support_weight = Some(UnitInterval::from_fraction(1.0).unwrap());
         frame
             .bones
             .get_mut(BoneRole::FootLeft)
@@ -1842,7 +1832,7 @@ mod tests {
         let mut frame = foot_metric_frame(0, 0.0, 0.0, 0.0, 0.0);
         frame.scenario = "attack-live-forward-left-support".into();
         frame.action = SkeletonAction::Attack;
-        frame.ik_left_support_weight = 1.0;
+        frame.ik_left_support_weight = Some(UnitInterval::from_fraction(1.0).unwrap());
         frame
             .bones
             .get_mut(BoneRole::FootLeft)
@@ -1878,10 +1868,18 @@ mod tests {
             let phase = frame.gait_phase.cycles();
             let left_distance = phase.min(1.0 - phase);
             let right_distance = (phase - 0.5).abs();
-            frame.ik_left_support_weight = (left_distance <= 0.17) as u8 as f32;
-            frame.ik_right_support_weight = (right_distance <= 0.17) as u8 as f32;
-            frame.left_support_weight = frame.ik_left_support_weight;
-            frame.right_support_weight = frame.ik_right_support_weight;
+            frame.ik_left_support_weight = Some(if left_distance <= 0.17 {
+                UnitInterval::ONE
+            } else {
+                UnitInterval::ZERO
+            });
+            frame.ik_right_support_weight = Some(if right_distance <= 0.17 {
+                UnitInterval::ONE
+            } else {
+                UnitInterval::ZERO
+            });
+            frame.left_support_weight = frame.ik_left_support_weight.unwrap();
+            frame.right_support_weight = frame.ik_right_support_weight.unwrap();
         }
         assert!(terrain_run_contacts_are_valid(&unsupported));
     }

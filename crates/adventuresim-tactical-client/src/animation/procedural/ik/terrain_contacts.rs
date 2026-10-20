@@ -4,13 +4,16 @@ use super::*;
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 pub(in crate::animation::procedural) use approach::run_contact_approach_progress;
+pub(in crate::animation::procedural) use flight_projection::advance_run_airborne_world_target;
 pub(in crate::animation::procedural) use foot_clearance::{
-    ordinary_terrain_target, run_airborne_clearance, run_airborne_clearance_for_sample,
-    run_clearance_target_height, run_swing_clearance, settle_swing_target,
-    toe_aware_minimum_ankle_y, transition_toe_clearance_with_rotation_margin,
+    FootClearanceFloor, checked_foot_target, checked_world_height, ordinary_terrain_target,
+    run_airborne_clearance, run_airborne_clearance_for_sample, run_swing_clearance,
+    settle_swing_target, terrain_minimum_ankle_y, toe_aware_minimum_ankle_y,
+    transition_minimum_ankle_y, transition_toe_clearance_with_rotation_margin,
 };
 
 mod approach;
+mod flight_projection;
 mod foot_clearance;
 
 // A two-bone knee can travel slightly more than twice as far as its ankle
@@ -53,8 +56,8 @@ pub(in crate::animation::procedural) fn bound_unacquired_run_support_release_tar
     rig_rotation: Quat,
     delta_seconds: AnimationElapsed,
     target_speed: NonnegativeSpeed,
-    minimum_world_y: impl Fn(Vec2) -> Option<f32>,
-) -> Vec3 {
+    minimum_world_y: impl Fn(Vec2) -> AnimationValueResult<Option<SignedLength>>,
+) -> AnimationValueResult<Vec3> {
     if run_budget && !has_plan && !acquired && release_owned {
         advance_run_airborne_world_target(
             previous_owner_target,
@@ -66,7 +69,7 @@ pub(in crate::animation::procedural) fn bound_unacquired_run_support_release_tar
             minimum_world_y,
         )
     } else {
-        desired_world_target
+        checked_foot_target(desired_world_target)
     }
 }
 
@@ -192,8 +195,9 @@ pub(in crate::animation::procedural) fn update_measured_owner_planar_speed(
 pub(in crate::animation::procedural) fn run_is_at_support_exit(
     phase: CyclePhase,
     foot_side: LeadFoot,
-    support_radius: f32,
+    support_radius: CycleDelta,
 ) -> bool {
+    let support_radius = support_radius.cycles();
     let post_contact = phase.since_contact(foot_side).cycles();
     // Release on the first sampled phase beyond the nominal lobe, not on its
     // decaying shoulder. The half-cycle bound distinguishes this foot's
@@ -203,7 +207,7 @@ pub(in crate::animation::procedural) fn run_is_at_support_exit(
 
 pub(in crate::animation::procedural) fn exhausted_latch_after_raw_cadence(
     exhausted: bool,
-    raw_nominal_support: f32,
+    raw_nominal_support: UnitInterval,
 ) -> bool {
     // Exhaustion suppresses only the remainder of the current support lobe.
     // Consult the unsuppressed gait cadence here: reported/effective support
@@ -216,11 +220,12 @@ pub(in crate::animation::procedural) fn run_plan_is_on_rising_support(
     gait: LocomotionGait,
     phase: CyclePhase,
     foot_side: LeadFoot,
-    support_radius: f32,
-    raw_nominal_support: f32,
+    support_radius: CycleDelta,
+    raw_nominal_support: UnitInterval,
     planned_contact: Option<Vec3>,
     acquired: bool,
 ) -> bool {
+    let support_radius = support_radius.cycles();
     gait == LocomotionGait::Run
         && planned_contact.is_some()
         && !acquired
@@ -263,8 +268,8 @@ pub(in crate::animation::procedural) fn clear_all_planned_contact_metadata(
 pub(in crate::animation::procedural) fn acquisition_lobe_exited_without_contact(
     planned_contact: Option<Vec3>,
     acquired: bool,
-    previous_support: Option<f32>,
-    current_support: f32,
+    previous_support: Option<UnitInterval>,
+    current_support: UnitInterval,
 ) -> bool {
     planned_contact.is_some()
         && !acquired
@@ -274,12 +279,12 @@ pub(in crate::animation::procedural) fn acquisition_lobe_exited_without_contact(
 
 pub(in crate::animation::procedural) fn support_after_exhausted_lobe(
     exhausted: bool,
-    nominal_weight: f32,
-) -> (bool, f32) {
+    nominal_weight: UnitInterval,
+) -> (bool, UnitInterval) {
     if !exhausted {
         (false, nominal_weight)
     } else if terrain_leg_has_support(nominal_weight) {
-        (true, 0.0)
+        (true, UnitInterval::ZERO)
     } else {
         (false, nominal_weight)
     }
@@ -288,8 +293,9 @@ pub(in crate::animation::procedural) fn support_after_exhausted_lobe(
 pub(in crate::animation::procedural) fn run_planned_contact_allowed(
     support_lobe_exhausted: bool,
     phase_to_contact: CycleDelta,
-    approach_window: f32,
+    approach_window: CycleDelta,
 ) -> bool {
+    let approach_window = approach_window.cycles();
     !support_lobe_exhausted && phase_to_contact.cycles() <= approach_window
 }
 
@@ -372,8 +378,9 @@ pub(in crate::animation::procedural) fn bound_late_run_contact(
     speed: NonnegativeSpeed,
     step_distance: NonnegativeLength,
     phase_to_contact: CycleDelta,
-    contact_ready_phase: f32,
+    contact_ready_phase: CycleDelta,
 ) -> Vec3 {
+    let contact_ready_phase = contact_ready_phase.cycles();
     let remaining_phase = (phase_to_contact.cycles() - contact_ready_phase).max(0.0);
     let root_travel = remaining_phase * step_distance.metres() * 2.0;
     let remaining_seconds = if speed > STATIONARY_ANIMATION_SPEED_LIMIT {
@@ -403,7 +410,7 @@ pub(in crate::animation::procedural) fn late_run_plan_requires_bound(
 pub(in crate::animation::procedural) fn unplanned_run_support_requires_flight(
     gait: LocomotionGait,
     speed: NonnegativeSpeed,
-    nominal_support: f32,
+    nominal_support: UnitInterval,
     acquired: bool,
     planned_contact: Option<Vec3>,
 ) -> bool {
@@ -418,10 +425,11 @@ pub(in crate::animation::procedural) fn run_support_eligible_for_descent(
     gait: LocomotionGait,
     phase: CyclePhase,
     foot_side: LeadFoot,
-    support_radius: f32,
-    raw_nominal_support: f32,
+    support_radius: CycleDelta,
+    raw_nominal_support: UnitInterval,
     contact_reachable: bool,
 ) -> bool {
+    let support_radius = support_radius.cycles();
     gait == LocomotionGait::Run
         && contact_reachable
         && terrain_leg_has_support(raw_nominal_support)
@@ -452,9 +460,11 @@ pub(in crate::animation::procedural) fn run_contact_within_follower_step(
 pub(in crate::animation::procedural) fn run_contact_within_leg_reach(
     target: Vec3,
     upper_root: Vec3,
-    maximum_reach: f32,
+    maximum_reach: ReachLimit,
 ) -> bool {
-    target.distance(upper_root) <= maximum_reach + 0.001
+    maximum_reach
+        .native_metres()
+        .is_some_and(|reach| target.distance(upper_root) <= reach + 0.001)
 }
 
 pub(in crate::animation::procedural) fn run_contact_within_follower_motion_step(
@@ -484,13 +494,14 @@ pub(in crate::animation::procedural) fn retarget_unacquired_run_contact_for_desc
     fixed_contact: Vec3,
     rig_origin: Vec3,
     rig_rotation: Quat,
-    side: f32,
+    side: FootTrackSide,
     upper_root: Vec3,
-    maximum_reach: f32,
+    maximum_reach: ReachLimit,
     delta_seconds: AnimationElapsed,
     terrain_height_at: impl Fn(Vec2) -> Option<f32>,
 ) -> Option<Vec3> {
     let previous_owner = previous_owner?;
+    let maximum_reach = maximum_reach.native_metres()?;
     let fixed_within_motion = run_contact_within_follower_motion_step(
         Some(previous_owner),
         fixed_contact,
@@ -584,7 +595,7 @@ pub(in crate::animation::procedural) fn ordinary_contact_target(
     velocity: Vec3,
     step_distance: NonnegativeLength,
     phase_to_contact: CycleDelta,
-    side: f32,
+    side: FootTrackSide,
 ) -> Vec3 {
     let direction = velocity
         .with_y(0.0)
@@ -613,10 +624,11 @@ pub(in crate::animation::procedural) fn reachable_run_contact_target(
     velocity: Vec3,
     step_distance: NonnegativeLength,
     phase_to_contact: CycleDelta,
-    contact_ready_phase: f32,
-    maximum_reach: f32,
+    contact_ready_phase: CycleDelta,
+    maximum_reach: ReachLimit,
     terrain_height_at: impl Fn(Vec2) -> Option<f32>,
-) -> Vec3 {
+) -> Option<Vec3> {
+    let contact_ready_phase = contact_ready_phase.cycles();
     let direction = velocity.with_y(0.0).try_normalize().unwrap_or(Vec3::NEG_Z);
     let support_radius =
         (contact_ready_phase - ik_tuning().run_contact_chain_settle_phase.fraction()).max(0.0);
@@ -654,7 +666,7 @@ pub(in crate::animation::procedural) fn reachable_run_contact_target(
             candidate,
             predicted_upper_roots,
             maximum_reach,
-        );
+        )?;
     }
     if let Some(height) = terrain_height_at(candidate.xz()) {
         candidate.y = height + measured_ankle_sole_offset_metres().metres();
@@ -669,20 +681,21 @@ pub(in crate::animation::procedural) fn reachable_run_contact_target(
                 candidate,
                 [predicted_upper_roots[0]; 3],
                 maximum_reach,
-            );
+            )?;
             if let Some(height) = terrain_height_at(candidate.xz()) {
                 candidate.y = height + measured_ankle_sole_offset_metres().metres();
             }
         }
     }
-    candidate
+    Some(candidate)
 }
 
 pub(in crate::animation::procedural) fn project_run_contact_into_reach_intersection(
     mut candidate: Vec3,
     predicted_upper_roots: [Vec3; 3],
-    maximum_reach: f32,
-) -> Vec3 {
+    maximum_reach: ReachLimit,
+) -> Option<Vec3> {
+    let maximum_reach = maximum_reach.native_metres()?;
     let horizontal_reaches = predicted_upper_roots.map(|root| {
         let vertical_delta = candidate.y - root.y;
         (maximum_reach * maximum_reach - vertical_delta * vertical_delta)
@@ -702,14 +715,17 @@ pub(in crate::animation::procedural) fn project_run_contact_into_reach_intersect
     }
     candidate.x = point.x;
     candidate.z = point.y;
-    candidate
+    Some(candidate)
 }
 
 pub(in crate::animation::procedural) fn run_contact_reachable_through_stance(
     candidate: Vec3,
     predicted_upper_roots: [Vec3; 3],
-    maximum_reach: f32,
+    maximum_reach: ReachLimit,
 ) -> bool {
+    let Some(maximum_reach) = maximum_reach.native_metres() else {
+        return false;
+    };
     predicted_upper_roots
         .into_iter()
         .all(|root| candidate.distance(root) <= maximum_reach + 0.001)
@@ -718,213 +734,70 @@ pub(in crate::animation::procedural) fn run_contact_reachable_through_stance(
 pub(in crate::animation::procedural) fn acquisition_planted_target(
     planted_target: Vec3,
     upper_root: Vec3,
-    maximum_reach: f32,
+    maximum_reach: ReachLimit,
     gait: LocomotionGait,
     acquired: bool,
-) -> Vec3 {
+) -> Option<Vec3> {
     if acquired || gait == LocomotionGait::Run {
-        planted_target
+        Some(planted_target)
     } else {
         constrain_target_to_reach(planted_target, upper_root, maximum_reach)
     }
 }
 
 pub(in crate::animation::procedural) fn advance_scalar_at_speed(
-    current: f32,
-    desired: f32,
+    current: SignedLength,
+    desired: SignedLength,
     delta_seconds: AnimationElapsed,
     speed: adventuresim_core::linear_speed::SignedSpeed,
-) -> f32 {
+) -> AnimationValueResult<SignedLength> {
     let maximum_step = speed.nonnegative_part().metres_per_second() * delta_seconds.seconds();
-    current + (desired - current).clamp(-maximum_step, maximum_step)
-}
-
-pub(in crate::animation::procedural) fn advance_run_airborne_world_target(
-    previous_owner: Option<Vec3>,
-    desired_world: Vec3,
-    rig_origin: Vec3,
-    rig_rotation: Quat,
-    delta_seconds: AnimationElapsed,
-    speed: NonnegativeSpeed,
-    minimum_ankle_y_at: impl Fn(Vec2) -> Option<f32>,
-) -> Vec3 {
-    let Some(previous_owner) = previous_owner.filter(|target| target.is_finite()) else {
-        let mut target = desired_world;
-        if let Some(minimum_y) = minimum_ankle_y_at(target.xz()) {
-            target.y = target.y.max(minimum_y);
-        }
-        return target;
-    };
-    let start_world = rig_origin + rig_rotation * previous_owner;
-    let maximum_step = speed.metres_per_second() * delta_seconds.seconds();
-    let cleared_at = |progress: f32| {
-        let mut target = start_world.lerp(desired_world, progress.clamp(0.0, 1.0));
-        if let Some(minimum_y) = minimum_ankle_y_at(target.xz()) {
-            target.y = target.y.max(minimum_y);
-        }
-        target
-    };
-    let desired = cleared_at(1.0);
-    if desired.distance(start_world) <= maximum_step {
-        return desired;
-    }
-
-    // Clearance and the 3D budget are solved jointly. On an uphill release,
-    // both full owner transport (terrain rise) and literal world hold (root
-    // displacement) can be outside the sphere while an intermediate XZ is
-    // feasible. That set is not monotone from either endpoint, so first scan
-    // deterministically for its farthest feasible interval, then refine only
-    // the local exit boundary.
-    const SEARCH_SAMPLES: usize = 64;
-    let mut best = None;
-    let mut best_progress = 0.0;
-    for index in 0..=SEARCH_SAMPLES {
-        let progress = index as f32 / SEARCH_SAMPLES as f32;
-        let candidate = cleared_at(progress);
-        if candidate.distance(start_world) <= maximum_step + 0.000001 {
-            best = Some(candidate);
-            best_progress = progress;
-        }
-    }
-    let Some(mut best) = best else {
-        // The straight owner-transport-to-world-plant segment can cross a
-        // locally high triangle even when a small lateral/fore-aft detour is
-        // inside the same 3D motion sphere. Search that complete horizontal
-        // disk before accepting an over-budget fallback. This matters at
-        // toe-off: the semantic sole floor and a terrain rise can make both
-        // line endpoints invalid while a nearby downhill point remains valid.
-        if let Some(feasible) = terrain_feasible_target_in_step(
-            start_world,
-            desired_world,
-            maximum_step,
-            &minimum_ankle_y_at,
-        ) {
-            return feasible;
-        }
-        // A true vertical discontinuity can leave no valid point in the full
-        // disk. Keep clearance truthful and choose the least-discontinuous
-        // line sample; support/reach ownership handles that rare fallback.
-        let fallback = (0..=SEARCH_SAMPLES)
-            .map(|index| cleared_at(index as f32 / SEARCH_SAMPLES as f32))
-            .min_by(|left, right| {
-                left.distance_squared(start_world)
-                    .total_cmp(&right.distance_squared(start_world))
-            })
-            .unwrap_or_else(|| cleared_at(0.0));
-        return fallback;
-    };
-    let mut low = best_progress;
-    let mut high = (best_progress + 1.0 / SEARCH_SAMPLES as f32).min(1.0);
-    for _ in 0..12 {
-        let middle = (low + high) * 0.5;
-        let candidate = cleared_at(middle);
-        if candidate.distance(start_world) <= maximum_step + 0.000001 {
-            low = middle;
-            best = candidate;
-        } else {
-            high = middle;
-        }
-    }
-    best
-}
-
-pub(in crate::animation::procedural) fn terrain_feasible_target_in_step(
-    start_world: Vec3,
-    desired_world: Vec3,
-    maximum_step: f32,
-    minimum_ankle_y_at: &impl Fn(Vec2) -> Option<f32>,
-) -> Option<Vec3> {
-    if maximum_step <= 0.0 {
-        return None;
-    }
-    let mut best: Option<(f32, Vec3)> = None;
-    let mut center = start_world.xz();
-    let mut radius = maximum_step;
-    // A deterministic square-disk search followed by local refinements finds
-    // terrain-feasible points off the direct swing chord without introducing
-    // frame-rate-dependent iteration or lateral drift.
-    for refinement in 0..4 {
-        const HALF_GRID: i32 = 12;
-        let spacing = radius / HALF_GRID as f32;
-        for x in -HALF_GRID..=HALF_GRID {
-            for z in -HALF_GRID..=HALF_GRID {
-                let xz = center + Vec2::new(x as f32 * spacing, z as f32 * spacing);
-                let offset = xz - start_world.xz();
-                if offset.length_squared() > maximum_step * maximum_step + 0.000001 {
-                    continue;
-                }
-                let chord = desired_world.xz() - start_world.xz();
-                let chord_progress = if chord.length_squared() > 0.0 {
-                    offset.dot(chord) / chord.length_squared()
-                } else {
-                    0.0
-                }
-                .clamp(0.0, 1.0);
-                let nearest_chord = start_world.xz() + chord * chord_progress;
-                if xz.distance(nearest_chord) > 0.04 {
-                    continue;
-                }
-                let minimum_y = minimum_ankle_y_at(xz)?;
-                let candidate = Vec3::new(xz.x, desired_world.y.max(minimum_y), xz.y);
-                if candidate.distance(start_world) > maximum_step + 0.000001 {
-                    continue;
-                }
-                let score = candidate.distance_squared(desired_world);
-                if best.is_none_or(|(best_score, _)| score < best_score) {
-                    best = Some((score, candidate));
-                }
-            }
-        }
-        let Some((_, candidate)) = best else {
-            break;
-        };
-        if refinement < 3 {
-            center = candidate.xz();
-            radius = spacing * 2.0;
-        }
-    }
-    best.map(|(_, candidate)| candidate)
+    SignedLength::from_metres(
+        current.metres() + (desired.metres() - current.metres()).clamp(-maximum_step, maximum_step),
+    )
+    .map_err(|_| AnimationValueError::Overflow {
+        quantity: AnimationQuantity::HeightOffset,
+    })
 }
 
 pub(in crate::animation::procedural) fn terrain_maximum_reach(
-    upper_length: f32,
-    lower_length: f32,
-) -> f32 {
-    (upper_length * upper_length
-        + lower_length * lower_length
-        + 2.0
-            * upper_length
-            * lower_length
-            * ik_tuning()
-                .minimum_terrain_knee_flexion_degrees
-                .to_radians()
-                .cos())
-    .sqrt()
+    upper_length: NonnegativeLength,
+    lower_length: NonnegativeLength,
+) -> ReachLimit {
+    ReachLimit::Flexed {
+        upper: upper_length,
+        lower: lower_length,
+        minimum_flexion: ik_tuning().minimum_terrain_knee_flexion_degrees,
+    }
 }
 
 pub(in crate::animation::procedural) fn exclusive_ground_support(
-    left: f32,
-    right: f32,
+    left: UnitInterval,
+    right: UnitInterval,
     phase: CyclePhase,
-) -> (f32, f32) {
-    if left <= 0.0 {
-        return (0.0, contact_support_weight(right));
+) -> (UnitInterval, UnitInterval) {
+    if left == UnitInterval::ZERO {
+        return (UnitInterval::ZERO, contact_support_weight(right));
     }
-    if right <= 0.0 {
-        return (contact_support_weight(left), 0.0);
+    if right == UnitInterval::ZERO {
+        return (contact_support_weight(left), UnitInterval::ZERO);
     }
-    if left > right || ((left - right) == 0.0 && phase.cycles().rem_euclid(1.0) >= 0.75) {
-        (contact_support_weight(left), 0.0)
+    if left > right
+        || ((left.fraction() - right.fraction()) == 0.0 && phase.cycles().rem_euclid(1.0) >= 0.75)
+    {
+        (contact_support_weight(left), UnitInterval::ZERO)
     } else {
-        (0.0, contact_support_weight(right))
+        (UnitInterval::ZERO, contact_support_weight(right))
     }
 }
 
-pub(in crate::animation::procedural) fn contact_support_weight(weight: f32) -> f32 {
+pub(in crate::animation::procedural) fn contact_support_weight(
+    weight: UnitInterval,
+) -> UnitInterval {
     // Preserve the complete profile-owned support window. Thresholding this
     // confidence delayed the effective contact edge and lengthened a 5.5 m/s
     // run flight from about 100 ms to roughly 140 ms.
-    weight.clamp(0.0, 1.0)
+    weight
 }
 
 pub(in crate::animation::procedural) fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {

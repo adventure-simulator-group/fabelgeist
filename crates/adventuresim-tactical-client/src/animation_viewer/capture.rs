@@ -10,6 +10,7 @@ use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 mod admission;
 mod capture_schedule;
 pub(super) mod frame_clock;
+mod global_bones;
 mod overlay;
 mod readiness;
 mod subject_motion;
@@ -281,18 +282,31 @@ pub(super) fn repeated_leg_ik_matches(
         && option_vec3_matches(expected.settle_capture_point, actual.settle_capture_point)
         && option_vec3_matches(expected.left_solve_target, actual.left_solve_target)
         && option_vec3_matches(expected.right_solve_target, actual.right_solve_target)
-        && (expected.left_support_weight - actual.left_support_weight).abs() <= 0.001
-        && (expected.right_support_weight - actual.right_support_weight).abs() <= 0.001
+        && option_scalar_matches(
+            expected.left_support_weight.map(|weight| weight.fraction()),
+            actual.left_support_weight.map(|weight| weight.fraction()),
+        )
+        && option_scalar_matches(
+            expected
+                .right_support_weight
+                .map(|weight| weight.fraction()),
+            actual.right_support_weight.map(|weight| weight.fraction()),
+        )
         && expected.left_release_active == actual.left_release_active
         && expected.right_release_active == actual.right_release_active
         && option_vec3_matches(expected.left_release_target, actual.left_release_target)
         && option_vec3_matches(expected.right_release_target, actual.right_release_target)
-        && option_scalar_matches(expected.settle_progress, actual.settle_progress)
-        && (expected.left_knee_foot_yaw_offset_degrees - actual.left_knee_foot_yaw_offset_degrees)
-            .abs()
+        && option_scalar_matches(
+            expected.settle_progress.map(|progress| progress.fraction()),
+            actual.settle_progress.map(|progress| progress.fraction()),
+        )
+        && (expected.left_knee_foot_yaw_offset_degrees.degrees()
+            - actual.left_knee_foot_yaw_offset_degrees.degrees())
+        .abs()
             <= 0.05
-        && (expected.right_knee_foot_yaw_offset_degrees - actual.right_knee_foot_yaw_offset_degrees)
-            .abs()
+        && (expected.right_knee_foot_yaw_offset_degrees.degrees()
+            - actual.right_knee_foot_yaw_offset_degrees.degrees())
+        .abs()
             <= 0.05
 }
 
@@ -792,16 +806,13 @@ pub(super) fn capture_frame(
         sequence.repeated_evaluation_valid &= repeated_evaluation_matches;
     }
     if sequence.view_index == 0 {
-        sequence.global_bone_frames.push(GlobalBoneFrame {
-            scenario: frame.scenario.label().to_owned(),
-            scenario_frame: frame.scenario_frame,
-            time_seconds: frame.time_seconds.seconds(),
-            action: skeleton.action_kind(),
-            action_phase: skeleton.action_phase(),
-            subject_translation: subject_global.translation().to_array(),
-            subject_rotation_xyzw: subject_global.rotation().to_array(),
-            bones: collect_global_bone_transforms(subject, &animation_bones),
-        });
+        sequence.global_bone_frames.push(GlobalBoneFrame::capture(
+            &frame,
+            skeleton,
+            subject_global,
+            subject,
+            &animation_bones,
+        ));
         let Some(cadence_support) =
             sequence.admit_locomotion_support(skeleton, semantic_route.inputs.speed)
         else {
@@ -812,12 +823,11 @@ pub(super) fn capture_frame(
             .map(|state| (state.left_solve_target, state.right_solve_target))
             .unwrap_or_default();
         let leg_ik = evaluation_leg_ik;
-        let ik_support =
-            if leg_ik.left_solve_target.is_some() || leg_ik.right_solve_target.is_some() {
-                (leg_ik.left_support_weight, leg_ik.right_support_weight)
-            } else {
-                cadence_support
-            };
+        let Some(ik_support) =
+            sequence.admit_ik_support(leg_ik, cadence_support, skeleton, *terrain_ik)
+        else {
+            return;
+        };
         let (left_support_weight, right_support_weight) = raised_footwork
             .filter(|state| state.initialized())
             .map(|state| (state.left_support_weight, state.right_support_weight))
@@ -909,9 +919,13 @@ pub(super) fn capture_frame(
             ik_right_release_active: leg_ik.right_release_active,
             ik_left_release_target: leg_ik.left_release_target.map(|value| value.to_array()),
             ik_right_release_target: leg_ik.right_release_target.map(|value| value.to_array()),
-            ik_settle_progress: leg_ik.settle_progress,
-            ik_left_knee_foot_yaw_offset_degrees: leg_ik.left_knee_foot_yaw_offset_degrees,
-            ik_right_knee_foot_yaw_offset_degrees: leg_ik.right_knee_foot_yaw_offset_degrees,
+            ik_settle_progress: leg_ik.settle_progress.map(|progress| progress.fraction()),
+            ik_left_knee_foot_yaw_offset_degrees: leg_ik
+                .left_knee_foot_yaw_offset_degrees
+                .degrees(),
+            ik_right_knee_foot_yaw_offset_degrees: leg_ik
+                .right_knee_foot_yaw_offset_degrees
+                .degrees(),
             semantic_route_requested_path: semantic_route.requested_path,
             semantic_route_selected_path: semantic_route.path,
             semantic_route_runtime_evaluated: true,
@@ -1009,36 +1023,6 @@ pub(super) fn collect_bones(
         .collect()
 }
 
-pub(super) fn collect_global_bone_transforms(
-    subject: Entity,
-    bones: &Query<(
-        &AnimationTargetId,
-        &AuthoredBindTransform,
-        Option<&Name>,
-        &GlobalTransform,
-    )>,
-) -> Vec<GlobalBoneTransformSample> {
-    let mut samples = bones
-        .iter()
-        .filter(|(_, bind, _, _)| bind.owner == subject)
-        .map(|(target, _, name, transform)| {
-            let (scale, rotation, translation) = transform.to_scale_rotation_translation();
-            let sample = GlobalBoneTransformSample {
-                name: name.map_or_else(|| "<unnamed>".to_owned(), |name| name.as_str().to_owned()),
-                target_id: capture_animation_target_id(*target),
-                translation: translation.to_array(),
-                rotation_xyzw: rotation.to_array(),
-                scale: scale.to_array(),
-            };
-            (*target, sample)
-        })
-        .collect::<Vec<_>>();
-    samples.sort_by(|(left_target, left), (right_target, right)| {
-        (&left.name, left_target).cmp(&(&right.name, right_target))
-    });
-    samples.into_iter().map(|(_, sample)| sample).collect()
-}
-
 pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>> {
     let mut previous: Option<&FrameSample> = None;
     let mut analysis_segment = 0_u64;
@@ -1058,10 +1042,10 @@ pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>
                     && frame.speed_metres_per_second
                         <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT);
                 let quickstep_takeoff = is_quickstep_scenario(&frame.scenario)
-                    && previous_frame.left_support_weight >= FULL_PLANT_SUPPORT_WEIGHT
-                    && previous_frame.right_support_weight >= FULL_PLANT_SUPPORT_WEIGHT
-                    && frame.left_support_weight <= 0.01
-                    && frame.right_support_weight <= 0.01;
+                    && previous_frame.left_support_weight.fraction() >= FULL_PLANT_SUPPORT_WEIGHT
+                    && previous_frame.right_support_weight.fraction() >= FULL_PLANT_SUPPORT_WEIGHT
+                    && frame.left_support_weight.fraction() <= 0.01
+                    && frame.right_support_weight.fraction() <= 0.01;
                 if previous_frame.scenario != frame.scenario {
                     analysis_segment = 0;
                 } else if action_transition
@@ -1154,10 +1138,12 @@ mod tests {
     fn repeated_evaluation_diagnostics_detect_hidden_ik_state_mutation() {
         let baseline = LegIkDiagnostics::default();
         let changed = LegIkDiagnostics {
-            left_support_weight: 1.0,
+            left_support_weight: Some(adventuresim_tactical_core::animation::UnitInterval::ONE),
             left_release_active: true,
             left_planned_contact: Some(Vec3::NEG_Z),
-            settle_progress: Some(0.5),
+            settle_progress: Some(
+                adventuresim_tactical_core::animation::SettleProgress::from_progress(0.5).unwrap(),
+            ),
             ..default()
         };
         assert_ne!(baseline, changed);

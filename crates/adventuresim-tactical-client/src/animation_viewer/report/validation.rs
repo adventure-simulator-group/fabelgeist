@@ -17,7 +17,7 @@ pub(super) fn build_completed_report(
         playback_backend,
         pose_buffer_metrics,
     } = completed;
-    let scenarios = scenario_metrics(&frames);
+    let scenarios = scenario_metrics(&frames)?;
     let jitter_validation = jitter::validate(&jitter_frames(&frames), Default::default());
     let finite_transforms = frames.iter().all(FrameSample::has_finite_bone_transforms);
     let all_scenarios_complete = capture_scenarios_complete(&frames, &plan);
@@ -384,7 +384,10 @@ pub(super) fn build_completed_report(
                     before_release_target,
                     after_release_target,
                 )| {
-                    if support > 0.5 {
+                    let Some(support) = support else {
+                        return false;
+                    };
+                    if support.fraction() > 0.5 {
                         return true;
                     }
                     if before_plan.is_none() && after_plan.is_none() && release_active {
@@ -440,8 +443,12 @@ pub(super) fn build_completed_report(
         scenario_frames.is_empty()
             || scenario_frames.last().is_some_and(|frame| {
                 frame.speed_metres_per_second <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
-                    && frame.ik_left_support_weight >= 0.95
-                    && frame.ik_right_support_weight >= 0.95
+                    && frame
+                        .ik_left_support_weight
+                        .is_some_and(|weight| weight.fraction() >= 0.95)
+                    && frame
+                        .ik_right_support_weight
+                        .is_some_and(|weight| weight.fraction() >= 0.95)
             })
     });
     let hard_stop_maximum_pelvis_step_metres = hard_stop_pelvis_vertical_step(&frames);

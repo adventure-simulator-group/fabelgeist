@@ -1,0 +1,44 @@
+//! A retained terrain plant and its acquisition phase share one authority.
+
+use super::*;
+
+#[derive(Debug, Clone, Copy, Default, PartialEq)]
+pub(super) enum FootPlant {
+    #[default]
+    Absent,
+    Acquiring(Vec3),
+    Acquired(Vec3),
+}
+
+impl FootPlant {
+    pub(super) fn target(self) -> Option<Vec3> {
+        match self {
+            Self::Absent => None,
+            Self::Acquiring(target) | Self::Acquired(target) => Some(target),
+        }
+    }
+
+    pub(super) fn is_acquired(self) -> bool {
+        matches!(self, Self::Acquired(_))
+    }
+
+    pub(super) fn retain(target: Option<Vec3>, acquired: bool) -> Self {
+        match (target, acquired) {
+            (Some(target), true) => Self::Acquired(target),
+            (Some(target), false) => Self::Acquiring(target),
+            (None, _) => Self::Absent,
+        }
+    }
+
+    /// A solver may move a goal without changing an already acquired contact.
+    pub(super) fn replace_target(&mut self, target: Option<Vec3>) {
+        *self = Self::retain(target, self.is_acquired());
+    }
+
+    /// Only a present plant can acquire truthful rendered contact.
+    pub(super) fn observe_contact(&mut self, at_contact: bool) {
+        if at_contact && let Some(target) = self.target() {
+            *self = Self::Acquired(target);
+        }
+    }
+}

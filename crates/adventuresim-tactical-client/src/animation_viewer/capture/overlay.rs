@@ -64,7 +64,7 @@ pub(super) fn draw_skeleton_overlay(
         let Some(&position) = positions.get(&role) else {
             continue;
         };
-        let color = if support >= 0.55 {
+        let color = if support.fraction() >= 0.55 {
             Color::srgb(1.0, 0.8, 0.05)
         } else {
             Color::srgb(1.0, 0.1, 0.7)
@@ -73,7 +73,7 @@ pub(super) fn draw_skeleton_overlay(
         gizmos.line(position - Vec3::Z * 0.09, position + Vec3::Z * 0.09, color);
         gizmos.line(
             position,
-            position + Vec3::Y * (0.05 + support * 0.15),
+            position + Vec3::Y * (0.05 + support.fraction() * 0.15),
             color,
         );
     }

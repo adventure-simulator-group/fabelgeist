@@ -1,6 +1,10 @@
 //! Stop/restart balance capture and terminal contact convergence.
 
 use super::*;
+pub(in crate::animation::procedural) use planning::{
+    balance_recovery_direction, plan_settle_landing, projected_capture_point, settle_swing_side,
+};
+mod planning;
 
 // Returning the raised pelvis consumes about 2 cm of the knee's 10 cm frame
 // budget. Reserve that motion only for the raised-to-settle handoff; ordinary
@@ -45,8 +49,9 @@ pub(in crate::animation::procedural) fn advance_settle_state(
     delta_seconds: AnimationElapsed,
 ) -> AnimationValueResult<LocomotionSettleState> {
     settle.elapsed_seconds = settle.elapsed_seconds.checked_add(delta_seconds)?;
-    settle.progress =
-        (settle.progress + delta_seconds.seconds() / ik_tuning().settle_step_seconds).min(1.0);
+    settle.progress = ik_tuning()
+        .settle_step_seconds
+        .advance_settle(settle.progress, delta_seconds)?;
     Ok(settle)
 }
 
@@ -61,9 +66,9 @@ pub(in crate::animation::procedural) fn cancel_settle_for_restart(
     // the clearance follower directly to the stale settle contact.
     for left in [true, false] {
         let acquired = if left {
-            memory.left_foot_plant_acquired
+            memory.left_foot_plant.is_acquired()
         } else {
-            memory.right_foot_plant_acquired
+            memory.right_foot_plant.is_acquired()
         };
         if acquired {
             continue;
@@ -80,19 +85,19 @@ pub(in crate::animation::procedural) fn cancel_settle_for_restart(
             )
         };
         if left {
-            memory.left_foot_plant = None;
+            memory.left_foot_plant = FootPlant::Absent;
             memory.left_foot_world_target = rendered_world.or(memory.left_foot_world_target);
             memory.left_foot_target = rendered_owner.or(memory.left_foot_target);
-            memory.left_support_weight = Some(0.0);
-            memory.left_transition_support_weight = Some(0.0);
+            memory.left_support_weight = Some(UnitInterval::ZERO);
+            memory.left_transition_support_weight = Some(UnitInterval::ZERO);
             memory.left_release_active = true;
             memory.left_release_target = None;
         } else {
-            memory.right_foot_plant = None;
+            memory.right_foot_plant = FootPlant::Absent;
             memory.right_foot_world_target = rendered_world.or(memory.right_foot_world_target);
             memory.right_foot_target = rendered_owner.or(memory.right_foot_target);
-            memory.right_support_weight = Some(0.0);
-            memory.right_transition_support_weight = Some(0.0);
+            memory.right_support_weight = Some(UnitInterval::ZERO);
+            memory.right_transition_support_weight = Some(UnitInterval::ZERO);
             memory.right_release_active = true;
             memory.right_release_target = None;
         }
@@ -103,14 +108,11 @@ pub(in crate::animation::procedural) fn cancel_settle_for_restart(
 }
 
 pub(in crate::animation::procedural) fn reset_terminal_settle_reach(memory: &mut LegIkMemory) {
-    memory.terminal_contacts_prepared = false;
-    memory.terminal_root_base_translation = None;
-    memory.terminal_reach_shift = 0.0;
-    memory.terminal_reach_target_shift = None;
+    memory.terminal_contacts = TerminalContacts::Inactive;
 }
 
 pub(in crate::animation::procedural) fn finish_settle_for_idle(memory: &mut LegIkMemory) {
-    let terminal_reach_shift = memory.terminal_reach_shift;
+    let terminal_reach_shift = memory.terminal_contacts.shift();
     memory.settle = None;
     reset_terminal_settle_reach(memory);
     // The next sparse authored-idle evaluation restores the uncorrected rig
@@ -123,20 +125,18 @@ pub(in crate::animation::procedural) fn finish_settle_for_idle(memory: &mut LegI
     // here made the next authored-idle evaluation pull a wide settled step
     // half a metre under the body in one frame. Movement restart still releases
     // these plants through the ordinary bounded gait handoff.
-    memory.left_foot_plant = memory.left_foot_world_target;
-    memory.right_foot_plant = memory.right_foot_world_target;
-    memory.left_foot_plant_acquired = memory.left_foot_plant.is_some();
-    memory.right_foot_plant_acquired = memory.right_foot_plant.is_some();
+    memory.left_foot_plant = FootPlant::retain(memory.left_foot_world_target, true);
+    memory.right_foot_plant = FootPlant::retain(memory.right_foot_world_target, true);
     memory.left_planned_contact = None;
     memory.right_planned_contact = None;
     memory.left_planned_contact_start = None;
     memory.right_planned_contact_start = None;
     memory.left_planned_contact_phase_start = None;
     memory.right_planned_contact_phase_start = None;
-    memory.left_support_weight = Some(1.0);
-    memory.right_support_weight = Some(1.0);
-    memory.left_transition_support_weight = Some(1.0);
-    memory.right_transition_support_weight = Some(1.0);
+    memory.left_support_weight = Some(UnitInterval::ONE);
+    memory.right_support_weight = Some(UnitInterval::ONE);
+    memory.left_transition_support_weight = Some(UnitInterval::ONE);
+    memory.right_transition_support_weight = Some(UnitInterval::ONE);
     memory.left_support_exhausted_until_flight = false;
     memory.right_support_exhausted_until_flight = false;
     memory.left_release_active = false;
@@ -146,7 +146,9 @@ pub(in crate::animation::procedural) fn finish_settle_for_idle(memory: &mut LegI
 }
 
 pub(in crate::animation::procedural) fn settle_is_terminal(memory: &LegIkMemory) -> bool {
-    memory.settle.is_some_and(|settle| settle.progress >= 1.0)
+    memory
+        .settle
+        .is_some_and(|settle| settle.progress.is_complete())
         && !memory.left_release_active
         && !memory.right_release_active
 }
@@ -157,16 +159,15 @@ pub(in crate::animation::procedural) fn prepare_terminal_settle_contacts(
     rig_rotation: Quat,
     terrain_height_at: impl Fn(Vec2) -> Option<f32>,
 ) -> bool {
-    if !memory.terminal_contacts_prepared {
+    if !memory.terminal_contacts.is_prepared() {
         // Terminal solve changes from ordinary pelvis ownership to an
         // absolute rig-root correction. Seed it from the correction already
         // visible on the final settle sample; starting from zero restores the
         // authored root for one frame and lifts the whole hierarchy by the
         // accumulated settle drop.
-        memory.terminal_reach_shift = memory.pelvis_shift;
-        memory.terminal_reach_target_shift = None;
+        memory.terminal_contacts.seed(memory.pelvis_shift);
     }
-    let left_seed = if memory.terminal_contacts_prepared {
+    let left_seed = if memory.terminal_contacts.is_prepared() {
         memory.left_foot_world_target
     } else {
         memory
@@ -177,7 +178,7 @@ pub(in crate::animation::procedural) fn prepare_terminal_settle_contacts(
     let Some(mut left) = left_seed else {
         return false;
     };
-    let right_seed = if memory.terminal_contacts_prepared {
+    let right_seed = if memory.terminal_contacts.is_prepared() {
         memory.right_foot_world_target
     } else {
         memory
@@ -199,10 +200,8 @@ pub(in crate::animation::procedural) fn prepare_terminal_settle_contacts(
     memory.right_foot_world_target = Some(right);
     memory.left_foot_target = Some(rig_rotation.inverse() * (left - rig_origin));
     memory.right_foot_target = Some(rig_rotation.inverse() * (right - rig_origin));
-    memory.left_foot_plant = Some(left);
-    memory.right_foot_plant = Some(right);
-    memory.left_foot_plant_acquired = false;
-    memory.right_foot_plant_acquired = false;
+    memory.left_foot_plant = FootPlant::Acquiring(left);
+    memory.right_foot_plant = FootPlant::Acquiring(right);
     if let Some(settle) = memory.settle.as_mut() {
         settle.landing_target = if settle.support_foot == LeadFoot::Left {
             right
@@ -210,7 +209,7 @@ pub(in crate::animation::procedural) fn prepare_terminal_settle_contacts(
             left
         };
     }
-    memory.terminal_contacts_prepared = true;
+    memory.terminal_contacts.prepare();
     true
 }
 
@@ -249,25 +248,13 @@ pub(in crate::animation::procedural) fn terminal_settle_contacts_are_rendered(
     })
 }
 
-pub(in crate::animation::procedural) fn required_hip_shift_for_reach(
-    upper: Vec3,
-    target: Vec3,
-    reach: f32,
-) -> f32 {
-    let horizontal_distance = (target - upper).xz().length();
-    let maximum_vertical = (reach * reach - horizontal_distance * horizontal_distance)
-        .max(0.0)
-        .sqrt();
-    target.y + maximum_vertical - upper.y
-}
-
 pub(in crate::animation::procedural) fn terminal_contact_solve_ownership(
     terminal_prepared: bool,
-    nominal_weight: f32,
+    nominal_weight: UnitInterval,
     retained_plant: Option<Vec3>,
-) -> (f32, Option<Vec3>) {
+) -> (UnitInterval, Option<Vec3>) {
     if terminal_prepared && retained_plant.is_some() {
-        (1.0, retained_plant)
+        (UnitInterval::ONE, retained_plant)
     } else {
         (nominal_weight, retained_plant)
     }
@@ -284,14 +271,12 @@ pub(in crate::animation::procedural) fn seed_settle_from_rendered_feet(
     if let Some(left) = left.filter(|target| target.is_finite()) {
         memory.left_foot_world_target = Some(left);
         memory.left_foot_target = Some(rig_rotation.inverse() * (left - rig_origin));
-        memory.left_foot_plant = None;
-        memory.left_foot_plant_acquired = false;
+        memory.left_foot_plant = FootPlant::Absent;
     }
     if let Some(right) = right.filter(|target| target.is_finite()) {
         memory.right_foot_world_target = Some(right);
         memory.right_foot_target = Some(rig_rotation.inverse() * (right - rig_origin));
-        memory.right_foot_plant = None;
-        memory.right_foot_plant_acquired = false;
+        memory.right_foot_plant = FootPlant::Absent;
     }
     // Stop capture owns both legs. A gait plan retained from the preceding run
     // is not a valid landing goal for either the stationary support or the
@@ -321,13 +306,11 @@ pub(in crate::animation::procedural) fn retain_settle_support(
     acquired: bool,
 ) {
     if support_foot == LeadFoot::Left {
-        memory.left_foot_plant = left;
-        memory.left_foot_plant_acquired = acquired && left.is_some();
-        memory.left_transition_support_weight = Some(1.0);
+        memory.left_foot_plant = FootPlant::retain(left, acquired);
+        memory.left_transition_support_weight = Some(UnitInterval::ONE);
     } else {
-        memory.right_foot_plant = right;
-        memory.right_foot_plant_acquired = acquired && right.is_some();
-        memory.right_transition_support_weight = Some(1.0);
+        memory.right_foot_plant = FootPlant::retain(right, acquired);
+        memory.right_transition_support_weight = Some(UnitInterval::ONE);
     }
 }
 
@@ -371,119 +354,4 @@ pub(in crate::animation::procedural) fn raised_support_is_actual(
     terrain_height: f32,
 ) -> bool {
     nominal_support && sole_is_at_contact(ankle_y, terrain_height)
-}
-
-pub(in crate::animation::procedural) fn balance_recovery_direction(
-    projected_com: Vec3,
-    left_foot: Option<Vec3>,
-    right_foot: Option<Vec3>,
-    body_forward: Vec3,
-) -> Vec3 {
-    let unsupported_offset = match (left_foot, right_foot) {
-        (Some(left), Some(right)) => {
-            let segment = right.xz() - left.xz();
-            let closest = if segment.length_squared() > 0.000001 {
-                let progress = ((projected_com.xz() - left.xz()).dot(segment)
-                    / segment.length_squared())
-                .clamp(0.0, 1.0);
-                left.xz() + segment * progress
-            } else {
-                (left.xz() + right.xz()) * 0.5
-            };
-            projected_com.xz() - closest
-        }
-        (Some(foot), None) | (None, Some(foot)) => projected_com.xz() - foot.xz(),
-        (None, None) => Vec2::ZERO,
-    };
-    Vec3::new(unsupported_offset.x, 0.0, unsupported_offset.y)
-        .try_normalize()
-        .unwrap_or_else(|| body_forward.with_y(0.0).normalize_or_zero())
-}
-
-pub(in crate::animation::procedural) fn projected_capture_point(
-    com: Vec3,
-    velocity: Vec3,
-    com_height: SignedLength,
-) -> Vec3 {
-    let omega = (9.81 / com_height.metres().max(0.25)).sqrt();
-    com + velocity.with_y(0.0) / omega
-}
-
-pub(in crate::animation::procedural) fn choose_settle_support(
-    left_weight: Option<f32>,
-    right_weight: Option<f32>,
-    left_foot: Option<Vec3>,
-    right_foot: Option<Vec3>,
-    projected_com: Vec3,
-    direction: Vec3,
-) -> LeadFoot {
-    let left_weight = left_weight.unwrap_or(0.0);
-    let right_weight = right_weight.unwrap_or(0.0);
-    if (left_weight - right_weight).abs() > 0.05 {
-        return if left_weight > right_weight {
-            LeadFoot::Left
-        } else {
-            LeadFoot::Right
-        };
-    }
-    match (left_foot, right_foot) {
-        (Some(left), Some(right)) => {
-            // In flight, retain the foot behind the moving body so the other
-            // foot can capture ahead of its projected center.
-            if (left - projected_com).dot(direction) <= (right - projected_com).dot(direction) {
-                LeadFoot::Left
-            } else {
-                LeadFoot::Right
-            }
-        }
-        (Some(_), None) => LeadFoot::Left,
-        (None, Some(_)) => LeadFoot::Right,
-        (None, None) => LeadFoot::Left,
-    }
-}
-
-pub(in crate::animation::procedural) fn plan_settle_landing(
-    rig_origin: Vec3,
-    rig_rotation: Quat,
-    capture_point: Vec3,
-    direction: Vec3,
-    side: f32,
-) -> Vec3 {
-    let direction = direction
-        .with_y(0.0)
-        .try_normalize()
-        .unwrap_or(rig_rotation * Vec3::NEG_Z);
-    let lateral =
-        rig_rotation * Vec3::X * (foot_track_inner_metres().metres() + 0.04) * side.signum();
-    let mut target = capture_point
-        .with_y(rig_origin.y + measured_ankle_sole_offset_metres().metres())
-        + direction * ik_tuning().settle_capture_point_margin_metres.metres()
-        + lateral;
-    // The capture-point requirement is stronger than the anatomical track
-    // correction, so restore its forward margin if the corridor clamp erodes
-    // it during diagonal movement.
-    target = constrain_foot_to_track(target, rig_origin, rig_rotation, side);
-    let shortfall = ik_tuning().settle_capture_point_margin_metres.metres()
-        - (target - capture_point).dot(direction);
-    if shortfall > 0.0 {
-        target += direction * shortfall;
-    }
-    target
-}
-
-pub(in crate::animation::procedural) fn settle_swing_side(
-    rig_origin: Vec3,
-    rig_rotation: Quat,
-    swing_start: Vec3,
-    support_foot: LeadFoot,
-) -> f32 {
-    let authored_side = (rig_rotation.inverse() * (swing_start - rig_origin)).x;
-    if authored_side.abs() > 0.001 {
-        authored_side.signum()
-    } else {
-        match support_foot {
-            LeadFoot::Left => 1.0,
-            LeadFoot::Right => -1.0,
-        }
-    }
 }

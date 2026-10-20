@@ -2,6 +2,9 @@ use super::*;
 use adventuresim_building_generator::spatial_geometry::SignedLength;
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
+use terrain_leg::OrdinaryLeg;
+
+mod terrain_leg;
 
 #[derive(Component, Debug, Clone, Copy, Default)]
 pub(in crate::animation) struct OrdinaryLocomotionIkState {
@@ -23,14 +26,10 @@ impl OrdinaryLocomotionIkState {
     /// Admit the native leg-geometry correction before updating the retained tracking state.
     fn observe_terrain_reach(
         &mut self,
-        desired: f32,
+        desired: SignedLength,
         elapsed: AnimationElapsed,
     ) -> Option<SignedLength> {
-        let desired =
-            SignedLength::from_metres(desired).map_err(|_| AnimationValueError::NonFinite {
-                quantity: AnimationQuantity::HeightOffset,
-            });
-        match desired.and_then(|desired| self.pelvis_shift.advance(desired, elapsed)) {
+        match self.pelvis_shift.advance(desired, elapsed) {
             Ok(shift) => Some(shift),
             Err(error) => {
                 warn!(%error, "ordinary IK pelvis correction rejected");
@@ -71,12 +70,9 @@ impl PelvisShiftState {
     ) -> AnimationValueResult<SignedLength> {
         let metres = match *self {
             Self::Pending => desired_metres,
-            Self::Tracking { metres } if !elapsed.is_zero() => SignedLength::from_metres(
-                advance_pelvis_shift(metres.metres(), desired_metres.metres(), elapsed),
-            )
-            .map_err(|_| AnimationValueError::Overflow {
-                quantity: AnimationQuantity::HeightOffset,
-            })?,
+            Self::Tracking { metres } if !elapsed.is_zero() => {
+                advance_pelvis_shift(metres, desired_metres, elapsed)?
+            }
             Self::Tracking { metres } => metres,
         };
         *self = Self::Tracking { metres };
@@ -89,29 +85,29 @@ impl PelvisShiftState {
 pub(crate) fn locomotion_support_weights(
     skeleton: &SkeletonState,
     speed: NonnegativeSpeed,
-) -> AnimationValueResult<(f32, f32)> {
+) -> AnimationValueResult<(UnitInterval, UnitInterval)> {
     if !skeleton.is_grounded() {
-        return Ok((0.0, 0.0));
+        return Ok((UnitInterval::ZERO, UnitInterval::ZERO));
     }
     if !matches!(
         skeleton.action_kind(),
         SkeletonAction::None | SkeletonAction::Attack
     ) {
-        return Ok((0.0, 0.0));
+        return Ok((UnitInterval::ZERO, UnitInterval::ZERO));
     }
     if speed <= STATIONARY_ANIMATION_SPEED_LIMIT {
-        return Ok((1.0, 1.0));
+        return Ok((UnitInterval::ONE, UnitInterval::ONE));
     }
     if skeleton.weapon_guard() == WeaponGuardState::Raised
         && skeleton.raised_locomotion().is_moving()
     {
         Ok(match skeleton.contact_foot {
-            LeadFoot::Left => (1.0, 0.0),
-            LeadFoot::Right => (0.0, 1.0),
+            LeadFoot::Left => (UnitInterval::ONE, UnitInterval::ZERO),
+            LeadFoot::Right => (UnitInterval::ZERO, UnitInterval::ONE),
         })
     } else {
         let profile = locomotion_profile(skeleton, speed)?;
-        let (left, right) = gait_support_weights(profile, skeleton.gait_phase);
+        let (left, right) = gait_support_weights(profile, skeleton.gait_phase)?;
         Ok(if profile.gait == LocomotionGait::Run {
             (contact_support_weight(left), contact_support_weight(right))
         } else {
@@ -162,40 +158,72 @@ pub(in crate::animation) fn apply(
             continue;
         }
 
+        let frame = match ObservedRigFrame::resolve(rig, &transforms.p0()) {
+            Ok(Some(frame)) => frame,
+            Ok(None) => continue,
+            Err(error) => {
+                warn!(%error, ?owner, "Rejected ordinary IK rig frame");
+                continue;
+            }
+        };
         let mut state = states
             .get_mut(owner)
             .map(|state| *state)
             .unwrap_or_default();
         let delta_seconds = state.sample_delta_seconds(&clock, &time);
         let authored_weights = playback.foot_ik_weights;
+        let (left_authored_weight, right_authored_weight) =
+            match UnitInterval::from_fraction(authored_weights.x).and_then(|left| {
+                UnitInterval::from_fraction(authored_weights.y).map(|right| (left, right))
+            }) {
+                Ok(weights) => weights,
+                Err(error) => {
+                    warn!(%error, "authored IK support rejected");
+                    continue;
+                }
+            };
+
         let solve_weights = if enabled.is_enabled() && terrain.is_some() {
-            authored_weights
+            (left_authored_weight, right_authored_weight)
         } else {
-            Vec2::ZERO
+            (UnitInterval::ZERO, UnitInterval::ZERO)
         };
 
         let legs = [
-            (
-                BoneRole::ThighLeft,
-                BoneRole::ShinLeft,
-                BoneRole::FootLeft,
-                solve_weights.x,
-                LeadFoot::Left,
-            ),
-            (
-                BoneRole::ThighRight,
-                BoneRole::ShinRight,
-                BoneRole::FootRight,
-                solve_weights.y,
-                LeadFoot::Right,
-            ),
+            OrdinaryLeg {
+                upper_role: BoneRole::ThighLeft,
+                lower_role: BoneRole::ShinLeft,
+                foot_role: BoneRole::FootLeft,
+                weight: solve_weights.0,
+                foot_side: LeadFoot::Left,
+            },
+            OrdinaryLeg {
+                upper_role: BoneRole::ThighRight,
+                lower_role: BoneRole::ShinRight,
+                foot_role: BoneRole::FootRight,
+                weight: solve_weights.1,
+                foot_side: LeadFoot::Right,
+            },
         ];
         let mut targets = [None, None];
         let mut authored = [None, None];
+        let mut support = if enabled.is_enabled() {
+            [None, None]
+        } else {
+            [Some(left_authored_weight), Some(right_authored_weight)]
+        };
         let mut desired_pelvis_shift = 0.0_f32;
 
-        for (index, (upper_role, lower_role, foot_role, weight, _)) in
-            legs.iter().copied().enumerate()
+        for (
+            index,
+            OrdinaryLeg {
+                upper_role,
+                lower_role,
+                foot_role,
+                weight,
+                ..
+            },
+        ) in legs.iter().copied().enumerate()
         {
             let (Some(&upper), Some(&lower), Some(&foot), Some(terrain)) = (
                 rig.get(&upper_role),
@@ -215,110 +243,65 @@ pub(in crate::animation) fn apply(
             let Some(height) = terrain.height_at(foot_position.xz()) else {
                 continue;
             };
-            let target = ordinary_terrain_target(foot_position, height, weight);
-            targets[index] = Some(target);
-
-            let upper_length = upper_snapshot
-                .global
-                .translation()
-                .distance(lower_snapshot.global.translation());
-            let lower_length = lower_snapshot.global.translation().distance(foot_position);
+            let target = match checked_world_height(height)
+                .and_then(|height| ordinary_terrain_target(foot_position, height, weight))
+            {
+                Ok(target) => target,
+                Err(error) => {
+                    warn!(%error, "authored terrain target rejected");
+                    continue;
+                }
+            };
+            let LimbSegments {
+                upper: upper_length,
+                lower: lower_length,
+            } = match LimbSegments::measure(
+                upper_snapshot.global.translation(),
+                lower_snapshot.global.translation(),
+                foot_position,
+            ) {
+                Ok(segments) => segments,
+                Err(error) => {
+                    warn!(%error, "IK segment measurement rejected");
+                    continue;
+                }
+            };
             let reach = maximum_reach(upper_length, lower_length);
-            desired_pelvis_shift = desired_pelvis_shift.min(
-                required_hip_shift_for_reach(upper_snapshot.global.translation(), target, reach)
-                    .clamp(-ik_tuning().maximum_hip_drop_metres.metres(), 0.0)
-                    * weight,
-            );
+            let shift = match reach.ordinary_pelvis_shift(
+                upper_snapshot.global.translation(),
+                target,
+                ik_tuning().maximum_hip_drop_metres,
+                weight,
+            ) {
+                Ok(shift) => shift,
+                Err(error) => {
+                    warn!(%error, "ordinary pelvis reach rejected");
+                    continue;
+                }
+            };
+            targets[index] = Some(target);
+            desired_pelvis_shift = desired_pelvis_shift.min(shift.metres());
         }
 
+        let desired_pelvis_shift = match SignedLength::from_metres(desired_pelvis_shift) {
+            Ok(shift) => shift,
+            Err(_) => {
+                warn!("ordinary IK pelvis geometry overflowed");
+                continue;
+            }
+        };
         let Some(pelvis_shift) = state.observe_terrain_reach(desired_pelvis_shift, delta_seconds)
         else {
             continue;
         };
         apply_root_vertical_shift(rig, pelvis_shift, &parents, &mut transforms);
-        let rig_rotation = rig
-            .rig_scene()
-            .and_then(|entity| transforms.p0().compute_global_transform(entity).ok())
-            .map(|global| global.rotation())
-            .unwrap_or(Quat::IDENTITY);
 
-        for (index, (upper_role, lower_role, foot_role, weight, foot_side)) in
-            legs.iter().copied().enumerate()
-        {
-            let (Some(target), Some(&upper), Some(&lower), Some(&foot)) = (
-                targets[index],
-                rig.get(&upper_role),
-                rig.get(&lower_role),
-                rig.get(&foot_role),
-            ) else {
-                continue;
-            };
-            let Some((upper_snapshot, lower_snapshot, foot_snapshot)) =
-                snapshot_chain(upper, lower, foot, &parents, &transforms.p0())
-            else {
-                continue;
-            };
-            if target.distance(foot_snapshot.global.translation()) <= 0.0001 {
-                // Preserve an already-clear authored chain exactly. Solving an
-                // identity ankle target can still rotate it through a newly
-                // selected knee pole.
-                continue;
-            }
-            let upper_length = upper_snapshot
-                .global
-                .translation()
-                .distance(lower_snapshot.global.translation());
-            let lower_length = lower_snapshot
-                .global
-                .translation()
-                .distance(foot_snapshot.global.translation());
-            let canonical = canonical_knee_pole_world(foot_side, rig_rotation);
-            let pole = authored_knee_pole_world(
-                upper_snapshot.global.translation(),
-                lower_snapshot.global.translation(),
-                target,
-                canonical,
-            )
-            .unwrap_or(canonical);
-            let pole = constrain_rendered_leg_pole(
-                rig,
-                foot_side,
-                upper_snapshot.global.translation(),
-                foot_snapshot.global.translation(),
-                target,
-                pole,
-                &parents,
-                &transforms.p0(),
-            );
-            if let Some(solution) = solve_two_bone_with_reach(
-                TwoBoneChain::new(
-                    upper_snapshot.global.translation(),
-                    lower_snapshot.global.translation(),
-                    foot_snapshot.global.translation(),
-                    upper_length,
-                    lower_length,
-                    pole,
-                ),
-                target,
-                maximum_reach(upper_length, lower_length),
-            ) {
-                apply_two_bone_solution(upper, lower, foot, solution, &parents, &mut transforms);
-            }
-            if weight > 0.001
-                && let (Some(_), Some(normal), Some(sole_axis)) = (
-                    terrain,
-                    terrain.and_then(|terrain| terrain.normal_at(target.xz())),
-                    rig.sole_axis(foot_side),
-                )
-            {
-                align_foot_to_slope_weighted(
-                    foot,
-                    sole_axis,
-                    normal,
-                    weight,
-                    &parents,
-                    &mut transforms,
-                );
+        for (index, leg) in legs.iter().copied().enumerate() {
+            if let Some(target) = targets[index] {
+                let observed = leg.solve(rig, target, frame, terrain, &parents, &mut transforms);
+                if enabled.is_enabled() {
+                    support[index] = observed;
+                }
             }
         }
 
@@ -327,18 +310,17 @@ pub(in crate::animation) fn apply(
             right_authored_world_target: authored[1],
             left_foot_world_target: targets[0],
             right_foot_world_target: targets[1],
-            left_support_weight: Some(authored_weights.x),
-            right_support_weight: Some(authored_weights.y),
-            pelvis_shift: pelvis_shift.metres(),
+            left_support_weight: support[0],
+            right_support_weight: support[1],
+            pelvis_shift,
             evaluation_tick: state.evaluation_tick,
             ..default()
         };
         memory.left_foot_target = targets[0];
         memory.right_foot_target = targets[1];
-        if let Ok(mut current) = diagnostics.get_mut(owner) {
-            current.0 = memory;
-        } else {
-            commands.entity(owner).insert(LegIkState(memory));
+        if let Err(error) = memory.publish(owner, &mut diagnostics, &mut commands) {
+            warn!(%error, "ordinary IK targets rejected");
+            continue;
         }
         if let Ok(mut current) = states.get_mut(owner) {
             *current = state;
@@ -383,7 +365,7 @@ fn align_foot_to_slope_weighted(
     foot: Entity,
     sole_up_local: Vec3,
     normal: Vec3,
-    weight: f32,
+    weight: UnitInterval,
     parents: &Query<&ChildOf>,
     transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
 ) {
@@ -398,7 +380,7 @@ fn align_foot_to_slope_weighted(
     let desired_world = snapshot
         .global
         .rotation()
-        .slerp(aligned_world, weight.clamp(0.0, 1.0));
+        .slerp(aligned_world, weight.fraction().clamp(0.0, 1.0));
     let Some(local) = local_rotation_for_world(snapshot.parent_rotation, desired_world) else {
         return;
     };
@@ -460,11 +442,15 @@ mod tests {
     fn authored_posture_transition_excludes_ordinary_locomotion_ik() {
         let mut skeleton = SkeletonState::default();
         assert!(owns(&skeleton));
-        assert!(skeleton.begin_posture_transition(
-            PostureTransitionKind::UprightToProne,
-            adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
-            adventuresim_tactical_core::animation::AnimationSampleSpan::from(10u64),
-        ));
+        assert!(
+            skeleton
+                .begin_posture_transition(
+                    PostureTransitionKind::UprightToProne,
+                    adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                    adventuresim_tactical_core::animation::AnimationSampleSpan::from(10u64),
+                )
+                .unwrap()
+        );
         assert!(!owns(&skeleton));
     }
 
@@ -482,12 +468,12 @@ mod tests {
             skeleton.contact_foot = contact;
             let support =
                 locomotion_support_weights(&skeleton, skeleton.animation_speed().unwrap()).unwrap();
-            assert_eq!(support.0 + support.1, 1.0);
+            assert_eq!(support.0.fraction() + support.1.fraction(), 1.0);
             assert_eq!(
                 support,
                 match contact {
-                    LeadFoot::Left => (1.0, 0.0),
-                    LeadFoot::Right => (0.0, 1.0),
+                    LeadFoot::Left => (UnitInterval::ONE, UnitInterval::ZERO),
+                    LeadFoot::Right => (UnitInterval::ZERO, UnitInterval::ONE),
                 }
             );
         }
@@ -496,7 +482,7 @@ mod tests {
             .with_weapon_guard(WeaponGuardState::Raised);
         assert_eq!(
             locomotion_support_weights(&idle, idle.animation_speed().unwrap()).unwrap(),
-            (1.0, 1.0)
+            (UnitInterval::ONE, UnitInterval::ONE)
         );
     }
 
@@ -505,7 +491,7 @@ mod tests {
         let idle = SkeletonState::default().with_gait_phase(CyclePhase::from_cycles(0.25).unwrap());
         assert_eq!(
             locomotion_support_weights(&idle, idle.animation_speed().unwrap()).unwrap(),
-            (1.0, 1.0)
+            (UnitInterval::ONE, UnitInterval::ONE)
         );
 
         let stopping = SkeletonState::default()
@@ -516,9 +502,10 @@ mod tests {
         let (raw_left, raw_right) = gait_support_weights(
             locomotion_profile(&stopping, stopping.animation_speed().unwrap()).unwrap(),
             stopping.gait_phase,
-        );
+        )
+        .unwrap();
         assert!(left <= raw_left && right <= raw_right);
-        assert!(left <= 0.05 || right <= 0.05);
+        assert!(left.fraction() <= 0.05 || right.fraction() <= 0.05);
     }
 
     #[test]

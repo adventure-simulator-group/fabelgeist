@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 pub struct CyclePhase(f32);
 
 /// Finite signed cycle displacement; unlike a coordinate, it never wraps implicitly.
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, derive_more::Into)]
+#[derive(Debug, Clone, Copy, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into)]
 #[serde(try_from = "f32", into = "f32")]
 pub struct CycleDelta(f32);
 
@@ -90,6 +90,16 @@ impl CyclePhase {
 }
 
 impl CycleDelta {
+    /// A bounded cycle fraction widens losslessly to an unwrapped displacement.
+    pub fn from_unit_cycles(value: super::UnitInterval) -> Self {
+        Self(value.fraction())
+    }
+    /// Native interpolation of two cycle displacements, before retaining the result.
+    pub fn checked_lerp(self, other: Self, fraction: f32) -> AnimationValueResult<Self> {
+        use bevy::math::FloatExt;
+        Self::from_arithmetic(self.0.lerp(other.0, fraction))
+    }
+
     pub const ZERO: Self = Self(0.0);
     pub fn from_cycles(cycles: f32) -> AnimationValueResult<Self> {
         if !cycles.is_finite() {

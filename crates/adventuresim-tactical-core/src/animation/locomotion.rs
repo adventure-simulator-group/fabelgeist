@@ -38,7 +38,7 @@ pub struct LocomotionProfile {
     pub reference_speed: NonnegativeSpeed,
     pub step_distance: NonnegativeLength,
     /// Radius around each contact phase that can carry support.
-    pub support_phase_radius: f32,
+    pub support_phase_radius: CycleDelta,
     /// Visual grounded bounce, in metres.
     pub bounce_metres: HeightDistance,
     /// Visual unsupported apex, in metres. Zero means a grounded curve.
@@ -159,7 +159,7 @@ pub fn locomotion_profile(
         step_distance: ordinary_step_distance(speed)?,
         support_phase_radius: walk
             .support_phase_radius
-            .lerp(run_profile.support_phase_radius, run),
+            .checked_lerp(run_profile.support_phase_radius, run)?,
         bounce_metres: walk
             .bounce_metres
             .scaled_by(UnitInterval::from_fraction(1.0 - run)?)?,
@@ -204,9 +204,12 @@ pub fn gait_cycle_phase_delta(
     )
 }
 
-pub fn gait_support_weights(profile: LocomotionProfile, phase: CyclePhase) -> (f32, f32) {
+pub fn gait_support_weights(
+    profile: LocomotionProfile,
+    phase: CyclePhase,
+) -> AnimationValueResult<(UnitInterval, UnitInterval)> {
     if profile.gait == LocomotionGait::RaisedGuard {
-        return (1.0, 1.0);
+        return Ok((UnitInterval::ONE, UnitInterval::ONE));
     }
     let phase = phase.cycles();
     let support = |contact: f32| {
@@ -215,13 +218,16 @@ pub fn gait_support_weights(profile: LocomotionProfile, phase: CyclePhase) -> (f
             delta.min(1.0 - delta)
         };
         (1.0 - smoothstep(
-            profile.support_phase_radius * 0.45,
-            profile.support_phase_radius,
+            profile.support_phase_radius.cycles() * 0.45,
+            profile.support_phase_radius.cycles(),
             distance,
         ))
         .clamp(0.0, 1.0)
     };
-    (support(0.0), support(0.5))
+    Ok((
+        UnitInterval::from_fraction(support(0.0))?,
+        UnitInterval::from_fraction(support(0.5))?,
+    ))
 }
 
 fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {

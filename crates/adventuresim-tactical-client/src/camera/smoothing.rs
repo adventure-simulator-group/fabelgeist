@@ -1,6 +1,6 @@
 //! Analytic camera follow damping.
 
-use super::{CameraProfile, CameraShapingTime};
+use super::{CameraProfile, ResponseShapingTime};
 use adventuresim_tactical_core::animation::{AnimationElapsed, AnimationValueResult, UnitInterval};
 use bevy::prelude::*;
 
@@ -39,7 +39,7 @@ pub(super) fn critical_damp_vec3(
     current: Vec3,
     target: Vec3,
     velocity: &mut Vec3,
-    smooth_time: CameraShapingTime,
+    smooth_time: ResponseShapingTime,
     elapsed: AnimationElapsed,
 ) -> Vec3 {
     let dt = elapsed.seconds();
@@ -55,7 +55,7 @@ pub(super) fn critical_damp_scalar(
     current: f32,
     target: f32,
     velocity: &mut f32,
-    smooth_time: CameraShapingTime,
+    smooth_time: ResponseShapingTime,
     elapsed: AnimationElapsed,
 ) -> f32 {
     let dt = elapsed.seconds();
@@ -145,14 +145,14 @@ mod tests {
             0.0,
             1.0,
             &mut velocity,
-            CameraShapingTime::from_seconds(0.18).unwrap(),
+            ResponseShapingTime::from_seconds(0.18).unwrap(),
             AnimationElapsed::from_seconds(0.08).unwrap(),
         );
         let reversed = critical_damp_scalar(
             raised,
             0.0,
             &mut velocity,
-            CameraShapingTime::from_seconds(0.18).unwrap(),
+            ResponseShapingTime::from_seconds(0.18).unwrap(),
             AnimationElapsed::from_seconds(0.01).unwrap(),
         );
         assert!((reversed - raised).abs() < 0.1);
@@ -169,7 +169,7 @@ mod tests {
                     value,
                     Vec3::new(2.0, 1.0, -3.0),
                     &mut velocity,
-                    CameraShapingTime::from_seconds(0.25).unwrap(),
+                    ResponseShapingTime::from_seconds(0.25).unwrap(),
                     AnimationElapsed::from_seconds(1.0 / steps as f32).unwrap(),
                 );
             }

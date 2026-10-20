@@ -48,8 +48,8 @@ pub(crate) use procedural::{
     ArmIkState, BodyAngle, BoneRole, HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidBone,
     HumanoidIkTargets, HumanoidRig, LegIkDiagnostics, LegIkState, LocomotionBodyResponseState,
     LocomotionHeightState, MhrBone, ProceduralAnimationClock, RaisedFootworkState,
-    authored_bind_global, cache_humanoid_rigs, locomotion_support_weights,
-    measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
+    authored_bind_global, authored_locomotion_ik_owns, cache_humanoid_rigs,
+    locomotion_support_weights, measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
 };
 use resolver::PoseSampleResolver;
 use rig_identity::AnimationBodyRegion;

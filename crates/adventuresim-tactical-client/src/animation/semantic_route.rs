@@ -156,19 +156,19 @@ pub(super) fn semantic_foot_ik_weights(
                 PoseSampling::Timeline { .. },
             ) => Vec2::ZERO,
             (SemanticPose::WalkContact, PoseSampling::Cycle { phase }) => {
-                let (left, right) = gait_support_weights(walk_locomotion_profile(), phase);
-                Vec2::new(left, right)
+                let (left, right) = gait_support_weights(walk_locomotion_profile(), phase)?;
+                Vec2::new(left.fraction(), right.fraction())
             }
             (SemanticPose::RunContact, PoseSampling::Cycle { phase }) => {
                 // Simulation support spans the complete stance interval. IK
                 // is animation metadata and should only become strong near
                 // the authored contact itself, after the foot has descended.
                 let contact_profile = LocomotionProfile {
-                    support_phase_radius: 0.11,
+                    support_phase_radius: CycleDelta::from_cycles(0.11)?,
                     ..run_locomotion_profile()
                 };
-                let (left, right) = gait_support_weights(contact_profile, phase);
-                Vec2::new(left, right)
+                let (left, right) = gait_support_weights(contact_profile, phase)?;
+                Vec2::new(left.fraction(), right.fraction())
             }
             _ => Vec2::ZERO,
         };

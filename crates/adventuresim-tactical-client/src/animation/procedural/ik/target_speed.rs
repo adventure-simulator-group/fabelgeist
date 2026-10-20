@@ -1,6 +1,6 @@
 //! Checked linear budgets for the terrain target followers.
 
-use super::{LocomotionSettleState, ik_tuning};
+use super::{LocomotionSettleState, SignedLength, ik_tuning};
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::AnimationValueResult;
 
@@ -15,14 +15,16 @@ pub(super) struct FootTargetSpeeds {
 impl FootTargetSpeeds {
     pub(super) fn configured() -> AnimationValueResult<Self> {
         let tuning = ik_tuning();
-        let speed = |step: f32| {
-            NonnegativeSpeed::from_metres_per_second(step * tuning.continuity_sample_hz.hertz())
+        let speed = |step: SignedLength| {
+            NonnegativeSpeed::from_metres_per_second(
+                step.metres() * tuning.continuity_sample_hz.hertz(),
+            )
         };
         Ok(Self {
-            release: speed(tuning.airborne_release_step_metres.metres())?,
-            run_airborne: speed(tuning.run_airborne_owner_step_metres.metres())?,
-            first_release: speed(tuning.run_first_release_owner_step_metres.metres())?,
-            raised_settle: speed(tuning.raised_settle_step_metres.metres())?,
+            release: speed(tuning.airborne_release_step_metres)?,
+            run_airborne: speed(tuning.run_airborne_owner_step_metres)?,
+            first_release: speed(tuning.run_first_release_owner_step_metres)?,
+            raised_settle: speed(tuning.raised_settle_step_metres)?,
         })
     }
 

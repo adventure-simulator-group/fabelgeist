@@ -3,6 +3,9 @@
 use super::*;
 use crate::animation_viewer::scenarios::PlannedFrame;
 use adventuresim_tactical_core::animation::{
+    AnimationQuantity, AnimationValueError, AnimationValueResult, UnitInterval,
+};
+use adventuresim_tactical_core::animation::{
     AnimationSampleTick, ContactSequence, LandingSequence,
 };
 
@@ -212,8 +215,8 @@ pub(in crate::animation_viewer) struct FrameSample {
     pub(in crate::animation_viewer) attack_animation: Option<AttackAnimation>,
     pub(in crate::animation_viewer) strike_family: StrikeFamily,
     pub(in crate::animation_viewer) guard_action: bool,
-    pub(in crate::animation_viewer) left_support_weight: f32,
-    pub(in crate::animation_viewer) right_support_weight: f32,
+    pub(in crate::animation_viewer) left_support_weight: UnitInterval,
+    pub(in crate::animation_viewer) right_support_weight: UnitInterval,
     pub(in crate::animation_viewer) desired_left_foot_target: Option<[f32; 3]>,
     pub(in crate::animation_viewer) desired_right_foot_target: Option<[f32; 3]>,
     pub(in crate::animation_viewer) ik_left_authored_target: Option<[f32; 3]>,
@@ -223,8 +226,8 @@ pub(in crate::animation_viewer) struct FrameSample {
     pub(in crate::animation_viewer) ik_settle_capture_point: Option<[f32; 3]>,
     pub(in crate::animation_viewer) ik_left_solve_target: Option<[f32; 3]>,
     pub(in crate::animation_viewer) ik_right_solve_target: Option<[f32; 3]>,
-    pub(in crate::animation_viewer) ik_left_support_weight: f32,
-    pub(in crate::animation_viewer) ik_right_support_weight: f32,
+    pub(in crate::animation_viewer) ik_left_support_weight: Option<UnitInterval>,
+    pub(in crate::animation_viewer) ik_right_support_weight: Option<UnitInterval>,
     pub(in crate::animation_viewer) ik_left_release_active: bool,
     pub(in crate::animation_viewer) ik_right_release_active: bool,
     pub(in crate::animation_viewer) ik_left_release_target: Option<[f32; 3]>,
@@ -237,6 +240,17 @@ pub(in crate::animation_viewer) struct FrameSample {
     pub(in crate::animation_viewer) semantic_route_runtime_evaluated: bool,
     pub(in crate::animation_viewer) screenshots: BTreeMap<String, String>,
     pub(in crate::animation_viewer) bones: CapturedBones,
+}
+
+impl FrameSample {
+    /// Required procedural-support readers distinguish absence from measured zero.
+    pub(super) fn required_ik_support(&self) -> AnimationValueResult<(UnitInterval, UnitInterval)> {
+        self.ik_left_support_weight
+            .zip(self.ik_right_support_weight)
+            .ok_or(AnimationValueError::UnavailableObservation {
+                quantity: AnimationQuantity::SupportObservation,
+            })
+    }
 }
 
 #[derive(Debug, Clone, Copy, Serialize)]

@@ -7,7 +7,9 @@ use std::{
     path::PathBuf,
 };
 
-use adventuresim_tactical_core::animation::{AnimationValueResult, dive_launch_root_rotation};
+use adventuresim_tactical_core::animation::{
+    AnimationValueResult, UnitInterval, dive_launch_root_rotation,
+};
 use adventuresim_tactical_core::physics::{
     AdventureSimulatorPhysicsPlugin, TACTICAL_DIVE_HORIZONTAL_SPEED_METRES_PER_SECOND,
     quickstep_force_curve, quickstep_motion_target, quickstep_peak_horizontal_force_newtons,

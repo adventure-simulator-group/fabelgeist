@@ -18,8 +18,15 @@ pub enum AnimationQuantity {
     Speed,
     #[display("signed linear speed")]
     SignedSpeed,
+    #[display("foot support observation")]
+    SupportObservation,
     #[display("unit fraction")]
     UnitInterval,
+
+    #[display("settle progress")]
+    SettleProgress,
+    #[display("knee-target amplification")]
+    KneeTargetAmplification,
     #[display("world position")]
     WorldPosition,
     #[display("world velocity")]
@@ -82,8 +89,8 @@ pub enum AnimationQuantity {
     LookDistribution,
     #[display("camera blend velocity")]
     CameraBlendVelocity,
-    #[display("camera shaping seconds")]
-    CameraShapingTime,
+    #[display("response shaping seconds")]
+    ResponseShapingTime,
     #[display("downed half-turn coordinate")]
     DownedFacing,
     #[display("downed half-turn step")]
@@ -102,6 +109,8 @@ pub enum AnimationQuantity {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
 pub enum AnimationValueError {
+    #[error("{quantity} is unavailable")]
+    UnavailableObservation { quantity: AnimationQuantity },
     #[error("authored phase curve must close by one forward or reverse cycle")]
     InvalidPhaseCurveSeam,
     #[error("authored phase calibration requires at least three intervals; got {actual}")]
@@ -131,6 +140,7 @@ impl AnimationValueError {
             Self::BakedChannelSampleCount { .. }
             | Self::InvalidPhaseCurveSeam
             | Self::InsufficientPhaseIntervals { .. } => self,
+            Self::UnavailableObservation { .. } => Self::UnavailableObservation { quantity },
             Self::NonFinite { .. } => Self::NonFinite { quantity },
             Self::Negative { .. } => Self::Negative { quantity },
             Self::NonPositive { .. } => Self::NonPositive { quantity },

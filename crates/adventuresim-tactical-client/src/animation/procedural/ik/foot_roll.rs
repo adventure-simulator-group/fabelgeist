@@ -13,21 +13,21 @@ pub(super) fn run_foot_roll_degrees(
     skeleton: &SkeletonState,
     speed: NonnegativeSpeed,
     foot_side: LeadFoot,
-) -> AnimationValueResult<f32> {
+) -> AnimationValueResult<SignedAngleDegrees> {
     let profile = locomotion_profile(skeleton, speed)?;
     if profile.gait != LocomotionGait::Run
         || skeleton.action_kind() != SkeletonAction::None
         || skeleton.weapon_guard() != WeaponGuardState::Lowered
         || speed <= STATIONARY_ANIMATION_SPEED_LIMIT
     {
-        return Ok(0.0);
+        return Ok(SignedAngleDegrees::ZERO);
     }
     let signed = skeleton
         .gait_phase
         .nearest_contact_offset(foot_side)
         .cycles();
-    let radius = profile.support_phase_radius;
-    Ok(if signed < -radius {
+    let radius = profile.support_phase_radius.cycles();
+    SignedAngleDegrees::from_degrees(if signed < -radius {
         // Prepare the heel during the latter half of flight.
         8.0 * smoothstep(-0.25, -radius, signed)
     } else if signed < -0.05 {
@@ -41,6 +41,9 @@ pub(super) fn run_foot_roll_degrees(
         // the whole airborne arc.
         -8.0 * (1.0 - smoothstep(radius, 0.25, signed))
     })
+    .map_err(|_| AnimationValueError::Overflow {
+        quantity: AnimationQuantity::BodyAngle,
+    })
 }
 
 /// Apply the phase-owned sagittal roll to the already terrain-aligned foot.
@@ -52,9 +55,9 @@ pub(super) fn run_foot_roll_world_rotation(
     base_world: Quat,
 ) -> AnimationValueResult<Quat> {
     let roll_degrees = run_foot_roll_degrees(skeleton, speed, foot_side)?;
-    Ok(if roll_degrees.abs() > 0.0 {
+    Ok(if roll_degrees.degrees().abs() > 0.0 {
         let lateral = (rig_rotation * Vec3::X).normalize_or_zero();
-        Quat::from_axis_angle(lateral, roll_degrees.to_radians()) * base_world
+        Quat::from_axis_angle(lateral, roll_degrees.radians()) * base_world
     } else {
         base_world
     })
@@ -73,31 +76,41 @@ mod tests {
         run.world_velocity = Vec3::new(0.0, 0.0, -5.5);
         run.gait_phase = CyclePhase::from_cycles(0.84).unwrap();
         assert!(
-            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left).unwrap()
+            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left)
+                .unwrap()
+                .degrees()
                 > 0.0,
             "heel prepares"
         );
         run.gait_phase = CyclePhase::from_cycles(0.0).unwrap();
         assert_eq!(
-            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left).unwrap(),
+            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left)
+                .unwrap()
+                .degrees(),
             0.0,
             "flat stance"
         );
         run.gait_phase = CyclePhase::from_cycles(0.15).unwrap();
         assert!(
-            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left).unwrap()
+            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left)
+                .unwrap()
+                .degrees()
                 < 0.0,
             "toe off"
         );
         run.gait_phase = CyclePhase::from_cycles(0.25).unwrap();
         assert_eq!(
-            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left).unwrap(),
+            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left)
+                .unwrap()
+                .degrees(),
             0.0,
             "neutral swing"
         );
         run.gait_phase = CyclePhase::from_cycles(0.5).unwrap();
         assert_eq!(
-            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Right).unwrap(),
+            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Right)
+                .unwrap()
+                .degrees(),
             0.0,
             "mirrored contact"
         );

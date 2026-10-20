@@ -2,7 +2,12 @@
 
 use super::foot_roll::run_foot_roll_world_rotation;
 use super::*;
+pub(in crate::animation::procedural) use anatomical_yaw::anatomical_knee_yaw_posture_is_valid;
+pub(in crate::animation) use anatomical_yaw::enforce_anatomical_knee_yaw;
+
 use adventuresim_core::linear_speed::NonnegativeSpeed;
+
+mod anatomical_yaw;
 
 // A 576 degree/second cap is nine degrees at the 64 Hz presentation cadence,
 // retaining numeric margin below the ten-degree review gate. Contact and swing
@@ -106,9 +111,12 @@ pub(in crate::animation::procedural) fn stabilized_knee_pole(
                 selected,
                 next_end_direction,
                 facing,
-                ik_tuning()
-                    .knee_pole_maximum_foot_facing_offset_degrees
-                    .to_radians(),
+                BodyAngularMagnitude::from_radians(
+                    ik_tuning()
+                        .knee_pole_maximum_foot_facing_offset_degrees
+                        .radians(),
+                )
+                .ok()?,
             )
         })
         .or(Some(selected))
@@ -118,7 +126,7 @@ pub(in crate::animation::procedural) fn constrain_knee_pole_to_foot_facing(
     pole: Vec3,
     leg_direction: Vec3,
     foot_facing: Vec3,
-    maximum_offset_radians: f32,
+    maximum_offset: BodyAngularMagnitude,
 ) -> Option<Vec3> {
     let leg_direction = leg_direction.try_normalize()?;
     let facing_yaw = foot_facing.xz().try_normalize()?;
@@ -126,6 +134,7 @@ pub(in crate::animation::procedural) fn constrain_knee_pole_to_foot_facing(
     let signed_offset = facing_yaw
         .perp_dot(pole_yaw)
         .atan2(facing_yaw.dot(pole_yaw));
+    let maximum_offset_radians = maximum_offset.radians();
     let clamped_offset = signed_offset.clamp(-maximum_offset_radians, maximum_offset_radians);
     let (sin, cos) = clamped_offset.sin_cos();
     let clamped_yaw = Vec2::new(
@@ -171,9 +180,12 @@ pub(in crate::animation::procedural) fn constrain_rendered_leg_pole(
                 pole,
                 target - hip,
                 facing,
-                ik_tuning()
-                    .knee_pole_maximum_foot_facing_offset_degrees
-                    .to_radians(),
+                BodyAngularMagnitude::from_radians(
+                    ik_tuning()
+                        .knee_pole_maximum_foot_facing_offset_degrees
+                        .radians(),
+                )
+                .ok()?,
             )
         })
         // Sparse/non-humanoid rigs may not expose a toe direction. Preserve
@@ -269,7 +281,7 @@ pub(in crate::animation::procedural) fn advance_airborne_foot_rotation(
     previous: Option<Quat>,
     desired: Quat,
     delta_seconds: AnimationElapsed,
-    maximum_speed_degrees: f32,
+    maximum_speed_degrees: SignedAngularSpeedDegrees,
 ) -> Quat {
     let Some(previous) = previous.filter(|rotation| rotation.is_finite()) else {
         return desired;
@@ -278,7 +290,11 @@ pub(in crate::animation::procedural) fn advance_airborne_foot_rotation(
         return previous;
     }
     let angle = previous.angle_between(desired);
-    let maximum_step = maximum_speed_degrees.max(0.0).to_radians() * delta_seconds.seconds();
+    let maximum_step = maximum_speed_degrees
+        .degrees_per_second()
+        .max(0.0)
+        .to_radians()
+        * delta_seconds.seconds();
     if maximum_step <= 0.0 {
         return previous;
     }
@@ -501,126 +517,6 @@ pub(in crate::animation::procedural) fn slope_aligned_world_rotation(
     let current_up = (current_world * sole_up_local).try_normalize()?;
     let correction = Quat::from_rotation_arc(current_up, bounded_normal);
     Some((correction * current_world).normalize())
-}
-
-/// Final lower-body invariant pass. Pose owners and terrain alignment may
-/// choose different targets and foot rotations, but no later presentation
-/// stage may leave a rendered knee outside the foot-facing anatomical cone.
-pub(in crate::animation) fn enforce_anatomical_knee_yaw(
-    owners: Query<&PresentedSkeleton>,
-    rigs: Query<(Entity, &HumanoidRig)>,
-    parents: Query<&ChildOf>,
-    mut states: Query<&mut LegIkState>,
-    mut transforms: ParamSet<(TransformHelper, Query<&mut Transform>)>,
-) {
-    for (owner, rig) in &rigs {
-        let Ok(skeleton) = owners.get(owner) else {
-            continue;
-        };
-        // Downed and posture-transition poses deliberately use knee bend
-        // planes that need not follow a standing foot-facing cone. Preserve
-        // their authored thigh/shin relationship exactly; terrain IK already
-        // rejects these postures independently.
-        if !anatomical_knee_yaw_posture_is_valid(skeleton) {
-            continue;
-        }
-        let mut final_offsets = [0.0; 2];
-        let (rig_origin, rig_rotation) = rig
-            .rig_scene()
-            .and_then(|entity| transforms.p0().compute_global_transform(entity).ok())
-            .map(|global| (global.translation(), global.rotation()))
-            .unwrap_or((Vec3::ZERO, Quat::IDENTITY));
-        for (leg_index, (upper_role, lower_role, foot_role, foot_side)) in [
-            (
-                BoneRole::ThighLeft,
-                BoneRole::ShinLeft,
-                BoneRole::FootLeft,
-                LeadFoot::Left,
-            ),
-            (
-                BoneRole::ThighRight,
-                BoneRole::ShinRight,
-                BoneRole::FootRight,
-                LeadFoot::Right,
-            ),
-        ]
-        .into_iter()
-        .enumerate()
-        {
-            let (Some(&upper), Some(&lower), Some(&foot)) = (
-                rig.get(&upper_role),
-                rig.get(&lower_role),
-                rig.get(&foot_role),
-            ) else {
-                continue;
-            };
-            let Some((upper_snapshot, lower_snapshot, foot_snapshot)) =
-                snapshot_chain(upper, lower, foot, &parents, &transforms.p0())
-            else {
-                continue;
-            };
-            let hip = upper_snapshot.global.translation();
-            let knee = lower_snapshot.global.translation();
-            let target = foot_snapshot.global.translation();
-            let upper_length = hip.distance(knee);
-            let lower_length = knee.distance(target);
-            let leg_direction = (target - hip).normalize_or_zero();
-            let side = anatomical_side(rig_rotation, rig_origin, hip, foot_side);
-            let canonical = pole_to_world(rig_rotation, canonical_knee_pole(side));
-            let current_bend = (knee - hip)
-                .reject_from_normalized(leg_direction)
-                .try_normalize()
-                .unwrap_or(canonical);
-            let pole = constrain_rendered_leg_pole(
-                rig,
-                foot_side,
-                hip,
-                target,
-                target,
-                current_bend,
-                &parents,
-                &transforms.p0(),
-            );
-            if let Some(solution) = solve_two_bone_with_reach(
-                TwoBoneChain::new(hip, knee, target, upper_length, lower_length, pole),
-                target,
-                maximum_reach(upper_length, lower_length),
-            ) {
-                apply_two_bone_solution(upper, lower, foot, solution, &parents, &mut transforms);
-                if let Some((final_upper, final_lower, final_foot)) =
-                    snapshot_chain(upper, lower, foot, &parents, &transforms.p0())
-                    && let Some(end_direction) = (final_foot.global.translation()
-                        - final_upper.global.translation())
-                    .try_normalize()
-                    && let Some(bend) = (final_lower.global.translation()
-                        - final_upper.global.translation())
-                    .reject_from_normalized(end_direction)
-                    .xz()
-                    .try_normalize()
-                    && let Some(facing) = rendered_foot_facing(
-                        rig,
-                        foot_side,
-                        final_foot.global.translation(),
-                        &parents,
-                        &transforms.p0(),
-                    )
-                    .and_then(|facing| facing.xz().try_normalize())
-                {
-                    final_offsets[leg_index] = bend.angle_to(facing).abs().to_degrees();
-                }
-            }
-        }
-        if let Ok(mut state) = states.get_mut(owner) {
-            state.0.left_knee_foot_yaw_offset_degrees = final_offsets[0];
-            state.0.right_knee_foot_yaw_offset_degrees = final_offsets[1];
-        }
-    }
-}
-
-pub(in crate::animation::procedural) fn anatomical_knee_yaw_posture_is_valid(
-    skeleton: &SkeletonState,
-) -> bool {
-    !skeleton.body().is_downed() && !skeleton.is_posture_transitioning() && !skeleton.is_quickstep()
 }
 
 fn previous_foot_orientation(

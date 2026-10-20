@@ -1,4 +1,8 @@
 use crate::animation::{
+    AngularMagnitudeDegrees, CycleDelta, KneeTargetAmplification, ResponseRate,
+    ResponseShapingTime, SignedAngleDegrees, SignedAngularSpeedDegrees,
+};
+use crate::animation::{
     AngularSpeedRadians, AnimationElapsed, AnimationFrequency, AnimationSampleRate, HeightDistance,
     NonnegativeLength, PositiveAnimationDuration, SignedHalfTurns, UnitInterval,
 };
@@ -90,7 +94,7 @@ pub struct AnimationLocomotionConfig {
 pub struct AnimationGaitConfig {
     pub reference_speed_metres_per_second: PositiveSpeed,
     pub step_distance_metres: PositiveLength,
-    pub support_phase_radius: f32,
+    pub support_phase_radius: CycleDelta,
     pub bounce_metres: HeightDistance,
     pub flight_apex_metres: HeightDistance,
 }
@@ -149,8 +153,8 @@ pub struct InverseKinematicsConfig {
     pub outer_foot_track_metres: PositiveLength,
     pub maximum_plant_discontinuity_metres: SignedLength,
     pub maximum_owner_translation_per_tick_metres: SignedLength,
-    pub maximum_owner_rotation_per_tick_degrees: f32,
-    pub maximum_knee_target_amplification: f32,
+    pub maximum_owner_rotation_per_tick_degrees: SignedAngleDegrees,
+    pub maximum_knee_target_amplification: KneeTargetAmplification,
     pub maximum_knee_step_metres: PositiveLength,
     pub continuity_sample_hz: AnimationFrequency,
     pub run_airborne_owner_step_metres: SignedLength,
@@ -160,17 +164,17 @@ pub struct InverseKinematicsConfig {
     pub raised_settle_step_metres: SignedLength,
     pub guard_reach_pelvis_drop_metres: SignedLength,
     pub stationary_turn_foot_limit_metres: SignedLength,
-    pub stationary_turn_step_seconds: f32,
-    pub knee_pole_maximum_foot_facing_offset_degrees: f32,
-    pub airborne_foot_rotation_speed_degrees_per_second: f32,
-    pub first_run_release_foot_rotation_speed_degrees_per_second: f32,
+    pub stationary_turn_step_seconds: ResponseShapingTime,
+    pub knee_pole_maximum_foot_facing_offset_degrees: AngularMagnitudeDegrees,
+    pub airborne_foot_rotation_speed_degrees_per_second: SignedAngularSpeedDegrees,
+    pub first_run_release_foot_rotation_speed_degrees_per_second: SignedAngularSpeedDegrees,
     pub maximum_retained_plant_reach_correction_metres: SignedLength,
     pub pelvis_correction_speed_metres_per_second: NonnegativeSpeed,
     pub run_pelvis_correction_speed_metres_per_second: SignedSpeed,
     pub maximum_pelvis_correction_step_metres: NonnegativeLength,
-    pub terrain_blend_speed_per_second: f32,
-    pub minimum_knee_flexion_degrees: f32,
-    pub minimum_terrain_knee_flexion_degrees: f32,
+    pub terrain_blend_speed_per_second: ResponseRate,
+    pub minimum_knee_flexion_degrees: SignedAngleDegrees,
+    pub minimum_terrain_knee_flexion_degrees: SignedAngleDegrees,
     pub landing_knee_reserve_release_compression_metres: SignedLength,
     pub landing_knee_reserve_full_compression_metres: SignedLength,
     pub measured_ankle_sole_offset_metres: PositiveLength,
@@ -185,7 +189,7 @@ pub struct InverseKinematicsConfig {
     pub run_maximum_planned_reach_pelvis_drop_metres: NonnegativeLength,
     pub late_run_contact_plan_phase: UnitInterval,
     pub maximum_run_swing_root_relative_step_metres: SignedLength,
-    pub settle_step_seconds: f32,
+    pub settle_step_seconds: ResponseShapingTime,
     pub settle_step_clearance_metres: SignedLength,
     pub settle_capture_point_margin_metres: SignedLength,
     pub assumed_center_of_mass_height_metres: SignedLength,
@@ -677,14 +681,14 @@ impl TacticalCombatConfig {
         if gait_values.into_iter().any(|gait| {
             ![
                 gait.step_distance_metres.metres(),
-                gait.support_phase_radius,
+                gait.support_phase_radius.cycles(),
                 gait.bounce_metres.metres(),
                 gait.flight_apex_metres.metres(),
             ]
             .into_iter()
             .all(finite_nonnegative)
                 || gait.step_distance_metres.metres() == 0.0
-                || !(0.0..0.5).contains(&gait.support_phase_radius)
+                || !(0.0..0.5).contains(&gait.support_phase_radius.cycles())
         }) {
             return Err(TacticalCombatConfigError::Validation(
                 "invalid animation locomotion tuning",
@@ -735,25 +739,27 @@ impl TacticalCombatConfig {
         }
         let ik = animation.inverse_kinematics;
         if ![
-            ik.maximum_owner_rotation_per_tick_degrees,
-            ik.maximum_knee_target_amplification,
+            ik.maximum_owner_rotation_per_tick_degrees.degrees(),
+            ik.maximum_knee_target_amplification.factor(),
             ik.continuity_sample_hz.hertz(),
-            ik.stationary_turn_step_seconds,
-            ik.knee_pole_maximum_foot_facing_offset_degrees,
-            ik.airborne_foot_rotation_speed_degrees_per_second,
-            ik.first_run_release_foot_rotation_speed_degrees_per_second,
-            ik.terrain_blend_speed_per_second,
-            ik.minimum_knee_flexion_degrees,
-            ik.minimum_terrain_knee_flexion_degrees,
-            ik.settle_step_seconds,
+            ik.stationary_turn_step_seconds.seconds(),
+            ik.knee_pole_maximum_foot_facing_offset_degrees.degrees(),
+            ik.airborne_foot_rotation_speed_degrees_per_second
+                .degrees_per_second(),
+            ik.first_run_release_foot_rotation_speed_degrees_per_second
+                .degrees_per_second(),
+            ik.terrain_blend_speed_per_second.per_second(),
+            ik.minimum_knee_flexion_degrees.degrees(),
+            ik.minimum_terrain_knee_flexion_degrees.degrees(),
+            ik.settle_step_seconds.seconds(),
         ]
         .into_iter()
         .all(f32::is_finite)
             || ik.outer_foot_track_metres.metres()
                 <= ik.minimum_inter_foot_separation_metres.metres() * 0.5
-            || ik.terrain_blend_speed_per_second < 0.0
-            || ik.knee_pole_maximum_foot_facing_offset_degrees < 0.0
-            || ik.maximum_knee_target_amplification <= 0.0
+            || ik.terrain_blend_speed_per_second.per_second() < 0.0
+            || ik.knee_pole_maximum_foot_facing_offset_degrees.degrees() < 0.0
+            || ik.maximum_knee_target_amplification.factor() <= 0.0
             || ik.continuity_sample_hz.hertz() <= 0.0
         {
             return Err(TacticalCombatConfigError::Validation(

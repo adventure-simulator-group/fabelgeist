@@ -1,0 +1,54 @@
+//! A real finite rig scene frame; absence never fabricates a world transform.
+
+use super::*;
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub(in crate::animation::procedural) struct ObservedRigFrame {
+    origin: Vec3,
+    rotation: Quat,
+}
+
+impl ObservedRigFrame {
+    pub(in crate::animation::procedural) fn from_native(
+        origin: Vec3,
+        rotation: Quat,
+    ) -> AnimationValueResult<Self> {
+        if !origin.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::WorldPosition,
+            });
+        }
+        if !rotation.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::BodyOrientation,
+            });
+        }
+        Ok(Self { origin, rotation })
+    }
+
+    pub(super) fn from_global(global: &GlobalTransform) -> AnimationValueResult<Self> {
+        Self::from_native(global.translation(), global.rotation())
+    }
+
+    pub(super) fn resolve(
+        rig: &HumanoidRig,
+        transforms: &TransformHelper,
+    ) -> AnimationValueResult<Option<Self>> {
+        let Some(scene) = rig.rig_scene() else {
+            return Ok(None);
+        };
+        let Ok(global) = transforms.compute_global_transform(scene) else {
+            return Ok(None);
+        };
+        Self::from_global(&global).map(Some)
+    }
+
+    /// Native origin consumed by world/owner vector arithmetic.
+    pub(super) fn origin(self) -> Vec3 {
+        self.origin
+    }
+    /// Finite non-unit orientations retain their original projection semantics.
+    pub(super) fn rotation(self) -> Quat {
+        self.rotation
+    }
+}

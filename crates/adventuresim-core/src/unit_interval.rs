@@ -28,6 +28,10 @@ impl UnitInterval {
         }
         Ok(Self(value))
     }
+    /// Selecting a confidence preserves admission, including native signed-zero semantics.
+    pub fn max(self, other: Self) -> Self {
+        Self(self.0.max(other.0))
+    }
     pub fn fraction(self) -> f32 {
         self.0
     }

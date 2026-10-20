@@ -302,14 +302,14 @@ mod legacy_tests {
         let (walk_left, walk_right) = gait_support_weights(
             walk_locomotion_profile(),
             CyclePhase::from_cycles(0.25).unwrap(),
-        );
-        assert!(walk_left + walk_right > 0.0);
+        ).unwrap();
+        assert!(walk_left.fraction() + walk_right.fraction() > 0.0);
         assert_eq!(
             gait_support_weights(
                 run_locomotion_profile(),
                 CyclePhase::from_cycles(0.25).unwrap()
-            ),
-            (0.0, 0.0)
+            ).unwrap(),
+            (UnitInterval::ZERO, UnitInterval::ZERO)
         );
         assert_eq!(run_locomotion_profile().flight_apex_metres.metres(), 0.12);
     }
