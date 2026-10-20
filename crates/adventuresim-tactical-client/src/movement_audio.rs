@@ -96,9 +96,8 @@ fn play_locomotion_audio(
             continue;
         };
         let position = transform.translation();
-        let sequence = StreamId::new("audio.locomotion-event")
-            .seed((character_id.0).into(), &[event.payload.encoded_sequence()])
-            .to_u64();
+        let event_seed = StreamId::new("audio.locomotion-event")
+            .seed((character_id.0).into(), &[event.payload.encoded_sequence()]);
         match event.payload {
             LocomotionPresentationPayload::Contact { .. } => {
                 let surface = ground.and_then(|ground| ground.ground_at(position.xz()));
@@ -114,7 +113,7 @@ fn play_locomotion_audio(
                     &mut commands,
                     &asset_server,
                     family,
-                    sequence,
+                    event_seed,
                     position,
                     config.movement.footstep_relative_volume,
                     config.movement.pitch_randomization,
@@ -123,7 +122,7 @@ fn play_locomotion_audio(
                     spawn_rustle(
                         &mut commands,
                         &asset_server,
-                        sequence,
+                        event_seed,
                         position,
                         config.movement.tall_grass_rustle_relative_volume,
                         config.movement.tall_grass_rustle_pitch,
@@ -135,8 +134,7 @@ fn play_locomotion_audio(
                         &mut commands,
                         &asset_server,
                         StreamId::new("audio.understory-rustle")
-                            .seed((sequence).into(), &[])
-                            .to_u64(),
+                            .seed(event_seed, &[]),
                         position,
                         config.movement.bush_rustle_relative_volume,
                         config.movement.bush_rustle_pitch,
@@ -156,7 +154,7 @@ fn play_locomotion_audio(
                     &mut commands,
                     &asset_server,
                     "impactSoft_heavy_00",
-                    sequence,
+                    event_seed,
                     position,
                     config.movement.body_impact_relative_volume,
                     config.movement.pitch_randomization,
@@ -195,8 +193,7 @@ fn play_grounded_dive_impacts(
                     .seed(
                         (character_id.0).into(),
                         &[skeleton.locomotion_sample_tick.encoded()],
-                    )
-                    .to_u64(),
+                    ),
                 transform.translation(),
                 config.movement.body_impact_relative_volume,
                 config.movement.pitch_randomization,
@@ -230,13 +227,13 @@ fn spawn_spatial_variant(
     commands: &mut Commands,
     asset_server: &AssetServer,
     family: &str,
-    sequence: u64,
+    event_seed: Seed,
     position: Vec3,
     volume: f32,
     pitch_randomization: [f32; 2],
 ) {
     let sample =
-        sound_seed(sequence, position).child(StreamId::new("audio.family"), &[family.as_bytes()]);
+        sound_seed(event_seed, position).child(StreamId::new("audio.family"), &[family.as_bytes()]);
     let variant = sample
         .child(StreamId::new("audio.variant"), &[])
         .rng()
@@ -256,13 +253,13 @@ fn spawn_spatial_variant(
 fn spawn_rustle(
     commands: &mut Commands,
     asset_server: &AssetServer,
-    sequence: u64,
+    event_seed: Seed,
     position: Vec3,
     volume: f32,
     base_speed: f32,
     pitch_randomization: [f32; 2],
 ) {
-    let sample = sound_seed(sequence, position);
+    let sample = sound_seed(event_seed, position);
     spawn_spatial_sound(
         commands,
         asset_server.load("audio/movement/foliage_rustle.ogg"),
@@ -303,9 +300,9 @@ fn spawn_spatial_sound(
     ));
 }
 
-fn sound_seed(sequence: u64, position: Vec3) -> Seed {
+fn sound_seed(event_seed: Seed, position: Vec3) -> Seed {
     StreamId::new("audio.spatial-event").seed(
-        (sequence).into(),
+        event_seed,
         &[
             u64::from(position.x.to_bits()),
             u64::from(position.y.to_bits()),

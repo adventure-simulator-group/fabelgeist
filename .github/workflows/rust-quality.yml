@@ -199,10 +199,11 @@ jobs:
           creator_contract animation-preview --bin adventuresim-character-creator animation_preview:: -- --test-threads=1 --nocapture
           creator_contract device-bracer --test device_bracer -- --test-threads=1 --nocapture
           creator_contract device-breastplate --test device_breastplate -- --test-threads=1 --nocapture
-      - name: Test tactical animation contracts
+      - name: Test tactical animation and audio contracts
         run: |
           set -o pipefail
           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client movement_audio::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/audio.log
       - name: Test tactical equipment contracts
         run: |
           set -o pipefail
@@ -249,7 +250,7 @@ jobs:
           if not re.fullmatch(r"[0-9a-f]{40}", revision) or revision != os.environ["EXPECTED_RIG_REVISION"]:
               raise SystemExit("Recorded rig revision does not match the required PR head")
           required = [
-              "rig", "mhr", "animation", "equipment",
+              "rig", "mhr", "animation", "audio", "equipment",
               "creator-armor-frames", "creator-clothing",
               "creator-device-frames", "creator-gorget-bib",
               "creator-gorget-collar", "creator-wrapped-tasset",
