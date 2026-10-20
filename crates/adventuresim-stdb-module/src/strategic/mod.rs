@@ -12,8 +12,8 @@ use adventuresim_core::strategic_state::vocabulary::{
 };
 use adventuresim_core::weather::Precipitation;
 use adventuresim_dialogue::{PromptMode, ResolutionPolicy};
-use std::str::FromStr;
 use battle_combatants::load_allied_combatants;
+use std::str::FromStr;
 mod battle_combatants;
 mod challenge_state;
 mod dialogue_policy;
