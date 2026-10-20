@@ -37,7 +37,7 @@ pub(super) fn steady_scenario(
     name: ScenarioMetadata<'static>,
     speed: SignedSpeed,
     cycles: f32,
-) -> Vec<PlannedFrame> {
+) -> AnimationValueResult<Vec<PlannedFrame>> {
     steady_scenario_in_direction(name, speed, cycles, Vec2::NEG_Y)
 }
 
@@ -67,16 +67,16 @@ pub(super) fn steady_scenario_in_direction(
     speed: SignedSpeed,
     cycles: f32,
     local_direction: Vec2,
-) -> Vec<PlannedFrame> {
-    let cycle_duration =
-        ordinary_step_distance(speed.nonnegative_part()) * 2.0 / speed.metres_per_second();
+) -> AnimationValueResult<Vec<PlannedFrame>> {
+    let cycle_duration = ordinary_step_distance(speed.nonnegative_part())?.metres() * 2.0
+        / speed.metres_per_second();
     let duration = cycles * cycle_duration;
     // Include the first authoritative tick after the requested final cycle.
     // Fixed-rate sampling rarely lands on the mathematical wrap exactly; the
     // post-wrap sample makes every steady scenario exercise its real loop
     // transition instead of silently reporting no seam.
     let last_frame = (duration * locomotion_sample_rate().hertz()).ceil() as usize + 1;
-    (0..=last_frame)
+    Ok((0..=last_frame)
         .map(|scenario_frame| PlannedFrame {
             scenario: name.clone(),
             scenario_frame,
@@ -91,7 +91,7 @@ pub(super) fn steady_scenario_in_direction(
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
         })
-        .collect()
+        .collect())
 }
 
 pub(super) fn transition_scenario() -> Vec<PlannedFrame> {
@@ -425,8 +425,8 @@ pub(super) fn attack_live_scenario(
         .collect()
 }
 
-pub(super) fn capture_plan() -> Vec<PlannedFrame> {
-    [
+pub(super) fn capture_plan() -> AnimationValueResult<Vec<PlannedFrame>> {
+    Ok([
         downed_contact_scenario(
             ScenarioMetadata::authored(ScenarioId::DownedProneCrawl),
             BodyState::Prone,
@@ -493,29 +493,29 @@ pub(super) fn capture_plan() -> Vec<PlannedFrame> {
             ScenarioMetadata::authored(ScenarioId::SteadyWalk20),
             authored_drive_speed(2.0),
             2.0,
-        ),
+        )?,
         steady_scenario(
             ScenarioMetadata::authored(ScenarioId::WalkRunBlend375),
             authored_drive_speed(3.75),
             2.0,
-        ),
+        )?,
         steady_scenario(
             ScenarioMetadata::authored(ScenarioId::SteadyRun55),
             authored_drive_speed(5.5),
             2.0,
-        ),
+        )?,
         steady_scenario_in_direction(
             ScenarioMetadata::authored(ScenarioId::LateralWalk20),
             authored_drive_speed(2.0),
             1.0,
             Vec2::X,
-        ),
+        )?,
         steady_scenario_in_direction(
             ScenarioMetadata::authored(ScenarioId::ReverseWalk20),
             authored_drive_speed(2.0),
             1.0,
             Vec2::Y,
-        ),
+        )?,
         turning_scenario(
             ScenarioMetadata::authored(ScenarioId::GradualCameraTurn),
             false,
@@ -525,8 +525,8 @@ pub(super) fn capture_plan() -> Vec<PlannedFrame> {
             true,
         ),
         guard_plant_turn_scenario(),
-        plan_families::raised_guard(),
-        plan_families::right_support(),
+        plan_families::raised_guard()?,
+        plan_families::right_support()?,
         plan_families::attacks(),
         dynamics_speed_scenario(
             ScenarioMetadata::authored(ScenarioId::SpeedRampUpDown),
@@ -546,7 +546,7 @@ pub(super) fn capture_plan() -> Vec<PlannedFrame> {
             ScenarioMetadata::authored(ScenarioId::CadenceContact),
             authored_drive_speed(2.0),
             2.0,
-        ),
+        )?,
         // Terrain IK captures include a complete calibration cycle plus two
         // review cycles. The old one-cycle probe discarded its only full cycle
         // as warmup and judged a tiny post-wrap tail.
@@ -555,24 +555,24 @@ pub(super) fn capture_plan() -> Vec<PlannedFrame> {
             authored_drive_speed(2.0),
             3.0,
             Vec2::X,
-        ),
+        )?,
         steady_scenario(
             ScenarioMetadata::authored(ScenarioId::TerrainUphillWalk),
             authored_drive_speed(2.0),
             3.0,
-        ),
+        )?,
         steady_scenario_in_direction(
             ScenarioMetadata::authored(ScenarioId::TerrainDownhillWalk),
             authored_drive_speed(2.0),
             3.0,
             Vec2::Y,
-        ),
+        )?,
         steady_scenario_in_direction(
             ScenarioMetadata::authored(ScenarioId::TerrainDiagonalWalk),
             authored_drive_speed(2.0),
             3.0,
             Vec2::new(1.0, -1.0).normalize(),
-        ),
+        )?,
         terrain_toggle_scenario(),
         dynamics_speed_scenario(
             ScenarioMetadata::authored(ScenarioId::TerrainHardStop),
@@ -602,7 +602,7 @@ pub(super) fn capture_plan() -> Vec<PlannedFrame> {
             ScenarioMetadata::authored(ScenarioId::TerrainSteadyRun55),
             authored_drive_speed(5.5),
             3.0,
-        ),
+        )?,
         dynamics_turn_scenario(
             ScenarioMetadata::authored(ScenarioId::TerrainTurn90),
             std::f32::consts::FRAC_PI_2,
@@ -612,7 +612,7 @@ pub(super) fn capture_plan() -> Vec<PlannedFrame> {
     ]
     .into_iter()
     .flatten()
-    .collect()
+    .collect())
 }
 
 pub(super) fn downed_contact_scenario(
@@ -886,7 +886,7 @@ pub(super) fn raised_guard_stationary_turn_scenario() -> Vec<PlannedFrame> {
 pub(super) fn raised_guard_scenario(
     name: ScenarioMetadata<'static>,
     direction: Vec2,
-) -> Vec<PlannedFrame> {
+) -> AnimationValueResult<Vec<PlannedFrame>> {
     let direction = direction.normalize_or_zero();
     // Leave enough post-startup time for both local support identities to
     // complete. One semantic cycle could end before the client-owned first
@@ -899,7 +899,7 @@ pub(super) fn raised_guard_steady_scenario(
     speed: SignedSpeed,
     cycles: f32,
     direction: Vec2,
-) -> Vec<PlannedFrame> {
+) -> AnimationValueResult<Vec<PlannedFrame>> {
     raised_guard_steady_scenario_with_lead(name, speed, cycles, direction, LeadFoot::Left)
 }
 
@@ -909,10 +909,10 @@ pub(super) fn raised_guard_steady_scenario_with_lead(
     cycles: f32,
     direction: Vec2,
     lead_foot: LeadFoot,
-) -> Vec<PlannedFrame> {
-    let duration = cycles * guard_step_length() * 2.0 / speed.metres_per_second();
+) -> AnimationValueResult<Vec<PlannedFrame>> {
+    let duration = cycles * guard_step_length()?.metres() * 2.0 / speed.metres_per_second();
     let last_frame = (duration * locomotion_sample_rate().hertz()).ceil() as usize + 1;
-    (0..=last_frame)
+    Ok((0..=last_frame)
         .map(|scenario_frame| PlannedFrame {
             scenario: name.clone(),
             scenario_frame,
@@ -927,7 +927,7 @@ pub(super) fn raised_guard_steady_scenario_with_lead(
             weapon_guard: WeaponGuardState::Raised,
             lead_foot,
         })
-        .collect()
+        .collect())
 }
 
 pub(super) fn raised_guard_acceleration_scenario() -> Vec<PlannedFrame> {
@@ -983,7 +983,7 @@ pub(super) fn raised_guard_transition_scenario() -> Vec<PlannedFrame> {
         .collect()
 }
 
-pub(super) fn raised_guard_release_scenario() -> Vec<PlannedFrame> {
+pub(super) fn raised_guard_release_scenario() -> AnimationValueResult<Vec<PlannedFrame>> {
     raised_guard_release_scenario_with_lead(
         ScenarioMetadata::authored(ScenarioId::RaisedGuardReleaseAtPeak),
         LeadFoot::Left,
@@ -993,10 +993,10 @@ pub(super) fn raised_guard_release_scenario() -> Vec<PlannedFrame> {
 pub(super) fn raised_guard_release_scenario_with_lead(
     name: ScenarioMetadata<'static>,
     lead_foot: LeadFoot,
-) -> Vec<PlannedFrame> {
+) -> AnimationValueResult<Vec<PlannedFrame>> {
     let release_frame =
-        (guard_step_length() * 0.75 * locomotion_sample_rate().hertz()).round() as usize;
-    (0..=64)
+        (guard_step_length()?.metres() * 0.75 * locomotion_sample_rate().hertz()).round() as usize;
+    Ok((0..=64)
         .map(|scenario_frame| PlannedFrame {
             scenario: name.clone(),
             scenario_frame,
@@ -1015,7 +1015,7 @@ pub(super) fn raised_guard_release_scenario_with_lead(
             weapon_guard: WeaponGuardState::Raised,
             lead_foot,
         })
-        .collect()
+        .collect())
 }
 
 pub(super) fn raised_guard_reversal_scenario() -> Vec<PlannedFrame> {
@@ -1080,7 +1080,8 @@ mod tests {
             ("run", authored_drive_speed(5.5)),
         ] {
             let frames =
-                steady_scenario(ScenarioMetadata::from_label(name).into_owned(), speed, 2.0);
+                steady_scenario(ScenarioMetadata::from_label(name).into_owned(), speed, 2.0)
+                    .unwrap();
             assert_eq!(frames.first().unwrap().time_seconds.seconds(), 0.0);
             assert!(frames.len() > 30);
             for pair in frames.windows(2) {
@@ -1188,7 +1189,7 @@ mod tests {
 
     #[test]
     fn capture_plan_covers_raised_guard_directions_and_gameplay_transition() {
-        let plan = capture_plan();
+        let plan = capture_plan().unwrap();
         for scenario in [
             "raised-guard-forward",
             "raised-guard-backward",
@@ -1273,6 +1274,7 @@ mod tests {
             set_weapon_guard(&mut skeleton, WeaponGuardState::Raised);
             let mut phases = Vec::new();
             for frame in capture_plan()
+                .unwrap()
                 .into_iter()
                 .filter(|frame| frame.scenario.label() == scenario)
             {
@@ -1317,6 +1319,7 @@ mod tests {
             set_weapon_guard(&mut skeleton, WeaponGuardState::Raised);
             let mut samples = Vec::new();
             for frame in capture_plan()
+                .unwrap()
                 .into_iter()
                 .filter(|frame| frame.scenario.label() == scenario)
             {
@@ -1349,7 +1352,8 @@ mod tests {
 
         let release = replay("raised-guard-release-at-peak");
         let release_frame =
-            (guard_step_length() * 0.75 * locomotion_sample_rate().hertz()).round() as usize;
+            (guard_step_length().unwrap().metres() * 0.75 * locomotion_sample_rate().hertz())
+                .round() as usize;
         assert!(
             release
                 .iter()

@@ -36,7 +36,7 @@ pub enum LocomotionGait {
 pub struct LocomotionProfile {
     pub gait: LocomotionGait,
     pub reference_speed: NonnegativeSpeed,
-    pub step_distance: f32,
+    pub step_distance: NonnegativeLength,
     /// Radius around each contact phase that can carry support.
     pub support_phase_radius: f32,
     /// Visual grounded bounce, in metres.
@@ -137,7 +137,7 @@ pub fn locomotion_profile(
     }
     if state.weapon_guard() == WeaponGuardState::Raised && !state.is_guarded_sprinting() {
         return Ok(LocomotionProfile {
-            step_distance: guard_step_length(),
+            step_distance: guard_step_length()?,
             ..raised_guard_locomotion_profile()
         });
     }
@@ -156,7 +156,7 @@ pub fn locomotion_profile(
         reference_speed: walk
             .reference_speed
             .checked_lerp(run_profile.reference_speed, run)?,
-        step_distance: ordinary_step_distance(speed),
+        step_distance: ordinary_step_distance(speed)?,
         support_phase_radius: walk
             .support_phase_radius
             .lerp(run_profile.support_phase_radius, run),
@@ -172,21 +172,24 @@ pub fn locomotion_profile(
 
 /// Shared distance model through authored walk/run reference points. This
 /// replaces duplicated cadence arithmetic without changing current timing.
-pub fn ordinary_step_distance(speed: NonnegativeSpeed) -> f32 {
+pub fn ordinary_step_distance(speed: NonnegativeSpeed) -> AnimationValueResult<NonnegativeLength> {
     let speed = speed.metres_per_second().max(0.0);
     let walk = walk_locomotion_profile();
     let run = run_locomotion_profile();
-    if speed <= walk.reference_speed.metres_per_second() {
+    let distance = if speed <= walk.reference_speed.metres_per_second() {
         0.9_f32.lerp(
-            walk.step_distance,
+            walk.step_distance.metres(),
             speed / walk.reference_speed.metres_per_second(),
         )
     } else {
         let blend = ((speed - walk.reference_speed.metres_per_second())
             / (run.reference_speed.metres_per_second() - walk.reference_speed.metres_per_second()))
         .clamp(0.0, 1.0);
-        walk.step_distance.lerp(run.step_distance, blend)
-    }
+        walk.step_distance
+            .metres()
+            .lerp(run.step_distance.metres(), blend)
+    };
+    NonnegativeLength::from_arithmetic(distance)
 }
 
 pub fn gait_cycle_phase_delta(
@@ -197,7 +200,7 @@ pub fn gait_cycle_phase_delta(
     // Speed and elapsed seconds meet only in this physical cadence kernel.
     CycleDelta::from_arithmetic(
         speed.metres_per_second().max(0.0) * elapsed.seconds().max(0.0)
-            / (profile.step_distance.max(0.01) * 2.0),
+            / (profile.step_distance.metres().max(0.01) * 2.0),
     )
 }
 
@@ -249,7 +252,7 @@ fn gait_profile(
     LocomotionProfile {
         gait,
         reference_speed: config.reference_speed_metres_per_second.nonnegative(),
-        step_distance: config.step_distance_metres,
+        step_distance: config.step_distance_metres.into(),
         support_phase_radius: config.support_phase_radius,
         bounce_metres: config.bounce_metres,
         flight_apex_metres: config.flight_apex_metres,

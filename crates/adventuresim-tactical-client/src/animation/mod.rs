@@ -5,18 +5,16 @@
 
 use adventuresim_tactical_core::animation::AttackCurve;
 use adventuresim_tactical_core::animation::{
-    ActionProgressDelta, AnimationFrequency, AnimationPackId, AnimationSampleSpan,
-    AnimationSampleTick, AttackPoseCoordinate, BlendWeight, ClipMirror, CycleDelta, CyclePhase,
-    SkeletonFamily, UnitInterval,
+    ActionProgressDelta, AnimationFrequency, AnimationPackId, AnimationQuantity,
+    AnimationSampleSpan, AnimationSampleTick, AttackPoseCoordinate, BlendWeight, ClipMirror,
+    CycleDelta, CyclePhase, NonnegativeLength, SkeletonFamily, UnitInterval,
 };
 use adventuresim_tactical_core::animation::{AnimationElapsed, AnimationValueError};
 use adventuresim_tactical_core::prelude::*;
 #[cfg(not(target_family = "wasm"))]
 use adventuresim_tactical_netcode::message::PlayerInputRequest;
 use adventuresim_tactical_netcode::message::SuccessfulAttackResponse;
-use authored_cadence::{
-    AuthoredLocomotionStrides, AuthoredPhaseCurve, AuthoredStrideMeasurement, CalibrationMotion,
-};
+use authored_cadence::{AuthoredLocomotionStrides, AuthoredStrideMeasurement, CalibrationMotion};
 use bevy::{
     animation::AnimationTargetId,
     asset::{AssetId, LoadState},
@@ -41,6 +39,7 @@ use playback_state::{
     BaseRigLoad, InertialState, OrdinaryLocomotion, PoseOwnership, PoseVisibility,
     TimelineDirection,
 };
+use pose_buffer::AuthoredPhaseCurve;
 pub(crate) use presentation::{
     plugin::{AnimatedActors, StrategicModel},
     *,
@@ -283,7 +282,7 @@ fn evaluate_skeletons(
     mut commands: Commands,
     catalog: Res<AnimationPackCatalog>,
     runtime: Res<AnimationRuntime>,
-    locomotion_strides: Res<AuthoredLocomotionStrides>,
+    locomotion_strides: pose_buffer::CalibrationLookup,
     players: Query<
         (
             Entity,
@@ -291,14 +290,13 @@ fn evaluate_skeletons(
             &semantic_route::SemanticRouteTrace,
             Option<&InventoryItems>,
             Option<&mut AnimationPlayback>,
-            Option<&pose_buffer::CharacterLocomotionStrides>,
         ),
         AnimatedActors,
     >,
     weapons: Query<(&WeaponItem, &ItemProperties)>,
     equip_slots: Query<&EquipSlot>,
 ) {
-    'actor: for (entity, skeleton, route_trace, inventory, playback, character_strides) in players {
+    'actor: for (entity, skeleton, route_trace, inventory, playback) in players {
         // The preceding chained system directly routes authoritative
         // presentation state into deterministic semantic samples.
         let evaluation = route_trace.evaluation.clone();
@@ -311,8 +309,7 @@ fn evaluate_skeletons(
             runtime: &runtime,
             catalog: &catalog,
             pack: &route_trace.inputs.pack,
-            locomotion_strides: character_strides
-                .map_or(&*locomotion_strides, |strides| &strides.measurements),
+            locomotion_strides: locomotion_strides.for_actor(entity),
         };
         let mut target = match sample_resolver.resolve_body(skeleton, &evaluation) {
             Ok(target) => target,

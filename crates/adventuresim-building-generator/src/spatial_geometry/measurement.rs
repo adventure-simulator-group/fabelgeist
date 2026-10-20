@@ -1,5 +1,5 @@
 //! Scalar set-out distances and overlap areas retain their units and admission.
-use super::{CoordinateAxis, GeometryError, GeometryRole};
+use super::{CoordinateAxis, GeometryError, GeometryRole, PositiveLength};
 use crate::spatial_geometry::GeometryResult as Result;
 use bevy::reflect::Reflect;
 use serde::{Deserialize, Serialize};
@@ -27,6 +27,11 @@ impl SignedLength {
     }
     pub fn metres(self) -> f32 {
         self.0
+    }
+}
+impl From<PositiveLength> for SignedLength {
+    fn from(value: PositiveLength) -> Self {
+        Self(value.metres())
     }
 }
 impl<'de> Deserialize<'de> for SignedLength {

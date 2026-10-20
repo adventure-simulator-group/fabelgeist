@@ -3,7 +3,9 @@
 use super::*;
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 
-pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedReport {
+pub(super) fn build_completed_report(
+    completed: CompletedCapture,
+) -> AnimationValueResult<CompletedReport> {
     let CompletedCapture {
         output,
         plan,
@@ -220,7 +222,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             .count()
             <= 3
     });
-    let cadence_contact_valid = cadence_contacts_valid(&frames);
+    let cadence_contact_valid = cadence_contacts_valid(&frames)?;
     let event_stream_valid = presentation_events
         .iter()
         .zip(presentation_events.iter().skip(1))
@@ -611,11 +613,11 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
         presentation_events,
         semantic_route_path_counts,
     };
-    CompletedReport {
+    Ok(CompletedReport {
         output,
         manifest,
         global_bone_frames,
-    }
+    })
 }
 
 pub(super) fn validation_passed(validation: &AnimationCaptureValidation) -> bool {

@@ -2,51 +2,51 @@
 
 use super::*;
 
-pub(super) fn raised_guard() -> Vec<PlannedFrame> {
-    [
+pub(super) fn raised_guard() -> AnimationValueResult<Vec<PlannedFrame>> {
+    Ok([
         raised_guard_stationary_turn_scenario(),
         raised_guard_steady_scenario(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardForward),
             authored_drive_speed(2.0),
             2.0,
             Vec2::NEG_Y,
-        ),
+        )?,
         raised_guard_scenario(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardBackward),
             Vec2::Y,
-        ),
+        )?,
         raised_guard_scenario(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardLeft),
             Vec2::NEG_X,
-        ),
+        )?,
         raised_guard_scenario(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardRight),
             Vec2::X,
-        ),
+        )?,
         raised_guard_scenario(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardForwardLeft),
             Vec2::new(-1.0, -1.0),
-        ),
+        )?,
         raised_guard_scenario(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardForwardRight),
             Vec2::new(1.0, -1.0),
-        ),
+        )?,
         raised_guard_scenario(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardBackwardLeft),
             Vec2::new(-1.0, 1.0),
-        ),
+        )?,
         raised_guard_scenario(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardBackwardRight),
             Vec2::ONE,
-        ),
+        )?,
         raised_guard_steady_scenario(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardHalfSpeed),
             authored_drive_speed(1.0),
             2.0,
             Vec2::X,
-        ),
+        )?,
         raised_guard_acceleration_scenario(),
-        raised_guard_release_scenario(),
+        raised_guard_release_scenario()?,
         raised_guard_lateral_tap_stop_scenario(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardTapStopLeft),
             Vec2::NEG_X,
@@ -59,32 +59,32 @@ pub(super) fn raised_guard() -> Vec<PlannedFrame> {
     ]
     .into_iter()
     .flatten()
-    .collect()
+    .collect())
 }
 
-pub(super) fn right_support() -> Vec<PlannedFrame> {
-    [
+pub(super) fn right_support() -> AnimationValueResult<Vec<PlannedFrame>> {
+    Ok([
         raised_guard_steady_scenario_with_lead(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportLeft),
             authored_drive_speed(2.0),
             1.0,
             Vec2::NEG_X,
             LeadFoot::Right,
-        ),
+        )?,
         raised_guard_steady_scenario_with_lead(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportRight),
             authored_drive_speed(2.0),
             1.0,
             Vec2::X,
             LeadFoot::Right,
-        ),
+        )?,
         raised_guard_steady_scenario_with_lead(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportForwardRight),
             authored_drive_speed(2.0),
             1.0,
             Vec2::new(1.0, -1.0),
             LeadFoot::Right,
-        ),
+        )?,
         raised_guard_acceleration_scenario_with_lead(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportAccelerate),
             LeadFoot::Right,
@@ -92,7 +92,7 @@ pub(super) fn right_support() -> Vec<PlannedFrame> {
         raised_guard_release_scenario_with_lead(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportRelease),
             LeadFoot::Right,
-        ),
+        )?,
         raised_guard_reversal_scenario_with_lead(
             ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportReversal),
             LeadFoot::Right,
@@ -101,7 +101,7 @@ pub(super) fn right_support() -> Vec<PlannedFrame> {
     ]
     .into_iter()
     .flatten()
-    .collect()
+    .collect())
 }
 
 pub(super) fn attacks() -> Vec<PlannedFrame> {

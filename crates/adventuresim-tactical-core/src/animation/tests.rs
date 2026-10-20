@@ -281,16 +281,22 @@ mod legacy_tests {
             (ordinary_step_distance(
                 adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
                     .unwrap()
-            ) - walk_locomotion_profile().step_distance)
-                .abs()
+            )
+            .unwrap()
+            .metres()
+                - walk_locomotion_profile().step_distance.metres())
+            .abs()
                 < 0.0001
         );
         assert!(
             (ordinary_step_distance(
                 adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(5.5)
                     .unwrap()
-            ) - run_locomotion_profile().step_distance)
-                .abs()
+            )
+            .unwrap()
+            .metres()
+                - run_locomotion_profile().step_distance.metres())
+            .abs()
                 < 0.0001
         );
         let (walk_left, walk_right) = gait_support_weights(
@@ -612,7 +618,7 @@ mod legacy_tests {
     #[test]
     fn gait_phase_spans_two_steps_at_run_speed() {
         let speed = 5.5;
-        let cycle_seconds = run_locomotion_profile().step_distance * 2.0 / speed;
+        let cycle_seconds = run_locomotion_profile().step_distance.metres() * 2.0 / speed;
         assert!(
             (gait_cycle_phase_delta(
                 run_locomotion_profile(),
@@ -972,12 +978,37 @@ mod legacy_tests {
         assert_eq!(guard_movement_front_foot(lead, Vec2::NEG_X), LeadFoot::Left);
         assert_eq!(guard_movement_front_foot(lead, Vec2::X), LeadFoot::Right);
         assert!(
-            (guard_maximum_lateral_foot_separation(0.840_348)
-                - guard_maximum_foot_separation(0.840_348))
+            (guard_maximum_lateral_foot_separation(
+                adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(
+                    0.840_348
+                )
+                .unwrap()
+            )
+            .unwrap()
+            .metres()
+                - guard_maximum_foot_separation(
+                    adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(
+                        0.840_348
+                    )
+                    .unwrap()
+                )
+                .unwrap()
+                .metres())
             .abs()
                 < 0.0001
         );
-        assert!(guard_contact_travel_distance(0.840_348, Vec2::X) > 0.34);
+        assert!(
+            guard_contact_travel_distance(
+                adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(
+                    0.840_348
+                )
+                .unwrap(),
+                Vec2::X
+            )
+            .unwrap()
+            .metres()
+                > 0.34
+        );
     }
 
     #[test]

@@ -227,6 +227,20 @@ owner. Height updates commit only after their checked operations succeed.
 Combat YAML owns the observation cap, calibration grid and accepted foot range,
 landing tolerances, body-response caps/reference accelerations and safe-settle
 interval. Playback drift measurement blending admits only fractions in `[0, 1]`.
+Cadence retains checked nonnegative step distances and stance-slip budgets;
+selected-axis calibration positions retain signed metres. A fitted phase curve
+owns its periodic sample grid and checked seam; an empty or singleton mapping
+is explicitly identity, while missing calibration remains absent. Each motion
+prepares its fit before replacing its cache entry. Malformed arithmetic is
+rejected without marking the clip measured; a valid but unrepresentable fit is
+marked observed and uses the simulation profile until its source is invalidated.
+Calibration use also checks the relevant runtime tuning and current immutable
+rig/retarget offsets before selection. A mismatch excludes that stale entry
+until the existing post-sampling calibration pass prepares its replacement;
+actor observations, gameplay clocks and unrelated history are retained.
+Capture plans and required cadence acceptance propagate distance failures before
+publishing their owned plan/report; inspection JSON is prepared separately and
+published only after the selected plan succeeds.
 The visual root offset uses the existing signed metre owner. Capture frames
 retain scenario classification for terrain policy; text is decoded once at
 source admission and projected back to labels for authored lookup or reports.

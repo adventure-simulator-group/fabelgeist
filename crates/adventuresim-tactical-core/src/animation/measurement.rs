@@ -21,6 +21,15 @@ impl NonnegativeLength {
     pub fn from_metres(value: f32) -> AnimationValueResult<Self> {
         checked_nonnegative(value, AnimationQuantity::Length).map(Self)
     }
+    /// Admit a completed nonnegative distance computation before retaining it.
+    pub fn from_arithmetic(value: f32) -> AnimationValueResult<Self> {
+        if !value.is_finite() {
+            return Err(AnimationValueError::Overflow {
+                quantity: AnimationQuantity::Length,
+            });
+        }
+        Self::from_metres(value)
+    }
     pub fn metres(self) -> f32 {
         self.0
     }

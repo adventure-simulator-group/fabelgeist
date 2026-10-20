@@ -5,24 +5,31 @@
 //! arithmetic stay within this calibration owner.
 
 use super::*;
+use adventuresim_building_generator::spatial_geometry::SignedLength;
 use adventuresim_tactical_core::animation::AnimationQuantity;
-use periodic_smoothing::smooth_periodic_phase_curve;
+pub(in crate::animation) use curve::AuthoredPhaseCurve;
 
+mod curve;
 mod periodic_smoothing;
 
 /// Authored-cycle endpoint allowance for the fitted contact span, in cycles.
 const CONTACT_SPAN_ENDPOINT_ALLOWANCE_CYCLES: f32 = 0.000_001;
 
-/// Projected foot position in metres along the selected rig-local travel axis.
-/// Phases remain unwrapped when the contact crosses the loop seam.
+/// Native rig-local trajectory used to classify height and select a travel axis.
+/// The retained authored phase is unwrapped across the loop seam.
+pub(super) struct FootTrajectorySample {
+    pub(super) authored: CyclePhase,
+    pub(super) position: Vec3,
+}
+
 pub(super) struct AuthoredContactSample {
     pub(super) authored: CyclePhase,
-    pub(super) position: f32,
+    pub(super) position: SignedLength,
 }
 
 pub(super) struct PhysicalContactSample {
     pub(super) physical: CyclePhase,
-    pub(super) position: f32,
+    pub(super) position: SignedLength,
 }
 
 pub(super) struct ContactPhaseFit {
@@ -44,7 +51,7 @@ struct PhaseMappingSample {
 
 struct OrientedContactSample {
     mapping: PhaseMappingSample,
-    position: f32,
+    position: SignedLength,
 }
 
 /// Nonempty and strictly increasing in physical phase. Authored coordinates
@@ -58,28 +65,59 @@ struct FittedContactSpan {
     trajectory: Vec<PhysicalContactSample>,
 }
 
+/// Expected direction of a stance along its selected rig-local travel axis.
+#[derive(Clone, Copy)]
+pub(super) enum StanceDirection {
+    #[cfg(test)]
+    Increasing,
+    Decreasing,
+}
+
+impl StanceDirection {
+    pub(super) fn sign(self) -> f32 {
+        match self {
+            #[cfg(test)]
+            Self::Increasing => 1.0,
+            Self::Decreasing => -1.0,
+        }
+    }
+}
+
 impl ContactOrientation {
     pub(super) fn fit(
         segments: &[Vec<AuthoredContactSample>],
-        expected_stance_direction: f32,
-    ) -> Option<Self> {
-        let signed_stance_displacement = segments
-            .iter()
-            .map(|samples| {
-                Some(
-                    (samples.last()?.position - samples.first()?.position)
-                        * expected_stance_direction.signum(),
+        expected_stance_direction: StanceDirection,
+    ) -> AnimationValueResult<Option<Self>> {
+        let mut displacements = Vec::with_capacity(segments.len());
+        for samples in segments {
+            let (Some(first), Some(last)) = (samples.first(), samples.last()) else {
+                return Ok(None);
+            };
+            displacements.push(
+                SignedLength::from_metres(
+                    (last.position.metres() - first.position.metres())
+                        * expected_stance_direction.sign(),
                 )
-            })
-            .collect::<Option<Vec<_>>>()?
-            .into_iter()
-            .sum::<f32>();
-        if signed_stance_displacement.abs()
+                .map_err(|_| AnimationValueError::Overflow {
+                    quantity: AnimationQuantity::CalibrationPosition,
+                })?,
+            );
+        }
+        let signed_stance_displacement = SignedLength::from_metres(
+            displacements
+                .iter()
+                .map(|value| value.metres())
+                .sum::<f32>(),
+        )
+        .map_err(|_| AnimationValueError::Overflow {
+            quantity: AnimationQuantity::CalibrationPosition,
+        })?;
+        if signed_stance_displacement.metres().abs()
             <= pose_tuning().minimum_phase_fit_displacement_metres.metres()
         {
-            return None;
+            return Ok(None);
         }
-        let direction = if signed_stance_displacement < 0.0 {
+        let direction = if signed_stance_displacement.metres() < 0.0 {
             TimelineDirection::Reversed
         } else {
             TimelineDirection::Forward
@@ -99,18 +137,24 @@ impl ContactOrientation {
                         Some(authored_center - semantic_center)
                     }
                 });
-        let first_offset = offsets.next()??.rem_euclid(1.0);
-        let (offset_sum, offset_count) =
+        let Some(Some(first_offset)) = offsets.next() else {
+            return Ok(None);
+        };
+        let first_offset = first_offset.rem_euclid(1.0);
+        let Some((offset_sum, offset_count)) =
             offsets.try_fold((first_offset, 1_u32), |(sum, count), offset| {
                 let offset = offset?;
                 let aligned = first_offset + (offset - first_offset + 0.5).rem_euclid(1.0) - 0.5;
                 Some((sum + aligned, count + 1))
-            })?;
+            })
+        else {
+            return Ok(None);
+        };
         let phase_offset = (offset_sum / offset_count as f32).rem_euclid(1.0);
-        Some(Self {
+        Ok(Some(Self {
             direction,
-            offset: CyclePhase::from_cycles(phase_offset).ok()?,
-        })
+            offset: CyclePhase::from_arithmetic(phase_offset)?,
+        }))
     }
 
     /// The fallback and smoothing baseline retain their original operand order.
@@ -161,7 +205,7 @@ impl ContactPhaseFit {
     pub(super) fn fit(
         segments: &[Vec<AuthoredContactSample>],
         orientation: ContactOrientation,
-        expected_stance_direction: f32,
+        expected_stance_direction: StanceDirection,
     ) -> AnimationValueResult<Option<Self>> {
         let mut spans = Vec::new();
         let mut trajectories = Vec::new();
@@ -270,7 +314,7 @@ impl FittedContactSpan {
     /// existing blend with uniform phase speed, not an admission tolerance.
     fn fit_distance(
         samples: &[OrientedContactSample],
-        expected_stance_direction: f32,
+        expected_stance_direction: StanceDirection,
     ) -> AnimationValueResult<Option<Self>> {
         let (Some(first), Some(last)) = (samples.first(), samples.last()) else {
             return Ok(None);
@@ -285,11 +329,20 @@ impl FittedContactSpan {
         let positive_deltas = samples
             .windows(2)
             .map(|pair| {
-                ((pair[1].position - pair[0].position) * expected_stance_direction.signum())
-                    .max(0.0)
+                let displacement = SignedLength::from_metres(
+                    (pair[1].position.metres() - pair[0].position.metres())
+                        * expected_stance_direction.sign(),
+                )
+                .map_err(|_| AnimationValueError::Overflow {
+                    quantity: AnimationQuantity::CalibrationPosition,
+                })?;
+                NonnegativeLength::from_arithmetic(displacement.metres().max(0.0))
             })
-            .collect::<Vec<_>>();
-        let positive_total = positive_deltas.iter().sum::<f32>();
+            .collect::<AnimationValueResult<Vec<_>>>()?;
+        let positive_total = positive_deltas
+            .iter()
+            .map(|delta| delta.metres())
+            .sum::<f32>();
         if positive_total <= 0.01 {
             return Ok(None);
         }
@@ -302,9 +355,10 @@ impl FittedContactSpan {
             position: first.position,
         }];
         for (index, delta) in positive_deltas.into_iter().enumerate() {
-            let weighted_delta =
-                CycleDelta::from_arithmetic(phase_span.cycles() * (delta + derivative_floor))?;
-            let step = CycleDelta::from_arithmetic(weighted_delta.cycles() / weighted_total)?;
+            // Native distance-weighted phase inversion; only the completed
+            // quotient is a cycle displacement.
+            let weighted_delta = phase_span.cycles() * (delta.metres() + derivative_floor);
+            let step = CycleDelta::from_arithmetic(weighted_delta / weighted_total)?;
             physical = physical.checked_advance(step)?;
             remaining.push(PhaseMappingSample {
                 physical,
@@ -329,47 +383,41 @@ impl FittedContactSpan {
     }
 }
 
-impl AuthoredPhaseCurve {
-    fn fit_contact_spans(
-        spans: &[ContactPhaseSpan],
-        orientation: ContactOrientation,
-    ) -> AnimationValueResult<Self> {
-        let intervals = pose_tuning().authored_phase_calibration_intervals;
-        let mut authored_phases = (0..=intervals)
-            .map(|index| {
-                let physical = CyclePhase::from_cycles(index as f32 / intervals as f32)?;
-                sample_authored_phase_spans(spans, physical, orientation)
-            })
-            .collect::<AnimationValueResult<Vec<_>>>()?;
-        smooth_periodic_phase_curve(&mut authored_phases, orientation)?;
-        Ok(Self { authored_phases })
-    }
-}
-
 /// Classify low-height samples inside the native sampled-position calibration kernel.
-pub(super) fn low_height_contacts(samples: &[(f32, Vec3)]) -> Option<Vec<bool>> {
+pub(super) fn low_height_contacts(
+    samples: &[FootTrajectorySample],
+) -> AnimationValueResult<Option<Vec<bool>>> {
     let minimum_height = samples
         .iter()
-        .map(|(_, position)| position.y)
-        .reduce(f32::min)?;
+        .map(|sample| sample.position.y)
+        .reduce(f32::min);
     let maximum_height = samples
         .iter()
-        .map(|(_, position)| position.y)
-        .reduce(f32::max)?;
-    let height_window =
-        ((maximum_height - minimum_height) * pose_tuning().authored_contact_height_fraction).clamp(
-            pose_tuning()
-                .authored_contact_minimum_height_window_metres
-                .metres(),
-            pose_tuning()
-                .authored_contact_maximum_height_window_metres
-                .metres(),
-        );
+        .map(|sample| sample.position.y)
+        .reduce(f32::max);
+    let (Some(minimum_height), Some(maximum_height)) = (minimum_height, maximum_height) else {
+        return Ok(None);
+    };
+    let height_window = ((maximum_height - minimum_height)
+        * pose_tuning().authored_contact_height_fraction.factor())
+    .clamp(
+        pose_tuning()
+            .authored_contact_minimum_height_window_metres
+            .metres(),
+        pose_tuning()
+            .authored_contact_maximum_height_window_metres
+            .metres(),
+    );
+    if !height_window.is_finite() || !(minimum_height + height_window).is_finite() {
+        return Err(AnimationValueError::Overflow {
+            quantity: AnimationQuantity::CalibrationPosition,
+        });
+    }
     let supported = samples
         .iter()
-        .map(|(_, position)| position.y <= minimum_height + height_window)
+        .map(|sample| sample.position.y <= minimum_height + height_window)
         .collect::<Vec<_>>();
-    Some(supported)
+    Ok(Some(supported))
 }
 
 fn sample_authored_phase_spans(

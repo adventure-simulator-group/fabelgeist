@@ -17,6 +17,11 @@ use bevy::{
     asset::AssetId,
     camera::visibility::RenderLayers,
 };
+pub(in crate::animation) use calibration_inputs::{CalibrationInputs, CalibrationLookup};
+use contact_calibration::{
+    AuthoredLocomotionCalibration, measure_authored_contact_step_distance,
+    measure_authored_foot_range,
+};
 use display_history::PosePresentationMode;
 use fabelgeist_rig::{RigJointName, RigJointOrdinal, RigJointTable};
 use hierarchy::{
@@ -28,6 +33,7 @@ use inertialization::{
 };
 use interpolation::PoseInterpolation;
 use locomotion_sampling::sample_locomotion_at_time;
+pub(in crate::animation) use phase_calibration::AuthoredPhaseCurve;
 use proportions::sample_character_plan;
 use rig::{RigDefinition, RigJoint};
 use spline::clamped_cubic_spline_vec3;
@@ -39,6 +45,8 @@ use stride_calibration::CalibrationAxis;
 pub(super) use stride_calibration::{CharacterLocomotionStrides, calibrate_character_strides};
 
 mod baking;
+mod calibration_inputs;
+mod contact_calibration;
 mod display_history;
 mod hierarchy;
 mod inertialization;
@@ -149,17 +157,6 @@ struct PoseConformity<'a> {
     terrain: Option<&'a SceneTerrain>,
     contact_plants: ContactPlantPolicy,
     locomotion_pelvis_rotation: Option<Quat>,
-}
-
-/// Infer travel from the low portion of each authored foot trajectory. This
-/// discovers contact timing from clip geometry, then fits the single virtual
-/// root velocity that best holds every stance segment still. The residual is
-/// retained because some clips cannot represent a requested speed with a
-/// constant playback rate alone.
-#[derive(Debug, Clone)]
-struct AuthoredLocomotionCalibration {
-    stride: AuthoredStrideMeasurement,
-    phase_curve: Option<AuthoredPhaseCurve>,
 }
 
 /// Solve the terrain-adjusted upcoming sample in pose-buffer space. The
@@ -1207,179 +1204,6 @@ fn solve_pose_two_bone(
     (knee.is_finite() && end.is_finite()).then_some((knee, end))
 }
 
-fn measure_authored_contact_step_distance(
-    definition: &RigDefinition,
-    clip: &BakedClip,
-    travel_axis: CalibrationAxis,
-    expected_stance_direction: f32,
-) -> Option<AuthoredLocomotionCalibration> {
-    if clip.duration.seconds() <= 0.0
-        || clip.frame_count().samples() < 4
-        || expected_stance_direction == 0.0
-    {
-        return None;
-    }
-    let feet = [RigJointName::L_FOOT, RigJointName::R_FOOT];
-    let sample_count = clip.frame_count().intervals();
-    let mut segments = Vec::new();
-    for name in feet {
-        let mut foot_segments = Vec::new();
-        let foot = definition.joint_ordinal(&name)?;
-        let samples = (0..sample_count)
-            .map(|frame| {
-                let time = clip.frame_time(frame).ok()?;
-                let mut globals = RigJointTable::from(vec![None; definition.joints.len()]);
-                let position = sampled_global_transform(definition, clip, foot, time, &mut globals)
-                    .translation;
-                Some((time.seconds() / clip.duration.seconds(), position))
-            })
-            .collect::<Option<Vec<_>>>()?;
-        let supported = phase_calibration::low_height_contacts(&samples)?;
-        if supported.iter().all(|supported| *supported) {
-            return None;
-        }
-
-        // Start immediately after a non-contact sample so a stance crossing
-        // the loop seam becomes one monotonically unwrapped segment.
-        let start = supported.iter().position(|supported| !*supported)?;
-        let mut current = Vec::new();
-        for offset in 1..=sample_count {
-            let index = (start + offset) % sample_count;
-            if supported[index] {
-                let wraps = (start + offset) / sample_count;
-                current.push(phase_calibration::AuthoredContactSample {
-                    authored: CyclePhase::from_cycles(samples[index].0 + wraps as f32).ok()?,
-                    position: travel_axis.component(samples[index].1),
-                });
-            } else if !current.is_empty() {
-                if current.len() >= 3 {
-                    foot_segments.push(std::mem::take(&mut current));
-                } else {
-                    current.clear();
-                }
-            }
-        }
-        if current.len() >= 3 {
-            foot_segments.push(current);
-        }
-        // A low swing-through can briefly enter the height band. The actual
-        // stance is the longest circular low-height interval for each foot.
-        segments.push(foot_segments.into_iter().max_by_key(Vec::len)?);
-    }
-    if segments.len() < 2 {
-        return None;
-    }
-
-    let orientation =
-        phase_calibration::ContactOrientation::fit(&segments, expected_stance_direction)?;
-    let fitted = match phase_calibration::ContactPhaseFit::fit(
-        &segments,
-        orientation,
-        expected_stance_direction,
-    ) {
-        Ok(Some(fitted)) => fitted,
-        Ok(None) => return None,
-        Err(error) => {
-            warn!(%error, "Rejected authored phase calibration");
-            return None;
-        }
-    };
-    let warped_segments = fitted.trajectories;
-
-    // Each stance gets its own intercept; only the common virtual-root slope
-    // is shared between feet and contact lobes. Measure the residual after the
-    // phase warp, because that is the curve actually sampled at runtime.
-    let mut covariance = 0.0;
-    let mut phase_variance = 0.0;
-    for samples in &warped_segments {
-        let count = samples.len() as f32;
-        let mean_phase = samples
-            .iter()
-            .map(|sample| sample.physical.cycles())
-            .sum::<f32>()
-            / count;
-        let mean_position = samples.iter().map(|sample| sample.position).sum::<f32>() / count;
-        for sample in samples {
-            let centered_phase = sample.physical.cycles() - mean_phase;
-            covariance += centered_phase * (sample.position - mean_position);
-            phase_variance += centered_phase * centered_phase;
-        }
-    }
-    if phase_variance <= 0.0 {
-        return None;
-    }
-    let fitted_slope = covariance / phase_variance;
-    let cycle_distance = fitted_slope * expected_stance_direction.signum();
-    let step_distance = cycle_distance * 0.5;
-    let maximum_stance_slip = warped_segments
-        .iter()
-        .map(|samples| {
-            let residuals = samples
-                .iter()
-                .map(|sample| sample.position - fitted_slope * sample.physical.cycles());
-            let (minimum, maximum) = residuals.fold(
-                (f32::INFINITY, f32::NEG_INFINITY),
-                |(minimum, maximum), residual| (minimum.min(residual), maximum.max(residual)),
-            );
-            maximum - minimum
-        })
-        .fold(0.0_f32, f32::max);
-    (step_distance.is_finite()
-        && maximum_stance_slip.is_finite()
-        && cycle_distance > 0.0
-        && (pose_tuning().minimum_authored_foot_range_metres.metres()
-            ..=pose_tuning().maximum_authored_foot_range_metres.metres())
-            .contains(&step_distance))
-    .then_some(AuthoredLocomotionCalibration {
-        stride: AuthoredStrideMeasurement {
-            step_distance,
-            maximum_stance_slip,
-        },
-        phase_curve: Some(fitted.curve),
-    })
-}
-
-fn measure_authored_foot_range(
-    definition: &RigDefinition,
-    clip: &BakedClip,
-    travel_axis: CalibrationAxis,
-) -> Option<f32> {
-    let feet =
-        [RigJointName::L_FOOT, RigJointName::R_FOOT].map(|name| definition.joint_ordinal(&name));
-    let [Some(left), Some(right)] = feet else {
-        return None;
-    };
-    let ranges = [left, right].map(|foot| {
-        let mut minimum = f32::INFINITY;
-        let mut maximum = f32::NEG_INFINITY;
-        for frame in 0..clip.frame_count().samples() {
-            let mut globals = RigJointTable::from(vec![None; definition.joints.len()]);
-            let position = travel_axis.component(
-                sampled_global_transform(
-                    definition,
-                    clip,
-                    foot,
-                    clip.frame_time(frame).ok()?,
-                    &mut globals,
-                )
-                .translation,
-            );
-            minimum = minimum.min(position);
-            maximum = maximum.max(position);
-        }
-        Some(maximum - minimum)
-    });
-    let [Some(left), Some(right)] = ranges else {
-        return None;
-    };
-    let stride = (left + right) * 0.5;
-    (stride.is_finite()
-        && (pose_tuning().minimum_authored_foot_range_metres.metres()
-            ..=pose_tuning().maximum_authored_foot_range_metres.metres())
-            .contains(&stride))
-    .then_some(stride)
-}
-
 fn sanitize_pose(pose: LocalPose, fallback: LocalPose) -> LocalPose {
     if pose.translation.is_finite()
         && pose.rotation.is_finite()
@@ -1613,220 +1437,6 @@ mod tests {
         let bind = pose(Vec3::Y, Quat::IDENTITY);
         let invalid = pose(Vec3::splat(f32::NAN), Quat::IDENTITY);
         assert_eq!(sanitize_pose(invalid, bind), bind);
-    }
-
-    #[test]
-    fn authored_foot_range_is_the_average_foot_travel_along_the_motion_axis() {
-        let joint = |name: &str, parent: Option<usize>| {
-            let identity = AuthoredRigJoint::new(name.into());
-            RigJoint {
-                target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
-                bind: pose(Vec3::ZERO, Quat::IDENTITY),
-                parent: parent.map(RigJointOrdinal::from),
-                name: Some(identity.name().clone()),
-                role: identity.role(),
-                body_region: AnimationBodyRegion::Lower,
-            }
-        };
-        let definition = RigDefinition {
-            family: "test".into(),
-            joints: vec![
-                joint("root", None),
-                joint("l_foot", Some(0)),
-                joint("r_foot", Some(0)),
-            ]
-            .into(),
-            name_ordinals: Default::default(),
-        };
-        let track = |translations| BoneTrack {
-            translations,
-            rotations: vec![Quat::IDENTITY; 3],
-            scales: vec![Vec3::ONE; 3],
-            source: BoneTrackSource::Authored,
-        };
-        let clip = BakedClip::new(
-            ClipDuration::from_seconds(2.0 / 30.0).unwrap(),
-            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(1.0 / 30.0)
-                .unwrap(),
-            BakedFrameCount::try_from(3).unwrap(),
-            vec![
-                track(vec![Vec3::ZERO; 3]),
-                track(vec![Vec3::ZERO, Vec3::Z, Vec3::Z * 2.0]),
-                track(vec![Vec3::ZERO, Vec3::Z * -1.5, Vec3::Z * -3.0]),
-            ]
-            .into(),
-        )
-        .unwrap();
-
-        assert_eq!(
-            measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal),
-            Some(2.5)
-        );
-    }
-
-    #[test]
-    fn authored_contact_fit_ignores_airborne_foot_excursions() {
-        let joint = |name: &str, parent: Option<usize>| {
-            let identity = AuthoredRigJoint::new(name.into());
-            RigJoint {
-                target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
-                bind: pose(Vec3::ZERO, Quat::IDENTITY),
-                parent: parent.map(RigJointOrdinal::from),
-                name: Some(identity.name().clone()),
-                role: identity.role(),
-                body_region: AnimationBodyRegion::Lower,
-            }
-        };
-        let definition = RigDefinition {
-            family: "test".into(),
-            joints: vec![
-                joint("root", None),
-                joint("l_foot", Some(0)),
-                joint("r_foot", Some(0)),
-            ]
-            .into(),
-            name_ordinals: Default::default(),
-        };
-        let frames = 21;
-        let duration = 1.0;
-        let frame_dt = duration / (frames - 1) as f32;
-        let foot_track = |contact_phase: f32, airborne_offset: f32| BoneTrack {
-            translations: (0..frames)
-                .map(|frame| {
-                    let phase = frame as f32 / (frames - 1) as f32;
-                    let stance_phase = phase - contact_phase;
-                    let (position, height) = if (0.0..=0.2).contains(&stance_phase) {
-                        // A two-metre virtual root displacement toward -Z per
-                        // cycle exactly cancels this +Z foot retraction.
-                        (2.0 * stance_phase, 0.0)
-                    } else {
-                        (airborne_offset + phase * phase * 10.0, 0.5)
-                    };
-                    Vec3::new(0.0, height, position)
-                })
-                .collect(),
-            rotations: vec![Quat::IDENTITY; frames],
-            scales: vec![Vec3::ONE; frames],
-            source: BoneTrackSource::Authored,
-        };
-        let clip = BakedClip::new(
-            ClipDuration::from_seconds(duration).unwrap(),
-            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(frame_dt)
-                .unwrap(),
-            BakedFrameCount::try_from(frames).unwrap(),
-            vec![
-                BoneTrack {
-                    translations: vec![Vec3::ZERO; frames],
-                    rotations: vec![Quat::IDENTITY; frames],
-                    scales: vec![Vec3::ONE; frames],
-                    source: BoneTrackSource::Authored,
-                },
-                foot_track(0.1, 50.0),
-                foot_track(0.6, -80.0),
-            ]
-            .into(),
-        )
-        .unwrap();
-
-        let measurement = measure_authored_contact_step_distance(
-            &definition,
-            &clip,
-            CalibrationAxis::Longitudinal,
-            1.0,
-        )
-        .expect("the two stance windows should determine travel");
-        assert!((measurement.stride.step_distance - 1.0).abs() < 0.0001);
-        assert!(measurement.stride.maximum_stance_slip < 0.0001);
-        assert!(measurement.phase_curve.is_some());
-
-        let mut projected_rotation = clip.clone();
-        for (track_index, contact_phase) in [(1usize, 0.1_f32), (2, 0.6_f32)] {
-            let translations =
-                projected_rotation.translations_mut(RigJointOrdinal::from(track_index));
-            for (frame, translation) in translations.iter_mut().enumerate() {
-                let phase = frame as f32 / (frames - 1) as f32;
-                let stance_phase = phase - contact_phase;
-                if (-0.0001..=0.2001).contains(&stance_phase) {
-                    // A quadratic projection stands in for the sine-like
-                    // horizontal motion produced by a rotating leg.
-                    translation.y = 0.0;
-                    translation.z = 10.0 * stance_phase * stance_phase;
-                }
-            }
-        }
-        let projected = measure_authored_contact_step_distance(
-            &definition,
-            &projected_rotation,
-            CalibrationAxis::Longitudinal,
-            1.0,
-        )
-        .expect("a monotone articulated projection should be phase-warpable");
-        assert!((projected.stride.step_distance - 1.0).abs() < 0.02);
-        assert!(projected.stride.maximum_stance_slip < 0.08);
-        let curve = projected
-            .phase_curve
-            .expect("ordinary gait derives a curve");
-        assert!(
-            curve
-                .sample(CyclePhase::from_cycles(0.2).unwrap())
-                .unwrap()
-                .cycles()
-                > 0.22,
-            "distance inversion must be nonlinear"
-        );
-
-        let mut low_wrong_way_approach = clip.clone();
-        for (track_index, indices) in [(1usize, [0, 1]), (2, [10, 11])] {
-            let translations =
-                low_wrong_way_approach.translations_mut(RigJointOrdinal::from(track_index));
-            for (offset, index) in indices.into_iter().enumerate() {
-                translations[index] = Vec3::new(0.0, 0.005, 0.2 - offset as f32 * 0.1);
-            }
-        }
-        let misleading = measure_authored_contact_step_distance(
-            &definition,
-            &low_wrong_way_approach,
-            CalibrationAxis::Longitudinal,
-            1.0,
-        );
-        assert!(
-            misleading.is_none_or(|measurement| {
-                measurement.stride.maximum_stance_slip
-                    > presentation::maximum_authored_stance_slip_metres().metres()
-            }),
-            "a visibly low wrong-way approach must make the fit unrepresentable"
-        );
-
-        let mut wrong_way = clip.clone();
-        for joint in definition.joints.ordinals().skip(1) {
-            for translation in wrong_way.translations_mut(joint) {
-                translation.z = -translation.z;
-            }
-        }
-        let reversed = measure_authored_contact_step_distance(
-            &definition,
-            &wrong_way,
-            CalibrationAxis::Longitudinal,
-            1.0,
-        )
-        .expect("a cyclic clip authored backward should be sampled in reverse");
-        assert!((reversed.stride.step_distance - 1.0).abs() < 0.0001);
-        let curve = reversed.phase_curve.unwrap();
-        let authored_delta = (curve
-            .sample(CyclePhase::from_cycles(0.25).unwrap())
-            .unwrap()
-            .cycles()
-            - curve
-                .sample(CyclePhase::from_cycles(0.2).unwrap())
-                .unwrap()
-                .cycles()
-            + 0.5)
-            .rem_euclid(1.0)
-            - 0.5;
-        assert!(
-            authored_delta < 0.0,
-            "reverse playback must decrease authored phase while physical phase advances"
-        );
     }
 
     #[test]

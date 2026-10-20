@@ -64,7 +64,13 @@ pub(super) fn write_completed_capture(completed: CompletedCapture) -> AppExit {
         output,
         manifest,
         global_bone_frames,
-    } = build_completed_report(completed);
+    } = match build_completed_report(completed) {
+        Ok(report) => report,
+        Err(error) => {
+            error!(%error, "capture report admission failed");
+            return AppExit::Error(std::num::NonZeroU8::MIN);
+        }
+    };
     let global_bone_trace_path = output.join("global-bone-transforms.jsonl");
     let trace_file = File::create(&global_bone_trace_path)
         .unwrap_or_else(|error| panic!("failed to create {global_bone_trace_path:?}: {error}"));

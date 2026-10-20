@@ -1765,7 +1765,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                                 rig_rotation,
                                 projected_body_center(rig, &transforms.p0()).unwrap_or(rig_origin),
                                 planar_velocity,
-                                speed,
+                                profile.step_distance,
                                 phase_to_contact,
                                 side,
                             );
@@ -1774,7 +1774,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                                     candidate,
                                     upper_snapshot.global.translation(),
                                     planar_velocity,
-                                    speed,
+                                    profile.step_distance,
                                     phase_to_contact,
                                     profile.support_phase_radius
                                         + ik_tuning().run_contact_chain_settle_phase.fraction(),
@@ -1798,6 +1798,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                                 planned_start.unwrap_or(foot_position),
                                 contact,
                                 speed,
+                                profile.step_distance,
                                 phase_to_contact,
                                 profile.support_phase_radius
                                     + ik_tuning().run_contact_chain_settle_phase.fraction(),
@@ -2417,7 +2418,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             rig_rotation,
                             projected_com,
                             planar_velocity,
-                            speed,
+                            profile.step_distance,
                             skeleton.gait_phase.until_contact(foot_side),
                             side,
                         )

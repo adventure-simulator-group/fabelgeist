@@ -7,7 +7,7 @@ use std::{
     path::PathBuf,
 };
 
-use adventuresim_tactical_core::animation::dive_launch_root_rotation;
+use adventuresim_tactical_core::animation::{AnimationValueResult, dive_launch_root_rotation};
 use adventuresim_tactical_core::physics::{
     AdventureSimulatorPhysicsPlugin, TACTICAL_DIVE_HORIZONTAL_SPEED_METRES_PER_SECOND,
     quickstep_force_curve, quickstep_motion_target, quickstep_peak_horizontal_force_newtons,
@@ -97,13 +97,21 @@ pub(crate) fn run(options: CaptureOptions, fixed_clock: Time<Fixed>) -> AppExit 
         inspection,
     } = options;
     let scenario = scenario.as_deref();
+    let selected_scenario = scenario.map(ScenarioMetadata::from_label);
+    let initial_terrain_ik = startup_terrain_ik_mode(selected_scenario.as_ref());
+    let capture = match CaptureSequence::new(output.clone(), settle_frames, selected_scenario) {
+        Ok(capture) => capture,
+        Err(error) => {
+            error!(%error, "capture plan admission failed");
+            return AppExit::Error(std::num::NonZeroU8::MIN);
+        }
+    };
+    inspection.publish(&output);
     fs::create_dir_all(&output).unwrap_or_else(|error| {
         panic!("failed to create animation capture directory {output:?}: {error}")
     });
     invalidate_previous_report(&output);
     setup::write_body_proportions(&output, body_proportions);
-    let selected_scenario = scenario.map(ScenarioMetadata::from_label);
-    let initial_terrain_ik = startup_terrain_ik_mode(selected_scenario.as_ref());
     let default_character_id = default_tactical_character_id();
 
     let workspace_asset_source =
@@ -163,11 +171,7 @@ pub(crate) fn run(options: CaptureOptions, fixed_clock: Time<Fixed>) -> AppExit 
         // viewer can retain FK-only controls after the live default changed.
         .insert_resource(initial_terrain_ik)
         .insert_resource(ClearColor(Color::srgb(0.08, 0.1, 0.13)))
-        .insert_resource(CaptureSequence::new(
-            output,
-            settle_frames,
-            selected_scenario,
-        ))
+        .insert_resource(capture)
         .add_plugins(CapturePlugin)
         .run()
 }

@@ -89,7 +89,7 @@ pub struct AnimationLocomotionConfig {
 #[serde(deny_unknown_fields)]
 pub struct AnimationGaitConfig {
     pub reference_speed_metres_per_second: PositiveSpeed,
-    pub step_distance_metres: f32,
+    pub step_distance_metres: PositiveLength,
     pub support_phase_radius: f32,
     pub bounce_metres: HeightDistance,
     pub flight_apex_metres: HeightDistance,
@@ -103,7 +103,7 @@ pub struct GuardFootworkConfig {
     pub minimum_step_seconds: PositiveAnimationDuration,
     pub maximum_step_seconds: PositiveAnimationDuration,
     pub planning_reach_metres: f32,
-    pub reference_leg_length_metres: f32,
+    pub reference_leg_length_metres: PositiveLength,
     pub maximum_unsupported_contact_seconds: PositiveAnimationDuration,
 }
 
@@ -676,14 +676,14 @@ impl TacticalCombatConfig {
         ];
         if gait_values.into_iter().any(|gait| {
             ![
-                gait.step_distance_metres,
+                gait.step_distance_metres.metres(),
                 gait.support_phase_radius,
                 gait.bounce_metres.metres(),
                 gait.flight_apex_metres.metres(),
             ]
             .into_iter()
             .all(finite_nonnegative)
-                || gait.step_distance_metres == 0.0
+                || gait.step_distance_metres.metres() == 0.0
                 || !(0.0..0.5).contains(&gait.support_phase_radius)
         }) {
             return Err(TacticalCombatConfigError::Validation(
@@ -698,7 +698,7 @@ impl TacticalCombatConfig {
             guard.minimum_step_seconds.seconds(),
             guard.maximum_step_seconds.seconds(),
             guard.planning_reach_metres,
-            guard.reference_leg_length_metres,
+            guard.reference_leg_length_metres.metres(),
             guard.maximum_unsupported_contact_seconds.seconds(),
         ]
         .into_iter()

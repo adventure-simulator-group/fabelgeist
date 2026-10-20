@@ -113,7 +113,6 @@ fn main() {
             inspection: animation_viewer::CaptureInspection::new(
                 args.camera_orbit_degrees,
                 args.diffuse_armor,
-                &args.output,
             ),
             output: args.output,
             asset_root,

@@ -9,25 +9,29 @@ const SUPPORTING_CUIRASS_ALPHA: f32 = 0.2;
 pub(crate) struct CaptureInspection {
     pub orbit: Quat,
     pub diffuse_armor: bool,
+    report_json: Vec<u8>,
 }
 
 impl CaptureInspection {
-    pub(crate) fn new(orbit_degrees: f32, diffuse_armor: bool, output: &std::path::Path) -> Self {
-        fs::create_dir_all(output).expect("create inspection capture directory");
-        fs::write(
-            output.join("inspection.json"),
-            serde_json::to_vec_pretty(&serde_json::json!({
-                "orbit_degrees": orbit_degrees,
-                "diffuse_armor": diffuse_armor,
-                "cuirass_alpha": if diffuse_armor { SUPPORTING_CUIRASS_ALPHA } else { 1.0 },
-            }))
-            .expect("serialize capture inspection"),
-        )
-        .expect("write capture inspection");
+    pub(crate) fn new(orbit_degrees: f32, diffuse_armor: bool) -> Self {
+        let report_json = serde_json::to_vec_pretty(&serde_json::json!({
+            "orbit_degrees": orbit_degrees,
+            "diffuse_armor": diffuse_armor,
+            "cuirass_alpha": if diffuse_armor { SUPPORTING_CUIRASS_ALPHA } else { 1.0 },
+        }))
+        .expect("serialize capture inspection");
         Self {
             orbit: Quat::from_rotation_y(orbit_degrees.to_radians()),
             diffuse_armor,
+            report_json,
         }
+    }
+
+    /// Publish the prepared wire artifact only after the selected plan is admitted.
+    pub(super) fn publish(&self, output: &std::path::Path) {
+        fs::create_dir_all(output).expect("create inspection capture directory");
+        fs::write(output.join("inspection.json"), &self.report_json)
+            .expect("write capture inspection");
     }
 }
 

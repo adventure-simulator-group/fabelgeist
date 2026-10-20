@@ -528,7 +528,10 @@ mod coordination_tests {
         let phase_to_contact = 0.744;
         let travel_per_phase = ordinary_step_distance(
             adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
-        ) * 2.0;
+        )
+        .unwrap()
+        .metres()
+            * 2.0;
         let downhill = |xz: Vec2| Some(2.38 + xz.y * 0.08);
         let current_height = downhill(upper.xz()).unwrap();
         let predicted_roots = [
@@ -549,7 +552,7 @@ mod coordination_tests {
             candidate,
             upper,
             velocity,
-            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
+            ordinary_step_distance(NonnegativeSpeed::from_metres_per_second(5.5).unwrap()).unwrap(),
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
             ready,
             reach,
@@ -565,7 +568,8 @@ mod coordination_tests {
                 candidate,
                 upper,
                 velocity,
-                NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
+                ordinary_step_distance(NonnegativeSpeed::from_metres_per_second(5.5).unwrap())
+                    .unwrap(),
                 CycleDelta::from_cycles(phase_to_contact).unwrap(),
                 ready,
                 reach,
@@ -584,7 +588,7 @@ mod coordination_tests {
             flat_candidate,
             upper,
             velocity,
-            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
+            ordinary_step_distance(NonnegativeSpeed::from_metres_per_second(5.5).unwrap()).unwrap(),
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
             ready,
             reach,
@@ -939,6 +943,7 @@ mod coordination_tests {
             start,
             desired,
             NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
+            ordinary_step_distance(NonnegativeSpeed::from_metres_per_second(5.5).unwrap()).unwrap(),
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
             ready,
         );

@@ -370,11 +370,12 @@ pub(in crate::animation::procedural) fn bound_late_run_contact(
     visible_start: Vec3,
     desired_contact: Vec3,
     speed: NonnegativeSpeed,
+    step_distance: NonnegativeLength,
     phase_to_contact: CycleDelta,
     contact_ready_phase: f32,
 ) -> Vec3 {
     let remaining_phase = (phase_to_contact.cycles() - contact_ready_phase).max(0.0);
-    let root_travel = remaining_phase * ordinary_step_distance(speed) * 2.0;
+    let root_travel = remaining_phase * step_distance.metres() * 2.0;
     let remaining_seconds = if speed > STATIONARY_ANIMATION_SPEED_LIMIT {
         root_travel / speed.metres_per_second()
     } else {
@@ -581,7 +582,7 @@ pub(in crate::animation::procedural) fn ordinary_contact_target(
     rig_rotation: Quat,
     projected_com: Vec3,
     velocity: Vec3,
-    speed: NonnegativeSpeed,
+    step_distance: NonnegativeLength,
     phase_to_contact: CycleDelta,
     side: f32,
 ) -> Vec3 {
@@ -592,7 +593,7 @@ pub(in crate::animation::procedural) fn ordinary_contact_target(
     // One complete phase contains two ordinary steps. Predicting by the
     // remaining phase makes the world landing nearly stationary as the root
     // advances, instead of recomputing a target that chases the body.
-    let remaining_travel = phase_to_contact.cycles() * ordinary_step_distance(speed) * 2.0;
+    let remaining_travel = phase_to_contact.cycles() * step_distance.metres() * 2.0;
     plan_settle_landing(
         rig_origin,
         rig_rotation,
@@ -610,7 +611,7 @@ pub(in crate::animation::procedural) fn reachable_run_contact_target(
     mut candidate: Vec3,
     current_upper_root: Vec3,
     velocity: Vec3,
-    speed: NonnegativeSpeed,
+    step_distance: NonnegativeLength,
     phase_to_contact: CycleDelta,
     contact_ready_phase: f32,
     maximum_reach: f32,
@@ -619,7 +620,7 @@ pub(in crate::animation::procedural) fn reachable_run_contact_target(
     let direction = velocity.with_y(0.0).try_normalize().unwrap_or(Vec3::NEG_Z);
     let support_radius =
         (contact_ready_phase - ik_tuning().run_contact_chain_settle_phase.fraction()).max(0.0);
-    let travel_per_phase = ordinary_step_distance(speed) * 2.0;
+    let travel_per_phase = step_distance.metres() * 2.0;
     let current_terrain_height = terrain_height_at(current_upper_root.xz());
     let predicted_upper_roots = [
         phase_to_contact.cycles() - support_radius,

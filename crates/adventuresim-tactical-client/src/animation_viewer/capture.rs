@@ -66,20 +66,20 @@ impl CaptureSequence {
         output: PathBuf,
         settle_frames: u32,
         scenario: Option<ScenarioMetadata<'_>>,
-    ) -> Self {
+    ) -> AnimationValueResult<Self> {
         let selected = scenario.map(ScenarioMetadata::into_owned);
         let plan = match selected {
             Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalk20) => {
-                steady_scenario(scenario, authored_drive_speed(2.0), 3.0)
+                steady_scenario(scenario, authored_drive_speed(2.0), 3.0)?
             }
             Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridRun55) => {
-                steady_scenario(scenario, authored_drive_speed(5.5), 3.0)
+                steady_scenario(scenario, authored_drive_speed(5.5), 3.0)?
             }
             Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalkNoIk) => {
-                steady_scenario(scenario, authored_drive_speed(2.0), 3.0)
+                steady_scenario(scenario, authored_drive_speed(2.0), 3.0)?
             }
             Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridSprintNoIk) => {
-                steady_scenario(scenario, canonical_john_sprint_speed(), 3.0)
+                steady_scenario(scenario, canonical_john_sprint_speed(), 3.0)?
             }
             Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalkStop) => {
                 flat_grid_walk_stop_scenario()
@@ -87,7 +87,7 @@ impl CaptureSequence {
             Some(scenario) if scenario.identity() == Some(ScenarioId::FullRagdoll) => {
                 full_ragdoll_scenario()
             }
-            selected => capture_plan()
+            selected => capture_plan()?
                 .into_iter()
                 .filter(|frame| {
                     selected
@@ -100,7 +100,7 @@ impl CaptureSequence {
             !plan.is_empty(),
             "requested animation capture scenario is unknown"
         );
-        Self {
+        Ok(Self {
             output,
             settle_frames: settle_frames.max(1),
             plan,
@@ -123,7 +123,7 @@ impl CaptureSequence {
             motion_ready_frames: 0,
             simulation_tick: AnimationSampleTick::ZERO,
             scenario_distance: 0.0,
-        }
+        })
     }
 
     pub(super) fn view(&self) -> CaptureView {
@@ -1173,7 +1173,8 @@ mod tests {
                 PathBuf::new(),
                 1,
                 Some(ScenarioMetadata::from_label(scenario)),
-            );
+            )
+            .unwrap();
             assert!(sequence.uses_flat_grid());
             assert!(sequence.plan.len() > 64);
             assert!(sequence.plan.iter().all(|frame| {
@@ -1187,7 +1188,8 @@ mod tests {
             PathBuf::new(),
             1,
             Some(ScenarioMetadata::from_label("flat-grid-sprint-no-ik")),
-        );
+        )
+        .unwrap();
         assert!(sprint.uses_flat_grid());
         assert!(sprint.plan.len() > 64);
         assert!(sprint.plan.iter().all(|frame| {
@@ -1201,7 +1203,8 @@ mod tests {
             PathBuf::new(),
             1,
             Some(ScenarioMetadata::from_label("flat-grid-walk-no-ik")),
-        );
+        )
+        .unwrap();
         assert!(walk.uses_flat_grid());
         assert!(walk.plan.len() > 64);
         assert!(walk.plan.iter().all(|frame| {
@@ -1214,14 +1217,16 @@ mod tests {
             PathBuf::new(),
             1,
             Some(ScenarioMetadata::from_label("steady-walk-2.0")),
-        );
+        )
+        .unwrap();
         assert!(!ordinary.uses_flat_grid());
 
         let stop = CaptureSequence::new(
             PathBuf::new(),
             1,
             Some(ScenarioMetadata::from_label("flat-grid-walk-stop")),
-        );
+        )
+        .unwrap();
         assert!(stop.uses_flat_grid());
         assert!(
             stop.plan[..48]
@@ -1247,7 +1252,8 @@ mod tests {
             output.clone(),
             1,
             Some(ScenarioMetadata::from_label("flat-grid-walk-2.0")),
-        );
+        )
+        .unwrap();
         let plan_len = sequence.plan.len();
 
         let completed = sequence.complete("pose_buffer", PoseBufferMetrics::default());

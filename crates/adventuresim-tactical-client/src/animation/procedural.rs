@@ -1614,14 +1614,6 @@ mod ik_tests {
     }
 
     #[test]
-    fn guard_stride_scales_with_leg_length_from_the_five_eleven_reference() {
-        let reference_leg_length = 1.8034 * 0.860 / 1.821;
-        assert!(guard_maximum_foot_separation(0.75) < guard_maximum_foot_separation(0.90));
-        assert!((guard_maximum_foot_separation(reference_leg_length) - 0.9144).abs() < 0.0001);
-        assert!((guard_rear_contact_separation(reference_leg_length) - 0.0762).abs() < 0.0001);
-    }
-
-    #[test]
     fn terrain_height_is_transient_during_an_active_guard_step() {
         let flat = Vec3::new(0.2, -0.85, 0.3);
         let elevated = terrain_conformed_guard_target(flat, Some(1.25));

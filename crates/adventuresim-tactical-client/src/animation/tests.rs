@@ -1249,12 +1249,13 @@ mod legacy_tests {
         let mut strides = AuthoredLocomotionStrides::default();
         strides.phase_curves.insert(
             CalibrationMotion::Walk,
-            AuthoredPhaseCurve {
-                authored_phases: vec![0.0, 0.75, 1.0]
+            AuthoredPhaseCurve::from_samples(
+                vec![0.0, 0.75, 1.0]
                     .into_iter()
                     .map(|phase| CyclePhase::from_cycles(phase).unwrap())
                     .collect(),
-            },
+            )
+            .unwrap(),
         );
         let physical_phase = 0.5;
         let mut weighted = Vec::new();

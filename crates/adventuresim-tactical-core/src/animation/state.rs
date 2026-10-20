@@ -5,6 +5,11 @@ pub use downed_facing::{
     SignedHalfTurns, downed_camera_roll_target,
 };
 use guard_footwork::advance_guard_footwork;
+pub use guard_geometry::{
+    guard_closed_foot_separation, guard_contact_travel_distance, guard_maximum_foot_separation,
+    guard_maximum_lateral_foot_separation, guard_open_foot_separation,
+    guard_rear_contact_separation, guard_step_length,
+};
 pub use posture_transition::{
     PostureTransitionState, dive_landing_facing_delta, supine_get_up_counter_yaw_delta,
 };
@@ -23,6 +28,7 @@ pub use turn_deadline::{
 mod action_timeline;
 mod downed_facing;
 mod guard_footwork;
+mod guard_geometry;
 mod posture_transition;
 mod projection;
 mod raised_locomotion;
@@ -2075,17 +2081,6 @@ pub(super) fn opposite_foot(foot: LeadFoot) -> LeadFoot {
     }
 }
 
-// Measured hip-knee-ankle chain of the current humanoid rig. The animation
-// client uses its live rig measurement; this is the server-side fallback until
-// anatomical dimensions become part of character state.
-/// Ground distance covered by one procedural combat-stance contact interval.
-pub fn guard_step_length() -> f32 {
-    guard_contact_travel_distance(
-        guard_footwork_config().reference_leg_length_metres,
-        Vec2::NEG_Y,
-    )
-}
-
 /// Anatomical foot leading a close-guard shuffle in local controller space.
 /// Forward local velocity is -Y; backward therefore swaps the authored lead.
 /// A predominantly lateral shuffle uses the foot on the movement side.
@@ -2102,54 +2097,4 @@ pub fn guard_movement_front_foot(lead: LeadFoot, local_direction: Vec2) -> LeadF
     } else {
         LeadFoot::Right
     }
-}
-
-/// Maximum lateral open stance. Like the longitudinal opening, this is the
-/// leg-length-scaled one-yard reference stance: the moving-side foot reaches
-/// outward while the support foot remains behind the projected COM.
-pub fn guard_maximum_lateral_foot_separation(leg_length_metres: f32) -> f32 {
-    guard_maximum_foot_separation(leg_length_metres)
-}
-
-/// Direction-specific open stance, blended continuously for diagonals.
-pub fn guard_open_foot_separation(leg_length_metres: f32, local_direction: Vec2) -> f32 {
-    let direction = local_direction.normalize_or_zero();
-    let longitudinal = direction.y.abs();
-    guard_maximum_lateral_foot_separation(leg_length_metres).lerp(
-        guard_maximum_foot_separation(leg_length_metres),
-        longitudinal,
-    )
-}
-
-/// Direction-specific closed stance. Lateral shuffles retain normal
-/// anatomical width; the three-inch contract applies along the guard's
-/// longitudinal axis.
-pub fn guard_closed_foot_separation(leg_length_metres: f32, local_direction: Vec2) -> f32 {
-    let direction = local_direction.normalize_or_zero();
-    let longitudinal = direction.y.abs();
-    (leg_length_metres.max(0.0) * 0.25).lerp(
-        guard_rear_contact_separation(leg_length_metres),
-        longitudinal,
-    )
-}
-
-/// COM travel between centered open and closed contacts.
-pub fn guard_contact_travel_distance(leg_length_metres: f32, local_direction: Vec2) -> f32 {
-    (guard_open_foot_separation(leg_length_metres, local_direction)
-        - guard_closed_foot_separation(leg_length_metres, local_direction))
-    .max(0.0)
-        * 0.5
-}
-
-/// Maximum fore-aft guard stance immediately before the following foot lifts.
-/// The ratio maps a 0.851688 m average-male thigh-plus-shank chain at 5'11" to
-/// the requested one-yard stance, then scales directly with the actual rig.
-pub fn guard_maximum_foot_separation(leg_length_metres: f32) -> f32 {
-    leg_length_metres.max(0.0) * 1.073_632_5
-}
-
-/// Maximum fore-aft separation when the rear foot returns beside the front
-/// foot. This maps the same 5'11" reference leg to the requested three inches.
-pub fn guard_rear_contact_separation(leg_length_metres: f32) -> f32 {
-    leg_length_metres.max(0.0) * 0.089_469_37
 }

@@ -16,6 +16,7 @@ pub use adventuresim_core::animation_pack_id::AnimationPackId;
 pub use adventuresim_core::elapsed::AnimationElapsed;
 pub use adventuresim_core::unit_interval::UnitInterval;
 pub use authored_angle::{AngularMagnitudeDegrees, AngularSpeedDegrees, AngularSpeedRadians};
+pub use calibration_parameters::{ContactHeightScale, PhaseCalibrationIntervals};
 pub use contact::ContactSequence;
 pub use elapsed_reflection::ReflectedAnimationElapsed;
 pub use evaluation::*;
@@ -44,6 +45,7 @@ use adventuresim_core::linear_speed::NonnegativeSpeed;
 
 mod attack_commitment;
 mod authored_angle;
+mod calibration_parameters;
 mod contact;
 mod elapsed_reflection;
 mod evaluation;

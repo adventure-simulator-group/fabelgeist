@@ -1,5 +1,6 @@
 //! Authored locomotion roles and retained geometric cadence calibration.
 
+use super::pose_buffer::CalibrationInputs;
 use super::*;
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 use strum::EnumIter;
@@ -10,20 +11,13 @@ use strum::EnumIter;
 /// from clip duration.
 #[derive(Debug, Clone, Copy)]
 pub(super) struct AuthoredStrideMeasurement {
-    pub(super) step_distance: f32,
-    pub(super) maximum_stance_slip: f32,
+    pub(super) step_distance: NonnegativeLength,
+    pub(super) maximum_stance_slip: NonnegativeLength,
 }
 
-/// Periodic authored sample phase indexed by a uniformly advancing physical
-/// gait phase. Values are deliberately left unwrapped so interpolation remains
-/// continuous across the cycle seam; callers wrap only the final result.
-#[derive(Debug, Clone)]
-pub(super) struct AuthoredPhaseCurve {
-    pub(super) authored_phases: Vec<CyclePhase>,
-}
-
-#[derive(Resource, Debug, Clone, Default)]
+#[derive(Resource, Debug, Clone)]
 pub(super) struct AuthoredLocomotionStrides {
+    pub(super) configuration: CalibrationInputs,
     pub(super) walk: Option<AuthoredStrideMeasurement>,
     pub(super) run: Option<AuthoredStrideMeasurement>,
     pub(super) strafe: Option<AuthoredStrideMeasurement>,
@@ -40,6 +34,20 @@ pub(super) enum CalibrationMotion {
     Skip,
 }
 
+impl Default for AuthoredLocomotionStrides {
+    fn default() -> Self {
+        Self {
+            configuration: CalibrationInputs::current(),
+            walk: None,
+            run: None,
+            strafe: None,
+            skip: None,
+            phase_curves: BTreeMap::new(),
+            measured_clips: BTreeMap::new(),
+        }
+    }
+}
+
 impl CalibrationMotion {
     pub(super) fn motion(self) -> MotionId {
         match self {
@@ -51,40 +59,35 @@ impl CalibrationMotion {
     }
 }
 
-impl AuthoredPhaseCurve {
-    pub(super) fn sample(&self, physical_phase: CyclePhase) -> AnimationValueResult<CyclePhase> {
-        if self.authored_phases.len() < 2 {
-            return Ok(physical_phase.wrapped());
-        }
-        let phase = physical_phase.wrapped().cycles();
-        let coordinate = phase * (self.authored_phases.len() - 1) as f32;
-        let lower = coordinate.floor() as usize;
-        let upper = (lower + 1).min(self.authored_phases.len() - 1);
-        // The measured periodic curve is interpolated in native cycle coordinates.
-        CyclePhase::from_cycles(
-            self.authored_phases[lower]
-                .cycles()
-                .lerp(
-                    self.authored_phases[upper].cycles(),
-                    coordinate - lower as f32,
-                )
-                .rem_euclid(1.0),
-        )
-    }
-}
-
 impl AuthoredStrideMeasurement {
-    pub(super) fn lerp(self, other: Self, amount: f32) -> Self {
-        Self {
-            step_distance: self.step_distance.lerp(other.step_distance, amount),
-            maximum_stance_slip: self
-                .maximum_stance_slip
-                .lerp(other.maximum_stance_slip, amount),
-        }
+    pub(super) fn lerp(self, other: Self, amount: UnitInterval) -> AnimationValueResult<Self> {
+        Ok(Self {
+            step_distance: NonnegativeLength::from_arithmetic(
+                self.step_distance
+                    .metres()
+                    .lerp(other.step_distance.metres(), amount.fraction()),
+            )?,
+            maximum_stance_slip: NonnegativeLength::from_arithmetic(
+                self.maximum_stance_slip
+                    .metres()
+                    .lerp(other.maximum_stance_slip.metres(), amount.fraction()),
+            )?,
+        })
     }
 }
 
 impl AuthoredLocomotionStrides {
+    pub(super) fn has_current_configuration(&self) -> bool {
+        self.configuration == CalibrationInputs::current()
+    }
+
+    /// Configuration replacement explicitly invalidates derived data, just as a source revision does.
+    pub(super) fn invalidate_configuration(&mut self) {
+        if !self.has_current_configuration() {
+            *self = Self::default();
+        }
+    }
+
     pub(super) fn clear_motion(&mut self, motion: CalibrationMotion) {
         self.phase_curves.remove(&motion);
         self.measured_clips.remove(&motion);
@@ -113,6 +116,9 @@ impl AuthoredLocomotionStrides {
         pose: SemanticPose,
         physical_phase: CyclePhase,
     ) -> AnimationValueResult<CyclePhase> {
+        if !self.has_current_configuration() {
+            return Ok(physical_phase.wrapped());
+        }
         let motion = match pose {
             SemanticPose::WalkContact => CalibrationMotion::Walk,
             SemanticPose::RunContact => CalibrationMotion::Run,
@@ -124,8 +130,16 @@ impl AuthoredLocomotionStrides {
         )
     }
 
-    pub(super) fn ordinary(&self, speed: NonnegativeSpeed) -> Option<AuthoredStrideMeasurement> {
-        let walk = self.walk?;
+    pub(super) fn ordinary(
+        &self,
+        speed: NonnegativeSpeed,
+    ) -> AnimationValueResult<Option<AuthoredStrideMeasurement>> {
+        if !self.has_current_configuration() {
+            return Ok(None);
+        }
+        let Some(walk) = self.walk else {
+            return Ok(None);
+        };
         let blend = ((speed.metres_per_second()
             - walk_locomotion_profile()
                 .reference_speed
@@ -136,35 +150,51 @@ impl AuthoredLocomotionStrides {
                     .metres_per_second()))
         .clamp(0.0, 1.0);
         if blend <= 0.0 {
-            Some(walk)
+            Ok(Some(walk))
         } else {
-            Some(walk.lerp(self.run?, blend))
+            let Some(run) = self.run else {
+                return Ok(None);
+            };
+            walk.lerp(run, UnitInterval::from_fraction(blend)?)
+                .map(Some)
         }
     }
 
-    pub(super) fn combat(&self, direction: Vec2) -> Option<AuthoredStrideMeasurement> {
+    pub(super) fn combat(
+        &self,
+        direction: Vec2,
+    ) -> AnimationValueResult<Option<AuthoredStrideMeasurement>> {
+        if !self.has_current_configuration() {
+            return Ok(None);
+        }
         let strafe_weight = direction.x.abs();
         let skip_weight = direction.y.abs();
         let total = strafe_weight + skip_weight;
         if total <= 0.0 {
-            return None;
+            return Ok(None);
         }
-        let mut stride = AuthoredStrideMeasurement {
-            step_distance: 0.0,
-            maximum_stance_slip: 0.0,
-        };
+        // Native weighted mean of rig-local metre measurements, in original X/Y order.
+        let mut step_distance = 0.0;
+        let mut maximum_stance_slip = 0.0;
         if strafe_weight > 0.0 {
-            let strafe = self.strafe?;
-            stride.step_distance += strafe.step_distance * strafe_weight;
-            stride.maximum_stance_slip += strafe.maximum_stance_slip * strafe_weight;
+            let Some(strafe) = self.strafe else {
+                return Ok(None);
+            };
+            step_distance += strafe.step_distance.metres() * strafe_weight;
+            maximum_stance_slip += strafe.maximum_stance_slip.metres() * strafe_weight;
         }
         if skip_weight > 0.0 {
-            let skip = self.skip?;
-            stride.step_distance += skip.step_distance * skip_weight;
-            stride.maximum_stance_slip += skip.maximum_stance_slip * skip_weight;
+            let Some(skip) = self.skip else {
+                return Ok(None);
+            };
+            step_distance += skip.step_distance.metres() * skip_weight;
+            maximum_stance_slip += skip.maximum_stance_slip.metres() * skip_weight;
         }
-        stride.step_distance /= total;
-        stride.maximum_stance_slip /= total;
-        Some(stride)
+        step_distance /= total;
+        maximum_stance_slip /= total;
+        Ok(Some(AuthoredStrideMeasurement {
+            step_distance: NonnegativeLength::from_arithmetic(step_distance)?,
+            maximum_stance_slip: NonnegativeLength::from_arithmetic(maximum_stance_slip)?,
+        }))
     }
 }

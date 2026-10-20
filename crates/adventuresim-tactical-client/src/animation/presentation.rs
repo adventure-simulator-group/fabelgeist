@@ -245,8 +245,7 @@ pub(super) fn update_presented_skeletons(
     mut commands: Commands,
     time: Res<Time>,
     procedural_clock: Res<ProceduralAnimationClock>,
-    authored_strides: Res<AuthoredLocomotionStrides>,
-    character_strides: Query<&pose_buffer::CharacterLocomotionStrides>,
+    strides: pose_buffer::CalibrationLookup,
     mut players: Query<(Entity, &SkeletonState, Option<&mut PresentedSkeleton>), AnimatedActors>,
 ) {
     for (entity, authoritative, presented) in &mut players {
@@ -273,9 +272,7 @@ pub(super) fn update_presented_skeletons(
             &mut presented,
             authoritative,
             delta_seconds,
-            character_strides
-                .get(entity)
-                .map_or(&*authored_strides, |strides| &strides.measurements),
+            strides.for_actor(entity),
         ) {
             warn!(?entity, %error, "Rejected presentation interval");
         }
@@ -425,8 +422,10 @@ fn apply_authored_cadence(
     };
     let speed = next.animation_speed()?;
     let measurement = match kind {
-        AuthoredCadenceKind::Ordinary => strides.ordinary(speed),
-        AuthoredCadenceKind::Combat => strides.combat(next.raised_locomotion().local_direction()),
+        AuthoredCadenceKind::Ordinary => strides.ordinary(speed)?,
+        AuthoredCadenceKind::Combat => {
+            strides.combat(next.raised_locomotion().local_direction())?
+        }
     };
     let continuing = cadence.filter(|current| current.kind == kind);
     if measurement.is_none() && !(speed <= STATIONARY_ANIMATION_SPEED_LIMIT && continuing.is_some())
@@ -441,17 +440,17 @@ fn apply_authored_cadence(
         && let Some(measurement) = measurement
     {
         let requested_step_cadence =
-            speed.metres_per_second() / measurement.step_distance.max(0.01);
+            speed.metres_per_second() / measurement.step_distance.metres().max(0.01);
         let step_cadence = capped_authored_step_cadence(requested_step_cadence);
         cadence_capped = step_cadence < requested_step_cadence;
         limited = cadence_capped
-            || measurement.maximum_stance_slip > maximum_authored_stance_slip_metres().metres();
+            || measurement.maximum_stance_slip > maximum_authored_stance_slip_metres();
         if cadence_capped && !continuing.is_some_and(|current| current.cadence_capped) {
             warn!(
                 speed_metres_per_second = speed.metres_per_second(),
                 requested_steps_per_second = requested_step_cadence,
                 applied_steps_per_second = step_cadence,
-                maximum_stance_slip_metres = measurement.maximum_stance_slip,
+                maximum_stance_slip_metres = measurement.maximum_stance_slip.metres(),
                 "Authored locomotion clip cannot represent requested speed"
             );
         }
@@ -510,8 +509,8 @@ mod authored_cadence_tests {
     #[test]
     fn rejected_recalibration_clears_only_the_changed_motion() {
         let measurement = AuthoredStrideMeasurement {
-            step_distance: 1.0,
-            maximum_stance_slip: 0.0,
+            step_distance: NonnegativeLength::from_metres(1.0).unwrap(),
+            maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
         };
         let mut strides = AuthoredLocomotionStrides {
             walk: Some(measurement),
@@ -520,12 +519,13 @@ mod authored_cadence_tests {
         };
         strides.phase_curves.insert(
             super::CalibrationMotion::Walk,
-            AuthoredPhaseCurve {
-                authored_phases: vec![0.25, 1.25]
+            AuthoredPhaseCurve::from_samples(
+                vec![0.25, 1.25]
                     .into_iter()
                     .map(|phase| CyclePhase::from_cycles(phase).unwrap())
                     .collect(),
-            },
+            )
+            .unwrap(),
         );
 
         strides.clear_motion(super::CalibrationMotion::Walk);
@@ -545,12 +545,12 @@ mod authored_cadence_tests {
         let mut presented = PresentedSkeleton::new(state.clone(), None);
         let strides = AuthoredLocomotionStrides {
             walk: Some(AuthoredStrideMeasurement {
-                step_distance: 1.0,
-                maximum_stance_slip: 0.0,
+                step_distance: NonnegativeLength::from_metres(1.0).unwrap(),
+                maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
             }),
             run: Some(AuthoredStrideMeasurement {
-                step_distance: 2.0,
-                maximum_stance_slip: 0.0,
+                step_distance: NonnegativeLength::from_metres(2.0).unwrap(),
+                maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
             }),
             ..default()
         };
@@ -580,12 +580,12 @@ mod authored_cadence_tests {
         let mut presented = PresentedSkeleton::new(state.clone(), None);
         let strides = AuthoredLocomotionStrides {
             strafe: Some(AuthoredStrideMeasurement {
-                step_distance: 0.25,
-                maximum_stance_slip: 0.0,
+                step_distance: NonnegativeLength::from_metres(0.25).unwrap(),
+                maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
             }),
             skip: Some(AuthoredStrideMeasurement {
-                step_distance: 0.75,
-                maximum_stance_slip: 0.0,
+                step_distance: NonnegativeLength::from_metres(0.75).unwrap(),
+                maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
             }),
             ..default()
         };
@@ -607,12 +607,12 @@ mod authored_cadence_tests {
         let mut presented = PresentedSkeleton::new(state.clone(), None);
         let strides = AuthoredLocomotionStrides {
             walk: Some(AuthoredStrideMeasurement {
-                step_distance: 1.0,
-                maximum_stance_slip: 0.0,
+                step_distance: NonnegativeLength::from_metres(1.0).unwrap(),
+                maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
             }),
             run: Some(AuthoredStrideMeasurement {
-                step_distance: 1.5,
-                maximum_stance_slip: 0.04,
+                step_distance: NonnegativeLength::from_metres(1.5).unwrap(),
+                maximum_stance_slip: NonnegativeLength::from_metres(0.04).unwrap(),
             }),
             ..default()
         };

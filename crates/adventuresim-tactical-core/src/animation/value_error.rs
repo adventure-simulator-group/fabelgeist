@@ -8,6 +8,10 @@ pub type AnimationValueResult<T> = Result<T, AnimationValueError>;
 /// The animation role whose numeric contract failed.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Display)]
 pub enum AnimationQuantity {
+    #[display("selected-axis calibration metre position")]
+    CalibrationPosition,
+    #[display("authored contact-height scale")]
+    ContactHeightScale,
     #[display("nonnegative length")]
     Length,
     #[display("nonnegative speed")]
@@ -98,6 +102,10 @@ pub enum AnimationQuantity {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
 pub enum AnimationValueError {
+    #[error("authored phase curve must close by one forward or reverse cycle")]
+    InvalidPhaseCurveSeam,
+    #[error("authored phase calibration requires at least three intervals; got {actual}")]
+    InsufficientPhaseIntervals { actual: u32 },
     #[error("baked animation channel has {actual} samples; expected {expected}")]
     BakedChannelSampleCount { expected: usize, actual: usize },
     #[error("{quantity} must be finite")]
@@ -120,7 +128,9 @@ impl AnimationValueError {
     /// Retain a shared numeric rejection while identifying its semantic caller.
     pub fn for_quantity(self, quantity: AnimationQuantity) -> Self {
         match self {
-            Self::BakedChannelSampleCount { .. } => self,
+            Self::BakedChannelSampleCount { .. }
+            | Self::InvalidPhaseCurveSeam
+            | Self::InsufficientPhaseIntervals { .. } => self,
             Self::NonFinite { .. } => Self::NonFinite { quantity },
             Self::Negative { .. } => Self::Negative { quantity },
             Self::NonPositive { .. } => Self::NonPositive { quantity },

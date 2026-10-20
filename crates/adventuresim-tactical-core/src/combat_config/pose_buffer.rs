@@ -1,7 +1,9 @@
 //! Pose sampling, calibration and measurement tuning authored in combat YAML.
 
 use super::TacticalCombatConfigError;
-use crate::animation::{AnimationSampleRate, PositiveAnimationDuration};
+use crate::animation::{
+    AnimationSampleRate, ContactHeightScale, PhaseCalibrationIntervals, PositiveAnimationDuration,
+};
 use adventuresim_building_generator::spatial_geometry::PositiveLength;
 use serde::{Deserialize, Serialize};
 
@@ -14,7 +16,7 @@ pub struct PoseBufferConfig {
     /// Minimum signed stance displacement needed for a stable phase fit.
     pub minimum_phase_fit_displacement_metres: PositiveLength,
     pub maximum_observation_seconds: PositiveAnimationDuration,
-    pub authored_phase_calibration_intervals: u32,
+    pub authored_phase_calibration_intervals: PhaseCalibrationIntervals,
     pub minimum_authored_foot_range_metres: PositiveLength,
     pub maximum_authored_foot_range_metres: PositiveLength,
     /// Seconds an inertialized transition takes to decay fully onto its new
@@ -23,7 +25,7 @@ pub struct PoseBufferConfig {
     pub cull_distance_metres: PositiveLength,
     pub cull_radius_metres: PositiveLength,
     pub authored_contact_plant_limit_metres: PositiveLength,
-    pub authored_contact_height_fraction: f32,
+    pub authored_contact_height_fraction: ContactHeightScale,
     pub authored_contact_minimum_height_window_metres: PositiveLength,
     pub authored_contact_maximum_height_window_metres: PositiveLength,
 }
@@ -40,13 +42,13 @@ impl PoseBufferConfig {
             pose.cull_distance_metres.metres(),
             pose.cull_radius_metres.metres(),
             pose.authored_contact_plant_limit_metres.metres(),
-            pose.authored_contact_height_fraction,
+            pose.authored_contact_height_fraction.factor(),
             pose.authored_contact_minimum_height_window_metres.metres(),
             pose.authored_contact_maximum_height_window_metres.metres(),
         ]
         .into_iter()
         .all(|value| finite_nonnegative(value) && value > 0.0)
-            || pose.authored_phase_calibration_intervals < 3
+            || pose.authored_phase_calibration_intervals.count() < 3
             || pose.maximum_authored_foot_range_metres < pose.minimum_authored_foot_range_metres
             || pose.authored_contact_maximum_height_window_metres
                 < pose.authored_contact_minimum_height_window_metres

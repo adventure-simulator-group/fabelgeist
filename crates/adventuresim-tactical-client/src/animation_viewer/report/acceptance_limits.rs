@@ -173,7 +173,7 @@ pub(super) fn expected_visual_height(scenario: &ScenarioMetadata<'_>) -> Option<
     })
 }
 
-pub(super) fn cadence_contacts_valid(frames: &[FrameSample]) -> bool {
+pub(super) fn cadence_contacts_valid(frames: &[FrameSample]) -> AnimationValueResult<bool> {
     let cadence_frames = frames
         .iter()
         .filter(|frame| frame.scenario.is(ScenarioId::CadenceContact))
@@ -189,7 +189,8 @@ pub(super) fn cadence_contacts_valid(frames: &[FrameSample]) -> bool {
         .collect::<Vec<_>>();
     let cadence_step_distance = ordinary_step_distance(
         super::super::scenarios::authored_drive_speed(2.0).nonnegative_part(),
-    );
+    )?
+    .metres();
     let adjusted_contact_distances = cadence_contacts
         .iter()
         .map(|frame| {
@@ -202,7 +203,7 @@ pub(super) fn cadence_contacts_valid(frames: &[FrameSample]) -> bool {
         })
         .collect::<Vec<_>>();
     let cadence_tolerance = (cadence_step_distance * 0.01).max(0.005);
-    cadence_frames.is_empty()
+    Ok(cadence_frames.is_empty()
         || (cadence_contacts.len() == 4
             && cadence_contacts.windows(2).all(|pair| {
                 pair[1]
@@ -215,5 +216,5 @@ pub(super) fn cadence_contacts_valid(frames: &[FrameSample]) -> bool {
             })
             && adjusted_contact_distances.windows(3).all(|window| {
                 ((window[2] - window[0]) - cadence_step_distance * 2.0).abs() <= cadence_tolerance
-            }))
+            })))
 }

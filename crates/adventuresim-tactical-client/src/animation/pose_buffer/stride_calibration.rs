@@ -1,5 +1,6 @@
 //! Measure cadence and phase from each body's retargeted foot trajectories.
 
+use super::phase_calibration::StanceDirection;
 use super::*;
 use adventuresim_tactical_core::animation::AnimationPackId;
 use strum::IntoEnumIterator;
@@ -8,6 +9,7 @@ use strum::IntoEnumIterator;
 pub(in crate::animation) struct CharacterLocomotionStrides {
     pub(in crate::animation) measurements: AuthoredLocomotionStrides,
     offsets: Vec<Vec3>,
+    definition: Arc<RigDefinition>,
 }
 
 struct CalibrationSource {
@@ -22,12 +24,41 @@ pub(super) enum CalibrationAxis {
     Longitudinal,
 }
 
+impl CharacterLocomotionStrides {
+    pub(super) fn matches_offsets(
+        &self,
+        rig: &PoseBufferRig,
+        joints: &Query<&skeletal_proportions::SkeletalJointOffset>,
+    ) -> bool {
+        Arc::ptr_eq(&self.definition, &rig.definition)
+            && self.offsets.len() == rig.entities.len()
+            && self
+                .offsets
+                .iter()
+                .zip(rig.entities.iter())
+                .all(|(previous, joint)| {
+                    let current = joint
+                        .and_then(|entity| joints.get(entity).ok())
+                        .map(|offset| offset.0)
+                        .unwrap_or_default();
+                    *previous == current
+                })
+    }
+}
+
 impl CalibrationAxis {
-    pub(super) fn component(self, position: Vec3) -> f32 {
-        match self {
+    pub(super) fn component(
+        self,
+        position: Vec3,
+    ) -> AnimationValueResult<adventuresim_building_generator::spatial_geometry::SignedLength> {
+        let component = match self {
             Self::Lateral => position.x,
             Self::Longitudinal => position.z,
-        }
+        };
+        adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(component)
+            .map_err(|_| AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::CalibrationPosition,
+            })
     }
 }
 
@@ -62,7 +93,11 @@ pub(in crate::animation) fn calibrate_character_strides(
                     .unwrap_or_default()
             })
             .collect();
-        if !reference.is_changed() && current.is_some_and(|current| current.offsets == offsets) {
+        if !reference.is_changed()
+            && current.is_some_and(|current| {
+                Arc::ptr_eq(&current.definition, &rig.definition) && current.offsets == offsets
+            })
+        {
             continue;
         }
         let mut measurements = AuthoredLocomotionStrides::default();
@@ -76,6 +111,7 @@ pub(in crate::animation) fn calibrate_character_strides(
         commands.entity(entity).insert(CharacterLocomotionStrides {
             measurements,
             offsets,
+            definition: Arc::clone(&rig.definition),
         });
     }
 }
@@ -87,6 +123,7 @@ pub(super) fn calibrate(
     strides: &mut AuthoredLocomotionStrides,
     offsets: &[Vec3],
 ) {
+    strides.invalidate_configuration();
     for kind in CalibrationMotion::iter() {
         let CalibrationSource { motion, axis } = kind.source();
         let Some(loaded) = runtime
@@ -99,7 +136,6 @@ pub(super) fn calibrate(
         if strides.measured_clips.get(&kind) == Some(&id) {
             continue;
         }
-        strides.clear_motion(kind);
         let Some(clip) = clips.get(&loaded.handle) else {
             continue;
         };
@@ -115,23 +151,37 @@ pub(super) fn calibrate(
             // Walk and run use a measured distance-domain phase curve while
             // the live sampler interpolates only their sparse semantic poses.
             CalibrationMotion::Walk | CalibrationMotion::Run => {
-                measure_authored_contact_step_distance(definition, &baked, axis, -1.0)
+                measure_authored_contact_step_distance(
+                    definition,
+                    &baked,
+                    axis,
+                    StanceDirection::Decreasing,
+                )
             }
             // Combat cycles currently expose alternating contact poses but no
             // typed support interval. Retain their geometric calibration until
             // that contact timing is part of the authored motion contract.
             CalibrationMotion::Strafe | CalibrationMotion::Skip => {
-                measure_authored_foot_range(definition, &baked, axis).map(|step_distance| {
-                    AuthoredLocomotionCalibration {
+                measure_authored_foot_range(definition, &baked, axis).map(|range| {
+                    range.map(|step_distance| AuthoredLocomotionCalibration {
                         stride: AuthoredStrideMeasurement {
                             step_distance,
-                            maximum_stance_slip: 0.0,
+                            maximum_stance_slip: NonnegativeLength::ZERO,
                         },
                         phase_curve: None,
-                    }
+                    })
                 })
             }
         };
+        let calibration = match calibration {
+            Ok(calibration) => calibration,
+            Err(error) => {
+                warn!(%error, motion = %motion, "Rejected authored phase calibration");
+                continue;
+            }
+        };
+        // Prepare first. F08 revision invalidation separately retires changed sources.
+        strides.clear_motion(kind);
         let Some(calibration) = calibration else {
             warn!(motion = %motion, "Could not infer authored locomotion stride");
             strides.measured_clips.insert(kind, id);
@@ -146,16 +196,15 @@ pub(super) fn calibrate(
         }
         info!(
             motion = %motion,
-            stride_metres = stride.step_distance,
-            maximum_stance_slip_metres = stride.maximum_stance_slip,
+            stride_metres = stride.step_distance.metres(),
+            maximum_stance_slip_metres = stride.maximum_stance_slip.metres(),
             "Measured authored locomotion stride"
         );
-        if stride.maximum_stance_slip > presentation::maximum_authored_stance_slip_metres().metres()
-        {
+        if stride.maximum_stance_slip > presentation::maximum_authored_stance_slip_metres() {
             warn!(
                 motion = %motion,
-                stride_metres = stride.step_distance,
-                maximum_stance_slip_metres = stride.maximum_stance_slip,
+                stride_metres = stride.step_distance.metres(),
+                maximum_stance_slip_metres = stride.maximum_stance_slip.metres(),
                 "Authored locomotion contact fit exceeds the stance-slip budget"
             );
         }
@@ -174,16 +223,17 @@ pub(super) fn has_unmeasured_motion(
     clips: &Assets<AnimationClip>,
     strides: &AuthoredLocomotionStrides,
 ) -> bool {
-    CalibrationMotion::iter().any(|kind| {
-        let motion = kind.source().motion;
-        runtime
-            .clips
-            .get(&MotionKey::new(&AnimationPackId::HUMANOID_UNARMED, &motion))
-            .is_some_and(|loaded| {
-                clips.contains(loaded.handle.id())
-                    && strides.measured_clips.get(&kind) != Some(&loaded.handle.id())
-            })
-    })
+    !strides.has_current_configuration()
+        || CalibrationMotion::iter().any(|kind| {
+            let motion = kind.source().motion;
+            runtime
+                .clips
+                .get(&MotionKey::new(&AnimationPackId::HUMANOID_UNARMED, &motion))
+                .is_some_and(|loaded| {
+                    clips.contains(loaded.handle.id())
+                        && strides.measured_clips.get(&kind) != Some(&loaded.handle.id())
+                })
+        })
 }
 
 #[cfg(test)]
@@ -235,10 +285,13 @@ mod tests {
         )
         .unwrap();
         let original =
-            measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal).unwrap();
+            measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal)
+                .unwrap()
+                .unwrap();
         clip.offset_translations(&[Vec3::ZERO, Vec3::NEG_Y * 0.5, Vec3::NEG_Y * 0.5]);
-        let longer =
-            measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal).unwrap();
-        assert!((longer / original - 1.5).abs() < 1e-5);
+        let longer = measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal)
+            .unwrap()
+            .unwrap();
+        assert!((longer.metres() / original.metres() - 1.5).abs() < 1e-5);
     }
 }
