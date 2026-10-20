@@ -59,6 +59,7 @@ pub(crate) use state::{ArmIkState, LegIkDiagnostics, LegIkState};
 use target_speed::FootTargetSpeeds;
 use terminal::TerminalContacts;
 pub(super) use terrain_contacts::smoothstep;
+pub(crate) use terrain_contacts::{measured_ankle_sole_offset_metres, sole_contact_tolerance_metres};
 use terrain_contacts::*;
 pub(in crate::animation::procedural) use track::FootTrackSide;
 
@@ -90,14 +91,6 @@ pub(super) fn foot_track_inner_metres() -> NonnegativeLength {
 
 pub(super) fn maximum_pelvis_correction_step_metres() -> NonnegativeLength {
     ik_tuning().maximum_pelvis_correction_step_metres
-}
-
-pub(crate) fn measured_ankle_sole_offset_metres() -> PositiveLength {
-    ik_tuning().measured_ankle_sole_offset_metres
-}
-
-pub(crate) fn sole_contact_tolerance_metres() -> PositiveLength {
-    ik_tuning().sole_contact_tolerance_metres
 }
 
 /// Places the planted foot on the terrain with an analytic two-bone solve,

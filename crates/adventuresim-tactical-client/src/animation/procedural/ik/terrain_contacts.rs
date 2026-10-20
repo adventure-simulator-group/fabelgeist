@@ -23,6 +23,8 @@ pub(in crate::animation::procedural) use foot_clearance::{
     transition_toe_clearance_with_rotation_margin,
 };
 
+pub(crate) use foot_clearance::{measured_ankle_sole_offset_metres, sole_contact_tolerance_metres};
+
 mod approach;
 mod flight_projection;
 mod foot_clearance;

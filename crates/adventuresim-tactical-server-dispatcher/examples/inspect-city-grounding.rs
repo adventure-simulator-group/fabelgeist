@@ -66,24 +66,7 @@ impl Inspection {
             .iter()
             .find(|c| c.id.0 == id)
             .ok_or("requested property is absent from the scene")?;
-        let stages: TerrainStages = serde_json::from_slice(&std::fs::read(
-            self.terrain_stages
-                .as_ref()
-                .ok_or("missing terrain stages")?,
-        )?)?;
-        if Some(stages.source_digest.as_str())
-            != match &input.source {
-                adventuresim_tactical_core::scene_input::SceneSource::ImportedPackage(digest) => {
-                    Some(digest.as_str())
-                }
-                _ => None,
-            }
-        {
-            return Err("terrain stages do not identify the scene source".into());
-        }
-        if stages.input_digest != input.digest()? {
-            return Err("terrain stages do not identify this exact scene input".into());
-        }
+        let stages = TerrainStages::load_verified(self, input)?;
         let vista = stages.ungraded_vista;
         let raw = SceneTerrain::from_heightmap(
             usize::from(input.playable.width),

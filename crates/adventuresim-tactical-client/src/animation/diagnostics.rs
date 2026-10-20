@@ -192,10 +192,7 @@ pub(super) fn log_animation_diagnostics(
             render_delta_seconds: time.delta_secs(),
             render_schedule_completion,
             input: input.as_deref(),
-            controller_transform: DiagnosticTransform {
-                translation: transform.translation.to_array(),
-                rotation_xyzw: transform.rotation.to_array(),
-            },
+            controller_transform: DiagnosticTransform::from(transform),
             controller_global_transform: DiagnosticTransform {
                 translation: global_translation.to_array(),
                 rotation_xyzw: global_transform.compute_transform().rotation.to_array(),

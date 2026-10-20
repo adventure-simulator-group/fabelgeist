@@ -85,6 +85,15 @@ pub(super) struct AnimationDiagnosticRecord<'a> {
     pub(super) playback: DiagnosticPlayback,
 }
 
+impl From<&Transform> for DiagnosticTransform {
+    fn from(transform: &Transform) -> Self {
+        Self {
+            translation: transform.translation.to_array(),
+            rotation_xyzw: transform.rotation.to_array(),
+        }
+    }
+}
+
 impl<'a> DiagnosticBone<'a> {
     pub(super) fn from_global(
         target: AnimationTargetId,

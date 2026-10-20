@@ -4,11 +4,9 @@ use super::*;
 pub(super) use admission::reject_capture;
 use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 pub(super) use capture_schedule::CapturePlugin;
 use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 use repeated_evaluation::RepeatedEvaluationSnapshot;
-use root_motion::CaptureGround;
 
 mod admission;
 mod capture_schedule;
@@ -260,19 +258,10 @@ pub(super) fn drive_sequence(
             if let Some(mut body_response) = body_response {
                 *body_response = LocomotionBodyResponseState::default();
             }
-            let Some(ground) = sequence.admit_terrain_height(&terrain, ScenePlanPoint::ORIGIN)
-            else {
+            let Some(initial) = sequence.initial_root(&terrain, *transform) else {
                 return;
             };
-            let Some(position) = sequence.admit_scene_position(Vec3::new(
-                0.0,
-                ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES,
-                0.0,
-            )) else {
-                return;
-            };
-            transform.translation = position.metres();
-            transform.rotation = Quat::from_rotation_y(std::f32::consts::PI);
+            *transform = initial;
             if frame.scenario.has(ScenarioFeature::RaisedTapStop) {
                 // Prime the static combat stance and its terrain-conformed IK
                 // before judging the later six-frame movement tap. A live
@@ -635,7 +624,7 @@ pub(super) fn capture_frame(
     let Some(ground) = sequence.capture_ground(*terrain_ik, subject_global.translation()) else {
         return;
     };
-    let evaluation_bones = collect_bones(subject, &bones, &terrain, ground);
+    let evaluation_bones = ground.collect_bones(subject, &bones, &terrain);
     let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics).unwrap_or_default();
     sequence.record_repeated_evaluation(&frame, &evaluation_bones, skeleton, evaluation_leg_ik);
     if sequence.view_index == 0 {
@@ -922,35 +911,6 @@ pub(super) fn wait_or_fail(
         sequence.waiting
     );
     fail_capture(sequence, &message, exit);
-}
-
-fn collect_bones(
-    subject: Entity,
-    bones: &Query<(&HumanoidBone, &GlobalTransform)>,
-    terrain: &SceneTerrain,
-    ground: CaptureGround,
-) -> CapturedBones {
-    bones
-        .iter()
-        .filter(|(bone, _)| bone.owner == subject && report_bone_label(bone.role).is_some())
-        .map(|(bone, transform)| {
-            let rotation = transform.rotation();
-            let elevation = match ground {
-                CaptureGround::AuthoredPlane(height) => Some(height),
-                CaptureGround::Terrain => ScenePlanPoint::from_metres(transform.translation().xz())
-                    .and_then(|point| terrain.height_at(point)),
-            };
-            (
-                bone.role,
-                BoneSample {
-                    position: transform.translation().to_array(),
-                    rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
-                    terrain_clearance_metres: elevation
-                        .map(|height| transform.translation().y - height.metres()),
-                },
-            )
-        })
-        .collect()
 }
 
 #[cfg(test)]

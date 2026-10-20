@@ -15,7 +15,57 @@ pub(super) enum CaptureGround {
     AuthoredPlane(SupportElevation),
 }
 
+impl CaptureGround {
+    pub(super) fn collect_bones(
+        self,
+        subject: Entity,
+        bones: &Query<(&HumanoidBone, &GlobalTransform)>,
+        terrain: &SceneTerrain,
+    ) -> CapturedBones {
+        bones
+            .iter()
+            .filter(|(bone, _)| bone.owner == subject && report_bone_label(bone.role).is_some())
+            .map(|(bone, transform)| {
+                let rotation = transform.rotation();
+                let elevation = match self {
+                    CaptureGround::AuthoredPlane(height) => Some(height),
+                    CaptureGround::Terrain => {
+                        ScenePlanPoint::from_metres(transform.translation().xz())
+                            .and_then(|point| terrain.height_at(point))
+                    }
+                };
+                (
+                    bone.role,
+                    BoneSample {
+                        position: transform.translation().to_array(),
+                        rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
+                        terrain_clearance_metres: elevation
+                            .map(|height| transform.translation().y - height.metres()),
+                    },
+                )
+            })
+            .collect()
+    }
+}
+
 impl CaptureSequence {
+    /// Admit the initial scene root while retaining its current scale.
+    pub(super) fn initial_root(
+        &mut self,
+        terrain: &SceneTerrain,
+        mut transform: Transform,
+    ) -> Option<Transform> {
+        let ground = self.admit_terrain_height(terrain, ScenePlanPoint::ORIGIN)?;
+        let position = self.admit_scene_position(Vec3::new(
+            0.0,
+            ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES,
+            0.0,
+        ))?;
+        transform.translation = position.metres();
+        transform.rotation = Quat::from_rotation_y(std::f32::consts::PI);
+        Some(transform)
+    }
+
     /// Native scene-root translation advances by the existing controller step;
     /// admit its footprint before queries and its complete position before Bevy.
     pub(super) fn fixture_root_position(

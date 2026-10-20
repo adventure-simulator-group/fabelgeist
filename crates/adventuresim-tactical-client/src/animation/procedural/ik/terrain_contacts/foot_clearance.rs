@@ -56,6 +56,14 @@ impl FootClearanceFloor {
     }
 }
 
+pub(crate) fn measured_ankle_sole_offset_metres() -> PositiveLength {
+    ik_tuning().measured_ankle_sole_offset_metres
+}
+
+pub(crate) fn sole_contact_tolerance_metres() -> PositiveLength {
+    ik_tuning().sole_contact_tolerance_metres
+}
+
 /// Conform only upward from the authored pose, then apply the solve confidence.
 pub(in crate::animation::procedural) fn ordinary_terrain_target(
     foot_position: Vec3,
