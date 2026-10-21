@@ -1,3 +1,4 @@
+use crate::camera::authored_metres;
 use super::*;
 use adventuresim_plant_generator::fungus::FungusSpecies;
 
@@ -15,7 +16,7 @@ pub(in crate::tactical_scene_viewer) const FUNGUS_REVIEW_VIEWS: [CaptureViewSpec
         "fly-agaric-contact",
         "Actual fly agaric and ground contact",
         CapturePose::Fungus {
-            distance: 0.45,
+            distance: authored_metres(0.45),
             species: FungusSpecies::FlyAgaric
         },
         40.0,
@@ -26,7 +27,7 @@ pub(in crate::tactical_scene_viewer) const FUNGUS_REVIEW_VIEWS: [CaptureViewSpec
         "porcini-contact",
         "Actual porcini and ground contact",
         CapturePose::Fungus {
-            distance: 0.45,
+            distance: authored_metres(0.45),
             species: FungusSpecies::Porcini
         },
         40.0,
@@ -37,7 +38,7 @@ pub(in crate::tactical_scene_viewer) const FUNGUS_REVIEW_VIEWS: [CaptureViewSpec
         "chanterelle-contact",
         "Actual chanterelle and ground contact",
         CapturePose::Fungus {
-            distance: 0.35,
+            distance: authored_metres(0.35),
             species: FungusSpecies::Chanterelle
         },
         40.0,
@@ -48,7 +49,7 @@ pub(in crate::tactical_scene_viewer) const FUNGUS_REVIEW_VIEWS: [CaptureViewSpec
         "puffball-contact",
         "Actual puffball and ground contact",
         CapturePose::Fungus {
-            distance: 0.35,
+            distance: authored_metres(0.35),
             species: FungusSpecies::CommonPuffball
         },
         40.0,
@@ -59,7 +60,7 @@ pub(in crate::tactical_scene_viewer) const FUNGUS_REVIEW_VIEWS: [CaptureViewSpec
         "fungus-community",
         "Actual fungal community at gameplay approach",
         CapturePose::Fungus {
-            distance: 2.0,
+            distance: authored_metres(2.0),
             species: FungusSpecies::FlyAgaric
         },
         55.0,
@@ -71,7 +72,7 @@ pub(in crate::tactical_scene_viewer) const FUNGUS_REVIEW_VIEWS: [CaptureViewSpec
         "fungus-distance",
         "Fungal community at detail fade distance",
         CapturePose::Fungus {
-            distance: 20.0,
+            distance: authored_metres(20.0),
             species: FungusSpecies::FlyAgaric
         },
         55.0,

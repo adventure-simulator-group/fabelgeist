@@ -94,7 +94,7 @@ impl DebrisCaptureTarget {
         pairs: &[GroundLitterCapturePair],
         terrain: &SceneTerrain,
         observed_obstacles: impl IntoIterator<Item = (&'a SceneObstacle, &'a GlobalTransform)>,
-        fallback_azimuth_degrees: f32,
+        fallback_azimuth_degrees: adventuresim_tactical_core::animation::SignedAngleDegrees,
     ) -> Result<Option<Self>> {
         // Admit the complete native ECS observation before selecting a target.
         let obstacles = observed_obstacles
@@ -113,7 +113,7 @@ impl DebrisCaptureTarget {
         pairs: &[GroundLitterCapturePair],
         terrain: &SceneTerrain,
         obstacles: &[CaptureObstacle],
-        fallback_azimuth_degrees: f32,
+        fallback_azimuth_degrees: adventuresim_tactical_core::animation::SignedAngleDegrees,
     ) -> Option<Self> {
         let half_width = terrain.width() * 0.5;
         let half_depth = terrain.depth() * 0.5;
@@ -146,7 +146,7 @@ impl DebrisCaptureTarget {
                 if obstacle_clearance < 1.25 {
                     return None;
                 }
-                let fallback = fallback_azimuth_degrees.to_radians();
+                let fallback = fallback_azimuth_degrees.radians();
                 let camera_horizontal = nearest
                     .map(|obstacle| {
                         (focus.xz() - obstacle.position.metres().xz()).normalize_or_zero()
@@ -206,16 +206,12 @@ impl CaptureObstacle {
 pub(super) fn debris_detail_camera(
     target: Position<Scene>,
     camera: Option<Position<Scene>>,
-    azimuth_degrees: f32,
-) -> (Vec3, Vec3, Vec3) {
-    // This complete view-frame calculation is the native Bevy camera port.
-    let target = target.metres();
-    let azimuth = azimuth_degrees.to_radians();
-    (
-        camera
-            .map(Position::metres)
-            .unwrap_or(target + Vec3::new(azimuth.sin() * 1.15, 1.35, azimuth.cos() * 1.15)),
-        target,
-        Vec3::Y,
-    )
+    azimuth_degrees: adventuresim_tactical_core::animation::SignedAngleDegrees,
+) -> super::view_camera::CaptureCameraResult<super::view_camera::SceneCameraView> {
+    let azimuth = azimuth_degrees.radians();
+    let position = match camera {
+        Some(camera) => camera,
+        None => Position::from_metres(target.metres() + Vec3::new(azimuth.sin() * 1.15, 1.35, azimuth.cos() * 1.15))?,
+    };
+    super::view_camera::SceneCameraView::looking_at(position, target, adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::Y)?)
 }

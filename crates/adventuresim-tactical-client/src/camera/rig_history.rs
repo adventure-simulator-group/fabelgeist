@@ -1,32 +1,37 @@
 //! Observation-backed camera pose history; profile blending advances independently.
 
+use fabelgeist_geometry::SignedLength;
 use super::{
     CameraProfile, CameraRigConfig,
     collision::BoomRecovery,
     smoothing::{blend_profile, critical_damp_scalar},
 };
 use adventuresim_tactical_core::animation::{
-    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult, UnitInterval,
+    AnimationElapsed, UnitInterval,
     WeaponGuardState,
 };
-use bevy::prelude::{Entity, Resource, Vec3};
+use bevy::prelude::{Entity, Resource};
+use adventuresim_building_generator::spatial_geometry::{Position};
+use adventuresim_core::linear_speed::SignedSpeed;
+use adventuresim_tactical_core::scene_coordinates::{Scene, SceneVelocity};
+use super::values::{CameraResult, SignedBlendVelocity};
 
 #[derive(Resource, Debug, Clone, Default)]
 pub(super) struct CameraRigState {
     history: Option<CameraPoseHistory>,
     pub(super) blend: UnitInterval,
     // Signed fraction/second derivative used only by the analytic scalar filter.
-    blend_velocity: f32,
+    blend_velocity: SignedBlendVelocity,
 }
 
 #[derive(Debug, Clone)]
 pub(super) struct CameraPoseHistory {
-    pub(super) focus: Vec3,
-    pub(super) focus_velocity: Vec3,
+    pub(super) focus: Position<Scene>,
+    pub(super) focus_velocity: SceneVelocity,
     pub(super) boom: BoomRecovery,
-    pub(super) shoulder_offset: f32,
-    pub(super) shoulder_velocity: f32,
-    last_anchor: Vec3,
+    pub(super) shoulder_offset: SignedLength,
+    pub(super) shoulder_velocity: SignedSpeed,
+    last_anchor: Position<Scene>,
     subject: Entity,
 }
 
@@ -37,9 +42,9 @@ impl CameraRigState {
         guard: WeaponGuardState,
         config: &CameraRigConfig,
         elapsed: AnimationElapsed,
-    ) -> AnimationValueResult<CameraProfile> {
+    ) -> CameraResult<CameraProfile> {
         let target_blend = f32::from(guard == WeaponGuardState::Raised);
-        let mut velocity = self.blend_velocity;
+        let mut velocity = self.blend_velocity.fraction_per_second();
         let value = critical_damp_scalar(
             self.blend.fraction(),
             target_blend,
@@ -50,11 +55,7 @@ impl CameraRigState {
         .clamp(0.0, 1.0);
         let blend = UnitInterval::from_fraction(value)?;
         let profile = blend_profile(config.lowered, config.raised, blend)?;
-        if !velocity.is_finite() {
-            return Err(AnimationValueError::Overflow {
-                quantity: AnimationQuantity::CameraBlendVelocity,
-            });
-        }
+        let velocity = SignedBlendVelocity::from_fraction_per_second(velocity)?;
         self.blend = blend;
         self.blend_velocity = velocity;
         Ok(profile)
@@ -67,12 +68,12 @@ impl CameraRigState {
     pub(super) fn observe(
         &mut self,
         subject: Entity,
-        anchor: Vec3,
+        anchor: Position<Scene>,
         profile: CameraProfile,
-        teleport_distance: f32,
+        teleport_distance: SignedLength,
     ) -> &mut CameraPoseHistory {
         let reset = self.history.as_ref().is_none_or(|history| {
-            history.subject != subject || anchor.distance(history.last_anchor) > teleport_distance
+            history.subject != subject || anchor.metres().distance(history.last_anchor.metres()) > teleport_distance.metres()
         });
         if reset {
             self.history = None;
@@ -87,15 +88,15 @@ impl CameraRigState {
 }
 
 impl CameraPoseHistory {
-    fn new(subject: Entity, anchor: Vec3, profile: CameraProfile) -> Self {
+    fn new(subject: Entity, anchor: Position<Scene>, profile: CameraProfile) -> Self {
         let mut boom = BoomRecovery::default();
         boom.reset(profile.distance);
         Self {
             focus: anchor,
-            focus_velocity: Vec3::ZERO,
+            focus_velocity: SceneVelocity::ZERO,
             boom,
             shoulder_offset: profile.shoulder_offset,
-            shoulder_velocity: 0.0,
+            shoulder_velocity: SignedSpeed::ZERO,
             last_anchor: anchor,
             subject,
         }

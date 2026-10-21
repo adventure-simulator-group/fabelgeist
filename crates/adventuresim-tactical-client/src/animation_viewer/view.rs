@@ -1,5 +1,6 @@
 //! Deterministic gameplay and armor inspection camera framing.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::RigidRotation;
 
 pub(super) fn position_capture_camera(
     sequence: Res<CaptureSequence>,
@@ -24,8 +25,11 @@ pub(super) fn position_capture_camera(
             // that default base and apply the exact gameplay camera offset;
             // otherwise the offset accumulates and the first raw frame is a
             // pelvis-level/empty view.
-            camera.translation =
-                subject.translation + animation_capture_camera_offset(Quat::IDENTITY);
+            let offset = match animation_capture_camera_offset(RigidRotation::IDENTITY) {
+                Ok(offset) => offset,
+                Err(error) => { error!(%error, "cannot position capture camera"); return; }
+            };
+            camera.translation = subject.translation + offset.metres();
             camera.rotation = Quat::IDENTITY;
         }
         CaptureView::Side => {

@@ -1,5 +1,6 @@
 //! Production catalogue staging and envelope framing for the viewer.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::{CuboidDimensions, Position};
 
 pub(in crate::tactical_scene_viewer) fn setup_catalog(
     commands: &mut Commands,
@@ -74,7 +75,7 @@ pub(in crate::tactical_scene_viewer) fn setup_catalog(
                 .metres(),
             bay.y,
         );
-        cameras.push(catalog_camera(kind, envelope, ground));
+        cameras.push(catalog_camera(kind, CuboidDimensions::from_metres(envelope)?, Position::from_metres(ground)?)?);
     }
     cameras.push(joined_counters(layout, terrain)?);
     cameras.extend(finishes::stage(layout, terrain)?);
@@ -91,9 +92,12 @@ pub(in crate::tactical_scene_viewer) fn setup_catalog(
 
 pub(super) fn catalog_camera(
     kind: FurnitureKind,
-    size: Vec3,
-    ground: Vec3,
-) -> BuildingReviewCamera {
+    size: CuboidDimensions,
+    ground: Position<adventuresim_tactical_core::scene_coordinates::Scene>,
+) -> Result<BuildingReviewCamera> {
+    // Perspective envelope projection consumes scene metres at this kernel.
+    let size = size.metres();
+    let ground = ground.metres();
     let side = if kind == FurnitureKind::BunkBed {
         1.1
     } else {
@@ -115,11 +119,11 @@ pub(super) fn catalog_camera(
                     * (point.dot(right).abs() / tangent_x).max(point.dot(up).abs() / tangent_y)
         })
         .fold(0.0_f32, f32::max);
-    BuildingReviewCamera {
-        position: target + outward * distance,
-        target,
+    Ok(BuildingReviewCamera {
+        position: Position::from_metres(target + outward * distance)?,
+        target: Position::from_metres(target)?,
         plaster_raking_light: None,
-    }
+    })
 }
 
 pub(super) fn catalog_pair_gap(kind: FurnitureKind) -> f32 {
@@ -186,8 +190,8 @@ fn joined_counters(
     }
     let target = Vec3::new(bay.x - first, ground.metres() + size.y * 0.5, bay.y - first);
     Ok(BuildingReviewCamera {
-        position: target + Vec3::new(5.5, 4.5, 6.0),
-        target,
+        position: Position::from_metres(target + Vec3::new(5.5, 4.5, 6.0))?,
+        target: Position::from_metres(target)?,
         plaster_raking_light: None,
     })
 }

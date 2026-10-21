@@ -137,7 +137,7 @@ struct SceneSetupData {
     leaf_benchmark_frames: Option<u32>,
     tree_lighting_benchmark_frames: Option<u32>,
     scene_performance_benchmark_frames: Option<u32>,
-    tree_review_azimuth_degrees: f32,
+    tree_review_azimuth_degrees: adventuresim_tactical_core::animation::SignedAngleDegrees,
     profile: String,
     requested_views: Vec<String>,
     views: Vec<CaptureViewSpec>,
@@ -777,6 +777,10 @@ pub(crate) fn run(
     requested_views: Vec<String>,
     city_cameras: Option<PathBuf>,
 ) {
+    let tree_review_azimuth_degrees = match adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(tree_review_azimuth_degrees) {
+        Ok(angle) => angle,
+        Err(error) => { eprintln!("invalid capture camera azimuth: {error}"); std::process::exit(1); }
+    };
     let repository_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let (fixture, input_path) = match (fixture, scene_input) {
         (Some(fixture), None) => {
@@ -1266,7 +1270,7 @@ fn setup_scene(
     let distant_buildings = buildings::distant_placements(&input, &buildings);
     let terrain_summary = TerrainSummary::new(&input, &terrain)?;
     let vista_geometry = vista_geometry::VistaCaptureGeometry::from_source(&input)?;
-    let city_half_extent_metres = input
+    let city_half_extent_metres = fabelgeist_geometry::SignedLength::from_metres(input
         .buildings
         .iter()
         .map(|building| building.centre_metres.metres().abs().max_element())
@@ -1276,7 +1280,7 @@ fn setup_scene(
                 .iter()
                 .map(|building| building.centre_metres.metres().abs().max_element()),
         )
-        .fold(0.0, f32::max);
+        .fold(0.0, f32::max))?;
     let catalog_cameras = interior_furniture_capture::setup_catalog(
         &mut commands,
         &mut furniture,
@@ -1382,24 +1386,24 @@ fn setup_scene(
     );
     let camera_point = ScenePlanPoint::try_from(Vec2::new(camera_x, camera_z))?;
     let camera_ground = terrain.required_height_at(camera_point)?;
-    let ground_eye_position = Vec3::new(
+    let ground_eye_position = Position::from_metres(Vec3::new(
         camera_x,
         camera_ground.metres() + STANDING_EYE_HEIGHT_METRES,
         camera_z,
-    );
-    let ground_eye_target = Vec3::new(
+    ))?;
+    let ground_eye_target = Position::from_metres(Vec3::new(
         obstacle_focus.x,
         focus_ground.metres() + STANDING_EYE_HEIGHT_METRES,
         obstacle_focus.z,
-    );
+    ))?;
     // The animation profile spawns the player at the deterministic scene
     // origin. Controller translation is capsule-centred, then the lowered
     // production camera adds its 0.48 m focus height.
-    let animation_play_focus = Vec3::new(
+    let animation_play_focus = Position::from_metres(Vec3::new(
         0.0,
         terrain.required_height_at(ScenePlanPoint::ORIGIN)?.metres() + 1.48,
         0.0,
-    );
+    ))?;
     let canopy_bps = environment.canopy_bps;
     let absolute_minute = environment.absolute_minute;
     let latitude_microdegrees = environment.latitude_microdegrees;
@@ -1523,10 +1527,10 @@ fn setup_scene(
             ))
             .id();
         tree_review_leaf_entities.push((card_entity, TreeLeafRepresentation::AlphaCard));
-        tree_leaf_focus = Some(specimen_origin + local_focus);
-        let review_rotation = Quat::from_rotation_y(tree_review_azimuth_degrees.to_radians());
+        tree_leaf_focus = Some(Position::from_metres(specimen_origin + local_focus)?);
+        let review_rotation = Quat::from_rotation_y(tree_review_azimuth_degrees.radians());
         tree_leaf_camera =
-            Some(specimen_origin + local_focus + review_rotation * camera_direction * 0.68);
+            Some(Position::from_metres(specimen_origin + local_focus + review_rotation * camera_direction * 0.68)?);
         tree_review_entities.push(
             commands
                 .spawn((
@@ -1607,7 +1611,7 @@ fn setup_scene(
         vista_contract: vista_validation::VistaCaptureContract::from_source(&input.vista),
         vista_geometry,
         city_half_extent_metres,
-        obstacle_focus,
+        obstacle_focus: Position::from_metres(obstacle_focus)?,
         tree_focus,
         rock_focus,
         debris_focus,
@@ -1673,8 +1677,8 @@ fn benchmark_leaf_representations(
     tree_lod_override.lod = Some(0);
     tree_lod_override.leaf = Some(representation);
     tree_lod_override.projected_scale = None;
-    let transform = Transform::from_translation(capture.ground_eye_position)
-        .looking_at(capture.ground_eye_target, Vec3::Y);
+    let transform = Transform::from_translation(capture.ground_eye_position.metres())
+        .looking_at(capture.ground_eye_target.metres(), Vec3::Y);
     *camera.0 = transform;
     *camera.1 = GlobalTransform::from(transform);
     if let Projection::Perspective(projection) = &mut *camera.2 {
@@ -1780,8 +1784,8 @@ fn benchmark_tree_lighting(
     tree_lod_override.lod = Some(0);
     tree_lod_override.leaf = Some(TreeLeafRepresentation::TexturedMesh);
     tree_lod_override.projected_scale = None;
-    let transform = Transform::from_translation(capture.ground_eye_position)
-        .looking_at(capture.ground_eye_target, Vec3::Y);
+    let transform = Transform::from_translation(capture.ground_eye_position.metres())
+        .looking_at(capture.ground_eye_target.metres(), Vec3::Y);
     *camera.0 = transform;
     *camera.1 = GlobalTransform::from(transform);
     if let Projection::Perspective(projection) = &mut *camera.2 {
@@ -1951,8 +1955,8 @@ fn benchmark_scene_performance(
         tree_isolation.hide_trunks = mode.hidden_scene_layers & HIDE_TREE_TRUNKS != 0;
         tree_isolation.hide_branches = mode.hidden_scene_layers & HIDE_TREE_BRANCHES != 0;
         cloud_isolation.hide_clouds = mode.hidden_scene_layers & HIDE_CLOUDS != 0;
-        let transform = Transform::from_translation(capture.ground_eye_position)
-            .looking_at(capture.ground_eye_target, Vec3::Y);
+        let transform = Transform::from_translation(capture.ground_eye_position.metres())
+            .looking_at(capture.ground_eye_target.metres(), Vec3::Y);
         *camera.0 = transform;
         *camera.1 = GlobalTransform::from(transform);
         if let Projection::Perspective(projection) = &mut *camera.2 {
@@ -2914,88 +2918,39 @@ fn capture_views(
             );
         }
         if let Projection::Perspective(projection) = &mut *camera.3 {
-            projection.fov = view.fov_degrees.to_radians();
+            projection.fov = view.fov_degrees.radians();
         }
-        let (transform, target, obstruction) = match view.pose {
-            CapturePose::AnimationPlayObstruction { yaw_degrees } => {
-                match camera_obstruction::animation_play_obstruction_camera(
-                    state,
-                    &lighting.spatial,
-                    &camera.3,
-                    yaw_degrees,
-                ) {
-                    Ok(camera) => camera,
-                    Err(error) => {
-                        capture_terrain::reject(&state.output, error, &mut commands);
-                        return;
-                    }
-                }
+        let placement = match view.pose {
+            CapturePose::AnimationPlayObstruction { yaw_degrees } => camera_obstruction::animation_play_obstruction_camera(state, &lighting.spatial, &camera.3, yaw_degrees),
+            CapturePose::AnimationPlayBoundary { player, yaw_degrees } => {
+                let Some(camera) = lighting.boundary_camera(&camera.3, player, yaw_degrees, &state.output, &mut commands) else { return; };
+                Ok(camera)
             }
-            CapturePose::AnimationPlayBoundary {
-                player,
-                yaw_degrees,
-            } => {
-                let Some(camera) = lighting.boundary_camera(
-                    &camera.3,
-                    player,
-                    yaw_degrees,
-                    &state.output,
-                    &mut commands,
-                ) else {
-                    return;
-                };
-                camera
-            }
-            CapturePose::UnderstoryReview {
-                distance,
-                elevation_degrees,
-                orbit_degrees,
-            } => {
-                let focus = understory_focus
-                    .map(Position::metres)
-                    .unwrap_or(state.obstacle_focus);
-                let azimuth = (state.tree_review_azimuth_degrees + orbit_degrees).to_radians();
-                let elevation = elevation_degrees.to_radians();
-                let target = focus + Vec3::Y * 1.35;
-                let position = target
-                    + Vec3::new(
-                        azimuth.sin() * elevation.cos(),
-                        elevation.sin(),
-                        azimuth.cos() * elevation.cos(),
-                    ) * distance;
-                (
-                    Transform::from_translation(position).looking_at(target, Vec3::Y),
-                    target,
-                    None,
-                )
-            }
+            CapturePose::UnderstoryReview { distance, elevation_degrees, orbit_degrees } => (|| -> view_camera::CaptureCameraResult<view_camera::CaptureCameraPlacement> {
+                let focus = understory_focus.unwrap_or(state.obstacle_focus);
+                let azimuth = adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(state.tree_review_azimuth_degrees.degrees() + orbit_degrees.degrees())?.radians();
+                let elevation = elevation_degrees.radians();
+                let target = Position::from_metres(focus.metres() + Vec3::Y * 1.35)?;
+                let position = Position::from_metres(target.metres() + Vec3::new(azimuth.sin() * elevation.cos(), elevation.sin(), azimuth.cos() * elevation.cos()) * distance.metres())?;
+                Ok(view_camera::CaptureCameraPlacement { view: view_camera::SceneCameraView::looking_at(position, target, adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::Y)?)?, obstruction: None })
+            })(),
             CapturePose::TreeReview => {
-                let species = state
-                    .tree_focus_entity
-                    .and_then(|entity| lighting.presented_tree_species.get(entity).ok())
-                    .copied();
-                let (transform, target) = view_camera::lit_tree_review(state, species);
-                (transform, target, None)
+                let species = state.tree_focus_entity.and_then(|entity| lighting.presented_tree_species.get(entity).ok()).copied();
+                view_camera::lit_tree_review(state, species).map(|view| view_camera::CaptureCameraPlacement { view, obstruction: None })
             }
             CapturePose::BranchJunction => {
-                let species = state
-                    .tree_focus_entity
-                    .and_then(|entity| lighting.presented_tree_species.get(entity).ok())
-                    .copied();
-                let (transform, target) = view_camera::lit_branch_junction(state, species);
-                (transform, target, None)
+                let species = state.tree_focus_entity.and_then(|entity| lighting.presented_tree_species.get(entity).ok()).copied();
+                view_camera::lit_branch_junction(state, species).map(|view| view_camera::CaptureCameraPlacement { view, obstruction: None })
             }
-            _ => {
-                let (transform, target) = match camera_for_view(view.pose, state) {
-                    Ok(camera) => camera,
-                    Err(error) => {
-                        capture_terrain::reject(&state.output, error, &mut commands);
-                        return;
-                    }
-                };
-                (transform, target, None)
-            }
+            _ => camera_for_view(view.pose, state).map(|view| view_camera::CaptureCameraPlacement { view, obstruction: None }),
         };
+        let placement = match placement {
+            Ok(placement) => placement,
+            Err(error) => { capture_terrain::reject(&state.output, error, &mut commands); return; }
+        };
+        let transform = placement.view.native_transform();
+        let target = placement.view.target;
+        let obstruction = placement.obstruction;
         *camera.1 = transform;
         *camera.2 = GlobalTransform::from(transform);
         for (mut light_transform, mut light) in &mut lighting.plaster_grazing_lights {
@@ -3036,8 +2991,8 @@ fn capture_views(
                 Visibility::Hidden
             };
             if *visibility == Visibility::Visible {
-                let away_from_camera = (target - camera.1.translation).normalize_or_zero();
-                backdrop.translation = target + away_from_camera * 5.0;
+                let away_from_camera = (target.metres() - camera.1.translation).normalize_or_zero();
+                backdrop.translation = target.metres() + away_from_camera * 5.0;
                 backdrop.rotation = Transform::from_translation(backdrop.translation)
                     .looking_at(camera.1.translation, Vec3::Y)
                     .rotation;
@@ -3071,11 +3026,11 @@ fn capture_views(
                 screenshot: format!("{}.png", view.slug),
                 rendered_resolution: [0, 0],
                 camera_translation: camera.1.translation.to_array(),
-                camera_target: target.to_array(),
+                camera_target: target.metres().to_array(),
                 camera_up: camera.1.up().as_vec3().to_array(),
-                vertical_fov_degrees: view.fov_degrees,
-                camera_boom_desired_metres: obstruction.map(|value| value.desired_metres),
-                camera_boom_resolved_metres: obstruction.map(|value| value.resolved_metres),
+                vertical_fov_degrees: view.fov_degrees.degrees(),
+                camera_boom_desired_metres: obstruction.map(|value| value.desired_metres.metres()),
+                camera_boom_resolved_metres: obstruction.map(|value| value.resolved_metres.metres()),
                 camera_obstruction_hit: obstruction.map(|value| value.hit),
                 nearest_playable_tree_distance_metres,
                 largest_visible_vista_tree_distance_metres: vista_observation
@@ -3443,8 +3398,8 @@ fn largest_visible_vista_tree(
 
 #[derive(Clone, Copy)]
 struct CameraObstructionObservation {
-    desired_metres: f32,
-    resolved_metres: f32,
+    desired_metres: fabelgeist_geometry::SignedLength,
+    resolved_metres: fabelgeist_geometry::SignedLength,
     hit: bool,
 }
 
@@ -3794,7 +3749,7 @@ fn build_manifest(
         requested_views: state.requested_views.clone(),
         settle_frames: state.settle_frames,
         resolution: capture_resolution::physical_pixels(&state.profile).to_array(),
-        review_azimuth_degrees: state.tree_review_azimuth_degrees,
+        review_azimuth_degrees: state.tree_review_azimuth_degrees.degrees(),
         capture_clock_strategy: "Bevy virtual clock advanced to a fixed phase after startup, then paused through settling and GPU readback",
         capture_clock_phase_seconds: CAPTURE_CLOCK_PHASE_SECONDS,
         renderer: "Bevy/wgpu production tactical presentation",
@@ -4173,7 +4128,7 @@ mod capture_lighting_tests {
             ]
         );
         for view in plates {
-            assert_eq!(view.fov_degrees, 80.0);
+            assert_eq!(view.fov_degrees.degrees(), 80.0);
             if view.slug == "tree-family-se-playable-only" {
                 assert!(!view.vista_visible);
             } else {
@@ -4237,7 +4192,10 @@ mod capture_lighting_tests {
                 .any(|view| view.slug == "forest-floor-debris-detail")
         );
         let target = Position::from_metres(Vec3::new(4.0, 1.25, -2.0)).unwrap();
-        let (camera, observed_target, up) = debris_detail_camera(target, None, 37.0);
+        let view = debris_detail_camera(target, None, adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(37.0).unwrap()).unwrap();
+        let camera = view.position.metres();
+        let observed_target = view.target.metres();
+        let up = view.native_up();
         assert_eq!(observed_target, target.metres());
         assert_eq!(up, Vec3::Y);
         assert!((camera.y - target.metres().y - 1.35).abs() < 0.00001);
@@ -4247,7 +4205,7 @@ mod capture_lighting_tests {
                 .iter()
                 .find(|view| view.slug == "forest-floor-debris-detail")
                 .unwrap()
-                .fov_degrees,
+                .fov_degrees.degrees(),
             44.0
         );
 

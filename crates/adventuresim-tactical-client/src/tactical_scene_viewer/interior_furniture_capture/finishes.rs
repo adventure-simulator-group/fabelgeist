@@ -1,5 +1,6 @@
 //! Matched production specimens for the four authored wood treatments.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::{CuboidDimensions, Position};
 use adventuresim_building_generator::furniture::{FinishableFurnitureKind, FurnitureWoodState};
 
 pub(super) const LABELS: [(&str, &str); FinishableFurnitureKind::ALL.len()] = [
@@ -72,17 +73,17 @@ pub(super) fn stage(
                         .ok_or(CatalogAdmissionError::InvalidOrientation)?,
                 });
             }
-            Ok(catalog_camera(
+            catalog_camera(
                 kind.kind(),
-                Vec3::new(width, size.y, size.z),
-                Vec3::new(
+                CuboidDimensions::from_metres(Vec3::new(width, size.y, size.z))?,
+                Position::from_metres(Vec3::new(
                     bay.x,
                     terrain
                         .required_height_at(ScenePlanPoint::try_from(bay)?)?
                         .metres(),
                     bay.y,
-                ),
-            ))
+                ))?,
+            )
         })
         .collect()
 }

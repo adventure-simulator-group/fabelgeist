@@ -21,10 +21,10 @@ impl LightingObservationParams<'_, '_> {
         &self,
         projection: &Projection,
         player: ScenePlanPoint,
-        yaw_degrees: f32,
+        yaw_degrees: adventuresim_tactical_core::animation::SignedAngleDegrees,
         output: &Path,
         commands: &mut Commands,
-    ) -> Option<(Transform, Vec3, Option<CameraObstructionObservation>)> {
+    ) -> Option<view_camera::CaptureCameraPlacement> {
         let terrain = self.required_capture_terrain(output, commands)?;
         match camera_obstruction::animation_play_boundary_camera(
             projection,
