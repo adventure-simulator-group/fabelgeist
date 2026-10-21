@@ -274,6 +274,12 @@ fn head_distance(p: vec3<f32>) -> f32 {
     return max(body, head_shape[16].x - p.y);
 }
 
+// Stable at the crown, where normalize followed by acos loses the angle.
+fn head_polar(p: vec3<f32>) -> f32 {
+    let offset = p - head_shape[0].xyz;
+    return atan2(length(offset.xz), offset.y);
+}
+
 fn head_gradient(p: vec3<f32>) -> vec3<f32> {
     let e = 2e-4;
     let g = vec3<f32>(
