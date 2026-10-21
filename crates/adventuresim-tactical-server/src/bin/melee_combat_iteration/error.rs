@@ -1,6 +1,14 @@
-//! Native command failures retain shared preparation and battle-resolution causes.
+//! Native command failures retain simulation, report and external I/O causes.
 
-use adventuresim_core::autoresolve::{BattleResolutionError, MeleeIterationError};
+use std::path::PathBuf;
+
+use adventuresim_core::{
+    autoresolve::{BattleResolutionError, MeleeIterationError},
+    elapsed::ElapsedError,
+};
+use adventuresim_tactical_core::animation::AnimationValueError;
+
+use super::measurement::MeasurementError;
 
 pub(crate) type IterationResult<T> = Result<T, IterationError>;
 
@@ -10,18 +18,45 @@ pub(crate) enum IterationError {
     Resolution(#[from] BattleResolutionError),
     #[error(transparent)]
     Preparation(#[from] MeleeIterationError),
-    #[error("{0}")]
-    Operation(String),
+    #[error(transparent)]
+    Measurement(#[from] AnimationValueError),
+    #[error(transparent)]
+    Statistics(#[from] MeasurementError),
+    #[error(transparent)]
+    Timing(#[from] ElapsedError),
+    #[error(transparent)]
+    ReportContract(#[from] ReportContractError),
+    #[error(transparent)]
+    Io(#[from] std::io::Error),
+    #[error(transparent)]
+    Serialization(#[from] serde_json::Error),
+    #[error("{}: {source}", .path.display())]
+    WriteReport {
+        path: PathBuf,
+        #[source]
+        source: std::io::Error,
+    },
+    #[error("seed counts must both be positive (tactical: {tactical}, autoresolve: {autoresolve})")]
+    InvalidSeedCounts { tactical: u64, autoresolve: u64 },
 }
 
-impl From<String> for IterationError {
-    fn from(message: String) -> Self {
-        Self::Operation(message)
-    }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum MovementObservation {
+    VelocityBefore,
+    VelocityAfter,
+    SpeedLimit,
+    Elapsed,
 }
 
-impl From<&str> for IterationError {
-    fn from(message: &str) -> Self {
-        Self::Operation(message.to_owned())
-    }
+#[derive(Debug, thiserror::Error)]
+pub(crate) enum ReportContractError {
+    #[error("autoresolve contact has no recoverable interval at this performance snapshot")]
+    UnavailableRecoveryInterval,
+    #[error("autoresolve movement record {sequence} is missing its {observation:?} observation")]
+    MissingMovementObservation {
+        sequence: u64,
+        observation: MovementObservation,
+    },
+    #[error("unknown tactical victor {victor}")]
+    UnknownTacticalVictor { victor: String },
 }
