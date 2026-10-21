@@ -68,7 +68,7 @@ or discard this progress to start over. `snapshots.json` and
 ## Authoritative records
 
 [Download the records archive](records.zip) (about 6 MB compressed), with
-475 transfer files, including
+477 transfer files, including
 all sixteen audit/review skill documents. Extract it outside the implementation
 source tree, or into ignored `target/` output. It includes:
 
@@ -280,8 +280,13 @@ Finish the full initial inventory for these thirteen lenses before repairs:
 producer propagation; existing owners; admission; invariant operations;
 aggregate states; type ownership; redundant authority; behavior preservation;
 enum shapes; derivability; type granularity; raw strings; raw primitives.
-The exported skills define each lens. Reload them in the receiving environment,
-record exact connected repairs/dependencies/acceptance, and reconcile overlaps.
+The exported skills define each lens. Read their complete Markdown instructions
+directly if they are not installed in the receiving agent environment. No access
+to the original chat or Codex installation is needed. Rule Review also requires
+`skills/rule-review/references/bespoke-type-review.md`, included in the archive.
+Use [the standalone Code Review instructions](CODE-REVIEW.md) for the independent
+Code Review; Rule Review and Comment Review have their complete skill documents.
+Record exact connected repairs/dependencies/acceptance and reconcile overlaps.
 Then implement the repairs and mandatory families, repeat complete audit waves
 until clear, and run independent Code Review, Rule Review and Comment Review.
 Address findings and repeat affected work until all evidence matches one final
