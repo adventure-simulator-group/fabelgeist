@@ -10,6 +10,8 @@ use super::{
 };
 
 use catalog::catalog_camera;
+#[cfg(test)]
+use catalog::catalog_pair_gap;
 pub(super) use catalog::setup_catalog;
 
 mod catalog;
@@ -126,8 +128,6 @@ pub(super) const ROOM_VIEWS: [CaptureViewSpec; ROOM_LABELS.len() + 1] = room_vie
 enum CatalogAdmissionError {
     #[error("catalog fixture must have no placed furniture")]
     AlreadyPlaced,
-    #[error("catalog key {key:?} has no interior specification")]
-    MissingInteriorSpec { key: FurnitureKey },
     #[error("catalog key {key:?} is absent from the authored catalogue")]
     MissingCatalogueEntry { key: FurnitureKey },
     #[error("catalog orientation must be finite")]

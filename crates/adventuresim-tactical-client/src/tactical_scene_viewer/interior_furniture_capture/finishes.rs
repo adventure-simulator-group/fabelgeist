@@ -31,8 +31,7 @@ pub(super) fn stage(
             let bay = Vec2::new(100.0, (index as f32 - 2.0) * CATALOG_BAY_SPACING_METRES);
             let key = FurnitureKey::natural(kind.kind(), FurnitureVariant::Compact);
             let size = key
-                .interior_spec()
-                .ok_or(CatalogAdmissionError::MissingInteriorSpec { key })?
+                .interior_spec()?
                 .size_metres
                 .metres();
             let width = size.x * FurnitureWoodState::ALL.len() as f32

@@ -1,7 +1,7 @@
 //! Production catalogue staging and envelope framing for the viewer.
 use super::*;
 
-pub(super) fn setup_catalog(
+pub(in crate::tactical_scene_viewer) fn setup_catalog(
     commands: &mut Commands,
     layout: &mut FurnitureLayout,
     terrain: &SceneTerrain,
@@ -25,7 +25,6 @@ pub(super) fn setup_catalog(
         let [compact, broad] = keys.map(|key| {
             key.interior_spec()
                 .map(|spec| spec.size_metres.metres())
-                .ok_or(CatalogAdmissionError::MissingInteriorSpec { key })
         });
         let sizes = [compact?, broad?];
         let pair_width = sizes[0].x + sizes[1].x + catalog_pair_gap(kind);
@@ -125,7 +124,7 @@ pub(super) fn catalog_camera(
     }
 }
 
-fn catalog_pair_gap(kind: FurnitureKind) -> f32 {
+pub(super) fn catalog_pair_gap(kind: FurnitureKind) -> f32 {
     // The side-on ladder proof needs room between the deep bed frames in projection.
     if kind == FurnitureKind::BunkBed {
         2.4
@@ -141,17 +140,11 @@ fn joined_counters(
     use FurnitureKind::*;
     let variant = FurnitureVariant::Broad;
     let size = FurnitureKey::natural(Counter, variant)
-        .interior_spec()
-        .ok_or(CatalogAdmissionError::MissingInteriorSpec {
-            key: FurnitureKey::natural(Counter, variant),
-        })?
+        .interior_spec()?
         .size_metres
         .metres();
     let corner = FurnitureKey::natural(CounterCorner, variant)
-        .interior_spec()
-        .ok_or(CatalogAdmissionError::MissingInteriorSpec {
-            key: FurnitureKey::natural(CounterCorner, variant),
-        })?
+        .interior_spec()?
         .size_metres
         .metres();
     let first = (corner.x + size.x) * 0.5;

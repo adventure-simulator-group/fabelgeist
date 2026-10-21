@@ -548,7 +548,14 @@ mod tests {
                         assert_eq!(
                             *color,
                             expected
-                                .at(Vec2::new(position[0], position[2]), Vec2::splat(9.0))
+                                .at(
+                                    PlanDisplacement::try_from(Vec2::new(
+                                        position[0],
+                                        position[2],
+                                    ))
+                                    .unwrap(),
+                                    Vec2::splat(9.0),
+                                )
                                 .unwrap(),
                             "outer ring must keep regional pigment rather than foreground water"
                         );

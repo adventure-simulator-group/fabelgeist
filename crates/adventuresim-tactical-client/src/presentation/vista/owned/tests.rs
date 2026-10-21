@@ -249,7 +249,14 @@ fn repeated_traversal_meshes(
             }
             let values = positions
                 .iter()
-                .map(|p| colors.at(Vec2::new(p[0], p[2]), inner).unwrap())
+                .map(|p| {
+                    colors
+                        .at(
+                            PlanDisplacement::try_from(Vec2::new(p[0], p[2])).unwrap(),
+                            inner,
+                        )
+                        .unwrap()
+                })
                 .collect::<Vec<_>>();
             mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, values);
             meshes.push(mesh);
@@ -287,14 +294,15 @@ fn required_owned_partitions_preserve_ordered_mesh_bytes() {
                 environment.weather,
             );
             let actual = vista_meshes(
-                &generated.terrain,
+                generated.terrain.property_surface().unwrap(),
                 lod,
                 inner,
                 coarser,
                 playable,
                 environment.weather,
                 None,
-            );
+            )
+            .unwrap();
             assert_eq!(
                 actual.len(),
                 expected.len(),

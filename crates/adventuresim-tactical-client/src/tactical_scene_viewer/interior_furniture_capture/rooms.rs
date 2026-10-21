@@ -216,7 +216,7 @@ fn furniture_subject(
     index: usize,
     selection: RoomSelection,
 ) -> Result<Subject> {
-    let size = placement.key.interior_spec().unwrap().size_metres.metres();
+    let size = placement.key.interior_spec()?.size_metres.metres();
     let rotation = Quat::from_rotation_y(placement.yaw_radians().radians());
     let translation = Vec3::new(
         placement.centre_metres.metres().x,

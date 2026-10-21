@@ -731,6 +731,7 @@ mod tests {
     use std::collections::BTreeSet;
 
     use super::*;
+    use adventuresim_tactical_core::city_layout::grounding::SupportElevation;
     use bevy::asset::{AssetApp, AssetPlugin};
 
     #[test]
@@ -1010,9 +1011,13 @@ mod tests {
             SceneTerrain::new(64, 64, 1.0, |point| point.x * 0.01 + point.y * 0.02).unwrap();
         let terrain = coarse
             .refined(0.5, |point, base| {
-                base + (point.x * core::f32::consts::PI).sin()
-                    * (point.y * core::f32::consts::PI).sin()
-                    * 0.04
+                let point = point.metres();
+                SupportElevation::from_metres(
+                    base.metres()
+                        + (point.x * core::f32::consts::PI).sin()
+                            * (point.y * core::f32::consts::PI).sin()
+                            * 0.04,
+                )
             })
             .unwrap();
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("detail-patch");

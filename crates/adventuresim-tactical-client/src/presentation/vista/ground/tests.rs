@@ -123,7 +123,7 @@ fn owned_vista_rocks_use_support_normal_and_keep_the_existing_slope_gate() {
             Vec2::ONE,
             ScenePlanPoint::from_metres(Vec2::splat(400.0)).unwrap(),
             fabelgeist_determinism::Seed::from_u64(42),
-            0.08
+            SignedLength::from_metres(0.08).unwrap()
         )
         .is_none()
     );
