@@ -41,6 +41,16 @@ impl SignedLength {
         }
         Ok(Self(value))
     }
+    /// Native minimum of two finite admitted lengths, including signed zero.
+    pub fn min(self, other: Self) -> Self {
+        Self(self.0.min(other.0))
+    }
+
+    /// Native maximum of two finite admitted lengths, including signed zero.
+    pub fn max(self, other: Self) -> Self {
+        Self(self.0.max(other.0))
+    }
+
     /// A bounded millimetre observation is always finite. Preserve the native
     /// armor conversion's f32 promotion followed by division, without rounding
     /// through an intermediate representation or changing it to multiplication.
