@@ -1,7 +1,7 @@
 //! How fast the window draws.
 
 use std::collections::VecDeque;
-use std::time::Instant;
+use web_time::Instant;
 
 /// Frames the rate is averaged over.
 const WINDOW: usize = 60;

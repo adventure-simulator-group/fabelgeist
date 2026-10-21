@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Synthetic Silviculture</title>
+    <style>
+        html, body { margin: 0; height: 100%; background: #9fb7c9; overflow: hidden; }
+        #bevy { display: block; width: 100%; height: 100%; outline: none; }
+        #status {
+            position: fixed; inset: 0; display: grid; place-items: center;
+            font: 16px system-ui, sans-serif; color: #1d2a33; pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bevy" tabindex="0"></canvas>
+    <div id="status">Loading the environment viewer…</div>
+    <script type="module">
+        const status = document.getElementById('status');
+        if (!navigator.gpu) {
+            status.textContent = 'WebGPU is not available in this browser; use Chrome or Edge.';
+        } else {
+            const viewer = await import('./environment-viewer.js');
+            // Bevy's event loop never returns; winit throws to leave the call.
+            viewer.default().catch((error) => {
+                if (!String(error).includes('Using exceptions for control flow')) {
+                    status.textContent = `The viewer stopped: ${error}`;
+                    throw error;
+                }
+            });
+            const hide = () => { if (document.getElementById('bevy').width > 0) status.remove(); else requestAnimationFrame(hide); };
+            requestAnimationFrame(hide);
+        }
+    </script>
+</body>
+</html>

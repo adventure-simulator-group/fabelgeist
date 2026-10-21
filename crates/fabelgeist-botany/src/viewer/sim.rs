@@ -5,6 +5,10 @@
 //! publishes [`Snapshot`]s -- compact per-segment and per-leaf instances the
 //! renderer draws directly. The window keeps its frame rate however slow the
 //! simulation is, and only the latest snapshot is ever kept.
+//!
+//! The browser has no threads to give it: there the same loop runs as a task
+//! on the page, yielding to it between passes, so a long step holds up the
+//! frames it overlaps.
 
 use crate::species::{Foliage, LitterContribution};
 use crate::units::Years;
@@ -13,8 +17,10 @@ use fabelgeist_determinism::Seed;
 use fabelgeist_math::units::Metres;
 use std::sync::mpsc::{Receiver, RecvTimeoutError, Sender, channel};
 use std::sync::{Arc, Mutex};
+#[cfg(not(target_arch = "wasm32"))]
 use std::thread::JoinHandle;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+use web_time::Instant;
 
 use crate::prototype::NONE;
 use crate::scenes::Scene;
@@ -224,10 +230,12 @@ pub enum Command {
 pub struct Simulation {
     commands: Sender<Command>,
     latest: Arc<Mutex<Option<Snapshot>>>,
+    #[cfg(not(target_arch = "wasm32"))]
     _thread: JoinHandle<()>,
 }
 
 impl Simulation {
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn start(scene: Scene, profile: Profile) -> crate::error::Result<Self> {
         let (commands, receiver) = channel();
         let latest = Arc::new(Mutex::new(None));
@@ -235,7 +243,7 @@ impl Simulation {
         let thread = std::thread::Builder::new()
             .name("botany simulation".into())
             .spawn(move || {
-                if let Err(error) = run(scene, profile, receiver, slot) {
+                if let Err(error) = pollster::block_on(run(scene, profile, receiver, slot)) {
                     eprintln!("simulation stopped: {error:#}");
                 }
             })
@@ -245,6 +253,19 @@ impl Simulation {
             latest,
             _thread: thread,
         })
+    }
+
+    #[cfg(target_arch = "wasm32")]
+    pub fn start(scene: Scene, profile: Profile) -> crate::error::Result<Self> {
+        let (commands, receiver) = channel();
+        let latest = Arc::new(Mutex::new(None));
+        let slot = latest.clone();
+        wasm_bindgen_futures::spawn_local(async move {
+            if let Err(error) = run(scene, profile, receiver, slot).await {
+                web_sys_log(&format!("simulation stopped: {error:#}"));
+            }
+        });
+        Ok(Self { commands, latest })
     }
 
     pub fn send(&self, command: Command) {
@@ -267,13 +288,52 @@ struct State {
     profile: Profile,
 }
 
-fn run(
+#[cfg(target_arch = "wasm32")]
+fn web_sys_log(message: &str) {
+    web_sys::console::error_1(&message.into());
+}
+
+/// Wait `duration` without holding up the window: asleep on the simulation's
+/// thread, or handing the page back for at least that long in the browser.
+async fn pause(duration: Duration) {
+    #[cfg(not(target_arch = "wasm32"))]
+    std::thread::sleep(duration);
+    #[cfg(target_arch = "wasm32")]
+    fabelgeist_timer::sleep(duration).await;
+}
+
+/// The next command, waiting at most `wait` for one.
+async fn next_command(
+    commands: &Receiver<Command>,
+    wait: Duration,
+) -> Result<Option<Command>, RecvTimeoutError> {
+    #[cfg(not(target_arch = "wasm32"))]
+    return match commands.recv_timeout(wait) {
+        Ok(command) => Ok(Some(command)),
+        Err(RecvTimeoutError::Timeout) => Ok(None),
+        Err(error) => Err(error),
+    };
+    #[cfg(target_arch = "wasm32")]
+    {
+        // The page must get its frame between passes even while playing.
+        pause(wait.max(Duration::from_millis(1))).await;
+        match commands.try_recv() {
+            Ok(command) => Ok(Some(command)),
+            Err(std::sync::mpsc::TryRecvError::Empty) => Ok(None),
+            Err(std::sync::mpsc::TryRecvError::Disconnected) => {
+                Err(RecvTimeoutError::Disconnected)
+            }
+        }
+    }
+}
+
+async fn run(
     scene: Scene,
     profile: Profile,
     commands: Receiver<Command>,
     latest: Arc<Mutex<Option<Snapshot>>>,
 ) -> anyhow::Result<()> {
-    let context = pollster::block_on(WgpuContext::new())?;
+    let context = WgpuContext::new().await?;
     let build = |scene: Scene| -> crate::error::Result<Ecosystem> {
         scene.build(Seed::from_u64(1)).with_gpu(context.clone())
     };
@@ -292,7 +352,10 @@ fn run(
         profile,
     };
     let mut dirty = true;
-    let mut last_publish = Instant::now() - Duration::from_secs(1);
+    // The page's clock starts at its load, so it may not reach back a second.
+    let mut last_publish = Instant::now()
+        .checked_sub(Duration::from_secs(1))
+        .unwrap_or_else(Instant::now);
     let mut publish_cost = Duration::ZERO;
     let mut last_advance = Instant::now();
     let mut next_step = Instant::now();
@@ -305,10 +368,9 @@ fn run(
         } else {
             Duration::from_millis(100)
         };
-        let mut first = match commands.recv_timeout(wait) {
-            Ok(command) => Some(command),
-            Err(RecvTimeoutError::Timeout) => None,
-            Err(RecvTimeoutError::Disconnected) => return Ok(()),
+        let mut first = match next_command(&commands, wait).await {
+            Ok(command) => command,
+            Err(_) => return Ok(()),
         };
         let mut step_once = false;
         while let Some(command) = first.take().or_else(|| commands.try_recv().ok()) {
@@ -321,13 +383,13 @@ fn run(
         if !state.profile.continuous {
             // A step at a time, as often as the speed asks and no oftener.
             if step_once || (state.playing && now >= next_step) {
-                let report = pollster::block_on(state.ecosystem.step())?;
+                let report = state.ecosystem.step().await?;
                 state.last_step_ms = report.total.as_secs_f32() * 1e3;
                 let interval = dt / state.years_per_second.max(1e-3);
                 next_step = now + Duration::from_secs_f32(interval.min(10.0));
                 dirty = true;
             } else if state.playing {
-                std::thread::sleep((next_step - now).min(Duration::from_millis(5)));
+                pause((next_step - now).min(Duration::from_millis(5))).await;
             }
             last_advance = now;
         }
@@ -341,7 +403,7 @@ fn run(
         } else if state.playing {
             let elapsed = now.duration_since(last_advance).as_secs_f32();
             if elapsed < 1.0 / 120.0 {
-                std::thread::sleep(Duration::from_secs_f32(1.0 / 120.0 - elapsed));
+                pause(Duration::from_secs_f32(1.0 / 120.0 - elapsed)).await;
                 None
             } else if state.years_per_second.is_finite() {
                 // A slow machine falls behind rather than leaping.
@@ -357,9 +419,7 @@ fn run(
         }
         if let Some(years) = years {
             last_advance = now;
-            if let Some(report) =
-                pollster::block_on(state.ecosystem.advance(Years::from_years(years)))?
-            {
+            if let Some(report) = state.ecosystem.advance(Years::from_years(years)).await? {
                 state.last_step_ms = report.total.as_secs_f32() * 1e3;
             }
             dirty = true;

@@ -21,18 +21,26 @@
 //! `--frames 300` first times that many frames of it. `--closeup`
 //! frames the tallest plant instead of the whole scene, looking at `--aim`
 //! of its height; `--solo conifer` grows one plant of a species alone.
+//!
+//! In the browser it is the live viewer alone, of the mixed forest, in the
+//! page's `#bevy` canvas: the captures, benchmarks and asset preparation
+//! read and write files, and stay native.
 
+#[cfg(not(target_arch = "wasm32"))]
 mod benchmark;
+#[cfg(not(target_arch = "wasm32"))]
 mod capture_view;
 mod frame_times;
 mod hotbar;
 mod hud;
 mod icons;
+#[cfg(not(target_arch = "wasm32"))]
 mod input;
 mod live;
 mod menu;
 mod pointer;
 mod profile_controls;
+#[cfg(not(target_arch = "wasm32"))]
 mod snapshot;
 mod stage;
 mod stats;
@@ -41,29 +49,43 @@ mod tools;
 mod widgets;
 mod world;
 
+#[cfg(not(target_arch = "wasm32"))]
 use std::path::PathBuf;
+#[cfg(not(target_arch = "wasm32"))]
 use std::time::Instant;
 
+#[cfg(not(target_arch = "wasm32"))]
 use adventuresim_environment::prepared::VariantBudget;
+#[cfg(not(target_arch = "wasm32"))]
 use adventuresim_environment::render::benchmark::ValidationPolicy;
+#[cfg(not(target_arch = "wasm32"))]
 use adventuresim_environment::render::benchmark::profile::ProfileMode;
+#[cfg(not(target_arch = "wasm32"))]
 use adventuresim_environment::render::trees::{TreeBatching, TreeLayout, TreeResidencyPolicy};
-use adventuresim_environment::render::{ForestPlugin, Level, LevelSelection};
+use adventuresim_environment::render::ForestPlugin;
+#[cfg(not(target_arch = "wasm32"))]
+use adventuresim_environment::render::{Level, LevelSelection};
+#[cfg(not(target_arch = "wasm32"))]
 use adventuresim_environment::{SoloSpecies, scene_named};
+#[cfg(not(target_arch = "wasm32"))]
 use anyhow::anyhow;
 use bevy::prelude::*;
 use bevy::window::WindowResolution;
 use bevy_egui::EguiPlugin;
 use bevy_panorbit_camera::PanOrbitCameraPlugin;
+#[cfg(not(target_arch = "wasm32"))]
 use clap::Parser;
 use fabelgeist_botany::scenes::Scene;
+#[cfg(not(target_arch = "wasm32"))]
 use fabelgeist_botany::viewer::profile::Profile;
 
+#[cfg(not(target_arch = "wasm32"))]
 use snapshot::Framing;
 
 /// The window's size, logical pixels.
 const WINDOW_SIZE: [u32; 2] = [1480, 900];
 
+#[cfg(not(target_arch = "wasm32"))]
 #[derive(Parser)]
 #[command(about = "Watch a botany ecosystem grow, or capture one frame of it")]
 #[command(group(clap::ArgGroup::new("prepared_input").args(["prepared_forest", "arrival_sequence"])))]
@@ -148,6 +170,12 @@ struct Options {
     benchmark_report: Option<PathBuf>,
 }
 
+#[cfg(target_arch = "wasm32")]
+fn main() {
+    run_live(Scene::MixedForest);
+}
+
+#[cfg(not(target_arch = "wasm32"))]
 fn main() -> anyhow::Result<()> {
     let started = Instant::now();
     let options = Options::parse();
@@ -224,6 +252,12 @@ fn main() -> anyhow::Result<()> {
             }),
         });
     }
+    run_live(scene);
+    Ok(())
+}
+
+/// Watch `scene` grow in a window, or the page's canvas.
+fn run_live(scene: Scene) {
     let [width, height] = WINDOW_SIZE;
     let mut app = App::new();
     app.insert_resource(ClearColor(stage::SKY))
@@ -231,6 +265,10 @@ fn main() -> anyhow::Result<()> {
             primary_window: Some(Window {
                 title: "Synthetic Silviculture".into(),
                 resolution: WindowResolution::new(width, height),
+                #[cfg(target_arch = "wasm32")]
+                canvas: Some("#bevy".into()),
+                #[cfg(target_arch = "wasm32")]
+                fit_canvas_to_parent: true,
                 ..default()
             }),
             ..default()
@@ -238,9 +276,9 @@ fn main() -> anyhow::Result<()> {
         .add_plugins((EguiPlugin::default(), PanOrbitCameraPlugin, ForestPlugin));
     live::install(&mut app, scene);
     app.run();
-    Ok(())
 }
 
+#[cfg(not(target_arch = "wasm32"))]
 impl Options {
     fn capture_sequence(&self, manifest: &std::path::Path, started: Instant) -> anyhow::Result<()> {
         let output = self

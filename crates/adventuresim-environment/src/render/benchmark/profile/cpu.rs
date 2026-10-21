@@ -1,7 +1,8 @@
 //! Inclusive CPU wall spans at public render schedule boundaries.
 
 use std::collections::BTreeMap;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+use web_time::Instant;
 
 use bevy::app::SubApp;
 use bevy::prelude::*;
