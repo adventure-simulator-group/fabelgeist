@@ -1,8 +1,4 @@
-use std::{
-    collections::{BTreeMap, HashMap},
-    fs,
-    path::PathBuf,
-};
+use std::{collections::BTreeMap, fs, path::PathBuf};
 
 use bevy::{
     camera::{visibility::RenderLayers, visibility::ViewVisibility},
@@ -10,7 +6,7 @@ use bevy::{
     light::NotShadowCaster,
     pbr::wireframe::{Wireframe, WireframeColor, WireframeLineWidth},
     prelude::*,
-    render::view::screenshot::{ScreenshotCaptured, save_to_disk},
+    render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
 };
 use bevy_eidolon::prelude::InstanceMaterialData;
 use serde::Serialize;
@@ -19,7 +15,7 @@ use super::{capture_resolution, capture_state::SceneCaptureState};
 use crate::presentation::ground_scatter::instanced_grass::GrassTriangleCount;
 use crate::presentation::{
     GroundScatterLayer, PresentedBuildingMesh, TacticalGameplayCamera, TerrainDetailPatch,
-    TerrainMaterialPresentation, TerrainTriangleCount, VistaTerrainMesh, mesh_triangle_count,
+    TerrainMaterialPresentation, TerrainTriangleCount, VistaTerrainMesh,
 };
 
 #[derive(Resource)]
@@ -93,7 +89,6 @@ pub(super) fn capture_terrain_wireframe(
     mut commands: Commands,
     mut state: ResMut<TerrainWireframeCaptureState>,
     capture: Option<Res<SceneCaptureState>>,
-    offscreen: Res<super::OffscreenCaptureTarget>,
     mut camera: Single<
         (
             Entity,
@@ -126,7 +121,7 @@ pub(super) fn capture_terrain_wireframe(
     }
     if state.prime_readbacks < 2 {
         state.readback_in_flight = true;
-        commands.spawn(offscreen.screenshot()).observe(
+        commands.spawn(Screenshot::primary_window()).observe(
             |_: On<ScreenshotCaptured>, mut state: ResMut<TerrainWireframeCaptureState>| {
                 state.prime_readbacks += 1;
                 state.readback_in_flight = false;
@@ -144,7 +139,7 @@ pub(super) fn capture_terrain_wireframe(
     .expect("terrain wireframe report writes");
     let path = state.output.join(report.screenshot);
     state.capture_requested = true;
-    commands.spawn(offscreen.screenshot()).observe(
+    commands.spawn(Screenshot::primary_window()).observe(
         move |captured: On<ScreenshotCaptured>, mut exit: MessageWriter<AppExit>| {
             save_to_disk(&path)(captured);
             exit.write(AppExit::Success);
@@ -314,62 +309,6 @@ struct GrassTierCensus {
     gpu_distance_eligible_triangles: usize,
 }
 
-/// Every mesh-bearing entity, grouped by its own or nearest ancestor's `Name`
-/// with digit runs collapsed so per-instance identifiers share one row.
-#[derive(Default, Serialize)]
-struct NamedMeshCensus {
-    resident_entities: usize,
-    view_visible_entities: usize,
-    triangles_per_mesh_max: usize,
-    resident_triangles: usize,
-    view_visible_triangles: usize,
-}
-
-/// Triangle counts captured before render extraction, because render-world-only
-/// meshes release their vertex data once uploaded.
-#[derive(Resource, Default)]
-pub(super) struct MeshTriangleCounts(HashMap<AssetId<Mesh>, usize>);
-
-/// Runs after `AssetEventSystems` in `PostUpdate`, which precedes extraction.
-pub(super) fn record_mesh_triangle_counts(
-    mut events: MessageReader<AssetEvent<Mesh>>,
-    meshes: Res<Assets<Mesh>>,
-    mut counts: ResMut<MeshTriangleCounts>,
-) {
-    for event in events.read() {
-        match *event {
-            AssetEvent::Added { id } | AssetEvent::Modified { id } => {
-                if let Some(mesh) = meshes.get(id) {
-                    counts.0.insert(id, mesh_triangle_count(mesh));
-                }
-            }
-            AssetEvent::Removed { id } | AssetEvent::Unused { id } => {
-                counts.0.remove(&id);
-            }
-            AssetEvent::LoadedWithDependencies { .. } => {}
-        }
-    }
-}
-
-#[derive(SystemParam)]
-pub(super) struct NamedMeshQueries<'w, 's> {
-    meshes: Query<
-        'w,
-        's,
-        (
-            Entity,
-            &'static Mesh3d,
-            &'static ViewVisibility,
-            &'static GlobalTransform,
-            Option<&'static InstanceMaterialData>,
-        ),
-        Without<TacticalGameplayCamera>,
-    >,
-    names: Query<'w, 's, &'static Name>,
-    parents: Query<'w, 's, &'static ChildOf>,
-    triangle_counts: Res<'w, MeshTriangleCounts>,
-}
-
 #[derive(Serialize)]
 struct TriangleCensusReport {
     pipeline: &'static str,
@@ -384,9 +323,6 @@ struct TriangleCensusReport {
     grass: BTreeMap<String, GrassTierCensus>,
     total_view_visible_mesh_triangles: usize,
     total_gpu_distance_eligible_grass_triangles: usize,
-    named_mesh_count_semantics: &'static str,
-    named_meshes: BTreeMap<String, NamedMeshCensus>,
-    total_view_visible_named_mesh_triangles: usize,
 }
 
 #[expect(
@@ -420,7 +356,6 @@ pub(super) fn capture_triangle_census(
         ),
         Without<TacticalGameplayCamera>,
     >,
-    named_meshes: NamedMeshQueries,
     mut exit: MessageWriter<AppExit>,
 ) {
     if !state.configured {
@@ -443,11 +378,6 @@ pub(super) fn capture_triangle_census(
     let terrain = census_terrain(&terrain_meshes);
     let buildings = census_buildings(&building_meshes);
     let grass = census_grass(&grass_batches, camera_position);
-    let named_meshes = census_named_meshes(&named_meshes, camera_position);
-    let total_view_visible_named_mesh_triangles = named_meshes
-        .values()
-        .map(|group| group.view_visible_triangles)
-        .sum();
 
     let total_view_visible_mesh_triangles = terrain
         .values()
@@ -471,9 +401,6 @@ pub(super) fn capture_triangle_census(
         grass,
         total_view_visible_mesh_triangles,
         total_gpu_distance_eligible_grass_triangles,
-        named_mesh_count_semantics: "Every Mesh3d entity grouped by its nearest Name with digits collapsed to '#'. Triangles come from the mesh asset; Eidolon batches multiply by instances inside their distance range. Visible counts require ViewVisibility, which includes Bevy visibility ranges, so dithered LOD handoffs count both representations.",
-        named_meshes,
-        total_view_visible_named_mesh_triangles,
     };
     fs::write(
         capture.output.join("triangle-census.json"),
@@ -568,61 +495,6 @@ fn census_grass(
         tier.gpu_distance_eligible_triangles += distance_eligible_tufts * triangles_per_tuft;
     }
     result
-}
-
-fn census_named_meshes(
-    queries: &NamedMeshQueries,
-    camera_position: Vec3,
-) -> BTreeMap<String, NamedMeshCensus> {
-    let mut result = BTreeMap::<String, NamedMeshCensus>::new();
-    for (entity, mesh, visibility, transform, instances) in &queries.meshes {
-        let Some(&triangles_per_mesh) = queries.triangle_counts.0.get(&mesh.id()) else {
-            continue;
-        };
-        let (resident_copies, visible_copies) = instances.map_or((1, 1), |instances| {
-            let eligible = instances
-                .instances
-                .iter()
-                .filter(|instance| {
-                    let distance = transform
-                        .transform_point(instance.position)
-                        .distance(camera_position);
-                    distance >= instances.visibility_range.x
-                        && distance <= instances.visibility_range.w
-                })
-                .count();
-            (instances.instances.len(), eligible)
-        });
-        let group = result
-            .entry(census_group_name(queries, entity))
-            .or_default();
-        group.resident_entities += 1;
-        group.triangles_per_mesh_max = group.triangles_per_mesh_max.max(triangles_per_mesh);
-        group.resident_triangles += resident_copies * triangles_per_mesh;
-        if visibility.get() {
-            group.view_visible_entities += 1;
-            group.view_visible_triangles += visible_copies * triangles_per_mesh;
-        }
-    }
-    result
-}
-
-fn census_group_name(queries: &NamedMeshQueries, entity: Entity) -> String {
-    let named = std::iter::once(entity)
-        .chain(queries.parents.iter_ancestors(entity))
-        .find_map(|ancestor| queries.names.get(ancestor).ok());
-    let Some(name) = named else {
-        return "(unnamed)".to_owned();
-    };
-    let mut group = String::with_capacity(name.len());
-    for character in name.chars() {
-        if !character.is_ascii_digit() {
-            group.push(character);
-        } else if !group.ends_with('#') {
-            group.push('#');
-        }
-    }
-    group
 }
 
 fn record_mesh(tier: &mut MeshTierCensus, visibility: &ViewVisibility, triangles: usize) {

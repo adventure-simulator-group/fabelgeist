@@ -79,7 +79,7 @@ pub use config::{
 #[derive(Component, Debug, Clone, Copy)]
 pub(crate) struct TerrainTriangleCount(pub(crate) usize);
 
-pub(crate) fn mesh_triangle_count(mesh: &Mesh) -> usize {
+fn mesh_triangle_count(mesh: &Mesh) -> usize {
     mesh.indices()
         .map_or_else(|| mesh.count_vertices() / 3, |indices| indices.len() / 3)
 }

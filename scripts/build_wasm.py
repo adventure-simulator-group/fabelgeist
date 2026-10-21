@@ -86,13 +86,10 @@ def main(argv: list[str] | None = None) -> int:
         build_seconds = time.perf_counter() - started
         WASM_DIR.mkdir(parents=True, exist_ok=True)
         print("Generating JS bindings...")
-        # Cargo configuration may redirect the target directory away from ./target.
-        target_dir = Path(json.loads(subprocess.check_output(
-            ["cargo", "metadata", "--format-version", "1", "--no-deps"], cwd=ROOT,
-        ))["target_directory"])
         for binary in ("adventuresim-tactical-client", "art-demo"):
             profile = "wasm-release" if binary == "art-demo" else "release"
-            source = target_dir / "wasm32-unknown-unknown" / profile / f"{binary}.wasm"
+            source = (ROOT / "target" / "wasm32-unknown-unknown" /
+                      profile / f"{binary}.wasm")
             bindgen = [
                 wasm_bindgen, "--out-dir", str(WASM_DIR), "--target", "web", "--no-typescript",
             ]

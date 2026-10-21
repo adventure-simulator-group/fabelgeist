@@ -2870,10 +2870,7 @@ def tactical_play(
     )
     profile_state_file = profile_dir / "tactical-profile-state.json"
     benchmark.record("tactical profile identity", phase_started_at)
-    # LOCAL WORKAROUND (do not commit): a non-diagnostic standalone mission is
-    # seeded inside its settlement, whose population exceeds the reducer budget.
-    mission_family = "diagnostic-browser" if mode is TacticalPlayMode.BROWSER else mode.value
-    mission_id = f"mission:{mission_family}-{session_id[:12]}"
+    mission_id = f"mission:{mode.value}-{session_id[:12]}"
     # Physical custody deliberately reserves zero as an invalid identity.
     character_id = 1
     config = tactical_session_config(

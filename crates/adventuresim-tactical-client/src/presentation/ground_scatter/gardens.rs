@@ -79,37 +79,39 @@ impl GardenAssets<'_> {
                     Visibility::default(),
                 ))
                 .with_children(|plant| {
-                    // Gardens reuse the understory bands. Distant vista
-                    // gardens spawn through this path too, so unbounded
-                    // ranges kept every city hazel at full detail.
-                    let bark = presentation.bark.as_ref().expect("prepared garden bark");
-                    let leaves = presentation
-                        .leaves
-                        .as_ref()
-                        .expect("prepared garden leaf material");
-                    for representation in [
-                        ShrubRepresentation::NearWood,
-                        ShrubRepresentation::FarWood,
-                        ShrubRepresentation::LeafCards,
-                        ShrubRepresentation::SparseLeafCards,
-                    ] {
-                        let mesh = Mesh3d(
-                            representation
-                                .mesh(presentation)
-                                .expect("prepared garden specimen mesh"),
-                        );
-                        let range = representation.visibility_range();
-                        if representation.is_wood() {
-                            plant.spawn((mesh, MeshMaterial3d(bark.clone()), range));
-                        } else {
-                            plant.spawn((
-                                TreeLeafRepresentation::AlphaCard,
-                                mesh,
-                                MeshMaterial3d(leaves.clone()),
-                                range,
-                            ));
-                        }
-                    }
+                    plant.spawn((
+                        Mesh3d(
+                            presentation
+                                .branches
+                                .as_ref()
+                                .expect("prepared garden branches")
+                                .clone(),
+                        ),
+                        MeshMaterial3d(
+                            presentation
+                                .bark
+                                .as_ref()
+                                .expect("prepared garden bark")
+                                .clone(),
+                        ),
+                    ));
+                    plant.spawn((
+                        TreeLeafRepresentation::AlphaCard,
+                        Mesh3d(
+                            presentation
+                                .leaf_cards
+                                .as_ref()
+                                .expect("prepared garden leaves")
+                                .clone(),
+                        ),
+                        MeshMaterial3d(
+                            presentation
+                                .leaves
+                                .as_ref()
+                                .expect("prepared garden leaf material")
+                                .clone(),
+                        ),
+                    ));
                 });
         }
     }

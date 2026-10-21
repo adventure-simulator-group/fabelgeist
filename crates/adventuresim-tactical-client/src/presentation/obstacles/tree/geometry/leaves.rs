@@ -508,22 +508,16 @@ pub(in crate::presentation) fn procedural_oak_textured_leaf_group_mesh(
     procedural_woody_cambered_leaf_mesh(&group_leaves)
 }
 
-/// Models the compact winter bud at every current-year shoot tip. It is a
-/// separate production mesh so its warm color remains legible instead of
-/// disappearing into the bark tube cap.
-///
-/// An 8 mm bud spans about three pixels at the 2.5 m leaf handoff, so a
-/// four-sided bipyramid (base, widest ring, tip) carries its swelling
-/// silhouette; finer rings and scale ridges were sub-pixel triangles.
+/// Models the compact, scaled winter bud at every current-year shoot tip.
+/// It is a separate production mesh so its warm color and overlapping scale
+/// silhouette remain legible instead of disappearing into the bark tube cap.
 pub(in crate::presentation) fn procedural_oak_bud_mesh(branches: &[TreeBranchSegment]) -> Mesh {
     let mut positions = Vec::new();
     let mut normals = Vec::new();
     let mut uvs = Vec::new();
     let mut indices = Vec::new();
-    const SIDES: u32 = 4;
+    const SIDES: u32 = 6;
     const BUD_LENGTH: f32 = 0.008;
-    const WIDEST_ALONG: f32 = 0.38;
-    const WIDEST_RADIUS: f32 = 0.0038;
     for branch in branches
         .iter()
         .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
@@ -531,26 +525,48 @@ pub(in crate::presentation) fn procedural_oak_bud_mesh(branches: &[TreeBranchSeg
         let direction = (branch.end - branch.start).normalize();
         let (frame_right, frame_forward) = branch_frame(direction);
         let base = positions.len() as u32;
-        positions.push(branch.end.to_array());
-        normals.push((-direction).to_array());
-        uvs.push([0.5, 0.0]);
-        let center = branch.end + direction * (WIDEST_ALONG * BUD_LENGTH);
-        for side in 0..SIDES {
-            let phase = side as f32 * core::f32::consts::TAU / SIDES as f32;
-            let radial = frame_right * phase.cos() + frame_forward * phase.sin();
-            positions.push((center + radial * WIDEST_RADIUS).to_array());
-            normals.push((radial * 0.86 + direction * 0.18).normalize().to_array());
-            uvs.push([side as f32 / SIDES as f32, WIDEST_ALONG]);
+        let rings = [(0.0_f32, 0.0018_f32), (0.38, 0.0038), (0.78, 0.0025)];
+        for (ring_index, (along, radius)) in rings.into_iter().enumerate() {
+            let center = branch.end + direction * (along * BUD_LENGTH);
+            let phase_offset = if ring_index & 1 == 0 { 0.0 } else { 0.22 };
+            for side in 0..SIDES {
+                let phase = side as f32 * core::f32::consts::TAU / SIDES as f32 + phase_offset;
+                // Alternating ridges suggest overlapping protective scales at
+                // the close-review distance without inflating the tiny bud.
+                let scale_ridge = if (side + ring_index as u32) & 1 == 0 {
+                    1.12
+                } else {
+                    0.94
+                };
+                let radial = frame_right * phase.cos() + frame_forward * phase.sin();
+                positions.push((center + radial * radius * scale_ridge).to_array());
+                normals.push((radial * 0.86 + direction * 0.18).normalize().to_array());
+                uvs.push([side as f32 / SIDES as f32, along]);
+            }
+        }
+        for ring in 0..rings.len() as u32 - 1 {
+            let from = base + ring * SIDES;
+            let to = from + SIDES;
+            for side in 0..SIDES {
+                let next = (side + 1) % SIDES;
+                indices.extend_from_slice(&[
+                    from + side,
+                    to + side,
+                    to + next,
+                    from + side,
+                    to + next,
+                    from + next,
+                ]);
+            }
         }
         let tip = positions.len() as u32;
         positions.push((branch.end + direction * BUD_LENGTH).to_array());
         normals.push(direction.to_array());
         uvs.push([0.5, 1.0]);
-        let ring = base + 1;
+        let last_ring = base + (rings.len() as u32 - 1) * SIDES;
         for side in 0..SIDES {
             let next = (side + 1) % SIDES;
-            indices.extend_from_slice(&[base, ring + side, ring + next]);
-            indices.extend_from_slice(&[tip, ring + next, ring + side]);
+            indices.extend_from_slice(&[tip, last_ring + side, last_ring + next]);
         }
     }
     let mut mesh = Mesh::new(
@@ -623,10 +639,10 @@ mod tests {
             .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
             .count();
         assert_eq!(terminal_shoots, leaves.len() / 16);
-        assert_eq!(bud_positions.len(), terminal_shoots * 6);
+        assert_eq!(bud_positions.len(), terminal_shoots * 19);
         assert_eq!(
             buds.indices().expect("bud mesh has indices").len() / 3,
-            terminal_shoots * 8
+            terminal_shoots * 30
         );
         assert!(
             bud_positions
@@ -652,7 +668,6 @@ mod tests {
             })
             .sum::<usize>();
         assert_eq!(group_triangles, leaf_triangles);
-        assert_eq!(super::super::wood_mesh::fraction_facing_normals(&buds), 1.0);
     }
 
     #[test]

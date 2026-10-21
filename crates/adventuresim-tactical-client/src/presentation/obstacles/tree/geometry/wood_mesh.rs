@@ -24,7 +24,6 @@ pub(in crate::presentation) enum WoodyBranchMeshQuality {
     MidDistanceTrunk,
     AggregateLod1,
     AggregateLod2,
-    AggregateShrub,
 }
 
 impl WoodyBranchMeshQuality {
@@ -63,15 +62,6 @@ impl WoodyBranchMeshQuality {
                     4
                 }
             }
-            // Shrub stems are a few centimetres thick, so the distant shrub
-            // tier needs only a hexagonal stem behind its leaf cards.
-            Self::AggregateShrub => {
-                if depth == 0 {
-                    6
-                } else {
-                    4
-                }
-            }
         }
     }
 
@@ -81,54 +71,11 @@ impl WoodyBranchMeshQuality {
             Self::MidDistanceTrunk => 0.9,
             Self::AggregateLod1 => 0.75,
             Self::AggregateLod2 => 1.1,
-            Self::AggregateShrub => 0.75,
         }
     }
 
     fn uses_rounded_terminal(self) -> bool {
         matches!(self, Self::FullDetail)
-    }
-}
-
-/// Close-range axes thinner than this are twigs: a few pixels wide even at
-/// arm's length, so collar rings, rounded tips, and a fifth side add triangles
-/// without visible shape. Measured on seed 42, depth-3 twigs averaged
-/// 8.9 mm (oak) and 3.5 mm (understory) and carried 92% of LOD0 oak wood.
-const TWIG_RADIUS_METRES: f32 = 0.015;
-const TWIG_RADIAL_SIDES: u32 = 4;
-/// Distant shrub twigs are under two pixels wide, so each whole twig curve
-/// collapses to one triangular cone. Dropping them instead strands the leaf
-/// cards they carry as floating specks and thins the crown silhouette.
-const SPIKE_TWIG_SIDES: u32 = 3;
-const BARK_TEXTURE_WIDTH_METRES: f32 = 1.0;
-const BARK_TEXTURE_HEIGHT_METRES: f32 = 2.0;
-
-/// Sweep topology for one branch curve, resolved from its quality tier and
-/// its basal thickness.
-#[derive(Clone, Copy)]
-struct CurveTopology {
-    sides: u32,
-    basal_collar: bool,
-    rounded_terminal: bool,
-    spike: bool,
-}
-
-impl CurveTopology {
-    fn new(quality: WoodyBranchMeshQuality, first: &TreeBranchSegment) -> Self {
-        let twig = first.depth > 0 && first.start_radius < TWIG_RADIUS_METRES;
-        let spike = twig && quality == WoodyBranchMeshQuality::AggregateShrub;
-        Self {
-            sides: if spike {
-                SPIKE_TWIG_SIDES
-            } else if twig {
-                TWIG_RADIAL_SIDES.min(quality.radial_sides(first.depth))
-            } else {
-                quality.radial_sides(first.depth)
-            },
-            basal_collar: first.depth > 0 && !twig,
-            rounded_terminal: quality.uses_rounded_terminal() && !twig,
-            spike,
-        }
     }
 }
 
@@ -294,18 +241,6 @@ pub(in crate::presentation) fn procedural_woody_branch_bake_mesh(
     mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, normals);
     mesh.insert_indices(Indices::U32(indices));
     mesh
-}
-
-/// Distant understory wood: the whole skeleton with coarse stems and every
-/// twig collapsed to a single cone, so leaf cards keep their supporting wood.
-pub(in crate::presentation) fn procedural_woody_aggregate_shrub_mesh(
-    branches: &[TreeBranchSegment],
-) -> Mesh {
-    procedural_woody_branch_mesh_with_quality(
-        branches,
-        u8::MAX,
-        WoodyBranchMeshQuality::AggregateShrub,
-    )
 }
 
 /// Aggregate crown wood excludes depth-zero trunk and root geometry because
@@ -722,29 +657,19 @@ fn append_branch_curve_tube(
     uvs: &mut Vec<[f32; 2]>,
     indices: &mut Vec<u32>,
 ) {
+    const BARK_TEXTURE_WIDTH_METRES: f32 = 1.0;
+    const BARK_TEXTURE_HEIGHT_METRES: f32 = 2.0;
+
     let first = curve[0];
     let last = curve[curve.len() - 1];
-    let topology = CurveTopology::new(quality, &first);
-    if topology.spike {
-        append_spike_twig(
-            &first,
-            &last,
-            topology.sides,
-            positions,
-            normals,
-            uvs,
-            indices,
-        );
-        return;
-    }
-    let sides = topology.sides;
+    let sides = quality.radial_sides(first.depth);
     let first_direction = (first.end - first.start).normalize();
     let last_direction = (last.end - last.start).normalize();
     let surface_root = first.depth == 0
         && first.start.y < -0.75
         && first_direction.xz().length() > first_direction.y.abs() * 0.7;
     let mut rings = Vec::with_capacity(curve.len() + 2);
-    if topology.basal_collar {
+    if first.depth > 0 {
         // One basal collar belongs at the biological attachment. Repeating a
         // collar at every polygon joint makes a smooth axis look assembled.
         rings.push((
@@ -763,8 +688,6 @@ fn append_branch_curve_tube(
             first_direction,
         ));
     } else {
-        // Trunks and twigs start from a single ring sunk slightly into their
-        // parent; a twig's millimetre collar is not resolvable.
         rings.push((
             first.start - first_direction * first.start_radius * 0.18,
             first.start_radius,
@@ -869,7 +792,7 @@ fn append_branch_curve_tube(
         }
     }
     let end_ring = base + (rings.len() as u32 - 1) * ring_stride;
-    if last.is_limb_tip && topology.rounded_terminal {
+    if last.is_limb_tip && quality.uses_rounded_terminal() {
         // A pair of shrinking rings gives every terminal axis a rounded,
         // natural taper. Flat caps read as sawn-off limbs and become black
         // rectangular artifacts in the descendant renders.
@@ -942,14 +865,14 @@ fn append_branch_curve_tube(
             let next = side + 1;
             indices.extend_from_slice(&[
                 tip,
-                shoulder + ring_stride + next,
                 shoulder + ring_stride + side,
+                shoulder + ring_stride + next,
             ]);
         }
     } else if last.is_limb_tip {
-        // Aggregate wood sits behind baked canopy cards, and twig tips are
-        // sub-pixel or hidden under buds. A single tapered cap preserves the
-        // silhouette without the two extra rounded rings of near-field limbs.
+        // Aggregate wood sits behind baked canopy cards. A single tapered cap
+        // preserves the branch silhouette without the two extra rounded rings
+        // that close the near-field mesh.
         let tip = positions.len() as u32;
         let bud_length = last.end_radius;
         positions.push((last.end + last_direction * bud_length * 0.7).to_array());
@@ -960,158 +883,19 @@ fn append_branch_curve_tube(
         ]);
         for side in 0..sides {
             let next = side + 1;
-            indices.extend_from_slice(&[tip, end_ring + next, end_ring + side]);
+            indices.extend_from_slice(&[tip, end_ring + side, end_ring + next]);
         }
     }
-}
-
-/// One cone from the twig's attachment to its final tip, following the chord
-/// of the whole curve rather than each skeleton joint.
-fn append_spike_twig(
-    first: &TreeBranchSegment,
-    last: &TreeBranchSegment,
-    sides: u32,
-    positions: &mut Vec<[f32; 3]>,
-    normals: &mut Vec<[f32; 3]>,
-    uvs: &mut Vec<[f32; 2]>,
-    indices: &mut Vec<u32>,
-) {
-    let chord = last.end - first.start;
-    let Some(direction) = chord.try_normalize() else {
-        return;
-    };
-    let (right, forward) = branch_frame(direction);
-    let base = positions.len() as u32;
-    for side in 0..sides {
-        let phase = side as f32 * core::f32::consts::TAU / sides as f32;
-        let radial = right * phase.cos() + forward * phase.sin();
-        positions.push((first.start + radial * first.start_radius).to_array());
-        normals.push(radial.to_array());
-        uvs.push([side as f32 / sides as f32, 0.0]);
-    }
-    let tip = positions.len() as u32;
-    positions.push(last.end.to_array());
-    normals.push(direction.to_array());
-    uvs.push([0.0, chord.length() / BARK_TEXTURE_HEIGHT_METRES]);
-    for side in 0..sides {
-        let next = (side + 1) % sides;
-        indices.extend_from_slice(&[tip, base + next, base + side]);
-    }
-}
-
-/// Fraction of non-degenerate triangles that wind counter-clockwise about
-/// their shading normals. Back-face handling and double-sided normal flipping
-/// both rely on this, so an inverted fan lights from the wrong side.
-#[cfg(test)]
-pub(in crate::presentation) fn fraction_facing_normals(mesh: &Mesh) -> f64 {
-    use bevy::mesh::VertexAttributeValues;
-    let positions = mesh
-        .attribute(Mesh::ATTRIBUTE_POSITION)
-        .and_then(VertexAttributeValues::as_float3)
-        .expect("mesh has positions");
-    let normals = mesh
-        .attribute(Mesh::ATTRIBUTE_NORMAL)
-        .and_then(VertexAttributeValues::as_float3)
-        .expect("mesh has normals");
-    let indices = mesh
-        .indices()
-        .expect("mesh is indexed")
-        .iter()
-        .collect::<Vec<_>>();
-    let (facing, total) = indices
-        .chunks_exact(3)
-        .filter_map(|triangle| {
-            let [a, b, c] = [triangle[0], triangle[1], triangle[2]];
-            let geometric = (Vec3::from(positions[b]) - Vec3::from(positions[a]))
-                .cross(Vec3::from(positions[c]) - Vec3::from(positions[a]));
-            let shading = Vec3::from(normals[a]) + Vec3::from(normals[b]) + Vec3::from(normals[c]);
-            (geometric.length_squared() >= 1.0e-20).then(|| geometric.dot(shading) > 0.0)
-        })
-        .fold((0_usize, 0_usize), |(facing, total), faces| {
-            (facing + usize::from(faces), total + 1)
-        });
-    facing as f64 / total as f64
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::presentation::obstacles::tree::geometry::{
-        BLACKTHORN_PARAMETERS, COMMON_BEECH_BARK, COMMON_BEECH_PARAMETERS,
-        COMMON_HAWTHORN_PARAMETERS, COMMON_HAZEL_PARAMETERS, procedural_tree_skeleton,
+        COMMON_BEECH_BARK, COMMON_BEECH_PARAMETERS, procedural_tree_skeleton,
         procedural_woody_plant_skeleton,
     };
     use bevy::{math::Vec3, mesh::VertexAttributeValues};
-
-    #[test]
-    fn crown_wood_tiers_wind_toward_their_shading_normals() {
-        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
-        let crown = branches
-            .iter()
-            .filter(|branch| branch.depth > 0)
-            .copied()
-            .collect::<Vec<_>>();
-        // Terminal fans once wound inward on every limb tip (about 16% of LOD0
-        // crown wood). Strongly bent axes may still fold a stray triangle.
-        for mesh in [
-            procedural_tree_branch_mesh(&crown, 3),
-            procedural_woody_crown_mesh(&branches, 2, WoodyBranchMeshQuality::AggregateLod1),
-            procedural_woody_crown_mesh(&branches, 1, WoodyBranchMeshQuality::AggregateLod2),
-            procedural_woody_aggregate_shrub_mesh(&crown),
-        ] {
-            assert!(fraction_facing_normals(&mesh) > 0.999);
-        }
-    }
-
-    #[test]
-    fn twigs_drop_collars_and_rounded_tips_while_thick_axes_keep_them() {
-        let segment = |depth, radius: f32| TreeBranchSegment {
-            start: Vec3::ZERO,
-            end: Vec3::Y * 0.2,
-            start_radius: radius,
-            end_radius: radius * 0.7,
-            depth,
-            primary_group: 0,
-            secondary_group: 0,
-            is_limb_tip: true,
-        };
-        let triangles = |segment: TreeBranchSegment| {
-            procedural_woody_branch_mesh(&[segment], 3)
-                .indices()
-                .expect("branch mesh is indexed")
-                .len()
-                / 3
-        };
-        // Twig: base ring, one swept ring, tapered tip on four sides.
-        assert_eq!(triangles(segment(3, 0.009)), 4 * 2 + 4);
-        // Limb: three collar rings, one swept ring, two rounded rings and a
-        // tip on five sides.
-        assert_eq!(triangles(segment(3, 0.03)), 5 * 2 * 5 + 5);
-    }
-
-    #[test]
-    fn shrub_wood_tiers_pin_near_and_distant_geometry_budgets() {
-        let budgets = [
-            COMMON_HAZEL_PARAMETERS,
-            BLACKTHORN_PARAMETERS,
-            COMMON_HAWTHORN_PARAMETERS,
-        ]
-        .map(|parameters| {
-            let branches = procedural_woody_plant_skeleton(
-                fabelgeist_determinism::Seed::from_u64(42),
-                0.0,
-                parameters,
-            );
-            let triangles = |mesh: Mesh| mesh.indices().expect("indexed").len() / 3;
-            (
-                triangles(procedural_woody_branch_mesh(&branches, 3)),
-                triangles(procedural_woody_aggregate_shrub_mesh(&branches)),
-            )
-        });
-        // Near and distant wood triangles per species. The near tier was
-        // 42,763 / 51,497 / 29,618 before twig simplification.
-        assert_eq!(budgets, [(14_916, 2_457), (17_692, 3_003), (11_032, 1_638)]);
-    }
 
     #[test]
     fn branch_mesh_has_metric_seam_safe_uvs_without_unused_tangents() {
@@ -1211,26 +995,26 @@ mod tests {
 
         // Seed 42 is the representative oak fixture used by the tree suite.
         // These exact reductions guard both the LOD budget and the simplified
-        // one-cap terminal topology: 9,556/15,551 -> 4,630/6,811 for LOD1,
-        // and 1,135/1,925 -> 462/700 for LOD2 (vertices/triangles).
-        assert_eq!(full_lod1.count_vertices(), 9_556);
+        // one-cap terminal topology: 9,540/15,523 -> 4,810/7,099 for LOD1,
+        // and 1,119/1,897 -> 462/700 for LOD2 (vertices/triangles).
+        assert_eq!(full_lod1.count_vertices(), 9_540);
         assert_eq!(
             full_lod1.indices().expect("full LOD1 is indexed").len() / 3,
-            15_551
+            15_523
         );
-        assert_eq!(aggregate_lod1.count_vertices(), 4_630);
+        assert_eq!(aggregate_lod1.count_vertices(), 4_810);
         assert_eq!(
             aggregate_lod1
                 .indices()
                 .expect("aggregate LOD1 is indexed")
                 .len()
                 / 3,
-            6_811
+            7_099
         );
-        assert_eq!(full_lod2.count_vertices(), 1_135);
+        assert_eq!(full_lod2.count_vertices(), 1_119);
         assert_eq!(
             full_lod2.indices().expect("full LOD2 is indexed").len() / 3,
-            1_925
+            1_897
         );
         assert_eq!(aggregate_lod2.count_vertices(), 462);
         assert_eq!(
@@ -1324,13 +1108,13 @@ mod tests {
         // Seed 42 is the representative oak fixture used by the tree suite.
         // Exact counts lock the nine-sided, 0.9-metre, one-cap budget and
         // verify that the root-only close mesh remains substantially denser.
-        assert_eq!(full.count_vertices(), 857);
+        assert_eq!(full.count_vertices(), 771);
         assert_eq!(
             full.indices().expect("full trunk is indexed").len() / 3,
-            1_488
+            1_344
         );
-        assert_eq!(mid.count_vertices(), 236);
-        assert_eq!(indices.len() / 3, 360);
+        assert_eq!(mid.count_vertices(), 173);
+        assert_eq!(indices.len() / 3, 279);
         assert!(mid.count_vertices() * 2 < full.count_vertices());
         assert!(indices.len() / 3 * 2 < full.indices().unwrap().len() / 3);
 

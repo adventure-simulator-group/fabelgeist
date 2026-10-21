@@ -1214,9 +1214,9 @@ mod tests {
         );
 
         assert!(cached.aggregate_branch_meshes.iter().all(Option::is_some));
-        assert_eq!(diagnostics.aggregate_branch_vertices_by_lod, [4_630, 462]);
-        assert_eq!(diagnostics.aggregate_branch_triangles_by_lod, [6_811, 700]);
-        assert_eq!(diagnostics.aggregate_branch_vertices, 5_092);
+        assert_eq!(diagnostics.aggregate_branch_vertices_by_lod, [4_810, 462]);
+        assert_eq!(diagnostics.aggregate_branch_triangles_by_lod, [7_099, 700]);
+        assert_eq!(diagnostics.aggregate_branch_vertices, 5_272);
     }
 
     #[test]
