@@ -47,6 +47,9 @@ mod drape_preview;
 mod drape_worker;
 mod fabric_controls;
 mod garment_controls;
+mod hair_color_controls;
+mod hair_controls;
+mod hair_preview;
 mod inventory_ui;
 mod metal_controls;
 mod metal_preview;
@@ -119,6 +122,11 @@ struct Studio {
     wardrobe: wardrobe_tab::WardrobeLibrary,
     tab: studio_ui::StudioTab,
     inventory: inventory_ui::InventoryView,
+    /// The level of detail the hair is drawn at.
+    hair_form: fabelgeist_hair::lod::Form,
+    /// Whether the hair and the scalp under it are drawn, to look at either
+    /// alone.
+    hair_layers: hair_preview::ShownLayers,
 }
 
 impl Studio {
@@ -152,6 +160,8 @@ impl Studio {
             },
             tab: studio_ui::StudioTab::Character,
             inventory: inventory_ui::InventoryView::default(),
+            hair_form: fabelgeist_hair::lod::Form::Cards { level: 0 },
+            hair_layers: hair_preview::ShownLayers::default(),
         }
     }
 }
@@ -295,13 +305,18 @@ fn run_studio(
                     ..default()
                 }),
         )
-        .add_plugins(EguiPlugin::default())
+        .add_plugins((
+            EguiPlugin::default(),
+            hair_preview::HairShadingPlugin,
+            hair_preview::HairGpuPlugin,
+        ))
         .init_resource::<CreatorPanelRight>()
         .init_resource::<studio_scene::CharacterBounds>()
         .init_resource::<studio_scene::ShotRequest>()
         .init_resource::<armory::Armory>()
         .init_resource::<studio_cache::StudioCache>()
         .init_resource::<wardrobe_tab::WardrobeTab>()
+        .init_resource::<hair_preview::HairPreview>()
         .add_systems(Startup, (setup, armory::setup, animation_preview::request))
         .add_systems(
             EguiPrimaryContextPass,
@@ -314,6 +329,8 @@ fn run_studio(
                 animation_preview::prepare,
                 regenerate_mesh,
                 drape_preview::poll.after(regenerate_mesh),
+                hair_preview::refresh.after(regenerate_mesh),
+                hair_preview::show_layers.after(hair_preview::refresh),
                 drape_preview::refresh_mail.after(drape_preview::poll),
                 (
                     armory::enter_or_leave,

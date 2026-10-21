@@ -4,8 +4,10 @@ use super::*;
 use adventuresim_character_creator::clothing::ClothingShell;
 use adventuresim_core::character_morph::{IDENTITY_MORPH_STEP, IdentityMorph};
 use adventuresim_core::skeletal_fit::SkeletalFitMorph;
+pub(super) use hair::WholeJoint;
 
 mod draped;
+mod hair;
 
 pub(super) struct MorphDelta {
     name: String,

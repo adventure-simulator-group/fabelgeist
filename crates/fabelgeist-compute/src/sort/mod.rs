@@ -11,10 +11,14 @@
 //!
 //! 1. **histogram** -- one workgroup per tile counts its 256 digits into
 //!    shared memory and writes the counts to `histogram[digit][tile]`.
-//! 2. **scan** -- a single workgroup turns those counts into the global offset
-//!    each `(digit, tile)` pair writes at. One workgroup can do it because the
-//!    array is only `256 x tiles`, and laying it out digit-major means thread
-//!    `d` owns row `d` outright.
+//! 2. **scan** -- an exclusive [`PrefixSum`] over the whole histogram turns
+//!    those counts into the global offset each `(digit, tile)` pair writes
+//!    at. Digit-major is what makes one flat scan enough: everything before
+//!    `(d, t)` in the array is every smaller digit from every tile, then
+//!    digit `d` from the earlier tiles -- exactly what lands before it in the
+//!    output. (A single workgroup used to do this, each thread walking one
+//!    digit's row; past a few hundred thousand keys that serial walk was most
+//!    of the sort.)
 //! 3. **scatter** -- each element's destination is its tile's base for that
 //!    digit, plus its rank among the same-digit elements earlier in the tile.
 //!
@@ -74,61 +78,6 @@ fn main(
 }}
 "#,
         mask = RADIX - 1
-    )
-}
-
-fn scan_code() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read_write> histogram: array<u32>;
-
-struct Params {{
-    count: u32,
-    shift: u32,
-    tiles: u32,
-    pad: u32,
-}};
-@group(0) @binding(1) var<uniform> params: Params;
-
-var<workgroup> digit_totals: array<u32, {RADIX}u>;
-var<workgroup> scratch: array<u32, {RADIX}u>;
-
-@compute @workgroup_size({RADIX}u)
-fn main(@builtin(local_invocation_id) local_id: vec3<u32>) {{
-    let digit = local_id.x;
-    let row = digit * params.tiles;
-
-    // Exclusive scan along this digit's row, leaving each tile's offset
-    // *within* the digit in place, and the digit's total in hand.
-    var running = 0u;
-    for (var tile = 0u; tile < params.tiles; tile = tile + 1u) {{
-        let value = histogram[row + tile];
-        histogram[row + tile] = running;
-        running = running + value;
-    }}
-    digit_totals[digit] = running;
-    workgroupBarrier();
-
-    // Exclusive scan across the 256 digit totals: where each digit's block
-    // starts in the output. Hillis-Steele, double-buffered through `scratch`
-    // so no thread reads a slot another has already overwritten.
-    var value = digit_totals[digit];
-    for (var offset = 1u; offset < {RADIX}u; offset = offset * 2u) {{
-        scratch[digit] = value;
-        workgroupBarrier();
-        if (digit >= offset) {{
-            value = value + scratch[digit - offset];
-        }}
-        workgroupBarrier();
-    }}
-    // `value` is now the inclusive sum; the exclusive one drops this digit.
-    let digit_base = value - digit_totals[digit];
-
-    for (var tile = 0u; tile < params.tiles; tile = tile + 1u) {{
-        histogram[row + tile] = histogram[row + tile] + digit_base;
-    }}
-}}
-"#
     )
 }
 
@@ -192,7 +141,8 @@ fn main(
     )
 }
 
-/// Scratch buffers a sort needs: one ping-pong pair and the histogram.
+/// Scratch buffers a sort needs: one ping-pong pair, the histogram, and the
+/// histogram scan's own scratch.
 ///
 /// Allocated for a capacity and reused, so that a per-frame sort does not
 /// allocate. Grow it with [`SortScratch::ensure`].
@@ -201,6 +151,7 @@ pub struct SortScratch {
     pub keys: Buffer,
     pub values: Buffer,
     pub histogram: Buffer,
+    scan: PrefixSumScratch,
     capacity: u32,
 }
 
@@ -213,18 +164,19 @@ impl SortScratch {
             keys: Buffer::new(
                 context,
                 ((capacity as u64) * 4).into(),
-                storage.clone().with_label(("sort keys").into()),
+                storage.clone().with_label("sort keys".into()),
             )?,
             values: Buffer::new(
                 context,
                 ((capacity as u64) * 4).into(),
-                storage.clone().with_label(("sort values").into()),
+                storage.clone().with_label("sort values".into()),
             )?,
             histogram: Buffer::new(
                 context,
                 ((RADIX as u64) * (tiles as u64) * 4).into(),
-                storage.with_label(("sort histogram").into()),
+                storage.with_label("sort histogram".into()),
             )?,
+            scan: PrefixSumScratch::new(context, ScanElementCount::from_elements(RADIX * tiles))?,
             capacity,
         })
     }
@@ -243,11 +195,11 @@ impl SortScratch {
     }
 }
 
-/// The three compiled passes.
+/// The compiled passes.
 #[derive(Clone, Debug)]
 pub struct RadixSort {
     histogram: Arc<Kernel>,
-    scan: Arc<Kernel>,
+    scan: PrefixSum,
     scatter: Arc<Kernel>,
 }
 
@@ -259,7 +211,7 @@ impl RadixSort {
     pub fn with_cache(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
         Ok(Self {
             histogram: cache.get(context, &histogram_code())?,
-            scan: cache.get(context, &scan_code())?,
+            scan: PrefixSum::with_cache(context, cache)?,
             scatter: cache.get(context, &scatter_code())?,
         })
     }
@@ -327,7 +279,12 @@ impl RadixSort {
             histogram_parameters.insert("keys", source_keys.clone());
             batch.dispatch(&self.histogram, &histogram_parameters, [tiles, 1, 1])?;
 
-            batch.dispatch(&self.scan, &parameters, [1, 1, 1])?;
+            self.scan.record(
+                batch,
+                &scratch.histogram,
+                &scratch.scan,
+                ScanElementCount::from_elements(RADIX * tiles),
+            )?;
 
             let mut scatter_parameters = parameters;
             scatter_parameters.insert("keys_in", source_keys.clone());

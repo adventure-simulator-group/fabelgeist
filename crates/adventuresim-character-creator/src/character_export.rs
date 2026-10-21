@@ -3,6 +3,7 @@ use super::character_morphs::{
 };
 use super::*;
 mod draped;
+mod hair;
 
 pub(super) fn export_character(
     path: &std::path::Path,
@@ -63,6 +64,15 @@ pub(super) fn export_character(
     for ((garment, targets), mail) in fitted.iter().zip(&draped_targets).zip(&mail_surfaces) {
         shells.push(garment.rigged(targets, mail.as_ref()));
     }
+    let hair = recipe
+        .hair
+        .map(|design| hair::ExportedHair::grow(model, &generated, &morphs, design))
+        .transpose()?;
+    let hair_targets = hair
+        .as_ref()
+        .map(hair::ExportedHair::targets)
+        .unwrap_or_default();
+    shells.extend(hair.as_ref().map(|hair| hair.shell(&hair_targets)));
     export_rigged_glb(
         GlbOutput::Standalone(path),
         &recipe.name,
