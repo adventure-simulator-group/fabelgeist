@@ -1,17 +1,17 @@
 //! Supported-foot displacement from current captured native bone positions.
 
 use super::*;
-use adventuresim_tactical_core::animation::NonnegativeLength;
+use adventuresim_tactical_core::animation::{AngularMagnitudeDegrees, NonnegativeLength};
 
 pub(super) fn supported_foot_slip(
     metadata: &ScenarioMetadata<'_>,
     before: &FrameSample,
     after: &FrameSample,
-) -> AnimationValueResult<NonnegativeLength> {
-    let mut maximum_slip = 0.0_f32;
-    let body_turn = Quat::from_array(before.body_rotation_xyzw)
+) -> AnimationValueResult<Observation<NonnegativeLength>> {
+    let mut maximum_slip: Option<NonnegativeLength> = None;
+    let body_turn = AngularMagnitudeDegrees::from_degrees(Quat::from_array(before.body_rotation_xyzw)
         .angle_between(Quat::from_array(after.body_rotation_xyzw))
-        .to_degrees();
+        .to_degrees())?;
     for (foot, support) in [
         (
             BoneRole::FootLeft,
@@ -33,23 +33,15 @@ pub(super) fn supported_foot_slip(
         // adaptation separately from skating under a stable body.
         let procedural_plant_active =
             metadata.kind() == ScenarioKind::Terrain || (before.guard_action && after.guard_action);
-        if procedural_plant_active
-            && support >= 0.9
-            && body_turn <= 0.5
-            && let (Some(a), Some(b)) = (before.bones.get(foot), after.bones.get(foot))
-        {
-            let distance = (Vec3::from_array(b.position) - Vec3::from_array(a.position))
-                .xz()
-                .length();
-            if !distance.is_finite() {
-                return Err(
-                    adventuresim_tactical_core::animation::AnimationValueError::Overflow {
-                        quantity: adventuresim_tactical_core::animation::AnimationQuantity::Length,
-                    },
-                );
-            }
-            maximum_slip = maximum_slip.max(distance);
+        if !procedural_plant_active || support < 0.9 || body_turn.degrees() > 0.5 {
+            continue;
         }
+        let Some((a, b)) = before.bones.get(foot).zip(after.bones.get(foot)) else {
+            return Ok(Observation::Unavailable(UnavailableReason::MissingBone { bone: foot }));
+        };
+        let distance = (Vec3::from_array(b.position) - Vec3::from_array(a.position)).xz().length();
+        let distance = NonnegativeLength::from_arithmetic(distance)?;
+        maximum_slip = Some(maximum_slip.map_or(distance, |maximum| maximum.max(distance)));
     }
-    NonnegativeLength::from_arithmetic(maximum_slip)
+    Ok(maximum_slip.map_or(Observation::NotApplicable, Observation::Measured))
 }

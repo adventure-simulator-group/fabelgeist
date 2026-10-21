@@ -1,9 +1,86 @@
 //! Scenario-admitted acceptance bounds for measured review poses.
 
 use super::*;
+use adventuresim_tactical_core::animation::NonnegativeLength;
 
-pub(super) fn foot_continuity_limit(scenario: &ScenarioMetadata<'_>) -> f32 {
-    if is_quickstep_scenario(scenario) {
+#[derive(Debug, Serialize)]
+pub(in crate::animation_viewer) struct ExpectedScenarioBounds {
+    pub(super) foot_step: NonnegativeLength,
+    pub(super) knee_step: NonnegativeLength,
+    pub(super) seam_position: NonnegativeLength,
+    pub(super) planted_drift: NonnegativeLength,
+    pub(super) supported_slip: NonnegativeLength,
+    pub(super) inter_foot_separation: NonnegativeLength,
+    pub(super) vertical_range: Observation<HeightDistance>,
+}
+
+#[derive(Debug, Clone, Copy)]
+pub(in crate::animation_viewer) struct ExpectedVisualHeight {
+    minimum_range: HeightDistance,
+    maximum_range: HeightDistance,
+    peak_count: usize,
+}
+
+impl ExpectedScenarioBounds {
+    pub(super) fn for_scenario(
+        scenario: &ScenarioMetadata<'_>,
+        relief: &Observation<HeightDistance>,
+    ) -> AnimationValueResult<Self> {
+        let vertical_range = if scenario.kind() == ScenarioKind::Terrain {
+            match relief {
+                Observation::Measured(relief) => Observation::Measured(vertical_range_limit(scenario, *relief)?),
+                Observation::Unavailable(reason) => Observation::Unavailable(*reason),
+                Observation::NotApplicable => Observation::NotApplicable,
+            }
+        } else {
+            Observation::Measured(vertical_range_limit(scenario, HeightDistance::ZERO)?)
+        };
+        Ok(Self {
+            foot_step: foot_continuity_limit(scenario)?,
+            knee_step: knee_continuity_limit(scenario)?,
+            seam_position: loop_seam_position_limit(scenario)?,
+            planted_drift: planted_drift_limit(scenario)?,
+            supported_slip: supported_foot_slip_limit(scenario)?,
+            inter_foot_separation: inter_foot_separation_limit(scenario)?,
+            vertical_range,
+        })
+    }
+}
+
+impl ExpectedVisualHeight {
+    pub(super) fn for_scenario(
+    scenario: &ScenarioMetadata<'_>,
+) -> AnimationValueResult<Option<Self>> {
+    let expected = match scenario.identity() {
+        Some(ScenarioId::SteadyWalk20) => Self {
+            minimum_range: HeightDistance::from_metres(0.025)?,
+            maximum_range: HeightDistance::from_metres(0.06)?,
+            peak_count: 2,
+        },
+        // Terrain conformity contributes the authored leg/pelvis reach on top
+        // of the 4 cm phase wave even though this terrain has zero relief.
+        Some(ScenarioId::FlatGridWalk20) => Self {
+            minimum_range: HeightDistance::from_metres(0.025)?,
+            maximum_range: HeightDistance::from_metres(0.075)?,
+            peak_count: 2,
+        },
+        Some(ScenarioId::SteadyRun55) | Some(ScenarioId::FlatGridRun55) => Self {
+            minimum_range: HeightDistance::from_metres(0.025)?,
+            maximum_range: HeightDistance::from_metres(0.10)?,
+            peak_count: 2,
+        },
+        _ => return Ok(None),
+    };
+    Ok(Some(expected))
+}
+
+    pub(super) fn minimum_range(self) -> HeightDistance { self.minimum_range }
+    pub(super) fn maximum_range(self) -> HeightDistance { self.maximum_range }
+    pub(super) fn peak_count(self) -> usize { self.peak_count }
+}
+
+pub(super) fn foot_continuity_limit(scenario: &ScenarioMetadata<'_>) -> AnimationValueResult<NonnegativeLength> {
+    NonnegativeLength::from_metres(if is_quickstep_scenario(scenario) {
         // The unsupported legs FK-recover during the short ballistic flight.
         // The later 24.2 cm peak is the trailing foot's ordinary guard swing
         // while the root sheds residual velocity after impact, not an
@@ -37,11 +114,11 @@ pub(super) fn foot_continuity_limit(scenario: &ScenarioMetadata<'_>) -> f32 {
         0.15
     } else {
         0.055
-    }
+    })
 }
 
-pub(super) fn knee_continuity_limit(scenario: &ScenarioMetadata<'_>) -> f32 {
-    if is_quickstep_scenario(scenario) {
+pub(super) fn knee_continuity_limit(scenario: &ScenarioMetadata<'_>) -> AnimationValueResult<NonnegativeLength> {
+    NonnegativeLength::from_metres(if is_quickstep_scenario(scenario) {
         // Reactive release from the analytic reach boundary bends a nearly
         // extended knee faster than ordinary walking. Retain the terrain-run
         // solver's strict 16 cm teleport guard for this one-shot hop.
@@ -60,11 +137,11 @@ pub(super) fn knee_continuity_limit(scenario: &ScenarioMetadata<'_>) -> f32 {
         0.13
     } else {
         0.10
-    }
+    })
 }
 
-pub(super) fn loop_seam_position_limit(scenario: &ScenarioMetadata<'_>) -> f32 {
-    if uses_authored_combat_locomotion(scenario) {
+pub(super) fn loop_seam_position_limit(scenario: &ScenarioMetadata<'_>) -> AnimationValueResult<NonnegativeLength> {
+    NonnegativeLength::from_metres(if uses_authored_combat_locomotion(scenario) {
         // The prepared skip/strafe cycles measure at most 4.426 cm across the
         // sampled 64 Hz seam. Retain a sub-millimetre regression margin.
         0.045
@@ -81,7 +158,7 @@ pub(super) fn loop_seam_position_limit(scenario: &ScenarioMetadata<'_>) -> f32 {
         0.03
     } else {
         0.015
-    }
+    })
 }
 
 pub(super) fn scenario_requires_strict_terrain_toe_clearance(
@@ -96,28 +173,28 @@ pub(super) fn scenario_requires_strict_terrain_toe_clearance(
     )
 }
 
-pub(super) fn planted_drift_limit(scenario: &ScenarioMetadata<'_>) -> f32 {
-    if scenario.has(ScenarioFeature::RaisedGuard) || scenario.is(ScenarioId::TerrainSteadyRun55) {
+pub(super) fn planted_drift_limit(scenario: &ScenarioMetadata<'_>) -> AnimationValueResult<NonnegativeLength> {
+    NonnegativeLength::from_metres(if scenario.has(ScenarioFeature::RaisedGuard) || scenario.is(ScenarioId::TerrainSteadyRun55) {
         0.01
     } else {
         0.035
-    }
+    })
 }
 
-pub(super) fn supported_foot_slip_limit(scenario: &ScenarioMetadata<'_>) -> f32 {
-    if scenario.is(ScenarioId::TerrainSteadyRun55) {
+pub(super) fn supported_foot_slip_limit(scenario: &ScenarioMetadata<'_>) -> AnimationValueResult<NonnegativeLength> {
+    NonnegativeLength::from_metres(if scenario.is(ScenarioId::TerrainSteadyRun55) {
         0.01
     } else {
         0.035
-    }
+    })
 }
 
 pub(super) fn procedural_leg_solver_gates_apply(scenario: &ScenarioMetadata<'_>) -> bool {
     scenario.procedural_solver() && !is_guard_stop_transition(scenario)
 }
 
-pub(super) fn inter_foot_separation_limit(scenario: &ScenarioMetadata<'_>) -> f32 {
-    if scenario.has(ScenarioFeature::Quickstep) {
+pub(super) fn inter_foot_separation_limit(scenario: &ScenarioMetadata<'_>) -> AnimationValueResult<NonnegativeLength> {
+    NonnegativeLength::from_metres(if scenario.has(ScenarioFeature::Quickstep) {
         // The authored middle pose intentionally tucks both feet beneath the
         // body. Require them to remain distinct without applying the wider
         // planted-locomotion stance gate to that airborne pose.
@@ -130,7 +207,7 @@ pub(super) fn inter_foot_separation_limit(scenario: &ScenarioMetadata<'_>) -> f3
         RAISED_MINIMUM_INTER_FOOT_SEPARATION_METRES
     } else {
         0.08
-    }
+    })
 }
 
 pub(super) fn expects_loop_seam(scenario: &ScenarioMetadata<'_>) -> bool {
@@ -139,9 +216,9 @@ pub(super) fn expects_loop_seam(scenario: &ScenarioMetadata<'_>) -> bool {
 
 pub(super) fn vertical_range_limit(
     scenario: &ScenarioMetadata<'_>,
-    foot_terrain_relief_metres: f32,
-) -> f32 {
-    if is_quickstep_scenario(scenario) {
+    relief: HeightDistance,
+) -> AnimationValueResult<HeightDistance> {
+    HeightDistance::from_metres(if is_quickstep_scenario(scenario) {
         0.5
     } else if scenario.has(ScenarioFeature::AttackLive) {
         0.35
@@ -156,24 +233,13 @@ pub(super) fn vertical_range_limit(
         // Per-frame release continuity is enforced separately at 2 cm.
         ORDINARY_VERTICAL_RANGE_LIMIT_METRES + 0.01
     } else if scenario.kind() == ScenarioKind::Terrain {
-        ORDINARY_VERTICAL_RANGE_LIMIT_METRES + foot_terrain_relief_metres.max(0.0)
+        ORDINARY_VERTICAL_RANGE_LIMIT_METRES + relief.metres().max(0.0)
     } else {
         ORDINARY_VERTICAL_RANGE_LIMIT_METRES
-    }
-}
-
-pub(super) fn expected_visual_height(scenario: &ScenarioMetadata<'_>) -> Option<(f32, f32, usize)> {
-    Some(match scenario.identity() {
-        Some(ScenarioId::SteadyWalk20) => (0.025, 0.06, 2),
-        // Terrain conformity contributes the authored leg/pelvis reach on top
-        // of the 4 cm phase wave even though this terrain has zero relief.
-        Some(ScenarioId::FlatGridWalk20) => (0.025, 0.075, 2),
-        Some(ScenarioId::SteadyRun55) | Some(ScenarioId::FlatGridRun55) => (0.025, 0.10, 2),
-        _ => return None,
     })
 }
 
-pub(super) fn cadence_contacts_valid(frames: &[FrameSample]) -> AnimationValueResult<bool> {
+pub(super) fn cadence_contacts_valid(frames: &[FrameSample]) -> ReportResult<bool> {
     let cadence_frames = frames
         .iter()
         .filter(|frame| frame.scenario.is(ScenarioId::CadenceContact))
@@ -199,9 +265,11 @@ pub(super) fn cadence_contacts_valid(frames: &[FrameSample]) -> AnimationValueRe
                 LeadFoot::Right => 0.5,
             };
             let phase_since_contact = (frame.gait_phase.cycles() - contact_phase).rem_euclid(1.0);
-            frame.root_distance_metres - phase_since_contact * cadence_step_distance * 2.0
+            fabelgeist_geometry::SignedLength::from_metres(
+                frame.root_distance_metres.metres() - phase_since_contact * cadence_step_distance * 2.0,
+            )
         })
-        .collect::<Vec<_>>();
+        .collect::<fabelgeist_geometry::GeometryResult<Vec<_>>>()?;
     let cadence_tolerance = (cadence_step_distance * 0.01).max(0.005);
     Ok(cadence_frames.is_empty()
         || (cadence_contacts.len() == 4
@@ -212,9 +280,9 @@ pub(super) fn cadence_contacts_valid(frames: &[FrameSample]) -> AnimationValueRe
                     && pair[1].contact_foot != pair[0].contact_foot
             })
             && adjusted_contact_distances.windows(2).all(|pair| {
-                ((pair[1] - pair[0]) - cadence_step_distance).abs() <= cadence_tolerance
+                ((pair[1].metres() - pair[0].metres()) - cadence_step_distance).abs() <= cadence_tolerance
             })
             && adjusted_contact_distances.windows(3).all(|window| {
-                ((window[2] - window[0]) - cadence_step_distance * 2.0).abs() <= cadence_tolerance
+                ((window[2].metres() - window[0].metres()) - cadence_step_distance * 2.0).abs() <= cadence_tolerance
             })))
 }

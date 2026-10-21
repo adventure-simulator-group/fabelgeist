@@ -42,6 +42,16 @@ pub struct HeightDistance(NonnegativeLength);
 pub struct HeightSpeed(NonnegativeSpeed);
 
 impl HeightDistance {
+    /// Native minimum of admitted height distances, preserving signed zero.
+    pub fn min(self, other: Self) -> Self {
+        Self(self.0.min(other.0))
+    }
+
+    /// Native maximum of admitted height distances, preserving signed zero.
+    pub fn max(self, other: Self) -> Self {
+        Self(self.0.max(other.0))
+    }
+
     pub const ZERO: Self = Self(NonnegativeLength::ZERO);
     pub fn from_metres(value: f32) -> AnimationValueResult<Self> {
         NonnegativeLength::from_metres(value)
