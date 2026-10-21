@@ -375,7 +375,7 @@ pub fn present_organization(
     ctx: &ReducerContext,
     character_id: u64,
     organization_id: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     let definition = organization(&organization_id).ok_or("Unknown organization")?;
     active_membership(ctx, character_id, &organization_id)?;
@@ -412,7 +412,7 @@ pub fn present_organization(
 pub fn clear_organization_presentation(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     ctx.db
         .organization_presentation()
@@ -490,7 +490,7 @@ fn globally_current_presented_organization(
 pub fn reconcile_presentation(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<Option<String>, String> {
+) -> crate::StrategicOperationResult<Option<String>> {
     let effective = effective_presented_organization(ctx, character_id);
     if globally_current_presented_organization(ctx, character_id).is_none()
         && ctx

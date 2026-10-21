@@ -3,7 +3,7 @@
 use super::*;
 
 struct AttackWeaponFacts {
-    reach: f32,
+    reach: SignedLength,
     ranged: bool,
     melee: bool,
     windup: adventuresim_core::elapsed::ElapsedResult<AnimationElapsed>,
@@ -18,7 +18,7 @@ struct SelectedMeleeAttack {
     family: StrikeFamily,
     spec: AttackSpec,
     start: AnimationSampleTick,
-    reach: f32,
+    reach: SignedLength,
 }
 
 struct PreparedMeleeAttack {
@@ -30,7 +30,7 @@ struct PreparedMeleeAttack {
 
 struct PredictedRangedAttack {
     entity: Entity,
-    reach: f32,
+    reach: SignedLength,
     windup: AnimationElapsed,
     recovery: AnimationElapsed,
     curve: adventuresim_tactical_core::animation::AttackCurve,
@@ -42,7 +42,7 @@ struct ImmediateMeleeAttack {
     hand: AttackHand,
     alternate_attack: bool,
     attacking: bool,
-    reach: f32,
+    reach: SignedLength,
     preferred_style: MeleeAttackStyle,
     start: AnimationSampleTick,
 }
@@ -85,7 +85,7 @@ impl PreparedMeleeAttack {
         viewer: &TacticalPlayerViewer,
         targeting: &CombatTargeting,
         config: &TacticalCombatConfig,
-    ) -> AnimationValueResult<Option<Self>> {
+    ) -> MeleeGeometryResult<Option<Self>> {
         let Ok(character) = viewer.get_for_attack(request.entity, request.hand) else {
             return Ok(None);
         };
@@ -119,13 +119,14 @@ impl PreparedMeleeAttack {
         config: &TacticalCombatConfig,
         windup: AnimationElapsed,
         recovery: AnimationElapsed,
-    ) -> AnimationValueResult<Self> {
-        let range = targeting.melee_acquisition_range(request.entity, request.reach, config);
-        let (target, position, direction) = targeting.acquire(
+    ) -> MeleeGeometryResult<Self> {
+        let range = targeting.melee_acquisition_range(request.entity, request.reach, config)?;
+        let acquired = targeting.acquire(
             request.entity,
             range,
             Some(MeleeAcquisitionTiming::try_from(&config.movement)?),
         )?;
+        let target = acquired.target;
         let arrival = target.map_or(MeleeLungeArrival::NotNeeded, |target| target.arrival);
         let contact = arrival.contact_timing(windup)?;
         let timing = MeleePlaybackTiming::delayed(
@@ -141,9 +142,9 @@ impl PreparedMeleeAttack {
             timing.contact_from_input_seconds,
             request.reach,
             false,
-            target,
-            position,
-            direction,
+            acquired.target,
+            acquired.position,
+            acquired.direction,
         )?;
         Ok(Self {
             spec: request.spec,
@@ -160,7 +161,7 @@ impl PredictedRangedAttack {
         cmd: &mut Commands,
         skeleton: &mut SkeletonState,
         targeting: &CombatTargeting,
-    ) -> AnimationValueResult<()> {
+    ) -> MeleeGeometryResult<()> {
         let Self {
             entity,
             reach,
@@ -170,9 +171,9 @@ impl PredictedRangedAttack {
             start,
         } = self;
         let spec = AttackSpec { curve, ..default() };
-        let (target, position, direction) = targeting.acquire(entity, (reach, 0.0), None)?;
+        let acquired = targeting.acquire(entity, AttackAcquisitionRange { reach, maximum_travel: SignedLength::ZERO }, None)?;
         let attack_state =
-            AttackState::new(windup, windup, reach, true, target, position, direction)?;
+            AttackState::new(windup, windup, reach, true, acquired.target, acquired.position, acquired.direction)?;
         let contact = start.saturating_add(animation_ticks(windup)?);
         let end = start.saturating_add(animation_ticks(windup.checked_add(recovery)?)?);
         if skeleton
@@ -183,7 +184,7 @@ impl PredictedRangedAttack {
         }
         cmd.entity(entity).insert(attack_state);
         cmd.client_trigger(RangedActionRequest::Start {
-            target: target.map(|target| target.body),
+            target: acquired.target.map(|target| target.body),
         });
         Ok(())
     }
@@ -197,7 +198,7 @@ impl ImmediateMeleeAttack {
         viewer: &TacticalPlayerViewer,
         targeting: &CombatTargeting,
         combat_config: &TacticalCombatConfig,
-    ) -> AnimationValueResult<()> {
+    ) -> MeleeGeometryResult<()> {
         let Self {
             entity,
             hand,
@@ -254,7 +255,7 @@ impl ImmediateMeleeAttack {
         } = prepared;
         match skeleton.begin_attack_timed(spec, timing.start, timing.contact, timing.end) {
             Ok(()) => {}
-            Err(ActionTransitionError::InvalidAnimationValue(error)) => return Err(error),
+            Err(ActionTransitionError::InvalidAnimationValue(error)) => return Err(error.into()),
             Err(ActionTransitionError::ActionBusy) => {
                 cmd.entity(entity).insert(BufferedMeleeAttack {
                     family: strike_family,
@@ -286,7 +287,7 @@ pub(super) fn try_start_attack(
     time: &Time,
     combat_config: &TacticalCombatConfig,
     targeting: &CombatTargeting,
-) -> AnimationValueResult<()> {
+) -> MeleeGeometryResult<()> {
     let AttackStartRequest {
         entity,
         alternate_attack,
@@ -366,7 +367,7 @@ pub(super) fn flush_buffered_melee_attacks(
     targeting: CombatTargeting,
 ) {
     for (entity, buffered, mut skeleton) in &mut characters {
-        let attempt = (|| -> AnimationValueResult<()> {
+        let attempt = (|| -> MeleeGeometryResult<()> {
             let Some(spec) = (match buffered.hand {
                 AttackHand::Main => skeleton.select_main_attack(buffered.family),
                 AttackHand::Offhand => skeleton.select_offhand_attack(buffered.family),

@@ -7,6 +7,8 @@ use crate::unit_interval::FractionError;
 #[derive(Debug, thiserror::Error)]
 pub enum BattleResolutionError {
     #[error(transparent)]
+    Geometry(#[from] fabelgeist_geometry::GeometryError),
+    #[error(transparent)]
     Speed(#[from] SpeedError),
     #[error(transparent)]
     Timing(#[from] ElapsedError),

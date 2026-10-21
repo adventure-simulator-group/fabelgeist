@@ -732,7 +732,7 @@ fn procedure_check(
     actor_id: u64,
     patient_id: u64,
     procedure: SurgeryProcedure,
-) -> Result<f32, String> {
+) -> crate::StrategicOperationResult<f32> {
     let attributes = ctx
         .db
         .character_attributes()
@@ -758,7 +758,7 @@ fn procedure_check(
         .character_id()
         .find(actor_id)
         .ok_or("Character stats not found")?;
-    let equipment = crate::capability::StrategicEquipment::load(ctx, actor_id);
+    let equipment = crate::capability::StrategicEquipment::load(ctx, actor_id)?;
     let check = |skill| {
         skills.skill_check_by_parts(
             skill,
@@ -905,7 +905,7 @@ pub fn treat_limb(
     action_id: String,
     context_ref: Option<String>,
     expected_membership_revision: Option<u32>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Treatment action ID is invalid".into());
@@ -998,7 +998,7 @@ pub fn treat_limb(
     if skill < dc {
         return Err(format!(
             "Insufficient procedure skill: this procedure requires {dc:.1}"
-        ));
+        ).into());
     }
     if procedure == SurgeryProcedure::Stitch && item_quantity(ctx, actor_id, "surgery_kit") == 0 {
         return Err("Stitching requires a surgery kit".into());

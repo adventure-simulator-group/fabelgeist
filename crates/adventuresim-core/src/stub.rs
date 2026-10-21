@@ -5,6 +5,7 @@
 //! In production code, you would implement the traits for your own types.
 #![doc(hidden)]
 
+use fabelgeist_geometry::SignedLength;
 use crate::prelude::*;
 
 #[derive(Default, Debug)]
@@ -90,8 +91,11 @@ impl PlayerEquipment for StubEquipment {
         None
     }
 
-    fn weapon_reach(&self) -> f32 {
-        1.0
+    fn weapon_reach(&self) -> SignedLength {
+        match SignedLength::from_metres(1.0) {
+            Ok(reach) => reach,
+            Err(_) => unreachable!("authored stub reach is finite"),
+        }
     }
 
     fn weapon_balance(&self) -> f32 {

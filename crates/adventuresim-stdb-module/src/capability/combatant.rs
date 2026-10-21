@@ -8,7 +8,7 @@ pub(crate) fn load_combatant(
     strategic_incapacitation: f32,
     strategic_pain: f32,
     strategic_blood_loss: f32,
-) -> Result<Combatant, String> {
+) -> StrategicOperationResult<Combatant> {
     let attributes = ctx
         .db
         .character_attributes()
@@ -41,10 +41,8 @@ pub(crate) fn load_combatant(
         .find(character_id)
         .ok_or("Character condition not found")?;
     let fatigue = fatigue_incapacitation(stats.fatigue_by_parts(&attributes, &limbs));
-    let equipment = StrategicEquipment::load(ctx, character_id);
-    let combat_equipment = equipment
-        .combat_equipment()
-        .map_err(|error| error.to_string())?;
+    let equipment = StrategicEquipment::load(ctx, character_id)?;
+    let combat_equipment = equipment.combat_equipment();
     let (starting_incapacitation, starting_blood_fraction) = derive_combat_starting_condition(
         strategic_incapacitation,
         strategic_pain,

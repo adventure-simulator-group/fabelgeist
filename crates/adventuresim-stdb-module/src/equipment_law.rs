@@ -64,7 +64,7 @@ pub fn require_item_legal(
 pub fn enforce_equipment_compliance(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<Vec<u64>, String> {
+) -> crate::StrategicOperationResult<Vec<u64>> {
     let equipped = crate::character::equipped_wearable_ids(ctx, character_id);
     let mut removed = Vec::new();
     for inventory_item_id in equipped {

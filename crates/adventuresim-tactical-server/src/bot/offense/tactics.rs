@@ -21,22 +21,22 @@ pub(super) fn committed_threat_recognition_probability(
 }
 
 pub(super) fn below_preferred_long_weapon_measure(
-    reach_metres: f32,
-    preferred_measure_metres: f32,
-    center_distance_metres: f32,
-    long_weapon_threshold_metres: f32,
+    reach_metres: SignedLength,
+    preferred_measure_metres: SignedLength,
+    center_distance_metres: SignedLength,
+    long_weapon_threshold_metres: SignedLength,
 ) -> bool {
-    let preferred_center_distance_metres = preferred_measure_metres
+    let preferred_center_distance_metres = preferred_measure_metres.metres()
         + adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES;
-    reach_metres >= long_weapon_threshold_metres
-        && center_distance_metres < preferred_center_distance_metres
+    reach_metres.metres() >= long_weapon_threshold_metres.metres()
+        && center_distance_metres.metres() < preferred_center_distance_metres
 }
 
 pub(super) fn long_weapon_windup_movement(
-    reach_metres: f32,
-    preferred_measure_metres: f32,
-    center_distance_metres: f32,
-    long_weapon_threshold_metres: f32,
+    reach_metres: SignedLength,
+    preferred_measure_metres: SignedLength,
+    center_distance_metres: SignedLength,
+    long_weapon_threshold_metres: SignedLength,
 ) -> Option<Vec2> {
     below_preferred_long_weapon_measure(
         reach_metres,

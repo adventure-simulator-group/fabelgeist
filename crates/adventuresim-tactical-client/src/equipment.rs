@@ -62,7 +62,10 @@ mod skin;
 mod slot_selection;
 pub(crate) mod visuals;
 
-const PICKUP_RANGE_M: f32 = 2.0;
+const PICKUP_RANGE_M: fabelgeist_geometry::SignedLength = match fabelgeist_geometry::SignedLength::from_metres(2.0) {
+    Ok(value) => value,
+    Err(_) => panic!("authored pickup range must be finite"),
+};
 
 const INVALID_FLASH_SECS: f32 = 0.18;
 
@@ -1450,9 +1453,9 @@ mod tests {
 
     fn valid_physical() -> TacticalEquipmentPhysical {
         TacticalEquipmentPhysical {
-            dimensions_m: Vec3::new(0.25, 1.4, 0.08),
-            grip_to_tip_m: 1.15,
-            striking_head_length_m: 0.25,
+            dimensions_m: fabelgeist_geometry::CuboidDimensions::from_metres(Vec3::new(0.25, 1.4, 0.08)).unwrap(),
+            grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(1.15).unwrap(),
+            striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(0.25).unwrap(),
             anchor_offset_m: Vec3::new(0.0, -0.45, 0.0),
         }
     }

@@ -7,9 +7,12 @@ pub(crate) use clock::{CombatDuration, CombatInstant};
 
 use adventuresim_tactical_core::prelude::{BodyPart, MeleeAttackKey, melee_interaction_range};
 use bevy::prelude::*;
+use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::scene_coordinates::Scene;
+use fabelgeist_geometry::SignedLength;
 
 use super::{
-    MeleeIntentFacts, MeleeIntentRejection, RangedIntentFacts, RangedIntentRejection,
+    MeleeIntentError, MeleeIntentFacts, MeleeIntentRejection, RangedIntentFacts, RangedIntentRejection,
     TacticalCombatSide,
 };
 
@@ -45,8 +48,8 @@ pub(super) struct ValidatedMeleeAttack {
     target: Entity,
     pub(super) body_part: BodyPart,
     reported_precision: ReportedPrecision,
-    attacker_position: Vec3,
-    target_position: Vec3,
+    attacker_position: Position<Scene>,
+    target_position: Position<Scene>,
     attacker_yaw: f32,
     target_yaw: f32,
 }
@@ -58,10 +61,10 @@ impl ValidatedMeleeAttack {
     pub(super) fn target(&self) -> Entity {
         self.target
     }
-    pub(super) fn attacker_position(&self) -> Vec3 {
+    pub(super) fn attacker_position(&self) -> Position<Scene> {
         self.attacker_position
     }
-    pub(super) fn target_position(&self) -> Vec3 {
+    pub(super) fn target_position(&self) -> Position<Scene> {
         self.target_position
     }
     pub(super) fn reported_precision(&self) -> ReportedPrecision {
@@ -109,7 +112,7 @@ pub(super) enum ValidatedRangedImpact {
     Hit {
         target: Entity,
         body_part: BodyPart,
-        target_position: Vec3,
+        target_position: Position<Scene>,
         target_yaw: f32,
     },
 }
@@ -118,7 +121,7 @@ pub(super) enum ValidatedRangedImpact {
 pub(super) struct ValidatedRangedShot {
     attacker: Entity,
     attacker_side: TacticalCombatSide,
-    attacker_position: Vec3,
+    attacker_position: Position<Scene>,
     attacker_yaw: f32,
     reported_precision: ReportedPrecision,
     impact: ValidatedRangedImpact,
@@ -128,7 +131,7 @@ impl ValidatedRangedShot {
     pub(super) fn attacker(&self) -> Entity {
         self.attacker
     }
-    pub(super) fn attacker_position(&self) -> Vec3 {
+    pub(super) fn attacker_position(&self) -> Position<Scene> {
         self.attacker_position
     }
     pub(super) fn impact(&self) -> ValidatedRangedImpact {
@@ -172,7 +175,7 @@ struct ActiveMeleeAttack {
     started_at: CombatInstant,
     reported_precision: ReportedPrecision,
     power_multiplier: f32,
-    scheduled_measure_metres: f32,
+    scheduled_measure_metres: SignedLength,
 }
 
 #[derive(Component, Debug, Default, Clone)]
@@ -206,7 +209,7 @@ impl MeleeAttackAuthority {
         now: CombatInstant,
         windup: CombatDuration,
         network_allowance: CombatDuration,
-        scheduled_measure_metres: f32,
+        scheduled_measure_metres: SignedLength,
         reported_precision: ReportedPrecision,
     ) {
         let ready_at = now + windup;
@@ -234,7 +237,7 @@ impl MeleeAttackAuthority {
         self.active.as_ref().map(|attack| attack.started_at)
     }
 
-    pub(crate) fn scheduled_measure_metres(&self) -> Option<f32> {
+    pub(crate) fn scheduled_measure_metres(&self) -> Option<SignedLength> {
         self.active
             .as_ref()
             .map(|attack| attack.scheduled_measure_metres)
@@ -397,7 +400,7 @@ mod tests {
             start,
             SECOND,
             SECOND,
-            1.0,
+            SignedLength::from_metres(1.0).unwrap(),
             ReportedPrecision::new(0.75).unwrap(),
         );
         assert!(!authority.permits(target, BodyPart::Chest, start));
@@ -417,7 +420,7 @@ mod tests {
             CombatInstant::from_duration(Duration::ZERO),
             SECOND,
             SECOND,
-            1.0,
+            SignedLength::from_metres(1.0).unwrap(),
             ReportedPrecision::new(0.75).unwrap(),
         );
         assert_eq!(authority.complete_miss(), Some(MeleeAttackKey::from(42)));
@@ -487,7 +490,7 @@ mod tests {
             start,
             SECOND,
             SECOND,
-            1.0,
+            SignedLength::from_metres(1.0).unwrap(),
             ReportedPrecision::new(0.75).unwrap(),
         );
         assert!(
@@ -530,7 +533,7 @@ mod tests {
             start,
             SECOND,
             SECOND,
-            1.0,
+            SignedLength::from_metres(1.0).unwrap(),
             ReportedPrecision::new(0.75).unwrap(),
         );
         let TransformedMeleeAttack {
@@ -546,8 +549,8 @@ mod tests {
                     target,
                     body_part: BodyPart::Chest,
                     reported_precision: ReportedPrecision::new(0.75).unwrap(),
-                    attacker_position: Vec3::ZERO,
-                    target_position: Vec3::X,
+                    attacker_position: Position::ORIGIN,
+                    target_position: Position::from_metres(Vec3::X).unwrap(),
                     attacker_yaw: 0.0,
                     target_yaw: 0.0,
                 },
@@ -574,7 +577,7 @@ pub(super) fn validate_ranged_intent(
     if attacker_incapacitated {
         return Err(RangedIntentRejection::Incapacitated);
     }
-    if !facts.weapon_is_ranged || !facts.weapon_range.is_finite() || facts.weapon_range <= 0.0 {
+    if !facts.weapon_is_ranged || facts.weapon_range.metres() <= 0.0 {
         return Err(RangedIntentRejection::NotRanged);
     }
     if facts.target.is_some() {
@@ -591,7 +594,7 @@ pub(super) fn validate_ranged_intent(
             return Err(RangedIntentRejection::Incapacitated);
         }
         if !facts.separation.is_some_and(|distance| {
-            distance.is_finite() && distance <= facts.weapon_range + facts.range_latency_tolerance
+            distance.metres() <= facts.weapon_range.metres() + facts.range_latency_tolerance.metres()
         }) {
             return Err(RangedIntentRejection::OutOfRange);
         }
@@ -623,43 +626,38 @@ pub(super) fn validate_ranged_intent(
 
 pub(super) fn validate_melee_intent_cheap(
     facts: MeleeIntentFacts,
-) -> Result<ValidatedMeleeAttack, MeleeIntentRejection> {
+) -> Result<ValidatedMeleeAttack, MeleeIntentError> {
     if facts.attacker == facts.target {
-        return Err(MeleeIntentRejection::SelfTarget);
+        return Err(MeleeIntentRejection::SelfTarget.into());
     }
     let (Some(attacker_side), Some(target_side)) = (facts.attacker_side, facts.target_side) else {
-        return Err(MeleeIntentRejection::MissingSide);
+        return Err(MeleeIntentRejection::MissingSide.into());
     };
     if attacker_side == target_side {
-        return Err(MeleeIntentRejection::FriendlyTarget);
+        return Err(MeleeIntentRejection::FriendlyTarget.into());
     }
     let (Some(attacker_incapacitated), Some(target_incapacitated)) =
         (facts.attacker_incapacitated, facts.target_incapacitated)
     else {
-        return Err(MeleeIntentRejection::MissingCombatState);
+        return Err(MeleeIntentRejection::MissingCombatState.into());
     };
     if attacker_incapacitated || target_incapacitated {
-        return Err(MeleeIntentRejection::Incapacitated);
+        return Err(MeleeIntentRejection::Incapacitated.into());
     }
     if !facts.attack_capability.is_available() {
-        return Err(MeleeIntentRejection::DisabledWeaponArm);
+        return Err(MeleeIntentRejection::DisabledWeaponArm.into());
     }
-    if !facts.arm_reach.is_finite()
-        || facts.arm_reach <= 0.0
-        || !facts.weapon_reach.is_finite()
-        || facts.weapon_reach < 0.0
-    {
-        return Err(MeleeIntentRejection::Unarmed);
+    if facts.arm_reach.metres() <= 0.0 || facts.weapon_reach.metres() < 0.0 {
+        return Err(MeleeIntentRejection::Unarmed.into());
     }
-    if !facts.separation.is_finite()
-        || facts.separation
-            > melee_interaction_range(facts.arm_reach, facts.weapon_reach)
-                + facts.range_latency_tolerance
+    if facts.separation.metres()
+        > melee_interaction_range(facts.arm_reach, facts.weapon_reach)?.metres()
+            + facts.range_latency_tolerance.metres()
     {
-        return Err(MeleeIntentRejection::OutOfRange);
+        return Err(MeleeIntentRejection::OutOfRange.into());
     }
     if !facts.authority_permits {
-        return Err(MeleeIntentRejection::Windup);
+        return Err(MeleeIntentRejection::Windup.into());
     }
     Ok(ValidatedMeleeAttack {
         attacker: facts.attacker,

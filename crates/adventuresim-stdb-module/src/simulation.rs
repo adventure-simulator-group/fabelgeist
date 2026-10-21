@@ -322,7 +322,7 @@ pub fn kill_simulation_character(
     ctx: &ReducerContext,
     nonce: String,
     character_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     owned_run(ctx, &nonce)?;
     ctx.db
         .character()
@@ -356,7 +356,7 @@ pub fn configure_simulation_character(
     skills: CharacterSkills,
     downtime: ScheduleAllocation,
     personality: crate::personality::CharacterPersonality,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let run = owned_run(ctx, &nonce)?;
     let mut character = ctx
         .db

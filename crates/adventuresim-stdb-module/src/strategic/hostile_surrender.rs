@@ -172,7 +172,7 @@ struct SurrenderRequest {
 fn resolve_hostile_surrender(
     ctx: &ReducerContext,
     request: SurrenderRequest,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, request.actor_id)?;
     if request.action_id.is_empty() || request.action_id.len() > 160 {
         return Err("Hostile surrender action ID is invalid".into());
@@ -329,7 +329,7 @@ pub fn demand_hostile_surrender(
     context_ref: String,
     expected_revision: u32,
     action_id: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     resolve_hostile_surrender(
         ctx,
         SurrenderRequest {
@@ -359,7 +359,7 @@ pub fn answer_hostile_surrender_offer(
     expected_revision: u32,
     accept: bool,
     action_id: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     resolve_hostile_surrender(
         ctx,
         SurrenderRequest {

@@ -234,13 +234,13 @@ fn project_definition(definition: &adventuresim_core::item_catalog::ItemDefiniti
             item.kind = CatalogItemKind::Weapon;
             item.slot = *authored_slot;
             item.preferred_melee_style = *preferred_attack;
-            item.reach = *reach_m;
+            item.reach = reach_m.metres();
             item.precision = *precision;
             item.moment_of_inertia_kg_m2 = *moment_of_inertia_kg_m2;
             let grip_to_tip_m = definition
                 .equipment
                 .as_ref()
-                .map_or(0.0, |equipment| equipment.physical.grip_to_tip_m);
+                .map_or(fabelgeist_geometry::SignedLength::ZERO, |equipment| equipment.physical.grip_to_tip_m);
             item.balance = adventuresim_core::equipment::weapon_balance_from_moment(
                 *moment_of_inertia_kg_m2,
                 definition.weight_kg,
@@ -348,12 +348,12 @@ pub(crate) fn requires_stable_object(
         })
 }
 
-pub(crate) fn add_inventory_item_checked(
+pub fn add_inventory_item(
     ctx: &ReducerContext,
     character_id: u64,
     item_id: &str,
     quantity: u32,
-) -> Result<Option<u64>, String> {
+) -> crate::StrategicOperationResult<Option<u64>> {
     if quantity == 0 {
         return Ok(None);
     }
@@ -402,7 +402,7 @@ pub(crate) fn add_inventory_item_checked(
         first.get_or_insert(item.id);
     }
     if food {
-        let _ = crate::capability::refresh_character_capability(ctx, character_id);
+        crate::capability::refresh_character_capability(ctx, character_id)?;
     }
     Ok(first)
 }
@@ -415,26 +415,15 @@ pub(crate) fn add_foraged_inventory_item_checked_rows(
     character_id: u64,
     item_id: &str,
     quantity: u32,
-) -> Result<Vec<u64>, String> {
+) -> crate::StrategicOperationResult<Vec<u64>> {
     let mut rows = Vec::with_capacity(quantity as usize);
     for _ in 0..quantity {
         rows.push(
-            add_inventory_item_checked(ctx, character_id, item_id, 1)?
+            add_inventory_item(ctx, character_id, item_id, 1)?
                 .ok_or("Foraged inventory insertion returned no row")?,
         );
     }
     Ok(rows)
-}
-
-pub fn add_inventory_item(
-    ctx: &ReducerContext,
-    character_id: u64,
-    item_id: &str,
-    quantity: u32,
-) -> Option<u64> {
-    add_inventory_item_checked(ctx, character_id, item_id, quantity)
-        .ok()
-        .flatten()
 }
 
 pub fn is_currency(ctx: &ReducerContext, item_id: &str) -> bool {
@@ -520,7 +509,7 @@ pub fn credit_personal_currency(
     character_id: u64,
     settlement_id: &str,
     amount: u32,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if amount == 0 {
         return Ok(());
     }
@@ -536,10 +525,10 @@ pub fn credit_personal_currency(
             stack.quantity = quantity;
             ctx.db.inventory_item().id().update(stack);
         } else {
-            add_inventory_item(ctx, character_id, &currency_id, amount);
+            add_inventory_item(ctx, character_id, &currency_id, amount)?;
         }
     } else {
-        add_inventory_item(ctx, character_id, &currency_id, amount);
+        add_inventory_item(ctx, character_id, &currency_id, amount)?;
     }
     Ok(())
 }
@@ -566,7 +555,7 @@ pub fn change_inventory_item(
     character_id: u64,
     item_id: &str,
     by_quantity: i32,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::character::require_living_character(ctx, character_id)?;
     let durable = ctx
         .db
@@ -578,7 +567,7 @@ pub fn change_inventory_item(
         let (add, remove) = adventuresim_core::durability::bounded_durable_change(by_quantity)
             .map_err(str::to_owned)?;
         if add > 0 {
-            add_inventory_item(ctx, character_id, item_id, add);
+            add_inventory_item(ctx, character_id, item_id, add)?;
             return Ok(());
         }
         if remove > 0 {
@@ -635,7 +624,7 @@ pub fn change_inventory_item(
     let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
     if measured {
         if by_quantity > 0 {
-            add_inventory_item(ctx, character_id, item_id, by_quantity as u32)
+            add_inventory_item(ctx, character_id, item_id, by_quantity as u32)?
                 .ok_or("food definition not found")?;
             return Ok(());
         }
@@ -688,10 +677,10 @@ pub fn change_inventory_item(
                 item.quantity = quantity;
                 ctx.db.inventory_item().id().update(item);
             } else {
-                add_inventory_item(ctx, character_id, item_id, addition);
+                add_inventory_item(ctx, character_id, item_id, addition)?;
             }
         } else {
-            add_inventory_item(ctx, character_id, item_id, addition);
+            add_inventory_item(ctx, character_id, item_id, addition)?;
         }
     } else if by_quantity < 0 {
         let available = items
@@ -742,7 +731,7 @@ mod tests {
             "the standard food catalog must be the sole cooked-meal item seed"
         );
         let checked = source
-            .split("pub(crate) fn add_inventory_item_checked")
+            .split("pub fn add_inventory_item")
             .nth(1)
             .and_then(|tail| tail.split("pub fn add_inventory_item").next())
             .expect("checked inventory insertion");
@@ -758,7 +747,7 @@ mod tests {
     fn kind_aware_insertion_keeps_ingredients_fungible_and_medication_individual() {
         let source = crate::production_source(include_str!("item.rs"));
         let checked = source
-            .split("pub(crate) fn add_inventory_item_checked")
+            .split("pub fn add_inventory_item")
             .nth(1)
             .and_then(|tail| tail.split("pub fn add_inventory_item").next())
             .expect("checked inventory insertion");
@@ -767,7 +756,7 @@ mod tests {
             .split("pub(crate) fn requires_stable_object")
             .nth(1)
             .and_then(|tail| {
-                tail.split("pub(crate) fn add_inventory_item_checked")
+                tail.split("pub fn add_inventory_item")
                     .next()
             })
             .expect("stable-object policy");
@@ -791,7 +780,7 @@ mod tests {
             .and_then(|tail| tail.split("pub fn add_inventory_item").next())
             .expect("foraging-specific insertion helper");
         assert!(helper.contains("for _ in 0..quantity"));
-        assert!(helper.contains("add_inventory_item_checked(ctx, character_id, item_id, 1)"));
+        assert!(helper.contains("add_inventory_item(ctx, character_id, item_id, 1)"));
     }
 
     #[test]

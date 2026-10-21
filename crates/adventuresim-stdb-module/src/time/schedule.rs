@@ -195,8 +195,8 @@ fn effective_organization_schedule(
 fn activity_training_profile(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<adventuresim_core::strategic_schedule::ActivityTrainingProfile, String> {
-    let equipment = StrategicEquipment::load(ctx, character_id);
+) -> crate::StrategicOperationResult<adventuresim_core::strategic_schedule::ActivityTrainingProfile> {
+    let equipment = StrategicEquipment::load(ctx, character_id)?;
     Ok(
         adventuresim_core::strategic_schedule::ActivityTrainingProfile {
             combat: equipment.combat_training_profile(),

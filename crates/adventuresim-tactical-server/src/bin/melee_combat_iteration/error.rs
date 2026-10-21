@@ -19,6 +19,10 @@ pub(crate) enum IterationError {
     #[error(transparent)]
     Preparation(#[from] MeleeIterationError),
     #[error(transparent)]
+    Geometry(#[from] fabelgeist_geometry::GeometryError),
+    #[error(transparent)]
+    Performance(#[from] adventuresim_core::unit_interval::FractionError),
+    #[error(transparent)]
     Measurement(#[from] AnimationValueError),
     #[error(transparent)]
     Statistics(#[from] MeasurementError),
@@ -59,4 +63,16 @@ pub(crate) enum ReportContractError {
     },
     #[error("unknown tactical victor {victor}")]
     UnknownTacticalVictor { victor: String },
+}
+
+impl From<adventuresim_tactical_core::combat::MeleeGeometryError> for IterationError {
+    fn from(error: adventuresim_tactical_core::combat::MeleeGeometryError) -> Self {
+        use adventuresim_tactical_core::combat::MeleeGeometryError;
+        match error {
+            MeleeGeometryError::Geometry(error) => Self::Geometry(error),
+            MeleeGeometryError::Animation(error) => Self::Measurement(error),
+            MeleeGeometryError::Timing(error) => Self::Timing(error),
+            MeleeGeometryError::Performance(error) => Self::Performance(error),
+        }
+    }
 }

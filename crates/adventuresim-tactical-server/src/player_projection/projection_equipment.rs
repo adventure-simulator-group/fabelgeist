@@ -4,41 +4,78 @@ use adventuresim_tactical_core::prelude::{
 };
 
 use super::tactical_covered_parts;
+use fabelgeist_geometry::{GeometryError, SignedLength};
+
+pub(crate) type EquipmentProjectionResult<T> = Result<T, EquipmentProjectionError>;
+
+#[derive(Debug, thiserror::Error)]
+pub(crate) enum EquipmentProjectionError {
+    #[error(transparent)]
+    Geometry(#[from] GeometryError),
+    #[error(transparent)]
+    Recipe(#[from] adventuresim_weapon_model::CodecError),
+    #[error("parametric weapon {item_id} has no recipe")]
+    MissingRecipe { item_id: String },
+    #[error("weapon generator version {found} differs from {expected}")]
+    GeneratorVersion { found: u16, expected: u16 },
+    #[error("weapon recipe catalogue identity differs from {item_id}")]
+    CatalogIdentity { item_id: String },
+    #[error("weapon recipe hash differs from the native observation")]
+    DesignHash,
+    #[error("weapon {item_id} has invalid derived properties: {errors:?}")]
+    DerivedProperties { item_id: String, errors: Vec<adventuresim_weapon_model::ValidationError> },
+    #[error("weapon {item_id} has invalid combat geometry")]
+    CombatGeometry { item_id: String },
+    #[error("weapon {item_id} has no authored equipment metadata")]
+    MissingEquipment { item_id: String },
+    #[error("weapon {item_id} has no authored striking material")]
+    MissingStrikingMaterial { item_id: String },
+}
+
 
 pub(super) fn projected_parametric_weapon(
     item: &ConnectedPlayerItem,
     parameters: adventuresim_core::combat::WeaponContactParameters,
-) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {
+) -> EquipmentProjectionResult<Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>> {
     let Some(appearance) = item.weapon_appearance.as_ref() else {
-        assert!(
-            adventuresim_weapon_model::default_design(&item.item.id).is_none(),
-            "strategic authority omitted a parametric weapon recipe"
-        );
-        return None;
+        if adventuresim_weapon_model::default_design(&item.item.id).is_some() {
+            return Err(EquipmentProjectionError::MissingRecipe { item_id: item.item.id.clone() });
+        }
+        return Ok(None);
     };
-    parametric_combat_geometry(&item.item.id, appearance, parameters)
+    parametric_combat_geometry(&item.item.id, appearance, parameters).map(Some)
 }
 
 pub(super) fn parametric_combat_geometry(
     item_id: &str,
     appearance: &adventuresim_stdb_client::ConnectedWeaponAppearance,
     parameters: adventuresim_core::combat::WeaponContactParameters,
-) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {
+) -> EquipmentProjectionResult<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {
     use adventuresim_weapon_model::{GENERATOR_VERSION, decode, derive_properties, design_hash};
-    assert_eq!(appearance.generator_version, GENERATOR_VERSION);
-    let design = decode(&appearance.recipe).expect("strategic authority sent a decodable recipe");
-    assert_eq!(design.catalog_id, item_id);
-    assert_eq!(design_hash(&design).0.as_slice(), appearance.design_hash);
-    let derived = derive_properties(&design).expect("strategic authority sent a valid recipe");
+    if appearance.generator_version != GENERATOR_VERSION {
+        return Err(EquipmentProjectionError::GeneratorVersion {
+            found: appearance.generator_version, expected: GENERATOR_VERSION,
+        });
+    }
+    let design = decode(&appearance.recipe)?;
+    if design.catalog_id != item_id {
+        return Err(EquipmentProjectionError::CatalogIdentity { item_id: item_id.to_owned() });
+    }
+    if design_hash(&design).0.as_slice() != appearance.design_hash {
+        return Err(EquipmentProjectionError::DesignHash);
+    }
+    let derived = derive_properties(&design).map_err(|errors| EquipmentProjectionError::DerivedProperties {
+        item_id: item_id.to_owned(), errors,
+    })?;
     adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
         derived.mass_kg,
-        derived.length_m,
-        derived.grip_to_tip_m,
-        derived.striking_head_length_m,
+        SignedLength::from_metres(derived.length_m)?,
+        SignedLength::from_metres(derived.grip_to_tip_m)?,
+        SignedLength::from_metres(derived.striking_head_length_m)?,
         derived.moment_of_inertia_kg_m2,
         derived.balance,
         parameters.precision_for_design(&design).value(),
-    )
+    ).ok_or_else(|| EquipmentProjectionError::CombatGeometry { item_id: item_id.to_owned() })
 }
 
 pub(super) fn projected_weapon_appearance(item: &ConnectedPlayerItem) -> Option<WeaponAppearance> {

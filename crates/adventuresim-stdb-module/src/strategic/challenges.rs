@@ -1468,7 +1468,7 @@ pub fn resolve_errantry_road_challenge(
     expected_revision: u32,
     choice: String,
     action_id: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Road challenge action ID is invalid".into());

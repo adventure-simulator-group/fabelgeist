@@ -10,7 +10,7 @@ pub fn seed_simulation_disease(
     nonce: String,
     character_id: u64,
     disease_id: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     let run = owned_run(ctx, &nonce)?;
     let sim = ctx
         .db

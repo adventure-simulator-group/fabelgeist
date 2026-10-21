@@ -358,7 +358,7 @@ pub(crate) fn materialize_context_roster(
     context_id: &str,
     location_id: &str,
     count: u32,
-) -> Result<Vec<u64>, String> {
+) -> crate::StrategicOperationResult<Vec<u64>> {
     let entered_at = crate::time::refresh_clock(ctx)?;
     let expected = count.min(u32::from(u16::MAX));
     let existing = context_members(ctx, context_id);
@@ -500,7 +500,7 @@ pub(crate) fn materialize_road_encounter_cast(
     context_id: &str,
     definition: &adventuresim_core::road_encounter_catalog::EncounterDefinition,
     absolute_minute: StrategicMinute,
-) -> Result<Vec<u64>, String> {
+) -> crate::StrategicOperationResult<Vec<u64>> {
     use adventuresim_core::road_encounter_catalog::SpeakerBacking;
 
     let mut materialized = Vec::new();
@@ -969,7 +969,7 @@ pub fn contact_context_character(
     contact_ref: String,
     expected_revision: u32,
     action_id: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Contextual contact action ID is invalid".into());

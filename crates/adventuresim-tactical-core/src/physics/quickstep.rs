@@ -28,8 +28,8 @@ impl QuickstepPush {
         &mut self,
         start_tick: crate::animation::AnimationSampleTick,
         direction: Vec2,
-        orientation: Quat,
-        origin: Vec3,
+        orientation: RigidRotation,
+        origin: Position<Scene>,
     ) {
         self.start_tick = start_tick;
         self.direction = direction.normalize_or_zero();

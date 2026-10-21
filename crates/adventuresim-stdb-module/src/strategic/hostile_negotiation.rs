@@ -524,7 +524,7 @@ pub fn negotiate_hostile_withdrawal(
     context_ref: String,
     expected_revision: u32,
     action_id: String,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, actor_id)?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Hostile negotiation action ID is invalid".into());

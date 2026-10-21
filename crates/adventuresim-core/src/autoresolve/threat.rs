@@ -1,11 +1,14 @@
 use super::*;
 use crate::bestiary::{AttackStyle, Protection, RigTopology, ThreatId, UnknownThreatId};
 use crate::elapsed::ElapsedError;
+use fabelgeist_geometry::SignedLength;
 
 pub type AuthoredThreatResult<T> = Result<T, AuthoredThreatError>;
 
 #[derive(Clone, Debug, PartialEq, Eq, thiserror::Error)]
 pub enum AuthoredThreatError {
+    #[error(transparent)]
+    Geometry(#[from] fabelgeist_geometry::GeometryError),
     #[error("Unknown threat ID: {enemy_type}")]
     UnknownThreat {
         enemy_type: String,
@@ -103,7 +106,7 @@ fn threat_skills(training: f32, ranged: bool, protection: Protection, morale: u8
     }
 }
 
-fn threat_weapon(profile: crate::bestiary::CombatProfile) -> ElapsedResult<CombatWeapon> {
+fn threat_weapon(profile: crate::bestiary::CombatProfile) -> AuthoredThreatResult<CombatWeapon> {
     Ok(CombatWeapon {
         skills: if profile.ranged {
             crate::equipment::WeaponSkillDistribution {
@@ -136,10 +139,10 @@ fn threat_weapon(profile: crate::bestiary::CombatProfile) -> ElapsedResult<Comba
         } else {
             1.5
         },
-        melee_reach: if profile.ranged { 0.0 } else { 0.8 },
-        grip_to_tip_m: 0.8,
-        total_length_m: 0.8,
-        ranged_range: if profile.ranged { 20.0 } else { 0.0 },
+        melee_reach: SignedLength::from_metres(if profile.ranged { 0.0 } else { 0.8 })?,
+        grip_to_tip_m: SignedLength::from_metres(0.8)?,
+        total_length_m: SignedLength::from_metres(0.8)?,
+        ranged_range: SignedLength::from_metres(if profile.ranged { 20.0 } else { 0.0 })?,
         attack_interval_seconds: AnimationElapsed::from_seconds(if profile.ranged {
             1.0
         } else {

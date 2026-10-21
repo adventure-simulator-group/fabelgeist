@@ -585,9 +585,10 @@ mod tests {
             panic!("fixture item must be a weapon")
         };
         let equipment = definition.equipment.as_ref().unwrap();
-        let [width, total_length_m, depth] = equipment.physical.dimensions_m;
+        let dimensions = equipment.physical.dimensions_m;
+        let total_length_m = dimensions.y_length();
         let grip_to_tip_m = equipment.physical.grip_to_tip_m;
-        let striking_head_length_m = width.max(depth);
+        let striking_head_length_m = dimensions.x_length().max(dimensions.z_length());
         let timing = adventuresim_core::equipment::melee_attack_timing(
             preferred_attack,
             moment_of_inertia_kg_m2,

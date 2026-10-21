@@ -99,8 +99,8 @@ fn simultaneous_contact_evidence(
     let mut enemies = vec![hammer.combatant.clone()];
     allies[0].melee_engagement_target = Some(enemies[0].id);
     enemies[0].melee_engagement_target = Some(allies[0].id);
-    allies[0].melee_engagement_distance_metres = 0.4;
-    enemies[0].melee_engagement_distance_metres = 0.4;
+    allies[0].melee_engagement_distance_metres = SignedLength::from_metres(0.4)?;
+    enemies[0].melee_engagement_distance_metres = SignedLength::from_metres(0.4)?;
     let contact = BattleTime::from_elapsed_since_start(
         crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS.melee_windup_seconds,
     );

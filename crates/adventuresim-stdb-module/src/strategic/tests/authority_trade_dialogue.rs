@@ -562,7 +562,7 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
         "settlement_allowlist",
         "inventory_food_definition(Some(item.kind), item_id)?",
         "add_to_party_inventory_checked(",
-        "add_inventory_item_checked(",
+        "add_inventory_item(",
     ] {
         assert!(
             trade.contains(authority_check),

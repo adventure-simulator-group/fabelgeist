@@ -581,8 +581,8 @@ mod tests {
     fn shorter_reach_combatants_land_contacts_across_bounded_property_seeds() {
         let (john, opponents) = melee_iteration_roster().unwrap();
         for opponent in opponents {
-            let john_reach = john.combatant.equipment.weapon_reach();
-            let opponent_reach = opponent.combatant.equipment.weapon_reach();
+            let john_reach = john.combatant.equipment.weapon_reach().metres();
+            let opponent_reach = opponent.combatant.equipment.weapon_reach().metres();
             if (john_reach - opponent_reach) == 0.0 {
                 continue;
             }
@@ -731,7 +731,7 @@ mod tests {
                     surface_coordinate: 0.2,
                     armor_surface: Some(surface),
                 },
-                MeleeContactAtTime::intended(0.0),
+                MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
                 DefenderResponse::None,
                 &defender.skills,
                 &defender.attributes,
@@ -842,7 +842,7 @@ mod tests {
                 .is_empty()
         );
         assert!(evidence.all_weapon_contact_bands.iter().all(|contact| {
-            contact.center_separation_metres >= HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES
+            contact.center_separation_metres.metres() >= HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES
                 && (contact.transformed_energy_joules
                     - contact.incident_energy_joules * contact.energy_fraction)
                     .abs()

@@ -28,7 +28,7 @@ const GALLERY_ROAD_BASE: usize = GALLERY_PUZZLE_BASE + GALLERY_PUZZLE_KINDS.len(
 pub(crate) fn materialize_gallery_item(
     ctx: &ReducerContext,
     index: usize,
-) -> StrategicCombatResult<bool> {
+) -> StrategicOperationResult<bool> {
     match index {
         0 => materialize_static_scenarios(ctx)?,
         1 => materialize_autopsy_scenario(ctx)?,
@@ -113,7 +113,7 @@ pub(crate) fn validate_gallery_postcondition(ctx: &ReducerContext) -> Result<(),
 
 pub(crate) fn materialize_development_scenario_gallery(
     ctx: &ReducerContext,
-) -> StrategicCombatResult<()> {
+) -> StrategicOperationResult<()> {
     let mut index = 0;
     while materialize_gallery_item(ctx, index)? {
         index += 1;
@@ -122,7 +122,7 @@ pub(crate) fn materialize_development_scenario_gallery(
     Ok(())
 }
 
-fn materialize_static_scenarios(ctx: &ReducerContext) -> StrategicCombatResult<()> {
+fn materialize_static_scenarios(ctx: &ReducerContext) -> StrategicOperationResult<()> {
     let static_scenarios = [
         (
             "health-disease-party",
@@ -195,7 +195,7 @@ fn materialize_static_scenarios(ctx: &ReducerContext) -> StrategicCombatResult<(
     Ok(())
 }
 
-fn materialize_autopsy_scenario(ctx: &ReducerContext) -> StrategicCombatResult<()> {
+fn materialize_autopsy_scenario(ctx: &ReducerContext) -> StrategicOperationResult<()> {
     const AUTOPSY_ID: u64 = 9_999_999_999_999_960;
     ensure_scenario_character(ctx, AUTOPSY_ID, "Anatomist Demo")?;
     crate::corpse::seed_autopsy_demo(ctx, AUTOPSY_ID)?;
@@ -211,7 +211,7 @@ fn materialize_autopsy_scenario(ctx: &ReducerContext) -> StrategicCombatResult<(
     Ok(())
 }
 
-fn materialize_outbreak_scenario(ctx: &ReducerContext) -> StrategicCombatResult<()> {
+fn materialize_outbreak_scenario(ctx: &ReducerContext) -> StrategicOperationResult<()> {
     const OUTBREAK_ID: u64 = 9_999_999_999_999_959;
     const OUTBREAK_SETTLEMENT: &str = "dev-scenario-outbreak";
     ensure_scenario_settlement(ctx, OUTBREAK_SETTLEMENT, "Outbreak Scenario Hamlet")?;
@@ -246,7 +246,7 @@ fn materialize_outbreak_scenario(ctx: &ReducerContext) -> StrategicCombatResult<
     Ok(())
 }
 
-fn materialize_recurring_threat_scenario(ctx: &ReducerContext) -> StrategicCombatResult<()> {
+fn materialize_recurring_threat_scenario(ctx: &ReducerContext) -> StrategicOperationResult<()> {
     const THREAT_ID: u64 = 9_999_999_999_999_958;
     const THREAT_SETTLEMENT: &str = "dev-scenario-recurring-threat";
     ensure_scenario_settlement(ctx, THREAT_SETTLEMENT, "Threat Scenario Hamlet")?;

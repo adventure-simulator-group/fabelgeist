@@ -100,7 +100,7 @@ pub(super) fn resolve_melee_turn(
         attack_timing,
         contact_batch,
         recorder,
-    );
+    )?;
     Ok(())
 }
 
@@ -124,7 +124,9 @@ fn record_melee_result(
     timing: ScheduledMeleeTiming,
     batch: MeleeContactBatch,
     recorder: &mut BattleRecorder,
-) {
+) -> BattleResolutionResult<()> {
+    let center_separation = SignedLength::from_metres(contact.actual_measure_metres.metres()
+        + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)?;
     let effect = apply_attack_result(attacker, defender, result, part);
     recorder.record_attack(
         "main",
@@ -146,8 +148,7 @@ fn record_melee_result(
             scheduled_contact_measure_metres: contact.scheduled_measure_metres,
             ideal_contact_measure_metres: contact.ideal_measure_metres,
             actual_contact_measure_metres: contact.actual_measure_metres,
-            actual_center_separation_metres: contact.actual_measure_metres
-                + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
+            actual_center_separation_metres: center_separation,
             contact_classification: contact.classification,
             contact_lever_arm_metres: contact.lever_arm_metres,
             contact_energy_fraction: contact.energy_fraction,
@@ -172,6 +173,7 @@ fn record_melee_result(
         }),
     );
     record_contact_timeline(recorder, attacker, defender.id, timing, batch);
+    Ok(())
 }
 
 fn record_contact_timeline(
@@ -207,7 +209,7 @@ fn record_contact_timeline(
 fn apply_defender_response(
     defender: &mut Combatant,
     attacker_id: u64,
-    engagement_distance: f32,
+    engagement_distance: SignedLength,
     scheduled_before: Option<ScheduledMeleeTiming>,
     phase: MeleeDefenderPhase,
     decision: AutoresolveMeleeDefenderDecision,
@@ -276,7 +278,7 @@ fn record_response_timeline(
     recorder: &mut BattleRecorder,
     defender: &Combatant,
     attacker_id: u64,
-    distance: f32,
+    distance: SignedLength,
     readiness: DefenderReadiness,
     phase: MeleeDefenderPhase,
     decision: AutoresolveMeleeDefenderDecision,
@@ -377,14 +379,14 @@ fn prepare_melee_exchange(
     let actual_measure = attacker
         .melee_engagement_distance_metres
         .min(defender.melee_engagement_distance_metres)
-        .max(0.0);
-    let ideal_measure = mobility::preferred_melee_measure(attacker, parameters);
+        .max(SignedLength::ZERO);
+    let ideal_measure = mobility::preferred_melee_measure(attacker, parameters)?;
     let equipment = attacker.equipment.for_melee();
     let contact_at_time = resolve_melee_contact_at_time(MeleeContactAtTimeFacts {
         scheduled_measure_metres: scheduled_measure,
         actual_measure_metres: actual_measure,
         ideal_measure_metres: ideal_measure,
-        effective_reach_metres: melee_effective_reach(attacker),
+        effective_reach_metres: melee_effective_reach(attacker)?,
         grip_to_tip_metres: equipment.weapon_grip_to_tip(),
         total_length_metres: equipment.weapon_total_length(),
         striking_head_length_metres: equipment.weapon_striking_head_length(),
@@ -392,7 +394,7 @@ fn prepare_melee_exchange(
         attack_style: equipment.weapon_preferred_melee_style(),
         body_material: equipment.weapon_body_material(),
         striking_material: equipment.weapon_striking_material(),
-    });
+    })?;
     let precision = autoresolve_hit_precision(random, parameters);
     let reaction_sample = random.unit_f32();
     let defender_timing = defender
@@ -460,12 +462,12 @@ mod tests {
         let (fighter, _) = crate::autoresolve::melee_iteration_roster().unwrap();
         let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
         assert_eq!(
-            movement_intent(&fighter.combatant, 0.01, parameters),
+            movement_intent(&fighter.combatant, SignedLength::from_metres(0.01).unwrap(), parameters).unwrap(),
             MeleeMovementAction::Retreat
         );
-        let preferred = preferred_melee_measure(&fighter.combatant, parameters);
+        let preferred = preferred_melee_measure(&fighter.combatant, parameters).unwrap();
         assert_eq!(
-            movement_intent(&fighter.combatant, preferred, parameters),
+            movement_intent(&fighter.combatant, preferred, parameters).unwrap(),
             MeleeMovementAction::Hold
         );
     }
@@ -476,17 +478,17 @@ mod tests {
         let mut fighter = Combatant::new(1);
         fighter.equipment.melee_weapon = Some(CombatWeapon {
             melee: true,
-            melee_reach: 1.0,
+            melee_reach: fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap(),
             ..CombatWeapon::default()
         });
         fighter.equipment.weapon = fighter.equipment.melee_weapon;
-        let reach = melee_effective_reach(&fighter);
+        let reach = melee_effective_reach(&fighter).unwrap();
         assert_eq!(
-            movement_intent(&fighter, reach, parameters),
+            movement_intent(&fighter, reach, parameters).unwrap(),
             MeleeMovementAction::Hold
         );
         assert_eq!(
-            movement_intent(&fighter, reach + 0.01, parameters),
+            movement_intent(&fighter, SignedLength::from_metres(reach.metres() + 0.01).unwrap(), parameters).unwrap(),
             MeleeMovementAction::Close
         );
     }
@@ -497,7 +499,7 @@ mod tests {
         let mut short = Combatant::new(1);
         short.equipment.melee_weapon = Some(CombatWeapon {
             melee: true,
-            melee_reach: 1.0,
+            melee_reach: fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap(),
             ..CombatWeapon::default()
         });
         short.equipment.weapon = short.equipment.melee_weapon;
@@ -505,16 +507,16 @@ mod tests {
         let mut long = Combatant::new(2);
         long.equipment.melee_weapon = Some(CombatWeapon {
             melee: true,
-            melee_reach: 2.0,
+            melee_reach: fabelgeist_geometry::SignedLength::from_metres(2.0).unwrap(),
             ..CombatWeapon::default()
         });
         long.equipment.weapon = long.equipment.melee_weapon;
         assert_eq!(
-            movement_intent(&short, 1.2, parameters),
+            movement_intent(&short, SignedLength::from_metres(1.2).unwrap(), parameters).unwrap(),
             MeleeMovementAction::Close
         );
         assert_eq!(
-            movement_intent(&long, 0.9, parameters),
+            movement_intent(&long, SignedLength::from_metres(0.9).unwrap(), parameters).unwrap(),
             MeleeMovementAction::Retreat
         );
     }
@@ -525,31 +527,31 @@ mod tests {
         let mut polearm = Combatant::new(2);
         polearm.equipment.melee_weapon = Some(CombatWeapon {
             melee: true,
-            melee_reach: 2.0,
-            grip_to_tip_m: 1.9,
-            total_length_m: 2.2,
-            striking_head_length_m: 0.16,
+            melee_reach: fabelgeist_geometry::SignedLength::from_metres(2.0).unwrap(),
+            grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(1.9).unwrap(),
+            total_length_m: fabelgeist_geometry::SignedLength::from_metres(2.2).unwrap(),
+            striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(0.16).unwrap(),
             distal_headed: true,
             ..CombatWeapon::default()
         });
         polearm.equipment.weapon = polearm.equipment.melee_weapon;
-        let preferred = preferred_melee_measure(&polearm, parameters);
-        let reach = melee_effective_reach(&polearm);
-        let expected = preferred_melee_striking_measure(reach, 1.9, 0.16, true, 0.7);
-        assert!((preferred - expected).abs() < 1.0e-6);
+        let preferred = preferred_melee_measure(&polearm, parameters).unwrap();
+        let reach = melee_effective_reach(&polearm).unwrap();
+        let expected = preferred_melee_striking_measure(reach, SignedLength::from_metres(1.9).unwrap(), SignedLength::from_metres(0.16).unwrap(), true, 0.7).unwrap();
+        assert!((preferred.metres() - expected.metres()).abs() < 1.0e-6);
         assert_eq!(
-            movement_intent(&polearm, 1.8, parameters),
+            movement_intent(&polearm, SignedLength::from_metres(1.8).unwrap(), parameters).unwrap(),
             MeleeMovementAction::Retreat
         );
         assert_eq!(
-            movement_intent(&polearm, preferred, parameters),
+            movement_intent(&polearm, preferred, parameters).unwrap(),
             MeleeMovementAction::Hold
         );
 
         let opponent = Combatant::new(1);
         assert!(
-            mobility::maximum_melee_pair_surface_separation(&opponent, &polearm, parameters)
-                >= reach - 1.0e-5
+            mobility::maximum_melee_pair_surface_separation(&opponent, &polearm, parameters).unwrap().metres()
+                >= reach.metres() - 1.0e-5
         );
     }
 

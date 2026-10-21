@@ -1,7 +1,11 @@
 //! Exact typed authoring schema shared by the build compiler and runtime.
 
 use crate::combat_style::MeleeAttackStyle;
+use fabelgeist_geometry::{CuboidDimensions, SignedLength};
 use serde::{Deserialize, Serialize};
+
+#[path = "item_catalog_physical_serde.rs"]
+mod physical_axis_array;
 
 #[path = "item_catalog_fit.rs"]
 mod fit;
@@ -73,11 +77,12 @@ pub struct EquipmentDefinition {
 #[serde(deny_unknown_fields)]
 pub struct EquipmentPhysical {
     /// Full box dimensions in metres: local X width, local Y length, local Z thickness.
-    pub dimensions_m: [f32; 3],
+    #[serde(with = "physical_axis_array")]
+    pub dimensions_m: CuboidDimensions,
     /// Distance from a weapon socket/grip to the gameplay tip along local +Y.
     /// Non-weapons author zero.
     #[serde(default)]
-    pub grip_to_tip_m: f32,
+    pub grip_to_tip_m: SignedLength,
     /// Local attachment anchor relative to the ordinary box-centre origin.
     /// Weapons attach this point to a hand socket; worn equipment attaches it
     /// to the bone selected by its primary occupancy location.
@@ -416,7 +421,7 @@ pub enum ItemKind {
         carry: WeaponCarry,
         #[serde(default)]
         preferred_attack: MeleeAttackStyle,
-        reach_m: f32,
+        reach_m: SignedLength,
         /// Contact concentration; generated melee recipes determine their own value.
         #[serde(default)]
         precision: f32,

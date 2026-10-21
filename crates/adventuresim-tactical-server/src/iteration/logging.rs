@@ -1,4 +1,5 @@
 use fabelgeist_determinism::Seed;
+use fabelgeist_geometry::SignedLength;
 use std::collections::HashMap;
 
 use adventuresim_tactical_core::{
@@ -81,7 +82,7 @@ pub struct TacticalMeleeLogEntry {
     pub elapsed_seconds: TacticalElapsed,
     pub attacker: String,
     pub defender: String,
-    pub center_separation_metres: f32,
+    pub center_separation_metres: SignedLength,
     pub attacker_decision: TacticalDecision,
     pub defender_decision: TacticalDecision,
     pub defensive_implement: Option<String>,
@@ -94,11 +95,11 @@ pub struct TacticalMeleeLogEntry {
     pub anatomical_subregion: String,
     pub contact_surface_coordinate: f32,
     pub armor_layer_chain: Vec<ArmorLayerContact>,
-    pub scheduled_contact_measure_metres: f32,
-    pub ideal_contact_measure_metres: f32,
-    pub actual_contact_measure_metres: f32,
+    pub scheduled_contact_measure_metres: SignedLength,
+    pub ideal_contact_measure_metres: SignedLength,
+    pub actual_contact_measure_metres: SignedLength,
     pub contact_classification: adventuresim_core::combat::MeleeContactClassification,
-    pub contact_lever_arm_metres: f32,
+    pub contact_lever_arm_metres: SignedLength,
     pub contact_energy_fraction: f32,
     pub measure_accuracy_multiplier: f32,
     pub contact_invalidation_cause:
@@ -148,8 +149,8 @@ pub struct TacticalDecisionLogEntry {
     pub decision: TacticalDecision,
     pub status: TacticalDecisionStatus,
     pub target: Option<String>,
-    pub center_separation_metres: Option<f32>,
-    pub preferred_melee_measure_metres: Option<f32>,
+    pub center_separation_metres: Option<SignedLength>,
+    pub preferred_melee_measure_metres: Option<SignedLength>,
     pub attack_key: Option<MeleeAttackKey>,
     pub cause: Option<&'static str>,
 }
@@ -168,7 +169,7 @@ pub struct TacticalMeleeOutcome {
     pub resolution: TacticalDuelResolution,
     pub simulated_ticks: u64,
     pub simulated_seconds: TacticalElapsed,
-    pub initial_center_separation_metres: f32,
+    pub initial_center_separation_metres: SignedLength,
     pub final_center_separation_metres: Option<NonnegativeLength>,
     pub attack_starts: u32,
     pub resolved_attacks: u32,
@@ -202,13 +203,13 @@ pub(super) fn record_attack_start(
     viewer: TacticalPlayerViewer,
     config: Res<TacticalCombatConfig>,
     mut log: ResMut<IterationLog>,
-) {
+) -> MeleeGeometryResult<()> {
     log.attack_starts += 1;
     let Ok((attacker, attacker_transform)) = players.get(event.attacker) else {
-        return;
+        return Ok(());
     };
     let target = event.target.and_then(|entity| players.get(entity).ok());
-    let preferred_melee_measure_metres = viewer.get(event.attacker).ok().map(|view| {
+    let preferred_melee_measure_metres = viewer.get(event.attacker).ok().map(|view| -> MeleeGeometryResult<SignedLength> {
         let weapon_reach = view.weapon_reach();
         let reach = melee_interaction_range(
             dimensions
@@ -217,7 +218,7 @@ pub(super) fn record_attack_start(
                 .unwrap_or_default()
                 .arm_reach_metres,
             weapon_reach,
-        );
+        )?;
         let grip = view.weapon_grip_to_tip();
         let head = view.weapon_striking_head_length();
         let distal = adventuresim_core::combat::has_distal_striking_surface(
@@ -226,14 +227,14 @@ pub(super) fn record_attack_start(
             view.weapon_body_material(),
             view.weapon_striking_material(),
         );
-        adventuresim_core::combat::preferred_melee_striking_measure(
+        Ok(adventuresim_core::combat::preferred_melee_striking_measure(
             reach,
             grip,
             head,
             distal,
             config.ai.ordinary.offense.melee_measure_reach_fraction,
-        )
-    });
+        )?)
+    }).transpose()?;
     log.decision_events.push(TacticalDecisionLogEntry {
         tick: clock.tick,
         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
@@ -242,15 +243,17 @@ pub(super) fn record_attack_start(
         status: TacticalDecisionStatus::Started,
         target: target.map(|(player, _)| player.name.clone()),
         center_separation_metres: target.map(|(_, transform)| {
+            SignedLength::from_metres(
             attacker_transform
                 .translation
                 .xz()
-                .distance(transform.translation.xz())
-        }),
+                .distance(transform.translation.xz()))
+        }).transpose()?,
         preferred_melee_measure_metres,
         attack_key: None,
         cause: None,
     });
+    Ok(())
 }
 
 pub(super) fn record_defense_resolution(
@@ -304,12 +307,12 @@ pub(super) fn record_resolved_attack(
     states: Query<(&TacticalCombatState, &Limbs)>,
     wounds: Query<&crate::combat::TacticalWounds>,
     mut log: ResMut<IterationLog>,
-) {
+) -> fabelgeist_geometry::GeometryResult<()> {
     let Ok((attacker, attacker_transform)) = players.get(event.attacker) else {
-        return;
+        return Ok(());
     };
     let Ok((defender, defender_transform)) = players.get(event.target) else {
-        return;
+        return Ok(());
     };
     let sequence = log.events.len() as u32 + 1;
     log.events.push(resolved_attack_entry(
@@ -322,8 +325,9 @@ pub(super) fn record_resolved_attack(
         defender_transform,
         &viewer,
         &states,
-    ));
+    )?);
     log_new_wounds(&clock, defender, event.target, &wounds, &mut log);
+    Ok(())
 }
 
 fn log_new_wounds(

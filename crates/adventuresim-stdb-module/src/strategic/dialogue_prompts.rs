@@ -121,7 +121,7 @@ pub fn choose_dialogue_topic(
     action_id: String,
     expected_revision: u64,
     catalog_revision: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     require_dialogue_revision(&catalog_revision)?;
     validate_dialogue_action_id(&action_id)?;
@@ -395,7 +395,7 @@ pub fn answer_dialogue_prompt(
     action_id: String,
     expected_revision: u64,
     catalog_revision: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     require_dialogue_revision(&catalog_revision)?;
     validate_dialogue_action_id(&action_id)?;

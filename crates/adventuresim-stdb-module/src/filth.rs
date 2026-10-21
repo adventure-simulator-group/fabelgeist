@@ -714,7 +714,7 @@ pub(crate) fn seed_demo(
     ctx: &ReducerContext,
     character_id: u64,
     foreign_source_id: u64,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     for row in ctx
         .db
         .character_filth()
@@ -763,7 +763,7 @@ pub(crate) fn seed_demo(
         .map(|row| row.quantity)
         .sum::<u32>();
     if existing < 3 {
-        crate::add_inventory_item(ctx, character_id, SOFT_SOAP_ID, 3 - existing);
+        crate::add_inventory_item(ctx, character_id, SOFT_SOAP_ID, 3 - existing)?;
     }
     Ok(())
 }

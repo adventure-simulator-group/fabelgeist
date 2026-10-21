@@ -15,6 +15,7 @@ use bevy::{
     prelude::*,
 };
 use serde::{Deserialize, Serialize};
+use fabelgeist_geometry::{CuboidDimensions, SignedLength};
 use strum::{Display, EnumCount, VariantArray};
 
 use crate::animation::AttackHand;
@@ -83,8 +84,8 @@ pub struct WeaponItem {
     pub skill_weights: [f32; 9],
     pub prefers_stab: bool,
     pub precision: f32,
-    pub reach: f32,
-    pub grip_to_tip_m: f32,
+    pub reach: SignedLength,
+    pub grip_to_tip_m: SignedLength,
     pub moment_of_inertia_kg_m2: f32,
     pub melee: bool,
     pub ranged: bool,
@@ -164,9 +165,9 @@ pub enum TacticalEquipmentAnchor {
 
 #[derive(Component, Reflect, Serialize, Deserialize, Clone, Copy, Debug, PartialEq)]
 pub struct TacticalEquipmentPhysical {
-    pub dimensions_m: Vec3,
-    pub grip_to_tip_m: f32,
-    pub striking_head_length_m: f32,
+    pub dimensions_m: CuboidDimensions,
+    pub grip_to_tip_m: SignedLength,
+    pub striking_head_length_m: SignedLength,
     pub anchor_offset_m: Vec3,
 }
 
@@ -196,12 +197,9 @@ pub struct WeaponHolderAppearance {
 
 impl TacticalEquipmentPhysical {
     pub fn is_valid(self) -> bool {
-        self.dimensions_m.is_finite()
-            && self.dimensions_m.cmpgt(Vec3::ZERO).all()
-            && self.grip_to_tip_m.is_finite()
-            && self.grip_to_tip_m >= 0.0
-            && self.striking_head_length_m.is_finite()
-            && (0.0..=self.dimensions_m.y).contains(&self.striking_head_length_m)
+        self.dimensions_m.metres().cmpgt(Vec3::ZERO).all()
+            && self.grip_to_tip_m.metres() >= 0.0
+            && (0.0..=self.dimensions_m.y_length().metres()).contains(&self.striking_head_length_m.metres())
             && self.anchor_offset_m.is_finite()
     }
 }
@@ -438,32 +436,32 @@ impl PlayerEquipment for InventoryView<'_, '_, '_> {
         })
     }
 
-    fn weapon_reach(&self) -> f32 {
+    fn weapon_reach(&self) -> SignedLength {
         self.equipped_weapon()
             .and_then(|item| item.weapon)
             .map(|weapon| weapon.reach)
-            .unwrap_or(0.0)
+            .unwrap_or(SignedLength::ZERO)
     }
 
-    fn weapon_grip_to_tip(&self) -> f32 {
+    fn weapon_grip_to_tip(&self) -> SignedLength {
         self.equipped_weapon()
             .and_then(|item| item.physical)
             .map_or_else(|| self.weapon_reach(), |physical| physical.grip_to_tip_m)
     }
 
-    fn weapon_total_length(&self) -> f32 {
+    fn weapon_total_length(&self) -> SignedLength {
         self.equipped_weapon()
             .and_then(|item| item.physical)
             .map_or_else(
                 || self.weapon_grip_to_tip(),
-                |physical| physical.dimensions_m.y,
+                |physical| physical.dimensions_m.y_length(),
             )
     }
 
-    fn weapon_striking_head_length(&self) -> f32 {
+    fn weapon_striking_head_length(&self) -> SignedLength {
         self.equipped_weapon()
             .and_then(|item| item.physical)
-            .map_or(0.0, |physical| physical.striking_head_length_m)
+            .map_or(SignedLength::ZERO, |physical| physical.striking_head_length_m)
     }
 
     fn weapon_body_material(&self) -> Option<EquipmentMaterial> {
@@ -661,7 +659,7 @@ mod tests {
         let inventory = viewer.get(&world).unwrap();
 
         let unarmed = inventory.get(owner);
-        assert_eq!(unarmed.weapon_reach(), 0.0);
+        assert_eq!(unarmed.weapon_reach().metres(), 0.0);
         let cycle = unarmed.weapon_windup_secs().unwrap().seconds()
             + unarmed.weapon_recovery_secs().unwrap().seconds();
         assert!((cycle - 0.36).abs() < 1.0e-5);
@@ -690,8 +688,8 @@ mod tests {
 
                     prefers_stab: false,
                     precision: 0.0,
-                    reach: 1.0,
-                    grip_to_tip_m: 1.0,
+                    reach: fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap(),
+                    grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap(),
                     moment_of_inertia_kg_m2: 0.0,
 
                     melee: true,

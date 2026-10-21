@@ -20,6 +20,7 @@ use fabelgeist_determinism::Seed;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::{
+    StrategicOperationError, StrategicOperationResult,
     capability::character_capability,
     character::{
         character, character__view, character_attributes, character_limbs, character_skills,
@@ -30,7 +31,7 @@ use crate::{
     settlement_population::{SettlementResidentProfile, settlement_resident_profile},
     social::{character_familiarity, current_affinity},
     strategic::{
-        StrategicCombatError, StrategicCombatResult, StrategicEncounterStatus, settlement,
+        StrategicEncounterStatus, settlement,
         strategic_encounter, strategic_gateway_authority__view,
     },
     surgery::{limb_injury, retained_projectile},
@@ -309,7 +310,7 @@ fn apply_unauthorized_consequences(
     party_id: &str,
     action_id: &str,
     required_scope: CorpsePermissionScope,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     if permission_for(ctx, &corpse.id, party_id, required_scope).is_some() {
         return Ok(());
     }
@@ -815,7 +816,7 @@ fn persist_autopsy_demo_body(
 /// Prepare the selected character and three deterministic bodies for a local
 /// visual demo. Every wound is produced by ordinary strategic autoresolve;
 /// only custody time and identity are staged by the fixture.
-pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> StrategicCombatResult<()> {
+pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> StrategicOperationResult<()> {
     let actor = crate::character::require_living_character(ctx, actor_id)?;
     let settlement_id = actor
         .current_settlement_id
@@ -854,7 +855,7 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Strategi
         .filter(actor_id)
         .any(|row| row.item_id == "surgery_kit")
     {
-        crate::add_inventory_item(ctx, actor_id, "surgery_kit", 1);
+        crate::add_inventory_item(ctx, actor_id, "surgery_kit", 1)?;
     }
     let mut actor_time = ctx
         .db
@@ -1130,7 +1131,7 @@ pub fn examine_corpse(
     action_id: String,
     expected_revision: u32,
     confirm_unauthorized: bool,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     validate_client_action_id(&action_id)?;
     let receipt_id = action_receipt_id(
@@ -1247,7 +1248,7 @@ pub fn open_corpse(
     action_id: String,
     expected_revision: u32,
     confirm_unauthorized: bool,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     validate_client_action_id(&action_id)?;
     let receipt_id = action_receipt_id(
@@ -1354,7 +1355,7 @@ pub fn exhume_corpse(
     action_id: String,
     expected_revision: u32,
     confirm_unauthorized: bool,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     validate_client_action_id(&action_id)?;
     let receipt_id = action_receipt_id(
@@ -1438,7 +1439,7 @@ pub fn bury_corpse(
     corpse_id: String,
     action_id: String,
     expected_revision: u32,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     validate_client_action_id(&action_id)?;
     let receipt_id = action_receipt_id(
@@ -1502,7 +1503,7 @@ pub fn burn_corpse(
     action_id: String,
     expected_revision: u32,
     confirm_destruction: bool,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_gateway(ctx)?;
     validate_client_action_id(&action_id)?;
     let receipt_id = action_receipt_id(
@@ -1604,7 +1605,7 @@ pub(crate) fn grant_permission_from_dialogue(
     resident_character_id: u64,
     scope: CorpsePermissionScope,
     approach: &str,
-) -> Result<bool, String> {
+) -> StrategicOperationResult<bool> {
     use adventuresim_core::social::{
         PermissionPetitionApproach as Approach, PermissionPetitionInput,
         resolve_permission_petition,
@@ -1952,7 +1953,7 @@ fn autopsy_demo_outcome(
     victim_kind: &str,
     attacker_kind: &str,
     seed: Seed,
-) -> StrategicCombatResult<BattleOutcome> {
+) -> StrategicOperationResult<BattleOutcome> {
     let attacker = crate::strategic::autoresolve_enemy(
         victim_id.saturating_sub(100),
         attacker_kind,
@@ -1972,7 +1973,7 @@ fn autopsy_demo_outcome(
         seed,
         128,
     )?
-    .ok_or(StrategicCombatError::RequiredDeathUnavailable)
+    .ok_or(StrategicOperationError::RequiredDeathUnavailable)
 }
 
 #[cfg(test)]

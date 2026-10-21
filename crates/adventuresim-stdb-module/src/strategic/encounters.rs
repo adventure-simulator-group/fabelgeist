@@ -1020,7 +1020,7 @@ fn resolve_random_encounter_battle(
     encounter: &StrategicEncounter,
     seed: Seed,
     opening: BattleOpening,
-) -> StrategicCombatResult<String> {
+) -> StrategicOperationResult<String> {
     let member_ids = living_party_member_ids(ctx, &encounter.party_id);
     let allies = load_allied_combatants(ctx, &member_ids)?;
     let difficulty = i32::from(encounter.enemy_count.max(1));
@@ -1104,7 +1104,7 @@ pub fn resolve_strategic_encounter(
     choice: String,
     expected_revision: u32,
     action_id: String,
-) -> StrategicCombatResult<()> {
+) -> StrategicOperationResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Strategic encounter action ID is invalid".into());

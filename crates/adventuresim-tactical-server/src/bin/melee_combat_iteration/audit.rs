@@ -86,7 +86,7 @@ fn swept_contact_contract_holds(
     let minimum = adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES;
     let report_minimum = Measurement::<CenterSeparationMetres>::from_native(minimum)?;
     Ok(evidence.all_weapon_contact_bands.iter().all(|contact| {
-        contact.center_separation_metres >= minimum
+        contact.center_separation_metres.metres() >= minimum
             && contact.transformed_energy_joules <= contact.incident_energy_joules + 1.0e-4
     }) && evidence.all_weapon_contact_bands.iter().any(|contact| {
         contact.weapon == "war_hammer"

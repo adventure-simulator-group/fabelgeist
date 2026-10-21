@@ -7,7 +7,7 @@ pub fn start_dialogue(
     npc_actor_id: String,
     location_id: String,
     catalog_revision: String,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     require_dialogue_revision(&catalog_revision)?;
     crate::character::require_living_character(ctx, character_id)?;

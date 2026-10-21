@@ -22,10 +22,10 @@ pub struct MeleeIterationAcceptanceEvidence {
 #[derive(Clone, Copy, Debug, serde::Serialize)]
 pub struct WeaponContactBandEvidence {
     pub weapon: &'static str,
-    pub surface_measure_metres: f32,
-    pub center_separation_metres: f32,
+    pub surface_measure_metres: SignedLength,
+    pub center_separation_metres: SignedLength,
     pub classification: MeleeContactClassification,
-    pub lever_arm_metres: f32,
+    pub lever_arm_metres: SignedLength,
     pub contact_material: Option<crate::item_catalog_schema::EquipmentMaterial>,
     pub incident_energy_joules: f32,
     pub transformed_energy_joules: f32,
@@ -35,10 +35,10 @@ pub struct WeaponContactBandEvidence {
 
 #[derive(Clone, Copy, Debug, serde::Serialize)]
 pub struct PolearmContactRevalidationEvidence {
-    pub scheduled_measure_metres: f32,
-    pub actual_measure_metres: f32,
+    pub scheduled_measure_metres: SignedLength,
+    pub actual_measure_metres: SignedLength,
     pub classification: MeleeContactClassification,
-    pub lever_arm_metres: f32,
+    pub lever_arm_metres: SignedLength,
     pub contact_material: Option<crate::item_catalog_schema::EquipmentMaterial>,
     pub incident_energy_joules: f32,
     pub transformed_energy_joules: f32,
@@ -159,8 +159,8 @@ pub fn melee_iteration_acceptance_evidence()
             .collect(),
         fatigue_cadence: fatigue_cadence_evidence(&john)?,
         autoresolve_timeline: autoresolve_timeline_evidence(&john, veteran, hammer)?,
-        polearm_contact_revalidation: polearm_contact_revalidation_evidence(veteran),
-        all_weapon_contact_bands: all_weapon_contact_band_evidence(&john, hammer, veteran),
+        polearm_contact_revalidation: polearm_contact_revalidation_evidence(veteran)?,
+        all_weapon_contact_bands: all_weapon_contact_band_evidence(&john, hammer, veteran)?,
     })
 }
 
@@ -168,35 +168,35 @@ fn all_weapon_contact_band_evidence(
     john: &MeleeIterationBuild,
     hammer: &MeleeIterationBuild,
     veteran: &MeleeIterationBuild,
-) -> Vec<WeaponContactBandEvidence> {
-    [
+) -> MeleeIterationResult<Vec<WeaponContactBandEvidence>> {
+    let mut evidence = Vec::new();
+    for (build, weapon, incident_energy_joules) in [
         (john, "longsword", 69.5),
         (hammer, "war_hammer", 76.788),
         (veteran, "halberd", 101.4),
-    ]
-    .into_iter()
-    .flat_map(|(build, weapon, incident_energy_joules)| {
+    ] {
         let equipment = build.combatant.equipment.for_melee();
-        let reach = melee_effective_reach(&build.combatant);
+        let reach = melee_effective_reach(&build.combatant)?;
         let grip = equipment.weapon_grip_to_tip();
-        let grip_origin = (reach - grip).max(0.0);
-        let butt = (equipment.weapon_total_length() - grip).max(0.0);
-        let head_boundary = grip_origin + (grip - equipment.weapon_striking_head_length()).max(0.0);
-        [
-            reach,
-            (head_boundary + 0.000_1).min(reach),
+        // Native local-axis band samples are authored evidence observations.
+        let grip_origin = (reach.metres() - grip.metres()).max(0.0);
+        let butt = (equipment.weapon_total_length().metres() - grip.metres()).max(0.0);
+        let head_boundary = grip_origin + (grip.metres() - equipment.weapon_striking_head_length().metres()).max(0.0);
+        for surface_measure_metres in [
+            reach.metres(),
+            (head_boundary + 0.000_1).min(reach.metres()),
             (head_boundary - 0.000_1).max(0.0),
             (grip_origin - butt * 0.5).max(0.0),
             0.0,
-        ]
-        .map(move |surface_measure_metres| {
+        ] {
+            let surface_measure_metres = SignedLength::from_metres(surface_measure_metres)?;
             let ideal_measure_metres = preferred_melee_striking_measure(
                 reach,
                 grip,
                 equipment.weapon_striking_head_length(),
                 equipment.weapon.is_some_and(|weapon| weapon.distal_headed),
                 EMBEDDED_AUTORESOLVE_PARAMETERS.melee_measure_reach_fraction,
-            );
+            )?;
             let contact = resolve_melee_contact_at_time(MeleeContactAtTimeFacts {
                 scheduled_measure_metres: reach,
                 actual_measure_metres: surface_measure_metres,
@@ -209,12 +209,12 @@ fn all_weapon_contact_band_evidence(
                 attack_style: equipment.weapon_preferred_melee_style(),
                 body_material: equipment.weapon_body_material(),
                 striking_material: equipment.weapon_striking_material(),
-            });
-            WeaponContactBandEvidence {
+            })?;
+            evidence.push(WeaponContactBandEvidence {
                 weapon,
                 surface_measure_metres,
-                center_separation_metres: surface_measure_metres
-                    + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
+                center_separation_metres: SignedLength::from_metres(surface_measure_metres.metres()
+                    + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)?,
                 classification: contact.classification,
                 lever_arm_metres: contact.lever_arm_metres,
                 contact_material: contact.contact_material,
@@ -222,41 +222,41 @@ fn all_weapon_contact_band_evidence(
                 transformed_energy_joules: incident_energy_joules * contact.energy_fraction,
                 energy_fraction: contact.energy_fraction,
                 invalidation_cause: contact.invalidation_cause,
-            }
-        })
-    })
-    .collect()
+            });
+        }
+    }
+    Ok(evidence)
 }
 
 fn polearm_contact_revalidation_evidence(
     veteran: &MeleeIterationBuild,
-) -> Vec<PolearmContactRevalidationEvidence> {
+) -> MeleeIterationResult<Vec<PolearmContactRevalidationEvidence>> {
     const REVIEWED_INCIDENT_ENERGY_JOULES: f32 = 101.4;
     let equipment = veteran.combatant.equipment.for_melee();
-    let effective_reach = melee_effective_reach(&veteran.combatant);
+    let effective_reach = melee_effective_reach(&veteran.combatant)?;
     let grip_to_tip = equipment.weapon_grip_to_tip();
-    let grip_origin = (effective_reach - grip_to_tip).max(0.0);
+    let grip_origin = (effective_reach.metres() - grip_to_tip.metres()).max(0.0);
     let head_boundary =
-        grip_origin + (grip_to_tip - equipment.weapon_striking_head_length()).max(0.0);
+        grip_origin + (grip_to_tip.metres() - equipment.weapon_striking_head_length().metres()).max(0.0);
     let ideal_measure_metres = preferred_melee_striking_measure(
         effective_reach,
         grip_to_tip,
         equipment.weapon_striking_head_length(),
         equipment.weapon.is_some_and(|weapon| weapon.distal_headed),
         EMBEDDED_AUTORESOLVE_PARAMETERS.melee_measure_reach_fraction,
-    );
-    [
-        effective_reach,
+    )?;
+    let mut evidence = Vec::new();
+    for actual_measure_metres in [
+        effective_reach.metres(),
         head_boundary,
         head_boundary - 0.000_01,
         1.25,
         (grip_origin - 0.05).max(0.0),
-        effective_reach + 0.05,
-    ]
-    .map(|actual_measure_metres| {
+        effective_reach.metres() + 0.05,
+    ] {
         let contact = resolve_melee_contact_at_time(MeleeContactAtTimeFacts {
-            scheduled_measure_metres: 2.0,
-            actual_measure_metres,
+            scheduled_measure_metres: SignedLength::from_metres(2.0)?,
+            actual_measure_metres: SignedLength::from_metres(actual_measure_metres)?,
             ideal_measure_metres,
             effective_reach_metres: effective_reach,
             grip_to_tip_metres: equipment.weapon_grip_to_tip(),
@@ -266,8 +266,8 @@ fn polearm_contact_revalidation_evidence(
             attack_style: equipment.weapon_preferred_melee_style(),
             body_material: equipment.weapon_body_material(),
             striking_material: equipment.weapon_striking_material(),
-        });
-        PolearmContactRevalidationEvidence {
+        })?;
+        evidence.push(PolearmContactRevalidationEvidence {
             scheduled_measure_metres: contact.scheduled_measure_metres,
             actual_measure_metres: contact.actual_measure_metres,
             classification: contact.classification,
@@ -277,10 +277,9 @@ fn polearm_contact_revalidation_evidence(
             transformed_energy_joules: REVIEWED_INCIDENT_ENERGY_JOULES * contact.energy_fraction,
             edge_contact: contact.classification == MeleeContactClassification::IntendedSurface,
             invalidation_cause: contact.invalidation_cause,
-        }
-    })
-    .into_iter()
-    .collect()
+        });
+    }
+    Ok(evidence)
 }
 
 fn disabled_weapon_arm_evidence(build: &MeleeIterationBuild) -> DisabledWeaponArmEvidence {
@@ -402,7 +401,7 @@ fn forced_melee_contact(
             surface_coordinate: contact_surface_coordinate,
             armor_surface,
         },
-        MeleeContactAtTime::intended(0.0),
+        MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
         DefenderResponse::None,
         &defender.skills,
         &defender.attributes,

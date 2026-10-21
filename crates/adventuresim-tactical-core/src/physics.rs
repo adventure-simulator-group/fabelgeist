@@ -1,3 +1,4 @@
+use fabelgeist_geometry::SignedLength;
 use adventuresim_core::linear_speed::{NonnegativeSpeed, SignedSpeed};
 use adventuresim_core::prelude::*;
 use avian3d::prelude::*;
@@ -5,6 +6,8 @@ use bevy::prelude::*;
 use bevy_ahoy::{
     CharacterController, CharacterControllerState, CharacterLook, input::AccumulatedInput,
 };
+use adventuresim_building_generator::spatial_geometry::{PlanDirection, Position, RigidRotation};
+use crate::scene_coordinates::Scene;
 
 use movement_speed::*;
 pub use movement_speed::{
@@ -130,14 +133,14 @@ pub struct CharacterMotionSnapshot {
 /// the shared fixed-tick motor then integrates the same force curve on an
 /// authoritative server or a predicting client.
 #[derive(
-    Component, Debug, Clone, Copy, Default, PartialEq, Reflect, serde::Serialize, serde::Deserialize,
+    Component, Debug, Clone, Copy, PartialEq, Reflect, serde::Serialize, serde::Deserialize,
 )]
 #[reflect(Component)]
 pub struct QuickstepPush {
     pub start_tick: crate::animation::AnimationSampleTick,
     pub direction: Vec2,
-    pub orientation: Quat,
-    pub origin: Vec3,
+    pub orientation: RigidRotation,
+    pub origin: Position<Scene>,
     pub active: bool,
 }
 
@@ -149,14 +152,26 @@ pub struct QuickstepPush {
 )]
 #[reflect(Component)]
 pub struct MeleeLungeMovement {
-    pub origin: Vec3,
-    pub direction: Vec2,
-    pub distance_metres: f32,
+    pub origin: Position<Scene>,
+    pub direction: PlanDirection<Scene>,
+    pub distance_metres: SignedLength,
     pub quickstep: bool,
 }
 
-fn melee_lunge_has_arrived(travelled_metres: f32, planned_distance_metres: f32) -> bool {
-    travelled_metres >= planned_distance_metres
+impl Default for QuickstepPush {
+    fn default() -> Self {
+        Self {
+            start_tick: crate::animation::AnimationSampleTick::default(),
+            direction: Vec2::ZERO,
+            orientation: RigidRotation::IDENTITY,
+            origin: Position::ORIGIN,
+            active: false,
+        }
+    }
+}
+
+fn melee_lunge_has_arrived(travelled_metres: SignedLength, planned_distance_metres: SignedLength) -> bool {
+    travelled_metres.metres() >= planned_distance_metres.metres()
 }
 
 #[derive(Component, Debug, Clone, Copy, Default)]
@@ -207,23 +222,26 @@ pub fn quickstep_peak_horizontal_force_newtons(
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct QuickstepMotionTarget {
-    pub displacement_metres: f32,
+    pub displacement_metres: SignedLength,
     pub velocity_metres_per_second: SignedSpeed,
     pub acceleration_metres_per_second_squared: f32,
 }
 
 /// Scales the authored reference travel by the character's hip-to-ankle chain.
 pub fn quickstep_target_displacement_metres(
-    leg_length_metres: f32,
+    leg_length_metres: SignedLength,
     motor: &crate::combat_config::CharacterMotorConfig,
-) -> f32 {
-    let reference_leg_length = motor.reference_quickstep_leg_length_metres;
-    let leg_length = if leg_length_metres.is_finite() && leg_length_metres > 0.0 {
-        leg_length_metres
+) -> AnimationValueResult<SignedLength> {
+    let reference_leg_length = motor.reference_quickstep_leg_length_metres.metres();
+    let leg_length = if leg_length_metres.metres() > 0.0 {
+        leg_length_metres.metres()
     } else {
         reference_leg_length
     };
-    motor.reference_quickstep_target_displacement_metres * leg_length / reference_leg_length
+    // Preserve the original product-then-division order and nonpositive-leg
+    // reference policy at this complete biomechanical scaling kernel.
+    SignedLength::from_metres(motor.reference_quickstep_target_displacement_metres.metres() * leg_length / reference_leg_length)
+        .map_err(|_| AnimationValueError::Overflow { quantity: AnimationQuantity::Length })
 }
 
 /// Samples a monotone cubic through the authored 0/3/6/9/12 root positions.
@@ -231,7 +249,7 @@ pub fn quickstep_target_displacement_metres(
 /// without an instantaneous velocity change.
 pub fn quickstep_motion_target(
     normalized_time: f32,
-    target_displacement_metres: f32,
+    target_displacement_metres: SignedLength,
     duration: AnimationElapsed,
     profile: [f32; 5],
 ) -> AnimationValueResult<QuickstepMotionTarget> {
@@ -243,6 +261,9 @@ pub fn quickstep_motion_target(
             acceleration_metres_per_second_squared: 0.0,
         });
     }
+    // The monotone interpolation kernel consumes metres only after the
+    // terminal observation above has retained the checked target unchanged.
+    let target_displacement_metres = target_displacement_metres.metres();
     let segment = ((phase * 4.0).floor() as usize).min(3);
     let u = phase * 4.0 - segment as f32;
     let secants =
@@ -275,7 +296,7 @@ pub fn quickstep_motion_target(
         + (6.0 * u - 2.0) * m1;
     let duration = duration.seconds();
     Ok(QuickstepMotionTarget {
-        displacement_metres: position * target_displacement_metres,
+        displacement_metres: SignedLength::from_metres(position * target_displacement_metres).map_err(|_| AnimationValueError::Overflow { quantity: AnimationQuantity::Length })?,
         velocity_metres_per_second: SignedSpeed::from_metres_per_second(
             derivative_u * 4.0 * target_displacement_metres / duration,
         )?,
@@ -290,7 +311,7 @@ pub fn quickstep_motion_target(
 /// authored trajectory. Position and velocity feedback correct collision and
 /// integration error; neither term directly changes transform or velocity.
 pub fn quickstep_tracking_force_newtons(
-    displacement_metres: f32,
+    displacement_metres: SignedLength,
     velocity_metres_per_second: SignedSpeed,
     target: QuickstepMotionTarget,
     mass_kg: f32,
@@ -308,7 +329,7 @@ pub fn quickstep_tracking_force_newtons(
     // rest: applying the reversal guard to it limits a launch to the tiny force
     // needed to reach exactly zero velocity, suppressing the entire quickstep.
     const VELOCITY_REVERSAL_GUARD_METRES_PER_SECOND: f32 = 0.02;
-    let position_error = target.displacement_metres - displacement_metres;
+    let position_error = target.displacement_metres.metres() - displacement_metres.metres();
     let velocity_error =
         target.velocity_metres_per_second.metres_per_second() - velocity_metres_per_second;
     let acceleration = target.acceleration_metres_per_second_squared
@@ -478,7 +499,7 @@ fn apply_character_motor(
             if attack_quickstep_ended {
                 push.cancel();
             }
-            let world_direction = (push.orientation
+            let world_direction = (push.orientation.quaternion()
                 * Vec3::new(push.direction.x, 0.0, -push.direction.y))
             .xz()
             .normalize_or_zero();
@@ -499,10 +520,13 @@ fn apply_character_motor(
                 if mismatch_logged {
                     commands.entity(entity).remove::<QuickstepMismatchLogged>();
                 }
-                let displacement = (transform.translation - push.origin)
+                let displacement = match SignedLength::from_metres((transform.translation - push.origin.metres())
                     .xz()
                     .dot(world_direction)
-                    .max(0.0);
+                    .max(0.0)) {
+                    Ok(distance) => distance,
+                    Err(error) => { warn!(%error, ?entity, "Rejected quickstep observed travel"); continue; }
+                };
                 if let Some(lunge) = melee_lunge
                     && lunge.quickstep
                     && melee_lunge_has_arrived(displacement, lunge.distance_metres)
@@ -520,13 +544,10 @@ fn apply_character_motor(
                     .map_or(motor.reference_quickstep_leg_length_metres, |dimensions| {
                         dimensions.leg_length_metres
                     });
-                let target_displacement = melee_lunge.map_or_else(
-                    || quickstep_target_displacement_metres(leg_length, motor),
-                    |lunge| {
-                        quickstep_target_displacement_metres(leg_length, motor)
-                            .min(lunge.distance_metres)
-                    },
-                );
+                let target_displacement = match quickstep_target_displacement_metres(leg_length, motor) {
+                    Ok(distance) => melee_lunge.map_or(distance, |lunge| distance.min(lunge.distance_metres)),
+                    Err(error) => { warn!(%error, ?entity, "Rejected quickstep target displacement"); continue; }
+                };
                 let target = match quickstep_motion_target(
                     phase,
                     target_displacement,
@@ -576,9 +597,9 @@ fn apply_character_motor(
                         .max(1.0) as u64,
                 );
                 let length_scale =
-                    target_displacement / motor.reference_quickstep_target_displacement_metres;
+                    target_displacement.metres() / motor.reference_quickstep_target_displacement_metres.metres();
                 if elapsed_ticks < support_ticks
-                    && displacement
+                    && displacement.metres()
                         < motor.quickstep_maximum_supported_root_displacement_metres * length_scale
                 {
                     // While the virtual legs remain in contact, their baseline
@@ -597,14 +618,14 @@ fn apply_character_motor(
                 info!(
                     target: "quickstep_trace",
                     ?entity,
-                    skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick.encoded()),
+                    skeleton_tick = ?skeleton.map(|skeleton| skeleton.locomotion_sample_tick),
                     push_start_tick = push.start_tick.encoded(),
                     elapsed_ticks = elapsed_ticks.samples(),
                     ?world_direction,
                     phase,
-                    displacement,
+                    displacement = displacement.metres(),
                     forward_velocity,
-                    target_displacement = target.displacement_metres,
+                    target_displacement = target.displacement_metres.metres(),
                     target_velocity = target.velocity_metres_per_second.metres_per_second(),
                     target_acceleration = target.acceleration_metres_per_second_squared,
                     tracking_force,
@@ -625,7 +646,7 @@ fn apply_character_motor(
                 warn!(
                     target: "quickstep_trace",
                     ?entity,
-                    skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick.encoded()),
+                    skeleton_tick = ?skeleton.map(|skeleton| skeleton.locomotion_sample_tick),
                     action_direction = ?skeleton.map_or(Vec2::ZERO, SkeletonState::action_direction),
                     push_present = quickstep_push_present,
                     push_active = quickstep_push_active,
@@ -672,15 +693,18 @@ fn apply_character_motor(
         let forward = (orientation * Vec3::NEG_Z).with_y(0.0).normalize_or_zero();
         let right = (orientation * Vec3::X).with_y(0.0).normalize_or_zero();
         let desired_direction = if let Some(lunge) = melee_lunge {
-            let travelled = (transform.translation - lunge.origin)
+            let travelled = match SignedLength::from_metres((transform.translation - lunge.origin.metres())
                 .xz()
-                .dot(lunge.direction)
-                .max(0.0);
+                .dot(lunge.direction.vector())
+                .max(0.0)) {
+                Ok(distance) => distance,
+                Err(error) => { warn!(%error, ?entity, "Rejected melee observed travel"); continue; }
+            };
             if melee_lunge_has_arrived(travelled, lunge.distance_metres) {
                 commands.entity(entity).remove::<MeleeLungeMovement>();
                 Vec3::ZERO
             } else {
-                Vec3::new(lunge.direction.x, 0.0, lunge.direction.y)
+                Vec3::new(lunge.direction.vector().x, 0.0, lunge.direction.vector().y)
             }
         } else {
             (movement.y * forward + movement.x * right).normalize_or_zero()
@@ -931,10 +955,10 @@ mod tests {
 
     #[test]
     fn melee_lunge_does_not_stop_one_centimetre_before_strike_ready_distance() {
-        assert!(!melee_lunge_has_arrived(0.990, 1.0));
-        assert!(!melee_lunge_has_arrived(0.999_9, 1.0));
-        assert!(melee_lunge_has_arrived(1.0, 1.0));
-        assert!(melee_lunge_has_arrived(1.01, 1.0));
+        assert!(!melee_lunge_has_arrived(SignedLength::from_metres(0.990).unwrap(), SignedLength::from_metres(1.0).unwrap()));
+        assert!(!melee_lunge_has_arrived(SignedLength::from_metres(0.999_9).unwrap(), SignedLength::from_metres(1.0).unwrap()));
+        assert!(melee_lunge_has_arrived(SignedLength::from_metres(1.0).unwrap(), SignedLength::from_metres(1.0).unwrap()));
+        assert!(melee_lunge_has_arrived(SignedLength::from_metres(1.01).unwrap(), SignedLength::from_metres(1.0).unwrap()));
     }
 
     #[test]
@@ -1073,8 +1097,8 @@ mod tests {
         push.begin(
             crate::animation::AnimationSampleTick::from(0u64),
             Vec2::Y,
-            Quat::IDENTITY,
-            Vec3::ZERO,
+            RigidRotation::IDENTITY,
+            Position::ORIGIN,
         );
         let mut world = World::new();
         let entity = world
@@ -1368,7 +1392,7 @@ mod tests {
         let target_distance = quickstep_target_displacement_metres(
             crate::player::CharacterDimensions::default().leg_length_metres,
             motor,
-        );
+        ).unwrap();
         let duration = config.movement.maneuvers.quickstep_duration_seconds;
         let ticks = (duration.seconds() * locomotion_sample_rate().hertz()).round() as usize;
         let delta_seconds = locomotion_sample_rate().interval().seconds();
@@ -1388,7 +1412,7 @@ mod tests {
             )
             .unwrap();
             let force = quickstep_tracking_force_newtons(
-                displacement,
+                SignedLength::from_metres(displacement).unwrap(),
                 adventuresim_core::linear_speed::SignedSpeed::from_metres_per_second(velocity)
                     .unwrap(),
                 target,
@@ -1405,7 +1429,7 @@ mod tests {
             .iter()
             .zip(motor.quickstep_authored_displacement_profile)
         {
-            let expected = normalized * target_distance;
+            let expected = normalized * target_distance.metres();
             assert!(
                 (actual - expected).abs() <= 0.05,
                 "actual={actual} expected={expected}"
@@ -1425,20 +1449,20 @@ mod tests {
         let maximum_gap = quickstep_target_displacement_metres(
             motor.reference_quickstep_leg_length_metres,
             motor,
-        );
+        ).unwrap().metres();
         for gap in [0.501, 0.70, maximum_gap - 0.01] {
             let mut displacement = 0.0;
             let mut velocity = 0.0;
             for tick in 0..ticks {
                 let target = quickstep_motion_target(
                     (tick + 1) as f32 / ticks as f32,
-                    gap,
+                    SignedLength::from_metres(gap).unwrap(),
                     duration.elapsed(),
                     motor.quickstep_authored_displacement_profile,
                 )
                 .unwrap();
                 let force = quickstep_tracking_force_newtons(
-                    displacement,
+                    SignedLength::from_metres(displacement).unwrap(),
                     adventuresim_core::linear_speed::SignedSpeed::from_metres_per_second(velocity)
                         .unwrap(),
                     target,
@@ -1472,7 +1496,7 @@ mod tests {
             quickstep_target_displacement_metres(
                 crate::player::CharacterDimensions::default().leg_length_metres,
                 motor,
-            ),
+            ).unwrap(),
             duration.elapsed(),
             motor.quickstep_authored_displacement_profile,
         )
@@ -1481,7 +1505,7 @@ mod tests {
         // projection, while still being physically indistinguishable from rest.
         let adverse_velocity = -0.0001;
         let force = quickstep_tracking_force_newtons(
-            0.0,
+            SignedLength::ZERO,
             adventuresim_core::linear_speed::SignedSpeed::from_metres_per_second(adverse_velocity)
                 .unwrap(),
             target,
@@ -1506,12 +1530,12 @@ mod tests {
         let config = crate::combat_config::TacticalCombatConfig::default();
         let motor = &config.movement.motor;
         let reference = motor.reference_quickstep_leg_length_metres;
-        assert!((quickstep_target_displacement_metres(reference, motor) - 1.0).abs() < 1.0e-6);
+        assert!((quickstep_target_displacement_metres(reference, motor).unwrap().metres() - 1.0).abs() < 1.0e-6);
         assert!(
-            (quickstep_target_displacement_metres(reference * 1.2, motor) - 1.2).abs() < 1.0e-6
+            (quickstep_target_displacement_metres(reference.scaled_by(1.2).unwrap(), motor).unwrap().metres() - 1.2).abs() < 1.0e-6
         );
         assert!(
-            (quickstep_target_displacement_metres(reference * 0.8, motor) - 0.8).abs() < 1.0e-6
+            (quickstep_target_displacement_metres(reference.scaled_by(0.8).unwrap(), motor).unwrap().metres() - 0.8).abs() < 1.0e-6
         );
     }
 

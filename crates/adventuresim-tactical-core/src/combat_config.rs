@@ -1,3 +1,4 @@
+use fabelgeist_geometry::SignedLength;
 use crate::animation::{
     AngularMagnitudeDegrees, CycleDelta, KneeTargetAmplification, ResponseRate,
     ResponseShapingTime, SignedAngleDegrees, SignedAngularSpeedDegrees,
@@ -219,11 +220,11 @@ pub struct DefenseAuthorityConfig {
 pub struct MeleeAuthorityConfig {
     pub replay_cooldown_seconds: AnimationElapsed,
     pub completion_allowance_seconds: AnimationElapsed,
-    pub range_latency_tolerance_metres: f32,
+    pub range_latency_tolerance_metres: SignedLength,
     pub windup_jitter_fraction: f32,
     pub maximum_windup_jitter_seconds: AnimationElapsed,
-    pub lunge_range_window_metres: f32,
-    pub lunge_quickstep_threshold_metres: f32,
+    pub lunge_range_window_metres: SignedLength,
+    pub lunge_quickstep_threshold_metres: SignedLength,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -231,7 +232,7 @@ pub struct MeleeAuthorityConfig {
 pub struct RangedAuthorityConfig {
     pub cooldown_seconds: AnimationElapsed,
     pub completion_allowance_seconds: AnimationElapsed,
-    pub range_latency_tolerance_metres: f32,
+    pub range_latency_tolerance_metres: SignedLength,
     pub aim_half_angle_degrees: f32,
 }
 
@@ -285,9 +286,9 @@ pub struct CharacterMotorConfig {
     /// Reaching this extension releases support even if force time remains.
     pub quickstep_maximum_supported_root_displacement_metres: f32,
     /// Intended planar displacement for the reference leg length.
-    pub reference_quickstep_target_displacement_metres: f32,
+    pub reference_quickstep_target_displacement_metres: SignedLength,
     /// Hip-to-ankle chain length for the reference quickstep distance.
-    pub reference_quickstep_leg_length_metres: f32,
+    pub reference_quickstep_leg_length_metres: SignedLength,
     /// Normalized authored root displacement at frames 0, 3, 6, 9, and 12.
     /// Runtime clips retain the poses but remove this lateral translation.
     pub quickstep_authored_displacement_profile: [f32; 5],
@@ -450,11 +451,11 @@ impl TacticalCombatConfig {
         let authority = &self.realtime_authority;
         let authority_values = [
             authority.defense.roll_dodge_effectiveness,
-            authority.melee.range_latency_tolerance_metres,
+            authority.melee.range_latency_tolerance_metres.metres(),
             authority.melee.windup_jitter_fraction,
-            authority.melee.lunge_range_window_metres,
-            authority.melee.lunge_quickstep_threshold_metres,
-            authority.ranged.range_latency_tolerance_metres,
+            authority.melee.lunge_range_window_metres.metres(),
+            authority.melee.lunge_quickstep_threshold_metres.metres(),
+            authority.ranged.range_latency_tolerance_metres.metres(),
             authority.ranged.aim_half_angle_degrees,
             authority.impact.whole_body_velocity_scale,
         ];
@@ -495,8 +496,8 @@ impl TacticalCombatConfig {
                 .quickstep_maximum_supported_root_displacement_metres,
             movement
                 .motor
-                .reference_quickstep_target_displacement_metres,
-            movement.motor.reference_quickstep_leg_length_metres,
+                .reference_quickstep_target_displacement_metres.metres(),
+            movement.motor.reference_quickstep_leg_length_metres.metres(),
             movement.motor.quickstep_takeoff_angle_degrees,
             movement.motor.reference_leg_strength,
             movement.motor.reference_leg_agility,

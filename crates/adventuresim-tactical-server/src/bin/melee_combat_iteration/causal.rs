@@ -235,7 +235,7 @@ fn record_tactical_totals(
     event: &adventuresim_tactical_server::iteration::TacticalMeleeLogEntry,
 ) -> MeasurementResult<()> {
     let separation =
-        Measurement::<CenterSeparationMetres>::from_native(event.center_separation_metres)?;
+        Measurement::<CenterSeparationMetres>::from_length(event.center_separation_metres);
     summary.minimum_contact_separation_metres = Some(
         summary
             .minimum_contact_separation_metres

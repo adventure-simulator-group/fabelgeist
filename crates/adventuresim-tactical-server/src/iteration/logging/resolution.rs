@@ -62,19 +62,19 @@ pub(super) fn resolved_attack_entry(
     defender_transform: &Transform,
     viewer: &TacticalPlayerViewer<'_, '_>,
     states: &Query<(&TacticalCombatState, &Limbs)>,
-) -> TacticalMeleeLogEntry {
+) -> fabelgeist_geometry::GeometryResult<TacticalMeleeLogEntry> {
     let energy = resolved_energy_log(event.result);
     let armor_impact = energy.armor_impact;
-    TacticalMeleeLogEntry {
+    Ok(TacticalMeleeLogEntry {
         sequence,
         tick: clock.tick,
         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
         attacker: attacker.name.clone(),
         defender: defender.name.clone(),
-        center_separation_metres: attacker_transform
+        center_separation_metres: SignedLength::from_metres(attacker_transform
             .translation
             .xz()
-            .distance(defender_transform.translation.xz()),
+            .distance(defender_transform.translation.xz()))?,
         attacker_decision: TacticalDecision::Attack,
         defender_decision: defender_decision(event.defender_response),
         defensive_implement: event.defender_blocking_slot.and_then(|slot| {
@@ -126,7 +126,7 @@ pub(super) fn resolved_attack_entry(
         blunt_damage_joules: energy.blunt,
         attacker_incapacitation: incapacitation_log(viewer, states, event.attacker),
         defender_incapacitation: incapacitation_log(viewer, states, event.target),
-    }
+    })
 }
 
 fn defensive_implement_kind(

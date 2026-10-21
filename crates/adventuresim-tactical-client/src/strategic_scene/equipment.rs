@@ -78,10 +78,10 @@ fn spawn_item(
             weight: definition.weight_kg,
         },
         TacticalEquipmentPhysical {
-            dimensions_m: Vec3::from_array(physical.dimensions_m),
+            dimensions_m: physical.dimensions_m,
             grip_to_tip_m: physical.grip_to_tip_m,
             // These entities present equipment; they have no striking volume.
-            striking_head_length_m: 0.0,
+            striking_head_length_m: fabelgeist_geometry::SignedLength::ZERO,
             anchor_offset_m: Vec3::from_array(physical.anchor_offset_m),
         },
         EquipmentTopology {

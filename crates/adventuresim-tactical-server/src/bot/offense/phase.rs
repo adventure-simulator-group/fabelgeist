@@ -10,7 +10,7 @@ struct OffensiveControls<'a> {
 struct MeleePursuit {
     entity: Entity,
     target: Entity,
-    distance: f32,
+    distance: SignedLength,
 }
 
 #[derive(Debug, Reflect)]
@@ -93,7 +93,7 @@ pub(super) fn drive_offensive_phase(
     time: &Time<()>,
     entity: Entity,
     target: Entity,
-    distance: f32,
+    distance: SignedLength,
     input: &mut AuthoritativeMovementIntent,
     controller: &mut OffensiveCombatAi,
     skeleton: &SkeletonState,
@@ -173,7 +173,7 @@ fn drive_pursuit_phase(
     cmd: &mut Commands,
     entity: Entity,
     target: Entity,
-    distance: f32,
+    distance: SignedLength,
     input: &mut AuthoritativeMovementIntent,
     controller: &mut OffensiveCombatAi,
     skeleton: &SkeletonState,
@@ -218,7 +218,7 @@ fn drive_pursuit_phase(
     } else if facts.weapon_is_melee
         && facts.melee_attack_available
         && matches!(facts.melee_recovery_seconds, Some(RecoveryTime::After(_)))
-        && facts.dimensions.arm_reach_metres > 0.0
+        && facts.dimensions.arm_reach_metres.metres() > 0.0
         && matches!(
             facts.melee_lunge_delay,
             Some(MeleeLungeArrival::NotNeeded | MeleeLungeArrival::ArrivesIn(_))

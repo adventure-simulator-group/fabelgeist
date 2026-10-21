@@ -6,7 +6,7 @@ use spacetimedb::{ReducerContext, reducer};
 
 use crate::character::character;
 use crate::inventory_amount::inventory_item_amount;
-use crate::item::{add_inventory_item_checked, inventory_item};
+use crate::item::{add_inventory_item, inventory_item};
 
 fn available(ctx: &ReducerContext, character_id: u64, item_id: &str) -> u32 {
     ctx.db
@@ -59,7 +59,7 @@ pub fn forge_weapon(
     character_id: u64,
     settlement_id: String,
     recipe: Vec<u8>,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     if recipe.len() > crate::weapon_instance::MAX_WEAPON_RECIPE_BYTES {
         return Err("Weapon recipe exceeds the smithing limit".into());
@@ -98,7 +98,7 @@ pub fn forge_weapon(
         if available(ctx, character_id, item_id) < *required {
             return Err(format!(
                 "Insufficient {item_id}: {required} milliunits required"
-            ));
+            ).into());
         }
     }
     for (item_id, required) in &quote.requirements {
@@ -107,7 +107,7 @@ pub fn forge_weapon(
     if !crate::time::advance_character_wait_time(ctx, character_id, quote.minutes)? {
         return Err("The smithing session could not be completed".into());
     }
-    let inventory_id = add_inventory_item_checked(ctx, character_id, &design.catalog_id, 1)?
+    let inventory_id = add_inventory_item(ctx, character_id, &design.catalog_id, 1)?
         .ok_or("Could not create forged weapon")?;
     let object = crate::inventory_container::object_for_row(
         ctx,
@@ -115,5 +115,5 @@ pub fn forge_weapon(
         inventory_id,
     )?
     .ok_or("Forged weapon has no physical identity")?;
-    crate::weapon_instance::replace_design(ctx, object.id, &design)
+    Ok(crate::weapon_instance::replace_design(ctx, object.id, &design)?)
 }

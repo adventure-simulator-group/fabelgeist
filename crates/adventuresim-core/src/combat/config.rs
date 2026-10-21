@@ -2,6 +2,7 @@ use super::{CombatFatigueParameters, WeaponContactParameters};
 use crate::elapsed::AnimationElapsed;
 use crate::linear_speed::PositiveSpeed;
 use serde::{Deserialize, Serialize};
+use fabelgeist_geometry::SignedLength;
 
 /// Physical tuning projected from the canonical tactical combat configuration.
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
@@ -20,7 +21,7 @@ pub struct CombatResolutionParameters {
 #[serde(deny_unknown_fields)]
 pub struct AutoresolveParameters {
     pub combat_round_seconds: AnimationElapsed,
-    pub formation_spacing_metres: f32,
+    pub formation_spacing_metres: SignedLength,
     pub reference_melee_attack_seconds: AnimationElapsed,
     pub minimum_movement_speed_metres_per_second: PositiveSpeed,
     /// Maximum guarded locomotion speed shared with the tactical controller.
@@ -28,7 +29,7 @@ pub struct AutoresolveParameters {
     /// Forward lunge speed used by the tactical attack-movement planner.
     pub melee_lunge_speed_metres_per_second: PositiveSpeed,
     /// Maximum authored forward/quickstep travel available to a melee start.
-    pub melee_lunge_maximum_travel_metres: f32,
+    pub melee_lunge_maximum_travel_metres: SignedLength,
     /// Authored ground-drive force shared with the tactical character motor.
     pub reference_ground_drive_force_newtons: f32,
     pub reference_leg_strength: f32,
@@ -44,7 +45,7 @@ pub struct AutoresolveParameters {
     pub melee_initiative_delay_min_seconds: AnimationElapsed,
     pub melee_initiative_delay_max_seconds: AnimationElapsed,
     pub melee_cadence_jitter_seconds: AnimationElapsed,
-    pub long_weapon_measure_threshold_metres: f32,
+    pub long_weapon_measure_threshold_metres: SignedLength,
     pub melee_measure_reach_fraction: f32,
     pub minimum_hit_precision: f32,
     pub maximum_hit_precision: f32,
@@ -71,13 +72,13 @@ impl CombatResolutionParameters {
 impl AutoresolveParameters {
     pub fn validate(self) -> Result<(), &'static str> {
         let positive = [
-            self.formation_spacing_metres,
-            self.melee_lunge_maximum_travel_metres,
+            self.formation_spacing_metres.metres(),
+            self.melee_lunge_maximum_travel_metres.metres(),
             self.reference_ground_drive_force_newtons,
             self.reference_leg_strength,
             self.gravity_metres_per_second_squared,
             self.traction_coefficient,
-            self.long_weapon_measure_threshold_metres,
+            self.long_weapon_measure_threshold_metres.metres(),
         ];
         let positive_durations = [
             self.combat_round_seconds,

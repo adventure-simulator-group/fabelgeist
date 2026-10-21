@@ -7,7 +7,7 @@ pub(crate) fn health_recovered_per_day(physiology_check: f32) -> f32 {
 pub(crate) fn party_physiology_check(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<f32, String> {
+) -> StrategicOperationResult<f32> {
     let character = ctx
         .db
         .character()
@@ -51,7 +51,7 @@ pub fn rest_at_settlement_hours(
     character_id: u64,
     requested_minutes: u64,
     service: SettlementActionService,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     require_character_rest_service(ctx, character_id, service)?;
     rest_for_minutes(
@@ -73,7 +73,7 @@ pub fn rest_at_residence_hours(
     ctx: &ReducerContext,
     character_id: u64,
     requested_minutes: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     require_character_residence_rest(ctx, character_id)?;
     rest_for_minutes(
@@ -114,7 +114,7 @@ pub fn sponsor_party_member_inn_rest(
     patient_id: u64,
     settlement_id: String,
     expected_cost: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, payer_id)?;
     if payer_id == patient_id {
         return Err("A patient who can pay must use ordinary settlement rest".into());
@@ -230,7 +230,7 @@ fn rest_for_minutes(
     explicit: bool,
     automatic_social: bool,
     inn_sponsor_id: Option<u64>,
-) -> Result<u64, String> {
+) -> StrategicOperationResult<u64> {
     let character = crate::character::require_living_character(ctx, character_id)?;
     if character.current_settlement_id.is_none() {
         return Err("Settlement downtime requires the character to be at a settlement".into());
@@ -501,7 +501,7 @@ pub(crate) fn spend_private_settlement_downtime(
     character_id: u64,
     requested_minutes: u64,
     explicit: bool,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     rest_for_minutes(
         ctx,
         character_id,
@@ -522,7 +522,7 @@ pub(crate) fn spend_private_settlement_downtime(
 pub(crate) fn synchronize_to_settlement_time_of_day(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<bool, String> {
+) -> StrategicOperationResult<bool> {
     let character = crate::character::require_living_character(ctx, character_id)?;
     if character.current_settlement_id.is_none() {
         return Err("Time-of-day synchronization requires a settlement".into());
@@ -571,7 +571,7 @@ pub(crate) fn synchronize_to_settlement_time_of_day(
 pub(crate) fn synchronize_party_departure_time(
     ctx: &ReducerContext,
     member_ids: &[u64],
-) -> Result<Option<StrategicMinute>, String> {
+) -> StrategicOperationResult<Option<StrategicMinute>> {
     if member_ids.is_empty() {
         return Err("Party has no living members".into());
     }
@@ -616,7 +616,7 @@ pub(crate) fn synchronize_party_departure_time(
 pub(crate) fn rest_temporary_party_member_until_healed_at_settlement(
     ctx: &ReducerContext,
     character_id: u64,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let character = ctx
         .db
         .character()

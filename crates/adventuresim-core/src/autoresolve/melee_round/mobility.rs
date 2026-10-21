@@ -1,7 +1,77 @@
 use super::*;
 
-pub(in crate::autoresolve) fn melee_effective_reach(combatant: &Combatant) -> f32 {
-    HUMANOID_REFERENCE_ARM_REACH_METRES + combatant.equipment.weapon_reach().max(0.0)
+struct MeleePairMovement {
+    movement: OpposedMovement,
+    first_intent: MeleeMovementAction,
+    second_intent: MeleeMovementAction,
+}
+
+
+impl MeleePairMovement {
+    fn preview(
+        first: &Combatant,
+        second: &Combatant,
+        elapsed: AnimationElapsed,
+        parameters: crate::combat::AutoresolveParameters,
+    ) -> BattleResolutionResult<Self> {
+        let surface = first
+            .melee_engagement_distance_metres
+            .min(second.melee_engagement_distance_metres)
+            .max(SignedLength::ZERO);
+        let first_intent = movement_intent(first, surface, parameters)?;
+        let second_intent = movement_intent(second, surface, parameters)?;
+        let speed = |combatant: &Combatant| -> SpeedResult<NonnegativeSpeed> {
+            Ok(combatant
+                .movement_speed_meters_per_second(parameters.minimum_movement_speed_metres_per_second)?
+                .min(if combatant.melee_attack_started_at_seconds.is_some() {
+                    parameters.melee_lunge_speed_metres_per_second
+                } else {
+                    parameters.guarded_movement_speed_metres_per_second
+                })
+                .nonnegative())
+        };
+        let acceleration = |combatant: &Combatant| {
+            ground_drive_acceleration(
+                parameters.reference_ground_drive_force_newtons,
+                combatant.attributes.limb_attr_by_weight_by_parts(
+                    LimbAttribute::Strength,
+                    &combatant.body,
+                    LimbWeights::both_legs(),
+                ),
+                parameters.reference_leg_strength,
+                combatant.body.weight_kg,
+                combatant.equipment.inventory_weight,
+                parameters.gravity_metres_per_second_squared,
+                parameters.traction_coefficient,
+            )
+        };
+        let maximum_surface_separation =
+            maximum_melee_pair_surface_separation(first, second, parameters)?;
+        let mut movement = integrate_opposed_movement(
+            SignedLength::from_metres(surface.metres() + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)?,
+            first.melee_separation_velocity_metres_per_second,
+            first_intent,
+            speed(first)?,
+            second.melee_separation_velocity_metres_per_second,
+            second_intent,
+            speed(second)?,
+            acceleration(first),
+            acceleration(second),
+            elapsed,
+            SignedLength::from_metres(HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)?,
+            SignedLength::from_metres(maximum_surface_separation.metres() + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)?,
+        )?;
+        movement.distance_before_metres = SignedLength::from_metres((movement.distance_before_metres.metres()
+            - HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)
+            .max(0.0))?;
+        movement.distance_after_metres =
+            SignedLength::from_metres((movement.distance_after_metres.metres() - HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES).max(0.0))?;
+        Ok(Self { movement, first_intent, second_intent })
+    }
+}
+
+pub(in crate::autoresolve) fn melee_effective_reach(combatant: &Combatant) -> fabelgeist_geometry::GeometryResult<SignedLength> {
+    SignedLength::from_metres(HUMANOID_REFERENCE_ARM_REACH_METRES + combatant.equipment.weapon_reach().metres().max(0.0))
 }
 
 pub(in crate::autoresolve) fn available_attack_start(
@@ -16,111 +86,49 @@ pub(in crate::autoresolve) fn available_attack_start(
 
 pub(super) fn movement_intent(
     combatant: &Combatant,
-    distance: f32,
+    distance: SignedLength,
     parameters: crate::combat::AutoresolveParameters,
-) -> MeleeMovementAction {
-    let reach = melee_effective_reach(combatant);
-    let preferred = preferred_melee_measure(combatant, parameters);
+) -> BattleResolutionResult<MeleeMovementAction> {
+    let reach = melee_effective_reach(combatant)?;
+    let preferred = preferred_melee_measure(combatant, parameters)?;
     let head_length = combatant.equipment.weapon_striking_head_length();
-    let minimum_working_measure = if head_length > 0.0 {
-        (reach - head_length).max(0.0)
+    let minimum_working_measure = if head_length.metres() > 0.0 {
+        SignedLength::from_metres((reach.metres() - head_length.metres()).max(0.0))?
     } else {
         preferred
     };
-    if distance < minimum_working_measure
-        || combatant.equipment.weapon_reach() >= parameters.long_weapon_measure_threshold_metres
-            && distance < preferred
+    Ok(if distance.metres() < minimum_working_measure.metres()
+        || combatant.equipment.weapon_reach().metres() >= parameters.long_weapon_measure_threshold_metres.metres()
+            && distance.metres() < preferred.metres()
     {
         MeleeMovementAction::Retreat
-    } else if distance > reach
-        || combatant.melee_attack_started_at_seconds.is_some() && distance >= preferred
+    } else if distance.metres() > reach.metres()
+        || combatant.melee_attack_started_at_seconds.is_some() && distance.metres() >= preferred.metres()
     {
         MeleeMovementAction::Close
     } else {
         MeleeMovementAction::Hold
-    }
+    })
 }
 
 pub(super) fn maximum_melee_pair_surface_separation(
     first: &Combatant,
     second: &Combatant,
     parameters: crate::combat::AutoresolveParameters,
-) -> f32 {
-    parameters
-        .formation_spacing_metres
-        .max(melee_effective_reach(first))
-        .max(melee_effective_reach(second))
-}
-
-pub(in crate::autoresolve) fn preview_melee_pair_movement(
-    first: &Combatant,
-    second: &Combatant,
-    elapsed: AnimationElapsed,
-    parameters: crate::combat::AutoresolveParameters,
-) -> SpeedResult<(OpposedMovement, MeleeMovementAction, MeleeMovementAction)> {
-    let surface = first
-        .melee_engagement_distance_metres
-        .min(second.melee_engagement_distance_metres)
-        .max(0.0);
-    let first_intent = movement_intent(first, surface, parameters);
-    let second_intent = movement_intent(second, surface, parameters);
-    let speed = |combatant: &Combatant| -> SpeedResult<NonnegativeSpeed> {
-        Ok(combatant
-            .movement_speed_meters_per_second(parameters.minimum_movement_speed_metres_per_second)?
-            .min(if combatant.melee_attack_started_at_seconds.is_some() {
-                parameters.melee_lunge_speed_metres_per_second
-            } else {
-                parameters.guarded_movement_speed_metres_per_second
-            })
-            .nonnegative())
-    };
-    let acceleration = |combatant: &Combatant| {
-        ground_drive_acceleration(
-            parameters.reference_ground_drive_force_newtons,
-            combatant.attributes.limb_attr_by_weight_by_parts(
-                LimbAttribute::Strength,
-                &combatant.body,
-                LimbWeights::both_legs(),
-            ),
-            parameters.reference_leg_strength,
-            combatant.body.weight_kg,
-            combatant.equipment.inventory_weight,
-            parameters.gravity_metres_per_second_squared,
-            parameters.traction_coefficient,
-        )
-    };
-    let maximum_surface_separation =
-        maximum_melee_pair_surface_separation(first, second, parameters);
-    let mut movement = integrate_opposed_movement(
-        surface + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
-        first.melee_separation_velocity_metres_per_second,
-        first_intent,
-        speed(first)?,
-        second.melee_separation_velocity_metres_per_second,
-        second_intent,
-        speed(second)?,
-        acceleration(first),
-        acceleration(second),
-        elapsed,
-        HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
-        maximum_surface_separation + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
-    )?;
-    movement.distance_before_metres = (movement.distance_before_metres
-        - HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)
-        .max(0.0);
-    movement.distance_after_metres =
-        (movement.distance_after_metres - HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES).max(0.0);
-    Ok((movement, first_intent, second_intent))
+) -> fabelgeist_geometry::GeometryResult<SignedLength> {
+    Ok(parameters.formation_spacing_metres
+        .max(melee_effective_reach(first)?)
+        .max(melee_effective_reach(second)?))
 }
 
 pub(in crate::autoresolve) fn preferred_melee_measure(
     combatant: &Combatant,
     parameters: crate::combat::AutoresolveParameters,
-) -> f32 {
-    let reach = melee_effective_reach(combatant);
-    combatant.equipment.melee_weapon.map_or(
-        reach * parameters.melee_measure_reach_fraction,
-        |weapon| {
+) -> fabelgeist_geometry::GeometryResult<SignedLength> {
+    let reach = melee_effective_reach(combatant)?;
+    match combatant.equipment.melee_weapon {
+        None => SignedLength::from_metres(reach.metres() * parameters.melee_measure_reach_fraction),
+        Some(weapon) => {
             preferred_melee_striking_measure(
                 reach,
                 weapon.grip_to_tip_m,
@@ -129,7 +137,7 @@ pub(in crate::autoresolve) fn preferred_melee_measure(
                 parameters.melee_measure_reach_fraction,
             )
         },
-    )
+    }
 }
 
 pub(in crate::autoresolve) fn advance_melee_pair_movement(
@@ -147,7 +155,7 @@ pub(in crate::autoresolve) fn advance_melee_pair_movement(
     if first.melee_engagement_target != Some(second.id)
         || second.melee_engagement_target != Some(first.id)
     {
-        let initial_separation = maximum_melee_pair_surface_separation(first, second, parameters);
+        let initial_separation = maximum_melee_pair_surface_separation(first, second, parameters)?;
         first.melee_engagement_target = Some(second.id);
         second.melee_engagement_target = Some(first.id);
         first.melee_engagement_distance_metres = initial_separation;
@@ -155,8 +163,8 @@ pub(in crate::autoresolve) fn advance_melee_pair_movement(
         first.melee_separation_velocity_metres_per_second = SignedSpeed::ZERO;
         second.melee_separation_velocity_metres_per_second = SignedSpeed::ZERO;
     }
-    let (movement, first_intent, second_intent) =
-        preview_melee_pair_movement(first, second, elapsed, parameters)?;
+    let MeleePairMovement { movement, first_intent, second_intent } =
+        MeleePairMovement::preview(first, second, elapsed, parameters)?;
     first.melee_engagement_distance_metres = movement.distance_after_metres;
     second.melee_engagement_distance_metres = movement.distance_after_metres;
     first.melee_separation_velocity_metres_per_second =

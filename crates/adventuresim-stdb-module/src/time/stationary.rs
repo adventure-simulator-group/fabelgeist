@@ -7,7 +7,7 @@ pub(crate) fn advance_stationary_character_to(
     ctx: &ReducerContext,
     character_id: u64,
     target_minutes: StrategicMinute,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     ensure_character_time(ctx, character_id)?;
     let character = ctx
         .db
@@ -197,7 +197,7 @@ pub fn update_training_schedule(
     ctx: &ReducerContext,
     character_id: u64,
     downtime: ScheduleAllocation,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     crate::character::require_living_character(ctx, character_id)?;
     ensure_character_time(ctx, character_id)?;

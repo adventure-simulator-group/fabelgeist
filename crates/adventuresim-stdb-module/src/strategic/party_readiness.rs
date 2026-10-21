@@ -20,7 +20,7 @@ pub(crate) fn living_party_member_ids(ctx: &ReducerContext, party_id: &str) -> V
     character_ids
 }
 
-pub(crate) fn require_party_ready(ctx: &ReducerContext, party_id: &str) -> Result<(), String> {
+pub(crate) fn require_party_ready(ctx: &ReducerContext, party_id: &str) -> crate::StrategicOperationResult<()> {
     let character_ids = living_party_member_ids(ctx, party_id);
     if character_ids.is_empty() {
         return Err("Party has no living members".into());

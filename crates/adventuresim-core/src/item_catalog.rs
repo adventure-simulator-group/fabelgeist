@@ -8,6 +8,9 @@ pub use crate::item_catalog_schema::*;
 use serde::Deserialize;
 use std::sync::OnceLock;
 
+#[path = "item_catalog_projection.rs"]
+mod projection;
+
 include!(concat!(env!("OUT_DIR"), "/item_catalog.rs"));
 
 /// Source identity of the general authored item document, admitted by build.rs.
@@ -26,83 +29,9 @@ pub struct ItemSourceRef {
 
 pub fn catalog() -> &'static [ItemDefinition] {
     CATALOG
-        .get_or_init(|| {
-            let mut documents: Vec<ItemCatalogDocument> =
-                serde_json::from_str(ITEM_CATALOG_JSON).expect("validated embedded item catalog");
-            let mut items: Vec<_> = documents
-                .drain(..)
-                .flat_map(|document| document.items)
-                .collect();
-            for item in &mut items {
-                if let ItemKind::Weapon {
-                    melee: true,
-                    precision,
-                    reach_m,
-                    moment_of_inertia_kg_m2,
-                    ..
-                } = &mut item.kind
-                {
-                    let design = adventuresim_weapon_model::default_design(&item.id)
-                        .expect("every melee catalog weapon requires a generated recipe");
-                    let physical = adventuresim_weapon_model::derive_properties(&design)
-                        .expect("valid generated catalog weapon");
-                    *precision = crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS
-                        .contact
-                        .precision_for_design(&design)
-                        .value();
-                    *reach_m = physical.grip_to_tip_m;
-                    *moment_of_inertia_kg_m2 = physical.moment_of_inertia_kg_m2;
-                    item.weight_kg = physical.mass_kg;
-                    if let Some(equipment) = &mut item.equipment {
-                        equipment.physical.grip_to_tip_m = physical.grip_to_tip_m;
-                        equipment.physical.dimensions_m[1] = physical.length_m;
-                    }
-                }
-                let Some(equipment) = &item.equipment else {
-                    continue;
-                };
-                let placement_coverages = equipment
-                    .placements
-                    .iter()
-                    .filter_map(|placement| {
-                        let regions = placement
-                            .surface
-                            .iter()
-                            .map(|span| span.regions.len())
-                            .sum::<usize>();
-                        (regions > 0).then(|| {
-                            placement
-                                .surface
-                                .iter()
-                                .map(|span| span.coverage * span.regions.len() as f32)
-                                .sum::<f32>()
-                                / regions as f32
-                        })
-                    })
-                    .collect::<Vec<_>>();
-                if placement_coverages.is_empty() {
-                    continue;
-                }
-                let coverage =
-                    placement_coverages.iter().sum::<f32>() / placement_coverages.len() as f32;
-                match &mut item.kind {
-                    ItemKind::Armor {
-                        coverage: authored, ..
-                    } => *authored = coverage,
-                    ItemKind::Clothing => {
-                        if let Some(protection) = item
-                            .equipment
-                            .as_mut()
-                            .and_then(|equipment| equipment.protection.as_mut())
-                        {
-                            protection.coverage = coverage;
-                        }
-                    }
-                    _ => {}
-                }
-            }
-            items.sort_by(|a, b| a.id.cmp(&b.id));
-            items
+        .get_or_init(|| match projection::load_catalog() {
+            Ok(items) => items,
+            Err(error) => panic!("invalid embedded item catalogue: {error}"),
         })
         .as_slice()
 }
@@ -544,13 +473,14 @@ mod tests {
                 equipment
                     .physical
                     .dimensions_m
+                    .axis_metres()
                     .iter()
                     .all(|dimension| dimension.is_finite() && *dimension > 0.0),
                 "{}",
                 item.id
             );
-            assert!(equipment.physical.grip_to_tip_m.is_finite());
-            assert!(equipment.physical.grip_to_tip_m >= 0.0);
+            assert!(equipment.physical.grip_to_tip_m.metres().is_finite());
+            assert!(equipment.physical.grip_to_tip_m.metres() >= 0.0);
             assert!(
                 equipment
                     .physical

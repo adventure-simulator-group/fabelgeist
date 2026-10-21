@@ -15,7 +15,7 @@ pub(in crate::melee_combat_iteration) fn record_autoresolve_telemetry(
         .or_default() += 1;
     record_contact_measures(attacker, telemetry)?;
     attacker.full_energy_intended_contacts_inside_ten_centimetres += u64::from(
-        telemetry.actual_contact_measure_metres < 0.1
+        telemetry.actual_contact_measure_metres.metres() < 0.1
             && telemetry.contact_classification == MeleeContactClassification::IntendedSurface
             && telemetry.contact_energy_fraction >= 0.999,
     );
@@ -94,13 +94,13 @@ fn record_movement_event(
             .entry(format!("{action:?}"))
             .or_default() += 1;
     }
-    let displacement = event.movement_displacement_metres.unwrap_or_default().abs();
+    let displacement = event.movement_displacement_metres.unwrap_or_default();
     let velocity = before.magnitude().max(after.magnitude());
     let elapsed_measurement = Measurement::<AutoresolveSeconds>::from_elapsed(elapsed)?;
     combatant.movement_elapsed_seconds.checked_add(elapsed_measurement)?;
     combatant.movement_segments += 1;
     combatant.movement_absolute_displacement_metres.checked_add(
-        Measurement::<MovementMetres>::from_native(displacement)?,
+        Measurement::<MovementMetres>::from_absolute_displacement(displacement),
     )?;
     combatant.maximum_movement_speed_metres_per_second = combatant
         .maximum_movement_speed_metres_per_second
@@ -111,12 +111,12 @@ fn record_movement_event(
     // This f32 inequality is the original movement-contract kernel: metres
     // versus metres/second times seconds, with the existing metre tolerance.
     combatant.movement_displacement_limit_failures += u64::from(
-        displacement > speed_limit.metres_per_second() * elapsed.seconds() + 1.0e-5,
+        displacement.metres().abs() > speed_limit.metres_per_second() * elapsed.seconds() + 1.0e-5,
     );
     let distance_delta = event
         .engagement_distance_before_metres
         .zip(event.engagement_distance_after_metres)
-        .map_or(0.0, |(before, after)| (after - before).abs());
+        .map_or(0.0, |(before, after)| (after.metres() - before.metres()).abs());
     combatant.movement_nonzero_delta_zero_elapsed +=
         u64::from(distance_delta > 0.0 && elapsed.is_zero());
     Ok(())
@@ -155,14 +155,14 @@ fn record_contact_measures(
 ) -> MeasurementResult<()> {
     attacker.contact_measure_samples += 1;
     attacker.mean_scheduled_contact_measure_metres.checked_add(
-        Measurement::<ContactMetres>::from_native(telemetry.scheduled_contact_measure_metres)?,
+        Measurement::<ContactMetres>::from_length(telemetry.scheduled_contact_measure_metres),
     )?;
     let actual =
-        Measurement::<ContactMetres>::from_native(telemetry.actual_contact_measure_metres)?;
+        Measurement::<ContactMetres>::from_length(telemetry.actual_contact_measure_metres);
     attacker.mean_actual_contact_measure_metres.checked_add(actual)?;
-    let separation = Measurement::<CenterSeparationMetres>::from_native(
+    let separation = Measurement::<CenterSeparationMetres>::from_length(
         telemetry.actual_center_separation_metres,
-    )?;
+    );
     attacker.minimum_actual_contact_measure_metres = Some(
         attacker
             .minimum_actual_contact_measure_metres

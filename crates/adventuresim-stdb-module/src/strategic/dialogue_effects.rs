@@ -11,7 +11,7 @@ fn apply_dialogue_effect(
     resulting_revision: u64,
     effect: &adventuresim_dialogue::Effect,
     testimony_event_sequence: Option<u32>,
-) -> Result<(), String> {
+) -> StrategicOperationResult<()> {
     let live_npc = require_live_dialogue_presence(ctx, session, character_id)?;
     match effect {
         adventuresim_dialogue::Effect::LearnTopic { topic } => {
@@ -56,12 +56,12 @@ fn apply_dialogue_effect(
                 .and_then(|definition| definition.entry_role_ids.first())
                 .cloned()
                 .ok_or("Organization has no admission role")?;
-            crate::organization::join_organization(
+            Ok(crate::organization::join_organization(
                 ctx,
                 character_id,
                 organization_id,
                 entry_role_id,
-            )
+            )?)
         }
         adventuresim_dialogue::Effect::JoinOrganization => {
             let organization_id = dialogue_organization_id(ctx, session, &live_npc)?;
@@ -69,16 +69,16 @@ fn apply_dialogue_effect(
                 .and_then(|definition| definition.entry_role_ids.first())
                 .cloned()
                 .ok_or("Organization has no admission role")?;
-            crate::organization::join_organization(
+            Ok(crate::organization::join_organization(
                 ctx,
                 character_id,
                 organization_id,
                 entry_role_id,
-            )
+            )?)
         }
         adventuresim_dialogue::Effect::PayOrganizationDues => {
             let organization_id = dialogue_organization_id(ctx, session, &live_npc)?;
-            crate::organization::pay_organization_dues(ctx, character_id, organization_id)
+            Ok(crate::organization::pay_organization_dues(ctx, character_id, organization_id)?)
         }
         adventuresim_dialogue::Effect::RequestOrganizationPromotion { to_role_id } => {
             let organization_id = dialogue_organization_id(ctx, session, &live_npc)?;
@@ -102,16 +102,16 @@ fn apply_dialogue_effect(
                 }
                 target
             };
-            crate::organization::promote_organization_membership(
+            Ok(crate::organization::promote_organization_membership(
                 ctx,
                 character_id,
                 organization_id,
                 target.id.clone(),
-            )
+            )?)
         }
         adventuresim_dialogue::Effect::PresentOrganization => {
             let organization_id = dialogue_organization_id(ctx, session, &live_npc)?;
-            crate::organization::present_organization(ctx, character_id, organization_id)
+            Ok(crate::organization::present_organization(ctx, character_id, organization_id)?)
         }
         adventuresim_dialogue::Effect::ReceiveReferredTestimony => {
             let event_sequence = testimony_event_sequence
@@ -125,14 +125,14 @@ fn apply_dialogue_effect(
             )
         }
         adventuresim_dialogue::Effect::InvestigationAction { action } => {
-            apply_dialogue_investigation_action(
+            Ok(apply_dialogue_investigation_action(
                 ctx,
                 character_id,
                 session,
                 action,
                 source_scope,
                 action_id,
-            )
+            )?)
         }
         adventuresim_dialogue::Effect::AcceptContract { .. } => {
             let service = dialogue_service_id(ctx, session)?;
@@ -157,7 +157,7 @@ fn apply_dialogue_effect(
                 action_id,
                 resulting_revision,
             )?;
-            accept_contract(ctx, character_id, contract_id)
+            Ok(accept_contract(ctx, character_id, contract_id)?)
         }
         adventuresim_dialogue::Effect::ReportContract { .. } => {
             let character = ctx
@@ -197,7 +197,7 @@ fn apply_dialogue_effect(
                 action_id,
                 resulting_revision,
             )?;
-            report_contract(ctx, character_id, contract_id)
+            Ok(report_contract(ctx, character_id, contract_id)?)
         }
         adventuresim_dialogue::Effect::SetFlag { flag, value } if flag == "profess-local-faith" => {
             let religion_id = if *value {

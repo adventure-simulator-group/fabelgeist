@@ -170,7 +170,7 @@ pub fn approve_party_action_request(
     ctx: &ReducerContext,
     leader_id: u64,
     request_id: u64,
-) -> StrategicCombatResult<()> {
+) -> StrategicOperationResult<()> {
     require_strategic_gateway(ctx)?;
     crate::character::require_living_character(ctx, leader_id)?;
     if let Some(resolved) = ctx.db.resolved_party_action().id().find(request_id) {

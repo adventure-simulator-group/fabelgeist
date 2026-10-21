@@ -231,10 +231,11 @@ fn on_hit_performed(
     }
 
     let hit = event.event();
-    let end = hit.origin + *hit.direction * hit.length;
+    let origin = hit.origin.metres();
+    let end = origin + *hit.direction * hit.length.metres();
 
     let mut asset = GizmoAsset::default();
-    asset.line(hit.origin, end, tailwind::ROSE_600);
+    asset.line(origin, end, tailwind::ROSE_600);
     let handle = gizmo_assets.add(asset);
 
     cmd.spawn((

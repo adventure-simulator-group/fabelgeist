@@ -24,7 +24,7 @@ fn spawn_weapon(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
                 weight: definition.weight_kg,
             },
             TacticalEquipmentPhysical {
-                dimensions_m: Vec3::from_array(authored.physical.dimensions_m),
+                dimensions_m: authored.physical.dimensions_m,
                 grip_to_tip_m: authored.physical.grip_to_tip_m,
                 striking_head_length_m: weapon.striking_head_length_m,
                 anchor_offset_m: Vec3::from_array(authored.physical.anchor_offset_m),

@@ -261,7 +261,7 @@ fn maybe_trigger_religious_incident(
     ctx: &ReducerContext,
     party_id: &str,
     settlement: &Settlement,
-) -> Result<Option<IncidentId>, String> {
+) -> crate::StrategicOperationResult<Option<IncidentId>> {
     if ctx
         .db
         .strategic_incident()
@@ -330,7 +330,7 @@ pub(crate) fn maybe_trigger_activity_incident(
     ctx: &ReducerContext,
     character_id: u64,
     risks: crate::time::ActivityRisks,
-) -> Result<Option<IncidentId>, String> {
+) -> crate::StrategicOperationResult<Option<IncidentId>> {
     let character = ctx
         .db
         .character()

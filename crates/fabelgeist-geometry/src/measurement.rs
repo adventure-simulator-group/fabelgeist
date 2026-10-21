@@ -41,6 +41,11 @@ impl SignedLength {
         }
         Ok(Self(value))
     }
+    /// Unary negation preserves finite admission and native signed-zero behavior.
+    pub fn negated(self) -> Self {
+        Self(-self.0)
+    }
+
     /// Native minimum of two finite admitted lengths, including signed zero.
     pub fn min(self, other: Self) -> Self {
         Self(self.0.min(other.0))

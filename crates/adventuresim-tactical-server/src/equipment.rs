@@ -529,11 +529,8 @@ fn drop_hand(
     let Ok((actor_transform, _)) = players.get(actor) else {
         return false;
     };
-    let shape = Collider::cuboid(
-        physical.dimensions_m.x,
-        physical.dimensions_m.y,
-        physical.dimensions_m.z,
-    );
+    let dimensions = physical.dimensions_m.metres();
+    let shape = Collider::cuboid(dimensions.x, dimensions.y, dimensions.z);
     let Some(position) = [0.9_f32, 1.2, 1.5].into_iter().find_map(|distance| {
         let grip =
             actor_transform.translation + *actor_transform.forward() * distance + Vec3::Y * 0.65;
@@ -788,9 +785,9 @@ mod tests {
     #[test]
     fn pickup_box_center_accounts_for_nonzero_anchor_offset() {
         let physical = TacticalEquipmentPhysical {
-            dimensions_m: Vec3::splat(0.2),
-            grip_to_tip_m: 0.4,
-            striking_head_length_m: 0.2,
+            dimensions_m: fabelgeist_geometry::CuboidDimensions::from_metres([0.2; 3]).unwrap(),
+            grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(0.4).unwrap(),
+            striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(0.2).unwrap(),
             anchor_offset_m: Vec3::new(0.15, -0.05, 0.1),
         };
         assert_eq!(

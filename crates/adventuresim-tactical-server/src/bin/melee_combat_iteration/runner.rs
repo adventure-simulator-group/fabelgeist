@@ -123,7 +123,7 @@ fn weapon_reach(build: &MeleeIterationBuild) -> MeasurementResult<Measurement<We
         .equipment
         .melee_weapon
         .map_or(Ok(Measurement::ZERO), |weapon| {
-            Measurement::<WeaponReachMetres>::from_native(weapon.melee_reach)
+            Ok(Measurement::<WeaponReachMetres>::from_length(weapon.melee_reach))
         })
 }
 

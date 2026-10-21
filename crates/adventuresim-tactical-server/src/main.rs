@@ -550,8 +550,8 @@ mod debug_dump_world_tests {
                     skill_weights: [0.0; 9],
 
                     precision: 1.0,
-                    reach: 0.8,
-                    grip_to_tip_m: 0.8,
+                    reach: fabelgeist_geometry::SignedLength::from_metres(0.8).unwrap(),
+                    grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(0.8).unwrap(),
                     moment_of_inertia_kg_m2: 0.0,
 
                     melee: true,

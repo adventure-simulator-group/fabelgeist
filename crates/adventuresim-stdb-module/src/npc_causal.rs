@@ -482,7 +482,7 @@ fn process_policy_decisions(ctx: &ReducerContext, time: &CharacterTime) -> Resul
 pub fn run_npc_causal_tick(
     ctx: &ReducerContext,
     _schedule: NpcCausalSchedule,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if ctx.sender() != ctx.database_identity() {
         return Err("NPC causal processing may only be invoked by its scheduler".into());
     }

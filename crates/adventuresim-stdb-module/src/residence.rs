@@ -964,7 +964,7 @@ pub fn apply_residence_leisure_morale(
     character_id: u64,
     baseline_morale: f32,
     now: StrategicMinute,
-) -> Result<(), String> {
+) -> crate::StrategicOperationResult<()> {
     if baseline_morale <= 0.0 || !baseline_morale.is_finite() {
         return Ok(());
     }
