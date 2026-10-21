@@ -2346,11 +2346,6 @@ item = "spawn_streamed_tree_children"
 ceiling = 208
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/terrain.rs"
-item = "present_pending_terrain"
-ceiling = 116
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
 item = "on_scene_vista_bundle"
 ceiling = 124
@@ -3131,13 +3126,6 @@ path = "crates/adventuresim-strategic-sim/src/live_core/travel.rs"
 item = "LiveRunner::travel_camps"
 fingerprint = "debug-local:result"
 occurrences = 4
-
-[[findings]]
-rule = "debug-output-branch"
-path = "crates/adventuresim-tactical-client/src/presentation/terrain.rs"
-item = "present_pending_terrain"
-fingerprint = "debug-local:presented"
-occurrences = 1
 
 [[findings]]
 rule = "debug-output-branch"
