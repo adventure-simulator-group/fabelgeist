@@ -178,33 +178,26 @@ impl CourtStair {
         } else {
             (court_end, floor_end, court, floor)
         };
-        let local = |point| {
-            property
-                .plot
-                .orientation()
-                .world_to_local(point - property.plot.centre_metres())
-        };
         let geometry_error = |cause| SupportDiagnostic::framed_geometry(property, court_end, cause);
         let riser_count = NonZeroU16::new(count as u16)
             .ok_or_else(|| geometry_error(GeometryError::InvalidProjection))?;
-        Ok(Some(Self {
-            flight: SupportStairFlight {
-                top: ScenePlanPoint::try_from(top).map_err(geometry_error)?,
-                bottom: ScenePlanPoint::try_from(bottom).map_err(geometry_error)?,
-                top_elevation_metres: top_height,
-                bottom_elevation_metres: bottom_height,
-                riser_count,
-                going_metres: PositiveLength::from_metres(run / count).map_err(geometry_error)?,
-                nosing_metres: SignedLength::ZERO,
-            },
-            half_width_metres: PositiveLength::from_metres(width).map_err(geometry_error)?,
-            top_local: local(top),
-            bottom_local: local(bottom),
-            floor_local: local(route.end_metres()),
-            floor_landing_half_length_metres: PositiveLength::from_metres(floor_landing)
-                .map_err(geometry_error)?,
-            floor_elevation_metres: floor,
-        }))
+        let flight = SupportStairFlight {
+            top: ScenePlanPoint::try_from(top).map_err(geometry_error)?,
+            bottom: ScenePlanPoint::try_from(bottom).map_err(geometry_error)?,
+            top_elevation_metres: top_height,
+            bottom_elevation_metres: bottom_height,
+            riser_count,
+            going_metres: PositiveLength::from_metres(run / count).map_err(geometry_error)?,
+            nosing_metres: SignedLength::ZERO,
+        };
+        Ok(Some(Self::new(
+            property,
+            route.end(),
+            flight,
+            PositiveLength::from_metres(width).map_err(geometry_error)?,
+            PositiveLength::from_metres(floor_landing).map_err(geometry_error)?,
+            floor,
+        )))
     }
 
     /// Native plot-local rectangle and tread calculation; the returned datum
@@ -256,6 +249,33 @@ impl CourtStair {
             self.floor_local.y + self.floor_landing_half_length_metres.metres(),
         ]);
         (vec![x - width, x + width], z)
+    }
+
+    /// Project the admitted scene flight into its bound plot's native support
+    /// partition. The plot orientation owns this local rectangle/tread frame.
+    fn new(
+        property: &CityCompound,
+        floor_threshold: ScenePlanPoint,
+        flight: SupportStairFlight,
+        half_width: PositiveLength,
+        floor_landing: PositiveLength,
+        floor: SupportElevation,
+    ) -> Self {
+        let local = |point: ScenePlanPoint| {
+            property
+                .plot
+                .orientation()
+                .world_to_local(point.metres() - property.plot.centre_metres())
+        };
+        Self {
+            top_local: local(flight.top),
+            bottom_local: local(flight.bottom),
+            floor_local: local(floor_threshold),
+            flight,
+            half_width_metres: half_width,
+            floor_landing_half_length_metres: floor_landing,
+            floor_elevation_metres: floor,
+        }
     }
 }
 
