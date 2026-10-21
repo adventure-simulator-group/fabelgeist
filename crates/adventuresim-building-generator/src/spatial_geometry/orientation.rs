@@ -49,12 +49,12 @@ pub struct PlanDirection<F: GeometryFrame> {
 }
 impl<F: GeometryFrame> PlanDirection<F> {
     pub fn from_vector(value: Vec2) -> Result<Self> {
-        Dir2::new(value).map_err(|source| GeometryError::Direction { source })?;
+        Dir2::new(value).map_err(super::error::direction_error)?;
         // Keep the generator's original reciprocal-multiply normalization.
         Self::from_normalized(value.normalize_or_zero())
     }
     pub fn from_normalized(value: Vec2) -> Result<Self> {
-        Dir2::new(value).map_err(|source| GeometryError::Direction { source })?;
+        Dir2::new(value).map_err(super::error::direction_error)?;
         if !value.is_normalized() {
             return Err(GeometryError::UnnormalizedDirection);
         }
@@ -118,11 +118,11 @@ pub struct SpatialDirection<F: GeometryFrame> {
 }
 impl<F: GeometryFrame> SpatialDirection<F> {
     pub fn from_vector(value: Vec3) -> Result<Self> {
-        Dir3::new(value).map_err(|source| GeometryError::Direction { source })?;
+        Dir3::new(value).map_err(super::error::direction_error)?;
         Self::from_normalized(value.normalize_or_zero())
     }
     pub fn from_normalized(value: Vec3) -> Result<Self> {
-        Dir3::new(value).map_err(|source| GeometryError::Direction { source })?;
+        Dir3::new(value).map_err(super::error::direction_error)?;
         if !value.is_normalized() {
             return Err(GeometryError::UnnormalizedDirection);
         }
