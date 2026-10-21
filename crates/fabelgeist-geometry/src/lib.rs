@@ -1,13 +1,16 @@
-//! Checked scalar geometry shared by simulation, generation and authoring.
+//! Checked geometry shared by simulation, generation and authoring.
 //!
-//! Scalars and their portable errors have no mandatory rendering or engine
-//! dependency. Native vector/direction adapters remain with their framework;
-//! opaque scalar reflection is available through the optional `reflect` feature.
+//! Checked values and their portable errors have no mandatory rendering or engine
+//! dependency. Native direction admission remains with its framework;
+//! opaque reflection is available through the optional `reflect` feature.
+//! Engine consumers opt into the `bevy-math` vector projection adapter.
 
+pub use cuboid::CuboidDimensions;
 pub use error::{CoordinateAxis, DirectionError, GeometryError, GeometryResult, GeometryRole};
 pub use length::PositiveLength;
 pub use measurement::{Area, SignedLength};
 
+mod cuboid;
 mod error;
 mod length;
 mod measurement;

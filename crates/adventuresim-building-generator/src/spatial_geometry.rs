@@ -6,14 +6,14 @@
 //! displacement. Direction and rotation admission also checks normalization.
 
 pub use fabelgeist_geometry::{
-    Area, CoordinateAxis, DirectionError, GeometryError, GeometryResult, GeometryRole, PositiveLength,
-    SignedLength,
+    Area, CoordinateAxis, CuboidDimensions, DirectionError, GeometryError, GeometryResult,
+    GeometryRole, PositiveLength, SignedLength,
 };
 
 pub use bounds::SpatialBounds;
 pub use clearance::ClearanceVolume;
 pub use coordinates::{Architectural, Displacement, Elevation, GeometryFrame, Position};
-pub use dimensions::{CuboidDimensions, LeafDimensions, PlanDimensions, PlanExtents};
+pub use dimensions::{LeafDimensions, PlanDimensions, PlanExtents};
 pub use orientation::{PlanDirection, Radians, RigidRotation, SpatialDirection};
 
 mod bounds;
