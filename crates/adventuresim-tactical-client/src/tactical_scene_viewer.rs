@@ -7,12 +7,10 @@ use std::{
     time::{SystemTime, UNIX_EPOCH},
 };
 
-use adventuresim_tactical_core::physics::AdventureSimulatorPhysicsPlugin;
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
 use adventuresim_world_schema::coordinates::{LatitudeMicrodegrees, LongitudeMicrodegrees};
 use bevy::{
-    app::ScheduleRunnerPlugin,
     camera::RenderTarget,
     camera::{Exposure, visibility::VisibilityRange},
     core_pipeline::tonemapping::Tonemapping,
@@ -21,8 +19,6 @@ use bevy::{
     pbr::{AtmosphereSettings, wireframe::WireframePlugin},
     prelude::*,
     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
-    window::{ExitCondition, PresentMode},
-    winit::WinitPlugin,
 };
 use serde::Serialize;
 
@@ -30,6 +26,7 @@ mod benchmark_progress;
 mod building_review;
 mod buildings;
 mod camera_obstruction;
+mod capture_app;
 mod capture_resolution;
 mod capture_state;
 mod capture_visibility;
@@ -39,14 +36,22 @@ mod furniture_capture;
 mod furniture_overlay;
 mod furniture_readiness;
 mod gpu_readiness;
+#[cfg(feature = "grown-review")]
+mod grown_capture;
 mod interior_capture;
 mod interior_furniture_capture;
 mod manifest;
+mod obstacle_setup;
 mod plant_lods;
+mod review_specimens;
 mod terrain_setup;
+mod tree_capability;
 mod triangle_census;
 mod view_camera;
+mod view_selection;
 mod view_specs;
+#[cfg(feature = "grown-review")]
+pub(crate) use grown_capture::GrownCaptureOptions;
 mod vista_validation;
 use buildings::spawn_tactical_buildings;
 #[cfg(test)]
@@ -82,15 +87,15 @@ use crate::presentation::{
     GroundLitterDiagnostics, GroundScatterLayer, LooseStonePebblePatch, PlayableTreeAggregateWood,
     PlayableTreeBuds, PlayableTreeCanopyCard, PlayableTreeDetailedLeaves,
     PlayableTreeDetailedTrunk, PlayableTreeDetailedWood, PlayableTreeMidTrunk, PlayableTreeTrunk,
-    PresentedTree, ProceduralRockVisual, ProceduralTextureAssets, TacticalCloudAnimationStatus,
+    PresentedTree, ProceduralRockVisual, ProceduralTextureAssets,
+    RecipeTreeAssetResidencyDiagnostics, TacticalCloudAnimationStatus,
     TacticalCloudBenchmarkIsolation, TacticalCloudLayer, TacticalGameplayCamera,
     TacticalGraphicsSettings, TacticalPresentationPlugin, TacticalTreeBarkMaterial,
     TacticalTreeBenchmarkIsolation, TacticalTreeLeafCardMaterial, TerrainDetailPatch,
-    TerrainMaterialPresentation, TreeAssetResidencyDiagnostics, TreeImpostorProvenance,
-    TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod, TreeLodCluster, TreeLodRenderOverride,
-    TreeTrunkLod, UnderstoryReviewSpecimen, VistaTerrain, VistaTreePresentation, WeatherParticle,
-    WoodyUnderstoryPresentationCache, oak_bark_material, oak_leaf_material,
-    oak_review_terminal_specimen, spawn_understory_review_specimens, terrain_heightmap_image,
+    TerrainMaterialPresentation, TreeImpostorProvenance, TreeLeafRepresentation,
+    TreeLeafTriangleCount, TreeLod, TreeLodCluster, TreeLodRenderOverride, TreeTrunkLod,
+    UnderstoryReviewSpecimen, VistaTerrain, VistaTreePresentation, WeatherParticle,
+    WoodyUnderstoryPresentationCache, spawn_understory_review_specimens,
 };
 
 const PERFORMANCE_VIEW_WIDTH: u32 = 2560;
@@ -99,7 +104,7 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 48;
+const CAPTURE_PROFILE_VERSION: u16 = 53;
 const PLANT_REVIEW_PROFILE: &str = "plant-review";
 const FUNGUS_REVIEW_PROFILE: &str = "fungus-review";
 const PLANT_LOD_REVIEW_PROFILE: &str = "plant-lod-review";
@@ -116,6 +121,7 @@ const PLASTER_GRAZING_REVIEW_LUMENS: f32 = 50_000.0;
 struct SceneSetup(Option<SceneSetupData>);
 
 struct SceneSetupData {
+    tree_content: crate::presentation::TreeContentRequest,
     input: TacticalSceneInput,
     input_path: PathBuf,
     fixture: String,
@@ -678,7 +684,7 @@ struct ScenePerformanceBenchmarkResult {
     active_cloud_layers: usize,
     visible_cloud_layers: usize,
     visible_tree_entities: BTreeMap<String, usize>,
-    tree_asset_residency: TreeAssetResidencyDiagnostics,
+    tree_asset_residency: RecipeTreeAssetResidencyDiagnostics,
     render_diagnostics: BTreeMap<String, BenchmarkMetricSummary>,
     /// Positive values estimate the isolated entity family's GPU cost versus
     /// natural mode, keyed by the exact render diagnostic path.
@@ -765,7 +771,13 @@ pub(crate) fn run(
     profile: &'static str,
     requested_views: Vec<String>,
     city_cameras: Option<PathBuf>,
+    #[cfg(feature = "grown-review")] grown_review: Option<GrownCaptureOptions>,
 ) {
+    #[cfg(feature = "grown-review")]
+    let profile = grown_review
+        .as_ref()
+        .map_or(Ok(profile), GrownCaptureOptions::profile)
+        .unwrap_or_else(|error| panic!("invalid grown mode: {error:#}"));
     let repository_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let (fixture, input_path) = match (fixture, scene_input) {
         (Some(fixture), None) => {
@@ -814,11 +826,20 @@ pub(crate) fn run(
     println!("CAPTURE_OUTPUT={}", output.display());
     let wireframe_output = output.clone();
 
+    #[cfg(feature = "grown-review")]
+    let views = if grown_review.is_some() {
+        Vec::new()
+    } else {
+        selected_capture_views(profile, &requested_views)
+            .unwrap_or_else(|error| panic!("invalid capture selection: {error}"))
+    };
+    #[cfg(not(feature = "grown-review"))]
     let views = selected_capture_views(profile, &requested_views)
         .unwrap_or_else(|error| panic!("invalid capture selection: {error}"));
 
     let asset_root = repository_root.join("assets");
     let setup = SceneSetupData {
+        tree_content: crate::presentation::TreeContentRequest::Recipe,
         input,
         input_path,
         fixture,
@@ -838,53 +859,27 @@ pub(crate) fn run(
             .collect(),
         views,
     };
+    #[cfg(feature = "grown-review")]
+    let prepared = grown_capture::prepare(setup, grown_review, &requested_views)
+        .unwrap_or_else(|error| panic!("invalid grown capture: {error:#}"));
+    #[cfg(feature = "grown-review")]
+    let setup = prepared.setup;
     let leaf_benchmarking = leaf_benchmark_frames.is_some();
     let tree_lighting_benchmarking = tree_lighting_benchmark_frames.is_some();
     let scene_performance_benchmarking = scene_performance_benchmark_frames.is_some();
     let scene_performance_render_diagnostics = scene_performance_render_diagnostics
         || std::env::var_os("TACTICAL_BENCH_RENDER_DIAGNOSTICS").is_some();
-    let mut app = App::new();
-    let default_plugins = DefaultPlugins
-        .set(AssetPlugin {
-            file_path: asset_root.to_string_lossy().into_owned(),
-            ..default()
-        })
-        .set(WindowPlugin {
-            primary_window: (!scene_performance_benchmarking).then(|| Window {
-                visible: false,
-                resolution: capture_resolution::window_resolution(profile),
-                present_mode: PresentMode::AutoNoVsync,
-                resizable: false,
-                decorations: false,
-                ..default()
-            }),
-            exit_condition: if scene_performance_benchmarking {
-                ExitCondition::DontExit
-            } else {
-                ExitCondition::OnAllClosed
-            },
-            ..default()
-        });
-    if scene_performance_benchmarking {
-        // Eliminate both swapchain presentation and the desktop event-loop
-        // floor. The normal RenderPlugin still renders the production camera
-        // to the offscreen texture; only frame scheduling becomes unpaced.
-        app.add_plugins(default_plugins.disable::<WinitPlugin>())
-            .add_plugins(ScheduleRunnerPlugin::run_loop(Duration::ZERO));
+    let surface = if scene_performance_benchmarking {
+        capture_app::CaptureSurface::Offscreen
     } else {
-        app.add_plugins(default_plugins)
-            .insert_resource(bevy::winit::WinitSettings::continuous());
+        capture_app::CaptureSurface::Window
+    };
+    let mut app = capture_app::new(asset_root, profile, surface);
+    app.insert_resource(SceneSetup(Some(setup)));
+    #[cfg(feature = "grown-review")]
+    if let Some(review) = prepared.review {
+        grown_capture::install(&mut app, review);
     }
-    app.add_plugins(AdventureSimulatorPhysicsPlugin {
-        enable_simulation: false,
-        enable_presentation_simulation: false,
-    })
-    // Visual-review plates use the exact production presentation defaults.
-    // Diagnostics may hide named occluder layers, but never substitute a
-    // cheaper lighting or post-processing pipeline.
-    .add_plugins(capture_presentation_plugin())
-    .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)))
-    .insert_resource(SceneSetup(Some(setup)));
     app.insert_resource(camera_contract);
     app.add_systems(PostStartup, capture_resolution::apply.after(setup_scene));
     furniture_readiness::install(&mut app, profile);
@@ -922,27 +917,20 @@ pub(crate) fn run(
     if scene_performance_benchmarking && scene_performance_render_diagnostics {
         app.add_plugins(bevy::render::diagnostic::RenderDiagnosticsPlugin);
     }
-    if terrain_wireframe {
-        app.add_systems(Last, capture_terrain_wireframe);
+    let workload = if terrain_wireframe {
+        capture_app::CaptureWorkload::TerrainWireframe
     } else if triangle_census {
-        app.add_systems(Last, capture_triangle_census);
+        capture_app::CaptureWorkload::TriangleCensus
     } else if leaf_benchmarking {
-        app.add_systems(Last, benchmark_leaf_representations);
+        capture_app::CaptureWorkload::LeafBenchmark
     } else if tree_lighting_benchmarking {
-        app.add_systems(Last, benchmark_tree_lighting);
+        capture_app::CaptureWorkload::TreeLightingBenchmark
     } else if scene_performance_benchmarking {
-        app.add_systems(
-            Last,
-            (benchmark_scene_performance, benchmark_progress::report),
-        );
+        capture_app::CaptureWorkload::ScenePerformanceBenchmark
     } else {
-        app.add_systems(
-            Last,
-            capture_views
-                .run_if(building_review::ready)
-                .run_if(furniture_readiness::ready),
-        );
-    }
+        capture_app::CaptureWorkload::Review
+    };
+    capture_app::install_capture(&mut app, workload);
     let exit = app.run();
     if exit != AppExit::Success {
         std::process::exit(1);
@@ -1127,48 +1115,12 @@ fn selected_capture_views(
         BEECH_LEAF_MOTION_PROFILE => BEECH_LEAF_MOTION_VIEWS.as_slice(),
         _ => return Err(format!("unknown profile {profile}")),
     };
-    if requested.is_empty() {
-        return Ok(profile_views.to_vec());
-    }
-    if profile == "tree-cold-traversal" {
-        let mut seen = BTreeSet::new();
-        let mut last_requested_index = 0;
-        for slug in requested {
-            if slug == "warmup" {
-                return Err("warmup is implicit and cannot be requested".into());
-            }
-            if !seen.insert(slug.as_str()) {
-                return Err(format!("duplicate requested view {slug}"));
-            }
-            let index = profile_views
-                .iter()
-                .position(|view| view.slug == slug)
-                .ok_or_else(|| format!("unknown requested view {slug}"))?;
-            last_requested_index = last_requested_index.max(index);
-        }
-        // A cold-traversal plate is temporal evidence, not an independent
-        // camera pose. Preserve every preceding approach/retreat frame so a
-        // filtered capture cannot teleport from the distant-card warmup into
-        // an unstreamed near tree and manufacture a floating crown.
-        return Ok(profile_views[..=last_requested_index].to_vec());
-    }
-    let mut selected = vec![profile_views[0]];
-    let mut seen = BTreeSet::new();
-    for slug in requested {
-        if slug == "warmup" {
-            return Err("warmup is implicit and cannot be requested".into());
-        }
-        if !seen.insert(slug.as_str()) {
-            return Err(format!("duplicate requested view {slug}"));
-        }
-        let view = profile_views
-            .iter()
-            .find(|view| view.slug == slug)
-            .copied()
-            .ok_or_else(|| format!("unknown requested view {slug}"))?;
-        selected.push(view);
-    }
-    Ok(selected)
+    let sequence = if profile == "tree-cold-traversal" {
+        view_selection::ViewSequence::Prefix
+    } else {
+        view_selection::ViewSequence::Independent
+    };
+    view_selection::select(profile_views, requested, sequence)
 }
 
 fn freeze_capture_clock(mut time: ResMut<Time<Virtual>>) {
@@ -1722,6 +1674,7 @@ fn setup_scene(
 ) -> Result {
     let setup = setup.0.take().expect("scene setup runs exactly once");
     let SceneSetupData {
+        tree_content,
         input,
         input_path,
         fixture,
@@ -1778,6 +1731,7 @@ fn setup_scene(
     let mut tree_focus = None;
     let mut rock_focus = None;
     let mut tree_focus_entity = None;
+    let mut spawned_obstacles = Vec::new();
 
     let catalog_cameras = interior_furniture_capture::setup_catalog(
         &mut commands,
@@ -1845,36 +1799,19 @@ fn setup_scene(
     ));
 
     for obstacle in obstacles {
-        let (grid_x, grid_z, kind, collider, y_offset, overlay_shape, overlay_color) =
-            match obstacle {
-                GeneratedObstacle::Tree { x, z } => {
-                    expected_trees += 1;
-                    (
-                        x,
-                        z,
-                        SceneObstacle::Tree,
-                        Collider::cylinder(TREE_TRUNK_RADIUS_METRES, TREE_TRUNK_HEIGHT_METRES),
-                        TREE_TRUNK_HEIGHT_METRES * 0.5,
-                        meshes.add(Cylinder::new(
-                            TREE_TRUNK_RADIUS_METRES * 1.08,
-                            TREE_TRUNK_HEIGHT_METRES * 1.02,
-                        )),
-                        Color::srgb(0.1, 1.0, 0.85),
-                    )
-                }
-                GeneratedObstacle::Rock { x, z, recipe } => {
-                    expected_rocks += 1;
-                    (
-                        x,
-                        z,
-                        SceneObstacle::Rock(recipe),
-                        Collider::sphere(recipe.collision_radius_metres()),
-                        recipe.collision_radius_metres(),
-                        meshes.add(Sphere::new(recipe.collision_radius_metres() * 1.08)),
-                        Color::srgb(1.0, 0.08, 0.72),
-                    )
-                }
-            };
+        let obstacle_setup::ObstacleShape {
+            grid_x,
+            grid_z,
+            kind,
+            collider,
+            y_offset,
+            overlay_shape,
+            overlay_color,
+        } = obstacle_setup::ObstacleShape::from_generated(obstacle, &mut meshes);
+        match kind {
+            SceneObstacle::Tree => expected_trees += 1,
+            SceneObstacle::Rock(_) => expected_rocks += 1,
+        }
         let x = f32::from(grid_x) * input.playable.spacing_metres - terrain.width() * 0.5;
         let z = f32::from(grid_z) * input.playable.spacing_metres - terrain.depth() * 0.5;
         let y = terrain.height_at(Vec2::new(x, z)).unwrap_or_default() + y_offset;
@@ -1915,6 +1852,11 @@ fn setup_scene(
         if focuses_tree {
             tree_focus_entity = Some(obstacle_entity);
         }
+        spawned_obstacles.push(obstacle_setup::SpawnedObstacle {
+            entity: obstacle_entity,
+            kind,
+            collider_frame: transform,
+        });
         commands.spawn((
             Name::new("Capture collider overlay"),
             CaptureOverlay,
@@ -2002,119 +1944,31 @@ fn setup_scene(
                 point.y,
             )
         });
-    let mut tree_leaf_focus = None;
-    let mut tree_leaf_camera = None;
-    let mut tree_review_entities = Vec::new();
-    let mut tree_review_leaf_entities = Vec::new();
-    if let Some(tree) = tree_focus {
-        commands.spawn((
-            Name::new("Neutral tree review backdrop"),
-            TreeReviewBackdrop,
-            Mesh3d(meshes.add(Cuboid::new(40.0, 26.0, 0.1))),
-            MeshMaterial3d(materials.add(StandardMaterial {
-                base_color: Color::srgb(0.78, 0.82, 0.84),
-                unlit: true,
-                ..default()
-            })),
-            Visibility::Hidden,
-            Transform {
-                translation: tree + Vec3::new(-8.0, 3.0, -8.0),
-                rotation: Quat::from_rotation_y(core::f32::consts::FRAC_PI_4),
-                ..default()
-            },
-        ));
-        let specimen_origin = tree + Vec3::Y * 15.0;
-        let (
-            branch_mesh,
-            textured_leaf_mesh,
-            leaf_card_mesh,
-            bud_mesh,
-            local_focus,
-            camera_direction,
-        ) = oak_review_terminal_specimen(tree, canopy_bps);
-        let bark_material = bark_materials.add(oak_bark_material(
-            &procedural_assets,
-            images.add(terrain_heightmap_image(&terrain)),
-            Vec2::new(terrain.minimum_height(), terrain.maximum_height()),
-            &terrain,
-        ));
-        let leaf_material = leaf_card_materials.add(oak_leaf_material(&procedural_assets));
-        let bud_material = materials.add(StandardMaterial {
-            base_color: Color::srgb(0.36, 0.27, 0.1),
-            perceptual_roughness: 0.92,
-            ..default()
-        });
-        tree_review_entities.push(
-            commands
-                .spawn((
-                    Name::new("Isolated production oak terminal shoot"),
-                    TreeReviewSpecimen,
-                    Mesh3d(meshes.add(branch_mesh)),
-                    MeshMaterial3d(bark_material),
-                    Visibility::Hidden,
-                    Transform::from_translation(specimen_origin),
-                ))
-                .id(),
-        );
-        tree_review_entities.push(
-            commands
-                .spawn((
-                    Name::new("Isolated production oak terminal bud"),
-                    TreeReviewSpecimen,
-                    Mesh3d(meshes.add(bud_mesh)),
-                    MeshMaterial3d(bud_material),
-                    Visibility::Hidden,
-                    Transform::from_translation(specimen_origin),
-                ))
-                .id(),
-        );
-        let textured_entity = commands
-            .spawn((
-                Name::new("Isolated cambered textured oak terminal leaves"),
-                TreeReviewSpecimen,
-                TreeLeafRepresentation::TexturedMesh,
-                Mesh3d(meshes.add(textured_leaf_mesh)),
-                MeshMaterial3d(leaf_material.clone()),
-                Visibility::Hidden,
-                Transform::from_translation(specimen_origin),
-            ))
-            .id();
-        tree_review_leaf_entities.push((textured_entity, TreeLeafRepresentation::TexturedMesh));
-        let card_entity = commands
-            .spawn((
-                Name::new("Isolated flat-card oak terminal leaves"),
-                TreeReviewSpecimen,
-                TreeLeafRepresentation::AlphaCard,
-                Mesh3d(meshes.add(leaf_card_mesh)),
-                MeshMaterial3d(leaf_material),
-                Visibility::Hidden,
-                Transform::from_translation(specimen_origin),
-            ))
-            .id();
-        tree_review_leaf_entities.push((card_entity, TreeLeafRepresentation::AlphaCard));
-        tree_leaf_focus = Some(specimen_origin + local_focus);
-        let review_rotation = Quat::from_rotation_y(tree_review_azimuth_degrees.to_radians());
-        tree_leaf_camera =
-            Some(specimen_origin + local_focus + review_rotation * camera_direction * 0.68);
-        tree_review_entities.push(
-            commands
-                .spawn((
-                    Name::new("Ten centimetre tree review scale bar"),
-                    TreeReviewSpecimen,
-                    Mesh3d(meshes.add(Cuboid::new(0.1, 0.012, 0.012))),
-                    MeshMaterial3d(materials.add(StandardMaterial {
-                        base_color: Color::srgb(0.12, 0.12, 0.12),
-                        unlit: true,
-                        ..default()
-                    })),
-                    Visibility::Hidden,
-                    Transform::from_translation(
-                        specimen_origin + local_focus + Vec3::new(-0.12, -0.13, 0.0),
-                    ),
-                ))
-                .id(),
-        );
-    }
+    let recipe_specimens = review_specimens::enabled(&profile, &tree_content);
+    let review_specimens::ReviewSpecimens {
+        focus: tree_leaf_focus,
+        camera: tree_leaf_camera,
+        entities: tree_review_entities,
+        leaves: tree_review_leaf_entities,
+    } = if let Some(tree) = tree_focus.filter(|_| recipe_specimens) {
+        review_specimens::Assets {
+            commands: &mut commands,
+            meshes: &mut meshes,
+            materials: &mut materials,
+            bark_materials: &mut bark_materials,
+            leaf_card_materials: &mut leaf_card_materials,
+            images: &mut images,
+            procedural_assets: &procedural_assets,
+        }
+        .spawn(review_specimens::Request {
+            tree,
+            terrain: &terrain,
+            canopy_bps,
+            tree_review_azimuth_degrees,
+        })
+    } else {
+        default()
+    };
     let understory_review_origin = Vec3::new(
         obstacle_focus.x,
         terrain
@@ -2122,23 +1976,32 @@ fn setup_scene(
             .unwrap_or_default(),
         obstacle_focus.z,
     );
-    spawn_understory_review_specimens(
-        &mut commands,
-        &mut meshes,
-        &mut materials,
-        &mut leaf_card_materials,
-        &mut understory_cache,
-        &procedural_assets,
-        understory_review_origin,
-    );
-    terrain_setup::spawn(
+    if recipe_specimens {
+        spawn_understory_review_specimens(
+            &mut commands,
+            &mut meshes,
+            &mut materials,
+            &mut leaf_card_materials,
+            &mut understory_cache,
+            &procedural_assets,
+            understory_review_origin,
+        );
+    }
+    let scene = terrain_setup::spawn(
         &mut commands,
         &input,
         environment,
         ground,
         terrain,
         terrain_patch.as_ref(),
+        tree_content,
     )?;
+    obstacle_setup::CapturedObstacleBatch::bind(
+        &mut commands,
+        scene,
+        spawned_obstacles,
+        digest.clone(),
+    );
     commands.trigger(SceneVistaBundle {
         properties: input.properties.clone(),
         scene_digest: digest.clone(),
@@ -2213,6 +2076,8 @@ fn setup_scene(
         captures: Vec::new(),
         recursive_lods_observed: BTreeSet::new(),
         recursive_aggregate_lods_observed: BTreeSet::new(),
+        #[cfg(feature = "grown-review")]
+        grown_evidence: None,
     });
     if let Some(sample_frames) = leaf_benchmark_frames {
         commands.insert_resource(LeafBenchmarkState::new(sample_frames));
@@ -2458,7 +2323,7 @@ fn benchmark_scene_performance(
     capture: Option<Res<SceneCaptureState>>,
     time: Res<Time<Real>>,
     benchmark_diagnostics: ScenePerformanceDiagnostics,
-    tree_asset_residency: Res<TreeAssetResidencyDiagnostics>,
+    tree_asset_residency: Res<RecipeTreeAssetResidencyDiagnostics>,
     mut tree_lod_override: ResMut<TreeLodRenderOverride>,
     mut tree_isolation: ResMut<TacticalTreeBenchmarkIsolation>,
     mut cloud_isolation: ResMut<TacticalCloudBenchmarkIsolation>,
@@ -2485,7 +2350,7 @@ fn benchmark_scene_performance(
                 Without<GroundScatterLayer>,
             ),
         >,
-        Query<(&GroundScatterLayer, &mut Visibility)>,
+        Query<(&GroundScatterLayer, &mut Visibility, Has<Mesh3d>)>,
         Query<&mut Visibility, With<ProceduralRockVisual>>,
         Query<&mut Visibility, Or<(With<TerrainMaterialPresentation>, With<TerrainDetailPatch>)>>,
         Query<&mut Visibility, With<VistaTerrain>>,
@@ -2585,7 +2450,7 @@ fn benchmark_scene_performance(
                 Visibility::Inherited
             };
         }
-        for (layer, mut visibility) in &mut visibility_layers.p2() {
+        for (layer, mut visibility, _) in &mut visibility_layers.p2() {
             let mask = match layer {
                 GroundScatterLayer::DryLeaves | GroundScatterLayer::Twigs => HIDE_LITTER,
                 GroundScatterLayer::Grass => HIDE_GRASS,
@@ -2643,18 +2508,7 @@ fn benchmark_scene_performance(
         .vista_tree_entities
         .get_or_insert_with(|| visibility_layers.p1().iter().count());
     if state.scene_entity_counts.is_none() {
-        let mut counts = BTreeMap::new();
-        for (layer, _) in visibility_layers.p2().iter() {
-            let name = match layer {
-                GroundScatterLayer::Grass => "grass_patches",
-                GroundScatterLayer::Understory => "understory_patches",
-                GroundScatterLayer::BotanicalPlants => "botanical_lod_entities",
-                GroundScatterLayer::DryLeaves => "dry_leaf_patches",
-                GroundScatterLayer::Twigs => "twig_patches",
-                GroundScatterLayer::LooseStone => "loose_stone_patches",
-            };
-            *counts.entry(name.to_owned()).or_default() += 1;
-        }
+        let mut counts = ground_scatter_capture_counts(&visibility_layers.p2());
         let litter_diagnostics = litter_diagnostics
             .iter()
             .next()
@@ -3305,7 +3159,7 @@ fn capture_views(
         (Without<Camera3d>, Without<TacticalGameplayCamera>),
     >,
     tree_bakes: Query<&TreeImpostorProvenance>,
-    foliage: Query<&GroundScatterLayer>,
+    foliage: Query<&GroundScatterLayer, With<Mesh3d>>,
     terrain_materials: Query<(), With<TerrainMaterialPresentation>>,
     meshes: Res<Assets<Mesh>>,
     mut scene_visibility: ParamSet<(
@@ -3920,9 +3774,11 @@ fn capture_views(
         prime_readbacks,
         kind: CaptureReadback::Screenshot,
     };
+    let requested_view = state.view;
     commands.spawn(Screenshot::primary_window()).observe(
         move |captured: On<ScreenshotCaptured>,
               mut state: ResMut<SceneCaptureState>,
+              #[cfg(feature = "grown-review")] inspection: grown_capture::inventory::Inspector,
               mut exit: MessageWriter<AppExit>| {
             let foreground_pixel_bps = foreground_pixel_bps(captured.image.data.as_deref());
             if !matches!(
@@ -3931,8 +3787,18 @@ fn capture_views(
                     view,
                     kind: CaptureReadback::Screenshot,
                     ..
-                } if view == state.view
+                } if view == requested_view && state.view == requested_view
             ) {
+                return;
+            }
+            #[cfg(feature = "grown-review")]
+            if let Some(evidence) = &state.grown_evidence
+                && let Err(error) = inspection.check_capture(&state)
+                && let Err(error) =
+                    evidence.input_fault(state.view, format!("screenshot callback: {error:#}"))
+            {
+                error!("Failed to retain grown evidence fault: {error:#}");
+                exit.write(AppExit::error());
                 return;
             }
             let rendered_width = captured.image.width();
@@ -3991,9 +3857,9 @@ fn capture_views(
             state.lighting_luminance_samples.clear();
             state.phase = CapturePhase::Configure;
             if let Some(pending) = final_data.take() {
-                let (manifest, valid) =
+                let (mut manifest, valid) =
                     pending.finalize_after_screenshot(&state.captures, &state.views);
-                finish_capture(&state.output, &manifest, valid, &mut exit);
+                finish_capture(&state, &mut manifest, valid, &mut exit);
             }
         },
     );
@@ -4017,6 +3883,8 @@ fn focused_tree_lod_queued(
 fn camera_for_view(pose: CapturePose, state: &SceneCaptureState) -> (Transform, Vec3) {
     let half = state.terrain.width_metres.max(state.terrain.depth_metres) * 0.5;
     let (position, target, up) = match pose {
+        #[cfg(feature = "grown-review")]
+        CapturePose::Grown(camera) => (camera.position, camera.target, camera.up),
         CapturePose::Plant { .. } | CapturePose::Fungus { .. } | CapturePose::PlantLod { .. } => {
             pose.plant_camera(state.plant_focus.expect(
                 "botanical review requires actual production roots of the requested species",
@@ -4180,15 +4048,7 @@ fn camera_for_view(pose: CapturePose, state: &SceneCaptureState) -> (Transform, 
             )
         }
         CapturePose::CityOblique { azimuth_degrees } => {
-            let frame_half = half.max(state.city_half_extent_metres + 30.0);
-            let azimuth = azimuth_degrees.to_radians();
-            (
-                state.obstacle_focus
-                    + Vec3::new(azimuth.sin(), 0.0, azimuth.cos()) * (frame_half * 1.6)
-                    + Vec3::Y * (frame_half * 0.85),
-                state.obstacle_focus + Vec3::Y * 4.0,
-                Vec3::Y,
-            )
+            view_camera::city_oblique(state, half, azimuth_degrees)
         }
         CapturePose::Horizon => {
             let mut position = state.ground_eye_position + Vec3::Y * 12.0;
@@ -4295,6 +4155,26 @@ struct CameraObstructionObservation {
     hit: bool,
 }
 
+fn ground_scatter_capture_counts(
+    foliage: &Query<(&GroundScatterLayer, &mut Visibility, Has<Mesh3d>)>,
+) -> BTreeMap<String, usize> {
+    let mut counts = BTreeMap::new();
+    for (layer, _, renderable) in foliage.iter() {
+        let name = match (layer, renderable) {
+            (GroundScatterLayer::DryLeaves, false) => "dry_leaf_visibility_cells",
+            (GroundScatterLayer::Twigs, false) => "twig_visibility_cells",
+            (GroundScatterLayer::Grass, _) => "grass_patches",
+            (GroundScatterLayer::Understory, _) => "understory_patches",
+            (GroundScatterLayer::BotanicalPlants, _) => "botanical_lod_entities",
+            (GroundScatterLayer::DryLeaves, true) => "dry_leaf_patches",
+            (GroundScatterLayer::Twigs, true) => "twig_patches",
+            (GroundScatterLayer::LooseStone, _) => "loose_stone_patches",
+        };
+        *counts.entry(name.to_owned()).or_default() += 1;
+    }
+    counts
+}
+
 #[expect(
     clippy::too_many_arguments,
     reason = "the capture manifest records independent scene populations and presentation observations from exact Bevy queries"
@@ -4306,18 +4186,25 @@ fn build_manifest(
     rock_visuals: &Query<&Mesh3d, With<ProceduralRockVisual>>,
     tree_lods: &Query<(&TreeLod, &ViewVisibility, Option<&ChildOf>)>,
     tree_bakes: &Query<&TreeImpostorProvenance>,
-    foliage: &Query<&GroundScatterLayer>,
+    foliage: &Query<&GroundScatterLayer, With<Mesh3d>>,
     terrain_materials: &Query<(), With<TerrainMaterialPresentation>>,
     meshes: &Assets<Mesh>,
     vistas: &vista_validation::VistaQuery<'_, '_>,
     weather_particle_count: usize,
     presentation_features: PresentationFeatures,
 ) -> PendingSceneCaptureManifest {
-    // PresentedTree lives on the non-rendering root and means the complete
-    // five-level presentation is cached and streamable. Counting transient
-    // trunk/LOD children would incorrectly fail whenever the active camera is
-    // legitimately using a far representation.
+    // The independent grown root is verified by its own exact capability.
     let presented_trees = presented_tree_roots.iter().count();
+    let tree_presentation = manifest::TreePresentationCapability::FiveLodProduction {
+        passed: presented_trees == state.expected_trees,
+    };
+    #[cfg(feature = "grown-review")]
+    let tree_presentation = state
+        .grown_evidence
+        .as_ref()
+        .map_or(tree_presentation, |evidence| {
+            evidence.capability(presented_trees)
+        });
     let presented_rocks = rock_visuals.iter().count();
     let mut collider_trees = 0;
     let mut collider_rocks = 0;
@@ -4577,7 +4464,7 @@ fn build_manifest(
         all_obstacles_collidable: collider_trees == state.expected_trees
             && collider_rocks == state.expected_rocks,
         procedural_rocks_fit_colliders: rock_meshes_inside_colliders,
-        trees_have_five_lods: presented_trees == state.expected_trees,
+        tree_presentation,
         tree_detail_captured_when_expected: state.expected_trees == 0
             || state.captures.iter().all(|capture| {
                 state
@@ -4854,11 +4741,30 @@ fn debris_detail_camera(
 }
 
 fn finish_capture(
-    output: &Path,
-    manifest: &SceneCaptureManifest,
+    state: &SceneCaptureState,
+    manifest: &mut SceneCaptureManifest,
     valid: bool,
     exit: &mut MessageWriter<AppExit>,
 ) {
+    let output = &state.output;
+    #[cfg(feature = "grown-review")]
+    let valid = if let Some(evidence) = &state.grown_evidence {
+        match evidence.finish(state) {
+            Ok(()) => valid,
+            Err(error) => {
+                error!("Grown capture evidence failed: {error:#}");
+                false
+            }
+        }
+    } else {
+        valid
+    };
+    manifest.validation.passed = valid;
+    #[cfg(feature = "grown-review")]
+    if let Some(evidence) = &state.grown_evidence {
+        manifest.validation.tree_presentation =
+            evidence.capability(manifest.obstacles.presented_trees);
+    }
     fs::write(
         output.join("manifest.json"),
         serde_json::to_vec_pretty(manifest).expect("capture manifest serializes"),

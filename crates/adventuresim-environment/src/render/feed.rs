@@ -12,6 +12,7 @@ use bevy::tasks::futures_lite::future::{block_on, poll_once};
 use bevy::tasks::{AsyncComputeTaskPool, Task};
 use fabelgeist_botany::viewer::sim::Snapshot;
 
+use super::benchmark::ForestBenchmark;
 use super::{ForestDetail, chunks, ground, levels, materials, records};
 
 /// The snapshot to draw next, if a new one arrived, and the one being made
@@ -64,8 +65,9 @@ pub(super) fn prepare(mut feed: ResMut<ForestFeed>) {
 /// asked for.
 #[derive(SystemParam)]
 pub(super) struct Sight<'w> {
-    view: Res<'w, levels::LevelView>,
+    view: Res<'w, levels::ForestLodView>,
     detail: Res<'w, ForestDetail>,
+    probe: Option<Res<'w, ForestBenchmark>>,
 }
 
 /// Draw a snapshot made ready: its records into the storage buffers, its
@@ -92,6 +94,12 @@ pub(super) fn draw(
         view: &sight.view,
         detail: &sight.detail,
     };
-    chunks::show(&mut commands, &placement, prepared.chunks, &mut shown);
+    chunks::show(
+        &mut commands,
+        &placement,
+        prepared.chunks,
+        &mut shown,
+        sight.probe.as_deref(),
+    );
     ground.show(&mut commands, &prepared.ground);
 }

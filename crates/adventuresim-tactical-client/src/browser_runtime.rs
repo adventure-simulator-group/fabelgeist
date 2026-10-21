@@ -4,6 +4,8 @@
 //! character rigs and camera views alongside the tactical plugin graph.
 //! Changing modes preserves the Wasm application, WebGPU device and assets.
 
+#[cfg(feature = "foliage-review")]
+pub(crate) mod foliage_review;
 mod forge_view;
 use std::{
     collections::VecDeque,
@@ -19,6 +21,8 @@ use bevy::{
 };
 use serde::Deserialize;
 
+#[cfg(feature = "debug")]
+use crate::presentation::frame_receipt;
 use crate::weapon_preview_material::preview_material;
 
 use crate::{
@@ -34,9 +38,14 @@ pub(crate) enum BrowserMode {
     Tactical,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Deserialize)]
 #[serde(tag = "type", rename_all = "kebab-case")]
 enum BrowserCommand {
+    #[cfg(feature = "debug")]
+    InspectTacticalLighting,
+    #[cfg(feature = "foliage-review")]
+    #[serde(skip)]
+    ReviewFoliage(foliage_review::Command),
     PrepareStrategicScene {
         location: String,
         input_json: String,
@@ -136,6 +145,8 @@ impl Plugin for BrowserRuntimePlugin {
             crate::strategic_scene::StrategicScenePlugin,
             crate::presentation::regional_map::RegionalMapPlugin,
         ));
+        #[cfg(feature = "foliage-review")]
+        app.add_plugins(foliage_review::FoliageReviewPlugin);
         app.insert_resource(self.initial_mode)
             .init_resource::<ForgePreviewView>()
             .add_systems(Startup, forge_view::setup)
@@ -147,9 +158,12 @@ impl Plugin for BrowserRuntimePlugin {
             .add_systems(
                 PostUpdate,
                 sync_gameplay_view
+                    .in_set(crate::presentation::ownership::PresentationCameraSynchronization)
                     .before(bevy::camera::CameraUpdateSystems)
                     .before(bevy::transform::TransformSystems::Propagate),
             );
+        #[cfg(all(feature = "debug", feature = "grown-trees"))]
+        crate::presentation::arrival::install(app);
     }
 }
 
@@ -209,6 +223,12 @@ fn drain_browser_commands(
 
     for command in pending {
         match command {
+            #[cfg(feature = "debug")]
+            BrowserCommand::InspectTacticalLighting => commands.queue(frame_receipt::arm),
+            #[cfg(feature = "foliage-review")]
+            BrowserCommand::ReviewFoliage(command) => {
+                commands.queue(move |world: &mut World| foliage_review::apply(world, command));
+            }
             BrowserCommand::PrepareStrategicScene {
                 location,
                 input_json,
@@ -504,4 +524,14 @@ fn prepare_city(
         &input_json,
         preparation,
     ));
+}
+
+#[cfg(feature = "foliage-review")]
+fn queue_foliage(command: foliage_review::Command) -> Result<(), String> {
+    COMMANDS
+        .get_or_init(|| Mutex::new(VecDeque::new()))
+        .lock()
+        .map_err(|_| "browser renderer command queue is unavailable".to_string())?
+        .push_back(BrowserCommand::ReviewFoliage(command));
+    Ok(())
 }

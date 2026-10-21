@@ -11,8 +11,11 @@ mod furniture;
 mod mission;
 mod openings;
 mod player_projection;
+mod runtime;
 mod scene_obstacles;
 mod scene_setup;
+#[cfg(feature = "grown-trees")]
+mod scene_tree_assets;
 mod startup;
 mod stdb;
 mod terrain_collision;
@@ -78,6 +81,11 @@ struct Args {
     /// fixture for standalone tactical development.
     #[arg(long, value_parser = bot::resolve_scene_fixture)]
     scene_input: Option<PathBuf>,
+    /// Grow a shared finite source bank after the first accepted tactical join.
+    #[cfg(feature = "grown-trees")]
+    #[arg(long)]
+    #[cfg_attr(feature = "debug", arg(conflicts_with = "world_dump"))]
+    grown_trees: bool,
     /// Versioned tactical combat tuning loaded once for this server process.
     #[arg(long)]
     combat_config: Option<PathBuf>,
@@ -115,6 +123,16 @@ struct Args {
     world_dump: Option<std::path::PathBuf>,
 }
 
+impl Args {
+    fn tree_content(&self) -> SceneTreeContent {
+        #[cfg(feature = "grown-trees")]
+        if self.grown_trees {
+            return SceneTreeContent::Grown;
+        }
+        SceneTreeContent::Recipe
+    }
+}
+
 fn main() {
     let args = bot::apply_enemy_fixture(Args::parse());
     #[cfg(feature = "debug")]
@@ -142,59 +160,52 @@ fn main() {
     if !standalone {
         app.add_observer(on_client_disconnected);
     }
-    app.add_plugins(
-        DefaultPlugins.set(bevy::log::LogPlugin {
-            filter:
-                "adventuresim_tactical_server=info,quickstep_trace=info,bevy_app=warn,bevy_ecs=warn"
-                    .to_string(),
-            ..default()
-        }),
-    )
-    .add_plugins((
-        AdventureSimulatorCorePlugins
-            .build()
-            .set(AdventureSimulatorPhysicsPlugin {
-                enable_simulation: true,
-                enable_presentation_simulation: false,
-            }),
-        AdventureSimulatorNetPlugins,
-    ))
-    .add_plugins((
-        combat::CombatPlugin,
-        equipment::TacticalEquipmentPlugin,
-        (bot::BotPlugin, openings::BuildingOpeningsPlugin),
-    ))
-    .insert_resource(MissionState::new(
-        (!args.no_timeout)
-            .then_some(args.timeout)
-            .map(|duration| Timer::from_seconds(duration, TimerMode::Once)),
-        args.required_enemy_kills,
-        NonZeroU32::new(args.expected_party_members)
-            .expect("clap validates at least one expected party member"),
-        Duration::from_secs_f32(args.party_reconnect_grace),
-    ))
-    .insert_resource(SceneVistaBundleResource(scene_vista_bundle))
-    .insert_resource(LoadedSceneInput(loaded_scene_input))
-    .insert_resource(args)
-    .add_systems(
-        FixedPostUpdate,
-        (
-            restore_authoritative_movement_intent
-                .before(AdventureSimulatorPhysicsSet::ApplyCharacterMotor),
+    app.add_plugins(runtime::ServerRuntimePlugin)
+        .add_plugins((
+            AdventureSimulatorCorePlugins
+                .build()
+                .set(AdventureSimulatorPhysicsPlugin {
+                    enable_simulation: true,
+                    enable_presentation_simulation: false,
+                }),
+            AdventureSimulatorNetPlugins,
+        ))
+        .add_plugins((
+            combat::CombatPlugin,
+            equipment::TacticalEquipmentPlugin,
+            (bot::BotPlugin, openings::BuildingOpeningsPlugin),
+        ))
+        .insert_resource(MissionState::new(
+            (!args.no_timeout)
+                .then_some(args.timeout)
+                .map(|duration| Timer::from_seconds(duration, TimerMode::Once)),
+            args.required_enemy_kills,
+            NonZeroU32::new(args.expected_party_members)
+                .expect("clap validates at least one expected party member"),
+            Duration::from_secs_f32(args.party_reconnect_grace),
+        ))
+        .insert_resource(SceneVistaBundleResource(scene_vista_bundle))
+        .insert_resource(LoadedSceneInput(loaded_scene_input))
+        .insert_resource(args)
+        .add_systems(
+            FixedPostUpdate,
             (
-                trace_authoritative_quickstep_after_collision,
-                update_attack_facing_targets,
-                update_skeleton_locomotion,
-                update_character_motion_snapshots,
-            )
-                .chain()
-                .after(AhoySystems::MoveCharacters),
-        ),
-    )
-    .add_systems(OnEnter(ServerState::Running), on_server_started)
-    .add_observer(on_player_input)
-    .add_observer(on_player_added)
-    .add_plugins(scene_setup::SceneGeometryPlugin);
+                restore_authoritative_movement_intent
+                    .before(AdventureSimulatorPhysicsSet::ApplyCharacterMotor),
+                (
+                    trace_authoritative_quickstep_after_collision,
+                    update_attack_facing_targets,
+                    update_skeleton_locomotion,
+                    update_character_motion_snapshots,
+                )
+                    .chain()
+                    .after(AhoySystems::MoveCharacters),
+            ),
+        )
+        .add_systems(OnEnter(ServerState::Running), on_server_started)
+        .add_observer(on_player_input)
+        .add_observer(on_player_added)
+        .add_plugins(scene_setup::SceneGeometryPlugin);
 
     // Standalone (`--world-dump`) runs never touch SpacetimeDB: a loaded
     // dump already carries every bit of gameplay state a live stdb
@@ -405,6 +416,8 @@ mod debug_dump_world_tests {
             tactical_claim: String::new(),
             scene_key: "woodland".into(),
             scene_input: None,
+            #[cfg(feature = "grown-trees")]
+            grown_trees: false,
             enemy_fixture: None,
             required_enemy_kills: 1,
             expected_party_members: 1,
@@ -662,51 +675,7 @@ fn on_server_started(
         f32::from(input.playable.depth.saturating_sub(1)) * input.playable.spacing_metres;
 
     if generate_terrain {
-        info!("Creating a game scene for {}", args.scene_key);
-        let generated = input.generate()?;
-        info!(
-            scene_digest = %generated.digest,
-            schema_version = input.schema_version,
-            generation_version = input.generation_version,
-            source = ?input.source,
-            obstacles = generated.obstacles.len(),
-            upsampled_height_samples = generated.repairs.upsampled_height_samples,
-            microrelief_adjusted_samples = generated.repairs.microrelief_adjusted_samples,
-            adjusted_height_samples = generated.repairs.adjusted_height_samples,
-            repaired_water_samples = generated.repairs.repaired_water_samples,
-            removed_corridor_obstacles = generated.repairs.removed_corridor_obstacles,
-            levelled_building_samples = generated.repairs.levelled_building_samples,
-            removed_building_obstacles = generated.repairs.removed_building_obstacles,
-            "Loaded deterministic tactical scene input"
-        );
-        let terrain = generated.terrain;
-        let terrain_patch = generated.terrain_patch;
-        let environment = input.environment_snapshot(generated.digest);
-        scene_obstacles::spawn(
-            &mut commands,
-            generated.obstacles,
-            &terrain,
-            input.playable.spacing_metres,
-        );
-        openings::spawn_generated_buildings(
-            &mut commands,
-            generated.buildings,
-            &input.establishments,
-        )?;
-        openings::spawn_generated_boundaries(&mut commands, generated.boundaries);
-        for garden in generated.gardens {
-            commands.spawn((garden, Transform::default()));
-        }
-        furniture::spawn(&mut commands, generated.furniture);
-        terrain_collision::spawn_scene(
-            &mut commands,
-            input.scene_key.clone(),
-            terrain,
-            generated.ground,
-            environment,
-            terrain_patch.as_ref(),
-            input.landform,
-        );
+        scene_setup::spawn_generated(&mut commands, input, args.tree_content())?;
     }
     scene_setup::spawn_world_bounds(&mut commands, scene_width, scene_depth);
     if let Some(conn) = conn {

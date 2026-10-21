@@ -6,6 +6,8 @@ pub(super) struct TacticalMaterialsPlugin;
 
 impl Plugin for TacticalMaterialsPlugin {
     fn build(&self, app: &mut App) {
+        #[cfg(feature = "grown-trees")]
+        app.add_plugins(adventuresim_environment::render::grown::GrownMaterialPlugin);
         app.add_plugins((
             MaterialPlugin::<TacticalTerrainMaterial>::default(),
             MaterialPlugin::<TacticalVistaMaterial>::default(),
@@ -30,6 +32,7 @@ impl Plugin for TacticalMaterialsPlugin {
             WindowPresentationPlugin,
         ))
         .add_plugins(adventuresim_procedural_textures::BakedTexturesPlugin)
-        .add_plugins(ground_scatter::plants::PlantPresentationPlugin);
+        .add_plugins(ground_scatter::plants::PlantPresentationPlugin)
+        .add_plugins(terrain_pipeline_readiness::TerrainPipelinePreparationPlugin);
     }
 }

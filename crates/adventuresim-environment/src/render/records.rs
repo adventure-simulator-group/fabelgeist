@@ -15,6 +15,7 @@ use bevy::render::storage::{GpuShaderBuffer, ShaderBuffer};
 use bevy::render::{MainWorld, Render, RenderApp, RenderSystems};
 use fabelgeist_botany::viewer::sim::Snapshot;
 
+use super::benchmark::ForestBenchmark;
 use super::materials::SpeciesRecord;
 
 /// A buffer's smallest size, bytes: a binding may not be empty.
@@ -34,13 +35,13 @@ pub(super) struct Records {
 }
 
 /// One record set's bytes and their fingerprint.
-struct Bytes {
+pub(super) struct Bytes {
     bytes: Vec<u8>,
     fingerprint: u64,
 }
 
 impl Bytes {
-    fn new<T: bytemuck::Pod>(records: &[T]) -> Self {
+    pub(super) fn new<T: bytemuck::Pod>(records: &[T]) -> Self {
         let bytes = bytemuck::cast_slice(records).to_vec();
         Self {
             fingerprint: fingerprint(&bytes),
@@ -50,16 +51,36 @@ impl Bytes {
 }
 
 impl Records {
+    pub(super) fn byte_len(&self) -> usize {
+        self.species.bytes.len()
+            + self.branches.bytes.len()
+            + self.plants.bytes.len()
+            + self.leaves.bytes.len()
+    }
+
     /// The bytes of `snapshot`'s records. It copies and reads every record,
     /// so it runs off the main thread.
     pub(super) fn new(snapshot: &Snapshot) -> Self {
-        let species: Vec<SpeciesRecord> =
-            snapshot.species.iter().map(SpeciesRecord::from).collect();
+        Self::from_parts(
+            &snapshot.species,
+            &snapshot.branches,
+            &snapshot.plant_bounds,
+            &snapshot.leaves,
+        )
+    }
+
+    pub(super) fn from_parts(
+        species: &[fabelgeist_botany::viewer::sim::SpeciesInfo],
+        branches: &[fabelgeist_botany::viewer::sim::BranchInstance],
+        plants: &[fabelgeist_botany::viewer::sim::PlantInstance],
+        leaves: &[fabelgeist_botany::viewer::sim::LeafInstance],
+    ) -> Self {
+        let species: Vec<SpeciesRecord> = species.iter().map(SpeciesRecord::from).collect();
         Self {
             species: Bytes::new(&species),
-            branches: Bytes::new(&snapshot.branches),
-            plants: Bytes::new(&snapshot.plant_bounds),
-            leaves: Bytes::new(&snapshot.leaves),
+            branches: Bytes::new(branches),
+            plants: Bytes::new(plants),
+            leaves: Bytes::new(leaves),
         }
     }
 }
@@ -80,14 +101,14 @@ pub(super) fn fingerprint(bytes: &[u8]) -> u64 {
 }
 
 /// One storage buffer: its handle, its size and what was last written.
-struct Stored {
-    handle: Handle<ShaderBuffer>,
+pub(super) struct Stored {
+    pub(super) handle: Handle<ShaderBuffer>,
     capacity: u64,
     written: Option<u64>,
 }
 
 impl Stored {
-    fn new(buffers: &mut Assets<ShaderBuffer>) -> Self {
+    pub(super) fn new(buffers: &mut Assets<ShaderBuffer>) -> Self {
         Self {
             handle: buffers.add(empty(MINIMUM)),
             capacity: MINIMUM,
@@ -97,7 +118,7 @@ impl Stored {
 
     /// Queue `bytes` to be written, making room first; true when the
     /// buffer was replaced to make room.
-    fn write(
+    pub(super) fn write(
         &mut self,
         bytes: Bytes,
         buffers: &mut Assets<ShaderBuffer>,
@@ -180,20 +201,40 @@ struct BufferWrite {
     buffer: AssetId<ShaderBuffer>,
     bytes: Vec<u8>,
     waited: u32,
+    probe: Option<ForestBenchmark>,
 }
 
 /// Writes queued on the main thread, until the render thread takes them.
 #[derive(Resource, Default)]
-pub(super) struct PendingWrites(Vec<BufferWrite>);
+pub(super) struct PendingWrites {
+    writes: Vec<BufferWrite>,
+    probe: Option<ForestBenchmark>,
+}
 
 impl PendingWrites {
+    pub(super) fn observe(&mut self, probe: ForestBenchmark) {
+        self.probe = Some(probe);
+    }
+
     /// Queue `bytes` for `buffer`, in place of any older bytes for it.
     fn queue(&mut self, buffer: AssetId<ShaderBuffer>, bytes: Vec<u8>) {
-        self.0.retain(|write| write.buffer != buffer);
-        self.0.push(BufferWrite {
+        self.writes.retain(|write| {
+            if write.buffer == buffer {
+                if let Some(probe) = &write.probe {
+                    probe.superseded();
+                }
+                return false;
+            }
+            true
+        });
+        if let Some(probe) = &self.probe {
+            probe.queued();
+        }
+        self.writes.push(BufferWrite {
             buffer,
             bytes,
             waited: 0,
+            probe: self.probe.clone(),
         });
     }
 }
@@ -216,8 +257,16 @@ pub(super) fn install(app: &mut App) {
 
 fn take_writes(mut main: ResMut<MainWorld>, mut taken: ResMut<RenderWrites>) {
     let mut pending = main.resource_mut::<PendingWrites>();
-    for write in pending.0.drain(..) {
-        taken.0.retain(|older| older.buffer != write.buffer);
+    for write in pending.writes.drain(..) {
+        taken.0.retain(|older| {
+            if older.buffer == write.buffer {
+                if let Some(probe) = &older.probe {
+                    probe.superseded();
+                }
+                return false;
+            }
+            true
+        });
         taken.0.push(write);
     }
 }
@@ -232,9 +281,17 @@ fn write(
     writes.0.retain_mut(|write| {
         let Some(gpu) = buffers.get(write.buffer) else {
             write.waited += 1;
+            if write.waited >= PATIENCE
+                && let Some(probe) = &write.probe
+            {
+                probe.discarded();
+            }
             return write.waited < PATIENCE;
         };
         queue.write_buffer(&gpu.buffer, 0, &write.bytes);
+        if let Some(probe) = &write.probe {
+            probe.submitted(write.bytes.len());
+        }
         false
     });
 }

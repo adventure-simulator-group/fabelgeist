@@ -20,6 +20,16 @@ pub(crate) struct InteriorExposure {
 }
 
 impl InteriorExposure {
+    #[cfg(all(target_family = "wasm", feature = "debug"))]
+    pub(in crate::presentation) fn receipt(&self) -> serde_json::Value {
+        serde_json::json!({
+            "scene_entity": self.scene.map(Entity::to_bits),
+            "raw_compensation_stops": self.compensation,
+            "raw_settled": self.settled,
+            "effective_settled": self.is_settled(),
+        })
+    }
+
     pub(crate) fn is_settled(&self) -> bool {
         self.scene.is_none() || self.settled
     }

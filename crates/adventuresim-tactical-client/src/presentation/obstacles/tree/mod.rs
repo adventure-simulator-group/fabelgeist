@@ -1,12 +1,17 @@
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) mod authoring;
 mod geometry;
 mod impostor;
 mod impostor_assets;
 mod lod;
 mod materials;
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) mod prepared_cache;
 mod presentation;
 mod source;
 pub(in crate::presentation) mod specimen;
 
+pub(crate) use geometry::AggregateTreeLod;
 pub(crate) use specimen::oak_root_exposure_for_site;
 
 pub(in crate::presentation) use geometry::{
@@ -37,21 +42,38 @@ pub(crate) use lod::{
     TreeLeafRepresentation, TreeLod, TreeLodCluster, TreeLodRenderOverride, TreeTrunkLod,
 };
 pub(crate) use materials::{
-    TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial, TacticalTreeLeafCardMaterial,
-    oak_aggregate_bark_material, oak_bark_material, oak_leaf_material,
+    TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial, TacticalTreeImpostorMaterial,
+    TacticalTreeLeafCardMaterial, oak_aggregate_bark_material, oak_bark_material,
+    oak_leaf_material,
 };
 pub(in crate::presentation) use materials::{
-    TacticalTreeImpostorMaterial, beech_aggregate_bark_material, beech_bark_material,
-    beech_leaf_material, blackthorn_leaf_material, hawthorn_leaf_material, hazel_leaf_material,
-    leaf_material,
+    beech_aggregate_bark_material, beech_bark_material, beech_leaf_material,
+    blackthorn_leaf_material, hawthorn_leaf_material, hazel_leaf_material, leaf_material,
 };
 pub(in crate::presentation) use presentation::{
-    PendingTreePresentation, RetainedTreePresentations, StreamedTreePresentation,
+    PendingTreePresentation, RecipeTreeCache, RetainedTreePresentations, StreamedTreePresentation,
     TreePresentationCache, VistaTreePresentationCache, ensure_vista_tree_variant,
     present_pending_trees, stream_tree_lod_children,
 };
 pub(crate) use presentation::{
-    PresentedTree, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount,
+    PresentedTree, RecipeTreeAssetResidencyDiagnostics, TreeAssetOrigin, TreeLeafTriangleCount,
 };
 pub(crate) use source::{TreePresentationSpecies, tree_species_for_site};
 pub(in crate::presentation) use source::{canopy_competition, vista_tree_species};
+
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) use presentation::prepared::{
+    InstalledTreeMaterial, InstalledTreePart, InstalledTreePartRole, InstalledTreeSpecimen,
+    InstalledTreeVariant, RootAdmissionReport, TreeCacheInspection, TreeCacheRepresentation,
+    TreeRootBatch, material_image_ids,
+};
+
+pub(crate) use presentation::TreeContentRequest;
+pub(in crate::presentation) use presentation::content::TreeContentPlugin;
+#[cfg(feature = "grown-trees")]
+pub(in crate::presentation) use presentation::install_grown_streaming;
+#[cfg(feature = "grown-trees")]
+pub(crate) use presentation::{
+    GrownCatalogueAssets, GrownPartBinding, GrownRootAttachment, GrownSceneAssets,
+    GrownSceneRequest, GrownSource,
+};

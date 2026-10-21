@@ -11,7 +11,8 @@ use bevy::prelude::*;
 use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub(crate) enum TreePresentationSpecies {
     EnglishOak,
     CommonBeech,
@@ -75,6 +76,28 @@ pub(crate) fn tree_species_for_site(
 pub(in crate::presentation) fn canopy_competition(canopy_bps: u16) -> f32 {
     let normalized = crate::presentation::procedural::bps(canopy_bps);
     normalized * normalized * (3.0 - 2.0 * normalized)
+}
+
+/// Translate collider-centred production geometry to a ground-level root.
+pub(super) fn source_normalization() -> Vec3 {
+    Vec3::Y * (adventuresim_tactical_core::scene_input::TREE_TRUNK_HEIGHT_METRES * 0.5)
+}
+
+/// One production identity for a mature source variant at its ecological site.
+pub(super) fn playable_cache_key(
+    species: TreePresentationSpecies,
+    variant_seed: Seed,
+    environment: &SceneEnvironment,
+) -> Seed {
+    let competition_key = (canopy_competition(environment.canopy_bps) * 4095.0).round() as u64;
+    StreamId::new("visual.tree.playable-cache-key").seed(
+        variant_seed,
+        &[
+            competition_key,
+            oak_site_key(environment),
+            species.cache_salt(),
+        ],
+    )
 }
 
 pub(super) fn oak_site_key(environment: &SceneEnvironment) -> u64 {

@@ -95,7 +95,8 @@ fn resident_fields_are_bounded_and_removed_buildings_leave_no_light() {
         buffer,
         data,
         selection: Vec::new(),
-        _shader: Handle::default(),
+        _lighting_shader: Handle::default(),
+        _material_shader: Handle::default(),
     });
     app.world_mut().spawn((
         Camera3d::default(),
@@ -285,7 +286,8 @@ fn standard_material_edits_reach_the_interior_renderer_without_duplicate_draws()
             buffer: Handle::default(),
             data: GpuField::default(),
             selection: Vec::new(),
-            _shader: Handle::default(),
+            _lighting_shader: Handle::default(),
+            _material_shader: Handle::default(),
         })
         .add_systems(Update, material::prepare_materials);
     let source = app

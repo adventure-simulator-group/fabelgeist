@@ -90,7 +90,8 @@ pub(crate) struct InteriorLightingGpu {
     pub(crate) buffer: Handle<ShaderBuffer>,
     data: GpuField,
     selection: Vec<(Entity, Mat4)>,
-    _shader: Handle<Shader>,
+    _lighting_shader: Handle<Shader>,
+    _material_shader: Handle<Shader>,
 }
 
 impl InteriorLightingGpu {
@@ -122,6 +123,11 @@ impl InteriorLightingGpu {
     }
 }
 
+#[derive(SystemSet, Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub(crate) enum InteriorLightingSystems {
+    Prepare,
+}
+
 pub(super) struct InteriorLightingPlugin;
 
 impl Plugin for InteriorLightingPlugin {
@@ -138,11 +144,18 @@ impl Plugin for InteriorLightingPlugin {
                 include_str!("../../../../../assets/shaders/tactical_interior_lighting.wgsl"),
                 "shaders/tactical_interior_lighting.wgsl",
             ));
+        // MaterialPlugin resolves path shaders only when a surface arrives.
+        // Retain the same shared asset now, without adding a readiness gate.
+        let material_shader = app
+            .world()
+            .resource::<AssetServer>()
+            .load(material::MATERIAL_SHADER_PATH);
         app.insert_resource(InteriorLightingGpu {
             buffer,
             data,
             selection: Vec::new(),
-            _shader: shader,
+            _lighting_shader: shader,
+            _material_shader: material_shader,
         })
         .init_resource::<material::InteriorMaterials>()
         .init_resource::<exposure::InteriorExposure>()
@@ -156,6 +169,7 @@ impl Plugin for InteriorLightingPlugin {
                 exposure::expose_fixed_views,
                 material::prepare_materials,
             )
+                .in_set(InteriorLightingSystems::Prepare)
                 .after(bevy::transform::TransformSystems::Propagate),
         );
     }

@@ -22,10 +22,13 @@
 //! frames the tallest plant instead of the whole scene, looking at `--aim`
 //! of its height; `--solo conifer` grows one plant of a species alone.
 
+mod benchmark;
+mod capture_view;
 mod frame_times;
 mod hotbar;
 mod hud;
 mod icons;
+mod input;
 mod live;
 mod menu;
 mod pointer;
@@ -39,8 +42,13 @@ mod widgets;
 mod world;
 
 use std::path::PathBuf;
+use std::time::Instant;
 
-use adventuresim_environment::render::ForestPlugin;
+use adventuresim_environment::prepared::VariantBudget;
+use adventuresim_environment::render::benchmark::ValidationPolicy;
+use adventuresim_environment::render::benchmark::profile::ProfileMode;
+use adventuresim_environment::render::trees::{TreeBatching, TreeLayout, TreeResidencyPolicy};
+use adventuresim_environment::render::{ForestPlugin, Level, LevelSelection};
 use adventuresim_environment::{SoloSpecies, scene_named};
 use anyhow::anyhow;
 use bevy::prelude::*;
@@ -58,13 +66,53 @@ const WINDOW_SIZE: [u32; 2] = [1480, 900];
 
 #[derive(Parser)]
 #[command(about = "Watch a botany ecosystem grow, or capture one frame of it")]
+#[command(group(clap::ArgGroup::new("prepared_input").args(["prepared_forest", "arrival_sequence"])))]
 struct Options {
+    /// Run serial A/B/A arrivals in one renderer using a checked JSON manifest.
+    #[arg(long, requires = "sequence_output", conflicts_with_all = ["prepare_forest", "prepared_forest", "snapshot", "representation", "frames", "fixed_lod", "probe_validation", "render_profile", "benchmark_report", "scene", "solo", "years", "profile", "closeup", "aim", "yaw", "zoom", "orbit", "refeed", "capture_view", "tree_layout", "all_plants", "variants_per_species"])]
+    arrival_sequence: Option<PathBuf>,
+    #[arg(long, requires = "arrival_sequence")]
+    sequence_output: Option<PathBuf>,
+    #[arg(long, value_enum, requires = "arrival_sequence")]
+    bank_residency: Option<TreeResidencyPolicy>,
+    /// Grow and freeze render assets offline; this never times arrival.
+    #[arg(long, conflicts_with_all = ["snapshot", "prepared_forest", "frames", "benchmark_report", "orbit", "refeed"]) ]
+    prepare_forest: Option<PathBuf>,
+    /// Maximum representatives per species, preserving leafed/bare states.
+    #[arg(long, requires = "prepare_forest", conflicts_with = "all_plants")]
+    variants_per_species: Option<std::num::NonZeroU16>,
+    /// One model per source plant for a small renderer parity fixture.
+    #[arg(long, requires = "prepare_forest")]
+    all_plants: bool,
+    /// Load frozen assets directly, without growing an ecosystem.
+    #[arg(long, requires_all = ["snapshot", "representation"], conflicts_with_all = ["scene", "solo", "years", "profile", "refeed", "orbit"]) ]
+    prepared_forest: Option<PathBuf>,
+    #[arg(long, value_enum, requires = "prepared_forest")]
+    representation: Option<input::Representation>,
+    /// Force a common geometric level for controlled capture comparisons.
+    #[arg(long, value_enum, requires = "snapshot")]
+    fixed_lod: Option<Level>,
+    /// Shared-tree diagnostic: hold model mesh/batch partitions fixed.
+    #[arg(long, value_enum, requires = "prepared_forest")]
+    tree_layout: Option<TreeLayout>,
+    /// Shared-tree spatial cells; regional cells trade finer culling for reuse.
+    #[arg(long, value_enum, requires = "prepared_input")]
+    tree_batching: Option<TreeBatching>,
+    /// Diagnose repeated probe checks on a frozen snapshot with fixed LOD.
+    #[arg(long, value_enum, requires_all = ["prepared_forest", "fixed_lod"])]
+    probe_validation: Option<ValidationPolicy>,
+    /// Diagnose CPU render phases and native GPU tree-culling spans.
+    #[arg(long, value_enum, requires_all = ["prepared_forest", "fixed_lod"])]
+    render_profile: Option<ProfileMode>,
     /// The scene, by the start of its name (`boreal`, `castle-unplanted`...).
     #[arg(long)]
     scene: Option<String>,
     /// Grow the scene and save one frame here instead of watching it grow.
     #[arg(long)]
     snapshot: Option<PathBuf>,
+    /// Explicit eye/target, field of view, clip distance and fog JSON.
+    #[arg(long, requires = "snapshot", conflicts_with_all = ["closeup", "aim", "yaw", "zoom", "orbit"])]
+    capture_view: Option<PathBuf>,
     /// Years to grow before the snapshot.
     #[arg(long, default_value_t = 120.0)]
     years: f32,
@@ -95,23 +143,71 @@ struct Options {
     /// Hand the forest the snapshot again every this many timed frames.
     #[arg(long)]
     refeed: Option<u32>,
+    /// Save stage timings and two stable readbacks for one frozen snapshot.
+    #[arg(long, requires = "snapshot", conflicts_with_all = ["refeed", "orbit"])]
+    benchmark_report: Option<PathBuf>,
 }
 
 fn main() -> anyhow::Result<()> {
+    let started = Instant::now();
     let options = Options::parse();
+    if let Some(manifest) = &options.arrival_sequence {
+        return options.capture_sequence(manifest, started);
+    }
     let scene = match &options.scene {
         Some(name) => scene_named(name)?,
         None => Scene::MixedForest,
     };
+    if let Some(directory) = &options.prepare_forest {
+        let budget = match (options.all_plants, options.variants_per_species) {
+            (true, None) => VariantBudget::AllPlants,
+            (false, Some(count)) => VariantBudget::PerSpecies(count),
+            _ => {
+                return Err(anyhow!(
+                    "preparation requires --variants-per-species or --all-plants"
+                ));
+            }
+        };
+        return input::prepare(options.growth(scene)?, directory.clone(), budget);
+    }
     if let Some(path) = &options.snapshot {
-        let profile = Profile::named(&options.profile)
-            .ok_or_else(|| anyhow!("unknown profile `{}`", options.profile))?;
+        anyhow::ensure!(
+            options
+                .tree_layout
+                .is_none_or(|layout| layout == TreeLayout::CapacityBatches)
+                || options.fixed_lod.is_some(),
+            "model-layout diagnostics require --fixed-lod"
+        );
+        anyhow::ensure!(
+            (options.tree_layout.is_none() && options.tree_batching.is_none())
+                || matches!(options.representation, Some(input::Representation::Shared)),
+            "--tree-layout and --tree-batching require --representation shared"
+        );
+        let source = match (&options.prepared_forest, options.representation) {
+            (Some(directory), Some(representation)) => input::Source::Prepared {
+                directory: directory.clone(),
+                representation,
+            },
+            (None, None) => input::Source::Growth(Box::new(options.growth(scene)?)),
+            _ => {
+                return Err(anyhow!(
+                    "prepared capture requires a directory and representation"
+                ));
+            }
+        };
         return snapshot::run(snapshot::Request {
+            sequence: None,
+            residency: TreeResidencyPolicy::default(),
+            view: options.capture_view,
             path: path.clone(),
-            scene,
-            ecosystem: options.solo.map(SoloSpecies::ecosystem),
-            years: options.years,
-            profile: profile_controls::drawable(profile),
+            tree_layout: options.tree_layout.unwrap_or_default(),
+            tree_batching: options.tree_batching.unwrap_or_default(),
+            validation: options.probe_validation.unwrap_or_default(),
+            render_profile: options.render_profile,
+            source,
+            level: options
+                .fixed_lod
+                .map_or(LevelSelection::Adaptive, LevelSelection::Fixed),
             framing: Framing {
                 closeup: options.closeup,
                 aim: options.aim,
@@ -121,6 +217,11 @@ fn main() -> anyhow::Result<()> {
             frames: options.frames,
             orbit: options.orbit,
             refeed: options.refeed,
+            benchmark: options.benchmark_report.map(|report| benchmark::Request {
+                report,
+                started,
+                identity: adventuresim_environment::render::benchmark::ForestRequestId::FIRST,
+            }),
         });
     }
     let [width, height] = WINDOW_SIZE;
@@ -138,4 +239,31 @@ fn main() -> anyhow::Result<()> {
     live::install(&mut app, scene);
     app.run();
     Ok(())
+}
+
+impl Options {
+    fn capture_sequence(&self, manifest: &std::path::Path, started: Instant) -> anyhow::Result<()> {
+        let output = self
+            .sequence_output
+            .clone()
+            .ok_or_else(|| anyhow!("missing sequence output"))?;
+        snapshot::sequence::run(
+            manifest.to_path_buf(),
+            output,
+            self.tree_batching.unwrap_or_default(),
+            self.bank_residency.unwrap_or_default(),
+            started,
+        )
+    }
+
+    fn growth(&self, scene: Scene) -> anyhow::Result<input::Growth> {
+        let profile = Profile::named(&self.profile)
+            .ok_or_else(|| anyhow!("unknown profile `{}`", self.profile))?;
+        Ok(input::Growth {
+            scene,
+            ecosystem: self.solo.map(SoloSpecies::ecosystem),
+            years: self.years,
+            profile: profile_controls::drawable(profile),
+        })
+    }
 }

@@ -9,7 +9,7 @@ impl TacticalSceneInput {
         if self.generation_version != TACTICAL_SCENE_GENERATION_VERSION {
             return invalid(SceneValidationError::GenerationVersion);
         }
-        if self.scene_key.is_empty() || self.scene_key.len() > MAX_TEMPLATE_BYTES {
+        if self.scene_key.is_empty() || self.scene_key.len() > MAX_SCENE_KEY_BYTES {
             return invalid(SceneValidationError::SceneKey);
         }
         let source_id = match &self.source {

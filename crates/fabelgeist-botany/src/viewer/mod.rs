@@ -5,3 +5,4 @@
 pub mod hlod;
 pub mod profile;
 pub mod sim;
+pub mod tangent;

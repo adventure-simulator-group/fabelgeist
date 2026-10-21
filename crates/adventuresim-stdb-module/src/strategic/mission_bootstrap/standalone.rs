@@ -4,12 +4,14 @@
 pub(super) enum StandaloneMissionFamily {
     Animation,
     Diagnostic,
+    Wilderness,
     General,
 }
 
 const ANIMATION_MISSION_COORDINATE_PREFIX: &str = "animation-";
 const DIAGNOSTIC_MISSION_COORDINATE_PREFIX: &str = "diagnostic-";
-const STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M: u64 = 2_000;
+const WILDERNESS_SITE_DISTANCE_M: u64 = 2_000;
+const WILDERNESS_MISSION_COORDINATE_PREFIX: &str = "wilderness-";
 const METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE: f64 = 111_000.0;
 const METERS_PER_UNBOUNDED_COORDINATE_UNIT: f64 = 1_000.0;
 
@@ -21,7 +23,14 @@ impl StandaloneMissionFamily {
             .as_str()
             .split_once(':')
             .expect("validated mission IDs contain a domain separator");
-        if let Some(animation_coordinate) =
+        if let Some(wilderness_coordinate) =
+            coordinate.strip_prefix(WILDERNESS_MISSION_COORDINATE_PREFIX)
+        {
+            if wilderness_coordinate.is_empty() {
+                return Err("Wilderness mission ID has no coordinate".into());
+            }
+            Ok(Self::Wilderness)
+        } else if let Some(animation_coordinate) =
             coordinate.strip_prefix(ANIMATION_MISSION_COORDINATE_PREFIX)
         {
             if animation_coordinate.is_empty() {
@@ -42,7 +51,7 @@ impl StandaloneMissionFamily {
 
     pub(super) fn case_site_distance_m(self) -> u64 {
         match self {
-            Self::Diagnostic => STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M,
+            Self::Diagnostic | Self::Wilderness => WILDERNESS_SITE_DISTANCE_M,
             Self::Animation | Self::General => 0,
         }
     }
@@ -97,15 +106,15 @@ mod tests {
     fn diagnostic_standalone_missions_create_wilderness_case_sites() {
         assert_eq!(
             StandaloneMissionFamily::Diagnostic.case_site_distance_m(),
-            STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M
+            WILDERNESS_SITE_DISTANCE_M
         );
         assert_eq!(StandaloneMissionFamily::Animation.case_site_distance_m(), 0);
         assert_eq!(
             standalone_case_site_northward_offset(
-                STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M,
+                WILDERNESS_SITE_DISTANCE_M,
                 true,
             ),
-            STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M as f64
+            WILDERNESS_SITE_DISTANCE_M as f64
                 / METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE
         );
     }

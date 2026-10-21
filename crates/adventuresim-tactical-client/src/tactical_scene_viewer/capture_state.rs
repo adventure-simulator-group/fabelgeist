@@ -64,6 +64,8 @@ impl CapturePhase {
 
 #[derive(Resource)]
 pub(super) struct SceneCaptureState {
+    #[cfg(feature = "grown-review")]
+    pub(super) grown_evidence: Option<super::grown_capture::Evidence>,
     pub(super) fixture: String,
     pub(super) input_path: PathBuf,
     pub(super) output: PathBuf,

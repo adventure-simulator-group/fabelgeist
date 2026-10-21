@@ -14,15 +14,25 @@ render = [
   "dep:bevy",
   "dep:bevy_eidolon",
   "dep:bytemuck",
+  "dep:web-time",
 ]
+prepared = [
+  "render", "dep:serde", "dep:serde_json", "dep:sha2",
+  "dep:js-sys", "dep:wasm-bindgen", "dep:wasm-bindgen-futures", "dep:web-sys",
+]
+# Genuine request-driven finite source growth on the native CPU.
+finite-growth = ["prepared"]
+# Bounded native mesh authoring on an owned compute device, before presentation.
+grown-authoring = ["prepared", "dep:fabelgeist-gpu", "dep:naga_oil", "dep:wgpu"]
 viewer = [
-  "render",
+  "prepared",
   "bevy/default",
   "dep:bevy_egui",
   "dep:bevy_panorbit_camera",
   "dep:fabelgeist-gpu",
   "dep:pollster",
   "dep:clap",
+  "dep:serde_json",
 ]
 
 [dependencies]
@@ -30,6 +40,7 @@ fabelgeist-determinism = { path = "../fabelgeist-determinism" }
 fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
 anyhow = "1"
 thiserror.workspace = true
+web-time = { workspace = true, optional = true }
 fabelgeist-botany = { path = "../fabelgeist-botany" }
 bevy = { workspace = true, features = ["3d_bevy_render"], optional = true }
 bevy_eidolon = { workspace = true, optional = true }
@@ -39,6 +50,19 @@ bevy_panorbit_camera = { workspace = true, optional = true }
 fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false, optional = true }
 pollster = { version = "0.4", optional = true }
 clap = { workspace = true, optional = true }
+serde_json = { workspace = true, optional = true }
+serde = { workspace = true, features = ["derive"], optional = true }
+sha2 = { workspace = true, optional = true }
+
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+naga_oil = { version = "0.22.0", default-features = false, optional = true }
+wgpu = { version = "29.0.4", default-features = false, features = ["wgsl"], optional = true }
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+js-sys = { version = "0.3", optional = true }
+wasm-bindgen = { workspace = true, optional = true }
+wasm-bindgen-futures = { version = "0.4", optional = true }
+web-sys = { version = "0.3", optional = true, features = ["Window", "Crypto", "SubtleCrypto"] }
 
 [lints]
 workspace = true

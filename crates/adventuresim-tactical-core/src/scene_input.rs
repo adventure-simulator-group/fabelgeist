@@ -12,7 +12,7 @@ pub use terrain_samples::{
 };
 mod rock_recipe;
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
-use rock_recipe::{rock_recipe, wrapped_angle_difference};
+use rock_recipe::rock_recipe;
 mod rock_streams;
 use crate::terrain_streams as streams;
 use std::{fs, path::Path};
@@ -53,7 +53,7 @@ pub use descriptor::{
     TacticalSceneInput,
 };
 use detail_noise::{DetailNoise, value_noise};
-use detail_obstacles::{TerrainDetailObstacles, TerrainRockInfluence};
+use detail_obstacles::TerrainDetailObstacles;
 mod generated;
 mod generation;
 mod validation;
@@ -80,7 +80,7 @@ pub const ROCK_RADIUS_METRES: f32 = 0.75;
 const MAX_PLAYABLE_SIDE: usize = 601;
 const MAX_VISTA_LEVELS: usize = 8;
 const MAX_VISTA_SAMPLES: usize = 2_000_000;
-const MAX_TEMPLATE_BYTES: usize = 128;
+pub const MAX_SCENE_KEY_BYTES: usize = 128;
 const MAX_SOURCE_ID_BYTES: usize = 128;
 const AUTHORITATIVE_DETAIL_SPACING_METRES: f32 = 0.5;
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
@@ -229,8 +229,9 @@ fn refine_authoritative_terrain(
     moisture_bps: u16,
     building_pads: &[buildings::BuildingPad],
 ) -> SceneInputResult<SceneTerrain> {
-    let influences = TerrainDetailObstacles::from_obstacles(terrain, obstacles, obstacle_spacing)?;
     let detail_seed = streams::DETAIL.seed(seed, &[]);
+    let influences =
+        TerrainDetailObstacles::from_obstacles(detail_seed, terrain, obstacles, obstacle_spacing)?;
     let noise = DetailNoise::new(detail_seed);
     let mut terrain = terrain
         .refined(AUTHORITATIVE_DETAIL_SPACING_METRES, |point, base_height| {
@@ -300,8 +301,8 @@ fn authoritative_surface_relief(
             + soil_creep_relief(point, shape, noise)
             + shape.concavity.clamp(-0.018, 0.024)
     });
-    let roots = tree_root_relief(seed, point, &influences.trees);
-    let rock_contact = boulder_ground_relief(seed, point, shape, &influences.rocks, noise);
+    let roots = influences.root_relief(point);
+    let rock_contact = influences.rock_relief(point, shape, noise);
     let rock_strata = match surface.map(|surface| surface.substrate) {
         Some(GroundSubstrate::Stone) => rocky_substrate_relief(seed, point, shape, 1.0, noise),
         Some(GroundSubstrate::Gravel) => rocky_substrate_relief(seed, point, shape, 0.62, noise),
@@ -435,103 +436,6 @@ fn rocky_substrate_relief(
     let crack = (1.0 - detail_smoothstep(0.035, 0.17, fracture_a))
         .max((1.0 - detail_smoothstep(0.035, 0.15, fracture_b)) * 0.72);
     (shelf - crack * 0.019) * strength
-}
-
-fn boulder_ground_relief(
-    seed: fabelgeist_determinism::Seed,
-    point: bevy::math::Vec2,
-    shape: Option<TerrainShapeSample>,
-    rocks: &[TerrainRockInfluence],
-    noise: &DetailNoise,
-) -> f32 {
-    use bevy::math::Vec2;
-    let mut relief = 0.0;
-    for rock in rocks {
-        let offset = point - rock.centre.metres();
-        let distance = offset.length();
-        let radius = rock.radius.metres().max(0.35);
-        if distance > radius * 5.0 {
-            continue;
-        }
-        let rock_seed = streams::ROCK_INFLUENCE.seed(
-            seed,
-            &[
-                u64::from(rock.centre.metres().x.to_bits()),
-                u64::from(rock.centre.metres().y.to_bits()),
-            ],
-        );
-        let fallback_angle = streams::ROCK_DOWNHILL
-            .rng(rock_seed, &[])
-            .inclusive_unit_f32()
-            * core::f32::consts::TAU;
-        let downhill = shape.map(|shape| shape.downhill).unwrap_or(Vec2::new(
-            libm::cosf(fallback_angle),
-            libm::sinf(fallback_angle),
-        ));
-        let across_axis = Vec2::new(-downhill.y, downhill.x);
-        let socket = (1.0 - detail_smoothstep(radius * 0.48, radius * 1.08, distance)) * -0.042;
-        let apron = detail_smoothstep(radius * 0.72, radius * 1.04, distance)
-            * (1.0 - detail_smoothstep(radius * 1.04, radius * 1.72, distance))
-            * 0.033;
-        let downstream = offset.dot(downhill);
-        let across = offset.dot(across_axis).abs();
-        let tail_length =
-            radius * (3.2 + streams::ROCK_TAIL.rng(rock_seed, &[]).inclusive_unit_f32() * 1.1);
-        let longitudinal = detail_smoothstep(radius * 0.45, radius * 0.95, downstream)
-            * (1.0 - detail_smoothstep(tail_length * 0.62, tail_length, downstream));
-        let tail_width = radius * 0.42 + downstream.max(0.0) * 0.24;
-        let lateral = 1.0 - detail_smoothstep(tail_width * 0.42, tail_width, across);
-        let granular = 0.72
-            + noise.sample(
-                streams::ROCK_DEBRIS.seed(rock_seed, &[]),
-                Vec2::new(downstream / 1.7, across / 0.8),
-            ) * 0.28;
-        relief += socket + apron + longitudinal * lateral * granular * 0.034;
-    }
-    relief.clamp(-0.055, 0.07)
-}
-
-fn tree_root_relief(
-    seed: fabelgeist_determinism::Seed,
-    point: bevy::math::Vec2,
-    tree_positions: &[crate::scene_coordinates::ScenePlanPoint],
-) -> f32 {
-    let mut relief = 0.0;
-    for &tree in tree_positions {
-        let tree = tree.metres();
-        let offset = point - tree;
-        let radius = offset.length();
-        if radius > 8.0 {
-            continue;
-        }
-        let tree_seed = streams::TREE_ROOTS.seed(
-            seed,
-            &[u64::from(tree.x.to_bits()), u64::from(tree.y.to_bits())],
-        );
-        let mound = libm::expf(-(radius / 1.35).powi(2)) * 0.045;
-        let basin = detail_smoothstep(0.9, 1.8, radius)
-            * (1.0 - detail_smoothstep(5.2, 7.7, radius))
-            * -0.012;
-        let angle = libm::atan2f(offset.y, offset.x);
-        let mut ridges = 0.0_f32;
-        for root in 0..7_u64 {
-            let mut random = streams::ROOT_SHAPE.rng(tree_seed, &[root]);
-            let origin = random.inclusive_unit_f32() * core::f32::consts::TAU;
-            let phase = random.inclusive_unit_f32() * core::f32::consts::TAU;
-            let length = 4.8 + random.inclusive_unit_f32() * 2.9;
-            if radius > length || radius < 0.28 {
-                continue;
-            }
-            let curved_angle = origin + libm::sinf(radius * 0.9 + phase) * 0.11;
-            let angular_distance = wrapped_angle_difference(angle, curved_angle).abs() * radius;
-            let width = 0.16 + radius * 0.045;
-            let ridge = 1.0 - detail_smoothstep(width * 0.3, width, angular_distance);
-            let taper = 1.0 - detail_smoothstep(length * 0.58, length, radius);
-            ridges = ridges.max(ridge * taper * (0.082 - radius * 0.007).max(0.025));
-        }
-        relief += mound + basin + ridges;
-    }
-    relief.clamp(-0.02, 0.115)
 }
 
 fn road_surface_relief(point: bevy::math::Vec2, ground: &SceneGround, noise: &DetailNoise) -> f32 {

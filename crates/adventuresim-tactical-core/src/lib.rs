@@ -21,10 +21,12 @@ pub mod regional_environment;
 pub mod regional_map;
 pub mod regional_terrain;
 pub mod scene;
+pub mod scene_content;
 pub mod scene_coordinates;
 mod scene_fault;
 mod scene_ground;
 pub mod scene_input;
+pub mod scene_membership;
 mod scene_transition_mesh;
 pub mod terrain_streams;
 mod terrain_transition;
@@ -107,6 +109,7 @@ pub mod prelude {
         GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneId, SceneTerrain,
         TerrainGenerator, UrbanGroundLookup,
     };
+    pub use crate::scene_content::SceneTreeContent;
     pub use crate::scene_input::furniture::{
         FurnitureAnchor, FurnitureFootprint, FurnitureGroup, FurnitureGroupId, FurnitureGroupKind,
         FurnitureInstanceId, FurnitureLayout, FurnitureLocation, GeneratedFurniture,
@@ -123,6 +126,7 @@ pub mod prelude {
         TacticalBuildingPlacement, TacticalSceneInput, TacticalSurface, TerrainSampleGrid,
         VistaLod, VistaSample,
     };
+    pub use crate::scene_membership::{ObstacleCount, SceneObstacleCensus, SceneObstacleOf};
     pub use crate::terrain_transition::{
         CollarWidthVariation, RuptureWander, TerrainCollarParameters, TerrainTransitionCollar,
     };

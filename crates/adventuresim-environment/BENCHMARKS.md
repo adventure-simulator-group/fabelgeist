@@ -1,0 +1,447 @@
+# Forest component measurements
+
+The environment viewer can record the work needed to grow and draw one
+deterministic forest snapshot. Use this to attribute generation, packing,
+upload and rendering costs before changing the foliage architecture.
+
+These measurements cover the native offscreen forest component. They do not
+establish browser-area arrival time, network transfer, landscape-scale
+coverage, or integration with the tactical client's other foliage.
+
+## Prepare before reserving the machine
+
+Build the viewer in release mode. Use one absolute Cargo target directory
+for the baseline and candidate, with one compiler workload at a time:
+
+```powershell
+cargo build --release -p adventuresim-environment --features viewer --bin environment-viewer --target-dir C:/path/to/shared-target
+```
+
+The runner uses an existing executable and never builds. Without `--run`, it
+writes the contract without starting the viewer:
+
+```powershell
+python scripts/benchmark_foliage.py --executable C:/path/to/shared-target/release/environment-viewer.exe --provenance target/forest-host.json --output target/forest-plan
+```
+
+Before measuring, record the hardware, OS, driver, power mode, revision, dirty
+files, compiler, backend and quality settings. The runner hashes the binary
+and records source state. Keep a copy of the source diff alongside the raw
+evidence when measuring uncommitted changes.
+
+Pass that frozen JSON file with `--provenance`. It must contain nonempty
+`hardware`, `software`, `tool_versions` and `render_settings` records. Include
+the selected adapter/backend, power mode and driver; verify them against the
+pilot's actual process log before repeating runs. Keep unresolved fields
+explicitly unknown during the pilot, not as assumed hardware facts.
+
+## Prepared unique and shared-tree controls
+
+The local prototype separates removal of growth replay from reuse of tree
+geometry. Prepare each source forest offline with an explicit species-wide
+variant budget; this command does not measure arrival:
+
+```powershell
+environment-viewer --prepare-forest target/prepared/mixed --scene mixed --years 120 --profile fast --variants-per-species 16
+environment-viewer --prepare-forest target/prepared/boreal --scene boreal --years 120 --profile fast --variants-per-species 16
+```
+
+Each new output directory contains unique records, a separate model library,
+and regional placements bound to that library by a SHA-256 content digest.
+All required files must be available to a fresh client. File reads, decoding,
+record uploads and mesh readiness count in the prepared arrival path. Local
+file reads do not establish network-transfer costs.
+
+Model libraries use the exact `FORESTL3` format. They store botanical records,
+source models, bounds and detail settings, with a canonical topology revision
+included in the content identity. They do not store generated vertex addresses
+or triangle arrays. Older library formats are rejected. Regenerate libraries
+and their bound populations from the selected source; a population bound to an
+older library digest cannot be admitted with the new bank.
+
+Baking and decoding check the prospective shared topology against the 256 MiB
+address-mesh limit without allocating it. The shared renderer generates all
+three address-grid levels on the bank's first upload, then retains their mesh
+handles for reuse. Capacity vertices and complete live-record index prefixes
+come from the same canonical triangle builder. Native Full authoring requests
+only its actual part's index prefix. These first-use costs remain part of any
+arrival measurement.
+
+Capture these assets without replay or performance measurements:
+
+```powershell
+environment-viewer --prepared-forest target/prepared/mixed --representation unique --snapshot target/unique.png
+environment-viewer --prepared-forest target/prepared/mixed --representation shared --snapshot target/shared.png
+```
+
+Prepared captures require completed draws and consecutive identical GPU
+readbacks. For a small all-plants renderer oracle, prepare with `--all-plants`
+and compare both representations with `--fixed-lod full`, `middle`, and
+`coarse`. Use a small deterministic fixture for this exact geometry control.
+Preparation rejects prospective address topology larger than 256 MiB;
+metadata and GPU integer-address bounds also apply. Renderer upload also checks
+the complete selected layout before inserting any mesh assets.
+
+Shared trees retain species, stable identity and root. Offline matching uses
+height, radial width, branch/leaf complexity and vertical crown occupancy;
+these shape measurements are separate from conservative render bounds.
+Placements scale the chosen shape to source height/width. Asymmetric crowns
+retain their dominant direction; other substitutions receive deterministic
+yaw from stable plant identity. An all-plants oracle retains unit scale/yaw.
+An explicit species budget must accommodate observed empty, bare and leafed
+geometry states. A model's source light samples and crown shape remain an
+approximation when reused elsewhere. Review silhouettes, repetition, canopy
+coverage and lighting before interpreting timings.
+
+The shared renderer instances whole trees in capacity/size/16-metre-cell
+batches. Power-of-two branch and leaf capacities share one integer-address
+grid per class and LOD across source models and species. Placements select
+actual model record spans. Padded slots return clipped degenerate vertices
+before reading botanical records. They still cost vertex invocations and
+placement metadata reads; report allocated slots separately from live records.
+All three grid LODs remain resident. Frustum culling is per spatial batch;
+distance culling is per tree. Conservative bounds come from actual transformed
+models, not grid capacity. Merged batches can change adaptive LOD decisions,
+so use fixed common LOD for renderer equivalence and review adaptive views.
+Placements also carry horizontal/vertical scale, yaw and translation.
+Procedural bark and crown occlusion use model coordinates; surface normals
+use the inverse transpose of the placement scale.
+
+After correctness passes and contributors clear the machine, use the same
+runner with `--prepared-root target/prepared --representation unique` or
+`shared`. Omitting those options measures replay. Freeze the same asset files
+and effective detail for each comparison. The runner records required asset
+hashes and bytes; the viewer reports library records, placement instances,
+spatial batches, capacity slots, prospective canonical topology and actual
+all-LOD mesh upload payloads separately. Per-LOD
+record/slot totals describe batches before GPU culling, not visible vertex
+invocations. Peak memory remains
+unmeasured. This prototype does not implement distant impostors, ecological
+cohort updates or production area streaming.
+
+### Per-tree distance visibility
+
+Population format `FORESTP2` carries a required `TreeVisibility` for every
+placement. Offline growth preparation uses the explicit unbounded role.
+Production descriptors may instead admit two positive-width, nonoverlapping
+root-distance margins through `TreeVisibility::distance` or the native Bevy
+`VisibilityRange` adapter. The adapter requires `use_aabb: false`. Invalid,
+negative, nonfinite, subnormal or zero-width margins are rejected at admission.
+Population identity covers this data; the immutable model library is unchanged.
+
+Finite margins preserve the production vista material's crisp, quantized
+handoff using the same root-to-LOD-view distance and rounded GPU range kernel.
+They do not add translucent fading or screen-door dithering. The ideal near
+edge is open and the far edge closed, at 17/32 through each margin; floating
+point evaluation still follows the original kernel. For `1600..1900` metres,
+the ideal far cutoff is 1759.375 metres, rather than the arithmetic midpoint.
+
+Visibility does not partition draw batches. One spatial batch can contain
+trees with different windows. The placement record is four aligned vec4s,
+64 bytes per tree. A shared predicate clips excluded branch and leaf vertices
+before botanical record reads. The existing broad native distance envelope
+and batch-frustum culling still apply. Hidden trees can retain source instances,
+indirect counts and vertex invocations: this is not compute-side removal or
+an exact post-cull visible-tree counter. Measure repeated vertex-predicate
+cost before interpreting a timing change.
+
+### Indexed-padding diagnostic
+
+For shared prepared snapshots, `--tree-layout model-padded` and
+`--tree-layout model-live-indices` require an explicit `--fixed-lod`.
+Both construct the same per-model/part meshes and model/cell/size batches.
+Both retain full capacity vertex arrays. The second uses only the canonical
+index prefix for actual model records; it does not index padded records.
+Assets, poses, shaders, conservative bounds and culling policy stay fixed.
+`--tree-layout capacity-batches` is the normal sharing control.
+
+Before constructing meshes, admission checks the prospective shared topology
+and the complete requested runtime layout separately against the 256 MiB
+address-payload limit. The library retains no generated address/index arrays.
+Each generated mesh moves its arrays into the asset owner. This is a payload
+bound, not a peak-memory measurement. Model layouts intentionally duplicate
+vertices and can cost more startup/memory; their purpose is to isolate indexed
+padding with matched batch partitions.
+
+Report schema 10 names per-LOD referenced work `indexed_record_slots`.
+`capacity_slots_implied_by_shared_placements` still describes per-placement
+capacity potential. `shared_meshes` records the actual requested grid count,
+vertex/index bytes, layout and a SHA-256 of batch keys, bounds and complete
+instance payloads. `prospective_canonical_topology_bytes` describes derived
+shared topology before construction; it is neither encoded library bytes nor
+the actual uploaded layout, which can differ in model modes. These topology
+counts exclude common primitive meshes and allocator overhead. Check matching
+batch digests and all per-LOD records/instances before interpreting a padded
+versus live-index comparison. Changing index lengths still changes buffer
+allocation/bin placement; it does not isolate one shader instruction.
+
+### Structural-observer diagnostic
+
+`--probe-validation every-frame` and
+`--probe-validation sampling-endpoints` compare the cost of repeated
+structural checks on a prepared snapshot with an explicit `--fixed-lod`.
+Use the same binary, assets, camera, mesh layout and requested frame count
+for each pair. The default remains `every-frame`.
+
+Both policies require a fresh full check after warmup and another after
+sampling. Each request is latched before that render frame's draws and
+acknowledged only after its GPU wait and full validation. The first draw
+milestone cannot satisfy either request. Both policies reject new uploads
+or expected-geometry changes after the start request. Final screenshots
+and reports wait for the final acknowledgement and two stable readbacks.
+
+Only during sampling, `sampling-endpoints` omits the repeated pipeline,
+mesh, batch-membership and count-histogram scans. It keeps per-draw atomic
+counters, GPU waits and constant-cost failure polling. It cannot establish
+intermediate-frame structural validity or detect transient pipeline errors
+that disappear before the final scan. This is a diagnostic for frozen
+inputs, not a validation policy for gameplay or moving-camera captures.
+
+`probe_validation` records the policy, completed lifecycle and
+successful full/skipped structural check counts. An untimed capture using
+either explicit policy exercises the same start/end handshake and one
+intermediate render, without `--frames` or `--benchmark-report`. Compare
+those captures before timing. Sampling starts after the start transition;
+final validation and screenshot work occur after the last frame timestamp.
+
+The difference between policies measures repeated structural observation
+within this serialized harness. It does not measure total probe overhead
+or ordinary presentation throughput: draw counters and GPU waits remain.
+Use a contemporary every-frame control; do not pool historical results
+from the previous lifecycle with this comparison.
+
+### Render-stage profiling
+
+For prepared snapshots with an explicit `--fixed-lod`,
+`--render-profile control` leaves the original render systems in place.
+`--render-profile instrumented` records render-phase wall spans and wraps
+the original tree-culling functions with native GPU timestamp markers.
+The original functions still encode the dispatches. Each original system
+must be found exactly once; setup fails otherwise. The wrappers run inside
+the render graph's rendering phase, before the camera driver. Their three
+piped stages run on one worker and queue begin/dispatch/end buffers in order.
+
+Both modes save a `.profile.json` sidecar beside the final screenshot.
+Schema 10 measurement reports also include `renderer_profile`; it is null
+when no profiling mode was requested. Untimed captures exercise profiling
+and report admission without supplying frame intervals. Validate those
+captures before coordinating a timing window.
+
+CPU samples begin when Queue observes the frozen Sampling phase. They cover
+Queue, Prepare, graph encoding, graph submission and the existing blocking
+GPU poll. A complete frame needs all five spans. These are inclusive wall
+times, including scheduling gaps, not CPU busy times. They are not matched
+by ordinal to the main-world frame-interval vector. Submission includes
+encoder finishing and uncovered-target handling as well as queue submission.
+The GPU wait remains a stall span, not additional GPU execution time.
+
+The branch and leaf culling histories include CPU encoding-body and GPU
+timestamp observations. CPU cull spans exclude deferred encoder finishing
+and actual submission; marker work can contribute. These and the other
+render diagnostics retain Bevy's asynchronous bounded histories. They may
+include warmup or final frames and are not an exact 1800-frame distribution.
+Preserve their paths and raw history values. Instrumented mode requires
+enabled encoder timestamp-query features and all four cull diagnostic paths.
+Missing evidence fails capture rather than becoming a zero-duration result.
+
+Profiling adds clocks, schedule boundaries, command buffers and GPU queries.
+Measure its effect with a contemporary control in the same build and layout.
+Do not subtract the control difference to manufacture a production result,
+sum overlapping CPU/GPU/wait spans, or infer a critical path from opaque-pass
+timing alone. Ordinary viewing and captures omit these hooks by default.
+
+### Explicit capture views
+
+Use `--capture-view path/to/view.json` with `--snapshot` to fix the actual
+eye, target, vertical field of view, far plane and linear distance fog:
+
+```json
+{
+  "eye_metres": [0, 1.65, 0],
+  "target_metres": [0, 1.65, -100],
+  "vertical_fov_degrees": 80,
+  "far_metres": 60000,
+  "fog_start_metres": 2500,
+  "fog_end_metres": 42000
+}
+```
+
+Positions use the prepared area's coordinate frame. Admission checks finite
+distinct points, a nonvertical direction, a finite invertible projection and
+ordered fog distances before loading the forest. The document is bounded to
+4 KiB and rejects unknown fields. Explicit views conflict with the automatic
+closeup, aim, yaw, zoom and orbit options. The existing framing path retains
+its default lens and exponential haze when no document is supplied.
+
+Schema 10 records `view` with the applied transform, eye, lens and fog beside
+the framing orbit. Branch and leaf materials enable Bevy's distance fog in
+both unique and shared rendering. This corrects previously unfogged foliage;
+older captures remain historical evidence rather than exact current controls.
+
+A matching camera does not establish production presentation equivalence.
+The component's lighting, ground, visibility ranges and source populations
+must also be declared. In particular, its geometric Coarse level retains
+all botanical records and it does not reproduce the tactical presenter's
+distant tree cards or their distance fade. Use actual producer ring extents
+and separate tree-object distance limits when constructing stress fixtures;
+the camera's far plane is not a radius filled with individual trees.
+
+Measurement reports also save `arrival_frame`: the first screenshot requested
+after fresh GPU-complete forest commands, before the warmup or steady sample.
+Its time includes screenshot readback. Pixels stay in memory until sampling
+finishes, so PNG encoding cannot contaminate steady intervals. The image is
+saved beside the report with extension `.arrival.png`. Review that actual
+image for complete useful foliage; command readiness alone does not establish
+coverage. This native readback bound still excludes network/browser delivery.
+The probe also requires uploaded ground meshes and successful ordinary draws
+for terrain/structures visible to the active camera. It does not wait for
+offscreen structures to draw. First-frame PNGs use the same RGB encoding as
+final screenshots; static benchmark admission requires exact image equality.
+Ground observation is restricted to exactly one active 3D capture camera and
+tracks its visible main-world entities. Under the probe, ground entities opt
+out of automatic batching so one multidraw representative cannot stand in
+for several required entities. This observation cost is included in measured
+intervals; ordinary presentation keeps automatic batching. Do not pool older
+forest-only readiness measurements with this stricter scene-ready boundary.
+
+Shared prepared captures also accept `--tree-batching local-cells` (the
+default 16 m bins) or `regional-cells` (128 m bins). Both retain the same
+capacity grids, size classes and per-instance distance tests. Each batch
+keeps the union of its transformed tree bounds and largest tree radius;
+larger bins can therefore select finer adaptive detail and submit more work
+at a view edge. Fixed-level captures control that difference. Source batch
+occupancy appears in `shared_meshes.occupancy`: `policy` and a histogram from
+instance count to nonempty batch count. These counts precede GPU culling.
+Record payload, grids and tree poses are unchanged by this policy.
+
+### Persistent bank arrivals
+
+An admitted `TreeBank` retains the validated complete library identity with
+immutable content. `SharedForest` admits population bytes against that bank;
+callers cannot attach an arbitrary claimed identity to mutable library data.
+The renderer retains one bank/layout slot. Reusing it preserves grid assets
+and botanical record buffers. Each population gets fresh placement storage
+and materials, so old render frames cannot read an overwritten placement
+array. Normal shared rendering uses resident reuse.
+
+Use a serial native arrival sequence to measure unseen and return populations
+in one renderer:
+
+```json
+{
+  "bank_directory": "path/to/initial-prepared-forest",
+  "unseen_population": "path/to/other/population.forest",
+  "capture_view": "path/to/view.json"
+}
+```
+
+```powershell
+environment-viewer --arrival-sequence sequence.json --sequence-output fresh-output --tree-batching regional-cells --bank-residency resident
+```
+
+The checked manifest is bounded to 8 KiB and rejects unknown fields. Initial
+and unseen inputs must include complete terrain. The unseen population must
+have a different content identity; return reads the initial descriptor file
+again and verifies its original identity. Output must be new. Each arrival
+reads/decodes its descriptors after its own clock starts. Initial arrival
+also includes bank loading and renderer setup. Later requests share the CPU
+bank in both policies; `reupload-diagnostic` forces GPU bank reconstruction
+as a contemporary control without recreating the device.
+
+Each arrival has a new nonzero request identity, probe, validation window and
+request-owned screenshot callbacks. Render checks and post-visibility ground
+extraction latch that identity. Late buffer writes retain their original
+owner. A CPU handoff flag does not establish current GPU or pixel readiness.
+The sequence preserves an actual early image, then drains at least sixty
+frames and one second before final stable images and asset checkpoints.
+Single captures retain their thirty-frame minimum; settling starts after the
+early receipt when measurement is enabled.
+
+Schema 10 includes `request_id`, request-owned `arrival_frame` evidence,
+`shared_meshes.residency` and `native_residency`. Residency reports bank and
+population identities, native asset IDs and application upload bytes. Native
+snapshots distinguish all request-owned scene entity generations (including
+hidden leaves and offscreen ground) from active-tree and visible-ground draw
+membership. They include mesh buffer identities and
+element ranges, storage buffer identities/capacities and current render asset
+membership. Native inventories are collected after final validation, outside
+sampled intervals. Buffer ordinals are process-local. Deduplicate shared
+buffer identities before counting capacity. These are not total VRAM or peak
+memory measurements. Bevy can resize/copy allocator slabs even when logical
+grid asset IDs stay unchanged; zero application reuploads do not prove zero
+device copies. `sequence.json` records each post-drain checkpoint and rejects
+growth in retained main-world/render mesh or storage asset counts, materials
+and images relative to initial A for the declared same-size fixtures. The
+sole remaining screenshot must be the current completed request. All scene
+meshes must match the current request's owned membership exactly. Check
+current ground and group membership and actual B pixels
+against independently captured fresh controls before accepting a warm result.
+
+## Measure on an otherwise idle machine
+
+Coordinate with other contributors before starting. Do not overlap these
+runs with compilation, tests, captures or other performance workloads.
+Start with one bounded pilot to validate the evidence path:
+
+```powershell
+python scripts/benchmark_foliage.py --executable C:/path/to/shared-target/release/environment-viewer.exe --provenance target/forest-host.json --output target/forest-pilot --fixture mixed-context --repetitions 1 --frames 60 --timeout 120 --run
+```
+
+After the pilot has valid draw observations and visible foliage, use the
+default five process runs and 600 frames for each fixture. Each output folder
+must be new. A timeout or missing evidence stops the series at its first
+invalid run; diagnose that contract before continuing.
+
+Each run records:
+
+- Scene construction, simulation GPU setup, growth and snapshot packing.
+- Structural record counts and bytes, queued and submitted writes, dropped
+  or superseded writes, and GPU errors.
+- The first GPU-complete frame in which all source chunks reached their
+  forest draw commands. The source chunk identities and instance totals must
+  agree with the render batches.
+- Effective renderer detail and camera, raw GPU-waited frame intervals, and
+  the time of the first and stable screenshot readbacks.
+- Raw process output, the launch command, numbered readbacks and a matching
+  final pair. The runner retains image hashes for provenance.
+
+The draw-command observer runs after the existing draw command sequence. A
+skipped draw does not increment it. Its GPU wait and bookkeeping add overhead;
+these intervals describe serialized component diagnostics, not ordinary
+presentation throughput.
+
+## Interpret the evidence
+
+Encoded indirect draws can still have zero visible instances. The probe does
+not observe every culling dispatch or read back the indirect argument buffers.
+An independent visual check must confirm the expected forest, crown coverage,
+species and density before using a sample to justify an improvement. A fast
+empty frame is invalid evidence.
+
+The two matching final readbacks establish stability, not botanical quality.
+Review the numbered predecessor of `forest.png` identified in `result.json`.
+The earlier numbered readbacks preserve failed settling attempts.
+
+The stable-readback time is a conservative capture-end bound. It includes the
+existing one-second and thirty-frame settling period and readback overhead;
+it also occurs after the requested steady-frame interval. Repeated PNG writes
+can extend it. PNG encoding and writing the final image occur after that
+timestamp. Do not call this exact first-visible-frame latency or subtract
+the settling time to manufacture one.
+
+The three built-in fixtures are small deterministic patches and one close-up.
+They diagnose component costs, not distant landscapes. Each fixture uses its
+own recorded camera. Compare the same fixture, seed, age, camera, density and
+effective detail between revisions. Freeze explicit camera poses before a
+candidate changes the content bounds or automatic framing.
+
+The machine-readable probe requires a frozen camera and snapshot. It rejects
+`--orbit` and `--refeed`; normal viewer frame timing still supports them. A
+moving-camera LOD comparison needs its own recorded path and capture poses.
+
+Fresh processes retain filesystem and driver caches; the runner does not
+claim to clear them. Measure resident-client unseen destinations, first-use
+assets and cached returns separately when the production arrival path is
+connected. Include all visible vegetation and concurrent area initialization
+in that final test. Require every acceptance run to meet the two-second
+budget, with less than one second as the headroom goal.

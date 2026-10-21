@@ -270,6 +270,7 @@ fn setup_view(world: &mut World, view: SkyView) -> bevy::ecs::error::Result {
     world.spawn((
         Name::new("Sky verification environment"),
         SceneId(format!("sky-{}", view.id())),
+        adventuresim_tactical_core::prelude::SceneTreeContent::Recipe,
         terrain,
         SceneEnvironment {
             scene_digest: format!("sky-{}", view.id()),

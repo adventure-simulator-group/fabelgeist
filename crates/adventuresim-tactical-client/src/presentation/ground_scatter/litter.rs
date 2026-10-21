@@ -1,18 +1,13 @@
-mod assets;
-mod batching;
-pub(super) use assets::{PatchMeshes, prepare_meshes};
-mod geometry;
-mod mesh;
 use adventuresim_building_generator::spatial_geometry::{
     Displacement, Elevation, GeometryResult, PlanDirection, Position, PositiveLength,
 };
+use batching::append_litter_batch;
+pub(in crate::presentation) use batching::{AcceptedLitterWork, SharedLitterPlugin};
 use fabelgeist_determinism::Seed;
 use geometry::{
     BentTwig, CamberedLeaf, LitterPatch, RosetteLeaf, TwigBase, TwigCrossSection, TwigStation,
 };
 use mesh::GroundLitterMeshData;
-mod streams;
-use batching::append_litter_batch;
 
 use adventuresim_tactical_core::prelude::{GroundCover, SceneGround, SceneTerrain};
 use bevy::{
@@ -35,6 +30,12 @@ use super::{
     GroundLitterCaptureAnchors, GroundLitterCapturePair, GroundScatterLayer,
     TacticalFoliageMaterial, TacticalTreeLeafCardMaterial, foliage_transform,
 };
+
+mod assets;
+mod batching;
+mod geometry;
+mod mesh;
+mod streams;
 
 const DRY_LEAF_PASSES_PER_SAMPLE: u64 = 8;
 const TWIG_PASSES_PER_SAMPLE: u64 = 4;
@@ -78,9 +79,9 @@ pub(super) fn static_twig_material() -> StandardMaterial {
 
 #[derive(Default)]
 struct LitterBatch {
-    leaves: Option<Mesh>,
-    twigs: Option<Mesh>,
-    plants: Option<Mesh>,
+    leaves: Vec<batching::LitterPlacement>,
+    twigs: Vec<batching::LitterPlacement>,
+    plants: Vec<batching::LitterPlacement>,
 }
 
 #[derive(Clone, Copy)]
@@ -97,7 +98,7 @@ pub(super) fn spawn(
     ground: &SceneGround,
     base_seed: Seed,
     assets: &Assets,
-) {
+) -> anyhow::Result<AcceptedLitterWork> {
     let mut batches = BTreeMap::<(i32, i32), LitterBatch>::new();
     let mut leaf_anchors = Vec::new();
     let mut twig_anchors = Vec::new();
@@ -137,7 +138,6 @@ pub(super) fn spawn(
             }
             dry_leaf_patch_instances += 1;
             append_litter_batch(
-                meshes,
                 &assets.dry_leaf_meshes[streams::DRY_LEAF_MESHES_VARIANT
                     .rng(hash, &[])
                     .index(assets.dry_leaf_meshes.len())],
@@ -161,7 +161,6 @@ pub(super) fn spawn(
                 twig_anchors.push(transform.translation);
             }
             append_litter_batch(
-                meshes,
                 &assets.twig_meshes[streams::TWIG_MESHES_VARIANT
                     .rng(hash, &[])
                     .index(assets.twig_meshes.len())],
@@ -187,7 +186,6 @@ pub(super) fn spawn(
                 continue;
             };
             append_litter_batch(
-                meshes,
                 &assets.woodland_plant_meshes[streams::WOODLAND_PLANT_MESHES_VARIANT
                     .rng(hash, &[])
                     .index(assets.woodland_plant_meshes.len())],
@@ -212,7 +210,7 @@ pub(super) fn spawn(
             physical_dry_leaf_count: dry_leaf_patch_instances * DRY_LEAVES_PER_PATCH as usize,
         },
     ));
-    batching::spawn_batches(commands, meshes, assets, batches);
+    batching::spawn_batches(commands, meshes, assets, batches)
 }
 
 fn batched_litter_visibility(local_end_metres: f32) -> VisibilityRange {
@@ -614,8 +612,16 @@ mod tests {
         .unwrap();
         let mut meshes = BevyAssets::<Mesh>::default();
         let assets = Assets {
-            dry_leaf_meshes: vec![meshes.add(dry_leaf_patch_mesh(0).unwrap())],
-            twig_meshes: vec![meshes.add(twig_patch_mesh(0).unwrap())],
+            dry_leaf_meshes: vec![meshes.add({
+                let mut mesh = dry_leaf_patch_mesh(0).unwrap();
+                mesh.asset_usage = bevy::asset::RenderAssetUsages::all();
+                mesh
+            })],
+            twig_meshes: vec![meshes.add({
+                let mut mesh = twig_patch_mesh(0).unwrap();
+                mesh.asset_usage = bevy::asset::RenderAssetUsages::all();
+                mesh
+            })],
             dry_leaf_material: Handle::default(),
             twig_material: Handle::default(),
             woodland_plant_meshes: vec![meshes.add(woodland_plant_patch_mesh(0).unwrap())],
@@ -625,10 +631,23 @@ mod tests {
             .map(fabelgeist_determinism::Seed::from_u64)
             .find(|base_seed| {
                 (0..9).any(|index| {
-                    streams::PRESENCE
-                        .rng(streams::PLANT_PATCH.seed(*base_seed, &[index, 0]), &[])
-                        .inclusive_unit_f32()
-                        < 0.055
+                    let hash = streams::PLANT_PATCH.seed(*base_seed, &[index, 0]);
+                    let cell_origin = Vec2::new(
+                        (index as usize % ground.grid_width()) as f32 * ground.grid_scale()
+                            - ground.width() * 0.5,
+                        (index as usize / ground.grid_width()) as f32 * ground.grid_scale()
+                            - ground.depth() * 0.5,
+                    );
+                    streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() < 0.055
+                        && forest_floor_patch_transform(
+                            &terrain,
+                            &ground,
+                            cell_origin,
+                            hash,
+                            0.7,
+                            0.004,
+                        )
+                        .is_some()
                 })
             })
             .expect("a deterministic seed with a woodland-floor plant");
@@ -642,16 +661,17 @@ mod tests {
                 &ground,
                 base_seed,
                 &assets,
-            );
+            )
+            .unwrap();
         }
         world.flush();
 
-        let mut batches = world.query::<(
+        let mut batches = world.query_filtered::<(
             &GroundScatterLayer,
             Option<&MeshMaterial3d<StandardMaterial>>,
             Option<&MeshMaterial3d<TacticalFoliageMaterial>>,
             Option<&NotShadowCaster>,
-        )>();
+        ), bevy::prelude::With<Mesh3d>>();
         let mut twig_batches = 0;
         let mut plant_batches = 0;
         for (layer, standard, foliage, not_shadow_caster) in batches.iter(&world) {
@@ -920,7 +940,10 @@ mod tests {
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<Image>();
         let assets = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters::default(),
+            &adventuresim_procedural_textures::TextureParameters {
+                resolution: adventuresim_procedural_textures::BakeResolution::Draft,
+                ..default()
+            },
             &mut app
                 .world_mut()
                 .resource_mut::<bevy::prelude::Assets<Image>>(),
@@ -976,7 +999,7 @@ mod tests {
             let mut expected_boundaries = 0;
             for twig in 0..TWIGS_PER_PATCH {
                 let hash = streams::TWIG.seed(variant.into(), &[twig]);
-                let sides = 5 + (hash.to_u64() % 2) as usize;
+                let sides = 5 + streams::TWIG_SIDES.rng(hash, &[]).index(2);
                 expected_vertices += sides * 4 + 2;
                 expected_triangles += sides * 8;
                 if twig < 2 && streams::TWIG_FORK.rng(hash, &[]).inclusive_unit_f32() > 0.46 {

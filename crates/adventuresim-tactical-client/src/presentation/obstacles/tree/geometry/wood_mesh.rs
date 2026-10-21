@@ -10,7 +10,7 @@ use fabelgeist_determinism::StreamId;
 
 #[cfg(test)]
 use super::{BarkRecipe, ENGLISH_OAK_BARK};
-use super::{TreeBranchSegment, branch_frame, transport_branch_frame};
+use super::{TreeBranchSegment, branch_end_tangent, branch_frame, transport_branch_frame};
 
 /// Geometry budgets for live woody branch sweeps.
 ///
@@ -185,7 +185,7 @@ fn procedural_woody_branch_mesh_with_quality(
 
 /// Cheap woody silhouette used only as input to the software impostor bake.
 ///
-/// The production mesh's implicit root flare, bark displacement, tangents, and
+/// The production mesh's explicit root sweeps, bark response, tangents, and
 /// high radial tessellation are valuable when viewed directly but invisible
 /// after projection into a 64-256 px atlas. Rebuilding that mesh for every
 /// card dominated cold startup, so bake cards use independent low-sided tubes
@@ -245,8 +245,8 @@ pub(in crate::presentation) fn procedural_woody_branch_bake_mesh(
 
 /// Aggregate crown wood excludes depth-zero trunk and root geometry because
 /// the independently streamed trunk remains resident through LOD2. Besides
-/// avoiding duplicate draw geometry, this prevents rebuilding the expensive
-/// implicit root flare for each intermediate crown LOD.
+/// avoiding duplicate draw geometry, this prevents rebuilding the detailed
+/// trunk and root sweeps for each intermediate crown LOD.
 pub(in crate::presentation) fn procedural_woody_crown_mesh(
     branches: &[TreeBranchSegment],
     maximum_depth: u8,
@@ -695,12 +695,7 @@ fn append_branch_curve_tube(
         ));
     }
     for (index, branch) in curve.iter().enumerate() {
-        let direction = (branch.end - branch.start).normalize();
-        let tangent = if index + 1 < curve.len() {
-            (direction + (curve[index + 1].end - curve[index + 1].start).normalize()).normalize()
-        } else {
-            direction
-        };
+        let tangent = branch_end_tangent(branch, curve.get(index + 1));
         // Smooth wood needs only enough axial sampling to preserve the authored
         // skeleton curve and taper. Fine bark is intentionally material-only.
         let spacing = quality.axial_spacing_metres();

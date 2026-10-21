@@ -293,7 +293,7 @@ pub(in crate::presentation) fn leaf_material(
 }
 
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
-pub(in crate::presentation) struct TacticalTreeImpostorMaterial {
+pub(crate) struct TacticalTreeImpostorMaterial {
     #[texture(0)]
     #[sampler(1)]
     pub(super) baked_color: Handle<Image>,
@@ -340,6 +340,17 @@ impl Material for TacticalTreeImpostorMaterial {
     ) -> Result<(), SpecializedMeshPipelineError> {
         descriptor.primitive.cull_mode = None;
         Ok(())
+    }
+}
+
+pub(super) fn tree_bud_material(species: super::TreePresentationSpecies) -> StandardMaterial {
+    StandardMaterial {
+        base_color: match species {
+            super::TreePresentationSpecies::EnglishOak => Color::srgb(0.36, 0.27, 0.1),
+            super::TreePresentationSpecies::CommonBeech => Color::srgb_u8(112, 68, 43),
+        },
+        perceptual_roughness: 0.92,
+        ..default()
     }
 }
 

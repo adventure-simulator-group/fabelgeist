@@ -257,6 +257,8 @@ pub(in crate::presentation) struct TreeBranchSegment {
     pub(in crate::presentation) is_limb_tip: bool,
 }
 
+mod aggregate;
+pub(crate) use aggregate::AggregateTreeLod;
 mod leaves;
 mod skeleton;
 mod wood_mesh;
@@ -277,6 +279,17 @@ pub(in crate::presentation) use wood_mesh::{
     procedural_woody_branch_bake_mesh, procedural_woody_branch_mesh, procedural_woody_crown_mesh,
     procedural_woody_mid_trunk_mesh,
 };
+
+/// Native sweep kernel: both segments sharing an endpoint use this tangent.
+pub(in crate::presentation) fn branch_end_tangent(
+    branch: &TreeBranchSegment,
+    next: Option<&TreeBranchSegment>,
+) -> Vec3 {
+    let direction = (branch.end - branch.start).normalize();
+    next.map_or(direction, |next| {
+        (direction + (next.end - next.start).normalize()).normalize()
+    })
+}
 
 fn branch_frame(direction: Vec3) -> (Vec3, Vec3) {
     let reference = if direction.y.abs() < 0.9 {

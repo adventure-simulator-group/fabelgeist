@@ -1,6 +1,7 @@
 //! A snapshot's instances, gathered into square chunks of ground. Each chunk
 //! is one instanced draw with its own bounds: the GPU culls whole chunks
-//! outside the view before it culls their instances.
+//! outside the view, then tests each instance's distance. Frustum culling is
+//! per chunk, not per branch or leaf.
 
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -12,14 +13,16 @@ use bevy_eidolon::prelude::*;
 use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance, Snapshot};
 
 use super::ForestDetail;
-use super::levels::{Level, LevelView};
+use super::ForestPart;
+use super::benchmark::{ForestBenchmark, ForestWork};
+use super::levels::{ForestLodView, Level};
 use super::materials::ForestMaterials;
 use super::records::fingerprint;
 
 /// A chunk's side, metres.
-const CHUNK: f32 = 16.0;
+pub(super) const CHUNK: f32 = 16.0;
 /// Farther than this an instance is not drawn, metres: beyond any scene.
-const FAR: f32 = 100_000.0;
+pub(super) const FAR: f32 = 100_000.0;
 /// How far a cluster's blades reach from its centre, in cluster sizes: a
 /// palm frond is four long.
 const CLUSTER_REACH: f32 = 4.0;
@@ -117,7 +120,7 @@ fn plant_radius(plants: &[PlantInstance], plant: u32) -> f32 {
 }
 
 /// The size class of a plant of `radius`.
-fn size_class(radius: f32) -> usize {
+pub(super) fn size_class(radius: f32) -> usize {
     SIZE_CLASSES
         .iter()
         .take_while(|bound| radius >= **bound)
@@ -163,7 +166,7 @@ impl Chunks {
 /// Where new chunks go, and at what level of detail.
 pub(super) struct Placement<'a> {
     pub(super) forest: &'a ForestMaterials,
-    pub(super) view: &'a LevelView,
+    pub(super) view: &'a ForestLodView,
     pub(super) detail: &'a ForestDetail,
 }
 
@@ -174,6 +177,7 @@ pub(super) fn show(
     placement: &Placement,
     Chunks(mut chunks): Chunks,
     shown: &mut Shown,
+    probe: Option<&ForestBenchmark>,
 ) {
     for (entity, mut chunk, mut data, mut aabb) in shown.iter_mut() {
         let Some(gathered) = chunks.remove(&chunk.key) else {
@@ -189,6 +193,7 @@ pub(super) fn show(
         chunk.fingerprint = gathered.fingerprint;
     }
     for (key, gathered) in chunks {
+        let instance_count = gathered.instances.len();
         let level = placement.view.level(
             &gathered.aabb,
             gathered.radius,
@@ -196,6 +201,7 @@ pub(super) fn show(
             placement.detail,
         );
         let mut chunk = commands.spawn((
+            super::ForestGeometry,
             ForestChunk {
                 key,
                 radius: gathered.radius,
@@ -219,6 +225,23 @@ pub(super) fn show(
             Visibility::Inherited,
         ));
         placement.forest.dress(&mut chunk, key.foliage, level);
+        if let Some(probe) = probe {
+            let part = if key.foliage {
+                ForestPart::Leaves
+            } else {
+                ForestPart::Branches
+            };
+            probe.expect_chunk(
+                chunk.id(),
+                instance_count,
+                part,
+                level,
+                ForestWork {
+                    records: instance_count,
+                    indexed_slots: instance_count,
+                },
+            );
+        }
     }
 }
 

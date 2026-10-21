@@ -18,8 +18,11 @@ use super::levels::{Level, Shape};
 use super::records::{ForestBuffers, PendingWrites, Records};
 use super::{ForestDetail, shapes};
 
-const BRANCH_SHADER: &str = "embedded://adventuresim_environment/render/shaders/branch.wgsl";
-const LEAF_SHADER: &str = "embedded://adventuresim_environment/render/shaders/leaf.wgsl";
+pub(super) const BRANCH_SHADER: &str =
+    "embedded://adventuresim_environment/render/shaders/branch.wgsl";
+pub(super) const LEAF_SHADER: &str = "embedded://adventuresim_environment/render/shaders/leaf.wgsl";
+pub(super) const CULL_SHADER: &str =
+    "embedded://adventuresim_environment/render/shaders/forest_cull.wgsl";
 
 /// Branch segments, built as tubes.
 #[derive(Asset, TypePath, AsBindGroup, Debug, Clone)]
@@ -48,6 +51,9 @@ pub struct LeafMaterial {
 }
 
 impl InstancedMaterial for BranchMaterial {
+    fn cull_shader() -> ShaderRef {
+        CULL_SHADER.into()
+    }
     fn vertex_shader() -> ShaderRef {
         BRANCH_SHADER.into()
     }
@@ -63,6 +69,9 @@ impl InstancedMaterial for BranchMaterial {
 }
 
 impl InstancedMaterial for LeafMaterial {
+    fn cull_shader() -> ShaderRef {
+        CULL_SHADER.into()
+    }
     fn vertex_shader() -> ShaderRef {
         LEAF_SHADER.into()
     }
@@ -148,13 +157,28 @@ pub(super) fn setup(
     mut branch_materials: ResMut<Assets<BranchMaterial>>,
     mut leaf_materials: ResMut<Assets<LeafMaterial>>,
     mut buffers: ResMut<Assets<ShaderBuffer>>,
+    probe: Option<Res<super::benchmark::ForestBenchmark>>,
 ) {
     let stored = ForestBuffers::new(&mut buffers);
     let levels = Level::ALL.map(|level| {
         let shape = level.shape(&detail);
+        let branch_grid = shapes::branch_grid(shape.sides, shape.spans);
+        let leaf_grid = shapes::leaf_blades(shape.blades);
+        let branch_count = branch_grid.count_vertices();
+        let leaf_count = leaf_grid.count_vertices();
+        let branch_mesh = meshes.add(branch_grid);
+        let leaf_mesh = meshes.add(leaf_grid);
+        if let Some(probe) = &probe {
+            probe.expect_mesh(
+                branch_mesh.id(),
+                branch_count,
+                (shape.sides * shape.spans * 6) as usize,
+            );
+            probe.expect_mesh(leaf_mesh.id(), leaf_count, (shape.blades * 6) as usize);
+        }
         LevelAssets {
-            branch_mesh: meshes.add(shapes::branch_grid(shape.sides, shape.spans)),
-            leaf_mesh: meshes.add(shapes::leaf_blades(shape.blades)),
+            branch_mesh,
+            leaf_mesh,
             branches: branch_materials.add(BranchMaterial {
                 lod: branch_lod(&shape),
                 branches: stored.branches(),

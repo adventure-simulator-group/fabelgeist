@@ -19,3 +19,19 @@ pub(super) fn vista_valley(state: &SceneCaptureState, half: f32) -> (Vec3, Vec3,
     target.y = target.y.clamp(position.y - 80.0, position.y - 8.0);
     (position, target, Vec3::Y)
 }
+
+pub(super) fn city_oblique(
+    state: &SceneCaptureState,
+    half: f32,
+    azimuth_degrees: f32,
+) -> (Vec3, Vec3, Vec3) {
+    let frame_half = half.max(state.city_half_extent_metres + 30.0);
+    let azimuth = azimuth_degrees.to_radians();
+    (
+        state.obstacle_focus
+            + Vec3::new(azimuth.sin(), 0.0, azimuth.cos()) * (frame_half * 1.6)
+            + Vec3::Y * (frame_half * 0.85),
+        state.obstacle_focus + Vec3::Y * 4.0,
+        Vec3::Y,
+    )
+}

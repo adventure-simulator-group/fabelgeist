@@ -1,9 +1,13 @@
 //! Actor scenes and focused map cities retain independent presentation assets.
 use bevy::camera::visibility::RenderLayers;
-use bevy::prelude::Component;
+use bevy::prelude::{Component, SystemSet};
 use serde::{Deserialize, Serialize};
 
 pub(crate) const REGIONAL_MAP_LAYER: usize = 3;
+
+/// Active/retained views finish their camera mutations before extraction.
+#[derive(SystemSet, Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub(crate) struct PresentationCameraSynchronization;
 
 /// Retained geographic presentation owns its own visibility and light proxies.
 #[cfg(any(target_family = "wasm", test))]

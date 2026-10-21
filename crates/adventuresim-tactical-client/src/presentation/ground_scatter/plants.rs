@@ -34,7 +34,7 @@ impl Plugin for PlantPresentationPlugin {
     }
 }
 #[derive(Component)]
-struct PlantsPresented;
+pub(in crate::presentation) struct PlantsPresented;
 /// Actual production roots retained for capture framing and placement diagnostics.
 #[derive(Component)]
 pub(crate) struct PlantCaptureAnchors(pub Vec<PlantCaptureAnchor>);

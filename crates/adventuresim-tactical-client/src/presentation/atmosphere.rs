@@ -13,6 +13,8 @@ use bevy::{
 };
 
 mod gpu_bake;
+#[cfg(all(target_family = "wasm", feature = "debug"))]
+pub(in crate::presentation) mod receipt;
 mod shader_corrections;
 use gpu_bake::AtmosphereBakeGpu;
 use shader_corrections::AtmosphereShaderCorrections;

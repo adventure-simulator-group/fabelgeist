@@ -116,6 +116,7 @@ pub(super) fn install(app: &mut App) {
         // camera preparation/extraction can specialize transient default pipelines.
         (settle, super::views::sync_environment)
             .chain()
+            .in_set(crate::presentation::ownership::PresentationCameraSynchronization)
             .before(bevy::camera::CameraUpdateSystems)
             .before(bevy::transform::TransformSystems::Propagate),
     );

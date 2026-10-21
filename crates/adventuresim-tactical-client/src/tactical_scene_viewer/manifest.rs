@@ -1,3 +1,4 @@
+pub(super) use super::tree_capability::TreePresentationCapability;
 use adventuresim_tactical_core::prelude::{SceneRepairReport, SceneSource, WeatherSnapshot};
 use fabelgeist_determinism::Seed;
 use serde::Serialize;
@@ -183,7 +184,7 @@ pub(super) struct ValidationSummary {
     pub(super) all_obstacles_presented: bool,
     pub(super) all_obstacles_collidable: bool,
     pub(super) procedural_rocks_fit_colliders: bool,
-    pub(super) trees_have_five_lods: bool,
+    pub(super) tree_presentation: TreePresentationCapability,
     pub(super) tree_detail_captured_when_expected: bool,
     pub(super) recursive_tree_lod_observed: bool,
     pub(super) terrain_material_present: bool,
@@ -494,7 +495,7 @@ pub(super) fn validation_passes(validation: &ValidationSummary) -> bool {
         && validation.all_obstacles_presented
         && validation.all_obstacles_collidable
         && validation.procedural_rocks_fit_colliders
-        && validation.trees_have_five_lods
+        && validation.tree_presentation.passed()
         && validation.tree_detail_captured_when_expected
         && validation.recursive_tree_lod_observed
         && validation.terrain_material_present
@@ -561,7 +562,7 @@ mod tests {
             all_obstacles_presented: true,
             all_obstacles_collidable: true,
             procedural_rocks_fit_colliders: true,
-            trees_have_five_lods: true,
+            tree_presentation: TreePresentationCapability::FiveLodProduction { passed: true },
             tree_detail_captured_when_expected: true,
             recursive_tree_lod_observed: true,
             terrain_material_present: true,

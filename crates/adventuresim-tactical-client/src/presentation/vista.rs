@@ -1,4 +1,19 @@
 mod details;
+#[cfg(feature = "grown-trees")]
+mod grown_trees;
+mod recipe_trees;
+mod tree_sites;
+mod trees;
+#[cfg(test)]
+use fabelgeist_math::units::{Metres, Ratio};
+#[cfg(feature = "grown-trees")]
+pub(crate) use grown_trees::GrownVistaPart;
+#[cfg(test)]
+use tree_sites::{
+    VISTA_TREE_MAX_ANGULAR_HEIGHT_RADIANS, vista_tree_candidate_count, vista_tree_scale,
+    vista_tree_visibility,
+};
+pub(crate) use trees::VistaTreeCensus;
 mod strategic;
 pub(crate) use strategic::{StrategicBackdrop, spawn_strategic_backdrop};
 #[cfg(any(target_family = "wasm", test))]
@@ -29,10 +44,10 @@ mod surface;
 
 pub(crate) use streets::CityGroundMaterial;
 use streets::UrbanGround;
-pub(super) use surface::ActiveVistaSurface;
+pub(crate) use surface::ActiveVistaSurface;
 pub(crate) use surface::{VistaTerrain, VistaTerrainMesh};
 
-/// Marker for a distant tree billboard spawned as part of a vista ring.
+/// Marker for one render-only distant tree root in a vista ring.
 #[derive(Component)]
 pub(crate) struct VistaTreePresentation;
 
@@ -53,28 +68,22 @@ pub(super) fn on_scene_vista_bundle(
     mut active_surface: ResMut<ActiveVistaSurface>,
     mut pending: ResMut<pending::PendingVista>,
     existing: Query<Entity, With<VistaTerrain>>,
-    playable_scenes: Query<(
-        &SceneTerrain,
-        &SceneGround,
-        &SceneEnvironment,
-        Option<&TerrainLandformRecipe>,
-    )>,
+    playable_scenes: Query<trees::VistaScene>,
     settings: Res<TacticalGraphicsSettings>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<TacticalVistaMaterial>>,
     mut grass_materials: ResMut<Assets<TacticalGrassInstancedMaterial>>,
     mut standard_materials: ResMut<Assets<StandardMaterial>>,
-    mut tree_materials: ResMut<Assets<TacticalTreeImpostorMaterial>>,
+    mut trees: trees::VistaTrees,
     mut images: ResMut<Assets<Image>>,
-    mut vista_tree_cache: ResMut<VistaTreePresentationCache>,
-    prepared_tree_impostors: PreparedTreeImpostors,
     mut city_ground: streets::CityGroundAssets,
-) {
+) -> bevy::prelude::Result {
     let playable_scene = playable_scenes
         .iter()
-        .find(|(_, _, environment, _)| environment.scene_digest == bundle.scene_digest);
-    if !pending.accept(&bundle, playable_scene.iter().map(|scene| scene.2)) {
-        return;
+        .find(|scene| scene.environment.scene_digest == bundle.scene_digest);
+    let ready = trees.ready_for_scene(playable_scene.as_ref())?;
+    if !pending.accept(&bundle, ready) {
+        return Ok(());
     }
     let started = web_time::Instant::now();
     let mut presented_chunk_count = 0_usize;
@@ -88,22 +97,28 @@ pub(super) fn on_scene_vista_bundle(
         .iter()
         .take(settings.config.rendering.vista.maximum_lods)
         .collect::<Vec<_>>();
-    let (terrain, ground, environment, landform) =
-        playable_scene.expect("matching canonical terrain");
-    let playable_terrain = Some(terrain);
-    let playable_environment = Some(environment);
+    let trees::VistaSceneItem {
+        entity: scene,
+        terrain,
+        ground,
+        environment,
+        landform,
+        content: tree_content,
+        ..
+    } = playable_scene.ok_or("matching canonical terrain is missing")?;
     active_surface.retain_playable(terrain, landform);
     let weather = environment.weather;
     let vista_grass_color = grass_terminal_pigment(environment);
     let material = materials.add(vista_material(weather, vista_grass_color));
+    let mut tree_bands = Vec::new();
     let mut inner_half_extent = bundle.playable_half_extent_metres;
     for (index, lod) in visible_lods.iter().copied().enumerate() {
         let meshes_for_lod = vista_lod_meshes_with_morph(
             lod,
             inner_half_extent,
             visible_lods.get(index + 1).copied(),
-            playable_terrain,
-            (index == 0).then_some(playable_environment).flatten(),
+            Some(terrain),
+            (index == 0).then_some(environment),
             weather,
             landform.map(|recipe| recipe.transition_collar()),
         );
@@ -112,39 +127,37 @@ pub(super) fn on_scene_vista_bundle(
             warn!(level, "Rejected malformed tactical vista LOD");
             continue;
         }
-        let half_extent = f32::from(lod.width.saturating_sub(1)) * lod.spacing_metres * 0.5;
-        for (chunk, mesh) in meshes_for_lod.into_iter().enumerate() {
-            presented_chunk_count += 1;
-            active_surface.present_chunk(
-                &mut commands,
-                &mut meshes,
-                material.clone(),
-                mesh,
-                lod,
-                chunk,
-            );
-        }
         if index <= 1 {
-            spawn_vista_trees(
-                &mut commands,
+            tree_bands.push(tree_sites::VistaTreeBand {
                 lod,
-                visible_lods.get(index + 1).copied(),
+                coarser_lod: visible_lods.get(index + 1).copied(),
                 inner_half_extent,
-                &bundle.scene_digest,
-                Some(environment),
+                scene_digest: &bundle.scene_digest,
+                environment,
                 terrain,
-                &mut meshes,
-                &mut tree_materials,
-                &mut images,
-                &mut vista_tree_cache,
-                prepared_tree_impostors.get(),
-            );
+            });
         }
+        let half_extent = f32::from(lod.width.saturating_sub(1)) * lod.spacing_metres * 0.5;
+        presented_chunk_count += active_surface.present_lod(
+            &mut commands,
+            &mut meshes,
+            material.clone(),
+            meshes_for_lod,
+            lod,
+        );
         inner_half_extent = Vec2::new(
             half_extent,
             f32::from(lod.depth.saturating_sub(1)) * lod.spacing_metres * 0.5,
         );
     }
+    let tree_census = trees.spawn_bands(
+        &mut commands,
+        &mut meshes,
+        &mut images,
+        scene,
+        tree_content,
+        tree_bands,
+    )?;
     if let Some(lod) = visible_lods.first().copied() {
         spawn_near_vista_details(
             &mut commands,
@@ -164,6 +177,8 @@ pub(super) fn on_scene_vista_bundle(
         );
     }
     log_vista_generation(presented_chunk_count, visible_lods.len(), started);
+    commands.entity(scene).insert(tree_census);
+    Ok(())
 }
 
 fn log_vista_generation(chunks: usize, lods: usize, started: web_time::Instant) {
@@ -1006,16 +1021,32 @@ mod tests {
     fn vista_tree_density_scales_with_physical_cell_area() {
         let small = (0..64_u64)
             .map(fabelgeist_determinism::Seed::from_u64)
-            .map(|seed| vista_tree_candidate_count(1.0, 50.0, streams::TEST_COUNT.seed(seed, &[])))
+            .map(|seed| {
+                vista_tree_candidate_count(
+                    Ratio::from_ratio(1.0),
+                    Metres::from_metres(50.0),
+                    streams::TEST_COUNT.seed(seed, &[]),
+                )
+            })
             .sum::<usize>();
         let large = (0..64_u64)
             .map(fabelgeist_determinism::Seed::from_u64)
-            .map(|seed| vista_tree_candidate_count(1.0, 100.0, streams::TEST_COUNT.seed(seed, &[])))
+            .map(|seed| {
+                vista_tree_candidate_count(
+                    Ratio::from_ratio(1.0),
+                    Metres::from_metres(100.0),
+                    streams::TEST_COUNT.seed(seed, &[]),
+                )
+            })
             .sum::<usize>();
         assert!(small > 0);
         assert!(large >= small * 3);
         assert_eq!(
-            vista_tree_candidate_count(0.0, 250.0, fabelgeist_determinism::Seed::from_u64(0)),
+            vista_tree_candidate_count(
+                Ratio::from_ratio(0.0),
+                Metres::from_metres(250.0),
+                fabelgeist_determinism::Seed::from_u64(0)
+            ),
             0
         );
     }
@@ -1025,13 +1056,18 @@ mod tests {
         let card_height = 10.8;
         for spacing in [50.0, 250.0, 1_000.0] {
             for variation in [0.0, 0.5, 1.0] {
-                let scale = vista_tree_scale(spacing, variation);
-                let range = vista_tree_visibility(spacing, card_height, scale);
+                let scale =
+                    vista_tree_scale(Metres::from_metres(spacing), Ratio::from_ratio(variation));
+                let range = vista_tree_visibility(
+                    Metres::from_metres(spacing),
+                    Metres::from_metres(card_height),
+                    scale,
+                );
                 let angular_height =
-                    2.0 * ((card_height * scale * 0.5) / range.start_margin.start).atan();
+                    2.0 * ((card_height * scale.ratio() * 0.5) / range.start_margin.start).atan();
                 assert!(
                     angular_height <= VISTA_TREE_MAX_ANGULAR_HEIGHT_RADIANS + 0.0001,
-                    "spacing={spacing} scale={scale} angle={}",
+                    "spacing={spacing} scale={scale:?} angle={}",
                     angular_height.to_degrees()
                 );
                 assert!(range.start_margin.start > 0.0);
@@ -1039,8 +1075,17 @@ mod tests {
                 assert!(range.start_margin.end < range.end_margin.start);
             }
         }
-        assert!((vista_tree_scale(250.0, 1.0) - 1.25).abs() < 0.0001);
-        assert!((vista_tree_scale(1_000.0, 1.0) - 1.5625).abs() < 0.0001);
+        assert!(
+            (vista_tree_scale(Metres::from_metres(250.0), Ratio::from_ratio(1.0)).ratio() - 1.25)
+                .abs()
+                < 0.0001
+        );
+        assert!(
+            (vista_tree_scale(Metres::from_metres(1_000.0), Ratio::from_ratio(1.0)).ratio()
+                - 1.5625)
+                .abs()
+                < 0.0001
+        );
     }
 
     #[test]

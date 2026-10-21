@@ -65,13 +65,16 @@ struct TacticalTreeLeafCardMaterial {
 @group(#{MATERIAL_BIND_GROUP}) @binding(12)
 var<uniform> leaf_card: TacticalTreeLeafCardMaterial;
 
-fn displaced_world_position(vertex: Vertex) -> vec4<f32> {
-    let world_from_local = mesh_functions::get_world_from_local(vertex.instance_index);
+fn displaced_world_position(
+    position: vec3<f32>,
+    uv: vec2<f32>,
+    world_from_local: mat4x4<f32>,
+) -> vec4<f32> {
     var world_position = mesh_functions::mesh_position_local_to_world(
         world_from_local,
-        vec4<f32>(vertex.position, 1.0),
+        vec4<f32>(position, 1.0),
     );
-    let bend = smoothstep(0.03, 1.0, 1.0 - vertex.uv.y);
+    let bend = smoothstep(0.03, 1.0, 1.0 - uv.y);
     let wind_direction = normalize(leaf_card.parameters.xy);
     let wind_cross = vec2<f32>(-wind_direction.y, wind_direction.x);
     let position_phase = dot(world_position.xz, wind_direction) * 0.31
@@ -96,7 +99,9 @@ fn displaced_world_position(vertex: Vertex) -> vec4<f32> {
 fn vertex(vertex: Vertex) -> VertexOutput {
     var out: VertexOutput;
     let world_from_local = mesh_functions::get_world_from_local(vertex.instance_index);
-    let world_position = displaced_world_position(vertex);
+    // Resolve the builtin index only at the entry point, as Bevy does on DX12.
+    // https://github.com/gfx-rs/wgpu/issues/4564
+    let world_position = displaced_world_position(vertex.position, vertex.uv, world_from_local);
     out.world_position = world_position;
     out.position = position_world_to_clip(world_position.xyz);
 

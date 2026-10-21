@@ -10,6 +10,8 @@ use bevy::{
 };
 use std::collections::HashMap;
 
+pub(super) const MATERIAL_SHADER_PATH: &str = "shaders/tactical_interior_material.wgsl";
+
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
 pub(crate) struct InteriorExtension {
     #[storage(200, read_only)]
@@ -18,7 +20,7 @@ pub(crate) struct InteriorExtension {
 
 impl MaterialExtension for InteriorExtension {
     fn fragment_shader() -> ShaderRef {
-        "shaders/tactical_interior_material.wgsl".into()
+        MATERIAL_SHADER_PATH.into()
     }
 }
 

@@ -212,8 +212,18 @@ dependencies = [
  "fabelgeist-determinism",
  "fabelgeist-gpu",
  "fabelgeist-math",
+ "js-sys",
+ "naga_oil",
  "pollster",
+ "serde",
+ "serde_json",
+ "sha2",
  "thiserror 2.0.20",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "web-time",
+ "wgpu",
 ]
 
 [[package]]
@@ -319,6 +329,7 @@ dependencies = [
  "adventuresim-building-generator",
  "adventuresim-character-creator",
  "adventuresim-core",
+ "adventuresim-environment",
  "adventuresim-plant-generator",
  "adventuresim-procedural-materials",
  "adventuresim-procedural-textures",
@@ -338,11 +349,13 @@ dependencies = [
  "clap",
  "console_error_panic_hook",
  "fabelgeist-armor",
+ "fabelgeist-botany",
  "fabelgeist-bvh",
  "fabelgeist-determinism",
  "fabelgeist-math",
  "flate2",
  "gltf",
+ "image",
  "pollster",
  "postcard",
  "semver",
@@ -402,8 +415,10 @@ dependencies = [
  "bevy_enhanced_input",
  "bevy_replicon",
  "fabelgeist-determinism",
+ "postcard",
  "serde",
  "serde_json",
+ "thiserror 2.0.20",
 ]
 
 [[package]]
@@ -412,6 +427,7 @@ version = "0.1.0"
 dependencies = [
  "adventuresim-building-generator",
  "adventuresim-core",
+ "adventuresim-environment",
  "adventuresim-stdb-client",
  "adventuresim-tactical-core",
  "adventuresim-tactical-netcode",

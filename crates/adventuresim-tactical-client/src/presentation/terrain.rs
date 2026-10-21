@@ -8,6 +8,10 @@ use adventuresim_tactical_core::terrain_streams as streams;
 pub(in crate::presentation) use cliff_surface::{
     TacticalTerrainExtension, TacticalTerrainMaterial, enable_cliff_surface,
 };
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+mod capture;
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) use capture::TerrainDrawMaterialInspection;
 use fabelgeist_determinism::Seed;
 pub(super) use ground_map::grass_cover_mask_pixels;
 use ground_map::ground_map_image;
@@ -896,7 +900,13 @@ mod tests {
         let mut app = App::new();
         app.add_observer(on_game_scene_added);
         app.add_observer(on_environment_added);
-        let scene = app.world_mut().spawn(SceneId("add-order".into())).id();
+        let scene = app
+            .world_mut()
+            .spawn((
+                SceneId("add-order".into()),
+                adventuresim_tactical_core::prelude::SceneTreeContent::Recipe,
+            ))
+            .id();
         app.update();
         assert!(
             app.world()
@@ -952,6 +962,7 @@ mod tests {
             .world_mut()
             .spawn((
                 SceneId("lifecycle".into()),
+                adventuresim_tactical_core::prelude::SceneTreeContent::Recipe,
                 SceneTerrain::from_heightmap(2, 2, 1.0, vec![0.0; 4]).expect("valid terrain"),
                 ground,
             ))

@@ -65,6 +65,29 @@ pub(in crate::presentation) struct AtmosphereBakeGpu {
 }
 
 impl AtmosphereBakeGpu {
+    #[cfg(all(target_family = "wasm", feature = "debug"))]
+    pub(super) fn receipt(&self) -> serde_json::Value {
+        use serde_json::json;
+        use std::sync::TryLockError;
+        match self.progress.try_lock() {
+            Ok(progress) => {
+                let request = progress.request.map(|request| {
+                    json!({
+                        "scene_entity": request.scene.to_bits(),
+                        "camera_entity": request.camera.to_bits(),
+                        "probe_entity": request.probe.to_bits(),
+                        "images": request.images.map(|image| format!("{image:?}")),
+                    })
+                });
+                json!({"observation": "available", "request": request,
+                    "stage": format!("{:?}", progress.stage),
+                    "scope": "last tracked request; may belong to a retired scene or probe"})
+            }
+            Err(TryLockError::WouldBlock) => json!({"observation": "busy"}),
+            Err(TryLockError::Poisoned(_)) => json!({"observation": "poisoned"}),
+        }
+    }
+
     pub(super) fn install(app: &mut App) {
         app.init_resource::<Self>();
         if app.get_sub_app(RenderApp).is_none() {

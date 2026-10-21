@@ -1,15 +1,10 @@
-//! A vista waits for its exact canonical terrain before preparing presentation.
+//! A vista waits for exact canonical terrain and resolved tree content.
 use super::*;
 #[derive(Resource, Default)]
 pub(in crate::presentation) struct PendingVista(pub Option<SceneVistaBundle>);
 
 impl PendingVista {
-    pub(super) fn accept<'a>(
-        &mut self,
-        bundle: &SceneVistaBundle,
-        mut environments: impl Iterator<Item = &'a SceneEnvironment>,
-    ) -> bool {
-        let ready = environments.any(|environment| environment.scene_digest == bundle.scene_digest);
+    pub(super) fn accept(&mut self, bundle: &SceneVistaBundle, ready: bool) -> bool {
         self.0 = (!ready).then(|| bundle.clone());
         ready
     }
@@ -17,16 +12,26 @@ impl PendingVista {
 
 pub(in crate::presentation) fn present_ready_vista(
     mut pending: ResMut<PendingVista>,
-    terrains: Query<(&SceneTerrain, &SceneEnvironment)>,
+    scenes: Query<(Entity, &SceneEnvironment, &TreeContentRequest), With<SceneTerrain>>,
+    cache: Res<TreePresentationCache>,
     mut commands: Commands,
-) {
-    if pending.0.as_ref().is_some_and(|bundle| {
-        terrains
-            .iter()
-            .any(|(_, environment)| environment.scene_digest == bundle.scene_digest)
-    }) {
-        commands.trigger(pending.0.take().expect("ready pending vista"));
+) -> bevy::prelude::Result {
+    let Some(bundle) = &pending.0 else {
+        return Ok(());
+    };
+    let Some((scene, environment, content)) = scenes
+        .iter()
+        .find(|(_, environment, _)| environment.scene_digest == bundle.scene_digest)
+    else {
+        return Ok(());
+    };
+    if !cache.ready_for_vista(scene, environment, content)? {
+        return Ok(());
     }
+    if let Some(bundle) = pending.0.take() {
+        commands.trigger(bundle);
+    }
+    Ok(())
 }
 
 #[cfg(test)]
@@ -43,6 +48,7 @@ mod tests {
         .unwrap();
         let mut app = App::new();
         app.init_resource::<PendingVista>()
+            .init_resource::<TreePresentationCache>()
             .init_resource::<Presented>()
             .add_systems(Update, present_ready_vista)
             .add_observer(
@@ -68,12 +74,16 @@ mod tests {
         app.world_mut().spawn((
             SceneTerrain::new(3, 3, 1.0, |_| 0.0).unwrap(),
             input.environment_snapshot("unrelated".into()),
+            TreeContentRequest::Recipe,
+            adventuresim_tactical_core::prelude::SceneTreeContent::Recipe,
         ));
         app.update();
         assert!(app.world().resource::<Presented>().0.is_empty());
         app.world_mut().spawn((
             SceneTerrain::new(3, 3, 1.0, |_| 0.0).unwrap(),
             input.environment_snapshot("accepted".into()),
+            TreeContentRequest::Recipe,
+            adventuresim_tactical_core::prelude::SceneTreeContent::Recipe,
         ));
         app.update();
         app.update();

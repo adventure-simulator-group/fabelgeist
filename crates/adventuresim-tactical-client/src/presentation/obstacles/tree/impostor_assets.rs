@@ -26,6 +26,16 @@ use flate2::read::GzDecoder;
 use flate2::{Compression, write::GzEncoder};
 use serde::{Deserialize, Serialize};
 use std::io::Read;
+
+pub(super) mod bounded;
+mod records;
+pub(super) use records::PreparedTreeLodBake;
+
+const MAX_CARD_VERTICES: usize = 100_000;
+const MAX_CARD_INDICES: usize = 600_000;
+const MAX_CARD_PIXELS: usize = 64 * 1024 * 1024;
+const MAX_CARD_RECORDS: usize = 4096;
+const MAX_CARD_GROUPS: usize = super::TREE_PRIMARY_GROUP_COUNT as usize;
 #[cfg(test)]
 use std::io::Write;
 
@@ -65,12 +75,7 @@ impl PreparedTreeImpostorAsset {
     ) -> Option<TreeLodBake> {
         self.bakes
             .iter()
-            .find(|bake| {
-                bake.usage == usage
-                    && bake.species == species_tag(species)
-                    && bake.seed == seed
-                    && bake.lod == lod
-            })
+            .find(|bake| bake.matches(usage, species, seed, lod))
             .map(PreparedTreeLodBake::runtime)
     }
 
@@ -170,6 +175,7 @@ pub(crate) fn prepare_art_demo_tree_impostor_asset(
                 },
             );
             PreparedTreeLodBake::from_runtime(&bake, PreparedTreeImpostorUsage::Playable, species)
+                .expect("authored playable bake")
         })
         .collect::<Vec<_>>();
     let vista_seed = crate::presentation::obstacles::tree::specimen::oak_variant_seed(0);
@@ -188,11 +194,14 @@ pub(crate) fn prepare_art_demo_tree_impostor_asset(
                 TreePresentationSpecies::CommonBeech => BEECH_TREE_BAKE_STYLE,
             },
         );
-        bakes.push(PreparedTreeLodBake::from_runtime(
-            &bake,
-            PreparedTreeImpostorUsage::Vista,
-            vista_species,
-        ));
+        bakes.push(
+            PreparedTreeLodBake::from_runtime(
+                &bake,
+                PreparedTreeImpostorUsage::Vista,
+                vista_species,
+            )
+            .expect("authored vista bake"),
+        );
     }
     PreparedTreeImpostorAsset { bakes }
 }
@@ -257,186 +266,5 @@ pub(in crate::presentation) struct PreparedTreeImpostors<'w> {
 impl<'w> PreparedTreeImpostors<'w> {
     pub(in crate::presentation) fn get(&self) -> Option<&PreparedTreeImpostorAsset> {
         self.residency.get(&self.assets)
-    }
-}
-
-#[derive(Serialize, Deserialize)]
-struct PreparedTreeLodBake {
-    usage: PreparedTreeImpostorUsage,
-    species: u8,
-    seed: Seed,
-    lod: u8,
-    bake_version: u32,
-    source_geometry_hash: u64,
-    atlas_width: u32,
-    atlas_height: u32,
-    positions: Vec<[f32; 3]>,
-    normals: Vec<[f32; 3]>,
-    uvs: Vec<[f32; 2]>,
-    indices: Vec<u32>,
-    clusters: Vec<PreparedTreeLodCluster>,
-    pixels: Vec<u8>,
-    records: Vec<PreparedTreeImpostorRecord>,
-}
-
-impl PreparedTreeLodBake {
-    #[cfg(test)]
-    fn from_runtime(
-        bake: &TreeLodBake,
-        usage: PreparedTreeImpostorUsage,
-        species: TreePresentationSpecies,
-    ) -> Self {
-        let attribute = |name| bake.mesh.attribute(name).expect("tree card attribute");
-        let VertexAttributeValues::Float32x3(positions) = attribute(Mesh::ATTRIBUTE_POSITION)
-        else {
-            panic!("tree card positions use Float32x3")
-        };
-        let VertexAttributeValues::Float32x3(normals) = attribute(Mesh::ATTRIBUTE_NORMAL) else {
-            panic!("tree card normals use Float32x3")
-        };
-        let VertexAttributeValues::Float32x2(uvs) = attribute(Mesh::ATTRIBUTE_UV_0) else {
-            panic!("tree card UVs use Float32x2")
-        };
-        let indices = match bake.mesh.indices().expect("tree card indices") {
-            Indices::U16(indices) => indices.iter().map(|index| u32::from(*index)).collect(),
-            Indices::U32(indices) => indices.clone(),
-        };
-        Self {
-            usage,
-            species: species_tag(species),
-            seed: bake.provenance.seed,
-            lod: bake.lod,
-            bake_version: bake.provenance.bake_version,
-            source_geometry_hash: bake.provenance.source_geometry_hash,
-            atlas_width: bake.provenance.atlas_width,
-            atlas_height: bake.provenance.atlas_height,
-            positions: positions.clone(),
-            normals: normals.clone(),
-            uvs: uvs.clone(),
-            indices,
-            clusters: bake
-                .clusters
-                .iter()
-                .map(PreparedTreeLodCluster::from)
-                .collect(),
-            pixels: bake.image.data.clone().expect("tree atlas retains pixels"),
-            records: bake
-                .provenance
-                .records
-                .iter()
-                .map(PreparedTreeImpostorRecord::from)
-                .collect(),
-        }
-    }
-
-    fn runtime(&self) -> TreeLodBake {
-        assert_eq!(self.bake_version, TREE_IMPOSTOR_BAKE_VERSION);
-        let mut mesh = Mesh::new(
-            PrimitiveTopology::TriangleList,
-            RenderAssetUsages::RENDER_WORLD,
-        );
-        mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, self.positions.clone());
-        mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, self.normals.clone());
-        mesh.insert_attribute(Mesh::ATTRIBUTE_UV_0, self.uvs.clone());
-        mesh.insert_indices(Indices::U32(self.indices.clone()));
-        TreeLodBake {
-            lod: self.lod,
-            mesh,
-            clusters: self.clusters.iter().map(TreeLodClusterBake::from).collect(),
-            image: Image::new(
-                Extent3d {
-                    width: self.atlas_width,
-                    height: self.atlas_height,
-                    depth_or_array_layers: 1,
-                },
-                TextureDimension::D2,
-                self.pixels.clone(),
-                TextureFormat::Rgba8UnormSrgb,
-                RenderAssetUsages::RENDER_WORLD,
-            ),
-            provenance: TreeImpostorProvenance {
-                seed: self.seed,
-                lod: self.lod,
-                bake_version: self.bake_version,
-                source_geometry_hash: self.source_geometry_hash,
-                render_method: TREE_IMPOSTOR_RENDER_METHOD,
-                atlas_width: self.atlas_width,
-                atlas_height: self.atlas_height,
-                records: self
-                    .records
-                    .iter()
-                    .map(TreeImpostorBakeRecord::from)
-                    .collect(),
-            },
-        }
-    }
-}
-
-#[derive(Serialize, Deserialize)]
-struct PreparedTreeLodCluster {
-    primary_group: u8,
-    center: [f32; 3],
-    radius: f32,
-}
-
-impl From<&TreeLodClusterBake> for PreparedTreeLodCluster {
-    fn from(cluster: &TreeLodClusterBake) -> Self {
-        Self {
-            primary_group: cluster.primary_group,
-            center: cluster.center.to_array(),
-            radius: cluster.radius,
-        }
-    }
-}
-
-impl From<&PreparedTreeLodCluster> for TreeLodClusterBake {
-    fn from(cluster: &PreparedTreeLodCluster) -> Self {
-        Self {
-            primary_group: cluster.primary_group,
-            center: Vec3::from_array(cluster.center),
-            radius: cluster.radius,
-        }
-    }
-}
-
-#[derive(Serialize, Deserialize)]
-struct PreparedTreeImpostorRecord {
-    source_group: u16,
-    source_leaf_count: u16,
-    source_branch_count: u16,
-    view_direction: [f32; 3],
-    projected_bounds: [f32; 4],
-    atlas_region: [u32; 4],
-    opaque_pixel_count: u32,
-    silhouette_centroid: [f32; 2],
-}
-
-impl From<&TreeImpostorBakeRecord> for PreparedTreeImpostorRecord {
-    fn from(record: &TreeImpostorBakeRecord) -> Self {
-        Self {
-            source_group: record.source_group,
-            source_leaf_count: record.source_leaf_count,
-            source_branch_count: record.source_branch_count,
-            view_direction: record.view_direction.to_array(),
-            projected_bounds: record.projected_bounds.to_array(),
-            atlas_region: record.atlas_region.to_array(),
-            opaque_pixel_count: record.opaque_pixel_count,
-            silhouette_centroid: record.silhouette_centroid.to_array(),
-        }
-    }
-}
-
-impl From<&PreparedTreeImpostorRecord> for TreeImpostorBakeRecord {
-    fn from(record: &PreparedTreeImpostorRecord) -> Self {
-        Self {
-            source_group: record.source_group,
-            source_leaf_count: record.source_leaf_count,
-            source_branch_count: record.source_branch_count,
-            view_direction: Vec3::from_array(record.view_direction),
-            projected_bounds: Vec4::from_array(record.projected_bounds),
-            atlas_region: UVec4::from_array(record.atlas_region),
-            opaque_pixel_count: record.opaque_pixel_count,
-            silhouette_centroid: Vec2::from_array(record.silhouette_centroid),
-        }
     }
 }

@@ -9,77 +9,19 @@
 )]
 
 #[cfg(not(target_family = "wasm"))]
-mod camera;
-#[cfg(not(target_family = "wasm"))]
-mod presentation;
-#[cfg(not(target_family = "wasm"))]
-mod tactical_scene_viewer;
-
-#[cfg(not(target_family = "wasm"))]
 use std::path::PathBuf;
 
 #[cfg(not(target_family = "wasm"))]
 use clap::{Parser, ValueEnum};
 
 #[cfg(not(target_family = "wasm"))]
-fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
-    Ok(adventuresim_core::fixture_path::resolve_fixture_path(
-        selector,
-        "assets/tactical-scenes",
-        "json",
-    ))
-}
-
+mod camera;
 #[cfg(not(target_family = "wasm"))]
-#[derive(Clone, Copy, Debug, Default, Eq, PartialEq, ValueEnum)]
-enum CaptureProfile {
-    /// Actual procedural flower/fungi roots at contact and gameplay distances.
-    PlantReview,
-    /// Actual placed fungi, one contact view per species and wider habitat views.
-    FungusReview,
-    /// Actual botanical LODs before, inside and after both crossfade bands.
-    PlantLodReview,
-    /// Same production roots and LODs with occluding vegetation hidden for diagnosis.
-    PlantLodIsolated,
-    /// Existing exhaustive semantic presentation suite (23 recorded views).
-    #[default]
-    Semantic,
-    /// Compact environment-art review suite; intended for matrix review.
-    EnvironmentReview,
-    /// Deterministic terrain and geological-landform material review suite.
-    LandformReview,
-    /// Eye-height views inside each civilian city-building archetype.
-    InteriorReview,
-    /// Facade, street, neighbourhood, and whole-settlement city review.
-    CityReview,
-    /// Fixed geographic cameras and matched production building LODs.
-    TerrainGrounding,
-    /// Outdoor furniture, market access and street surface review.
-    FurnitureReview,
-    /// Compact and broad interior furniture models rendered as catalog specimens.
-    InteriorFurnitureCatalog,
-    /// Furnished rooms with independently validated entrance access.
-    FurnishedRoomReview,
-    /// Storefront lettering, mounting, glass, plaster and distance review.
-    ShopSignReview,
-    /// Working-building exteriors, interiors and production distance LODs.
-    WorkplaceReview,
-    /// Capacity-scaled chapel and parish church architectural review.
-    ParishReview,
-    CompoundReview,
-    /// Supported fixed attic glazing across production building LODs.
-    GableReview,
-    HeatingReview,
-    FacadeReview,
-    /// Inspect owned garden plots and accepted planting specimens.
-    GardenReview,
-    /// Production third-person camera sweep on the unmodified animation scene.
-    AnimationPlay,
-    /// Cold first approach, retreat, and warm second approach across tree LODs.
-    TreeColdTraversal,
-    /// Consecutive fractional-pixel common-beech leaf-card slow zoom.
-    BeechLeafMotion,
-}
+mod presentation;
+#[cfg(all(not(target_family = "wasm"), feature = "foliage-review"))]
+mod tactical_scene_cache_actions;
+#[cfg(not(target_family = "wasm"))]
+mod tactical_scene_viewer;
 
 #[cfg(not(target_family = "wasm"))]
 #[derive(Debug, Parser)]
@@ -96,6 +38,19 @@ struct Args {
     /// Fresh output directory. A timestamped directory is chosen when omitted.
     #[arg(long)]
     output: Option<PathBuf>,
+
+    /// Write a fresh offline oak/beech source bank instead of starting a renderer.
+    #[cfg(feature = "foliage-review")]
+    #[arg(long, requires = "scene_input")]
+    prepare_tree_bank: Option<PathBuf>,
+
+    #[cfg(feature = "foliage-review")]
+    #[command(flatten)]
+    cache_actions: Option<tactical_scene_cache_actions::TreeCacheActions>,
+
+    #[cfg(feature = "grown-review")]
+    #[command(flatten)]
+    grown_review: Option<tactical_scene_viewer::GrownCaptureOptions>,
 
     /// Render frames allowed to settle between fixed camera views.
     #[arg(long, default_value_t = 12)]
@@ -151,6 +106,57 @@ struct Args {
 }
 
 #[cfg(not(target_family = "wasm"))]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq, ValueEnum)]
+enum CaptureProfile {
+    /// Actual procedural flower/fungi roots at contact and gameplay distances.
+    PlantReview,
+    /// Actual placed fungi, one contact view per species and wider habitat views.
+    FungusReview,
+    /// Actual botanical LODs before, inside and after both crossfade bands.
+    PlantLodReview,
+    /// Same production roots and LODs with occluding vegetation hidden for diagnosis.
+    PlantLodIsolated,
+    /// Existing exhaustive semantic presentation suite (23 recorded views).
+    #[default]
+    Semantic,
+    /// Compact environment-art review suite; intended for matrix review.
+    EnvironmentReview,
+    /// Deterministic terrain and geological-landform material review suite.
+    LandformReview,
+    /// Eye-height views inside each civilian city-building archetype.
+    InteriorReview,
+    /// Facade, street, neighbourhood, and whole-settlement city review.
+    CityReview,
+    /// Fixed geographic cameras and matched production building LODs.
+    TerrainGrounding,
+    /// Outdoor furniture, market access and street surface review.
+    FurnitureReview,
+    /// Compact and broad interior furniture models rendered as catalog specimens.
+    InteriorFurnitureCatalog,
+    /// Furnished rooms with independently validated entrance access.
+    FurnishedRoomReview,
+    /// Storefront lettering, mounting, glass, plaster and distance review.
+    ShopSignReview,
+    /// Working-building exteriors, interiors and production distance LODs.
+    WorkplaceReview,
+    /// Capacity-scaled chapel and parish church architectural review.
+    ParishReview,
+    CompoundReview,
+    /// Supported fixed attic glazing across production building LODs.
+    GableReview,
+    HeatingReview,
+    FacadeReview,
+    /// Inspect owned garden plots and accepted planting specimens.
+    GardenReview,
+    /// Production third-person camera sweep on the unmodified animation scene.
+    AnimationPlay,
+    /// Cold first approach, retreat, and warm second approach across tree LODs.
+    TreeColdTraversal,
+    /// Consecutive fractional-pixel common-beech leaf-card slow zoom.
+    BeechLeafMotion,
+}
+
+#[cfg(not(target_family = "wasm"))]
 fn main() {
     let args = Args::parse();
     if args.fixture.is_none() && args.scene_input.is_none() {
@@ -159,6 +165,26 @@ fn main() {
             "one of --fixture or --scene-input is required",
         )
         .exit();
+    }
+    #[cfg(feature = "foliage-review")]
+    if let (Some(input), Some(output)) = (&args.scene_input, &args.prepare_tree_bank) {
+        if let Err(error) = presentation::write_tree_bank(input, output) {
+            eprintln!("tree bank authoring failed: {error:#}");
+            std::process::exit(1);
+        }
+        return;
+    }
+    #[cfg(feature = "foliage-review")]
+    if let Some(action) = args.cache_actions {
+        let Some(input) = args.scene_input.as_deref() else {
+            eprintln!("CPU cache action requires scene input");
+            std::process::exit(1);
+        };
+        if let Err(error) = action.run(input) {
+            eprintln!("tree cache action failed: {error:#}");
+            std::process::exit(1);
+        }
+        return;
     }
     tactical_scene_viewer::run(
         args.fixture,
@@ -202,7 +228,18 @@ fn main() {
         },
         args.views,
         args.city_cameras,
+        #[cfg(feature = "grown-review")]
+        args.grown_review,
     );
+}
+
+#[cfg(not(target_family = "wasm"))]
+fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
+    Ok(adventuresim_core::fixture_path::resolve_fixture_path(
+        selector,
+        "assets/tactical-scenes",
+        "json",
+    ))
 }
 
 #[cfg(all(test, not(target_family = "wasm")))]

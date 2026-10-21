@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import argparse
 import gzip
+import hashlib
+import os
 import json
 from pathlib import Path
 import shutil
@@ -45,6 +47,10 @@ def main(argv: list[str] | None = None) -> int:
                         help=f"Path to wasm-opt version {WASM_OPT_VERSION}")
     parser.add_argument("--keep-name-section", action="store_true",
                         help="Keep wasm function names for readable panic traces")
+    parser.add_argument("--grown-trees", action="store_true",
+                        help="Enable grown source-bank presentation in the gameplay client")
+    parser.add_argument("--gameplay-only", action="store_true",
+                        help="Build and package the normal gameplay client without the separate demo")
     args = parser.parse_args(argv)
     lock = tomllib.loads((ROOT / "Cargo.lock").read_text(encoding="utf-8"))
     expected = next(p["version"] for p in lock["package"] if p["name"] == "wasm-bindgen")
@@ -53,8 +59,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Missing wasm-bindgen. Install wasm-bindgen-cli --version {expected}",
               file=sys.stderr)
         return 1
-    wasm_opt = shutil.which(args.wasm_opt)
-    if wasm_opt is None:
+    wasm_opt = shutil.which(args.wasm_opt) if not args.gameplay_only else None
+    if not args.gameplay_only and wasm_opt is None:
         print("Missing pinned wasm-opt. Run npm ci.", file=sys.stderr)
         return 1
     try:
@@ -64,13 +70,14 @@ def main(argv: list[str] | None = None) -> int:
                   f"Install wasm-bindgen-cli --version {expected}, or pass --bindgen PATH.",
                   file=sys.stderr)
             return 1
-        wasm_opt_version = subprocess.check_output(
-            [wasm_opt, "--version"], text=True
-        ).strip().split()[2]
-        if wasm_opt_version != WASM_OPT_VERSION:
-            print(f"wasm-opt {wasm_opt_version} does not match pinned "
-                  f"version {WASM_OPT_VERSION}. Run npm ci.", file=sys.stderr)
-            return 1
+        if not args.gameplay_only:
+            wasm_opt_version = subprocess.check_output(
+                [wasm_opt, "--version"], text=True
+            ).strip().split()[2]
+            if wasm_opt_version != WASM_OPT_VERSION:
+                print(f"wasm-opt {wasm_opt_version} does not match pinned "
+                      f"version {WASM_OPT_VERSION}. Run npm ci.", file=sys.stderr)
+                return 1
         print("Building WASM client...")
         if shutil.which("rustup"):
             run(["rustup", "target", "add", "wasm32-unknown-unknown"], check=False)
@@ -80,15 +87,21 @@ def main(argv: list[str] | None = None) -> int:
         # Preserve the ordinary tactical client's release build exactly. Build
         # the demo separately so Cargo cannot unify gameplay-only features into
         # its size-oriented binary.
-        run([*common, "--bin", "adventuresim-tactical-client", "--release"])
-        run([*common, "--bin", "art-demo", "--profile", "wasm-release",
-             "--no-default-features"])
+        gameplay_features = ["grown-trees"] if args.grown_trees else []
+        feature_args = ["--features", ",".join(gameplay_features)] if gameplay_features else []
+        run([*common, "--bin", "adventuresim-tactical-client", "--release", *feature_args])
+        binaries = ["adventuresim-tactical-client"]
+        if not args.gameplay_only:
+            run([*common, "--bin", "art-demo", "--profile", "wasm-release",
+                 "--no-default-features"])
+            binaries.append("art-demo")
         build_seconds = time.perf_counter() - started
         WASM_DIR.mkdir(parents=True, exist_ok=True)
         print("Generating JS bindings...")
-        for binary in ("adventuresim-tactical-client", "art-demo"):
+        for binary in binaries:
             profile = "wasm-release" if binary == "art-demo" else "release"
-            source = (ROOT / "target" / "wasm32-unknown-unknown" /
+            target_dir = Path(os.environ.get("CARGO_TARGET_DIR", ROOT / "target"))
+            source = (target_dir / "wasm32-unknown-unknown" /
                       profile / f"{binary}.wasm")
             bindgen = [
                 wasm_bindgen, "--out-dir", str(WASM_DIR), "--target", "web", "--no-typescript",
@@ -111,8 +124,11 @@ def main(argv: list[str] | None = None) -> int:
     print(f"WASM built to {WASM_DIR}")
     for path in sorted(WASM_DIR.iterdir()):
         print(f"  {path.name}: {path.stat().st_size} bytes")
-    sizes = {"build_seconds": round(build_seconds, 3), "bundles": {}}
-    for path in sorted(WASM_DIR.glob("*_bg.wasm")):
+    sizes = {"build_seconds": round(build_seconds, 3),
+             "build_scope": "gameplay-only" if args.gameplay_only else "all",
+             "gameplay_features": gameplay_features, "bundles": {}}
+    for binary in binaries:
+        path = WASM_DIR / f"{binary}_bg.wasm"
         data = path.read_bytes()
         brotli_data = subprocess.check_output([
             "node", "-e",
@@ -123,6 +139,7 @@ def main(argv: list[str] | None = None) -> int:
         ])
         sizes["bundles"][path.name] = {
             "raw_bytes": len(data),
+            "sha256": hashlib.sha256(data).hexdigest(),
             "gzip_bytes": len(gzip.compress(data, compresslevel=6, mtime=0)),
             "brotli_bytes": len(brotli_data),
         }

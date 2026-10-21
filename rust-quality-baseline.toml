@@ -583,10 +583,6 @@ path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impo
 ceiling = 774
 
 [[files]]
-path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs"
-ceiling = 1003
-
-[[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/sky/mod.rs"
 ceiling = 514
 
@@ -620,11 +616,11 @@ ceiling = 958
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/scene_input.rs"
-ceiling = 822
+ceiling = 728
 
 [[files]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
-ceiling = 674
+ceiling = 606
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/combat/ingress.rs"
@@ -636,7 +632,7 @@ ceiling = 593
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
-ceiling = 2069
+ceiling = 2046
 
 [[files]]
 path = "crates/adventuresim-terrain/src/builder.rs"
@@ -2458,16 +2454,6 @@ item = "update_tree_projected_lod_ranges"
 ceiling = 148
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs"
-item = "present_pending_trees"
-ceiling = 178
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs"
-item = "spawn_streamed_tree_children"
-ceiling = 208
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/terrain.rs"
 item = "present_pending_terrain"
 ceiling = 116
@@ -2475,7 +2461,7 @@ ceiling = 116
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
 item = "on_scene_vista_bundle"
-ceiling = 124
+ceiling = 123
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/volumetric.rs"
@@ -2552,10 +2538,6 @@ path = "crates/adventuresim-tactical-server/src/player_projection.rs"
 item = "on_client_disconnected"
 ceiling = 103
 
-[[functions]]
-path = "crates/adventuresim-tactical-server/src/player_projection.rs"
-item = "on_join_request"
-ceiling = 103
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
@@ -10077,20 +10059,6 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-netcode/src/client.rs"
-item = "normalize_server_url"
-fingerprint = "string:://"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-netcode/src/client.rs"
-item = 'websocket_config@cfg(not(target_family="wasm"))'
-fingerprint = "string:wss://"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
 path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
 item = "main"
 fingerprint = "string:--addr"
@@ -14074,7 +14042,7 @@ ceiling = 595
 
 [[files]]
 path = "crates/fabelgeist-botany/src/viewer/sim.rs"
-ceiling = 1028
+ceiling = 1017
 
 [[files]]
 path = "crates/fabelgeist-botany/src/vine.rs"

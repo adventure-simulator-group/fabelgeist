@@ -17,8 +17,8 @@ pub(super) fn colliders(
     Ok(patch.colliders_with_terrain(terrain)?)
 }
 
-pub(super) fn spawn_scene(
-    commands: &mut Commands,
+pub(super) fn populate_scene(
+    mut scene: EntityCommands,
     scene_id: String,
     terrain: SceneTerrain,
     ground: SceneGround,
@@ -26,7 +26,7 @@ pub(super) fn spawn_scene(
     terrain_patch: Option<&SceneTerrainPatch>,
     landform: Option<TerrainLandformRecipe>,
 ) {
-    let mut scene = commands.spawn((Replicated, SceneId(scene_id), ground, Transform::default()));
+    scene.insert((Replicated, SceneId(scene_id), ground, Transform::default()));
     scene.insert(environment);
     if let Some(recipe) = landform {
         scene.insert(recipe);
