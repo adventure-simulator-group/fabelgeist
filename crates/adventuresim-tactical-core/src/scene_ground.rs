@@ -70,8 +70,9 @@ pub(crate) fn build_scene_ground(
             }
         }
     }
-    let mut ground = SceneGround::from_samples(width, depth, spacing, samples)
-        .ok_or(SceneInputError::Validation(SceneValidationError::GroundSurface))?;
+    let mut ground = SceneGround::from_samples(width, depth, spacing, samples).ok_or(
+        SceneInputError::Validation(SceneValidationError::GroundSurface),
+    )?;
     ground.urban = crate::scene::UrbanGroundSurfaces::new(streets, yards, buildings)?;
     Ok(ground)
 }

@@ -6,8 +6,8 @@
 //! never need access to the continental source pack.
 
 use adventuresim_core::weather::{Precipitation, WEATHER_RULES_VERSION, WeatherSnapshot};
-use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use bevy::prelude::Component;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
