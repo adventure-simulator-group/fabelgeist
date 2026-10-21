@@ -154,7 +154,7 @@ struct AuthoredContactPlant {
 #[derive(Debug, Clone, Copy)]
 struct PoseConformity<'a> {
     owner: &'a GlobalTransform,
-    weights: Vec2,
+    weights: FootIkInfluence,
     terrain: Option<&'a SceneTerrain>,
     contact_plants: ContactPlantPolicy,
     locomotion_pelvis_rotation: Option<Quat>,
@@ -1016,13 +1016,13 @@ fn conform_upcoming_pose_to_terrain(
         .as_ref()
         .map(|reference| RigJointTable::from(vec![None; reference.len()]));
     for (index, (left, weight, names)) in [
-        (true, weights.x, RigJointName::LEFT_LEG_CHAIN),
-        (false, weights.y, RigJointName::RIGHT_LEG_CHAIN),
+        (true, weights.left(), RigJointName::LEFT_LEG_CHAIN),
+        (false, weights.right(), RigJointName::RIGHT_LEG_CHAIN),
     ]
     .into_iter()
     .enumerate()
     {
-        let weight = weight.clamp(0.0, 1.0);
+        let weight = weight.fraction().clamp(0.0, 1.0);
         if weight <= 0.0 && locomotion_pelvis_rotation.is_none() {
             plants[index] = None;
             continue;
@@ -1477,7 +1477,7 @@ mod tests {
             &mut [None; 2],
             PoseConformity {
                 owner: &GlobalTransform::IDENTITY,
-                weights: Vec2::X,
+                weights: FootIkInfluence::LEFT,
                 terrain: Some(&terrain),
                 contact_plants: ContactPlantPolicy::Reset,
                 locomotion_pelvis_rotation: None,
@@ -1559,7 +1559,7 @@ mod tests {
             &mut [None; 2],
             PoseConformity {
                 owner: &GlobalTransform::IDENTITY,
-                weights: Vec2::ZERO,
+                weights: FootIkInfluence::NONE,
                 terrain: None,
                 contact_plants: ContactPlantPolicy::Reset,
                 locomotion_pelvis_rotation: Some(Quat::IDENTITY),
@@ -1630,7 +1630,7 @@ mod tests {
             &mut [None; 2],
             PoseConformity {
                 owner: &GlobalTransform::IDENTITY,
-                weights: Vec2::X,
+                weights: FootIkInfluence::LEFT,
                 terrain: Some(&terrain),
                 contact_plants: ContactPlantPolicy::Reset,
                 locomotion_pelvis_rotation: None,
@@ -1715,9 +1715,9 @@ mod tests {
                 PoseConformity {
                     owner: &GlobalTransform::IDENTITY,
                     weights: if sample_index % 2 == 0 {
-                        Vec2::X
+                        FootIkInfluence::LEFT
                     } else {
-                        Vec2::Y
+                        FootIkInfluence::RIGHT
                     },
                     terrain: Some(&terrain),
                     contact_plants: ContactPlantPolicy::Reset,
@@ -1781,7 +1781,7 @@ mod tests {
             &mut plants,
             PoseConformity {
                 owner: &GlobalTransform::IDENTITY,
-                weights: Vec2::X,
+                weights: FootIkInfluence::LEFT,
                 terrain: Some(&terrain),
                 contact_plants: ContactPlantPolicy::Retain,
                 locomotion_pelvis_rotation: None,
@@ -1798,7 +1798,10 @@ mod tests {
             &mut plants,
             PoseConformity {
                 owner: &modest_owner,
-                weights: Vec2::new(0.25, 0.0),
+                weights: FootIkInfluence::new(
+                    UnitInterval::from_fraction(0.25).unwrap(),
+                    UnitInterval::ZERO,
+                ),
                 terrain: Some(&terrain),
                 contact_plants: ContactPlantPolicy::Retain,
                 locomotion_pelvis_rotation: None,
@@ -1838,7 +1841,7 @@ mod tests {
             &mut plants,
             PoseConformity {
                 owner: &far_owner,
-                weights: Vec2::X,
+                weights: FootIkInfluence::LEFT,
                 terrain: Some(&terrain),
                 contact_plants: ContactPlantPolicy::Retain,
                 locomotion_pelvis_rotation: None,

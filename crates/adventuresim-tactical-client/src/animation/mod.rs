@@ -29,6 +29,7 @@ pub(crate) use catalog_id::MotionId;
 use catalog_id::{AnimationAssetDirectory, AnimationAssetPath, AuthoredAnimationFrame, MotionKey};
 use continuation::{ContinuationSpan, append_continuation_span};
 use diagnostics::log_animation_diagnostics;
+use foot_influence::FootIkInfluence;
 #[cfg(not(target_family = "wasm"))]
 pub(crate) use diagnostics::{
     AnimationDiagnosticLog, DiagnosticInputStatus, RenderScheduleTelemetry,
@@ -55,9 +56,6 @@ use resolver::PoseSampleResolver;
 use rig_identity::AnimationBodyRegion;
 pub(crate) use rig_identity::AuthoredRigJoint;
 use sample_values::{AnimationValueResult, ClipDuration, ClipTime, finite_sample_value};
-#[cfg(test)]
-use semantic_route::combat_cycle_ik_weights;
-use semantic_route::semantic_foot_ik_weights;
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 use weighted::{WeightedClip, append_weighted_anchor, append_weighted_clip};
 
@@ -73,6 +71,7 @@ mod continuation;
 mod diagnostic_record;
 mod diagnostics;
 pub(crate) mod fallback;
+mod foot_influence;
 mod identity_morphs;
 pub(crate) mod jitter;
 mod loading;
@@ -126,7 +125,7 @@ pub(crate) struct AnimationRuntime {
 pub(super) struct AnimationPlayback {
     plan: PlaybackContributions,
     whole_body_mirror: UnitInterval,
-    pub(super) foot_ik_weights: Vec2,
+    foot_ik_weights: FootIkInfluence,
     weapon_guard: WeaponGuardState,
     ordinary_locomotion: OrdinaryLocomotion,
     cadence: PoseSamplingCadence,
@@ -147,7 +146,7 @@ struct ExtrapolatedSpan {
 struct PlaybackPose {
     plan: PlaybackContributions,
     whole_body_mirror: UnitInterval,
-    foot_ik_weights: Vec2,
+    foot_ik_weights: FootIkInfluence,
     cadence: PoseSamplingCadence,
 }
 
@@ -689,36 +688,36 @@ mod contract_tests {
     #[test]
     fn combat_cycle_ik_switches_exclusive_support_at_authored_contacts() {
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(LEFT_CONTACT_PHASE).unwrap()),
-            Vec2::Y
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(LEFT_CONTACT_PHASE).unwrap()),
+            FootIkInfluence::RIGHT
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(LEFT_SUPPORT_SHOULDER_PHASE).unwrap()),
-            Vec2::Y
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(LEFT_SUPPORT_SHOULDER_PHASE).unwrap()),
+            FootIkInfluence::RIGHT
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(LEFT_PASSING_PHASE).unwrap()),
-            Vec2::X
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(LEFT_PASSING_PHASE).unwrap()),
+            FootIkInfluence::LEFT
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(RIGHT_SUPPORT_SHOULDER_PHASE).unwrap()),
-            Vec2::X
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(RIGHT_SUPPORT_SHOULDER_PHASE).unwrap()),
+            FootIkInfluence::LEFT
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(RIGHT_CONTACT_PHASE).unwrap()),
-            Vec2::X
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(RIGHT_CONTACT_PHASE).unwrap()),
+            FootIkInfluence::LEFT
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(RIGHT_RELEASE_SHOULDER_PHASE).unwrap()),
-            Vec2::X
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(RIGHT_RELEASE_SHOULDER_PHASE).unwrap()),
+            FootIkInfluence::LEFT
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(RIGHT_PASSING_PHASE).unwrap()),
-            Vec2::Y
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(RIGHT_PASSING_PHASE).unwrap()),
+            FootIkInfluence::RIGHT
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(LEFT_RELEASE_SHOULDER_PHASE).unwrap()),
-            Vec2::Y
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(LEFT_RELEASE_SHOULDER_PHASE).unwrap()),
+            FootIkInfluence::RIGHT
         );
     }
 
@@ -790,8 +789,8 @@ mod contract_tests {
                 .unwrap();
             let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
             assert_eq!(
-                semantic_foot_ik_weights(&evaluation).unwrap(),
-                Vec2::ZERO,
+                FootIkInfluence::from_evaluation(&evaluation).unwrap(),
+                FootIkInfluence::NONE,
                 "{tick}"
             );
         }

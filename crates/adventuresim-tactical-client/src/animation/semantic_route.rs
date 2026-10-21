@@ -5,7 +5,7 @@
 
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::{
-    AnimationPackId, AnimationValueError, AnimationValueResult, CyclePhase, UnitInterval,
+    AnimationPackId, AnimationValueResult, CyclePhase, UnitInterval,
 };
 use std::collections::BTreeMap;
 
@@ -122,93 +122,6 @@ pub(super) fn evaluate_semantic_route_paths(
         };
         *telemetry.counts.entry(trace.path).or_default() += 1;
         commands.entity(entity).insert(trace);
-    }
-}
-
-/// IK ownership follows the direct semantic locomotion samples.
-/// The curve shapes are animation metadata: walk keeps one supported foot,
-/// run has genuine intervals with neither foot loaded, and idle loads both.
-pub(super) fn semantic_foot_ik_weights(
-    evaluation: &AnimationEvaluation,
-) -> AnimationValueResult<Vec2> {
-    let samples = if !evaluation.lower_body.is_empty() {
-        &evaluation.lower_body
-    } else if evaluation.action.is_empty() {
-        &evaluation.base
-    } else {
-        return Ok(Vec2::ZERO);
-    };
-    let mut result = Vec2::ZERO;
-    let mut total = BlendWeight::ZERO;
-    for sample in samples {
-        let mut weights = match (sample.pose, sample.sampling) {
-            (SemanticPose::IdleRelaxed, _) => Vec2::ONE,
-            (SemanticPose::CombatStance, _) => Vec2::ONE,
-            (
-                SemanticPose::StrafeCycle | SemanticPose::SkipCycle,
-                PoseSampling::Cycle { phase },
-            ) => combat_cycle_ik_weights(phase),
-            (
-                SemanticPose::QuickstepForwardTakeoff
-                | SemanticPose::QuickstepRightTakeoff
-                | SemanticPose::QuickstepLeftTakeoff
-                | SemanticPose::QuickstepBackTakeoff,
-                PoseSampling::Timeline { .. },
-            ) => Vec2::ZERO,
-            (SemanticPose::WalkContact, PoseSampling::Cycle { phase }) => {
-                let (left, right) = gait_support_weights(walk_locomotion_profile(), phase)?;
-                Vec2::new(left.fraction(), right.fraction())
-            }
-            (SemanticPose::RunContact, PoseSampling::Cycle { phase }) => {
-                // Simulation support spans the complete stance interval. IK
-                // is animation metadata and should only become strong near
-                // the authored contact itself, after the foot has descended.
-                let contact_profile = LocomotionProfile {
-                    support_phase_radius: CycleDelta::from_cycles(0.11)?,
-                    ..run_locomotion_profile()
-                };
-                let (left, right) = gait_support_weights(contact_profile, phase)?;
-                Vec2::new(left.fraction(), right.fraction())
-            }
-            _ => Vec2::ZERO,
-        };
-        if sample.mirror_lower_body == ClipMirror::Mirrored {
-            weights = Vec2::new(weights.y, weights.x);
-        }
-        let weight = sample.weight;
-        let next = result + weights * weight.factor();
-        if !next.is_finite() {
-            return Err(AnimationValueError::Overflow {
-                quantity: adventuresim_tactical_core::animation::AnimationQuantity::BlendWeight,
-            });
-        }
-        total = total.checked_add(weight)?;
-        result = next;
-    }
-    let normalized = if total.is_absent() {
-        Vec2::ZERO
-    } else {
-        result / total.factor()
-    };
-    if !normalized.is_finite() {
-        return Err(AnimationValueError::Overflow {
-            quantity: adventuresim_tactical_core::animation::AnimationQuantity::BlendWeight,
-        });
-    }
-    Ok(normalized.clamp(Vec2::ZERO, Vec2::ONE))
-}
-
-/// Select the single authored combat contact. Frames 0/12 are swing midpoints
-/// and frames 6/18 switch contact. The pose buffer interpolates continuously
-/// into each terrain-conformed target; support identity itself must not overlap
-/// because an outgoing foot is free as soon as the incoming foot contacts.
-pub(super) fn combat_cycle_ik_weights(phase: CyclePhase) -> Vec2 {
-    let phase = phase.wrapped().cycles();
-    if (catalog::COMBAT_FIRST_CONTACT_PHASE..catalog::COMBAT_SECOND_CONTACT_PHASE).contains(&phase)
-    {
-        Vec2::X
-    } else {
-        Vec2::Y
     }
 }
 

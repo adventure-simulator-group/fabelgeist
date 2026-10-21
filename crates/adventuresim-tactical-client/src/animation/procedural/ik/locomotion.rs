@@ -1,4 +1,5 @@
 use super::*;
+use crate::animation::foot_influence::FootIkInfluence;
 use adventuresim_building_generator::spatial_geometry::SignedLength;
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
@@ -173,21 +174,11 @@ pub(in crate::animation) fn apply(
             .unwrap_or_default();
         let delta_seconds = state.sample_delta_seconds(&clock, &time);
         let authored_weights = playback.foot_ik_weights;
-        let (left_authored_weight, right_authored_weight) =
-            match UnitInterval::from_fraction(authored_weights.x).and_then(|left| {
-                UnitInterval::from_fraction(authored_weights.y).map(|right| (left, right))
-            }) {
-                Ok(weights) => weights,
-                Err(error) => {
-                    warn!(%error, "authored IK support rejected");
-                    continue;
-                }
-            };
 
         let solve_weights = if enabled.is_enabled() && terrain.is_some() {
-            (left_authored_weight, right_authored_weight)
+            authored_weights
         } else {
-            (UnitInterval::ZERO, UnitInterval::ZERO)
+            FootIkInfluence::NONE
         };
 
         let legs = [
@@ -195,14 +186,14 @@ pub(in crate::animation) fn apply(
                 upper_role: BoneRole::ThighLeft,
                 lower_role: BoneRole::ShinLeft,
                 foot_role: BoneRole::FootLeft,
-                weight: solve_weights.0,
+                weight: solve_weights.left(),
                 foot_side: LeadFoot::Left,
             },
             OrdinaryLeg {
                 upper_role: BoneRole::ThighRight,
                 lower_role: BoneRole::ShinRight,
                 foot_role: BoneRole::FootRight,
-                weight: solve_weights.1,
+                weight: solve_weights.right(),
                 foot_side: LeadFoot::Right,
             },
         ];
@@ -211,7 +202,7 @@ pub(in crate::animation) fn apply(
         let mut support = if enabled.is_enabled() {
             [None, None]
         } else {
-            [Some(left_authored_weight), Some(right_authored_weight)]
+            [Some(authored_weights.left()), Some(authored_weights.right())]
         };
         let mut desired_pelvis_shift = 0.0_f32;
 

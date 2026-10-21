@@ -1497,28 +1497,28 @@ mod legacy_tests {
     fn combat_cycle_support_is_exclusive_and_switches_at_authored_contacts() {
         for sample in 0..240 {
             let phase = sample as f32 / 240.0;
-            let weights = combat_cycle_ik_weights(CyclePhase::from_cycles(phase).unwrap());
+            let weights = FootIkInfluence::combat_cycle(CyclePhase::from_cycles(phase).unwrap());
             assert!(
-                (weights.x > 0.0) ^ (weights.y > 0.0),
+                (weights.left() > UnitInterval::ZERO) ^ (weights.right() > UnitInterval::ZERO),
                 "phase {phase:.4} reported overlapping or absent support: {weights:?}"
             );
         }
 
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.2499).unwrap()),
-            Vec2::Y
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(0.2499).unwrap()),
+            FootIkInfluence::RIGHT
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(LEFT_PASSING_PHASE).unwrap()),
-            Vec2::X
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(LEFT_PASSING_PHASE).unwrap()),
+            FootIkInfluence::LEFT
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.7499).unwrap()),
-            Vec2::X
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(0.7499).unwrap()),
+            FootIkInfluence::LEFT
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(RIGHT_PASSING_PHASE).unwrap()),
-            Vec2::Y
+            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(RIGHT_PASSING_PHASE).unwrap()),
+            FootIkInfluence::RIGHT
         );
     }
 }

@@ -32,7 +32,7 @@ impl ResolvedBodyPlan {
                 self.continuation_spans,
             )?,
             whole_body_mirror: self.whole_body_mirror,
-            foot_ik_weights: semantic_foot_ik_weights(evaluation)?,
+            foot_ik_weights: FootIkInfluence::from_evaluation(evaluation)?,
             cadence: if evaluation.action.is_empty() {
                 PoseSamplingCadence::Buffered
             } else {

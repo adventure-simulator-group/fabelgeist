@@ -1,7 +1,7 @@
 //! Carried playback choices, separate from local selection predicates.
 
 use super::{
-    AnimationPlayback, PlaybackContributions, PlaybackPose, PoseSamplingCadence,
+    AnimationPlayback, FootIkInfluence, PlaybackContributions, PlaybackPose, PoseSamplingCadence,
     apply_playback_pose, ordinary_locomotion_candidate, playback_tuning,
 };
 use adventuresim_core::linear_speed::NonnegativeSpeed;
@@ -146,7 +146,7 @@ impl Default for AnimationPlayback {
         Self {
             plan: PlaybackContributions::default(),
             whole_body_mirror: UnitInterval::ZERO,
-            foot_ik_weights: Vec2::ZERO,
+            foot_ik_weights: FootIkInfluence::NONE,
             weapon_guard: WeaponGuardState::Lowered,
             ordinary_locomotion: OrdinaryLocomotion::Inactive,
             cadence: PoseSamplingCadence::Buffered,
