@@ -1,8 +1,11 @@
+use fabelgeist_geometry::SignedLength;
 use adventuresim_tactical_core::prelude::{
     BuildingOrientation, CityStreetPatch, DistantBuildingPlacement, GeneratedBuilding, SceneTerrain,
 };
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::prelude::*;
+use adventuresim_building_generator::spatial_geometry::{Position};
+use adventuresim_tactical_core::scene_coordinates::Scene;
 
 use super::capture_state::BuildingReviewCamera;
 
@@ -54,13 +57,13 @@ pub(super) fn capture_cameras(
     }
     let (focus, facade_target, street) =
         selected.ok_or("city review has no clear street corridor facing a playable building")?;
-    let eye = |point: ScenePlanPoint| -> Result<Vec3> {
+    let eye = |point: ScenePlanPoint| -> Result<Position<Scene>> {
         let elevation = terrain.required_height_at(point)?;
-        Ok(Vec3::new(
+        Ok(Position::from_metres(Vec3::new(
             point.metres().x,
             elevation.metres() + STREET_EYE_HEIGHT_METRES,
             point.metres().y,
-        ))
+        ))?)
     };
     let context = [-STREET_CONTEXT_OFFSET_METRES, STREET_CONTEXT_OFFSET_METRES]
         .into_iter()
@@ -95,23 +98,23 @@ pub(super) fn capture_cameras(
     Ok(vec![
         BuildingReviewCamera {
             position: eye(ScenePlanPoint::try_from(street.point())?)?,
-            target: facade_target,
+            target: Position::from_metres(facade_target)?,
             plaster_raking_light: None,
         },
         BuildingReviewCamera {
             position: eye(ScenePlanPoint::try_from(context.point())?)?,
-            target: Vec3::new(
+            target: Position::from_metres(Vec3::new(
                 street_target.x,
-                eye(ScenePlanPoint::try_from(context.point())?)?.y,
+                eye(ScenePlanPoint::try_from(context.point())?)?.metres().y,
                 street_target.y,
-            ),
+            ))?,
             plaster_raking_light: None,
         },
-        playable_bounds.oblique_camera(0.95, 0.8),
-        neighbourhood_bounds.oblique_camera(0.72, 0.42),
-        city_bounds.edge_camera(),
-        city_bounds.aerial_camera(),
-        city_bounds.horizon_camera(),
+        playable_bounds.oblique_camera(0.95, 0.8)?,
+        neighbourhood_bounds.oblique_camera(0.72, 0.42)?,
+        city_bounds.edge_camera()?,
+        city_bounds.aerial_camera()?,
+        city_bounds.horizon_camera()?,
     ])
 }
 
@@ -242,53 +245,53 @@ impl Bounds2 {
         bounds.expect("city-review fixture lacks building placements")
     }
 
-    fn centre(self) -> Vec3 {
+    fn centre(self) -> Result<Position<Scene>> {
         let centre = (self.min + self.max) * 0.5;
-        Vec3::new(centre.x, 4.0, centre.y)
+        Ok(Position::from_metres(Vec3::new(centre.x, 4.0, centre.y))?)
     }
 
-    fn radius(self) -> f32 {
-        ((self.max - self.min).max_element() * 0.5).max(20.0)
+    fn radius(self) -> Result<SignedLength> {
+        Ok(SignedLength::from_metres(((self.max - self.min).max_element() * 0.5).max(20.0))?)
     }
 
-    fn oblique_camera(self, distance_scale: f32, height_scale: f32) -> BuildingReviewCamera {
-        let target = self.centre();
-        let radius = self.radius();
-        BuildingReviewCamera {
-            position: target + Vec3::new(radius * distance_scale, radius * height_scale, radius),
+    fn oblique_camera(self, distance_scale: f32, height_scale: f32) -> Result<BuildingReviewCamera> {
+        let target = self.centre()?;
+        let radius = self.radius()?.metres();
+        Ok(BuildingReviewCamera {
+            position: Position::from_metres(target.metres() + Vec3::new(radius * distance_scale, radius * height_scale, radius))?,
             target,
             plaster_raking_light: None,
-        }
+        })
     }
 
-    fn edge_camera(self) -> BuildingReviewCamera {
-        let target = self.centre();
-        let radius = self.radius();
-        BuildingReviewCamera {
-            position: target + Vec3::new(radius * 1.45, radius * 0.18, radius * 0.35),
+    fn edge_camera(self) -> Result<BuildingReviewCamera> {
+        let target = self.centre()?;
+        let radius = self.radius()?.metres();
+        Ok(BuildingReviewCamera {
+            position: Position::from_metres(target.metres() + Vec3::new(radius * 1.45, radius * 0.18, radius * 0.35))?,
             target,
             plaster_raking_light: None,
-        }
+        })
     }
 
-    fn aerial_camera(self) -> BuildingReviewCamera {
-        let target = self.centre();
-        let radius = self.radius();
-        BuildingReviewCamera {
-            position: target + Vec3::new(0.0, radius * 1.7, radius * 0.18),
+    fn aerial_camera(self) -> Result<BuildingReviewCamera> {
+        let target = self.centre()?;
+        let radius = self.radius()?.metres();
+        Ok(BuildingReviewCamera {
+            position: Position::from_metres(target.metres() + Vec3::new(0.0, radius * 1.7, radius * 0.18))?,
             target,
             plaster_raking_light: None,
-        }
+        })
     }
 
-    fn horizon_camera(self) -> BuildingReviewCamera {
-        let target = self.centre();
-        let radius = self.radius();
-        BuildingReviewCamera {
-            position: target + Vec3::new(0.0, radius * 0.12, radius * 2.35),
+    fn horizon_camera(self) -> Result<BuildingReviewCamera> {
+        let target = self.centre()?;
+        let radius = self.radius()?.metres();
+        Ok(BuildingReviewCamera {
+            position: Position::from_metres(target.metres() + Vec3::new(0.0, radius * 0.12, radius * 2.35))?,
             target,
             plaster_raking_light: None,
-        }
+        })
     }
 }
 
@@ -381,18 +384,18 @@ mod tests {
 
         assert_eq!(cameras.len(), 7);
         assert!(cameras.iter().all(|camera| {
-            camera.position.is_finite()
-                && camera.target.is_finite()
-                && camera.position.distance(camera.target) > 0.5
+            camera.position.metres().is_finite()
+                && camera.target.metres().is_finite()
+                && camera.position.metres().distance(camera.target.metres()) > 0.5
         }));
-        assert!(cameras[5].position.y > cameras[0].position.y + 100.0);
+        assert!(cameras[5].position.metres().y > cameras[0].position.metres().y + 100.0);
         assert_eq!(
-            cameras[2].target.xz(),
+            cameras[2].target.metres().xz(),
             buildings[0].placement.centre_metres.metres()
         );
-        assert_eq!(cameras[3].target.xz(), Vec2::new(35.0, 12.0));
-        assert!(cameras[3].position.distance(cameras[3].target) < 75.0);
-        assert!(cameras[5].position.distance(cameras[5].target) > 150.0);
+        assert_eq!(cameras[3].target.metres().xz(), Vec2::new(35.0, 12.0));
+        assert!(cameras[3].position.metres().distance(cameras[3].target.metres()) < 75.0);
+        assert!(cameras[5].position.metres().distance(cameras[5].target.metres()) > 150.0);
     }
 
     #[test]
@@ -433,7 +436,7 @@ mod tests {
         .unwrap();
 
         for camera in &cameras[..2] {
-            let point = camera.position.xz();
+            let point = camera.position.metres().xz();
             assert!(
                 street.contains(point),
                 "eye must be in the actual street corridor"
@@ -458,10 +461,10 @@ mod tests {
                     "eye must be outside every placed building"
                 );
             }
-            assert!((camera.position.y - 4.65).abs() < 0.001);
+            assert!((camera.position.metres().y - 4.65).abs() < 0.001);
         }
         let front_eye = orientation.world_to_local(
-            cameras[0].position.xz() - buildings[0].placement.centre_metres.metres(),
+            cameras[0].position.metres().xz() - buildings[0].placement.centre_metres.metres(),
         );
         assert!(front_eye.y < 0.0, "the front is local negative Z");
     }

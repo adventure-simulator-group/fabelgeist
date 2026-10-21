@@ -36,10 +36,10 @@ pub struct SignedAngularSpeedDegrees(f32);
 
 impl SignedAngleDegrees {
     pub const ZERO: Self = Self(0.0);
-    pub fn from_degrees(value: f32) -> AnimationValueResult<Self> {
+    pub const fn from_degrees(value: f32) -> AnimationValueResult<Self> {
         if !value.is_finite() {
             return Err(AnimationValueError::NonFinite {
-                quantity: AnimationQuantity::BodyAngle,
+                quantity: AnimationQuantity::SignedAngle,
             });
         }
         Ok(Self(value))

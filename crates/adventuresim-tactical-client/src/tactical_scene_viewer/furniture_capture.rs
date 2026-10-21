@@ -2,6 +2,7 @@
 use adventuresim_building_generator::furniture::FurnitureKind;
 use adventuresim_tactical_core::{prelude::*, scene_coordinates::ScenePlanPoint};
 use bevy::prelude::*;
+use adventuresim_building_generator::spatial_geometry::Position;
 
 use super::capture_state::BuildingReviewCamera;
 
@@ -43,11 +44,7 @@ pub(super) fn setup(
     if profile != PROFILE {
         return Ok(None);
     }
-    let camera = |position, target| BuildingReviewCamera {
-        position,
-        target,
-        plaster_raking_light: None,
-    };
+    let camera = |position, target| BuildingReviewCamera { position, target, plaster_raking_light: None };
     let mut cameras = FurnitureKind::OUTDOOR
         .into_iter()
         .map(|kind| {
@@ -75,12 +72,12 @@ pub(super) fn setup(
             let point = ScenePlanPoint::try_from(instance.position_metres.metres().xz() + offset)?;
             let height = terrain.required_height_at(point)?;
             Ok(camera(
-                Vec3::new(
+                Position::from_metres(Vec3::new(
                     point.metres().x,
                     height.metres() + EYE_HEIGHT_METRES,
                     point.metres().y,
-                ),
-                instance.position_metres.metres() + Vec3::Y * bounds.centre()?.metres().y,
+                ))?,
+                Position::from_metres(instance.position_metres.metres() + Vec3::Y * bounds.centre()?.metres().y)?,
             ))
         })
         .collect::<Result<Vec<_>>>()?;
@@ -95,38 +92,38 @@ pub(super) fn setup(
     }
     let centre = market.iter().copied().sum::<Vec2>() / market.len() as f32;
     let point = ScenePlanPoint::try_from(centre)?;
-    let target = Vec3::new(
+    let target = Position::from_metres(Vec3::new(
         centre.x,
         terrain.required_height_at(point)?.metres(),
         centre.y,
-    );
-    cameras.push(camera(target + Vec3::new(48.0, 40.0, -58.0), target));
+    ))?;
+    cameras.push(camera(Position::from_metres(target.metres() + Vec3::new(48.0, 40.0, -58.0))?, target));
     cameras.push(camera(
-        Vec3::new(
+        Position::from_metres(Vec3::new(
             -10.0,
             terrain
                 .required_height_at(ScenePlanPoint::try_from(Vec2::new(-10.0, -30.0))?)?
                 .metres()
                 + EYE_HEIGHT_METRES,
             -30.0,
-        ),
-        Vec3::new(
+        ))?,
+        Position::from_metres(Vec3::new(
             15.0,
             terrain
                 .required_height_at(ScenePlanPoint::try_from(Vec2::new(15.0, -30.0))?)?
                 .metres(),
             -30.0,
-        ),
+        ))?,
     ));
-    let junction = Vec3::new(
+    let junction = Position::from_metres(Vec3::new(
         -30.0,
         terrain
             .required_height_at(ScenePlanPoint::try_from(Vec2::splat(-30.0))?)?
             .metres(),
         -30.0,
-    );
-    cameras.push(camera(junction + Vec3::new(-21.0, 24.0, -23.0), junction));
-    cameras.push(camera(junction + Vec3::new(-9.0, 7.0, -10.0), junction));
+    ))?;
+    cameras.push(camera(Position::from_metres(junction.metres() + Vec3::new(-21.0, 24.0, -23.0))?, junction));
+    cameras.push(camera(Position::from_metres(junction.metres() + Vec3::new(-9.0, 7.0, -10.0))?, junction));
     commands.insert_resource(super::furniture_readiness::ExpectedFurniture {
         instances: layout.instances.len() + layout.distant_instances.len(),
         batches: layout

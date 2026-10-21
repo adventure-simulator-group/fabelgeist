@@ -1,5 +1,5 @@
 use adventuresim_building_generator::spatial_geometry::Position;
-use adventuresim_tactical_core::animation::NonnegativeLength;
+use adventuresim_tactical_core::animation::{NonnegativeLength, SignedAngleDegrees};
 use adventuresim_tactical_core::scene_coordinates::Scene;
 use fabelgeist_determinism::Seed;
 use std::{collections::BTreeSet, path::PathBuf};
@@ -20,8 +20,8 @@ const LIGHTING_READBACK_BUDGET: usize = 8;
 
 #[derive(Clone, Copy, Debug)]
 pub(super) struct BuildingReviewCamera {
-    pub(super) position: Vec3,
-    pub(super) target: Vec3,
+    pub(super) position: Position<Scene>,
+    pub(super) target: Position<Scene>,
     pub(super) plaster_raking_light: Option<PlasterRakingLight>,
 }
 
@@ -53,8 +53,8 @@ pub(super) struct SceneCaptureState {
     pub(super) expects_grass: bool,
     pub(super) vista_contract: super::vista_validation::VistaCaptureContract,
     pub(super) vista_geometry: Option<VistaCaptureGeometry>,
-    pub(super) city_half_extent_metres: f32,
-    pub(super) obstacle_focus: Vec3,
+    pub(super) city_half_extent_metres: fabelgeist_geometry::SignedLength,
+    pub(super) obstacle_focus: Position<Scene>,
     pub(super) tree_focus: Option<Position<Scene>>,
     pub(super) rock_focus: Option<Position<Scene>>,
     pub(super) debris_focus: Option<Position<Scene>>,
@@ -62,18 +62,18 @@ pub(super) struct SceneCaptureState {
     pub(super) debris_camera: Option<Position<Scene>>,
     pub(super) debris_leaf_distance_metres: Option<NonnegativeLength>,
     pub(super) debris_twig_distance_metres: Option<NonnegativeLength>,
-    pub(super) tree_leaf_focus: Option<Vec3>,
-    pub(super) tree_leaf_camera: Option<Vec3>,
+    pub(super) tree_leaf_focus: Option<Position<Scene>>,
+    pub(super) tree_leaf_camera: Option<Position<Scene>>,
     pub(super) tree_focus_entity: Option<Entity>,
     pub(super) tree_review_entities: Vec<Entity>,
     pub(super) tree_review_leaf_entities: Vec<(Entity, TreeLeafRepresentation)>,
-    pub(super) ground_eye_position: Vec3,
-    pub(super) ground_eye_target: Vec3,
-    pub(super) animation_play_focus: Vec3,
+    pub(super) ground_eye_position: Position<Scene>,
+    pub(super) ground_eye_target: Position<Scene>,
+    pub(super) animation_play_focus: Position<Scene>,
     pub(super) building_interior_cameras: Vec<BuildingReviewCamera>,
     pub(super) city_exterior_cameras: Vec<BuildingReviewCamera>,
     pub(super) settle_frames: u32,
-    pub(super) tree_review_azimuth_degrees: f32,
+    pub(super) tree_review_azimuth_degrees: SignedAngleDegrees,
     pub(super) profile: String,
     pub(super) requested_views: Vec<String>,
     pub(super) views: Vec<CaptureViewSpec>,

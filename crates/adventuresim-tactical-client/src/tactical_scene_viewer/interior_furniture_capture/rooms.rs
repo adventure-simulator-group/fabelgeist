@@ -1,5 +1,6 @@
 //! Semantic room views selected from proven walking routes and unobstructed sightlines.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_building_generator::{
     OpeningUse, Room, RoomKind, SolidRole, StoreyPlan,
     interior::{InteriorLayout, InteriorPlacement},
@@ -107,8 +108,8 @@ pub(super) fn camera(
     let transform = building.transform()?;
     let origin = building.collision.bounds.centre()?.metres();
     Ok(BuildingReviewCamera {
-        position: transform.transform_point(eye - origin),
-        target: transform.transform_point(target - origin),
+        position: Position::from_metres(transform.transform_point(eye - origin))?,
+        target: Position::from_metres(transform.transform_point(target - origin))?,
         plaster_raking_light: None,
     })
 }
@@ -321,6 +322,7 @@ fn room_contains(room: &Room, point: Vec2) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+use adventuresim_building_generator::spatial_geometry::Position;
     #[test]
     fn closed_keep_door_blocks_a_camera_ray_that_static_navigation_allows() {
         use adventuresim_building_generator::{

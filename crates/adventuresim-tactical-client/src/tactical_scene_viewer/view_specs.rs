@@ -1,3 +1,6 @@
+use adventuresim_tactical_core::animation::SignedAngleDegrees;
+use crate::camera::authored_metres;
+use fabelgeist_geometry::SignedLength;
 use crate::presentation::TreeLeafRepresentation;
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::prelude::{Vec2, Vec3};
@@ -15,25 +18,25 @@ pub(super) enum TreeLightingModeId {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) enum CapturePose {
     PlantLod {
-        distance: f32,
+        distance: SignedLength,
     },
     Fungus {
-        distance: f32,
+        distance: SignedLength,
         species: adventuresim_plant_generator::fungus::FungusSpecies,
     },
     Plant {
-        distance: f32,
+        distance: SignedLength,
     },
     Ground,
     AnimationPlay {
-        yaw_degrees: f32,
+        yaw_degrees: SignedAngleDegrees,
     },
     AnimationPlayBoundary {
         player: ScenePlanPoint,
-        yaw_degrees: f32,
+        yaw_degrees: SignedAngleDegrees,
     },
     AnimationPlayObstruction {
-        yaw_degrees: f32,
+        yaw_degrees: SignedAngleDegrees,
     },
     BuildingInterior {
         camera: u8,
@@ -42,7 +45,7 @@ pub(super) enum CapturePose {
         camera: u8,
     },
     TreeColdTraversal {
-        distance: f32,
+        distance: SignedLength,
     },
     TreeReview,
     RecursiveTree,
@@ -58,16 +61,16 @@ pub(super) enum CapturePose {
     GroundCover,
     LeafSpecimen,
     UnderstoryReview {
-        distance: f32,
-        elevation_degrees: f32,
-        orbit_degrees: f32,
+        distance: SignedLength,
+        elevation_degrees: SignedAngleDegrees,
+        orbit_degrees: SignedAngleDegrees,
     },
     TreeLod {
-        distance: f32,
+        distance: SignedLength,
     },
     Overhead,
     CityOblique {
-        azimuth_degrees: f32,
+        azimuth_degrees: SignedAngleDegrees,
     },
     Horizon,
     VistaPeak,
@@ -75,23 +78,17 @@ pub(super) enum CapturePose {
 }
 
 impl CapturePose {
-    pub(super) fn fault_camera(self) -> Option<(Vec3, Vec3, Vec3)> {
-        match self {
-            Self::FaultScarp => {
-                Some((Vec3::new(0.0, 8.0, 24.0), Vec3::new(0.0, 2.0, 0.0), Vec3::Y))
-            }
-            Self::FaultScarpSeam => Some((
-                Vec3::new(24.0, 5.0, 18.0),
-                Vec3::new(16.5, 1.8, 7.0),
-                Vec3::Y,
-            )),
-            Self::LandformUnderside => Some((
-                Vec3::new(1.0, -1.5, 7.0),
-                Vec3::new(0.0, -1.5, -1.0),
-                Vec3::Y,
-            )),
-            _ => None,
-        }
+    pub(super) fn fault_camera(self) -> Option<super::view_camera::CaptureCameraResult<super::view_camera::SceneCameraView>> {
+        use adventuresim_building_generator::spatial_geometry::{Position, SpatialDirection};
+        let (position, target) = match self {
+            Self::FaultScarp => (Vec3::new(0.0, 8.0, 24.0), Vec3::new(0.0, 2.0, 0.0)),
+            Self::FaultScarpSeam => (Vec3::new(24.0, 5.0, 18.0), Vec3::new(16.5, 1.8, 7.0)),
+            Self::LandformUnderside => (Vec3::new(1.0, -1.5, 7.0), Vec3::new(0.0, -1.5, -1.0)),
+            _ => return None,
+        };
+        Some((|| {
+            super::view_camera::SceneCameraView::looking_at(Position::from_metres(position)?, Position::from_metres(target)?, SpatialDirection::from_normalized(Vec3::Y)?)
+        })())
     }
 }
 
@@ -112,7 +109,7 @@ pub(super) struct CaptureViewSpec {
     pub slug: &'static str,
     pub label: &'static str,
     pub overlay: bool,
-    pub fov_degrees: f32,
+    pub fov_degrees: SignedAngleDegrees,
     pub minimum_foreground_bps: u16,
     pub lighting_mode: TreeLightingModeId,
     pub render_lod_override: Option<u8>,
@@ -155,7 +152,7 @@ impl CaptureViewSpec {
             slug,
             label,
             overlay: false,
-            fov_degrees,
+            fov_degrees: authored_degrees(fov_degrees),
             minimum_foreground_bps,
             lighting_mode: TreeLightingModeId::Combined,
             render_lod_override: None,
@@ -457,7 +454,7 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
     v!(
         "tree-crown-transition-fixed",
         "Fixed-camera crown LOD transition control",
-        CapturePose::TreeLod { distance: 92.0 },
+        CapturePose::TreeLod { distance: authored_metres(92.0) },
         20.0,
         200
     )
@@ -466,7 +463,7 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
     v!(
         "tree-billboard-transition-fixed",
         "Fixed-camera billboard LOD transition control",
-        CapturePose::TreeLod { distance: 92.0 },
+        CapturePose::TreeLod { distance: authored_metres(92.0) },
         20.0,
         200
     )
@@ -475,7 +472,7 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
     v!(
         "tree-billboard-transition-25",
         "Natural crown-to-billboard transition 25% view",
-        CapturePose::TreeLod { distance: 92.0 },
+        CapturePose::TreeLod { distance: authored_metres(92.0) },
         20.0,
         200
     )
@@ -483,7 +480,7 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
     v!(
         "tree-billboard-transition-50",
         "Natural crown-to-billboard transition 50% view",
-        CapturePose::TreeLod { distance: 92.0 },
+        CapturePose::TreeLod { distance: authored_metres(92.0) },
         20.0,
         200
     )
@@ -491,7 +488,7 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
     v!(
         "tree-billboard-transition-75",
         "Natural crown-to-billboard transition 75% view",
-        CapturePose::TreeLod { distance: 92.0 },
+        CapturePose::TreeLod { distance: authored_metres(92.0) },
         20.0,
         200
     )
@@ -500,9 +497,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "understory-common-hazel",
         "Isolated common hazel review",
         CapturePose::UnderstoryReview {
-            distance: 5.5,
-            elevation_degrees: 5.7,
-            orbit_degrees: 0.0,
+            distance: authored_metres(5.5),
+            elevation_degrees: authored_degrees(5.7),
+            orbit_degrees: authored_degrees(0.0),
         },
         38.0,
         100
@@ -515,9 +512,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "understory-blackthorn",
         "Isolated blackthorn review",
         CapturePose::UnderstoryReview {
-            distance: 5.5,
-            elevation_degrees: 5.7,
-            orbit_degrees: 0.0,
+            distance: authored_metres(5.5),
+            elevation_degrees: authored_degrees(5.7),
+            orbit_degrees: authored_degrees(0.0),
         },
         38.0,
         100
@@ -530,9 +527,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "understory-blackthorn-gameplay-distance",
         "Blackthorn leaf cards at gameplay distance",
         CapturePose::UnderstoryReview {
-            distance: 12.0,
-            elevation_degrees: 2.0,
-            orbit_degrees: 0.0,
+            distance: authored_metres(12.0),
+            elevation_degrees: authored_degrees(2.0),
+            orbit_degrees: authored_degrees(0.0),
         },
         38.0,
         80
@@ -545,9 +542,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "understory-blackthorn-grazing",
         "Blackthorn leaf cards at a grazing review angle",
         CapturePose::UnderstoryReview {
-            distance: 5.5,
-            elevation_degrees: 1.0,
-            orbit_degrees: 72.0,
+            distance: authored_metres(5.5),
+            elevation_degrees: authored_degrees(1.0),
+            orbit_degrees: authored_degrees(72.0),
         },
         32.0,
         80
@@ -560,9 +557,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "understory-blackthorn-motion-01",
         "Blackthorn temporal traversal frame 1",
         CapturePose::UnderstoryReview {
-            distance: 9.0,
-            elevation_degrees: 3.0,
-            orbit_degrees: -4.0,
+            distance: authored_metres(9.0),
+            elevation_degrees: authored_degrees(3.0),
+            orbit_degrees: authored_degrees(-4.0),
         },
         38.0,
         80
@@ -576,9 +573,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "understory-blackthorn-motion-02",
         "Blackthorn temporal traversal frame 2",
         CapturePose::UnderstoryReview {
-            distance: 9.0,
-            elevation_degrees: 3.0,
-            orbit_degrees: 0.0,
+            distance: authored_metres(9.0),
+            elevation_degrees: authored_degrees(3.0),
+            orbit_degrees: authored_degrees(0.0),
         },
         38.0,
         80
@@ -592,9 +589,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "understory-blackthorn-motion-03",
         "Blackthorn temporal traversal frame 3",
         CapturePose::UnderstoryReview {
-            distance: 9.0,
-            elevation_degrees: 3.0,
-            orbit_degrees: 4.0,
+            distance: authored_metres(9.0),
+            elevation_degrees: authored_degrees(3.0),
+            orbit_degrees: authored_degrees(4.0),
         },
         38.0,
         80
@@ -608,9 +605,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "understory-blackthorn-settled",
         "Blackthorn settled readback identity control",
         CapturePose::UnderstoryReview {
-            distance: 9.0,
-            elevation_degrees: 3.0,
-            orbit_degrees: 0.0,
+            distance: authored_metres(9.0),
+            elevation_degrees: authored_degrees(3.0),
+            orbit_degrees: authored_degrees(0.0),
         },
         38.0,
         80
@@ -624,9 +621,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "understory-common-hawthorn",
         "Isolated common hawthorn review",
         CapturePose::UnderstoryReview {
-            distance: 5.5,
-            elevation_degrees: 5.7,
-            orbit_degrees: 0.0,
+            distance: authored_metres(5.5),
+            elevation_degrees: authored_degrees(5.7),
+            orbit_degrees: authored_degrees(0.0),
         },
         38.0,
         100
@@ -647,7 +644,7 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "city-oblique-northwest",
         "City-scale oblique view from the northwest",
         CapturePose::CityOblique {
-            azimuth_degrees: 315.0,
+            azimuth_degrees: authored_degrees(315.0),
         },
         65.0,
         1
@@ -657,7 +654,7 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
         "city-oblique-southeast",
         "City-scale oblique view from the southeast",
         CapturePose::CityOblique {
-            azimuth_degrees: 135.0,
+            azimuth_degrees: authored_degrees(135.0),
         },
         65.0,
         1
@@ -716,7 +713,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "warmup",
         "Animation-play production-camera warmup",
-        CapturePose::AnimationPlay { yaw_degrees: 0.0 },
+        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(0.0) },
         80.0,
         1000
     )
@@ -725,7 +722,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-000",
         "Animation-play camera facing north",
-        CapturePose::AnimationPlay { yaw_degrees: 0.0 },
+        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(0.0) },
         80.0,
         1000
     )
@@ -733,7 +730,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-045",
         "Animation-play camera facing north-east",
-        CapturePose::AnimationPlay { yaw_degrees: 45.0 },
+        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(45.0) },
         80.0,
         1000
     )
@@ -741,7 +738,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-090",
         "Animation-play camera facing east",
-        CapturePose::AnimationPlay { yaw_degrees: 90.0 },
+        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(90.0) },
         80.0,
         1000
     )
@@ -749,7 +746,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-135",
         "Animation-play camera facing south-east",
-        CapturePose::AnimationPlay { yaw_degrees: 135.0 },
+        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(135.0) },
         80.0,
         1000
     )
@@ -757,7 +754,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-180",
         "Animation-play camera facing south",
-        CapturePose::AnimationPlay { yaw_degrees: 180.0 },
+        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(180.0) },
         80.0,
         1000
     )
@@ -765,7 +762,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-225",
         "Animation-play camera facing south-west",
-        CapturePose::AnimationPlay { yaw_degrees: 225.0 },
+        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(225.0) },
         80.0,
         1000
     )
@@ -773,7 +770,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-270",
         "Animation-play camera facing west",
-        CapturePose::AnimationPlay { yaw_degrees: 270.0 },
+        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(270.0) },
         80.0,
         1000
     )
@@ -781,7 +778,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-315",
         "Animation-play camera facing north-west",
-        CapturePose::AnimationPlay { yaw_degrees: 315.0 },
+        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(315.0) },
         80.0,
         1000
     )
@@ -791,7 +788,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "Production camera at the north playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
             player: v!(@scene_point_metres 0.0, 44.0),
-            yaw_degrees: 180.0
+            yaw_degrees: authored_degrees(180.0)
         },
         80.0,
         1000
@@ -802,7 +799,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "Production camera at the north-east playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
             player: v!(@scene_point_metres 31.0, 31.0),
-            yaw_degrees: 225.0
+            yaw_degrees: authored_degrees(225.0)
         },
         80.0,
         1000
@@ -813,7 +810,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "Production camera at the east playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
             player: v!(@scene_point_metres 44.0, 0.0),
-            yaw_degrees: 270.0
+            yaw_degrees: authored_degrees(270.0)
         },
         80.0,
         1000
@@ -824,7 +821,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "Production camera at the south-east playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
             player: v!(@scene_point_metres 31.0, -31.0),
-            yaw_degrees: 315.0
+            yaw_degrees: authored_degrees(315.0)
         },
         80.0,
         1000
@@ -835,7 +832,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "Production camera at the south playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
             player: v!(@scene_point_metres 0.0, -44.0),
-            yaw_degrees: 0.0
+            yaw_degrees: authored_degrees(0.0)
         },
         80.0,
         1000
@@ -846,7 +843,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "Production camera at the south-west playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
             player: v!(@scene_point_metres -31.0, -31.0),
-            yaw_degrees: 45.0
+            yaw_degrees: authored_degrees(45.0)
         },
         80.0,
         1000
@@ -857,7 +854,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "Production camera at the west playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
             player: v!(@scene_point_metres -44.0, 0.0),
-            yaw_degrees: 90.0
+            yaw_degrees: authored_degrees(90.0)
         },
         80.0,
         1000
@@ -868,7 +865,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "Production camera at the north-west playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
             player: v!(@scene_point_metres -31.0, 31.0),
-            yaw_degrees: 135.0
+            yaw_degrees: authored_degrees(135.0)
         },
         80.0,
         1000
@@ -879,7 +876,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "South-east boundary camera with playable trees only",
         CapturePose::AnimationPlayBoundary {
             player: v!(@scene_point_metres 31.0, -31.0),
-            yaw_degrees: 315.0
+            yaw_degrees: authored_degrees(315.0)
         },
         80.0,
         1000
@@ -889,7 +886,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "South-east boundary camera with vista trees only",
         CapturePose::AnimationPlayBoundary {
             player: v!(@scene_point_metres 31.0, -31.0),
-            yaw_degrees: 315.0
+            yaw_degrees: authored_degrees(315.0)
         },
         80.0,
         1000
@@ -899,7 +896,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-obstruction-000",
         "Production camera boom blocked by a north-side tree trunk",
-        CapturePose::AnimationPlayObstruction { yaw_degrees: 0.0 },
+        CapturePose::AnimationPlayObstruction { yaw_degrees: authored_degrees(0.0) },
         80.0,
         1000
     )
@@ -907,7 +904,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-obstruction-090",
         "Production camera boom blocked by an east-side tree trunk",
-        CapturePose::AnimationPlayObstruction { yaw_degrees: 90.0 },
+        CapturePose::AnimationPlayObstruction { yaw_degrees: authored_degrees(90.0) },
         80.0,
         1000
     )
@@ -915,7 +912,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-obstruction-180",
         "Production camera boom blocked by a south-side tree trunk",
-        CapturePose::AnimationPlayObstruction { yaw_degrees: 180.0 },
+        CapturePose::AnimationPlayObstruction { yaw_degrees: authored_degrees(180.0) },
         80.0,
         1000
     )
@@ -923,18 +920,25 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-obstruction-270",
         "Production camera boom blocked by a west-side tree trunk",
-        CapturePose::AnimationPlayObstruction { yaw_degrees: 270.0 },
+        CapturePose::AnimationPlayObstruction { yaw_degrees: authored_degrees(270.0) },
         80.0,
         1000
     )
     .vista(),
 ];
 
+const fn authored_degrees(value: f32) -> SignedAngleDegrees {
+    match SignedAngleDegrees::from_degrees(value) {
+        Ok(value) => value,
+        Err(_) => panic!("authored camera degrees must be finite"),
+    }
+}
+
 const fn traversal_view(slug: &'static str, label: &'static str, distance: f32) -> CaptureViewSpec {
     CaptureViewSpec::new(
         slug,
         label,
-        CapturePose::TreeColdTraversal { distance },
+        CapturePose::TreeColdTraversal { distance: authored_metres(distance) },
         80.0,
         200,
     )
@@ -950,7 +954,7 @@ pub(super) const TREE_COLD_TRAVERSAL_VIEWS: [CaptureViewSpec; 41] = [
     CaptureViewSpec::new(
         "warmup",
         "Distant-card pipeline warmup",
-        CapturePose::TreeColdTraversal { distance: 120.0 },
+        CapturePose::TreeColdTraversal { distance: authored_metres(120.0) },
         80.0,
         200,
     )
@@ -1006,7 +1010,7 @@ const fn beech_motion_view(
     CaptureViewSpec::new(
         slug,
         label,
-        CapturePose::TreeColdTraversal { distance },
+        CapturePose::TreeColdTraversal { distance: authored_metres(distance) },
         48.0,
         200,
     )
@@ -1022,7 +1026,7 @@ pub(super) const BEECH_LEAF_MOTION_VIEWS: [CaptureViewSpec; 17] = [
     CaptureViewSpec::new(
         "warmup",
         "Common-beech leaf-card pipeline warmup",
-        CapturePose::TreeColdTraversal { distance: 22.25 },
+        CapturePose::TreeColdTraversal { distance: authored_metres(22.25) },
         48.0,
         200,
     )

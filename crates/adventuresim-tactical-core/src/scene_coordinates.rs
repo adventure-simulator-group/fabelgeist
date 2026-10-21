@@ -10,10 +10,12 @@ pub use spatial::{
     GateDatum, GateRelative, GroundRelative, PlotRelative, Scene, SceneDoorPose,
 };
 pub use window::SceneWindowPose;
+pub use velocity::SceneVelocity;
 
 mod polygon;
 mod spatial;
 mod window;
+mod velocity;
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::prelude::Reflect)]
 #[reflect(opaque)]

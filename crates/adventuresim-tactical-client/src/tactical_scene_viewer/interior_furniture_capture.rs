@@ -319,12 +319,12 @@ mod tests {
                 sizes[0].y.max(sizes[1].y),
                 sizes[0].z.max(sizes[1].z),
             );
-            let camera = catalog_camera(kind, size, Vec3::ZERO);
+            let camera = catalog_camera(kind, adventuresim_building_generator::spatial_geometry::CuboidDimensions::from_metres(size).unwrap(), adventuresim_building_generator::spatial_geometry::Position::ORIGIN).unwrap();
             let view =
-                Transform::from_translation(camera.position).looking_at(camera.target, Vec3::Y);
+                Transform::from_translation(camera.position.metres()).looking_at(camera.target.metres(), Vec3::Y);
             let tangent = (CATALOG_FOV_DEGREES.to_radians() * 0.5).tan();
             for corner in envelope_corners(size) {
-                let local = view.rotation.inverse() * (corner - camera.position);
+                let local = view.rotation.inverse() * (corner - camera.position.metres());
                 assert!(local.z < 0.0, "{kind:?} behind camera");
                 assert!(
                     local.y.abs() < -local.z * tangent,
