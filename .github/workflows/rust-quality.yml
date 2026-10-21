@@ -167,6 +167,16 @@ jobs:
         run: |
           set -o pipefail
           cargo test --locked --package fabelgeist-rig 2>&1 | tee target/rig-contracts/rig.log
+      - name: Test shared scalar geometry contracts
+        run: |
+          set -euo pipefail
+          cargo check --locked --package adventuresim-core --no-default-features
+          cargo test --locked --package adventuresim-building-generator --lib spatial_geometry:: -- --test-threads=1 2>&1 | tee target/rig-contracts/geometry-admission.log
+          cargo test --locked --package fabelgeist-geometry --doc 2>&1 | tee target/rig-contracts/geometry-doc.log
+      - name: Test native iteration report producers
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-server --features iteration --lib iteration:: -- --test-threads=1 2>&1 | tee target/rig-contracts/native-iteration.log
       - name: Test autoresolve battle-time consumers
         run: |
           set -euo pipefail
@@ -311,6 +321,7 @@ jobs:
               raise SystemExit("Recorded rig revision does not match the required PR head")
           required = [
               "rig", "autoresolve", "contact-defense", "mhr", "strategic-bootstrap",
+              "geometry-admission", "geometry-doc", "native-iteration",
               "animation", "audio", "weather-audio", "animation-reports", "equipment", "maneuver-consumers",
               "creator-armor-frames", "creator-clothing",
               "creator-device-frames", "creator-gorget-bib",
