@@ -15,6 +15,7 @@ path = "src/main.rs"
 required-features = ["offline-creator"]
 
 [dependencies]
+fabelgeist-geometry = { path = "../fabelgeist-geometry" }
 fabelgeist-rig = { path = "../fabelgeist-rig" }
 adventuresim-core = { path = "../adventuresim-core" }
 anyhow = "1"

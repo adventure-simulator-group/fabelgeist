@@ -10,8 +10,10 @@ blake3 = { workspace = true }
 bytemuck = { version = "1.16", features = ["derive"] }
 fabelgeist-compute = { path = "../fabelgeist-compute" }
 fabelgeist-garment-code = { path = "../fabelgeist-garment-code" }
+fabelgeist-geometry = { path = "../fabelgeist-geometry" }
 fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
 fabelgeist-math = { path = "../fabelgeist-math" }
+fabelgeist-rig = { path = "../fabelgeist-rig" }
 image = { version = "0.25.10", default-features = false, features = ["png"] }
 pollster = "0.4"
 postcard = { workspace = true }

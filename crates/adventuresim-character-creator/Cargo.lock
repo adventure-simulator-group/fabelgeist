@@ -139,6 +139,7 @@ dependencies = [
  "fabelgeist-determinism",
  "fabelgeist-garment-code",
  "fabelgeist-garment-fit",
+ "fabelgeist-geometry",
  "fabelgeist-gpu",
  "fabelgeist-hair",
  "fabelgeist-math",
@@ -169,6 +170,7 @@ dependencies = [
  "enum-assoc",
  "enumflags2",
  "fabelgeist-determinism",
+ "fabelgeist-geometry",
  "serde",
  "serde-saphyr",
  "serde_json",
@@ -4889,8 +4891,10 @@ dependencies = [
  "bytemuck",
  "fabelgeist-compute",
  "fabelgeist-garment-code",
+ "fabelgeist-geometry",
  "fabelgeist-gpu",
  "fabelgeist-math",
+ "fabelgeist-rig",
  "image",
  "pollster",
  "postcard",
@@ -5020,6 +5024,15 @@ dependencies = [
  "fabelgeist-physics",
  "fabelgeist-shell",
  "fabelgeist-xpbd",
+]
+
+[[package]]
+name = "fabelgeist-geometry"
+version = "0.1.0"
+dependencies = [
+ "bevy_reflect",
+ "serde",
+ "thiserror 2.0.20",
 ]
 
 [[package]]

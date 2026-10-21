@@ -1,22 +1,38 @@
 //! Scalar set-out distances and overlap areas retain their units and admission.
-use super::{CoordinateAxis, GeometryError, GeometryRole, PositiveLength};
-use crate::spatial_geometry::GeometryResult as Result;
-use bevy::reflect::Reflect;
+
+#[cfg(feature = "reflect")]
+use bevy_reflect::Reflect;
 use serde::{Deserialize, Serialize};
+
+use crate::{CoordinateAxis, GeometryError, GeometryResult as Result, GeometryRole, PositiveLength};
 
 /// Finite signed metres, including zero offsets and negative insets.
 /// ```compile_fail
-/// use adventuresim_building_generator::spatial_geometry::{SignedLength, PositiveLength};
+/// use fabelgeist_geometry::{SignedLength, PositiveLength};
 /// fn wrong_role(inset: SignedLength) -> PositiveLength { inset }
 /// ```
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect, Default)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Default)]
+#[cfg_attr(feature = "reflect", derive(Reflect))]
 #[repr(transparent)]
 #[serde(transparent)]
-#[reflect(opaque)]
+#[cfg_attr(feature = "reflect", reflect(opaque))]
 pub struct SignedLength(f32);
+
+/// Finite nonnegative square metres. Empty overlap is a valid zero area.
+/// ```compile_fail
+/// use fabelgeist_geometry::{Area, SignedLength};
+/// fn wrong_unit(area: Area) -> SignedLength { area }
+/// ```
+#[derive(Clone, Copy, Debug, PartialEq, Serialize)]
+#[cfg_attr(feature = "reflect", derive(Reflect))]
+#[repr(transparent)]
+#[serde(transparent)]
+#[cfg_attr(feature = "reflect", reflect(opaque))]
+pub struct Area(f32);
+
 impl SignedLength {
     pub const ZERO: Self = Self(0.0);
-    pub fn from_metres(value: f32) -> Result<Self> {
+    pub const fn from_metres(value: f32) -> Result<Self> {
         if !value.is_finite() {
             return Err(GeometryError::NonFinite {
                 role: GeometryRole::SignedLength,
@@ -25,6 +41,18 @@ impl SignedLength {
         }
         Ok(Self(value))
     }
+    /// A bounded millimetre observation is always finite. Preserve the native
+    /// armor conversion's f32 promotion followed by division, without rounding
+    /// through an intermediate representation or changing it to multiplication.
+    pub fn from_millimetres(value: u16) -> Self {
+        Self(f32::from(value) / 1_000.0)
+    }
+
+    /// Scale a signed offset at its numerical kernel and retain finite admission.
+    pub fn scaled_by(self, factor: f32) -> Result<Self> {
+        Self::from_metres(self.0 * factor)
+    }
+
     pub fn metres(self) -> f32 {
         self.0
     }
@@ -40,16 +68,6 @@ impl<'de> Deserialize<'de> for SignedLength {
     }
 }
 
-/// Finite nonnegative square metres. Empty overlap is a valid zero area.
-/// ```compile_fail
-/// use adventuresim_building_generator::spatial_geometry::{Area, SignedLength};
-/// fn wrong_unit(area: Area) -> SignedLength { area }
-/// ```
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
-#[repr(transparent)]
-#[serde(transparent)]
-#[reflect(opaque)]
-pub struct Area(f32);
 impl Area {
     pub const ZERO: Self = Self(0.0);
     pub fn from_square_metres(value: f32) -> Result<Self> {
