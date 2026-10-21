@@ -85,7 +85,7 @@ impl GroomedHair {
             on_gpu,
             bounds,
             longest,
-            drapes: look.drape,
+            drapes: look.drape.enabled(),
             head,
             scalp,
             scalp_map,

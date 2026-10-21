@@ -6,6 +6,7 @@
 //! which is how parting keeps strands from interpolating across a part
 //! (Blender offsets each group's points far apart for the same effect).
 
+use crate::identity::PartingGroup;
 use std::collections::HashMap;
 
 use fabelgeist_math::Vec3;
@@ -13,7 +14,7 @@ use fabelgeist_math::Vec3;
 pub struct PointGrid {
     cell: f32,
     cells: HashMap<[i32; 3], Vec<u32>>,
-    points: Vec<(Vec3, i32)>,
+    points: Vec<(Vec3, PartingGroup)>,
 }
 
 impl PointGrid {
@@ -26,7 +27,7 @@ impl PointGrid {
     }
 
     /// A grid over `points`, sized so a cell holds a few of them.
-    pub fn build(points: &[(Vec3, i32)], cell: f32) -> Self {
+    pub fn build(points: &[(Vec3, PartingGroup)], cell: f32) -> Self {
         let mut grid = Self::new(cell);
         for &(p, g) in points {
             grid.insert(p, g);
@@ -39,7 +40,7 @@ impl PointGrid {
     }
 
     /// Add a point; returns its index.
-    pub fn insert(&mut self, p: Vec3, group: i32) -> u32 {
+    pub fn insert(&mut self, p: Vec3, group: PartingGroup) -> u32 {
         let index = self.points.len() as u32;
         self.points.push((p, group));
         let key = self.key(p);
@@ -77,7 +78,7 @@ impl PointGrid {
     }
 
     /// Whether any accepted point lies within `radius` of `p`.
-    pub fn any_within(&self, p: Vec3, radius: f32, accept: impl Fn(i32) -> bool) -> bool {
+    pub fn any_within(&self, p: Vec3, radius: f32, accept: impl Fn(PartingGroup) -> bool) -> bool {
         let rings = (radius / self.cell).ceil() as i32;
         let r2 = radius * radius;
         for ring in 0..=rings {
@@ -116,7 +117,7 @@ impl PointGrid {
         p: Vec3,
         k: usize,
         max_radius: f32,
-        accept: impl Fn(i32) -> bool,
+        accept: impl Fn(PartingGroup) -> bool,
     ) -> Vec<(u32, f32)> {
         let mut found: Vec<(u32, f32)> = Vec::with_capacity(k + 8);
         let max_rings = (max_radius / self.cell).ceil().min(1e6) as i32;
@@ -147,7 +148,7 @@ impl PointGrid {
         &self,
         p: Vec3,
         max_radius: f32,
-        accept: impl Fn(i32) -> bool,
+        accept: impl Fn(PartingGroup) -> bool,
     ) -> Option<(u32, f32)> {
         self.nearest_k(p, 1, max_radius, accept).first().copied()
     }
@@ -161,22 +162,22 @@ mod tests {
     #[test]
     fn nearest_k_matches_brute_force() {
         let mut rng = Rng::new(3);
-        let points: Vec<(Vec3, i32)> = (0..500)
+        let points: Vec<(Vec3, PartingGroup)> = (0..500)
             .map(|i| {
                 (
                     Vec3::new(rng.next_f32(), rng.next_f32(), rng.next_f32() * 0.1),
-                    i % 2,
+                    PartingGroup::from_gpu_word(i % 2),
                 )
             })
             .collect();
         let grid = PointGrid::build(&points, 0.05);
         for _ in 0..50 {
             let q = Vec3::new(rng.next_f32(), rng.next_f32(), 0.05);
-            let got = grid.nearest_k(q, 4, 10.0, |g| g == 1);
+            let got = grid.nearest_k(q, 4, 10.0, |g| g == PartingGroup::from_gpu_word(1));
             let mut brute: Vec<(u32, f32)> = points
                 .iter()
                 .enumerate()
-                .filter(|(_, (_, g))| *g == 1)
+                .filter(|(_, (_, g))| *g == PartingGroup::from_gpu_word(1))
                 .map(|(i, (p, _))| (i as u32, (*p - q).length()))
                 .collect();
             brute.sort_by(|a, b| a.1.total_cmp(&b.1));

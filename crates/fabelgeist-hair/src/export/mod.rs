@@ -9,6 +9,7 @@
 //! * [`ply`]: enough of PLY to read and write a scalp mesh.
 //! * [`png`]: grey PNGs, for DiffLocks' density maps.
 
+pub mod error;
 pub mod npz;
 pub mod ply;
 pub mod png;
@@ -16,7 +17,7 @@ pub mod usc;
 
 use std::path::Path;
 
-use anyhow::Result;
+use self::error::Result;
 
 use crate::strands::Strands;
 

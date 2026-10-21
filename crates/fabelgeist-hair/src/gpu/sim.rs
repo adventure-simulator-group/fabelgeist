@@ -16,9 +16,10 @@
 //! detail ([`SimLevel`]); [`GpuGroomer::resimulate`] moves a running
 //! simulation to another, carrying its motion.
 
-use anyhow::Result;
+use crate::gpu::error::Result;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_compute::PrefixSumScratch;
+use fabelgeist_compute::ScanElementCount;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_math::Vec3;
@@ -28,6 +29,8 @@ use super::{GpuGroomer, GpuLods, head_shape, storage, upload};
 use crate::head::Head;
 use crate::rod::Rod;
 use crate::sim::{Rigid, SimLevel, SimSettings, blend};
+
+mod density;
 
 /// The density grid, in the head's frame.
 struct SimGrid {
@@ -202,8 +205,16 @@ impl GpuGroomer {
         let context = self.context.clone();
         let first = &lods.levels[0];
         // Each new strand's nearest among the old ones.
-        let ids = storage(&context, sim.count as u64 * 16, "hair sim transfer ids")?;
-        let weights = storage(&context, sim.count as u64 * 16, "hair sim transfer weights")?;
+        let ids = storage(
+            &context,
+            (sim.count as u64 * 16).into(),
+            "hair sim transfer ids".into(),
+        )?;
+        let weights = storage(
+            &context,
+            (sim.count as u64 * 16).into(),
+            "hair sim transfer weights".into(),
+        )?;
         let mut batch = KernelBatch::labelled(&context, "hair sim transfer");
         batch.dispatch_folded(
             &self.kernels.sim_bind,
@@ -255,20 +266,28 @@ impl GpuGroomer {
         let count = (settings.guides as u32).min(strands).max(1.min(strands));
         let points = (settings.points as u32).max(2);
         let words = (count * points) as u64 * 16;
-        let rest = storage(&context, words, "hair sim rest")?;
-        let shape = storage(&context, words * 2, "hair sim rod rest")?;
-        let frames = storage(&context, words * 2, "hair sim frames")?;
-        let factors = storage(&context, words * 14, "hair sim factors")?;
-        let position = storage(&context, words, "hair sim positions")?;
-        let previous = storage(&context, words, "hair sim previous")?;
-        let ids = storage(&context, strands as u64 * 16, "hair sim bind ids")?;
-        let weights = storage(&context, strands as u64 * 16, "hair sim bind weights")?;
+        let rest = storage(&context, (words).into(), "hair sim rest".into())?;
+        let shape = storage(&context, (words * 2).into(), "hair sim rod rest".into())?;
+        let frames = storage(&context, (words * 2).into(), "hair sim frames".into())?;
+        let factors = storage(&context, (words * 14).into(), "hair sim factors".into())?;
+        let position = storage(&context, (words).into(), "hair sim positions".into())?;
+        let previous = storage(&context, (words).into(), "hair sim previous".into())?;
+        let ids = storage(
+            &context,
+            (strands as u64 * 16).into(),
+            "hair sim bind ids".into(),
+        )?;
+        let weights = storage(
+            &context,
+            (strands as u64 * 16).into(),
+            "hair sim bind weights".into(),
+        )?;
         let body = upload(
             &context,
             &head.map(head_shape).unwrap_or_else(|| vec![[0.0; 4]; 17]),
-            "hair sim head",
+            "hair sim head".into(),
         )?;
-        let longest = storage(&context, 16, "hair sim longest segment")?;
+        let longest = storage(&context, 16_u64.into(), "hair sim longest segment".into())?;
         let mut batch = KernelBatch::labelled(&context, "hair sim");
         batch.clear_buffer(&longest);
         batch.dispatch_folded(
@@ -303,46 +322,13 @@ impl GpuGroomer {
         let [lo, hi] = lods.bounds;
         let pad = Vec3::new(0.08, 0.15, 0.08);
         let (lo, hi) = (lo - pad, hi + pad);
-        let mut cell = settings.grid_cell.max(0.002);
-        let dims = |cell: f32| {
-            let e = hi - lo;
-            [e.x, e.y, e.z].map(|e| ((e / cell).ceil() as u32).max(1))
-        };
-        while dims(cell).iter().map(|&d| d as u64).product::<u64>() > 1 << 21 {
-            cell *= 1.25;
-        }
-        let grid = {
-            let dims = dims(cell);
-            let cells = dims.iter().product::<u32>() as u64;
-            SimGrid {
-                lo,
-                cell,
-                dims,
-                words: storage(&context, cells * 16, "hair sim grid")?,
-                rest_density: storage(&context, cells * 4, "hair sim rest density")?,
-                stats: storage(&context, 16, "hair sim rest density stats")?,
-            }
-        };
-        batch.clear_buffer(&grid.rest_density);
-        batch.clear_buffer(&grid.stats);
-        let mut p = params! {
-            "rest" => rest.clone(),
-            "rest_density" => grid.rest_density.clone(),
-            "count" => count * points,
-        };
-        grid.insert(&mut p);
-        batch.dispatch_folded(&self.kernels.sim_rest_density, &p, count * points)?;
-        batch.dispatch_folded(
-            &self.kernels.sim_rest_stats,
-            &params! {
-                "rest_density" => grid.rest_density.clone(),
-                "stats" => grid.stats.clone(),
-                "count" => grid.cells(),
-                "pad0" => 0u32,
-                "pad1" => 0u32,
-                "pad2" => 0u32,
-            },
-            grid.cells(),
+        let grid = self.record_rest_density(
+            &mut batch,
+            &rest,
+            count * points,
+            lo,
+            hi,
+            settings.grid_cell,
         )?;
 
         // The colliding strands are the first: a wisp each, as wide as
@@ -375,16 +361,17 @@ impl GpuGroomer {
             dims,
             counts: storage(
                 &context,
-                (cell_count as u64 + 1) * 4,
-                "hair sim collision cells",
+                ((cell_count as u64 + 1) * 4).into(),
+                "hair sim collision cells".into(),
             )?,
-            scan: PrefixSumScratch::new(&context, cell_count + 1)?,
+            scan: PrefixSumScratch::new(&context, ScanElementCount::from_elements(cell_count + 1))?,
         };
         // Samples two radii apart: the narrow phase takes the segments as
         // they are, and samples need only find which are near.
         let per_segment = ((longest / (2.0 * radius)).ceil() as u32).clamp(1, 16);
         let sample_count = (colliders * (points - 1) * per_segment).max(1);
-        let sample_buffer = |label: &str| storage(&context, sample_count as u64 * 16, label);
+        let sample_buffer =
+            |label: &str| storage(&context, (sample_count as u64 * 16).into(), (label).into());
         Ok(GpuSim {
             settings,
             count,
@@ -414,26 +401,30 @@ impl GpuGroomer {
             have_before: false,
             sample_data: storage(
                 &context,
-                sample_count as u64 * 80,
-                "hair sim sample segments",
+                (sample_count as u64 * 80).into(),
+                "hair sim sample segments".into(),
             )?,
             per_segment,
             radius,
-            sample_slots: storage(&context, sample_count as u64 * 8, "hair sim sample cells")?,
+            sample_slots: storage(
+                &context,
+                (sample_count as u64 * 8).into(),
+                "hair sim sample cells".into(),
+            )?,
             sorted: storage(
                 &context,
-                sample_count as u64 * 128,
-                "hair sim sorted samples",
+                (sample_count as u64 * 128).into(),
+                "hair sim sorted samples".into(),
             )?,
             sorted_index: storage(
                 &context,
-                sample_count as u64 * 4,
-                "hair sim sorted samples' order",
+                (sample_count as u64 * 4).into(),
+                "hair sim sorted samples' order".into(),
             )?,
             asks: storage(
                 &context,
-                sample_count as u64 * 32,
-                "hair sim collision asks",
+                (sample_count as u64 * 32).into(),
+                "hair sim collision asks".into(),
             )?,
         })
     }
@@ -711,9 +702,12 @@ impl GpuSim {
         };
         insert_rigid(&mut p, head);
         batch.dispatch_folded(&groomer.kernels.sim_samples, &p, samples)?;
-        groomer
-            .scan
-            .record(batch, &cells.counts, &cells.scan, cell_count + 1)?;
+        groomer.scan.record(
+            batch,
+            &cells.counts,
+            &cells.scan,
+            ScanElementCount::from_elements(cell_count + 1),
+        )?;
         batch.dispatch_folded(
             &groomer.kernels.sim_sort_samples,
             &params! {
@@ -770,12 +764,12 @@ impl GpuSim {
 
     /// The simulated strands' points, read back: for tests and tools.
     pub fn read_positions(&self, groomer: &GpuGroomer) -> Result<Vec<[f32; 4]>> {
-        pollster::block_on(self.position.read(groomer.context()))
+        Ok(pollster::block_on(self.position.read(groomer.context()))?)
     }
 
     /// The simulated strands' groomed points, read back.
     pub fn read_rest(&self, groomer: &GpuGroomer) -> Result<Vec<[f32; 4]>> {
-        pollster::block_on(self.rest.read(groomer.context()))
+        Ok(pollster::block_on(self.rest.read(groomer.context()))?)
     }
 
     /// Where the strands are, and were a substep ago, their frames along

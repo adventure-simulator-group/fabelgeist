@@ -9,7 +9,7 @@
 use fabelgeist_compute::Readback;
 use fabelgeist_gpu::prelude::Buffer;
 
-use super::{ArmorGpu, device_error};
+use super::ArmorGpu;
 use crate::GenerateError;
 
 /// Buffers waiting to be read back together.
@@ -69,9 +69,9 @@ impl ArmorGpu {
         staging: Staging<'_>,
     ) -> Result<StagedResults, GenerateError> {
         let mut batch = self.batch("armor readback");
-        let readback = Readback::record(self.context(), &mut batch, &staging.buffers);
+        let readback = Readback::record(self.context(), &mut batch, &staging.buffers)?;
         batch.submit();
-        let bytes = readback.read(self.context()).await.map_err(device_error)?;
+        let bytes = readback.read(self.context()).await?;
         Ok(StagedResults { bytes })
     }
 }

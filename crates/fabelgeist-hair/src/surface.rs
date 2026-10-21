@@ -7,7 +7,7 @@
 //! queried for its closest point to attach them (Blender's `Sample UV
 //! Surface` and `Geometry Proximity`).
 
-use anyhow::{Context, Result, bail};
+use crate::export::error::{HairDataError, Result};
 use fabelgeist_bvh::TriangleBvh;
 use fabelgeist_math::Vec3;
 
@@ -152,7 +152,7 @@ impl Surface {
                 .find_map(|n| ply.vertex_properties.iter().position(|p| p == n))
         };
         let (Some(x), Some(y), Some(z)) = (find(&["x"]), find(&["y"]), find(&["z"])) else {
-            bail!("a PLY surface needs vertex x, y and z");
+            return Err(HairDataError::PlyMissingCoordinates);
         };
         let positions: Vec<Vec3> = ply
             .vertices
@@ -182,18 +182,21 @@ impl Surface {
             }
         }
         if triangles.is_empty() {
-            bail!("the PLY has no faces");
+            return Err(HairDataError::PlyMissingFaces);
         }
         let count = positions.len() as u32;
         if triangles.iter().flatten().any(|&i| i >= count) {
-            bail!("a face refers past the last vertex");
+            return Err(HairDataError::PlyVertexIndex);
         }
         Ok(Self::new(positions, normals, uvs, triangles))
     }
 
     /// Read a PLY surface from a file.
     pub fn load_ply(path: &std::path::Path) -> Result<Self> {
-        let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
+        let bytes = std::fs::read(path).map_err(|source| HairDataError::FileIo {
+            path: path.to_owned(),
+            source,
+        })?;
         Self::from_ply(&bytes)
     }
 

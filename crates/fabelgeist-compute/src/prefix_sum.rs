@@ -16,6 +16,53 @@ use crate::prelude::*;
 use fabelgeist_gpu::prelude::BufferByteLength;
 use std::sync::Arc;
 
+/// Number of `u32` elements in an exclusive scan, not a byte extent.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
+pub struct ScanElementCount(u32);
+
+/// The scan's application-owned failures, retaining lower-level GPU causes.
+#[derive(Debug, thiserror::Error)]
+pub enum ScanError {
+    #[error("scan requires {requested} elements but scratch holds {capacity}")]
+    ScratchTooSmall {
+        requested: ScanElementCount,
+        capacity: ScanElementCount,
+    },
+    #[error("scan requires {required:?} but the input buffer holds {available:?}")]
+    BufferTooSmall {
+        required: BufferByteLength,
+        available: BufferByteLength,
+    },
+    #[error("scan scratch is missing a recursion level")]
+    MissingScratchLevel,
+    #[error("scan GPU operation failed")]
+    Gpu(#[from] anyhow::Error),
+}
+
+type Result<T> = std::result::Result<T, ScanError>;
+
+impl ScanElementCount {
+    /// Admit an element count at a native collection or GPU-word boundary.
+    pub const fn from_elements(elements: u32) -> Self {
+        Self(elements)
+    }
+
+    /// The GPU uniform's fixed-width representation.
+    pub const fn elements(self) -> u32 {
+        self.0
+    }
+
+    pub fn byte_length(self) -> BufferByteLength {
+        BufferByteLength::from(u64::from(self.0) * std::mem::size_of::<u32>() as u64)
+    }
+}
+
+impl std::fmt::Display for ScanElementCount {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(formatter)
+    }
+}
+
 /// Elements per block, and threads per workgroup.
 const BLOCK: u32 = 256;
 
@@ -121,23 +168,22 @@ pub struct PrefixSumScratch {
     /// Bound as `sums` where a pass writes none, because a binding cannot be
     /// left empty.
     unused: Buffer,
-    capacity: u32,
+    capacity: ScanElementCount,
 }
 
 impl PrefixSumScratch {
-    pub fn new(context: &WgpuContext, capacity: u32) -> Result<Self> {
-        let capacity = capacity.max(1);
+    pub fn new(context: &WgpuContext, capacity: ScanElementCount) -> Result<Self> {
+        let capacity = capacity.max(ScanElementCount::from_elements(1));
         let storage = BufferDefinition::storage();
         let mut levels = Vec::new();
-        let mut count = capacity;
+        // Native recursion arithmetic computes the GPU scratch layout in words.
+        let mut count = capacity.elements();
         while count > BLOCK {
             count = count.div_ceil(BLOCK);
             levels.push(Buffer::new(
                 context,
                 (count as u64 * 4).into(),
-                storage
-                    .clone()
-                    .with_label(("prefix sum block totals").into()),
+                storage.clone().with_label("prefix sum block totals".into()),
             )?);
         }
         Ok(Self {
@@ -145,18 +191,18 @@ impl PrefixSumScratch {
             unused: Buffer::new(
                 context,
                 BufferByteLength::from(4_u64),
-                storage.with_label(("prefix sum unused").into()),
+                storage.with_label("prefix sum unused".into()),
             )?,
             capacity,
         })
     }
 
-    pub fn capacity(&self) -> u32 {
+    pub fn capacity(&self) -> ScanElementCount {
         self.capacity
     }
 
     /// Reallocate if `capacity` no longer fits. Returns whether it grew.
-    pub fn ensure(&mut self, context: &WgpuContext, capacity: u32) -> Result<bool> {
+    pub fn ensure(&mut self, context: &WgpuContext, capacity: ScanElementCount) -> Result<bool> {
         if capacity <= self.capacity {
             return Ok(false);
         }
@@ -196,25 +242,31 @@ impl PrefixSum {
         batch: &mut KernelBatch,
         data: &Buffer,
         scratch: &PrefixSumScratch,
-        count: u32,
+        count: ScanElementCount,
     ) -> Result<()> {
-        if count == 0 {
+        if count.elements() == 0 {
             return Ok(());
         }
         if count > scratch.capacity {
-            return Err(anyhow!(
-                "PrefixSum: scratch holds {} elements, asked to scan {count}",
-                scratch.capacity
-            ));
+            return Err(ScanError::ScratchTooSmall {
+                requested: count,
+                capacity: scratch.capacity,
+            });
         }
-        if data.size < (count as u64 * 4).into() {
-            return Err(anyhow!(
-                "PrefixSum: {count} elements need {} bytes; the buffer holds {}",
-                count as u64 * 4,
-                data.size
-            ));
+        let required = count.byte_length();
+        if data.size < required {
+            return Err(ScanError::BufferTooSmall {
+                required,
+                available: data.size,
+            });
         }
-        self.record_level(batch, data, &scratch.levels, &scratch.unused, count)
+        self.record_level(
+            batch,
+            data,
+            &scratch.levels,
+            &scratch.unused,
+            count.elements(),
+        )
     }
 
     fn record_level(
@@ -239,9 +291,7 @@ impl PrefixSum {
             return Ok(());
         }
 
-        let (sums, deeper) = levels
-            .split_first()
-            .ok_or_else(|| anyhow!("PrefixSum: scratch is missing a level"))?;
+        let (sums, deeper) = levels.split_first().ok_or(ScanError::MissingScratchLevel)?;
         parameters.insert("write_sums", 1u32);
         parameters.insert("sums", sums.clone());
         batch.dispatch(&self.scan_blocks, &parameters, grid(blocks))?;
@@ -259,7 +309,7 @@ impl PrefixSum {
         context: &WgpuContext,
         data: &Buffer,
         scratch: &PrefixSumScratch,
-        count: u32,
+        count: ScanElementCount,
     ) -> Result<()> {
         let mut batch = KernelBatch::labelled(context, "PrefixSum");
         self.record(&mut batch, data, scratch, count)?;
@@ -286,7 +336,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn matches_the_host_at_every_depth() -> Result<()> {
+    async fn matches_the_host_at_every_depth() -> anyhow::Result<()> {
         let context = WgpuContext::new().await?;
         let prefix_sum = PrefixSum::new(&context)?;
 
@@ -300,8 +350,13 @@ mod tests {
                 BufferUpload::from_elements(&values),
                 BufferDefinition::storage(),
             )?;
-            let scratch = PrefixSumScratch::new(&context, count)?;
-            prefix_sum.run(&context, &buffer, &scratch, count)?;
+            let scratch = PrefixSumScratch::new(&context, ScanElementCount::from_elements(count))?;
+            prefix_sum.run(
+                &context,
+                &buffer,
+                &scratch,
+                ScanElementCount::from_elements(count),
+            )?;
 
             let scanned: Vec<u32> = buffer.read(&context).await?;
             assert_eq!(scanned, exclusive(&values), "count {count}");
@@ -310,7 +365,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn leaves_the_words_past_count_alone() -> Result<()> {
+    async fn leaves_the_words_past_count_alone() -> anyhow::Result<()> {
         let context = WgpuContext::new().await?;
         let prefix_sum = PrefixSum::new(&context)?;
         let values = vec![1u32; 600];
@@ -319,8 +374,13 @@ mod tests {
             BufferUpload::from_elements(&values),
             BufferDefinition::storage(),
         )?;
-        let scratch = PrefixSumScratch::new(&context, 600)?;
-        prefix_sum.run(&context, &buffer, &scratch, 513)?;
+        let scratch = PrefixSumScratch::new(&context, ScanElementCount::from_elements(600))?;
+        prefix_sum.run(
+            &context,
+            &buffer,
+            &scratch,
+            ScanElementCount::from_elements(513),
+        )?;
 
         let scanned: Vec<u32> = buffer.read(&context).await?;
         assert_eq!(&scanned[..513], &(0..513).collect::<Vec<_>>()[..]);
@@ -329,7 +389,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn refuses_more_than_its_scratch_holds() -> Result<()> {
+    async fn refuses_more_than_its_scratch_holds() -> anyhow::Result<()> {
         let context = WgpuContext::new().await?;
         let prefix_sum = PrefixSum::new(&context)?;
         let buffer = Buffer::from_upload(
@@ -337,8 +397,12 @@ mod tests {
             BufferUpload::from_elements(&[0u32; 1024]),
             BufferDefinition::storage(),
         )?;
-        let scratch = PrefixSumScratch::new(&context, 100)?;
-        assert!(prefix_sum.run(&context, &buffer, &scratch, 1024).is_err());
+        let scratch = PrefixSumScratch::new(&context, ScanElementCount::from_elements(100))?;
+        assert!(
+            matches!(prefix_sum.run(&context, &buffer, &scratch, ScanElementCount::from_elements(1024)),
+            Err(ScanError::ScratchTooSmall { requested, capacity })
+                if requested == ScanElementCount::from_elements(1024) && capacity == ScanElementCount::from_elements(100))
+        );
         Ok(())
     }
 }

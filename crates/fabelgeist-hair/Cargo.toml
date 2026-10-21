@@ -6,9 +6,11 @@ license = "GPL-3.0"
 repository = "https://github.com/adventure-simulator-group/fabelgeist"
 
 [dependencies]
+fabelgeist-determinism = { path = "../fabelgeist-determinism" }
 fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
 fabelgeist-bvh = { "default-features" = false, "path" = "../fabelgeist-bvh" }
 anyhow = { "version" = "1.0" }
+thiserror = "2"
 bytemuck = { "version" = "1.16", "features" = ["derive"] }
 rayon = { "version" = "1.10" }
 web-time = { "version" = "1.1.0" }

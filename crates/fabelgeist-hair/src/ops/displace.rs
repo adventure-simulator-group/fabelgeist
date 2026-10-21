@@ -141,12 +141,12 @@ impl Frizz {
                     tangents(strand, t);
                     normals(t, n);
                     offsets.clear();
-                    let wild = rng::unit(ids[s], seed ^ 0xF1A7) < self.share;
+                    let wild = rng::unit((ids[s]).word(), seed ^ 0xF1A7) < self.share;
                     let scale = if wild { scale } else { scale * self.calm };
                     if scale == 0.0 {
                         return;
                     }
-                    let origin = rng::signed_vec3(ids[s], seed ^ 0x0F75) * 50.0;
+                    let origin = rng::signed_vec3((ids[s]).word(), seed ^ 0x0F75) * 50.0;
                     for j in 0..points {
                         let r = if self.frequency > 0.0 {
                             // A smooth wander: noise along the strand, the
@@ -155,7 +155,7 @@ impl Frizz {
                             let c = noise::noise_color(q, 1.0) - Vec3::splat(0.5);
                             c * (2.0 * scale * lengths[1].max(1e-6) * self.frequency)
                         } else {
-                            rng::signed_vec3(rng::hash(ids[s], j as u32), seed) * scale
+                            rng::signed_vec3(rng::hash((ids[s]).word(), j as u32), seed) * scale
                         };
                         let b = t[j].cross(n[j]);
                         offsets.push(t[j] * r.x + b * r.y + n[j] * r.z);
@@ -188,7 +188,7 @@ impl Noise {
                     tangents(strand, t);
                     normals(t, n);
                     let base = strand[0] * self.scale + origin;
-                    let along = rng::signed(ids[s], seed) * self.offset_per_curve;
+                    let along = rng::signed((ids[s]).word(), seed) * self.offset_per_curve;
                     offsets.clear();
                     for j in 0..points {
                         let z = lengths[j] * self.scale_along_curve + along;
@@ -312,8 +312,8 @@ impl Wave {
                     parameters(strand, lengths, factors);
                     tangents(strand, t);
                     let lock = ids[map.guide[s] as usize];
-                    let phase = (rng::unit(lock, seed)
-                        + rng::signed(ids[s], seed ^ 0x51) * self.random_phase)
+                    let phase = (rng::unit((lock).word(), seed)
+                        + rng::signed((ids[s]).word(), seed ^ 0x51) * self.random_phase)
                         * std::f32::consts::TAU;
                     let out = normals_at_root[s];
                     for j in 1..points {

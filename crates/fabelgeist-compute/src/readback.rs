@@ -13,79 +13,139 @@
 //! and until then says so rather than waiting: a simulation stepped on the
 //! GPU can be read every frame without the CPU ever stalling on it.
 
-use std::sync::Arc;
-use std::sync::atomic::{AtomicU8, Ordering};
+use std::sync::{Arc, Mutex, MutexGuard};
 
-use crate::prelude::*;
-#[cfg(test)]
-use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, BufferByteOffset, WgpuContext};
 
-/// Copy offsets must be multiples of this many bytes.
-const ALIGNMENT: u64 = wgpu::COPY_BUFFER_ALIGNMENT;
+use crate::KernelBatch;
+
+type Result<T> = std::result::Result<T, ReadbackError>;
+
+/// A buffer's admitted location in the shared staging allocation.
+#[derive(Clone, Copy, Debug)]
+struct StagedRange {
+    offset: BufferByteOffset,
+    length: BufferByteLength,
+}
 
 /// Results staged for one mapping.
 #[derive(Debug)]
 pub struct Readback {
     staging: wgpu::Buffer,
-    /// Byte offset and length of each staged buffer.
-    ranges: Vec<(u64, u64)>,
+    ranges: Vec<StagedRange>,
+}
+
+/// Results on their way back: see [`Readback::record_pending`].
+#[derive(Debug)]
+pub struct PendingReadback {
+    staging: Arc<wgpu::Buffer>,
+    ranges: Vec<StagedRange>,
+    state: Arc<Mutex<ReadbackState>>,
+}
+
+/// Failures of recording or retrieving a batch of GPU results.
+#[derive(Debug, thiserror::Error)]
+pub enum ReadbackError {
+    #[error("readback staging extent exceeds the addressable buffer size")]
+    ExtentOverflow,
+    #[error("readback mapping callback was dropped")]
+    ChannelClosed,
+    #[error("readback mapping failed")]
+    Mapping(#[source] wgpu::BufferAsyncError),
+    #[error("readback device polling failed")]
+    Poll(#[source] wgpu::PollError),
+    #[error("readback results have already been taken")]
+    AlreadyRead,
+}
+
+#[derive(Debug)]
+enum ReadbackState {
+    Pending,
+    Ready,
+    Failed(wgpu::BufferAsyncError),
+    Taken,
+}
+
+impl StagedRange {
+    /// Convert byte addresses only when slicing the mapped native bytes.
+    fn bytes(self, data: &[u8]) -> Vec<u8> {
+        let start = u64::from(self.offset) as usize;
+        let length = u64::from(self.length) as usize;
+        data[start..start + length].to_vec()
+    }
 }
 
 impl Readback {
-    /// Record copies of `buffers` into a new staging buffer, in `batch` after
-    /// everything already recorded there.
-    pub fn record(context: &WgpuContext, batch: &mut KernelBatch, buffers: &[&Buffer]) -> Self {
+    /// Record each source's typed extent in an aligned staging allocation.
+    /// Overflow is rejected before a GPU allocation or copy is recorded.
+    pub fn record(
+        context: &WgpuContext,
+        batch: &mut KernelBatch,
+        buffers: &[&Buffer],
+    ) -> Result<Self> {
         let mut ranges = Vec::with_capacity(buffers.len());
-        let mut size = 0;
+        let mut end = BufferByteOffset::START;
         for buffer in buffers {
-            ranges.push((size, u64::from(buffer.size)));
-            size += u64::from(buffer.size).div_ceil(ALIGNMENT) * ALIGNMENT;
+            ranges.push(StagedRange {
+                offset: end,
+                length: buffer.size,
+            });
+            // wgpu's copy alignment is a byte-layout boundary. Preserve the
+            // original padding and ordering while checking the total extent.
+            let padded = u64::from(buffer.size)
+                .div_ceil(wgpu::COPY_BUFFER_ALIGNMENT)
+                .checked_mul(wgpu::COPY_BUFFER_ALIGNMENT)
+                .ok_or(ReadbackError::ExtentOverflow)?;
+            end = end
+                .checked_after(BufferByteLength::from(padded))
+                .ok_or(ReadbackError::ExtentOverflow)?;
         }
         let staging = context.device.create_buffer(&wgpu::BufferDescriptor {
             label: Some("Readback"),
-            size: size.max(ALIGNMENT),
+            size: u64::from(end).max(wgpu::COPY_BUFFER_ALIGNMENT),
             usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
             mapped_at_creation: false,
         });
-        for (buffer, (offset, length)) in buffers.iter().zip(&ranges) {
-            batch
-                .encoder()
-                .copy_buffer_to_buffer(&buffer.buffer, 0, &staging, *offset, *length);
+        for (buffer, range) in buffers.iter().zip(&ranges) {
+            batch.encoder().copy_buffer_to_buffer(
+                &buffer.buffer,
+                0,
+                &staging,
+                u64::from(range.offset),
+                u64::from(range.length),
+            );
         }
-        Self { staging, ranges }
+        Ok(Self { staging, ranges })
     }
 
-    /// Record as [`Readback::record`] does, and ask for the mapping as soon
-    /// as `batch` is submitted, without waiting for it.
+    /// Record copies and request mapping when the producing batch is submitted.
     pub fn record_pending(
         context: &WgpuContext,
         batch: &mut KernelBatch,
         buffers: &[&Buffer],
-    ) -> PendingReadback {
-        let Self { staging, ranges } = Self::record(context, batch, buffers);
-        let state = Arc::new(AtomicU8::new(PENDING));
+    ) -> Result<PendingReadback> {
+        let Self { staging, ranges } = Self::record(context, batch, buffers)?;
+        let state = Arc::new(Mutex::new(ReadbackState::Pending));
         let staging = Arc::new(staging);
-        let (mapped, flag) = (staging.clone(), state.clone());
+        let (mapped, shared) = (staging.clone(), state.clone());
         batch.after_submit(move || {
             mapped
                 .slice(..)
                 .map_async(wgpu::MapMode::Read, move |result| {
-                    flag.store(
-                        if result.is_ok() { READY } else { FAILED },
-                        Ordering::Release,
-                    );
+                    *lock_state(&shared) = match result {
+                        Ok(()) => ReadbackState::Ready,
+                        Err(error) => ReadbackState::Failed(error),
+                    };
                 });
         });
-        PendingReadback {
+        Ok(PendingReadback {
             staging,
             ranges,
             state,
-        }
+        })
     }
 
-    /// Map the staging buffer once the batch has been submitted, and return
-    /// each buffer's bytes in the order they were recorded. On native targets
-    /// this waits on the device.
+    /// Map once and return each source's bytes in the recorded order.
     pub async fn read(self, context: &WgpuContext) -> Result<Vec<Vec<u8>>> {
         let slice = self.staging.slice(..);
         let (sender, receiver) = futures_channel::oneshot::channel();
@@ -93,83 +153,82 @@ impl Readback {
             let _ = sender.send(result);
         });
         #[cfg(not(target_arch = "wasm32"))]
-        let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+        context
+            .device
+            .poll(wgpu::PollType::wait_indefinitely())
+            .map_err(ReadbackError::Poll)?;
         #[cfg(target_arch = "wasm32")]
         let _ = context;
         receiver
             .await
-            .map_err(|_| anyhow!("Readback: mapping channel closed"))?
-            .map_err(|error| anyhow!("Readback: mapping failed: {error:?}"))?;
+            .map_err(|_| ReadbackError::ChannelClosed)?
+            .map_err(ReadbackError::Mapping)?;
         let data = slice.get_mapped_range();
-        let results = self
-            .ranges
-            .iter()
-            .map(|(offset, length)| data[*offset as usize..(*offset + *length) as usize].to_vec())
-            .collect();
+        let results = self.ranges.iter().map(|range| range.bytes(&data)).collect();
         drop(data);
         self.staging.unmap();
         Ok(results)
     }
 }
 
-const PENDING: u8 = 0;
-const READY: u8 = 1;
-const FAILED: u8 = 2;
-const TAKEN: u8 = 3;
-
-/// Results on their way back: see [`Readback::record_pending`].
-#[derive(Debug)]
-pub struct PendingReadback {
-    staging: Arc<wgpu::Buffer>,
-    ranges: Vec<(u64, u64)>,
-    state: Arc<AtomicU8>,
-}
-
 impl PendingReadback {
-    /// Each buffer's bytes, in the order they were recorded, if the GPU has
-    /// finished with them; `None` if not yet. Never waits: on native targets
-    /// it only gives the device a chance to report what has finished.
+    /// Take completed results once, returning `None` while mapping is pending.
     pub fn try_read(&self, context: &WgpuContext) -> Result<Option<Vec<Vec<u8>>>> {
-        #[cfg(not(target_arch = "wasm32"))]
-        let _ = context.device.poll(wgpu::PollType::Poll);
-        #[cfg(target_arch = "wasm32")]
-        let _ = context;
-        match self.state.load(Ordering::Acquire) {
-            PENDING => return Ok(None),
-            FAILED => return Err(anyhow!("Readback: mapping failed")),
-            TAKEN => return Err(anyhow!("Readback: already read")),
-            _ => {}
+        poll(context)?;
+        let mut state = lock_state(&self.state);
+        match &*state {
+            ReadbackState::Pending => return Ok(None),
+            ReadbackState::Failed(error) => return Err(ReadbackError::Mapping(error.clone())),
+            ReadbackState::Taken => return Err(ReadbackError::AlreadyRead),
+            ReadbackState::Ready => {}
         }
         let slice = self.staging.slice(..);
         let data = slice.get_mapped_range();
-        let results = self
-            .ranges
-            .iter()
-            .map(|(offset, length)| data[*offset as usize..(*offset + *length) as usize].to_vec())
-            .collect();
+        let results = self.ranges.iter().map(|range| range.bytes(&data)).collect();
         drop(data);
         self.staging.unmap();
-        // Read once: the staging buffer is no longer mapped.
-        self.state.store(TAKEN, Ordering::Release);
+        *state = ReadbackState::Taken;
         Ok(Some(results))
     }
 
-    /// Whether the results are back, without taking them.
-    pub fn is_ready(&self, context: &WgpuContext) -> bool {
-        #[cfg(not(target_arch = "wasm32"))]
-        let _ = context.device.poll(wgpu::PollType::Poll);
-        #[cfg(target_arch = "wasm32")]
-        let _ = context;
-        self.state.load(Ordering::Acquire) == READY
+    /// Observe readiness without taking the mapped results.
+    pub fn is_ready(&self, context: &WgpuContext) -> Result<bool> {
+        poll(context)?;
+        match &*lock_state(&self.state) {
+            ReadbackState::Ready => Ok(true),
+            ReadbackState::Failed(error) => Err(ReadbackError::Mapping(error.clone())),
+            ReadbackState::Pending | ReadbackState::Taken => Ok(false),
+        }
+    }
+}
+
+fn poll(context: &WgpuContext) -> Result<()> {
+    #[cfg(not(target_arch = "wasm32"))]
+    context
+        .device
+        .poll(wgpu::PollType::Poll)
+        .map_err(ReadbackError::Poll)?;
+    #[cfg(target_arch = "wasm32")]
+    let _ = context;
+    Ok(())
+}
+
+fn lock_state(state: &Mutex<ReadbackState>) -> MutexGuard<'_, ReadbackState> {
+    // The callback replaces one complete enum value. A poisoned lock cannot
+    // expose a partially updated record, so retain the recorded GPU outcome.
+    match state.lock() {
+        Ok(state) => state,
+        Err(poisoned) => poisoned.into_inner(),
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use fabelgeist_gpu::prelude::{BufferDefinition, BufferUpload};
 
     #[tokio::test]
-    async fn every_buffer_comes_back_in_order() -> Result<()> {
+    async fn every_buffer_comes_back_in_order() -> anyhow::Result<()> {
         let context = WgpuContext::new().await?;
         let definition = BufferDefinition::storage();
         // Odd lengths, so that the staged copies need padding between them.
@@ -185,7 +244,7 @@ mod tests {
         )?;
         let c = Buffer::from_upload(&context, BufferUpload::from_elements(&[0.5f32]), definition)?;
         let mut batch = KernelBatch::new(&context);
-        let readback = Readback::record(&context, &mut batch, &[&a, &b, &c]);
+        let readback = Readback::record(&context, &mut batch, &[&a, &b, &c])?;
         batch.submit();
         let results = readback.read(&context).await?;
         assert_eq!(bytemuck::cast_slice::<u8, u32>(&results[0]), &[1, 2, 3]);
@@ -195,7 +254,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn a_pending_readback_arrives_without_waiting() -> Result<()> {
+    async fn a_pending_readback_arrives_without_waiting() -> anyhow::Result<()> {
         let context = WgpuContext::new().await?;
         let definition = BufferDefinition::storage();
         let a = Buffer::from_upload(
@@ -209,7 +268,7 @@ mod tests {
             definition,
         )?;
         let mut batch = KernelBatch::new(&context);
-        let pending = Readback::record_pending(&context, &mut batch, &[&a, &b]);
+        let pending = Readback::record_pending(&context, &mut batch, &[&a, &b])?;
         // Nothing has been submitted, so nothing can have come back.
         assert!(pending.try_read(&context)?.is_none());
         batch.submit();

@@ -35,6 +35,8 @@
 //!   the tie, then become the tail, the coil or one of the braid's three
 //!   lanes.
 
+use crate::identity::PartingGroup;
+use crate::identity::StrandId;
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
@@ -48,6 +50,9 @@ use crate::ops::{Parting, smoothstep};
 use crate::rng::{self, Stream};
 use crate::strands::{Attachment, Strands, resample_into, rotate, safe_normalize};
 use crate::surface::Surface;
+
+mod tied;
+pub(crate) use tied::Tied;
 
 /// Follicles, a cut and a style: everything that shapes the guides.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -194,7 +199,7 @@ impl Hairdo {
             if placed.any_within(p.position, spacing, |_| true) {
                 continue;
             }
-            placed.insert(p.position, 0);
+            placed.insert(p.position, PartingGroup::from_gpu_word(0));
             roots.push(p);
         }
         // And a row along the hairline, closer together. The hairline is
@@ -214,7 +219,7 @@ impl Hairdo {
             let Some(on) = scalp.closest(p, 0.01) else {
                 continue;
             };
-            edge.insert(p, 0);
+            edge.insert(p, PartingGroup::from_gpu_word(0));
             roots.push(on);
         }
         let parting = self.parting();
@@ -249,7 +254,7 @@ impl Hairdo {
                 Attachment {
                     uv: root.uv,
                     normal: root.normal,
-                    id: rng::hash(i as u32, 0x006D_1DE5),
+                    id: StrandId::from_word(rng::hash(i as u32, 0x006D_1DE5)),
                     group: parting.group(root.position),
                     radius: self.follicles.radius,
                 },
@@ -415,7 +420,7 @@ impl Hairdo {
         let mut tied_at: Option<f32> = None;
         let bundle = Vec3::new(rng.gaussian(), rng.gaussian(), 0.0) * 0.004;
         let lane = match parting {
-            Parting::Lanes { count } => parting.group(root).rem_euclid(*count as i32) as f32,
+            Parting::Lanes { count } => parting.group(root).lane(*count),
             _ => 0.0,
         };
         let bun_phase = azimuth;
@@ -568,113 +573,6 @@ impl Hairdo {
             Flow::Tie(Tie::Tail) => (7, 0.0),
             Flow::Tie(Tie::Bun) => (7, 1.0),
             Flow::Tie(Tie::Braid) => (7, 2.0),
-        }
-    }
-}
-
-/// Where a tied style's strands meet, and the path the tie hangs along.
-pub(crate) struct Tied {
-    kind: Tie,
-    /// The tie, off the scalp.
-    pub(crate) point: Vec3,
-    /// Out of the head at the tie.
-    pub(crate) out: Vec3,
-    /// The tail's axis from the tie, a polyline two millimetres a step.
-    pub(crate) axis: Vec<Vec3>,
-}
-
-impl Tied {
-    pub(crate) fn new(head: &Head, hairdo: &Hairdo) -> Option<Self> {
-        let Flow::Tie(kind) = hairdo.flow() else {
-            return None;
-        };
-        let c = head.cranium.center;
-        let r = head.cranium.radii;
-        // Up the back of the head: high for a tail, on the crown's back for
-        // a bun, low at the nape for a braid.
-        let a = hairdo.hairstyle.tie;
-        let on_scalp = c + Vec3::new(0.0, r.y * a.sin(), -r.z * a.cos());
-        let out = head.gradient(on_scalp);
-        let point = on_scalp + out * (0.012 - head.distance(on_scalp));
-        // The tail leaves the tie out of the head and bends down as a
-        // cantilever -- stiffer than one strand: it is a bundle.
-        let mut axis = vec![point];
-        if !matches!(kind, Tie::Bun) {
-            // As long as the longest hair: clippers leave the back short.
-            let length = hairdo.haircut.longest();
-            let stiffness = hairdo.hairstyle.hold * 2.0;
-            let mut p = point;
-            let mut d = safe_normalize(out + Vec3::down() * 0.4, Vec3::down());
-            let ds = 0.002;
-            let mut s = 0.0;
-            while s < length {
-                d = cantilever(d, Vec3::down(), length - s, stiffness, ds);
-                let mut next = p + d * ds;
-                let distance = head.distance(next);
-                if distance < 0.02 {
-                    next += head.gradient(next) * (0.02 - distance);
-                    next = p + safe_normalize(next - p, d) * ds;
-                }
-                d = safe_normalize(next - p, d);
-                p = next;
-                axis.push(p);
-                s += ds;
-            }
-        }
-        if axis.len() < 2 {
-            axis.push(point + out * 0.002);
-        }
-        Some(Self {
-            kind,
-            point,
-            out,
-            axis,
-        })
-    }
-
-    /// The axis at arc length `s` from the tie, its direction and a frame
-    /// across it (the second axis points out of the head).
-    fn frame(&self, s: f32) -> (Vec3, Vec3, Vec3, Vec3) {
-        let f = (s / 0.002).max(0.0);
-        let i = (f as usize).min(self.axis.len().saturating_sub(2));
-        let t = (f - i as f32).clamp(0.0, 1.0);
-        let p = self.axis[i].lerp(self.axis[i + 1], t);
-        let d = safe_normalize(self.axis[i + 1] - self.axis[i], Vec3::down());
-        let across = safe_normalize(d.cross(self.out), Vec3::right());
-        let depth = across.cross(d);
-        (p, d, across, depth)
-    }
-
-    /// Where a strand is `along` metres past the tie: in the tail, coiled
-    /// in the bun or plaited in its lane of the braid, `bundle` off the
-    /// middle.
-    fn bundled(&self, along: f32, bundle: Vec3, lane: f32, phase: f32) -> Vec3 {
-        use std::f32::consts::TAU;
-        match self.kind {
-            Tie::Tail => {
-                let (c, _, across, depth) = self.frame(along);
-                let spread = 1.0 + 0.6 * smoothstep(0.1, 0.4, along);
-                c + (across * bundle.x + depth * bundle.y) * spread
-            }
-            Tie::Braid => {
-                let (c, _, across, depth) = self.frame(along);
-                let phase = along / 0.035 * TAU + lane * TAU / 3.0;
-                let width = 0.016 * (1.0 - 0.45 * smoothstep(0.0, 0.45, along));
-                let taper = 1.0 - smoothstep(0.38, 0.5, along);
-                c + across * (phase.sin() * width * taper + bundle.x * 0.6)
-                    + depth * ((2.0 * phase).sin() * width * 0.35 * taper + bundle.y * 0.6)
-            }
-            Tie::Bun => {
-                // Coiled round the tie, out from the head as it winds.
-                let turns = along / 0.11;
-                let a = phase + turns * TAU;
-                let r = 0.018 + 0.01 * (turns * 0.5).min(1.0) + bundle.x;
-                let u = safe_normalize(tangent(Vec3::up(), self.out), Vec3::up());
-                let v = self.out.cross(u);
-                self.point
-                    + (u * a.cos() + v * a.sin()) * r
-                    + self.out * (0.004 + 0.012 * (turns * 0.4).min(1.0) + bundle.y)
-            }
         }
     }
 }

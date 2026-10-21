@@ -1,7 +1,9 @@
 //! [`GpuGroomer::grow`]: a groom's stack on the GPU, from its guides on.
 
-use anyhow::{Result, anyhow, bail};
+use crate::gpu::error::{HairGpuError, Result};
+use crate::parameters::StrandCount;
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_compute::ScanElementCount;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_math::Vec3;
@@ -14,6 +16,9 @@ use crate::head::Head;
 use crate::look::Look;
 use crate::ops::{DensityMask, Interpolate, Op, Parting, STANDARD_GRAVITY};
 use crate::rng;
+
+mod input;
+mod profile;
 
 /// Parameters by name, as the compute kernels bind them.
 macro_rules! params {
@@ -97,8 +102,8 @@ impl GpuGroomer {
             &look.groom(head),
             Guides::Hairdo {
                 hairdo: &look.hairdo,
-                variation: look.variation,
-                seed: look.seed as u64,
+                variation: look.variation.ratio(),
+                seed: look.seed.word() as u64,
             },
             head,
             scalp,
@@ -118,16 +123,9 @@ impl GpuGroomer {
         scalp: &GpuScalp,
     ) -> Result<GpuGroom> {
         let points = groom.points.max(2) as u32;
-        let at = groom
-            .ops
-            .iter()
-            .position(|op| matches!(op, Op::Interpolate(_)))
-            .ok_or_else(|| anyhow!("a groom grown on the GPU interpolates its guides"))?;
-        let Op::Interpolate(interpolate) = &groom.ops[at] else {
-            unreachable!("found above");
-        };
+        let input::Interpolation { at, interpolate } = input::Interpolation::find(groom)?;
         let context = self.context.clone();
-        let head_shape = upload(&context, &head_shape(head), "hair head shape")?;
+        let head_shape = upload(&context, &head_shape(head), "hair head shape".into())?;
 
         // Roots for the guides and for the strands, then how many of each.
         let mut batch = KernelBatch::labelled(&context, "hair roots");
@@ -145,10 +143,12 @@ impl GpuGroomer {
         let counts = self.read_words(batch, &words)?;
         let count = counts[0];
         if count == 0 {
-            bail!("no roots survive the density masks");
+            return Err(HairGpuError::EmptyRoots);
         }
         if count >= 1 << 20 {
-            bail!("{count} strands: the GPU groom takes at most a million");
+            return Err(HairGpuError::StrandLimit {
+                requested: StrandCount::from_count(count as usize),
+            });
         }
 
         let mut batch = KernelBatch::labelled(&context, "hair groom");
@@ -174,7 +174,7 @@ impl GpuGroomer {
             }
         };
         if guides.count == 0 {
-            bail!("no guides to grow from");
+            return Err(HairGpuError::EmptyGuides);
         }
 
         // The operations before interpolation, on the guides.
@@ -184,8 +184,8 @@ impl GpuGroomer {
                 own: guides.positions.clone(),
                 scratch: self.scratch.guide_positions.fit(
                     &context,
-                    guide_bytes,
-                    "hair guide positions scratch",
+                    (guide_bytes).into(),
+                    "hair guide positions scratch".into(),
                 )?,
                 flipped: false,
             },
@@ -196,8 +196,8 @@ impl GpuGroomer {
             root_bounds: scalp.bounds,
             guide_of: self.scratch.guide_map.fit(
                 &context,
-                guides.count as u64 * 4,
-                "hair guide guide map",
+                (guides.count as u64 * 4).into(),
+                "hair guide guide map".into(),
             )?,
             mapped: false,
         };
@@ -205,34 +205,31 @@ impl GpuGroomer {
         guide_set.settle(&mut batch)?;
 
         // The guides as interpolation reads them.
-        let guide_points =
-            self.scratch
-                .guide_points
-                .fit(&context, guide_bytes, "hair guide points")?;
-        let guide_info =
-            self.scratch
-                .guide_info
-                .fit(&context, guides.count as u64 * 16, "hair guide info")?;
-        let mut pack = params! {
-            "positions" => guides.positions.clone(),
-            "strands" => guides.attributes.clone(),
-            "guide_points" => guide_points.clone(),
-            "guide_info" => guide_info.clone(),
-            "count" => guides.count,
-            "points" => points,
-            "pad0" => 0u32,
-        };
-        for (key, value) in parting_parameters(&interpolate.parting) {
-            pack.insert(key, value);
-        }
-        batch.dispatch_folded(&self.kernels.guide_pack, &pack, guides.count)?;
+        let guide_points = self.scratch.guide_points.fit(
+            &context,
+            (guide_bytes).into(),
+            "hair guide points".into(),
+        )?;
+        let guide_info = self.scratch.guide_info.fit(
+            &context,
+            (guides.count as u64 * 16).into(),
+            "hair guide info".into(),
+        )?;
+        self.record_guide_pack(
+            &mut batch,
+            &guides,
+            &guide_points,
+            &guide_info,
+            points,
+            &interpolate.parting,
+        )?;
 
         // The strands' roots, compacted.
-        let roots = storage(&context, count as u64 * 16, "hair roots")?;
+        let roots = storage(&context, (count as u64 * 16).into(), "hair roots".into())?;
         let attributes = storage(
             &context,
-            count as u64 * std::mem::size_of::<StrandGpu>() as u64,
-            "hair strands",
+            (count as u64 * std::mem::size_of::<StrandGpu>() as u64).into(),
+            "hair strands".into(),
         )?;
         let mut compact = params! {
             "cand_position" => candidates.clone(),
@@ -254,14 +251,16 @@ impl GpuGroomer {
         )?;
 
         // Interpolation.
-        let neighbors =
-            self.scratch
-                .neighbors
-                .fit(&context, count as u64 * 32, "hair neighbours")?;
-        let weights = self
-            .scratch
-            .weights
-            .fit(&context, count as u64 * 32, "hair weights")?;
+        let neighbors = self.scratch.neighbors.fit(
+            &context,
+            (count as u64 * 32).into(),
+            "hair neighbours".into(),
+        )?;
+        let weights = self.scratch.weights.fit(
+            &context,
+            (count as u64 * 32).into(),
+            "hair weights".into(),
+        )?;
         batch.dispatch_folded(
             &self.kernels.interp_select,
             &params! {
@@ -285,11 +284,12 @@ impl GpuGroomer {
         let bytes = count as u64 * points as u64 * 16;
         let mut strands = StrandSet {
             positions: PingPong {
-                own: storage(&context, bytes, "hair positions")?,
-                scratch: self
-                    .scratch
-                    .positions
-                    .fit(&context, bytes, "hair positions scratch")?,
+                own: storage(&context, (bytes).into(), "hair positions".into())?,
+                scratch: self.scratch.positions.fit(
+                    &context,
+                    (bytes).into(),
+                    "hair positions scratch".into(),
+                )?,
                 flipped: false,
             },
             attributes: attributes.clone(),
@@ -297,10 +297,11 @@ impl GpuGroomer {
             count,
             points,
             root_bounds: scalp.bounds,
-            guide_of: self
-                .scratch
-                .guide_of
-                .fit(&context, count as u64 * 4, "hair guide map")?,
+            guide_of: self.scratch.guide_of.fit(
+                &context,
+                (count as u64 * 4).into(),
+                "hair guide map".into(),
+            )?,
             mapped: false,
         };
         batch.dispatch_folded(
@@ -521,10 +522,11 @@ impl GpuGroomer {
                     batch.dispatch_folded(&self.kernels.smooth, &p, count)?;
                 }
                 Op::Shrinkwrap(w) => {
-                    let moves = self
-                        .scratch
-                        .moves
-                        .fit(&context, bytes, "hair shrinkwrap moves")?;
+                    let moves = self.scratch.moves.fit(
+                        &context,
+                        (bytes).into(),
+                        "hair shrinkwrap moves".into(),
+                    )?;
                     let mut p = strand_params(params! {
                         "smoothing" => w.smoothing as u32,
                         "lock_roots" => u32::from(w.lock_roots),
@@ -545,22 +547,26 @@ impl GpuGroomer {
                         continue;
                     }
                     let compliance = 1.0 / (STANDARD_GRAVITY * settle.stiffness.max(1e-3).powi(3));
-                    let moments =
-                        self.scratch
-                            .settle_moments
-                            .fit(&context, bytes, "hair drape moments")?;
-                    let dirs =
-                        self.scratch
-                            .settle_dirs
-                            .fit(&context, bytes, "hair drape directions")?;
-                    let under = self
-                        .scratch
-                        .settle_under
-                        .fit(&context, bytes, "hair drape")?;
-                    let standard =
-                        self.scratch
-                            .settle_standard
-                            .fit(&context, bytes, "hair drape at rest")?;
+                    let moments = self.scratch.settle_moments.fit(
+                        &context,
+                        (bytes).into(),
+                        "hair drape moments".into(),
+                    )?;
+                    let dirs = self.scratch.settle_dirs.fit(
+                        &context,
+                        (bytes).into(),
+                        "hair drape directions".into(),
+                    )?;
+                    let under = self.scratch.settle_under.fit(
+                        &context,
+                        (bytes).into(),
+                        "hair drape".into(),
+                    )?;
+                    let standard = self.scratch.settle_standard.fit(
+                        &context,
+                        (bytes).into(),
+                        "hair drape at rest".into(),
+                    )?;
                     let few = count <= 16_384 && points <= super::wgsl::groom::SETTLE_FEW_POINTS;
                     if few {
                         // A workgroup a strand and a solve, both at once.
@@ -634,27 +640,11 @@ impl GpuGroomer {
                     batch.dispatch_folded(&self.kernels.settle_apply, &p, count)?;
                 }
                 Op::Profile(r) => {
-                    batch.dispatch_folded(
-                        &self.kernels.profile,
-                        &params! {
-                            "strands" => set.attributes.clone(),
-                            "count" => count,
-                            "seed" => rng::seed(r.seed, 51_823),
-                            "relative" => u32::from(r.relative_to.is_some()),
-                            "pad0" => 0u32,
-                            "radius" => r.radius,
-                            "random" => r.random,
-                            "grown" => r.relative_to.unwrap_or(0.0),
-                            "pad1" => 0u32,
-                        },
-                        count,
-                    )?;
+                    self.record_profile(batch, set, r)?;
                     // In place: the positions stay where they are.
                     continue;
                 }
-                Op::Interpolate(_) => {
-                    bail!("a groom interpolates its guides once")
-                }
+                Op::Interpolate(_) => return Err(HairGpuError::RepeatedInterpolation),
             }
             set.positions.swap();
         }
@@ -674,8 +664,8 @@ impl GpuGroomer {
         // How far in from the hairline each scalp vertex is.
         let extra = self.scratch.scalp_extra.fit(
             &context,
-            scalp.vertices as u64 * 16,
-            "hair scalp uv and edge",
+            (scalp.vertices as u64 * 16).into(),
+            "hair scalp uv and edge".into(),
         )?;
         batch.dispatch_folded(
             &self.kernels.edge_distances,
@@ -704,18 +694,21 @@ impl GpuGroomer {
         let mask_seed = rng::seed(interpolate.seed, 0xD35E);
         let offset = rng::signed_vec3(mask_seed, 0x9A7C) * 50.0;
 
-        let candidates =
-            self.scratch
-                .candidates
-                .fit(&context, n as u64 * 32, "hair root candidates")?;
-        let candidate_normals =
-            self.scratch
-                .normals
-                .fit(&context, n as u64 * 16, "hair root candidate normals")?;
-        let keep = self
-            .scratch
-            .keep
-            .fit(&context, (n as u64 + 1) * 4, "hair roots kept")?;
+        let candidates = self.scratch.candidates.fit(
+            &context,
+            (n as u64 * 32).into(),
+            "hair root candidates".into(),
+        )?;
+        let candidate_normals = self.scratch.normals.fit(
+            &context,
+            (n as u64 * 16).into(),
+            "hair root candidate normals".into(),
+        )?;
+        let keep = self.scratch.keep.fit(
+            &context,
+            ((n as u64 + 1) * 4).into(),
+            "hair roots kept".into(),
+        )?;
         batch.clear_buffer(&keep);
         batch.dispatch_folded(
             &self.kernels.roots,
@@ -748,7 +741,12 @@ impl GpuGroomer {
             n,
         )?;
         self.ensure_scan(n + 1)?;
-        self.scan.record(batch, &keep, &self.scan_scratch, n + 1)?;
+        self.scan.record(
+            batch,
+            &keep,
+            &self.scan_scratch,
+            ScanElementCount::from_elements(n + 1),
+        )?;
         Ok((n, candidates, candidate_normals, keep))
     }
 
@@ -804,8 +802,8 @@ impl GpuGroomer {
         let [nx, ny, nz] = dims(cell);
         let leaders = self.scratch.leaders.fit(
             &self.context,
-            nx as u64 * ny as u64 * nz as u64 * 5 * 4,
-            "hair guide leaders",
+            (nx as u64 * ny as u64 * nz as u64 * 5 * 4).into(),
+            "hair guide leaders".into(),
         )?;
         batch.clear_buffer(&leaders);
         let grid = |mut p: PassParameters| {

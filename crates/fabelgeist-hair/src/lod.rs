@@ -131,7 +131,7 @@ impl HairLods {
     ) -> Self {
         let occlusion = Occlusion::bake(strands, body, &settings.occlusion);
         let mut order: Vec<usize> = (0..strands.len()).collect();
-        order.sort_by_key(|&s| rng::hash(strands.id[s], 0x0D3E));
+        order.sort_by_key(|&s| rng::hash(strands.id[s].word(), 0x0D3E));
 
         let mut counts = vec![strands.points];
         for &p in &settings.strand_points {
@@ -143,7 +143,7 @@ impl HairLods {
             .iter()
             .map(|&s| StrandInfo {
                 radius: strands.radius[s],
-                random: rng::unit(strands.id[s], 0x5EED),
+                random: rng::unit(strands.id[s].word(), 0x5EED),
                 uv: strands.root_uv[s],
             })
             .collect();

@@ -60,8 +60,8 @@ impl Orient {
                     n.dot(flat.cross(grows)).atan2(flat.dot(grows))
                 } else {
                     0.0
-                } + self.direction_spread * rng::signed(ids[s], seed);
-                let tilt = self.angle_spread * rng::signed(ids[s], seed ^ 0x7117);
+                } + self.direction_spread * rng::signed((ids[s]).word(), seed);
+                let tilt = self.angle_spread * rng::signed((ids[s]).word(), seed ^ 0x7117);
                 let tilt_axis = safe_normalize(grows.cross(n), crate::strands::orthogonal(n));
                 // A root turned right round stands up.
                 let lift = (1.0 - turn.cos()) * 0.5 * self.memory * 0.35;

@@ -150,7 +150,7 @@ impl Profile {
                 Some(grown) if grown > 0.0 => self.radius * *r / grown,
                 _ => self.radius,
             };
-            *r = base * (1.0 + self.random * rng::signed(id, seed)).max(0.05);
+            *r = base * (1.0 + self.random * rng::signed((id).word(), seed)).max(0.05);
         }
     }
 }
@@ -228,11 +228,11 @@ impl GuideMap {
         }
         // Candidates in a random order; each kept with probability `mask`.
         let mut order: Vec<u32> = (0..n as u32).collect();
-        order.sort_by_key(|&s| rng::hash(strands.id[s as usize], seed));
+        order.sort_by_key(|&s| rng::hash(strands.id[s as usize].word(), seed));
         let mut grid = PointGrid::new(distance);
         let mut guides = Vec::new();
         for &s in &order {
-            if rng::unit(strands.id[s as usize], seed ^ 0x2F0B_1A3D) >= mask {
+            if rng::unit(strands.id[s as usize].word(), seed ^ 0x2F0B_1A3D) >= mask {
                 continue;
             }
             let root = strands.root(s as usize);

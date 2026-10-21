@@ -2,8 +2,9 @@
 //! the head's field ([`GpuGroomer::cut_scalp`]), or uploaded -- kept for as
 //! long as the hairline stays.
 
-use anyhow::{Result, bail};
+use crate::gpu::error::{HairGpuError, Result};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_compute::ScanElementCount;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_math::Vec3;
 
@@ -11,6 +12,8 @@ use super::grow::params;
 use super::{GpuGroomer, head_shape, storage, upload};
 use crate::head::Head;
 use crate::surface::Surface;
+
+mod layout;
 
 /// A scalp mesh on the GPU: its triangles with their running area (to
 /// place points by area), its vertices, and its open edge -- the hairline
@@ -108,14 +111,18 @@ impl GpuGroomer {
             triangles: scalp.triangles.len() as u32,
             vertices: scalp.positions.len() as u32,
             area: scalp.area(),
-            tri_cdf: upload(context, &tri_cdf, "hair scalp areas")?,
-            tri_index: upload(context, &tri_index, "hair scalp triangles")?,
-            points: upload(context, &four(&scalp.positions), "hair scalp points")?,
-            normals: upload(context, &four(&scalp.normals), "hair scalp normals")?,
-            uvs: upload(context, &uvs, "hair scalp uvs")?,
-            boundary: upload(context, &four(&boundary), "hair scalp edge")?,
+            tri_cdf: upload(context, &tri_cdf, "hair scalp areas".into())?,
+            tri_index: upload(context, &tri_index, "hair scalp triangles".into())?,
+            points: upload(context, &four(&scalp.positions), "hair scalp points".into())?,
+            normals: upload(context, &four(&scalp.normals), "hair scalp normals".into())?,
+            uvs: upload(context, &uvs, "hair scalp uvs".into())?,
+            boundary: upload(context, &four(&boundary), "hair scalp edge".into())?,
             boundary_count: boundary.len() as u32,
-            boundary_fine: upload(context, &four(&boundary_fine), "hair scalp edge, fine")?,
+            boundary_fine: upload(
+                context,
+                &four(&boundary_fine),
+                "hair scalp edge, fine".into(),
+            )?,
             boundary_fine_count: boundary_fine.len() as u32,
             bounds: [lo, hi],
         })
@@ -128,46 +135,10 @@ impl GpuGroomer {
     /// then how many vertices and hairline points.
     pub fn cut_scalp(&mut self, head: &Head, cell: f32) -> Result<GpuScalp> {
         let context = self.context.clone();
-        let shape = upload(&context, &head_shape(head), "hair head shape")?;
-        // The bust's grid, as `Head::mesh` lays it, from the rows the scalp
-        // can reach: a kept vertex is above `keep_y`, and within three
-        // cells of its own (two Newton steps each less than a cell), and a
-        // quad joins cells a row apart.
-        let lo = Vec3::new(-0.24, head.base - 0.01, -0.16);
-        let hi = Vec3::new(0.24, 0.14, 0.14);
-        let cells_along = [hi.x - lo.x, hi.y - lo.y, hi.z - lo.z]
-            .map(|extent| ((extent / cell).ceil() as u32).max(1));
-        let keep_y = head.neck.a.y - 0.04;
-        let j0 =
-            (((keep_y - lo.y) / cell).floor() as i64 - 6).clamp(0, cells_along[1] as i64) as u32;
-        let (nx, ny, nz) = (
-            cells_along[0] + 1,
-            cells_along[1] + 1 - j0,
-            cells_along[2] + 1,
-        );
-        let corners = nx * ny * nz;
-        let cells = (nx - 1) * (ny - 1) * (nz - 1);
-        let edges = corners * 3;
-        let grid = |count: u32| {
-            params! {
-                "lo_x" => lo.x,
-                "lo_y" => lo.y,
-                "lo_z" => lo.z,
-                "cell" => cell,
-                "nx" => nx,
-                "ny" => ny,
-                "nz" => nz,
-                "j0" => j0,
-                "hairline_front" => head.hairline[0],
-                "hairline_side" => head.hairline[1],
-                "hairline_back" => head.hairline[2],
-                "recession" => head.recession,
-                "peak" => head.peak,
-                "keep_y" => keep_y,
-                "count" => count,
-                "pad0" => 0u32,
-            }
-        };
+        let shape = upload(&context, &head_shape(head), "hair head shape".into())?;
+        let layout = layout::ScalpGrid::new(head, cell);
+        let (corners, cells, edges) = (layout.corners, layout.cells, layout.edges);
+        let grid = |count| layout.parameters(head, count);
         let one = |count: u32| {
             params! {
                 "count" => count,
@@ -180,18 +151,20 @@ impl GpuGroomer {
         // The field, the cells' vertices, and how many triangles each grid
         // edge's quad keeps.
         let mut batch = KernelBatch::labelled(&context, "hair scalp cells");
-        let values =
-            self.scratch
-                .nets_values
-                .fit(&context, corners as u64 * 4, "hair scalp field")?;
+        let values = self.scratch.nets_values.fit(
+            &context,
+            (corners as u64 * 4).into(),
+            "hair scalp field".into(),
+        )?;
         let mut p = grid(corners);
         p.insert("head_shape", shape.clone());
         p.insert("values", values.clone());
         batch.dispatch_folded(&self.kernels.nets_values, &p, corners)?;
-        let cell_vertices =
-            self.scratch
-                .nets_cells
-                .fit(&context, cells as u64 * 16, "hair scalp cells")?;
+        let cell_vertices = self.scratch.nets_cells.fit(
+            &context,
+            (cells as u64 * 16).into(),
+            "hair scalp cells".into(),
+        )?;
         let mut p = grid(cells);
         p.insert("head_shape", shape.clone());
         p.insert("values", values.clone());
@@ -199,8 +172,8 @@ impl GpuGroomer {
         batch.dispatch_folded(&self.kernels.nets_cells, &p, cells)?;
         let counts = self.scratch.nets_counts.fit(
             &context,
-            (edges as u64 + 1) * 4,
-            "hair scalp quad counts",
+            ((edges as u64 + 1) * 4).into(),
+            "hair scalp quad counts".into(),
         )?;
         batch.clear_buffer(&counts);
         let mut p = grid(edges);
@@ -209,11 +182,15 @@ impl GpuGroomer {
         p.insert("counts", counts.clone());
         batch.dispatch_folded(&self.kernels.nets_quads_count, &p, edges)?;
         self.ensure_scan(edges + 1)?;
-        self.scan
-            .record(&mut batch, &counts, &self.scan_scratch, edges + 1)?;
+        self.scan.record(
+            &mut batch,
+            &counts,
+            &self.scan_scratch,
+            ScanElementCount::from_elements(edges + 1),
+        )?;
         let triangles = self.read_words(batch, &[(counts.clone(), edges)])?[0];
         if triangles == 0 {
-            bail!("no scalp above the hairline");
+            return Err(HairGpuError::EmptyScalp);
         }
 
         // The triangles in order, their vertices numbered as the host
@@ -221,8 +198,8 @@ impl GpuGroomer {
         let mut batch = KernelBatch::labelled(&context, "hair scalp mesh");
         let tri_cells = self.scratch.nets_triangles.fit(
             &context,
-            triangles as u64 * 16,
-            "hair scalp triangle cells",
+            (triangles as u64 * 16).into(),
+            "hair scalp triangle cells".into(),
         )?;
         let mut p = grid(edges);
         p.insert("values", values.clone());
@@ -230,10 +207,11 @@ impl GpuGroomer {
         p.insert("offsets", counts.clone());
         p.insert("triangles", tri_cells.clone());
         batch.dispatch_folded(&self.kernels.nets_quads_emit, &p, edges)?;
-        let first =
-            self.scratch
-                .nets_first
-                .fit(&context, cells as u64 * 4, "hair scalp first uses")?;
+        let first = self.scratch.nets_first.fit(
+            &context,
+            (cells as u64 * 4).into(),
+            "hair scalp first uses".into(),
+        )?;
         batch.clear_buffer(&first);
         let mut p = one(triangles);
         p.insert("triangles", tri_cells.clone());
@@ -242,31 +220,44 @@ impl GpuGroomer {
         let uses = triangles * 3;
         let flags = self.scratch.nets_flags.fit(
             &context,
-            (uses as u64 + 1) * 4,
-            "hair scalp vertex flags",
+            ((uses as u64 + 1) * 4).into(),
+            "hair scalp vertex flags".into(),
         )?;
         batch.clear_buffer(&flags);
-        let cell_at =
-            self.scratch
-                .nets_cell_at
-                .fit(&context, uses as u64 * 4, "hair scalp vertex cells")?;
+        let cell_at = self.scratch.nets_cell_at.fit(
+            &context,
+            (uses as u64 * 4).into(),
+            "hair scalp vertex cells".into(),
+        )?;
         let mut p = one(cells);
         p.insert("first", first);
         p.insert("flags", flags.clone());
         p.insert("cell_at", cell_at.clone());
         batch.dispatch_folded(&self.kernels.nets_order, &p, cells)?;
         self.ensure_scan(uses + 1)?;
-        self.scan
-            .record(&mut batch, &flags, &self.scan_scratch, uses + 1)?;
+        self.scan.record(
+            &mut batch,
+            &flags,
+            &self.scan_scratch,
+            ScanElementCount::from_elements(uses + 1),
+        )?;
         let vertex_of = self.scratch.nets_vertex_of.fit(
             &context,
-            cells as u64 * 4,
-            "hair scalp vertex numbers",
+            (cells as u64 * 4).into(),
+            "hair scalp vertex numbers".into(),
         )?;
         // At most a vertex a use: sized before the count is known.
-        let points = storage(&context, uses as u64 * 16, "hair scalp points")?;
-        let normals = storage(&context, uses as u64 * 16, "hair scalp normals")?;
-        let uvs = storage(&context, uses as u64 * 16, "hair scalp uvs")?;
+        let points = storage(
+            &context,
+            (uses as u64 * 16).into(),
+            "hair scalp points".into(),
+        )?;
+        let normals = storage(
+            &context,
+            (uses as u64 * 16).into(),
+            "hair scalp normals".into(),
+        )?;
+        let uvs = storage(&context, (uses as u64 * 16).into(), "hair scalp uvs".into())?;
         let mut p = one(uses);
         p.insert("head_shape", shape.clone());
         p.insert("cells", cell_vertices);
@@ -277,21 +268,30 @@ impl GpuGroomer {
         p.insert("scalp_normals", normals.clone());
         p.insert("scalp_uvs", uvs.clone());
         batch.dispatch_folded(&self.kernels.nets_vertices, &p, uses)?;
-        let tri_index = storage(&context, triangles as u64 * 16, "hair scalp triangles")?;
+        let tri_index = storage(
+            &context,
+            (triangles as u64 * 16).into(),
+            "hair scalp triangles".into(),
+        )?;
         let areas = self.scratch.nets_areas.fit(
             &context,
-            triangles as u64 * 4,
-            "hair scalp triangle areas",
+            (triangles as u64 * 4).into(),
+            "hair scalp triangle areas".into(),
         )?;
-        let keys = self
+        let keys = self.scratch.nets_keys.fit(
+            &context,
+            (uses as u64 * 4).into(),
+            "hair scalp edges".into(),
+        )?;
+        let ids = self.scratch.nets_ids.fit(
+            &context,
+            (uses as u64 * 4).into(),
+            "hair scalp edge ids".into(),
+        )?;
+        let box_words = self
             .scratch
-            .nets_keys
-            .fit(&context, uses as u64 * 4, "hair scalp edges")?;
-        let ids = self
-            .scratch
-            .nets_ids
-            .fit(&context, uses as u64 * 4, "hair scalp edge ids")?;
-        let box_words = self.scratch.box_words.fit(&context, 32, "hair box")?;
+            .box_words
+            .fit(&context, 32_u64.into(), "hair box".into())?;
         batch.clear_buffer(&box_words);
         let mut p = one(triangles);
         p.insert("triangles", tri_cells);
@@ -303,7 +303,11 @@ impl GpuGroomer {
         p.insert("edge_ids", ids.clone());
         p.insert("box_words", box_words.clone());
         batch.dispatch_folded(&self.kernels.nets_triangles, &p, triangles)?;
-        let tri_cdf = storage(&context, triangles as u64 * 4, "hair scalp areas")?;
+        let tri_cdf = storage(
+            &context,
+            (triangles as u64 * 4).into(),
+            "hair scalp areas".into(),
+        )?;
         let mut p = one(triangles);
         p.insert("areas", areas);
         p.insert("tri_cdf", tri_cdf.clone());
@@ -316,13 +320,13 @@ impl GpuGroomer {
         let (step, fine_step) = (0.002f32, 0.001f32);
         let steps = self.scratch.nets_steps.fit(
             &context,
-            (uses as u64 + 1) * 4,
-            "hair scalp edge steps",
+            ((uses as u64 + 1) * 4).into(),
+            "hair scalp edge steps".into(),
         )?;
         let fine = self.scratch.nets_fine.fit(
             &context,
-            (uses as u64 + 1) * 4,
-            "hair scalp fine edge steps",
+            ((uses as u64 + 1) * 4).into(),
+            "hair scalp fine edge steps".into(),
         )?;
         batch.clear_buffer(&steps);
         batch.clear_buffer(&fine);
@@ -340,10 +344,18 @@ impl GpuGroomer {
             },
             uses,
         )?;
-        self.scan
-            .record(&mut batch, &steps, &self.scan_scratch, uses + 1)?;
-        self.scan
-            .record(&mut batch, &fine, &self.scan_scratch, uses + 1)?;
+        self.scan.record(
+            &mut batch,
+            &steps,
+            &self.scan_scratch,
+            ScanElementCount::from_elements(uses + 1),
+        )?;
+        self.scan.record(
+            &mut batch,
+            &fine,
+            &self.scan_scratch,
+            ScanElementCount::from_elements(uses + 1),
+        )?;
         let mut words = vec![
             (flags, uses),
             (steps.clone(), uses),
@@ -354,30 +366,22 @@ impl GpuGroomer {
         let read = self.read_words(batch, &words)?;
         let (vertices, boundary_count, boundary_fine_count) = (read[0], read[1], read[2]);
         if vertices >= 1 << 16 {
-            bail!(
-                "{vertices} scalp vertices: the GPU cut takes fewer than 65536 -- a coarser cell"
-            );
+            return Err(HairGpuError::ScalpVertexLimit);
         }
         let area = f32::from_bits(read[3]);
-        let float = |key: u32| {
-            f32::from_bits(if key & 0x8000_0000 != 0 {
-                key & 0x7FFF_FFFF
-            } else {
-                !key
-            })
-        };
-        let bounds = [
-            Vec3::new(float(!read[4]), float(!read[5]), float(!read[6])),
-            Vec3::new(float(read[7]), float(read[8]), float(read[9])),
-        ];
+        let bounds = layout::ordered_bounds(&read[4..10]);
 
         // The points along the hairline.
         let mut batch = KernelBatch::labelled(&context, "hair scalp edge");
-        let boundary = storage(&context, boundary_count as u64 * 16, "hair scalp edge")?;
+        let boundary = storage(
+            &context,
+            (boundary_count as u64 * 16).into(),
+            "hair scalp edge".into(),
+        )?;
         let boundary_fine = storage(
             &context,
-            boundary_fine_count as u64 * 16,
-            "hair scalp edge, fine",
+            (boundary_fine_count as u64 * 16).into(),
+            "hair scalp edge, fine".into(),
         )?;
         for (offsets, out) in [(&steps, &boundary), (&fine, &boundary_fine)] {
             let mut p = one(uses);
@@ -389,19 +393,15 @@ impl GpuGroomer {
         }
         batch.submit();
 
-        let trimmed = |mut buffer: Buffer, bytes: u64| {
-            buffer.size = (bytes.max(16)).into();
-            buffer
-        };
         Ok(GpuScalp {
             triangles,
             vertices,
             area,
             tri_cdf,
             tri_index,
-            points: trimmed(points, vertices as u64 * 16),
-            normals: trimmed(normals, vertices as u64 * 16),
-            uvs: trimmed(uvs, vertices as u64 * 16),
+            points: layout::trimmed(points, (vertices as u64 * 16).into()),
+            normals: layout::trimmed(normals, (vertices as u64 * 16).into()),
+            uvs: layout::trimmed(uvs, (vertices as u64 * 16).into()),
             boundary,
             boundary_count,
             boundary_fine,

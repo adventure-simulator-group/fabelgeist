@@ -22,9 +22,11 @@
 //! 30 cm higher. Where `mirror_hair` is set the strands were mirrored and
 //! their UVs were not: the loader flips `u`, and so does [`load_sample`].
 
+use crate::identity::PartingGroup;
+use crate::identity::StrandId;
 use std::path::{Path, PathBuf};
 
-use anyhow::{Context, Result, bail};
+use crate::export::error::{HairDataError, Result};
 use fabelgeist_math::Vec3;
 
 use crate::export::npz;
@@ -50,17 +52,19 @@ pub fn load_strands(path: &Path, radius: f32) -> Result<Strands> {
             .iter()
             .find(|(name, _)| name == key)
             .map(|(_, a)| a)
-            .with_context(|| format!("{} has no `{key}`", path.display()))
+            .ok_or_else(|| HairDataError::MissingDatasetArray {
+                path: path.to_owned(),
+                name: key.into(),
+            })
     };
     let positions = get("positions")?;
     let [count, points, 3] = positions.shape[..] else {
-        bail!(
-            "positions are {:?}, not strands x points x 3",
-            positions.shape
-        );
+        return Err(HairDataError::DatasetPositionShape {
+            shape: positions.shape.clone(),
+        });
     };
     if points < 2 {
-        bail!("strands of {points} points");
+        return Err(HairDataError::DatasetPointCount);
     }
     let uv = get("root_uv").ok();
     let normal = get("root_normal").ok();
@@ -86,8 +90,8 @@ pub fn load_strands(path: &Path, radius: f32) -> Result<Strands> {
                     .filter(|u| u.data.len() >= (s + 1) * 2)
                     .map_or([0.0; 2], |u| [u.data[s * 2], u.data[s * 2 + 1]]),
                 normal: root_normal,
-                id: rng::hash(s as u32, 0xD1FF),
-                group: -1,
+                id: StrandId::from_word(rng::hash(s as u32, 0xD1FF)),
+                group: PartingGroup::Unassigned,
                 radius,
             },
         );

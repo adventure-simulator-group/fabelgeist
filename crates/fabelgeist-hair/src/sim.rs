@@ -44,6 +44,7 @@
 //! the head is on screen ([`crate::LodPolicy::sim_level`]); switching levels
 //! carries the motion across.
 
+use crate::identity::PartingGroup;
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 
@@ -376,7 +377,9 @@ impl HairSim {
             let p = positions[s * points];
             Vec3::new(p[0], p[1], p[2])
         };
-        let roots: Vec<(Vec3, i32)> = (0..count).map(|g| (rest[g * points], 0)).collect();
+        let roots: Vec<(Vec3, PartingGroup)> = (0..count)
+            .map(|g| (rest[g * points], PartingGroup::Unassigned))
+            .collect();
         let spacing = 0.2 / (count as f32).sqrt().max(1.0);
         let grid = PointGrid::build(&roots, spacing.max(0.003));
         let (guides, weights): (Vec<[u32; 4]>, Vec<[f32; 4]>) = (0..total)
@@ -565,12 +568,13 @@ pub(crate) fn blend(a: &Rigid, b: &Rigid, t: f32) -> Rigid {
 mod tests {
     use super::*;
     use crate::lod::LodSettings;
+    use crate::parameters::{Draping, StrandCount};
     use crate::{Look, Preset};
 
     fn groom() -> (Head, HairLods) {
         let mut look = Look::new(Preset::Long);
-        look.strands = 3000;
-        look.drape = false;
+        look.strands = StrandCount::from_count(3000);
+        look.drape = Draping::from_enabled(false);
         let head = look.head(&Head::mannequin());
         let scalp = head.scalp(0.008);
         let hair = look.grow(&head, &scalp);

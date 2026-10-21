@@ -77,6 +77,12 @@
 //! # }
 //! ```
 
+mod buffers;
+pub mod error;
+use crate::identity::PartingGroup;
+use crate::identity::StrandId;
+use buffers::{Scratch, storage, upload};
+use fabelgeist_compute::ScanElementCount;
 mod collide;
 mod grow;
 mod guides;
@@ -87,11 +93,11 @@ pub mod wgsl;
 
 use std::sync::Arc;
 
-use anyhow::{Result, anyhow};
+use crate::gpu::error::{HairGpuError, Result};
 use fabelgeist_compute::{
     Kernel, KernelBatch, KernelCache, PrefixSum, PrefixSumScratch, RadixSort, SortScratch,
 };
-use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
+use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::globals::WgpuContext;
 use fabelgeist_math::Vec3;
 use fabelgeist_spatial_hash::gpu::{GpuHashGrid, HashKernels};
@@ -100,7 +106,6 @@ use crate::cards::CardAtlas;
 use crate::head::Head;
 use crate::strands::{Attachment, Strands};
 use crate::surface::Surface;
-use fabelgeist_gpu::prelude::BufferUpload;
 
 pub use collide::FieldHeader;
 pub use guides::{GpuGuides, Guides};
@@ -311,34 +316,6 @@ impl Kernels {
     }
 }
 
-/// A buffer kept between grooms and grown by half again when too small, as
-/// the solvers keep theirs, so that grooming the same head again
-/// allocates nothing. Only for scratch: what a groom hands out is its own.
-#[derive(Default)]
-struct Scratch {
-    buffer: Option<Buffer>,
-}
-
-impl Scratch {
-    fn fit(&mut self, context: &WgpuContext, bytes: u64, label: &str) -> Result<Buffer> {
-        let bytes = bytes.max(16);
-        if self.buffer.as_ref().is_none_or(|b| b.buffer.size() < bytes) {
-            // Half as large again, kept to the copy alignment clears need.
-            let grown = bytes
-                .max(self.buffer.as_ref().map_or(0, |b| b.buffer.size() * 3 / 2))
-                .next_multiple_of(16);
-            self.buffer = Some(Buffer::new(
-                context,
-                (grown).into(),
-                BufferDefinition::storage().with_label((label).into()),
-            )?);
-        }
-        let mut buffer = self.buffer.clone().expect("allocated above");
-        buffer.size = (bytes).into();
-        Ok(buffer)
-    }
-}
-
 #[derive(Default)]
 struct Scratches {
     positions: Scratch,
@@ -410,41 +387,12 @@ pub struct GpuGroomer {
     atlas: Option<(u32, [u32; 2], Arc<CardAtlas>)>,
 }
 
-/// A storage buffer holding `data`, never empty.
-fn upload<T: bytemuck::NoUninit + Default>(
-    context: &WgpuContext,
-    data: &[T],
-    label: &str,
-) -> Result<Buffer> {
-    if data.is_empty() {
-        return Buffer::from_upload(
-            context,
-            BufferUpload::from_elements(&[T::default(); 4]),
-            BufferDefinition::storage().with_label((label).into()),
-        );
-    }
-    Buffer::from_upload(
-        context,
-        BufferUpload::from_elements(data),
-        BufferDefinition::storage().with_label((label).into()),
-    )
-}
-
-/// A fresh storage buffer of `bytes`.
-fn storage(context: &WgpuContext, bytes: u64, label: &str) -> Result<Buffer> {
-    Buffer::new(
-        context,
-        (bytes.max(16)).into(),
-        BufferDefinition::storage().with_label((label).into()),
-    )
-}
-
 impl GpuGroomer {
     pub fn new(context: WgpuContext) -> Result<Self> {
         let cache = KernelCache::new();
         let kernels = Kernels::new(&context, &cache)?;
         let scan = PrefixSum::with_cache(&context, &cache)?;
-        let scan_scratch = PrefixSumScratch::new(&context, 1024)?;
+        let scan_scratch = PrefixSumScratch::new(&context, ScanElementCount::from_elements(1024))?;
         let sort = RadixSort::with_cache(&context, &cache)?;
         let sort_scratch = SortScratch::new(&context, 1024)?;
         let grid = GpuHashGrid::new(&context, HashKernels::new(&context, &cache)?, 1024)?;
@@ -495,10 +443,18 @@ impl GpuGroomer {
         };
         self.head_mesh = Some(HeadMesh {
             vertices: n as u32,
-            points: upload(&self.context, &four(&surface.positions), "hair head points")?,
-            normals: upload(&self.context, &four(&surface.normals), "hair head normals")?,
-            adjacency_start: upload(&self.context, &start, "hair head adjacency start")?,
-            adjacency: upload(&self.context, &adjacency, "hair head adjacency")?,
+            points: upload(
+                &self.context,
+                &four(&surface.positions),
+                "hair head points".into(),
+            )?,
+            normals: upload(
+                &self.context,
+                &four(&surface.normals),
+                "hair head normals".into(),
+            )?,
+            adjacency_start: upload(&self.context, &start, "hair head adjacency start".into())?,
+            adjacency: upload(&self.context, &adjacency, "hair head adjacency".into())?,
         });
         Ok(())
     }
@@ -517,9 +473,9 @@ impl GpuGroomer {
                 let a = strands.attachment(s);
                 StrandGpu {
                     normal: a.normal.to_array(),
-                    id: a.id,
+                    id: (a.id).word(),
                     uv: a.uv,
-                    group: a.group,
+                    group: (a.group).gpu_word(),
                     radius: a.radius,
                 }
             })
@@ -540,9 +496,9 @@ impl GpuGroomer {
         Ok(GpuGroom {
             strands: n as u32,
             points: strands.points as u32,
-            positions: upload(&self.context, &positions, "hair positions")?,
-            attributes: upload(&self.context, &attributes, "hair strands")?,
-            roots: upload(&self.context, &roots, "hair roots")?,
+            positions: upload(&self.context, &positions, "hair positions".into())?,
+            attributes: upload(&self.context, &attributes, "hair strands".into())?,
+            roots: upload(&self.context, &roots, "hair roots".into())?,
             bounds: Some([lo, hi]),
             root_bounds: [root_lo, root_hi],
             head: head.cloned(),
@@ -569,8 +525,8 @@ impl GpuGroomer {
         let mut batch = batch;
         let out = self.scratch.word.fit(
             &self.context,
-            (words.len() as u64 * 4).max(16),
-            "hair readback words",
+            ((words.len() as u64 * 4).max(16)).into(),
+            "hair readback words".into(),
         )?;
         for (k, (buffer, at)) in words.iter().enumerate() {
             batch.encoder().copy_buffer_to_buffer(
@@ -584,13 +540,17 @@ impl GpuGroomer {
         batch.submit();
         let values: Vec<u32> = pollster::block_on(out.read(&self.context))?;
         if values.len() < words.len() {
-            return Err(anyhow!("short readback"));
+            return Err(HairGpuError::ShortReadback {
+                expected: (words.len() * std::mem::size_of::<u32>()).into(),
+                actual: (values.len() * std::mem::size_of::<u32>()).into(),
+            });
         }
         Ok(values[..words.len()].to_vec())
     }
 
     fn ensure_scan(&mut self, count: u32) -> Result<()> {
-        self.scan_scratch.ensure(&self.context, count)?;
+        self.scan_scratch
+            .ensure(&self.context, ScanElementCount::from_elements(count))?;
         Ok(())
     }
 }
@@ -632,8 +592,8 @@ fn read_strands(
             Attachment {
                 uv: a.uv,
                 normal: Vec3::from_array(a.normal),
-                id: a.id,
-                group: a.group,
+                id: StrandId::from_word(a.id),
+                group: PartingGroup::from_gpu_word(a.group),
                 radius: a.radius,
             },
         );
@@ -655,7 +615,7 @@ pub fn headless_context() -> Result<WgpuContext> {
                 force_fallback_adapter: false,
             })
             .await
-            .map_err(|e| anyhow!("no adapter: {e}"))?;
+            .map_err(HairGpuError::Adapter)?;
         let limits = required_limits(&adapter);
         let (device, queue) = adapter
             .request_device(&wgpu::DeviceDescriptor {
@@ -692,7 +652,9 @@ pub fn required_limits(adapter: &wgpu::Adapter) -> wgpu::Limits {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::parameters::StrandCount;
     use crate::{Look, Preset};
+    use fabelgeist_math::units::AccelerationVector;
 
     fn validate(name: &str, source: &str) {
         let module = naga::front::wgsl::parse_str(source)
@@ -797,7 +759,7 @@ mod tests {
             (Preset::Ponytail, true),
         ] {
             let mut look = Look::new(preset);
-            look.strands = 20_000;
+            look.strands = StrandCount::from_count(20_000);
             let head = look.head(&Head::mannequin());
             let scalp = head.scalp(0.006);
             let uploaded = groomer.upload_scalp(&scalp).expect("scalp");
@@ -870,7 +832,7 @@ mod tests {
             .expect("head");
         for preset in [Preset::Long, Preset::Afro] {
             let mut look = Look::new(preset);
-            look.strands = 20_000;
+            look.strands = StrandCount::from_count(20_000);
             let head = look.head(&Head::mannequin());
             let scalp = groomer.upload_scalp(&head.scalp(0.006)).expect("scalp");
             let settings = crate::LodSettings::default();
@@ -936,7 +898,7 @@ mod tests {
             .set_head_mesh(&Head::mannequin().mesh(0.008))
             .expect("head");
         let mut look = Look::new(Preset::Long);
-        look.strands = 10_000;
+        look.strands = StrandCount::from_count(10_000);
         let head = look.head(&Head::mannequin());
         let scalp = groomer.upload_scalp(&head.scalp(0.006)).expect("scalp");
         let grown = groomer.grow_look(&look, &head, &scalp).expect("grown");
@@ -1038,17 +1000,21 @@ mod tests {
             Preset::Dreadlocks,
         ] {
             let mut look = Look::new(preset);
-            look.strands = 5_000;
-            look.wind = [1.5, 0.0, 0.5];
+            look.strands = StrandCount::from_count(5_000);
+            look.wind = AccelerationVector::from_components([1.5, 0.0, 0.5]);
             let head = look.head(&Head::mannequin());
             let scalp = head.scalp(0.006);
             let groom = look.groom(&head);
             let points = groom.points.max(2);
             // The host's guides, straight to the groom's points, and the
             // operations before interpolation run over them.
-            let mut host =
-                look.hairdo
-                    .guides(&head, &scalp, points, look.variation, look.seed as u64);
+            let mut host = look.hairdo.guides(
+                &head,
+                &scalp,
+                points,
+                look.variation.ratio(),
+                look.seed.word() as u64,
+            );
             let at = groom
                 .ops
                 .iter()
@@ -1247,7 +1213,7 @@ mod tests {
             .set_head_mesh(&Head::mannequin().mesh(0.008))
             .expect("head");
         let mut look = Look::new(Preset::Long);
-        look.strands = 20_000;
+        look.strands = StrandCount::from_count(20_000);
         let head = look.head(&Head::mannequin());
         let scalp = groomer.cut_scalp(&head, 0.006).expect("scalp");
         let grown = groomer.grow_look(&look, &head, &scalp).expect("grown");
@@ -1310,14 +1276,14 @@ mod tests {
         strands.push(
             &line(Vec3::new(-0.1, 0.0, 0.0), Vec3::new(0.16, 0.0, 0.0)),
             Attachment {
-                id: 1,
+                id: StrandId::from_word(1),
                 ..Default::default()
             },
         );
         strands.push(
             &line(Vec3::new(0.05, -0.03, -0.1), Vec3::new(0.05, -0.03, 0.16)),
             Attachment {
-                id: 2,
+                id: StrandId::from_word(2),
                 ..Default::default()
             },
         );
@@ -1413,7 +1379,7 @@ mod tests {
                 strands.push(
                     &strand,
                     Attachment {
-                        id,
+                        id: StrandId::from_word(id),
                         ..Default::default()
                     },
                 );
@@ -1486,7 +1452,7 @@ mod tests {
         };
         for preset in Preset::ALL {
             let mut look = Look::new(preset);
-            look.strands = 20_000;
+            look.strands = StrandCount::from_count(20_000);
             let head = look.head(&Head::mannequin());
             let scalp = groomer.cut_scalp(&head, 0.006).expect("scalp");
             let grown = groomer.grow_look(&look, &head, &scalp).expect("grown");
@@ -1549,7 +1515,7 @@ mod tests {
             .set_head_mesh(&Head::mannequin().mesh(0.008))
             .expect("head");
         let mut look = Look::new(Preset::Long);
-        look.strands = 20_000;
+        look.strands = StrandCount::from_count(20_000);
         let head = look.head(&Head::mannequin());
         let scalp = groomer.cut_scalp(&head, 0.006).expect("scalp");
         let grown = groomer.grow_look(&look, &head, &scalp).expect("grown");

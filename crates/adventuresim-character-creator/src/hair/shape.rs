@@ -6,7 +6,10 @@
 //! pattern, and the rest scaled or shifted from the preset's own -- so the
 //! default shape grows the preset as it is.
 
+use fabelgeist_hair::parameters::Draping;
 use fabelgeist_hair::{Arrangement, Cut, Growth, Haircut, Hairstyle, Look, Preset};
+use fabelgeist_math::units::Metres;
+use fabelgeist_math::units::Ratio;
 use serde::{Deserialize, Serialize};
 
 /// The range of each of a shape's values: the length's scale, the volume
@@ -215,12 +218,12 @@ impl HairShape {
         let style = &mut hairdo.hairstyle;
         style.volume = (style.volume + self.volume).max(0.0);
         style.part += self.part;
-        look.curl = (look.curl + self.curl).clamp(0.0, 1.0);
-        look.wave = (look.wave + self.wave).max(0.0);
-        look.frizz *= self.frizz;
-        look.flyaways = (look.flyaways * self.frizz).min(1.0);
-        look.clump = (look.clump + self.clumping).clamp(0.0, 1.0);
+        look.curl = Ratio::from_ratio((look.curl.ratio() + self.curl).clamp(0.0, 1.0));
+        look.wave = Metres::from_metres((look.wave.metres() + self.wave).max(0.0));
+        look.frizz = Metres::from_metres(look.frizz.metres() * (self.frizz));
+        look.flyaways = Ratio::from_ratio((look.flyaways.ratio() * self.frizz).min(1.0));
+        look.clump = Ratio::from_ratio((look.clump.ratio() + self.clumping).clamp(0.0, 1.0));
         // Only some arrangements hang under gravity.
-        look.drape = look.hairdo.drapes();
+        look.drape = Draping::from_enabled(look.hairdo.drapes());
     }
 }

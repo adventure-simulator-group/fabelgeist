@@ -155,12 +155,14 @@ pub mod haircut;
 pub mod hairdo;
 pub mod hairstyle;
 pub mod head;
+pub mod identity;
 pub mod lod;
 pub mod look;
 pub mod material;
 pub mod noise;
 pub mod occlusion;
 pub mod ops;
+pub mod parameters;
 pub mod presets;
 #[cfg(feature = "render")]
 pub mod render;
