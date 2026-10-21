@@ -278,7 +278,7 @@ impl BoomRecovery {
         let position = Position::from_metres(frame.origin.metres().lerp(candidate.metres(), final_sweep.fraction.fraction()))?;
         if final_sweep.fraction.fraction() < 1.0 {
             recovery.retract(SignedLength::from_metres(recovery.distance.metres() * final_sweep.fraction.fraction())?, config);
-            limited = SignedLength::from_metres(limited.metres().min(recovery.distance.metres()))?;
+            limited = limited.min(recovery.distance);
         }
         *self = recovery;
         Ok(CameraPlacement { position, desired, hit: final_sweep.hit.or(obstruction), limited_distance: limited })
