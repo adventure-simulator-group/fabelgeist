@@ -107,6 +107,6 @@ mod tests {
         };
         let one = advance_combat_bleeding(0.0, &[wound], 20.0);
         let two = advance_combat_bleeding(0.0, &[wound, wound], 20.0);
-        assert!((two - one * 2.0).abs() < f32::EPSILON);
+        assert_eq!(two, one * 2.0);
     }
 }

@@ -144,7 +144,7 @@ fn point_on_polygon_edge(polygon: &[Vec2], point: Vec2, tolerance: f32) -> bool 
         let end = polygon[(index + 1) % polygon.len()];
         let axis = end - *start;
         let length_squared = axis.length_squared();
-        if length_squared <= f32::EPSILON {
+        if length_squared <= 0.0 {
             return point.distance(*start) <= tolerance;
         }
         let t = ((point - *start).dot(axis) / length_squared).clamp(0.0, 1.0);

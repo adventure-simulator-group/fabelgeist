@@ -23,7 +23,7 @@ impl ArmorCoverageSpan {
     }
 
     pub fn contains(self, coordinate: f32) -> bool {
-        let coordinate = coordinate.clamp(0.0, 1.0 - f32::EPSILON);
+        let coordinate = coordinate.clamp(0.0, 1.0_f32.next_down());
         coordinate >= self.start && coordinate < self.end
     }
 }

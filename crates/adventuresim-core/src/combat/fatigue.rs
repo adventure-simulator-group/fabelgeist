@@ -62,8 +62,12 @@ pub fn combat_movement_fatigue_per_second(
     endurance: f32,
     parameters: CombatFatigueParameters,
 ) -> f32 {
-    let sustainable = sustainable_speed_metres_per_second.max(f32::EPSILON);
-    let ratio = effort_speed_metres_per_second.max(0.0) / sustainable;
+    let effort = effort_speed_metres_per_second.max(0.0);
+    let ratio = if effort == 0.0 {
+        0.0
+    } else {
+        effort / sustainable_speed_metres_per_second.max(0.0)
+    };
     let aerobic =
         parameters.aerobic_watts_per_endurance * endurance.max(parameters.minimum_endurance);
     let carry = if ratio > 0.0 {

@@ -225,7 +225,10 @@ fn avoided_attack_balance_damage(
         parameters.stagger_resistance_joules_per_kg
     };
     let whole_body_mass = attacker_body.body_weight() + attacker_equip.inventory_weight();
-    let resistance = resistance_per_kg * whole_body_mass.max(f32::EPSILON);
+    if whole_body_mass <= 0.0 {
+        return 0.0;
+    }
+    let resistance = resistance_per_kg * whole_body_mass;
     let committed_impulse = attack_force(attacker_attr, attacker_body, attacker_equip, parameters)
         * accuracy.clamp(0.0, 1.0)
         * 0.5;
@@ -432,7 +435,7 @@ fn calculate_damage_from_force(
         * (defender_equip.inventory_weight() + defender_body.body_weight());
 
     let attack_force = full_force.max(0.0) * attack;
-    if attack_force <= f32::EPSILON {
+    if attack_force <= 0.0 {
         return AttackResult::ToAttacker {
             balance_damage: 0.0,
             contact_force: 0.0,
@@ -590,7 +593,7 @@ mod tests {
             &StubEssentials,
             &StubEquipment,
         );
-        assert!((low_precision - high_precision * 0.25).abs() < f32::EPSILON);
+        assert_eq!(low_precision, high_precision * 0.25);
     }
 
     #[test]

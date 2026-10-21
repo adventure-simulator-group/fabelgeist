@@ -282,7 +282,7 @@ impl CombatTargeting<'_, '_> {
                     let sight = position - origin;
                     let distance = sight.length();
                     let direction = Dir3::new(sight).ok()?;
-                    let impact = (distance > f32::EPSILON)
+                    let impact = (distance > 0.0)
                         .then(|| {
                             self.spatial.cast_ray(
                                 origin,

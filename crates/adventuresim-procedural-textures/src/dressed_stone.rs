@@ -547,8 +547,10 @@ mod tests {
                 .max((sample - sample_stonework(params, coordinate + 1.0, 0.37).height).abs())
                 .max((sample - sample_stonework(params, coordinate, 1.37).height).abs());
         }
+        let height_range = params.dressed_stone.height_range_metres;
+        let height_roundoff_metres = height_range.next_up() - height_range;
         assert!(
-            maximum_error < f32::EPSILON,
+            maximum_error * height_range <= height_roundoff_metres,
             "periodic height error: {maximum_error}"
         );
     }

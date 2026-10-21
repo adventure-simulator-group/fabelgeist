@@ -200,8 +200,6 @@ struct Params {{
 const WEIGHT_THRESHOLD: f32 = {threshold};
 const MARGIN: f32 = {margin};
 const COINCIDENT_LANDMARKS: u32 = {coincident}u;
-// Rust's `f32::EPSILON`.
-const EPSILON: f32 = 1.1920929e-7;
 
 fn joint_position(joint: u32) -> vec3<f32> {{
     return vec3<f32>(joints[joint * 8u], joints[joint * 8u + 1u], joints[joint * 8u + 2u]);
@@ -220,7 +218,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
     let proximal = joint_position(params.lowarm);
     let axis = joint_position(params.wrist) - proximal;
     let length_squared = host_dot(axis, axis);
-    if (length_squared <= EPSILON) {{
+    if (length_squared <= 0.0) {{
         fail(COINCIDENT_LANDMARKS);
         return;
     }}

@@ -116,7 +116,7 @@ fn update_fatigue(
             SkeletonAction::Attack | SkeletonAction::Dodge | SkeletonAction::Block
         )
     });
-    let moving = movement.is_some_and(|movement| movement.length_squared() > f32::EPSILON);
+    let moving = movement.is_some_and(|movement| movement.length_squared() > 0.0);
     let burden = view.body_weight() + view.inventory_weight();
     let sprint_speed = tactical_sprint_speed(
         view.raw_limb_attr(LimbAttribute::Strength, BodyPart::LeftLeg),
