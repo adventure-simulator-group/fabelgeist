@@ -12,6 +12,8 @@ use crate::correctives::PoseCorrectives;
 use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
 use crate::skel_state;
 
+mod tensor_upload;
+
 /// Shape coefficients: 20 body, 20 head, 5 hands.
 pub const NUM_IDENTITY_BLEND_SHAPES: usize = 45;
 /// Facial expression coefficients.
@@ -273,26 +275,10 @@ impl Mhr {
                 )
             });
 
-        let fk_levels = skel_state::prefix_multiplication_levels(&character.skeleton.parents)
-            .into_iter()
-            .map(|level| -> Result<_> {
-                let len = level.source.len();
-                let source: Vec<i32> = level
-                    .source
-                    .into_iter()
-                    .map(|joint| i32::try_from(usize::from(joint)))
-                    .collect::<Result<_, _>>()?;
-                let target: Vec<i32> = level
-                    .target
-                    .into_iter()
-                    .map(|joint| i32::try_from(usize::from(joint)))
-                    .collect::<Result<_, _>>()?;
-                Ok((
-                    Tensor::from_data(TensorData::new(source, [len]), device),
-                    Tensor::from_data(TensorData::new(target, [len]), device),
-                ))
-            })
-            .collect::<Result<_>>()?;
+        let fk_levels = tensor_upload::fk_levels(
+            skel_state::prefix_multiplication_levels(&character.skeleton.parents),
+            device,
+        )?;
 
         let basis = &character.blend_shapes.vectors;
         let identity_basis = Tensor::from_data(

@@ -116,22 +116,16 @@ pub fn generate_clothing_shells(
     joint_names: &fabelgeist_rig::RigJointTable<RigJointName>,
     global_joint_states: &fabelgeist_rig::RigJointTable<[f32; 8]>,
 ) -> Result<ClothedMesh, ClothingError> {
+    validation::validate_body_inputs(
+        positions,
+        normals,
+        faces,
+        joint_indices,
+        joint_weights,
+        joint_names,
+        global_joint_states,
+    )?;
     let vertices = positions.len();
-    if normals.len() != vertices
-        || joint_indices.len() != vertices
-        || joint_weights.len() != vertices
-        || global_joint_states.len() != joint_names.len()
-        || joint_indices.joint_count() != joint_names.joint_count()
-    {
-        return Err(ClothingError::InconsistentBodyInputs);
-    }
-    if faces
-        .iter()
-        .flatten()
-        .any(|vertex| *vertex as usize >= vertices)
-    {
-        return Err(ClothingError::MissingBodyVertex);
-    }
     let mut rig = ClothingRig::new(joint_names);
 
     let mut shells = Vec::with_capacity(garments.len());

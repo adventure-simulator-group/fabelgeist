@@ -78,3 +78,34 @@ impl Writer<'_> {
         }
     }
 }
+
+/// Write each shell's native glTF buffers in geometry-then-skin order. Admitted
+/// rig slots project to glTF joint words only inside `skinning::append`.
+pub(super) fn append_views(
+    buffer: &mut BufferBuilder,
+    shells: &[RiggedShell<'_>],
+) -> Result<Vec<Views>> {
+    shells
+        .iter()
+        .map(|shell| {
+            let positions = buffer.push(
+                &f32_bytes(shell.positions.iter().flatten().copied()),
+                Some(34_962),
+            );
+            let normals = buffer.push(
+                &f32_bytes(shell.normals.iter().flatten().copied()),
+                Some(34_962),
+            );
+            let indices = buffer.push(
+                &u32_bytes(shell.faces.iter().flatten().copied()),
+                Some(34_963),
+            );
+            let skin = shell
+                .joint_indices
+                .zip(shell.joint_weights)
+                .map(|(joints, weights)| skinning::append(buffer, joints, weights))
+                .transpose()?;
+            Ok((positions, normals, indices, skin))
+        })
+        .collect()
+}

@@ -1,12 +1,27 @@
 //! Browser acceptance probe for the runtime generator, using an input body GLB.
 mod armor_fixture;
 
-fn main() {}
-
 enum Probe {
     Catalog(&'static str, &'static str),
     Anime,
     Wrapped,
+}
+
+impl Probe {
+    const ALL: [Self; 12] = [
+        Self::Catalog("vambrace", "left"),
+        Self::Catalog("breastplate", "worn"),
+        Self::Catalog("gorget", "worn"),
+        Self::Catalog("sallet", "worn"),
+        Self::Catalog("mail_standard", "worn"),
+        Self::Catalog("linen_tunic", "worn"),
+        Self::Catalog("leather_boot", "left"),
+        Self::Catalog("puffed_sleeve", "left"),
+        Self::Catalog("puffed_hose", "left"),
+        Self::Catalog("pauldron", "left"),
+        Self::Anime,
+        Self::Wrapped,
+    ];
 }
 
 #[cfg(target_family = "wasm")]
@@ -43,6 +58,8 @@ pub async fn prepare_probe(bytes: Vec<u8>) -> Result<String, String> {
     result.map_err(|error| format!("{error:#}"))
 }
 
+fn main() {}
+
 #[cfg_attr(
     not(target_family = "wasm"),
     expect(dead_code, reason = "called by the browser probe export")
@@ -57,20 +74,7 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
     let errors = capture_errors(gpu);
     let mut results = Vec::new();
     for round in 0..2 {
-        for probe in [
-            Probe::Catalog("vambrace", "left"),
-            Probe::Catalog("breastplate", "worn"),
-            Probe::Catalog("gorget", "worn"),
-            Probe::Catalog("sallet", "worn"),
-            Probe::Catalog("mail_standard", "worn"),
-            Probe::Catalog("linen_tunic", "worn"),
-            Probe::Catalog("leather_boot", "left"),
-            Probe::Catalog("puffed_sleeve", "left"),
-            Probe::Catalog("puffed_hose", "left"),
-            Probe::Catalog("pauldron", "left"),
-            Probe::Anime,
-            Probe::Wrapped,
-        ] {
+        for probe in Probe::ALL {
             let (item, placement) = match probe {
                 Probe::Catalog(item, placement) => (item, placement),
                 Probe::Anime => ("anime", "worn"),
