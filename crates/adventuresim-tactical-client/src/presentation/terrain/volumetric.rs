@@ -48,17 +48,21 @@ pub(super) fn refresh_presentation(
         images,
         &graphics.config.grass,
     )?;
-    let Some(target) = materials.get_mut(&handle.0) else {
-        return Ok(false);
-    };
-    *target = material.clone();
+    {
+        let Some(mut target) = materials.get_mut(&handle.0) else {
+            return Ok(false);
+        };
+        *target = material.clone();
+    }
     let mut detail_material = material;
     detail_material.base.depth_bias = DETAIL_PATCH_DEPTH_BIAS;
     detail_material.extension.detail_patch.x = 0.0;
-    let Some(target) = materials.get_mut(&detail_handle.0) else {
-        return Ok(false);
-    };
-    *target = detail_material;
+    {
+        let Some(mut target) = materials.get_mut(&detail_handle.0) else {
+            return Ok(false);
+        };
+        *target = detail_material;
+    }
     if let Some(mut mesh) = meshes.get_mut(&mesh_handle.0) {
         let replacement =
             terrain_detail_patch_mesh(terrain, environment, vista, patch.centre, transition_collar);
