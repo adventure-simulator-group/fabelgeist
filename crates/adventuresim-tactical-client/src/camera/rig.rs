@@ -69,14 +69,13 @@ pub(super) fn update_camera_rig(
         };
 
         let raised_blend = state.blend;
-        let history = state.observe(
+        let mut next = state.observe(
             camera_of.character_controller,
             anchor,
             profile,
             config.teleport_distance,
         );
 
-        let mut next = history.clone();
         let prepared = (|| -> CameraResult<CameraRigObservation> {
         let rotation = RigidRotation::from_quaternion(camera.rotation)?;
         let view = camera_view_metrics(projection);
@@ -166,7 +165,7 @@ pub(super) fn update_camera_rig(
         })();
         match prepared {
             Ok(observation) => {
-                *history = next;
+                state.commit_observation(next);
                 camera.translation = observation.final_endpoint.metres();
                 debug.0 = Some(observation);
             }

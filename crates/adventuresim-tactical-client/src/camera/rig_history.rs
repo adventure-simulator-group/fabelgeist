@@ -66,24 +66,26 @@ impl CameraRigState {
     }
 
     pub(super) fn observe(
-        &mut self,
+        &self,
         subject: Entity,
         anchor: Position<Scene>,
         profile: CameraProfile,
         teleport_distance: SignedLength,
-    ) -> &mut CameraPoseHistory {
+    ) -> CameraPoseHistory {
         let reset = self.history.as_ref().is_none_or(|history| {
             history.subject != subject || anchor.metres().distance(history.last_anchor.metres()) > teleport_distance.metres()
         });
-        if reset {
-            self.history = None;
-        }
-        let history = self
-            .history
-            .get_or_insert_with(|| CameraPoseHistory::new(subject, anchor, profile));
+        let mut history = match &self.history {
+            Some(history) if !reset => history.clone(),
+            _ => CameraPoseHistory::new(subject, anchor, profile),
+        };
         history.last_anchor = anchor;
         history.subject = subject;
         history
+    }
+
+    pub(super) fn commit_observation(&mut self, history: CameraPoseHistory) {
+        self.history = Some(history);
     }
 }
 
