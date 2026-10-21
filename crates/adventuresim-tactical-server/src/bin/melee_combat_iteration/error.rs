@@ -1,6 +1,6 @@
-//! Failures from a melee iteration run, retaining the pure resolution cause.
+//! Native command failures retain shared preparation and battle-resolution causes.
 
-use adventuresim_core::autoresolve::BattleResolutionError;
+use adventuresim_core::autoresolve::{BattleResolutionError, MeleeIterationError};
 
 pub(crate) type IterationResult<T> = Result<T, IterationError>;
 
@@ -8,6 +8,8 @@ pub(crate) type IterationResult<T> = Result<T, IterationError>;
 pub(crate) enum IterationError {
     #[error(transparent)]
     Resolution(#[from] BattleResolutionError),
+    #[error(transparent)]
+    Preparation(#[from] MeleeIterationError),
     #[error("{0}")]
     Operation(String),
 }

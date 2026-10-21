@@ -8,21 +8,19 @@ pub(super) fn autoresolve_timeline_evidence(
     john: &MeleeIterationBuild,
     veteran: &MeleeIterationBuild,
     hammer: &MeleeIterationBuild,
-) -> Result<AutoresolveTimelineEvidence, String> {
+) -> MeleeIterationResult<AutoresolveTimelineEvidence> {
     let forward = resolve_battle(
         vec![john.combatant.clone()],
         vec![hammer.combatant.clone()],
         SEED,
         BattleOpening::Normal,
-    )
-    .map_err(|error| error.to_string())?;
+    )?;
     let reversed = resolve_battle(
         vec![hammer.combatant.clone()],
         vec![john.combatant.clone()],
         SEED,
         BattleOpening::Normal,
-    )
-    .map_err(|error| error.to_string())?;
+    )?;
     let without_terminal = |outcome: &BattleOutcome| {
         outcome
             .timeline
@@ -38,19 +36,16 @@ pub(super) fn autoresolve_timeline_evidence(
         vec![veteran.combatant.clone()],
         SEED,
         BattleOpening::Normal,
-    )
-    .map_err(|error| error.to_string())?;
+    )?;
     let first_contact = polearm
         .timeline
         .iter()
         .position(|event| event.kind == MeleeTimelineKind::Contact)
         .map_or(polearm.timeline.len(), |index| index + 1);
     let polearm_opening_measure = polearm.timeline[..first_contact].to_vec();
-    let simultaneous_contacts =
-        simultaneous_contact_evidence(john, hammer, SEED).map_err(|error| error.to_string())?;
-    let cancellation = cancellation_evidence(john, hammer).map_err(|error| error.to_string())?;
-    let cancellation =
-        cancellation.ok_or("bounded hammer seeds produced no cancellation evidence")?;
+    let simultaneous_contacts = simultaneous_contact_evidence(john, hammer, SEED)?;
+    let cancellation = cancellation_evidence(john, hammer)?;
+    let cancellation = cancellation.ok_or(MeleeIterationError::CancellationUnavailable)?;
     let canceled_attack_ids = cancellation
         .timeline
         .iter()

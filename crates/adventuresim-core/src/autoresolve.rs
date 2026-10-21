@@ -10,6 +10,7 @@ use fabelgeist_determinism::{DeterministicRng, Seed, StreamId};
 use serde::Serialize;
 
 use crate::projectile::ProjectileKind;
+pub use authored_weapon::{AuthoredMeleeWeaponError, AuthoredMeleeWeaponResult};
 pub use classification::{BattleAttackKind, MeleeMovementAction};
 pub use error::{BattleResolutionError, BattleResolutionResult};
 use joint_melee::*;
@@ -28,6 +29,7 @@ pub use timeline::{
     MeleeTimelinePhase,
 };
 
+mod authored_weapon;
 mod classification;
 mod error;
 mod joint_melee;

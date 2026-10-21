@@ -14,6 +14,10 @@ pub enum AuthoredThreatError {
     },
     #[error(transparent)]
     Timing(#[from] ElapsedError),
+    #[error("authored threat sidearm knife is absent from the item catalogue")]
+    MissingSidearmDefinition,
+    #[error(transparent)]
+    Sidearm(#[from] AuthoredMeleeWeaponError),
 }
 
 /// Build the same authored threat combatant used by strategic autoresolve and
@@ -48,7 +52,7 @@ pub fn authored_threat_combatant(
     combatant.body.weight_kg = profile.weight_kg;
     let weapon = threat_weapon(profile)?;
     combatant.equipment.weapon = Some(weapon);
-    equip_threat_weapon(&mut combatant, weapon, profile.ranged);
+    equip_threat_weapon(&mut combatant, weapon, profile.ranged)?;
     let innate = profile.innate_protection;
     if innate.resistance_joules > 0.0 || innate.padding_joules > 0.0 {
         combatant.equipment.armor.fill(CombatArmor::innate(
@@ -147,21 +151,25 @@ fn threat_weapon(profile: crate::bestiary::CombatProfile) -> ElapsedResult<Comba
     })
 }
 
-fn equip_threat_weapon(combatant: &mut Combatant, weapon: CombatWeapon, ranged: bool) {
+fn equip_threat_weapon(
+    combatant: &mut Combatant,
+    weapon: CombatWeapon,
+    ranged: bool,
+) -> AuthoredThreatResult<()> {
     if ranged {
+        let sidearm = CombatWeapon::from_authored_melee_definition(
+            crate::item_catalog::definition("knife")
+                .ok_or(AuthoredThreatError::MissingSidearmDefinition)?,
+        )?;
         combatant.equipment.ranged_weapon = Some(weapon);
         combatant.equipment.ranged_projectile_kind = Some(ProjectileKind::Arrowhead);
-        combatant.equipment.melee_weapon = Some(
-            super::melee_iteration::authored_melee_weapon(
-                crate::item_catalog::definition("knife").expect("catalog knife"),
-            )
-            .expect("valid generated sidearm"),
-        );
+        combatant.equipment.melee_weapon = Some(sidearm);
         combatant.equipment.ammunition = 12;
         combatant.initial_ammunition = 12;
     } else {
         combatant.equipment.melee_weapon = Some(weapon);
     }
+    Ok(())
 }
 
 fn armored_threat_armor() -> CombatArmor {
