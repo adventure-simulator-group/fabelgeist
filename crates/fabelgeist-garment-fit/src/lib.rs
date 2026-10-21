@@ -7,8 +7,8 @@
 //! an MHR body.
 //!
 //! The two libraries know nothing about each other, and neither depends on the
-//! other -- which is the point. `fabelgeist-cloth` sits in the prism workspace and
-//! would be just as happy with a pattern from anywhere else.
+//! other -- which is the point. `fabelgeist-cloth` would be just as happy with a
+//! pattern from anywhere else.
 //!
 //! [`pose`] is the third piece: the pattern's placement is drawn for a set of
 //! measurements rather than for the body in front of it, so the garment can
@@ -59,7 +59,7 @@ pub struct FitSettings {
     ///
     /// Each pass reads the garment back and waits for the GPU, so this is what
     /// an interleaved step costs. Measured at 12 substeps: every substep
-    /// (prism's default) drapes the MHR test body in 542 ms a frame, once a
+    /// (the default) drapes the MHR test body in 542 ms a frame, once a
     /// frame in 57 ms, off in 9.3 ms, and all three drape it the same. A
     /// garment crumpling onto the floor is where they part: every substep
     /// keeps its edges within 50% of rest, off leaves one at 50%, and once a
