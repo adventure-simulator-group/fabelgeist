@@ -65,7 +65,7 @@ fn prepared_owned_paving_respects_selected_rings_and_matches_native_coverage() {
                 (index == 0).then_some(&environment),
                 environment.weather,
                 input.landform.map(|r| r.transition_collar()),
-            ) {
+            ).unwrap() {
                 native.add_mesh(
                     &mesh,
                     Vec3::new(

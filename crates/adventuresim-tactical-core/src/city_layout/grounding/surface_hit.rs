@@ -9,12 +9,16 @@ pub struct SurfaceHit {
 }
 
 impl SurfaceHit {
+    pub fn new(elevation: SupportElevation, normal: Dir3) -> Self {
+        Self { elevation, normal }
+    }
+
     /// Validate at the numeric geometry boundary; a zero normal is not support.
     pub fn from_geometry(elevation_metres: f32, normal: Vec3) -> Option<Self> {
-        Some(Self {
-            elevation: SupportElevation::from_metres(elevation_metres)?,
-            normal: Dir3::new(normal).ok()?,
-        })
+        Some(Self::new(
+            SupportElevation::from_metres(elevation_metres)?,
+            Dir3::new(normal).ok()?,
+        ))
     }
 }
 

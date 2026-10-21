@@ -103,19 +103,15 @@ impl ActiveVistaSurface {
             return None;
         }
         let lod = self.lods.first()?;
-        let world = local.metres()
-            + Vec2::new(
-                lod.origin_east_metres as f32,
-                lod.origin_north_metres as f32,
-            );
+        let world = lod.scene_point(local.offset_from_origin()).ok()?;
         let vista_height = presented_height_at(lod, world, self.lods.get(1))?;
-        SupportElevation::from_metres(stitch_vista_height_to_playable_edge(
+        stitch_vista_height_to_playable_edge(
             terrain,
-            local.metres(),
+            local.offset_from_origin(),
             self.playable_half_extent,
             lod.spacing_metres,
             vista_height,
-        ))
+        )
     }
 }
 

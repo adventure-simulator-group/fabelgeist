@@ -48,7 +48,7 @@ pub(crate) use strategic_scene_assets::PreparedStrategicScene;
 pub(crate) mod venues;
 mod vista;
 pub(crate) use buildings::queue_strategic_city;
-pub(crate) use vista::{BackdropError, StrategicBackdrop, spawn_strategic_backdrop};
+pub(crate) use vista::{BackdropError, PreparedBackdrop, StrategicBackdrop};
 mod volumetric;
 mod weather;
 mod windows;

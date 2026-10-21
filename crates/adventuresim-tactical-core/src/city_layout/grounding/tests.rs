@@ -725,11 +725,11 @@ fn a_terraced_court_has_level_open_ground_and_narrow_discrete_stairs() {
     let flights: Vec<_> = plan.stair_flights().collect();
     assert_eq!(flights.len(), 2);
     for flight in flights {
-        let riser = (flight.top_elevation_metres - flight.bottom_elevation_metres)
-            / f32::from(flight.riser_count);
+        let riser = (flight.top_elevation_metres.metres() - flight.bottom_elevation_metres.metres())
+            / f32::from(flight.riser_count.get());
         assert!(riser <= 0.19);
-        assert!(flight.going_metres >= 0.25);
-        assert!(flight.riser_count == 8);
+        assert!(flight.going_metres.metres() >= 0.25);
+        assert!(flight.riser_count.get() == 8);
     }
     for x in [-4.0, 2.0] {
         for z in [3.0, 4.0, 5.0, 6.0, 7.0] {

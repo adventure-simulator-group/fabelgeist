@@ -52,7 +52,7 @@ fn owned_vista_tree_roots_follow_support_across_detail_levels() {
     for point in [Vec2::new(40.0, 30.0), Vec2::new(-45.0, -30.0)] {
         let point = ScenePlanPoint::from_metres(point).unwrap();
         assert!(
-            (presented_height_at(&lod, point.metres(), Some(&coarse)).unwrap() - 7.0).abs() > 1.0
+            (presented_height_at(&lod, point, Some(&coarse)).unwrap().metres() - 7.0).abs() > 1.0
         );
         for (lod, next) in [(&lod, Some(&coarse)), (&coarse, None)] {
             assert!(
@@ -93,7 +93,7 @@ fn owned_vista_rocks_use_support_normal_and_keep_the_existing_slope_gate() {
         Vec2::ONE,
         point,
         fabelgeist_determinism::Seed::from_u64(42),
-        0.08,
+        SignedLength::from_metres(0.08).unwrap(),
     )
     .unwrap();
     assert!((rock.translation.y - height - 0.08).abs() < 0.001);
@@ -106,7 +106,7 @@ fn owned_vista_rocks_use_support_normal_and_keep_the_existing_slope_gate() {
             Vec2::ONE,
             point,
             fabelgeist_determinism::Seed::from_u64(42),
-            0.08
+            SignedLength::from_metres(0.08).unwrap()
         )
         .is_none()
     );
@@ -131,11 +131,11 @@ fn sampled_vista_trees_and_rocks_retain_the_presented_heightfield() {
     let point = ScenePlanPoint::from_metres(Vec2::new(40.0, 30.0)).unwrap();
     assert_eq!(
         tree_root_height(&terrain, &lod, None, point),
-        presented_height_at(&lod, point.metres(), None).and_then(SupportElevation::from_metres)
+        presented_height_at(&lod, point, None)
     );
     let expected =
-        presented_vista_vertex_height(&lod, None, Some(&terrain), point.metres(), Vec2::ONE)
-            .unwrap();
+        presented_vista_vertex_height(&lod, None, Some(&terrain), point.offset_from_origin(), Vec2::ONE)
+            .unwrap().metres();
     let rock = vista_scatter_transform(
         &lod,
         None,
@@ -143,7 +143,7 @@ fn sampled_vista_trees_and_rocks_retain_the_presented_heightfield() {
         Vec2::ONE,
         point,
         fabelgeist_determinism::Seed::from_u64(42),
-        0.08,
+        SignedLength::from_metres(0.08).unwrap(),
     )
     .unwrap();
     assert!((rock.translation.y - expected - 0.08).abs() < 0.001);
@@ -182,7 +182,7 @@ fn goslar_property_1236_vista_scenery_uses_accepted_support() {
     let normal = *hit.normal;
     let lod = &input.vista.lods[0];
     let coarser = input.vista.lods.get(1);
-    let raw = presented_height_at(lod, point.metres(), coarser).unwrap();
+    let raw = presented_height_at(lod, point, coarser).unwrap().metres();
     assert!(
         (height - raw).abs() > 1.0,
         "required reproduction: {height} vs {raw}"
@@ -202,7 +202,7 @@ fn goslar_property_1236_vista_scenery_uses_accepted_support() {
         Vec2::new(terrain.width(), terrain.depth()) * 0.5,
         point,
         fabelgeist_determinism::Seed::from_u64(42),
-        0.08,
+        SignedLength::from_metres(0.08).unwrap(),
     )
     .unwrap();
     assert!((rock.translation.y - height - 0.08).abs() < 0.001);
@@ -268,7 +268,7 @@ fn required_city_vista_scenery_matches_property_support() {
                     half,
                     world,
                     fabelgeist_determinism::Seed::from_u64(42),
-                    0.08,
+                    SignedLength::from_metres(0.08).unwrap(),
                 );
                 if normal.y >= MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y {
                     let rock = rock.expect("accepted shallow support retains a rock candidate");

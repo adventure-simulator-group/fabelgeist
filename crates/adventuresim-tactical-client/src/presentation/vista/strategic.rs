@@ -7,6 +7,8 @@ use adventuresim_tactical_core::{
 };
 mod colors;
 
+pub(crate) type BackdropResult<T> = Result<T, BackdropError>;
+
 #[derive(Component, Clone)]
 pub(crate) struct StrategicBackdrop {
     terrain: SceneTerrain,
@@ -14,17 +16,30 @@ pub(crate) struct StrategicBackdrop {
     foreground: Vec<EnvironmentalSample>,
 }
 
+pub(crate) struct PreparedBackdrop {
+    backdrop: StrategicBackdrop,
+    environment: SceneEnvironment,
+    chunks: Vec<BackdropChunk>,
+}
+
+struct BackdropChunk {
+    mesh: Mesh,
+    origin: Vec3,
+}
+
 #[derive(Debug, thiserror::Error)]
 pub(crate) enum BackdropError {
     #[error("Strategic backdrop height samples are invalid")]
     Heightmap,
+    #[error(transparent)]
+    VistaMesh(#[from] VistaMeshError),
 }
 
 impl StrategicBackdrop {
     pub(crate) fn new(
         input: &TacticalSceneInput,
         maximum_lods: usize,
-    ) -> Result<Self, BackdropError> {
+    ) -> BackdropResult<Self> {
         let terrain = SceneTerrain::from_heightmap(
             usize::from(input.playable.width),
             usize::from(input.playable.depth),
@@ -71,10 +86,10 @@ impl StrategicBackdrop {
                 self.lods.get(index + 1),
                 (index == 0).then_some(&self.terrain),
                 inner,
-                point.metres(),
+                point,
             );
             if height.is_some() {
-                return height.and_then(SupportElevation::from_metres);
+                return height;
             }
             inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
                 * lod.spacing_metres
@@ -84,31 +99,19 @@ impl StrategicBackdrop {
     }
 }
 
-pub(crate) fn spawn_strategic_backdrop(
-    commands: &mut Commands,
-    backdrop: StrategicBackdrop,
-    environment: SceneEnvironment,
-    root: Entity,
-) {
-    commands.spawn((environment.clone(), backdrop.clone(), ChildOf(root)));
-    commands.queue(move |world: &mut World| {
-        let material = world
-            .resource_mut::<Assets<TacticalVistaMaterial>>()
-            .add(vista_material(
-                environment.weather,
-                grass_terminal_pigment(&environment),
-            ));
+impl PreparedBackdrop {
+    pub(crate) fn new(
+        backdrop: StrategicBackdrop,
+        environment: SceneEnvironment,
+    ) -> BackdropResult<Self> {
+        let mut chunks = Vec::new();
         let mut mesh = backdrop.terrain.mesh();
         mesh.remove_attribute(Mesh::ATTRIBUTE_UV_0);
-        // A broad sampled surface supplies context; fine paving, vegetation and
-        // fault geometry belong to the tactical renderer and focused map city.
-        let foreground = backdrop
-            .foreground
-            .iter()
+        let foreground = backdrop.foreground.iter()
             .map(|sample| pigment::vista_sample_color(*sample, environment.weather).to_array())
             .collect::<Vec<_>>();
         mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, foreground.clone());
-        spawn_mesh(world, root, mesh, material.clone(), Vec3::ZERO);
+        chunks.push(BackdropChunk { mesh, origin: Vec3::ZERO });
         let lods = backdrop.lods.iter().collect::<Vec<_>>();
         let mut inner = Vec2::new(backdrop.terrain.width(), backdrop.terrain.depth()) * 0.5;
         for (index, lod) in lods.iter().copied().enumerate() {
@@ -119,22 +122,37 @@ pub(crate) fn spawn_strategic_backdrop(
                 (index == 0).then_some(&backdrop.terrain),
                 None,
                 environment.weather,
-            ) {
+            )? {
                 if index == 0 {
                     backdrop.stitch_colors(&mut mesh, &foreground, lod.spacing_metres);
                 }
                 let origin = Vec3::new(
-                    lod.origin_east_metres as f32,
-                    0.0,
-                    lod.origin_north_metres as f32,
+                    lod.origin_east_metres as f32, 0.0, lod.origin_north_metres as f32,
                 );
-                spawn_mesh(world, root, mesh, material.clone(), origin);
+                chunks.push(BackdropChunk { mesh, origin });
             }
             inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
-                * lod.spacing_metres
-                * 0.5;
+                * lod.spacing_metres * 0.5;
         }
-    });
+        Ok(Self { backdrop, environment, chunks })
+    }
+
+    pub(crate) fn backdrop(&self) -> &StrategicBackdrop {
+        &self.backdrop
+    }
+
+    pub(crate) fn spawn(self, commands: &mut Commands, root: Entity) {
+        let Self { backdrop, environment, chunks } = self;
+        commands.spawn((environment.clone(), backdrop, ChildOf(root)));
+        commands.queue(move |world: &mut World| {
+            let material = world.resource_mut::<Assets<TacticalVistaMaterial>>().add(vista_material(
+                environment.weather, grass_terminal_pigment(&environment),
+            ));
+            for chunk in chunks {
+                spawn_mesh(world, root, chunk.mesh, material.clone(), chunk.origin);
+            }
+        });
+    }
 }
 
 fn spawn_mesh(

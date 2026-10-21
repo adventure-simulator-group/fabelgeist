@@ -3,6 +3,7 @@ use adventuresim_building_generator::{
     GenerationError, interior::InteriorLayoutError, spatial_geometry::GeometryError,
 };
 use adventuresim_tactical_core::scene_input::{SceneBuildingId, SceneInputError};
+use crate::presentation::vista::VistaMeshError;
 use thiserror::Error;
 
 pub(crate) type PreparationResult<T> = std::result::Result<T, PreparationError>;
@@ -46,6 +47,8 @@ pub(crate) enum PreparationError {
     #[error(transparent)]
     Geometry(#[from] GeometryError),
     #[error(transparent)]
+    VistaMesh(#[from] VistaMeshError),
+    #[error(transparent)]
     Interior(#[from] Box<InteriorLayoutError>),
     // The graphics parser currently exposes prose at its external YAML boundary.
     // Keep that boundary classified here without branching on its message.
@@ -81,6 +84,7 @@ impl PreparationError {
             Self::SceneInput(_) => "generation/scene-input",
             Self::Building(_) => "generation/building",
             Self::Geometry(_) => "generation/geometry",
+            Self::VistaMesh(_) => "generation/vista-mesh",
             Self::Interior(_) => "generation/interior",
             Self::GraphicsConfiguration { .. } => "generation/graphics-configuration",
             Self::NotPrepared { .. } => "generation/not-prepared",

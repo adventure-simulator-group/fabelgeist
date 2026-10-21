@@ -104,8 +104,7 @@ impl FocusedGround {
                 },
                 &mut meshes,
                 &mut images,
-            )
-            .map_err(|error| error.to_string())?;
+            )?;
         state.apply(world);
         Ok(Self {
             support: ground.support,

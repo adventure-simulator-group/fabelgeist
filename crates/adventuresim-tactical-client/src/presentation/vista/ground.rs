@@ -4,6 +4,8 @@ use adventuresim_tactical_core::{
     city_layout::grounding::{SupportElevation, SupportQuery, SurfaceHit},
     scene_coordinates::ScenePlanPoint,
 };
+use adventuresim_building_generator::spatial_geometry::{Position, PositiveLength, SignedLength};
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use fabelgeist_determinism::Seed;
 
 const MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y: f32 = 0.72;
@@ -17,24 +19,14 @@ pub(super) fn vista_lod_meshes_with_morph(
     playable_environment: Option<&SceneEnvironment>,
     weather: WeatherSnapshot,
     transition_collar: Option<TerrainTransitionCollar>,
-) -> Vec<Mesh> {
-    let width = usize::from(lod.width);
-    let depth = usize::from(lod.depth);
-    if width < 2
-        || depth < 2
-        || width.checked_mul(depth).is_none_or(|samples| {
-            lod.heights_metres.len() != samples || lod.environment.len() != samples
-        })
-        || !lod.spacing_metres.is_finite()
-        || lod.spacing_metres <= 0.0
-    {
-        return Vec::new();
-    }
-    if let Some(terrain) = playable_terrain
-        && terrain.property_surface().is_some()
-    {
+) -> VistaMeshResult<Vec<Mesh>> {
+    if let Some(surface) = playable_terrain.and_then(SceneTerrain::property_surface) {
+        natural::validate_source(lod)?;
+        if let Some(coarser) = coarser_lod {
+            natural::validate_source(coarser)?;
+        }
         return owned::vista_meshes(
-            terrain,
+            surface,
             lod,
             inner_half_extent,
             coarser_lod,
@@ -62,7 +54,7 @@ pub(super) fn vista_scatter_transform(
     playable_half_extent: Vec2,
     point: ScenePlanPoint,
     hash: Seed,
-    lift: f32,
+    lift: SignedLength,
 ) -> Option<Transform> {
     let hit = scenery_surface(
         lod,
@@ -74,12 +66,13 @@ pub(super) fn vista_scatter_transform(
     if hit.normal.y < MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y {
         return None;
     }
-    Some(
-        Transform::from_xyz(
+    let position = Position::<Scene>::from_metres(Vec3::new(
             point.metres().x,
-            hit.elevation.metres() + lift,
+            hit.elevation.metres() + lift.metres(),
             point.metres().y,
-        )
+        )).ok()?;
+    Some(
+        Transform::from_translation(position.metres())
         .with_rotation(
             Quat::from_rotation_arc(Vec3::Y, *hit.normal)
                 * Quat::from_rotation_y(
@@ -100,7 +93,7 @@ pub(super) fn tree_root_height(
             .surface_below(SupportQuery::unbounded(world))
             .map(|hit| hit.elevation);
     }
-    presented_height_at(lod, world.metres(), coarser).and_then(SupportElevation::from_metres)
+    presented_height_at(lod, world, coarser)
 }
 
 /// Owned scenery uses the same highest exterior support as the rendered ground.
@@ -115,33 +108,19 @@ fn scenery_surface(
     if playable_terrain.property_surface().is_some() {
         return playable_terrain.surface_below(SupportQuery::unbounded(point));
     }
-    let origin = Vec2::new(
-        lod.origin_east_metres as f32,
-        lod.origin_north_metres as f32,
-    );
-    let local = point.metres() - origin;
-    let height = presented_vista_vertex_height(
+    let local = lod.local_offset(point).ok()?;
+    let geometry = VistaVertexGeometry::sample(
         lod,
         coarser_lod,
         Some(playable_terrain),
         local,
         playable_half_extent,
+        PositiveLength::from_metres(VISTA_SCENERY_NORMAL_SAMPLE_DISTANCE_METRES).ok()?,
     )?;
-    let delta = VISTA_SCENERY_NORMAL_SAMPLE_DISTANCE_METRES;
-    let at = |offset: Vec2| {
-        presented_vista_vertex_height(
-            lod,
-            coarser_lod,
-            Some(playable_terrain),
-            local + offset,
-            playable_half_extent,
-        )
-        .unwrap_or(height)
-    };
-    let tangent_x = Vec3::new(delta * 2.0, at(Vec2::X * delta) - at(-Vec2::X * delta), 0.0);
-    let tangent_z = Vec3::new(0.0, at(Vec2::Y * delta) - at(-Vec2::Y * delta), delta * 2.0);
+    let tangent_x = geometry.east_tangent().metres();
+    let tangent_z = geometry.north_tangent().metres();
     let normal = tangent_z.cross(tangent_x);
-    SurfaceHit::from_geometry(height, normal)
+    Some(SurfaceHit::new(geometry.elevation(), Dir3::new(normal).ok()?))
 }
 
 #[cfg(test)]

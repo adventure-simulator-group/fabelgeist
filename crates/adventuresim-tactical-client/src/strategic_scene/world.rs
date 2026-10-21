@@ -128,8 +128,12 @@ fn prepare(
     maximum_lods: usize,
 ) -> PreparationResult<()> {
     let backdrop = crate::presentation::StrategicBackdrop::new(input, maximum_lods)?;
-    retained.venues =
-        buildings::prepare_venues(input, view, &mut generated, &mut retained.street, &backdrop)?;
+    let backdrop = crate::presentation::PreparedBackdrop::new(
+        backdrop, input.environment_snapshot(generated.digest.clone()),
+    )?;
+    retained.venues = buildings::prepare_venues(
+        input, view, &mut generated, &mut retained.street, backdrop.backdrop(),
+    )?;
     retained.digest = generated.digest.clone();
     let root = commands
         .spawn((SceneRoot, Transform::default(), Visibility::Inherited))
@@ -139,12 +143,7 @@ fn prepare(
         street.spawn_ground(commands, root);
     }
     super::instances::spawn_props(commands, &mut generated, root);
-    crate::presentation::spawn_strategic_backdrop(
-        commands,
-        backdrop,
-        input.environment_snapshot(generated.digest.clone()),
-        root,
-    );
+    backdrop.spawn(commands, root);
     crate::presentation::queue_strategic_city(commands, input, &generated.buildings);
     let recipes = std::mem::take(&mut generated.building_recipes);
     commands.queue(move |world: &mut World| {

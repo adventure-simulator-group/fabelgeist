@@ -124,7 +124,7 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
             Some(&environment),
             environment.weather,
             None,
-        ));
+        ).unwrap());
         inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
             * lod.spacing_metres
             * 0.5;

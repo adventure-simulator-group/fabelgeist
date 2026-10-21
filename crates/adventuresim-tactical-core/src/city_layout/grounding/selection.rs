@@ -95,9 +95,12 @@ impl CompoundSupportRequest<'_> {
         let unbound = CompoundSupportPlan::compile(self.property, levels, self.limits, treatment)?;
         let shift = unbound.bounded_floor_shift(self.geographic)?;
         let mut selected = unbound.levels;
-        selected.front.elevation.0 += shift;
-        selected.rear.elevation.0 += shift;
-        selected.court.0 += shift;
+        let geometry_error = |cause| SupportDiagnostic::framed_geometry(
+            self.property, self.property.plot.centre_metres(), cause,
+        );
+        selected.front.elevation = selected.front.elevation.translated(shift).map_err(geometry_error)?;
+        selected.rear.elevation = selected.rear.elevation.translated(shift).map_err(geometry_error)?;
+        selected.court = selected.court.translated(shift).map_err(geometry_error)?;
         let plan = CompoundSupportPlan::compile(self.property, selected, self.limits, treatment)?
             .bind_street_entry(
             self.street_threshold_metres,

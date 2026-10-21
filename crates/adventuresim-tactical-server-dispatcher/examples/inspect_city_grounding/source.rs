@@ -21,13 +21,12 @@ impl<'a> InspectionSource<'a> {
     pub(super) fn height_at(&self, point: ScenePlanPoint) -> Option<SupportElevation> {
         self.terrain.height_at(point).or_else(|| {
             self.vista.lods.iter().enumerate().find_map(|(index, lod)| {
-                // The complete triangle/LOD stitch kernel consumes scene metres.
-                SupportElevation::from_metres(vista_triangle_height(
+                vista_triangle_height(
                     lod,
                     self.vista.lods.get(index + 1),
                     self.terrain,
-                    point.metres(),
-                )?)
+                    point,
+                )
             })
         })
     }

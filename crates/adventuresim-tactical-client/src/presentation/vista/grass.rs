@@ -8,6 +8,7 @@ use adventuresim_tactical_core::{
     city_layout::grounding::{SupportElevation, SupportQuery},
     scene_coordinates::ScenePlanPoint,
 };
+use adventuresim_building_generator::spatial_geometry::PositiveLength;
 use fabelgeist_determinism::Seed;
 
 /// Instance placement for the vista rings: the same tuft lattice as the
@@ -73,37 +74,19 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
                 .surface_below(SupportQuery::unbounded(centre))?;
             return (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation);
         }
-        let origin = Vec2::new(
-            self.lod.origin_east_metres as f32,
-            self.lod.origin_north_metres as f32,
-        );
-        let local = centre.metres() - origin;
-        let at = |offset: Vec2| {
-            presented_vista_vertex_height(
-                self.lod,
-                self.coarser_lod,
-                Some(self.playable_terrain),
-                local + offset,
-                self.playable_half_extent,
-            )
-        };
-        let height = at(Vec2::ZERO)?;
-        // Central differences over the presented surface, matching the slope
-        // gate the playable placement takes from `SceneTerrain::normal_at`.
-        let delta = 2.0;
-        let sample = |offset: Vec2| at(offset).unwrap_or(height);
-        let tangent_x = Vec3::new(
-            delta * 2.0,
-            sample(Vec2::X * delta) - sample(-Vec2::X * delta),
-            0.0,
-        );
-        let tangent_z = Vec3::new(
-            0.0,
-            sample(Vec2::Y * delta) - sample(-Vec2::Y * delta),
-            delta * 2.0,
-        );
+        let local = self.lod.local_offset(centre).ok()?;
+        let geometry = VistaVertexGeometry::sample(
+            self.lod,
+            self.coarser_lod,
+            Some(self.playable_terrain),
+            local,
+            self.playable_half_extent,
+            PositiveLength::from_metres(2.0).ok()?,
+        )?;
+        let tangent_x = geometry.east_tangent().metres();
+        let tangent_z = geometry.north_tangent().metres();
         let normal = tangent_z.cross(tangent_x).normalize_or_zero();
-        SupportElevation::from_metres(height).filter(|_| normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y)
+        (normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(geometry.elevation())
     }
 
     fn community(&mut self, centre: ScenePlanPoint) -> GrassCommunity {

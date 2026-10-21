@@ -1,7 +1,22 @@
 //! Narrow flights connect a level court to independently supported floors.
 //! Step dimensions are supplied by the caller; no movement limit is relaxed.
 use super::*;
-use adventuresim_building_generator::AccessStairFlight;
+use adventuresim_building_generator::spatial_geometry::{GeometryError, GeometryResult, PositiveLength, SignedLength};
+use crate::scene_coordinates::ScenePlanPoint;
+use std::num::NonZeroU16;
+
+/// A court flight in scene east/north coordinates and absolute support datums.
+/// Building-generator access flights instead belong to architectural space.
+#[derive(Clone, Copy, Debug, Serialize)]
+pub struct SupportStairFlight {
+    pub top: ScenePlanPoint,
+    pub bottom: ScenePlanPoint,
+    pub top_elevation_metres: SupportElevation,
+    pub bottom_elevation_metres: SupportElevation,
+    pub riser_count: NonZeroU16,
+    pub going_metres: PositiveLength,
+    pub nosing_metres: SignedLength,
+}
 
 /// Architectural stair bounds, distinct from the actor's maximum step height.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, bevy::reflect::Reflect)]
@@ -16,6 +31,17 @@ pub struct CourtStairLimits {
         adventuresim_building_generator::spatial_geometry::PositiveLength,
     minimum_court_landing_run_metres:
         adventuresim_building_generator::spatial_geometry::PositiveLength,
+}
+
+#[derive(Clone, Debug)]
+pub(super) struct CourtStair {
+    pub flight: SupportStairFlight,
+    pub half_width_metres: PositiveLength,
+    pub bottom_local: Vec2,
+    pub top_local: Vec2,
+    floor_local: Vec2,
+    floor_landing_half_length_metres: PositiveLength,
+    floor_elevation_metres: SupportElevation,
 }
 
 impl CourtStairLimits {
@@ -65,22 +91,15 @@ impl CourtStairLimits {
     }
 }
 
-#[derive(Clone, Debug)]
-pub(super) struct CourtStair {
-    pub flight: AccessStairFlight,
-    pub half_width_metres: f32,
-    pub bottom_local: Vec2,
-    pub top_local: Vec2,
-    floor_local: Vec2,
-    floor_landing_half_length_metres: f32,
-    floor_elevation_metres: f32,
-}
-
 impl CourtStair {
-    pub(super) fn shift_floor(&mut self, metres: f32) {
-        self.flight.top_elevation_metres += metres;
-        self.flight.bottom_elevation_metres += metres;
-        self.floor_elevation_metres += metres;
+    pub(super) fn shift_floor(&mut self, offset: SignedLength) -> GeometryResult<()> {
+        let top = self.flight.top_elevation_metres.translated(offset)?;
+        let bottom = self.flight.bottom_elevation_metres.translated(offset)?;
+        let floor = self.floor_elevation_metres.translated(offset)?;
+        self.flight.top_elevation_metres = top;
+        self.flight.bottom_elevation_metres = bottom;
+        self.floor_elevation_metres = floor;
+        Ok(())
     }
 
     pub fn compile(
@@ -153,9 +172,9 @@ impl CourtStair {
             ));
         }
         let (top, bottom, top_height, bottom_height) = if floor.metres() > court.metres() {
-            (floor_end, court_end, floor.metres(), court.metres())
+            (floor_end, court_end, floor, court)
         } else {
-            (court_end, floor_end, court.metres(), floor.metres())
+            (court_end, floor_end, court, floor)
         };
         let local = |point| {
             property
@@ -163,56 +182,60 @@ impl CourtStair {
                 .orientation()
                 .world_to_local(point - property.plot.centre_metres())
         };
+        let geometry_error = |cause| SupportDiagnostic::framed_geometry(property, court_end, cause);
+        let riser_count = NonZeroU16::new(count as u16).ok_or_else(|| geometry_error(GeometryError::InvalidProjection))?;
         Ok(Some(Self {
-            flight: AccessStairFlight {
-                top,
-                bottom,
+            flight: SupportStairFlight {
+                top: ScenePlanPoint::try_from(top).map_err(geometry_error)?,
+                bottom: ScenePlanPoint::try_from(bottom).map_err(geometry_error)?,
                 top_elevation_metres: top_height,
                 bottom_elevation_metres: bottom_height,
-                riser_count: count as u16,
-                going_metres: run / count,
-                nosing_metres: 0.0,
+                riser_count,
+                going_metres: PositiveLength::from_metres(run / count).map_err(geometry_error)?,
+                nosing_metres: SignedLength::ZERO,
             },
-            half_width_metres: width,
+            half_width_metres: PositiveLength::from_metres(width).map_err(geometry_error)?,
             top_local: local(top),
             bottom_local: local(bottom),
             floor_local: local(route.end_metres()),
-            floor_landing_half_length_metres: floor_landing,
-            floor_elevation_metres: floor.metres(),
+            floor_landing_half_length_metres: PositiveLength::from_metres(floor_landing).map_err(geometry_error)?,
+            floor_elevation_metres: floor,
         }))
     }
 
-    pub fn height_at(&self, local: Vec2) -> Option<f32> {
+    /// Native plot-local rectangle and tread calculation; the returned datum
+    /// remains checked through the containing support plan.
+    pub fn height_at(&self, local: Vec2) -> Option<GeometryResult<SupportElevation>> {
         if (local - self.floor_local)
             .abs()
             .cmple(Vec2::new(
-                self.half_width_metres,
-                self.floor_landing_half_length_metres,
+                self.half_width_metres.metres(),
+                self.floor_landing_half_length_metres.metres(),
             ))
             .all()
         {
-            return Some(self.floor_elevation_metres);
+            return Some(Ok(self.floor_elevation_metres));
         }
         let axis = self.top_local - self.bottom_local;
         let length = axis.length();
         let distance = (local - self.bottom_local).dot(axis / length);
         let across = (local - self.bottom_local).perp_dot(axis / length).abs();
-        if !(0.0..=length).contains(&distance) || across > self.half_width_metres {
+        if !(0.0..=length).contains(&distance) || across > self.half_width_metres.metres() {
             return None;
         }
-        let count = f32::from(self.flight.riser_count);
+        let count = f32::from(self.flight.riser_count.get());
         let tread = (distance / length * count).ceil().clamp(0.0, count);
-        Some(
-            self.flight.bottom_elevation_metres
-                + (self.flight.top_elevation_metres - self.flight.bottom_elevation_metres) * tread
+        Some(SupportElevation::from_metres(
+            self.flight.bottom_elevation_metres.metres()
+                + (self.flight.top_elevation_metres.metres() - self.flight.bottom_elevation_metres.metres()) * tread
                     / count,
-        )
+        ).ok_or(GeometryError::InvalidProjection))
     }
 
     pub fn local_cuts(&self) -> (Vec<f32>, Vec<f32>) {
-        let width = self.half_width_metres;
+        let width = self.half_width_metres.metres();
         let x = self.top_local.x;
-        let count = self.flight.riser_count;
+        let count = self.flight.riser_count.get();
         let mut z: Vec<_> = (0..=count)
             .map(|i| {
                 self.bottom_local.y
@@ -220,8 +243,8 @@ impl CourtStair {
             })
             .collect();
         z.extend([
-            self.floor_local.y - self.floor_landing_half_length_metres,
-            self.floor_local.y + self.floor_landing_half_length_metres,
+            self.floor_local.y - self.floor_landing_half_length_metres.metres(),
+            self.floor_local.y + self.floor_landing_half_length_metres.metres(),
         ]);
         (vec![x - width, x + width], z)
     }

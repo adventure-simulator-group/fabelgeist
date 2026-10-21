@@ -1,5 +1,6 @@
 //! Distant rock and tree presentation from the admitted source terrain.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::SignedLength;
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use fabelgeist_determinism::Seed;
 
@@ -17,6 +18,13 @@ pub(super) fn spawn_vista_rocks(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
 ) {
+    let lift = match SignedLength::from_metres(0.08) {
+        Ok(lift) => lift,
+        Err(error) => {
+            warn!(%error, "Invalid vista rock elevation offset");
+            return;
+        }
+    };
     let recipe = RockRecipe {
         seed: 0x7669_7374_615f_726f.into(),
         archetype: RockArchetype::Rounded,
@@ -57,7 +65,6 @@ pub(super) fn spawn_vista_rocks(
             if streams::ROCK_PRESENCE.rng(hash, &[]).inclusive_unit_f32() > exposed * 0.46 {
                 continue;
             }
-            let lift = 0.08;
             let Some(mut transform) = vista_scatter_transform(
                 lod,
                 coarser_lod,

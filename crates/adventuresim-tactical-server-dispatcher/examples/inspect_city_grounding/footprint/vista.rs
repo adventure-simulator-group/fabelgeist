@@ -94,7 +94,13 @@ pub(crate) fn triangles(
                     let Some(heights) = quad
                         .into_iter()
                         .map(|p| {
-                            presented_vista_vertex_height(lod, coarser, Some(terrain), p, half)
+                            presented_vista_vertex_height(
+                                lod,
+                                coarser,
+                                Some(terrain),
+                                adventuresim_tactical_core::scene_coordinates::PlanDisplacement::from_metres(p)?,
+                                half,
+                            )
                         })
                         .collect::<Option<Vec<_>>>()
                     else {
@@ -104,7 +110,7 @@ pub(crate) fn triangles(
                     for indices in [[0, 1, 2], [0, 2, 3]] {
                         result.push(indices.map(|i| {
                             let point = quad[i] + origin;
-                            bevy::math::Vec3::new(point.x, heights[i], point.y)
+                            bevy::math::Vec3::new(point.x, heights[i].metres(), point.y)
                         }));
                     }
                 }

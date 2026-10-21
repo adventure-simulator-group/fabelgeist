@@ -36,6 +36,9 @@ impl ScenePlanPoint {
     pub fn metres(self) -> Vec2 {
         self.0
     }
+    pub fn offset_from_origin(self) -> PlanDisplacement {
+        PlanDisplacement(self.0)
+    }
     pub fn translated(
         self,
         delta: PlanDisplacement,

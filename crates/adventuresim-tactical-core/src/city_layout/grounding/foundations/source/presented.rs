@@ -81,9 +81,9 @@ fn append_ring(
                                 lod,
                                 coarser,
                                 terrain,
-                                point,
+                                crate::scene_coordinates::PlanDisplacement::from_metres(point)?,
                                 inner_half_extent,
-                            )?,
+                            )?.metres(),
                             z,
                         ))
                     };
@@ -165,8 +165,12 @@ mod tests {
             Vec2::new(3.1, 2.4),
         ] {
             let expected =
-                vista_triangle_height(&vista.lods[0], Some(&vista.lods[1]), &terrain, point)
-                    .unwrap();
+                vista_triangle_height(
+                    &vista.lods[0],
+                    Some(&vista.lods[1]),
+                    &terrain,
+                    crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap(),
+                ).unwrap().metres();
             assert!(
                 (source
                     .elevation_at(

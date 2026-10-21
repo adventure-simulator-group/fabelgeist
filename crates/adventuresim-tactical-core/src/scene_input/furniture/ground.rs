@@ -28,12 +28,12 @@ impl<'a> PlacementGround<'a> {
     }
     pub(super) fn height_at(&self, point: ScenePlanPoint) -> Option<SupportElevation> {
         self.terrain.height_at(point).or_else(|| {
-            SupportElevation::from_metres(vista_triangle_height(
+            vista_triangle_height(
                 self.input.vista.lods.first()?,
                 self.input.vista.lods.get(1),
                 self.terrain,
-                point.metres(),
-            )?)
+                point,
+            )
         })
     }
     pub(super) fn scope(&self, footprint: FurnitureFootprint) -> Option<PlacementScope> {
