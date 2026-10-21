@@ -184,9 +184,7 @@ mod tests {
         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0)
             .unwrap()
             .refined(0.5, |point, base| {
-                SupportElevation::from_metres(
-                    base.metres() + point.metres().x.sin() * 0.02,
-                )
+                SupportElevation::from_metres(base.metres() + point.metres().x.sin() * 0.02)
             })
             .unwrap();
         let fine_count = terrain.mesh().count_vertices();
