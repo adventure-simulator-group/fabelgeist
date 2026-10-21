@@ -36,7 +36,7 @@ fn impressions_and_scale_have_separate_relief_and_response() {
             let v = (y as f32 + 0.5) / 100.0;
             let a = field::sample(&p, u, v);
             let b = field::sample(&clean, u, v);
-            assert!(a.height <= b.height + f32::EPSILON);
+            assert!(a.height <= b.height.next_up());
             assert!((0.0..=1.0).contains(&a.height));
             if a.cavity > 0.5 {
                 cavities += 1;
@@ -92,4 +92,17 @@ fn categorical_palette_and_metallicity_agree_and_mips_are_complete() {
         }
     }
     assert!(endpoints as f32 / color.size.pow(2) as f32 > 0.96);
+}
+
+#[test]
+fn disabled_polish_does_not_change_surface_roughness() {
+    let mut params = TextureParameters::default();
+    params.ironwork.polish_fraction = 0.0;
+    for u in [0.0, 0.3, 0.7] {
+        let sample = field::sample(&params, u, 0.5);
+        params.ironwork.polish_roughness = 0.0;
+        let smooth = response(&params, sample, 0.0);
+        params.ironwork.polish_roughness = 1.0;
+        assert_eq!(response(&params, sample, 0.0), smooth);
+    }
 }

@@ -946,8 +946,8 @@ mod tests {
         assert_eq!(first.provenance.records.len(), 8);
         assert_eq!(first.provenance.bake_version, TREE_IMPOSTOR_BAKE_VERSION);
         assert_eq!(first.image.data, second.image.data);
-        assert!((WHOLE_TREE_RUNTIME_WIDTH_SCALE - 1.0).abs() < f32::EPSILON);
-        assert!((WHOLE_TREE_BAKE_EXPOSURE - 0.91).abs() < f32::EPSILON);
+        assert_eq!(WHOLE_TREE_RUNTIME_WIDTH_SCALE, 1.0);
+        assert_eq!(WHOLE_TREE_BAKE_EXPOSURE, 0.91);
         assert_eq!(
             tree_impostor_material(
                 fabelgeist_determinism::Seed::from_u64(42),

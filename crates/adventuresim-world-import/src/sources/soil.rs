@@ -1053,7 +1053,7 @@ fn wrb_from_code(v: f64) -> Result<WrbReferenceGroup> {
         Vertisol,
     ];
     let i = v.round() as isize;
-    if v.is_finite() && (v - v.round()).abs() < f64::EPSILON && i >= 0 && (i as usize) < all.len() {
+    if v.is_finite() && v == v.round() && i >= 0 && (i as usize) < all.len() {
         Ok(all[i as usize])
     } else {
         Err(Error::Validation(format!("invalid SoilGrids WRB code {v}")))

@@ -186,8 +186,8 @@ fn submit(
         .ok_or("Equipment condition not found")?;
     let bins = condition.bins();
     let repairable = bins.repairable(skill);
-    if repairable <= f32::EPSILON {
-        return Err(if bins.total() <= f32::EPSILON {
+    if repairable <= 0.0 {
+        return Err(if bins.total() <= 0.0 {
             "Item is not damaged"
         } else {
             "All damage is beyond this craftsperson's skill"

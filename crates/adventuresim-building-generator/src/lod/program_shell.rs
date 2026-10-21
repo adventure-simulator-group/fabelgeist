@@ -160,7 +160,7 @@ fn append_polygon(
         if (positions[1] - positions[0])
             .cross(positions[2] - positions[0])
             .length_squared()
-            <= f32::EPSILON
+            <= 0.0
         {
             continue;
         }
@@ -169,7 +169,7 @@ fn append_polygon(
             normal,
             surface: crate::RoofSurface::Weather,
         };
-        let uv = if normal.y.abs() > f32::EPSILON {
+        let uv = if normal.y.abs() > 0.0 {
             triangle.covering_uvs(TEXTURE_REPEAT_METRES)
         } else {
             triangle.planar_uvs(TEXTURE_REPEAT_METRES)

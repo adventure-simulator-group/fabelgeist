@@ -18,6 +18,8 @@ pub enum PoseSampling {
     Timeline { progress: f32 },
     /// Blend two semantic anchor poses. The client samples both catalog frames
     /// exactly and never evaluates exported in-between keys.
+    /// Both endpoints declare playback topology, including at zero or complete
+    /// progress; an endpoint with zero weight contributes no pose movement.
     Span { end: SemanticPose, progress: f32 },
     /// Extrapolate the transform delta between two semantic anchors. Unlike a
     /// normal span, the coordinate is intentionally allowed outside zero to
@@ -33,6 +35,8 @@ pub enum PoseSampling {
         finish: SemanticPose,
         start_coordinate: f32,
         incoming_tangent: f32,
+        /// Readiness knot strictly between zero and contact at phase 0.5,
+        /// supplied by the authoritative continuation curve.
         ready_phase: f32,
         progress: f32,
     },
@@ -287,12 +291,7 @@ fn dive_lower_body_samples(
 }
 
 fn dive_contact_pose_progress(phase: f32) -> f32 {
-    let recovery = smoothstep01((phase - 0.5) * 2.0);
-    // Weighted clips at or below epsilon are discarded before the pose-buffer
-    // plan key is built. Prime the contact endpoint invisibly on the exact
-    // landing pose so the first advancing recovery frame does not also change
-    // clip topology and retrigger whole-chain inertialization.
-    recovery.max(f32::EPSILON * 2.0)
+    smoothstep01((phase - 0.5) * 2.0)
 }
 
 fn dive_pose(direction: DiveDirection) -> SemanticPose {
@@ -342,11 +341,11 @@ fn combat_lower_body_samples(state: &SkeletonState) -> Vec<PoseSample> {
     let strafe = direction.x.abs();
     let skip = direction.y.abs();
     let total = strafe + skip;
-    if total <= f32::EPSILON {
+    if total <= 0.0 {
         return vec![anchor_sample(SemanticPose::CombatStance)];
     }
     let mut samples = Vec::with_capacity(2);
-    if strafe > f32::EPSILON {
+    if strafe > 0.0 {
         let phase = combat_cycle_phase(state.gait_phase);
         let mut sample = cycle_sample(
             SemanticPose::StrafeCycle,
@@ -359,7 +358,7 @@ fn combat_lower_body_samples(state: &SkeletonState) -> Vec<PoseSample> {
         sample.weight = strafe / total;
         samples.push(sample);
     }
-    if skip > f32::EPSILON {
+    if skip > 0.0 {
         let phase = combat_cycle_phase(state.gait_phase);
         // `skip.glb` serves both travel directions by changing which foot is
         // forward. Backward is the authored foot order; forward therefore
@@ -404,7 +403,7 @@ fn quickstep_lower_body_samples(state: &SkeletonState) -> Vec<PoseSample> {
     let total = directional.iter().map(|(weight, _)| weight).sum::<f32>();
     directional
         .into_iter()
-        .filter(|(weight, _)| *weight > f32::EPSILON)
+        .filter(|(weight, _)| *weight > 0.0)
         .map(|(weight, pose)| PoseSample {
             pose,
             sampling: PoseSampling::Timeline { progress },
@@ -500,7 +499,7 @@ fn locomotion_samples(speed: f32, phase: f32) -> Vec<PoseSample> {
         vec![cycle_sample(SemanticPose::RunContact, phase)],
         locomotion * run,
     );
-    samples.retain(|sample| sample.weight > f32::EPSILON);
+    samples.retain(|sample| sample.weight > 0.0);
     samples
 }
 
@@ -514,7 +513,7 @@ fn upright_locomotion_samples(state: &SkeletonState) -> Vec<PoseSample> {
     let lateral = direction.x.abs();
     let longitudinal = direction.y.abs();
     let total = lateral + longitudinal;
-    if lateral <= f32::EPSILON || total <= f32::EPSILON {
+    if lateral <= 0.0 || total <= 0.0 {
         return locomotion_samples(speed, phase);
     }
 
@@ -544,7 +543,7 @@ fn upright_locomotion_samples(state: &SkeletonState) -> Vec<PoseSample> {
     );
     strafe.weight = locomotion * lateral_weight;
     samples.push(strafe);
-    samples.retain(|sample| sample.weight > f32::EPSILON);
+    samples.retain(|sample| sample.weight > 0.0);
     samples
 }
 
@@ -660,7 +659,7 @@ mod tests {
             contact[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::ProneSupineRollRight,
-                progress: f32::EPSILON * 2.0,
+                progress: 0.0,
             }
         );
 
@@ -702,7 +701,7 @@ mod tests {
             contact[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::SupineIdle,
-                progress: f32::EPSILON * 2.0,
+                progress: 0.0,
             }
         );
 

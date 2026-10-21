@@ -341,7 +341,7 @@ fn apply_authored_cadence(
     {
         let requested_step_cadence = speed / measurement.step_distance.max(0.01);
         let step_cadence = capped_authored_step_cadence(requested_step_cadence);
-        cadence_capped = step_cadence + f32::EPSILON < requested_step_cadence;
+        cadence_capped = step_cadence < requested_step_cadence;
         limited = cadence_capped
             || measurement.maximum_stance_slip > maximum_authored_stance_slip_metres();
         if cadence_capped && !continuing.is_some_and(|current| current.cadence_capped) {
@@ -785,7 +785,7 @@ mod authored_cadence_tests {
         assert!(presented.action_phase() > previous_phase);
         assert!(
             presented.action_phase()
-                <= previous_phase + nominal_delta + maximum_correction + f32::EPSILON
+                <= (previous_phase + nominal_delta + maximum_correction).next_up()
         );
         assert!(presented.action_phase() < authoritative.action_phase());
     }

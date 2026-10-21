@@ -39,7 +39,7 @@ pub(super) fn resolve_contact_energy(
     precision: super::ContactPrecision,
 ) -> ContactEnergyResolution {
     let incident = incident_energy_joules.max(0.0);
-    if incident <= f32::EPSILON {
+    if incident <= 0.0 {
         return ContactEnergyResolution {
             armor_impact: None,
             cut_energy_joules: 0.0,
@@ -69,7 +69,7 @@ pub(super) fn resolve_contact_energy(
     debug_assert!((incident - resisted - transmitted - penetrated).abs() < 0.001);
     let impact = ArmorImpact {
         surface,
-        outcome: if penetrated > f32::EPSILON {
+        outcome: if penetrated > 0.0 {
             ArmorImpactOutcome::Penetrated
         } else if attack < 1.0 {
             ArmorImpactOutcome::Deflected

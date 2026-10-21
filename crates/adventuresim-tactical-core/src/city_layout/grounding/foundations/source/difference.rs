@@ -41,7 +41,7 @@ impl GeographicSurface {
             return None;
         }
         let required_area_square_metres = signed_area(&outline);
-        if required_area_square_metres <= f64::EPSILON {
+        if required_area_square_metres <= 0.0 {
             return None;
         }
         let bounds = PlanarBounds::from_points(outline.iter().copied())?;
@@ -56,7 +56,7 @@ impl GeographicSurface {
                 let edge = outline[(i + 1) % outline.len()] - a;
                 clipped = clip(clipped, |p| edge.perp_dot(p - a));
             }
-            if signed_area(&clipped) <= f64::EPSILON {
+            if signed_area(&clipped) <= 0.0 {
                 continue;
             }
             for second in other.intersecting(first) {
@@ -67,7 +67,7 @@ impl GeographicSurface {
                     polygon = clip(polygon, |p| edge.perp_dot(p - points[i]));
                 }
                 let area = signed_area(&polygon);
-                if area <= f64::EPSILON {
+                if area <= 0.0 {
                     continue;
                 }
                 covered_area_square_metres += area;

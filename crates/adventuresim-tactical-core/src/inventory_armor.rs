@@ -69,7 +69,7 @@ pub(super) fn fold_armor_layers<'a>(
             .range_of_motion
             .min(armor.range_of_motion.clamp(0.0, 1.0));
     }
-    result.flexibility = if result.resistance > f32::EPSILON {
+    result.flexibility = if result.resistance > 0.0 {
         weighted_flexibility / result.resistance
     } else {
         0.0

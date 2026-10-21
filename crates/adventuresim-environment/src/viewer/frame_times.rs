@@ -29,9 +29,13 @@ impl FrameTimes {
         }
     }
 
-    /// Frames per second over the last [`WINDOW`] frames.
+    /// Frames per second over the last [`WINDOW`] frames, or zero until time elapses.
     pub fn rate(&self) -> f32 {
         let elapsed: f32 = self.seconds.iter().sum();
-        self.seconds.len() as f32 / elapsed.max(f32::EPSILON)
+        if elapsed > 0.0 {
+            self.seconds.len() as f32 / elapsed
+        } else {
+            0.0
+        }
     }
 }

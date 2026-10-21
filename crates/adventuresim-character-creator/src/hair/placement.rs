@@ -251,5 +251,5 @@ fn cross(a: [f32; 3], b: [f32; 3]) -> [f32; 3] {
 
 fn normalize(a: [f32; 3]) -> Option<[f32; 3]> {
     let length = dot(a, a).sqrt();
-    (length > f32::EPSILON).then(|| scale(a, 1.0 / length))
+    (length > 0.0 && length.is_finite()).then(|| scale(a, 1.0 / length))
 }

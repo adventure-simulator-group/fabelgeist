@@ -43,7 +43,7 @@ pub(super) fn floor_shift(
         let mut covered = 0.0;
         for source in geographic.intersecting(&support) {
             let polygon = support.intersection(source);
-            if polygon.len() < 3 || geometry::area(&polygon) <= f64::EPSILON {
+            if polygon.len() < 3 || geometry::area(&polygon) <= 0.0 {
                 continue;
             }
             covered += geometry::area(&polygon);
@@ -79,7 +79,7 @@ impl FloorInterval {
     ) -> Result<(), SupportDiagnostic> {
         let displacement = control.support - control.source;
         let permitted = f64::from(plan.limits.maximum_displacement_metres.metres());
-        if control.coefficient.abs() <= f64::from(f32::EPSILON) {
+        if control.coefficient == 0.0 {
             if displacement.abs() > permitted {
                 return Err(rejection(plan, control, 0.0));
             }

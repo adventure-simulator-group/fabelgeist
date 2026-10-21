@@ -754,7 +754,7 @@ fn expected_public_mix(candidate: DiseaseId, age: u64) -> [f32; physiology::HUMO
 
 fn normalize_mix(values: &mut [f32; physiology::HUMOUR_COUNT]) {
     let total = values.iter().sum::<f32>();
-    if total > f32::EPSILON {
+    if total > 0.0 {
         for value in values {
             *value /= total;
         }

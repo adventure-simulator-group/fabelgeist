@@ -257,8 +257,12 @@ fn corners_bounds(corners: [Vec2; 4]) -> (Vec2, Vec2) {
 
 fn segment_distance(point: Vec2, start: Vec2, end: Vec2) -> f32 {
     let edge = end - start;
-    let fraction =
-        ((point - start).dot(edge) / edge.length_squared().max(f32::EPSILON)).clamp(0.0, 1.0);
+    let length_squared = edge.length_squared();
+    let fraction = if length_squared > 0.0 {
+        ((point - start).dot(edge) / length_squared).clamp(0.0, 1.0)
+    } else {
+        0.0
+    };
     point.distance(start + edge * fraction)
 }
 fn touches_edges(centre: Vec2, radius: f32, corners: [Vec2; 4]) -> bool {

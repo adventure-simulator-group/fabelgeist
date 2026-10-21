@@ -57,10 +57,10 @@ pub(super) fn condition_bar(
     let bins = condition.map(|value| value.bins()).unwrap_or([0.0; 5]);
     let total = bins.iter().sum::<f32>().clamp(0.0, 1.0);
     let green = (1.0 - total).max(0.0);
-    let label = if total <= f32::EPSILON {
+    let label = if total <= 0.0 {
         "Full durability".to_string()
     } else if repair_skill
-        .is_some_and(|skill| bins.iter().take(skill.min(5) as usize).sum::<f32>() > f32::EPSILON)
+        .is_some_and(|skill| bins.iter().take(skill.min(5) as usize).sum::<f32>() > 0.0)
     {
         "Damaged; the flashing portion can be repaired by this smith".to_string()
     } else {
@@ -118,12 +118,12 @@ pub(super) fn repair_submit_control(
     let total = condition.map_or(0.0, |value| value.total());
     let repairable = condition.map_or(0.0, |value| value.repairable(skill));
     let residual = condition.map_or(0.0, |value| value.residual(skill));
-    let disabled = total <= f32::EPSILON || repairable <= f32::EPSILON;
-    let explanation = if total <= f32::EPSILON {
+    let disabled = total <= 0.0 || repairable <= 0.0;
+    let explanation = if total <= 0.0 {
         "Item is already in full condition".to_string()
-    } else if repairable <= f32::EPSILON {
+    } else if repairable <= 0.0 {
         format!("All damage requires Smithing above this smith's level {skill}")
-    } else if residual > f32::EPSILON {
+    } else if residual > 0.0 {
         "Repair all damage within this smith's skill; harder damage will remain".to_string()
     } else {
         format!("Repair all damage (smith level {skill})")
