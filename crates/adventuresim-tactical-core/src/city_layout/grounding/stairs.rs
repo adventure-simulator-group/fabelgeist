@@ -1,8 +1,10 @@
 //! Narrow flights connect a level court to independently supported floors.
 //! Step dimensions are supplied by the caller; no movement limit is relaxed.
 use super::*;
-use adventuresim_building_generator::spatial_geometry::{GeometryError, GeometryResult, PositiveLength, SignedLength};
 use crate::scene_coordinates::ScenePlanPoint;
+use adventuresim_building_generator::spatial_geometry::{
+    GeometryError, GeometryResult, PositiveLength, SignedLength,
+};
 use std::num::NonZeroU16;
 
 /// A court flight in scene east/north coordinates and absolute support datums.
@@ -183,7 +185,8 @@ impl CourtStair {
                 .world_to_local(point - property.plot.centre_metres())
         };
         let geometry_error = |cause| SupportDiagnostic::framed_geometry(property, court_end, cause);
-        let riser_count = NonZeroU16::new(count as u16).ok_or_else(|| geometry_error(GeometryError::InvalidProjection))?;
+        let riser_count = NonZeroU16::new(count as u16)
+            .ok_or_else(|| geometry_error(GeometryError::InvalidProjection))?;
         Ok(Some(Self {
             flight: SupportStairFlight {
                 top: ScenePlanPoint::try_from(top).map_err(geometry_error)?,
@@ -198,7 +201,8 @@ impl CourtStair {
             top_local: local(top),
             bottom_local: local(bottom),
             floor_local: local(route.end_metres()),
-            floor_landing_half_length_metres: PositiveLength::from_metres(floor_landing).map_err(geometry_error)?,
+            floor_landing_half_length_metres: PositiveLength::from_metres(floor_landing)
+                .map_err(geometry_error)?,
             floor_elevation_metres: floor,
         }))
     }
@@ -225,11 +229,16 @@ impl CourtStair {
         }
         let count = f32::from(self.flight.riser_count.get());
         let tread = (distance / length * count).ceil().clamp(0.0, count);
-        Some(SupportElevation::from_metres(
-            self.flight.bottom_elevation_metres.metres()
-                + (self.flight.top_elevation_metres.metres() - self.flight.bottom_elevation_metres.metres()) * tread
-                    / count,
-        ).ok_or(GeometryError::InvalidProjection))
+        Some(
+            SupportElevation::from_metres(
+                self.flight.bottom_elevation_metres.metres()
+                    + (self.flight.top_elevation_metres.metres()
+                        - self.flight.bottom_elevation_metres.metres())
+                        * tread
+                        / count,
+            )
+            .ok_or(GeometryError::InvalidProjection),
+        )
     }
 
     pub fn local_cuts(&self) -> (Vec<f32>, Vec<f32>) {

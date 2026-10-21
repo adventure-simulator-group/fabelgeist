@@ -725,7 +725,8 @@ fn a_terraced_court_has_level_open_ground_and_narrow_discrete_stairs() {
     let flights: Vec<_> = plan.stair_flights().collect();
     assert_eq!(flights.len(), 2);
     for flight in flights {
-        let riser = (flight.top_elevation_metres.metres() - flight.bottom_elevation_metres.metres())
+        let riser = (flight.top_elevation_metres.metres()
+            - flight.bottom_elevation_metres.metres())
             / f32::from(flight.riser_count.get());
         assert!(riser <= 0.19);
         assert!(flight.going_metres.metres() >= 0.25);

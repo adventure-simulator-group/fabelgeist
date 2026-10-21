@@ -91,7 +91,9 @@ impl SupportElevation {
         self,
         offset: adventuresim_building_generator::spatial_geometry::SignedLength,
     ) -> adventuresim_building_generator::spatial_geometry::GeometryResult<Self> {
-        use adventuresim_building_generator::spatial_geometry::{CoordinateAxis, GeometryError, GeometryRole};
+        use adventuresim_building_generator::spatial_geometry::{
+            CoordinateAxis, GeometryError, GeometryRole,
+        };
         Self::from_metres(self.0 + offset.metres()).ok_or(GeometryError::NonFinite {
             role: GeometryRole::Elevation,
             axis: CoordinateAxis::Y,
@@ -295,9 +297,7 @@ impl CompoundSupportPlan {
         foundations::compile(&self.support_surface()?, geographic, embedment)
     }
 
-    pub fn stair_flights(
-        &self,
-    ) -> impl Iterator<Item = &SupportStairFlight> {
+    pub fn stair_flights(&self) -> impl Iterator<Item = &SupportStairFlight> {
         self.court_stairs.iter().map(|stair| &stair.flight)
     }
 
@@ -320,14 +320,33 @@ impl CompoundSupportPlan {
     /// triangle locations. It is never installed or accepted as a support plan.
     fn floor_translation_basis(&self) -> Result<Self, SupportDiagnostic> {
         let mut basis = self.clone();
-        let geometry_error = |cause| SupportDiagnostic::framed_geometry(
-            &self.property, self.property.plot.centre_metres(), cause,
-        );
-        let offset = adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(1.0)
+        let geometry_error = |cause| {
+            SupportDiagnostic::framed_geometry(
+                &self.property,
+                self.property.plot.centre_metres(),
+                cause,
+            )
+        };
+        let offset =
+            adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(1.0)
+                .map_err(geometry_error)?;
+        basis.levels.front.elevation = basis
+            .levels
+            .front
+            .elevation
+            .translated(offset)
             .map_err(geometry_error)?;
-        basis.levels.front.elevation = basis.levels.front.elevation.translated(offset).map_err(geometry_error)?;
-        basis.levels.rear.elevation = basis.levels.rear.elevation.translated(offset).map_err(geometry_error)?;
-        basis.levels.court = basis.levels.court.translated(offset).map_err(geometry_error)?;
+        basis.levels.rear.elevation = basis
+            .levels
+            .rear
+            .elevation
+            .translated(offset)
+            .map_err(geometry_error)?;
+        basis.levels.court = basis
+            .levels
+            .court
+            .translated(offset)
+            .map_err(geometry_error)?;
         let invalid = |error: profile::ProfileError| {
             SupportDiagnostic::new(
                 &self.property,

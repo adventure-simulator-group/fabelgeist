@@ -52,7 +52,12 @@ fn owned_vista_tree_roots_follow_support_across_detail_levels() {
     for point in [Vec2::new(40.0, 30.0), Vec2::new(-45.0, -30.0)] {
         let point = ScenePlanPoint::from_metres(point).unwrap();
         assert!(
-            (presented_height_at(&lod, point, Some(&coarse)).unwrap().metres() - 7.0).abs() > 1.0
+            (presented_height_at(&lod, point, Some(&coarse))
+                .unwrap()
+                .metres()
+                - 7.0)
+                .abs()
+                > 1.0
         );
         for (lod, next) in [(&lod, Some(&coarse)), (&coarse, None)] {
             assert!(
@@ -133,9 +138,15 @@ fn sampled_vista_trees_and_rocks_retain_the_presented_heightfield() {
         tree_root_height(&terrain, &lod, None, point),
         presented_height_at(&lod, point, None)
     );
-    let expected =
-        presented_vista_vertex_height(&lod, None, Some(&terrain), point.offset_from_origin(), Vec2::ONE)
-            .unwrap().metres();
+    let expected = presented_vista_vertex_height(
+        &lod,
+        None,
+        Some(&terrain),
+        point.offset_from_origin(),
+        Vec2::ONE,
+    )
+    .unwrap()
+    .metres();
     let rock = vista_scatter_transform(
         &lod,
         None,

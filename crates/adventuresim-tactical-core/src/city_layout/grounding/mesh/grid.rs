@@ -267,7 +267,9 @@ pub(in crate::city_layout::grounding) fn floor_regions(
                 ScenePlanPolygon::from_ordered_vertices(
                     [(x[0], z[0]), (x[1], z[0]), (x[1], z[1]), (x[0], z[1])]
                         .into_iter()
-                        .map(|(x, z)| ScenePlanPoint::try_from(world(plan, x, z, SupportElevation::ZERO).xz()))
+                        .map(|(x, z)| {
+                            ScenePlanPoint::try_from(world(plan, x, z, SupportElevation::ZERO).xz())
+                        })
                         .collect::<Result<Vec<_>, _>>()?,
                 )?,
             )?);

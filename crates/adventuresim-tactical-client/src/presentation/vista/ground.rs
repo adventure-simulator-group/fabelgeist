@@ -1,11 +1,11 @@
 //! Select the physical surface for vista meshes and scenery placement.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::{Position, PositiveLength, SignedLength};
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use adventuresim_tactical_core::{
     city_layout::grounding::{SupportElevation, SupportQuery, SurfaceHit},
     scene_coordinates::ScenePlanPoint,
 };
-use adventuresim_building_generator::spatial_geometry::{Position, PositiveLength, SignedLength};
-use adventuresim_tactical_core::scene_coordinates::Scene;
 use fabelgeist_determinism::Seed;
 
 const MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y: f32 = 0.72;
@@ -67,13 +67,13 @@ pub(super) fn vista_scatter_transform(
         return None;
     }
     let position = Position::<Scene>::from_metres(Vec3::new(
-            point.metres().x,
-            hit.elevation.metres() + lift.metres(),
-            point.metres().y,
-        )).ok()?;
+        point.metres().x,
+        hit.elevation.metres() + lift.metres(),
+        point.metres().y,
+    ))
+    .ok()?;
     Some(
-        Transform::from_translation(position.metres())
-        .with_rotation(
+        Transform::from_translation(position.metres()).with_rotation(
             Quat::from_rotation_arc(Vec3::Y, *hit.normal)
                 * Quat::from_rotation_y(
                     streams::ROCK_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,
@@ -120,7 +120,10 @@ fn scenery_surface(
     let tangent_x = geometry.east_tangent().metres();
     let tangent_z = geometry.north_tangent().metres();
     let normal = tangent_z.cross(tangent_x);
-    Some(SurfaceHit::new(geometry.elevation(), Dir3::new(normal).ok()?))
+    Some(SurfaceHit::new(
+        geometry.elevation(),
+        Dir3::new(normal).ok()?,
+    ))
 }
 
 #[cfg(test)]

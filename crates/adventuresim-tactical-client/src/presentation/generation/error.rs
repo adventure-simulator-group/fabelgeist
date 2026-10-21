@@ -1,9 +1,9 @@
 //! Preparation failures retain their owning causes until the presentation boundary.
+use crate::presentation::vista::VistaMeshError;
 use adventuresim_building_generator::{
     GenerationError, interior::InteriorLayoutError, spatial_geometry::GeometryError,
 };
 use adventuresim_tactical_core::scene_input::{SceneBuildingId, SceneInputError};
-use crate::presentation::vista::VistaMeshError;
 use thiserror::Error;
 
 pub(crate) type PreparationResult<T> = std::result::Result<T, PreparationError>;

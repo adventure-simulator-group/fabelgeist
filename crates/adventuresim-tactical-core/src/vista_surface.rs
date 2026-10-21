@@ -28,24 +28,40 @@ impl VistaVertexGeometry {
         normal_sample_distance: PositiveLength,
     ) -> Option<Self> {
         let height = native_presented_vista_vertex_height(
-            lod, coarser, terrain, local, playable_half_extent,
+            lod,
+            coarser,
+            terrain,
+            local,
+            playable_half_extent,
         )?;
         let delta = normal_sample_distance.metres();
         let at = |offset: Vec2| {
             PlanDisplacement::from_metres(local.metres() + offset)
-                .and_then(|probe| native_presented_vista_vertex_height(
-                    lod, coarser, terrain, probe, playable_half_extent,
-                ))
+                .and_then(|probe| {
+                    native_presented_vista_vertex_height(
+                        lod,
+                        coarser,
+                        terrain,
+                        probe,
+                        playable_half_extent,
+                    )
+                })
                 .unwrap_or(height)
         };
         Some(Self {
             elevation: SupportElevation::from_metres(height)?,
             east_tangent: Displacement::from_metres(Vec3::new(
-                delta * 2.0, at(Vec2::X * delta) - at(-Vec2::X * delta), 0.0,
-            )).ok()?,
+                delta * 2.0,
+                at(Vec2::X * delta) - at(-Vec2::X * delta),
+                0.0,
+            ))
+            .ok()?,
             north_tangent: Displacement::from_metres(Vec3::new(
-                0.0, at(Vec2::Y * delta) - at(-Vec2::Y * delta), delta * 2.0,
-            )).ok()?,
+                0.0,
+                at(Vec2::Y * delta) - at(-Vec2::Y * delta),
+                delta * 2.0,
+            ))
+            .ok()?,
         })
     }
 
@@ -76,17 +92,23 @@ impl VistaLod {
     }
 
     pub fn scene_point(&self, local: PlanDisplacement) -> GeometryResult<ScenePlanPoint> {
-        ScenePlanPoint::try_from(local.metres() + Vec2::new(
-            self.origin_east_metres as f32,
-            self.origin_north_metres as f32,
-        ))
+        ScenePlanPoint::try_from(
+            local.metres()
+                + Vec2::new(
+                    self.origin_east_metres as f32,
+                    self.origin_north_metres as f32,
+                ),
+        )
     }
 
     pub fn local_offset(&self, point: ScenePlanPoint) -> GeometryResult<PlanDisplacement> {
-        PlanDisplacement::try_from(point.metres() - Vec2::new(
-            self.origin_east_metres as f32,
-            self.origin_north_metres as f32,
-        ))
+        PlanDisplacement::try_from(
+            point.metres()
+                - Vec2::new(
+                    self.origin_east_metres as f32,
+                    self.origin_north_metres as f32,
+                ),
+        )
     }
 }
 
@@ -98,7 +120,11 @@ pub fn presented_vista_vertex_height(
     playable_half_extent: Vec2,
 ) -> Option<SupportElevation> {
     SupportElevation::from_metres(native_presented_vista_vertex_height(
-        lod, coarser_lod, playable_terrain, local, playable_half_extent,
+        lod,
+        coarser_lod,
+        playable_terrain,
+        local,
+        playable_half_extent,
     )?)
 }
 
@@ -180,7 +206,11 @@ pub fn stitch_vista_height_to_playable_edge(
     vista_height: SupportElevation,
 ) -> Option<SupportElevation> {
     SupportElevation::from_metres(native_stitch_vista_height_to_playable_edge(
-        terrain, local, playable_half_extent, transition_width, vista_height.metres(),
+        terrain,
+        local,
+        playable_half_extent,
+        transition_width,
+        vista_height.metres(),
     ))
 }
 
@@ -323,10 +353,15 @@ pub fn sampled_vista_triangle_height(
             if local.x < x0 || local.x > x1 || local.y < z0 || local.y > z1 {
                 continue;
             }
-            let vertex =
-                |x, z| native_presented_vista_vertex_height(
-                    lod, coarser, terrain, PlanDisplacement::from_metres(Vec2::new(x, z))?, half,
-                );
+            let vertex = |x, z| {
+                native_presented_vista_vertex_height(
+                    lod,
+                    coarser,
+                    terrain,
+                    PlanDisplacement::from_metres(Vec2::new(x, z))?,
+                    half,
+                )
+            };
             let a = vertex(x0, z0)?;
             let b = vertex(x1, z0)?;
             let c = vertex(x1, z1)?;

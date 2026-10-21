@@ -116,9 +116,13 @@ impl FloorInterval {
         } else {
             (self.minimum + self.maximum) * 0.5
         };
-        SignedLength::from_metres(shift as f32).map_err(|cause| SupportDiagnostic::framed_geometry(
-            &plan.property, plan.property.plot.centre_metres(), cause,
-        ))
+        SignedLength::from_metres(shift as f32).map_err(|cause| {
+            SupportDiagnostic::framed_geometry(
+                &plan.property,
+                plan.property.plot.centre_metres(),
+                cause,
+            )
+        })
     }
 }
 

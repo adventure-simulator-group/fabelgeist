@@ -1,9 +1,7 @@
 //! Required vista geometry fails before replacing its prepared presentation.
 use adventuresim_building_generator::spatial_geometry::GeometryError;
 use adventuresim_tactical_core::{
-    scene::TerrainSupportError,
-    scene_coordinates::ScenePlanPoint,
-    scene_input::VistaLevelIndex,
+    scene::TerrainSupportError, scene_coordinates::ScenePlanPoint, scene_input::VistaLevelIndex,
 };
 
 pub(crate) type VistaMeshResult<T> = Result<T, VistaMeshError>;

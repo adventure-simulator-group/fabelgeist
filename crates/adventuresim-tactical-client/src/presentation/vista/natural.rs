@@ -13,7 +13,12 @@ struct SampledVistaMesher<'a> {
 }
 
 impl SampledVistaMesher<'_> {
-    fn chunk(&self, chunk_x: usize, chunk_z: usize, chunk_cells: usize) -> VistaMeshResult<Option<Mesh>> {
+    fn chunk(
+        &self,
+        chunk_x: usize,
+        chunk_z: usize,
+        chunk_cells: usize,
+    ) -> VistaMeshResult<Option<Mesh>> {
         let width = usize::from(self.lod.width);
         let depth = usize::from(self.lod.depth);
         let center_x = (width - 1) as f32 * 0.5;
@@ -43,10 +48,18 @@ impl SampledVistaMesher<'_> {
                     {
                         let base = positions.len() as u32;
                         let vertices = [
-                            self.vertex(PlanDisplacement::try_from(Vec2::new(minimum_x, minimum_z))?)?,
-                            self.vertex(PlanDisplacement::try_from(Vec2::new(maximum_x, minimum_z))?)?,
-                            self.vertex(PlanDisplacement::try_from(Vec2::new(maximum_x, maximum_z))?)?,
-                            self.vertex(PlanDisplacement::try_from(Vec2::new(minimum_x, maximum_z))?)?,
+                            self.vertex(PlanDisplacement::try_from(Vec2::new(
+                                minimum_x, minimum_z,
+                            ))?)?,
+                            self.vertex(PlanDisplacement::try_from(Vec2::new(
+                                maximum_x, minimum_z,
+                            ))?)?,
+                            self.vertex(PlanDisplacement::try_from(Vec2::new(
+                                maximum_x, maximum_z,
+                            ))?)?,
+                            self.vertex(PlanDisplacement::try_from(Vec2::new(
+                                minimum_x, maximum_z,
+                            ))?)?,
                         ];
                         positions.extend(vertices.map(|vertex| vertex.0));
                         normals.extend(vertices.map(|vertex| vertex.1));
@@ -86,12 +99,17 @@ impl SampledVistaMesher<'_> {
             local,
             self.inner_half_extent,
             self.normal_sample_distance,
-        ).ok_or(TerrainSupportError::MissingSupport { point })?;
+        )
+        .ok_or(TerrainSupportError::MissingSupport { point })?;
         let tangent_x = geometry.east_tangent().metres();
         let tangent_z = geometry.north_tangent().metres();
-        let normal = tangent_z.cross(tangent_x).try_normalize()
+        let normal = tangent_z
+            .cross(tangent_x)
+            .try_normalize()
             .ok_or(VistaMeshError::DegenerateNormal { point })?;
-        let color = self.colors.at(local, self.inner_half_extent)
+        let color = self
+            .colors
+            .at(local, self.inner_half_extent)
             .ok_or(VistaMeshError::MissingColor { point })?;
         let local = local.metres();
         Ok((
@@ -138,9 +156,7 @@ pub(super) fn sampled_vista_lod_meshes_with_morph(
 }
 
 pub(super) fn validate_source(lod: &VistaLod) -> VistaMeshResult<()> {
-    if !lod.has_height_grid()
-        || lod.environment.len() != lod.heights_metres.len()
-    {
+    if !lod.has_height_grid() || lod.environment.len() != lod.heights_metres.len() {
         return Err(VistaMeshError::InvalidLod { level: lod.level });
     }
     Ok(())

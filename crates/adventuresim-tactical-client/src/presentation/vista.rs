@@ -1,8 +1,8 @@
 use super::ground_scatter::TacticalGrassInstancedMaterial;
 use super::*;
-use adventuresim_tactical_core::scene_coordinates::{PlanDisplacement, ScenePlanPoint};
 #[cfg(test)]
 use adventuresim_tactical_core::city_layout::grounding::SupportElevation;
+use adventuresim_tactical_core::scene_coordinates::{PlanDisplacement, ScenePlanPoint};
 use adventuresim_tactical_core::scene_input::VistaLevelIndex;
 use adventuresim_tactical_core::vista_surface::*;
 use details::*;
@@ -11,9 +11,9 @@ use fabelgeist_determinism::Seed;
 use grass::spawn_near_vista_scatter;
 use ground::{tree_root_height, vista_lod_meshes_with_morph, vista_scatter_transform};
 use pigment::{VistaVertexColors, vista_sward_coverage};
-use prepared::{PreparedVistaLod, VistaSceneryRange};
 #[cfg(test)]
 use pigment::{presented_color, stitch_vista_color_to_playable_edge, vista_sample_color};
+use prepared::{PreparedVistaLod, VistaSceneryRange};
 pub(crate) use strategic::{BackdropError, PreparedBackdrop, StrategicBackdrop};
 pub(crate) use streets::CityGroundMaterial;
 use streets::UrbanGround;
@@ -117,7 +117,11 @@ pub(super) fn on_scene_vista_bundle(
         .take(settings.config.rendering.vista.maximum_lods)
         .collect::<Vec<_>>();
     let prepared = match PreparedVistaLod::prepare_all(
-        &visible_lods, bundle.playable_half_extent_metres, terrain, environment, landform,
+        &visible_lods,
+        bundle.playable_half_extent_metres,
+        terrain,
+        environment,
+        landform,
     ) {
         Ok(prepared) => prepared,
         Err(error) => {
@@ -194,7 +198,8 @@ pub(super) fn vista_lod_meshes(lod: &VistaLod, inner_half_extent: Vec2) -> Vec<M
         None,
         clear_vista_weather(),
         None,
-    ).unwrap()
+    )
+    .unwrap()
 }
 
 pub(super) fn vista_material(
@@ -703,7 +708,9 @@ mod tests {
                 half_extent,
                 250.0,
                 SupportElevation::from_metres(112.0).unwrap(),
-            ).unwrap().metres(),
+            )
+            .unwrap()
+            .metres(),
             12.0
         );
         assert_eq!(
@@ -713,7 +720,9 @@ mod tests {
                 half_extent,
                 250.0,
                 SupportElevation::from_metres(112.0).unwrap(),
-            ).unwrap().metres(),
+            )
+            .unwrap()
+            .metres(),
             62.0
         );
         assert_eq!(
@@ -723,7 +732,9 @@ mod tests {
                 half_extent,
                 250.0,
                 SupportElevation::from_metres(112.0).unwrap(),
-            ).unwrap().metres(),
+            )
+            .unwrap()
+            .metres(),
             112.0
         );
     }
@@ -789,7 +800,8 @@ mod tests {
             None,
             clear_vista_weather(),
             None,
-        ).unwrap();
+        )
+        .unwrap();
         let mut east_edge = Vec::new();
         for mesh in meshes {
             let Some(VertexAttributeValues::Float32x3(positions)) =
@@ -1133,7 +1145,8 @@ mod furniture_support_tests {
             None,
             clear_vista_weather(),
             None,
-        ).unwrap();
+        )
+        .unwrap();
         let mut checked = 0;
         for mesh in meshes {
             let positions = mesh
@@ -1157,7 +1170,8 @@ mod furniture_support_tests {
                     &terrain,
                     ScenePlanPoint::try_from(p.xz()).unwrap(),
                 )
-                .unwrap().metres();
+                .unwrap()
+                .metres();
                 assert!((actual - p.y).abs() < 0.0001, "{p:?}: {actual}");
                 checked += 1;
             }

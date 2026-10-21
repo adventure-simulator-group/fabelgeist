@@ -44,7 +44,13 @@ impl<'a> PreparedVistaLod<'a> {
                 0 | 1 => VistaSceneryRange::Near,
                 _ => VistaSceneryRange::Distant,
             };
-            prepared.push(Self { scenery, lod, coarser, inner_half_extent, meshes });
+            prepared.push(Self {
+                scenery,
+                lod,
+                coarser,
+                inner_half_extent,
+                meshes,
+            });
             let half_extent = f32::from(lod.width.saturating_sub(1)) * lod.spacing_metres * 0.5;
             inner_half_extent = Vec2::new(
                 half_extent,

@@ -58,8 +58,10 @@ impl CityGroundAssets<'_> {
         placement: FocusedPavingPlacement,
         meshes: &mut Assets<Mesh>,
         images: &mut Assets<Image>,
-    ) -> Result<Vec<Handle<CityGroundMaterial>>, std::sync::Arc<super::geographic_ground::GeographicGroundError>>
-    {
+    ) -> Result<
+        Vec<Handle<CityGroundMaterial>>,
+        std::sync::Arc<super::geographic_ground::GeographicGroundError>,
+    > {
         let owner = crate::presentation::ownership::PresentationOwner::RegionalMap;
         let uploaded = prepared.meshes(owner, meshes)?;
         let mask = traffic::TrafficMask::neutral(images);

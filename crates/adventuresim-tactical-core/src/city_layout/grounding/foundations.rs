@@ -59,7 +59,8 @@ impl CompoundSupportPlan {
     pub(super) fn bounded_floor_shift(
         &self,
         source: &GeographicSurface,
-    ) -> Result<adventuresim_building_generator::spatial_geometry::SignedLength, SupportDiagnostic> {
+    ) -> Result<adventuresim_building_generator::spatial_geometry::SignedLength, SupportDiagnostic>
+    {
         constraints::floor_shift(self, source)
     }
 }

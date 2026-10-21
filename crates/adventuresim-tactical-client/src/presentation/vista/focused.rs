@@ -93,18 +93,17 @@ impl FocusedGround {
         for chunk in ground.vista {
             chunk.spawn(&mut commands, root, &mut meshes, vista_material.clone());
         }
-        let paving_materials = paving
-            .spawn_focused(
-                &mut commands,
-                &product.ground,
-                streets::FocusedPavingPlacement {
-                    root,
-                    frame,
-                    weather: environment.weather,
-                },
-                &mut meshes,
-                &mut images,
-            )?;
+        let paving_materials = paving.spawn_focused(
+            &mut commands,
+            &product.ground,
+            streets::FocusedPavingPlacement {
+                root,
+                frame,
+                weather: environment.weather,
+            },
+            &mut meshes,
+            &mut images,
+        )?;
         state.apply(world);
         Ok(Self {
             support: ground.support,

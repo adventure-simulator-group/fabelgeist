@@ -27,7 +27,11 @@ impl<'a> VistaVertexColors<'a> {
         }
     }
 
-    pub(super) fn at(&self, local: PlanDisplacement, playable_half_extent: Vec2) -> Option<[f32; 4]> {
+    pub(super) fn at(
+        &self,
+        local: PlanDisplacement,
+        playable_half_extent: Vec2,
+    ) -> Option<[f32; 4]> {
         let lod = self.own.lod;
         let world = lod.scene_point(local).ok()?;
         let own = self.own.at(world)?;

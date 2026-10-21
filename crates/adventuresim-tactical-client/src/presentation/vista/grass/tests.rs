@@ -69,7 +69,8 @@ fn owned_vista_roots_use_the_accepted_surface_without_restitching_raw_heights() 
                 PlanDisplacement::try_from(point).unwrap(),
                 placement.playable_half_extent,
             )
-            .unwrap().metres();
+            .unwrap()
+            .metres();
             assert!(
                 (old_height - 7.0).abs() > 0.1,
                 "fixture must expose old restitching"
@@ -113,9 +114,6 @@ fn sampled_vista_scenes_retain_their_presented_heightfield_policy() {
         )
         .unwrap();
         let point = ScenePlanPoint::from_metres(point).unwrap();
-        assert_eq!(
-            placement.height(point),
-            Some(expected)
-        );
+        assert_eq!(placement.height(point), Some(expected));
     });
 }

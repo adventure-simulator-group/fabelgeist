@@ -4,11 +4,11 @@ use crate::presentation::ground_scatter::{
     GrassWorld, MINIMUM_GRASS_SLOPE_NORMAL_Y, TierSpeciesBatches, TuftPigment, TuftPlacement,
     grass_scatter_density, scatter_cell_tufts, spawn_tuft_batches,
 };
+use adventuresim_building_generator::spatial_geometry::PositiveLength;
 use adventuresim_tactical_core::{
     city_layout::grounding::{SupportElevation, SupportQuery},
     scene_coordinates::ScenePlanPoint,
 };
-use adventuresim_building_generator::spatial_geometry::PositiveLength;
 use fabelgeist_determinism::Seed;
 
 /// Instance placement for the vista rings: the same tuft lattice as the

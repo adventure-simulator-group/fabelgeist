@@ -129,10 +129,15 @@ fn prepare(
 ) -> PreparationResult<()> {
     let backdrop = crate::presentation::StrategicBackdrop::new(input, maximum_lods)?;
     let backdrop = crate::presentation::PreparedBackdrop::new(
-        backdrop, input.environment_snapshot(generated.digest.clone()),
+        backdrop,
+        input.environment_snapshot(generated.digest.clone()),
     )?;
     retained.venues = buildings::prepare_venues(
-        input, view, &mut generated, &mut retained.street, backdrop.backdrop(),
+        input,
+        view,
+        &mut generated,
+        &mut retained.street,
+        backdrop.backdrop(),
     )?;
     retained.digest = generated.digest.clone();
     let root = commands

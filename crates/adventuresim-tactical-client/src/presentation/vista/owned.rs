@@ -109,7 +109,9 @@ pub(super) fn vista_meshes(
             .map(|p| {
                 let local = PlanDisplacement::try_from(Vec2::new(p[0], p[2]))?;
                 let point = lod.scene_point(local)?;
-                colors.at(local, inner).ok_or(VistaMeshError::MissingColor { point })
+                colors
+                    .at(local, inner)
+                    .ok_or(VistaMeshError::MissingColor { point })
             })
             .collect::<VistaMeshResult<Vec<_>>>()?;
         let mut mesh = position_mesh(positions);

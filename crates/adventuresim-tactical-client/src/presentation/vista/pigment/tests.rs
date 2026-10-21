@@ -108,7 +108,8 @@ fn required_owned_mesh_pigments_preserve_uncached_vertex_bytes() {
                 playable,
                 environment.weather,
                 None,
-            ).unwrap();
+            )
+            .unwrap();
             for mesh in meshes {
                 let positions = mesh
                     .attribute(Mesh::ATTRIBUTE_POSITION)

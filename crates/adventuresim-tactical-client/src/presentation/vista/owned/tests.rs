@@ -116,15 +116,18 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
     let mut inner = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
     let environment = input.environment_snapshot(generated.digest);
     for (i, lod) in input.vista.lods.iter().enumerate() {
-        meshes.extend(vista_lod_meshes_with_morph(
-            lod,
-            inner,
-            input.vista.lods.get(i + 1),
-            Some(terrain),
-            Some(&environment),
-            environment.weather,
-            None,
-        ).unwrap());
+        meshes.extend(
+            vista_lod_meshes_with_morph(
+                lod,
+                inner,
+                input.vista.lods.get(i + 1),
+                Some(terrain),
+                Some(&environment),
+                environment.weather,
+                None,
+            )
+            .unwrap(),
+        );
         inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
             * lod.spacing_metres
             * 0.5;

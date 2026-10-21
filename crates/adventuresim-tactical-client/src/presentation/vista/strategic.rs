@@ -36,10 +36,7 @@ pub(crate) enum BackdropError {
 }
 
 impl StrategicBackdrop {
-    pub(crate) fn new(
-        input: &TacticalSceneInput,
-        maximum_lods: usize,
-    ) -> BackdropResult<Self> {
+    pub(crate) fn new(input: &TacticalSceneInput, maximum_lods: usize) -> BackdropResult<Self> {
         let terrain = SceneTerrain::from_heightmap(
             usize::from(input.playable.width),
             usize::from(input.playable.depth),
@@ -107,11 +104,16 @@ impl PreparedBackdrop {
         let mut chunks = Vec::new();
         let mut mesh = backdrop.terrain.mesh();
         mesh.remove_attribute(Mesh::ATTRIBUTE_UV_0);
-        let foreground = backdrop.foreground.iter()
+        let foreground = backdrop
+            .foreground
+            .iter()
             .map(|sample| pigment::vista_sample_color(*sample, environment.weather).to_array())
             .collect::<Vec<_>>();
         mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, foreground.clone());
-        chunks.push(BackdropChunk { mesh, origin: Vec3::ZERO });
+        chunks.push(BackdropChunk {
+            mesh,
+            origin: Vec3::ZERO,
+        });
         let lods = backdrop.lods.iter().collect::<Vec<_>>();
         let mut inner = Vec2::new(backdrop.terrain.width(), backdrop.terrain.depth()) * 0.5;
         for (index, lod) in lods.iter().copied().enumerate() {
@@ -127,14 +129,21 @@ impl PreparedBackdrop {
                     backdrop.stitch_colors(&mut mesh, &foreground, lod.spacing_metres);
                 }
                 let origin = Vec3::new(
-                    lod.origin_east_metres as f32, 0.0, lod.origin_north_metres as f32,
+                    lod.origin_east_metres as f32,
+                    0.0,
+                    lod.origin_north_metres as f32,
                 );
                 chunks.push(BackdropChunk { mesh, origin });
             }
             inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
-                * lod.spacing_metres * 0.5;
+                * lod.spacing_metres
+                * 0.5;
         }
-        Ok(Self { backdrop, environment, chunks })
+        Ok(Self {
+            backdrop,
+            environment,
+            chunks,
+        })
     }
 
     pub(crate) fn backdrop(&self) -> &StrategicBackdrop {
@@ -142,12 +151,20 @@ impl PreparedBackdrop {
     }
 
     pub(crate) fn spawn(self, commands: &mut Commands, root: Entity) {
-        let Self { backdrop, environment, chunks } = self;
+        let Self {
+            backdrop,
+            environment,
+            chunks,
+        } = self;
         commands.spawn((environment.clone(), backdrop, ChildOf(root)));
         commands.queue(move |world: &mut World| {
-            let material = world.resource_mut::<Assets<TacticalVistaMaterial>>().add(vista_material(
-                environment.weather, grass_terminal_pigment(&environment),
-            ));
+            let material =
+                world
+                    .resource_mut::<Assets<TacticalVistaMaterial>>()
+                    .add(vista_material(
+                        environment.weather,
+                        grass_terminal_pigment(&environment),
+                    ));
             for chunk in chunks {
                 spawn_mesh(world, root, chunk.mesh, material.clone(), chunk.origin);
             }
