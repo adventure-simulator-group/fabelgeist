@@ -19,10 +19,13 @@ use adventuresim_tactical_core::{
 use adventuresim_tactical_netcode::replication::AdventureSimulatorReplicationPlugin;
 use bevy::{prelude::*, time::TimeUpdateStrategy};
 
-mod equipment;
-mod logging;
+pub use clock::TacticalElapsed;
 use equipment::spawn_equipment;
 pub use logging::*;
+
+mod clock;
+mod equipment;
+mod logging;
 
 use crate::{
     bot::{BotPlugin, CombatantBehaviorPackages, MissionEnemy},
@@ -89,7 +92,7 @@ pub fn resolve_tactical_server_melee_duel(
         seed,
         resolution,
         simulated_ticks: final_tick + 1,
-        simulated_seconds: (final_tick + 1) as f32 * TACTICAL_TICK_SECONDS,
+        simulated_seconds: TacticalElapsed::from_tick_count(final_tick + 1),
         initial_center_separation_metres: 4.0,
         final_center_separation_metres,
         attack_starts: log.attack_starts,

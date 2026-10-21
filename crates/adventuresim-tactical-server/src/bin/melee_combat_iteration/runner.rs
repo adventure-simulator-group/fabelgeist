@@ -5,9 +5,18 @@ pub(super) struct TacticalBatch {
     pub(super) opponent_wins: u64,
     pub(super) mutual_incapacitations: u64,
     pub(super) timeouts: u64,
-    pub(super) simulated_seconds: f64,
+    pub(super) simulated_seconds: Measurement<TacticalSeconds>,
     pub(super) causal: TacticalCausalSummary,
-    pub(super) wall_seconds: f64,
+    pub(super) wall_seconds: Measurement<WallSeconds>,
+}
+
+pub(super) struct AutoresolveBatch {
+    pub(super) john_wins: u64,
+    pub(super) opponent_wins: u64,
+    pub(super) mutual_incapacitations: u64,
+    pub(super) timeouts: u64,
+    pub(super) causal: AutoresolveCausalSummary,
+    pub(super) wall_seconds: Measurement<WallSeconds>,
 }
 
 pub(super) fn run_tactical_batch(
@@ -15,32 +24,29 @@ pub(super) fn run_tactical_batch(
     john: &MeleeIterationBuild,
     opponent: &MeleeIterationBuild,
     directory: &Path,
-) -> Result<TacticalBatch, String> {
+) -> IterationResult<TacticalBatch> {
     let started = Instant::now();
     let mut batch = TacticalBatch {
         john_wins: 0,
         opponent_wins: 0,
         mutual_incapacitations: 0,
         timeouts: 0,
-        simulated_seconds: 0.0,
-        causal: TacticalCausalSummary {
-            minimum_contact_separation_metres: f32::INFINITY,
-            ..TacticalCausalSummary::default()
-        },
-        wall_seconds: 0.0,
+        simulated_seconds: Measurement::ZERO,
+        causal: TacticalCausalSummary::default(),
+        wall_seconds: Measurement::ZERO,
     };
-    let file = File::create(directory.join("tactical-traces.ndjson"))
-        .map_err(|error| error.to_string())?;
+    let file = File::create(directory.join("tactical-traces.ndjson"))?;
     let mut writer = BufWriter::new(file);
     for offset in 0..args.tactical_seeds {
         let outcome = resolve_tactical_server_melee_duel(
             john,
             opponent,
             args.first_seed.wrapping_offset(offset),
-        )
-        .map_err(|error| error.to_string())?;
-        batch.simulated_seconds += f64::from(outcome.simulated_seconds);
-        record_tactical_causal(&mut batch.causal, &outcome, &john.name);
+        )?;
+        batch.simulated_seconds.checked_add(
+            Measurement::<TacticalSeconds>::from_elapsed(outcome.simulated_seconds)?,
+        )?;
+        record_tactical_causal(&mut batch.causal, &outcome, &john.name)?;
         match &outcome.resolution {
             TacticalDuelResolution::Victory { victor } if victor.as_str() == john.name.as_str() => {
                 batch.john_wins += 1
@@ -51,7 +57,10 @@ pub(super) fn run_tactical_batch(
                 batch.opponent_wins += 1
             }
             TacticalDuelResolution::Victory { victor } => {
-                return Err(format!("unknown tactical victor {victor}"));
+                return Err(ReportContractError::UnknownTacticalVictor {
+                    victor: victor.clone(),
+                }
+                .into());
             }
             TacticalDuelResolution::MutualIncapacitation => batch.mutual_incapacitations += 1,
             TacticalDuelResolution::Timeout => batch.timeouts += 1,
@@ -59,22 +68,13 @@ pub(super) fn run_tactical_batch(
         if offset == 0 {
             write_json(&directory.join("tactical-trace.json"), &outcome)?;
         }
-        serde_json::to_writer(&mut writer, &outcome).map_err(|error| error.to_string())?;
-        writer.write_all(b"\n").map_err(|error| error.to_string())?;
+        serde_json::to_writer(&mut writer, &outcome)?;
+        writer.write_all(b"\n")?;
     }
-    writer.flush().map_err(|error| error.to_string())?;
-    batch.causal.finish_means();
-    batch.wall_seconds = started.elapsed().as_secs_f64();
+    writer.flush()?;
+    batch.causal.finish_means()?;
+    batch.wall_seconds = Measurement::<WallSeconds>::from_duration(started.elapsed())?;
     Ok(batch)
-}
-
-pub(super) struct AutoresolveBatch {
-    pub(super) john_wins: u64,
-    pub(super) opponent_wins: u64,
-    pub(super) mutual_incapacitations: u64,
-    pub(super) timeouts: u64,
-    pub(super) causal: AutoresolveCausalSummary,
-    pub(super) wall_seconds: f64,
 }
 
 pub(super) fn run_autoresolve_batch(
@@ -90,12 +90,11 @@ pub(super) fn run_autoresolve_batch(
         mutual_incapacitations: 0,
         timeouts: 0,
         causal: AutoresolveCausalSummary::default(),
-        wall_seconds: 0.0,
+        wall_seconds: Measurement::ZERO,
     };
-    batch.causal.john_weapon_reach_metres = weapon_reach(john);
-    batch.causal.opponent_weapon_reach_metres = weapon_reach(opponent);
-    let file = File::create(directory.join("autoresolve-traces.ndjson"))
-        .map_err(|error| error.to_string())?;
+    batch.causal.john_weapon_reach_metres = weapon_reach(john)?;
+    batch.causal.opponent_weapon_reach_metres = weapon_reach(opponent)?;
+    let file = File::create(directory.join("autoresolve-traces.ndjson"))?;
     let mut writer = BufWriter::new(file);
     for offset in 0..args.autoresolve_seeds {
         let outcome = resolve_battle(
@@ -108,22 +107,24 @@ pub(super) fn run_autoresolve_batch(
         if offset == 0 {
             write_json(&directory.join("autoresolve-trace.json"), &outcome)?;
         }
-        serde_json::to_writer(&mut writer, &outcome).map_err(|error| error.to_string())?;
-        writer.write_all(b"\n").map_err(|error| error.to_string())?;
+        serde_json::to_writer(&mut writer, &outcome)?;
+        writer.write_all(b"\n")?;
     }
-    writer.flush().map_err(|error| error.to_string())?;
-    batch.causal.john.finish_means();
-    batch.causal.opponent.finish_means();
-    batch.wall_seconds = started.elapsed().as_secs_f64();
+    writer.flush()?;
+    batch.causal.john.finish_means()?;
+    batch.causal.opponent.finish_means()?;
+    batch.wall_seconds = Measurement::<WallSeconds>::from_duration(started.elapsed())?;
     Ok(batch)
 }
 
-fn weapon_reach(build: &MeleeIterationBuild) -> f64 {
+fn weapon_reach(build: &MeleeIterationBuild) -> MeasurementResult<Measurement<WeaponReachMetres>> {
     build
         .combatant
         .equipment
         .melee_weapon
-        .map_or(0.0, |weapon| f64::from(weapon.melee_reach))
+        .map_or(Ok(Measurement::ZERO), |weapon| {
+            Measurement::<WeaponReachMetres>::from_native(weapon.melee_reach)
+        })
 }
 
 fn record_autoresolve_outcome(
@@ -131,7 +132,7 @@ fn record_autoresolve_outcome(
     outcome: &adventuresim_core::autoresolve::BattleOutcome,
     john: &MeleeIterationBuild,
     opponent: &MeleeIterationBuild,
-) -> Result<(), String> {
+) -> IterationResult<()> {
     match outcome.resolution {
         BattleResolution::AlliesVictory => batch.john_wins += 1,
         BattleResolution::EnemiesVictory => batch.opponent_wins += 1,
@@ -141,9 +142,9 @@ fn record_autoresolve_outcome(
     batch.causal.total_rounds += outcome.rounds as u64;
     batch.causal.john_yields += u64::from(outcome.allies[0].yielded);
     batch.causal.opponent_yields += u64::from(outcome.enemies[0].yielded);
-    batch.causal.john.record_final(&outcome.allies[0]);
-    batch.causal.opponent.record_final(&outcome.enemies[0]);
-    record_final_totals(&mut batch.causal, outcome);
+    batch.causal.john.record_final(&outcome.allies[0])?;
+    batch.causal.opponent.record_final(&outcome.enemies[0])?;
+    record_final_totals(&mut batch.causal, outcome)?;
     record_autoresolve_log(
         &mut batch.causal,
         outcome,
@@ -158,18 +159,30 @@ fn record_autoresolve_outcome(
 fn record_final_totals(
     causal: &mut AutoresolveCausalSummary,
     outcome: &adventuresim_core::autoresolve::BattleOutcome,
-) {
+) -> MeasurementResult<()> {
     for combatant in outcome.allies.iter().chain(&outcome.enemies) {
-        causal.final_blood_loss_fraction += f64::from(combatant.blood_loss_fraction);
+        causal.final_blood_loss_fraction.checked_add(
+            Measurement::<BloodLossFraction>::from_native(combatant.blood_loss_fraction)?,
+        )?;
         causal.final_wound_count += combatant.wound_count as u64;
         causal.final_open_wound_count += combatant.open_wound_count as u64;
         causal.final_internal_wound_count += combatant.internal_wound_count as u64;
-        causal.final_wound_flow_fraction_per_second +=
-            f64::from(combatant.wound_flow_fraction_per_second);
-        causal.final_fatigue += f64::from(combatant.fatigue);
-        causal.final_acute_trauma += f64::from(combatant.acute_trauma);
-        causal.final_imbalance += f64::from(combatant.imbalance);
+        causal.final_wound_flow_fraction_per_second.checked_add(
+            Measurement::<WoundFlowFractionPerSecond>::from_native(
+                combatant.wound_flow_fraction_per_second,
+            )?,
+        )?;
+        causal.final_fatigue.checked_add(
+            Measurement::<Fatigue>::from_native(combatant.fatigue)?,
+        )?;
+        causal.final_acute_trauma.checked_add(
+            Measurement::<AcuteTrauma>::from_native(combatant.acute_trauma)?,
+        )?;
+        causal.final_imbalance.checked_add(
+            Measurement::<Imbalance>::from_native(combatant.imbalance)?,
+        )?;
     }
+    Ok(())
 }
 
 fn record_autoresolve_log(
@@ -178,7 +191,7 @@ fn record_autoresolve_log(
     john_id: u64,
     john_weapon_id: Option<u64>,
     opponent_weapon_id: Option<u64>,
-) -> Result<(), String> {
+) -> IterationResult<()> {
     for entry in &outcome.log {
         if entry.attack_kind != BattleAttackKind::Melee {
             continue;
@@ -198,8 +211,12 @@ fn record_autoresolve_log(
         record_autoresolve_dodge(causal, entry);
         record_autoresolve_implement(causal, entry, john_id, john_weapon_id, opponent_weapon_id);
         record_autoresolve_armor(causal, entry);
-        causal.total_contact_energy_joules += f64::from(entry.contact_stress);
-        causal.total_health_damage += f64::from(entry.health_damage);
+        causal.total_contact_energy_joules.checked_add(
+            Measurement::<ContactJoules>::from_native(entry.contact_stress)?,
+        )?;
+        causal.total_health_damage.checked_add(
+            Measurement::<HealthDamage>::from_native(entry.health_damage)?,
+        )?;
         if john_attacks {
             record_autoresolve_combatant_causal(&mut causal.john, &mut causal.opponent, entry)?;
         } else {
@@ -263,7 +280,7 @@ fn record_autoresolve_timeline(
     causal: &mut AutoresolveCausalSummary,
     outcome: &adventuresim_core::autoresolve::BattleOutcome,
     john_id: u64,
-) -> Result<(), String> {
+) -> IterationResult<()> {
     let scheduled_contact_ticks = outcome
         .timeline
         .iter()

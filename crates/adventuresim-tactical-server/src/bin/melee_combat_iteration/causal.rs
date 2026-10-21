@@ -1,167 +1,8 @@
 use super::*;
 
-pub(super) fn record_autoresolve_telemetry(
-    attacker: &mut AutoresolveCombatantCausal,
-    defender: &mut AutoresolveCombatantCausal,
-    telemetry: &adventuresim_core::autoresolve::MeleeContactTelemetry,
-) -> Result<(), String> {
-    let interval = telemetry
-        .attack_interval_seconds
-        .available()
-        .ok_or_else(|| {
-            "autoresolve contact has no recoverable interval at this performance snapshot"
-                .to_owned()
-        })?;
-    *attacker
-        .contact_classifications
-        .entry(format!("{:?}", telemetry.contact_classification))
-        .or_default() += 1;
-    record_contact_measures(attacker, telemetry);
-    attacker.full_energy_intended_contacts_inside_ten_centimetres += u64::from(
-        telemetry.actual_contact_measure_metres < 0.1
-            && telemetry.contact_classification == MeleeContactClassification::IntendedSurface
-            && telemetry.contact_energy_fraction >= 0.999,
-    );
-    *defender
-        .anatomical_subregions_received
-        .entry(format!("{:?}", telemetry.anatomical_subregion))
-        .or_default() += 1;
-    for layer in &telemetry.armor_layer_chain {
-        let key = format!("{:?}:{:?}", layer.inventory_item_id, layer.material);
-        let distribution = if layer.intersected {
-            &mut defender.armor_layers_intersected
-        } else {
-            &mut defender.armor_layers_missed
-        };
-        *distribution.entry(key).or_default() += 1;
-    }
-    attacker.attack_samples += 1;
-    attacker.mean_attack_interval_seconds += f64::from(interval.seconds());
-    attacker.mean_attack_power_multiplier += f64::from(telemetry.attack_power_multiplier);
-    let performance = f64::from(telemetry.attacker_incapacitation_performance.fraction());
-    if attacker.attack_samples == 1 {
-        attacker.minimum_attack_incapacitation_performance = performance;
-    } else {
-        attacker.minimum_attack_incapacitation_performance = attacker
-            .minimum_attack_incapacitation_performance
-            .min(performance);
-    }
-    Ok(())
-}
+pub(super) use autoresolve::{record_autoresolve_telemetry, record_timeline_event};
 
-pub(super) fn record_timeline_event(
-    combatant: &mut AutoresolveCombatantCausal,
-    event: &adventuresim_core::autoresolve::MeleeTimelineEvent,
-) -> Result<(), String> {
-    match event.kind {
-        MeleeTimelineKind::Movement => record_movement_event(combatant, event)?,
-        MeleeTimelineKind::AttackStarted => combatant.attack_starts += 1,
-        MeleeTimelineKind::Response => record_response_event(combatant, event),
-        MeleeTimelineKind::AttackCanceled => combatant.committed_attacks_canceled += 1,
-        MeleeTimelineKind::AttackTransformed => combatant.committed_attacks_transformed += 1,
-        MeleeTimelineKind::Contact if event.simultaneous_members.len() > 1 => {
-            combatant.simultaneous_contacts += 1;
-        }
-        MeleeTimelineKind::Contact | MeleeTimelineKind::Terminal => {}
-    }
-    Ok(())
-}
-
-fn record_movement_event(
-    combatant: &mut AutoresolveCombatantCausal,
-    event: &adventuresim_core::autoresolve::MeleeTimelineEvent,
-) -> Result<(), String> {
-    let (Some(before), Some(after), Some(speed_limit), Some(elapsed)) = (
-        event.movement_velocity_before_metres_per_second,
-        event.movement_velocity_after_metres_per_second,
-        event.movement_speed_limit_metres_per_second,
-        event.movement_elapsed_seconds,
-    ) else {
-        return Err(
-            "autoresolve movement record is missing its speed or elapsed observation".to_owned(),
-        );
-    };
-    if let Some(action) = event.movement_action {
-        *combatant
-            .movement_actions
-            .entry(format!("{action:?}"))
-            .or_default() += 1;
-    }
-    let elapsed = elapsed.seconds();
-    let displacement = event.movement_displacement_metres.unwrap_or_default().abs();
-    let velocity = before.magnitude().max(after.magnitude());
-    combatant.movement_elapsed_seconds += f64::from(elapsed);
-    combatant.movement_segments += 1;
-    combatant.movement_absolute_displacement_metres += f64::from(displacement);
-    combatant.maximum_movement_speed_metres_per_second = combatant
-        .maximum_movement_speed_metres_per_second
-        .max(f64::from(velocity.metres_per_second()));
-    combatant.maximum_movement_segment_seconds = combatant
-        .maximum_movement_segment_seconds
-        .max(f64::from(elapsed));
-    combatant.movement_displacement_limit_failures +=
-        u64::from(displacement > speed_limit.metres_per_second() * elapsed + 1.0e-5);
-    let distance_delta = event
-        .engagement_distance_before_metres
-        .zip(event.engagement_distance_after_metres)
-        .map_or(0.0, |(before, after)| (after - before).abs());
-    combatant.movement_nonzero_delta_zero_elapsed +=
-        u64::from(distance_delta > 0.0 && elapsed <= 0.0);
-    Ok(())
-}
-
-fn record_response_event(
-    combatant: &mut AutoresolveCombatantCausal,
-    event: &adventuresim_core::autoresolve::MeleeTimelineEvent,
-) {
-    if let Some(availability) = event.response_availability {
-        *combatant
-            .response_availability
-            .entry(format!("{availability:?}"))
-            .or_default() += 1;
-    }
-    if let Some(choice) = event.response_choice {
-        *combatant
-            .response_choices
-            .entry(format!("{choice:?}"))
-            .or_default() += 1;
-    }
-    if let Some(delay) = event.phase_adaptation_delay_seconds
-        && !delay.is_zero()
-    {
-        combatant.phase_adaptation_events += 1;
-        combatant.phase_adaptation_delay_seconds += f64::from(delay.seconds());
-    }
-}
-
-fn record_contact_measures(
-    attacker: &mut AutoresolveCombatantCausal,
-    telemetry: &adventuresim_core::autoresolve::MeleeContactTelemetry,
-) {
-    attacker.contact_measure_samples += 1;
-    attacker.mean_scheduled_contact_measure_metres +=
-        f64::from(telemetry.scheduled_contact_measure_metres);
-    attacker.mean_actual_contact_measure_metres +=
-        f64::from(telemetry.actual_contact_measure_metres);
-    if attacker.contact_measure_samples == 1 {
-        attacker.minimum_actual_contact_measure_metres =
-            f64::from(telemetry.actual_contact_measure_metres);
-        attacker.maximum_actual_contact_measure_metres =
-            f64::from(telemetry.actual_contact_measure_metres);
-        attacker.minimum_actual_center_separation_metres =
-            f64::from(telemetry.actual_center_separation_metres);
-    } else {
-        attacker.minimum_actual_contact_measure_metres = attacker
-            .minimum_actual_contact_measure_metres
-            .min(f64::from(telemetry.actual_contact_measure_metres));
-        attacker.maximum_actual_contact_measure_metres = attacker
-            .maximum_actual_contact_measure_metres
-            .max(f64::from(telemetry.actual_contact_measure_metres));
-        attacker.minimum_actual_center_separation_metres = attacker
-            .minimum_actual_center_separation_metres
-            .min(f64::from(telemetry.actual_center_separation_metres));
-    }
-}
+mod autoresolve;
 
 pub(super) fn record_tactical_first_contact(
     summary: &mut TacticalCausalSummary,
@@ -181,7 +22,7 @@ pub(super) fn record_tactical_decisions(
     summary: &mut TacticalCausalSummary,
     outcome: &TacticalMeleeOutcome,
     john_name: &str,
-) {
+) -> IterationResult<()> {
     let mut previous_starts = [None, None];
     for decision in &outcome.decision_events {
         let john = decision.combatant == john_name;
@@ -192,8 +33,9 @@ pub(super) fn record_tactical_decisions(
             &mut summary.opponent
         };
         let previous = &mut previous_starts[usize::from(!john)];
-        record_combatant_decision(combatant, decision, previous);
+        record_combatant_decision(combatant, decision, previous)?;
     }
+    Ok(())
 }
 
 fn record_summary_decision(
@@ -226,15 +68,18 @@ fn record_summary_decision(
 fn record_combatant_decision(
     combatant: &mut TacticalCombatantCausal,
     decision: &adventuresim_tactical_server::iteration::TacticalDecisionLogEntry,
-    previous: &mut Option<f32>,
-) {
+    previous: &mut Option<TacticalElapsed>,
+) -> IterationResult<()> {
     match (decision.decision, decision.status) {
         (TacticalDecision::Attack, TacticalDecisionStatus::Started) => {
             combatant.attack_starts += 1;
             if let Some(previous_seconds) = previous.replace(decision.elapsed_seconds) {
                 combatant.attack_interval_samples += 1;
-                combatant.mean_attack_start_interval_seconds +=
-                    f64::from(decision.elapsed_seconds - previous_seconds);
+                combatant.mean_attack_start_interval_seconds.checked_add(
+                    Measurement::<TacticalSeconds>::from_interval(
+                        decision.elapsed_seconds.elapsed_since(previous_seconds)?,
+                    )?,
+                )?;
             }
         }
         (TacticalDecision::Attack, TacticalDecisionStatus::CanceledForDefense) => {
@@ -245,6 +90,7 @@ fn record_combatant_decision(
         }
         _ => {}
     }
+    Ok(())
 }
 
 pub(super) fn record_tactical_wounds(
@@ -275,18 +121,19 @@ pub(super) fn record_tactical_event(
     summary: &mut TacticalCausalSummary,
     event: &adventuresim_tactical_server::iteration::TacticalMeleeLogEntry,
     john_name: &str,
-) {
+) -> MeasurementResult<()> {
     let attacker_is_john = event.attacker == john_name;
-    record_tactical_attacker(summary, event, attacker_is_john);
-    record_tactical_defender(summary, event, attacker_is_john);
-    record_tactical_totals(summary, event);
+    record_tactical_attacker(summary, event, attacker_is_john)?;
+    record_tactical_defender(summary, event, attacker_is_john)?;
+    record_tactical_totals(summary, event)?;
+    Ok(())
 }
 
 fn record_tactical_attacker(
     summary: &mut TacticalCausalSummary,
     event: &adventuresim_tactical_server::iteration::TacticalMeleeLogEntry,
     john: bool,
-) {
+) -> MeasurementResult<()> {
     let attacker = if john {
         summary.john_resolved_attacks += 1;
         &mut summary.john
@@ -297,17 +144,20 @@ fn record_tactical_attacker(
     attacker.resolved_attacks += 1;
     attacker.contacts_dealt += u64::from(event.contact_energy_joules > 0.0);
     attacker.contact_energy_samples += 1;
-    attacker.mean_contact_energy_joules += f64::from(event.contact_energy_joules);
+    attacker.mean_contact_energy_joules.checked_add(
+        Measurement::<ContactJoules>::from_native(event.contact_energy_joules)?,
+    )?;
     attacker.maximum_fatigue = attacker
         .maximum_fatigue
-        .max(event.attacker_incapacitation.fatigue);
+        .max(Measurement::<Fatigue>::from_native(event.attacker_incapacitation.fatigue)?);
+    Ok(())
 }
 
 fn record_tactical_defender(
     summary: &mut TacticalCausalSummary,
     event: &adventuresim_tactical_server::iteration::TacticalMeleeLogEntry,
     attacker_is_john: bool,
-) {
+) -> MeasurementResult<()> {
     let defender = if attacker_is_john {
         &mut summary.opponent
     } else {
@@ -316,7 +166,8 @@ fn record_tactical_defender(
     defender.attacks_received += 1;
     defender.maximum_fatigue = defender
         .maximum_fatigue
-        .max(event.defender_incapacitation.fatigue);
+        .max(Measurement::<Fatigue>::from_native(event.defender_incapacitation.fatigue)?);
+
     *defender
         .anatomical_subregions_received
         .entry(event.anatomical_subregion.clone())
@@ -333,6 +184,7 @@ fn record_tactical_defender(
     }
     record_defensive_implement(defender, event);
     record_defender_armor(defender, event);
+    Ok(())
 }
 
 fn record_defensive_implement(
@@ -381,20 +233,27 @@ fn record_defender_armor(
 fn record_tactical_totals(
     summary: &mut TacticalCausalSummary,
     event: &adventuresim_tactical_server::iteration::TacticalMeleeLogEntry,
-) {
-    summary.minimum_contact_separation_metres = summary
-        .minimum_contact_separation_metres
-        .min(event.center_separation_metres);
-    summary.maximum_contact_separation_metres = summary
-        .maximum_contact_separation_metres
-        .max(event.center_separation_metres);
+) -> MeasurementResult<()> {
+    let separation =
+        Measurement::<CenterSeparationMetres>::from_native(event.center_separation_metres)?;
+    summary.minimum_contact_separation_metres = Some(
+        summary
+            .minimum_contact_separation_metres
+            .map_or(separation, |minimum| minimum.min(separation)),
+    );
+    summary.maximum_contact_separation_metres = Some(
+        summary
+            .maximum_contact_separation_metres
+            .map_or(separation, |maximum| maximum.max(separation)),
+    );
     summary.maximum_fatigue = summary
         .maximum_fatigue
-        .max(event.attacker_incapacitation.fatigue)
-        .max(event.defender_incapacitation.fatigue);
+        .max(Measurement::<Fatigue>::from_native(event.attacker_incapacitation.fatigue)?)
+        .max(Measurement::<Fatigue>::from_native(event.defender_incapacitation.fatigue)?);
     record_dodge_totals(summary, event);
     record_defense_totals(summary, event);
     record_armor_totals(summary, event);
+    Ok(())
 }
 
 fn record_dodge_totals(
