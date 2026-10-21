@@ -89,14 +89,12 @@ fn decide(node: HlodNode) -> u32 {
 }
 
 // What a drawn node's workgroup writes: per stream, where to and what.
-struct Plan {
-    drawn: u32,
-    dest: vec4<u32>,
-    first: vec4<u32>,
-    count: vec4<u32>,
-};
-
-var<workgroup> plan: Plan;
+// Separate fields avoid the aggregate workgroup copy that loses the tested
+// AMD Vulkan device. The barrier still publishes the plan to all 64 lanes.
+var<workgroup> plan_drawn: u32;
+var<workgroup> plan_dest: array<u32, 4>;
+var<workgroup> plan_first: array<u32, 4>;
+var<workgroup> plan_count: array<u32, 4>;
 
 @compute @workgroup_size(64)
 fn main(
@@ -106,12 +104,11 @@ fn main(
 ) {
     let index = group.x + group.y * groups.x;
     if (lane == 0u) {
-        var p: Plan;
-        p.drawn = 0u;
+        plan_drawn = 0u;
         if (index < view.count) {
             let level = decide(nodes[index]);
             if (level != NOT_DRAWN) {
-                p.drawn = 1u;
+                plan_drawn = 1u;
                 let streams = min(view.streams, 4u);
                 for (var s = 0u; s < streams; s++) {
                     let range = ranges[index * view.streams + s];
@@ -120,21 +117,20 @@ fn main(
                     }
                     let draw = s * view.total_levels + view.level_offset + level;
                     let slot = atomicAdd(&draws[draw * 4u + 1u], range.y);
-                    p.dest[s] = view.stream_base[s] + (view.level_offset + level) * view.stream_stride[s] + slot;
-                    p.first[s] = range.x;
-                    p.count[s] = min(range.y, view.stream_stride[s] - min(slot, view.stream_stride[s]));
+                    plan_dest[s] = view.stream_base[s] + (view.level_offset + level) * view.stream_stride[s] + slot;
+                    plan_first[s] = range.x;
+                    plan_count[s] = min(range.y, view.stream_stride[s] - min(slot, view.stream_stride[s]));
                 }
             }
         }
-        plan = p;
     }
-    let p = workgroupUniformLoad(&plan);
-    if (p.drawn == 0u) {
+    workgroupBarrier();
+    if (plan_drawn == 0u) {
         return;
     }
     for (var s = 0u; s < 4u; s++) {
-        for (var i = lane; i < p.count[s]; i += 64u) {
-            lists[p.dest[s] + i] = p.first[s] + i;
+        for (var i = lane; i < plan_count[s]; i += 64u) {
+            lists[plan_dest[s] + i] = plan_first[s] + i;
         }
     }
 }
