@@ -565,7 +565,9 @@ mod development_scenario_source_tests {
         assert!(source.contains("STANDARD_WATERSKIN_ID"));
         assert!(source.contains("FIELD_TENT_ID"));
         assert!(source.contains("add_to_party_inventory_checked"));
-        assert!(source.contains("let occurrence_id = materialize_development_road_encounter"));
+        assert!(source.contains(
+            "let occurrence_id =\n                materialize_development_road_encounter"
+        ));
         assert!(!source.contains(".find(|problem| problem.recurring_hostile"));
     }
 }
