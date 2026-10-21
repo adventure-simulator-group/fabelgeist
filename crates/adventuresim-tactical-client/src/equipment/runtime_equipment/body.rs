@@ -109,21 +109,24 @@ fn build_runtime_body(
         normals,
         texcoords,
         texcoord_faces: faces,
-        joint_indices: PackedRigSkin::from_native(joint_indices
-            .into_iter()
-            .map(|joint| {
-                [
-                    u32::from(joint[0]),
-                    u32::from(joint[1]),
-                    u32::from(joint[2]),
-                    u32::from(joint[3]),
-                    0,
-                    0,
-                    0,
-                    0,
-                ]
-            })
-            .collect(), joint_names.joint_count())?,
+        joint_indices: PackedRigSkin::from_native(
+            joint_indices
+                .into_iter()
+                .map(|joint| {
+                    [
+                        u32::from(joint[0]),
+                        u32::from(joint[1]),
+                        u32::from(joint[2]),
+                        u32::from(joint[3]),
+                        0,
+                        0,
+                        0,
+                        0,
+                    ]
+                })
+                .collect(),
+            joint_names.joint_count(),
+        )?,
         joint_weights: joint_weights
             .into_iter()
             .map(|weight| {

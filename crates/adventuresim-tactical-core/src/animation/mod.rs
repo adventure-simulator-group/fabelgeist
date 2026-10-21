@@ -22,7 +22,9 @@ pub use authored_angle::{
 pub use cadence_limit::{AuthoredCadenceCap, CadenceDemand, CadenceSelection, StepCadence};
 pub use calibration_parameters::{ContactHeightScale, PhaseCalibrationIntervals};
 pub use contact::ContactSequence;
-pub use continuation_parameters::{AttackContinuation, ContinuationReadiness, IncomingAttackTangent};
+pub use continuation_parameters::{
+    AttackContinuation, ContinuationReadiness, IncomingAttackTangent,
+};
 pub use elapsed_reflection::ReflectedAnimationElapsed;
 pub use evaluation::*;
 pub use event_span::{AnimationEventSpan, CoalescedEventBudget};

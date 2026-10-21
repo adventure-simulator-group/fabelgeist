@@ -30,11 +30,11 @@ pub(crate) use catalog_id::MotionId;
 use catalog_id::{AnimationAssetDirectory, AnimationAssetPath, AuthoredAnimationFrame, MotionKey};
 use continuation::{ContinuationSpan, append_continuation_span};
 use diagnostics::log_animation_diagnostics;
-use foot_influence::FootIkInfluence;
 #[cfg(not(target_family = "wasm"))]
 pub(crate) use diagnostics::{
     AnimationDiagnosticLog, DiagnosticInputStatus, RenderScheduleTelemetry,
 };
+use foot_influence::FootIkInfluence;
 use loading::*;
 use playback_contributions::PlaybackContributions;
 use playback_state::{
@@ -693,7 +693,9 @@ mod contract_tests {
             FootIkInfluence::RIGHT
         );
         assert_eq!(
-            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(LEFT_SUPPORT_SHOULDER_PHASE).unwrap()),
+            FootIkInfluence::combat_cycle(
+                CyclePhase::from_cycles(LEFT_SUPPORT_SHOULDER_PHASE).unwrap()
+            ),
             FootIkInfluence::RIGHT
         );
         assert_eq!(
@@ -701,7 +703,9 @@ mod contract_tests {
             FootIkInfluence::LEFT
         );
         assert_eq!(
-            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(RIGHT_SUPPORT_SHOULDER_PHASE).unwrap()),
+            FootIkInfluence::combat_cycle(
+                CyclePhase::from_cycles(RIGHT_SUPPORT_SHOULDER_PHASE).unwrap()
+            ),
             FootIkInfluence::LEFT
         );
         assert_eq!(
@@ -709,7 +713,9 @@ mod contract_tests {
             FootIkInfluence::LEFT
         );
         assert_eq!(
-            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(RIGHT_RELEASE_SHOULDER_PHASE).unwrap()),
+            FootIkInfluence::combat_cycle(
+                CyclePhase::from_cycles(RIGHT_RELEASE_SHOULDER_PHASE).unwrap()
+            ),
             FootIkInfluence::LEFT
         );
         assert_eq!(
@@ -717,7 +723,9 @@ mod contract_tests {
             FootIkInfluence::RIGHT
         );
         assert_eq!(
-            FootIkInfluence::combat_cycle(CyclePhase::from_cycles(LEFT_RELEASE_SHOULDER_PHASE).unwrap()),
+            FootIkInfluence::combat_cycle(
+                CyclePhase::from_cycles(LEFT_RELEASE_SHOULDER_PHASE).unwrap()
+            ),
             FootIkInfluence::RIGHT
         );
     }

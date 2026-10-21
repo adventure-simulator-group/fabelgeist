@@ -17,7 +17,11 @@ fn evaluate(
     let mut parameters = model_parameters(model, proportions).unwrap();
     if bent {
         for name in ["l_elbow_bend", "r_elbow_bend", "l_knee_bend", "r_knee_bend"] {
-            parameters[model.parameter_transform.parameter_index(&name.into()).unwrap().native_index()] = 0.4;
+            parameters[model
+                .parameter_transform
+                .parameter_index(&name.into())
+                .unwrap()
+                .native_index()] = 0.4;
         }
     }
     let output = model
@@ -130,7 +134,11 @@ fn skeletal_proportions_match_mhr_joints_and_skinned_vertices_in_motion() {
                 vertices.iter().zip(&expected_vertices).enumerate()
             {
                 let mut actual = [0.0; 3];
-                for (joint, weight) in model.character.skin_weights.index.vertex(vertex)
+                for (joint, weight) in model
+                    .character
+                    .skin_weights
+                    .index
+                    .vertex(vertex)
                     .iter()
                     .zip(model.character.skin_weights.weight[vertex])
                 {

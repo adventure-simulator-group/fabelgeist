@@ -81,12 +81,11 @@ pub mod prelude {
     };
     pub use crate::inventory::{
         ArmorItem, ArmorSide, ArmorSlot, EquipSlot, EquipmentActionState, EquipmentRevision,
-        EquipmentSequence, EquipmentTopology,
-        EquipmentTopologyOccupancy, InventoryItems, ItemOf, ItemProperties, ShieldItem,
-        TACTICAL_ITEM_LAYER, TACTICAL_TERRAIN_LAYER, TacticalEquipmentAnchor,
-        TacticalEquipmentPhysical, TacticalInventoryItemId, TacticalItemQuantity,
-        TacticalSceneItem, WeaponAppearance, WeaponHolderAppearance, WeaponItem,
-        rebuild_inventory_holding_cache,
+        EquipmentSequence, EquipmentTopology, EquipmentTopologyOccupancy, InventoryItems, ItemOf,
+        ItemProperties, ShieldItem, TACTICAL_ITEM_LAYER, TACTICAL_TERRAIN_LAYER,
+        TacticalEquipmentAnchor, TacticalEquipmentPhysical, TacticalInventoryItemId,
+        TacticalItemQuantity, TacticalSceneItem, WeaponAppearance, WeaponHolderAppearance,
+        WeaponItem, rebuild_inventory_holding_cache,
     };
     pub use crate::physics::{
         AdventureSimulatorPhysicsSet, BREATH_PER_METRE_PER_SECOND, CharacterMotionSnapshot,

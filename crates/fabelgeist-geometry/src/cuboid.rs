@@ -79,7 +79,10 @@ impl CuboidDimensions {
 }
 
 impl Serialize for CuboidDimensions {
-    fn serialize<S: serde::Serializer>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error> {
+    fn serialize<S: serde::Serializer>(
+        &self,
+        serializer: S,
+    ) -> std::result::Result<S::Ok, S::Error> {
         // Preserve pinned glam Vec3's tuple-struct identity and axis order.
         let mut state = serializer.serialize_tuple_struct("Vec3", 3)?;
         for component in self.axis_metres() {

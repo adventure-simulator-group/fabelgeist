@@ -73,8 +73,10 @@ impl Fixture {
         }
         Self {
             joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8]; positions.len()], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-            ).unwrap(),
+                vec![[0; 8]; positions.len()],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            )
+            .unwrap(),
             names: Default::default(),
             joints: Default::default(),
             joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; positions.len()],
@@ -227,8 +229,10 @@ fn a_cut_shell_is_closed_offset_by_its_layers_and_carries_surface_coordinates() 
         normals: &normals,
         faces: &faces,
         joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
-            vec![[0; 8]; 4], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-        ).unwrap(),
+            vec![[0; 8]; 4],
+            fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+        )
+        .unwrap(),
         joint_weights: &[[1., 0., 0., 0., 0., 0., 0., 0.]; 4],
         joint_names: &Default::default(),
         joints: &Default::default(),

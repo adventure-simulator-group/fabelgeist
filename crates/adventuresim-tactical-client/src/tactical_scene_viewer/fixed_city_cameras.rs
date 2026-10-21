@@ -1,7 +1,7 @@
 //! Frozen poses and presentation selection retain accepted geographic support.
 use super::{capture_state::BuildingReviewCamera, capture_state::SceneCaptureState};
-use bevy::prelude::*;
 use adventuresim_building_generator::spatial_geometry::Position;
+use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
@@ -77,9 +77,19 @@ impl Contract {
 }
 
 pub(super) fn apply(contract: Res<Contract>, mut state: ResMut<SceneCaptureState>) -> Result {
-    let Some(document) = &contract.0 else { return Ok(()); };
-    let exterior = document.exterior.iter().map(Camera::review).collect::<Result<Vec<_>>>()?;
-    let benchmark = document.benchmark.as_ref().map(Camera::review).transpose()?;
+    let Some(document) = &contract.0 else {
+        return Ok(());
+    };
+    let exterior = document
+        .exterior
+        .iter()
+        .map(Camera::review)
+        .collect::<Result<Vec<_>>>()?;
+    let benchmark = document
+        .benchmark
+        .as_ref()
+        .map(Camera::review)
+        .transpose()?;
     state.city_exterior_cameras = exterior;
     if let Some(camera) = benchmark {
         state.ground_eye_position = camera.position;

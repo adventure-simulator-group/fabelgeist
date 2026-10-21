@@ -1,11 +1,9 @@
 //! Admitted runtime clothing requests and body-mesh generation.
 
 use super::RuntimeBody;
-use crate::{
-    clothing::{GarmentSpecification, generate_clothing_shells},
-};
-use anyhow::{Context, Result};
+use crate::clothing::{GarmentSpecification, generate_clothing_shells};
 use adventuresim_core::equipment_assets::CatalogPlacement;
+use anyhow::{Context, Result};
 use fabelgeist_armor::{GeneratedArmor, parametric_design_hash};
 
 pub(super) struct RuntimeClothing<'a> {
@@ -19,10 +17,7 @@ impl<'a> RuntimeClothing<'a> {
     }
 
     pub(super) fn generate(self) -> Result<GeneratedArmor> {
-        let Self {
-            body,
-            selection,
-        } = self;
+        let Self { body, selection } = self;
         let item_id = selection.item().definition().id.as_str();
         let placement_id = selection.definition().id.as_str();
         let specification = GarmentSpecification::from_catalog(

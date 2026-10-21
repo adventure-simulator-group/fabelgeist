@@ -211,7 +211,15 @@ pub(super) fn debris_detail_camera(
     let azimuth = azimuth_degrees.radians();
     let position = match camera {
         Some(camera) => camera,
-        None => Position::from_metres(target.metres() + Vec3::new(azimuth.sin() * 1.15, 1.35, azimuth.cos() * 1.15))?,
+        None => Position::from_metres(
+            target.metres() + Vec3::new(azimuth.sin() * 1.15, 1.35, azimuth.cos() * 1.15),
+        )?,
     };
-    super::view_camera::SceneCameraView::looking_at(position, target, adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::Y)?)
+    super::view_camera::SceneCameraView::looking_at(
+        position,
+        target,
+        adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(
+            Vec3::Y,
+        )?,
+    )
 }

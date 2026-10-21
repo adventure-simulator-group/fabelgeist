@@ -33,8 +33,7 @@ pub(super) fn samples(model: &BodyModel, body: &GeneratedCharacter) -> Vec<Forea
                 local
             };
             shifts[joint] = std::array::from_fn(|i| {
-                shift[i] as f32
-                    + parent.map_or(0.0, |parent| shifts[parent][i])
+                shift[i] as f32 + parent.map_or(0.0, |parent| shifts[parent][i])
             });
         }
         let mut positions: Vec<[f32; 3]> = body
@@ -42,10 +41,14 @@ pub(super) fn samples(model: &BodyModel, body: &GeneratedCharacter) -> Vec<Forea
             .iter()
             .enumerate()
             .map(|(v, p)| {
-                let skin = character.skin_weights.index
-                    .weighted_vertex(v, character.skin_weights.weight[v]).strongest_four();
+                let skin = character
+                    .skin_weights
+                    .index
+                    .weighted_vertex(v, character.skin_weights.weight[v])
+                    .strongest_four();
                 std::array::from_fn(|i| {
-                    p[i] + skin.joints
+                    p[i] + skin
+                        .joints
                         .into_iter()
                         .zip(skin.weights)
                         .map(|(joint, weight)| shifts[joint][i] * weight)

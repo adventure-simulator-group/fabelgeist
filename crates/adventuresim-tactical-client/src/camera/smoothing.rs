@@ -1,11 +1,14 @@
 //! Analytic camera follow damping.
 
-use fabelgeist_geometry::SignedLength;
+use super::values::{CameraResult, ScreenError, ScreenWindow};
 use super::{CameraProfile, ResponseShapingTime};
 use adventuresim_building_generator::spatial_geometry::{Position, RigidRotation};
-use adventuresim_tactical_core::{animation::{AnimationElapsed, UnitInterval}, scene_coordinates::{Scene, SceneVelocity}};
-use super::values::{CameraResult, ScreenError, ScreenWindow};
+use adventuresim_tactical_core::{
+    animation::{AnimationElapsed, UnitInterval},
+    scene_coordinates::{Scene, SceneVelocity},
+};
 use bevy::prelude::*;
+use fabelgeist_geometry::SignedLength;
 use fabelgeist_math::units::Ratio;
 
 #[derive(Clone, Copy)]
@@ -116,16 +119,30 @@ pub(super) fn blend_profile(
     let t = blend.fraction();
     Ok(CameraProfile {
         distance: SignedLength::from_metres(a.distance.metres().lerp(b.distance.metres(), t))?,
-        shoulder_offset: SignedLength::from_metres(a.shoulder_offset.metres().lerp(b.shoulder_offset.metres(), t))?,
-        focus_height: SignedLength::from_metres(a.focus_height.metres().lerp(b.focus_height.metres(), t))?,
+        shoulder_offset: SignedLength::from_metres(
+            a.shoulder_offset
+                .metres()
+                .lerp(b.shoulder_offset.metres(), t),
+        )?,
+        focus_height: SignedLength::from_metres(
+            a.focus_height.metres().lerp(b.focus_height.metres(), t),
+        )?,
         horizontal_follow_time: a
             .horizontal_follow_time
             .checked_lerp(b.horizontal_follow_time, blend)?,
         vertical_follow_time: a
             .vertical_follow_time
             .checked_lerp(b.vertical_follow_time, blend)?,
-        maximum_follow_error: SignedLength::from_metres(a.maximum_follow_error.metres().lerp(b.maximum_follow_error.metres(), t))?,
-        sweet_spot: ScreenWindow::from_ndc_half_extents(a.sweet_spot.ndc_half_extents().lerp(b.sweet_spot.ndc_half_extents(), t))?,
+        maximum_follow_error: SignedLength::from_metres(
+            a.maximum_follow_error
+                .metres()
+                .lerp(b.maximum_follow_error.metres(), t),
+        )?,
+        sweet_spot: ScreenWindow::from_ndc_half_extents(
+            a.sweet_spot
+                .ndc_half_extents()
+                .lerp(b.sweet_spot.ndc_half_extents(), t),
+        )?,
     })
 }
 
@@ -167,7 +184,10 @@ pub(super) fn sweet_spot_target(
             0.0
         },
     );
-    Ok(SweetSpotSample { target: Position::from_metres(target)?, error: ScreenError::from_ndc(screen_error)? })
+    Ok(SweetSpotSample {
+        target: Position::from_metres(target)?,
+        error: ScreenError::from_ndc(screen_error)?,
+    })
 }
 
 #[cfg(test)]
@@ -229,7 +249,8 @@ mod tests {
                 aspect: Ratio::from_ratio(16.0 / 9.0),
                 tan_half_vertical_fov: Ratio::from_ratio(40.0_f32.to_radians().tan()),
             },
-        ).unwrap();
+        )
+        .unwrap();
         assert!(small.target.metres().abs_diff_eq(focus.metres(), 0.0001));
         let large = sweet_spot_target(
             Position::from_metres(Vec3::new(2.0, 0.0, 0.0)).unwrap(),
@@ -241,7 +262,8 @@ mod tests {
                 aspect: Ratio::from_ratio(16.0 / 9.0),
                 tan_half_vertical_fov: Ratio::from_ratio(40.0_f32.to_radians().tan()),
             },
-        ).unwrap();
+        )
+        .unwrap();
         assert!(large.target.metres().x > 1.0 && large.target.metres().x < 2.0);
     }
 }

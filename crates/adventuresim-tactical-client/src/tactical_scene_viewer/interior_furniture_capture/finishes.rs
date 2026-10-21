@@ -1,7 +1,7 @@
 //! Matched production specimens for the four authored wood treatments.
 use super::*;
-use adventuresim_building_generator::spatial_geometry::{CuboidDimensions, Position};
 use adventuresim_building_generator::furniture::{FinishableFurnitureKind, FurnitureWoodState};
+use adventuresim_building_generator::spatial_geometry::{CuboidDimensions, Position};
 
 pub(super) const LABELS: [(&str, &str); FinishableFurnitureKind::ALL.len()] = [
     (

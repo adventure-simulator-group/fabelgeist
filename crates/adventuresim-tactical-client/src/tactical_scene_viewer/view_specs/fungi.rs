@@ -1,5 +1,5 @@
-use crate::camera::authored_metres;
 use super::*;
+use crate::camera::authored_metres;
 use adventuresim_plant_generator::fungus::FungusSpecies;
 
 pub(in crate::tactical_scene_viewer) const FUNGUS_REVIEW_VIEWS: [CaptureViewSpec; 7] = [

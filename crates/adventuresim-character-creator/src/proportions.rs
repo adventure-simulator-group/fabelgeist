@@ -35,7 +35,8 @@ pub fn joint_bases(
             translation_metres: [[0.0; 3]; BODY_PROPORTION_COUNT],
         };
         model.num_joints()
-    ].into();
+    ]
+    .into();
     for proportion in BodyProportion::ALL {
         let column = transform
             .parameter_index(&ModelParameterName::from(proportion.mhr_parameter()))
@@ -59,8 +60,10 @@ pub fn joint_bases(
             ensure!(
                 JointChannel::ROTATION_AND_SCALE
                     .into_iter()
-                    .all(|channel| transform.row(JointParameterRow::new(joint, channel))[column]
-                        == 0.0),
+                    .all(
+                        |channel| transform.row(JointParameterRow::new(joint, channel))[column]
+                            == 0.0
+                    ),
                 "skeletal translation basis cannot encode rotation or scale for {}",
                 proportion.mhr_parameter()
             );

@@ -1,7 +1,7 @@
 //! Catalog boundary for the authored armor recipes and anatomical fit regions.
 
-use anyhow::Result;
 use adventuresim_core::equipment_assets::CatalogItem;
+use anyhow::Result;
 use fabelgeist_armor::*;
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, sync::LazyLock};
@@ -193,7 +193,11 @@ mod tests {
                 item.kind,
                 crate::item_catalog_schema::ItemKind::Armor { .. }
             ) {
-                assert!(is_parametric(CatalogItem::admit(&content.items, item).unwrap()), "missing armor recipe {}", item.id);
+                assert!(
+                    is_parametric(CatalogItem::admit(&content.items, item).unwrap()),
+                    "missing armor recipe {}",
+                    item.id
+                );
             }
         }
         for id in catalog.keys() {
@@ -207,7 +211,10 @@ mod tests {
     #[test]
     fn recipe_lookup_returns_authored_shapes_without_unknown_item_fallback() {
         let authored: serde_json::Value = serde_json::from_str(CATALOG_SOURCE).unwrap();
-        let selected = recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "barbute").unwrap()).unwrap();
+        let selected = recipe(
+            CatalogItem::find(adventuresim_core::item_catalog::catalog(), "barbute").unwrap(),
+        )
+        .unwrap();
         assert_eq!(
             serde_json::to_value(&selected).unwrap(),
             authored["barbute"]
@@ -219,10 +226,19 @@ mod tests {
             )))
             .unwrap()
         );
-        assert!(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "unknown_armor").and_then(recipe).is_none());
+        assert!(
+            CatalogItem::find(adventuresim_core::item_catalog::catalog(), "unknown_armor")
+                .and_then(recipe)
+                .is_none()
+        );
         for id in ["vambrace", "breastplate", "cuirass"] {
-            assert!(is_parametric(CatalogItem::find(adventuresim_core::item_catalog::catalog(), id).unwrap()));
-            assert!(recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), id).unwrap()).is_none());
+            assert!(is_parametric(
+                CatalogItem::find(adventuresim_core::item_catalog::catalog(), id).unwrap()
+            ));
+            assert!(
+                recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), id).unwrap())
+                    .is_none()
+            );
         }
     }
 

@@ -1,9 +1,7 @@
 //! The wearer armor is fitted to: its body, rig and anatomical regions.
 
 use anyhow::Result;
-use fabelgeist_rig::{
-    RigJointMembership, RigJointName, RigJointPart, RigJointTable, RigSide,
-};
+use fabelgeist_rig::{RigJointMembership, RigJointName, RigJointPart, RigJointTable, RigSide};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Side {
@@ -263,8 +261,10 @@ mod tests {
             positions: &positions,
             normals: &positions,
             joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
-                indices.to_vec(), fabelgeist_rig::RigJointTable::from(names.to_vec()).joint_count(),
-            ).unwrap(),
+                indices.to_vec(),
+                fabelgeist_rig::RigJointTable::from(names.to_vec()).joint_count(),
+            )
+            .unwrap(),
             joint_weights: &weights,
             joint_names: &names.to_vec().into(),
             joints: &joints.to_vec().into(),
@@ -300,8 +300,10 @@ mod tests {
             positions: &positions,
             normals: &positions,
             joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
-                indices.to_vec(), fabelgeist_rig::RigJointTable::from(names.to_vec()).joint_count(),
-            ).unwrap(),
+                indices.to_vec(),
+                fabelgeist_rig::RigJointTable::from(names.to_vec()).joint_count(),
+            )
+            .unwrap(),
             joint_weights: &weights,
             joint_names: &names.to_vec().into(),
             joints: &joints.to_vec().into(),

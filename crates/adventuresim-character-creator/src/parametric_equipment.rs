@@ -1,7 +1,6 @@
 //! Fit recipe meshes on the device and assemble them into skinned armor with
 //! stable morph correspondence.
 
-use adventuresim_core::equipment_assets::CatalogPlacement;
 use super::*;
 use adventuresim_character_creator::{
     armor_frames::{FittingPlacement, Side},
@@ -10,6 +9,7 @@ use adventuresim_character_creator::{
     inventory::{FittedPiece, Loadout},
     item_design::ItemDesign,
 };
+use adventuresim_core::equipment_assets::CatalogPlacement;
 
 pub(super) fn fitted_design(
     model: &BodyModel,
@@ -100,7 +100,8 @@ pub(super) fn fitted_catalog_item(
     layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     let mut armor = fitted_item(model, generated, design, placement, morphs, layers)?;
-    let material = placement.item()
+    let material = placement
+        .item()
         .equipment
         .as_ref()
         .and_then(|equipment| equipment.material);
@@ -225,7 +226,11 @@ fn trim(
 
 /// The name a worn piece's meshes go by.
 pub(super) fn piece_name(piece: &FittedPiece<'_>) -> String {
-    format!("{}--{}", piece.piece.selection.item().id, piece.piece.selection.id)
+    format!(
+        "{}--{}",
+        piece.piece.selection.item().id,
+        piece.piece.selection.id
+    )
 }
 
 /// Whether a worn piece is rigid plate, which garments under it lie beneath.
@@ -243,15 +248,8 @@ pub(super) fn fit(
     layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     let placement = piece.piece.selection;
-    fitted_catalog_item(
-        model,
-        generated,
-        placement,
-        &piece.design,
-        morphs,
-        layers,
-    )
-    .with_context(|| format!("fitting {} ({})", placement.item().id, placement.id))
+    fitted_catalog_item(model, generated, placement, &piece.design, morphs, layers)
+        .with_context(|| format!("fitting {} ({})", placement.item().id, placement.id))
 }
 
 /// Build, lace and trim a fitted piece as its article asks.
@@ -287,9 +285,12 @@ pub(super) fn selected<'a>(
     for &index in plan.order() {
         let supports = plan
             .supports(index)
-            .map(|inner| results[inner].as_ref()
-                .map(|piece| &piece.generated)
-                .context("equipment support was not fitted in layer order"))
+            .map(|inner| {
+                results[inner]
+                    .as_ref()
+                    .map(|piece| &piece.generated)
+                    .context("equipment support was not fitted in layer order")
+            })
             .collect::<Result<Vec<_>>>()?;
         let piece = &loadout.fitted[index];
         let fitted = fit(model, generated, piece, morphs, &supports)?;
@@ -328,9 +329,8 @@ mod tests {
             };
             for placement in item.placements() {
                 eprintln!("{}--{}", item.id, placement.id);
-                let armor =
-                    fitted_catalog_item(&model, &body, placement, &design, &morphs, &[])
-                        .with_context(|| format!("fitting {}--{}", item.id, placement.id))?;
+                let armor = fitted_catalog_item(&model, &body, placement, &design, &morphs, &[])
+                    .with_context(|| format!("fitting {}--{}", item.id, placement.id))?;
                 let count = armor.positions.len();
                 anyhow::ensure!(count > 0 && armor.indices.len().is_multiple_of(3));
                 anyhow::ensure!(armor.indices.iter().all(|i| (*i as usize) < count));

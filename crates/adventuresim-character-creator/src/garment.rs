@@ -98,7 +98,8 @@ fn array(p: Vec3) -> [f32; 3] {
 
 pub fn measured_body(input: &DrapeInput) -> Result<Body> {
     let joint = |name: &RigJointName| -> Result<[f32; 3]> {
-        let i = name.index_in(&input.names)
+        let i = name
+            .index_in(&input.names)
             .with_context(|| format!("missing measurement joint {name}"))?;
         let j = input.joints.get(i).context("missing joint transform")?;
         Ok([j[0] * 100.0, j[1] * 100.0, j[2] * 100.0])
@@ -383,8 +384,7 @@ fn orient_faces(
 // across the hip span. Side vertices retain full leg motion; the centre blends.
 fn transfer_skirt_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<SkinTransfer> {
     let hip = |name: &RigJointName| -> Result<[f32; 8]> {
-        let index = name.index_in(&input.names)
-            .context("missing hip joint")?;
+        let index = name.index_in(&input.names).context("missing hip joint")?;
         input
             .joints
             .get(index)
@@ -398,7 +398,10 @@ fn transfer_skirt_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<Ski
     let hip_y = (left[1] + right[1]) * 0.5;
     let mut direct = input.clone();
     direct.selection.construction = Construction::Sewn(pattern::Pattern::default());
-    let SkinTransfer { indices: mut ids, mut weights } = transfer_skin(&direct, positions)?;
+    let SkinTransfer {
+        indices: mut ids,
+        mut weights,
+    } = transfer_skin(&direct, positions)?;
     let low: Vec<_> = positions
         .iter()
         .map(|p| [center - half_width, p[1], p[2]])
@@ -407,8 +410,14 @@ fn transfer_skirt_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<Ski
         .iter()
         .map(|p| [center + half_width, p[1], p[2]])
         .collect();
-    let SkinTransfer { indices: low_ids, weights: low_weights } = transfer_skin(&direct, &low)?;
-    let SkinTransfer { indices: high_ids, weights: high_weights } = transfer_skin(&direct, &high)?;
+    let SkinTransfer {
+        indices: low_ids,
+        weights: low_weights,
+    } = transfer_skin(&direct, &low)?;
+    let SkinTransfer {
+        indices: high_ids,
+        weights: high_weights,
+    } = transfer_skin(&direct, &high)?;
     let smooth = |t: f32| {
         let t = t.clamp(0.0, 1.0);
         t * t * (3.0 - 2.0 * t)
@@ -422,7 +431,11 @@ fn transfer_skirt_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<Ski
         let mut blended = std::collections::BTreeMap::<fabelgeist_rig::RigJointOrdinal, f32>::new();
         for (source_ids, source_weights, factor) in [
             (ids.vertex(v), weights[v], 1.0 - vertical),
-            (low_ids.vertex(v), low_weights[v], vertical * (1.0 - horizontal)),
+            (
+                low_ids.vertex(v),
+                low_weights[v],
+                vertical * (1.0 - horizontal),
+            ),
             (high_ids.vertex(v), high_weights[v], vertical * horizontal),
         ] {
             for (joint, w) in source_ids.into_iter().zip(source_weights) {
@@ -441,7 +454,10 @@ fn transfer_skirt_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<Ski
         }
         ids.set_vertex(v, row)?;
     }
-    Ok(SkinTransfer { indices: ids, weights })
+    Ok(SkinTransfer {
+        indices: ids,
+        weights,
+    })
 }
 pub fn transfer_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<SkinTransfer> {
     if input.indices.len() != input.positions.len() || input.weights.len() != input.positions.len()
@@ -474,9 +490,12 @@ pub fn transfer_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<SkinT
         } else {
             [1.0, 0.0, 0.0]
         };
-        let mut influences = std::collections::BTreeMap::<fabelgeist_rig::RigJointOrdinal, f32>::new();
+        let mut influences =
+            std::collections::BTreeMap::<fabelgeist_rig::RigJointOrdinal, f32>::new();
         for (vertex, factor) in face.into_iter().zip(bary) {
-            for (joint, weight) in input.indices.vertex(vertex as usize)
+            for (joint, weight) in input
+                .indices
+                .vertex(vertex as usize)
                 .into_iter()
                 .zip(input.weights[vertex as usize])
             {
@@ -592,11 +611,16 @@ mod tests {
             names: Default::default(),
             joints: Default::default(),
             indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8], [1; 8], [2; 8]], fabelgeist_rig::RigJointCount::from_native_joint_count(3),
-            ).unwrap(),
+                vec![[0; 8], [1; 8], [2; 8]],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(3),
+            )
+            .unwrap(),
             weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; 3],
         };
-        let SkinTransfer { indices: ids, weights } = transfer_skin(&input, &[[0.25, 0.25, 0.1]]).unwrap();
+        let SkinTransfer {
+            indices: ids,
+            weights,
+        } = transfer_skin(&input, &[[0.25, 0.25, 0.1]]).unwrap();
         assert_eq!(&ids.native_words()[0][..3], &[0, 1, 2]);
         assert_eq!(&weights[0][..3], &[0.5, 0.25, 0.25]);
     }
@@ -642,10 +666,13 @@ mod seam_and_leg_regression {
             joints: vec![
                 [-0.1, 1., 0., 0., 0., 0., 1., 1.],
                 [0.1, 1., 0., 0., 0., 0., 1., 1.],
-            ].into(),
+            ]
+            .into(),
             indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8], [0; 8], [0; 8], [1; 8], [1; 8], [1; 8]], fabelgeist_rig::RigJointCount::from_native_joint_count(2),
-            ).unwrap(),
+                vec![[0; 8], [0; 8], [0; 8], [1; 8], [1; 8], [1; 8]],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(2),
+            )
+            .unwrap(),
             weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; 6],
         };
         let points = vec![
@@ -654,7 +681,10 @@ mod seam_and_leg_regression {
             [0.00001, 0.5, 0.1],
             [0.1, 0.5, 0.1],
         ];
-        let SkinTransfer { indices: ids, weights } = transfer_skin(&input, &points).unwrap();
+        let SkinTransfer {
+            indices: ids,
+            weights,
+        } = transfer_skin(&input, &points).unwrap();
         let displacement = |v: usize| {
             ids.native_words()[v]
                 .iter()

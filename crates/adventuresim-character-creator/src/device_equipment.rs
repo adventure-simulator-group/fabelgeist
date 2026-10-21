@@ -1,7 +1,7 @@
 //! The studio's body and morph samples as realizations for device fitting.
 
-use adventuresim_character_creator::armor_frames::FittingPlacement;
 use super::*;
+use adventuresim_character_creator::armor_frames::FittingPlacement;
 use adventuresim_character_creator::{
     armor_frames::FitRegion,
     armor_gpu,

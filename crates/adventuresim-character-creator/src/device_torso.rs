@@ -134,8 +134,7 @@ impl TorsoSurfaceInput<'_> {
             .indexed()
             .filter_map(
                 |(index, name): (RigJointOrdinal, &RigJointName)| -> Option<RigJointOrdinal> {
-                    (keep(name) == RigJointMembership::Included)
-                        .then_some(index)
+                    (keep(name) == RigJointMembership::Included).then_some(index)
                 },
             )
             .collect()
@@ -173,7 +172,9 @@ pub async fn generate_breastplate_on_device_async(
     let support_joints = input.joints_named(|name: &RigJointName| -> RigJointMembership {
         RigJointMembership::from(SUPPORT_JOINTS.contains(name))
     });
-    let supports = input.joint_names.ordinals()
+    let supports = input
+        .joint_names
+        .ordinals()
         .map(|joint| RigJointMembership::from(support_joints.contains(&joint)))
         .collect::<fabelgeist_rig::RigJointTable<_>>();
     let eligible = crate::torso_domain::TorsoSkinDomain {

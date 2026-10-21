@@ -103,9 +103,7 @@ type CatalogMetals = Vec<(
 
 /// Maps for each distinct catalog steel and trim worn, engraving included,
 /// baked once.
-fn catalog_metals(
-    armor: &[parametric_equipment::SelectedArmor<'_>],
-) -> Result<CatalogMetals> {
+fn catalog_metals(armor: &[parametric_equipment::SelectedArmor<'_>]) -> Result<CatalogMetals> {
     let mut metals: CatalogMetals = Vec::new();
     for piece in armor {
         let material = equipment_catalog::material(piece.piece.piece.selection.item())?;

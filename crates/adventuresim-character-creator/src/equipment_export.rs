@@ -189,7 +189,8 @@ impl EquipmentExporter<'_> {
         rigged_shell: &RiggedShell<'_>,
     ) -> Result<Vec<RiggedSocket<'a>>> {
         let character = &self.model.mhr.character;
-        let equipment = item.definition()
+        let equipment = item
+            .definition()
             .equipment
             .as_ref()
             .context("filtered equipment is missing its definition")?;

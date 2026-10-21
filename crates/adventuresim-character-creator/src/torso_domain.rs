@@ -120,12 +120,17 @@ mod tests {
 
     #[test]
     fn retains_original_face_identity_and_excludes_limb_dominated_skin() {
-        let names: fabelgeist_rig::RigJointTable<_> = vec!["c_spine3".into(), "l_uparm".into()].into();
+        let names: fabelgeist_rig::RigJointTable<_> =
+            vec!["c_spine3".into(), "l_uparm".into()].into();
         let indices = [[0; 8], [0; 8], [0; 8], [1; 8], [1; 8], [1; 8]];
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 6];
         let domain = TorsoSkinDomain {
             faces: &[[3, 4, 5], [0, 1, 2], [0, 1, 2]],
-            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(indices.to_vec(), names.joint_count()).unwrap(),
+            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                indices.to_vec(),
+                names.joint_count(),
+            )
+            .unwrap(),
             joint_weights: &weights,
             joint_names: &names,
         };
@@ -138,7 +143,8 @@ mod tests {
         let mut indices = [[0; 8]; 3];
         let mut weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
         let selected = |faces: &[[u32; 3]], indices: &[[u32; 8]], weights: &[[f32; 8]]| {
-            let indices = fabelgeist_rig::PackedRigSkin::from_native(indices.to_vec(), names.joint_count())?;
+            let indices =
+                fabelgeist_rig::PackedRigSkin::from_native(indices.to_vec(), names.joint_count())?;
             TorsoSkinDomain {
                 faces,
                 joint_indices: &indices,
@@ -158,13 +164,18 @@ mod tests {
 
     #[test]
     fn mixed_shoulder_skin_keeps_the_fitting_domains_thresholds() {
-        let names: fabelgeist_rig::RigJointTable<_> = vec!["c_spine3".into(), "l_uparm".into(), "c_head".into()].into();
+        let names: fabelgeist_rig::RigJointTable<_> =
+            vec!["c_spine3".into(), "l_uparm".into(), "c_head".into()].into();
         let indices = [[0, 1, 2, 0, 0, 0, 0, 0]; 3];
         let selected = |torso: f32, limb: f32| {
             let weights = [[torso, limb, 1.0 - torso - limb, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
             TorsoSkinDomain {
                 faces: &[[0, 1, 2]],
-                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(indices.to_vec(), names.joint_count()).unwrap(),
+                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                    indices.to_vec(),
+                    names.joint_count(),
+                )
+                .unwrap(),
                 joint_weights: &weights,
                 joint_names: &names,
             }

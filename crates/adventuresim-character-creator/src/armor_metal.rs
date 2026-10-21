@@ -123,8 +123,10 @@ mod tests {
             normals: vec![[0.0, 0.0, 1.0]; 4],
             texcoords: vec![[0.0, 0.0], [0.5, 0.0], [0.5, 0.5], [0.0, 0.5]],
             joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8]; 4], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-            ).unwrap(),
+                vec![[0; 8]; 4],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            )
+            .unwrap(),
             joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4],
             indices: vec![0, 1, 2, 0, 2, 3],
             faces: vec![fabelgeist_armor::PlateFace::Outer; 2],
@@ -162,8 +164,10 @@ mod tests {
             texcoords: positions.iter().map(|p| [p[0], p[1]]).collect(),
             normals: vec![[0.0, 0.0, 1.0]; count],
             joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8]; count], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-            ).unwrap(),
+                vec![[0; 8]; count],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            )
+            .unwrap(),
             joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; count],
             faces: vec![fabelgeist_armor::PlateFace::Outer; indices.len() / 3],
             positions,

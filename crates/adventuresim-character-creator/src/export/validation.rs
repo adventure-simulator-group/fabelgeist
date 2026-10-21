@@ -18,8 +18,10 @@ pub(super) fn validate(
         bail!("skinning arrays must match the vertex count");
     }
     let joints = mesh.joint_names.len();
-    anyhow::ensure!(mesh.joint_indices.joint_count() == mesh.joint_names.joint_count(),
-        "body skin and rig have different joint bounds");
+    anyhow::ensure!(
+        mesh.joint_indices.joint_count() == mesh.joint_names.joint_count(),
+        "body skin and rig have different joint bounds"
+    );
     if joints == 0 || mesh.joint_parents.len() != joints || mesh.global_joint_states.len() != joints
     {
         bail!("joint names, parents, and transforms must have the same non-zero length");
@@ -115,8 +117,10 @@ fn validate_shell(mesh: &RiggedMesh<'_>, shell: &RiggedShell<'_>) -> Result<()> 
                 shell.name
             ),
         };
-    anyhow::ensure!(shell_joint_indices.joint_count() == mesh.joint_names.joint_count(),
-        "shell skin and rig have different joint bounds");
+    anyhow::ensure!(
+        shell_joint_indices.joint_count() == mesh.joint_names.joint_count(),
+        "shell skin and rig have different joint bounds"
+    );
     if shell_joint_indices.len() != shell_vertices || shell_joint_weights.len() != shell_vertices {
         bail!("clothing shell '{}' has mismatched skin arrays", shell.name);
     }

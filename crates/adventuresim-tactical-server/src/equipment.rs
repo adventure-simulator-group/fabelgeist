@@ -709,10 +709,19 @@ mod tests {
 
     #[test]
     fn sequence_replay_and_old_half_range_are_rejected() {
-        assert!(EquipmentSequence::from_encoded(2).is_newer_than(EquipmentSequence::from_encoded(1)));
-        assert!(!EquipmentSequence::from_encoded(1).is_newer_than(EquipmentSequence::from_encoded(1)));
-        assert!(!EquipmentSequence::from_encoded(1).is_newer_than(EquipmentSequence::from_encoded(2)));
-        assert!(EquipmentSequence::from_encoded(0).is_newer_than(EquipmentSequence::from_encoded(u32::MAX)));
+        assert!(
+            EquipmentSequence::from_encoded(2).is_newer_than(EquipmentSequence::from_encoded(1))
+        );
+        assert!(
+            !EquipmentSequence::from_encoded(1).is_newer_than(EquipmentSequence::from_encoded(1))
+        );
+        assert!(
+            !EquipmentSequence::from_encoded(1).is_newer_than(EquipmentSequence::from_encoded(2))
+        );
+        assert!(
+            EquipmentSequence::from_encoded(0)
+                .is_newer_than(EquipmentSequence::from_encoded(u32::MAX))
+        );
     }
 
     #[test]
@@ -748,10 +757,14 @@ mod tests {
             action: EquipmentAction::Drop,
         };
         let mut pending = PendingEquipmentActions(VecDeque::from([(old, request)]));
-        let mut sequences = LastEquipmentSequence(HashMap::from([(old, EquipmentSequence::from_encoded(3))]));
+        let mut sequences =
+            LastEquipmentSequence(HashMap::from([(old, EquipmentSequence::from_encoded(3))]));
         reconnect_equipment_lifecycle(old, new, &mut pending, &mut sequences);
         assert!(pending.0.is_empty());
-        assert_eq!(sequences.0.get(&new), Some(&EquipmentSequence::from_encoded(3)));
+        assert_eq!(
+            sequences.0.get(&new),
+            Some(&EquipmentSequence::from_encoded(3))
+        );
         purge_equipment_lifecycle(new, &mut pending, &mut sequences);
         assert!(!sequences.0.contains_key(&new));
     }

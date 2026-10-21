@@ -32,8 +32,10 @@ fn sleeve(columns_reversed: bool) -> GeneratedArmor {
         surface_domain: "test".into(),
         texcoords: vec![[0.0; 2]; count],
         joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
-            joint_indices, fabelgeist_rig::RigJointCount::from_native_joint_count(3),
-        ).unwrap(),
+            joint_indices,
+            fabelgeist_rig::RigJointCount::from_native_joint_count(3),
+        )
+        .unwrap(),
         joint_weights,
         indices: Vec::new(),
         faces: Vec::new(),

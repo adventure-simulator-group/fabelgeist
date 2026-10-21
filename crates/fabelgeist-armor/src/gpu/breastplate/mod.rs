@@ -313,7 +313,9 @@ impl DeviceBreastplate {
                 .map(|words| [f32::from_bits(words[0]), f32::from_bits(words[1])])
                 .collect(),
             joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
-                skin.iter().map(|words| std::array::from_fn(|k| words[2 + k])).collect(),
+                skin.iter()
+                    .map(|words| std::array::from_fn(|k| words[2 + k]))
+                    .collect(),
                 self.rig_joints,
             )?,
             joint_weights: skin

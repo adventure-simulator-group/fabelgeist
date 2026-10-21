@@ -3878,9 +3878,18 @@ mod starting_character_boundary_tests {
             }),
             Some(1)
         );
-        assert_eq!(first_free_attachment_capacity(2, 99, |_| AttachmentCapacity::Occupied(10)), None);
         assert_eq!(
-            first_free_attachment_capacity(2, 99, |index| { if index == 0 { AttachmentCapacity::Occupied(99) } else { AttachmentCapacity::Free } }),
+            first_free_attachment_capacity(2, 99, |_| AttachmentCapacity::Occupied(10)),
+            None
+        );
+        assert_eq!(
+            first_free_attachment_capacity(2, 99, |index| {
+                if index == 0 {
+                    AttachmentCapacity::Occupied(99)
+                } else {
+                    AttachmentCapacity::Free
+                }
+            }),
             Some(0),
             "an item's existing capacity cell remains a valid atomic reparent target"
         );

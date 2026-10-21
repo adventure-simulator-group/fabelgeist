@@ -27,7 +27,12 @@ fn pauldron_shared_saddle_fits_body_and_completed_cuirass() -> Result<()> {
         let fit = |item, side, layers| {
             pollster::block_on(runtime_equipment::generate(
                 &body,
-                adventuresim_core::equipment_assets::CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), item, side).ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+                adventuresim_core::equipment_assets::CatalogPlacement::find(
+                    adventuresim_core::item_catalog::catalog(),
+                    item,
+                    side,
+                )
+                .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
                 &bracer,
                 &breastplate,
                 layers,
@@ -42,7 +47,14 @@ fn pauldron_shared_saddle_fits_body_and_completed_cuirass() -> Result<()> {
             assert_eq!(bare.indices, dressed.indices);
             let adventuresim_character_creator::armor_recipes::ParametricDesign::Limb(
                 fabelgeist_armor::LimbArmorDesign::Pauldron(recipe),
-            ) = adventuresim_character_creator::armor_recipes::recipe(adventuresim_core::equipment_assets::CatalogItem::find(adventuresim_core::item_catalog::catalog(), "pauldron").unwrap()).unwrap()
+            ) = adventuresim_character_creator::armor_recipes::recipe(
+                adventuresim_core::equipment_assets::CatalogItem::find(
+                    adventuresim_core::item_catalog::catalog(),
+                    "pauldron",
+                )
+                .unwrap(),
+            )
+            .unwrap()
             else {
                 panic!("pauldron catalog recipe");
             };

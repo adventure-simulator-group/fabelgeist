@@ -170,7 +170,9 @@ impl Studio {
 struct CharacterMesh;
 
 struct GeneratedCharacter {
-    joint_proportions: fabelgeist_rig::RigJointTable<adventuresim_core::character_proportions::JointProportionBasis>,
+    joint_proportions: fabelgeist_rig::RigJointTable<
+        adventuresim_core::character_proportions::JointProportionBasis,
+    >,
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
     global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,

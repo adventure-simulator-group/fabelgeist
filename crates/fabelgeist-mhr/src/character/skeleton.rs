@@ -134,4 +134,3 @@ pub(super) fn parse_skeleton(scene: &Scene) -> ParsedSkeleton {
         joint_ids: builder.joint_ids,
     }
 }
-

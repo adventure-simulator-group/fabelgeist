@@ -465,7 +465,8 @@ impl DeviceBracer {
             normals,
             texcoords: results.prefix(attributes[0], vertex_count),
             joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
-                results.prefix(attributes[1], vertex_count), self.rig_joints,
+                results.prefix(attributes[1], vertex_count),
+                self.rig_joints,
             )?,
             joint_weights: results.prefix(attributes[2], vertex_count),
             indices: results.prefix(attributes[3], self.layout.triangle_count as usize * 3),

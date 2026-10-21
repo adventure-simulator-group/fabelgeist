@@ -91,12 +91,11 @@ impl ForearmSurfaceInput<'_> {
             || self.faces.len() != self.texcoord_faces.len()
             || self.joint_names.len() != self.global_joint_states.len()
             || self.joint_indices.joint_count() != self.joint_names.joint_count()
-            || self
-                .morphs
-                .iter()
-                .any(|morph| morph.positions.len() != vertices
+            || self.morphs.iter().any(|morph| {
+                morph.positions.len() != vertices
                     || morph.normals.len() != vertices
-                    || morph.global_joint_states.len() != self.joint_names.len())
+                    || morph.global_joint_states.len() != self.joint_names.len()
+            })
         {
             return Err(ForearmInputError::InconsistentSurface);
         }

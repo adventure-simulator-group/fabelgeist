@@ -96,7 +96,9 @@ impl TryFrom<f32> for ContinuationReadiness {
 
 /// Preserve finite negative-tangent normalization at the existing decode
 /// boundary, while rejecting nonfinite input before it can enter state.
-pub(super) fn deserialize_tangent<'de, D>(deserializer: D) -> Result<IncomingAttackTangent, D::Error>
+pub(super) fn deserialize_tangent<'de, D>(
+    deserializer: D,
+) -> Result<IncomingAttackTangent, D::Error>
 where
     D: Deserializer<'de>,
 {

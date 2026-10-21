@@ -139,13 +139,18 @@ mod tests {
         let faces = [[0, 1, 2], [1, 3, 2]];
         let indices = [[0; 8]; 4];
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
-        let names: fabelgeist_rig::RigJointTable<fabelgeist_rig::RigJointName> = vec!["c_neck".into()].into();
+        let names: fabelgeist_rig::RigJointTable<fabelgeist_rig::RigJointName> =
+            vec!["c_neck".into()].into();
         let states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
         let host = Wearer {
             positions: &positions,
             normals: &normals,
             faces: &faces,
-            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(indices.to_vec(), names.joint_count()).unwrap(),
+            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                indices.to_vec(),
+                names.joint_count(),
+            )
+            .unwrap(),
             joint_weights: &weights,
             joint_names: &names,
             joints: &states.to_vec().into(),
@@ -229,13 +234,18 @@ mod tests {
         ];
         let indices = [[0; 8]; 12];
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 12];
-        let names: fabelgeist_rig::RigJointTable<fabelgeist_rig::RigJointName> = vec!["c_neck".into()].into();
+        let names: fabelgeist_rig::RigJointTable<fabelgeist_rig::RigJointName> =
+            vec!["c_neck".into()].into();
         let states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
         let host = Wearer {
             positions: &positions,
             normals: &normals,
             faces: &faces,
-            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(indices.to_vec(), names.joint_count()).unwrap(),
+            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                indices.to_vec(),
+                names.joint_count(),
+            )
+            .unwrap(),
             joint_weights: &weights,
             joint_names: &names,
             joints: &states.to_vec().into(),
@@ -277,7 +287,11 @@ mod tests {
         let layer = crate::armor_layer::ArmorLayerSurface {
             positions: &layer_positions,
             faces: &layer_faces,
-            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(indices[..8].to_vec(), names.joint_count()).unwrap(),
+            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                indices[..8].to_vec(),
+                names.joint_count(),
+            )
+            .unwrap(),
             joint_weights: &weights[..8],
         };
         wearer

@@ -75,8 +75,10 @@ impl TorsoFixture {
         }];
         Self {
             indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8]; positions.len()], states.joint_count(),
-            ).unwrap(),
+                vec![[0; 8]; positions.len()],
+                states.joint_count(),
+            )
+            .unwrap(),
             weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; positions.len()],
             joint_names: joints.iter().map(|(name, _)| (*name).into()).collect(),
             states,

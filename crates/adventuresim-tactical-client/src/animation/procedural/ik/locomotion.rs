@@ -202,7 +202,10 @@ pub(in crate::animation) fn apply(
         let mut support = if enabled.is_enabled() {
             [None, None]
         } else {
-            [Some(authored_weights.left()), Some(authored_weights.right())]
+            [
+                Some(authored_weights.left()),
+                Some(authored_weights.right()),
+            ]
         };
         let mut desired_pelvis_shift = 0.0_f32;
 

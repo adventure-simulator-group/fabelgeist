@@ -6,8 +6,8 @@ use crate::{
     armor_recipes::{self, DedicatedGenerator, ParametricDesign},
     design_input,
 };
-use anyhow::{Context, Result, ensure};
 use adventuresim_core::equipment_assets::{CatalogItem, CatalogPlacement};
+use anyhow::{Context, Result, ensure};
 use fabelgeist_armor::{BracerDesign, BreastplateDesign};
 use serde::{Deserialize, Serialize};
 use std::path::Path;
@@ -151,36 +151,81 @@ mod tests {
     fn dedicated_and_recipe_items_resolve_to_their_generators() {
         let designs = CatalogDesigns::authored();
         assert!(matches!(
-            designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap()),
+            designs.default_for(
+                CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap()
+            ),
             Some(ItemDesign::Vambrace(_))
         ));
         for id in ["breastplate", "cuirass"] {
             assert!(matches!(
-                designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), id).unwrap()),
+                designs.default_for(
+                    CatalogItem::find(adventuresim_core::item_catalog::catalog(), id).unwrap()
+                ),
                 Some(ItemDesign::Breastplate(_))
             ));
         }
         assert!(matches!(
-            designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "morion").unwrap()),
+            designs.default_for(
+                CatalogItem::find(adventuresim_core::item_catalog::catalog(), "morion").unwrap()
+            ),
             Some(ItemDesign::Recipe(_))
         ));
-        assert!(designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "linen_tunic").unwrap()).is_none());
+        assert!(
+            designs
+                .default_for(
+                    CatalogItem::find(adventuresim_core::item_catalog::catalog(), "linen_tunic")
+                        .unwrap()
+                )
+                .is_none()
+        );
     }
 
     #[test]
     fn catalog_defaults_keep_their_construction_family() {
         let mut designs = CatalogDesigns::authored();
-        let barbute = designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "barbute").unwrap()).unwrap();
-        assert!(designs.set_default(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "morion").unwrap(), barbute).is_err());
-        let vambrace = designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap()).unwrap();
-        assert!(designs.set_default(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "breastplate").unwrap(), vambrace).is_err());
+        let barbute = designs
+            .default_for(
+                CatalogItem::find(adventuresim_core::item_catalog::catalog(), "barbute").unwrap(),
+            )
+            .unwrap();
+        assert!(
+            designs
+                .set_default(
+                    CatalogItem::find(adventuresim_core::item_catalog::catalog(), "morion")
+                        .unwrap(),
+                    barbute
+                )
+                .is_err()
+        );
+        let vambrace = designs
+            .default_for(
+                CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap(),
+            )
+            .unwrap();
+        assert!(
+            designs
+                .set_default(
+                    CatalogItem::find(adventuresim_core::item_catalog::catalog(), "breastplate")
+                        .unwrap(),
+                    vambrace
+                )
+                .is_err()
+        );
 
-        let ItemDesign::Vambrace(mut edited) = designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap()).unwrap() else {
+        let ItemDesign::Vambrace(mut edited) = designs
+            .default_for(
+                CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap(),
+            )
+            .unwrap()
+        else {
             unreachable!()
         };
         edited.center_ridge = fabelgeist_armor::Millimeters(5);
         designs
-            .set_default(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap(), ItemDesign::Vambrace(edited.clone()))
+            .set_default(
+                CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap(),
+                ItemDesign::Vambrace(edited.clone()),
+            )
             .unwrap();
         assert_eq!(designs.vambrace, edited);
     }

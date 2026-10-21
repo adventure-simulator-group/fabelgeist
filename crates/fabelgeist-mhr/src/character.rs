@@ -67,7 +67,10 @@ impl Character {
     /// Loads a character from the bytes of a binary FBX rig.
     pub fn from_fbx_bytes(data: &[u8], load_blend_shapes: bool) -> Result<Self> {
         let scene = Scene::parse(data)?;
-        let ParsedSkeleton { skeleton, joint_ids } = parse_skeleton(&scene);
+        let ParsedSkeleton {
+            skeleton,
+            joint_ids,
+        } = parse_skeleton(&scene);
         if skeleton.is_empty() {
             bail!("no joints found in FBX rig");
         }

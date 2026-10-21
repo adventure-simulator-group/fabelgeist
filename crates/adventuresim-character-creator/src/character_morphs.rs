@@ -287,9 +287,8 @@ fn remove_skeletal_translation(
                 continue;
             }
             for (axis, value) in delta.iter_mut().enumerate() {
-                *value -= weight
-                    * (sample.global_joint_states[joint][axis]
-                        - reference[joint][axis]);
+                *value -=
+                    weight * (sample.global_joint_states[joint][axis] - reference[joint][axis]);
             }
         }
     }
@@ -313,7 +312,11 @@ mod tests {
             &mut deltas,
             &sample,
             &vec![[0.0; 8]].into(),
-            &fabelgeist_rig::PackedRigSkin::from_native(vec![[0; 8]], sample.global_joint_states.joint_count()).unwrap(),
+            &fabelgeist_rig::PackedRigSkin::from_native(
+                vec![[0; 8]],
+                sample.global_joint_states.joint_count(),
+            )
+            .unwrap(),
             &[[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
         );
         assert!((deltas[0][1] - 0.02).abs() < 1e-6);
@@ -324,7 +327,8 @@ mod tests {
     fn flexible_fit_reconstructs_the_direct_endpoint_with_exported_influences() {
         let indices = [0, 1, 2, 3, 4, 5, 6, 7];
         let weights = [0.04, 0.21, 0.12, 0.06, 0.27, 0.14, 0.10, 0.06];
-        let reference: fabelgeist_rig::RigJointTable<_> = (0..8).map(|joint| [joint as f32 * 0.02; 8]).collect();
+        let reference: fabelgeist_rig::RigJointTable<_> =
+            (0..8).map(|joint| [joint as f32 * 0.02; 8]).collect();
         let states: fabelgeist_rig::RigJointTable<_> = reference
             .iter()
             .enumerate()
@@ -344,12 +348,19 @@ mod tests {
             global_joint_states: states.clone(),
             device: Default::default(),
         };
-        remove_skeletal_translation(&mut residual, &sample, &reference,
-            &fabelgeist_rig::PackedRigSkin::from_native(vec![indices], reference.joint_count()).unwrap(),
-            &[weights]);
+        remove_skeletal_translation(
+            &mut residual,
+            &sample,
+            &reference,
+            &fabelgeist_rig::PackedRigSkin::from_native(vec![indices], reference.joint_count())
+                .unwrap(),
+            &[weights],
+        );
         let exported = fabelgeist_rig::RigInfluences {
-            joints: indices.map(fabelgeist_rig::RigJointOrdinal::from), weights,
-        }.strongest_four();
+            joints: indices.map(fabelgeist_rig::RigJointOrdinal::from),
+            weights,
+        }
+        .strongest_four();
         let exported_indices = exported.joints;
         let exported_weights = exported.weights;
         for axis in 0..3 {

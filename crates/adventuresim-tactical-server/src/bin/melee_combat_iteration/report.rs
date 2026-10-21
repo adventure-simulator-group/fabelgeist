@@ -28,7 +28,8 @@ pub(super) struct MatchupSummary {
     pub(super) tactical_wall_milliseconds: Measurement<WallMilliseconds>,
     pub(super) autoresolve_wall_milliseconds: Measurement<WallMilliseconds>,
     pub(super) tactical_duels_per_second: Measurement<DuelsPerWallSecond>,
-    pub(super) tactical_simulated_seconds_per_wall_second: Measurement<TacticalSecondsPerWallSecond>,
+    pub(super) tactical_simulated_seconds_per_wall_second:
+        Measurement<TacticalSecondsPerWallSecond>,
     pub(super) autoresolve_duels_per_second: Measurement<DuelsPerWallSecond>,
 }
 
@@ -185,7 +186,8 @@ pub(super) struct AutoresolveCombatantCausal {
     pub(super) full_energy_intended_contacts_inside_ten_centimetres: u64,
     pub(super) mean_attack_interval_seconds: Measurement<AutoresolveSeconds>,
     pub(super) mean_attack_power_multiplier: Measurement<AttackPowerMultiplier>,
-    pub(super) minimum_attack_incapacitation_performance: Option<Measurement<IncapacitationPerformance>>,
+    pub(super) minimum_attack_incapacitation_performance:
+        Option<Measurement<IncapacitationPerformance>>,
     pub(super) final_pain_incapacitation: Measurement<PainIncapacitation>,
     pub(super) final_blood_loss_fraction: Measurement<BloodLossFraction>,
     pub(super) final_acute_trauma: Measurement<AcuteTrauma>,
@@ -229,15 +231,14 @@ impl AutoresolveCombatantCausal {
         self.final_blood_loss_fraction.checked_add(
             Measurement::<BloodLossFraction>::from_native(outcome.blood_loss_fraction)?,
         )?;
-        self.final_acute_trauma.checked_add(
-            Measurement::<AcuteTrauma>::from_native(outcome.acute_trauma)?,
-        )?;
-        self.final_fatigue.checked_add(
-            Measurement::<Fatigue>::from_native(outcome.fatigue)?,
-        )?;
-        self.final_imbalance.checked_add(
-            Measurement::<Imbalance>::from_native(outcome.imbalance)?,
-        )?;
+        self.final_acute_trauma
+            .checked_add(Measurement::<AcuteTrauma>::from_native(
+                outcome.acute_trauma,
+            )?)?;
+        self.final_fatigue
+            .checked_add(Measurement::<Fatigue>::from_native(outcome.fatigue)?)?;
+        self.final_imbalance
+            .checked_add(Measurement::<Imbalance>::from_native(outcome.imbalance)?)?;
         self.final_open_wounds += outcome.open_wound_count as u64;
         self.final_internal_wounds += outcome.internal_wound_count as u64;
         self.incapacitated_runs += u64::from(outcome.incapacitated);

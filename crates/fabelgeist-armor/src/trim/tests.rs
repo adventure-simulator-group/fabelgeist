@@ -55,10 +55,14 @@ fn plate(boundary: BoundaryNormals, x: f32) -> GeneratedArmor {
         surface_domain: "test".into(),
         normals: vec![[0.0, 0.0, 1.0]; count],
         texcoords: positions.iter().map(|p| [p[0], p[1]]).collect(),
-        joint_indices: fabelgeist_rig::PackedRigSkin::from_native(positions
-            .iter()
-            .map(|p| [u32::from(p[0] - x > SIDE / 2.0), 0, 0, 0, 0, 0, 0, 0])
-            .collect(), fabelgeist_rig::RigJointCount::from_native_joint_count(2)).unwrap(),
+        joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
+            positions
+                .iter()
+                .map(|p| [u32::from(p[0] - x > SIDE / 2.0), 0, 0, 0, 0, 0, 0, 0])
+                .collect(),
+            fabelgeist_rig::RigJointCount::from_native_joint_count(2),
+        )
+        .unwrap(),
         joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; count],
         morphs: vec![ArmorMorph {
             name: "lift".into(),
@@ -231,7 +235,10 @@ fn components_keep_their_own_vertices() {
     first.positions.extend(&second.positions);
     first.normals.extend(&second.normals);
     first.texcoords.extend(&second.texcoords);
-    first.joint_indices.append(second.joint_indices.clone()).unwrap();
+    first
+        .joint_indices
+        .append(second.joint_indices.clone())
+        .unwrap();
     first.joint_weights.extend(&second.joint_weights);
     first
         .indices

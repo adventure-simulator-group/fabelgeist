@@ -62,11 +62,16 @@ impl GpuBody {
             normals: gpu.upload(BufferUpload::from_elements(surface.normals))?,
             faces: gpu.upload(BufferUpload::from_elements(surface.faces))?,
             texcoords: gpu.upload(BufferUpload::from_elements(surface.texcoords))?,
-            joint_indices: gpu.upload(BufferUpload::from_elements(surface.joint_indices.native_words()))?,
+            joint_indices: gpu.upload(BufferUpload::from_elements(
+                surface.joint_indices.native_words(),
+            ))?,
             joint_weights: gpu.upload(BufferUpload::from_elements(surface.joint_weights))?,
-            joints: gpu.upload(BufferUpload::from_elements(surface.joints.as_native_slice()))?,
+            joints: gpu.upload(BufferUpload::from_elements(
+                surface.joints.as_native_slice(),
+            ))?,
             vertex_count: u32::try_from(vertices).map_err(|_| GenerateError::InvalidSurface)?,
-            face_count: u32::try_from(surface.faces.len()).map_err(|_| GenerateError::InvalidSurface)?,
+            face_count: u32::try_from(surface.faces.len())
+                .map_err(|_| GenerateError::InvalidSurface)?,
             joint_count: surface.joints.joint_count(),
         })
     }
@@ -168,7 +173,11 @@ impl Correspondence {
     }
 
     /// The skin, from a shared readback.
-    pub fn finish(&self, results: &StagedResults, slots: [Staged; 3]) -> Result<Skin, GenerateError> {
+    pub fn finish(
+        &self,
+        results: &StagedResults,
+        slots: [Staged; 3],
+    ) -> Result<Skin, GenerateError> {
         let count = self.count as usize;
         let mut texcoords: Vec<[f32; 2]> = results.get(slots[0]);
         let mut joint_indices: Vec<[u32; 8]> = results.get(slots[1]);

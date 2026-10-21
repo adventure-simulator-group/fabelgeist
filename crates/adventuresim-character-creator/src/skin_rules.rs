@@ -29,8 +29,10 @@ pub fn attach(
     joints: &fabelgeist_rig::RigJointTable<[f32; 8]>,
     armor: &mut GeneratedArmor,
 ) -> Result<()> {
-    anyhow::ensure!(armor.joint_indices.joint_count() == joint_names.joint_count(),
-        "rigid armor skin and wearer have different joint bounds");
+    anyhow::ensure!(
+        armor.joint_indices.joint_count() == joint_names.joint_count(),
+        "rigid armor skin and wearer have different joint bounds"
+    );
     let (joint, roles): (_, &[_]) = match design {
         ParametricDesign::WaistAssembly(_) => return waist(joint_names, joints, armor),
         ParametricDesign::Garment(garment)
@@ -125,9 +127,14 @@ pub fn attach(
 /// The cuirass follows the chest as one rigid assembly. Separate horizontal
 /// courses retain their constructed overlaps. Independent course motion needs
 /// armor pivots and lap constraints; body-spine joints are not those pivots.
-pub(crate) fn breastplate(joint_names: &fabelgeist_rig::RigJointTable<RigJointName>, armor: &mut GeneratedArmor) -> Result<()> {
-    anyhow::ensure!(armor.joint_indices.joint_count() == joint_names.joint_count(),
-        "cuirass skin and wearer have different joint bounds");
+pub(crate) fn breastplate(
+    joint_names: &fabelgeist_rig::RigJointTable<RigJointName>,
+    armor: &mut GeneratedArmor,
+) -> Result<()> {
+    anyhow::ensure!(
+        armor.joint_indices.joint_count() == joint_names.joint_count(),
+        "cuirass skin and wearer have different joint bounds"
+    );
     let chest = joint_index(joint_names, &RigJointName::C_SPINE3)?;
     fill(armor, 0..armor.positions.len(), chest)?;
     Ok(())
@@ -145,9 +152,7 @@ fn waist(
         joint_index(joint_names, &RigJointName::L_UPLEG)?,
         joint_index(joint_names, &RigJointName::R_UPLEG)?,
     ];
-    let center = joints
-        .get(pelvis)
-        .context("missing pelvic joint state")?[0];
+    let center = joints.get(pelvis).context("missing pelvic joint state")?[0];
     let tassets = armor
         .components
         .iter()
@@ -230,7 +235,8 @@ mod tests {
             RigJointName::R_UPLEG,
             RigJointName::C_SPINE3,
         ]
-        .into_iter().collect()
+        .into_iter()
+        .collect()
     }
 
     fn armor(components: Vec<ArmorComponent>) -> GeneratedArmor {
@@ -241,8 +247,10 @@ mod tests {
             normals: vec![[0.0, 0.0, 1.0]; 4],
             texcoords: vec![[0.0; 2]; 4],
             joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0, 1, 2, 3, 4, 5, 0, 0]; 4], names().joint_count(),
-            ).unwrap(),
+                vec![[0, 1, 2, 3, 4, 5, 0, 0]; 4],
+                names().joint_count(),
+            )
+            .unwrap(),
             joint_weights: vec![[0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.0, 0.0]; 4],
             indices: vec![0, 1, 2, 1, 3, 2],
             faces: Vec::new(),
@@ -273,11 +281,21 @@ mod tests {
             component(ArmorComponentRole::Plate, 1..3),
             component(ArmorComponentRole::LeatherStraps, 3..4),
         ]);
-        let flexible = (gorget.joint_indices.native_words()[3], gorget.joint_weights[3]);
+        let flexible = (
+            gorget.joint_indices.native_words()[3],
+            gorget.joint_weights[3],
+        );
         let design = ParametricDesign::Garment(fabelgeist_armor::GarmentArmorDesign::new(
             GarmentArmorKind::Gorget,
         ));
-        attach(&design, FittingPlacement::Unpaired, &names(), &Default::default(), &mut gorget).unwrap();
+        attach(
+            &design,
+            FittingPlacement::Unpaired,
+            &names(),
+            &Default::default(),
+            &mut gorget,
+        )
+        .unwrap();
         let mut cuirass = armor(Vec::new());
         breastplate(&names(), &mut cuirass).unwrap();
         assert!(
@@ -286,20 +304,46 @@ mod tests {
                 .all(|i| *i == cuirass.joint_indices.native_words()[0])
         );
         assert_eq!(gorget.joint_weights[..3], [RIGID; 3]);
-        assert_eq!((gorget.joint_indices.native_words()[3], gorget.joint_weights[3]), flexible);
+        assert_eq!(
+            (
+                gorget.joint_indices.native_words()[3],
+                gorget.joint_weights[3]
+            ),
+            flexible
+        );
     }
 
     #[test]
     fn solid_helmets_follow_the_head_and_cloth_headwear_keeps_its_skin() {
         let mut burgonet = armor(Vec::new());
         let helmet = ParametricDesign::Helmet(HelmetDesign::Burgonet(BurgonetDesign::default()));
-        attach(&helmet, FittingPlacement::Unpaired, &names(), &Default::default(), &mut burgonet).unwrap();
-        assert!(burgonet.joint_indices.native_words().iter().all(|j| *j == [1; 8]));
+        attach(
+            &helmet,
+            FittingPlacement::Unpaired,
+            &names(),
+            &Default::default(),
+            &mut burgonet,
+        )
+        .unwrap();
+        assert!(
+            burgonet
+                .joint_indices
+                .native_words()
+                .iter()
+                .all(|j| *j == [1; 8])
+        );
         assert!(burgonet.joint_weights.iter().all(|w| *w == RIGID));
         let mut coif = armor(Vec::new());
         let unchanged = coif.joint_weights.clone();
         let design = ParametricDesign::Helmet(HelmetDesign::MailCoif(CoifDesign::default()));
-        attach(&design, FittingPlacement::Unpaired, &names(), &Default::default(), &mut coif).unwrap();
+        attach(
+            &design,
+            FittingPlacement::Unpaired,
+            &names(),
+            &Default::default(),
+            &mut coif,
+        )
+        .unwrap();
         assert_eq!(coif.joint_weights, unchanged);
     }
 
@@ -310,13 +354,33 @@ mod tests {
             component(ArmorComponentRole::LeatherStraps, 2..4),
         ]);
         let design = ParametricDesign::Limb(LimbArmorDesign::Couter(JointCupDesign::couter()));
-        attach(&design, FittingPlacement::Lateral(Side::Right), &names(), &Default::default(), &mut couter).unwrap();
+        attach(
+            &design,
+            FittingPlacement::Lateral(Side::Right),
+            &names(),
+            &Default::default(),
+            &mut couter,
+        )
+        .unwrap();
         assert_eq!(couter.joint_indices.native_words()[..2], [[3; 8]; 2]);
         assert_ne!(couter.joint_weights[2], RIGID);
         let mut poleyn = armor(Vec::new());
         let design = ParametricDesign::Limb(LimbArmorDesign::Poleyn(JointCupDesign::poleyn()));
-        attach(&design, FittingPlacement::Lateral(Side::Left), &names(), &Default::default(), &mut poleyn).unwrap();
-        assert!(poleyn.joint_indices.native_words().iter().all(|j| *j == [4; 8]));
+        attach(
+            &design,
+            FittingPlacement::Lateral(Side::Left),
+            &names(),
+            &Default::default(),
+            &mut poleyn,
+        )
+        .unwrap();
+        assert!(
+            poleyn
+                .joint_indices
+                .native_words()
+                .iter()
+                .all(|j| *j == [4; 8])
+        );
     }
 
     #[test]
@@ -326,8 +390,18 @@ mod tests {
             component(ArmorComponentRole::Besagew, 2..4),
         ]);
         let design = ParametricDesign::Limb(LimbArmorDesign::Spaulder(Default::default()));
-        attach(&design, FittingPlacement::Lateral(Side::Left), &names(), &Default::default(), &mut spaulder).unwrap();
-        assert_eq!(spaulder.joint_indices.native_words(), [[2; 8], [2; 8], [6; 8], [6; 8]]);
+        attach(
+            &design,
+            FittingPlacement::Lateral(Side::Left),
+            &names(),
+            &Default::default(),
+            &mut spaulder,
+        )
+        .unwrap();
+        assert_eq!(
+            spaulder.joint_indices.native_words(),
+            [[2; 8], [2; 8], [6; 8], [6; 8]]
+        );
         assert!(spaulder.joint_weights.iter().all(|w| *w == RIGID));
     }
 
@@ -335,7 +409,16 @@ mod tests {
     fn a_missing_anchor_is_an_error() {
         let mut poleyn = armor(Vec::new());
         let design = ParametricDesign::Limb(LimbArmorDesign::Poleyn(JointCupDesign::poleyn()));
-        assert!(attach(&design, FittingPlacement::Lateral(Side::Right), &names(), &Default::default(), &mut poleyn).is_err());
+        assert!(
+            attach(
+                &design,
+                FittingPlacement::Lateral(Side::Right),
+                &names(),
+                &Default::default(),
+                &mut poleyn
+            )
+            .is_err()
+        );
     }
 
     #[test]
@@ -354,8 +437,10 @@ mod tests {
                 [-0.15, 0.8, 0.0],
             ],
             joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8]; 9], fabelgeist_rig::RigJointCount::from_native_joint_count(3),
-            ).unwrap(),
+                vec![[0; 8]; 9],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(3),
+            )
+            .unwrap(),
             joint_weights: vec![[0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 9],
             indices: vec![0, 1, 2, 3, 4, 5, 6, 7, 8],
             components: vec![
@@ -374,7 +459,14 @@ mod tests {
             fauld: fabelgeist_armor::GarmentArmorDesign::new(GarmentArmorKind::Fauld),
             tassets: fabelgeist_armor::GarmentArmorDesign::new(GarmentArmorKind::Tassets),
         });
-        attach(&design, FittingPlacement::Unpaired, &names.to_vec().into(), &joints.to_vec().into(), &mut waist).unwrap();
+        attach(
+            &design,
+            FittingPlacement::Unpaired,
+            &names.to_vec().into(),
+            &joints.to_vec().into(),
+            &mut waist,
+        )
+        .unwrap();
         assert_eq!(waist.joint_indices.native_words()[..3], [[0; 8]; 3]);
         assert_eq!(waist.joint_indices.native_words()[3..6], [[1; 8]; 3]);
         assert_eq!(waist.joint_indices.native_words()[6..], [[2; 8]; 3]);

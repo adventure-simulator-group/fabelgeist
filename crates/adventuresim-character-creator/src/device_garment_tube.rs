@@ -359,7 +359,6 @@ impl DeviceWearer<'_> {
         design: &GarmentArmorDesign,
         side: Side,
     ) -> Result<DeviceRecording> {
-
         let rig = TubeRig::from(design);
         let anchors = rig.anchors(self.host, side)?;
         let region = rig.region(side);

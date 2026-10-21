@@ -1,8 +1,8 @@
 //! Cameras and placement annotations only; production observers render all furniture.
 use adventuresim_building_generator::furniture::FurnitureKind;
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::{prelude::*, scene_coordinates::ScenePlanPoint};
 use bevy::prelude::*;
-use adventuresim_building_generator::spatial_geometry::Position;
 
 use super::capture_state::BuildingReviewCamera;
 
@@ -44,7 +44,11 @@ pub(super) fn setup(
     if profile != PROFILE {
         return Ok(None);
     }
-    let camera = |position, target| BuildingReviewCamera { position, target, plaster_raking_light: None };
+    let camera = |position, target| BuildingReviewCamera {
+        position,
+        target,
+        plaster_raking_light: None,
+    };
     let mut cameras = FurnitureKind::OUTDOOR
         .into_iter()
         .map(|kind| {
@@ -77,7 +81,9 @@ pub(super) fn setup(
                     height.metres() + EYE_HEIGHT_METRES,
                     point.metres().y,
                 ))?,
-                Position::from_metres(instance.position_metres.metres() + Vec3::Y * bounds.centre()?.metres().y)?,
+                Position::from_metres(
+                    instance.position_metres.metres() + Vec3::Y * bounds.centre()?.metres().y,
+                )?,
             ))
         })
         .collect::<Result<Vec<_>>>()?;
@@ -97,7 +103,10 @@ pub(super) fn setup(
         terrain.required_height_at(point)?.metres(),
         centre.y,
     ))?;
-    cameras.push(camera(Position::from_metres(target.metres() + Vec3::new(48.0, 40.0, -58.0))?, target));
+    cameras.push(camera(
+        Position::from_metres(target.metres() + Vec3::new(48.0, 40.0, -58.0))?,
+        target,
+    ));
     cameras.push(camera(
         Position::from_metres(Vec3::new(
             -10.0,
@@ -122,8 +131,14 @@ pub(super) fn setup(
             .metres(),
         -30.0,
     ))?;
-    cameras.push(camera(Position::from_metres(junction.metres() + Vec3::new(-21.0, 24.0, -23.0))?, junction));
-    cameras.push(camera(Position::from_metres(junction.metres() + Vec3::new(-9.0, 7.0, -10.0))?, junction));
+    cameras.push(camera(
+        Position::from_metres(junction.metres() + Vec3::new(-21.0, 24.0, -23.0))?,
+        junction,
+    ));
+    cameras.push(camera(
+        Position::from_metres(junction.metres() + Vec3::new(-9.0, 7.0, -10.0))?,
+        junction,
+    ));
     commands.insert_resource(super::furniture_readiness::ExpectedFurniture {
         instances: layout.instances.len() + layout.distant_instances.len(),
         batches: layout

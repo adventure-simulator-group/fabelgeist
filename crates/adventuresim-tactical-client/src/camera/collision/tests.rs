@@ -80,13 +80,20 @@ fn place(
         &|_| true,
         &config,
         AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
-    ).unwrap()
+    )
+    .unwrap()
 }
 
-fn assert_clear(position: Position<Scene>, rotation: RigidRotation, projection: &Projection, obstacles: &[Obstacle]) {
+fn assert_clear(
+    position: Position<Scene>,
+    rotation: RigidRotation,
+    projection: &Projection,
+    obstacles: &[Obstacle],
+) {
     let position = position.metres();
     let rotation = rotation.quaternion();
-    let volume = CameraVolume::new(projection, CameraRigConfig::default().collision_margin).unwrap();
+    let volume =
+        CameraVolume::new(projection, CameraRigConfig::default().collision_margin).unwrap();
     for obstacle in obstacles {
         let contact = contact_query::contact(
             &volume.shape,
@@ -102,7 +109,8 @@ fn assert_clear(position: Position<Scene>, rotation: RigidRotation, projection: 
             contact.is_none_or(|contact| contact.penetration <= 0.0001),
             "camera at {position:?} penetrated obstacle at {:?}: {contact:?}",
             obstacle.position
-        ).unwrap();
+        )
+        .unwrap();
     }
 }
 
@@ -146,7 +154,11 @@ fn final_close_offset_cannot_enter_an_inside_corner() {
         assert_clear(placement.position, frame.rotation, &projection, &obstacles);
         if step > 60 {
             assert!(
-                placement.position.metres().distance(previous.unwrap().metres()) < 0.001,
+                placement
+                    .position
+                    .metres()
+                    .distance(previous.unwrap().metres())
+                    < 0.001,
                 "a stationary corner must settle instead of pumping the view"
             );
         }
@@ -193,7 +205,13 @@ fn near_plane_clears_doorway_ceiling_and_stairs_during_manual_orbit() {
         for yaw in -12..=12 {
             for pitch in [-0.65, 0.0, 0.65] {
                 let mut frame = frame();
-                frame.rotation = RigidRotation::from_quaternion(Quat::from_euler(EulerRot::YXZ, yaw as f32 * 0.1, pitch, 0.0)).unwrap();
+                frame.rotation = RigidRotation::from_quaternion(Quat::from_euler(
+                    EulerRot::YXZ,
+                    yaw as f32 * 0.1,
+                    pitch,
+                    0.0,
+                ))
+                .unwrap();
                 let placement = place(&mut app, &mut boom, &frame, &projection);
                 assert_clear(placement.position, frame.rotation, &projection, &obstacles);
             }
@@ -227,7 +245,8 @@ fn brief_doorway_gaps_do_not_pump_distance_and_recovery_is_monotonic() {
         SignedLength::from_metres(1.2).unwrap(),
         &config,
         AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
-    ).unwrap();
+    )
+    .unwrap();
     assert_eq!(boom.distance.metres(), 1.2);
     // The camera may have been pressed against the jamb for several seconds.
     for _ in 0..120 {
@@ -236,7 +255,8 @@ fn brief_doorway_gaps_do_not_pump_distance_and_recovery_is_monotonic() {
             SignedLength::from_metres(1.2).unwrap(),
             &config,
             AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
-        ).unwrap();
+        )
+        .unwrap();
     }
     for _ in 0..4 {
         boom.recover(
@@ -244,7 +264,8 @@ fn brief_doorway_gaps_do_not_pump_distance_and_recovery_is_monotonic() {
             SignedLength::from_metres(3.75).unwrap(),
             &config,
             AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
-        ).unwrap();
+        )
+        .unwrap();
         assert_eq!(boom.distance.metres(), 1.2);
     }
     let mut previous = boom.distance;
@@ -254,7 +275,8 @@ fn brief_doorway_gaps_do_not_pump_distance_and_recovery_is_monotonic() {
             SignedLength::from_metres(3.75).unwrap(),
             &config,
             AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
-        ).unwrap();
+        )
+        .unwrap();
         assert!(boom.distance.metres() >= previous.metres() && boom.distance.metres() <= 3.75);
         previous = boom.distance;
     }
@@ -264,9 +286,11 @@ fn brief_doorway_gaps_do_not_pump_distance_and_recovery_is_monotonic() {
         SignedLength::from_metres(0.6).unwrap(),
         &config,
         AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
-    ).unwrap();
+    )
+    .unwrap();
     assert_eq!(
-        boom.distance.metres(), 0.6,
+        boom.distance.metres(),
+        0.6,
         "a new obstruction must override recovery immediately"
     );
 }

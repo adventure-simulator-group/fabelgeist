@@ -102,8 +102,10 @@ mod tests {
             settled: None,
             obstacles: vec![],
             indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8]; positions.len()], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-            ).unwrap(),
+                vec![[0; 8]; positions.len()],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            )
+            .unwrap(),
             weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; positions.len()],
             positions,
             faces: vec![[0, 2, 1], [0, 1, 3], [1, 2, 3], [2, 0, 3]],

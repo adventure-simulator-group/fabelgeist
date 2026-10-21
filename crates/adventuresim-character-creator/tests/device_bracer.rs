@@ -44,19 +44,22 @@ impl Forearm {
             faces: Vec::new(),
             texcoords: Vec::new(),
             joint_indices: fabelgeist_rig::PackedRigSkin::empty(
-                fabelgeist_rig::RigJointTable::from(vec!["l_lowarm", "l_wrist", "l_upperarm"]).joint_count(),
+                fabelgeist_rig::RigJointTable::from(vec!["l_lowarm", "l_wrist", "l_upperarm"])
+                    .joint_count(),
             ),
             joint_weights: Vec::new(),
             joint_names: ["l_lowarm", "l_wrist", "l_upperarm"]
                 .map(RigJointName::from)
-                .into_iter().collect(),
+                .into_iter()
+                .collect(),
             joints: [
                 [0.0, LENGTH_M, 0.0],
                 [0.0, 0.0, 0.0],
                 [0.0, 2.0 * LENGTH_M, 0.0],
             ]
             .map(|[x, y, z]| [x, y, z, 0.0, 0.0, 0.0, 1.0, 1.0])
-            .into_iter().collect(),
+            .into_iter()
+            .collect(),
             morphs: Vec::new(),
         };
         for ring in 0..RINGS {
@@ -73,9 +76,10 @@ impl Forearm {
                 forearm
                     .texcoords
                     .push([segment as f32 / SEGMENTS as f32, axial]);
-                forearm.joint_indices.push(
-                    [0usize, 1, 0, 0, 0, 0, 0, 0].map(fabelgeist_rig::RigJointOrdinal::from),
-                ).unwrap();
+                forearm
+                    .joint_indices
+                    .push([0usize, 1, 0, 0, 0, 0, 0, 0].map(fabelgeist_rig::RigJointOrdinal::from))
+                    .unwrap();
                 let wrist = (axial - 0.8).max(0.0) * 2.0;
                 forearm
                     .joint_weights

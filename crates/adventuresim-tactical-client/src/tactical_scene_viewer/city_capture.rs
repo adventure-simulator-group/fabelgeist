@@ -1,11 +1,11 @@
-use fabelgeist_geometry::SignedLength;
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::prelude::{
     BuildingOrientation, CityStreetPatch, DistantBuildingPlacement, GeneratedBuilding, SceneTerrain,
 };
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::prelude::*;
-use adventuresim_building_generator::spatial_geometry::{Position};
-use adventuresim_tactical_core::scene_coordinates::Scene;
+use fabelgeist_geometry::SignedLength;
 
 use super::capture_state::BuildingReviewCamera;
 
@@ -251,14 +251,22 @@ impl Bounds2 {
     }
 
     fn radius(self) -> Result<SignedLength> {
-        Ok(SignedLength::from_metres(((self.max - self.min).max_element() * 0.5).max(20.0))?)
+        Ok(SignedLength::from_metres(
+            ((self.max - self.min).max_element() * 0.5).max(20.0),
+        )?)
     }
 
-    fn oblique_camera(self, distance_scale: f32, height_scale: f32) -> Result<BuildingReviewCamera> {
+    fn oblique_camera(
+        self,
+        distance_scale: f32,
+        height_scale: f32,
+    ) -> Result<BuildingReviewCamera> {
         let target = self.centre()?;
         let radius = self.radius()?.metres();
         Ok(BuildingReviewCamera {
-            position: Position::from_metres(target.metres() + Vec3::new(radius * distance_scale, radius * height_scale, radius))?,
+            position: Position::from_metres(
+                target.metres() + Vec3::new(radius * distance_scale, radius * height_scale, radius),
+            )?,
             target,
             plaster_raking_light: None,
         })
@@ -268,7 +276,9 @@ impl Bounds2 {
         let target = self.centre()?;
         let radius = self.radius()?.metres();
         Ok(BuildingReviewCamera {
-            position: Position::from_metres(target.metres() + Vec3::new(radius * 1.45, radius * 0.18, radius * 0.35))?,
+            position: Position::from_metres(
+                target.metres() + Vec3::new(radius * 1.45, radius * 0.18, radius * 0.35),
+            )?,
             target,
             plaster_raking_light: None,
         })
@@ -278,7 +288,9 @@ impl Bounds2 {
         let target = self.centre()?;
         let radius = self.radius()?.metres();
         Ok(BuildingReviewCamera {
-            position: Position::from_metres(target.metres() + Vec3::new(0.0, radius * 1.7, radius * 0.18))?,
+            position: Position::from_metres(
+                target.metres() + Vec3::new(0.0, radius * 1.7, radius * 0.18),
+            )?,
             target,
             plaster_raking_light: None,
         })
@@ -288,7 +300,9 @@ impl Bounds2 {
         let target = self.centre()?;
         let radius = self.radius()?.metres();
         Ok(BuildingReviewCamera {
-            position: Position::from_metres(target.metres() + Vec3::new(0.0, radius * 0.12, radius * 2.35))?,
+            position: Position::from_metres(
+                target.metres() + Vec3::new(0.0, radius * 0.12, radius * 2.35),
+            )?,
             target,
             plaster_raking_light: None,
         })
@@ -394,8 +408,20 @@ mod tests {
             buildings[0].placement.centre_metres.metres()
         );
         assert_eq!(cameras[3].target.metres().xz(), Vec2::new(35.0, 12.0));
-        assert!(cameras[3].position.metres().distance(cameras[3].target.metres()) < 75.0);
-        assert!(cameras[5].position.metres().distance(cameras[5].target.metres()) > 150.0);
+        assert!(
+            cameras[3]
+                .position
+                .metres()
+                .distance(cameras[3].target.metres())
+                < 75.0
+        );
+        assert!(
+            cameras[5]
+                .position
+                .metres()
+                .distance(cameras[5].target.metres())
+                > 150.0
+        );
     }
 
     #[test]

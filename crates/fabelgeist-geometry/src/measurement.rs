@@ -4,7 +4,9 @@
 use bevy_reflect::Reflect;
 use serde::{Deserialize, Serialize};
 
-use crate::{CoordinateAxis, GeometryError, GeometryResult as Result, GeometryRole, PositiveLength};
+use crate::{
+    CoordinateAxis, GeometryError, GeometryResult as Result, GeometryRole, PositiveLength,
+};
 
 /// Finite signed metres, including zero offsets and negative insets.
 /// ```compile_fail

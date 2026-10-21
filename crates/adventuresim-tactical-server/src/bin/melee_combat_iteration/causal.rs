@@ -75,11 +75,11 @@ fn record_combatant_decision(
             combatant.attack_starts += 1;
             if let Some(previous_seconds) = previous.replace(decision.elapsed_seconds) {
                 combatant.attack_interval_samples += 1;
-                combatant.mean_attack_start_interval_seconds.checked_add(
-                    Measurement::<TacticalSeconds>::from_interval(
+                combatant
+                    .mean_attack_start_interval_seconds
+                    .checked_add(Measurement::<TacticalSeconds>::from_interval(
                         decision.elapsed_seconds.elapsed_since(previous_seconds)?,
-                    )?,
-                )?;
+                    )?)?;
             }
         }
         (TacticalDecision::Attack, TacticalDecisionStatus::CanceledForDefense) => {
@@ -144,12 +144,16 @@ fn record_tactical_attacker(
     attacker.resolved_attacks += 1;
     attacker.contacts_dealt += u64::from(event.contact_energy_joules > 0.0);
     attacker.contact_energy_samples += 1;
-    attacker.mean_contact_energy_joules.checked_add(
-        Measurement::<ContactJoules>::from_native(event.contact_energy_joules)?,
-    )?;
+    attacker
+        .mean_contact_energy_joules
+        .checked_add(Measurement::<ContactJoules>::from_native(
+            event.contact_energy_joules,
+        )?)?;
     attacker.maximum_fatigue = attacker
         .maximum_fatigue
-        .max(Measurement::<Fatigue>::from_native(event.attacker_incapacitation.fatigue)?);
+        .max(Measurement::<Fatigue>::from_native(
+            event.attacker_incapacitation.fatigue,
+        )?);
     Ok(())
 }
 
@@ -166,7 +170,9 @@ fn record_tactical_defender(
     defender.attacks_received += 1;
     defender.maximum_fatigue = defender
         .maximum_fatigue
-        .max(Measurement::<Fatigue>::from_native(event.defender_incapacitation.fatigue)?);
+        .max(Measurement::<Fatigue>::from_native(
+            event.defender_incapacitation.fatigue,
+        )?);
 
     *defender
         .anatomical_subregions_received
@@ -248,8 +254,12 @@ fn record_tactical_totals(
     );
     summary.maximum_fatigue = summary
         .maximum_fatigue
-        .max(Measurement::<Fatigue>::from_native(event.attacker_incapacitation.fatigue)?)
-        .max(Measurement::<Fatigue>::from_native(event.defender_incapacitation.fatigue)?);
+        .max(Measurement::<Fatigue>::from_native(
+            event.attacker_incapacitation.fatigue,
+        )?)
+        .max(Measurement::<Fatigue>::from_native(
+            event.defender_incapacitation.fatigue,
+        )?);
     record_dodge_totals(summary, event);
     record_defense_totals(summary, event);
     record_armor_totals(summary, event);

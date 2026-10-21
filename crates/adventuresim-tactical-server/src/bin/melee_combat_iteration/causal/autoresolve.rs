@@ -33,9 +33,9 @@ pub(in crate::melee_combat_iteration) fn record_autoresolve_telemetry(
         *distribution.entry(key).or_default() += 1;
     }
     attacker.attack_samples += 1;
-    attacker.mean_attack_interval_seconds.checked_add(
-        Measurement::<AutoresolveSeconds>::from_elapsed(interval)?,
-    )?;
+    attacker
+        .mean_attack_interval_seconds
+        .checked_add(Measurement::<AutoresolveSeconds>::from_elapsed(interval)?)?;
     attacker.mean_attack_power_multiplier.checked_add(
         Measurement::<AttackPowerMultiplier>::from_native(telemetry.attack_power_multiplier)?,
     )?;
@@ -97,11 +97,13 @@ fn record_movement_event(
     let displacement = event.movement_displacement_metres.unwrap_or_default().abs();
     let velocity = before.magnitude().max(after.magnitude());
     let elapsed_measurement = Measurement::<AutoresolveSeconds>::from_elapsed(elapsed)?;
-    combatant.movement_elapsed_seconds.checked_add(elapsed_measurement)?;
+    combatant
+        .movement_elapsed_seconds
+        .checked_add(elapsed_measurement)?;
     combatant.movement_segments += 1;
-    combatant.movement_absolute_displacement_metres.checked_add(
-        Measurement::<MovementMetres>::from_native(displacement)?,
-    )?;
+    combatant
+        .movement_absolute_displacement_metres
+        .checked_add(Measurement::<MovementMetres>::from_native(displacement)?)?;
     combatant.maximum_movement_speed_metres_per_second = combatant
         .maximum_movement_speed_metres_per_second
         .max(Measurement::<MovementSpeed>::from_speed(velocity)?);
@@ -110,9 +112,8 @@ fn record_movement_event(
         .max(elapsed_measurement);
     // This f32 inequality is the original movement-contract kernel: metres
     // versus metres/second times seconds, with the existing metre tolerance.
-    combatant.movement_displacement_limit_failures += u64::from(
-        displacement > speed_limit.metres_per_second() * elapsed.seconds() + 1.0e-5,
-    );
+    combatant.movement_displacement_limit_failures +=
+        u64::from(displacement > speed_limit.metres_per_second() * elapsed.seconds() + 1.0e-5);
     let distance_delta = event
         .engagement_distance_before_metres
         .zip(event.engagement_distance_after_metres)
@@ -142,9 +143,9 @@ fn record_response_event(
         && !delay.is_zero()
     {
         combatant.phase_adaptation_events += 1;
-        combatant.phase_adaptation_delay_seconds.checked_add(
-            Measurement::<AutoresolveSeconds>::from_elapsed(delay)?,
-        )?;
+        combatant
+            .phase_adaptation_delay_seconds
+            .checked_add(Measurement::<AutoresolveSeconds>::from_elapsed(delay)?)?;
     }
     Ok(())
 }
@@ -159,7 +160,9 @@ fn record_contact_measures(
     )?;
     let actual =
         Measurement::<ContactMetres>::from_native(telemetry.actual_contact_measure_metres)?;
-    attacker.mean_actual_contact_measure_metres.checked_add(actual)?;
+    attacker
+        .mean_actual_contact_measure_metres
+        .checked_add(actual)?;
     let separation = Measurement::<CenterSeparationMetres>::from_native(
         telemetry.actual_center_separation_metres,
     )?;

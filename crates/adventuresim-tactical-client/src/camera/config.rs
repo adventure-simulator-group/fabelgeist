@@ -1,9 +1,12 @@
 //! Authored camera profiles and checked temporal shaping coefficients.
 
-use super::{collision::CloseCameraProfile, values::{FramingOffset, MuzzleOffset, ScreenWindow}};
-use fabelgeist_geometry::SignedLength;
+use super::{
+    collision::CloseCameraProfile,
+    values::{FramingOffset, MuzzleOffset, ScreenWindow},
+};
 use adventuresim_tactical_core::animation::{AnimationElapsed, ResponseShapingTime};
 use bevy::prelude::*;
+use fabelgeist_geometry::SignedLength;
 
 // Checked during constant evaluation: no runtime input can reach this failure.
 const DEFAULT_COLLISION_HOLD: AnimationElapsed = match AnimationElapsed::from_seconds(0.12) {
@@ -74,47 +77,52 @@ pub struct CameraRigConfig {
 
 impl Default for CameraRigConfig {
     fn default() -> Self {
-        const { Self {
-            lowered: CameraProfile {
-                distance: authored_metres(3.75),
-                shoulder_offset: authored_metres(0.0),
-                focus_height: authored_metres(0.48),
-                horizontal_follow_time: DEFAULT_FOLLOW_TIME,
-                vertical_follow_time: DEFAULT_VERTICAL_FOLLOW_TIME,
-                maximum_follow_error: authored_metres(0.85),
-                sweet_spot: authored_window(Vec2::new(0.09, 0.065)),
-            },
-            raised: CameraProfile {
-                distance: authored_metres(2.75),
-                shoulder_offset: authored_metres(0.5),
-                focus_height: authored_metres(0.62),
-                horizontal_follow_time: DEFAULT_RAISED_HORIZONTAL_TIME,
-                vertical_follow_time: DEFAULT_RAISED_VERTICAL_TIME,
-                maximum_follow_error: authored_metres(0.22),
-                sweet_spot: authored_window(Vec2::splat(0.01)),
-            },
-            transition_time: DEFAULT_FOLLOW_TIME,
-            close: CloseCameraProfile {
-                start_distance: authored_metres(1.8),
-                full_distance: authored_metres(0.65),
-                offset: FramingOffset { right: authored_metres(0.38), up: authored_metres(0.12) },
-            },
-            collision_margin: authored_metres(0.04),
-            collision_recovery_time: DEFAULT_COLLISION_RECOVERY_TIME,
-            collision_hysteresis: authored_metres(0.08),
-            collision_hold_time: DEFAULT_COLLISION_HOLD,
-            teleport_distance: authored_metres(2.0),
-            crouch_focus_adjustment: authored_metres(-0.45),
-            prone_focus_adjustment: authored_metres(-0.82),
-            supine_focus_adjustment: authored_metres(-0.76),
-            aim_distance: authored_metres(100.0),
-            // Local right, up, and forward from the controller center.
-            muzzle_offset: MuzzleOffset {
-                right: authored_metres(0.28),
-                up: authored_metres(0.55),
-                forward: authored_metres(0.42),
-            },
-        } }
+        const {
+            Self {
+                lowered: CameraProfile {
+                    distance: authored_metres(3.75),
+                    shoulder_offset: authored_metres(0.0),
+                    focus_height: authored_metres(0.48),
+                    horizontal_follow_time: DEFAULT_FOLLOW_TIME,
+                    vertical_follow_time: DEFAULT_VERTICAL_FOLLOW_TIME,
+                    maximum_follow_error: authored_metres(0.85),
+                    sweet_spot: authored_window(Vec2::new(0.09, 0.065)),
+                },
+                raised: CameraProfile {
+                    distance: authored_metres(2.75),
+                    shoulder_offset: authored_metres(0.5),
+                    focus_height: authored_metres(0.62),
+                    horizontal_follow_time: DEFAULT_RAISED_HORIZONTAL_TIME,
+                    vertical_follow_time: DEFAULT_RAISED_VERTICAL_TIME,
+                    maximum_follow_error: authored_metres(0.22),
+                    sweet_spot: authored_window(Vec2::splat(0.01)),
+                },
+                transition_time: DEFAULT_FOLLOW_TIME,
+                close: CloseCameraProfile {
+                    start_distance: authored_metres(1.8),
+                    full_distance: authored_metres(0.65),
+                    offset: FramingOffset {
+                        right: authored_metres(0.38),
+                        up: authored_metres(0.12),
+                    },
+                },
+                collision_margin: authored_metres(0.04),
+                collision_recovery_time: DEFAULT_COLLISION_RECOVERY_TIME,
+                collision_hysteresis: authored_metres(0.08),
+                collision_hold_time: DEFAULT_COLLISION_HOLD,
+                teleport_distance: authored_metres(2.0),
+                crouch_focus_adjustment: authored_metres(-0.45),
+                prone_focus_adjustment: authored_metres(-0.82),
+                supine_focus_adjustment: authored_metres(-0.76),
+                aim_distance: authored_metres(100.0),
+                // Local right, up, and forward from the controller center.
+                muzzle_offset: MuzzleOffset {
+                    right: authored_metres(0.28),
+                    up: authored_metres(0.55),
+                    forward: authored_metres(0.42),
+                },
+            }
+        }
     }
 }
 

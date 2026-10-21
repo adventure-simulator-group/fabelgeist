@@ -27,7 +27,10 @@ pub(super) fn position_capture_camera(
             // pelvis-level/empty view.
             let offset = match animation_capture_camera_offset(RigidRotation::IDENTITY) {
                 Ok(offset) => offset,
-                Err(error) => { error!(%error, "cannot position capture camera"); return; }
+                Err(error) => {
+                    error!(%error, "cannot position capture camera");
+                    return;
+                }
             };
             camera.translation = subject.translation + offset.metres();
             camera.rotation = Quat::IDENTITY;

@@ -204,7 +204,10 @@ impl Measurement<WinRate> {
         Self::from_arithmetic(wins as f64 / runs as f64)
     }
 
-    pub(super) fn difference(self, other: Self) -> MeasurementResult<Measurement<WinRateDifference>> {
+    pub(super) fn difference(
+        self,
+        other: Self,
+    ) -> MeasurementResult<Measurement<WinRateDifference>> {
         Measurement::from_arithmetic(self.value - other.value)
     }
 }

@@ -53,8 +53,7 @@ fn movement_elapsed_matches_distance(summaries: &[MatchupSummary]) -> bool {
 }
 
 fn movement_respects_limits(summaries: &[MatchupSummary]) -> MeasurementResult<bool> {
-    let tick_limit =
-        Measurement::<AutoresolveSeconds>::from_native(1.0_f32 / 64.0 + 1.0e-6)?;
+    let tick_limit = Measurement::<AutoresolveSeconds>::from_native(1.0_f32 / 64.0 + 1.0e-6)?;
     Ok(summaries.iter().all(|summary| {
         summary
             .autoresolve_causal
@@ -104,14 +103,16 @@ fn summary_contact_contract_holds(
     let opponent = &summary.autoresolve_causal.opponent;
     john.full_energy_intended_contacts_inside_ten_centimetres == 0
         && opponent.full_energy_intended_contacts_inside_ten_centimetres == 0
-        && john.minimum_actual_center_separation_metres.map_or(
-            john.contact_measure_samples == 0,
-            |separation| separation >= minimum,
-        )
-        && opponent.minimum_actual_center_separation_metres.map_or(
-            opponent.contact_measure_samples == 0,
-            |separation| separation >= minimum,
-        )
+        && john
+            .minimum_actual_center_separation_metres
+            .map_or(john.contact_measure_samples == 0, |separation| {
+                separation >= minimum
+            })
+        && opponent
+            .minimum_actual_center_separation_metres
+            .map_or(opponent.contact_measure_samples == 0, |separation| {
+                separation >= minimum
+            })
 }
 
 pub(super) fn polearm_contact_revalidation_holds(

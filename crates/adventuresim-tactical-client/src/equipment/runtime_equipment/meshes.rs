@@ -1,7 +1,7 @@
 //! Material partitions of generated equipment, sharing one rigid origin.
 use super::*;
-use fabelgeist_armor::ArmorComponentMaterial;
 use adventuresim_core::equipment_assets::CatalogItem;
+use fabelgeist_armor::ArmorComponentMaterial;
 
 #[derive(Clone)]
 pub(super) struct CachedPart {
@@ -37,23 +37,25 @@ pub(super) fn equipment_parts(
     }
     groups
         .into_iter()
-        .map(|(material, indices)| -> anyhow::Result<_> { Ok(CachedPart {
-            mesh: runtime_equipment_mesh(armor, &indices, meshes)?,
-            material: match material {
-                Some(material) => materials.add(StandardMaterial {
-                    base_color: Color::srgba(
-                        material.base_color[0],
-                        material.base_color[1],
-                        material.base_color[2],
-                        material.base_color[3],
-                    ),
-                    metallic: material.metallic,
-                    perceptual_roughness: material.roughness,
-                    ..default()
-                }),
-                None => runtime_equipment_material(item, materials)?,
-            },
-        }) })
+        .map(|(material, indices)| -> anyhow::Result<_> {
+            Ok(CachedPart {
+                mesh: runtime_equipment_mesh(armor, &indices, meshes)?,
+                material: match material {
+                    Some(material) => materials.add(StandardMaterial {
+                        base_color: Color::srgba(
+                            material.base_color[0],
+                            material.base_color[1],
+                            material.base_color[2],
+                            material.base_color[3],
+                        ),
+                        metallic: material.metallic,
+                        perceptual_roughness: material.roughness,
+                        ..default()
+                    }),
+                    None => runtime_equipment_material(item, materials)?,
+                },
+            })
+        })
         .collect()
 }
 
@@ -90,10 +92,18 @@ fn runtime_equipment_mesh(
             })
         })
         .collect::<Vec<_>>();
-    let skin = vertices.iter().map(|&vertex|
-        armor.joint_indices.weighted_vertex(vertex, armor.joint_weights[vertex]).strongest_four()
-    ).collect::<Vec<_>>();
-    let native_joints = skin.iter().map(|skin| skin.native_u16())
+    let skin = vertices
+        .iter()
+        .map(|&vertex| {
+            armor
+                .joint_indices
+                .weighted_vertex(vertex, armor.joint_weights[vertex])
+                .strongest_four()
+        })
+        .collect::<Vec<_>>();
+    let native_joints = skin
+        .iter()
+        .map(|skin| skin.native_u16())
         .collect::<Result<Vec<_>, _>>()?;
     let mesh = Mesh::new(
         PrimitiveTopology::TriangleList,
@@ -122,9 +132,7 @@ fn runtime_equipment_mesh(
     )
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_JOINT_INDEX,
-        VertexAttributeValues::Uint16x4(
-            native_joints,
-        ),
+        VertexAttributeValues::Uint16x4(native_joints),
     )
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_JOINT_WEIGHT,

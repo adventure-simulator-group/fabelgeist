@@ -25,7 +25,10 @@ mod mail_regions;
 pub type RegionFrame<'a> = &'a dyn Fn(FitRegion) -> Result<PartFrame>;
 
 /// Frames needed before cutting, so browser fitting can await their readback.
-pub(crate) fn required_frames(kind: UnderlayerKind, placement: FittingPlacement) -> Result<Vec<FitRegion>> {
+pub(crate) fn required_frames(
+    kind: UnderlayerKind,
+    placement: FittingPlacement,
+) -> Result<Vec<FitRegion>> {
     Ok(match kind {
         UnderlayerKind::ArmingDoublet => vec![
             FitRegion::Torso,
@@ -49,7 +52,8 @@ pub fn regions(
     frame: RegionFrame<'_>,
 ) -> Result<(Vec<ConvexRegion>, Vec<ConvexRegion>)> {
     let joint = |name: &RigJointName| -> Result<[f32; 3]> {
-        let i = name.index_in(body.joint_names)
+        let i = name
+            .index_in(body.joint_names)
             .with_context(|| format!("missing underlayer landmark {name}"))?;
         Ok([body.joints[i][0], body.joints[i][1], body.joints[i][2]])
     };

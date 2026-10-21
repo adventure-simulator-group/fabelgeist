@@ -244,14 +244,22 @@ pub fn spawn_garment(
     .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, garment.normals.clone())
     .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, garment.texcoords.clone())
     .with_inserted_indices(Indices::U32(garment.faces.into_iter().flatten().collect()));
-    mesh.generate_tangents().context("generating tangents for draped panels")?;
+    mesh.generate_tangents()
+        .context("generating tangents for draped panels")?;
     let skin = if has_skin {
-        Some(animation_preview::ClothSkin::new(
-            garment.form, garment.positions, garment.normals, cloth_faces,
-            animation_preview::ClothBinding::Weighted {
-                indices: garment.indices, weights: garment.weights,
-            },
-        )?.weld_seams()?)
+        Some(
+            animation_preview::ClothSkin::new(
+                garment.form,
+                garment.positions,
+                garment.normals,
+                cloth_faces,
+                animation_preview::ClothBinding::Weighted {
+                    indices: garment.indices,
+                    weights: garment.weights,
+                },
+            )?
+            .weld_seams()?,
+        )
     } else {
         None
     };

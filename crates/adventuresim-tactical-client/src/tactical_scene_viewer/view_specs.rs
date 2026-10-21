@@ -1,9 +1,9 @@
-use adventuresim_tactical_core::animation::SignedAngleDegrees;
 use crate::camera::authored_metres;
-use fabelgeist_geometry::SignedLength;
 use crate::presentation::TreeLeafRepresentation;
+use adventuresim_tactical_core::animation::SignedAngleDegrees;
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::prelude::{Vec2, Vec3};
+use fabelgeist_geometry::SignedLength;
 
 pub(super) const TREE_BILLBOARD_TRANSITION_SCALES: [f32; 3] = [0.357, 0.345, 0.333];
 
@@ -78,7 +78,9 @@ pub(super) enum CapturePose {
 }
 
 impl CapturePose {
-    pub(super) fn fault_camera(self) -> Option<super::view_camera::CaptureCameraResult<super::view_camera::SceneCameraView>> {
+    pub(super) fn fault_camera(
+        self,
+    ) -> Option<super::view_camera::CaptureCameraResult<super::view_camera::SceneCameraView>> {
         use adventuresim_building_generator::spatial_geometry::{Position, SpatialDirection};
         let (position, target) = match self {
             Self::FaultScarp => (Vec3::new(0.0, 8.0, 24.0), Vec3::new(0.0, 2.0, 0.0)),
@@ -87,7 +89,11 @@ impl CapturePose {
             _ => return None,
         };
         Some((|| {
-            super::view_camera::SceneCameraView::looking_at(Position::from_metres(position)?, Position::from_metres(target)?, SpatialDirection::from_normalized(Vec3::Y)?)
+            super::view_camera::SceneCameraView::looking_at(
+                Position::from_metres(position)?,
+                Position::from_metres(target)?,
+                SpatialDirection::from_normalized(Vec3::Y)?,
+            )
         })())
     }
 }
@@ -454,7 +460,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
     v!(
         "tree-crown-transition-fixed",
         "Fixed-camera crown LOD transition control",
-        CapturePose::TreeLod { distance: authored_metres(92.0) },
+        CapturePose::TreeLod {
+            distance: authored_metres(92.0)
+        },
         20.0,
         200
     )
@@ -463,7 +471,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
     v!(
         "tree-billboard-transition-fixed",
         "Fixed-camera billboard LOD transition control",
-        CapturePose::TreeLod { distance: authored_metres(92.0) },
+        CapturePose::TreeLod {
+            distance: authored_metres(92.0)
+        },
         20.0,
         200
     )
@@ -472,7 +482,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
     v!(
         "tree-billboard-transition-25",
         "Natural crown-to-billboard transition 25% view",
-        CapturePose::TreeLod { distance: authored_metres(92.0) },
+        CapturePose::TreeLod {
+            distance: authored_metres(92.0)
+        },
         20.0,
         200
     )
@@ -480,7 +492,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
     v!(
         "tree-billboard-transition-50",
         "Natural crown-to-billboard transition 50% view",
-        CapturePose::TreeLod { distance: authored_metres(92.0) },
+        CapturePose::TreeLod {
+            distance: authored_metres(92.0)
+        },
         20.0,
         200
     )
@@ -488,7 +502,9 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
     v!(
         "tree-billboard-transition-75",
         "Natural crown-to-billboard transition 75% view",
-        CapturePose::TreeLod { distance: authored_metres(92.0) },
+        CapturePose::TreeLod {
+            distance: authored_metres(92.0)
+        },
         20.0,
         200
     )
@@ -713,7 +729,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "warmup",
         "Animation-play production-camera warmup",
-        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(0.0) },
+        CapturePose::AnimationPlay {
+            yaw_degrees: authored_degrees(0.0)
+        },
         80.0,
         1000
     )
@@ -722,7 +740,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-000",
         "Animation-play camera facing north",
-        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(0.0) },
+        CapturePose::AnimationPlay {
+            yaw_degrees: authored_degrees(0.0)
+        },
         80.0,
         1000
     )
@@ -730,7 +750,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-045",
         "Animation-play camera facing north-east",
-        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(45.0) },
+        CapturePose::AnimationPlay {
+            yaw_degrees: authored_degrees(45.0)
+        },
         80.0,
         1000
     )
@@ -738,7 +760,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-090",
         "Animation-play camera facing east",
-        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(90.0) },
+        CapturePose::AnimationPlay {
+            yaw_degrees: authored_degrees(90.0)
+        },
         80.0,
         1000
     )
@@ -746,7 +770,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-135",
         "Animation-play camera facing south-east",
-        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(135.0) },
+        CapturePose::AnimationPlay {
+            yaw_degrees: authored_degrees(135.0)
+        },
         80.0,
         1000
     )
@@ -754,7 +780,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-180",
         "Animation-play camera facing south",
-        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(180.0) },
+        CapturePose::AnimationPlay {
+            yaw_degrees: authored_degrees(180.0)
+        },
         80.0,
         1000
     )
@@ -762,7 +790,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-225",
         "Animation-play camera facing south-west",
-        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(225.0) },
+        CapturePose::AnimationPlay {
+            yaw_degrees: authored_degrees(225.0)
+        },
         80.0,
         1000
     )
@@ -770,7 +800,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-270",
         "Animation-play camera facing west",
-        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(270.0) },
+        CapturePose::AnimationPlay {
+            yaw_degrees: authored_degrees(270.0)
+        },
         80.0,
         1000
     )
@@ -778,7 +810,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-315",
         "Animation-play camera facing north-west",
-        CapturePose::AnimationPlay { yaw_degrees: authored_degrees(315.0) },
+        CapturePose::AnimationPlay {
+            yaw_degrees: authored_degrees(315.0)
+        },
         80.0,
         1000
     )
@@ -896,7 +930,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-obstruction-000",
         "Production camera boom blocked by a north-side tree trunk",
-        CapturePose::AnimationPlayObstruction { yaw_degrees: authored_degrees(0.0) },
+        CapturePose::AnimationPlayObstruction {
+            yaw_degrees: authored_degrees(0.0)
+        },
         80.0,
         1000
     )
@@ -904,7 +940,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-obstruction-090",
         "Production camera boom blocked by an east-side tree trunk",
-        CapturePose::AnimationPlayObstruction { yaw_degrees: authored_degrees(90.0) },
+        CapturePose::AnimationPlayObstruction {
+            yaw_degrees: authored_degrees(90.0)
+        },
         80.0,
         1000
     )
@@ -912,7 +950,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-obstruction-180",
         "Production camera boom blocked by a south-side tree trunk",
-        CapturePose::AnimationPlayObstruction { yaw_degrees: authored_degrees(180.0) },
+        CapturePose::AnimationPlayObstruction {
+            yaw_degrees: authored_degrees(180.0)
+        },
         80.0,
         1000
     )
@@ -920,7 +960,9 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
     v!(
         "animation-play-obstruction-270",
         "Production camera boom blocked by a west-side tree trunk",
-        CapturePose::AnimationPlayObstruction { yaw_degrees: authored_degrees(270.0) },
+        CapturePose::AnimationPlayObstruction {
+            yaw_degrees: authored_degrees(270.0)
+        },
         80.0,
         1000
     )
@@ -938,7 +980,9 @@ const fn traversal_view(slug: &'static str, label: &'static str, distance: f32) 
     CaptureViewSpec::new(
         slug,
         label,
-        CapturePose::TreeColdTraversal { distance: authored_metres(distance) },
+        CapturePose::TreeColdTraversal {
+            distance: authored_metres(distance),
+        },
         80.0,
         200,
     )
@@ -954,7 +998,9 @@ pub(super) const TREE_COLD_TRAVERSAL_VIEWS: [CaptureViewSpec; 41] = [
     CaptureViewSpec::new(
         "warmup",
         "Distant-card pipeline warmup",
-        CapturePose::TreeColdTraversal { distance: authored_metres(120.0) },
+        CapturePose::TreeColdTraversal {
+            distance: authored_metres(120.0),
+        },
         80.0,
         200,
     )
@@ -1010,7 +1056,9 @@ const fn beech_motion_view(
     CaptureViewSpec::new(
         slug,
         label,
-        CapturePose::TreeColdTraversal { distance: authored_metres(distance) },
+        CapturePose::TreeColdTraversal {
+            distance: authored_metres(distance),
+        },
         48.0,
         200,
     )
@@ -1026,7 +1074,9 @@ pub(super) const BEECH_LEAF_MOTION_VIEWS: [CaptureViewSpec; 17] = [
     CaptureViewSpec::new(
         "warmup",
         "Common-beech leaf-card pipeline warmup",
-        CapturePose::TreeColdTraversal { distance: authored_metres(22.25) },
+        CapturePose::TreeColdTraversal {
+            distance: authored_metres(22.25),
+        },
         48.0,
         200,
     )

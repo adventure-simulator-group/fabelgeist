@@ -165,9 +165,12 @@ fn editor(
         .map_or_else(|_| String::new(), |material| format!(" · {material:?}"));
     ui.small(format!(
         "{item_id}{material} · {} · {} triangles",
-        exhibit.placements.iter()
+        exhibit
+            .placements
+            .iter()
             .map(|placement| placement.selection().definition().id.as_str())
-            .collect::<Vec<_>>().join(", "),
+            .collect::<Vec<_>>()
+            .join(", "),
         exhibit.triangles()
     ));
     for (placement, error) in exhibit.errors() {

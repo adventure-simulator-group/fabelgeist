@@ -1,21 +1,21 @@
 use adventuresim_building_generator::spatial_geometry::{Displacement, Position, RigidRotation};
-use fabelgeist_geometry::SignedLength;
 use adventuresim_core::linear_speed::SignedSpeed;
 use adventuresim_tactical_core::{
     animation::UnitInterval,
     scene_coordinates::{Scene, SceneVelocity},
 };
 use bevy::prelude::*;
+use fabelgeist_geometry::SignedLength;
 
-use collision::{CameraHit, CameraVolumeDebug};
-pub use config::{CameraProfile, CameraRigConfig};
-pub(crate) use config::authored_metres;
-pub use values::{CameraError, CameraResult, FramingOffset, MuzzleOffset, ScreenWindow};
 pub use adventuresim_tactical_core::animation::ResponseShapingTime;
-use values::ScreenError;
-use rig_history::CameraRigState;
-use rig::update_camera_rig;
 use aim::update_camera_aim;
+use collision::{CameraHit, CameraVolumeDebug};
+pub(crate) use config::authored_metres;
+pub use config::{CameraProfile, CameraRigConfig};
+use rig::update_camera_rig;
+use rig_history::CameraRigState;
+use values::ScreenError;
+pub use values::{CameraError, CameraResult, FramingOffset, MuzzleOffset, ScreenWindow};
 
 mod aim;
 pub(crate) mod collision;
@@ -28,10 +28,15 @@ mod values;
 pub struct TacticalCameraPlugin;
 
 #[derive(SystemSet, Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) enum TacticalCameraSet { Offset, Aim }
+pub(crate) enum TacticalCameraSet {
+    Offset,
+    Aim,
+}
 
 #[derive(Resource, Debug, Clone, Copy)]
-pub(crate) struct CameraMode { pub(crate) third_person: bool }
+pub(crate) struct CameraMode {
+    pub(crate) third_person: bool,
+}
 
 /// A collider tagged as soft can obscure the subject but never retracts the
 /// camera. Foliage, particles, and thin decorative props should use this.
@@ -91,15 +96,28 @@ impl Plugin for TacticalCameraPlugin {
             .init_resource::<CameraAimState>()
             .init_resource::<CameraDebugEnabled>()
             .add_systems(Update, toggle_camera_mode)
-            .add_systems(PostUpdate, update_camera_rig.in_set(TacticalCameraSet::Offset).before(TransformSystems::Propagate))
-            .add_systems(PostUpdate, update_camera_aim.in_set(TacticalCameraSet::Aim).after(TacticalCameraSet::Offset).before(TransformSystems::Propagate));
+            .add_systems(
+                PostUpdate,
+                update_camera_rig
+                    .in_set(TacticalCameraSet::Offset)
+                    .before(TransformSystems::Propagate),
+            )
+            .add_systems(
+                PostUpdate,
+                update_camera_aim
+                    .in_set(TacticalCameraSet::Aim)
+                    .after(TacticalCameraSet::Offset)
+                    .before(TransformSystems::Propagate),
+            );
         #[cfg(feature = "debug")]
         app.add_systems(Update, toggle_camera_debug);
     }
 }
 
 impl Default for CameraMode {
-    fn default() -> Self { Self { third_person: true } }
+    fn default() -> Self {
+        Self { third_person: true }
+    }
 }
 
 impl CameraAimObservation {
@@ -111,13 +129,21 @@ impl CameraAimObservation {
 fn toggle_camera_mode(keyboard: Res<ButtonInput<KeyCode>>, mut mode: ResMut<CameraMode>) {
     if keyboard.just_pressed(KeyCode::F9) {
         mode.third_person = !mode.third_person;
-        info!(third_person = mode.third_person, "Changed tactical camera mode");
+        info!(
+            third_person = mode.third_person,
+            "Changed tactical camera mode"
+        );
     }
 }
 
 #[cfg(feature = "debug")]
-fn toggle_camera_debug(keyboard: Res<ButtonInput<KeyCode>>, mut enabled: ResMut<CameraDebugEnabled>) {
-    if keyboard.just_pressed(KeyCode::F6) { enabled.0 = !enabled.0; }
+fn toggle_camera_debug(
+    keyboard: Res<ButtonInput<KeyCode>>,
+    mut enabled: ResMut<CameraDebugEnabled>,
+) {
+    if keyboard.just_pressed(KeyCode::F6) {
+        enabled.0 = !enabled.0;
+    }
 }
 
 fn muzzle_path_is_blocked(camera_hit: Option<Entity>, muzzle_hit: Option<Entity>) -> bool {
@@ -126,8 +152,12 @@ fn muzzle_path_is_blocked(camera_hit: Option<Entity>, muzzle_hit: Option<Entity>
 
 /// Reproduces the lowered gameplay-camera boom for deterministic animation
 /// captures without advancing the stateful rig.
-pub(crate) fn animation_capture_camera_offset(rotation: RigidRotation) -> CameraResult<Displacement<Scene>> {
-    Ok(Displacement::from_metres(rotation.quaternion() * Vec3::Z * CameraRigConfig::default().lowered.distance.metres())?)
+pub(crate) fn animation_capture_camera_offset(
+    rotation: RigidRotation,
+) -> CameraResult<Displacement<Scene>> {
+    Ok(Displacement::from_metres(
+        rotation.quaternion() * Vec3::Z * CameraRigConfig::default().lowered.distance.metres(),
+    )?)
 }
 
 #[cfg(test)]
@@ -149,13 +179,7 @@ mod tests {
     fn a_different_muzzle_hit_reports_cover_blockage() {
         let target = Entity::from_bits(1);
         let cover = Entity::from_bits(2);
-        assert!(muzzle_path_is_blocked(
-            Some(target),
-            Some(cover),
-        ));
-        assert!(!muzzle_path_is_blocked(
-            Some(target),
-            Some(target),
-        ));
+        assert!(muzzle_path_is_blocked(Some(target), Some(cover),));
+        assert!(!muzzle_path_is_blocked(Some(target), Some(target),));
     }
 }

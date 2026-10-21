@@ -47,7 +47,12 @@ fn prepared_device_reuses_pipelines_for_a_new_wearer() -> Result<()> {
     ] {
         let armor = pollster::block_on(runtime_equipment::generate(
             &body,
-            adventuresim_core::equipment_assets::CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), item, placement).ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+            adventuresim_core::equipment_assets::CatalogPlacement::find(
+                adventuresim_core::item_catalog::catalog(),
+                item,
+                placement,
+            )
+            .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
             &bracer,
             &breastplate,
             &[],
@@ -147,7 +152,12 @@ fn main() -> Result<()> {
             let started = Instant::now();
             let result = pollster::block_on(runtime_equipment::generate(
                 &body,
-                adventuresim_core::equipment_assets::CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), item, placement).ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+                adventuresim_core::equipment_assets::CatalogPlacement::find(
+                    adventuresim_core::item_catalog::catalog(),
+                    item,
+                    placement,
+                )
+                .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
                 &bracer,
                 &breastplate,
                 &[],
@@ -226,7 +236,12 @@ fn gorget_fits_sparse_body_sections() -> Result<()> {
         }
         let armor = pollster::block_on(runtime_equipment::generate(
             &body,
-            adventuresim_core::equipment_assets::CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), "gorget", "worn").ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+            adventuresim_core::equipment_assets::CatalogPlacement::find(
+                adventuresim_core::item_catalog::catalog(),
+                "gorget",
+                "worn",
+            )
+            .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
             &bracer,
             &breastplate,
             &[],
@@ -272,7 +287,12 @@ fn puffed_garments_fit_sparse_wearers_without_morph_targets() -> Result<()> {
             for side in ["left", "right"] {
                 let armor = pollster::block_on(runtime_equipment::generate(
                     &body,
-                    adventuresim_core::equipment_assets::CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), item, side).ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+                    adventuresim_core::equipment_assets::CatalogPlacement::find(
+                        adventuresim_core::item_catalog::catalog(),
+                        item,
+                        side,
+                    )
+                    .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
                     &bracer,
                     &breastplate,
                     &[],
@@ -347,7 +367,9 @@ fn puffed_garment_extremes_are_closed_finite_shells() -> Result<()> {
             &wearer,
             &[],
             &design,
-            adventuresim_character_creator::armor_frames::FittingPlacement::Lateral(adventuresim_character_creator::armor_frames::Side::Left),
+            adventuresim_character_creator::armor_frames::FittingPlacement::Lateral(
+                adventuresim_character_creator::armor_frames::Side::Left,
+            ),
             &[],
         )?;
         assert!(piece.endpoints.is_empty());
@@ -391,7 +413,12 @@ fn puffed_sleeve_seats_over_generated_padding() -> Result<()> {
     let fit = |item, layers| {
         pollster::block_on(runtime_equipment::generate(
             &body,
-            adventuresim_core::equipment_assets::CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), item, "left").ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+            adventuresim_core::equipment_assets::CatalogPlacement::find(
+                adventuresim_core::item_catalog::catalog(),
+                item,
+                "left",
+            )
+            .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
             &bracer,
             &breastplate,
             layers,

@@ -124,7 +124,10 @@ impl RigJointName {
     }
 
     /// Preserve the first occurrence when a rig contains duplicate labels.
-    pub fn index_in<'a>(&self, names: impl IntoIterator<Item = &'a Self>) -> Option<RigJointOrdinal> {
+    pub fn index_in<'a>(
+        &self,
+        names: impl IntoIterator<Item = &'a Self>,
+    ) -> Option<RigJointOrdinal> {
         names
             .into_iter()
             .position(|name: &Self| -> bool { name == self })

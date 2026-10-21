@@ -78,7 +78,9 @@ pub enum PoseSampling {
         outgoing: SemanticPose,
         finish: SemanticPose,
         start_coordinate: AttackPoseCoordinate,
-        #[serde(deserialize_with = "crate::animation::continuation_parameters::deserialize_tangent")]
+        #[serde(
+            deserialize_with = "crate::animation::continuation_parameters::deserialize_tangent"
+        )]
         incoming_tangent: IncomingAttackTangent,
         /// Readiness knot strictly between zero and contact at phase 0.5,
         /// supplied by the authoritative continuation curve.

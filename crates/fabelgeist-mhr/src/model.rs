@@ -255,7 +255,9 @@ impl Mhr {
         }
 
         // Transposed so a forward pass is `parameters @ transform`.
-        let transform = parameter_transform.transform.tensor_transpose(num_model_parameters);
+        let transform = parameter_transform
+            .transform
+            .tensor_transpose(num_model_parameters);
 
         let offsets = parameter_transform
             .offsets
@@ -275,10 +277,14 @@ impl Mhr {
             .into_iter()
             .map(|level| -> Result<_> {
                 let len = level.source.len();
-                let source: Vec<i32> = level.source.into_iter()
+                let source: Vec<i32> = level
+                    .source
+                    .into_iter()
                     .map(|joint| i32::try_from(usize::from(joint)))
                     .collect::<Result<_, _>>()?;
-                let target: Vec<i32> = level.target.into_iter()
+                let target: Vec<i32> = level
+                    .target
+                    .into_iter()
                     .map(|joint| i32::try_from(usize::from(joint)))
                     .collect::<Result<_, _>>()?;
                 Ok((
@@ -347,17 +353,27 @@ impl Mhr {
             num_model_parameters,
             joint_translation_offsets: Tensor::from_data(
                 TensorData::new(
-                    character.skeleton.translation_offsets.as_native_slice().concat(),
+                    character
+                        .skeleton
+                        .translation_offsets
+                        .as_native_slice()
+                        .concat(),
                     [1, joints, 3],
                 ),
                 device,
             ),
             joint_prerotations: Tensor::from_data(
-                TensorData::new(character.skeleton.prerotations.as_native_slice().concat(), [1, joints, 4]),
+                TensorData::new(
+                    character.skeleton.prerotations.as_native_slice().concat(),
+                    [1, joints, 4],
+                ),
                 device,
             ),
             inverse_bind_pose: Tensor::from_data(
-                TensorData::new(character.inverse_bind_pose.as_native_slice().concat(), [1, joints, 8]),
+                TensorData::new(
+                    character.inverse_bind_pose.as_native_slice().concat(),
+                    [1, joints, 8],
+                ),
                 device,
             ),
             fk_levels,

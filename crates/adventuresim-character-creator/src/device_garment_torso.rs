@@ -4,7 +4,9 @@
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::DeviceWearer;
-use crate::device_garment::{BAND, FRAME_WORDS, JOINTS, JointHeightAnchor, JointReachTarget, UprightSpan};
+use crate::device_garment::{
+    BAND, FRAME_WORDS, JOINTS, JointHeightAnchor, JointReachTarget, UprightSpan,
+};
 use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
 use crate::device_garment_tube::GARMENT_FIT_MARGIN_M;
 use crate::device_piece::DeviceRecording;
@@ -13,9 +15,9 @@ use anyhow::Result;
 use fabelgeist_armor::gpu::record_garment_torso;
 use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_rig::RigJointName;
 use fabelgeist_geometry::SignedLength;
 use fabelgeist_math::Ratio;
+use fabelgeist_rig::RigJointName;
 
 /// The torso frame rises above the neck to hold the shoulder seams.
 const SHOULDER_LIFT_M: f32 = 0.045;

@@ -9,12 +9,26 @@ pub(super) fn append(
     let skin = joints
         .iter()
         .zip(weights)
-        .map(|(joints, weights)| fabelgeist_rig::RigInfluences { joints, weights: *weights }.strongest_four())
+        .map(|(joints, weights)| {
+            fabelgeist_rig::RigInfluences {
+                joints,
+                weights: *weights,
+            }
+            .strongest_four()
+        })
         .collect::<Vec<_>>();
-    let native_joints = skin.iter().map(|skin| skin.native_u16())
+    let native_joints = skin
+        .iter()
+        .map(|skin| skin.native_u16())
         .collect::<std::result::Result<Vec<_>, _>>()?;
-    let joints = buffer.push(&u16_bytes(native_joints.into_iter().flatten()), Some(34_962));
-    let weights = buffer.push(&f32_bytes(skin.iter().flat_map(|skin| skin.weights)), Some(34_962));
+    let joints = buffer.push(
+        &u16_bytes(native_joints.into_iter().flatten()),
+        Some(34_962),
+    );
+    let weights = buffer.push(
+        &f32_bytes(skin.iter().flat_map(|skin| skin.weights)),
+        Some(34_962),
+    );
     Ok((joints, weights))
 }
 
@@ -27,7 +41,8 @@ mod tests {
         let skin = fabelgeist_rig::RigInfluences {
             joints: [0usize, 1, 2, 3, 4, 5, 6, 7].map(RigJointOrdinal::from),
             weights: [0.05, 0.2, 0.1, 0.05, 0.3, 0.15, 0.1, 0.05],
-        }.strongest_four();
+        }
+        .strongest_four();
         let joints = skin.native_u16().unwrap();
         let weights = skin.weights;
         assert_eq!(joints, [4, 1, 5, 2]);

@@ -1,8 +1,8 @@
 //! Evaluate proportion-dependent rest joints without reading an animated pose.
 use super::*;
 use adventuresim_core::character_proportions::{CharacterProportions, JointProportionBasis};
-use serde::Deserialize;
 use fabelgeist_rig::RigJointTable;
+use serde::Deserialize;
 
 #[cfg_attr(test, derive(Default))]
 pub(super) struct FittingRig {
@@ -136,9 +136,9 @@ impl FittingRig {
             .collect::<anyhow::Result<RigJointTable<_>>>()?;
         // Match animation::skeletal_proportions: longer legs lift the root.
         let named = |role| {
-            body.joint_names
-                .indexed()
-                .find_map(|(joint, name)| (BoneRole::from_name(name) == Some(role)).then_some(joint))
+            body.joint_names.indexed().find_map(|(joint, name)| {
+                (BoneRole::from_name(name) == Some(role)).then_some(joint)
+            })
         };
         if let (Some(left), Some(right), Some(root)) = (
             named(BoneRole::FootLeft),
@@ -165,10 +165,7 @@ impl FittingRig {
             let mut offset = Vec3::ZERO;
             for (&joint, &weight) in joints.iter().zip(weights) {
                 if weight != 0.0 {
-                    offset += offsets
-                        .get(joint)
-                        .context("invalid body skin joint")?
-                        * weight;
+                    offset += offsets.get(joint).context("invalid body skin joint")? * weight;
                 }
             }
             *position = (Vec3::from_array(*position) + offset).to_array();

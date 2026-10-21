@@ -80,7 +80,8 @@ pub(super) fn spawn_exhibit(
         );
         let name = format!(
             "armory {}--{}",
-            item.id, exhibit.placements[placement].selection().id
+            item.id,
+            exhibit.placements[placement].selection().id
         );
         let constructed = armor.clone().constructed(construction)?;
         let (armor, trim) = match (&trim, &trim_material) {

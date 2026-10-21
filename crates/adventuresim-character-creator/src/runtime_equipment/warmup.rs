@@ -28,7 +28,9 @@ pub async fn warm_up(
         .filter(|item| armor_recipes::is_parametric(item.definition))
     {
         let item = canonical.definition;
-        for placement in item.placements().filter(|placement| !placement.surface.is_empty())
+        for placement in item
+            .placements()
+            .filter(|placement| !placement.surface.is_empty())
         {
             generate(body, placement, bracer, breastplate, &[])
                 .await
@@ -66,9 +68,15 @@ pub async fn warm_up(
     let design = ParametricDesign::Garment(tassets);
     let placement = CatalogPlacement::find(item_catalog::catalog(), "tassets", "worn")
         .context("missing authored tassets placement")?;
-    generate_parametric(crate::armor_gpu_async().await?, body, &design, placement, &[])
-        .await
-        .context("preparing wrapped tassets")?;
+    generate_parametric(
+        crate::armor_gpu_async().await?,
+        body,
+        &design,
+        placement,
+        &[],
+    )
+    .await
+    .context("preparing wrapped tassets")?;
     fitted_placements += 1;
     Ok(WarmupReport {
         fitted_placements,

@@ -1,10 +1,6 @@
 //! Reproducible body-visible candidate export for independent mesh review.
 use super::*;
-use adventuresim_character_creator::{
-    armor_recipes,
-    inventory::Article,
-    item_design::ItemDesign,
-};
+use adventuresim_character_creator::{armor_recipes, inventory::Article, item_design::ItemDesign};
 
 use adventuresim_core::equipment_assets::CatalogPlacement;
 struct ReviewPiece<'a> {
@@ -86,7 +82,9 @@ fn worn_pieces<'a>(
         let Article::Catalog(article) = &worn.article else {
             continue;
         };
-        let selection = article.resolve(catalog).map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;
+        let selection = article
+            .resolve(catalog)
+            .map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;
         let design = article
             .design_for(&catalog.designs, selection)
             .map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;

@@ -65,11 +65,8 @@ impl JointChannel {
         Self::RotationZ,
         Self::Scale,
     ];
-    pub const TRANSLATIONS: [Self; 3] = [
-        Self::TranslationX,
-        Self::TranslationY,
-        Self::TranslationZ,
-    ];
+    pub const TRANSLATIONS: [Self; 3] =
+        [Self::TranslationX, Self::TranslationY, Self::TranslationZ];
     pub const ROTATION_AND_SCALE: [Self; 4] = [
         Self::RotationX,
         Self::RotationY,

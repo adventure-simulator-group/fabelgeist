@@ -1,9 +1,9 @@
 //! Camera-owned composition, screen and filter contracts.
 
-use fabelgeist_geometry::{GeometryError, SignedLength};
 use adventuresim_core::linear_speed::SpeedError;
 use adventuresim_tactical_core::animation::AnimationValueError;
 use bevy::math::Vec2;
+use fabelgeist_geometry::{GeometryError, SignedLength};
 use fabelgeist_math::units::Ratio;
 
 pub type CameraResult<T> = Result<T, CameraError>;
@@ -25,11 +25,17 @@ pub struct MuzzleOffset {
 
 /// Finite nonnegative NDC half-extents; off-screen windows may exceed one.
 #[derive(Clone, Copy, Debug)]
-pub struct ScreenWindow { horizontal: Ratio, vertical: Ratio }
+pub struct ScreenWindow {
+    horizontal: Ratio,
+    vertical: Ratio,
+}
 
 /// Finite signed NDC error; off-screen subjects may exceed one.
 #[derive(Clone, Copy, Debug)]
-pub(crate) struct ScreenError { horizontal: Ratio, vertical: Ratio }
+pub(crate) struct ScreenError {
+    horizontal: Ratio,
+    vertical: Ratio,
+}
 
 /// Signed fraction per second retained by the analytic profile blend filter.
 #[derive(Clone, Copy, Debug, Default)]
@@ -54,7 +60,10 @@ impl ScreenWindow {
         if !value.x.is_finite() || !value.y.is_finite() || value.x < 0.0 || value.y < 0.0 {
             return Err(CameraError::InvalidScreenWindow);
         }
-        Ok(Self { horizontal: Ratio::from_ratio(value.x), vertical: Ratio::from_ratio(value.y) })
+        Ok(Self {
+            horizontal: Ratio::from_ratio(value.x),
+            vertical: Ratio::from_ratio(value.y),
+        })
     }
 
     pub fn ndc_half_extents(self) -> Vec2 {
@@ -67,7 +76,10 @@ impl ScreenError {
         if !value.is_finite() {
             return Err(CameraError::InvalidScreenError);
         }
-        Ok(Self { horizontal: Ratio::from_ratio(value.x), vertical: Ratio::from_ratio(value.y) })
+        Ok(Self {
+            horizontal: Ratio::from_ratio(value.x),
+            vertical: Ratio::from_ratio(value.y),
+        })
     }
 
     pub(crate) fn ndc(self) -> Vec2 {
@@ -79,8 +91,10 @@ impl SignedBlendVelocity {
     pub(super) fn from_fraction_per_second(value: f32) -> CameraResult<Self> {
         if !value.is_finite() {
             return Err(AnimationValueError::Overflow {
-                quantity: adventuresim_tactical_core::animation::AnimationQuantity::CameraBlendVelocity,
-            }.into());
+                quantity:
+                    adventuresim_tactical_core::animation::AnimationQuantity::CameraBlendVelocity,
+            }
+            .into());
         }
         Ok(Self(value))
     }

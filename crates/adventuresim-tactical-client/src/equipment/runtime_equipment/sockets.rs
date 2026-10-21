@@ -1,8 +1,8 @@
 //! Place carry sockets on the generated garment's actual surface.
 
 use super::*;
-use adventuresim_core::item_catalog::EquipmentLocation;
 use adventuresim_core::equipment_assets::CatalogItem;
+use adventuresim_core::item_catalog::EquipmentLocation;
 use fabelgeist_rig::{RigJointName, RigJointOrdinal};
 
 pub(super) fn garment_sockets(

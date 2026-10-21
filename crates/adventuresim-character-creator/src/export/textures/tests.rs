@@ -31,7 +31,8 @@ fn export_equipment_with_maps(
     let positions = [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
     let normals = [[0.0, 0.0, 1.0]; 3];
     let joints = fabelgeist_rig::PackedRigSkin::from_native(
-        vec![[0; 8]; 3], fabelgeist_rig::RigJointTable::from(vec![RigJointName::ROOT]).joint_count(),
+        vec![[0; 8]; 3],
+        fabelgeist_rig::RigJointTable::from(vec![RigJointName::ROOT]).joint_count(),
     )?;
     let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
     let shell = RiggedShell {

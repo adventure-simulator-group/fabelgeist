@@ -133,7 +133,12 @@ impl Exhibit {
         self.placements
             .iter()
             .zip(&self.fitted)
-            .filter_map(|(placement, fit)| Some((placement.selection().definition().id.as_str(), fit.as_ref().err()?.as_str())))
+            .filter_map(|(placement, fit)| {
+                Some((
+                    placement.selection().definition().id.as_str(),
+                    fit.as_ref().err()?.as_str(),
+                ))
+            })
     }
 
     pub fn triangles(&self) -> usize {
@@ -403,7 +408,8 @@ fn exhibits(catalog: &EquipmentCatalog) -> Vec<Exhibit> {
         .wearable()
         .filter_map(|item| {
             let loaded = catalog.design(item)?;
-            let placements = item.retained_placements()
+            let placements = item
+                .retained_placements()
                 .filter(|placement| !placement.selection().surface.is_empty())
                 .collect::<Vec<_>>();
             Some(Exhibit {
@@ -448,7 +454,9 @@ fn fit_exhibits(
                     model,
                     body,
                     placement.selection(),
-                    design.as_ref().ok_or_else(|| "exhibit has no parametric design".to_owned())?,
+                    design
+                        .as_ref()
+                        .ok_or_else(|| "exhibit has no parametric design".to_owned())?,
                     &[],
                     &[],
                 )
@@ -467,7 +475,11 @@ fn fit_exhibits(
             .collect();
         handles
             .into_iter()
-            .flat_map(|handle| handle.join().unwrap_or_else(|panic| std::panic::resume_unwind(panic)))
+            .flat_map(|handle| {
+                handle
+                    .join()
+                    .unwrap_or_else(|panic| std::panic::resume_unwind(panic))
+            })
             .collect()
     })
 }

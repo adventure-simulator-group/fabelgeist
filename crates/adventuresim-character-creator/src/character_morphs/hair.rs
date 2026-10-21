@@ -37,7 +37,9 @@ impl CharacterMorphs {
                 let count = base.positions.len();
                 let skin = fabelgeist_rig::RigInfluences::<8>::whole_joint(placement.head_joint);
                 let joints = fabelgeist_rig::PackedRigSkin::repeated(
-                    skin.joints, count, self.reference_joints.joint_count(),
+                    skin.joints,
+                    count,
+                    self.reference_joints.joint_count(),
                 )?;
                 remove_skeletal_translation(
                     &mut delta.positions,

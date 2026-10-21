@@ -1,8 +1,8 @@
 //! Current ranged-aim observations own all endpoints and hit identities.
 use super::*;
 use adventuresim_tactical_core::prelude::{
-    CharacterControllerCameraOf, PlayerEquipment, SpatialQuery, SpatialQueryFilter, TacticalPlayerViewer,
-    WeaponGuardState,
+    CharacterControllerCameraOf, PlayerEquipment, SpatialQuery, SpatialQueryFilter,
+    TacticalPlayerViewer, WeaponGuardState,
 };
 use adventuresim_tactical_netcode::client::WeaponGuardInputState;
 
@@ -21,37 +21,69 @@ pub(super) fn update_camera_aim(
     mut aim: ResMut<CameraAimState>,
 ) {
     aim.0 = None;
-    if !mode.third_person || guard.desired != WeaponGuardState::Raised { return; }
+    if !mode.third_person || guard.desired != WeaponGuardState::Raised {
+        return;
+    }
     for (camera, camera_of) in &cameras {
         aim.0 = None;
-        if !viewer.get(camera_of.character_controller).is_ok_and(|player| player.weapon_is_ranged()) {
+        if !viewer
+            .get(camera_of.character_controller)
+            .is_ok_and(|player| player.weapon_is_ranged())
+        {
             continue;
         }
-        let Ok(controller) = controllers.get(camera_of.character_controller) else { continue; };
+        let Ok(controller) = controllers.get(camera_of.character_controller) else {
+            continue;
+        };
         let observed = (|| -> CameraResult<CameraAimObservation> {
-            let filter = SpatialQueryFilter::from_excluded_entities([camera_of.character_controller]);
+            let filter =
+                SpatialQueryFilter::from_excluded_entities([camera_of.character_controller]);
             let camera_origin = Position::from_metres(camera.translation)?;
             let camera_direction = camera.forward();
             // Native physics rays consume scene metres and Bevy unit directions.
-            let camera_hit = spatial.cast_ray(camera_origin.metres(), camera_direction, config.aim_distance.metres(), true, &filter);
-            let camera_target = Position::from_metres(camera_origin.metres()
-                + *camera_direction * camera_hit.map_or(config.aim_distance.metres(), |hit| hit.distance))?;
+            let camera_hit = spatial.cast_ray(
+                camera_origin.metres(),
+                camera_direction,
+                config.aim_distance.metres(),
+                true,
+                &filter,
+            );
+            let camera_target = Position::from_metres(
+                camera_origin.metres()
+                    + *camera_direction
+                        * camera_hit.map_or(config.aim_distance.metres(), |hit| hit.distance),
+            )?;
             let planar_forward = Vec3::new(camera_direction.x, 0.0, camera_direction.z)
-                .try_normalize().unwrap_or(Vec3::NEG_Z);
+                .try_normalize()
+                .unwrap_or(Vec3::NEG_Z);
             let right = planar_forward.cross(Vec3::Y).normalize_or_zero();
-            let muzzle_origin = Position::from_metres(controller.translation
-                + right * config.muzzle_offset.right.metres()
-                + Vec3::Y * config.muzzle_offset.up.metres()
-                + planar_forward * config.muzzle_offset.forward.metres())?;
+            let muzzle_origin = Position::from_metres(
+                controller.translation
+                    + right * config.muzzle_offset.right.metres()
+                    + Vec3::Y * config.muzzle_offset.up.metres()
+                    + planar_forward * config.muzzle_offset.forward.metres(),
+            )?;
             let muzzle_delta = camera_target.metres() - muzzle_origin.metres();
             let muzzle_distance = muzzle_delta.length();
             let muzzle_direction = Dir3::new(muzzle_delta).unwrap_or(camera_direction);
-            let actual_hit = spatial.cast_ray(muzzle_origin.metres(), muzzle_direction, muzzle_distance, true, &filter);
-            let actual_target = Position::from_metres(muzzle_origin.metres()
-                + *muzzle_direction * actual_hit.map_or(muzzle_distance, |hit| hit.distance))?;
+            let actual_hit = spatial.cast_ray(
+                muzzle_origin.metres(),
+                muzzle_direction,
+                muzzle_distance,
+                true,
+                &filter,
+            );
+            let actual_target = Position::from_metres(
+                muzzle_origin.metres()
+                    + *muzzle_direction * actual_hit.map_or(muzzle_distance, |hit| hit.distance),
+            )?;
             Ok(CameraAimObservation {
-                camera_origin, camera_target, camera_hit: camera_hit.map(|hit| hit.entity),
-                muzzle_origin, actual_target, actual_hit: actual_hit.map(|hit| hit.entity),
+                camera_origin,
+                camera_target,
+                camera_hit: camera_hit.map(|hit| hit.entity),
+                muzzle_origin,
+                actual_target,
+                actual_hit: actual_hit.map(|hit| hit.entity),
             })
         })();
         match observed {

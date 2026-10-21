@@ -85,10 +85,12 @@ jobs:
           libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers
       - name: Check formatting
         run: |
-          cargo fmt --all -- --check
-          cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check
-          cargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check
-          cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
+          format_status=0
+          cargo fmt --all -- --check || format_status=1
+          cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check || format_status=1
+          cargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check || format_status=1
+          cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check || format_status=1
+          exit "$format_status"
       - name: Test generated bindings verifier
         run: >-
           python3 -m unittest

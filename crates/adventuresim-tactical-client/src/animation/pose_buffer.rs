@@ -239,7 +239,11 @@ impl LocalPose {
         }
     }
 
-    fn continuation_transition(self, transition: ContinuationTransition, progress: UnitInterval) -> Self {
+    fn continuation_transition(
+        self,
+        transition: ContinuationTransition,
+        progress: UnitInterval,
+    ) -> Self {
         let start = self.extrapolate(transition.contact, transition.start_coordinate);
         // The complete native spline consumes phase knots, normalized progress
         // and an attack-coordinate derivative; checked roles end at this kernel.
@@ -1337,14 +1341,16 @@ mod tests {
             outgoing: follow,
             finish,
             start_coordinate: AttackPoseCoordinate::from_coordinate(coordinate).unwrap(),
-            incoming_tangent: IncomingAttackTangent::from_coordinate_delta(incoming_tangent).unwrap(),
+            incoming_tangent: IncomingAttackTangent::from_coordinate_delta(incoming_tangent)
+                .unwrap(),
             ready_phase: ContinuationReadiness::from_phase(ready_phase).unwrap(),
         };
         let step = 0.0005;
         let before = guard
             .extrapolate_unbounded(contact, coordinate - incoming_tangent * step / ready_phase);
         let start = guard.continuation_transition(transition, UnitInterval::ZERO);
-        let after = guard.continuation_transition(transition, UnitInterval::from_fraction(step).unwrap());
+        let after =
+            guard.continuation_transition(transition, UnitInterval::from_fraction(step).unwrap());
         let incoming_translation_velocity = (start.translation - before.translation) / step;
         let outgoing_translation_velocity = (after.translation - start.translation) / step;
         assert!(incoming_translation_velocity.distance(outgoing_translation_velocity) < 0.02);
@@ -1352,7 +1358,10 @@ mod tests {
         let outgoing_angular_velocity = start.rotation.angle_between(after.rotation) / step;
         assert!((incoming_angular_velocity - outgoing_angular_velocity).abs() < 0.02);
 
-        let ready = guard.continuation_transition(transition, UnitInterval::from_fraction(ready_phase).unwrap());
+        let ready = guard.continuation_transition(
+            transition,
+            UnitInterval::from_fraction(ready_phase).unwrap(),
+        );
         let outgoing = guard.continuation_transition(transition, UnitInterval::HALF);
         let end = guard.continuation_transition(transition, UnitInterval::ONE);
         assert!(ready.translation.distance(preparation.translation) < 0.0001);
@@ -1364,13 +1373,32 @@ mod tests {
 
         let step = 0.002;
         for seam in [ready_phase, 0.5] {
-            let before_three = guard.continuation_transition(transition, UnitInterval::from_fraction(seam - 3.0 * step).unwrap());
-            let before_two = guard.continuation_transition(transition, UnitInterval::from_fraction(seam - 2.0 * step).unwrap());
-            let before_one = guard.continuation_transition(transition, UnitInterval::from_fraction(seam - step).unwrap());
-            let at = guard.continuation_transition(transition, UnitInterval::from_fraction(seam).unwrap());
-            let after_one = guard.continuation_transition(transition, UnitInterval::from_fraction(seam + step).unwrap());
-            let after_two = guard.continuation_transition(transition, UnitInterval::from_fraction(seam + 2.0 * step).unwrap());
-            let after_three = guard.continuation_transition(transition, UnitInterval::from_fraction(seam + 3.0 * step).unwrap());
+            let before_three = guard.continuation_transition(
+                transition,
+                UnitInterval::from_fraction(seam - 3.0 * step).unwrap(),
+            );
+            let before_two = guard.continuation_transition(
+                transition,
+                UnitInterval::from_fraction(seam - 2.0 * step).unwrap(),
+            );
+            let before_one = guard.continuation_transition(
+                transition,
+                UnitInterval::from_fraction(seam - step).unwrap(),
+            );
+            let at = guard
+                .continuation_transition(transition, UnitInterval::from_fraction(seam).unwrap());
+            let after_one = guard.continuation_transition(
+                transition,
+                UnitInterval::from_fraction(seam + step).unwrap(),
+            );
+            let after_two = guard.continuation_transition(
+                transition,
+                UnitInterval::from_fraction(seam + 2.0 * step).unwrap(),
+            );
+            let after_three = guard.continuation_transition(
+                transition,
+                UnitInterval::from_fraction(seam + 3.0 * step).unwrap(),
+            );
             let velocity_before = (3.0 * at.translation - 4.0 * before_one.translation
                 + before_two.translation)
                 / (2.0 * step);
@@ -1413,8 +1441,12 @@ mod tests {
             assert!(angular_acceleration_before.distance(angular_acceleration_after) < 2.0);
         }
 
-        let before_end = guard.continuation_transition(transition, UnitInterval::from_fraction(1.0 - step).unwrap());
-        let before_end_two = guard.continuation_transition(transition, UnitInterval::from_fraction(1.0 - 2.0 * step).unwrap());
+        let before_end = guard
+            .continuation_transition(transition, UnitInterval::from_fraction(1.0 - step).unwrap());
+        let before_end_two = guard.continuation_transition(
+            transition,
+            UnitInterval::from_fraction(1.0 - 2.0 * step).unwrap(),
+        );
         let end_velocity = (3.0 * end.translation - 4.0 * before_end.translation
             + before_end_two.translation)
             / (2.0 * step);

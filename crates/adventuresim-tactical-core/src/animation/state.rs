@@ -453,7 +453,9 @@ enum AttackSequence {
     Initial,
     Continuation {
         start_coordinate: AttackPoseCoordinate,
-        #[serde(deserialize_with = "crate::animation::continuation_parameters::deserialize_tangent")]
+        #[serde(
+            deserialize_with = "crate::animation::continuation_parameters::deserialize_tangent"
+        )]
         incoming_tangent: IncomingAttackTangent,
     },
 }
@@ -1630,9 +1632,16 @@ impl SkeletonState {
     pub fn attack_continuation(&self) -> Option<AttackContinuation> {
         match self.action {
             ActionState(ActionKind::Attack {
-                sequence: AttackSequence::Continuation { start_coordinate, incoming_tangent },
+                sequence:
+                    AttackSequence::Continuation {
+                        start_coordinate,
+                        incoming_tangent,
+                    },
                 ..
-            }) => Some(AttackContinuation { start_coordinate, incoming_tangent }),
+            }) => Some(AttackContinuation {
+                start_coordinate,
+                incoming_tangent,
+            }),
             _ => None,
         }
     }
@@ -1889,8 +1898,10 @@ impl SkeletonState {
                     curve.overshoot
                         * queued_timeline.preparation_ticks.samples() as f32
                         * ContinuationReadiness::FOLLOW_READY.preparation_fraction()
-                        / (curve.follow_through_fraction * timeline.recovery_ticks.samples() as f32),
-                ).map_err(ActionTransitionError::InvalidAnimationValue)?;
+                        / (curve.follow_through_fraction
+                            * timeline.recovery_ticks.samples() as f32),
+                )
+                .map_err(ActionTransitionError::InvalidAnimationValue)?;
                 let transition_phase = 0.5
                     + 0.5
                         * transition_tick
@@ -1929,8 +1940,10 @@ impl SkeletonState {
             hand: spec.hand,
             sequence: if spec.continuation {
                 AttackSequence::Continuation {
-                    start_coordinate: AttackPoseCoordinate::from_arithmetic(1.0 + spec.curve.overshoot)
-                        .map_err(ActionTransitionError::InvalidAnimationValue)?,
+                    start_coordinate: AttackPoseCoordinate::from_arithmetic(
+                        1.0 + spec.curve.overshoot,
+                    )
+                    .map_err(ActionTransitionError::InvalidAnimationValue)?,
                     incoming_tangent: IncomingAttackTangent::ZERO,
                 }
             } else {

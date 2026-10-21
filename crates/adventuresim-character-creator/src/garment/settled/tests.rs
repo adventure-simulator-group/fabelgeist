@@ -49,8 +49,10 @@ fn wearer(positions: Vec<[f32; 3]>, faces: Vec<[u32; 3]>) -> DrapeInput {
         names: Default::default(),
         joints: Default::default(),
         indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8]; count], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-            ).unwrap(),
+            vec![[0; 8]; count],
+            fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+        )
+        .unwrap(),
         weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; count],
     }
 }

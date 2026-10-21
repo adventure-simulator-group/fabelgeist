@@ -1,6 +1,6 @@
-use fabelgeist_geometry::SignedLength;
 use super::*;
 use adventuresim_building_generator::spatial_geometry::{Position, SpatialDirection};
+use fabelgeist_geometry::SignedLength;
 pub(super) use placement::{CaptureCameraPlacement, SceneCameraView};
 
 mod landscape;
@@ -43,7 +43,9 @@ pub(super) fn tree_review(state: &SceneCaptureState) -> CaptureCameraResult<Scen
             // 4.5 m target cropped its crown at every review azimuth.
             let radius = 30.0;
             SceneCameraView::looking_at(
-                Position::from_metres(tree + Vec3::new(azimuth.sin() * radius, 10.0, azimuth.cos() * radius))?,
+                Position::from_metres(
+                    tree + Vec3::new(azimuth.sin() * radius, 10.0, azimuth.cos() * radius),
+                )?,
                 Position::from_metres(tree + Vec3::new(0.0, 8.0, 0.0))?,
                 SpatialDirection::from_normalized(Vec3::Y)?,
             )
@@ -81,7 +83,9 @@ pub(super) fn tree_root(state: &SceneCaptureState) -> CaptureCameraResult<SceneC
                 // the camera-local terrain recipe now continues the root
                 // ridges beyond the tree mesh, which cannot be judged in
                 // an extreme trunk-only close-up.
-                Position::from_metres(root + Vec3::new(azimuth.sin() * 3.8, 1.3, azimuth.cos() * 3.8))?,
+                Position::from_metres(
+                    root + Vec3::new(azimuth.sin() * 3.8, 1.3, azimuth.cos() * 3.8),
+                )?,
                 Position::from_metres(root + Vec3::Y * 0.08)?,
                 SpatialDirection::from_normalized(Vec3::Y)?,
             )
@@ -97,7 +101,9 @@ pub(super) fn branch_junction(state: &SceneCaptureState) -> CaptureCameraResult<
             let junction = tree + Vec3::Y * 0.15;
             let azimuth = state.tree_review_azimuth_degrees.radians();
             SceneCameraView::looking_at(
-                Position::from_metres(junction + Vec3::new(azimuth.sin() * 3.2, 0.65, azimuth.cos() * 3.2))?,
+                Position::from_metres(
+                    junction + Vec3::new(azimuth.sin() * 3.2, 0.65, azimuth.cos() * 3.2),
+                )?,
                 Position::from_metres(junction)?,
                 SpatialDirection::from_normalized(Vec3::Y)?,
             )
@@ -112,7 +118,9 @@ pub(super) fn rock(state: &SceneCaptureState) -> CaptureCameraResult<SceneCamera
             let rock = rock.metres();
             let azimuth = state.tree_review_azimuth_degrees.radians();
             SceneCameraView::looking_at(
-                Position::from_metres(rock + Vec3::new(azimuth.sin() * 3.0, 1.1, azimuth.cos() * 3.0))?,
+                Position::from_metres(
+                    rock + Vec3::new(azimuth.sin() * 3.0, 1.1, azimuth.cos() * 3.0),
+                )?,
                 Position::from_metres(rock - Vec3::Y * 0.15)?,
                 SpatialDirection::from_normalized(Vec3::Y)?,
             )
@@ -134,7 +142,10 @@ pub(super) fn ground_cover(state: &SceneCaptureState) -> CaptureCameraResult<Sce
     )
 }
 
-pub(super) fn tree_lod(state: &SceneCaptureState, distance: SignedLength) -> CaptureCameraResult<SceneCameraView> {
+pub(super) fn tree_lod(
+    state: &SceneCaptureState,
+    distance: SignedLength,
+) -> CaptureCameraResult<SceneCameraView> {
     state.tree_focus.map_or_else(
         || ground(state),
         |tree| {
@@ -149,7 +160,10 @@ pub(super) fn tree_lod(state: &SceneCaptureState, distance: SignedLength) -> Cap
     )
 }
 
-pub(super) fn tree_cold_traversal(state: &SceneCaptureState, distance: SignedLength) -> CaptureCameraResult<SceneCameraView> {
+pub(super) fn tree_cold_traversal(
+    state: &SceneCaptureState,
+    distance: SignedLength,
+) -> CaptureCameraResult<SceneCameraView> {
     state.tree_focus.map_or_else(
         || ground(state),
         |tree| {
@@ -186,7 +200,11 @@ pub(super) fn lit_tree_review(
             camera_height,
             azimuth.cos() * radius,
         );
-    SceneCameraView::looking_at(Position::from_metres(position)?, Position::from_metres(target)?, SpatialDirection::from_normalized(Vec3::Y)?)
+    SceneCameraView::looking_at(
+        Position::from_metres(position)?,
+        Position::from_metres(target)?,
+        SpatialDirection::from_normalized(Vec3::Y)?,
+    )
 }
 
 pub(super) fn lit_branch_junction(
@@ -207,32 +225,62 @@ pub(super) fn lit_branch_junction(
     };
     let target = tree + Vec3::Y * height;
     let position = target + Vec3::new(azimuth.sin() * radius, camera_lift, azimuth.cos() * radius);
-    SceneCameraView::looking_at(Position::from_metres(position)?, Position::from_metres(target)?, SpatialDirection::from_normalized(Vec3::Y)?)
+    SceneCameraView::looking_at(
+        Position::from_metres(position)?,
+        Position::from_metres(target)?,
+        SpatialDirection::from_normalized(Vec3::Y)?,
+    )
 }
 
 pub(super) fn ground(state: &SceneCaptureState) -> CaptureCameraResult<SceneCameraView> {
-    SceneCameraView::looking_at(state.ground_eye_position, state.ground_eye_target, SpatialDirection::from_normalized(Vec3::Y)?)
+    SceneCameraView::looking_at(
+        state.ground_eye_position,
+        state.ground_eye_target,
+        SpatialDirection::from_normalized(Vec3::Y)?,
+    )
 }
 
 pub(super) fn camera_for_view(
     pose: CapturePose,
     state: &SceneCaptureState,
 ) -> CaptureCameraResult<SceneCameraView> {
-    let half = SignedLength::from_metres(state.terrain.width_metres.max(state.terrain.depth_metres) * 0.5)?;
+    let half = SignedLength::from_metres(
+        state.terrain.width_metres.max(state.terrain.depth_metres) * 0.5,
+    )?;
     match pose {
-        CapturePose::Plant { .. } | CapturePose::Fungus { .. } | CapturePose::PlantLod { .. } => pose.plant_camera(state.plant_focus.ok_or(CaptureCameraError::MissingPlant)?),
+        CapturePose::Plant { .. } | CapturePose::Fungus { .. } | CapturePose::PlantLod { .. } => {
+            pose.plant_camera(state.plant_focus.ok_or(CaptureCameraError::MissingPlant)?)
+        }
         CapturePose::Ground => ground(state),
         CapturePose::AnimationPlay { yaw_degrees } => {
             let yaw = Quat::from_rotation_y(yaw_degrees.radians());
             let focus = state.animation_play_focus;
             let position = Position::from_metres(focus.metres() + yaw * Vec3::Z * 3.75)?;
-            SceneCameraView::looking_at(position, focus, SpatialDirection::from_normalized(Vec3::Y)?)
+            SceneCameraView::looking_at(
+                position,
+                focus,
+                SpatialDirection::from_normalized(Vec3::Y)?,
+            )
         }
-        CapturePose::AnimationPlayBoundary { .. } | CapturePose::AnimationPlayObstruction { .. } | CapturePose::UnderstoryReview { .. } => Err(CaptureCameraError::RequiresLiveQuery { pose }),
+        CapturePose::AnimationPlayBoundary { .. }
+        | CapturePose::AnimationPlayObstruction { .. }
+        | CapturePose::UnderstoryReview { .. } => {
+            Err(CaptureCameraError::RequiresLiveQuery { pose })
+        }
         CapturePose::BuildingInterior { camera } | CapturePose::CityExterior { camera } => {
-            let cameras = if matches!(pose, CapturePose::BuildingInterior { .. }) { &state.building_interior_cameras } else { &state.city_exterior_cameras };
-            let camera = cameras.get(usize::from(camera)).ok_or(CaptureCameraError::MissingBuildingCamera { pose })?;
-            SceneCameraView::looking_at(camera.position, camera.target, SpatialDirection::from_normalized(Vec3::Y)?)
+            let cameras = if matches!(pose, CapturePose::BuildingInterior { .. }) {
+                &state.building_interior_cameras
+            } else {
+                &state.city_exterior_cameras
+            };
+            let camera = cameras
+                .get(usize::from(camera))
+                .ok_or(CaptureCameraError::MissingBuildingCamera { pose })?;
+            SceneCameraView::looking_at(
+                camera.position,
+                camera.target,
+                SpatialDirection::from_normalized(Vec3::Y)?,
+            )
         }
         CapturePose::TreeColdTraversal { distance } => tree_cold_traversal(state, distance),
         CapturePose::TreeReview => tree_review(state),
@@ -241,23 +289,60 @@ pub(super) fn camera_for_view(
         CapturePose::BranchJunction => branch_junction(state),
         CapturePose::Rock => rock(state),
         CapturePose::TerrainGrazing => landscape::terrain_grazing(state),
-        CapturePose::FaultScarp | CapturePose::FaultScarpSeam | CapturePose::LandformUnderside => pose.fault_camera().ok_or(CaptureCameraError::MissingAuthoredCamera { pose })?,
+        CapturePose::FaultScarp | CapturePose::FaultScarpSeam | CapturePose::LandformUnderside => {
+            pose.fault_camera()
+                .ok_or(CaptureCameraError::MissingAuthoredCamera { pose })?
+        }
         CapturePose::GrassSeam => {
             let target = Position::from_metres(state.obstacle_focus.metres() - Vec3::Y * 1.30)?;
-            SceneCameraView::looking_at(Position::from_metres(target.metres() + Vec3::new(-3.4, 1.25, 3.4))?, target, SpatialDirection::from_normalized(Vec3::Y)?)
+            SceneCameraView::looking_at(
+                Position::from_metres(target.metres() + Vec3::new(-3.4, 1.25, 3.4))?,
+                target,
+                SpatialDirection::from_normalized(Vec3::Y)?,
+            )
         }
-        CapturePose::Debris => state.debris_focus.map_or_else(|| ground(state), |target| debris_detail_camera(target, state.debris_camera, state.tree_review_azimuth_degrees)),
+        CapturePose::Debris => state.debris_focus.map_or_else(
+            || ground(state),
+            |target| {
+                debris_detail_camera(
+                    target,
+                    state.debris_camera,
+                    state.tree_review_azimuth_degrees,
+                )
+            },
+        ),
         CapturePose::GroundCover => ground_cover(state),
-        CapturePose::LeafSpecimen => state.tree_leaf_focus.map_or_else(|| ground(state), |focus| {
-            let position = match state.tree_leaf_camera { Some(position) => position, None => Position::from_metres(focus.metres() + Vec3::Z)? };
-            SceneCameraView::looking_at(position, focus, SpatialDirection::from_normalized(Vec3::Y)?)
-        }),
+        CapturePose::LeafSpecimen => state.tree_leaf_focus.map_or_else(
+            || ground(state),
+            |focus| {
+                let position = match state.tree_leaf_camera {
+                    Some(position) => position,
+                    None => Position::from_metres(focus.metres() + Vec3::Z)?,
+                };
+                SceneCameraView::looking_at(
+                    position,
+                    focus,
+                    SpatialDirection::from_normalized(Vec3::Y)?,
+                )
+            },
+        ),
         CapturePose::TreeLod { distance } => tree_lod(state, distance),
         CapturePose::Overhead => {
-            let frame_half = half.metres().max(state.city_half_extent_metres.metres() + 30.0);
-            SceneCameraView::looking_at(Position::from_metres(state.obstacle_focus.metres() + Vec3::new(0.0, frame_half * 1.75, frame_half * 0.08))?, state.obstacle_focus, SpatialDirection::from_normalized(Vec3::Z)?)
+            let frame_half = half
+                .metres()
+                .max(state.city_half_extent_metres.metres() + 30.0);
+            SceneCameraView::looking_at(
+                Position::from_metres(
+                    state.obstacle_focus.metres()
+                        + Vec3::new(0.0, frame_half * 1.75, frame_half * 0.08),
+                )?,
+                state.obstacle_focus,
+                SpatialDirection::from_normalized(Vec3::Z)?,
+            )
         }
-        CapturePose::CityOblique { azimuth_degrees } => landscape::city_oblique(state, half, azimuth_degrees),
+        CapturePose::CityOblique { azimuth_degrees } => {
+            landscape::city_oblique(state, half, azimuth_degrees)
+        }
         CapturePose::Horizon => landscape::horizon(state, half),
         CapturePose::VistaPeak => landscape::vista_peak(state, half),
         CapturePose::VistaValley => landscape::vista_valley(state, half),

@@ -4,10 +4,10 @@ use crate::item_catalog_schema::{
     EquipmentAnatomicalRegion as Region, EquipmentChannel, EquipmentMaterial, EquipmentPlacement,
     SurfaceAnchor,
 };
-pub use error::{ClothingError, ClothingFaceContext, ClothingPieceName};
-use fabelgeist_rig::RigJointName;
-use fabelgeist_geometry::SignedLength;
 use adventuresim_core::equipment_assets::CatalogPlacement;
+pub use error::{ClothingError, ClothingFaceContext, ClothingPieceName};
+use fabelgeist_geometry::SignedLength;
+use fabelgeist_rig::RigJointName;
 use fitting::fitted_surface;
 #[cfg(feature = "offline-creator")]
 pub(crate) use regions::waist_surface_joint;
@@ -66,7 +66,9 @@ impl GarmentSpecification {
             .equipment
             .as_ref()
             .and_then(|equipment| equipment.material)
-            .ok_or_else(|| ClothingError::MissingMaterial { garment: name.clone() })?;
+            .ok_or_else(|| ClothingError::MissingMaterial {
+                garment: name.clone(),
+            })?;
         Self::for_surface(name, selection.definition(), material)
     }
 
@@ -85,8 +87,8 @@ impl GarmentSpecification {
             EquipmentChannel::RigidArmor => 0.024,
             _ => 0.008,
         };
-        let normal_offset_metres = SignedLength::from_metres(normal_offset_metres)
-            .map_err(ClothingError::NormalOffset)?;
+        let normal_offset_metres =
+            SignedLength::from_metres(normal_offset_metres).map_err(ClothingError::NormalOffset)?;
         let (base_color, metallic, roughness) = crate::clothing_material::pbr(material);
         Ok(Self {
             name,
@@ -156,7 +158,8 @@ pub fn generate_clothing_shells(
                 .iter()
                 .enumerate()
                 .filter_map(|(vertex, position)| {
-                    let weight = joint_indices.vertex(vertex)
+                    let weight = joint_indices
+                        .vertex(vertex)
                         .iter()
                         .zip(&joint_weights[vertex])
                         .filter(|(joint, _)| selected_joints.contains(*joint))
@@ -201,7 +204,8 @@ pub fn generate_clothing_shells(
             .map(|(vertex, position)| {
                 span_masks.iter().any(
                     |(selected_joints, segments, (minimum, maximum), (start, end), _)| {
-                        let weight = joint_indices.vertex(vertex)
+                        let weight = joint_indices
+                            .vertex(vertex)
                             .iter()
                             .zip(&joint_weights[vertex])
                             .filter(|(joint, _)| selected_joints.contains(*joint))
@@ -273,7 +277,8 @@ pub fn generate_clothing_shells(
                 .iter()
                 .enumerate()
                 .map(|(vertex, position)| {
-                    let weight = joint_indices.vertex(vertex)
+                    let weight = joint_indices
+                        .vertex(vertex)
                         .iter()
                         .zip(&joint_weights[vertex])
                         .filter(|(joint, _)| waist_joints.contains(*joint))
@@ -666,7 +671,8 @@ mod tests {
             "bracer".into(),
             &placement,
             EquipmentMaterial::PolishedSteel,
-        ).unwrap();
+        )
+        .unwrap();
         assert_eq!(specification.normal_offset_metres.metres(), 0.024);
         assert_eq!(specification.metallic, 1.0);
         assert_eq!(specification.roughness, 0.20);

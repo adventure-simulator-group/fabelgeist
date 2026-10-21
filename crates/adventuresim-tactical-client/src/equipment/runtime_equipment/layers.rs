@@ -31,7 +31,10 @@ impl LayerSelection {
     }
 
     fn key(&self) -> (&'static str, &'static str) {
-        (self.selection.item().definition().id.as_str(), self.selection.definition().id.as_str())
+        (
+            self.selection.item().definition().id.as_str(),
+            self.selection.definition().id.as_str(),
+        )
     }
 }
 
@@ -86,24 +89,32 @@ impl OutfitPlan {
         Ok(Self { selections, plan })
     }
 
-    pub(super) fn ancestors(&self, selection: &LayerSelection) -> anyhow::Result<Vec<LayerSelection>> {
+    pub(super) fn ancestors(
+        &self,
+        selection: &LayerSelection,
+    ) -> anyhow::Result<Vec<LayerSelection>> {
         let index = self
             .selections
             .binary_search(selection)
             .map_err(|_| anyhow::anyhow!("equipment selection is absent from the fitted outfit"))?;
-        Ok(self.plan
+        Ok(self
+            .plan
             .ancestors(index)
             .into_iter()
             .map(|i| self.selections[i])
             .collect())
     }
 
-    pub(super) fn supports(&self, selection: &LayerSelection) -> anyhow::Result<Vec<LayerSelection>> {
+    pub(super) fn supports(
+        &self,
+        selection: &LayerSelection,
+    ) -> anyhow::Result<Vec<LayerSelection>> {
         let index = self
             .selections
             .binary_search(selection)
             .map_err(|_| anyhow::anyhow!("equipment selection is absent from the fitted outfit"))?;
-        Ok(self.plan
+        Ok(self
+            .plan
             .supports(index)
             .map(|i| self.selections[i])
             .collect())
@@ -121,11 +132,13 @@ impl generation::FitKey {
         let plan = OutfitPlan::new(selections)?;
         plan.supports(&selection)?
             .into_iter()
-            .map(|support| Ok(Self {
-                shape: self.shape.clone(),
-                layers: plan.ancestors(&support)?,
-                selection: support,
-            }))
+            .map(|support| {
+                Ok(Self {
+                    shape: self.shape.clone(),
+                    layers: plan.ancestors(&support)?,
+                    selection: support,
+                })
+            })
             .collect()
     }
 }
@@ -154,7 +167,6 @@ pub(super) fn outfits(
             )
         })
         .collect()
-
 }
 
 impl RuntimeEquipmentBodyCache {

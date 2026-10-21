@@ -52,16 +52,21 @@ impl EmbeddedMesh {
         design_hash: [u8; 32],
     ) -> Result<GeneratedArmor, ConstructionError> {
         let (positions, normals) = self.realize(surfaces);
-        let mut joint_indices = fabelgeist_rig::PackedRigSkin::empty(source.joint_indices.joint_count());
+        let mut joint_indices =
+            fabelgeist_rig::PackedRigSkin::empty(source.joint_indices.joint_count());
         let mut joint_weights = Vec::with_capacity(self.vertices.len());
         for vertex in &self.vertices {
-            let corners = surfaces[vertex.grid].corners(vertex.at).map(|(corner, share)| {
-                let corner = corner as usize;
-                skin::SkinShare {
-                    skin: source.joint_indices.weighted_vertex(corner, source.joint_weights[corner]),
-                    share,
-                }
-            });
+            let corners = surfaces[vertex.grid]
+                .corners(vertex.at)
+                .map(|(corner, share)| {
+                    let corner = corner as usize;
+                    skin::SkinShare {
+                        skin: source
+                            .joint_indices
+                            .weighted_vertex(corner, source.joint_weights[corner]),
+                        share,
+                    }
+                });
             let [first, remaining @ ..] = corners;
             let skin = skin::blend(first, &remaining);
             joint_indices.push(skin.joints)?;

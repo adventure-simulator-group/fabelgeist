@@ -2,7 +2,10 @@
 use super::*;
 use adventuresim_tactical_core::{
     animation::AnimationElapsed,
-    prelude::{BodyState, CharacterControllerCameraOf, CharacterControllerState, SkeletonState, SpatialQuery, SpatialQueryFilter},
+    prelude::{
+        BodyState, CharacterControllerCameraOf, CharacterControllerState, SkeletonState,
+        SpatialQuery, SpatialQueryFilter,
+    },
 };
 use adventuresim_tactical_netcode::client::WeaponGuardInputState;
 use observation::{CameraRigInput, CameraSubjectObservation};
@@ -20,7 +23,14 @@ pub(super) fn update_camera_rig(
     config: Res<CameraRigConfig>,
     spatial: SpatialQuery,
     soft_occluders: Query<(), With<CameraSoftOccluder>>,
-    controllers: Query<(&Transform, &CharacterControllerState, Option<&SkeletonState>), Without<CharacterControllerCameraOf>>,
+    controllers: Query<
+        (
+            &Transform,
+            &CharacterControllerState,
+            Option<&SkeletonState>,
+        ),
+        Without<CharacterControllerCameraOf>,
+    >,
     mut cameras: Query<(&mut Transform, &CharacterControllerCameraOf, &Projection)>,
     mut state: ResMut<CameraRigState>,
     mut debug: ResMut<CameraRigDebugState>,
@@ -32,23 +42,49 @@ pub(super) fn update_camera_rig(
     }
     let elapsed = match AnimationElapsed::from_seconds(time.delta_secs().min(0.1)) {
         Ok(elapsed) => elapsed,
-        Err(error) => { warn!(%error, "cannot admit camera frame interval"); return; }
+        Err(error) => {
+            warn!(%error, "cannot admit camera frame interval");
+            return;
+        }
     };
     for (mut camera, camera_of, projection) in &mut cameras {
         debug.0 = None;
-        let Ok((transform, controller, skeleton)) = controllers.get(camera_of.character_controller) else { continue; };
+        let Ok((transform, controller, skeleton)) = controllers.get(camera_of.character_controller)
+        else {
+            continue;
+        };
         let profile = match state.advance_profile(guard.desired, &config, elapsed) {
             Ok(profile) => profile,
-            Err(error) => { warn!(%error, "cannot blend camera profile"); continue; }
+            Err(error) => {
+                warn!(%error, "cannot blend camera profile");
+                continue;
+            }
         };
         let input = match CameraRigInput::observe(
-            CameraSubjectObservation { entity: camera_of.character_controller, transform, controller, skeleton },
-            &camera, profile, state.blend, &config, elapsed,
+            CameraSubjectObservation {
+                entity: camera_of.character_controller,
+                transform,
+                controller,
+                skeleton,
+            },
+            &camera,
+            profile,
+            state.blend,
+            &config,
+            elapsed,
         ) {
             Ok(input) => input,
-            Err(error) => { warn!(%error, "cannot admit camera frame"); continue; }
+            Err(error) => {
+                warn!(%error, "cannot admit camera frame");
+                continue;
+            }
         };
-        let mut next = state.observe(camera_of.character_controller, input.anchor, profile, config.teleport_distance);
+        let mut next = state.observe(
+            camera_of.character_controller,
+            input.anchor,
+            profile,
+            config.teleport_distance,
+        );
         match input.prepare(&mut next, projection, &spatial, &soft_occluders, &config) {
             Ok(observation) => {
                 state.commit_observation(next);

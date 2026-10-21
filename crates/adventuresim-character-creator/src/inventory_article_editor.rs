@@ -46,21 +46,27 @@ fn catalog_article(
 ) -> bool {
     let ItemCatalog { items, designs } = &mut catalog.0;
     let Some(placement) = adventuresim_core::equipment_assets::CatalogPlacement::find(
-        items, &article.item_id, &article.placement_id,
+        items,
+        &article.item_id,
+        &article.placement_id,
     ) else {
-        ui.colored_label(egui::Color32::LIGHT_RED, format!(
-            "the catalog has no {} placement {}", article.item_id, article.placement_id,
-        ));
+        ui.colored_label(
+            egui::Color32::LIGHT_RED,
+            format!(
+                "the catalog has no {} placement {}",
+                article.item_id, article.placement_id,
+            ),
+        );
         return false;
     };
     let item = placement.item();
     let steel = {
-
         let material = item
             .equipment
             .as_ref()
             .and_then(|equipment| equipment.material);
-        let steel = material.is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel);
+        let steel =
+            material.is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel);
         let material = material.map_or_else(String::new, |material| format!(" · {material:?}"));
         ui.small(format!(
             "{} · {} placement · {:.2} kg{material}",
@@ -126,8 +132,7 @@ fn catalog_shape(
             .on_hover_text("Newly acquired items and equipment asset generation use it.")
             .clicked()
         {
-            *status = match designs.set_default(placement.item(), design.clone())
-            {
+            *status = match designs.set_default(placement.item(), design.clone()) {
                 Ok(()) => format!(
                     "{} is now the catalog default; save it from the Output tab",
                     article.item_id

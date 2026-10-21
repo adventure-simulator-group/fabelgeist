@@ -91,7 +91,12 @@ fn clothing_specifications(loadout: &Loadout<'_>) -> Result<Vec<GarmentSpecifica
         .iter()
         .map(|piece| {
             Ok(GarmentSpecification::from_catalog(
-                format!("{} · {}", piece.selection.item().display_name, piece.selection.id).into(),
+                format!(
+                    "{} · {}",
+                    piece.selection.item().display_name,
+                    piece.selection.id
+                )
+                .into(),
                 piece.selection,
             )?)
         })

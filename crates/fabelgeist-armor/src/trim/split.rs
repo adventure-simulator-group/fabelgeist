@@ -34,7 +34,11 @@ pub(super) struct Split<'a> {
 }
 
 impl<'a> Split<'a> {
-    pub(super) fn new(armor: GeneratedArmor, rims: &'a Rims, band: TrimBand) -> Result<Self, TrimError> {
+    pub(super) fn new(
+        armor: GeneratedArmor,
+        rims: &'a Rims,
+        band: TrimBand,
+    ) -> Result<Self, TrimError> {
         let near = (0..armor.positions.len() as u32)
             .map(|v| rims.nearest(armor.positions[v as usize], rims.plate(v)))
             .collect();
@@ -80,17 +84,25 @@ impl<'a> Split<'a> {
         band: &mut Vec<Triangle>,
     ) -> Result<(), TrimError> {
         match face {
-            PlateFace::Inner => { plate.push((corners, face)); return Ok(()); },
-            PlateFace::Edge => { band.push((corners, face)); return Ok(()); },
+            PlateFace::Inner => {
+                plate.push((corners, face));
+                return Ok(());
+            }
+            PlateFace::Edge => {
+                band.push((corners, face));
+                return Ok(());
+            }
             PlateFace::Outer => {}
         }
         let inside = corners.map(|v| self.inside(v));
         let count = inside.iter().filter(|i| **i).count();
         if count == 3 {
-            band.push((corners, face)); return Ok(());
+            band.push((corners, face));
+            return Ok(());
         }
         if count == 0 {
-            plate.push((corners, face)); return Ok(());
+            plate.push((corners, face));
+            return Ok(());
         }
         // The corner alone on its side of the border, then the other two in
         // winding order.
@@ -208,8 +220,18 @@ impl<'a> Split<'a> {
             .texcoords
             .push(std::array::from_fn(|k| ua[k] + (ub[k] - ua[k]) * t));
         let skin = skin::blend(
-            skin::SkinShare { skin: armor.joint_indices.weighted_vertex(a, armor.joint_weights[a]), share: 1.0 - t },
-            &[skin::SkinShare { skin: armor.joint_indices.weighted_vertex(b, armor.joint_weights[b]), share: t }],
+            skin::SkinShare {
+                skin: armor
+                    .joint_indices
+                    .weighted_vertex(a, armor.joint_weights[a]),
+                share: 1.0 - t,
+            },
+            &[skin::SkinShare {
+                skin: armor
+                    .joint_indices
+                    .weighted_vertex(b, armor.joint_weights[b]),
+                share: t,
+            }],
         );
         armor.joint_indices.push(skin.joints)?;
         armor.joint_weights.push(skin.weights);
@@ -284,7 +306,9 @@ fn group_by_component(armor: &mut GeneratedArmor, component_of: &[usize]) {
     permute(&mut armor.positions, &order);
     permute(&mut armor.normals, &order);
     permute(&mut armor.texcoords, &order);
-    armor.joint_indices = armor.joint_indices.select(order.iter().map(|old| *old as usize));
+    armor.joint_indices = armor
+        .joint_indices
+        .select(order.iter().map(|old| *old as usize));
     permute(&mut armor.joint_weights, &order);
     for morph in &mut armor.morphs {
         permute(&mut morph.position_deltas, &order);

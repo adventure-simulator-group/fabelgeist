@@ -88,7 +88,10 @@ impl Wearer<'_> {
     }
 
     /// Which joints own skin for a set of owner names.
-    pub(crate) fn owned_joints(&self, owners: &[RigJointName]) -> fabelgeist_rig::RigJointTable<RigJointMembership> {
+    pub(crate) fn owned_joints(
+        &self,
+        owners: &[RigJointName],
+    ) -> fabelgeist_rig::RigJointTable<RigJointMembership> {
         self.joint_names
             .iter()
             .map(|name: &RigJointName| -> RigJointMembership {
@@ -309,7 +312,9 @@ mod packing_tests {
             "l_thumb_null",
             "l_thumb3",
         ]
-        .map(RigJointName::from).into_iter().collect::<fabelgeist_rig::RigJointTable<_>>();
+        .map(RigJointName::from)
+        .into_iter()
+        .collect::<fabelgeist_rig::RigJointTable<_>>();
         let wearer = Wearer {
             faces: &[],
             positions: &[],
@@ -362,8 +367,10 @@ mod packing_tests {
             ],
             [4, 3, 2, 1, 6]
         );
-        let skin =
-            ["l_uparm", "l_uparm_twisted", "r_uparm", "l_uparm_extra"].map(RigJointName::from).into_iter().collect::<fabelgeist_rig::RigJointTable<_>>();
+        let skin = ["l_uparm", "l_uparm_twisted", "r_uparm", "l_uparm_extra"]
+            .map(RigJointName::from)
+            .into_iter()
+            .collect::<fabelgeist_rig::RigJointTable<_>>();
         let wearer = Wearer {
             joint_names: &skin,
             ..wearer

@@ -777,10 +777,16 @@ pub(crate) fn run(
     requested_views: Vec<String>,
     city_cameras: Option<PathBuf>,
 ) {
-    let tree_review_azimuth_degrees = match adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(tree_review_azimuth_degrees) {
-        Ok(angle) => angle,
-        Err(error) => { eprintln!("invalid capture camera azimuth: {error}"); std::process::exit(1); }
-    };
+    let tree_review_azimuth_degrees =
+        match adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(
+            tree_review_azimuth_degrees,
+        ) {
+            Ok(angle) => angle,
+            Err(error) => {
+                eprintln!("invalid capture camera azimuth: {error}");
+                std::process::exit(1);
+            }
+        };
     let repository_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let (fixture, input_path) = match (fixture, scene_input) {
         (Some(fixture), None) => {
@@ -1270,17 +1276,19 @@ fn setup_scene(
     let distant_buildings = buildings::distant_placements(&input, &buildings);
     let terrain_summary = TerrainSummary::new(&input, &terrain)?;
     let vista_geometry = vista_geometry::VistaCaptureGeometry::from_source(&input)?;
-    let city_half_extent_metres = fabelgeist_geometry::SignedLength::from_metres(input
-        .buildings
-        .iter()
-        .map(|building| building.centre_metres.metres().abs().max_element())
-        .chain(
-            input
-                .distant_buildings
-                .iter()
-                .map(|building| building.centre_metres.metres().abs().max_element()),
-        )
-        .fold(0.0, f32::max))?;
+    let city_half_extent_metres = fabelgeist_geometry::SignedLength::from_metres(
+        input
+            .buildings
+            .iter()
+            .map(|building| building.centre_metres.metres().abs().max_element())
+            .chain(
+                input
+                    .distant_buildings
+                    .iter()
+                    .map(|building| building.centre_metres.metres().abs().max_element()),
+            )
+            .fold(0.0, f32::max),
+    )?;
     let catalog_cameras = interior_furniture_capture::setup_catalog(
         &mut commands,
         &mut furniture,
@@ -1529,8 +1537,9 @@ fn setup_scene(
         tree_review_leaf_entities.push((card_entity, TreeLeafRepresentation::AlphaCard));
         tree_leaf_focus = Some(Position::from_metres(specimen_origin + local_focus)?);
         let review_rotation = Quat::from_rotation_y(tree_review_azimuth_degrees.radians());
-        tree_leaf_camera =
-            Some(Position::from_metres(specimen_origin + local_focus + review_rotation * camera_direction * 0.68)?);
+        tree_leaf_camera = Some(Position::from_metres(
+            specimen_origin + local_focus + review_rotation * camera_direction * 0.68,
+        )?);
         tree_review_entities.push(
             commands
                 .spawn((
@@ -2921,32 +2930,89 @@ fn capture_views(
             projection.fov = view.fov_degrees.radians();
         }
         let placement = match view.pose {
-            CapturePose::AnimationPlayObstruction { yaw_degrees } => camera_obstruction::animation_play_obstruction_camera(state, &lighting.spatial, &camera.3, yaw_degrees),
-            CapturePose::AnimationPlayBoundary { player, yaw_degrees } => {
-                let Some(camera) = lighting.boundary_camera(&camera.3, player, yaw_degrees, &state.output, &mut commands) else { return; };
+            CapturePose::AnimationPlayObstruction { yaw_degrees } => {
+                camera_obstruction::animation_play_obstruction_camera(
+                    state,
+                    &lighting.spatial,
+                    &camera.3,
+                    yaw_degrees,
+                )
+            }
+            CapturePose::AnimationPlayBoundary {
+                player,
+                yaw_degrees,
+            } => {
+                let Some(camera) = lighting.boundary_camera(
+                    &camera.3,
+                    player,
+                    yaw_degrees,
+                    &state.output,
+                    &mut commands,
+                ) else {
+                    return;
+                };
                 Ok(camera)
             }
-            CapturePose::UnderstoryReview { distance, elevation_degrees, orbit_degrees } => (|| -> view_camera::CaptureCameraResult<view_camera::CaptureCameraPlacement> {
+            CapturePose::UnderstoryReview {
+                distance,
+                elevation_degrees,
+                orbit_degrees,
+            } => (|| -> view_camera::CaptureCameraResult<view_camera::CaptureCameraPlacement> {
                 let focus = understory_focus.unwrap_or(state.obstacle_focus);
-                let azimuth = adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(state.tree_review_azimuth_degrees.degrees() + orbit_degrees.degrees())?.radians();
+                let azimuth =
+                    adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(
+                        state.tree_review_azimuth_degrees.degrees() + orbit_degrees.degrees(),
+                    )?
+                    .radians();
                 let elevation = elevation_degrees.radians();
                 let target = Position::from_metres(focus.metres() + Vec3::Y * 1.35)?;
-                let position = Position::from_metres(target.metres() + Vec3::new(azimuth.sin() * elevation.cos(), elevation.sin(), azimuth.cos() * elevation.cos()) * distance.metres())?;
+                let position = Position::from_metres(
+                    target.metres()
+                        + Vec3::new(
+                            azimuth.sin() * elevation.cos(),
+                            elevation.sin(),
+                            azimuth.cos() * elevation.cos(),
+                        ) * distance.metres(),
+                )?;
                 Ok(view_camera::CaptureCameraPlacement { view: view_camera::SceneCameraView::looking_at(position, target, adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::Y)?)?, obstruction: None })
             })(),
             CapturePose::TreeReview => {
-                let species = state.tree_focus_entity.and_then(|entity| lighting.presented_tree_species.get(entity).ok()).copied();
-                view_camera::lit_tree_review(state, species).map(|view| view_camera::CaptureCameraPlacement { view, obstruction: None })
+                let species = state
+                    .tree_focus_entity
+                    .and_then(|entity| lighting.presented_tree_species.get(entity).ok())
+                    .copied();
+                view_camera::lit_tree_review(state, species).map(|view| {
+                    view_camera::CaptureCameraPlacement {
+                        view,
+                        obstruction: None,
+                    }
+                })
             }
             CapturePose::BranchJunction => {
-                let species = state.tree_focus_entity.and_then(|entity| lighting.presented_tree_species.get(entity).ok()).copied();
-                view_camera::lit_branch_junction(state, species).map(|view| view_camera::CaptureCameraPlacement { view, obstruction: None })
+                let species = state
+                    .tree_focus_entity
+                    .and_then(|entity| lighting.presented_tree_species.get(entity).ok())
+                    .copied();
+                view_camera::lit_branch_junction(state, species).map(|view| {
+                    view_camera::CaptureCameraPlacement {
+                        view,
+                        obstruction: None,
+                    }
+                })
             }
-            _ => camera_for_view(view.pose, state).map(|view| view_camera::CaptureCameraPlacement { view, obstruction: None }),
+            _ => {
+                camera_for_view(view.pose, state).map(|view| view_camera::CaptureCameraPlacement {
+                    view,
+                    obstruction: None,
+                })
+            }
         };
         let placement = match placement {
             Ok(placement) => placement,
-            Err(error) => { capture_terrain::reject(&state.output, error, &mut commands); return; }
+            Err(error) => {
+                capture_terrain::reject(&state.output, error, &mut commands);
+                return;
+            }
         };
         let transform = placement.view.native_transform();
         let target = placement.view.target;
@@ -3030,7 +3096,8 @@ fn capture_views(
                 camera_up: camera.1.up().as_vec3().to_array(),
                 vertical_fov_degrees: view.fov_degrees.degrees(),
                 camera_boom_desired_metres: obstruction.map(|value| value.desired_metres.metres()),
-                camera_boom_resolved_metres: obstruction.map(|value| value.resolved_metres.metres()),
+                camera_boom_resolved_metres: obstruction
+                    .map(|value| value.resolved_metres.metres()),
                 camera_obstruction_hit: obstruction.map(|value| value.hit),
                 nearest_playable_tree_distance_metres,
                 largest_visible_vista_tree_distance_metres: vista_observation
@@ -4192,7 +4259,12 @@ mod capture_lighting_tests {
                 .any(|view| view.slug == "forest-floor-debris-detail")
         );
         let target = Position::from_metres(Vec3::new(4.0, 1.25, -2.0)).unwrap();
-        let view = debris_detail_camera(target, None, adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(37.0).unwrap()).unwrap();
+        let view = debris_detail_camera(
+            target,
+            None,
+            adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(37.0).unwrap(),
+        )
+        .unwrap();
         let camera = view.position.metres();
         let observed_target = view.target.metres();
         let up = view.native_up();
@@ -4205,7 +4277,8 @@ mod capture_lighting_tests {
                 .iter()
                 .find(|view| view.slug == "forest-floor-debris-detail")
                 .unwrap()
-                .fov_degrees.degrees(),
+                .fov_degrees
+                .degrees(),
             44.0
         );
 

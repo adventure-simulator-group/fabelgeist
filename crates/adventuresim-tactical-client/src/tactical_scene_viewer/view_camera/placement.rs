@@ -1,6 +1,8 @@
 //! A checked scene camera view remains typed until rendering or serialization.
 use super::*;
-use adventuresim_building_generator::spatial_geometry::{Position, RigidRotation, SpatialDirection};
+use adventuresim_building_generator::spatial_geometry::{
+    Position, RigidRotation, SpatialDirection,
+};
 use adventuresim_tactical_core::scene_coordinates::Scene;
 
 #[derive(Clone, Copy, Debug)]
@@ -27,10 +29,18 @@ impl SceneCameraView {
         target: Position<Scene>,
         up: SpatialDirection<Scene>,
     ) -> CaptureCameraResult<Self> {
-        let forward = (target.metres() - position.metres()).try_normalize()
+        let forward = (target.metres() - position.metres())
+            .try_normalize()
             .ok_or(CaptureCameraError::InvalidView)?;
-        forward.cross(up.vector()).try_normalize().ok_or(CaptureCameraError::InvalidView)?;
-        Ok(Self { position, target, orientation: SceneCameraOrientation::LookingAt { up } })
+        forward
+            .cross(up.vector())
+            .try_normalize()
+            .ok_or(CaptureCameraError::InvalidView)?;
+        Ok(Self {
+            position,
+            target,
+            orientation: SceneCameraOrientation::LookingAt { up },
+        })
     }
 
     pub(in crate::tactical_scene_viewer) fn oriented(
@@ -38,7 +48,11 @@ impl SceneCameraView {
         target: Position<Scene>,
         rotation: RigidRotation,
     ) -> Self {
-        Self { position, target, orientation: SceneCameraOrientation::Fixed(rotation) }
+        Self {
+            position,
+            target,
+            orientation: SceneCameraOrientation::Fixed(rotation),
+        }
     }
 
     /// Native scene-vector representation for the framework view port.
@@ -53,8 +67,12 @@ impl SceneCameraView {
         let transform = Transform::from_translation(self.position.metres());
         match self.orientation {
             // Bevy owns the final look-at kernel. Keep its original arithmetic.
-            SceneCameraOrientation::LookingAt { .. } => transform.looking_at(self.target.metres(), self.native_up()),
-            SceneCameraOrientation::Fixed(rotation) => transform.with_rotation(rotation.quaternion()),
+            SceneCameraOrientation::LookingAt { .. } => {
+                transform.looking_at(self.target.metres(), self.native_up())
+            }
+            SceneCameraOrientation::Fixed(rotation) => {
+                transform.with_rotation(rotation.quaternion())
+            }
         }
     }
 }

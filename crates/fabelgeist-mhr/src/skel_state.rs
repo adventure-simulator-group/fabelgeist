@@ -123,7 +123,8 @@ pub fn transform_points(state: &Tensor<3>, points: Tensor<3>) -> Tensor<3> {
 pub fn prefix_multiplication_levels(
     parents: &RigJointTable<Option<RigJointOrdinal>>,
 ) -> Vec<PrefixMultiplicationLevel> {
-    let chains: Vec<Vec<RigJointOrdinal>> = parents.ordinals()
+    let chains: Vec<Vec<RigJointOrdinal>> = parents
+        .ordinals()
         .map(|joint| {
             let mut chain = vec![joint];
             let mut current = joint;
@@ -242,9 +243,20 @@ mod tests {
     #[test]
     fn prefix_levels_cover_every_ancestor_product() {
         // A chain of eight joints plus a second branch off joint 1.
-        let parents: RigJointTable<Option<RigJointOrdinal>> =
-            [None, Some(0usize), Some(1), Some(2), Some(3), Some(4), Some(5), Some(6), Some(1)]
-                .into_iter().map(|parent| parent.map(RigJointOrdinal::from)).collect();
+        let parents: RigJointTable<Option<RigJointOrdinal>> = [
+            None,
+            Some(0usize),
+            Some(1),
+            Some(2),
+            Some(3),
+            Some(4),
+            Some(5),
+            Some(6),
+            Some(1),
+        ]
+        .into_iter()
+        .map(|parent| parent.map(RigJointOrdinal::from))
+        .collect();
         let levels = prefix_multiplication_levels(&parents);
 
         // Replay the scan on plain transforms and compare with a serial walk.

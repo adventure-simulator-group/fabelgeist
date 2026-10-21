@@ -66,7 +66,10 @@ impl Inventory {
                         id: item.id,
                         selection,
                     };
-                    match article.design_for(&catalog.designs, selection).map_err(fail)? {
+                    match article
+                        .design_for(&catalog.designs, selection)
+                        .map_err(fail)?
+                    {
                         Some(design) => loadout.fitted.push(FittedPiece {
                             piece,
                             design,

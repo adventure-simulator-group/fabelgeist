@@ -1,10 +1,8 @@
 //! Camera clearance and close-range composition. Every displayed position is
 //! swept from the subject, including positions modified by framing or recovery.
 
-use fabelgeist_geometry::SignedLength;
 use adventuresim_building_generator::spatial_geometry::{
-    CuboidDimensions, Displacement, GeometryFrame, Position, RigidRotation,
-    SpatialDirection,
+    CuboidDimensions, Displacement, GeometryFrame, Position, RigidRotation, SpatialDirection,
 };
 use adventuresim_core::linear_speed::SignedSpeed;
 use adventuresim_tactical_core::{
@@ -13,6 +11,7 @@ use adventuresim_tactical_core::{
     scene_coordinates::Scene,
 };
 use bevy::prelude::*;
+use fabelgeist_geometry::SignedLength;
 
 use super::{
     CameraRigConfig,
@@ -90,11 +89,16 @@ pub(crate) struct BoomRecovery {
 
 impl Default for CloseCameraProfile {
     fn default() -> Self {
-        const { Self {
-            start_distance: authored_metres(1.8),
-            full_distance: authored_metres(0.65),
-            offset: FramingOffset { right: authored_metres(0.38), up: authored_metres(0.12) },
-        } }
+        const {
+            Self {
+                start_distance: authored_metres(1.8),
+                full_distance: authored_metres(0.65),
+                offset: FramingOffset {
+                    right: authored_metres(0.38),
+                    up: authored_metres(0.12),
+                },
+            }
+        }
     }
 }
 
@@ -102,7 +106,7 @@ impl CloseCameraProfile {
     fn blend(self, distance: SignedLength) -> f32 {
         let t = ((self.start_distance.metres() - distance.metres())
             / (self.start_distance.metres() - self.full_distance.metres()))
-            .clamp(0.0, 1.0);
+        .clamp(0.0, 1.0);
         t * t * (3.0 - 2.0 * t)
     }
 }
@@ -131,9 +135,15 @@ impl CameraVolume {
         })
     }
 
-    pub(crate) fn debug_volume(&self, position: Position<Scene>, rotation: RigidRotation) -> CameraResult<CameraVolumeDebug> {
+    pub(crate) fn debug_volume(
+        &self,
+        position: Position<Scene>,
+        rotation: RigidRotation,
+    ) -> CameraResult<CameraVolumeDebug> {
         Ok(CameraVolumeDebug {
-            centre: Position::from_metres(position.metres() + rotation.quaternion() * self.local_center.metres())?,
+            centre: Position::from_metres(
+                position.metres() + rotation.quaternion() * self.local_center.metres(),
+            )?,
             rotation,
             size: self.size,
         })
@@ -150,7 +160,10 @@ impl CameraVolume {
         // The physics cast consumes scene metres and a view-to-scene rotation.
         let delta = endpoint.metres() - frame.origin.metres();
         let Ok(direction) = Dir3::new(delta) else {
-            return Ok(CameraSweep { fraction: UnitInterval::from_fraction(1.0)?, hit: None });
+            return Ok(CameraSweep {
+                fraction: UnitInterval::from_fraction(1.0)?,
+                hit: None,
+            });
         };
         let distance = delta.length();
         let hit = spatial.cast_shape_predicate(
@@ -163,11 +176,17 @@ impl CameraVolume {
             hard_obstacle,
         );
         Ok(CameraSweep {
-            fraction: UnitInterval::from_fraction(hit.map_or(1.0, |hit| (hit.distance / distance).clamp(0.0, 1.0)))?,
-            hit: hit.map(|hit| Ok::<_, super::values::CameraError>(CameraHit {
-                entity: hit.entity,
-                normal: SpatialDirection::from_normalized(hit.normal1)?,
-            })).transpose()?,
+            fraction: UnitInterval::from_fraction(
+                hit.map_or(1.0, |hit| (hit.distance / distance).clamp(0.0, 1.0)),
+            )?,
+            hit: hit
+                .map(|hit| {
+                    Ok::<_, super::values::CameraError>(CameraHit {
+                        entity: hit.entity,
+                        normal: SpatialDirection::from_normalized(hit.normal1)?,
+                    })
+                })
+                .transpose()?,
         })
     }
 }
@@ -183,19 +202,30 @@ impl CameraVolumeDebug {
 }
 
 impl CameraFrame {
-    fn endpoint(&self, distance: SignedLength, close: CloseCameraProfile) -> CameraResult<Position<Scene>> {
+    fn endpoint(
+        &self,
+        distance: SignedLength,
+        close: CloseCameraProfile,
+    ) -> CameraResult<Position<Scene>> {
         // Native affine composition preserves the original glam lerp/order.
         let blend = close.blend(distance);
         let focus = self.focus.metres().lerp(self.anchor.metres(), blend);
-        let offset = Vec2::new(self.shoulder_offset.metres(), 0.0)
-            .lerp(Vec2::new(close.offset.right.metres(), close.offset.up.metres()), blend);
-        Ok(Position::from_metres(focus + self.rotation.quaternion() * Vec3::new(offset.x, offset.y, distance.metres()))?)
+        let offset = Vec2::new(self.shoulder_offset.metres(), 0.0).lerp(
+            Vec2::new(close.offset.right.metres(), close.offset.up.metres()),
+            blend,
+        );
+        Ok(Position::from_metres(
+            focus + self.rotation.quaternion() * Vec3::new(offset.x, offset.y, distance.metres()),
+        )?)
     }
 }
 
 impl BoomRecovery {
     pub(crate) fn reset(&mut self, distance: SignedLength) {
-        *self = Self { distance, ..default() };
+        *self = Self {
+            distance,
+            ..default()
+        };
     }
 
     fn retract(&mut self, distance: SignedLength, config: &CameraRigConfig) {
@@ -229,13 +259,16 @@ impl BoomRecovery {
         // Analytic damping consumes metres and signed metres per second. Admit
         // both outputs before committing the replacement recovery sample.
         let mut velocity = self.velocity.metres_per_second();
-        let distance = SignedLength::from_metres(critical_damp_scalar(
-            self.distance.metres(),
-            desired.metres().min(limited.metres()),
-            &mut velocity,
-            config.collision_recovery_time,
-            elapsed,
-        ).min(limited.metres()))?;
+        let distance = SignedLength::from_metres(
+            critical_damp_scalar(
+                self.distance.metres(),
+                desired.metres().min(limited.metres()),
+                &mut velocity,
+                config.collision_recovery_time,
+                elapsed,
+            )
+            .min(limited.metres()),
+        )?;
         let velocity = SignedSpeed::from_metres_per_second(velocity)?;
         self.distance = distance;
         self.velocity = velocity;
@@ -267,7 +300,9 @@ impl BoomRecovery {
             let sweep = volume.sweep(spatial, filter, hard_obstacle, frame, endpoint)?;
             obstruction = sweep.hit.or(obstruction);
             limited = SignedLength::from_metres(limited.metres() * sweep.fraction.fraction())?;
-            if sweep.hit.is_none() { break; }
+            if sweep.hit.is_none() {
+                break;
+            }
         }
         let mut recovery = *self;
         recovery.recover(frame.distance, limited, config, elapsed)?;
@@ -275,13 +310,28 @@ impl BoomRecovery {
         // Framing, focus lag and damping all change the tested path. Validate
         // their final result; no camera translation is applied after this sweep.
         let final_sweep = volume.sweep(spatial, filter, hard_obstacle, frame, candidate)?;
-        let position = Position::from_metres(frame.origin.metres().lerp(candidate.metres(), final_sweep.fraction.fraction()))?;
+        let position = Position::from_metres(
+            frame
+                .origin
+                .metres()
+                .lerp(candidate.metres(), final_sweep.fraction.fraction()),
+        )?;
         if final_sweep.fraction.fraction() < 1.0 {
-            recovery.retract(SignedLength::from_metres(recovery.distance.metres() * final_sweep.fraction.fraction())?, config);
+            recovery.retract(
+                SignedLength::from_metres(
+                    recovery.distance.metres() * final_sweep.fraction.fraction(),
+                )?,
+                config,
+            );
             limited = limited.min(recovery.distance);
         }
         *self = recovery;
-        Ok(CameraPlacement { position, desired, hit: final_sweep.hit.or(obstruction), limited_distance: limited })
+        Ok(CameraPlacement {
+            position,
+            desired,
+            hit: final_sweep.hit.or(obstruction),
+            limited_distance: limited,
+        })
     }
 }
 

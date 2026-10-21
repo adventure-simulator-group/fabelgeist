@@ -93,7 +93,11 @@ pub(super) fn project_pending(
     let mut batches = BoundaryBatches::default();
     for boundary in boundaries {
         let datum = GateDatum::new(boundary.elevation_metres());
-        batches.insert_boundary(boundary.scene(), BoundaryPlacement::Scene(datum), &materials)?;
+        batches.insert_boundary(
+            boundary.scene(),
+            BoundaryPlacement::Scene(datum),
+            &materials,
+        )?;
         let door = boundary
             .scene()
             .boundary()

@@ -7,11 +7,11 @@ use bevy::{
         skinning::{SkinnedMesh, SkinnedMeshInverseBindposes},
     },
 };
+pub use binding::{ClothBinding, skin, skin_mesh};
 use cloth_motion::ClothMotion;
 #[cfg(test)]
 use cloth_motion::simulate;
 pub use colliders::ArmorSkin;
-pub use binding::{ClothBinding, skin, skin_mesh};
 
 mod binding;
 mod cloth_motion;
@@ -123,8 +123,10 @@ impl ClothSkin {
         binding: ClothBinding,
     ) -> Result<Self> {
         if let ClothBinding::Weighted { indices, weights } = &binding {
-            anyhow::ensure!(indices.len() == positions.len() && weights.len() == positions.len(),
-                "cloth skin rows and positions have different vertex counts");
+            anyhow::ensure!(
+                indices.len() == positions.len() && weights.len() == positions.len(),
+                "cloth skin rows and positions have different vertex counts"
+            );
         }
         let mut edges = std::collections::BTreeSet::new();
         for face in &faces {
@@ -316,18 +318,26 @@ pub fn deform_cloth(
         };
         (start, end, faces)
     });
-    let targets = cloth.iter().map(|(_, skin)| {
-        if preview.physics && preview.ignore_cloth_weights {
-            return Some(None);
-        }
-        let ClothBinding::Weighted { indices, weights } = &skin.binding else {
-            return None;
-        };
-        if indices.joint_count().len() != matrices.len() {
-            return None;
-        }
-        Some(Some(skinned_positions(&skin.positions, indices, weights, &matrices)))
-    }).collect::<Option<Vec<_>>>();
+    let targets = cloth
+        .iter()
+        .map(|(_, skin)| {
+            if preview.physics && preview.ignore_cloth_weights {
+                return Some(None);
+            }
+            let ClothBinding::Weighted { indices, weights } = &skin.binding else {
+                return None;
+            };
+            if indices.joint_count().len() != matrices.len() {
+                return None;
+            }
+            Some(Some(skinned_positions(
+                &skin.positions,
+                indices,
+                weights,
+                &matrices,
+            )))
+        })
+        .collect::<Option<Vec<_>>>();
     let Some(targets) = targets else {
         // Weighted playback cannot evaluate unbound cloth. Keep its last
         // geometry until a binding or unweighted physics is selected.
@@ -416,7 +426,14 @@ fn skinned_positions(
     positions
         .iter()
         .enumerate()
-        .map(|(v, p)| blend_point(Vec3::from_array(*p), indices.vertex(v), weights[v], matrices))
+        .map(|(v, p)| {
+            blend_point(
+                Vec3::from_array(*p),
+                indices.vertex(v),
+                weights[v],
+                matrices,
+            )
+        })
         .collect()
 }
 
@@ -432,7 +449,12 @@ fn surface_normals(positions: &[Vec3], faces: &[[u32; 3]]) -> Vec<Vec3> {
     normals.into_iter().map(|n| n.normalize_or_zero()).collect()
 }
 
-fn blend_point(point: Vec3, indices: [fabelgeist_rig::RigJointOrdinal; 8], weights: [f32; 8], matrices: &fabelgeist_rig::RigJointTable<Mat4>) -> Vec3 {
+fn blend_point(
+    point: Vec3,
+    indices: [fabelgeist_rig::RigJointOrdinal; 8],
+    weights: [f32; 8],
+    matrices: &fabelgeist_rig::RigJointTable<Mat4>,
+) -> Vec3 {
     indices
         .into_iter()
         .zip(weights)
@@ -452,7 +474,12 @@ mod deformation_tests {
             .map(|i| Mat4::from_translation(Vec3::Z * if i < 4 { 1.0 } else { -1.0 }))
             .collect::<fabelgeist_rig::RigJointTable<_>>();
         let point = Vec3::new(0.0, 0.5, 0.0);
-        let centre = blend_point(point, [0usize, 1, 2, 3, 4, 5, 6, 7].map(fabelgeist_rig::RigJointOrdinal::from), [0.125; 8], &matrices);
+        let centre = blend_point(
+            point,
+            [0usize, 1, 2, 3, 4, 5, 6, 7].map(fabelgeist_rig::RigJointOrdinal::from),
+            [0.125; 8],
+            &matrices,
+        );
         assert!((centre - point).length() < 1e-6);
         let left = blend_point(
             point,
@@ -473,11 +500,14 @@ mod deformation_tests {
             vec![[0, 1, 2]],
             ClothBinding::Weighted {
                 indices: fabelgeist_rig::PackedRigSkin::from_native(
-                    vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-                ).unwrap(),
+                    vec![[0; 8]; 3],
+                    fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+                )
+                .unwrap(),
                 weights: vec![[0.0; 8]; 3],
             },
-        ).unwrap();
+        )
+        .unwrap();
         skin.current[1].x = 3.0;
         skin.previous.clone_from(&skin.current);
         let targets = positions
@@ -503,7 +533,8 @@ mod deformation_tests {
             vec![[0.0, 0.0, 1.0]; 3],
             vec![[0, 1, 2]],
             ClothBinding::Unweighted,
-        ).unwrap();
+        )
+        .unwrap();
         // A translated garment must not be pulled back toward its rest location.
         for point in &mut skin.current {
             *point += Vec3::X * 5.0;
@@ -565,11 +596,14 @@ mod deformation_tests {
                 vec![[0, 1, 2]],
                 ClothBinding::Weighted {
                     indices: fabelgeist_rig::PackedRigSkin::from_native(
-                        vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-                    ).unwrap(),
+                        vec![[0; 8]; 3],
+                        fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+                    )
+                    .unwrap(),
                     weights: vec![[0.0; 8]; 3],
                 },
-            ).unwrap();
+            )
+            .unwrap();
             entities.push(world.spawn((Mesh3d(handle), skin)).id());
         }
         world.run_system_once(deform_cloth).unwrap();
@@ -614,8 +648,10 @@ mod deformation_tests {
             positions: vec![[-10.0, -10.0, -1.0], [10.0, -10.0, -1.0], [0.0, 10.0, -1.0]],
             faces: vec![[0, 1, 2]],
             indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-            ).unwrap(),
+                vec![[0; 8]; 3],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            )
+            .unwrap(),
             weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3],
         });
         let mesh = world.resource_mut::<Assets<Mesh>>().add(Mesh::new(
@@ -632,11 +668,14 @@ mod deformation_tests {
                     vec![[0, 1, 2]],
                     ClothBinding::Weighted {
                         indices: fabelgeist_rig::PackedRigSkin::from_native(
-                            vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-                        ).unwrap(),
+                            vec![[0; 8]; 3],
+                            fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+                        )
+                        .unwrap(),
                         weights: vec![[0.0; 8]; 3],
                     },
-                ).unwrap(),
+                )
+                .unwrap(),
             ))
             .id();
         let mut schedule = Schedule::default();

@@ -127,7 +127,9 @@ pub enum AnimationValueError {
     CadenceTransitionBelowZero,
     #[error("{quantity} is unavailable")]
     UnavailableObservation { quantity: AnimationQuantity },
-    #[error("attack continuation readiness must lie strictly between zero and contact at phase 0.5")]
+    #[error(
+        "attack continuation readiness must lie strictly between zero and contact at phase 0.5"
+    )]
     InvalidContinuationReadiness,
     #[error("authored phase curve must close by one forward or reverse cycle")]
     InvalidPhaseCurveSeam,

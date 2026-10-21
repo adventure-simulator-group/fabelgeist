@@ -10,8 +10,10 @@ fn body() -> RuntimeBody {
         texcoords: vec![[0.0, 0.0]; 3],
         texcoord_faces: vec![[0, 1, 2]],
         joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
-            vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-        ).unwrap(),
+            vec![[0; 8]; 3],
+            fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+        )
+        .unwrap(),
         joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3],
         joint_names: vec!["arm".into()].into(),
         global_joint_states: vec![[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]].into(),
@@ -57,16 +59,29 @@ fn leg_height_correction_moves_pelvis_descendants_but_not_body_world() {
     let mut body = body();
     body.joint_names = ["body_world", "root", "l_foot", "r_foot"]
         .map(fabelgeist_rig::RigJointName::from)
-        .into_iter().collect();
+        .into_iter()
+        .collect();
     body.global_joint_states = vec![[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]; 4].into();
     body.joint_indices = fabelgeist_rig::PackedRigSkin::from_native(
-        body.joint_indices.native_words().to_vec(), body.joint_names.joint_count(),
-    ).unwrap();
+        body.joint_indices.native_words().to_vec(),
+        body.joint_names.joint_count(),
+    )
+    .unwrap();
     rig.fit(&mut body, proportions).unwrap();
-    assert_eq!(body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(0usize)][1], 0.0);
-    assert!((body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(1usize)][1] - 0.1).abs() < 1e-6);
-    assert!(body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(2usize)][1].abs() < 1e-6);
-    assert!(body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(3usize)][1].abs() < 1e-6);
+    assert_eq!(
+        body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(0usize)][1],
+        0.0
+    );
+    assert!(
+        (body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(1usize)][1] - 0.1).abs()
+            < 1e-6
+    );
+    assert!(
+        body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(2usize)][1].abs() < 1e-6
+    );
+    assert!(
+        body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(3usize)][1].abs() < 1e-6
+    );
 }
 
 #[test]

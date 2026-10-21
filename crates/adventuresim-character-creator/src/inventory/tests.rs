@@ -9,7 +9,10 @@ fn catalog_item(inventory: &mut Inventory, item: &str, placement: &str) -> Inven
 }
 
 fn ids<'a>(pieces: &[CatalogPiece<'a>]) -> Vec<&'a str> {
-    pieces.iter().map(|p| p.selection.item().definition().id.as_str()).collect()
+    pieces
+        .iter()
+        .map(|p| p.selection.item().definition().id.as_str())
+        .collect()
 }
 
 fn worn(inventory: &Inventory) -> Vec<InventoryItemId> {

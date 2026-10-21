@@ -10,11 +10,11 @@ use fabelgeist_armor::{
     GarmentPlateShape,
 };
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_geometry::SignedLength;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_rig::RigJointName;
-use fabelgeist_geometry::SignedLength;
 use fabelgeist_math::Ratio;
+use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -167,7 +167,10 @@ impl DeviceWearer<'_> {
             Kind::MailChausses
         });
         let mut legs = Vec::new();
-        for side in [crate::armor_frames::Side::Left, crate::armor_frames::Side::Right] {
+        for side in [
+            crate::armor_frames::Side::Left,
+            crate::armor_frames::Side::Right,
+        ] {
             let mut leg = self.record_fitted_tube(batch, &leg_design, side)?;
             leg.part.record_shells(self.gpu, batch)?;
             frames.extend(leg.frames);

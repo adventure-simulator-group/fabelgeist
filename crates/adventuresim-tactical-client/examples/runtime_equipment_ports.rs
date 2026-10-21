@@ -30,7 +30,12 @@ fn main() -> Result<()> {
     anime.construction = BreastplateConstruction::Anime(Default::default());
     let cuirass = pollster::block_on(runtime_equipment::generate(
         &body,
-        adventuresim_core::equipment_assets::CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), "cuirass", "worn").ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+        adventuresim_core::equipment_assets::CatalogPlacement::find(
+            adventuresim_core::item_catalog::catalog(),
+            "cuirass",
+            "worn",
+        )
+        .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
         &bracer,
         &breastplate,
         &[],
@@ -57,7 +62,16 @@ fn main() -> Result<()> {
         ] {
             let start = Instant::now();
             let armor = pollster::block_on(runtime_equipment::generate(
-                &body, adventuresim_core::equipment_assets::CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), item, placement).ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?, &bracer, design, layers,
+                &body,
+                adventuresim_core::equipment_assets::CatalogPlacement::find(
+                    adventuresim_core::item_catalog::catalog(),
+                    item,
+                    placement,
+                )
+                .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+                &bracer,
+                design,
+                layers,
             ))?;
             report(name, round, start, &armor)?;
         }
@@ -97,7 +111,15 @@ fn wrapped(gpu: &ArmorGpu, body: &RuntimeBody, slope: u16) -> Result<GeneratedAr
         joints: &body.global_joint_states,
         device: &body.device,
     };
-    let piece = device_fit::fit_recipe(gpu, &topology, &wearer, &[], &design, adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired, &[])?;
+    let piece = device_fit::fit_recipe(
+        gpu,
+        &topology,
+        &wearer,
+        &[],
+        &design,
+        adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired,
+        &[],
+    )?;
     device_fit::assemble_recipe(
         &design,
         piece,

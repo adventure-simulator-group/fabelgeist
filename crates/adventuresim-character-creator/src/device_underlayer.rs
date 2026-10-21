@@ -307,8 +307,16 @@ impl Fit<'_> {
             shell_surfaces(&positions, &vectors, &status, count as usize)?.into_iter();
         let base = surfaces.next().expect("the wearer is always fitted");
         let skin = match skin {
-            Some((joints, floats)) => read_skin(gpu, &joints, &floats, count as usize,
-                self.body.joint_indices.joint_count()).await?,
+            Some((joints, floats)) => {
+                read_skin(
+                    gpu,
+                    &joints,
+                    &floats,
+                    count as usize,
+                    self.body.joint_indices.joint_count(),
+                )
+                .await?
+            }
             None => Default::default(),
         };
         Ok(FittedUnderlayer {
@@ -326,7 +334,9 @@ impl Fit<'_> {
         let count = self.plan.vertex_count() as u64;
         let sources = SkinSources {
             texcoords: gpu.upload(BufferUpload::from_elements(domain.texcoords))?,
-            joint_indices: gpu.upload(BufferUpload::from_elements(self.body.joint_indices.native_words()))?,
+            joint_indices: gpu.upload(BufferUpload::from_elements(
+                self.body.joint_indices.native_words(),
+            ))?,
             joint_weights: gpu.upload(BufferUpload::from_elements(self.body.joint_weights))?,
         };
         let joints = gpu.scratch(count * INFLUENCES as u64 * 4, "underlayer joints")?;
@@ -369,9 +379,11 @@ fn shell_surfaces(
         .collect()
 }
 
-
 async fn read_skin(
-    gpu: &ArmorGpu, joints: &Buffer, floats: &Buffer, count: usize,
+    gpu: &ArmorGpu,
+    joints: &Buffer,
+    floats: &Buffer,
+    count: usize,
     rig_joints: fabelgeist_rig::RigJointCount,
 ) -> Result<Skin> {
     let mut joint_indices: Vec<[u32; 8]> = gpu.read_async(joints).await?;

@@ -2,10 +2,9 @@
 
 use super::catalog;
 use adventuresim_tactical_core::animation::{
-    AnimationEvaluation, AnimationQuantity, AnimationValueError, AnimationValueResult,
-    BlendWeight, ClipMirror, CycleDelta, CyclePhase, LocomotionProfile, PoseSampling,
-    SemanticPose, UnitInterval, gait_support_weights, run_locomotion_profile,
-    walk_locomotion_profile,
+    AnimationEvaluation, AnimationQuantity, AnimationValueError, AnimationValueResult, BlendWeight,
+    ClipMirror, CycleDelta, CyclePhase, LocomotionProfile, PoseSampling, SemanticPose,
+    UnitInterval, gait_support_weights, run_locomotion_profile, walk_locomotion_profile,
 };
 use bevy::math::Vec2;
 
@@ -34,9 +33,7 @@ impl FootIkInfluence {
     }
 
     /// Preserve the authored weighted reduction before admitting its result.
-    pub(super) fn from_evaluation(
-        evaluation: &AnimationEvaluation,
-    ) -> AnimationValueResult<Self> {
+    pub(super) fn from_evaluation(evaluation: &AnimationEvaluation) -> AnimationValueResult<Self> {
         let samples = if !evaluation.lower_body.is_empty() {
             &evaluation.lower_body
         } else if evaluation.action.is_empty() {

@@ -43,9 +43,11 @@ pub(super) fn run_tactical_batch(
             opponent,
             args.first_seed.wrapping_offset(offset),
         )?;
-        batch.simulated_seconds.checked_add(
-            Measurement::<TacticalSeconds>::from_elapsed(outcome.simulated_seconds)?,
-        )?;
+        batch
+            .simulated_seconds
+            .checked_add(Measurement::<TacticalSeconds>::from_elapsed(
+                outcome.simulated_seconds,
+            )?)?;
         record_tactical_causal(&mut batch.causal, &outcome, &john.name)?;
         match &outcome.resolution {
             TacticalDuelResolution::Victory { victor } if victor.as_str() == john.name.as_str() => {
@@ -167,20 +169,22 @@ fn record_final_totals(
         causal.final_wound_count += combatant.wound_count as u64;
         causal.final_open_wound_count += combatant.open_wound_count as u64;
         causal.final_internal_wound_count += combatant.internal_wound_count as u64;
-        causal.final_wound_flow_fraction_per_second.checked_add(
-            Measurement::<WoundFlowFractionPerSecond>::from_native(
+        causal
+            .final_wound_flow_fraction_per_second
+            .checked_add(Measurement::<WoundFlowFractionPerSecond>::from_native(
                 combatant.wound_flow_fraction_per_second,
-            )?,
-        )?;
-        causal.final_fatigue.checked_add(
-            Measurement::<Fatigue>::from_native(combatant.fatigue)?,
-        )?;
-        causal.final_acute_trauma.checked_add(
-            Measurement::<AcuteTrauma>::from_native(combatant.acute_trauma)?,
-        )?;
-        causal.final_imbalance.checked_add(
-            Measurement::<Imbalance>::from_native(combatant.imbalance)?,
-        )?;
+            )?)?;
+        causal
+            .final_fatigue
+            .checked_add(Measurement::<Fatigue>::from_native(combatant.fatigue)?)?;
+        causal
+            .final_acute_trauma
+            .checked_add(Measurement::<AcuteTrauma>::from_native(
+                combatant.acute_trauma,
+            )?)?;
+        causal
+            .final_imbalance
+            .checked_add(Measurement::<Imbalance>::from_native(combatant.imbalance)?)?;
     }
     Ok(())
 }
@@ -214,9 +218,11 @@ fn record_autoresolve_log(
         causal.total_contact_energy_joules.checked_add(
             Measurement::<ContactJoules>::from_native(entry.contact_stress)?,
         )?;
-        causal.total_health_damage.checked_add(
-            Measurement::<HealthDamage>::from_native(entry.health_damage)?,
-        )?;
+        causal
+            .total_health_damage
+            .checked_add(Measurement::<HealthDamage>::from_native(
+                entry.health_damage,
+            )?)?;
         if john_attacks {
             record_autoresolve_combatant_causal(&mut causal.john, &mut causal.opponent, entry)?;
         } else {

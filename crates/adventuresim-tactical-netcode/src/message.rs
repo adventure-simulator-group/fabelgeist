@@ -229,7 +229,9 @@ mod debug_game_time_scale_tests {
 #[cfg(test)]
 mod equipment_action_mapping_tests {
     use super::{EquipmentAction, EquipmentActionRequest, EquipmentHand};
-    use adventuresim_tactical_core::prelude::{EquipmentLocation, EquipmentRevision, EquipmentSequence};
+    use adventuresim_tactical_core::prelude::{
+        EquipmentLocation, EquipmentRevision, EquipmentSequence,
+    };
     use bevy::ecs::entity::{EntityHashMap, MapEntities};
     use bevy::prelude::Entity;
 

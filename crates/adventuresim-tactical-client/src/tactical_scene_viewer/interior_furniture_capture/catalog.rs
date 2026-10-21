@@ -75,7 +75,11 @@ pub(in crate::tactical_scene_viewer) fn setup_catalog(
                 .metres(),
             bay.y,
         );
-        cameras.push(catalog_camera(kind, CuboidDimensions::from_metres(envelope)?, Position::from_metres(ground)?)?);
+        cameras.push(catalog_camera(
+            kind,
+            CuboidDimensions::from_metres(envelope)?,
+            Position::from_metres(ground)?,
+        )?);
     }
     cameras.push(joined_counters(layout, terrain)?);
     cameras.extend(finishes::stage(layout, terrain)?);

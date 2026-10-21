@@ -49,16 +49,18 @@ impl EquipmentAssets {
         let manifest: ProceduralEquipmentManifest = serde_json::from_str(source)?;
         let mut entries: Vec<EquipmentAssetEntry> = Vec::new();
         for asset in manifest.assets {
-            let item = CatalogItem::find(item_catalog::catalog(), &asset.item_id).ok_or_else(|| {
-                <serde_json::Error as serde::de::Error>::custom(format!(
-                    "unknown equipment manifest item {}",
-                    asset.item_id
-                ))
-            })?;
+            let item =
+                CatalogItem::find(item_catalog::catalog(), &asset.item_id).ok_or_else(|| {
+                    <serde_json::Error as serde::de::Error>::custom(format!(
+                        "unknown equipment manifest item {}",
+                        asset.item_id
+                    ))
+                })?;
             let selection = item.placement(&asset.placement_id).ok_or_else(|| {
                 <serde_json::Error as serde::de::Error>::custom(format!(
                     "unknown placement {} for {}",
-                    asset.placement_id, item.definition().id
+                    asset.placement_id,
+                    item.definition().id
                 ))
             })?;
             if entries.iter().any(|entry| entry.selection == selection) {
@@ -73,10 +75,14 @@ impl EquipmentAssets {
         }
         // Preserve the previous nested ordered-map default-placement selection.
         entries.sort_by(|left, right| {
-            (&left.selection.item().definition().id, &left.selection.definition().id).cmp(&(
-                &right.selection.item().definition().id,
-                &right.selection.definition().id,
-            ))
+            (
+                &left.selection.item().definition().id,
+                &left.selection.definition().id,
+            )
+                .cmp(&(
+                    &right.selection.item().definition().id,
+                    &right.selection.definition().id,
+                ))
         });
         Ok(Self { entries })
     }

@@ -163,7 +163,9 @@ fn run_matchup(
         john_win_rate_difference: tactical_win_rate.difference(autoresolve_win_rate)?,
         tactical_wall_milliseconds: tactical.wall_seconds.milliseconds()?,
         autoresolve_wall_milliseconds: autoresolve.wall_seconds.milliseconds()?,
-        tactical_duels_per_second: tactical.wall_seconds.duels_per_second(args.tactical_seeds)?,
+        tactical_duels_per_second: tactical
+            .wall_seconds
+            .duels_per_second(args.tactical_seeds)?,
         tactical_simulated_seconds_per_wall_second: tactical
             .simulated_seconds
             .per_wall_second(tactical.wall_seconds)?,

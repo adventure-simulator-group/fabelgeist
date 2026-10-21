@@ -114,7 +114,8 @@ impl<'a> Candidate<'a> {
             id,
             occupancy: Occupancy::from_catalog(selection),
             equipment,
-            attachment_tags: equipment.map_or(&[], |equipment| equipment.attachment_tags.as_slice()),
+            attachment_tags: equipment
+                .map_or(&[], |equipment| equipment.attachment_tags.as_slice()),
         }
     }
 }

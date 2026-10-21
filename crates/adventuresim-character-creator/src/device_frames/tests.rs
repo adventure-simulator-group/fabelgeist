@@ -58,9 +58,12 @@ impl Arms {
             {
                 arms.positions
                     .push([x + offset[0], 1.2 + offset[1], offset[2]]);
-                arms.indices.push(
-                    [first_joint + vertex as u32 % 2; 8].map(fabelgeist_rig::RigJointOrdinal::from),
-                ).unwrap();
+                arms.indices
+                    .push(
+                        [first_joint + vertex as u32 % 2; 8]
+                            .map(fabelgeist_rig::RigJointOrdinal::from),
+                    )
+                    .unwrap();
                 arms.weights.push([0.125; 8]);
             }
         }

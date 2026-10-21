@@ -6,8 +6,8 @@
 //! kernels read the frame where the fit was written; fitting kernels read the
 //! rest. Nothing is read back until the finished part is.
 
-use crate::armor_frames::FittingPlacement;
 use crate::armor_frames::FitRegion;
+use crate::armor_frames::FittingPlacement;
 use crate::armor_layer::ArmorLayerSurface;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
 use crate::device_garment_kernel::{
@@ -18,11 +18,11 @@ use crate::rig_parameters::RigJointParameter;
 use anyhow::Result;
 use fabelgeist_armor::{DevicePart, GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_geometry::SignedLength;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
-use fabelgeist_geometry::SignedLength;
 use fabelgeist_math::Ratio;
+use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
 
 pub(crate) use candidates::BAND;
 
@@ -222,7 +222,10 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::Joint(RigJointParameter::TopJoint, self.joint_slot(&span.top.joint)?),
+                Word::Joint(
+                    RigJointParameter::TopJoint,
+                    self.joint_slot(&span.top.joint)?,
+                ),
                 Word::Joint(
                     RigJointParameter::BottomJoint,
                     self.joint_slot(&span.bottom.joint)?,

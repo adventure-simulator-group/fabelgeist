@@ -95,11 +95,9 @@ pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<Paramet
     transform.transform = ParameterMatrix::zeros(skeleton.len(), columns);
     for contribution in contributions {
         if contribution.weight != 0.0 {
-            transform.transform.add(
-                contribution.row,
-                contribution.column,
-                contribution.weight,
-            );
+            transform
+                .transform
+                .add(contribution.row, contribution.column, contribution.weight);
         }
     }
 
@@ -231,7 +229,11 @@ fn parse_expression(
         };
 
         match (parameter, reference) {
-            (Some(column), _) => triplets.push(Contribution { row, column, weight }),
+            (Some(column), _) => triplets.push(Contribution {
+                row,
+                column,
+                weight,
+            }),
             (None, Some(reference)) => {
                 for index in 0..triplets.len() {
                     let source = triplets[index];
@@ -246,17 +248,18 @@ fn parse_expression(
             }
             (None, None) => {
                 let column = transform.names.push(parameter_name);
-                triplets.push(Contribution { row, column, weight });
+                triplets.push(Contribution {
+                    row,
+                    column,
+                    weight,
+                });
             }
         }
     }
     Ok(())
 }
 
-fn parse_parameter_transform(
-    lines: &[String],
-    skeleton: &Skeleton,
-) -> Result<ParsedTransform> {
+fn parse_parameter_transform(lines: &[String], skeleton: &Skeleton) -> Result<ParsedTransform> {
     let mut transform = ParameterTransform {
         offsets: JointParameterTable::filled(skeleton.len(), 0.0),
         active_joint_parameters: JointParameterTable::filled(skeleton.len(), false),
@@ -318,7 +321,8 @@ fn parse_limits(lines: &[String], transform: &mut ParameterTransform) {
         if tokens.len() < 4 || tokens[0] != "limit" || tokens[2] != "minmax" {
             continue;
         }
-        let Some(parameter) = transform.parameter_index(&ModelParameterName::from(tokens[1])) else {
+        let Some(parameter) = transform.parameter_index(&ModelParameterName::from(tokens[1]))
+        else {
             continue;
         };
         // `[min, max]`, optionally followed by a weight.

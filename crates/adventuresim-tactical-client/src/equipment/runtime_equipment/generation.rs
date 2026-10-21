@@ -70,16 +70,27 @@ impl FitKey {
             return Ok(previous.selection);
         }
         if fitted_to_owner {
-            return layers::LayerSelection::admit(&presentation.item_id, &presentation.placement_id);
+            return layers::LayerSelection::admit(
+                &presentation.item_id,
+                &presentation.placement_id,
+            );
         }
         // An unworn display uses the first authored anatomical fit placement.
         let item = adventuresim_core::equipment_assets::CatalogItem::find(
             adventuresim_core::item_catalog::catalog(),
             &presentation.item_id,
-        ).with_context(|| format!("unknown equipment item {}", presentation.item_id))?;
-        let selection = item.placements().next()
+        )
+        .with_context(|| format!("unknown equipment item {}", presentation.item_id))?;
+        let selection = item
+            .placements()
+            .next()
             .or_else(|| item.placement(&presentation.placement_id))
-            .with_context(|| format!("no equipment placement {} {}", presentation.item_id, presentation.placement_id))?;
+            .with_context(|| {
+                format!(
+                    "no equipment placement {} {}",
+                    presentation.item_id, presentation.placement_id
+                )
+            })?;
         Ok(selection.into())
     }
 }
@@ -150,8 +161,16 @@ impl RuntimeEquipmentBodyCache {
     }
 
     fn start(&mut self, key: FitKey) -> anyhow::Result<()> {
-        let body = self.bodies.get(&key.shape).context("fitted body not prepared")?.body.clone();
-        let bracer = self.bracer_design.clone().context("bracer design not prepared")?;
+        let body = self
+            .bodies
+            .get(&key.shape)
+            .context("fitted body not prepared")?
+            .body
+            .clone();
+        let bracer = self
+            .bracer_design
+            .clone()
+            .context("bracer design not prepared")?;
         let breastplate = self
             .breastplate_design
             .clone()
@@ -161,7 +180,10 @@ impl RuntimeEquipmentBodyCache {
             .support_keys()?
             .iter()
             .map(|key| -> anyhow::Result<_> {
-                Ok(self.models.get(key).context("support fit not prepared")?
+                Ok(self
+                    .models
+                    .get(key)
+                    .context("support fit not prepared")?
                     .as_ref()
                     .map_err(|error| anyhow::anyhow!("{error}"))?
                     .generated
@@ -203,19 +225,29 @@ impl RuntimeEquipmentBodyCache {
             return;
         };
         let result = result
-            .and_then(|generated| Ok(CachedEquipment {
-                sockets: sockets::garment_sockets(
-                    &self.bodies[&key.shape].body,
-                    &generated,
-                    key.selection.selection.item(),
-                ),
-                parts: equipment_parts(&generated, key.selection.selection.item(), meshes, materials)?,
-                rigid_center: referenced_center(&generated),
-                generated: Arc::new(generated),
-            }))
+            .and_then(|generated| {
+                Ok(CachedEquipment {
+                    sockets: sockets::garment_sockets(
+                        &self.bodies[&key.shape].body,
+                        &generated,
+                        key.selection.selection.item(),
+                    ),
+                    parts: equipment_parts(
+                        &generated,
+                        key.selection.selection.item(),
+                        meshes,
+                        materials,
+                    )?,
+                    rigid_center: referenced_center(&generated),
+                    generated: Arc::new(generated),
+                })
+            })
             .map_err(|error| format!("{error:#}"));
         if let Err(error) = &result {
-            error!(item = key.selection.selection.item().id, "runtime wearer fit failed: {error}");
+            error!(
+                item = key.selection.selection.item().id,
+                "runtime wearer fit failed: {error}"
+            );
         }
         self.models.insert(key, result);
     }
@@ -328,7 +360,8 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
                 continue;
             };
             let outfit = &outfits[&owner.0];
-            match outfit.as_ref()
+            match outfit
+                .as_ref()
                 .map_err(|error| anyhow::anyhow!("{error}"))
                 .and_then(|outfit| outfit.ancestors(&key.selection))
             {

@@ -1,7 +1,7 @@
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_building_generator::{BuildingArchetype, Direction, WALL_THICKNESS_METRES};
 use adventuresim_tactical_core::prelude::GeneratedBuilding;
 use bevy::prelude::*;
-use adventuresim_building_generator::spatial_geometry::Position;
 
 use super::capture_state::{BuildingReviewCamera, PlasterRakingLight};
 
@@ -67,9 +67,13 @@ fn partition_review_camera(building: &GeneratedBuilding) -> Result<BuildingRevie
     let local_origin = building.collision.bounds.centre()?.metres();
     let transform = building.transform()?;
     Ok(BuildingReviewCamera {
-        position: Position::from_metres(transform.transform_point(Vec3::new(centroid.x, 1.48, centroid.y) - local_origin))?,
-        target: Position::from_metres(transform
-            .transform_point(Vec3::new(wall.centre().x, 1.38, wall.centre().y) - local_origin))?,
+        position: Position::from_metres(
+            transform.transform_point(Vec3::new(centroid.x, 1.48, centroid.y) - local_origin),
+        )?,
+        target: Position::from_metres(
+            transform
+                .transform_point(Vec3::new(wall.centre().x, 1.38, wall.centre().y) - local_origin),
+        )?,
         plaster_raking_light: None,
     })
 }
@@ -118,7 +122,9 @@ fn plaster_raking_camera(building: &GeneratedBuilding) -> Result<BuildingReviewC
     let light_position =
         wall_point + light_direction * PLASTER_REVIEW_LIGHT_TANGENT_DISTANCE_METRES;
     Ok(BuildingReviewCamera {
-        position: Position::from_metres(wall_point + inward_normal * PLASTER_REVIEW_CAMERA_DISTANCE_METRES)?,
+        position: Position::from_metres(
+            wall_point + inward_normal * PLASTER_REVIEW_CAMERA_DISTANCE_METRES,
+        )?,
         target: Position::from_metres(wall_point)?,
         plaster_raking_light: Some(PlasterRakingLight {
             wall_point,

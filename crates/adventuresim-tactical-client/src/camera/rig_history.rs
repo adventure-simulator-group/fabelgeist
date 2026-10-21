@@ -1,20 +1,17 @@
 //! Observation-backed camera pose history; profile blending advances independently.
 
-use fabelgeist_geometry::SignedLength;
+use super::values::{CameraResult, SignedBlendVelocity};
 use super::{
     CameraProfile, CameraRigConfig,
     collision::BoomRecovery,
     smoothing::{blend_profile, critical_damp_scalar},
 };
-use adventuresim_tactical_core::animation::{
-    AnimationElapsed, UnitInterval,
-    WeaponGuardState,
-};
-use bevy::prelude::{Entity, Resource};
-use adventuresim_building_generator::spatial_geometry::{Position};
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_core::linear_speed::SignedSpeed;
+use adventuresim_tactical_core::animation::{AnimationElapsed, UnitInterval, WeaponGuardState};
 use adventuresim_tactical_core::scene_coordinates::{Scene, SceneVelocity};
-use super::values::{CameraResult, SignedBlendVelocity};
+use bevy::prelude::{Entity, Resource};
+use fabelgeist_geometry::SignedLength;
 
 #[derive(Resource, Debug, Clone, Default)]
 pub(super) struct CameraRigState {
@@ -73,7 +70,9 @@ impl CameraRigState {
         teleport_distance: SignedLength,
     ) -> CameraPoseHistory {
         let reset = self.history.as_ref().is_none_or(|history| {
-            history.subject != subject || anchor.metres().distance(history.last_anchor.metres()) > teleport_distance.metres()
+            history.subject != subject
+                || anchor.metres().distance(history.last_anchor.metres())
+                    > teleport_distance.metres()
         });
         let mut history = match &self.history {
             Some(history) if !reset => history.clone(),

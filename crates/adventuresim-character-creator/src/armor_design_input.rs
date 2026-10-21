@@ -1,7 +1,7 @@
 //! Strict typed armor recipe overrides shared by preview and both export paths.
 use crate::armor_recipes::{self, ParametricDesign};
-use anyhow::{Context, Result, ensure};
 use adventuresim_core::equipment_assets::{CatalogItem, CatalogPlacement};
+use anyhow::{Context, Result, ensure};
 use std::{collections::BTreeMap, path::Path};
 
 use serde::{Deserialize, Serialize};
@@ -17,10 +17,12 @@ pub enum ArmorPlacement {
 
 impl ArmorPlacement {
     pub fn from_catalog(placement: CatalogPlacement<'_>) -> Option<Self> {
-        Self::deserialize(serde::de::value::StrDeserializer::<serde::de::value::Error>::new(
-            placement.definition().id.as_str(),
-        ))
-            .ok()
+        Self::deserialize(
+            serde::de::value::StrDeserializer::<serde::de::value::Error>::new(
+                placement.definition().id.as_str(),
+            ),
+        )
+        .ok()
     }
 
     pub fn as_str(self) -> &'static str {
@@ -74,7 +76,9 @@ fn parse(bytes: &[u8]) -> Result<ArmorDesigns> {
         serde_json::from_str(include_str!("../../../content/items/catalog.yaml"))?;
     for (id, choices) in &designs.placements {
         ensure!(
-            CatalogItem::find(&catalog.items, id).and_then(armor_recipes::recipe).is_some(),
+            CatalogItem::find(&catalog.items, id)
+                .and_then(armor_recipes::recipe)
+                .is_some(),
             "unknown parametric armor recipe {id}"
         );
         let item = catalog
@@ -104,7 +108,8 @@ fn parse(bytes: &[u8]) -> Result<ArmorDesigns> {
             .flat_map(|(id, choices)| choices.values().map(move |design| (id, design))),
     ) {
         validate_design(id, design)?;
-        let default = CatalogItem::find(&catalog.items, id).and_then(armor_recipes::recipe)
+        let default = CatalogItem::find(&catalog.items, id)
+            .and_then(armor_recipes::recipe)
             .with_context(|| format!("unknown parametric armor recipe {id}"))?;
         ensure!(
             default.same_family(design),
@@ -152,7 +157,10 @@ mod tests {
     #[test]
     fn museum_controls_round_trip_in_defaults_and_independent_placement_recipes() {
         use fabelgeist_armor::*;
-        let default = armor_recipes::recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "spaulder").unwrap()).unwrap();
+        let default = armor_recipes::recipe(
+            CatalogItem::find(adventuresim_core::item_catalog::catalog(), "spaulder").unwrap(),
+        )
+        .unwrap();
         let mut left = default.clone();
         let ParametricDesign::Limb(LimbArmorDesign::Spaulder(d)) = &mut left else {
             panic!()
@@ -169,7 +177,10 @@ mod tests {
             }),
             ..Default::default()
         }));
-        let mut tassets = armor_recipes::recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "tassets").unwrap()).unwrap();
+        let mut tassets = armor_recipes::recipe(
+            CatalogItem::find(adventuresim_core::item_catalog::catalog(), "tassets").unwrap(),
+        )
+        .unwrap();
         let ParametricDesign::WaistAssembly(d) = &mut tassets else {
             panic!()
         };
@@ -195,7 +206,17 @@ mod tests {
             serde_json::to_value(&restored).unwrap()
         );
         assert_eq!(
-            serde_json::to_value(restored.selected(CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), "spaulder", "right").unwrap())).unwrap(),
+            serde_json::to_value(
+                restored.selected(
+                    CatalogPlacement::find(
+                        adventuresim_core::item_catalog::catalog(),
+                        "spaulder",
+                        "right"
+                    )
+                    .unwrap()
+                )
+            )
+            .unwrap(),
             serde_json::to_value(default).unwrap()
         );
         let mut bad = restored;
@@ -215,7 +236,10 @@ mod tests {
     #[test]
     fn placement_edit_round_trips_and_keeps_other_side_on_item_default() {
         use fabelgeist_armor::{LimbArmorDesign, Millimeters};
-        let default = armor_recipes::recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "pauldron").unwrap()).unwrap();
+        let default = armor_recipes::recipe(
+            CatalogItem::find(adventuresim_core::item_catalog::catalog(), "pauldron").unwrap(),
+        )
+        .unwrap();
         let mut left = default.clone();
         let ParametricDesign::Limb(LimbArmorDesign::Pauldron(d)) = &mut left else {
             panic!()
@@ -232,18 +256,41 @@ mod tests {
         };
         let restored = parse(&encode(&designs).unwrap()).unwrap();
         assert_eq!(
-            serde_json::to_value(restored.selected(CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), "pauldron", "left").unwrap())).unwrap(),
+            serde_json::to_value(
+                restored.selected(
+                    CatalogPlacement::find(
+                        adventuresim_core::item_catalog::catalog(),
+                        "pauldron",
+                        "left"
+                    )
+                    .unwrap()
+                )
+            )
+            .unwrap(),
             serde_json::to_value(&left).unwrap()
         );
         assert_eq!(
-            serde_json::to_value(restored.selected(CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), "pauldron", "right").unwrap())).unwrap(),
+            serde_json::to_value(
+                restored.selected(
+                    CatalogPlacement::find(
+                        adventuresim_core::item_catalog::catalog(),
+                        "pauldron",
+                        "right"
+                    )
+                    .unwrap()
+                )
+            )
+            .unwrap(),
             serde_json::to_value(&default).unwrap()
         );
     }
 
     #[test]
     fn rejects_unknown_placements_items_and_placement_family_swaps() {
-        let pauldron = armor_recipes::recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "pauldron").unwrap()).unwrap();
+        let pauldron = armor_recipes::recipe(
+            CatalogItem::find(adventuresim_core::item_catalog::catalog(), "pauldron").unwrap(),
+        )
+        .unwrap();
         for placements in [
             serde_json::json!({"pauldron": {"front": pauldron}}),
             serde_json::json!({"morion": {"left": armor_recipes::recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "morion").unwrap()).unwrap()}}),
@@ -257,18 +304,46 @@ mod tests {
 
     #[test]
     fn absent_placement_edits_preserve_default_selection() {
-        let default = armor_recipes::recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "pauldron").unwrap()).unwrap();
+        let default = armor_recipes::recipe(
+            CatalogItem::find(adventuresim_core::item_catalog::catalog(), "pauldron").unwrap(),
+        )
+        .unwrap();
         let designs = ArmorDesigns {
             defaults: BTreeMap::from([("pauldron".into(), default)]),
             placements: BTreeMap::new(),
         };
         assert!(std::ptr::eq(
-            designs.selected(CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), "pauldron", "left").unwrap()).unwrap(),
-            designs.selected(CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), "pauldron", "right").unwrap()).unwrap()
+            designs
+                .selected(
+                    CatalogPlacement::find(
+                        adventuresim_core::item_catalog::catalog(),
+                        "pauldron",
+                        "left"
+                    )
+                    .unwrap()
+                )
+                .unwrap(),
+            designs
+                .selected(
+                    CatalogPlacement::find(
+                        adventuresim_core::item_catalog::catalog(),
+                        "pauldron",
+                        "right"
+                    )
+                    .unwrap()
+                )
+                .unwrap()
         ));
         assert!(
             ArmorDesigns::default()
-                .selected(CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), "pauldron", "left").unwrap())
+                .selected(
+                    CatalogPlacement::find(
+                        adventuresim_core::item_catalog::catalog(),
+                        "pauldron",
+                        "left"
+                    )
+                    .unwrap()
+                )
                 .is_none()
         );
     }
@@ -288,7 +363,10 @@ mod tests {
 
     #[test]
     fn rejects_misspelled_nested_controls_and_wrong_construction_families() {
-        let design = armor_recipes::recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "morion").unwrap()).unwrap();
+        let design = armor_recipes::recipe(
+            CatalogItem::find(adventuresim_core::item_catalog::catalog(), "morion").unwrap(),
+        )
+        .unwrap();
         let mut document = serde_json::json!({"defaults": {"morion": design}, "placements": {}});
         document["defaults"]["morion"]["Helmet"]["Morion"]["fit"]["clearence"] =
             serde_json::json!(8);
@@ -305,7 +383,8 @@ mod tests {
             .items
             .iter()
             .filter_map(|item| {
-                armor_recipes::recipe(CatalogItem::admit(&catalog.items, item).unwrap()).map(|design| (item.id.clone(), design))
+                armor_recipes::recipe(CatalogItem::admit(&catalog.items, item).unwrap())
+                    .map(|design| (item.id.clone(), design))
             })
             .collect();
         let designs = ArmorDesigns {

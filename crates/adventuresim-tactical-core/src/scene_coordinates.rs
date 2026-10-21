@@ -9,13 +9,13 @@ pub use spatial::{
     ArchitecturalFloorDatum, ArchitecturalGateDatum, CollisionCentreDatum, CollisionRelative,
     GateDatum, GateRelative, GroundRelative, PlotRelative, Scene, SceneDoorPose,
 };
-pub use window::SceneWindowPose;
 pub use velocity::SceneVelocity;
+pub use window::SceneWindowPose;
 
 mod polygon;
 mod spatial;
-mod window;
 mod velocity;
+mod window;
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::prelude::Reflect)]
 #[reflect(opaque)]

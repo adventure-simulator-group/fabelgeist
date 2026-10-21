@@ -724,7 +724,11 @@ mod tests {
         let views = [CaptureViewSpec::new(
             "animation-play-obstruction-000",
             "Tree obstruction",
-            CapturePose::AnimationPlayObstruction { yaw_degrees: adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(0.0).unwrap() },
+            CapturePose::AnimationPlayObstruction {
+                yaw_degrees:
+                    adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(0.0)
+                        .unwrap(),
+            },
             80.0,
             100,
         )];
@@ -813,14 +817,18 @@ mod tests {
             CaptureViewSpec::new(
                 "tree-cold-first-050",
                 "Cold",
-                CapturePose::TreeColdTraversal { distance: crate::camera::authored_metres(50.0) },
+                CapturePose::TreeColdTraversal {
+                    distance: crate::camera::authored_metres(50.0),
+                },
                 80.0,
                 100,
             ),
             CaptureViewSpec::new(
                 "tree-warm-second-050",
                 "Warm",
-                CapturePose::TreeColdTraversal { distance: crate::camera::authored_metres(50.0) },
+                CapturePose::TreeColdTraversal {
+                    distance: crate::camera::authored_metres(50.0),
+                },
                 80.0,
                 100,
             ),

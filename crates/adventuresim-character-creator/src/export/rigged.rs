@@ -3,7 +3,8 @@ use super::{ShellTextures, SurfaceTextures};
 use fabelgeist_rig::{RigJointName, RigJointTable};
 
 pub struct RiggedMesh<'a> {
-    pub joint_proportions: &'a RigJointTable<adventuresim_core::character_proportions::JointProportionBasis>,
+    pub joint_proportions:
+        &'a RigJointTable<adventuresim_core::character_proportions::JointProportionBasis>,
     pub morph_targets: &'a [RiggedMorphTarget<'a>],
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],

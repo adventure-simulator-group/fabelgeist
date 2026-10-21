@@ -66,23 +66,26 @@ pub fn load(bytes: &[u8]) -> Result<(RuntimeBody, Vec<ForearmMorphSample>)> {
             faces,
             joint_names,
             global_joint_states,
-            joint_indices: fabelgeist_rig::PackedRigSkin::from_native(reader
-                .read_joints(0)
-                .context("joints")?
-                .into_u16()
-                .map(|j| {
-                    [
-                        u32::from(j[0]),
-                        u32::from(j[1]),
-                        u32::from(j[2]),
-                        u32::from(j[3]),
-                        0,
-                        0,
-                        0,
-                        0,
-                    ]
-                })
-                .collect(), rig_joints)?,
+            joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
+                reader
+                    .read_joints(0)
+                    .context("joints")?
+                    .into_u16()
+                    .map(|j| {
+                        [
+                            u32::from(j[0]),
+                            u32::from(j[1]),
+                            u32::from(j[2]),
+                            u32::from(j[3]),
+                            0,
+                            0,
+                            0,
+                            0,
+                        ]
+                    })
+                    .collect(),
+                rig_joints,
+            )?,
             joint_weights: reader
                 .read_weights(0)
                 .context("weights")?
@@ -95,7 +98,10 @@ pub fn load(bytes: &[u8]) -> Result<(RuntimeBody, Vec<ForearmMorphSample>)> {
     ))
 }
 
-fn joint_states(skin: &gltf::Skin<'_>, blob: &[u8]) -> Result<fabelgeist_rig::RigJointTable<[f32; 8]>> {
+fn joint_states(
+    skin: &gltf::Skin<'_>,
+    blob: &[u8],
+) -> Result<fabelgeist_rig::RigJointTable<[f32; 8]>> {
     Ok(skin
         .reader(|_| Some(blob))
         .read_inverse_bind_matrices()

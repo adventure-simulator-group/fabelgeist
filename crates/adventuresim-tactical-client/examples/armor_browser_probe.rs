@@ -89,9 +89,20 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
                 } else {
                     item
                 };
-                runtime_equipment::generate(&body, adventuresim_core::equipment_assets::CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), recipe, placement).ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?, &bracer, &breastplate, &[])
-                    .await
-                    .with_context(|| format!("fitting {item}, round {round}"))
+                runtime_equipment::generate(
+                    &body,
+                    adventuresim_core::equipment_assets::CatalogPlacement::find(
+                        adventuresim_core::item_catalog::catalog(),
+                        recipe,
+                        placement,
+                    )
+                    .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+                    &bracer,
+                    &breastplate,
+                    &[],
+                )
+                .await
+                .with_context(|| format!("fitting {item}, round {round}"))
             };
             let failures = errors.lock().unwrap().clone();
             anyhow::ensure!(failures.is_empty(), "WebGPU validation: {failures:?}");
@@ -192,8 +203,16 @@ async fn wrapped(
         joints: &body.global_joint_states,
         device: &body.device,
     };
-    let part =
-        device_fit::fit_recipe_async(gpu, &topology, &wearer, &[], &design, adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired, &[]).await;
+    let part = device_fit::fit_recipe_async(
+        gpu,
+        &topology,
+        &wearer,
+        &[],
+        &design,
+        adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired,
+        &[],
+    )
+    .await;
     device_fit::assemble_recipe(
         &design,
         part?,

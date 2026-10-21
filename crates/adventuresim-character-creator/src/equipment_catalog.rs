@@ -2,13 +2,11 @@
 
 use crate::{
     armor_recipes,
-    item_catalog_schema::{
-        EquipmentMaterial, ItemCatalogDocument, ItemDefinition, ItemKind,
-    },
+    item_catalog_schema::{EquipmentMaterial, ItemCatalogDocument, ItemDefinition, ItemKind},
     item_design::{CatalogDesigns, ItemDesign},
 };
-use anyhow::{Context, Result};
 pub use adventuresim_core::equipment_assets::{CatalogItem, CatalogPlacement};
+use anyhow::{Context, Result};
 
 /// The item definitions a character can wear, with each parametric item's default design.
 #[derive(Clone, Debug)]

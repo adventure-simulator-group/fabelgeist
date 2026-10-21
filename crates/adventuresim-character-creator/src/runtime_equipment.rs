@@ -13,7 +13,8 @@ use crate::{
 };
 use adventuresim_core::{
     equipment_assets::{CatalogItem, CatalogPlacement},
-    item_catalog, item_references::BELT_ID,
+    item_catalog,
+    item_references::BELT_ID,
 };
 use anyhow::{Context, Result, bail};
 use clothing::RuntimeClothing;
@@ -78,7 +79,6 @@ impl RuntimeCatalogItem {
             },
         }
     }
-
 }
 
 impl RuntimeBody {
@@ -130,19 +130,11 @@ pub async fn generate(
     layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     if armor_recipes::is_parametric(selection.item()) {
-        generate_runtime_armor(
-            body,
-            selection,
-            bracer_design,
-            breastplate_design,
-            layers,
-        )
-        .await
+        generate_runtime_armor(body, selection, bracer_design, breastplate_design, layers).await
     } else {
         body.validate()?;
-        catalog_record(selection.item()).with_context(|| {
-            format!("unknown clothing item {}", selection.item().id)
-        })?;
+        catalog_record(selection.item())
+            .with_context(|| format!("unknown clothing item {}", selection.item().id))?;
         RuntimeClothing::new(body, selection).generate()
     }
 }
@@ -201,7 +193,8 @@ pub fn is_runtime_clothing(item_id: &str) -> bool {
 pub fn is_runtime_equipment(item_id: &str) -> bool {
     CatalogItem::find(item_catalog::catalog(), item_id).is_some_and(|item| {
         armor_recipes::is_parametric(item)
-            || catalog_record(item).is_some_and(|record| record.clothing_role == RuntimeClothingRole::Fitted)
+            || catalog_record(item)
+                .is_some_and(|record| record.clothing_role == RuntimeClothingRole::Fitted)
     })
 }
 
@@ -318,7 +311,10 @@ async fn generate_parametric(
 }
 
 fn catalog_record(item: CatalogItem<'static>) -> Option<RuntimeCatalogItem> {
-    ITEM_CATALOG.iter().find(|record| record.definition == item).copied()
+    ITEM_CATALOG
+        .iter()
+        .find(|record| record.definition == item)
+        .copied()
 }
 
 fn catalog_item(item_id: &str) -> Option<RuntimeCatalogItem> {

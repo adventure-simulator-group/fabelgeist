@@ -268,8 +268,10 @@ mod tests {
             names: Default::default(),
             joints: Default::default(),
             indices: fabelgeist_rig::PackedRigSkin::from_native(
-                vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-            ).unwrap(),
+                vec![[0; 8]; 3],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            )
+            .unwrap(),
             weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; 3],
         }
     }

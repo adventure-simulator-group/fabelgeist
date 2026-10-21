@@ -62,7 +62,9 @@ impl ExportedHair {
             },
             cards,
             joint_indices: fabelgeist_rig::PackedRigSkin::repeated(
-                skin.joints, count, generated.global_joint_states.joint_count(),
+                skin.joints,
+                count,
+                generated.global_joint_states.joint_count(),
             )?,
             joint_weights: vec![skin.weights; count],
         })

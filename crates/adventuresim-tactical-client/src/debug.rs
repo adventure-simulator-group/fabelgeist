@@ -282,22 +282,58 @@ fn draw_camera_rig(
     aim: Res<CameraAimState>,
     mut gizmos: Gizmos,
 ) {
-    if !enabled.0 { return; }
-    let Some(rig) = rig.0 else { return; };
+    if !enabled.0 {
+        return;
+    }
+    let Some(rig) = rig.0 else {
+        return;
+    };
     gizmos.line(rig.subject.metres(), rig.focus.metres(), tailwind::LIME_400);
-    gizmos.line(rig.focus.metres(), rig.collision_origin.metres(), tailwind::SKY_300);
-    gizmos.line(rig.collision_origin.metres(), rig.desired_endpoint.metres(), tailwind::AMBER_300);
-    gizmos.line(rig.collision_origin.metres(), rig.final_endpoint.metres(), tailwind::CYAN_300);
+    gizmos.line(
+        rig.focus.metres(),
+        rig.collision_origin.metres(),
+        tailwind::SKY_300,
+    );
+    gizmos.line(
+        rig.collision_origin.metres(),
+        rig.desired_endpoint.metres(),
+        tailwind::AMBER_300,
+    );
+    gizmos.line(
+        rig.collision_origin.metres(),
+        rig.final_endpoint.metres(),
+        tailwind::CYAN_300,
+    );
     if let Some(collision) = rig.collision {
-        gizmos.line(rig.final_endpoint.metres(), rig.final_endpoint.metres() + collision.normal.vector() * 0.6, tailwind::RED_400);
+        gizmos.line(
+            rig.final_endpoint.metres(),
+            rig.final_endpoint.metres() + collision.normal.vector() * 0.6,
+            tailwind::RED_400,
+        );
     }
     if let Some(occluder) = rig.soft_occluder {
-        gizmos.line(occluder.point.metres() - Vec3::Y * 0.25, occluder.point.metres() + Vec3::Y * 0.25, tailwind::ORANGE_400);
+        gizmos.line(
+            occluder.point.metres() - Vec3::Y * 0.25,
+            occluder.point.metres() + Vec3::Y * 0.25,
+            tailwind::ORANGE_400,
+        );
     }
     gizmos.cube(rig.collision_volume.native_transform(), tailwind::CYAN_200);
     if let Some(aim) = aim.0 {
-        gizmos.line(aim.camera_origin.metres(), aim.camera_target.metres(), tailwind::PURPLE_300);
-        gizmos.line(aim.muzzle_origin.metres(), aim.actual_target.metres(), if aim.blocked() { tailwind::RED_500 } else { tailwind::GREEN_400 });
+        gizmos.line(
+            aim.camera_origin.metres(),
+            aim.camera_target.metres(),
+            tailwind::PURPLE_300,
+        );
+        gizmos.line(
+            aim.muzzle_origin.metres(),
+            aim.actual_target.metres(),
+            if aim.blocked() {
+                tailwind::RED_500
+            } else {
+                tailwind::GREEN_400
+            },
+        );
     }
 }
 

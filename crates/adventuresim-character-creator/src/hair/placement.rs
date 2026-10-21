@@ -184,10 +184,16 @@ struct HeadExtent {
 }
 
 impl HeadExtent {
-    fn of(skin: &HeadSkin<'_>, head: RigJointOrdinal, [side, up, forward]: [[f32; 3]; 3]) -> Option<Self> {
+    fn of(
+        skin: &HeadSkin<'_>,
+        head: RigJointOrdinal,
+        [side, up, forward]: [[f32; 3]; 3],
+    ) -> Option<Self> {
         let mut extent: Option<Self> = None;
         for (index, position) in skin.positions.iter().enumerate() {
-            let share: f32 = skin.joint_indices.vertex(index)
+            let share: f32 = skin
+                .joint_indices
+                .vertex(index)
                 .iter()
                 .zip(&skin.joint_weights[index])
                 .filter(|(joint, _)| **joint == head)

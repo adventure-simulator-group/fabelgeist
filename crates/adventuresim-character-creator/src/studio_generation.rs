@@ -86,9 +86,10 @@ pub(super) fn regenerate_mesh(
     let mesh = visible_body_mesh(&generated, &clothed.visible_body_faces);
     if let Err(error) = preview::spawn_body(
         commands, meshes, materials, &walk, &model, &generated, mesh,
-    ).and_then(|()| preview::spawn_clothing(
-        commands, meshes, materials, &walk, &model, clothed.shells,
-    )) {
+    )
+    .and_then(|()| {
+        preview::spawn_clothing(commands, meshes, materials, &walk, &model, clothed.shells)
+    }) {
         studio.status = format!("{error:#}");
         return;
     }
@@ -114,10 +115,7 @@ pub(super) fn dragging(contexts: &mut EguiContexts) -> bool {
 }
 
 impl PreviewScene<'_, '_> {
-    fn spawn_equipment(
-        &mut self,
-        armor: &[parametric_equipment::SelectedArmor<'_>],
-    ) -> Result<()> {
+    fn spawn_equipment(&mut self, armor: &[parametric_equipment::SelectedArmor<'_>]) -> Result<()> {
         self.equipment_maps.begin_generation();
         for piece in armor {
             let material = equipment_catalog::material(piece.piece.piece.selection.item())?;
