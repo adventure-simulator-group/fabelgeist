@@ -4,13 +4,15 @@
 //! development does not depend on the order plants are stepped in -- which is
 //! what lets them step in parallel and still reproduce.
 
+use fabelgeist_determinism::Seed;
+
 /// SplitMix64: tiny, fast, and statistically fine for placing seeds.
 #[derive(Clone, Debug)]
 pub struct Rng(u64);
 
 impl Rng {
-    pub fn new(seed: u64) -> Self {
-        Self(seed ^ 0x9E37_79B9_7F4A_7C15)
+    pub fn new(seed: Seed) -> Self {
+        Self(seed.to_u64() ^ 0x9E37_79B9_7F4A_7C15)
     }
 
     pub fn next_u64(&mut self) -> u64 {
@@ -46,6 +48,6 @@ impl Rng {
 
     /// A fresh generator derived from this one.
     pub fn fork(&mut self) -> Self {
-        Self::new(self.next_u64())
+        Self::new(Seed::from_u64(self.next_u64()))
     }
 }

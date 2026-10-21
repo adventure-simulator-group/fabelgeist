@@ -5,7 +5,8 @@
 //! the segment list, writing the vertex and index buffers a
 //! [`GpuMesh`] draws from -- one dispatch per mesh, all in one submit.
 
-use anyhow::Result;
+use crate::error::Result;
+use crate::identity::SpeciesId;
 use fabelgeist_compute::{KernelBatch, KernelCache};
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
 use fabelgeist_gpu::globals::WgpuContext;
@@ -36,7 +37,7 @@ pub struct BranchMesher {
 
 /// The meshes of one species.
 pub struct SpeciesBranches {
-    pub species: usize,
+    pub species: SpeciesId,
     pub meshes: Vec<GpuMesh>,
 }
 
@@ -72,23 +73,22 @@ impl BranchMesher {
                 let slot = &mut self.slots[used];
                 used += 1;
                 let bytes = std::mem::size_of_val(chunk) as u64;
-                if slot
+                let mut buffer = if let Some(buffer) = slot
                     .segments
                     .as_ref()
-                    .is_none_or(|b| b.buffer.size() < bytes)
+                    .filter(|buffer| buffer.buffer.size() >= bytes)
                 {
+                    buffer.clone()
+                } else {
                     let grown = bytes.max(
                         slot.segments
                             .as_ref()
                             .map_or(0, |b| b.buffer.size() * 3 / 2),
                     );
-                    slot.segments = Some(Buffer::new(
-                        context,
-                        (grown).into(),
-                        BufferDefinition::storage(),
-                    )?);
-                }
-                let mut buffer = slot.segments.clone().expect("allocated above");
+                    let buffer = Buffer::new(context, grown.into(), BufferDefinition::storage())?;
+                    slot.segments = Some(buffer.clone());
+                    buffer
+                };
                 buffer.size = (bytes).into();
                 buffer.write(context, BufferUpload::from_elements(chunk))?;
                 meshes.push(slot.mesher.record(
@@ -98,7 +98,10 @@ impl BranchMesher {
                     chunk.len() as u32,
                 )?);
             }
-            out.push(SpeciesBranches { species, meshes });
+            out.push(SpeciesBranches {
+                species: SpeciesId::from_word(species as u16),
+                meshes,
+            });
         }
         batch.submit();
         Ok(out)

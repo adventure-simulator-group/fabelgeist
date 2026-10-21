@@ -121,7 +121,7 @@
 //! use fabelgeist_botany::{Climate, Ecosystem, PlantType, Terrain};
 //! let mut ecosystem = Ecosystem::new(
 //!     Terrain::flat(60.0, 60.0),
-//!     Climate::new(12.0, 900.0),
+//!     Climate::new(fabelgeist_botany::units::Celsius::from_degrees(12.0), fabelgeist_botany::units::Millimetres::from_millimetres(900.0)),
 //!     vec![PlantType::conifer(), PlantType::deciduous(), PlantType::shrub()],
 //! );
 //! ecosystem.scatter(40);
@@ -135,14 +135,18 @@
 pub mod climate;
 pub mod ecosystem;
 pub mod environment;
+pub mod error;
+pub mod identity;
 pub mod mesh;
 pub mod obstacles;
 pub mod plant;
+pub mod policy;
 pub mod prototype;
 pub mod rng;
 pub mod scenes;
 pub mod species;
 pub mod terrain;
+pub mod units;
 pub mod vine;
 
 #[cfg(feature = "gpu")]

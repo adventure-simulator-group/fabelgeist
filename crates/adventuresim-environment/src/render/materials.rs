@@ -11,7 +11,8 @@ use bevy::render::render_resource::{
 use bevy::render::storage::ShaderBuffer;
 use bevy::shader::ShaderRef;
 use bevy_eidolon::prelude::*;
-use fabelgeist_botany::viewer::sim::{Foliage, SpeciesInfo};
+use fabelgeist_botany::species::Foliage;
+use fabelgeist_botany::viewer::sim::SpeciesInfo;
 
 use super::levels::{Level, Shape};
 use super::records::{ForestBuffers, PendingWrites, Records};

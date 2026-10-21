@@ -2,6 +2,8 @@
 //! adapted to a place.
 
 use crate::species::PlantType;
+use crate::units::{Celsius, CelsiusPerMetre, Millimetres};
+use fabelgeist_math::units::{Metres, Ratio};
 
 /// The climate of a scene.
 ///
@@ -10,25 +12,33 @@ use crate::species::PlantType;
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Climate {
     /// Mean annual temperature at elevation zero, degrees Celsius.
-    pub temperature: f32,
+    pub temperature: Celsius,
     /// Mean annual precipitation, mm.
-    pub precipitation: f32,
+    pub precipitation: Millimetres,
     /// `eta`: degrees Celsius per metre of elevation.
-    pub lapse_rate: f32,
+    pub lapse_rate: CelsiusPerMetre,
 }
 
 impl Default for Climate {
     fn default() -> Self {
         Self {
-            temperature: 15.0,
-            precipitation: 900.0,
-            lapse_rate: -0.0065,
+            temperature: Celsius::from_degrees(15.0),
+            precipitation: Millimetres::from_millimetres(900.0),
+            lapse_rate: CelsiusPerMetre::from_degrees_per_metre(-0.0065),
         }
     }
 }
 
 impl Climate {
-    pub fn new(temperature: f32, precipitation: f32) -> Self {
+    /// Temperature and rainfall cannot be interchanged.
+    ///
+    /// ```compile_fail
+    /// use fabelgeist_botany::{Climate, units::{Celsius, Millimetres}};
+    /// let temperature = Celsius::from_degrees(12.0);
+    /// let rainfall = Millimetres::from_millimetres(900.0);
+    /// let _ = Climate::new(rainfall, temperature);
+    /// ```
+    pub fn new(temperature: Celsius, precipitation: Millimetres) -> Self {
         Self {
             temperature,
             precipitation,
@@ -51,14 +61,16 @@ impl Climate {
             Biome::TropicalSeasonalForest => (26.0, 1900.0),
             Biome::TropicalRainforest => (27.0, 3500.0),
         };
-        Self::new(t, p)
+        Self::new(Celsius::from_degrees(t), Millimetres::from_millimetres(p))
     }
 
-    pub fn temperature_at(&self, elevation: f32) -> f32 {
-        self.temperature + self.lapse_rate * elevation
+    pub fn temperature_at(&self, elevation: Metres) -> Celsius {
+        Celsius::from_degrees(
+            self.temperature.degrees() + self.lapse_rate.degrees_per_metre() * elevation.metres(),
+        )
     }
 
-    pub fn biome_at(&self, elevation: f32) -> Biome {
+    pub fn biome_at(&self, elevation: Metres) -> Biome {
         Biome::classify(self.temperature_at(elevation), self.precipitation)
     }
 
@@ -68,12 +80,13 @@ impl Climate {
     /// their value at the optimum -- so one at the species' optimal habitat,
     /// falling off with the distance to it in climate space. Used to scale
     /// `v_root_max` and the seeding frequency.
-    pub fn adaptation(&self, species: &PlantType, elevation: f32) -> f32 {
+    pub fn adaptation(&self, species: &PlantType, elevation: Metres) -> Ratio {
         let t = self.temperature_at(elevation);
-        let dt = (t - species.temperature_optimum) / species.temperature_tolerance.max(1e-3);
-        let dp = (self.precipitation - species.precipitation_optimum)
-            / species.precipitation_tolerance.max(1e-3);
-        (-0.5 * (dt * dt + dp * dp)).exp()
+        let dt = (t.degrees() - species.temperature_optimum.degrees())
+            / species.temperature_tolerance.degrees().max(1e-3);
+        let dp = (self.precipitation.millimetres() - species.precipitation_optimum.millimetres())
+            / species.precipitation_tolerance.millimetres().max(1e-3);
+        Ratio::from_ratio((-0.5 * (dt * dt + dp * dp)).exp())
     }
 }
 
@@ -108,8 +121,9 @@ impl Biome {
 
     /// Whittaker's diagram, as axis-aligned bands: temperature picks the
     /// climatic zone, precipitation the biome within it.
-    pub fn classify(temperature: f32, precipitation_mm: f32) -> Biome {
-        let p = precipitation_mm;
+    pub fn classify(temperature: Celsius, precipitation_mm: Millimetres) -> Biome {
+        let temperature = temperature.degrees();
+        let p = precipitation_mm.millimetres();
         if temperature < -4.0 {
             Biome::Tundra
         } else if temperature < 5.0 {
@@ -145,20 +159,32 @@ mod tests {
     fn each_biome_climate_classifies_as_itself() {
         for biome in Biome::ALL {
             let climate = Climate::of(biome);
-            assert_eq!(climate.biome_at(0.0), biome);
+            assert_eq!(climate.biome_at(Metres::from_metres(0.0)), biome);
         }
     }
 
     #[test]
     fn adaptation_peaks_at_the_optimum_and_falls_with_elevation() {
         let species = PlantType {
-            temperature_optimum: 15.0,
-            precipitation_optimum: 900.0,
+            temperature_optimum: Celsius::from_degrees(15.0),
+            precipitation_optimum: Millimetres::from_millimetres(900.0),
             ..PlantType::default()
         };
-        let climate = Climate::new(15.0, 900.0);
-        assert!((climate.adaptation(&species, 0.0) - 1.0).abs() < 1e-6);
-        let high = climate.adaptation(&species, 1500.0);
+        let climate = Climate::new(
+            Celsius::from_degrees(15.0),
+            Millimetres::from_millimetres(900.0),
+        );
+        assert!(
+            (climate
+                .adaptation(&species, Metres::from_metres(0.0))
+                .ratio()
+                - 1.0)
+                .abs()
+                < 1e-6
+        );
+        let high = climate
+            .adaptation(&species, Metres::from_metres(1500.0))
+            .ratio();
         assert!(high < 0.5, "{high}");
     }
 }

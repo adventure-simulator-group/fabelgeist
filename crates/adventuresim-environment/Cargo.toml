@@ -26,6 +26,8 @@ viewer = [
 ]
 
 [dependencies]
+fabelgeist-determinism = { path = "../fabelgeist-determinism" }
+fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
 anyhow = "1"
 thiserror.workspace = true
 fabelgeist-botany = { path = "../fabelgeist-botany" }

@@ -17,6 +17,8 @@
 //!
 //! [`PlantType::unbranched`]: crate::PlantType::unbranched
 
+use crate::identity::PrototypeId;
+use crate::units::PhysiologicalAge;
 use fabelgeist_math::{Vec3, Vec4};
 
 /// No parent / no child.
@@ -37,7 +39,7 @@ pub struct ProtoNode {
     /// Length relative to the species' segment length.
     pub length: f32,
     /// Physiological age at which this segment starts to grow.
-    pub emergence: f32,
+    pub emergence: PhysiologicalAge,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -80,7 +82,7 @@ impl Builder {
                 parent: NONE,
                 direction: Vec3::new(0.0, 1.0, 0.0),
                 length: 0.0,
-                emergence: 0.0,
+                emergence: PhysiologicalAge::from_stage(0.0),
             }],
         }
     }
@@ -91,7 +93,7 @@ impl Builder {
             parent,
             direction: polar(theta, phi),
             length,
-            emergence,
+            emergence: PhysiologicalAge::from_stage(emergence),
         });
         self.nodes.len() as u32 - 1
     }
@@ -130,10 +132,13 @@ impl Builder {
         for (slot, &node) in terminals.iter().enumerate() {
             terminal_slot[node as usize] = slot as u32;
         }
-        let apical = terminals
-            .iter()
-            .position(|&t| t == apical_node)
-            .expect("apical node is a terminal");
+        // The authored builder supplies an apical terminal. Its slot was
+        // recorded above; assert the catalog contract before indexing it.
+        let apical = terminal_slot[apical_node as usize] as usize;
+        assert!(
+            apical < terminals.len(),
+            "{name}: apical node is not a terminal"
+        );
 
         // Mature, untropised position of the apical terminal.
         let mut positions = vec![Vec3::new(0.0, 0.0, 0.0); nodes.len()];
@@ -191,7 +196,7 @@ pub struct PrototypeLibrary {
     pub prototypes: Vec<Prototype>,
     /// Corner's model: one axis that never branches. Outside the
     /// morphospace; [`PrototypeLibrary::select`] never picks it.
-    pub unbranched: u16,
+    pub unbranched: PrototypeId,
 }
 
 impl Default for PrototypeLibrary {
@@ -203,7 +208,7 @@ impl Default for PrototypeLibrary {
 impl PrototypeLibrary {
     /// A library of `prototypes`, and Corner's model after them.
     pub fn new(mut prototypes: Vec<Prototype>) -> Self {
-        let unbranched = prototypes.len() as u16;
+        let unbranched = PrototypeId::from_word(prototypes.len() as u16);
         // Corner: a single axis, every leaf from its tip.
         let mut b = Builder::new();
         let apex = b.chain(0, 3, 0.0, 0.0, 1.0, 0.0);
@@ -326,11 +331,11 @@ impl PrototypeLibrary {
     }
 
     /// The prototype whose morphospace cell contains `(lambda, d)`.
-    pub fn select(&self, lambda: f32, d: f32) -> u16 {
+    pub fn select(&self, lambda: f32, d: f32) -> PrototypeId {
         let mut best = 0;
         let mut best_distance = f32::INFINITY;
         for (i, p) in self.prototypes.iter().enumerate() {
-            if i == self.unbranched as usize {
+            if i == self.unbranched.index() {
                 continue;
             }
             let dl = p.morphospace[0] - lambda;
@@ -341,11 +346,11 @@ impl PrototypeLibrary {
                 best = i;
             }
         }
-        best as u16
+        PrototypeId::from_word(best as u16)
     }
 
-    pub fn get(&self, index: u16) -> &Prototype {
-        &self.prototypes[index as usize]
+    pub fn get(&self, index: PrototypeId) -> &Prototype {
+        &self.prototypes[index.index()]
     }
 }
 
@@ -366,7 +371,7 @@ mod tests {
                     p.name
                 );
                 assert!((n.direction.length() - 1.0).abs() < 1e-5);
-                assert!(n.emergence >= 0.0 && n.emergence < A_MATURE);
+                assert!(n.emergence.stage() >= 0.0 && n.emergence.stage() < A_MATURE);
             }
             assert!(p.axis.y > 0.5, "{} grows upwards", p.name);
         }

@@ -20,7 +20,10 @@ impl Plant {
     pub fn branch_segments(&self, prototypes: &PrototypeLibrary, out: &mut Vec<TubeSegment>) {
         for module in &self.modules {
             let prototype = prototypes.get(module.prototype);
-            let offset = module.node_offset as usize;
+            let Some(offset) = module.node_offset else {
+                continue;
+            };
+            let offset = offset.index();
             for (n, node) in prototype.nodes.iter().enumerate().skip(1) {
                 let a = self.nodes[offset + node.parent as usize].position;
                 let b = &self.nodes[offset + n];
@@ -60,13 +63,16 @@ impl Plant {
         }
         for module in self.modules.iter().filter(|m| self.has_leaves(m, species)) {
             let prototype = prototypes.get(module.prototype);
-            let offset = module.node_offset as usize;
+            let Some(offset) = module.node_offset else {
+                continue;
+            };
+            let offset = offset.index();
             for (n, node) in prototype.nodes.iter().enumerate().skip(1) {
                 if !prototype.children[n].is_empty() {
                     continue;
                 }
                 let slot = prototype.terminal_slot[n];
-                if slot != NONE && module.children[slot as usize] != NONE {
+                if slot != NONE && module.children[slot as usize].is_some() {
                     continue;
                 }
                 let tip = self.nodes[offset + n];
@@ -76,7 +82,7 @@ impl Plant {
                 if length < MIN_LENGTH {
                     continue;
                 }
-                let size = species.leaf_size * (0.4 + 0.6 * module.age.min(1.0));
+                let size = species.leaf_size * (0.4 + 0.6 * module.age.stage().min(1.0));
                 push_card(out, tip.position, axis / length, size);
             }
         }
@@ -88,7 +94,7 @@ impl Plant {
     pub fn has_leaves(&self, module: &crate::Module, species: &PlantType) -> bool {
         species
             .leaf_years
-            .is_none_or(|years| self.age - module.born <= years)
+            .is_none_or(|years| self.age.years() - module.born.years() <= years)
     }
 }
 
@@ -132,7 +138,7 @@ impl Ecosystem {
             .into_par_iter()
             .map(|s| {
                 let mut out = Vec::new();
-                for plant in self.plants.iter().filter(|p| p.species as usize == s) {
+                for plant in self.plants.iter().filter(|p| p.species.index() == s) {
                     plant.branch_segments(&self.prototypes, &mut out);
                 }
                 out
@@ -149,7 +155,7 @@ impl Ecosystem {
                     indices: Some(Vec::new()),
                     ..MeshData::default()
                 };
-                for plant in self.plants.iter().filter(|p| p.species as usize == s) {
+                for plant in self.plants.iter().filter(|p| p.species.index() == s) {
                     plant.leaf_cards(&self.species[s], &self.prototypes, &mut out);
                 }
                 out

@@ -41,7 +41,13 @@ impl SoloSpecies {
             climate,
             vec![species],
         );
-        ecosystem.plant(0, 0.0, 0.0);
+        let _ = ecosystem.plant(
+            fabelgeist_botany::identity::SpeciesId::from_word(0),
+            fabelgeist_botany::units::GroundPoint::new(
+                fabelgeist_math::units::Metres::from_metres(0.0),
+                fabelgeist_math::units::Metres::from_metres(0.0),
+            ),
+        );
         ecosystem
     }
 }

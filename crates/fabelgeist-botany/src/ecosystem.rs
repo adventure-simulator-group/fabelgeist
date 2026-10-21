@@ -5,7 +5,10 @@ use std::collections::HashMap;
 use std::sync::Arc;
 use std::time::Duration;
 
-use anyhow::Result;
+use crate::error::{BotanyError, Result};
+use crate::policy::{GlobalShadowing, Mortality, Seeding};
+use crate::units::{GroundPoint, StepDuration, Years};
+use fabelgeist_determinism::Seed;
 use fabelgeist_math::{Vec3, Vec4};
 use fabelgeist_spatial_hash::HashGrid;
 use rayon::prelude::*;
@@ -13,6 +16,9 @@ use web_time::Instant;
 
 use crate::climate::Climate;
 use crate::environment::{Environment, EnvironmentSettings, OrientRequest, ShadowGrid, SphereSet};
+use crate::identity::{
+    ModuleId, ModuleIndex, PlantId, PlantIndex, SpeciesId, VineId, VineIndex, VineSpeciesId,
+};
 use crate::obstacles::Obstacles;
 use crate::plant::{Plant, mature_extent};
 use crate::prototype::{NONE, PrototypeLibrary};
@@ -20,14 +26,18 @@ use crate::rng::Rng;
 use crate::species::PlantType;
 use crate::terrain::Terrain;
 use crate::vine::{BarkIndex, Supports, Vine, VineType};
+use fabelgeist_math::units::Metres;
+
+mod orientation;
+mod seeding;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct EcosystemSettings {
     /// Years per step.
-    pub dt: f32,
+    pub dt: StepDuration,
     pub environment: EnvironmentSettings,
     /// Sec. 6.2. Off, modules see only their local light.
-    pub global_shadowing: bool,
+    pub global_shadowing: GlobalShadowing,
     /// Edge of a shadow cell, metres. Grown if the grid would exceed
     /// `max_shadow_cells`.
     pub shadow_cell: f32,
@@ -40,12 +50,12 @@ pub struct EcosystemSettings {
     pub max_plants: usize,
     /// Plants spread by seed. Off, only what is planted grows -- a shrub
     /// still renews its clump from the root, where it stands.
-    pub seeding: bool,
+    pub seeding: Seeding,
     /// Plants and vines die: starved, in the dark, or of age. Off, each is
     /// kept instead as it is where it would have died -- growing no more,
     /// still shading and crowding what grows round it
     /// ([`Plant::preserved`]); turned back on, what was kept dies.
-    pub mortality: bool,
+    pub mortality: Mortality,
     /// A seed landing closer than this to a standing plant's base does not
     /// take root.
     pub seed_spacing: f32,
@@ -54,15 +64,15 @@ pub struct EcosystemSettings {
     /// dormant until the space frees up (crown shyness; not in the paper,
     /// which only steers modules away from each other).
     pub bud_crowding_limit: f32,
-    pub seed: u64,
+    pub seed: Seed,
 }
 
 impl Default for EcosystemSettings {
     fn default() -> Self {
         Self {
-            dt: 0.5,
+            dt: StepDuration::HALF_YEAR,
             environment: EnvironmentSettings::default(),
-            global_shadowing: true,
+            global_shadowing: GlobalShadowing::Enabled,
             shadow_cell: 1.0,
             max_shadow_cells: 8 << 20,
             shadow_height: 48.0,
@@ -70,10 +80,10 @@ impl Default for EcosystemSettings {
             shadow_decay: 0.97,
             max_plants: 500_000,
             seed_spacing: 1.0,
-            seeding: true,
-            mortality: true,
+            seeding: Seeding::Enabled,
+            mortality: Mortality::Enabled,
             bud_crowding_limit: 0.5,
-            seed: 1,
+            seed: Seed::from_u64(1),
         }
     }
 }
@@ -81,7 +91,7 @@ impl Default for EcosystemSettings {
 /// What a step did and how long it took.
 #[derive(Clone, Debug, Default)]
 pub struct StepReport {
-    pub time: f32,
+    pub time: Years,
     pub plants: usize,
     pub modules: usize,
     pub spawned: u32,
@@ -124,9 +134,9 @@ pub struct Ecosystem {
     pub vine_species: Vec<VineType>,
     pub vines: Vec<Vine>,
     /// Years simulated.
-    pub time: f32,
+    pub time: Years,
     /// When the next step's regulation is due ([`Ecosystem::advance`]).
-    next_tick: f32,
+    next_tick: Years,
     environment: Environment,
     /// Mature module extents per species per prototype.
     extents: Vec<Vec<(Vec3, f32)>>,
@@ -153,8 +163,8 @@ impl Ecosystem {
             obstacles: None,
             vine_species: Vec::new(),
             vines: Vec::new(),
-            time: 0.0,
-            next_tick: 0.0,
+            time: Years::from_years(0.0),
+            next_tick: Years::from_years(0.0),
             environment: Environment::default(),
             extents: Vec::new(),
             bark: BarkIndex::default(),
@@ -216,57 +226,74 @@ impl Ecosystem {
         for plant in &mut self.plants {
             plant.adaptation = self
                 .climate
-                .adaptation(&self.species[plant.species as usize], plant.position.y);
+                .adaptation(
+                    &self.species[plant.species.index()],
+                    Metres::from_metres(plant.position.y),
+                )
+                .ratio();
         }
     }
 
     /// Plant a seedling of `species` at `(x, z)`, on the ground. `None` if the
     /// soil there is blocked.
-    pub fn plant(&mut self, species: usize, x: f32, z: f32) -> Option<usize> {
-        if !self.terrain.is_open(x, z) || species >= self.species.len() {
-            return None;
+    pub fn plant(&mut self, species: SpeciesId, ground: GroundPoint) -> Result<PlantIndex> {
+        // Height-field sampling is native metre arithmetic.
+        let (x, z) = (ground.x.metres(), ground.z.metres());
+        if species.index() >= self.species.len() {
+            return Err(BotanyError::UnknownSpecies { species });
+        }
+        if !self.terrain.is_open(x, z) {
+            return Err(BotanyError::BlockedGround);
         }
         let y = self.terrain.height_at(x, z);
-        let adaptation = self.climate.adaptation(&self.species[species], y);
+        let adaptation = self
+            .climate
+            .adaptation(&self.species[species.index()], Metres::from_metres(y))
+            .ratio();
         let rng = self.rng.fork();
         self.next_id += 1;
         self.plants.push(Plant::new(
-            self.next_id,
-            species as u16,
-            &self.species[species],
+            PlantId::from_word(self.next_id),
+            species,
+            &self.species[species.index()],
             &self.prototypes,
             Vec3::new(x, y, z),
             adaptation,
             rng,
         ));
-        Some(self.plants.len() - 1)
+        Ok(PlantIndex::from_word(self.plants.len() - 1))
     }
 
     /// Plant a climber of `species` at `(x, z)`. `None` if the soil there is
     /// blocked.
-    pub fn plant_vine(&mut self, species: usize, x: f32, z: f32) -> Option<usize> {
-        if !self.terrain.is_open(x, z) || species >= self.vine_species.len() {
-            return None;
+    pub fn plant_vine(&mut self, species: VineSpeciesId, ground: GroundPoint) -> Result<VineIndex> {
+        // Height-field sampling is native metre arithmetic.
+        let (x, z) = (ground.x.metres(), ground.z.metres());
+        if species.index() >= self.vine_species.len() {
+            return Err(BotanyError::UnknownVineSpecies { species });
+        }
+        if !self.terrain.is_open(x, z) {
+            return Err(BotanyError::BlockedGround);
         }
         let y = self.terrain.height_at(x, z);
         let rng = self.rng.fork();
         self.next_id += 1;
         self.vines.push(Vine::new(
-            self.next_id,
-            species as u16,
-            &self.vine_species[species],
+            VineId::from_word(self.next_id),
+            species,
+            &self.vine_species[species.index()],
             Vec3::new(x, y, z),
             rng,
         ));
         self.rebuild_bark();
-        Some(self.vines.len() - 1)
+        Ok(VineIndex::from_word(self.vines.len() - 1))
     }
 
     /// Where a seed thrown from `origin` along `direction` comes to rest, as
     /// `(x, z)`: the first ground it meets -- or, if it meets a building
     /// first, the open soil at the building's foot on the side it struck.
     /// `None` if it comes down nowhere a plant may root.
-    pub fn landing(&self, origin: Vec3, direction: Vec3) -> Option<[f32; 2]> {
+    pub fn landing(&self, origin: Vec3, direction: Vec3) -> Option<GroundPoint> {
         let d = direction.normalize();
         let (low, _) = self.terrain.height_range();
         let mut t = 0.0f32;
@@ -277,7 +304,10 @@ impl Ecosystem {
             }
             let above = p.y - self.terrain.height_at(p.x, p.z);
             if above <= 0.01 {
-                return self.terrain.is_open(p.x, p.z).then_some([p.x, p.z]);
+                return self.terrain.is_open(p.x, p.z).then_some(GroundPoint::new(
+                    Metres::from_metres(p.x),
+                    Metres::from_metres(p.z),
+                ));
             }
             let solid = self
                 .obstacles
@@ -295,7 +325,7 @@ impl Ecosystem {
                 return (0..=16)
                     .map(|k| p + out * (0.25 * k as f32))
                     .find(|q| self.terrain.is_open(q.x, q.z))
-                    .map(|q| [q.x, q.z]);
+                    .map(|q| GroundPoint::new(Metres::from_metres(q.x), Metres::from_metres(q.z)));
             }
             // The height field is no distance: step a fraction of the
             // height above it.
@@ -322,22 +352,22 @@ impl Ecosystem {
         if self.vines.is_empty() {
             return;
         }
-        let ids: HashMap<u64, u32> = self
+        let ids: HashMap<PlantId, PlantIndex> = self
             .plants
             .iter()
             .enumerate()
-            .map(|(i, p)| (p.id, i as u32))
+            .map(|(i, p)| (p.id, PlantIndex::from_word(i)))
             .collect();
         let plants = &self.plants;
-        let mut maps: HashMap<u32, HashMap<u32, u32>> = HashMap::new();
-        let mut modules = |p: u32, id: u32| -> Option<u32> {
+        let mut maps: HashMap<PlantIndex, HashMap<ModuleId, ModuleIndex>> = HashMap::new();
+        let mut modules = |p: PlantIndex, id: ModuleId| -> Option<ModuleIndex> {
             maps.entry(p)
                 .or_insert_with(|| {
-                    plants[p as usize]
+                    plants[p.index()]
                         .modules
                         .iter()
                         .enumerate()
-                        .map(|(i, m)| (m.id, i as u32))
+                        .map(|(i, m)| (m.id, ModuleIndex::from_word(i as u32)))
                         .collect()
                 })
                 .get(&id)
@@ -412,22 +442,28 @@ impl Ecosystem {
             let weights: Vec<f32> = self
                 .species
                 .iter()
-                .map(|s| self.climate.adaptation(s, y))
+                .map(|s| self.climate.adaptation(s, Metres::from_metres(y)).ratio())
                 .collect();
             let total: f32 = weights.iter().sum();
             if total <= 1e-6 {
                 continue;
             }
             let mut pick = self.rng.next_f32() * total;
-            let mut species = 0;
+            let mut species = SpeciesId::from_word(0);
             for (i, w) in weights.iter().enumerate() {
-                species = i;
+                species = SpeciesId::from_word(i as u16);
                 if pick < *w {
                     break;
                 }
                 pick -= w;
             }
-            if self.plant(species, x, z).is_some() {
+            if self
+                .plant(
+                    species,
+                    GroundPoint::new(Metres::from_metres(x), Metres::from_metres(z)),
+                )
+                .is_ok()
+            {
                 planted += 1;
             }
         }
@@ -514,23 +550,26 @@ impl Ecosystem {
                 for (u, module) in plant.modules.iter().enumerate() {
                     spheres[u] = if module.fresh {
                         let (center, radius) =
-                            extents[plant.species as usize][module.prototype as usize];
-                        let c = plant.attachment(prototypes, u)
-                            + module.orientation.rotate_vec3(center);
+                            extents[plant.species.index()][module.prototype.index()];
+                        let Some(root) =
+                            plant.attachment(prototypes, ModuleIndex::from_word(u as u32))
+                        else {
+                            continue;
+                        };
+                        let c = root + module.orientation.rotate_vec3(center);
                         [c.x, c.y, c.z, radius]
                     } else {
                         module.sphere
                     };
-                    parents[u] = if module.parent == NONE {
-                        NONE
-                    } else {
-                        (offset + module.parent as usize) as u32
-                    };
+                    // Environment kernels use a global native index and sentinel.
+                    parents[u] = module
+                        .parent
+                        .map_or(NONE, |parent| (offset + parent.index()) as u32);
                 }
             });
         for vine in &self.vines {
             let base = set.spheres.len() as u32;
-            for (sphere, parent) in vine.spheres(&self.vine_species[vine.species as usize]) {
+            for (sphere, parent) in vine.spheres(&self.vine_species[vine.species.index()]) {
                 set.spheres.push(sphere);
                 set.parents
                     .push(if parent == NONE { NONE } else { base + parent });
@@ -544,7 +583,7 @@ impl Ecosystem {
     pub async fn step(&mut self) -> Result<StepReport> {
         let mut report = self.tick().await?;
         let clock = Instant::now();
-        self.develop(self.settings.dt);
+        self.develop(self.settings.dt.duration());
         self.next_tick = self.time;
         report.geometry += clock.elapsed();
         report.total += clock.elapsed();
@@ -557,17 +596,18 @@ impl Ecosystem {
     /// step's regulation runs (light, vigor, modules budding and shed,
     /// orientation, death and seeding). Returns the report of the last step
     /// that ran, if one did.
-    pub async fn advance(&mut self, years: f32) -> Result<Option<StepReport>> {
+    pub async fn advance(&mut self, years: Years) -> Result<Option<StepReport>> {
         let mut last = None;
-        let mut left = years.max(0.0);
+        let mut left = years.years().max(0.0);
         // A step due at the very end of the span is the next call's.
         while left > 1e-6 {
-            if self.time >= self.next_tick - 1e-5 {
+            if self.time.years() >= self.next_tick.years() - 1e-5 {
                 last = Some(self.tick().await?);
-                self.next_tick = self.time + self.settings.dt;
+                self.next_tick =
+                    Years::from_years(self.time.years() + self.settings.dt.duration().years());
             }
-            let span = left.min(self.next_tick - self.time);
-            self.develop(span);
+            let span = left.min(self.next_tick.years() - self.time.years());
+            self.develop(Years::from_years(span));
             left -= span;
         }
         Ok(last)
@@ -575,14 +615,14 @@ impl Ecosystem {
 
     /// Grow every plant for `years` at the rates its last step set, and lay
     /// it out anew.
-    pub fn develop(&mut self, years: f32) {
+    pub fn develop(&mut self, years: Years) {
         let species = &self.species;
         let prototypes = &self.prototypes;
         self.plants
             .par_iter_mut()
             .filter(|p| p.alive)
             .for_each(|plant| {
-                let s = &species[plant.species as usize];
+                let s = &species[plant.species.index()];
                 plant.develop(s, years);
                 plant.update_geometry(s, prototypes);
             });
@@ -596,17 +636,17 @@ impl Ecosystem {
             };
             let vine_species = &self.vine_species;
             self.vines.par_iter_mut().for_each(|vine| {
-                vine.develop(&vine_species[vine.species as usize], &supports, years)
+                vine.develop(&vine_species[vine.species.index()], &supports, years)
             });
         }
-        self.time += years;
+        self.time = Years::from_years(self.time.years() + years.years());
     }
 
     /// A step's regulation, at `self.time`, over the `settings.dt` years to
     /// the next.
     async fn tick(&mut self) -> Result<StepReport> {
         let start = Instant::now();
-        let dt = self.settings.dt;
+        let dt = self.settings.dt.duration();
         let mut report = StepReport::default();
         self.refresh_occluders();
 
@@ -614,7 +654,7 @@ impl Ecosystem {
         let clock = Instant::now();
         let (offsets, total) = self.offsets();
         let set = self.sphere_set(&offsets, total);
-        let shadowing = self.settings.global_shadowing;
+        let shadowing = self.settings.global_shadowing.enabled();
         let shadow = shadowing.then(|| self.shadow_grid());
         let light = self
             .environment
@@ -626,7 +666,7 @@ impl Ecosystem {
         let mut at = total;
         for vine in &mut self.vines {
             let count = vine.nodes.len();
-            let species = &self.vine_species[vine.species as usize];
+            let species = &self.vine_species[vine.species.index()];
             vine.set_light(&light[at..at + count], species, shadowing);
             at += count;
         }
@@ -636,13 +676,13 @@ impl Ecosystem {
         let clock = Instant::now();
         let species = &self.species;
         let prototypes = &self.prototypes;
-        let mortality = self.settings.mortality;
+        let mortality = self.settings.mortality.enabled();
         let outcomes: Vec<_> = self
             .plants
             .par_iter_mut()
             .zip(offsets.par_iter())
             .map(|(plant, &offset)| {
-                let s = &species[plant.species as usize];
+                let s = &species[plant.species.index()];
                 for (u, module) in plant.modules.iter_mut().enumerate() {
                     let [q, qg] = light[offset + u];
                     // The paper takes Q_eff = lerp(s_tol, 1, Q Q_G), which
@@ -674,75 +714,7 @@ impl Ecosystem {
 
         // 3. Orient the new modules (Sec. 5.2.3).
         let clock = Instant::now();
-        if report.spawned > 0 {
-            let (offsets, total) = self.offsets();
-            let set = self.sphere_set(&offsets, total);
-            let mut requests = Vec::with_capacity(report.spawned as usize);
-            for (plant, &offset) in self.plants.iter().zip(&offsets) {
-                let s = &self.species[plant.species as usize];
-                for (u, module) in plant.modules.iter().enumerate() {
-                    if !module.fresh {
-                        continue;
-                    }
-                    let (center, radius) =
-                        self.extents[plant.species as usize][module.prototype as usize];
-                    let root = plant.attachment(&self.prototypes, u);
-                    let q = module.orientation;
-                    // Laterals aim at the species' set-point angle (Digby
-                    // and Firn's gravitropic set-point, which the paper
-                    // cites); the leader -- the trunk's own continuation --
-                    // aims straight up.
-                    let cos_target = if module.order == 0 {
-                        1.0
-                    } else {
-                        s.tropism_angle.cos()
-                    };
-                    // Whether, turned any way, it could reach a solid.
-                    let near = self
-                        .obstacles
-                        .as_ref()
-                        .is_some_and(|o| o.distance(root) < center.length() + radius + 0.5);
-                    requests.push(OrientRequest {
-                        root: root.to_array(),
-                        radius,
-                        local_center: center.to_array(),
-                        index: (offset + u) as u32,
-                        rotation: [q.x, q.y, q.z, q.w],
-                        axis: self.prototypes.get(module.prototype).axis.to_array(),
-                        cos_target,
-                        collision_weight: s.collision_weight,
-                        tropism_weight: s.tropism_weight,
-                        parent: set.parents[offset + u],
-                        obstacles: u32::from(near),
-                    });
-                }
-            }
-            let oriented = self
-                .environment
-                .orient(&set, &requests, &self.settings.environment)
-                .await?;
-            let limit = self.settings.bud_crowding_limit;
-            let mut next = oriented.into_iter();
-            for plant in &mut self.plants {
-                let mut keep = vec![true; plant.modules.len()];
-                let mut dormant = false;
-                for (u, module) in plant.modules.iter_mut().enumerate() {
-                    if module.fresh {
-                        let result = next.next().expect("one rotation per request");
-                        module.orientation = result.rotation;
-                        module.fresh = false;
-                        if result.crowding > limit {
-                            keep[u] = false;
-                            dormant = true;
-                        }
-                    }
-                }
-                if dormant {
-                    report.spawned -= keep.iter().filter(|k| !**k).count() as u32;
-                    plant.discard(&keep);
-                }
-            }
-        }
+        self.orient_new_modules(&mut report).await?;
         report.orient = clock.elapsed();
 
         // 4. Geometry.
@@ -752,13 +724,13 @@ impl Ecosystem {
         self.plants
             .par_iter_mut()
             .filter(|p| p.alive && !p.preserved)
-            .for_each(|plant| plant.update_geometry(&species[plant.species as usize], prototypes));
+            .for_each(|plant| plant.update_geometry(&species[plant.species.index()], prototypes));
         report.geometry = clock.elapsed();
 
         // 5. Death and seeding.
         let clock = Instant::now();
         let before = self.plants.len();
-        let seeds: Vec<(u16, Vec3, f32, u32)> = self
+        let seeds: Vec<(SpeciesId, Vec3, f32, u32)> = self
             .plants
             .iter()
             .zip(&outcomes)
@@ -767,19 +739,19 @@ impl Ecosystem {
                 (
                     p.species,
                     p.position,
-                    self.species[p.species as usize].seeding_radius,
+                    self.species[p.species.index()].seeding_radius,
                     o.seeds,
                 )
             })
             .collect();
         self.plants.retain(|p| p.alive && !p.modules.is_empty());
         report.died = (before - self.plants.len()) as u32;
-        let sown = if self.settings.seeding {
+        let sown = if self.settings.seeding.enabled() {
             self.disperse(&seeds)
         } else {
             0
         };
-        report.germinated = sown + self.sprout(dt);
+        report.germinated = sown + self.sprout(dt.years());
         report.seeding = clock.elapsed();
 
         // 6. Vines: rates, new shoots and wood, and their holds on whatever
@@ -790,7 +762,7 @@ impl Ecosystem {
             if mortality && vine.preserved {
                 vine.alive = false;
             }
-            vine.regulate(&vine_species[vine.species as usize], dt)
+            vine.regulate(&vine_species[vine.species.index()], dt)
         });
         self.refresh_vines();
 
@@ -799,133 +771,6 @@ impl Ecosystem {
         report.modules = self.plants.iter().map(|p| p.modules.len()).sum();
         report.total = start.elapsed();
         Ok(report)
-    }
-
-    /// Place seeds around their parents (a Gaussian of the seeding radius),
-    /// where the soil is open and no plant already stands.
-    fn disperse(&mut self, seeds: &[(u16, Vec3, f32, u32)]) -> u32 {
-        if seeds.is_empty() {
-            return 0;
-        }
-        let spacing = self.settings.seed_spacing.max(1e-3);
-        let mut bases: Vec<[f32; 3]> = self
-            .plants
-            .iter()
-            .map(|p| [p.position.x, 0.0, p.position.z])
-            .collect();
-        let grid = HashGrid::new(bases.iter().copied(), spacing);
-        let mut germinated = 0;
-        for &(species, origin, radius, count) in seeds {
-            for _ in 0..count {
-                if self.plants.len() >= self.settings.max_plants {
-                    return germinated;
-                }
-                let x = origin.x + self.rng.gaussian() * radius;
-                let z = origin.z + self.rng.gaussian() * radius;
-                let mut crowded = false;
-                grid.for_each_near([x, 0.0, z], 1, |j| {
-                    let b = bases[j as usize];
-                    crowded |= (b[0] - x).powi(2) + (b[2] - z).powi(2) < spacing * spacing;
-                });
-                // Seedlings placed this step are checked by brute force; there
-                // are few of them.
-                let start = grid.len();
-                crowded |= bases[start..]
-                    .iter()
-                    .any(|b| (b[0] - x).powi(2) + (b[2] - z).powi(2) < spacing * spacing);
-                if crowded {
-                    continue;
-                }
-                if self.plant(species as usize, x, z).is_some() {
-                    bases.push([x, 0.0, z]);
-                    germinated += 1;
-                }
-            }
-        }
-        germinated
-    }
-
-    /// New stems from around the bases of plants that sprout
-    /// ([`PlantType::sprouts_per_year`]), while their clump has room. Each
-    /// leans out of the clump; its leader turns back up as it grows, so a
-    /// clump opens into a vase.
-    fn sprout(&mut self, dt: f32) -> u32 {
-        /// Radius of a clump, metres.
-        const CLUMP: f32 = 0.6;
-        /// How far a new stem leans out, radians.
-        const LEAN: f32 = 0.35;
-        if self.species.iter().all(|s| s.sprouts_per_year <= 0.0) {
-            return 0;
-        }
-        let mut stems: Vec<(u16, [f32; 3])> = self
-            .plants
-            .iter()
-            .map(|p| (p.species, [p.position.x, 0.0, p.position.z]))
-            .collect();
-        let grid = HashGrid::new(stems.iter().map(|s| s.1), CLUMP);
-        let mut sprouted = 0;
-        for i in 0..self.plants.len() {
-            // Stems sprout from the clump's root crown, not their own: a
-            // clump holds its ground rather than creeping away.
-            // Sprouting draws on the roots' reserves: a stem in the open
-            // sprouts freely, a shaded one seldom.
-            let (species, origin, age, reserves) = {
-                let p = &self.plants[i];
-                let s = &self.species[p.species as usize];
-                // A kept stem sends up no more.
-                let reserves = if p.preserved {
-                    0.0
-                } else {
-                    (p.root_vigor / p.root_vigor_cap(s).max(1e-6)).clamp(0.0, 1.0)
-                };
-                (p.species, p.clump, p.age, reserves)
-            };
-            let (rate, most) = {
-                let s = &self.species[species as usize];
-                (
-                    s.sprouts_per_year * reserves * reserves,
-                    s.clump_stems as usize,
-                )
-            };
-            if rate <= 0.0 || age < 2.0 {
-                continue;
-            }
-            for _ in 0..self.rng.stochastic_round(rate * dt) {
-                if self.plants.len() >= self.settings.max_plants {
-                    return sprouted;
-                }
-                let near = |b: [f32; 3]| {
-                    (b[0] - origin.x).powi(2) + (b[2] - origin.z).powi(2) < CLUMP * CLUMP
-                };
-                let mut clump = 0;
-                grid.for_each_near([origin.x, 0.0, origin.z], 1, |j| {
-                    let (other, b) = stems[j as usize];
-                    clump += usize::from(other == species && near(b));
-                });
-                clump += stems[grid.len()..]
-                    .iter()
-                    .filter(|(other, b)| *other == species && near(*b))
-                    .count();
-                if clump >= most {
-                    break;
-                }
-                let angle = self.rng.range(0.0, std::f32::consts::TAU);
-                let out = Vec3::new(angle.cos(), 0.0, angle.sin());
-                let at = origin + out * (CLUMP * 0.5 * self.rng.next_f32().sqrt());
-                let Some(new) = self.plant(species as usize, at.x, at.z) else {
-                    continue;
-                };
-                let lean = Vec4::from_axis_angle(Vec3::new(0.0, 1.0, 0.0).cross(out), LEAN);
-                let s = &self.species[species as usize];
-                let plant = &mut self.plants[new];
-                plant.clump = origin;
-                plant.modules[0].orientation = lean.mul_quat(plant.modules[0].orientation);
-                plant.update_geometry(s, &self.prototypes);
-                stems.push((species, [at.x, 0.0, at.z]));
-                sprouted += 1;
-            }
-        }
-        sprouted
     }
 
     /// Aggregate measurements.
@@ -938,7 +783,7 @@ impl Ecosystem {
         for plant in &self.plants {
             census.modules += plant.modules.len();
             census.nodes += plant.nodes.len();
-            census.per_species[plant.species as usize] += 1;
+            census.per_species[plant.species.index()] += 1;
             census.max_height = census.max_height.max(plant.height());
         }
         census.vines = self.vines.len();
@@ -992,7 +837,12 @@ mod tests {
         };
         let climate = Climate::new(species.temperature_optimum, species.precipitation_optimum);
         let mut ecosystem = Ecosystem::new(Terrain::flat(40.0, 40.0), climate, vec![species]);
-        ecosystem.plant(0, 0.0, 0.0);
+        ecosystem
+            .plant(
+                SpeciesId::from_word(0),
+                GroundPoint::new(Metres::from_metres(0.0), Metres::from_metres(0.0)),
+            )
+            .unwrap();
         ecosystem
     }
 
@@ -1000,13 +850,13 @@ mod tests {
     fn growing_frame_by_frame_is_smooth_and_matches_stepping() {
         let mut stepped = alone(PlantType::deciduous());
         let mut smooth = alone(PlantType::deciduous());
-        while stepped.time < 20.0 {
+        while stepped.time < Years::from_years(20.0) {
             pollster::block_on(stepped.step()).unwrap();
         }
         let mut last = smooth.plants[0].height();
         let mut largest = 0.0f32;
-        while smooth.time < 20.0 - 1e-3 {
-            pollster::block_on(smooth.advance(1.0 / 60.0)).unwrap();
+        while smooth.time < Years::from_years(20.0 - 1e-3) {
+            pollster::block_on(smooth.advance(Years::from_years(1.0 / 60.0))).unwrap();
             let height = smooth.plants[0].height();
             largest = largest.max((height - last).abs());
             last = height;
@@ -1026,12 +876,17 @@ mod tests {
             let mut ecosystem =
                 Ecosystem::new(Terrain::flat(40.0, 40.0), climate, vec![species.clone()])
                     .with_settings(EcosystemSettings {
-                        seeding,
+                        seeding: Seeding::from_enabled(seeding),
                         ..EcosystemSettings::default()
                     });
-            ecosystem.plant(0, 0.0, 0.0);
+            ecosystem
+                .plant(
+                    SpeciesId::from_word(0),
+                    GroundPoint::new(Metres::from_metres(0.0), Metres::from_metres(0.0)),
+                )
+                .unwrap();
             // Past its flowering age, so it seeds if it may.
-            while ecosystem.time < 100.0 {
+            while ecosystem.time < Years::from_years(100.0) {
                 pollster::block_on(ecosystem.step()).unwrap();
             }
             ecosystem.plants.len()
@@ -1049,8 +904,13 @@ mod tests {
         let most = species.clump_stems as usize;
         let climate = Climate::new(species.temperature_optimum, species.precipitation_optimum);
         let mut ecosystem = Ecosystem::new(Terrain::flat(20.0, 20.0), climate, vec![species]);
-        ecosystem.plant(0, 0.0, 0.0);
-        while ecosystem.time < 60.0 {
+        ecosystem
+            .plant(
+                SpeciesId::from_word(0),
+                GroundPoint::new(Metres::from_metres(0.0), Metres::from_metres(0.0)),
+            )
+            .unwrap();
+        while ecosystem.time < Years::from_years(60.0) {
             pollster::block_on(ecosystem.step()).unwrap();
         }
         // The first stem is long dead, the clump lives on where it stood.

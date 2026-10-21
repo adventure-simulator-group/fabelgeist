@@ -96,10 +96,11 @@ struct Still {
 
 /// Grow the scene and render it headless, then leave.
 pub fn run(mut request: Request) -> Result<()> {
-    let ecosystem = request
-        .ecosystem
-        .take()
-        .unwrap_or_else(|| request.scene.build(1));
+    let ecosystem = request.ecosystem.take().unwrap_or_else(|| {
+        request
+            .scene
+            .build(fabelgeist_determinism::Seed::from_u64(1))
+    });
     let (snapshot, orbit) = grow(ecosystem, &request)?;
     let mut app = App::new();
     app.insert_resource(ClearColor(stage::SKY))
@@ -145,7 +146,7 @@ fn grow(ecosystem: Ecosystem, request: &Request) -> Result<(Snapshot, Orbit)> {
     let context = pollster::block_on(WgpuContext::new())?;
     let mut ecosystem = ecosystem.with_gpu(context)?;
     ecosystem.settings.dt = request.profile.step_years;
-    let steps = (request.years / ecosystem.settings.dt).ceil() as usize;
+    let steps = (request.years / ecosystem.settings.dt.duration().years()).ceil() as usize;
     let started = Instant::now();
     for _ in 0..steps {
         pollster::block_on(ecosystem.step())?;
@@ -154,7 +155,7 @@ fn grow(ecosystem: Ecosystem, request: &Request) -> Result<(Snapshot, Orbit)> {
     println!(
         "{}: {:.0} years in {:.1} s, {} plants, {} segments, {} leaf clusters",
         request.scene.name(),
-        ecosystem.time,
+        ecosystem.time.years(),
         started.elapsed().as_secs_f32(),
         snapshot.plants,
         snapshot.branches.len(),

@@ -2,7 +2,8 @@
 //! the tools, and the time controls.
 
 use bevy_egui::egui::{Color32, Painter, Pos2, Rect, Shape, Stroke, pos2, vec2};
-use fabelgeist_botany::viewer::sim::{Foliage, SpeciesInfo};
+use fabelgeist_botany::species::Foliage;
+use fabelgeist_botany::viewer::sim::SpeciesInfo;
 
 /// A plant of `species`, in its leaf and bark colours.
 pub fn plant(painter: &Painter, rect: Rect, species: &SpeciesInfo) {
