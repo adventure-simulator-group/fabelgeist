@@ -55,6 +55,10 @@ pub enum AnimationQuantity {
     CycleDelta,
     #[display("authored attack pose coordinate")]
     AttackPoseCoordinate,
+    #[display("attack continuation tangent")]
+    ContinuationTangent,
+    #[display("attack continuation readiness knot")]
+    ContinuationReadiness,
     #[display("action progress displacement")]
     ActionProgressDelta,
     #[display("blend contribution")]
@@ -107,6 +111,8 @@ pub enum AnimationQuantity {
     DownedRollMotion,
     #[display("body angle")]
     BodyAngle,
+    #[display("signed angle")]
+    SignedAngle,
     #[display("body angular velocity")]
     BodyAngularVelocity,
     #[display("body-local velocity")]
