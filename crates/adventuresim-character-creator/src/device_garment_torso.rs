@@ -4,8 +4,8 @@
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::DeviceWearer;
-use crate::device_garment::{BAND, FRAME_WORDS, JOINTS, UprightSpan};
-use crate::device_garment_kernel::{Grid, Word, dispatch, read, read_u32, write};
+use crate::device_garment::{BAND, FRAME_WORDS, JOINTS, JointHeightAnchor, JointReachTarget, UprightSpan};
+use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
 use crate::device_garment_tube::GARMENT_FIT_MARGIN_M;
 use crate::device_piece::DeviceRecording;
 use crate::rig_parameters::RigJointParameter;
@@ -14,6 +14,8 @@ use fabelgeist_armor::gpu::record_garment_torso;
 use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_rig::RigJointName;
+use fabelgeist_geometry::SignedLength;
+use fabelgeist_math::Ratio;
 
 /// The torso frame rises above the neck to hold the shoulder seams.
 const SHOULDER_LIFT_M: f32 = 0.045;
@@ -70,6 +72,10 @@ fn main(@builtin(workgroup_id) group: vec3<u32>) {
         SECTION_HALF_WIDTH_M,
         MINIMUM_SECTION_SAMPLES,
     );
+    if (!band.present) {
+        atomicOr(&candidate_status[0], 1u);
+        return;
+    }
     let at = SECTIONS + row * SECTION_WORDS;
     fit[at] = y;
     for (var a = 0u; a < 3u; a = a + 1u) {
@@ -212,6 +218,9 @@ fn panel_local(front: bool, row: u32, col: u32) -> vec3<f32> {
 }
 
 fn torso_vertex(index: u32, coord: vec4<f32>) -> vec3<f32> {
+    if (frames[FRAME_WORDS - 1u] != 0.0) {
+        return vec3<f32>();
+    }
     let kind = u32(coord.x);
     let a = u32(coord.y);
     let b = u32(coord.z);
@@ -287,9 +296,18 @@ impl DeviceWearer<'_> {
             &raw,
             &head,
             UprightSpan {
-                top: (RigJointName::C_NECK, SHOULDER_LIFT_M),
-                bottom: (bottom.clone(), 0.0),
-                reach: (bottom, 0.0),
+                top: JointHeightAnchor {
+                    joint: RigJointName::C_NECK,
+                    offset: SignedLength::from_metres(SHOULDER_LIFT_M)?,
+                },
+                bottom: JointHeightAnchor {
+                    joint: bottom.clone(),
+                    offset: SignedLength::ZERO,
+                },
+                reach: JointReachTarget {
+                    joint: bottom,
+                    coefficient: Ratio::from_ratio(0.0),
+                },
             },
         )?;
         let gap = design.clearance.metres() + design.wall_thickness.metres() + GARMENT_FIT_MARGIN_M;
@@ -320,6 +338,7 @@ impl DeviceWearer<'_> {
             Grid::Singles(1),
         )?;
         let support = self.record_region_support(batch, &[FitRegion::Torso, FitRegion::Hips])?;
+        let candidate_status = self.gpu.scratch(4, "torso candidate status")?;
         dispatch(
             self,
             batch,
@@ -328,10 +347,12 @@ impl DeviceWearer<'_> {
                 read("positions", &self.body.positions),
                 read_u32("support", &support),
                 write("fit", &fit),
+                atomic("candidate_status", &candidate_status),
             ],
             &[],
             Grid::Singles(CAGE_SECTIONS),
         )?;
+        self.record_candidate_status(batch, &candidate_status, &fit)?;
         let part = record_garment_torso(
             self.gpu,
             batch,
@@ -350,7 +371,7 @@ impl DeviceWearer<'_> {
 
 fn layout() -> String {
     format!(
-        "const SCALARS: u32 = {SCALARS}u;\nconst SECTIONS: u32 = {SECTIONS}u;\n\
+        "const FRAME_WORDS: u32 = {FRAME_WORDS}u;\nconst SCALARS: u32 = {SCALARS}u;\nconst SECTIONS: u32 = {SECTIONS}u;\n\
          const SECTION_WORDS: u32 = {SECTION_WORDS}u;\nconst CAGE_SECTIONS: u32 = {CAGE_SECTIONS}u;\n"
     )
 }

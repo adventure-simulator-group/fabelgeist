@@ -11,7 +11,9 @@ use cloth_motion::ClothMotion;
 #[cfg(test)]
 use cloth_motion::simulate;
 pub use colliders::ArmorSkin;
+pub use binding::{ClothBinding, skin, skin_mesh};
 
+mod binding;
 mod cloth_motion;
 mod cloth_render;
 mod colliders;
@@ -23,7 +25,7 @@ pub struct WalkPreview {
     node: Option<AnimationNodeIndex>,
     pub player: Option<Entity>,
     skeleton: Option<Entity>,
-    pub joints: Vec<Entity>,
+    pub joints: fabelgeist_rig::RigJointTable<Entity>,
     pub inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
     pub playing: bool,
     pub physics: bool,
@@ -55,7 +57,7 @@ struct PreviewSkeleton;
 pub struct BodySkin {
     pub positions: Vec<[f32; 3]>,
     pub faces: Vec<[u32; 3]>,
-    pub indices: Vec<[u32; 8]>,
+    pub indices: fabelgeist_rig::PackedRigSkin<8>,
     pub weights: Vec<[f32; 8]>,
 }
 
@@ -66,8 +68,7 @@ pub struct ClothSkin {
     positions: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
     edges: Vec<[u32; 2]>,
-    indices: Vec<[u32; 8]>,
-    weights: Vec<[f32; 8]>,
+    binding: ClothBinding,
     current: Vec<Vec3>,
     previous: Vec<Vec3>,
     motion: ClothMotion,
@@ -119,9 +120,12 @@ impl ClothSkin {
         positions: Vec<[f32; 3]>,
         _normals: Vec<[f32; 3]>,
         faces: Vec<[u32; 3]>,
-        indices: Vec<[u32; 8]>,
-        weights: Vec<[f32; 8]>,
-    ) -> Self {
+        binding: ClothBinding,
+    ) -> Result<Self> {
+        if let ClothBinding::Weighted { indices, weights } = &binding {
+            anyhow::ensure!(indices.len() == positions.len() && weights.len() == positions.len(),
+                "cloth skin rows and positions have different vertex counts");
+        }
         let mut edges = std::collections::BTreeSet::new();
         for face in &faces {
             for [a, b] in [[face[0], face[1]], [face[1], face[2]], [face[2], face[0]]] {
@@ -129,18 +133,17 @@ impl ClothSkin {
             }
         }
         let current: Vec<Vec3> = positions.iter().copied().map(Vec3::from_array).collect();
-        Self {
+        Ok(Self {
             render_vertices: None,
             form,
             positions,
             faces,
             edges: edges.into_iter().collect(),
-            indices,
-            weights,
+            binding,
             previous: current.clone(),
             current,
             motion: ClothMotion::Skinned,
-        }
+        })
     }
 }
 
@@ -207,26 +210,25 @@ pub fn rebuild(
         .id();
 
     let character = &model.mhr.character;
-    let globals: Vec<_> = generated
+    let globals: fabelgeist_rig::RigJointTable<_> = generated
         .global_joint_states
         .iter()
         .copied()
         .map(mhr_state)
         .collect();
-    let mut joints = Vec::with_capacity(character.skeleton.len());
-    for (index, name) in character.skeleton.names.iter().enumerate() {
+    let mut joints = fabelgeist_rig::RigJointTable::default();
+    for (index, name) in character.skeleton.names.indexed() {
         let parent = character.skeleton.parents[index];
-        let local = if parent < 0 {
-            globals[index]
-        } else {
-            globals[parent as usize].inverse().compose(&globals[index])
+        let local = match parent {
+            None => globals[index],
+            Some(parent) => globals[parent].inverse().compose(&globals[index]),
         };
         let mut path = vec![skeleton_name.clone()];
         let mut lineage = vec![index];
         let mut ancestor = parent;
-        while ancestor >= 0 {
-            lineage.push(ancestor as usize);
-            ancestor = character.skeleton.parents[ancestor as usize];
+        while let Some(joint) = ancestor {
+            lineage.push(joint);
+            ancestor = character.skeleton.parents[joint];
         }
         for joint in lineage.into_iter().rev() {
             path.push(bevy_joint_name(&character.skeleton.names[joint]));
@@ -239,11 +241,7 @@ pub fn rebuild(
                 AnimatedBy(player),
             ))
             .id();
-        let parent_entity = if parent < 0 {
-            skeleton
-        } else {
-            joints[parent as usize]
-        };
+        let parent_entity = parent.map_or(skeleton, |parent| joints[parent]);
         commands.entity(parent_entity).add_child(entity);
         joints.push(entity);
     }
@@ -271,43 +269,6 @@ pub fn rebuild(
     preview.player = Some(player);
     preview.skeleton = Some(skeleton);
     preview.joints = joints;
-}
-
-pub fn skin_mesh(mesh: &mut Mesh, indices: &[[u32; 8]], weights: &[[f32; 8]]) {
-    let mut joint_indices = Vec::with_capacity(indices.len());
-    let mut joint_weights = Vec::with_capacity(weights.len());
-    for (indices, weights) in indices.iter().zip(weights) {
-        let mut influences: Vec<_> = indices
-            .iter()
-            .copied()
-            .zip(weights.iter().copied())
-            .collect();
-        influences.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(&b.0)));
-        let ids = std::array::from_fn::<_, 4, _>(|i| influences[i].0 as u16);
-        let mut values = std::array::from_fn::<_, 4, _>(|i| influences[i].1);
-        let total: f32 = values.iter().sum();
-        if total > 0.0 {
-            for weight in &mut values {
-                *weight /= total;
-            }
-        } else {
-            values[0] = 1.0;
-        }
-        joint_indices.push(ids);
-        joint_weights.push(values);
-    }
-    mesh.insert_attribute(
-        Mesh::ATTRIBUTE_JOINT_INDEX,
-        VertexAttributeValues::Uint16x4(joint_indices),
-    );
-    mesh.insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, joint_weights);
-}
-
-pub fn skin(preview: &WalkPreview) -> Option<SkinnedMesh> {
-    (!preview.joints.is_empty()).then(|| SkinnedMesh {
-        inverse_bindposes: preview.inverse_bindposes.clone(),
-        joints: preview.joints.clone(),
-    })
 }
 
 #[expect(
@@ -341,7 +302,7 @@ pub fn deform_cloth(
                 .ok()
                 .map(|global| global.to_matrix() * *inverse)
         })
-        .collect::<Option<Vec<_>>>()
+        .collect::<Option<fabelgeist_rig::RigJointTable<_>>>()
     else {
         return;
     };
@@ -355,21 +316,23 @@ pub fn deform_cloth(
         };
         (start, end, faces)
     });
-    let targets: Vec<_> = cloth
-        .iter()
-        .map(|(_, skin)| {
-            if preview.physics && preview.ignore_cloth_weights {
-                None
-            } else {
-                Some(skinned_positions(
-                    &skin.positions,
-                    &skin.indices,
-                    &skin.weights,
-                    &matrices,
-                ))
-            }
-        })
-        .collect();
+    let targets = cloth.iter().map(|(_, skin)| {
+        if preview.physics && preview.ignore_cloth_weights {
+            return Some(None);
+        }
+        let ClothBinding::Weighted { indices, weights } = &skin.binding else {
+            return None;
+        };
+        if indices.joint_count().len() != matrices.len() {
+            return None;
+        }
+        Some(Some(skinned_positions(&skin.positions, indices, weights, &matrices)))
+    }).collect::<Option<Vec<_>>>();
+    let Some(targets) = targets else {
+        // Weighted playback cannot evaluate unbound cloth. Keep its last
+        // geometry until a binding or unweighted physics is selected.
+        return;
+    };
 
     if preview.physics {
         cloth_motion::simulate_outfit(
@@ -381,9 +344,9 @@ pub fn deform_cloth(
         );
     } else {
         for (index, (_, mut skin)) in cloth.iter_mut().enumerate() {
-            let target = targets[index]
-                .as_ref()
-                .expect("weighted animation computes targets");
+            let Some(target) = targets[index].as_ref() else {
+                return;
+            };
             skin.current.clone_from(target);
             skin.previous.clone_from(target);
             skin.motion = ClothMotion::Skinned;
@@ -446,14 +409,14 @@ fn collision_vector(p: Vec3) -> fabelgeist_math::Vec3 {
 
 fn skinned_positions(
     positions: &[[f32; 3]],
-    indices: &[[u32; 8]],
+    indices: &fabelgeist_rig::PackedRigSkin<8>,
     weights: &[[f32; 8]],
-    matrices: &[Mat4],
+    matrices: &fabelgeist_rig::RigJointTable<Mat4>,
 ) -> Vec<Vec3> {
     positions
         .iter()
         .enumerate()
-        .map(|(v, p)| blend_point(Vec3::from_array(*p), indices[v], weights[v], matrices))
+        .map(|(v, p)| blend_point(Vec3::from_array(*p), indices.vertex(v), weights[v], matrices))
         .collect()
 }
 
@@ -469,13 +432,13 @@ fn surface_normals(positions: &[Vec3], faces: &[[u32; 3]]) -> Vec<Vec3> {
     normals.into_iter().map(|n| n.normalize_or_zero()).collect()
 }
 
-fn blend_point(point: Vec3, indices: [u32; 8], weights: [f32; 8], matrices: &[Mat4]) -> Vec3 {
+fn blend_point(point: Vec3, indices: [fabelgeist_rig::RigJointOrdinal; 8], weights: [f32; 8], matrices: &fabelgeist_rig::RigJointTable<Mat4>) -> Vec3 {
     indices
         .into_iter()
         .zip(weights)
         .filter(|(_, w)| *w > 0.0)
         .fold(Vec3::ZERO, |sum, (joint, weight)| {
-            sum + matrices[joint as usize].transform_point3(point) * weight
+            sum + matrices[joint].transform_point3(point) * weight
         })
 }
 
@@ -487,13 +450,13 @@ mod deformation_tests {
     fn cloth_preserves_opposite_leg_motion_in_last_four_influences() {
         let matrices = (0..8)
             .map(|i| Mat4::from_translation(Vec3::Z * if i < 4 { 1.0 } else { -1.0 }))
-            .collect::<Vec<_>>();
+            .collect::<fabelgeist_rig::RigJointTable<_>>();
         let point = Vec3::new(0.0, 0.5, 0.0);
-        let centre = blend_point(point, [0, 1, 2, 3, 4, 5, 6, 7], [0.125; 8], &matrices);
+        let centre = blend_point(point, [0usize, 1, 2, 3, 4, 5, 6, 7].map(fabelgeist_rig::RigJointOrdinal::from), [0.125; 8], &matrices);
         assert!((centre - point).length() < 1e-6);
         let left = blend_point(
             point,
-            [0, 1, 2, 3, 4, 5, 6, 7],
+            [0usize, 1, 2, 3, 4, 5, 6, 7].map(fabelgeist_rig::RigJointOrdinal::from),
             [0.2, 0.2, 0.2, 0.2, 0.05, 0.05, 0.05, 0.05],
             &matrices,
         );
@@ -508,9 +471,13 @@ mod deformation_tests {
             positions.clone(),
             vec![[0.0, 0.0, 1.0]; 3],
             vec![[0, 1, 2]],
-            vec![[0; 8]; 3],
-            vec![[0.0; 8]; 3],
-        );
+            ClothBinding::Weighted {
+                indices: fabelgeist_rig::PackedRigSkin::from_native(
+                    vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+                ).unwrap(),
+                weights: vec![[0.0; 8]; 3],
+            },
+        ).unwrap();
         skin.current[1].x = 3.0;
         skin.previous.clone_from(&skin.current);
         let targets = positions
@@ -528,16 +495,15 @@ mod deformation_tests {
     }
 
     #[test]
-    fn unweighted_physics_preserves_rest_shape_and_ignores_invalid_skin_weights() {
+    fn unweighted_physics_preserves_rest_shape() {
         let positions = vec![[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
         let mut skin = ClothSkin::new(
             GarmentForm::Legged,
             positions.clone(),
             vec![[0.0, 0.0, 1.0]; 3],
             vec![[0, 1, 2]],
-            vec![[u32::MAX; 8]; 3],
-            vec![[f32::NAN; 8]; 3],
-        );
+            ClothBinding::Unweighted,
+        ).unwrap();
         // A translated garment must not be pulled back toward its rest location.
         for point in &mut skin.current {
             *point += Vec3::X * 5.0;
@@ -572,7 +538,7 @@ mod deformation_tests {
             playing: true,
             physics: true,
             ignore_cloth_weights: true,
-            joints: vec![joint],
+            joints: vec![joint].into(),
             inverse_bindposes,
             simulation: SimulationSettings {
                 gravity: 0.0,
@@ -597,9 +563,13 @@ mod deformation_tests {
                 positions,
                 vec![],
                 vec![[0, 1, 2]],
-                vec![[0; 8]; 3],
-                vec![[0.0; 8]; 3],
-            );
+                ClothBinding::Weighted {
+                    indices: fabelgeist_rig::PackedRigSkin::from_native(
+                        vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+                    ).unwrap(),
+                    weights: vec![[0.0; 8]; 3],
+                },
+            ).unwrap();
             entities.push(world.spawn((Mesh3d(handle), skin)).id());
         }
         world.run_system_once(deform_cloth).unwrap();
@@ -632,7 +602,7 @@ mod deformation_tests {
             playing: true,
             physics: true,
             ignore_cloth_weights: true,
-            joints: vec![joint],
+            joints: vec![joint].into(),
             inverse_bindposes,
             simulation: SimulationSettings {
                 gravity: 0.0,
@@ -643,7 +613,9 @@ mod deformation_tests {
         world.spawn(BodySkin {
             positions: vec![[-10.0, -10.0, -1.0], [10.0, -10.0, -1.0], [0.0, 10.0, -1.0]],
             faces: vec![[0, 1, 2]],
-            indices: vec![[0; 8]; 3],
+            indices: fabelgeist_rig::PackedRigSkin::from_native(
+                vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            ).unwrap(),
             weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3],
         });
         let mesh = world.resource_mut::<Assets<Mesh>>().add(Mesh::new(
@@ -658,9 +630,13 @@ mod deformation_tests {
                     vec![[-0.1, -0.1, 0.0], [0.1, -0.1, 0.0], [0.0, 0.1, 0.0]],
                     vec![],
                     vec![[0, 1, 2]],
-                    vec![[0; 8]; 3],
-                    vec![[0.0; 8]; 3],
-                ),
+                    ClothBinding::Weighted {
+                        indices: fabelgeist_rig::PackedRigSkin::from_native(
+                            vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+                        ).unwrap(),
+                        weights: vec![[0.0; 8]; 3],
+                    },
+                ).unwrap(),
             ))
             .id();
         let mut schedule = Schedule::default();

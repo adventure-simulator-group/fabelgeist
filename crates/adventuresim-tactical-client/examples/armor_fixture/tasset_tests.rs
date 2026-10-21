@@ -40,7 +40,7 @@ fn wrapped_waist_assembly_fits_completed_fauld_and_morph() -> Result<()> {
         },
     )];
     let ParametricDesign::WaistAssembly(mut design) =
-        adventuresim_character_creator::armor_recipes::recipe("tassets")
+        adventuresim_character_creator::armor_recipes::recipe(adventuresim_core::equipment_assets::CatalogItem::find(adventuresim_core::item_catalog::catalog(), "tassets").unwrap())
             .context("tasset recipe")?
     else {
         anyhow::bail!("expected waist assembly");
@@ -51,7 +51,7 @@ fn wrapped_waist_assembly_fits_completed_fauld_and_morph() -> Result<()> {
         ..Default::default()
     });
     let design = ParametricDesign::WaistAssembly(design);
-    let fitted = device_fit::fit_recipe(gpu, &topology, &wearer, &targets, &design, "worn", &[])?;
+    let fitted = device_fit::fit_recipe(gpu, &topology, &wearer, &targets, &design, adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired, &[])?;
     assert_eq!(fitted.endpoints.len(), 1);
     let target = &fitted.endpoints[0];
     assert_eq!(fitted.base.indices, target.indices);
@@ -169,12 +169,12 @@ fn wrapped_tassets_fit_final_height_with_rigid_separate_thigh_ownership() -> Res
             ..Default::default()
         });
         let design = ParametricDesign::Garment(garment);
-        let piece = device_fit::fit_recipe(gpu, &topology, &wearer, &[], &design, "worn", &[])?;
+        let piece = device_fit::fit_recipe(gpu, &topology, &wearer, &[], &design, adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired, &[])?;
         let armor = device_fit::assemble_recipe(
             &design,
             piece,
             &Fitted {
-                placement: "worn",
+                placement: adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired,
                 morphs: &[],
                 domain: &body.domain,
                 joint_names: &body.joint_names,
@@ -212,7 +212,7 @@ fn wrapped_tassets_fit_final_height_with_rigid_separate_thigh_ownership() -> Res
             let component = &armor.components[side];
             let owner = body.joint_names.iter().position(|n| n == name).unwrap() as u32;
             assert!(
-                armor.joint_indices[component.vertices.clone()]
+                armor.joint_indices.native_words()[component.vertices.clone()]
                     .iter()
                     .all(|j| *j == [owner; 8])
             );

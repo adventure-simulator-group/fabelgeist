@@ -1,37 +1,21 @@
 //! Bevy consumes one VEC4 skin set; discarded influences must not lose mass.
 use super::*;
 
-pub fn strongest_four(joints: [u32; 8], weights: [f32; 8]) -> ([u16; 4], [f32; 4]) {
-    let mut combined = std::collections::BTreeMap::<u32, f32>::new();
-    for (joint, weight) in joints.into_iter().zip(weights) {
-        *combined.entry(joint).or_default() += weight;
-    }
-    let mut influences = combined.into_iter().collect::<Vec<_>>();
-    influences.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(&b.0)));
-    influences.truncate(4);
-    let sum: f32 = influences.iter().map(|(_, weight)| weight).sum();
-    let mut joints = [0; 4];
-    let mut weights = [0.; 4];
-    for (i, (joint, weight)) in influences.into_iter().enumerate() {
-        joints[i] = joint as u16;
-        weights[i] = weight / sum;
-    }
-    (joints, weights)
-}
-
 pub(super) fn append(
     buffer: &mut BufferBuilder,
-    joints: &[[u32; 8]],
+    joints: &fabelgeist_rig::PackedRigSkin<8>,
     weights: &[[f32; 8]],
-) -> (usize, usize) {
+) -> Result<(usize, usize)> {
     let skin = joints
         .iter()
         .zip(weights)
-        .map(|(j, w)| strongest_four(*j, *w))
+        .map(|(joints, weights)| fabelgeist_rig::RigInfluences { joints, weights: *weights }.strongest_four())
         .collect::<Vec<_>>();
-    let joints = buffer.push(&u16_bytes(skin.iter().flat_map(|(j, _)| *j)), Some(34_962));
-    let weights = buffer.push(&f32_bytes(skin.iter().flat_map(|(_, w)| *w)), Some(34_962));
-    (joints, weights)
+    let native_joints = skin.iter().map(|skin| skin.native_u16())
+        .collect::<std::result::Result<Vec<_>, _>>()?;
+    let joints = buffer.push(&u16_bytes(native_joints.into_iter().flatten()), Some(34_962));
+    let weights = buffer.push(&f32_bytes(skin.iter().flat_map(|skin| skin.weights)), Some(34_962));
+    Ok((joints, weights))
 }
 
 #[cfg(test)]
@@ -40,10 +24,12 @@ mod tests {
 
     #[test]
     fn dropping_minor_influences_preserves_world_translation() {
-        let (joints, weights) = strongest_four(
-            [0, 1, 2, 3, 4, 5, 6, 7],
-            [0.05, 0.2, 0.1, 0.05, 0.3, 0.15, 0.1, 0.05],
-        );
+        let skin = fabelgeist_rig::RigInfluences {
+            joints: [0usize, 1, 2, 3, 4, 5, 6, 7].map(RigJointOrdinal::from),
+            weights: [0.05, 0.2, 0.1, 0.05, 0.3, 0.15, 0.1, 0.05],
+        }.strongest_four();
+        let joints = skin.native_u16().unwrap();
+        let weights = skin.weights;
         assert_eq!(joints, [4, 1, 5, 2]);
         // The runtime uses the weighted xyz directly. A common translation
         // must move the vertex by that whole distance, even far from origin.

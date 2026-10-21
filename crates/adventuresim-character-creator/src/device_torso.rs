@@ -90,10 +90,10 @@ pub struct TorsoSurfaceInput<'a> {
     pub faces: &'a [[u32; 3]],
     pub texcoords: &'a [[f32; 2]],
     pub texcoord_faces: &'a [[u32; 3]],
-    pub joint_indices: &'a [[u32; 8]],
+    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [RigJointName],
-    pub global_joint_states: &'a [[f32; 8]],
+    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
+    pub global_joint_states: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
     pub morphs: &'a [ForearmMorphSample],
 }
 
@@ -115,6 +115,7 @@ impl TorsoSurfaceInput<'_> {
                 && self.joint_weights.len() == count
                 && self.faces.len() == self.texcoord_faces.len()
                 && self.joint_names.len() == self.global_joint_states.len()
+                && self.joint_indices.joint_count() == self.joint_names.joint_count()
                 && self.morphs.iter().all(|morph| {
                     morph.positions.len() == count
                         && morph.normals.len() == count
@@ -130,12 +131,11 @@ impl TorsoSurfaceInput<'_> {
         keep: impl Fn(&RigJointName) -> RigJointMembership,
     ) -> BTreeSet<RigJointOrdinal> {
         self.joint_names
-            .iter()
-            .enumerate()
+            .indexed()
             .filter_map(
-                |(index, name): (usize, &RigJointName)| -> Option<RigJointOrdinal> {
+                |(index, name): (RigJointOrdinal, &RigJointName)| -> Option<RigJointOrdinal> {
                     (keep(name) == RigJointMembership::Included)
-                        .then_some(RigJointOrdinal::from(index))
+                        .then_some(index)
                 },
             )
             .collect()
@@ -173,11 +173,9 @@ pub async fn generate_breastplate_on_device_async(
     let support_joints = input.joints_named(|name: &RigJointName| -> RigJointMembership {
         RigJointMembership::from(SUPPORT_JOINTS.contains(name))
     });
-    let supports = (0..input.joint_names.len())
-        .map(|joint: usize| -> RigJointMembership {
-            RigJointMembership::from(support_joints.contains(&RigJointOrdinal::from(joint)))
-        })
-        .collect::<Vec<_>>();
+    let supports = input.joint_names.ordinals()
+        .map(|joint| RigJointMembership::from(support_joints.contains(&joint)))
+        .collect::<fabelgeist_rig::RigJointTable<_>>();
     let eligible = crate::torso_domain::TorsoSkinDomain {
         faces: input.faces,
         joint_indices: input.joint_indices,

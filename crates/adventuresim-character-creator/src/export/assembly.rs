@@ -128,6 +128,9 @@ mod tests {
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
         let names = [RigJointName::C_HEAD];
         let states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
+        let joints = fabelgeist_rig::PackedRigSkin::from_native(
+            joints.to_vec(), fabelgeist_rig::RigJointTable::from(names.to_vec()).joint_count(),
+        ).unwrap();
         let target_count = adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
             + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len();
         let target_names = (0..target_count)
@@ -175,7 +178,7 @@ mod tests {
             1,
             4,
             &RiggedMesh {
-                joint_proportions: &[],
+                joint_proportions: &Default::default(),
                 morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
@@ -183,9 +186,9 @@ mod tests {
                 export_body: false,
                 joint_indices: &joints,
                 joint_weights: &weights,
-                joint_names: &names,
-                joint_parents: &[-1],
-                global_joint_states: states.iter().collect(),
+                joint_names: &names.to_vec().into(),
+                joint_parents: &vec![None].into(),
+                global_joint_states: &states.to_vec().into(),
             },
             &shells,
             &[],

@@ -198,7 +198,7 @@ mod tests {
                         ProceduralEquipmentPart::new(
                             item,
                             default(),
-                            vec!["c_head".into()],
+                            vec!["c_head".into()].into(),
                             Vec3::ZERO,
                         ),
                         Name::new(*name),

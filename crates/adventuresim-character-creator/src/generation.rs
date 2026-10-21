@@ -66,6 +66,8 @@ pub(super) fn generate_character(
             "GPU skeleton readback did not contain complete joint states"
         ));
     }
+    anyhow::ensure!(skeleton_chunks.len() == model.mhr.num_joints(),
+        "GPU skeleton readback differs from the admitted rig joint count");
     let global_joint_states = skeleton_chunks
         .iter()
         .map(|joint| {

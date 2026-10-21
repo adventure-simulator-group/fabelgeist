@@ -8,6 +8,7 @@ use anyhow::{Context, Result};
 use fabelgeist_armor::PartFrame;
 use fabelgeist_rig::{RigJointName, RigJointPart};
 
+use crate::armor_frames::FittingPlacement;
 const TUBE_SIDES: usize = 8;
 const GARMENT_HEM_DROP_M: f32 = 0.035;
 const CUFF_CLEARANCE_M: f32 = 0.015;
@@ -24,17 +25,17 @@ mod mail_regions;
 pub type RegionFrame<'a> = &'a dyn Fn(FitRegion) -> Result<PartFrame>;
 
 /// Frames needed before cutting, so browser fitting can await their readback.
-pub(crate) fn required_frames(kind: UnderlayerKind, placement: &str) -> Result<Vec<FitRegion>> {
+pub(crate) fn required_frames(kind: UnderlayerKind, placement: FittingPlacement) -> Result<Vec<FitRegion>> {
     Ok(match kind {
         UnderlayerKind::ArmingDoublet => vec![
             FitRegion::Torso,
             FitRegion::WholeArm(Side::Left),
             FitRegion::WholeArm(Side::Right),
         ],
-        UnderlayerKind::PaddedHose => vec![FitRegion::WholeLeg(Side::from_placement(placement)?)],
+        UnderlayerKind::PaddedHose => vec![FitRegion::WholeLeg(placement.side()?)],
         UnderlayerKind::MailVoiders => vec![],
         UnderlayerKind::MailBrayette => vec![FitRegion::Hips],
-        UnderlayerKind::MailKneeVoider => vec![FitRegion::Knee(Side::from_placement(placement)?)],
+        UnderlayerKind::MailKneeVoider => vec![FitRegion::Knee(placement.side()?)],
         UnderlayerKind::MailStandard => vec![FitRegion::Neck],
     })
 }
@@ -43,15 +44,12 @@ pub(crate) fn required_frames(kind: UnderlayerKind, placement: &str) -> Result<V
 /// rig and sized by the part frames `frame` fits to it.
 pub fn regions(
     design: &UnderlayerDesign,
-    placement: &str,
+    placement: FittingPlacement,
     body: &Wearer<'_>,
     frame: RegionFrame<'_>,
 ) -> Result<(Vec<ConvexRegion>, Vec<ConvexRegion>)> {
     let joint = |name: &RigJointName| -> Result<[f32; 3]> {
-        let i = body
-            .joint_names
-            .iter()
-            .position(|n| n == name)
+        let i = name.index_in(body.joint_names)
             .with_context(|| format!("missing underlayer landmark {name}"))?;
         Ok([body.joints[i][0], body.joints[i][1], body.joints[i][2]])
     };
@@ -126,13 +124,13 @@ fn doublet(
 
 fn hose(
     design: &UnderlayerDesign,
-    placement: &str,
+    placement: FittingPlacement,
     frame: RegionFrame<'_>,
     joint: &impl Fn(&RigJointName) -> Result<[f32; 3]>,
 ) -> Result<(Vec<ConvexRegion>, Vec<ConvexRegion>)> {
     let mut include = Vec::new();
     let mut subtract = Vec::new();
-    let side = Side::from_placement(placement)?;
+    let side = placement.side()?;
 
     let hip = joint(&side.joint(RigJointPart::Upleg))?;
     let knee = joint(&side.joint(RigJointPart::Lowleg))?;

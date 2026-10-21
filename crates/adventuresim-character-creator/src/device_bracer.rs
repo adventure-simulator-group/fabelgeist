@@ -35,7 +35,7 @@ impl ForearmSide {
     fn joint(
         self,
         name: &RigJointName,
-        joint_names: &[RigJointName],
+        joint_names: &fabelgeist_rig::RigJointTable<RigJointName>,
     ) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
         name.require_in(joint_names)
     }
@@ -63,7 +63,7 @@ pub async fn generate_bracer_on_device_async(
         .joint_names
         .iter()
         .map(|name: &RigJointName| -> RigJointMembership { side.supports_forearm_boundary(name) })
-        .collect::<Vec<_>>();
+        .collect::<fabelgeist_rig::RigJointTable<_>>();
     let vertex_count = input.positions.len();
     let unused_texcoords = vec![[0.0f32; 2]; vertex_count];
     let body = GpuBody::new(

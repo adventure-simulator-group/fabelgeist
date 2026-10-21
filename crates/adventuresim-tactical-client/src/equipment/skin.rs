@@ -79,7 +79,7 @@ mod tests {
             .spawn(ProceduralEquipmentPart {
                 item,
                 inverse_bindposes: bindposes.clone(),
-                joint_names: vec![RigJointName::L_UPLEG],
+                joint_names: vec![RigJointName::L_UPLEG].into(),
                 rigid_center: Vec3::ZERO,
             })
             .id();

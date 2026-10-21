@@ -40,7 +40,7 @@ impl Support {
     ) -> Result<Self> {
         let joint = |name: &RigJointName| -> Result<[f32; 8]> {
             let index = name.require_in(wearer.joint_names)?;
-            Ok(wearer.joints[usize::from(index)])
+            Ok(wearer.joints[index])
         };
         let hip = joint(&side.joint(RigJointPart::Upleg))?;
         let knee = joint(&side.joint(RigJointPart::Lowleg))?;

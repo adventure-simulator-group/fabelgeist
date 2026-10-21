@@ -13,13 +13,19 @@ use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_rig::RigJointName;
+use fabelgeist_geometry::SignedLength;
+use fabelgeist_math::Ratio;
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
-use crate::device_garment::{BAND, UprightSpan};
+use crate::device_garment::{BAND, JointHeightAnchor, JointReachTarget, UprightSpan};
 use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
 use crate::device_garment_tube::{RING, RING_AT, RING_FIT_WORDS, hem};
 use crate::device_piece::DeviceRecording;
+
+use stations::DRAPE_STATIONS;
+
+mod stations;
 
 /// Drape cage stations, evenly spaced over the frame's height.
 const STATIONS: u32 = 17;
@@ -36,7 +42,7 @@ const FAULD_DROP_M: f32 = 0.085;
 /// Tassets hang from just above the hip joint.
 const TASSET_RISE_M: f32 = 0.015;
 /// A skirt reaches this fraction of the way from the hip to the knee.
-const SKIRT_REACH: f32 = 0.48;
+const SKIRT_REACH: Ratio = Ratio::from_ratio(0.48);
 
 pub(crate) fn layout() -> String {
     format!(
@@ -99,6 +105,7 @@ impl DeviceWearer<'_> {
         };
         let (left, left_count) = leg(0);
         let (right, right_count) = leg(1);
+        let candidate_status = gpu.scratch(4, "skirt candidate status")?;
         dispatch(
             self,
             batch,
@@ -109,10 +116,12 @@ impl DeviceWearer<'_> {
                 read("points", left),
                 read("extra", right),
                 write("fit", &fit),
+                atomic("candidate_status", &candidate_status),
             ],
             &[Word::U("left", left_count), Word::U("right", right_count)],
             Grid::Singles(STATIONS),
         )?;
+        self.record_candidate_status(batch, &candidate_status, &fit)?;
         dispatch(
             self,
             batch,
@@ -158,8 +167,8 @@ impl DeviceWearer<'_> {
             Kind::MailChausses
         });
         let mut legs = Vec::new();
-        for placement in ["left", "right"] {
-            let mut leg = self.record_fitted_tube(batch, &leg_design, placement)?;
+        for side in [crate::armor_frames::Side::Left, crate::armor_frames::Side::Right] {
+            let mut leg = self.record_fitted_tube(batch, &leg_design, side)?;
             leg.part.record_shells(self.gpu, batch)?;
             frames.extend(leg.frames);
             legs.push(leg.part);
@@ -259,118 +268,14 @@ fn main() {
         SECTION_HALF_WIDTH_M,
         MINIMUM_SECTION_SAMPLES,
     );
+    if (!band.present) {
+        fit[FIT_FAILED] = 1.0;
+        return;
+    }
     fit[12] = (band.hi.x - band.lo.x) * 0.5;
     fit[14] = (band.hi.z - band.lo.z) * 0.5;
     if (!(fit[12] > 0.0 && fit[14] > 0.0 && abs(fit[12]) <= INFINITY && abs(fit[14]) <= INFINITY)) {
         fit[FIT_FAILED] = 1.0;
-    }
-}
-"#;
-
-/// One invocation per drape cage station: the support of the section's points
-/// in each direction, then the radius each direction must reach to enclose
-/// every supporting line.
-const DRAPE_STATIONS: &str = r#"
-const SUPPORT_MASK: u32 = 3u;
-const SECTION_HALF_WIDTH_M: f32 = 0.018;
-const MINIMUM_SECTION_POINTS: u32 = 12u;
-
-var<private> supports: array<f32, SEGMENTS>;
-
-// The envelope: supported skin in vertex order, then each leg's garment.
-fn envelope_count() -> u32 {
-    return arrayLength(&support) + params.left + params.right;
-}
-
-// An envelope point in the frame; `w` is zero for unsupported skin.
-fn envelope(slot: u32, f: Frame) -> vec4<f32> {
-    let skin = arrayLength(&support);
-    var p: vec3<f32>;
-    if (slot < skin) {
-        if ((support[slot] & SUPPORT_MASK) == 0u) {
-            return vec4<f32>(0.0);
-        }
-        p = positions_at(slot);
-    } else if (slot < skin + params.left) {
-        p = points_at(slot - skin);
-    } else {
-        p = extra_at(slot - skin - params.left);
-    }
-    return vec4<f32>(host_local(f, p), 1.0);
-}
-
-fn include(p: vec3<f32>) {
-    for (var col = 0u; col < SEGMENTS; col = col + 1u) {
-        let angle = TAU * f32(col) / f32(SEGMENTS);
-        supports[col] = max(supports[col], p.x * sin(angle) + p.z * cos(angle));
-    }
-}
-
-@compute @workgroup_size(1)
-fn main(@builtin(workgroup_id) group: vec3<u32>) {
-    let row = group.x;
-    let f = frame_at(0u);
-    let y = f.half_extents.y * (2.0 * f32(row) / f32(STATIONS - 1u) - 1.0);
-    for (var col = 0u; col < SEGMENTS; col = col + 1u) {
-        supports[col] = 0.0;
-    }
-    let count = envelope_count();
-    var near = 0u;
-    var total = 0u;
-    for (var slot = 0u; slot < count; slot = slot + 1u) {
-        let p = envelope(slot, f);
-        if (p.w == 0.0) {
-            continue;
-        }
-        total = total + 1u;
-        if (abs(p.y - y) < SECTION_HALF_WIDTH_M) {
-            near = near + 1u;
-            include(p.xyz);
-        }
-    }
-    if (near < MINIMUM_SECTION_POINTS && near < total) {
-        // The nearest points by height instead, ties to the earliest.
-        for (var col = 0u; col < SEGMENTS; col = col + 1u) {
-            supports[col] = 0.0;
-        }
-        var last_distance = -1.0;
-        var last = 0u;
-        for (var k = 0u; k < min(MINIMUM_SECTION_POINTS, total); k = k + 1u) {
-            var best_distance = INFINITY;
-            var best = 0xffffffffu;
-            var best_point = vec3<f32>(0.0);
-            for (var slot = 0u; slot < count; slot = slot + 1u) {
-                let p = envelope(slot, f);
-                if (p.w == 0.0) {
-                    continue;
-                }
-                let d = abs(p.y - y);
-                let after = d > last_distance || (d == last_distance && slot > last);
-                if (after && (d < best_distance || (d == best_distance && slot < best))) {
-                    best_distance = d;
-                    best = slot;
-                    best_point = p.xyz;
-                }
-            }
-            if (best == 0xffffffffu) {
-                break;
-            }
-            include(best_point);
-            last_distance = best_distance;
-            last = best;
-        }
-    }
-    for (var col = 0u; col < SEGMENTS; col = col + 1u) {
-        let angle = TAU * f32(col) / f32(SEGMENTS);
-        var radius = INFINITY;
-        for (var normal = 0u; normal < SEGMENTS; normal = normal + 1u) {
-            let normal_angle = TAU * f32(normal) / f32(SEGMENTS);
-            let facing = cos(angle - normal_angle);
-            if (facing > 0.0) {
-                radius = min(radius, supports[normal] / facing);
-            }
-        }
-        fit[CAGE + row * SEGMENTS + col] = radius;
     }
 }
 "#;
@@ -386,6 +291,9 @@ fn at(row: u32, col: u32) -> u32 {
 
 @compute @workgroup_size(1)
 fn main() {
+    if (fit[FIT_FAILED] != 0.0) {
+        return;
+    }
     for (var row = STATIONS - 1u; row > 0u; row = row - 1u) {
         for (var col = 0u; col < SEGMENTS; col = col + 1u) {
             fit[at(row - 1u, col)] = max(fit[at(row - 1u, col)], fit[at(row, col)]);
@@ -462,6 +370,9 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     if (i >= params.count) {
         return;
     }
+    if (fit[FIT_FAILED] != 0.0) {
+        return;
+    }
     let f = frame_at(0u);
     let p = carriers_at(i);
     let local = host_local(f, p);
@@ -497,27 +408,51 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 fn skirt_span(design: &GarmentArmorDesign) -> Result<UprightSpan> {
     Ok(match (design.kind, design.plate_shape) {
         (Kind::Fauld, GarmentPlateShape::Fauld { waist_rise, .. }) => UprightSpan {
-            top: (RigJointName::C_SPINE1, waist_rise.metres()),
-            bottom: (RigJointName::ROOT, FAULD_DROP_M),
-            reach: (RigJointName::ROOT, 0.0),
+            top: JointHeightAnchor {
+                joint: RigJointName::C_SPINE1,
+                offset: waist_rise.signed_length(),
+            },
+            bottom: JointHeightAnchor {
+                joint: RigJointName::ROOT,
+                offset: SignedLength::from_metres(FAULD_DROP_M)?,
+            },
+            reach: JointReachTarget {
+                joint: RigJointName::ROOT,
+                coefficient: Ratio::from_ratio(0.0),
+            },
         },
         (Kind::Fauld, _) => bail!("fauld shape required"),
         (Kind::Tassets, _) => UprightSpan {
-            top: (RigJointName::ROOT, TASSET_RISE_M),
-            bottom: (RigJointName::ROOT, 0.0),
-            reach: (RigJointName::L_LOWLEG, SKIRT_REACH),
+            top: JointHeightAnchor {
+                joint: RigJointName::ROOT,
+                offset: SignedLength::from_metres(TASSET_RISE_M)?,
+            },
+            bottom: JointHeightAnchor {
+                joint: RigJointName::ROOT,
+                offset: SignedLength::ZERO,
+            },
+            reach: JointReachTarget {
+                joint: RigJointName::L_LOWLEG,
+                coefficient: SKIRT_REACH,
+            },
         },
         (kind, _) => UprightSpan {
-            top: (
-                RigJointName::C_SPINE1,
-                if kind == Kind::PaddedSkirt {
-                    design.wall_thickness.metres() * 3.0
+            top: JointHeightAnchor {
+                joint: RigJointName::C_SPINE1,
+                offset: if kind == Kind::PaddedSkirt {
+                    design.wall_thickness.signed_length().scaled_by(3.0)?
                 } else {
-                    0.0
+                    SignedLength::ZERO
                 },
-            ),
-            bottom: (RigJointName::ROOT, 0.0),
-            reach: (RigJointName::L_LOWLEG, SKIRT_REACH),
+            },
+            bottom: JointHeightAnchor {
+                joint: RigJointName::ROOT,
+                offset: SignedLength::ZERO,
+            },
+            reach: JointReachTarget {
+                joint: RigJointName::L_LOWLEG,
+                coefficient: SKIRT_REACH,
+            },
         },
     })
 }

@@ -89,10 +89,9 @@ pub(super) enum ArmoryView {
 
 /// One catalog item on display, fitted in each of its placements.
 pub(super) struct Exhibit {
-    pub item_id: String,
     pub name: String,
     pub region: Region,
-    pub placements: Vec<String>,
+    pub placements: Vec<adventuresim_core::equipment_assets::OwnedCatalogPlacement>,
     /// Each placement's fitted mesh, or why fitting failed.
     pub fitted: Vec<Result<GeneratedArmor, String>>,
     /// The catalog default when the armory opened, for reverting edits.
@@ -108,6 +107,11 @@ pub(super) struct Exhibit {
 }
 
 impl Exhibit {
+    /// Exhibits come from wearable items, each with a nonempty surface placement.
+    pub fn item(&self) -> adventuresim_core::equipment_assets::CatalogItem<'_> {
+        self.placements[0].item()
+    }
+
     /// Placements shown on the wall: one side, unless both are asked for.
     pub fn shown(&self, both_sides: bool) -> usize {
         if both_sides { self.placements.len() } else { 1 }
@@ -129,7 +133,7 @@ impl Exhibit {
         self.placements
             .iter()
             .zip(&self.fitted)
-            .filter_map(|(placement, fit)| Some((placement.as_str(), fit.as_ref().err()?.as_str())))
+            .filter_map(|(placement, fit)| Some((placement.selection().definition().id.as_str(), fit.as_ref().err()?.as_str())))
     }
 
     pub fn triangles(&self) -> usize {
@@ -398,26 +402,20 @@ fn exhibits(catalog: &EquipmentCatalog) -> Vec<Exhibit> {
     catalog
         .wearable()
         .filter_map(|item| {
-            let loaded = catalog.design(&item.id)?;
-            let placements: Vec<String> = item
-                .equipment
-                .as_ref()?
-                .placements
-                .iter()
-                .filter(|placement| !placement.surface.is_empty())
-                .map(|placement| placement.id.clone())
-                .collect();
+            let loaded = catalog.design(item)?;
+            let placements = item.retained_placements()
+                .filter(|placement| !placement.selection().surface.is_empty())
+                .collect::<Vec<_>>();
             Some(Exhibit {
-                item_id: item.id.clone(),
                 name: item.display_name.clone(),
-                region: Region::of(item),
+                region: Region::of(item.definition()),
                 fitted: placements
                     .iter()
                     .map(|_| Err("not fitted".into()))
                     .collect(),
                 placements,
                 loaded,
-                steel: equipment_material(item).is_some_and(is_plate_steel),
+                steel: equipment_material(item.definition()).is_some_and(is_plate_steel),
                 finished: Finish::default(),
                 offset: Vec3::ZERO,
                 stale: true,
@@ -441,12 +439,7 @@ fn fit_exhibits(
     indices: &[usize],
 ) -> Vec<Vec<Result<GeneratedArmor, String>>> {
     let fit = |exhibit: &Exhibit| {
-        let item = catalog
-            .item(&exhibit.item_id)
-            .expect("exhibits come from the catalog");
-        let design = catalog
-            .design(&exhibit.item_id)
-            .expect("exhibits are parametric");
+        let design = catalog.design(exhibit.item());
         exhibit
             .placements
             .iter()
@@ -454,9 +447,8 @@ fn fit_exhibits(
                 parametric_equipment::fitted_catalog_item(
                     model,
                     body,
-                    item,
-                    &design,
-                    placement,
+                    placement.selection(),
+                    design.as_ref().ok_or_else(|| "exhibit has no parametric design".to_owned())?,
                     &[],
                     &[],
                 )
@@ -475,7 +467,7 @@ fn fit_exhibits(
             .collect();
         handles
             .into_iter()
-            .flat_map(|handle| handle.join().expect("armor fitting panicked"))
+            .flat_map(|handle| handle.join().unwrap_or_else(|panic| std::panic::resume_unwind(panic)))
             .collect()
     })
 }

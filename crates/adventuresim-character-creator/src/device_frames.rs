@@ -109,6 +109,10 @@ impl Wearer<'_> {
     /// This body on the device, for fits that take nothing from its surface
     /// coordinates.
     pub fn upload(&self, gpu: &ArmorGpu) -> Result<GpuBody> {
+        anyhow::ensure!(
+            self.joint_indices.joint_count() == self.joint_names.joint_count(),
+            "wearer skin and joint names have different rig bounds"
+        );
         let texcoords = vec![[0.0; 2]; self.positions.len()];
         Ok(GpuBody::new(
             gpu,
@@ -168,7 +172,7 @@ impl DeviceWearer<'_> {
         &self,
         batch: &mut KernelBatch,
         landmarks: Landmarks,
-        owned: Vec<RigJointMembership>,
+        owned: fabelgeist_rig::RigJointTable<RigJointMembership>,
     ) -> Result<DeviceFrame> {
         let gpu = self.gpu;
         let frame = DeviceFrame {

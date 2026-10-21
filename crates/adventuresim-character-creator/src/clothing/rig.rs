@@ -8,7 +8,7 @@ use std::collections::{HashMap, HashSet, hash_map::Entry};
 type Result<T> = std::result::Result<T, RigJointLookupError>;
 
 pub(super) struct ClothingRig<'a> {
-    names: &'a [RigJointName],
+    names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
     regions: HashMap<Region, RegionBinding>,
     waist: HashSet<RigJointOrdinal>,
 }
@@ -30,7 +30,7 @@ struct RegionBinding {
 }
 
 impl<'a> ClothingRig<'a> {
-    pub(super) fn new(names: &'a [RigJointName]) -> Self {
+    pub(super) fn new(names: &'a fabelgeist_rig::RigJointTable<RigJointName>) -> Self {
         Self {
             names,
             regions: HashMap::new(),

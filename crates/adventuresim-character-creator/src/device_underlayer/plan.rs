@@ -8,6 +8,7 @@
 //! clipping. It stays on the host; everything it feeds -- offsets, layers,
 //! normals and attributes -- is evaluated on the device.
 
+use crate::armor_frames::FittingPlacement;
 use anyhow::{Result, ensure};
 
 use crate::armor_frames::Wearer;
@@ -39,7 +40,7 @@ impl CutPlan {
     /// that size the regions.
     pub fn new(
         design: &UnderlayerDesign,
-        placement: &str,
+        placement: FittingPlacement,
         body: &Wearer<'_>,
         uv_faces: &[[u32; 3]],
         frame: RegionFrame<'_>,

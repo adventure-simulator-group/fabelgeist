@@ -173,10 +173,10 @@ fn anime_courses_are_closed_rigid_and_keep_morph_correspondence() -> Result<()> 
         let mut owners = std::collections::BTreeSet::new();
         for component in &armor.components {
             let range = component.vertices.clone();
-            let joint = armor.joint_indices[range.start][0];
+            let joint = armor.joint_indices.native_words()[range.start][0];
             owners.insert(joint);
             assert!(
-                armor.joint_indices[range.clone()]
+                armor.joint_indices.native_words()[range.clone()]
                     .iter()
                     .all(|j| j[0] == joint)
             );

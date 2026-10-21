@@ -2,9 +2,8 @@
 
 use super::{Article, EquipConflict, Inventory, InventoryItemId};
 use crate::{
-    equipment_catalog::{ItemCatalog, is_wearable},
+    equipment_catalog::{CatalogPlacement, ItemCatalog, is_wearable},
     garment::{GarmentSelection, SettledDrape},
-    item_catalog_schema::{EquipmentPlacement, ItemDefinition},
     item_design::ItemDesign,
 };
 
@@ -22,8 +21,7 @@ pub struct Loadout<'a> {
 #[derive(Clone, Copy, Debug)]
 pub struct CatalogPiece<'a> {
     pub id: InventoryItemId,
-    pub item: &'a ItemDefinition,
-    pub placement: &'a EquipmentPlacement,
+    pub selection: CatalogPlacement<'a>,
 }
 
 #[derive(Clone, Debug)]
@@ -57,19 +55,18 @@ impl Inventory {
             let fail = |conflict| (item.id, conflict);
             match &item.article {
                 Article::Catalog(article) => {
-                    let (definition, placement) = article.resolve(catalog).map_err(fail)?;
-                    if !is_wearable(definition) || placement.surface.is_empty() {
+                    let selection = article.resolve(catalog).map_err(fail)?;
+                    if !is_wearable(selection.item().definition()) || selection.surface.is_empty() {
                         return Err(fail(EquipConflict::Invalid(format!(
                             "{} has no generated body surface",
-                            definition.display_name
+                            selection.item().display_name
                         ))));
                     }
                     let piece = CatalogPiece {
                         id: item.id,
-                        item: definition,
-                        placement,
+                        selection,
                     };
-                    match article.design(catalog).map_err(fail)? {
+                    match article.design_for(&catalog.designs, selection).map_err(fail)? {
                         Some(design) => loadout.fitted.push(FittedPiece {
                             piece,
                             design,

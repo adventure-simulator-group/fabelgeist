@@ -6,7 +6,7 @@
 use crate::armor_frames::{FitRegion, Side};
 use crate::device_frames::DeviceWearer;
 use crate::device_garment::{BAND, FRAME_WORDS, JOINTS};
-use crate::device_garment_kernel::{Grid, Word, dispatch, read, read_u32, write};
+use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
 use crate::device_piece::DeviceRecording;
 use crate::rig_parameters::RigJointParameter;
 use anyhow::Result;
@@ -216,6 +216,10 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
         SUPPORT_MASK, station.center, across, tangent, front,
         SECTION_HALF_WIDTH_M, MINIMUM_SECTION_SAMPLES,
     );
+    if (!band.present) {
+        atomicOr(&candidate_status[0], 1u);
+        return;
+    }
     // Widen the bounds' ellipse to hold the band.
     var lo = band.lo;
     var hi = band.hi;
@@ -353,9 +357,8 @@ impl DeviceWearer<'_> {
         &self,
         batch: &mut KernelBatch,
         design: &GarmentArmorDesign,
-        placement: &str,
+        side: Side,
     ) -> Result<DeviceRecording> {
-        let side = Side::from_placement(placement)?;
 
         let rig = TubeRig::from(design);
         let anchors = rig.anchors(self.host, side)?;
@@ -412,6 +415,7 @@ impl DeviceWearer<'_> {
                 read_u32("support", &support),
                 read("fit", &fit),
                 write("carriers", part.carriers()),
+                atomic("candidate_status", part.status()),
             ],
             &[
                 Word::U("count", part.carrier_count()),

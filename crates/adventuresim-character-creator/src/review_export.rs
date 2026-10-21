@@ -2,9 +2,15 @@
 use super::*;
 use adventuresim_character_creator::{
     armor_recipes,
-    inventory::{Article, CatalogArticle},
+    inventory::Article,
     item_design::ItemDesign,
 };
+
+use adventuresim_core::equipment_assets::CatalogPlacement;
+struct ReviewPiece<'a> {
+    selection: CatalogPlacement<'a>,
+    design: ItemDesign,
+}
 
 /// What the review exports besides the body.
 #[derive(Clone, Copy, clap::ValueEnum)]
@@ -33,7 +39,7 @@ pub(super) fn export(
             "positions":body.positions,"normals":body.normals,"faces":character.mesh.faces,"recipe":recipe,
             "texcoords":character.mesh.texcoords,"texcoord_faces":character.mesh.texcoord_faces,
             "joint_names":character.skeleton.names,"joints":body.global_joint_states,
-            "joint_indices":character.skin_weights.index,"joint_weights":character.skin_weights.weight,
+            "joint_indices":character.skin_weights.index.native_words(),"joint_weights":character.skin_weights.weight,
             "generator_version":fabelgeist_armor::GENERATOR_VERSION
         }))?,
     )?;
@@ -42,16 +48,15 @@ pub(super) fn export(
         ReviewSelection::Catalog => catalog_pieces(catalog),
         ReviewSelection::Recipe => worn_pieces(recipe, catalog)?,
     };
-    for (article, design) in pieces {
-        let (item, placement) = (&article.item_id, &article.placement_id);
-        eprintln!("Review mesh: {item} ({placement})");
-        let item = catalog
-            .item(item)
-            .with_context(|| format!("unknown review item {item}"))?;
-        let record = review_record(model, &body, item, placement, &design)
-            .with_context(|| format!("review generation {}/{placement}", item.id))?;
+    for piece in pieces {
+        let selection = piece.selection;
+        let item = selection.item();
+        let placement = selection.definition();
+        eprintln!("Review mesh: {} ({})", item.id, placement.id);
+        let record = review_record(model, &body, selection, &piece.design)
+            .with_context(|| format!("review generation {}/{}", item.id, placement.id))?;
         std::fs::write(
-            output.join(format!("{}--{placement}.json", item.id)),
+            output.join(format!("{}--{}.json", item.id, placement.id)),
             serde_json::to_vec(&record)?,
         )?;
     }
@@ -59,34 +64,34 @@ pub(super) fn export(
 }
 
 /// Every placement of every parametric catalog item, in its placement's design.
-fn catalog_pieces(catalog: &EquipmentCatalog) -> Vec<(CatalogArticle, ItemDesign)> {
+fn catalog_pieces(catalog: &EquipmentCatalog) -> Vec<ReviewPiece<'_>> {
     catalog
         .wearable()
         .flat_map(|item| {
-            let placements = &item.equipment.as_ref().expect("wearable item").placements;
-            placements.iter().filter_map(|placement| {
-                let design = catalog.placed_design(&item.id, &placement.id)?;
-                Some((CatalogArticle::new(&item.id, &placement.id), design))
+            item.placements().filter_map(|selection| {
+                let design = catalog.placed_design(selection)?;
+                Some(ReviewPiece { selection, design })
             })
         })
         .collect()
 }
 
 /// The parametric catalog articles the recipe wears, in their own designs.
-fn worn_pieces(
+fn worn_pieces<'a>(
     recipe: &CharacterRecipe,
-    catalog: &EquipmentCatalog,
-) -> Result<Vec<(CatalogArticle, ItemDesign)>> {
+    catalog: &'a EquipmentCatalog,
+) -> Result<Vec<ReviewPiece<'a>>> {
     let mut pieces = Vec::new();
     for worn in recipe.inventory.worn() {
         let Article::Catalog(article) = &worn.article else {
             continue;
         };
+        let selection = article.resolve(catalog).map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;
         let design = article
-            .design(catalog)
+            .design_for(&catalog.designs, selection)
             .map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;
         if let Some(design) = design {
-            pieces.push((article.clone(), design));
+            pieces.push(ReviewPiece { selection, design });
         }
     }
     Ok(pieces)
@@ -97,19 +102,18 @@ fn worn_pieces(
 fn review_record(
     model: &BodyModel,
     body: &GeneratedCharacter,
-    item: &ItemDefinition,
-    placement: &str,
+    placement: CatalogPlacement<'_>,
     design: &ItemDesign,
 ) -> Result<serde_json::Value> {
     let armor = parametric_equipment::fitted_item(model, body, design, placement, &[], &[])?;
     let mut record = serde_json::json!({
-        "id":item.id,"placement":placement,"positions":armor.positions,"normals":armor.normals,
+        "id":placement.item().id,"placement":placement.definition().id,"positions":armor.positions,"normals":armor.normals,
         "indices":armor.indices,"components":armor.components,
         "generator_version":fabelgeist_armor::GENERATOR_VERSION
     });
     record["design"] = match design {
         ItemDesign::Recipe(recipe) => {
-            let region = armor_recipes::fit_region(recipe, placement)?;
+            let region = armor_recipes::fit_region(recipe, placement.into())?;
             let frame = device_equipment::frame(model, body, region)?;
             record["frame"] = serde_json::json!({
                 "origin":frame.origin,"axes":frame.axes,"half_extents":frame.half_extents

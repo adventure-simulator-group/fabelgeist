@@ -1,7 +1,10 @@
 //! Procedural-equipment manifest wire records and catalogue-checked assets.
 
-use crate::item_catalog::{self, EquipmentMaterial, EquipmentPlacement, ItemDefinition};
+use crate::item_catalog::{self, EquipmentMaterial};
+pub use selection::{CatalogItem, CatalogPlacement, OwnedCatalogPlacement};
 use serde::{Deserialize, Serialize};
+
+mod selection;
 
 pub const GLB_EXTENSION: &str = "glb";
 pub const EQUIPMENT_MANIFEST_SCHEMA_VERSION: u32 = 1;
@@ -33,8 +36,7 @@ pub struct ProceduralEquipmentAsset {
 }
 
 pub struct EquipmentAssetEntry {
-    pub item: &'static ItemDefinition,
-    pub placement: &'static EquipmentPlacement,
+    pub selection: CatalogPlacement<'static>,
     pub file: String,
 }
 
@@ -47,59 +49,52 @@ impl EquipmentAssets {
         let manifest: ProceduralEquipmentManifest = serde_json::from_str(source)?;
         let mut entries: Vec<EquipmentAssetEntry> = Vec::new();
         for asset in manifest.assets {
-            let item = item_catalog::definition(&asset.item_id).ok_or_else(|| {
+            let item = CatalogItem::find(item_catalog::catalog(), &asset.item_id).ok_or_else(|| {
                 <serde_json::Error as serde::de::Error>::custom(format!(
                     "unknown equipment manifest item {}",
                     asset.item_id
                 ))
             })?;
-            let placement = item
-                .equipment
-                .as_ref()
-                .and_then(|equipment| {
-                    equipment
-                        .placements
-                        .iter()
-                        .find(|placement| placement.id == asset.placement_id)
-                })
-                .ok_or_else(|| {
-                    <serde_json::Error as serde::de::Error>::custom(format!(
-                        "unknown placement {} for {}",
-                        asset.placement_id, item.id
-                    ))
-                })?;
-            if entries.iter().any(|entry| {
-                std::ptr::eq(entry.item, item) && std::ptr::eq(entry.placement, placement)
-            }) {
+            let selection = item.placement(&asset.placement_id).ok_or_else(|| {
+                <serde_json::Error as serde::de::Error>::custom(format!(
+                    "unknown placement {} for {}",
+                    asset.placement_id, item.definition().id
+                ))
+            })?;
+            if entries.iter().any(|entry| entry.selection == selection) {
                 return Err(<serde_json::Error as serde::de::Error>::custom(
                     "procedural equipment manifest keys must be unique",
                 ));
             }
             entries.push(EquipmentAssetEntry {
-                item,
-                placement,
+                selection,
                 file: asset.file,
             });
         }
         // Preserve the previous nested ordered-map default-placement selection.
         entries.sort_by(|left, right| {
-            (&left.item.id, &left.placement.id).cmp(&(&right.item.id, &right.placement.id))
+            (&left.selection.item().definition().id, &left.selection.definition().id).cmp(&(
+                &right.selection.item().definition().id,
+                &right.selection.definition().id,
+            ))
         });
         Ok(Self { entries })
     }
-    pub fn file_for(
-        &self,
-        item: &ItemDefinition,
-        placement: Option<&EquipmentPlacement>,
-    ) -> Option<&str> {
+    pub fn file_for(&self, selection: CatalogPlacement<'static>) -> Option<&str> {
         self.entries
             .iter()
-            .find(|entry| {
-                std::ptr::eq(entry.item, item)
-                    && placement.is_none_or(|placement| std::ptr::eq(entry.placement, placement))
-            })
+            .find(|entry| entry.selection == selection)
             .map(|entry| entry.file.as_str())
     }
+
+    /// The first lexical placement, matching the manifest's ordered lookup.
+    pub fn default_file_for(&self, item: CatalogItem<'static>) -> Option<&str> {
+        self.entries
+            .iter()
+            .find(|entry| entry.selection.item() == item)
+            .map(|entry| entry.file.as_str())
+    }
+
     pub fn entries(&self) -> impl Iterator<Item = &EquipmentAssetEntry> {
         self.entries.iter()
     }

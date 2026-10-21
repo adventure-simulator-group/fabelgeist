@@ -6,7 +6,7 @@ use fabelgeist_rig::RigJointName;
 pub(crate) struct ProceduralEquipmentPart {
     pub(crate) item: Entity,
     pub(super) inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
-    pub(crate) joint_names: Vec<RigJointName>,
+    pub(crate) joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
     pub(super) rigid_center: Vec3,
 }
 
@@ -14,7 +14,7 @@ impl ProceduralEquipmentPart {
     pub(crate) fn new(
         item: Entity,
         inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
-        joint_names: Vec<RigJointName>,
+        joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
         rigid_center: Vec3,
     ) -> Self {
         Self {
@@ -166,7 +166,7 @@ mod tests {
                 ProceduralEquipmentPart {
                     item,
                     inverse_bindposes: default(),
-                    joint_names: vec!["pelvis".into()],
+                    joint_names: vec!["pelvis".into()].into(),
                     rigid_center: Vec3::ZERO,
                 },
                 Mesh3d(original.clone()),

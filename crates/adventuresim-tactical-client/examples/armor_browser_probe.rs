@@ -89,7 +89,7 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
                 } else {
                     item
                 };
-                runtime_equipment::generate(&body, recipe, placement, &bracer, &breastplate, &[])
+                runtime_equipment::generate(&body, adventuresim_core::equipment_assets::CatalogPlacement::find(adventuresim_core::item_catalog::catalog(), recipe, placement).ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?, &bracer, &breastplate, &[])
                     .await
                     .with_context(|| format!("fitting {item}, round {round}"))
             };
@@ -193,12 +193,12 @@ async fn wrapped(
         device: &body.device,
     };
     let part =
-        device_fit::fit_recipe_async(gpu, &topology, &wearer, &[], &design, "worn", &[]).await;
+        device_fit::fit_recipe_async(gpu, &topology, &wearer, &[], &design, adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired, &[]).await;
     device_fit::assemble_recipe(
         &design,
         part?,
         &Fitted {
-            placement: "worn",
+            placement: adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired,
             morphs: &[],
             domain: &body.domain,
             joint_names: &body.joint_names,

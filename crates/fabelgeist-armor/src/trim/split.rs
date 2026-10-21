@@ -9,7 +9,7 @@
 use std::collections::HashMap;
 
 use super::edges::{Nearest, Rims, lerp};
-use super::{ArmorTrim, TrimBand};
+use super::{ArmorTrim, TrimBand, TrimError};
 use crate::{GeneratedArmor, PlateFace, skin};
 
 /// Bisection steps locating the border on an edge: a millionth of it.
@@ -34,7 +34,7 @@ pub(super) struct Split<'a> {
 }
 
 impl<'a> Split<'a> {
-    pub(super) fn new(armor: GeneratedArmor, rims: &'a Rims, band: TrimBand) -> Self {
+    pub(super) fn new(armor: GeneratedArmor, rims: &'a Rims, band: TrimBand) -> Result<Self, TrimError> {
         let near = (0..armor.positions.len() as u32)
             .map(|v| rims.nearest(armor.positions[v as usize], rims.plate(v)))
             .collect();
@@ -60,14 +60,14 @@ impl<'a> Split<'a> {
             for triangle in surface.plate.step_by(3).map(|at| at / 3) {
                 let corners = std::array::from_fn(|k| split.armor.indices[triangle * 3 + k]);
                 let face = split.armor.faces[triangle];
-                split.divide(corners, face, component, &mut plate, &mut band);
+                split.divide(corners, face, component, &mut plate, &mut band)?;
             }
             for (corners, _) in &mut band {
-                split.unwrap(corners, component);
+                split.unwrap(corners, component)?;
             }
             split.surfaces.push((plate, band));
         }
-        split
+        Ok(split)
     }
 
     /// Sort one triangle into plate and band, cutting it on the border.
@@ -78,28 +78,32 @@ impl<'a> Split<'a> {
         component: usize,
         plate: &mut Vec<Triangle>,
         band: &mut Vec<Triangle>,
-    ) {
+    ) -> Result<(), TrimError> {
         match face {
-            PlateFace::Inner => return plate.push((corners, face)),
-            PlateFace::Edge => return band.push((corners, face)),
+            PlateFace::Inner => { plate.push((corners, face)); return Ok(()); },
+            PlateFace::Edge => { band.push((corners, face)); return Ok(()); },
             PlateFace::Outer => {}
         }
         let inside = corners.map(|v| self.inside(v));
         let count = inside.iter().filter(|i| **i).count();
         if count == 3 {
-            return band.push((corners, face));
+            band.push((corners, face)); return Ok(());
         }
         if count == 0 {
-            return plate.push((corners, face));
+            plate.push((corners, face)); return Ok(());
         }
         // The corner alone on its side of the border, then the other two in
         // winding order.
-        let lone = (0..3)
-            .find(|k| inside[*k] != inside[(k + 1) % 3] && inside[*k] != inside[(k + 2) % 3])
-            .expect("a mixed triangle has a lone corner");
+        let lone = if inside[0] != inside[1] && inside[0] != inside[2] {
+            0
+        } else if inside[1] != inside[2] && inside[1] != inside[0] {
+            1
+        } else {
+            2
+        };
         let [l, a, b] = [0, 1, 2].map(|k| corners[(lone + k) % 3]);
-        let p = self.cut(l, a, component);
-        let q = self.cut(l, b, component);
+        let p = self.cut(l, a, component)?;
+        let q = self.cut(l, b, component)?;
         let (tip, base) = if inside[lone] {
             (band, plate)
         } else {
@@ -107,6 +111,7 @@ impl<'a> Split<'a> {
         };
         tip.push(([l, p, q], face));
         base.extend([([p, a, b], face), ([p, b, q], face)]);
+        Ok(())
     }
 
     fn inside(&self, vertex: u32) -> bool {
@@ -115,9 +120,9 @@ impl<'a> Split<'a> {
 
     /// The border vertex on the edge between `a` and `b`, one inside the
     /// band and one out.
-    fn cut(&mut self, a: u32, b: u32, component: usize) -> u32 {
+    fn cut(&mut self, a: u32, b: u32, component: usize) -> Result<u32, TrimError> {
         if let Some(cut) = self.cuts.get(&(a.min(b), a.max(b))) {
-            return *cut;
+            return Ok(*cut);
         }
         let (inner, outer) = if self.inside(a) { (a, b) } else { (b, a) };
         let [from, to] = [inner, outer].map(|v| self.armor.positions[v as usize]);
@@ -139,17 +144,17 @@ impl<'a> Split<'a> {
                 distance: self.width,
                 ..near
             });
-        let cut = self.push_vertex(inner, outer, t, component, near);
+        let cut = self.push_vertex(inner, outer, t, component, near)?;
         self.cuts.insert((a.min(b), a.max(b)), cut);
-        cut
+        Ok(cut)
     }
 
     /// Give a band triangle straddling a closed rim's start copies of its
     /// low corners one rim further along, so its coordinates run on.
-    fn unwrap(&mut self, corners: &mut [u32; 3], component: usize) {
+    fn unwrap(&mut self, corners: &mut [u32; 3], component: usize) -> Result<(), TrimError> {
         let near = corners.map(|v| self.near[v as usize]);
         let Some(closure) = near.iter().flatten().map(|n| n.closure).find(|c| *c > 0.0) else {
-            return;
+            return Ok(());
         };
         let highest = near
             .iter()
@@ -167,12 +172,13 @@ impl<'a> Split<'a> {
                         along: near.along + closure,
                         ..near
                     };
-                    let copy = self.push_vertex(*corner, *corner, 0.0, component, Some(moved));
+                    let copy = self.push_vertex(*corner, *corner, 0.0, component, Some(moved))?;
                     self.unwrapped.insert(*corner, copy);
                     copy
                 }
             };
         }
+        Ok(())
     }
 
     /// Append a vertex `t` of the way from `a` to `b`.
@@ -183,7 +189,7 @@ impl<'a> Split<'a> {
         t: f32,
         component: usize,
         near: Option<Nearest>,
-    ) -> u32 {
+    ) -> Result<u32, TrimError> {
         let (a, b) = (a as usize, b as usize);
         let armor = &mut self.armor;
         let index = armor.positions.len() as u32;
@@ -201,12 +207,12 @@ impl<'a> Split<'a> {
         armor
             .texcoords
             .push(std::array::from_fn(|k| ua[k] + (ub[k] - ua[k]) * t));
-        let (joints, weights) = skin::blend(&[
-            ((armor.joint_indices[a], armor.joint_weights[a]), 1.0 - t),
-            ((armor.joint_indices[b], armor.joint_weights[b]), t),
-        ]);
-        armor.joint_indices.push(joints);
-        armor.joint_weights.push(weights);
+        let skin = skin::blend(
+            skin::SkinShare { skin: armor.joint_indices.weighted_vertex(a, armor.joint_weights[a]), share: 1.0 - t },
+            &[skin::SkinShare { skin: armor.joint_indices.weighted_vertex(b, armor.joint_weights[b]), share: t }],
+        );
+        armor.joint_indices.push(skin.joints)?;
+        armor.joint_weights.push(skin.weights);
         for morph in &mut armor.morphs {
             for values in [
                 &mut morph.position_deltas,
@@ -218,7 +224,7 @@ impl<'a> Split<'a> {
         }
         self.near.push(near);
         self.component_of.push(component);
-        index
+        Ok(index)
     }
 
     /// The trimmed piece, its vertices grouped by component again.
@@ -278,7 +284,7 @@ fn group_by_component(armor: &mut GeneratedArmor, component_of: &[usize]) {
     permute(&mut armor.positions, &order);
     permute(&mut armor.normals, &order);
     permute(&mut armor.texcoords, &order);
-    permute(&mut armor.joint_indices, &order);
+    armor.joint_indices = armor.joint_indices.select(order.iter().map(|old| *old as usize));
     permute(&mut armor.joint_weights, &order);
     for morph in &mut armor.morphs {
         permute(&mut morph.position_deltas, &order);

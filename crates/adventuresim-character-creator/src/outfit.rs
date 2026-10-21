@@ -90,17 +90,10 @@ fn clothing_specifications(loadout: &Loadout<'_>) -> Result<Vec<GarmentSpecifica
         .clothing
         .iter()
         .map(|piece| {
-            let material = piece
-                .item
-                .equipment
-                .as_ref()
-                .and_then(|equipment| equipment.material)
-                .with_context(|| format!("item {} has no procedural material", piece.item.id))?;
             Ok(GarmentSpecification::from_catalog(
-                format!("{} · {}", piece.item.display_name, piece.placement.id).into(),
-                piece.placement,
-                material,
-            ))
+                format!("{} · {}", piece.selection.item().display_name, piece.selection.id).into(),
+                piece.selection,
+            )?)
         })
         .collect()
 }

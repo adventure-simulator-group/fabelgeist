@@ -12,12 +12,12 @@ pub use occupancy::{Occupancy, WornGraph};
 
 use crate::{
     decoration::Decoration,
-    equipment_catalog::ItemCatalog,
+    equipment_catalog::{CatalogPlacement, ItemCatalog},
     garment::{GarmentSelection, SettledGarment},
     item_catalog_schema::{
-        EquipmentChannel, EquipmentLocation, EquipmentPlacement, ItemDefinition,
+        EquipmentChannel, EquipmentLocation, ItemDefinition,
     },
-    item_design::ItemDesign,
+    item_design::{CatalogDesigns, ItemDesign},
 };
 use fabelgeist_armor::Construction;
 use serde::{Deserialize, Serialize};
@@ -99,7 +99,7 @@ impl CatalogArticle {
     pub fn resolve<'a>(
         &self,
         catalog: &'a ItemCatalog,
-    ) -> Result<(&'a ItemDefinition, &'a EquipmentPlacement), EquipConflict> {
+    ) -> Result<CatalogPlacement<'a>, EquipConflict> {
         catalog
             .placement(&self.item_id, &self.placement_id)
             .ok_or_else(|| {
@@ -112,7 +112,19 @@ impl CatalogArticle {
 
     /// The shape this article is built from, if its item is parametric.
     pub fn design(&self, catalog: &ItemCatalog) -> Result<Option<ItemDesign>, EquipConflict> {
-        let default = catalog.placed_design(&self.item_id, &self.placement_id);
+        let selection = self.resolve(catalog)?;
+        self.design_for(&catalog.designs, selection)
+    }
+
+    pub fn design_for(
+        &self,
+        designs: &CatalogDesigns,
+        selection: CatalogPlacement<'_>,
+    ) -> Result<Option<ItemDesign>, EquipConflict> {
+        if selection.item().id != self.item_id || selection.id != self.placement_id {
+            return Err(EquipConflict::Invalid("catalog article selection has another identity".into()));
+        }
+        let default = designs.default_at(selection);
         match (&self.design, default) {
             (None, default) => Ok(default),
             (Some(own), Some(default)) if default.same_family(own) => Ok(Some(own.clone())),
@@ -128,10 +140,10 @@ impl Article {
     pub fn name(&self, catalog: &ItemCatalog) -> String {
         match self {
             Self::Catalog(article) => match article.resolve(catalog) {
-                Ok((item, _)) if placement_count(item) > 1 => {
-                    format!("{} ({})", item.display_name, article.placement_id)
+                Ok(selection) if placement_count(selection.item().definition()) > 1 => {
+                    format!("{} ({})", selection.item().display_name, selection.id)
                 }
-                Ok((item, _)) => item.display_name.clone(),
+                Ok(selection) => selection.item().display_name.clone(),
                 Err(_) => format!("Unknown {}", article.item_id),
             },
             Self::Draped(selection) => selection.name.clone(),
@@ -145,7 +157,7 @@ impl Article {
             Self::Catalog(article) => article
                 .resolve(catalog)
                 .ok()
-                .map(|(item, _)| item.weight_kg),
+                .map(|selection| selection.item().weight_kg),
             Self::Draped(_) | Self::Settled(_) => None,
         }
     }
@@ -301,22 +313,20 @@ impl Inventory {
         let candidates = self
             .worn()
             .map(|item| {
-                let occupancy = item
-                    .article
-                    .occupancy(catalog)
-                    .map_err(|conflict| (item.id, conflict))?;
-                let equipment = match &item.article {
-                    Article::Catalog(article) => catalog
-                        .item(&article.item_id)
-                        .and_then(|definition| definition.equipment.as_ref()),
-                    Article::Draped(_) | Article::Settled(_) => None,
-                };
-                Ok(occupancy::Candidate {
-                    id: item.id,
-                    occupancy,
-                    equipment,
-                    attachment_tags: equipment.map_or(&[], |e| e.attachment_tags.as_slice()),
-                })
+                match &item.article {
+                    Article::Catalog(article) => {
+                        let selection = article.resolve(catalog)
+                            .map_err(|conflict| (item.id, conflict))?;
+                        Ok(occupancy::Candidate::from_catalog(item.id, selection))
+                    }
+                    Article::Draped(_) | Article::Settled(_) => Ok(occupancy::Candidate {
+                        id: item.id,
+                        occupancy: item.article.occupancy(catalog)
+                            .map_err(|conflict| (item.id, conflict))?,
+                        equipment: None,
+                        attachment_tags: &[],
+                    }),
+                }
             })
             .collect::<Result<Vec<_>, _>>()?;
         WornGraph::build(candidates)

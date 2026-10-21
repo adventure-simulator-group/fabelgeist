@@ -2,7 +2,7 @@
 
 use super::{Article, EquipConflict, InventoryItemId};
 use crate::{
-    equipment_catalog::ItemCatalog,
+    equipment_catalog::{CatalogPlacement, ItemCatalog},
     garment::{Construction, GarmentSelection, SettledGarment},
     item_catalog_schema::{
         EquipmentChannel, EquipmentDefinition, EquipmentLocation, OccupancyRequirement,
@@ -20,6 +20,13 @@ pub struct Occupancy {
 }
 
 impl Occupancy {
+    pub(crate) fn from_catalog(selection: CatalogPlacement<'_>) -> Self {
+        Self {
+            body: selection.occupancy.clone(),
+            parents: selection.parents.clone(),
+        }
+    }
+
     fn on_body(channel: EquipmentChannel, locations: &[EquipmentLocation]) -> Self {
         Self {
             body: locations
@@ -61,11 +68,8 @@ impl Article {
     pub fn occupancy(&self, catalog: &ItemCatalog) -> Result<Occupancy, EquipConflict> {
         match self {
             Self::Catalog(article) => {
-                let (_, placement) = article.resolve(catalog)?;
-                Ok(Occupancy {
-                    body: placement.occupancy.clone(),
-                    parents: placement.parents.clone(),
-                })
+                let placement = article.resolve(catalog)?;
+                Ok(Occupancy::from_catalog(placement))
             }
             Self::Draped(selection) | Self::Settled(SettledGarment { selection, .. }) => Ok(
                 Occupancy::on_body(selection.channel(), &garment_locations(selection)),
@@ -101,6 +105,18 @@ pub(super) struct Candidate<'a> {
     pub occupancy: Occupancy,
     pub equipment: Option<&'a EquipmentDefinition>,
     pub attachment_tags: &'a [String],
+}
+
+impl<'a> Candidate<'a> {
+    pub(super) fn from_catalog(id: InventoryItemId, selection: CatalogPlacement<'a>) -> Self {
+        let equipment = selection.item().definition().equipment.as_ref();
+        Self {
+            id,
+            occupancy: Occupancy::from_catalog(selection),
+            equipment,
+            attachment_tags: equipment.map_or(&[], |equipment| equipment.attachment_tags.as_slice()),
+        }
+    }
 }
 
 /// Worn articles joined into one conflict-free equipment graph.

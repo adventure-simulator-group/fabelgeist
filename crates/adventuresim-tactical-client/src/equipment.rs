@@ -263,18 +263,14 @@ fn icon_uv(slug: &str) -> egui::Rect {
 
 fn procedural_equipment_file(item_id: &str, placement_id: Option<&str>) -> Option<&'static str> {
     // ItemProperties and replicated placement text enter the canonical catalogue here.
-    let item = item_catalog::definition(item_id)?;
-    let placement = match placement_id {
-        Some(id) => Some(
-            item.equipment
-                .as_ref()?
-                .placements
-                .iter()
-                .find(|placement| placement.id == id)?,
-        ),
-        None => None,
-    };
-    PROCEDURAL_EQUIPMENT_ASSETS.file_for(item, placement)
+    let item = adventuresim_core::equipment_assets::CatalogItem::find(
+        item_catalog::catalog(),
+        item_id,
+    )?;
+    match placement_id {
+        Some(id) => PROCEDURAL_EQUIPMENT_ASSETS.file_for(item.placement(id)?),
+        None => PROCEDURAL_EQUIPMENT_ASSETS.default_file_for(item),
+    }
 }
 
 fn procedural_equipment_asset_path(file: &str) -> String {
@@ -1172,7 +1168,7 @@ mod tests {
             .spawn(ProceduralEquipmentPart {
                 item,
                 inverse_bindposes: Handle::default(),
-                joint_names: vec!["root".into(), "c_spine0".into()],
+                joint_names: vec!["root".into(), "c_spine0".into()].into(),
                 rigid_center: Vec3::ZERO,
             })
             .id();

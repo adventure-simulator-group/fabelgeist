@@ -14,20 +14,22 @@ fn gpu() -> &'static ArmorGpu {
 
 struct Arms {
     positions: Vec<[f32; 3]>,
-    indices: Vec<[u32; 8]>,
+    indices: fabelgeist_rig::PackedRigSkin<8>,
     weights: Vec<[f32; 8]>,
-    names: Vec<RigJointName>,
-    joints: Vec<[f32; 8]>,
+    names: fabelgeist_rig::RigJointTable<RigJointName>,
+    joints: fabelgeist_rig::RigJointTable<[f32; 8]>,
 }
 
 impl Arms {
     fn bent() -> Self {
         let mut arms = Self {
             positions: Vec::new(),
-            indices: Vec::new(),
+            indices: fabelgeist_rig::PackedRigSkin::empty(
+                fabelgeist_rig::RigJointCount::from_native_joint_count(6),
+            ),
             weights: Vec::new(),
-            names: Vec::new(),
-            joints: Vec::new(),
+            names: Default::default(),
+            joints: Default::default(),
         };
         for (side, x, width, depth) in [
             (Side::Left, 0.3, 0.04, 0.03),
@@ -56,7 +58,9 @@ impl Arms {
             {
                 arms.positions
                     .push([x + offset[0], 1.2 + offset[1], offset[2]]);
-                arms.indices.push([first_joint + vertex as u32 % 2; 8]);
+                arms.indices.push(
+                    [first_joint + vertex as u32 % 2; 8].map(fabelgeist_rig::RigJointOrdinal::from),
+                ).unwrap();
                 arms.weights.push([0.125; 8]);
             }
         }
@@ -137,9 +141,9 @@ fn collinear_arm_landmarks_are_rejected_instead_of_inventing_a_bend_plane() {
         for wrist_y in [0.6, 1.5] {
             let mut arms = Arms::bent();
             let first = if matches!(side, Side::Left) { 0 } else { 3 };
-            arms.joints[first][2] = 0.0;
-            arms.joints[first + 2][1] = wrist_y;
-            arms.joints[first + 2][2] = 0.0;
+            arms.joints[fabelgeist_rig::RigJointOrdinal::from(first)][2] = 0.0;
+            arms.joints[fabelgeist_rig::RigJointOrdinal::from(first + 2)][1] = wrist_y;
+            arms.joints[fabelgeist_rig::RigJointOrdinal::from(first + 2)][2] = 0.0;
             assert!(arms.frame(side).is_err());
         }
     }

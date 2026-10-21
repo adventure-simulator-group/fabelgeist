@@ -41,7 +41,7 @@ pub(super) fn export_character(
         .zip(&clothing_targets)
         .map(|(shell, targets)| rigged_clothing(shell, targets))
         .collect::<Vec<_>>();
-    let metals = catalog_metals(&armor, catalog)?;
+    let metals = catalog_metals(&armor)?;
     shells.extend(catalog_shells(
         &armor,
         CatalogGeometry {
@@ -53,7 +53,6 @@ pub(super) fn export_character(
             targets: &lacing_targets,
         },
         &metals,
-        catalog,
     )?);
     let draped_morphs = morphs.draped(&generated, &character.mesh.faces, &fitted)?;
     let draped_targets: Vec<_> = draped_morphs
@@ -89,7 +88,7 @@ pub(super) fn export_character(
             joint_weights: &character.skin_weights.weight,
             joint_names: &character.skeleton.names,
             joint_parents: &character.skeleton.parents,
-            global_joint_states: generated.global_joint_states.iter().collect(),
+            global_joint_states: &generated.global_joint_states,
         },
         &shells,
         &[],
@@ -106,11 +105,10 @@ type CatalogMetals = Vec<(
 /// baked once.
 fn catalog_metals(
     armor: &[parametric_equipment::SelectedArmor<'_>],
-    catalog: &EquipmentCatalog,
 ) -> Result<CatalogMetals> {
     let mut metals: CatalogMetals = Vec::new();
     for piece in armor {
-        let material = catalog.material(&piece.piece.piece.item.id)?;
+        let material = equipment_catalog::material(piece.piece.piece.selection.item())?;
         let plate = adventuresim_character_creator::armor_metal::metal(
             material,
             piece.piece.decoration.engraving.as_ref(),
@@ -157,7 +155,6 @@ fn catalog_shells<'a>(
     plates: CatalogGeometry<'a>,
     lacing: CatalogGeometry<'a>,
     metals: &'a CatalogMetals,
-    catalog: &EquipmentCatalog,
 ) -> Result<Vec<RiggedShell<'a>>> {
     let mut shells = Vec::new();
     for (i, piece) in armor.iter().enumerate() {
@@ -170,7 +167,7 @@ fn catalog_shells<'a>(
             &plates.targets[i],
         );
         let mut parts = rigged.plate;
-        let material = catalog.material(&piece.piece.piece.item.id)?;
+        let material = equipment_catalog::material(piece.piece.piece.selection.item())?;
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
         let metal = adventuresim_character_creator::armor_metal::metal(
             material,

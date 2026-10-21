@@ -265,9 +265,11 @@ mod tests {
             obstacles: vec![],
             positions: vec![[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]],
             faces: vec![[0, 1, 2]],
-            names: vec![],
-            joints: vec![],
-            indices: vec![[0; 8]; 3],
+            names: Default::default(),
+            joints: Default::default(),
+            indices: fabelgeist_rig::PackedRigSkin::from_native(
+                vec![[0; 8]; 3], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            ).unwrap(),
             weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; 3],
         }
     }
@@ -283,7 +285,7 @@ mod tests {
             positions: vec![[0.0; 3]],
             normals: vec![],
             faces: vec![],
-            indices: vec![],
+            indices: Default::default(),
             weights: vec![],
             stage: DrapeStage::Settling { step: 1, of: 1 },
         });

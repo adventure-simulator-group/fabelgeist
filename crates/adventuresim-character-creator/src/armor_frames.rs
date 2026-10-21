@@ -2,7 +2,7 @@
 
 use anyhow::Result;
 use fabelgeist_rig::{
-    RigJointMembership, RigJointName, RigJointOrdinal, RigJointPart, RigJointTable, RigSide,
+    RigJointMembership, RigJointName, RigJointPart, RigJointTable, RigSide,
 };
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -11,14 +11,34 @@ pub enum Side {
     Right,
 }
 
-impl Side {
-    pub fn from_placement(id: &str) -> Result<Self> {
-        match id {
-            "left" => Ok(Self::Left),
-            "right" => Ok(Self::Right),
-            _ => anyhow::bail!("paired armor requires a left or right placement"),
+/// The anatomical role needed by pure fitting kernels. Non-lateral placements
+/// retain their catalogue identity above this boundary and impose no side.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum FittingPlacement {
+    Lateral(Side),
+    Unpaired,
+}
+
+impl From<adventuresim_core::equipment_assets::CatalogPlacement<'_>> for FittingPlacement {
+    fn from(placement: adventuresim_core::equipment_assets::CatalogPlacement<'_>) -> Self {
+        match placement.definition().id.as_str() {
+            "left" => Self::Lateral(Side::Left),
+            "right" => Self::Lateral(Side::Right),
+            _ => Self::Unpaired,
         }
     }
+}
+
+impl FittingPlacement {
+    pub fn side(self) -> Result<Side> {
+        match self {
+            Self::Lateral(side) => Ok(side),
+            Self::Unpaired => anyhow::bail!("paired armor requires a left or right placement"),
+        }
+    }
+}
+
+impl Side {
     /// Which way this side's local x points: +1 on the left, -1 on the right.
     pub(crate) fn sign(self) -> f32 {
         match self {
@@ -125,10 +145,10 @@ pub struct Wearer<'a> {
     pub faces: &'a [[u32; 3]],
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],
-    pub joint_indices: &'a [[u32; 8]],
+    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [RigJointName],
-    pub joints: &'a [[f32; 8]],
+    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
+    pub joints: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
 }
 
 /// Skin supports a region when at least this much of its weight belongs to
@@ -174,11 +194,12 @@ impl Wearer<'_> {
     pub fn support_indices_for(
         &self,
         region: FitRegion,
-        joint_indices: &[[u32; 8]],
+        joint_indices: &fabelgeist_rig::PackedRigSkin<8>,
         joint_weights: &[[f32; 8]],
     ) -> Result<Vec<usize>> {
         anyhow::ensure!(
-            joint_indices.len() == joint_weights.len(),
+            joint_indices.len() == joint_weights.len()
+                && joint_indices.joint_count() == self.joint_names.joint_count(),
             "incomplete surface skin ownership"
         );
         let owners = region.support_owners();
@@ -192,18 +213,6 @@ impl Wearer<'_> {
                 }))
             })
             .collect::<RigJointTable<_>>();
-        // Admit every packed GPU slot before filtering, including zero weights.
-        let joint_indices = joint_indices
-            .iter()
-            .map(|row| row.map(RigJointOrdinal::from))
-            .collect::<Vec<_>>();
-        anyhow::ensure!(
-            joint_indices
-                .iter()
-                .flatten()
-                .all(|&joint| owned.get(joint).is_some()),
-            "surface skin references an unknown joint"
-        );
         Ok(joint_indices
             .iter()
             .zip(joint_weights)
@@ -253,10 +262,12 @@ mod tests {
             faces: &[],
             positions: &positions,
             normals: &positions,
-            joint_indices: &indices,
+            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                indices.to_vec(), fabelgeist_rig::RigJointTable::from(names.to_vec()).joint_count(),
+            ).unwrap(),
             joint_weights: &weights,
-            joint_names: &names,
-            joints: &joints,
+            joint_names: &names.to_vec().into(),
+            joints: &joints.to_vec().into(),
         };
         assert_eq!(
             wearer
@@ -288,10 +299,12 @@ mod tests {
             faces: &[],
             positions: &positions,
             normals: &positions,
-            joint_indices: &indices,
+            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                indices.to_vec(), fabelgeist_rig::RigJointTable::from(names.to_vec()).joint_count(),
+            ).unwrap(),
             joint_weights: &weights,
-            joint_names: &names,
-            joints: &joints,
+            joint_names: &names.to_vec().into(),
+            joints: &joints.to_vec().into(),
         };
         assert_eq!(
             wearer.support_indices(FitRegion::Hand(Side::Left)).unwrap(),

@@ -16,6 +16,10 @@ pub struct ClothingFaceContext([u32; 3]);
 
 #[derive(Debug, thiserror::Error)]
 pub enum ClothingError {
+    #[error("{garment} has no procedural material")]
+    MissingMaterial { garment: ClothingPieceName },
+    #[error("invalid garment normal offset: {0}")]
+    NormalOffset(#[source] fabelgeist_geometry::GeometryError),
     #[error("clothing inputs have inconsistent vertex or joint counts")]
     InconsistentBodyInputs,
     #[error("clothing topology references a missing vertex")]

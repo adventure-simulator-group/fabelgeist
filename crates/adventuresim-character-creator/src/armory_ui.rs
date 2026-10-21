@@ -127,7 +127,7 @@ fn list(ui: &mut egui::Ui, armory: &mut Armory) {
                     text = text.color(studio_theme::PROBLEM);
                 }
                 let hover = if problems.is_empty() {
-                    format!("{} · {} triangles", exhibit.item_id, exhibit.triangles())
+                    format!("{} · {} triangles", exhibit.item().id, exhibit.triangles())
                 } else {
                     problems.join("\n")
                 };
@@ -157,14 +157,17 @@ fn editor(
         return;
     };
     let exhibit = &armory.exhibits[index];
-    let item_id = exhibit.item_id.clone();
+    let retained = exhibit.placements[0].clone();
+    let item = retained.item();
+    let item_id = item.definition().id.as_str();
     ui.heading(&exhibit.name);
-    let material = catalog
-        .material(&item_id)
+    let material = equipment_catalog::material(item)
         .map_or_else(|_| String::new(), |material| format!(" · {material:?}"));
     ui.small(format!(
         "{item_id}{material} · {} · {} triangles",
-        exhibit.placements.join(", "),
+        exhibit.placements.iter()
+            .map(|placement| placement.selection().definition().id.as_str())
+            .collect::<Vec<_>>().join(", "),
         exhibit.triangles()
     ));
     for (placement, error) in exhibit.errors() {
@@ -175,7 +178,7 @@ fn editor(
         construction(ui, armory);
         decoration(ui, studio, armory);
     }
-    let Some(mut design) = catalog.design(&item_id) else {
+    let Some(mut design) = catalog.design(item) else {
         return;
     };
     let mut changed = false;
@@ -198,7 +201,7 @@ fn editor(
     });
     changed |= armor_controls::design(ui, &mut design);
     if changed {
-        match catalog.designs.set_default(&item_id, design) {
+        match catalog.0.designs.set_default(item, design) {
             Ok(()) => armory.refit(index),
             Err(error) => studio.status = format!("Could not change {item_id}: {error:#}"),
         }

@@ -3,7 +3,7 @@ use super::{ShellTextures, SurfaceTextures};
 use fabelgeist_rig::{RigJointName, RigJointTable};
 
 pub struct RiggedMesh<'a> {
-    pub joint_proportions: &'a [adventuresim_core::character_proportions::JointProportionBasis],
+    pub joint_proportions: &'a RigJointTable<adventuresim_core::character_proportions::JointProportionBasis>,
     pub morph_targets: &'a [RiggedMorphTarget<'a>],
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],
@@ -11,12 +11,12 @@ pub struct RiggedMesh<'a> {
     /// Whether the source body faces are emitted as a rendered primitive.
     /// Shell-only equipment still supplies them to locate authored sockets.
     pub export_body: bool,
-    pub joint_indices: &'a [[u32; 8]],
+    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [RigJointName],
-    pub joint_parents: &'a [i32],
+    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
+    pub joint_parents: &'a RigJointTable<Option<fabelgeist_rig::RigJointOrdinal>>,
     /// Identity-shaped global MHR transforms, in metres.
-    pub global_joint_states: RigJointTable<&'a [f32; 8]>,
+    pub global_joint_states: &'a RigJointTable<[f32; 8]>,
 }
 
 pub struct RiggedShell<'a> {
@@ -34,7 +34,7 @@ pub struct RiggedShell<'a> {
     pub faces: &'a [[u32; 3]],
     /// Independent armor topology supplies its own skin. Body-topology
     /// clothing leaves these empty and reuses the body's skin arrays.
-    pub joint_indices: Option<&'a [[u32; 8]]>,
+    pub joint_indices: Option<&'a fabelgeist_rig::PackedRigSkin<8>>,
     pub joint_weights: Option<&'a [[f32; 8]]>,
     pub morph_targets: &'a [RiggedMorphTarget<'a>],
     /// Artist-facing sRGB color. glTF factors are converted to linear RGB.
@@ -53,7 +53,7 @@ impl RiggedMesh<'_> {
     pub(super) fn global_transforms(&self) -> RigJointTable<super::Transform> {
         self.global_joint_states
             .iter()
-            .map(|words| super::state(**words))
+            .map(|words| super::state(*words))
             .collect()
     }
 }

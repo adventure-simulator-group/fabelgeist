@@ -14,7 +14,7 @@ fn sleeve(columns_reversed: bool) -> GeneratedArmor {
             .collect();
     }
     let count = positions.len();
-    let (joint_indices, joint_weights) = positions
+    let (joint_indices, joint_weights): (Vec<[u32; 8]>, Vec<[f32; 8]>) = positions
         .iter()
         .map(|p| {
             let upper = (p[1] / 0.25).clamp(0.0, 1.0);
@@ -31,7 +31,9 @@ fn sleeve(columns_reversed: bool) -> GeneratedArmor {
         design_hash: [0; 32],
         surface_domain: "test".into(),
         texcoords: vec![[0.0; 2]; count],
-        joint_indices,
+        joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
+            joint_indices, fabelgeist_rig::RigJointCount::from_native_joint_count(3),
+        ).unwrap(),
         joint_weights,
         indices: Vec::new(),
         faces: Vec::new(),

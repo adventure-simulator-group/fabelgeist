@@ -1,23 +1,22 @@
 //! Place carry sockets on the generated garment's actual surface.
 
 use super::*;
-use adventuresim_core::item_catalog::{EquipmentLocation, definition};
+use adventuresim_core::item_catalog::EquipmentLocation;
+use adventuresim_core::equipment_assets::CatalogItem;
 use fabelgeist_rig::{RigJointName, RigJointOrdinal};
 
 pub(super) fn garment_sockets(
     body: &RuntimeBody,
     garment: &GeneratedArmor,
-    item: &str,
+    item: CatalogItem<'_>,
 ) -> BTreeMap<String, Transform> {
-    let Some(equipment) = definition(item).and_then(|item| item.equipment.as_ref()) else {
+    let Some(equipment) = item.definition().equipment.as_ref() else {
         return BTreeMap::new();
     };
     let Some(pelvis) = RigJointName::ROOT.index_in(&body.joint_names) else {
         return BTreeMap::new();
     };
-    // Native transform rows follow the admitted rig order; project only for
-    // this array access, retaining the pelvis identity through lookup.
-    let state = body.global_joint_states[usize::from(pelvis)];
+    let state = body.global_joint_states[pelvis];
     let bind = GlobalTransform::from(Transform {
         translation: Vec3::new(state[0], state[1], state[2]),
         rotation: Quat::from_xyzw(state[3], state[4], state[5], state[6]),
@@ -39,7 +38,7 @@ pub(super) fn garment_sockets(
     let left = RigJointName::L_UPLEG.index_in(&body.joint_names).map_or(
         1.0,
         |index: RigJointOrdinal| -> f32 {
-            (body.global_joint_states[usize::from(index)][0] - state[0]).signum()
+            (body.global_joint_states[index][0] - state[0]).signum()
         },
     );
     equipment

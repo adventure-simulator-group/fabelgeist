@@ -25,29 +25,26 @@ pub async fn warm_up(
     let mut fitted_placements = 0;
     for canonical in ITEM_CATALOG
         .iter()
-        .filter(|item| is_runtime_armor(&item.definition.id))
+        .filter(|item| armor_recipes::is_parametric(item.definition))
     {
         let item = canonical.definition;
-        let equipment = item
-            .equipment
-            .as_ref()
-            .context("armor has no equipment placements")?;
-        for placement in equipment
-            .placements
-            .iter()
-            .filter(|p| !p.surface.is_empty())
+        for placement in item.placements().filter(|placement| !placement.surface.is_empty())
         {
-            generate(body, &item.id, &placement.id, bracer, breastplate, &[])
+            generate(body, placement, bracer, breastplate, &[])
                 .await
                 .with_context(|| format!("preparing equipment {} {}", item.id, placement.id))?;
             fitted_placements += 1;
         }
     }
     // This runs the completed-lower-layer projection path as well as bare fits.
-    let cuirass = generate(body, "cuirass", "worn", bracer, breastplate, &[])
+    let cuirass_selection = CatalogPlacement::find(item_catalog::catalog(), "cuirass", "worn")
+        .context("missing authored cuirass placement")?;
+    let cuirass = generate(body, cuirass_selection, bracer, breastplate, &[])
         .await
         .context("preparing the lower cuirass surface")?;
-    generate(body, "pauldron", "left", bracer, breastplate, &[&cuirass])
+    let pauldron = CatalogPlacement::find(item_catalog::catalog(), "pauldron", "left")
+        .context("missing authored pauldron placement")?;
+    generate(body, pauldron, bracer, breastplate, &[&cuirass])
         .await
         .context("preparing layered pauldrons")?;
     fitted_placements += 2;
@@ -57,7 +54,7 @@ pub async fn warm_up(
         BreastplateConstruction::Solid => BreastplateConstruction::Anime(Default::default()),
         BreastplateConstruction::Anime(_) => BreastplateConstruction::Solid,
     };
-    generate(body, "cuirass", "worn", bracer, &alternate, &[])
+    generate(body, cuirass_selection, bracer, &alternate, &[])
         .await
         .context("preparing alternate cuirass construction")?;
     fitted_placements += 1;
@@ -67,7 +64,9 @@ pub async fn warm_up(
     tassets.lame_count = 8;
     tassets.plate_shape = GarmentPlateShape::WrappedTassets(WrappedTassetDesign::default());
     let design = ParametricDesign::Garment(tassets);
-    generate_parametric(crate::armor_gpu_async().await?, body, &design, "worn", &[])
+    let placement = CatalogPlacement::find(item_catalog::catalog(), "tassets", "worn")
+        .context("missing authored tassets placement")?;
+    generate_parametric(crate::armor_gpu_async().await?, body, &design, placement, &[])
         .await
         .context("preparing wrapped tassets")?;
     fitted_placements += 1;

@@ -18,6 +18,8 @@ pub(super) fn validate(
         bail!("skinning arrays must match the vertex count");
     }
     let joints = mesh.joint_names.len();
+    anyhow::ensure!(mesh.joint_indices.joint_count() == mesh.joint_names.joint_count(),
+        "body skin and rig have different joint bounds");
     if joints == 0 || mesh.joint_parents.len() != joints || mesh.global_joint_states.len() != joints
     {
         bail!("joint names, parents, and transforms must have the same non-zero length");
@@ -25,9 +27,9 @@ pub(super) fn validate(
     if joints > u16::MAX as usize {
         bail!("glTF export supports at most 65535 joints");
     }
-    for (index, parent) in mesh.joint_parents.iter().copied().enumerate() {
-        if parent >= index as i32 || parent < -1 {
-            bail!("joint {index} has invalid parent {parent}");
+    for (joint, parent) in mesh.joint_parents.indexed() {
+        if parent.is_some_and(|parent| parent >= joint) {
+            bail!("joint {joint:?} has invalid parent {parent:?}");
         }
     }
     if mesh
@@ -38,19 +40,7 @@ pub(super) fn validate(
     {
         bail!("a face references a missing vertex");
     }
-    for (vertex, (indices, weights)) in mesh
-        .joint_indices
-        .iter()
-        .zip(mesh.joint_weights)
-        .enumerate()
-    {
-        if indices
-            .iter()
-            .zip(weights)
-            .any(|(joint, weight)| *weight > 0.0 && *joint as usize >= joints)
-        {
-            bail!("vertex {vertex} references a missing joint");
-        }
+    for (vertex, weights) in mesh.joint_weights.iter().enumerate() {
         let sum: f32 = weights.iter().sum();
         if !sum.is_finite() || (sum - 1.0).abs() > 1e-4 {
             bail!("vertex {vertex} skin weights sum to {sum}, not 1");
@@ -106,7 +96,6 @@ pub(super) fn validate(
 
 fn validate_shell(mesh: &RiggedMesh<'_>, shell: &RiggedShell<'_>) -> Result<()> {
     let vertices = mesh.positions.len();
-    let joints = mesh.joint_names.len();
     let shell_vertices = shell.positions.len();
     if shell.name.trim().is_empty() {
         bail!("clothing shell name cannot be empty");
@@ -126,21 +115,12 @@ fn validate_shell(mesh: &RiggedMesh<'_>, shell: &RiggedShell<'_>) -> Result<()> 
                 shell.name
             ),
         };
+    anyhow::ensure!(shell_joint_indices.joint_count() == mesh.joint_names.joint_count(),
+        "shell skin and rig have different joint bounds");
     if shell_joint_indices.len() != shell_vertices || shell_joint_weights.len() != shell_vertices {
         bail!("clothing shell '{}' has mismatched skin arrays", shell.name);
     }
-    for (vertex, (indices, weights)) in shell_joint_indices
-        .iter()
-        .zip(shell_joint_weights)
-        .enumerate()
-    {
-        if indices
-            .iter()
-            .zip(weights)
-            .any(|(joint, weight)| *weight > 0.0 && *joint as usize >= joints)
-        {
-            bail!("shell vertex {vertex} references a missing joint");
-        }
+    for (vertex, weights) in shell_joint_weights.iter().enumerate() {
         let sum = weights.iter().sum::<f32>();
         if !sum.is_finite() || (sum - 1.0).abs() > 1e-4 {
             bail!("shell vertex {vertex} skin weights sum to {sum}, not 1");

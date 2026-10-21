@@ -6,12 +6,14 @@ use crate::item_catalog_schema::{
 };
 pub use error::{ClothingError, ClothingFaceContext, ClothingPieceName};
 use fabelgeist_rig::RigJointName;
+use fabelgeist_geometry::SignedLength;
+use adventuresim_core::equipment_assets::CatalogPlacement;
 use fitting::fitted_surface;
 #[cfg(feature = "offline-creator")]
 pub(crate) use regions::waist_surface_joint;
 use rig::ClothingRig;
 use std::collections::{HashMap, HashSet};
-use validation::{decoded_skin_joints, validated_placeholder_faces};
+use validation::validated_placeholder_faces;
 
 mod error;
 mod fitting;
@@ -33,7 +35,7 @@ pub struct GarmentSpecification {
     pub placement: EquipmentPlacement,
     pub weight_threshold: f32,
     pub expansion_rings: usize,
-    pub normal_offset_metres: f32,
+    pub normal_offset_metres: SignedLength,
     pub base_color: [f32; 4],
     pub metallic: f32,
     pub roughness: f32,
@@ -57,9 +59,22 @@ pub struct ClothedMesh {
 impl GarmentSpecification {
     pub fn from_catalog(
         name: ClothingPieceName,
+        selection: CatalogPlacement<'_>,
+    ) -> Result<Self, ClothingError> {
+        let material = selection
+            .item()
+            .equipment
+            .as_ref()
+            .and_then(|equipment| equipment.material)
+            .ok_or_else(|| ClothingError::MissingMaterial { garment: name.clone() })?;
+        Self::for_surface(name, selection.definition(), material)
+    }
+
+    fn for_surface(
+        name: ClothingPieceName,
         placement: &EquipmentPlacement,
         material: EquipmentMaterial,
-    ) -> Self {
+    ) -> Result<Self, ClothingError> {
         let channel = placement
             .outermost_channel()
             .unwrap_or(EquipmentChannel::BaseClothing);
@@ -70,8 +85,10 @@ impl GarmentSpecification {
             EquipmentChannel::RigidArmor => 0.024,
             _ => 0.008,
         };
+        let normal_offset_metres = SignedLength::from_metres(normal_offset_metres)
+            .map_err(ClothingError::NormalOffset)?;
         let (base_color, metallic, roughness) = crate::clothing_material::pbr(material);
-        Self {
+        Ok(Self {
             name,
             material,
             placement: placement.clone(),
@@ -82,7 +99,7 @@ impl GarmentSpecification {
             metallic,
             roughness,
             occludes_body: true,
-        }
+        })
     }
 }
 
@@ -92,16 +109,17 @@ pub fn generate_clothing_shells(
     positions: &[[f32; 3]],
     normals: &[[f32; 3]],
     faces: &[[u32; 3]],
-    joint_indices: &[[u32; 8]],
+    joint_indices: &fabelgeist_rig::PackedRigSkin<8>,
     joint_weights: &[[f32; 8]],
-    joint_names: &[RigJointName],
-    global_joint_states: &[[f32; 8]],
+    joint_names: &fabelgeist_rig::RigJointTable<RigJointName>,
+    global_joint_states: &fabelgeist_rig::RigJointTable<[f32; 8]>,
 ) -> Result<ClothedMesh, ClothingError> {
     let vertices = positions.len();
     if normals.len() != vertices
         || joint_indices.len() != vertices
         || joint_weights.len() != vertices
         || global_joint_states.len() != joint_names.len()
+        || joint_indices.joint_count() != joint_names.joint_count()
     {
         return Err(ClothingError::InconsistentBodyInputs);
     }
@@ -112,7 +130,6 @@ pub fn generate_clothing_shells(
     {
         return Err(ClothingError::MissingBodyVertex);
     }
-    let joint_indices = decoded_skin_joints(joint_indices);
     let mut rig = ClothingRig::new(joint_names);
 
     let mut shells = Vec::with_capacity(garments.len());
@@ -127,8 +144,8 @@ pub fn generate_clothing_shells(
                 .segments
                 .iter()
                 .map(|segment| {
-                    let proximal = global_joint_states[usize::from(segment.proximal)];
-                    let distal = global_joint_states[usize::from(segment.distal)];
+                    let proximal = global_joint_states[segment.proximal];
+                    let distal = global_joint_states[segment.distal];
                     (
                         [proximal[0], proximal[1], proximal[2]],
                         [distal[0], distal[1], distal[2]],
@@ -139,7 +156,7 @@ pub fn generate_clothing_shells(
                 .iter()
                 .enumerate()
                 .filter_map(|(vertex, position)| {
-                    let weight = joint_indices[vertex]
+                    let weight = joint_indices.vertex(vertex)
                         .iter()
                         .zip(&joint_weights[vertex])
                         .filter(|(joint, _)| selected_joints.contains(*joint))
@@ -184,7 +201,7 @@ pub fn generate_clothing_shells(
             .map(|(vertex, position)| {
                 span_masks.iter().any(
                     |(selected_joints, segments, (minimum, maximum), (start, end), _)| {
-                        let weight = joint_indices[vertex]
+                        let weight = joint_indices.vertex(vertex)
                             .iter()
                             .zip(&joint_weights[vertex])
                             .filter(|(joint, _)| selected_joints.contains(*joint))
@@ -256,7 +273,7 @@ pub fn generate_clothing_shells(
                 .iter()
                 .enumerate()
                 .map(|(vertex, position)| {
-                    let weight = joint_indices[vertex]
+                    let weight = joint_indices.vertex(vertex)
                         .iter()
                         .zip(&joint_weights[vertex])
                         .filter(|(joint, _)| waist_joints.contains(*joint))
@@ -645,12 +662,12 @@ mod tests {
                 coverage: 0.3,
             }],
         };
-        let specification = GarmentSpecification::from_catalog(
+        let specification = GarmentSpecification::for_surface(
             "bracer".into(),
             &placement,
             EquipmentMaterial::PolishedSteel,
-        );
-        assert_eq!(specification.normal_offset_metres, 0.024);
+        ).unwrap();
+        assert_eq!(specification.normal_offset_metres.metres(), 0.024);
         assert_eq!(specification.metallic, 1.0);
         assert_eq!(specification.roughness, 0.20);
         assert_eq!(specification.placement.surface[0].coverage, 0.3);
@@ -666,7 +683,7 @@ mod admission_tests {
         let specification = GarmentSpecification {
             name: "head covering".into(), material: EquipmentMaterial::Linen,
             placement: serde_json::from_value(serde_json::json!({"id":"worn","surface":[{"regions":["head"],"anchor":"proximal","coverage":1.0}]})).unwrap(),
-            weight_threshold: 0.1, expansion_rings: 0, normal_offset_metres: 0.0,
+            weight_threshold: 0.1, expansion_rings: 0, normal_offset_metres: SignedLength::ZERO,
             base_color: [1.0;4], metallic: 0.0, roughness: 1.0, occludes_body: false,
         };
         let result = generate_clothing_shells(

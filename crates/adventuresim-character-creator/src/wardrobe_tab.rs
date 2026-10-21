@@ -220,7 +220,9 @@ pub(super) fn update(
         scene.commands.entity(entity).despawn();
     }
     if let Some((selection, garment)) = shown {
-        spawn(&mut scene, &mut mail, &selection, garment);
+        if let Err(error) = spawn(&mut scene, &mut mail, &selection, garment) {
+            wardrobe.fit_problems = Some(format!("{error:#}"));
+        }
     }
 }
 
@@ -292,7 +294,7 @@ fn spawn(
     mail: &mut drape_preview::MailMaterials,
     selection: &GarmentSelection,
     mut garment: DrapedGarment,
-) {
+) -> Result<()> {
     // The wardrobe shows the garment standing still: no skin to animate it.
     garment.indices.clear();
     garment.weights.clear();
@@ -304,7 +306,7 @@ fn spawn(
         garment,
         material,
         (WardrobeGarment, Visibility::Hidden),
-    );
+    )
 }
 
 /// Show the wardrobe's body and garment on its tab only.

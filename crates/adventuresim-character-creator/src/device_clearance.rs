@@ -120,7 +120,7 @@ impl DeviceWearer<'_> {
         let (extra, filtered) = match region {
             FitRegion::Hand(side) => (owned(FitRegion::Forearm(side)), 0u32),
             FitRegion::LowerLeg(side) => (owned(FitRegion::Foot(side)), 1),
-            _ => (vec![RigJointMembership::Excluded; primary.len()], 0),
+            _ => (vec![RigJointMembership::Excluded; primary.len()].into(), 0),
         };
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);

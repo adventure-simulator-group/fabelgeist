@@ -2,6 +2,7 @@
 use super::*;
 use fabelgeist_rig::{RigJointName, RigJointPart};
 
+use crate::armor_frames::FittingPlacement;
 const BRAYETTE_WAIST_ABOVE_PELVIS_M: f32 = 0.10;
 const BRAYETTE_LEG_FRACTION: f32 = 0.30;
 const STANDARD_COLLAR_HEIGHT_M: f32 = 0.065;
@@ -35,11 +36,11 @@ pub(super) fn brayette(
 
 pub(super) fn knee(
     design: &UnderlayerDesign,
-    placement: &str,
+    placement: FittingPlacement,
     frame: RegionFrame<'_>,
     joint: &impl Fn(&RigJointName) -> Result<[f32; 3]>,
 ) -> Result<Vec<ConvexRegion>> {
-    let side = Side::from_placement(placement)?;
+    let side = placement.side()?;
 
     let knee = joint(&side.joint(RigJointPart::Lowleg))?;
     let knee_frame = frame(FitRegion::Knee(side))?;

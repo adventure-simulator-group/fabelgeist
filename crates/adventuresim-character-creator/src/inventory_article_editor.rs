@@ -44,20 +44,31 @@ fn catalog_article(
     library: &adventuresim_character_creator::decoration::DecorationLibrary,
     status: &mut String,
 ) -> bool {
-    let mut steel = false;
-    if let Some((item, placement)) = catalog.placement(&article.item_id, &article.placement_id) {
+    let ItemCatalog { items, designs } = &mut catalog.0;
+    let Some(placement) = adventuresim_core::equipment_assets::CatalogPlacement::find(
+        items, &article.item_id, &article.placement_id,
+    ) else {
+        ui.colored_label(egui::Color32::LIGHT_RED, format!(
+            "the catalog has no {} placement {}", article.item_id, article.placement_id,
+        ));
+        return false;
+    };
+    let item = placement.item();
+    let steel = {
+
         let material = item
             .equipment
             .as_ref()
             .and_then(|equipment| equipment.material);
-        steel = material.is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel);
+        let steel = material.is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel);
         let material = material.map_or_else(String::new, |material| format!(" · {material:?}"));
         ui.small(format!(
             "{} · {} placement · {:.2} kg{material}",
             item.id, placement.id, item.weight_kg
         ));
-    }
-    let mut changed = catalog_shape(ui, article, catalog, status);
+        steel
+    };
+    let mut changed = catalog_shape(ui, article, designs, placement, status);
     if steel {
         ui.horizontal(|ui| {
             ui.label("Decoration");
@@ -81,10 +92,11 @@ fn catalog_article(
 fn catalog_shape(
     ui: &mut egui::Ui,
     article: &mut CatalogArticle,
-    catalog: &mut EquipmentCatalog,
+    designs: &mut CatalogDesigns,
+    placement: adventuresim_core::equipment_assets::CatalogPlacement<'_>,
     status: &mut String,
 ) -> bool {
-    let mut design = match article.design(catalog) {
+    let mut design = match article.design_for(designs, placement) {
         Ok(Some(design)) => design,
         Ok(None) => {
             ui.weak("Generated from its catalog surface coverage; it has no shape controls.");
@@ -114,9 +126,7 @@ fn catalog_shape(
             .on_hover_text("Newly acquired items and equipment asset generation use it.")
             .clicked()
         {
-            *status = match catalog
-                .designs
-                .set_default(&article.item_id, design.clone())
+            *status = match designs.set_default(placement.item(), design.clone())
             {
                 Ok(()) => format!(
                     "{} is now the catalog default; save it from the Output tab",

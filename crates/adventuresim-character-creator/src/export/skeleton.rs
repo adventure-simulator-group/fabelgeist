@@ -2,40 +2,36 @@ use super::*;
 use fabelgeist_rig::{RigJointName, RigJointTable};
 
 pub(super) fn nodes(
-    joint_names: &[RigJointName],
-    joint_parents: &[i32],
+    joint_names: &fabelgeist_rig::RigJointTable<RigJointName>,
+    joint_parents: &RigJointTable<Option<RigJointOrdinal>>,
     globals: &RigJointTable<Transform>,
     mesh: &RiggedMesh<'_>,
 ) -> Result<(Vec<Value>, Vec<usize>)> {
     validate_proportions(mesh)?;
     let mut children = vec![Vec::<usize>::new(); joint_names.len()];
     let mut roots = Vec::new();
-    for (joint, parent) in joint_parents.iter().copied().enumerate() {
-        if parent < 0 {
-            roots.push(joint);
-        } else {
-            children[parent as usize].push(joint);
+    for (joint, parent) in joint_parents.indexed() {
+        match parent {
+            None => roots.push(usize::from(joint)),
+            Some(parent) => children[usize::from(*parent)].push(usize::from(joint)),
         }
     }
     let mut nodes = Vec::with_capacity(joint_names.len() + 2);
     for (ordinal, global) in globals.indexed() {
         // glTF node/parent arrays are native collection indexes at this serializer.
         let joint = usize::from(ordinal);
-        let local = if joint_parents[joint] < 0 {
-            *global
-        } else {
-            globals[RigJointOrdinal::from(joint_parents[joint] as usize)]
-                .inverse()
-                .compose(global)
+        let local = match joint_parents[ordinal] {
+            None => *global,
+            Some(parent) => globals[parent].inverse().compose(global),
         };
         let state = local.to_skel_state();
         let mut node = json!({
-            "name": joint_names[joint],
+            "name": joint_names[ordinal],
             "translation": [state[0], state[1], state[2]],
             "rotation": [state[3], state[4], state[5], state[6]],
             "scale": [state[7], state[7], state[7]],
         });
-        if let Some(basis) = mesh.joint_proportions.get(joint) {
+        if let Some(basis) = mesh.joint_proportions.get(ordinal) {
             node["extras"] = json!({"adventuresim_proportions": basis});
         }
         if !children[joint].is_empty() {
@@ -60,14 +56,14 @@ pub(super) fn validate_proportions(mesh: &RiggedMesh<'_>) -> Result<()> {
 
 /// Extend the ordered skeleton while retaining the attachment parent identity.
 pub(super) fn append_attachment(
-    names: &mut Vec<RigJointName>,
-    parents: &mut Vec<i32>,
+    names: &mut RigJointTable<RigJointName>,
+    parents: &mut RigJointTable<Option<RigJointOrdinal>>,
     globals: &mut RigJointTable<Transform>,
     name: &RigJointName,
     parent: RigJointOrdinal,
     transform: Transform,
 ) {
     names.push(name.clone());
-    parents.push(usize::from(parent) as i32);
+    parents.push(Some(parent));
     globals.push(transform);
 }

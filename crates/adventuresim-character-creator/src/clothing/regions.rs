@@ -35,17 +35,16 @@ pub(super) fn region_rig(region: Region) -> RegionRig {
 }
 
 impl RegionRig {
-    pub(super) fn skin_joints(rigs: &[Self], names: &[RigJointName]) -> HashSet<RigJointOrdinal> {
+    pub(super) fn skin_joints(rigs: &[Self], names: &fabelgeist_rig::RigJointTable<RigJointName>) -> HashSet<RigJointOrdinal> {
         names
-            .iter()
-            .enumerate()
+            .indexed()
             .filter_map(
-                |(slot, name): (usize, &RigJointName)| -> Option<RigJointOrdinal> {
+                |(slot, name): (RigJointOrdinal, &RigJointName)| -> Option<RigJointOrdinal> {
                     rigs.iter()
                         .any(|rig: &Self| -> bool {
                             rig.membership(name) == RigJointMembership::Included
                         })
-                        .then_some(RigJointOrdinal::from(slot))
+                        .then_some(slot)
                 },
             )
             .collect()
@@ -117,14 +116,13 @@ pub(crate) fn waist_surface_joint(name: &RigJointName) -> RigJointMembership {
 }
 
 /// Ordered-rig slots admitted into the waist support selection.
-pub(super) fn waist_joints(names: &[RigJointName]) -> HashSet<RigJointOrdinal> {
+pub(super) fn waist_joints(names: &fabelgeist_rig::RigJointTable<RigJointName>) -> HashSet<RigJointOrdinal> {
     names
-        .iter()
-        .enumerate()
+        .indexed()
         .filter_map(
-            |(slot, name): (usize, &RigJointName)| -> Option<RigJointOrdinal> {
+            |(slot, name): (RigJointOrdinal, &RigJointName)| -> Option<RigJointOrdinal> {
                 (waist_surface_joint(name) == RigJointMembership::Included)
-                    .then_some(RigJointOrdinal::from(slot))
+                    .then_some(slot)
             },
         )
         .collect()

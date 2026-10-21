@@ -15,7 +15,7 @@ pub(super) struct CompactShell<'a> {
     normals: Vec<[f32; 3]>,
     texcoords: Option<Vec<[f32; 2]>>,
     faces: Vec<[u32; 3]>,
-    joints: Vec<[u32; 8]>,
+    joints: fabelgeist_rig::PackedRigSkin<8>,
     weights: Vec<[f32; 8]>,
     targets: Vec<Target>,
 }
@@ -57,7 +57,7 @@ impl<'a> CompactShell<'a> {
                 .iter()
                 .map(|face| face.map(|vertex| remap[vertex as usize]))
                 .collect(),
-            joints: used.iter().map(|index| joints[*index as usize]).collect(),
+            joints: joints.select(used.iter().map(|index| *index as usize)),
             weights: used.iter().map(|index| weights[*index as usize]).collect(),
             targets: shell
                 .morph_targets

@@ -46,9 +46,11 @@ fn wearer(positions: Vec<[f32; 3]>, faces: Vec<[u32; 3]>) -> DrapeInput {
         obstacles: vec![],
         positions,
         faces,
-        names: vec![],
-        joints: vec![],
-        indices: vec![[0; 8]; count],
+        names: Default::default(),
+        joints: Default::default(),
+        indices: fabelgeist_rig::PackedRigSkin::from_native(
+                vec![[0; 8]; count], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            ).unwrap(),
         weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; count],
     }
 }
@@ -85,7 +87,7 @@ fn cap(radius: f32) -> DrapedGarment {
         texcoords,
         positions,
         faces,
-        indices: vec![],
+        indices: Default::default(),
         weights: vec![],
         stage: DrapeStage::Settling { step: 1, of: 1 },
     }

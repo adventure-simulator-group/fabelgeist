@@ -6,6 +6,7 @@
 //! kernels read the frame where the fit was written; fitting kernels read the
 //! rest. Nothing is read back until the finished part is.
 
+use crate::armor_frames::FittingPlacement;
 use crate::armor_frames::FitRegion;
 use crate::armor_layer::ArmorLayerSurface;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -20,90 +21,15 @@ use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
+use fabelgeist_geometry::SignedLength;
+use fabelgeist_math::Ratio;
+
+pub(crate) use candidates::BAND;
+
+mod candidates;
 
 /// Words of the part frame, failure flag included, at the start of a fit.
 pub(crate) const FRAME_WORDS: u32 = 16;
-
-/// Bounds of a section of the supported skin: bounds of the samples within
-/// `half_width` of the plane, or of the `minimum` nearest to it when too few
-/// are. Samples are body vertices whose support bits meet `mask`, projected
-/// onto `axes` about `center`. Needs `positions` and `support` bound.
-pub(crate) const BAND: &str = r#"
-// Skin samples this near a section plane shape it.
-const SECTION_HALF_WIDTH_M: f32 = 0.018;
-// Samples a section keeps even when too few lie near its plane.
-const MINIMUM_SECTION_SAMPLES: u32 = 12u;
-
-struct Band {
-    lo: vec3<f32>,
-    hi: vec3<f32>,
-};
-
-fn project(v: u32, center: vec3<f32>, ax: vec3<f32>, ay: vec3<f32>, az: vec3<f32>) -> vec3<f32> {
-    let d = positions_at(v) - center;
-    return vec3<f32>(host_dot(ax, d), host_dot(ay, d), host_dot(az, d));
-}
-
-fn band_bounds(
-    mask: u32,
-    center: vec3<f32>,
-    ax: vec3<f32>,
-    ay: vec3<f32>,
-    az: vec3<f32>,
-    half_width: f32,
-    minimum: u32,
-) -> Band {
-    var band = Band(vec3<f32>(INFINITY), vec3<f32>(-INFINITY));
-    var near = 0u;
-    var total = 0u;
-    let count = arrayLength(&support);
-    for (var v = 0u; v < count; v = v + 1u) {
-        if ((support[v] & mask) == 0u) {
-            continue;
-        }
-        total = total + 1u;
-        let s = project(v, center, ax, ay, az);
-        if (abs(s.y) < half_width) {
-            near = near + 1u;
-            band.lo = min(band.lo, s);
-            band.hi = max(band.hi, s);
-        }
-    }
-    if (near >= minimum || near == total) {
-        return band;
-    }
-    // The nearest by distance from the plane, ties to the lowest vertex.
-    band = Band(vec3<f32>(INFINITY), vec3<f32>(-INFINITY));
-    var last_distance = -1.0;
-    var last = 0u;
-    for (var k = 0u; k < min(minimum, total); k = k + 1u) {
-        var best_distance = INFINITY;
-        var best = 0xffffffffu;
-        var best_sample = vec3<f32>(0.0);
-        for (var v = 0u; v < count; v = v + 1u) {
-            if ((support[v] & mask) == 0u) {
-                continue;
-            }
-            let s = project(v, center, ax, ay, az);
-            let d = abs(s.y);
-            let after = d > last_distance || (d == last_distance && v > last);
-            if (after && (d < best_distance || (d == best_distance && v < best))) {
-                best_distance = d;
-                best = v;
-                best_sample = s;
-            }
-        }
-        if (best == 0xffffffffu) {
-            break;
-        }
-        band.lo = min(band.lo, best_sample);
-        band.hi = max(band.hi, best_sample);
-        last_distance = best_distance;
-        last = best;
-    }
-    return band;
-}
-"#;
 
 /// A joint's position, read from the rig.
 pub(crate) const JOINTS: &str = r#"
@@ -203,9 +129,24 @@ fn main() {
 /// second joint's height, less an offset.
 #[derive(Clone)]
 pub(crate) struct UprightSpan {
-    pub top: (RigJointName, f32),
-    pub bottom: (RigJointName, f32),
-    pub reach: (RigJointName, f32),
+    pub top: JointHeightAnchor,
+    pub bottom: JointHeightAnchor,
+    pub reach: JointReachTarget,
+}
+
+/// A model-space joint height and its signed continuous metre offset.
+#[derive(Clone)]
+pub(crate) struct JointHeightAnchor {
+    pub joint: RigJointName,
+    pub offset: SignedLength,
+}
+
+/// Dimensionless extension from the bottom joint toward an authored joint.
+/// The ratio is unrestricted; the upright fit validates its resulting frame.
+#[derive(Clone)]
+pub(crate) struct JointReachTarget {
+    pub joint: RigJointName,
+    pub coefficient: Ratio,
 }
 
 impl DeviceWearer<'_> {
@@ -224,7 +165,8 @@ impl DeviceWearer<'_> {
         batch: &mut KernelBatch,
         regions: &[FitRegion],
     ) -> Result<Buffer> {
-        let mut owned = vec![0u32; self.host.joint_names.len()];
+        let mut owned: fabelgeist_rig::RigJointTable<u32> =
+            vec![0; self.host.joint_names.len()].into();
         for (bit, region) in regions.iter().enumerate() {
             let owners = region.owners();
             for (mask, owns) in owned.iter_mut().zip(self.host.owned_joints(&owners)) {
@@ -232,7 +174,7 @@ impl DeviceWearer<'_> {
             }
         }
         let gpu = self.gpu;
-        let owned = gpu.upload(BufferUpload::from_elements(&owned))?;
+        let owned = gpu.upload(BufferUpload::from_elements(owned.as_native_slice()))?;
         let support = gpu.scratch(self.body.vertex_count as u64 * 4, "garment support")?;
         dispatch(
             self,
@@ -280,18 +222,18 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::Joint(RigJointParameter::TopJoint, self.joint_slot(&span.top.0)?),
+                Word::Joint(RigJointParameter::TopJoint, self.joint_slot(&span.top.joint)?),
                 Word::Joint(
                     RigJointParameter::BottomJoint,
-                    self.joint_slot(&span.bottom.0)?,
+                    self.joint_slot(&span.bottom.joint)?,
                 ),
                 Word::Joint(
                     RigJointParameter::ReachJoint,
-                    self.joint_slot(&span.reach.0)?,
+                    self.joint_slot(&span.reach.joint)?,
                 ),
-                Word::F("top_offset", span.top.1),
-                Word::F("bottom_offset", span.bottom.1),
-                Word::F("reach", span.reach.1),
+                Word::F("top_offset", span.top.offset.metres()),
+                Word::F("bottom_offset", span.bottom.offset.metres()),
+                Word::F("reach", span.reach.coefficient.ratio()),
             ],
             Grid::Singles(1),
         )?;
@@ -303,7 +245,7 @@ impl DeviceWearer<'_> {
         &self,
         batch: &mut KernelBatch,
         design: &GarmentArmorDesign,
-        placement: &str,
+        placement: FittingPlacement,
         layers: &[ArmorLayerSurface<'_>],
     ) -> Result<DeviceRecording> {
         if matches!(
@@ -317,7 +259,7 @@ impl DeviceWearer<'_> {
                 self.record_fitted_torso(batch, design)
             }
             Kind::MailSleeve | Kind::QuiltedSleeve | Kind::MailChausses | Kind::PaddedChausses => {
-                self.record_fitted_tube(batch, design, placement)
+                self.record_fitted_tube(batch, design, placement.side()?)
             }
             Kind::MailSkirt | Kind::PaddedSkirt | Kind::Fauld | Kind::Tassets => {
                 self.record_fitted_skirt(batch, design)

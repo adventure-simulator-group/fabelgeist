@@ -4,6 +4,7 @@
 //! piece is recorded and submitted against every one of them, and everything
 //! is read back together. The studio and the runtime client share this path.
 
+use crate::armor_frames::FittingPlacement;
 use anyhow::{Context, Result};
 use fabelgeist_armor::gpu::Staging;
 use fabelgeist_armor::gpu::body::{BodySurface, Correspondence, GpuBody, Skin};
@@ -28,9 +29,9 @@ pub struct FitBody<'a> {
     pub faces: &'a [[u32; 3]],
     /// Each vertex's anatomical surface coordinate.
     pub texcoords: &'a [[f32; 2]],
-    pub joint_indices: &'a [[u32; 8]],
+    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [RigJointName],
+    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
 }
 
 /// One shape of the body: the wearer or a morph realization, with its device
@@ -39,13 +40,17 @@ pub struct FitBody<'a> {
 pub struct Realization<'a> {
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],
-    pub joints: &'a [[f32; 8]],
+    pub joints: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
     pub device: &'a DeviceBody,
 }
 
 impl<'a> Realization<'a> {
     /// The body on the device, uploaded once per shape.
     fn upload(&self, gpu: &ArmorGpu, body: &FitBody<'_>) -> Result<&'a GpuBody> {
+        anyhow::ensure!(
+            body.joint_indices.joint_count() == body.joint_names.joint_count(),
+            "fitting skin and joint names have different rig bounds"
+        );
         self.device.get_or_upload(|| {
             Ok(GpuBody::new(
                 gpu,
@@ -217,7 +222,7 @@ async fn read(
     let base = parts.next().expect("the wearer is always fitted");
     Ok(DevicePiece {
         base,
-        skin: skin.finish(&results, skin_slots),
+        skin: skin.finish(&results, skin_slots)?,
         endpoints: parts.collect(),
     })
 }
@@ -230,7 +235,7 @@ pub fn fit_recipe(
     wearer: &Realization<'_>,
     morphs: &[(&str, Realization<'_>)],
     design: &ParametricDesign,
-    placement: &str,
+    placement: FittingPlacement,
     layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
     pollster::block_on(fit_recipe_async(
@@ -244,7 +249,7 @@ pub async fn fit_recipe_async(
     wearer: &Realization<'_>,
     morphs: &[(&str, Realization<'_>)],
     design: &ParametricDesign,
-    placement: &str,
+    placement: FittingPlacement,
     layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
     let fit = async |design: &ParametricDesign| {
@@ -349,7 +354,7 @@ fn suspended_waist(
         mut skin,
         endpoints,
     } = fauld;
-    skin.append(tassets.skin);
+    skin.append(tassets.skin)?;
     DevicePiece {
         base: join(base, tassets.base),
         skin,
@@ -367,7 +372,7 @@ fn record_recipe(
     wearer: &DeviceWearer,
     batch: &mut KernelBatch,
     design: &ParametricDesign,
-    placement: &str,
+    placement: FittingPlacement,
     layers: &[ArmorLayerSurface<'_>],
 ) -> Result<DeviceRecording> {
     match design {
@@ -424,13 +429,13 @@ fn record_recipe(
 /// The wearer a recipe was fitted to: where its surface coordinates are,
 /// and its skeleton.
 pub struct Fitted<'a> {
-    pub placement: &'a str,
+    pub placement: FittingPlacement,
     /// Each morph realization's name, in order.
     pub morphs: &'a [&'a str],
     pub domain: &'a str,
-    pub joint_names: &'a [RigJointName],
+    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
     /// The wearer's global joint states, one per name.
-    pub joints: &'a [[f32; 8]],
+    pub joints: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
 }
 
 /// The armor of a recipe fitted on the device, with a morph target per

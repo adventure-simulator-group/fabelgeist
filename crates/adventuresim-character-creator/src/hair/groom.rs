@@ -133,7 +133,7 @@ impl GroomedHair {
         let collider =
             MeshCollider::new(bust.positions.clone(), bust.triangles.clone(), BODY_REACH);
         let shape = super::gpu::upload(gpu.context(), &head_shape(&self.head), "hair bust shape")?;
-        let placement = HeadPlacement::identity(0);
+        let placement = HeadPlacement::identity(fabelgeist_rig::RigJointOrdinal::from(0usize));
         let placed = self.prepare(gpu, &self.on_gpu, &placement, shape, &collider)?;
         Ok((placed, bust))
     }

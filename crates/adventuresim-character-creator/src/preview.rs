@@ -22,7 +22,7 @@ pub(super) fn spawn_clothing(
     walk: &WalkPreview,
     model: &BodyModel,
     shells: Vec<ClothingShell>,
-) {
+) -> Result<()> {
     for shell in shells {
         let specification = shell.specification;
         let indices = shell
@@ -41,11 +41,11 @@ pub(super) fn spawn_clothing(
             &mut mesh,
             &model.mhr.character.skin_weights.index,
             &model.mhr.character.skin_weights.weight,
-        );
+        )?;
         let [red, green, blue, alpha] = specification.base_color;
         commands.spawn((
             CharacterMesh,
-            animation_preview::skin(walk).expect("animation rig was just rebuilt"),
+            animation_preview::skin(walk).context("animation preview has no rebuilt rig")?,
             Name::new(specification.name.as_ref().to_owned()),
             Mesh3d(meshes.add(mesh)),
             MeshMaterial3d(materials.add(StandardMaterial {
@@ -56,6 +56,7 @@ pub(super) fn spawn_clothing(
             })),
         ));
     }
+    Ok(())
 }
 
 /// The cord lacing a piece's small plates, as the preview shades it.
@@ -151,12 +152,12 @@ pub(super) fn spawn_body(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     mut mesh: Mesh,
-) {
+) -> Result<()> {
     animation_preview::skin_mesh(
         &mut mesh,
         &model.mhr.character.skin_weights.index,
         &model.mhr.character.skin_weights.weight,
-    );
+    )?;
     commands.spawn((
         CharacterMesh,
         animation_preview::BodySkin {
@@ -165,10 +166,11 @@ pub(super) fn spawn_body(
             indices: model.mhr.character.skin_weights.index.clone(),
             weights: model.mhr.character.skin_weights.weight.clone(),
         },
-        animation_preview::skin(walk).expect("animation rig was just rebuilt"),
+        animation_preview::skin(walk).context("animation preview has no rebuilt rig")?,
         Mesh3d(meshes.add(mesh)),
         MeshMaterial3d(materials.add(skin_material())),
     ));
+    Ok(())
 }
 
 /// The previewed skin: of the body, and of the scalp cap under hair.

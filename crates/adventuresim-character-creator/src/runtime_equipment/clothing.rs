@@ -3,49 +3,32 @@
 use super::RuntimeBody;
 use crate::{
     clothing::{GarmentSpecification, generate_clothing_shells},
-    item_catalog_schema::{EquipmentMaterial, EquipmentPlacement, ItemDefinition},
 };
 use anyhow::{Context, Result};
+use adventuresim_core::equipment_assets::CatalogPlacement;
 use fabelgeist_armor::{GeneratedArmor, parametric_design_hash};
 
 pub(super) struct RuntimeClothing<'a> {
     body: &'a RuntimeBody,
-    item: &'a ItemDefinition,
-    placement: &'a EquipmentPlacement,
-    material: EquipmentMaterial,
-}
-
-/// A placement admitted against one canonical item, retaining the actual records.
-pub(super) struct ClothingPlacement {
-    pub(super) item: &'static ItemDefinition,
-    pub(super) placement: &'static EquipmentPlacement,
-    pub(super) material: EquipmentMaterial,
+    selection: CatalogPlacement<'static>,
 }
 
 impl<'a> RuntimeClothing<'a> {
-    pub(super) fn new(body: &'a RuntimeBody, admitted: ClothingPlacement) -> Self {
-        Self {
-            body,
-            item: admitted.item,
-            placement: admitted.placement,
-            material: admitted.material,
-        }
+    pub(super) fn new(body: &'a RuntimeBody, selection: CatalogPlacement<'static>) -> Self {
+        Self { body, selection }
     }
 
     pub(super) fn generate(self) -> Result<GeneratedArmor> {
         let Self {
             body,
-            item,
-            placement,
-            material,
+            selection,
         } = self;
-        let item_id = item.id.as_str();
-        let placement_id = placement.id.as_str();
+        let item_id = selection.item().definition().id.as_str();
+        let placement_id = selection.definition().id.as_str();
         let specification = GarmentSpecification::from_catalog(
             format!("{item_id} · {placement_id}").into(),
-            placement,
-            material,
-        );
+            selection,
+        )?;
         let generated = generate_clothing_shells(
             &[specification],
             &body.positions,

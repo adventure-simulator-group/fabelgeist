@@ -1,7 +1,6 @@
 //! Reject unusable fitted vertices and missing triangle slots.
 
 use super::{ClothingError, ClothingFaceContext, ClothingPieceName};
-use fabelgeist_rig::RigJointOrdinal;
 
 /// `positions` are fitted XYZ points in metres in the body's rest frame;
 /// `faces` hold three encoded vertex slots per triangle. Rejected triangles
@@ -26,12 +25,4 @@ pub(super) fn validated_placeholder_faces(
         });
     }
     Ok(faces.to_vec())
-}
-
-/// Decode MHR's packed eight-u32 skin rows, also used by device upload and
-/// glTF export. All clothing selection after admission retains rig ordinals.
-pub(super) fn decoded_skin_joints(rows: &[[u32; 8]]) -> Vec<[RigJointOrdinal; 8]> {
-    rows.iter()
-        .map(|joints| joints.map(RigJointOrdinal::from))
-        .collect()
 }

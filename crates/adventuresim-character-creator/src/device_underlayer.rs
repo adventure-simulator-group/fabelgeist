@@ -10,6 +10,7 @@
 //! Each realization is recorded and submitted in turn, and everything is
 //! read back once at the end.
 
+use crate::armor_frames::FittingPlacement;
 use fabelgeist_gpu::prelude::BufferUpload;
 mod direction;
 mod gap;
@@ -30,6 +31,7 @@ pub use standoff::{
 pub use weld::WELD_PRECISION;
 
 use anyhow::{Context, Result, bail};
+use fabelgeist_armor::gpu::body::Skin;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_armor::{ArmorGpu, GenerateError};
 use fabelgeist_compute::{NormalWeighting, VertexNormals};
@@ -71,7 +73,7 @@ pub struct FittedUnderlayer {
     /// One per morph sample, in order, sharing `indices`.
     pub endpoints: Vec<ShellSurface>,
     pub texcoords: Vec<[f32; 2]>,
-    pub joint_indices: Vec<[u32; 8]>,
+    pub joint_indices: fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: Vec<[f32; 8]>,
 }
 
@@ -80,7 +82,7 @@ pub struct FittedUnderlayer {
 pub fn fit(
     gpu: &ArmorGpu,
     design: &UnderlayerDesign,
-    placement: &str,
+    placement: FittingPlacement,
     body: &Wearer<'_>,
     domain: SurfaceDomain<'_>,
     proportions: &[BodyShape<'_>],
@@ -100,7 +102,7 @@ pub fn fit(
 pub async fn fit_async(
     gpu: &ArmorGpu,
     design: &UnderlayerDesign,
-    placement: &str,
+    placement: FittingPlacement,
     body: &Wearer<'_>,
     domain: SurfaceDomain<'_>,
     proportions: &[BodyShape<'_>],
@@ -304,17 +306,18 @@ impl Fit<'_> {
         let mut surfaces =
             shell_surfaces(&positions, &vectors, &status, count as usize)?.into_iter();
         let base = surfaces.next().expect("the wearer is always fitted");
-        let (texcoords, joint_indices, joint_weights) = match skin {
-            Some((joints, floats)) => read_skin(gpu, &joints, &floats, count as usize).await?,
+        let skin = match skin {
+            Some((joints, floats)) => read_skin(gpu, &joints, &floats, count as usize,
+                self.body.joint_indices.joint_count()).await?,
             None => Default::default(),
         };
         Ok(FittedUnderlayer {
             indices: plan.indices.clone(),
             base,
             endpoints: surfaces.collect(),
-            texcoords,
-            joint_indices,
-            joint_weights,
+            texcoords: skin.texcoords,
+            joint_indices: skin.joint_indices,
+            joint_weights: skin.joint_weights,
         })
     }
 
@@ -323,7 +326,7 @@ impl Fit<'_> {
         let count = self.plan.vertex_count() as u64;
         let sources = SkinSources {
             texcoords: gpu.upload(BufferUpload::from_elements(domain.texcoords))?,
-            joint_indices: gpu.upload(BufferUpload::from_elements(self.body.joint_indices))?,
+            joint_indices: gpu.upload(BufferUpload::from_elements(self.body.joint_indices.native_words()))?,
             joint_weights: gpu.upload(BufferUpload::from_elements(self.body.joint_weights))?,
         };
         let joints = gpu.scratch(count * INFLUENCES as u64 * 4, "underlayer joints")?;
@@ -366,9 +369,11 @@ fn shell_surfaces(
         .collect()
 }
 
-type Skin = (Vec<[f32; 2]>, Vec<[u32; 8]>, Vec<[f32; 8]>);
 
-async fn read_skin(gpu: &ArmorGpu, joints: &Buffer, floats: &Buffer, count: usize) -> Result<Skin> {
+async fn read_skin(
+    gpu: &ArmorGpu, joints: &Buffer, floats: &Buffer, count: usize,
+    rig_joints: fabelgeist_rig::RigJointCount,
+) -> Result<Skin> {
     let mut joint_indices: Vec<[u32; 8]> = gpu.read_async(joints).await?;
     joint_indices.truncate(count);
     let floats: Vec<[f32; SKIN_FLOATS]> = gpu.read_async(floats).await?;
@@ -378,7 +383,11 @@ async fn read_skin(gpu: &ArmorGpu, joints: &Buffer, floats: &Buffer, count: usiz
         texcoords.push([vertex[0], vertex[1]]);
         joint_weights.push(std::array::from_fn(|i| vertex[2 + i]));
     }
-    Ok((texcoords, joint_indices, joint_weights))
+    Ok(Skin {
+        texcoords,
+        joint_indices: fabelgeist_rig::PackedRigSkin::from_native(joint_indices, rig_joints)?,
+        joint_weights,
+    })
 }
 
 /// Turn the fit's status bits into the error of the first failure they record.

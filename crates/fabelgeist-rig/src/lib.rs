@@ -4,12 +4,14 @@
 use derive_more::{AsRef, Display, Error, From, Into};
 pub use part::RigJointPart;
 use serde::{Deserialize, Serialize};
+pub use skin::{PackedRigSkin, RigInfluences, RigJointCount, RigSkinError};
 use std::{borrow::Cow, num::TryFromIntError};
 pub use table::RigJointTable;
 
 pub mod mhr;
 mod names;
 mod part;
+mod skin;
 mod table;
 
 /// An exact rig label. Namespace policy belongs to its source format.
@@ -46,7 +48,7 @@ mod table;
 pub struct RigJointName(Cow<'static, str>);
 
 /// Zero-based location in an ordered rig, distinct from a parameter row.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, From, Into)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, From, Into, Display)]
 pub struct RigJointOrdinal(usize);
 
 /// Absence from the requested rig, retaining the exact query identity.
@@ -122,13 +124,16 @@ impl RigJointName {
     }
 
     /// Preserve the first occurrence when a rig contains duplicate labels.
-    pub fn index_in(&self, names: &[Self]) -> Option<RigJointOrdinal> {
+    pub fn index_in<'a>(&self, names: impl IntoIterator<Item = &'a Self>) -> Option<RigJointOrdinal> {
         names
-            .iter()
+            .into_iter()
             .position(|name: &Self| -> bool { name == self })
             .map(RigJointOrdinal::from)
     }
-    pub fn require_in(&self, names: &[Self]) -> Result<RigJointOrdinal, RigJointLookupError> {
+    pub fn require_in<'a>(
+        &self,
+        names: impl IntoIterator<Item = &'a Self>,
+    ) -> Result<RigJointOrdinal, RigJointLookupError> {
         self.index_in(names).ok_or_else(|| -> RigJointLookupError {
             RigJointLookupError {
                 joint: self.clone(),

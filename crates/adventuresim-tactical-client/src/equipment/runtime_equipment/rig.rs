@@ -2,16 +2,20 @@
 use super::*;
 use adventuresim_core::character_proportions::{CharacterProportions, JointProportionBasis};
 use serde::Deserialize;
+use fabelgeist_rig::RigJointTable;
 
 #[cfg_attr(test, derive(Default))]
 pub(super) struct FittingRig {
     nodes: Vec<RigNode>,
-    joints: Vec<usize>,
+    joints: RigJointTable<GltfNodeOrdinal>,
     pub reference: CharacterProportions,
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+struct GltfNodeOrdinal(usize);
+
 struct RigNode {
-    parent: Option<usize>,
+    parent: Option<GltfNodeOrdinal>,
     local: Transform,
     basis: Option<JointProportionBasis>,
 }
@@ -45,7 +49,7 @@ impl FittingRig {
                     .position(|handle| handle == child)
                     .context("missing rig child")?;
                 anyhow::ensure!(
-                    parents[child].replace(index).is_none(),
+                    parents[child].replace(GltfNodeOrdinal(index)).is_none(),
                     "rig node has multiple parents"
                 );
             }
@@ -83,9 +87,10 @@ impl FittingRig {
                 gltf.nodes
                     .iter()
                     .position(|handle| handle == joint)
+                    .map(GltfNodeOrdinal)
                     .context("missing fitting joint")
             })
-            .collect::<anyhow::Result<Vec<_>>>()?;
+            .collect::<anyhow::Result<RigJointTable<_>>>()?;
         Ok(Self {
             nodes,
             joints,
@@ -95,7 +100,7 @@ impl FittingRig {
 
     fn global(
         &self,
-        index: usize,
+        index: GltfNodeOrdinal,
         proportions: Option<CharacterProportions>,
     ) -> anyhow::Result<Mat4> {
         let mut current = Some(index);
@@ -104,7 +109,7 @@ impl FittingRig {
             let Some(index) = current else {
                 return Ok(global);
             };
-            let node = &self.nodes[index];
+            let node = &self.nodes[index.0];
             let mut local = node.local;
             if let (Some(proportions), Some(basis)) = (proportions, &node.basis) {
                 local.translation += Vec3::from_array(basis.translation(proportions));
@@ -128,12 +133,12 @@ impl FittingRig {
                 Ok(self.global(joint, Some(proportions))?.w_axis.truncate()
                     - self.global(joint, None)?.w_axis.truncate())
             })
-            .collect::<anyhow::Result<Vec<_>>>()?;
+            .collect::<anyhow::Result<RigJointTable<_>>>()?;
         // Match animation::skeletal_proportions: longer legs lift the root.
         let named = |role| {
             body.joint_names
-                .iter()
-                .position(|name| BoneRole::from_name(name) == Some(role))
+                .indexed()
+                .find_map(|(joint, name)| (BoneRole::from_name(name) == Some(role)).then_some(joint))
         };
         if let (Some(left), Some(right), Some(root)) = (
             named(BoneRole::FootLeft),
@@ -148,7 +153,7 @@ impl FittingRig {
                         *offset += correction;
                         break;
                     }
-                    ancestor = self.nodes[index].parent;
+                    ancestor = self.nodes[index.0].parent;
                 }
             }
         }
@@ -161,7 +166,7 @@ impl FittingRig {
             for (&joint, &weight) in joints.iter().zip(weights) {
                 if weight != 0.0 {
                     offset += offsets
-                        .get(joint as usize)
+                        .get(joint)
                         .context("invalid body skin joint")?
                         * weight;
                 }

@@ -7,7 +7,7 @@
 //! which keeps the hair's fall from stretching with a long face.
 
 use fabelgeist_hair::Head;
-use fabelgeist_rig::RigJointName;
+use fabelgeist_rig::{RigJointName, RigJointOrdinal};
 
 /// Vertices carried at least this much by the head joint belong to the head.
 const HEAD_SKIN_SHARE: f32 = 0.5;
@@ -15,16 +15,18 @@ const HEAD_SKIN_SHARE: f32 = 0.5;
 /// The skinned body the hair is placed on, in model space (metres, +Y up).
 pub struct HeadSkin<'a> {
     pub positions: &'a [[f32; 3]],
-    pub joint_indices: &'a [[u32; 8]],
+    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [RigJointName],
+    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
     /// Each joint's rest transform: translation, rotation quaternion, scale.
-    pub global_joint_states: &'a [[f32; 8]],
+    pub global_joint_states: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
 }
 
 /// Why a head could not be found on a body.
 #[derive(Debug, thiserror::Error)]
 pub enum HeadPlacementError {
+    #[error("head skin and rig columns are inconsistent")]
+    InconsistentRig,
     #[error("the skeleton has no `{0}` joint")]
     MissingJoint(RigJointName),
     #[error("no vertices are skinned to the head")]
@@ -42,20 +44,25 @@ pub struct HeadPlacement {
     /// The scale along each bust axis, for carrying normals.
     scale: [f32; 3],
     /// The index of the head joint, which the hair is skinned to.
-    pub head_joint: u32,
+    pub head_joint: RigJointOrdinal,
 }
 
 impl HeadPlacement {
     pub fn fit(skin: &HeadSkin<'_>, bust: &Head) -> Result<Self, HeadPlacementError> {
+        if skin.positions.len() != skin.joint_indices.len()
+            || skin.positions.len() != skin.joint_weights.len()
+            || skin.joint_names.len() != skin.global_joint_states.len()
+            || skin.joint_indices.joint_count() != skin.joint_names.joint_count()
+        {
+            return Err(HeadPlacementError::InconsistentRig);
+        }
         let joint = |name: RigJointName| {
-            skin.joint_names
-                .iter()
-                .position(|joint| joint == &name)
+            name.index_in(skin.joint_names)
                 .ok_or(HeadPlacementError::MissingJoint(name))
         };
         let head = joint(RigJointName::C_HEAD)?;
         let [left, right] = [joint(RigJointName::L_EYE)?, joint(RigJointName::R_EYE)?];
-        let at = |index: usize| {
+        let at = |index: RigJointOrdinal| {
             let state = skin.global_joint_states[index];
             [state[0], state[1], state[2]]
         };
@@ -66,7 +73,7 @@ impl HeadPlacement {
         let up = [0.0, 1.0, 0.0];
         let side = cross(up, forward);
 
-        let extent = HeadExtent::of(skin, head as u32, [side, up, forward])
+        let extent = HeadExtent::of(skin, head, [side, up, forward])
             .ok_or(HeadPlacementError::NoHeadVertices)?;
         let bust_extent = HeadExtent::of_bust(bust);
         let width = extent.side[1] - extent.side[0];
@@ -93,7 +100,7 @@ impl HeadPlacement {
                 scale(forward, scale_forward),
             ],
             scale: factors,
-            head_joint: head as u32,
+            head_joint: head,
         })
     }
 
@@ -152,7 +159,7 @@ impl HeadPlacement {
 
     /// The bust left where it stands, skinned to `head_joint`: hair drawn
     /// on its own bust.
-    pub fn identity(head_joint: u32) -> Self {
+    pub fn identity(head_joint: RigJointOrdinal) -> Self {
         Self {
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
@@ -177,10 +184,10 @@ struct HeadExtent {
 }
 
 impl HeadExtent {
-    fn of(skin: &HeadSkin<'_>, head: u32, [side, up, forward]: [[f32; 3]; 3]) -> Option<Self> {
+    fn of(skin: &HeadSkin<'_>, head: RigJointOrdinal, [side, up, forward]: [[f32; 3]; 3]) -> Option<Self> {
         let mut extent: Option<Self> = None;
         for (index, position) in skin.positions.iter().enumerate() {
-            let share: f32 = skin.joint_indices[index]
+            let share: f32 = skin.joint_indices.vertex(index)
                 .iter()
                 .zip(&skin.joint_weights[index])
                 .filter(|(joint, _)| **joint == head)

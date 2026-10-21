@@ -2,7 +2,6 @@
 //! wholly to the head, their atlas tinted with the hair's colour and cut out
 //! by its coverage.
 use super::*;
-use crate::character_morphs::WholeJoint;
 use crate::hair_preview;
 use adventuresim_character_creator::export::SurfaceTextures;
 use adventuresim_character_creator::hair::{
@@ -22,7 +21,7 @@ const EXPORTED_FORM: Form = Form::Cards { level: 0 };
 /// Hair grown and placed for export, owning what its shell borrows.
 pub(super) struct ExportedHair {
     cards: HairGeometry,
-    joint_indices: Vec<[u32; 8]>,
+    joint_indices: fabelgeist_rig::PackedRigSkin<8>,
     joint_weights: Vec<[f32; 8]>,
     textures: SurfaceTextures,
     morphs: Vec<MorphDelta>,
@@ -52,7 +51,7 @@ impl ExportedHair {
         let placement = *placed.placement();
         let cards = placed.geometry(gpu, EXPORTED_FORM)?;
         let count = cards.positions.len();
-        let skin = WholeJoint::new(placement.head_joint);
+        let skin = fabelgeist_rig::RigInfluences::<8>::whole_joint(placement.head_joint);
         Ok(Self {
             morphs: morphs.hair(model, &hair, &cards, &placement)?,
             textures: SurfaceTextures {
@@ -62,7 +61,9 @@ impl ExportedHair {
                 cutout: true,
             },
             cards,
-            joint_indices: vec![skin.indices; count],
+            joint_indices: fabelgeist_rig::PackedRigSkin::repeated(
+                skin.joints, count, generated.global_joint_states.joint_count(),
+            )?,
             joint_weights: vec![skin.weights; count],
         })
     }

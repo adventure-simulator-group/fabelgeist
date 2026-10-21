@@ -184,7 +184,9 @@ mod tests {
             surface_domain: String::new(),
             normals: vec![[0.0; 3]; 8],
             texcoords: vec![[0.0; 2]; 8],
-            joint_indices: vec![[0; 8]; 8],
+            joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
+                vec![[0; 8]; 8], fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            ).unwrap(),
             joint_weights: vec![[0.0; 8]; 8],
             faces: vec![
                 PlateFace::Inner,

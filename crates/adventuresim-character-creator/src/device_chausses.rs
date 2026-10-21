@@ -78,6 +78,7 @@ fn limb_station(a: vec3<f32>, b: vec3<f32>, segment: u32, t: f32) -> Station {
 }
 
 struct Section {
+    present: bool,
     lo: vec3<f32>,
     hi: vec3<f32>,
 };
@@ -112,28 +113,41 @@ fn enclosing_section(center: vec3<f32>, axes: array<vec3<f32>, 3>) -> Section {
         lo = vec3<f32>(3.4e38);
         hi = vec3<f32>(-3.4e38);
         let wanted = min(MINIMUM_SECTION_SAMPLES, supported);
-        var last_distance = -1.0;
-        var last_vertex = 0u;
+        var cursor_present = false;
+        var last_distance: f32;
+        var last_vertex: u32;
         for (var taken = 0u; taken < wanted; taken = taken + 1u) {
-            var best_distance = 3.4e38;
-            var best_vertex = 0xffffffffu;
+            var candidate_present = false;
+            var best_distance: f32;
+            var best_vertex: u32;
             for (var v = 0u; v < params.count; v = v + 1u) {
                 if (support[v] == 0u) {
                     continue;
                 }
                 let d = abs(in_axes(axes, center, v).y);
-                let after = d > last_distance || (d == last_distance && v > last_vertex);
-                let better = d < best_distance || (d == best_distance && v < best_vertex);
+                if (!(d <= 3.4e38)) {
+                    continue;
+                }
+                let after = !cursor_present || d > last_distance || (d == last_distance && v > last_vertex);
+                let better = !candidate_present || d < best_distance || (d == best_distance && v < best_vertex);
                 if (after && better) {
+                    candidate_present = true;
                     best_distance = d;
                     best_vertex = v;
                 }
             }
+            if (!candidate_present) {
+                break;
+            }
             let s = in_axes(axes, center, best_vertex);
             lo = min(lo, s);
             hi = max(hi, s);
+            cursor_present = true;
             last_distance = best_distance;
             last_vertex = best_vertex;
+        }
+        if (!cursor_present) {
+            return Section(false, lo, hi);
         }
     }
     let radial_center = vec2<f32>((lo.x + hi.x) * 0.5, (lo.z + hi.z) * 0.5);
@@ -157,7 +171,7 @@ fn enclosing_section(center: vec3<f32>, axes: array<vec3<f32>, 3>) -> Section {
     hi.x = radial_center.x + radius.x * scale;
     lo.z = radial_center.y - radius.y * scale;
     hi.z = radial_center.y + radius.y * scale;
-    return Section(lo, hi);
+    return Section(true, lo, hi);
 }
 
 @compute @workgroup_size(64)
@@ -195,6 +209,10 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     let front = normalized(fit.z - tangent * host_dot(fit.z, tangent));
     let across = host_cross(tangent, front);
     let section = enclosing_section(station.center, array<vec3<f32>, 3>(across, tangent, front));
+    if (!section.present) {
+        atomicOr(&candidate_status[0], 1u);
+        return;
+    }
     let radius = vec2<f32>((section.hi.x - section.lo.x) * 0.5, (section.hi.z - section.lo.z) * 0.5);
     var quilting = 0.0;
     if (params.quilted != 0u) {
@@ -251,6 +269,7 @@ impl DeviceWearer<'_> {
         parameters.insert("joints", self.body.joints.clone());
         parameters.insert("support", support.clone());
         parameters.insert("carriers", part.carriers().clone());
+        parameters.insert("candidate_status", part.status().clone());
         let kernel = gpu
             .cache()
             .get(gpu.context(), &cage_source())
@@ -299,6 +318,7 @@ struct Params {{
     pad4: f32,
 }};
 @group(0) @binding(5) var<uniform> params: Params;
+@group(0) @binding(6) var<storage, read_write> candidate_status: array<atomic<u32>>;
 {math}
 {frame}
 {positions}

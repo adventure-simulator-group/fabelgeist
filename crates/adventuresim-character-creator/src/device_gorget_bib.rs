@@ -191,16 +191,16 @@ mod tests {
             let normals = [[0.0, 0.0, 1.0]; 4];
             let indices = [[0; 8]; 4];
             let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
-            let names = vec!["c_neck".into()];
+            let names: fabelgeist_rig::RigJointTable<fabelgeist_rig::RigJointName> = vec!["c_neck".into()].into();
             let states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
             let host = Wearer {
                 positions: &positions,
                 normals: &normals,
                 faces: &faces,
-                joint_indices: &indices,
+                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(indices.to_vec(), names.joint_count()).unwrap(),
                 joint_weights: &weights,
                 joint_names: &names,
-                joints: &states,
+                joints: &states.to_vec().into(),
             };
             let body = host.upload(&gpu).unwrap();
             let wearer = DeviceWearer {
@@ -214,7 +214,7 @@ mod tests {
             let layer = ArmorLayerSurface {
                 positions: &lower,
                 faces: &faces,
-                joint_indices: &indices,
+                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(indices.to_vec(), names.joint_count()).unwrap(),
                 joint_weights: &weights,
             };
             let mut fitted = Vec::new();

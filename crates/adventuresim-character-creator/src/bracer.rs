@@ -54,10 +54,10 @@ pub struct ForearmSurfaceInput<'a> {
     pub faces: &'a [[u32; 3]],
     pub texcoords: &'a [[f32; 2]],
     pub texcoord_faces: &'a [[u32; 3]],
-    pub joint_indices: &'a [[u32; 8]],
+    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [RigJointName],
-    pub global_joint_states: &'a [[f32; 8]],
+    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
+    pub global_joint_states: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
     pub morphs: &'a [ForearmMorphSample],
 }
 
@@ -68,7 +68,7 @@ pub struct ForearmMorphSample {
     /// Global rig state fitted for this exact body realization.  Garment
     /// semantic curves must be evaluated from these landmarks rather than
     /// translating neutral landmarks by a nearest-envelope approximation.
-    pub global_joint_states: Vec<[f32; 8]>,
+    pub global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
     /// This realization on the armor device, once a piece has uploaded it.
     pub device: crate::device_body::DeviceBody,
 }
@@ -90,21 +90,23 @@ impl ForearmSurfaceInput<'_> {
             || self.joint_weights.len() != vertices
             || self.faces.len() != self.texcoord_faces.len()
             || self.joint_names.len() != self.global_joint_states.len()
+            || self.joint_indices.joint_count() != self.joint_names.joint_count()
             || self
                 .morphs
                 .iter()
-                .any(|morph| morph.positions.len() != vertices || morph.normals.len() != vertices)
+                .any(|morph| morph.positions.len() != vertices
+                    || morph.normals.len() != vertices
+                    || morph.global_joint_states.len() != self.joint_names.len())
         {
             return Err(ForearmInputError::InconsistentSurface);
         }
         let forearm_joints = self
             .joint_names
-            .iter()
-            .enumerate()
+            .indexed()
             .filter_map(
-                |(index, name): (usize, &RigJointName)| -> Option<RigJointOrdinal> {
+                |(index, name): (RigJointOrdinal, &RigJointName)| -> Option<RigJointOrdinal> {
                     (self.side.owns_forearm_joint(name) == RigJointMembership::Included)
-                        .then_some(RigJointOrdinal::from(index))
+                        .then_some(index)
                 },
             )
             .collect::<BTreeSet<_>>();

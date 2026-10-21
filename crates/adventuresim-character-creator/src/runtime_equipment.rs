@@ -2,7 +2,7 @@
 //! mesh data, without an intermediate GLB.
 
 use crate::{
-    armor_frames::Side,
+    armor_frames::{FittingPlacement, Side},
     armor_recipes::{self, DedicatedGenerator, ParametricDesign},
     bracer::{ForearmSide, ForearmSurfaceInput},
     device_body::DeviceBody,
@@ -11,9 +11,12 @@ use crate::{
     device_underlayer::SurfaceDomain,
     underlayer_armor::{self, UnderlayerBody},
 };
-use adventuresim_core::{item_catalog, item_references::BELT_ID};
+use adventuresim_core::{
+    equipment_assets::{CatalogItem, CatalogPlacement},
+    item_catalog, item_references::BELT_ID,
+};
 use anyhow::{Context, Result, bail};
-use clothing::{ClothingPlacement, RuntimeClothing};
+use clothing::RuntimeClothing;
 use fabelgeist_armor::{ArmorGpu, BracerDesign, BreastplateDesign, GeneratedArmor};
 use fabelgeist_rig::RigJointName;
 use std::sync::LazyLock;
@@ -25,6 +28,7 @@ mod warmup;
 static ITEM_CATALOG: LazyLock<Vec<RuntimeCatalogItem>> = LazyLock::new(|| {
     item_catalog::authored_document_items()
         .into_iter()
+        .filter_map(|item| CatalogItem::admit(item_catalog::catalog(), item))
         .map(RuntimeCatalogItem::from_catalog)
         .collect()
 });
@@ -32,7 +36,7 @@ static ITEM_CATALOG: LazyLock<Vec<RuntimeCatalogItem>> = LazyLock::new(|| {
 /// A canonical catalogue reference with clothing eligibility classified once.
 #[derive(Clone, Copy)]
 struct RuntimeCatalogItem {
-    definition: &'static crate::item_catalog_schema::ItemDefinition,
+    definition: CatalogItem<'static>,
     clothing_role: RuntimeClothingRole,
 }
 
@@ -47,10 +51,10 @@ pub struct RuntimeBody {
     /// One surface coordinate per vertex; `texcoord_faces` index them.
     pub texcoords: Vec<[f32; 2]>,
     pub texcoord_faces: Vec<[u32; 3]>,
-    pub joint_indices: Vec<[u32; 8]>,
+    pub joint_indices: fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: Vec<[f32; 8]>,
-    pub joint_names: Vec<RigJointName>,
-    pub global_joint_states: Vec<[f32; 8]>,
+    pub joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
+    pub global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
     /// This body on the armor device, once a piece has uploaded it.
     pub device: DeviceBody,
 }
@@ -62,7 +66,7 @@ enum RuntimeClothingRole {
 }
 
 impl RuntimeCatalogItem {
-    fn from_catalog(item: &'static crate::item_catalog_schema::ItemDefinition) -> Self {
+    fn from_catalog(item: CatalogItem<'static>) -> Self {
         let fitted = matches!(item.kind, crate::item_catalog_schema::ItemKind::Clothing)
             || item.id == BELT_ID;
         Self {
@@ -74,27 +78,7 @@ impl RuntimeCatalogItem {
             },
         }
     }
-    fn clothing_placement(self, placement_id: &str) -> Result<ClothingPlacement> {
-        let item = self.definition;
-        let item_id = item.id.as_str();
-        let equipment = item
-            .equipment
-            .as_ref()
-            .with_context(|| format!("clothing item {item_id} has no equipment definition"))?;
-        let material = equipment
-            .material
-            .with_context(|| format!("clothing item {item_id} has no material"))?;
-        let placement = equipment
-            .placements
-            .iter()
-            .find(|placement| placement.id == placement_id)
-            .with_context(|| format!("clothing item {item_id} has no placement {placement_id}"))?;
-        Ok(ClothingPlacement {
-            item,
-            placement,
-            material,
-        })
-    }
+
 }
 
 impl RuntimeBody {
@@ -107,6 +91,7 @@ impl RuntimeBody {
             || self.joint_indices.len() != vertices
             || self.joint_weights.len() != vertices
             || self.joint_names.len() != self.global_joint_states.len()
+            || self.joint_indices.joint_count() != self.joint_names.joint_count()
             || self.faces.is_empty()
             || self.texcoord_faces.len() != self.faces.len()
         {
@@ -139,17 +124,15 @@ impl RuntimeBody {
 /// offset from the body.
 pub async fn generate(
     body: &RuntimeBody,
-    item_id: &str,
-    placement: &str,
+    selection: CatalogPlacement<'static>,
     bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
     layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
-    if is_runtime_armor(item_id) {
+    if armor_recipes::is_parametric(selection.item()) {
         generate_runtime_armor(
             body,
-            item_id,
-            placement,
+            selection,
             bracer_design,
             breastplate_design,
             layers,
@@ -157,9 +140,10 @@ pub async fn generate(
         .await
     } else {
         body.validate()?;
-        let item =
-            catalog_item(item_id).with_context(|| format!("unknown clothing item {item_id}"))?;
-        RuntimeClothing::new(body, item.clothing_placement(placement)?).generate()
+        catalog_record(selection.item()).with_context(|| {
+            format!("unknown clothing item {}", selection.item().id)
+        })?;
+        RuntimeClothing::new(body, selection).generate()
     }
 }
 
@@ -168,62 +152,66 @@ pub async fn generate(
 /// Fits the authored design only to this wearer, without equipment morphs.
 pub async fn generate_runtime_armor(
     body: &RuntimeBody,
-    item_id: &str,
-    placement: &str,
+    selection: CatalogPlacement<'static>,
     bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
     layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     body.validate()?;
     let gpu = crate::armor_gpu::armor_gpu_async().await?;
-    match DedicatedGenerator::for_item(item_id) {
+    let item = selection.item();
+    match DedicatedGenerator::for_item(item) {
         Some(DedicatedGenerator::Vambrace) => {
-            generate_vambrace(gpu, body, placement, bracer_design).await
+            generate_vambrace(gpu, body, selection, bracer_design).await
         }
         Some(DedicatedGenerator::Breastplate) => {
             generate_breastplate(gpu, body, breastplate_design).await
         }
         None => {
-            let design = armor_recipes::recipe(item_id)
-                .with_context(|| format!("no runtime armor recipe for {item_id}"))?;
-            generate_parametric(gpu, body, &design, placement, layers).await
+            let design = armor_recipes::recipe(item)
+                .with_context(|| format!("no runtime armor recipe for {}", item.id))?;
+            generate_parametric(gpu, body, &design, selection, layers).await
         }
     }
 }
 
 /// The material assigned to an authored runtime equipment item.
 pub fn runtime_equipment_material(
-    item_id: &str,
+    item: CatalogItem<'static>,
 ) -> Option<crate::item_catalog_schema::EquipmentMaterial> {
-    catalog_item(item_id)
-        .and_then(|item| item.definition.equipment.as_ref())
+    catalog_record(item)
+        .and_then(|item| item.definition.definition().equipment.as_ref())
         .and_then(|equipment| equipment.material)
 }
 
 /// Whether the item has an authored parametric armor runtime path.
 pub fn is_runtime_armor(item_id: &str) -> bool {
-    armor_recipes::is_parametric(item_id)
+    CatalogItem::find(item_catalog::catalog(), item_id).is_some_and(armor_recipes::is_parametric)
 }
 
 /// Whether the item has an authored fitted clothing runtime path.
 pub fn is_runtime_clothing(item_id: &str) -> bool {
     catalog_item(item_id).is_some_and(|item| {
-        item.clothing_role == RuntimeClothingRole::Fitted && !is_runtime_armor(item_id)
+        item.clothing_role == RuntimeClothingRole::Fitted
+            && !armor_recipes::is_parametric(item.definition)
     })
 }
 
 /// Whether the item should be generated from the loaded body rig.
 pub fn is_runtime_equipment(item_id: &str) -> bool {
-    is_runtime_armor(item_id) || is_runtime_clothing(item_id)
+    CatalogItem::find(item_catalog::catalog(), item_id).is_some_and(|item| {
+        armor_recipes::is_parametric(item)
+            || catalog_record(item).is_some_and(|record| record.clothing_role == RuntimeClothingRole::Fitted)
+    })
 }
 
 async fn generate_vambrace(
     gpu: &ArmorGpu,
     body: &RuntimeBody,
-    placement: &str,
+    placement: CatalogPlacement<'_>,
     design: &BracerDesign,
 ) -> Result<GeneratedArmor> {
-    let side = match Side::from_placement(placement)? {
+    let side = match FittingPlacement::from(placement).side()? {
         Side::Left => ForearmSide::Left,
         Side::Right => ForearmSide::Right,
     };
@@ -277,9 +265,10 @@ async fn generate_parametric(
     gpu: &ArmorGpu,
     body: &RuntimeBody,
     design: &ParametricDesign,
-    placement: &str,
+    placement: CatalogPlacement<'_>,
     layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
+    let placement = FittingPlacement::from(placement);
     match design {
         ParametricDesign::Underlayer(_) | ParametricDesign::TrunkHose(_) => {
             let wearer = body.wearer().wearer(&body.fit_body());
@@ -328,11 +317,13 @@ async fn generate_parametric(
     }
 }
 
+fn catalog_record(item: CatalogItem<'static>) -> Option<RuntimeCatalogItem> {
+    ITEM_CATALOG.iter().find(|record| record.definition == item).copied()
+}
+
 fn catalog_item(item_id: &str) -> Option<RuntimeCatalogItem> {
-    ITEM_CATALOG
-        .iter()
-        .find(|item| item.definition.id == item_id)
-        .copied()
+    let item = CatalogItem::find(item_catalog::catalog(), item_id)?;
+    catalog_record(item)
 }
 
 #[cfg(test)]

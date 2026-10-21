@@ -3,7 +3,7 @@ use super::character_morphs::{
 };
 use super::*;
 use adventuresim_character_creator::{
-    equipment_catalog::EquipmentItemSelection, item_catalog_schema::EquipmentPlacement,
+    equipment_catalog::{CatalogItem, CatalogPlacement, EquipmentItemSelection},
     item_design::ItemDesign,
 };
 use adventuresim_core::equipment_assets::{
@@ -32,18 +32,19 @@ impl EquipmentExporter<'_> {
             joint_weights: &character.skin_weights.weight,
             joint_names: &character.skeleton.names,
             joint_parents: &character.skeleton.parents,
-            global_joint_states: self.generated.global_joint_states.iter().collect(),
+            global_joint_states: &self.generated.global_joint_states,
         }
     }
     fn armor(
         &self,
         output: &std::path::Path,
-        item: &ItemDefinition,
-        placement: &EquipmentPlacement,
+        selection: CatalogPlacement<'_>,
         design: &ItemDesign,
     ) -> Result<ProceduralEquipmentAsset> {
         let model = self.model;
         let recipe = self.recipe;
+        let item = selection.item();
+        let placement = selection.definition();
         let equipment = item
             .equipment
             .as_ref()
@@ -51,9 +52,8 @@ impl EquipmentExporter<'_> {
         let armor = parametric_equipment::fitted_catalog_item(
             model,
             self.generated,
-            item,
+            selection,
             design,
-            &placement.id,
             &self.morphs.samples,
             &[],
         )?;
@@ -121,11 +121,12 @@ impl EquipmentExporter<'_> {
     fn garment(
         &self,
         output: &std::path::Path,
-        item: &ItemDefinition,
-        placement: &EquipmentPlacement,
+        selection: CatalogPlacement<'_>,
     ) -> Result<ProceduralEquipmentAsset> {
         let model = self.model;
         let recipe = self.recipe;
+        let item = selection.item();
+        let placement = selection.definition();
         let generated = self.generated;
         let morphs = self.morphs;
         let character = &model.mhr.character;
@@ -135,11 +136,8 @@ impl EquipmentExporter<'_> {
             .context("filtered equipment is missing its definition")?;
         let specification = GarmentSpecification::from_catalog(
             format!("{} · {}", item.display_name, placement.id).into(),
-            placement,
-            equipment
-                .material
-                .ok_or_else(|| anyhow::anyhow!("item {} has no procedural material", item.id))?,
-        );
+            selection,
+        )?;
         let clothed = generate_clothing_shells(
             &[specification],
             &generated.positions,
@@ -186,12 +184,12 @@ impl EquipmentExporter<'_> {
     }
     fn sockets<'a>(
         &self,
-        item: &'a ItemDefinition,
+        item: CatalogItem<'a>,
         rigged_mesh: &RiggedMesh<'_>,
         rigged_shell: &RiggedShell<'_>,
     ) -> Result<Vec<RiggedSocket<'a>>> {
         let character = &self.model.mhr.character;
-        let equipment = item
+        let equipment = item.definition()
             .equipment
             .as_ref()
             .context("filtered equipment is missing its definition")?;
@@ -293,17 +291,13 @@ pub(super) fn generate_equipment_assets(
         if !selection.includes(item) {
             continue;
         }
-        let equipment = item
-            .equipment
-            .as_ref()
-            .context("filtered equipment is missing its definition")?;
-        for placement in &equipment.placements {
+        for placement in item.placements() {
             if placement.surface.is_empty() {
                 continue;
             }
-            let asset = if let Some(design) = catalog.placed_design(&item.id, &placement.id) {
+            let asset = if let Some(design) = catalog.placed_design(placement) {
                 exporter
-                    .armor(output, item, placement, &design)
+                    .armor(output, placement, &design)
                     .with_context(|| format!("exporting armor {} ({})", item.id, placement.id))?
             } else {
                 anyhow::ensure!(
@@ -314,7 +308,7 @@ pub(super) fn generate_equipment_assets(
                     "armor {} has no parametric generator",
                     item.id
                 );
-                exporter.garment(output, item, placement)?
+                exporter.garment(output, placement)?
             };
             generated_files.insert(format!("{}--{}.glb", item.id, placement.id));
             assets.push(asset);

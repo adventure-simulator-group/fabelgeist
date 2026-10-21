@@ -235,12 +235,12 @@ fn ray_triangle_hit(
 }
 
 fn attachment_region_weight(mesh: &RiggedMesh<'_>, vertex: usize) -> f32 {
-    mesh.joint_indices[vertex]
+    mesh.joint_indices.vertex(vertex)
         .iter()
         .zip(mesh.joint_weights[vertex])
         .filter(|(joint, _)| {
             mesh.joint_names
-                .get(**joint as usize)
+                .get(**joint)
                 .is_some_and(|name: &RigJointName| -> bool {
                     crate::clothing::waist_surface_joint(name) == RigJointMembership::Included
                 })
@@ -284,7 +284,7 @@ fn equipment_surface_socket(
     tangent: [f32; 3],
 ) -> Result<Transform> {
     let pelvis = landmark(mesh, &RigJointName::ROOT)?;
-    let pelvis_transform = state(*mesh.global_joint_states[pelvis]);
+    let pelvis_transform = state(mesh.global_joint_states[pelvis]);
     let direction = normalize(normal, "equipment", "surface normal")?;
     let translation = std::array::from_fn(|axis| {
         translation[axis] + direction[axis] * EQUIPMENT_SOCKET_CLEARANCE_METERS
@@ -663,7 +663,7 @@ pub fn export_rigged_glb(
         Some(34_962),
     );
     let (joints_0, weights_0) =
-        skinning::append(&mut buffer, mesh.joint_indices, mesh.joint_weights);
+        skinning::append(&mut buffer, mesh.joint_indices, mesh.joint_weights)?;
     let exported_faces = if mesh.export_body { mesh.faces } else { &[] };
     let indices = buffer.push(
         &u32_bytes(exported_faces.iter().flatten().copied()),
@@ -687,14 +687,15 @@ pub fn export_rigged_glb(
             let skin = shell
                 .joint_indices
                 .zip(shell.joint_weights)
-                .map(|(joints, weights)| skinning::append(&mut buffer, joints, weights));
-            (positions, normals, indices, skin)
+                .map(|(joints, weights)| skinning::append(&mut buffer, joints, weights))
+                .transpose()?;
+            Ok((positions, normals, indices, skin))
         })
-        .collect::<Vec<_>>();
+        .collect::<Result<Vec<_>>>()?;
 
     let mut globals = mesh.global_transforms();
-    let mut joint_names = mesh.joint_names.to_vec();
-    let mut joint_parents = mesh.joint_parents.to_vec();
+    let mut joint_names = mesh.joint_names.clone();
+    let mut joint_parents = mesh.joint_parents.clone();
     let mut attachments = Vec::new();
     if !mesh.faces.is_empty() {
         let transform = |joint: RigJointOrdinal| -> Transform { globals[joint] };
@@ -852,7 +853,7 @@ pub fn export_rigged_glb(
     let skeleton_root = mesh
         .joint_parents
         .iter()
-        .position(|parent| *parent < 0)
+        .position(Option::is_none)
         .context("MHR skeleton has no root")?;
     sockets::append(&mut nodes, mesh, sockets)?;
     let mut scene_nodes = vec![skeleton_node];
@@ -1000,17 +1001,21 @@ mod tests {
             1,
             4,
             &RiggedMesh {
-                joint_proportions: &bases,
+                joint_proportions: &bases.clone().into(),
                 morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
                 faces: &faces,
                 export_body: true,
-                joint_indices: &joint_indices,
+                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                    joint_indices.to_vec(), fabelgeist_rig::RigJointTable::from(joint_names.to_vec()).joint_count(),
+                ).unwrap(),
                 joint_weights: &joint_weights,
-                joint_names: &joint_names,
-                joint_parents: &joint_parents,
-                global_joint_states: global_joint_states.iter().collect(),
+                joint_names: &joint_names.to_vec().into(),
+                joint_parents: &joint_parents.iter().map(|&parent| {
+                    (parent >= 0).then(|| RigJointOrdinal::from(usize::try_from(parent).unwrap()))
+                }).collect(),
+                global_joint_states: &global_joint_states.to_vec().into(),
             },
             &[],
             &[],
@@ -1136,17 +1141,21 @@ mod tests {
             1,
             4,
             &RiggedMesh {
-                joint_proportions: &[],
+                joint_proportions: &Default::default(),
                 morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
                 faces: &faces,
                 export_body: true,
-                joint_indices: &joint_indices,
+                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                    joint_indices.to_vec(), fabelgeist_rig::RigJointTable::from(joint_names.to_vec()).joint_count(),
+                ).unwrap(),
                 joint_weights: &joint_weights,
-                joint_names: &joint_names,
-                joint_parents: &joint_parents,
-                global_joint_states: global_joint_states.iter().collect(),
+                joint_names: &joint_names.to_vec().into(),
+                joint_parents: &joint_parents.iter().map(|&parent| {
+                    (parent >= 0).then(|| RigJointOrdinal::from(usize::try_from(parent).unwrap()))
+                }).collect(),
+                global_joint_states: &global_joint_states.to_vec().into(),
             },
             &[],
             &[],
@@ -1214,17 +1223,21 @@ mod tests {
             2,
             4,
             &RiggedMesh {
-                joint_proportions: &[],
+                joint_proportions: &Default::default(),
                 morph_targets: &body_targets,
                 positions: &positions,
                 normals: &normals,
                 faces: &faces,
                 export_body: true,
-                joint_indices: &joint_indices,
+                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                    joint_indices.to_vec(), fabelgeist_rig::RigJointTable::from(joint_names.to_vec()).joint_count(),
+                ).unwrap(),
                 joint_weights: &joint_weights,
-                joint_names: &joint_names,
-                joint_parents: &joint_parents,
-                global_joint_states: global_joint_states.iter().collect(),
+                joint_names: &joint_names.to_vec().into(),
+                joint_parents: &joint_parents.iter().map(|&parent| {
+                    (parent >= 0).then(|| RigJointOrdinal::from(usize::try_from(parent).unwrap()))
+                }).collect(),
+                global_joint_states: &global_joint_states.to_vec().into(),
             },
             &[shell],
             &[],
@@ -1296,6 +1309,9 @@ mod tests {
         let joint_indices = [[0; 8]; 3];
         let joint_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
         let (joint_names, joint_parents, global_joint_states) = attachment_test_skeleton();
+        let garment_ids = fabelgeist_rig::PackedRigSkin::from_native(
+            garment_ids.to_vec(), fabelgeist_rig::RigJointTable::from(joint_names.to_vec()).joint_count(),
+        ).unwrap();
         let shell = RiggedShell {
             plate_edges: &[],
             surface: Some((&uvs, &textures)),
@@ -1319,17 +1335,21 @@ mod tests {
             2,
             4,
             &RiggedMesh {
-                joint_proportions: &[],
+                joint_proportions: &Default::default(),
                 morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
                 faces: &faces,
                 export_body: true,
-                joint_indices: &joint_indices,
+                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                    joint_indices.to_vec(), fabelgeist_rig::RigJointTable::from(joint_names.to_vec()).joint_count(),
+                ).unwrap(),
                 joint_weights: &joint_weights,
-                joint_names: &joint_names,
-                joint_parents: &joint_parents,
-                global_joint_states: global_joint_states.iter().collect(),
+                joint_names: &joint_names.to_vec().into(),
+                joint_parents: &joint_parents.iter().map(|&parent| {
+                    (parent >= 0).then(|| RigJointOrdinal::from(usize::try_from(parent).unwrap()))
+                }).collect(),
+                global_joint_states: &global_joint_states.to_vec().into(),
             },
             &[shell],
             &[],
@@ -1446,17 +1466,21 @@ mod tests {
             1,
             4,
             &RiggedMesh {
-                joint_proportions: &[],
+                joint_proportions: &Default::default(),
                 morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
                 faces: &[],
                 export_body: false,
-                joint_indices: &joint_indices,
+                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                    joint_indices.to_vec(), fabelgeist_rig::RigJointTable::from(joint_names.to_vec()).joint_count(),
+                ).unwrap(),
                 joint_weights: &joint_weights,
-                joint_names: &joint_names,
-                joint_parents: &joint_parents,
-                global_joint_states: global_joint_states.iter().collect(),
+                joint_names: &joint_names.to_vec().into(),
+                joint_parents: &joint_parents.iter().map(|&parent| {
+                    (parent >= 0).then(|| RigJointOrdinal::from(usize::try_from(parent).unwrap()))
+                }).collect(),
+                global_joint_states: &global_joint_states.to_vec().into(),
             },
             &[shell],
             &[socket],
@@ -1541,6 +1565,9 @@ mod tests {
             position_deltas: &position_deltas,
             normal_deltas: &normal_deltas,
         };
+        let armor_indices = fabelgeist_rig::PackedRigSkin::from_native(
+            armor_indices.to_vec(), fabelgeist_rig::RigJointTable::from(vec![RigJointName::ROOT]).joint_count(),
+        ).unwrap();
         let shell = RiggedShell {
             surface: None,
             plate_edges: &[],
@@ -1564,17 +1591,19 @@ mod tests {
             1,
             4,
             &RiggedMesh {
-                joint_proportions: &[],
+                joint_proportions: &Default::default(),
                 morph_targets: &[],
                 positions: &body_positions,
                 normals: &body_normals,
                 faces: &[],
                 export_body: false,
-                joint_indices: &body_indices,
+                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                    body_indices.to_vec(), fabelgeist_rig::RigJointTable::from(vec![RigJointName::ROOT]).joint_count(),
+                ).unwrap(),
                 joint_weights: &body_weights,
-                joint_names: &[RigJointName::ROOT],
-                joint_parents: &[-1],
-                global_joint_states: [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]].iter().collect(),
+                joint_names: &vec![RigJointName::ROOT].into(),
+                joint_parents: &vec![None].into(),
+                global_joint_states: &vec![[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]].into(),
             },
             &[shell],
             &[],
@@ -1663,17 +1692,21 @@ mod tests {
             [-4.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0],
         ];
         let mesh = RiggedMesh {
-            joint_proportions: &[],
+            joint_proportions: &Default::default(),
             morph_targets: &[],
             positions: &positions,
             normals: &normals,
             faces: &faces,
             export_body: false,
-            joint_indices: &joint_indices,
+            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+                    joint_indices.to_vec(), fabelgeist_rig::RigJointTable::from(joint_names.to_vec()).joint_count(),
+                ).unwrap(),
             joint_weights: &joint_weights,
-            joint_names: &joint_names,
-            joint_parents: &joint_parents,
-            global_joint_states: global_joint_states.iter().collect(),
+            joint_names: &joint_names.to_vec().into(),
+            joint_parents: &joint_parents.iter().map(|&parent| {
+                    (parent >= 0).then(|| RigJointOrdinal::from(usize::try_from(parent).unwrap()))
+                }).collect(),
+            global_joint_states: &global_joint_states.to_vec().into(),
         };
         let shell = RiggedShell {
             surface: None,

@@ -1,12 +1,13 @@
 //! Generator input for one equipment article, and the catalog's default designs.
 
 use crate::{
-    armor_design_input::{self, ArmorDesigns, ArmorPlacement},
+    armor_design_input::{self, ArmorDesigns},
     armor_design_output::DesignPaths,
     armor_recipes::{self, DedicatedGenerator, ParametricDesign},
     design_input,
 };
 use anyhow::{Context, Result, ensure};
+use adventuresim_core::equipment_assets::{CatalogItem, CatalogPlacement};
 use fabelgeist_armor::{BracerDesign, BreastplateDesign};
 use serde::{Deserialize, Serialize};
 use std::path::Path;
@@ -61,6 +62,12 @@ pub struct CatalogDesigns {
     pub breastplate: BreastplateDesign,
 }
 
+#[derive(Clone, Copy)]
+enum DesignTarget<'a> {
+    Item(CatalogItem<'a>),
+    Placement(CatalogPlacement<'a>),
+}
+
 impl CatalogDesigns {
     /// The authored defaults, replaced by any design file given.
     pub fn load(
@@ -80,35 +87,41 @@ impl CatalogDesigns {
     }
 
     /// The design a newly acquired `item_id` is built from, if it is parametric.
-    pub fn default_for(&self, item_id: &str) -> Option<ItemDesign> {
-        self.default_in(item_id, None)
+    pub fn default_for(&self, item: CatalogItem<'_>) -> Option<ItemDesign> {
+        self.default_in(DesignTarget::Item(item))
     }
 
     /// The design `item_id` is built from in `placement`: a placement's own
     /// saved recipe, or else the item's default.
-    pub fn default_at(&self, item_id: &str, placement: &str) -> Option<ItemDesign> {
-        self.default_in(item_id, ArmorPlacement::parse(placement))
+    pub fn default_at(&self, placement: CatalogPlacement<'_>) -> Option<ItemDesign> {
+        self.default_in(DesignTarget::Placement(placement))
     }
 
-    fn default_in(&self, item_id: &str, placement: Option<ArmorPlacement>) -> Option<ItemDesign> {
-        match DedicatedGenerator::for_item(item_id) {
+    fn default_in(&self, target: DesignTarget<'_>) -> Option<ItemDesign> {
+        let item = match target {
+            DesignTarget::Item(item) => item,
+            DesignTarget::Placement(placement) => placement.item(),
+        };
+        match DedicatedGenerator::for_item(item) {
             Some(DedicatedGenerator::Vambrace) => Some(ItemDesign::Vambrace(self.vambrace.clone())),
             Some(DedicatedGenerator::Breastplate) => {
                 Some(ItemDesign::Breastplate(self.breastplate.clone()))
             }
-            None => placement
-                .and_then(|placement| self.overrides.selected(item_id, placement))
-                .or_else(|| self.overrides.defaults.get(item_id))
-                .cloned()
-                .or_else(|| armor_recipes::recipe(item_id))
-                .map(ItemDesign::Recipe),
+            None => match target {
+                DesignTarget::Item(_) => self.overrides.defaults.get(&item.id),
+                DesignTarget::Placement(placement) => self.overrides.selected(placement),
+            }
+            .cloned()
+            .or_else(|| armor_recipes::recipe(item))
+            .map(ItemDesign::Recipe),
         }
     }
 
     /// Make `design` the catalog default for `item_id`.
-    pub fn set_default(&mut self, item_id: &str, design: ItemDesign) -> Result<()> {
+    pub fn set_default(&mut self, item: CatalogItem<'_>, design: ItemDesign) -> Result<()> {
+        let item_id = item.definition().id.as_str();
         let current = self
-            .default_for(item_id)
+            .default_for(item)
             .with_context(|| format!("{item_id} has no parametric design"))?;
         ensure!(
             current.same_family(&design),
@@ -138,36 +151,36 @@ mod tests {
     fn dedicated_and_recipe_items_resolve_to_their_generators() {
         let designs = CatalogDesigns::authored();
         assert!(matches!(
-            designs.default_for("vambrace"),
+            designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap()),
             Some(ItemDesign::Vambrace(_))
         ));
         for id in ["breastplate", "cuirass"] {
             assert!(matches!(
-                designs.default_for(id),
+                designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), id).unwrap()),
                 Some(ItemDesign::Breastplate(_))
             ));
         }
         assert!(matches!(
-            designs.default_for("morion"),
+            designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "morion").unwrap()),
             Some(ItemDesign::Recipe(_))
         ));
-        assert!(designs.default_for("linen_tunic").is_none());
+        assert!(designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "linen_tunic").unwrap()).is_none());
     }
 
     #[test]
     fn catalog_defaults_keep_their_construction_family() {
         let mut designs = CatalogDesigns::authored();
-        let barbute = designs.default_for("barbute").unwrap();
-        assert!(designs.set_default("morion", barbute).is_err());
-        let vambrace = designs.default_for("vambrace").unwrap();
-        assert!(designs.set_default("breastplate", vambrace).is_err());
+        let barbute = designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "barbute").unwrap()).unwrap();
+        assert!(designs.set_default(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "morion").unwrap(), barbute).is_err());
+        let vambrace = designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap()).unwrap();
+        assert!(designs.set_default(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "breastplate").unwrap(), vambrace).is_err());
 
-        let ItemDesign::Vambrace(mut edited) = designs.default_for("vambrace").unwrap() else {
+        let ItemDesign::Vambrace(mut edited) = designs.default_for(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap()).unwrap() else {
             unreachable!()
         };
         edited.center_ridge = fabelgeist_armor::Millimeters(5);
         designs
-            .set_default("vambrace", ItemDesign::Vambrace(edited.clone()))
+            .set_default(CatalogItem::find(adventuresim_core::item_catalog::catalog(), "vambrace").unwrap(), ItemDesign::Vambrace(edited.clone()))
             .unwrap();
         assert_eq!(designs.vambrace, edited);
     }

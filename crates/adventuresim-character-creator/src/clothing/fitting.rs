@@ -33,7 +33,7 @@ pub(super) fn fitted_surface(
     positions: &[[f32; 3]],
     normals: &[[f32; 3]],
     faces: &[[u32; 3]],
-    offset_metres: f32,
+    offset_metres: SignedLength,
 ) -> (Vec<[f32; 3]>, Vec<[f32; 3]>) {
     let relaxed = relax_concavities(positions, normals, faces);
     let shell_normals = surface_normals(&relaxed, normals, faces);
@@ -41,7 +41,7 @@ pub(super) fn fitted_surface(
         .iter()
         .zip(&shell_normals)
         .map(|(position, normal)| {
-            std::array::from_fn(|axis| position[axis] + normal[axis] * offset_metres)
+            std::array::from_fn(|axis| position[axis] + normal[axis] * offset_metres.metres())
         })
         .collect::<Vec<_>>();
     weld_split_vertex_positions(positions, &mut shell_positions);
