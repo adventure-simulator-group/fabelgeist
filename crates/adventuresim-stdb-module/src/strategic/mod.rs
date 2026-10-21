@@ -16,7 +16,8 @@ use approved_action::ApprovedPartyAction;
 use battle_combatants::load_allied_combatants;
 pub use combat_error::{StrategicCombatError, StrategicCombatResult};
 pub(crate) use development_gallery::{
-    materialize_development_scenario_gallery, materialize_gallery_item, validate_gallery_postcondition,
+    materialize_development_scenario_gallery, materialize_gallery_item,
+    validate_gallery_postcondition,
 };
 use std::str::FromStr;
 mod approved_action;

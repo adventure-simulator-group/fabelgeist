@@ -171,4 +171,3 @@ impl ApprovedPartyAction {
         result.map_err(StrategicCombatError::from)
     }
 }
-

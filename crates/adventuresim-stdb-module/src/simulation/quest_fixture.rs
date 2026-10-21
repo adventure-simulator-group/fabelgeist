@@ -103,4 +103,3 @@ pub fn seed_simulation_quest_fixture(
         });
     Ok(())
 }
-
