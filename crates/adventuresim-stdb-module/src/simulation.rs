@@ -14,7 +14,9 @@ use adventuresim_world_schema::calendar::MINUTES_PER_YEAR;
 use crate::character::character;
 use crate::investigation::investigation_witness_referral__view;
 use crate::local_problem::local_problem_receipt__view;
-use crate::strategic::{case_authority__view, quest_generation_authority__view};
+use crate::strategic::{
+    StrategicCombatResult, case_authority__view, quest_generation_authority__view,
+};
 use crate::time::{character_time, settle_lifecycle_after_character_time_write, world_clock};
 use crate::{
     CharacterAttributes, CharacterSkills, CharacterTrainingSchedule, DeathCause, DeathSource,
@@ -289,7 +291,7 @@ pub fn seed_simulation_quest_fixture(
     nonce: String,
     direct_leader_id: u64,
     generated_leader_id: u64,
-) -> Result<(), String> {
+) -> StrategicCombatResult<()> {
     let run = owned_run(ctx, &nonce)?;
     if direct_leader_id == generated_leader_id {
         return Err("Quest coverage requires two distinct party leaders".into());

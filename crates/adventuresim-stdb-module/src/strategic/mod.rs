@@ -13,9 +13,11 @@ use adventuresim_core::strategic_state::vocabulary::{
 use adventuresim_core::weather::Precipitation;
 use adventuresim_dialogue::{PromptMode, ResolutionPolicy};
 use battle_combatants::load_allied_combatants;
+pub use combat_error::{StrategicCombatError, StrategicCombatResult};
 use std::str::FromStr;
 mod battle_combatants;
 mod challenge_state;
+mod combat_error;
 mod dialogue_policy;
 mod mission_roster;
 #[cfg(feature = "authority-tests")]
@@ -28,6 +30,7 @@ pub use challenge_state::*;
 #[cfg(test)]
 pub(crate) const STRATEGIC_SOURCE: &str = concat!(
     include_str!("autoresolve.rs"),
+    include_str!("combat_error.rs"),
     include_str!("party_readiness.rs"),
     include_str!("world_import.rs"),
     include_str!("authority_model.rs"),

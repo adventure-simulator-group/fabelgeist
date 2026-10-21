@@ -316,7 +316,10 @@ const GALLERY_ROAD_BASE: usize = GALLERY_PUZZLE_BASE + GALLERY_PUZZLE_KINDS.len(
 /// incrementally (one bounded transaction per item) without knowing the total
 /// road-encounter count. `index == 0` seeds the static scenarios in one call
 /// (they are cheap registrations); every other index does exactly one scenario.
-pub(crate) fn materialize_gallery_item(ctx: &ReducerContext, index: usize) -> Result<bool, String> {
+pub(crate) fn materialize_gallery_item(
+    ctx: &ReducerContext,
+    index: usize,
+) -> StrategicCombatResult<bool> {
     match index {
         0 => {
             let static_scenarios = [
@@ -463,12 +466,13 @@ pub(crate) fn validate_gallery_postcondition(ctx: &ReducerContext) -> Result<(),
 
 pub(crate) fn materialize_development_scenario_gallery(
     ctx: &ReducerContext,
-) -> Result<(), String> {
+) -> StrategicCombatResult<()> {
     let mut index = 0;
     while materialize_gallery_item(ctx, index)? {
         index += 1;
     }
-    validate_gallery_postcondition(ctx)
+    validate_gallery_postcondition(ctx)?;
+    Ok(())
 }
 
 #[view(accessor = backend_development_scenarios, public)]

@@ -82,7 +82,7 @@ pub(super) fn run_autoresolve_batch(
     john: &MeleeIterationBuild,
     opponent: &MeleeIterationBuild,
     directory: &Path,
-) -> Result<AutoresolveBatch, String> {
+) -> IterationResult<AutoresolveBatch> {
     let started = Instant::now();
     let mut batch = AutoresolveBatch {
         john_wins: 0,
@@ -103,8 +103,7 @@ pub(super) fn run_autoresolve_batch(
             vec![opponent.combatant.clone()],
             args.first_seed.wrapping_offset(offset),
             BattleOpening::Normal,
-        )
-        .map_err(|error| error.to_string())?;
+        )?;
         record_autoresolve_outcome(&mut batch, &outcome, john, opponent)?;
         if offset == 0 {
             write_json(&directory.join("autoresolve-trace.json"), &outcome)?;

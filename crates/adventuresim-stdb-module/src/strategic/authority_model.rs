@@ -1671,8 +1671,8 @@ impl ApprovedPartyAction {
         ctx: &ReducerContext,
         leader_id: u64,
         requester_id: u64,
-    ) -> Result<(), String> {
-        match self {
+    ) -> StrategicCombatResult<()> {
+        let result = match self {
             Self::TravelToSettlement { settlement_id } => {
                 travel_to_settlement(ctx, leader_id, settlement_id)
             }
@@ -1707,7 +1707,7 @@ impl ApprovedPartyAction {
             Self::AbandonContract { contract_id } => abandon_contract(ctx, leader_id, contract_id),
             Self::ReportContract { contract_id } => report_contract(ctx, leader_id, contract_id),
             Self::AutoresolveMission { mission_id } => {
-                autoresolve_mission(ctx, leader_id, mission_id)
+                return autoresolve_mission(ctx, leader_id, mission_id);
             }
             Self::UpdatePartyCheckTargets {
                 physiology,
@@ -1737,7 +1737,8 @@ impl ApprovedPartyAction {
                 expected_version,
                 true,
             ),
-        }
+        };
+        result.map_err(StrategicCombatError::from)
     }
 }
 

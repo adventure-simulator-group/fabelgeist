@@ -30,7 +30,8 @@ use crate::{
     settlement_population::{SettlementResidentProfile, settlement_resident_profile},
     social::{character_familiarity, current_affinity},
     strategic::{
-        StrategicEncounterStatus, settlement, strategic_encounter,
+        StrategicCombatError, StrategicCombatResult, StrategicEncounterStatus, settlement,
+        strategic_encounter,
         strategic_gateway_authority__view,
     },
     surgery::{limb_injury, retained_projectile},
@@ -815,7 +816,7 @@ fn persist_autopsy_demo_body(
 /// Prepare the selected character and three deterministic bodies for a local
 /// visual demo. Every wound is produced by ordinary strategic autoresolve;
 /// only custody time and identity are staged by the fixture.
-pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(), String> {
+pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> StrategicCombatResult<()> {
     let actor = crate::character::require_living_character(ctx, actor_id)?;
     let settlement_id = actor
         .current_settlement_id
@@ -1952,7 +1953,7 @@ fn autopsy_demo_outcome(
     victim_kind: &str,
     attacker_kind: &str,
     seed: Seed,
-) -> Result<BattleOutcome, String> {
+) -> StrategicCombatResult<BattleOutcome> {
     let attacker = crate::strategic::autoresolve_enemy(
         victim_id.saturating_sub(100),
         attacker_kind,
@@ -1971,9 +1972,8 @@ fn autopsy_demo_outcome(
         victim_id,
         seed,
         128,
-    )
-    .map_err(|error| error.to_string())?
-    .ok_or_else(|| String::from("Autopsy demo autoresolve could not produce its required death"))
+    )?
+    .ok_or(StrategicCombatError::RequiredDeathUnavailable)
 }
 
 #[cfg(test)]

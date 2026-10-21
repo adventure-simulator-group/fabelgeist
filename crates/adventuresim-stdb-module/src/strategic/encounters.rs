@@ -1020,7 +1020,7 @@ fn resolve_random_encounter_battle(
     encounter: &StrategicEncounter,
     seed: Seed,
     opening: BattleOpening,
-) -> Result<String, String> {
+) -> StrategicCombatResult<String> {
     let member_ids = living_party_member_ids(ctx, &encounter.party_id);
     let allies = load_allied_combatants(ctx, &member_ids)?;
     let difficulty = i32::from(encounter.enemy_count.max(1));
@@ -1038,14 +1038,13 @@ fn resolve_random_encounter_battle(
                 u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
             )
         })
-        .collect::<Result<Vec<_>, String>>()?;
+        .collect::<AuthoredThreatResult<Vec<_>>>()?;
     let outcome = resolve_battle(
         allies,
         enemies,
         seed.xor_word(encounter.roll_index),
         opening,
-    )
-    .map_err(|error| error.to_string())?;
+    )?;
     commit_autoresolve_outcome(
         ctx,
         &encounter.encounter_id,
@@ -1105,7 +1104,7 @@ pub fn resolve_strategic_encounter(
     choice: String,
     expected_revision: u32,
     action_id: String,
-) -> Result<(), String> {
+) -> StrategicCombatResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Strategic encounter action ID is invalid".into());

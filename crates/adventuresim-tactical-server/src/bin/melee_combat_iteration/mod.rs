@@ -25,10 +25,12 @@ use adventuresim_tactical_server::iteration::{
     resolve_tactical_server_melee_duel,
 };
 use clap::Parser;
+pub(crate) use error::IterationResult;
 use serde::Serialize;
 
 mod audit;
 mod causal;
+mod error;
 mod reviewer;
 mod runner;
 use reviewer::*;
@@ -318,7 +320,7 @@ struct MatchupCausalAudit {
     response_event_for_every_incoming_contact: bool,
 }
 
-pub(crate) fn run() -> Result<(), String> {
+pub(crate) fn run() -> IterationResult<()> {
     let args = Args::parse();
     if args.tactical_seeds == 0 || args.autoresolve_seeds == 0 {
         return Err("seed counts must both be positive".into());
@@ -369,7 +371,7 @@ fn run_matchup(
     args: &Args,
     john: &MeleeIterationBuild,
     opponent: &MeleeIterationBuild,
-) -> Result<MatchupSummary, String> {
+) -> IterationResult<MatchupSummary> {
     let directory = args.output.join(opponent.key);
     fs::create_dir_all(&directory).map_err(|error| error.to_string())?;
     let tactical = runner::run_tactical_batch(args, john, opponent, &directory)?;
