@@ -7,6 +7,17 @@
 use burn::tensor::Tensor;
 use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
 
+/// Pointer-jumping levels that turn local states into global ones.
+///
+/// Level `l` multiplies every joint whose depth has bit `l` set by the
+/// accumulated state of its ancestor at the depth prefix below that bit. This
+/// is pymomentum's `calc_fk_prefix_multiplication_indices`, and it replaces a
+/// 127-step serial walk with `ceil(log2(depth))` batched steps.
+pub struct PrefixMultiplicationLevel {
+    pub source: Vec<RigJointOrdinal>,
+    pub target: Vec<RigJointOrdinal>,
+}
+
 /// One channel of the last dimension, keeping the rank.
 fn channel(tensor: &Tensor<3>, index: usize) -> Tensor<3> {
     tensor.clone().narrow(2, index, 1)
@@ -107,17 +118,6 @@ pub fn multiply(s1: Tensor<3>, s2: Tensor<3>) -> Tensor<3> {
 pub fn transform_points(state: &Tensor<3>, points: Tensor<3>) -> Tensor<3> {
     let (translation, rotation, scale) = split(state);
     translation + quaternion_rotate(&rotation, points * scale)
-}
-
-/// Pointer-jumping levels that turn local states into global ones.
-///
-/// Level `l` multiplies every joint whose depth has bit `l` set by the
-/// accumulated state of its ancestor at the depth prefix below that bit. This
-/// is pymomentum's `calc_fk_prefix_multiplication_indices`, and it replaces a
-/// 127-step serial walk with `ceil(log2(depth))` batched steps.
-pub struct PrefixMultiplicationLevel {
-    pub source: Vec<RigJointOrdinal>,
-    pub target: Vec<RigJointOrdinal>,
 }
 
 pub fn prefix_multiplication_levels(

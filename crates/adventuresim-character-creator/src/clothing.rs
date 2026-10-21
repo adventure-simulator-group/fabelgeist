@@ -691,10 +691,14 @@ mod admission_tests {
             &[[0.0; 3]],
             &[[0.0; 3]],
             &[],
-            &[[0; 8]],
+            &fabelgeist_rig::PackedRigSkin::from_native(
+                vec![[0; 8]],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            )
+            .unwrap(),
             &[[1.0; 8]],
-            &[RigJointName::ROOT],
-            &[[0.0; 8]],
+            &vec![RigJointName::ROOT].into(),
+            &vec![[0.0; 8]].into(),
         );
         match result.unwrap_err() {
             ClothingError::MissingLandmark(error) => assert_eq!(error.joint, RigJointName::C_NECK),
