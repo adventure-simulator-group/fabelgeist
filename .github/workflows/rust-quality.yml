@@ -235,6 +235,15 @@ jobs:
         run: |
           set -o pipefail
           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment.log
+      - name: Test equipment chronology and mapped requests
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment-chronology.log
+          cargo test --locked --package adventuresim-tactical-netcode --lib message::equipment_action_mapping_tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment-mapping.log
+      - name: Test gameplay camera contracts
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client camera:: -- --test-threads=1 2>&1 | tee target/rig-contracts/camera.log
       - name: Test shared animation value contracts
         run: |
           set -euo pipefail
@@ -322,6 +331,7 @@ jobs:
           required = [
               "rig", "autoresolve", "contact-defense", "mhr", "strategic-bootstrap",
               "geometry-admission", "geometry-doc", "native-iteration",
+              "camera", "equipment-chronology", "equipment-mapping",
               "animation", "audio", "weather-audio", "animation-reports", "equipment", "maneuver-consumers",
               "creator-armor-frames", "creator-clothing",
               "creator-device-frames", "creator-gorget-bib",
