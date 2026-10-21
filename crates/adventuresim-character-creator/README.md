@@ -159,8 +159,12 @@ dark and glinting at once. A card's
 atlas coverage becomes a share of each pixel's four samples, which ones
 hashed from the pixel and the card: the hardware's alpha to coverage would
 give every card of one coverage the same samples, so stacked half-covering
-cards would never add up, and the scalp showed through. Shadows and depth
-cut the coverage at half. **Strands drawn** draws a share of a strand level, each ribbon
+cards would never add up, and the scalp showed through. The creator tests each
+sample against that mask instead of exporting a fragment sample mask, which
+crashes pipeline creation on the tested AMD Vulkan driver. Per-sample evaluation
+can increase hair fragment-shading work when multisampling is enabled. Shadows
+and depth cut the coverage at half. **Strands drawn** draws a share of a strand
+level, each ribbon
 wider by the inverse of the share so the head stays covered; the preview
 draws at most a million and a half ribbon vertices. The level is the
 studio's choice, not the recipe's: a game picks it from the head's size on

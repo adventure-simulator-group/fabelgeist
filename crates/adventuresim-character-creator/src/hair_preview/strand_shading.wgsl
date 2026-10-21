@@ -14,11 +14,6 @@
 }
 #import adventuresim::strand::strand_normal
 
-struct CardFragment {
-    @location(0) color: vec4<f32>,
-    @builtin(sample_mask) mask: u32,
-}
-
 // A well-mixed 32-bit hash (the "lowbias32" of Chris Wellons).
 fn hash_u32(value: u32) -> u32 {
     var x = value;
@@ -57,7 +52,11 @@ fn card_normal(in: VertexOutput, face: vec3<f32>) -> vec3<f32> {
 }
 
 @fragment
-fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> CardFragment {
+fn fragment(
+    in: VertexOutput,
+    @builtin(front_facing) is_front: bool,
+    @builtin(sample_index) coverage_sample: u32,
+) -> @location(0) vec4<f32> {
     var pbr_input = pbr_input_from_standard_material(in, is_front);
     let normal = card_normal(in, pbr_input.N);
     pbr_input.N = normal;
@@ -78,12 +77,11 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> CardFrag
     let strand = pbr_input.material.base_color.g;
 #endif
     let mask = coverage_mask(in.position.xy, strand, coverage);
-    if (mask == 0u) {
+    // Test the same stochastic mask per rasterized sample. Sample-mask
+    // exports crash pipeline compilation on the AMD Vulkan driver.
+    if ((mask & (1u << coverage_sample)) == 0u) {
         discard;
     }
     pbr_input.material.base_color.a = 1.0;
-    var out: CardFragment;
-    out.color = main_pass_post_lighting_processing(pbr_input, apply_pbr_lighting(pbr_input));
-    out.mask = mask;
-    return out;
+    return main_pass_post_lighting_processing(pbr_input, apply_pbr_lighting(pbr_input));
 }
