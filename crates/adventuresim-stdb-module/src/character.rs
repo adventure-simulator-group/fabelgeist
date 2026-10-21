@@ -3060,9 +3060,7 @@ fn equip_equipment_internal(
                     .equipment_occupancy()
                     .id()
                     .find(attachment_occupancy_id(parent_id, point_id, index))
-                    .map_or(AttachmentCapacity::Free, |row| {
-                        AttachmentCapacity::Occupied(row.inventory_item_id)
-                    })
+                    .map_or(AttachmentCapacity::Free, AttachmentCapacity::from)
             })
             .or_else(|| {
                 replace_occupied.then(|| {

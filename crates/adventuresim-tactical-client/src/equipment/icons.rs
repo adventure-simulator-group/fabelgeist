@@ -185,3 +185,22 @@ pub(super) fn equipment_icon_image(
         egui::Image::new((atlas, size)).uv(icon_uv(fallback_slug))
     }
 }
+
+fn icon_uv(slug: &str) -> egui::Rect {
+    let index = EQUIPMENT_ICON_SLUGS
+        .iter()
+        .position(|candidate| *candidate == slug)
+        .unwrap_or(0);
+    let column = (index % EQUIPMENT_ICON_COLUMNS) as f32;
+    let row = (index / EQUIPMENT_ICON_COLUMNS) as f32;
+    egui::Rect::from_min_max(
+        egui::pos2(
+            column / EQUIPMENT_ICON_COLUMNS as f32,
+            row / EQUIPMENT_ICON_ROWS as f32,
+        ),
+        egui::pos2(
+            (column + 1.0) / EQUIPMENT_ICON_COLUMNS as f32,
+            (row + 1.0) / EQUIPMENT_ICON_ROWS as f32,
+        ),
+    )
+}

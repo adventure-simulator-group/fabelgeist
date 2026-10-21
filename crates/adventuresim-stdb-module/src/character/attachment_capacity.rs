@@ -1,11 +1,19 @@
 //! Capacity selection at the native equipment-occupancy table boundary.
 
+use super::EquipmentOccupancy;
+
 /// A transaction-local reservation is distinct from every stored item ID.
 pub(super) enum AttachmentCapacity {
     Free,
     Reserved,
     /// The table's native inventory_item_id; all u64 values remain valid.
     Occupied(u64),
+}
+
+impl From<EquipmentOccupancy> for AttachmentCapacity {
+    fn from(row: EquipmentOccupancy) -> Self {
+        Self::Occupied(row.inventory_item_id)
+    }
 }
 
 pub(super) fn first_free_attachment_capacity(
