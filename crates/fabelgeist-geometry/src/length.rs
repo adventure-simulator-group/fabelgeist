@@ -1,13 +1,17 @@
 //! Positive scalar measurements are independent of coordinate frame and datum.
-use super::{CoordinateAxis, GeometryError, GeometryRole};
-use bevy::reflect::Reflect;
+
+#[cfg(feature = "reflect")]
+use bevy_reflect::Reflect;
 use serde::{Deserialize, Serialize};
 
+use crate::{CoordinateAxis, GeometryError, GeometryRole};
+
 /// A finite positive length in metres, for dimensions and working clearances.
-#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize, Reflect)]
+#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize)]
+#[cfg_attr(feature = "reflect", derive(Reflect))]
 #[repr(transparent)]
 #[serde(transparent)]
-#[reflect(opaque)]
+#[cfg_attr(feature = "reflect", reflect(opaque))]
 pub struct PositiveLength(f32);
 
 impl PositiveLength {
