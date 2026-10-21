@@ -4,7 +4,7 @@ use crate::elapsed::ElapsedError;
 
 pub type AuthoredThreatResult<T> = Result<T, AuthoredThreatError>;
 
-#[derive(Debug, thiserror::Error)]
+#[derive(Clone, Debug, PartialEq, Eq, thiserror::Error)]
 pub enum AuthoredThreatError {
     #[error("Unknown threat ID: {enemy_type}")]
     UnknownThreat {

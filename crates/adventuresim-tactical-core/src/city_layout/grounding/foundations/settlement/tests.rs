@@ -243,7 +243,7 @@ fn runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geo
     let coarse = bound.mesh_components_with_stride_filtered(5, |_| true);
     assert_eq!(fine, coarse, "terrain LOD changed an accepted foundation");
     for member in plan.member_support() {
-        let point = member.contact.centre_metres();
+        let point = member.contact.centre();
         let expected = member.elevation.metres();
         let rendered = fine
             .1

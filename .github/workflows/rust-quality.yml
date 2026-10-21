@@ -176,6 +176,13 @@ jobs:
         run: |
           set -o pipefail
           cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --test-threads=1 2>&1 | tee target/rig-contracts/mhr.log
+      - name: Test strategic bootstrap failure contracts
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-strategic-sim --lib live_core::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/strategic-bootstrap.log
       - name: Test creator rig family contracts
         shell: bash
         run: |
@@ -302,7 +309,7 @@ jobs:
           if not re.fullmatch(r"[0-9a-f]{40}", revision) or revision != os.environ["EXPECTED_RIG_REVISION"]:
               raise SystemExit("Recorded rig revision does not match the required PR head")
           required = [
-              "rig", "autoresolve", "contact-defense", "mhr",
+              "rig", "autoresolve", "contact-defense", "mhr", "strategic-bootstrap",
               "animation", "audio", "weather-audio", "animation-reports", "equipment", "maneuver-consumers",
               "creator-armor-frames", "creator-clothing",
               "creator-device-frames", "creator-gorget-bib",
