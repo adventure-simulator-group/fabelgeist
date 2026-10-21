@@ -385,7 +385,7 @@ mod coordination_tests {
             run_contact_approach_progress(release_finished_phase, release_finished_phase, ready,),
             0.0
         );
-        assert!(run_swing_clearance(radius, Some(1.0)) <= f32::EPSILON);
+        assert!(run_swing_clearance(radius, Some(1.0)) <= 0.0);
         assert!(run_swing_clearance(0.3375, Some(0.5)) > 0.08);
 
         let phase_step = gait_cycle_phase_delta(run_locomotion_profile(), 5.5, 1.0 / 64.0);
@@ -551,8 +551,8 @@ mod coordination_tests {
             reach,
         )
         .unwrap();
-        assert!(before.knee.distance(after.knee) <= f32::EPSILON);
-        assert!(before.end.distance(after.end) <= f32::EPSILON);
+        assert!(before.knee.distance(after.knee) <= 0.0);
+        assert!(before.end.distance(after.end) <= 0.0);
     }
 
     #[test]
@@ -2104,11 +2104,11 @@ mod coordination_tests {
                 phase_to_next_contact(rising_phase, false),
                 Some(1.0),
                 eligible,
-            ) <= f32::EPSILON
+            ) <= 0.0
         );
         let lowered_y = run_clearance_target_height(prior_floor.y, endpoint.y, eligible);
         assert!(lowered_y < prior_floor.y);
-        assert!((lowered_y - endpoint.y).abs() <= f32::EPSILON);
+        assert!((lowered_y - endpoint.y) == 0.0);
         let descended = advance_run_airborne_world_target(
             Some(prior_floor),
             Vec3::new(endpoint.x, lowered_y, endpoint.z),
@@ -2253,7 +2253,7 @@ mod coordination_tests {
             previous_rotation
                 .angle_between(released_rotation)
                 .to_degrees()
-                <= f32::EPSILON
+                <= 0.0
         );
 
         // Walk/stop continue to hold a world plant on release.
@@ -2659,7 +2659,7 @@ mod coordination_tests {
             run_airborne_clearance(0.17, Some(1.0), false),
             ik_tuning().run_swing_minimum_sole_clearance_metres
         );
-        assert!(run_airborne_clearance(0.17, Some(1.0), true) <= f32::EPSILON);
+        assert!(run_airborne_clearance(0.17, Some(1.0), true) <= 0.0);
     }
 
     #[test]

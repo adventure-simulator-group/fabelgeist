@@ -317,9 +317,7 @@ pub fn quickstep_target_displacement_metres(
     leg_length_metres: f32,
     motor: &crate::combat_config::CharacterMotorConfig,
 ) -> f32 {
-    let reference_leg_length = motor
-        .reference_quickstep_leg_length_metres
-        .max(f32::EPSILON);
+    let reference_leg_length = motor.reference_quickstep_leg_length_metres;
     let leg_length = if leg_length_metres.is_finite() && leg_length_metres > 0.0 {
         leg_length_metres
     } else {
@@ -338,7 +336,7 @@ pub fn quickstep_motion_target(
     profile: [f32; 5],
 ) -> QuickstepMotionTarget {
     let phase = normalized_time.clamp(0.0, 1.0);
-    if phase >= 1.0 {
+    if phase >= 1.0 || duration_seconds <= 0.0 {
         return QuickstepMotionTarget {
             displacement_metres: target_displacement_metres,
             velocity_metres_per_second: 0.0,
@@ -375,7 +373,7 @@ pub fn quickstep_motion_target(
         + (6.0 * u - 4.0) * m0
         + (-12.0 * u + 6.0) * p1
         + (6.0 * u - 2.0) * m1;
-    let duration = duration_seconds.max(f32::EPSILON);
+    let duration = duration_seconds;
     QuickstepMotionTarget {
         displacement_metres: position * target_displacement_metres,
         velocity_metres_per_second: derivative_u * 4.0 * target_displacement_metres / duration,
@@ -397,6 +395,9 @@ pub fn quickstep_tracking_force_newtons(
     maximum_force_newtons: f32,
     delta_seconds: f32,
 ) -> f32 {
+    if delta_seconds <= 0.0 {
+        return 0.0;
+    }
     const TRACKING_FREQUENCY_RADIANS_PER_SECOND: f32 = 12.0;
     // Ground projection can leave a few ten-thousandths of a metre per second
     // behind on an otherwise stationary character. Treat that contact noise as
@@ -413,7 +414,7 @@ pub fn quickstep_tracking_force_newtons(
         -maximum_force_newtons.max(0.0),
         maximum_force_newtons.max(0.0),
     );
-    let stopping_force = -velocity_metres_per_second * mass / delta_seconds.max(f32::EPSILON);
+    let stopping_force = -velocity_metres_per_second * mass / delta_seconds;
     if velocity_metres_per_second > VELOCITY_REVERSAL_GUARD_METRES_PER_SECOND {
         force.max(stopping_force)
     } else if velocity_metres_per_second < -VELOCITY_REVERSAL_GUARD_METRES_PER_SECOND {
@@ -566,7 +567,7 @@ fn apply_character_motor(
         controller.min_walk_cos = motor.maximum_walkable_slope_degrees.to_radians().cos();
         let guard = skeleton.map_or(WeaponGuardState::Lowered, SkeletonState::weapon_guard);
         let roll_motion = skeleton.map_or(0.0, SkeletonState::downed_lateral_motion);
-        if roll_motion.abs() > f32::EPSILON {
+        if roll_motion.abs() > 0.0 {
             controller.speed = speeds.roll * roll_motion.abs();
         } else if skeleton.is_some_and(SkeletonState::is_posture_transitioning) {
             controller.speed = 0.0;
@@ -760,10 +761,8 @@ fn apply_character_motor(
                 let support_duration = quickstep_push_seconds(leg_agility, motor);
                 let support_ticks =
                     (support_duration * locomotion_sample_hz()).ceil().max(1.0) as u64;
-                let length_scale = target_displacement
-                    / motor
-                        .reference_quickstep_target_displacement_metres
-                        .max(f32::EPSILON);
+                let length_scale =
+                    target_displacement / motor.reference_quickstep_target_displacement_metres;
                 if elapsed_ticks < support_ticks
                     && displacement
                         < motor.quickstep_maximum_supported_root_displacement_metres * length_scale
@@ -1783,24 +1782,20 @@ mod tests {
                 "endurance {endurance} should jog near {expected_speed} m/s"
             );
         }
-        assert!(
-            (tactical_breath_recovery_per_second(3.0)
-                - tactical_jog_speed(3.0) * BREATH_PER_METRE_PER_SECOND)
-                .abs()
-                < f32::EPSILON
+        assert_eq!(
+            tactical_breath_recovery_per_second(3.0),
+            tactical_jog_speed(3.0) * BREATH_PER_METRE_PER_SECOND
         );
         assert!(tactical_exhaustion_change_per_second(8.0, 3.0) > 0.0);
-        assert!(
-            (tactical_exhaustion_change_per_second(8.0, 3.0)
-                - (8.0 - tactical_jog_speed(3.0))
-                    * BREATH_PER_METRE_PER_SECOND
-                    * TACTICAL_BREATH_RESPONSE_SCALE)
-                .abs()
-                < f32::EPSILON
+        assert_eq!(
+            tactical_exhaustion_change_per_second(8.0, 3.0),
+            (8.0 - tactical_jog_speed(3.0))
+                * BREATH_PER_METRE_PER_SECOND
+                * TACTICAL_BREATH_RESPONSE_SCALE
         );
-        assert!(
-            tactical_exhaustion_change_per_second(tactical_jog_speed(3.0), 3.0).abs()
-                < f32::EPSILON
+        assert_eq!(
+            tactical_exhaustion_change_per_second(tactical_jog_speed(3.0), 3.0),
+            0.0
         );
         assert!(tactical_exhaustion_change_per_second(0.0, 3.0) < 0.0);
         assert_eq!(
@@ -1881,14 +1876,13 @@ mod tests {
                 ),
                 TACTICAL_PRONE_WALK_SPEED_METRES_PER_SECOND
             );
-            assert!(
-                (tactical_prone_movement_speed_for_pace(
+            assert_eq!(
+                tactical_prone_movement_speed_for_pace(
                     Some(Vec2::Y),
                     MovementPace::Jog,
                     tactical_jog_speed(endurance),
-                ) - tactical_jog_speed(endurance) / TACTICAL_PRONE_EFFORT_SCALE)
-                    .abs()
-                    < f32::EPSILON
+                ),
+                tactical_jog_speed(endurance) / TACTICAL_PRONE_EFFORT_SCALE
             );
             assert_eq!(
                 tactical_prone_movement_speed_for_pace(

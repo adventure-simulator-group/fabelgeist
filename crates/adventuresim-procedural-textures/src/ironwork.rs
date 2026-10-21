@@ -18,10 +18,12 @@ fn smooth(value: f32) -> f32 {
 
 fn response(params: &crate::TextureParameters, sample: field::Sample, oxide: f32) -> [u8; 4] {
     let p = &params.ironwork;
-    let polish = smooth(
-        ((sample.crown - (1.0 - p.polish_fraction)) / p.polish_fraction.max(f32::EPSILON))
-            .clamp(0.0, 1.0),
-    ) * (1.0 - sample.cavity);
+    let polish = if p.polish_fraction > 0.0 {
+        smooth(((sample.crown - (1.0 - p.polish_fraction)) / p.polish_fraction).clamp(0.0, 1.0))
+            * (1.0 - sample.cavity)
+    } else {
+        0.0
+    };
     let roughness = p.bare_roughness + (p.oxide_roughness - p.bare_roughness) * oxide;
     let roughness = roughness + (p.polish_roughness - roughness) * polish * (1.0 - oxide);
     let roughness = roughness + (p.cavity_roughness - roughness) * sample.cavity;

@@ -204,7 +204,7 @@ pub fn apply_written_book_training(
             return 0.0;
         }
         let start_effective = (base + coefficient * current).min(medium_cap);
-        if coefficient <= f32::EPSILON || start_effective >= medium_cap {
+        if coefficient <= 0.0 || start_effective >= medium_cap {
             return (end - current) * 5_000.0 / start_effective;
         }
         let saturation = ((medium_cap - base) / coefficient).max(current);
@@ -218,7 +218,7 @@ pub fn apply_written_book_training(
     };
     let direct_after_time = |elapsed: f32| {
         let start_effective = (base + coefficient * current).min(medium_cap);
-        if coefficient <= f32::EPSILON || start_effective >= medium_cap {
+        if coefficient <= 0.0 || start_effective >= medium_cap {
             return current + elapsed * start_effective / 5_000.0;
         }
         let saturation = ((medium_cap - base) / coefficient).max(current);

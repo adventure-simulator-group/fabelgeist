@@ -412,7 +412,7 @@ fn overlap(
             crate::city_layout::grounding::planar::clip(intersection, |p| edge.perp_dot(p - a));
     }
     let area = crate::city_layout::grounding::planar::signed_area(&intersection).abs();
-    (area > f64::EPSILON).then(|| {
+    (area > 0.0).then(|| {
         let location =
             intersection.iter().copied().sum::<bevy::math::DVec2>() / intersection.len() as f64;
         (location.as_vec2(), area)

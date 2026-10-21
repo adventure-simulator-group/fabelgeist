@@ -54,7 +54,7 @@ fn segment_intersects<F: GeometryFrame>(
     let delta = end - start;
     let (mut enter, mut leave) = (0.0_f32, 1.0_f32);
     for axis in 0..2 {
-        if delta[axis].abs() <= f32::EPSILON {
+        if delta[axis] == 0.0 {
             if start[axis] < min[axis] || start[axis] > max[axis] {
                 return false;
             }

@@ -398,7 +398,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) g
     scalp_normals[v] = vec4<f32>(head_gradient(p), 0.0);
     // The polar projection about the crown.
     let q = p - head_shape[0].xyz;
-    let r = acos(clamp(normalize(q).y, -1.0, 1.0)) / 2.6;
+    let r = head_polar(p) / 2.6;
     let a = atan2(q.x, q.z);
     scalp_uvs[v] = vec4<f32>(0.5 + 0.5 * r * sin(a), 0.5 + 0.5 * r * cos(a), 0.0, 0.0);
 }

@@ -1,6 +1,8 @@
 //! Ordinary and run contact acquisition, release, reach, and clearance policy.
 
 use super::*;
+pub(in crate::animation::procedural) use approach::run_contact_approach_progress;
+mod approach;
 
 // A two-bone knee can travel slightly more than twice as far as its ankle
 // target near extension. Derive the release cap from that conservative bound
@@ -308,20 +310,6 @@ pub(in crate::animation::procedural) fn run_planned_contact_allowed(
 pub(in crate::animation::procedural) fn phase_to_next_contact(phase: f32, left: bool) -> f32 {
     let contact_phase = if left { 0.0 } else { 0.5 };
     (contact_phase - phase).rem_euclid(1.0)
-}
-
-pub(in crate::animation::procedural) fn run_contact_approach_progress(
-    phase_to_contact: f32,
-    approach_window: f32,
-    contact_ready_phase: f32,
-) -> f32 {
-    let linear = ((approach_window - phase_to_contact)
-        / (approach_window - contact_ready_phase).max(f32::EPSILON))
-    .clamp(0.0, 1.0);
-    // Constant horizontal velocity avoids both the old smoothstep mid-swing
-    // spike and a one-sample ease/catch-up seam. Clearance remains a separate
-    // sine arc, so the endpoint arrives early enough for bounded acquisition.
-    linear
 }
 
 pub(in crate::animation::procedural) fn planned_contact_start(
@@ -921,7 +909,7 @@ pub(in crate::animation::procedural) fn terrain_feasible_target_in_step(
     maximum_step: f32,
     minimum_ankle_y_at: &impl Fn(Vec2) -> Option<f32>,
 ) -> Option<Vec3> {
-    if maximum_step <= f32::EPSILON {
+    if maximum_step <= 0.0 {
         return None;
     }
     let mut best: Option<(f32, Vec3)> = None;
@@ -941,7 +929,7 @@ pub(in crate::animation::procedural) fn terrain_feasible_target_in_step(
                     continue;
                 }
                 let chord = desired_world.xz() - start_world.xz();
-                let chord_progress = if chord.length_squared() > f32::EPSILON {
+                let chord_progress = if chord.length_squared() > 0.0 {
                     offset.dot(chord) / chord.length_squared()
                 } else {
                     0.0
@@ -1072,13 +1060,13 @@ pub(in crate::animation::procedural) fn exclusive_ground_support(
     right: f32,
     phase: f32,
 ) -> (f32, f32) {
-    if left <= f32::EPSILON {
+    if left <= 0.0 {
         return (0.0, contact_support_weight(right));
     }
-    if right <= f32::EPSILON {
+    if right <= 0.0 {
         return (contact_support_weight(left), 0.0);
     }
-    if left > right || ((left - right).abs() <= f32::EPSILON && phase.rem_euclid(1.0) >= 0.75) {
+    if left > right || ((left - right) == 0.0 && phase.rem_euclid(1.0) >= 0.75) {
         (contact_support_weight(left), 0.0)
     } else {
         (0.0, contact_support_weight(right))

@@ -357,7 +357,7 @@ impl InventoryView<'_, '_, '_> {
         let index = body_part_index(part);
         self.iter().filter_map(move |item| {
             item.armor
-                .filter(|armor| armor.covered_parts[index] && armor.coverage > f32::EPSILON)
+                .filter(|armor| armor.covered_parts[index] && armor.coverage > 0.0)
                 .map(|armor| armor.material)
         })
     }

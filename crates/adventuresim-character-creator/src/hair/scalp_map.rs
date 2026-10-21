@@ -120,7 +120,7 @@ impl ScalpMap {
 /// `v` at unit length, if it has a direction.
 fn unit(v: Vec3) -> Option<Vec3> {
     let length = v.length();
-    (length > f32::EPSILON).then(|| v * (1.0 / length))
+    (length > 0.0 && length.is_finite()).then(|| v * (1.0 / length))
 }
 
 /// The angle between unit directions `a` and `b`, radians.

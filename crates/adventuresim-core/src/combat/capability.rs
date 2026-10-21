@@ -36,7 +36,7 @@ pub fn melee_attack_capability(
     if let Some(arm) = arms
         .iter()
         .copied()
-        .find(|arm| body.body_part_health(*arm) <= f32::EPSILON)
+        .find(|arm| body.body_part_health(*arm) <= 0.0)
     {
         MeleeAttackCapability::DisabledWeaponArm { arm }
     } else {

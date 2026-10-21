@@ -266,7 +266,7 @@ pub(super) fn compile(
             for section in geometry::height_sections(polygon, &support, source) {
                 for i in 1..section.len().saturating_sub(1) {
                     let points = [section[0], section[i], section[i + 1]];
-                    if geometry::area(&points) <= f64::EPSILON {
+                    if geometry::area(&points) <= 0.0 {
                         continue;
                     }
                     let top = points.map(|p| Vec3::new(p.x, support.height_at(p), p.y));

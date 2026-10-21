@@ -30,11 +30,15 @@ fn integrate_axis(
 ) -> AxisMotion {
     let elapsed_seconds = elapsed_seconds.max(0.0);
     let maximum_speed = maximum_speed_metres_per_second.max(0.0);
-    let acceleration = maximum_acceleration_metres_per_second_squared.max(f32::EPSILON);
+    let acceleration = maximum_acceleration_metres_per_second_squared.max(0.0);
     let before = velocity_metres_per_second.clamp(-maximum_speed, maximum_speed);
     let target = intent.target_velocity(maximum_speed);
     let delta = target - before;
-    let acceleration_seconds = (delta.abs() / acceleration).min(elapsed_seconds);
+    let acceleration_seconds = if acceleration > 0.0 {
+        (delta.abs() / acceleration).min(elapsed_seconds)
+    } else {
+        elapsed_seconds
+    };
     let acceleration_direction = delta.signum();
     let after_acceleration = before + acceleration_direction * acceleration * acceleration_seconds;
     let after = if acceleration_seconds < elapsed_seconds {
@@ -104,7 +108,7 @@ pub(super) fn integrate_opposed_movement(
     let bounded_after = raw_after.clamp(minimum_distance_metres, maximum_distance_metres);
     let raw_delta = raw_after - distance_metres;
     let bounded_delta = bounded_after - distance_metres;
-    if (raw_after - bounded_after).abs() > f32::EPSILON && raw_delta.abs() > f32::EPSILON {
+    if (raw_after - bounded_after).abs() > 0.0 && raw_delta.abs() > 0.0 {
         let travel_fraction = (bounded_delta / raw_delta).clamp(0.0, 1.0);
         first.displacement_metres *= travel_fraction;
         second.displacement_metres *= travel_fraction;
@@ -132,6 +136,16 @@ pub(super) fn integrate_opposed_movement(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn zero_acceleration_coasts_and_zero_elapsed_time_does_not_advance() {
+        let coast = integrate_axis(1.0, MeleeMovementAction::Close, 2.0, 0.0, 0.5);
+        assert_eq!(coast.velocity_after_metres_per_second, 1.0);
+        assert_eq!(coast.displacement_metres, 0.5);
+        let paused = integrate_axis(1.0, MeleeMovementAction::Close, 2.0, 1.0, 0.0);
+        assert_eq!(paused.velocity_after_metres_per_second, 1.0);
+        assert_eq!(paused.displacement_metres, 0.0);
+    }
 
     const SPEED: f32 = 2.0;
     const ACCELERATION: f32 = 24.0;

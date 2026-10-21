@@ -221,7 +221,7 @@ fn apply_hand_target(
     transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
 ) {
     let weight = target.weight.clamp(0.0, 1.0);
-    if weight <= f32::EPSILON {
+    if weight <= 0.0 {
         return;
     }
     let (Some(&upper), Some(&lower), Some(&hand)) = (

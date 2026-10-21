@@ -1370,7 +1370,7 @@ mod tests {
             Transparency::Guarded,
         ] {
             let (insight, deception) = discovery_training_split(transparency);
-            assert!((insight + deception - DISCOVERY_TRAINING_HOURS).abs() < f32::EPSILON);
+            assert_eq!(insight + deception, DISCOVERY_TRAINING_HOURS);
         }
         assert_eq!(
             discovery_training_split(Transparency::Neutral),

@@ -365,7 +365,7 @@ fn main(@builtin(workgroup_id) group: vec3<u32>) {
         for (var normal = 0u; normal < SEGMENTS; normal = normal + 1u) {
             let normal_angle = TAU * f32(normal) / f32(SEGMENTS);
             let facing = cos(angle - normal_angle);
-            if (facing > FLT_EPSILON) {
+            if (facing > 0.0) {
                 radius = min(radius, supports[normal] / facing);
             }
         }

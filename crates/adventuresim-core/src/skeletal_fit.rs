@@ -86,7 +86,7 @@ impl SkeletalFitMorph {
     pub fn weight(self, target: CharacterProportions, reference: CharacterProportions) -> f32 {
         let reference = reference.get(self.proportion());
         let interval = self.endpoint() - reference;
-        if interval.abs() < f32::EPSILON {
+        if interval == 0.0 {
             return 0.0;
         }
         ((target.get(self.proportion()) - reference) / interval).clamp(0.0, 1.0)

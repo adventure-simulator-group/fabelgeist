@@ -721,7 +721,7 @@ mod tests {
         let full = party_oral_training_gains(&speakers, 2.0);
         let half = party_oral_training_gains(&speakers, 1.0);
         for ((_, _, gain), (_, _, partial)) in full.iter().zip(half.iter()) {
-            assert!((*gain - *partial * 2.0).abs() < f32::EPSILON);
+            assert_eq!(*gain, *partial * 2.0);
         }
     }
     #[test]

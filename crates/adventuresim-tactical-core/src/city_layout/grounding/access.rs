@@ -88,13 +88,13 @@ pub(in crate::city_layout) fn available_run(
 }
 
 fn minimum_width(polygon: &[bevy::math::DVec2]) -> f64 {
-    if super::planar::signed_area(polygon).abs() <= f64::EPSILON {
+    if super::planar::signed_area(polygon) == 0.0 {
         return 0.0;
     }
     (0..polygon.len())
         .filter_map(|i| {
             let edge = polygon[(i + 1) % polygon.len()] - polygon[i];
-            (edge.length_squared() > f64::EPSILON).then(|| {
+            (edge.length_squared() > 0.0).then(|| {
                 let normal = edge.perp().normalize();
                 let lo = polygon
                     .iter()
