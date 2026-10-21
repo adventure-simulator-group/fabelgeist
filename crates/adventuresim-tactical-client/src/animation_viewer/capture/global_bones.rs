@@ -18,7 +18,7 @@ impl GlobalBoneFrame {
         Self {
             scenario: frame.scenario.label().to_owned(),
             scenario_frame: frame.scenario_frame,
-            time_seconds: frame.time_seconds.seconds(),
+            time_seconds: frame.time_seconds,
             action: skeleton.action_kind(),
             action_phase: skeleton.action_phase(),
             subject_translation: subject_global.translation().to_array(),

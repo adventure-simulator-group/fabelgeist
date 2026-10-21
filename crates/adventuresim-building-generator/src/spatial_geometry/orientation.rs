@@ -27,6 +27,11 @@ impl Radians {
         }
         Ok(Self(value))
     }
+    /// Native maximum of admitted finite radians, preserving signed zero.
+    pub fn max(self, other: Self) -> Self {
+        Self(self.0.max(other.0))
+    }
+
     pub fn radians(self) -> f32 {
         self.0
     }

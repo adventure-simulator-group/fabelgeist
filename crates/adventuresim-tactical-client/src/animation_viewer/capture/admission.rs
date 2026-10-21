@@ -86,13 +86,24 @@ impl CaptureSequence {
     /// Active IK owns these observations; absent observations cannot become flight.
     pub(super) fn admit_ik_support(
         &mut self,
-        diagnostics: LegIkDiagnostics,
+        diagnostics: Option<LegIkDiagnostics>,
         cadence: (UnitInterval, UnitInterval),
         skeleton: &SkeletonState,
         terrain_ik: TerrainIkMode,
     ) -> Option<(UnitInterval, UnitInterval)> {
         let ordinary_support_required =
             terrain_ik.is_enabled() && crate::animation::authored_locomotion_ik_owns(skeleton);
+        let Some(diagnostics) = diagnostics else {
+            if !ordinary_support_required {
+                return Some(cadence);
+            }
+            self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(
+                AnimationValueError::UnavailableObservation {
+                    quantity: AnimationQuantity::SupportObservation,
+                },
+            ));
+            return None;
+        };
         if !ordinary_support_required
             && diagnostics.left_solve_target.is_none()
             && diagnostics.right_solve_target.is_none()
@@ -111,6 +122,22 @@ impl CaptureSequence {
                     },
                 ));
                 None
+            }
+        }
+    }
+
+    /// Admit the existing distance + speed*elapsed kernel before retaining it.
+    pub(super) fn advance_distance(&mut self, speed: SignedSpeed, elapsed: AnimationElapsed) -> bool {
+        match fabelgeist_geometry::SignedLength::from_metres(
+            self.scenario_distance.metres() + speed.metres_per_second() * elapsed.seconds(),
+        ) {
+            Ok(distance) => {
+                self.scenario_distance = distance;
+                true
+            }
+            Err(error) => {
+                self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+                false
             }
         }
     }

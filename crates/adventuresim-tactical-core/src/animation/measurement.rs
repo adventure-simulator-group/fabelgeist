@@ -17,6 +17,16 @@ pub struct NonnegativeLength(f32);
 pub struct PositiveAnimationDuration(AnimationElapsed);
 
 impl NonnegativeLength {
+    /// Native minimum of admitted finite magnitudes, preserving signed zero.
+    pub fn min(self, other: Self) -> Self {
+        Self(self.0.min(other.0))
+    }
+
+    /// Native maximum of admitted finite magnitudes, preserving signed zero.
+    pub fn max(self, other: Self) -> Self {
+        Self(self.0.max(other.0))
+    }
+
     pub const ZERO: Self = Self(0.0);
     pub const fn from_metres(value: f32) -> AnimationValueResult<Self> {
         match checked_nonnegative(value, AnimationQuantity::Length) {
