@@ -12,13 +12,13 @@
 //! ```no_run
 //! # fn main() -> anyhow::Result<()> {
 //! use burn::tensor::{Device, Tensor};
-//! use fabelgeist_mhr::{Mhr, MhrConfig, NUM_IDENTITY_BLEND_SHAPES};
+//! use fabelgeist_mhr::{Mhr, MhrConfig, ModelBatchSize, NUM_IDENTITY_BLEND_SHAPES};
 //!
 //! let device = Device::default();
 //! let model = Mhr::from_files("D:/AI/Models/mhr", MhrConfig::default(), &device)?;
 //!
 //! let identity = Tensor::zeros([1, NUM_IDENTITY_BLEND_SHAPES], &device);
-//! let pose = model.zero_parameters(1);
+//! let pose = model.zero_parameters(ModelBatchSize::from(1));
 //! let output = model.forward(identity, pose, None)?;
 //! # let _ = output;
 //! # Ok(())
@@ -37,7 +37,10 @@ pub mod skel_state;
 pub use character::{BlendShapes, Character, Mesh, Skeleton, SkinWeights};
 pub use correctives::PoseCorrectives;
 pub use model::{
-    MAX_LOD, MIN_LOD, Mhr, MhrConfig, MhrOutput, NUM_BLEND_SHAPES,
-    NUM_FACE_EXPRESSION_BLEND_SHAPES, NUM_IDENTITY_BLEND_SHAPES,
+    ExpressionCoefficientCount, IdentityCoefficientCount, MAX_LOD, MIN_LOD, Mhr, MhrConfig,
+    MhrEvaluationError, MhrOutput, ModelBatchSize, NUM_BLEND_SHAPES,
+    NUM_FACE_EXPRESSION_BLEND_SHAPES, NUM_IDENTITY_BLEND_SHAPES, PoseParameterCount,
 };
-pub use model_def::{ParameterTransform, parse_model_definition};
+pub use model_def::{
+    BlendShapeParameterCount, ModelParameterCount, ParameterTransform, parse_model_definition,
+};
