@@ -20,6 +20,7 @@ pub enum FrontFace {
     Cw,
 }
 
+#[cfg(feature = "gpu")]
 impl From<FrontFace> for wgpu::FrontFace {
     fn from(face: FrontFace) -> Self {
         match face {

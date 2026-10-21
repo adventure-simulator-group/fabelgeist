@@ -167,6 +167,21 @@ impl WgpuContext {
         }
     }
 
+    /// What the GPU crates ask of a device: filterable and blendable float textures
+    /// and timestamp queries where the adapter has them, and the adapter's
+    /// own buffer and compute limits, which the kernels need beyond wgpu's
+    /// defaults (WebGL2's, in a browser).
+    pub fn device_descriptor(adapter: &Adapter) -> wgpu::DeviceDescriptor<'static> {
+        wgpu::DeviceDescriptor {
+            label: None,
+            required_features: optional_features(adapter),
+            required_limits: required_limits(adapter),
+            memory_hints: wgpu::MemoryHints::Performance,
+            experimental_features: wgpu::ExperimentalFeatures::default(),
+            trace: Default::default(),
+        }
+    }
+
     pub async fn new() -> Result<Self> {
         Self::open(true).await
     }
@@ -228,14 +243,7 @@ impl WgpuContext {
         report_adapter(&adapter);
 
         let (device, queue) = adapter
-            .request_device(&wgpu::DeviceDescriptor {
-                label: None,
-                required_features: optional_features(&adapter),
-                required_limits: required_limits(&adapter),
-                memory_hints: wgpu::MemoryHints::Performance,
-                experimental_features: wgpu::ExperimentalFeatures::default(),
-                trace: Default::default(),
-            })
+            .request_device(&Self::device_descriptor(&adapter))
             .await
             .map_err(|_| anyhow!("Failed to create device"))?;
 

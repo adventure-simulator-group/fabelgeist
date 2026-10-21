@@ -273,7 +273,8 @@ impl TextureCube {
     }
     pub fn face_view_with_format(
         &self,
-        _ctx: Option<&WgpuContext>,
+        // Only read to check the view natively; the web cannot block on it.
+        #[cfg_attr(target_arch = "wasm32", allow(unused_variables))] context: Option<&WgpuContext>,
         face: CubeFace,
         format: TextureFormat,
     ) -> Result<TextureView> {
@@ -288,7 +289,7 @@ impl TextureCube {
         }
 
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = _ctx.map(|c| c.device.push_error_scope(wgpu::ErrorFilter::Validation));
+        let error_scope = context.map(|c| c.device.push_error_scope(wgpu::ErrorFilter::Validation));
 
         let view = texture.create_view(&wgpu::TextureViewDescriptor {
             label: Some(&format!("TextureCube Face View ({:?})", face)),
@@ -300,7 +301,7 @@ impl TextureCube {
         });
 
         #[cfg(not(target_arch = "wasm32"))]
-        if let (Some(c), Some(scope)) = (_ctx, error_scope) {
+        if let (Some(c), Some(scope)) = (context, error_scope) {
             let _ = c.device.poll(wgpu::PollType::wait_indefinitely());
             if let Some(err) = pollster::block_on(scope.pop()) {
                 return Err(anyhow::anyhow!("WGPU TextureCube Face View Error: {}", err));
