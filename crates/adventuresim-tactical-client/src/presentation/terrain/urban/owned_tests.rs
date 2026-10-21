@@ -61,7 +61,8 @@ impl GroundFixture {
             &textures,
             &mut images,
             &TacticalGraphicsSettings::default().config.grass,
-        );
+        )
+        .unwrap();
         let mut app = App::new();
         app.init_resource::<ActiveVistaSurface>()
             .add_systems(Update, update_coverage);

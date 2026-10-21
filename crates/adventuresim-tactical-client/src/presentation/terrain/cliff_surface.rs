@@ -184,7 +184,8 @@ mod tests {
             &procedural_assets,
             &mut images,
             &graphics.config.grass,
-        );
+        )
+        .unwrap();
         assert_eq!(material.extension.cliff_palette_a.w, 0.0);
 
         let sandstone = TerrainSurfaceRecipe::new(

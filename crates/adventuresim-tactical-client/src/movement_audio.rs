@@ -1,4 +1,8 @@
-use adventuresim_tactical_core::prelude::*;
+use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::{
+    prelude::*,
+    scene_coordinates::{Scene, ScenePlanPoint},
+};
 use adventuresim_world_schema::UnitBasisPoints;
 use bevy::audio::{AudioSink, AudioSinkPlayback, PlaybackMode, Volume};
 use bevy::prelude::*;
@@ -10,7 +14,28 @@ use crate::{
     presentation::GroundScatterLayer,
 };
 
+type GroundedDiveAudioQuery<'world, 'state> = Query<
+    'world,
+    'state,
+    (
+        Entity,
+        &'static CharacterId,
+        &'static GlobalTransform,
+        &'static SkeletonState,
+        Option<&'static mut MovementAudioState>,
+    ),
+    (With<Player>, Changed<SkeletonState>),
+>;
+
 pub struct MovementAudioPlugin;
+
+#[derive(Component)]
+struct TacticalWindAudio;
+
+#[derive(Component, Default)]
+struct MovementAudioState {
+    grounded_dive_active: bool,
+}
 
 impl Plugin for MovementAudioPlugin {
     fn build(&self, app: &mut App) {
@@ -26,27 +51,6 @@ impl Plugin for MovementAudioPlugin {
             );
     }
 }
-
-#[derive(Component)]
-struct TacticalWindAudio;
-
-#[derive(Component, Default)]
-struct MovementAudioState {
-    grounded_dive_active: bool,
-}
-
-type GroundedDiveAudioQuery<'world, 'state> = Query<
-    'world,
-    'state,
-    (
-        Entity,
-        &'static CharacterId,
-        &'static GlobalTransform,
-        &'static SkeletonState,
-        Option<&'static mut MovementAudioState>,
-    ),
-    (With<Player>, Changed<SkeletonState>),
->;
 
 fn spawn_wind_loop(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn((
@@ -95,12 +99,19 @@ fn play_locomotion_audio(
         let Ok((transform, skeleton, character_id)) = characters.get(event.owner) else {
             continue;
         };
-        let position = transform.translation();
+        let position = match Position::<Scene>::from_metres(transform.translation()) {
+            Ok(position) => position,
+            Err(error) => {
+                warn!(%error, owner = ?event.owner, "Invalid movement audio position");
+                continue;
+            }
+        };
         let event_seed = StreamId::new("audio.locomotion-event")
             .seed((character_id.0).into(), &[event.payload.encoded_sequence()]);
         match event.payload {
             LocomotionPresentationPayload::Contact { .. } => {
-                let surface = ground.and_then(|ground| ground.ground_at(position.xz()));
+                let surface =
+                    ground.and_then(|ground| ground.ground_at(ScenePlanPoint::from(position)));
                 let on_grass = surface.is_some_and(|surface| {
                     matches!(surface.cover, GroundCover::TallGrass | GroundCover::Reeds)
                 });
@@ -184,6 +195,13 @@ fn play_grounded_dive_impacts(
             .as_deref()
             .is_some_and(|state| state.grounded_dive_active);
         if grounded_dive_active && !was_active {
+            let position = match Position::<Scene>::from_metres(transform.translation()) {
+                Ok(position) => position,
+                Err(error) => {
+                    warn!(%error, ?entity, "Invalid grounded dive audio position");
+                    continue;
+                }
+            };
             spawn_spatial_variant(
                 &mut commands,
                 &asset_server,
@@ -192,7 +210,7 @@ fn play_grounded_dive_impacts(
                     (character_id.0).into(),
                     &[skeleton.locomotion_sample_tick.encoded()],
                 ),
-                transform.translation(),
+                position,
                 config.movement.body_impact_relative_volume,
                 config.movement.pitch_randomization,
             );
@@ -208,7 +226,7 @@ fn play_grounded_dive_impacts(
 }
 
 fn near_understory(
-    position: Vec3,
+    position: Position<Scene>,
     scatter: &Query<(&GlobalTransform, &GroundScatterLayer)>,
     contact_radius_m: f32,
 ) -> bool {
@@ -216,7 +234,7 @@ fn near_understory(
         if *layer != GroundScatterLayer::Understory {
             return false;
         }
-        let offset = transform.translation() - position;
+        let offset = transform.translation() - position.metres();
         offset.xz().length_squared() <= contact_radius_m.powi(2)
     })
 }
@@ -226,7 +244,7 @@ fn spawn_spatial_variant(
     asset_server: &AssetServer,
     family: &str,
     event_seed: Seed,
-    position: Vec3,
+    position: Position<Scene>,
     volume: f32,
     pitch_randomization: [f32; 2],
 ) {
@@ -252,7 +270,7 @@ fn spawn_rustle(
     commands: &mut Commands,
     asset_server: &AssetServer,
     event_seed: Seed,
-    position: Vec3,
+    position: Position<Scene>,
     volume: f32,
     base_speed: f32,
     pitch_randomization: [f32; 2],
@@ -273,7 +291,7 @@ fn spawn_spatial_sound(
     commands: &mut Commands,
     source: Handle<AudioSource>,
     sample: Seed,
-    position: Vec3,
+    position: Position<Scene>,
     volume: f32,
     base_speed: f32,
     pitch_randomization: [f32; 2],
@@ -294,11 +312,13 @@ fn spawn_spatial_sound(
             volume: Volume::Linear(volume),
             ..default()
         },
-        Transform::from_translation(position),
+        Transform::from_translation(position.metres()),
     ));
 }
 
-fn sound_seed(event_seed: Seed, position: Vec3) -> Seed {
+fn sound_seed(event_seed: Seed, position: Position<Scene>) -> Seed {
+    // Seed framing preserves the native scene position's three f32 bit patterns.
+    let position = position.metres();
     StreamId::new("audio.spatial-event").seed(
         event_seed,
         &[

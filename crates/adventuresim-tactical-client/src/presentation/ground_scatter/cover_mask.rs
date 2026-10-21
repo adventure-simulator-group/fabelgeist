@@ -1,5 +1,6 @@
 use super::*;
 use crate::presentation::grass_cover_mask_pixels;
+use adventuresim_building_generator::spatial_geometry::GeometryResult;
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use fabelgeist_determinism::Seed;
 
@@ -14,15 +15,15 @@ pub(super) struct CoverageMask {
 }
 
 impl CoverageMask {
-    pub(super) fn new(ground: &SceneGround, seed: Seed) -> Self {
-        let (width, height, pixels) = grass_cover_mask_pixels(ground, seed);
-        Self {
+    pub(super) fn new(ground: &SceneGround, seed: Seed) -> GeometryResult<Self> {
+        let (width, height, pixels) = grass_cover_mask_pixels(ground, seed)?;
+        Ok(Self {
             width: width as usize,
             height: height as usize,
             pixels,
             ground_width: ground.width(),
             ground_depth: ground.depth(),
-        }
+        })
     }
 
     pub(super) fn coverage_byte(&self, world: ScenePlanPoint) -> u8 {

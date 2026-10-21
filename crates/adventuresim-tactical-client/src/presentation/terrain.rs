@@ -136,52 +136,33 @@ pub(in crate::presentation) fn present_pending_terrain(
             )
         } else {
             info!(?entity, "Spawning a scene {id:?}");
-            let material = terrain_material(
-                terrain,
-                environment,
-                ground,
-                &procedural_assets,
-                &mut images,
-                &graphics.config.grass,
-            );
-            let mut detail_material = material.clone();
-            detail_material.base.depth_bias = DETAIL_PATCH_DEPTH_BIAS;
-            detail_material.extension.detail_patch.x = 0.0;
-            let detail_material = materials.add(detail_material);
-            volumetric::spawn_base_and_fault(
+            volumetric::spawn_presentation(
                 &mut commands,
                 &mut meshes,
                 &mut materials,
+                &mut images,
+                &procedural_assets,
+                &graphics,
+                &vista,
                 entity,
                 id,
                 terrain,
-                material,
+                environment,
+                ground,
                 landform,
                 prepared,
-                urban::GroundCoverage::new(terrain, environment, &vista),
-            );
-            let centre = ScenePlanPoint::ORIGIN;
-            let detail_mesh =
-                terrain_detail_patch_mesh(terrain, environment, &vista, centre, transition_collar);
-            commands.spawn((
-                Name::new(format!("{} camera-local terrain detail patch", id.0)),
-                ScenePresentationOf(entity),
-                TerrainDetailPatch {
-                    centre,
-                    vista_revision: vista.revision(),
-                },
-                TerrainTriangleCount(mesh_triangle_count(&detail_mesh)),
-                NotShadowCaster,
-                Mesh3d(meshes.add(detail_mesh)),
-                MeshMaterial3d(detail_material),
-            ));
-            true
+            )
+            .map(|()| true)
         };
-        if presented {
-            prepared_first_terrain = true;
-            commands
-                .entity(entity)
-                .remove::<PendingTerrainPresentation>();
+        match presented {
+            Ok(true) => {
+                prepared_first_terrain = true;
+                commands
+                    .entity(entity)
+                    .remove::<PendingTerrainPresentation>();
+            }
+            Ok(false) => {}
+            Err(error) => warn!(%error, ?entity, "Invalid terrain ground texture"),
         }
     }
     if prepared_first_terrain && let Some(startup) = startup.as_mut() {
@@ -1429,9 +1410,11 @@ mod tests {
         }
         let ground = SceneGround::from_samples(7, 7, 2.0, samples).expect("valid ground");
         let (width, depth, pixels) =
-            organic_ground_pixels(&ground, fabelgeist_determinism::Seed::from_u64(42));
-        let repeated = organic_ground_pixels(&ground, fabelgeist_determinism::Seed::from_u64(42));
-        let changed = organic_ground_pixels(&ground, fabelgeist_determinism::Seed::from_u64(43));
+            organic_ground_pixels(&ground, fabelgeist_determinism::Seed::from_u64(42)).unwrap();
+        let repeated =
+            organic_ground_pixels(&ground, fabelgeist_determinism::Seed::from_u64(42)).unwrap();
+        let changed =
+            organic_ground_pixels(&ground, fabelgeist_determinism::Seed::from_u64(43)).unwrap();
         assert_eq!((width, depth), (37, 37));
         assert_eq!((width, depth, pixels.clone()), repeated);
         assert_ne!(pixels, changed.2);
@@ -1502,9 +1485,9 @@ mod tests {
         }
         let ground = SceneGround::from_samples(17, 17, 2.0, samples).unwrap();
         let (_, _, values) =
-            grass_cover_mask_pixels(&ground, fabelgeist_determinism::Seed::from_u64(91));
+            grass_cover_mask_pixels(&ground, fabelgeist_determinism::Seed::from_u64(91)).unwrap();
         let (_, _, repeated) =
-            grass_cover_mask_pixels(&ground, fabelgeist_determinism::Seed::from_u64(91));
+            grass_cover_mask_pixels(&ground, fabelgeist_determinism::Seed::from_u64(91)).unwrap();
         assert_eq!(values, repeated);
         let values = values.as_slice();
         assert!(values.contains(&0), "non-grass must reject every blade");

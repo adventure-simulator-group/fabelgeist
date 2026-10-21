@@ -1,7 +1,7 @@
 //! Habitat-filtered, instanced botanical meshes shared with Plant Studio.
 use super::{GroundScatterLayer, scatter_ground_without_patch};
 use crate::presentation::{bps, stable_text_seed};
-use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_building_generator::spatial_geometry::{GeometryResult, Position};
 use adventuresim_plant_generator::{
     PlantSpecies,
     habitat::{PlantGround, PlantHabitat},
@@ -74,13 +74,19 @@ fn present(
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
     for (entity, id, terrain, ground, environment, landform) in &scenes {
-        cache.prepare(&mut meshes, &mut materials);
         let masked = landform.map(|l| scatter_ground_without_patch(ground, l.transition_collar()));
         let ground = masked.as_ref().unwrap_or(ground);
         let seed = stable_text_seed(&id.0)
             .xor_word(stable_text_seed(&environment.scene_digest).to_u64())
             .xor_word(PLANT_SEED.to_u64());
-        let sites = placements(terrain, ground, environment, seed);
+        let sites = match placements(terrain, ground, environment, seed) {
+            Ok(sites) => sites,
+            Err(error) => {
+                warn!(%error, ?entity, "Invalid botanical ground mask");
+                continue;
+            }
+        };
+        cache.prepare(&mut meshes, &mut materials);
         let mut anchors = Vec::new();
         for site in sites {
             let transform = Transform::from_translation(site.root.metres())
@@ -107,12 +113,12 @@ fn placements(
     ground: &SceneGround,
     environment: &SceneEnvironment,
     seed: Seed,
-) -> Vec<PlantSite> {
+) -> GeometryResult<Vec<PlantSite>> {
     let count_x = (terrain.width() / SITE_SPACING_METRES).floor() as i32;
     let count_z = (terrain.depth() / SITE_SPACING_METRES).floor() as i32;
     let mut candidates = Vec::new();
     let cover =
-        super::cover_mask::CoverageMask::new(ground, stable_text_seed(&environment.scene_digest));
+        super::cover_mask::CoverageMask::new(ground, stable_text_seed(&environment.scene_digest))?;
     for z in 0..count_z {
         for x in 0..count_x {
             let hash = streams::SITE.seed(seed, &[x as u64, z as u64]);
@@ -183,7 +189,7 @@ fn placements(
         )
     });
     candidates.truncate(MAX_SPECIMENS);
-    candidates
+    Ok(candidates)
 }
 
 /// Shoots occupy existing vegetation openings, never clear their own.

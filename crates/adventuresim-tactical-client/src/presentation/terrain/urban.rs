@@ -177,12 +177,17 @@ fn update_coverage(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use adventuresim_tactical_core::city_layout::grounding::SupportElevation;
 
     #[test]
     fn late_vista_switches_existing_base_to_fine_topology_and_can_restore_natural_lod() {
         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0)
             .unwrap()
-            .refined(0.5, |point, base| base + point.x.sin() * 0.02)
+            .refined(0.5, |point, base| {
+                SupportElevation::from_metres(
+                    base.metres() + point.metres().x.sin() * 0.02,
+                )
+            })
             .unwrap();
         let fine_count = terrain.mesh().count_vertices();
         let coarse_mesh = terrain.coarse_mesh();
@@ -203,7 +208,8 @@ mod tests {
             &textures,
             &mut images,
             &TacticalGraphicsSettings::default().config.grass,
-        );
+        )
+        .unwrap();
         let mut app = App::new();
         app.init_resource::<ActiveVistaSurface>()
             .init_resource::<Assets<Mesh>>()

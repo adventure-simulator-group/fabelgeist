@@ -68,7 +68,7 @@ impl FocusedGround {
             &textures,
             &mut images,
             &settings.config.grass,
-        );
+        )?;
         material.extension.set_geographic_frame(frame);
         let mut terrain_handles = Vec::new();
         if let Some(landform) = ground.landform {
