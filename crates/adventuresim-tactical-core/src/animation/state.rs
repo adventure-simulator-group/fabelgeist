@@ -429,8 +429,9 @@ struct QueuedAttack {
     hand: AttackHand,
     curve: AttackCurve,
     timeline: ActionTimeline,
-    start_coordinate: f32,
-    incoming_tangent: f32,
+    start_coordinate: AttackPoseCoordinate,
+    #[serde(deserialize_with = "crate::animation::continuation_parameters::deserialize_tangent")]
+    incoming_tangent: IncomingAttackTangent,
 }
 
 impl QueuedAttack {
@@ -442,17 +443,7 @@ impl QueuedAttack {
         };
         self.curve = self.curve.normalized();
         self.timeline = self.timeline.normalized();
-        self.start_coordinate = finite_clamp(
-            self.start_coordinate,
-            -AttackCurve::maximum_drawback(),
-            1.0 + AttackCurve::maximum_overshoot(),
-            1.0,
-        );
-        self.incoming_tangent = if self.incoming_tangent.is_finite() {
-            self.incoming_tangent.max(0.0)
-        } else {
-            0.0
-        };
+        self.start_coordinate = self.start_coordinate.clamped_to_curve();
         self
     }
 }
@@ -461,8 +452,9 @@ impl QueuedAttack {
 enum AttackSequence {
     Initial,
     Continuation {
-        start_coordinate: f32,
-        incoming_tangent: f32,
+        start_coordinate: AttackPoseCoordinate,
+        #[serde(deserialize_with = "crate::animation::continuation_parameters::deserialize_tangent")]
+        incoming_tangent: IncomingAttackTangent,
     },
 }
 
@@ -474,17 +466,8 @@ impl AttackSequence {
                 start_coordinate,
                 incoming_tangent,
             } => Self::Continuation {
-                start_coordinate: finite_clamp(
-                    start_coordinate,
-                    -AttackCurve::maximum_drawback(),
-                    1.0 + AttackCurve::maximum_overshoot(),
-                    1.0,
-                ),
-                incoming_tangent: if incoming_tangent.is_finite() {
-                    incoming_tangent.max(0.0)
-                } else {
-                    0.0
-                },
+                start_coordinate: start_coordinate.clamped_to_curve(),
+                incoming_tangent,
             },
         }
     }
@@ -849,16 +832,6 @@ impl AttackCurve {
             ),
         ]
     }
-}
-
-/// The follow-ready pose lies roughly halfway along the authored preparation
-/// path. Global weapon-rotation measurements put the constant-acceleration
-/// crossover at about 58% of the fixed preparation interval, independently of
-/// the source file's arbitrary equal four-frame spacing.
-const FOLLOW_READY_PREPARATION_FRACTION: f32 = 7.0 / 12.0;
-
-pub(super) fn continuation_ready_phase() -> f32 {
-    0.5 * FOLLOW_READY_PREPARATION_FRACTION
 }
 
 fn finite_clamp(value: f32, minimum: f32, maximum: f32, fallback: f32) -> f32 {
@@ -1652,35 +1625,14 @@ impl SkeletonState {
         }
     }
     pub fn attack_is_continuation(&self) -> bool {
-        matches!(
-            self.action,
-            ActionState(ActionKind::Attack {
-                sequence: AttackSequence::Continuation { .. },
-                ..
-            })
-        )
+        self.attack_continuation().is_some()
     }
-    pub fn attack_continuation_incoming_tangent(&self) -> Option<f32> {
+    pub fn attack_continuation(&self) -> Option<AttackContinuation> {
         match self.action {
             ActionState(ActionKind::Attack {
-                sequence:
-                    AttackSequence::Continuation {
-                        incoming_tangent, ..
-                    },
+                sequence: AttackSequence::Continuation { start_coordinate, incoming_tangent },
                 ..
-            }) => Some(incoming_tangent),
-            _ => None,
-        }
-    }
-    pub fn attack_continuation_start_coordinate(&self) -> Option<f32> {
-        match self.action {
-            ActionState(ActionKind::Attack {
-                sequence:
-                    AttackSequence::Continuation {
-                        start_coordinate, ..
-                    },
-                ..
-            }) => Some(start_coordinate),
+            }) => Some(AttackContinuation { start_coordinate, incoming_tangent }),
             _ => None,
         }
     }
@@ -1931,10 +1883,14 @@ impl SkeletonState {
             if may_follow {
                 let queued_timeline =
                     ActionTimeline::with_recovery(start_tick, contact_tick, end_tick);
-                let incoming_tangent = curve.overshoot
-                    * queued_timeline.preparation_ticks.samples() as f32
-                    * FOLLOW_READY_PREPARATION_FRACTION
-                    / (curve.follow_through_fraction * timeline.recovery_ticks.samples() as f32);
+                // Coordinate change from the two timeline intervals and the
+                // authored readiness knot; preserve the original f32 order.
+                let incoming_tangent = IncomingAttackTangent::from_arithmetic(
+                    curve.overshoot
+                        * queued_timeline.preparation_ticks.samples() as f32
+                        * ContinuationReadiness::FOLLOW_READY.preparation_fraction()
+                        / (curve.follow_through_fraction * timeline.recovery_ticks.samples() as f32),
+                ).map_err(ActionTransitionError::InvalidAnimationValue)?;
                 let transition_phase = 0.5
                     + 0.5
                         * transition_tick
@@ -1957,8 +1913,7 @@ impl SkeletonState {
                                 ActionTransitionError::InvalidAnimationValue(error.into())
                             })?,
                         )
-                        .map_err(ActionTransitionError::InvalidAnimationValue)?
-                        .coordinate(),
+                        .map_err(ActionTransitionError::InvalidAnimationValue)?,
                     incoming_tangent,
                 });
                 return Ok(());
@@ -1974,8 +1929,9 @@ impl SkeletonState {
             hand: spec.hand,
             sequence: if spec.continuation {
                 AttackSequence::Continuation {
-                    start_coordinate: 1.0 + spec.curve.overshoot,
-                    incoming_tangent: 0.0,
+                    start_coordinate: AttackPoseCoordinate::from_arithmetic(1.0 + spec.curve.overshoot)
+                        .map_err(ActionTransitionError::InvalidAnimationValue)?,
+                    incoming_tangent: IncomingAttackTangent::ZERO,
                 }
             } else {
                 AttackSequence::Initial

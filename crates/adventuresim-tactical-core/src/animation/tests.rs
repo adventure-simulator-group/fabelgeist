@@ -1540,11 +1540,11 @@ mod legacy_tests {
         assert_eq!(end, SemanticPose::RecoverSwing);
         assert_eq!(outgoing, SemanticPose::ContinueSwing);
         assert_eq!(finish, SemanticPose::GuardThrust);
-        assert_eq!(start_coordinate, expected_start_coordinate);
-        assert!(start_coordinate >= 1.0 + state.attack_curve().overshoot);
-        assert!(incoming_tangent > 0.0);
-        assert_eq!(ready_phase, 7.0 / 24.0);
-        assert_eq!(progress, 0.0);
+        assert_eq!(start_coordinate.coordinate(), expected_start_coordinate);
+        assert!(start_coordinate.coordinate() >= 1.0 + state.attack_curve().overshoot);
+        assert!(incoming_tangent.coordinate_delta() > 0.0);
+        assert_eq!(ready_phase.phase(), 7.0 / 24.0);
+        assert_eq!(progress.fraction(), 0.0);
         assert_eq!(follow_up_start.action[0].weight.factor(), 1.0);
 
         state
@@ -1565,8 +1565,8 @@ mod legacy_tests {
                 finish: SemanticPose::GuardThrust,
                 start_coordinate,
                 incoming_tangent,
-                ready_phase: 7.0 / 24.0,
-                progress: 7.0 / 24.0,
+                ready_phase: ContinuationReadiness::from_phase(7.0 / 24.0).unwrap(),
+                progress: UnitInterval::from_fraction(7.0 / 24.0).unwrap(),
             }
         );
         state
@@ -1586,8 +1586,8 @@ mod legacy_tests {
                 finish: SemanticPose::GuardThrust,
                 start_coordinate,
                 incoming_tangent,
-                ready_phase: 7.0 / 24.0,
-                progress: 0.5,
+                ready_phase: ContinuationReadiness::from_phase(7.0 / 24.0).unwrap(),
+                progress: UnitInterval::HALF,
             }
         );
         assert_eq!(state.select_main_attack(StrikeFamily::Swing), None);

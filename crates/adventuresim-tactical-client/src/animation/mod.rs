@@ -7,7 +7,8 @@ use adventuresim_tactical_core::animation::AttackCurve;
 use adventuresim_tactical_core::animation::{
     ActionProgressDelta, AnimationFrequency, AnimationPackId, AnimationQuantity,
     AnimationSampleSpan, AnimationSampleTick, AttackPoseCoordinate, BlendWeight, ClipMirror,
-    CycleDelta, CyclePhase, NonnegativeLength, SkeletonFamily, UnitInterval,
+    ContinuationReadiness, CycleDelta, CyclePhase, IncomingAttackTangent, NonnegativeLength,
+    SkeletonFamily, UnitInterval,
 };
 use adventuresim_tactical_core::animation::{AnimationElapsed, AnimationValueError};
 use adventuresim_tactical_core::prelude::*;

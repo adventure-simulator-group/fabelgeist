@@ -16,8 +16,7 @@ pub(super) fn attack_samples(state: &SkeletonState) -> AnimationValueResult<Vec<
         } else {
             attack_pose(animation)
         };
-    if state.attack_is_continuation() {
-        let curve = state.attack_curve();
+    if let Some(continuation) = state.attack_continuation() {
         return Ok(vec![PoseSample {
             pose: start_guard,
             sampling: PoseSampling::ContinuationSpan {
@@ -25,12 +24,10 @@ pub(super) fn attack_samples(state: &SkeletonState) -> AnimationValueResult<Vec<
                 end: recovery_pose(animation),
                 outgoing: continuation_pose(animation),
                 finish: end_guard,
-                start_coordinate: state
-                    .attack_continuation_start_coordinate()
-                    .unwrap_or(1.0 + curve.overshoot),
-                incoming_tangent: state.attack_continuation_incoming_tangent().unwrap_or(0.0),
-                ready_phase: continuation_ready_phase(),
-                progress: phase.fraction(),
+                start_coordinate: continuation.start_coordinate,
+                incoming_tangent: continuation.incoming_tangent,
+                ready_phase: ContinuationReadiness::FOLLOW_READY,
+                progress: phase,
             },
             weight: BlendWeight::ONE,
             mirror_lower_body: ClipMirror::Original,

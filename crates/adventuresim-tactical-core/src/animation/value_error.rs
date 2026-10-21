@@ -127,6 +127,8 @@ pub enum AnimationValueError {
     CadenceTransitionBelowZero,
     #[error("{quantity} is unavailable")]
     UnavailableObservation { quantity: AnimationQuantity },
+    #[error("attack continuation readiness must lie strictly between zero and contact at phase 0.5")]
+    InvalidContinuationReadiness,
     #[error("authored phase curve must close by one forward or reverse cycle")]
     InvalidPhaseCurveSeam,
     #[error("authored phase calibration requires at least three intervals; got {actual}")]
@@ -155,6 +157,7 @@ impl AnimationValueError {
         match self {
             Self::CadenceTransitionBelowZero
             | Self::BakedChannelSampleCount { .. }
+            | Self::InvalidContinuationReadiness
             | Self::InvalidPhaseCurveSeam
             | Self::InsufficientPhaseIntervals { .. } => self,
             Self::UnavailableObservation { .. } => Self::UnavailableObservation { quantity },
