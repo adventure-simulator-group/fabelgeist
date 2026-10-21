@@ -322,7 +322,7 @@ fn normalized_curriculum(entries: &[TrainingEntry]) -> Vec<TrainingEntry> {
         .iter()
         .map(|entry| entry.weight.max(0.0))
         .sum::<f32>();
-    if total <= f32::EPSILON {
+    if total <= 0.0 {
         return Vec::new();
     }
     entries

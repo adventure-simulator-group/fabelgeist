@@ -266,7 +266,7 @@ fn move_combat_particles(
         let movement = particle.velocity * delta_seconds;
         let distance = movement.length();
         if particle.blood
-            && distance > f32::EPSILON
+            && distance > 0.0
             && let Ok(direction) = Dir3::new(movement)
             && let Some(hit) = spatial.cast_ray(
                 transform.translation,

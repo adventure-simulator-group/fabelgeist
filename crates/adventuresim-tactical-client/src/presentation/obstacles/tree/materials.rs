@@ -562,7 +562,7 @@ mod tests {
         let oak_occlusion = canopy_ao_strength(ENGLISH_OAK_PARAMETERS.crown_radius_metres);
 
         assert!((oak_occlusion - 0.37).abs() < 0.01);
-        assert!((OAK_LEAF_DIFFUSE_TRANSMISSION - 0.46).abs() < f32::EPSILON);
+        assert_eq!(OAK_LEAF_DIFFUSE_TRANSMISSION, 0.46);
         assert!(oak_occlusion < OAK_LEAF_DIFFUSE_TRANSMISSION);
         const {
             assert!(OAK_LEAF_DIFFUSE_TRANSMISSION < 0.5);

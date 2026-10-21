@@ -134,7 +134,11 @@ fn recovering_response(
 }
 
 pub(super) fn recovery_guard_effectiveness(recovery: f32, contact: f32, windup: f32) -> f32 {
-    (1.0 - (recovery - contact).max(0.0) / windup.max(f32::EPSILON)).clamp(0.0, 1.0)
+    let remaining = (recovery - contact).max(0.0);
+    if remaining == 0.0 {
+        return 1.0;
+    }
+    (1.0 - remaining / windup.max(0.0)).clamp(0.0, 1.0)
 }
 
 pub(super) fn autoresolve_melee_input_reflex(

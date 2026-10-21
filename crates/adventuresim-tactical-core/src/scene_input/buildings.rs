@@ -57,8 +57,7 @@ impl BuildingOrientation {
     }
 
     pub fn from_frontage_tangent(tangent: Vec2) -> Option<Self> {
-        (tangent.is_finite() && tangent.length_squared() > f32::EPSILON).then(|| {
-            let tangent = tangent.normalize();
+        tangent.try_normalize().map(|tangent| {
             let yaw = (-tangent.y).atan2(tangent.x);
             // Signed zero can represent the positive endpoint of atan2's
             // range. Canonicalize only that previously inadmissible endpoint.

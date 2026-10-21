@@ -39,7 +39,7 @@ fn main() {
             let angle=TAU*f32(j)/f32(RADII);let direction=vec2<f32>(sin(angle),cos(angle));
             let delta=center+direction*measured_radius(node,direction)-section.xy;
             let distance=length(delta);
-            if (distance>FLT_EPSILON) { allowance=max(allowance,distance-ellipse_radius(section.zw,delta/distance)); }
+            if (distance>0.0) { allowance=max(allowance,distance-ellipse_radius(section.zw,delta/distance)); }
         }
     }
     fit[44u]=allowance;

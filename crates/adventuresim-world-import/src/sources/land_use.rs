@@ -990,7 +990,7 @@ mod tests {
         .unwrap();
         assert_eq!(selection.start, 0);
         assert_eq!(selection.end, 1);
-        assert!((selection.amount - 0.44).abs() < f64::EPSILON);
+        assert_eq!(selection.amount, 0.44);
         assert_eq!(
             hyde_calendar_year(std::path::Path::new("hyde.nc"), 547_135.0).unwrap(),
             super::CalendarYear::new(1500).unwrap()

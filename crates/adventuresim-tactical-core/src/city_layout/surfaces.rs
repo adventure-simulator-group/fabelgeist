@@ -144,7 +144,7 @@ fn convex_quad_contains(corners: [Vec2; 4], point: Vec2) -> bool {
         let start = corners[index];
         let end = corners[(index + 1) % 4];
         let cross = (end - start).perp_dot(point - start);
-        if cross.abs() <= f32::EPSILON {
+        if cross == 0.0 {
             continue;
         }
         if sign == 0.0 {
