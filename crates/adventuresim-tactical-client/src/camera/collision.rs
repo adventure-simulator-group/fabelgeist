@@ -183,7 +183,7 @@ impl CameraVolumeDebug {
 }
 
 impl CameraFrame {
-    fn endpoint(&self, distance: close: CloseCameraProfile) -> CameraResult<Position<Scene>> {
+    fn endpoint(&self, distance: SignedLength, close: CloseCameraProfile) -> CameraResult<Position<Scene>> {
         // Native affine composition preserves the original glam lerp/order.
         let blend = close.blend(distance);
         let focus = self.focus.metres().lerp(self.anchor.metres(), blend);
@@ -198,7 +198,7 @@ impl BoomRecovery {
         *self = Self { distance, ..default() };
     }
 
-    fn retract(&mut self, distance: config: &CameraRigConfig) {
+    fn retract(&mut self, distance: SignedLength, config: &CameraRigConfig) {
         self.distance = distance;
         self.velocity = SignedSpeed::ZERO;
         self.hold_remaining = config.collision_hold_time;
