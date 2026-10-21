@@ -22,10 +22,8 @@ pub(in crate::tactical_scene_viewer) fn setup_catalog(
             (index / CATALOG_COLUMNS) as f32 - 3.0,
         ) * CATALOG_BAY_SPACING_METRES;
         let keys = FurnitureVariant::ALL.map(|variant| FurnitureKey::natural(kind, variant));
-        let [compact, broad] = keys.map(|key| {
-            key.interior_spec()
-                .map(|spec| spec.size_metres.metres())
-        });
+        let [compact, broad] =
+            keys.map(|key| key.interior_spec().map(|spec| spec.size_metres.metres()));
         let sizes = [compact?, broad?];
         let pair_width = sizes[0].x + sizes[1].x + catalog_pair_gap(kind);
         for (variant, key) in keys.into_iter().enumerate() {

@@ -549,10 +549,9 @@ mod tests {
                             *color,
                             expected
                                 .at(
-                                    PlanDisplacement::try_from(Vec2::new(
-                                        position[0],
-                                        position[2],
-                                    ))
+                                    PlanDisplacement::try_from(
+                                        Vec2::new(position[0], position[2],)
+                                    )
                                     .unwrap(),
                                     Vec2::splat(9.0),
                                 )
