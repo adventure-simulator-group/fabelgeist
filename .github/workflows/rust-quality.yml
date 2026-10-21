@@ -262,6 +262,7 @@ jobs:
           cargo test --locked --package adventuresim-tactical-core --features meshgen --lib volumetric_terrain:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-landforms.log
           cargo test --locked --package adventuresim-tactical-core --features meshgen --lib erosional_terrain:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-erosion.log
           cargo test --locked --package adventuresim-tactical-core --features meshgen --lib marching_tetrahedra:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-extraction.log
+          cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server doors::gate_tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-server-gates.log
       - name: Test terrain presentation and retained scene consumers
         env:
           EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -323,6 +324,7 @@ jobs:
               "terrain-scene-input",
               "terrain-scene-coordinates",
               "terrain-grounding",
+              "terrain-server-gates",
               "terrain-landforms",
               "terrain-erosion",
               "terrain-extraction",

@@ -584,7 +584,8 @@ mod tests {
                 &ground,
                 base_seed,
                 &assets,
-            );
+            )
+            .unwrap();
         }
         world.flush();
 

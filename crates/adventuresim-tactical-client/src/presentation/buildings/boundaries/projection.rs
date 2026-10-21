@@ -1,7 +1,9 @@
 //! Distant walls wait for the exact scene support rather than using a house floor.
 use super::*;
 use crate::presentation::ownership::PresentationOwner;
-use adventuresim_tactical_core::{city_layout::CityCompound, prelude::GeneratedBoundary};
+use adventuresim_tactical_core::{
+    city_layout::CityCompound, prelude::GeneratedBoundary, scene_coordinates::GateDatum,
+};
 
 #[derive(Component)]
 pub(super) struct DistantBoundaryPresentation;
@@ -90,21 +92,14 @@ pub(super) fn project_pending(
     };
     let mut batches = BoundaryBatches::default();
     for boundary in boundaries {
-        fixed(
-            &mut batches,
-            boundary.scene(),
-            boundary.elevation_metres().metres(),
-            &materials,
-        );
+        let datum = GateDatum::new(boundary.elevation_metres());
+        batches.insert_boundary(boundary.scene(), BoundaryPlacement::Scene(datum), &materials)?;
         let door = boundary
             .scene()
             .boundary()
             .gate
             .door(boundary.scene().property_id())?;
-        let pose = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
-            boundary.elevation_metres().metres(),
-        )?
-        .door(door)?;
+        let pose = datum.door(door)?;
         let door = pose.leaf();
         commands
             .spawn((
