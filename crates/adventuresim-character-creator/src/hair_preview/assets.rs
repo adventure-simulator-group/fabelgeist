@@ -95,8 +95,15 @@ pub(super) fn material(
 /// rough dielectric's sheen, and highlights leaning towards its hue.
 pub(super) fn hair_surface(design: HairDesign) -> StandardMaterial {
     let [red, green, blue] = design.pigment.color();
-    let brightest = red.max(green).max(blue).max(f32::EPSILON);
-    let tint = |channel: f32| 1.0 + (channel / brightest - 1.0) * HIGHLIGHT_HUE;
+    let brightest = red.max(green).max(blue);
+    let tint = |channel: f32| {
+        if brightest == 0.0 {
+            // Black has no hue to tint the dielectric highlight.
+            1.0
+        } else {
+            1.0 + (channel / brightest - 1.0) * HIGHLIGHT_HUE
+        }
+    };
     StandardMaterial {
         base_color: Color::linear_rgb(red, green, blue),
         specular_tint: Color::linear_rgb(tint(red), tint(green), tint(blue)),
