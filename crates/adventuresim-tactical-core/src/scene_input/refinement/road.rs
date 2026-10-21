@@ -1,8 +1,5 @@
 //! Native road-profile probes preserve the deterministic source relief.
-use super::{
-    DetailNoise, GroundSubstrate, SceneGround, ScenePlanPoint, detail_smoothstep,
-    signed_ground_noise,
-};
+use super::{DetailNoise, GroundSubstrate, SceneGround, ScenePlanPoint, signed_ground_noise};
 use bevy::math::Vec2;
 
 pub(super) fn road_surface_relief(

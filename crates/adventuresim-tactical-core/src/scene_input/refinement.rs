@@ -62,7 +62,6 @@ pub(super) fn refine_authoritative_terrain(
             SceneValidationError::DetailTerrain,
         ))?;
     terrain.constrain_max_grade(crate::scene::grade::TerrainGradeLimit::PLAYABLE)?;
-    terrain.validate()?;
     Ok(terrain)
 }
 
