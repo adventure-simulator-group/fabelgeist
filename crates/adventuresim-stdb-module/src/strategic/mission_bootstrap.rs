@@ -2659,7 +2659,10 @@ mod developer_quest_source_tests {
         );
 
         let challenges = crate::production_source(include_str!("challenges.rs"));
-        let gallery = crate::production_source(include_str!("development_scenarios.rs"));
+        let gallery = crate::production_source(concat!(
+            include_str!("development_gallery.rs"),
+            include_str!("development_scenarios.rs"),
+        ));
         assert!(!challenges.contains("pub fn load_puzzle_demo"));
         assert!(gallery.contains("ErrantryLaunch::DirectDemoCamp(kind)"));
         assert!(gallery.contains("PuzzleKind::ResourceAllocation"));
