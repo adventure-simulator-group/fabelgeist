@@ -1,6 +1,6 @@
 [package]
 name = "fabelgeist-geometry"
-description = "Checked scalar geometry and portable admission errors"
+description = "Checked geometry and portable admission errors"
 version.workspace = true
 edition.workspace = true
 repository.workspace = true
@@ -9,8 +9,10 @@ license.workspace = true
 [features]
 default = []
 reflect = ["dep:bevy_reflect"]
+bevy-math = ["dep:bevy_math"]
 
 [dependencies]
+bevy_math = { version = "0.19.0", default-features = false, features = ["std"], optional = true }
 bevy_reflect = { version = "0.19.0", default-features = false, features = ["std"], optional = true }
 serde.workspace = true
 thiserror.workspace = true

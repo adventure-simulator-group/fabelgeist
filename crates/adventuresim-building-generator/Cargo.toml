@@ -20,7 +20,7 @@ viewer = [
 ]
 
 [dependencies]
-fabelgeist-geometry = { workspace = true, features = ["reflect"] }
+fabelgeist-geometry = { workspace = true, features = ["reflect", "bevy-math"] }
 ab_glyph = { workspace = true, optional = true }
 adventuresim-world-schema.workspace = true
 adventuresim-procedural-textures = { workspace = true, optional = true }
