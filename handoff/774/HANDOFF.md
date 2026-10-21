@@ -67,7 +67,8 @@ or discard this progress to start over. `snapshots.json` and
 
 ## Authoritative records
 
-The archive is about 6 MB compressed and contains 475 transfer files, including
+[Download the records archive](records.zip) (about 6 MB compressed), with
+475 transfer files, including
 all sixteen audit/review skill documents. Extract it outside the implementation
 source tree, or into ignored `target/` output. It includes:
 
