@@ -1,4 +1,4 @@
-//! Preparation failures retain their owning causes until the presentation boundary.
+//! Shared preparation failures retain causes until the presentation boundary.
 use crate::presentation::vista::VistaMeshError;
 use adventuresim_building_generator::{
     GenerationError, interior::InteriorLayoutError, spatial_geometry::GeometryError,

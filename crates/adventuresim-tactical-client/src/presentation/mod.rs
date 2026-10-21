@@ -37,6 +37,7 @@ pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
 pub(crate) mod interior_lighting;
 mod materials;
 mod obstacles;
+pub(crate) mod preparation;
 pub(crate) mod ownership;
 mod procedural;
 pub(crate) mod procedural_texture_setup;

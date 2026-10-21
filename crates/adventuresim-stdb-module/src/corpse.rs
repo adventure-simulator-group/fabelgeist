@@ -31,8 +31,7 @@ use crate::{
     social::{character_familiarity, current_affinity},
     strategic::{
         StrategicCombatError, StrategicCombatResult, StrategicEncounterStatus, settlement,
-        strategic_encounter,
-        strategic_gateway_authority__view,
+        strategic_encounter, strategic_gateway_authority__view,
     },
     surgery::{limb_injury, retained_projectile},
     time::{advance_character_wait_time, character_time, character_time__view},

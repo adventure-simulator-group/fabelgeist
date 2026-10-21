@@ -1,7 +1,7 @@
 //! Strategic scene admission retains causes until the serialized status boundary.
 
 use crate::presentation::{
-    BackdropError, generation::PreparationError as GenerationPreparationError,
+    BackdropError, preparation::PreparationError as GenerationPreparationError,
 };
 use adventuresim_building_generator::{GenerationError, spatial_geometry::GeometryError};
 use adventuresim_tactical_core::{

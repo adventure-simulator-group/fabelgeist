@@ -1,6 +1,6 @@
 //! Pure street clipping and retained upload-ready city-ground batches.
 use super::*;
-use crate::presentation::generation::PreparationResult;
+use crate::presentation::preparation::PreparationResult;
 use crate::presentation::{
     ownership::{PresentationOwner, PresentationOwners},
     terrain::PreparedTerrainLandform,

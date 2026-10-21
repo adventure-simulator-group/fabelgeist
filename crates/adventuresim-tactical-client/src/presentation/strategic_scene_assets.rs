@@ -1,6 +1,6 @@
 //! Building-local strategic geometry never contains tactical terrain or actors.
 #[cfg(not(target_family = "wasm"))]
-use super::generation::PreparationResult;
+use super::preparation::PreparationResult;
 #[cfg(not(target_family = "wasm"))]
 use adventuresim_tactical_core::scene_input::TacticalSceneInput;
 use adventuresim_tactical_core::scene_input::furniture::FurnitureLayout;
