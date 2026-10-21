@@ -643,7 +643,7 @@ fn add_authoritative_microrelief(
                 2.25,
             );
             let offset = (broad * 0.72 + fine * 0.28) * amplitude;
-            if offset.abs() > f32::EPSILON {
+            if offset.abs() > 0.0 {
                 heights[index] += offset;
                 adjusted += 1;
             }
@@ -689,7 +689,7 @@ fn repair_playable_terrain(
         adjusted_height_samples: heights
             .iter()
             .zip(original_heights)
-            .filter(|(after, before)| (*after - before).abs() > f32::EPSILON)
+            .filter(|(after, before)| (*after - before).abs() > 0.0)
             .count() as u32,
         repaired_water_samples,
         removed_corridor_obstacles: 0,
@@ -1210,7 +1210,7 @@ mod tests {
         let middle = tree_leaf_litter_probability(4.0);
         let edge = tree_leaf_litter_probability(TREE_CANOPY_GROUND_RADIUS_METRES);
         assert!(1.0 > inner && inner > middle && middle > edge);
-        assert!((edge - 0.12).abs() < f32::EPSILON);
+        assert_eq!(edge, 0.12);
     }
 
     #[test]

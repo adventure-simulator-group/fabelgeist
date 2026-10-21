@@ -142,7 +142,7 @@ fn tangents(
             texcoords[c][1] - texcoords[a][1],
         ];
         let area = du1 * dv2 - du2 * dv1;
-        if area.abs() <= f32::EPSILON {
+        if area == 0.0 || !area.is_finite() {
             continue;
         }
         let u = (first * dv2 - second * dv1) * (1.0 / area);
@@ -158,7 +158,7 @@ fn tangents(
         .map(|(&normal, (&u, &v))| {
             let square = u - normal * normal.dot(u);
             let length = square.length();
-            if length <= f32::EPSILON {
+            if length == 0.0 || !length.is_finite() {
                 return [1.0, 0.0, 0.0, 1.0];
             }
             let tangent = square * (1.0 / length);

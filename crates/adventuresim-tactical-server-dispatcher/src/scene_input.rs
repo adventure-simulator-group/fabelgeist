@@ -808,7 +808,7 @@ mod tests {
             input
                 .distant_buildings
                 .iter()
-                .any(|building| { building.base_elevation_metres.metres().abs() > f32::EPSILON })
+                .any(|building| { building.base_elevation_metres.metres().abs() > 0.0 })
         );
         drop(pack);
         fs::remove_dir_all(directory).expect("remove isolated terrain fixture");

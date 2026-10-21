@@ -673,7 +673,7 @@ mod roll_tests {
 
     #[test]
     fn roll_is_a_bounded_fraction_of_an_ordinary_dodge() {
-        assert!((roll_dodge_reflex(1.0, 0.35) - 0.35).abs() < f32::EPSILON);
+        assert_eq!(roll_dodge_reflex(1.0, 0.35), 0.35);
         assert_eq!(roll_dodge_reflex(-1.0, 0.35), 0.0);
         assert_eq!(roll_dodge_reflex(2.0, 0.35), 0.35);
     }
@@ -1058,7 +1058,7 @@ mod roll_tests {
         }
         let altered = planned_melee_lunge(request, &altered_config).expect("same center gap");
         assert_eq!(altered.quickstep, baseline.quickstep);
-        assert!((altered.distance_metres - baseline.distance_metres).abs() < f32::EPSILON);
+        assert_eq!(altered.distance_metres, baseline.distance_metres);
 
         let surface_measure = melee_surface_measure(Vec3::ZERO, target.translation);
         for body_part in [

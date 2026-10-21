@@ -1151,7 +1151,7 @@ mod tests {
             .collect::<Vec<_>>();
         assert_eq!(trunk.len(), 10);
         assert!(
-            (trunk[0].start.y + TREE_TRUNK_HEIGHT_METRES * 0.5).abs() < f32::EPSILON,
+            trunk[0].start.y == -TREE_TRUNK_HEIGHT_METRES * 0.5,
             "the beech mesh root must share the collider-centred tree origin"
         );
         assert!(

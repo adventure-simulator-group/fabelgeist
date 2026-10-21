@@ -179,7 +179,7 @@ impl AuthoredLocomotionStrides {
             / (run_locomotion_profile().reference_speed
                 - walk_locomotion_profile().reference_speed))
             .clamp(0.0, 1.0);
-        if blend <= f32::EPSILON {
+        if blend <= 0.0 {
             Some(walk)
         } else {
             Some(walk.lerp(self.run?, blend))
@@ -190,19 +190,19 @@ impl AuthoredLocomotionStrides {
         let strafe_weight = direction.x.abs();
         let skip_weight = direction.y.abs();
         let total = strafe_weight + skip_weight;
-        if total <= f32::EPSILON {
+        if total <= 0.0 {
             return None;
         }
         let mut stride = AuthoredStrideMeasurement {
             step_distance: 0.0,
             maximum_stance_slip: 0.0,
         };
-        if strafe_weight > f32::EPSILON {
+        if strafe_weight > 0.0 {
             let strafe = self.strafe?;
             stride.step_distance += strafe.step_distance * strafe_weight;
             stride.maximum_stance_slip += strafe.maximum_stance_slip * strafe_weight;
         }
-        if skip_weight > f32::EPSILON {
+        if skip_weight > 0.0 {
             let skip = self.skip?;
             stride.step_distance += skip.step_distance * skip_weight;
             stride.maximum_stance_slip += skip.maximum_stance_slip * skip_weight;
@@ -270,7 +270,7 @@ pub(crate) struct AnimationRuntime {
     base_processed: bool,
     base_failed: bool,
     base_scene: Option<Handle<WorldAsset>>,
-    requested_motions: BTreeMap<(String, String), Handle<Gltf>>,
+    requested_motions: BTreeMap<(String, String), MotionLoad>,
     processed_motions: BTreeSet<(String, String)>,
     unavailable_motions: BTreeSet<(String, String)>,
     clip_handles: BTreeMap<(String, String), Handle<AnimationClip>>,
@@ -503,7 +503,7 @@ fn evaluate_skeletons(
             .fold((0.0, 0.0), |(total, mirrored), (weight, mirror)| {
                 (total + weight, mirrored + mirror)
             });
-        let whole_body_mirror = if total_weight > f32::EPSILON {
+        let whole_body_mirror = if total_weight > 0.0 {
             (mirrored_weight / total_weight).clamp(0.0, 1.0)
         } else {
             0.0
@@ -583,7 +583,7 @@ fn combat_pelvis_is_component_blended(
 }
 
 fn weapon_grip(skill_weights: &[f32; 9]) -> WeaponGrip {
-    if skill_weights[0] > f32::EPSILON {
+    if skill_weights[0] > 0.0 {
         WeaponGrip::Polearm
     } else {
         WeaponGrip::Hilt
@@ -737,7 +737,7 @@ fn semantic_foot_ik_weights(evaluation: &AnimationEvaluation) -> Vec2 {
         result += weights * sample.weight;
         total += sample.weight;
     }
-    if total > f32::EPSILON {
+    if total > 0.0 {
         result / total
     } else {
         Vec2::ZERO
@@ -763,7 +763,7 @@ fn on_successful_attack(
     event: On<SuccessfulAttackResponse>,
     mut kicks: MessageWriter<bouncy_bones::BoneKick>,
 ) {
-    if event.impact_velocity_change.length_squared() > f32::EPSILON {
+    if event.impact_velocity_change.length_squared() > 0.0 {
         kicks.write(bouncy_bones::BoneKick {
             owner: event.impact_recipient,
             role: bouncy_bones::impact_bone_role(event.body_part),
@@ -900,7 +900,9 @@ fn append_weighted_clip(
     weight: f32,
     locomotion_phase: Option<f32>,
 ) {
-    if weight <= f32::EPSILON {
+    // Zero-weight span endpoints still declare playback topology. Pose sampling
+    // skips their contribution, independently of the plan's clip identity.
+    if weight < 0.0 || !weight.is_finite() {
         return;
     }
     if let Some(existing) = weighted.iter_mut().find(|existing| {

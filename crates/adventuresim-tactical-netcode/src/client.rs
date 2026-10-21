@@ -422,7 +422,7 @@ fn update_direct_control_input(
     controls.downed_align = downed
         && !keyboard_dive
         && !gamepad_dive
-        && ((space_pressed && keyboard_direction.x.abs() <= f32::EPSILON)
+        && ((space_pressed && keyboard_direction.x == 0.0)
             || (gamepad_roll_modifier && gamepad_lateral.abs() <= input_config.roll_deadzone));
     if let Some(action) = roll_action {
         queue_posture_action(&mut controls, action);

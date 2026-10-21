@@ -154,7 +154,7 @@ mod tests {
         state.charge_work(work, 3.0, parameters);
         let sources = state.incapacitation_sources(0.0, 3.0);
         assert!(sources.fatigue > 0.2);
-        assert!((sources.total() - state.incapacitation).abs() < f32::EPSILON);
+        assert_eq!(sources.total(), state.incapacitation);
         assert_eq!(
             combat_incapacitation_performance(state.incapacitation),
             1.0 - sources.total()

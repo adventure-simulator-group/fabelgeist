@@ -417,7 +417,7 @@ impl WeaponSkillDistribution {
     pub fn weighted_check(self, mut check: impl FnMut(Skill) -> f32) -> f32 {
         let weights = self.weights();
         let total: f32 = weights.into_iter().sum();
-        if total <= f32::EPSILON {
+        if total <= 0.0 {
             return 0.0;
         }
         Self::SKILLS
@@ -450,8 +450,8 @@ pub fn weapon_balance_from_moment(
         || !mass_kg.is_finite()
         || !grip_to_tip_m.is_finite()
         || moment_of_inertia_kg_m2 < 0.0
-        || mass_kg <= f32::EPSILON
-        || grip_to_tip_m <= f32::EPSILON
+        || mass_kg <= 0.0
+        || grip_to_tip_m <= 0.0
     {
         return 1.0;
     }
@@ -558,7 +558,7 @@ pub fn encumbrance_capacity_kg(average_injury_adjusted_leg_strength: f32) -> f32
 pub fn encumbrance_remaining_multiplier(burden_kg: f32, capacity_kg: f32) -> f32 {
     let burden_kg = finite_nonnegative(burden_kg);
     let capacity_kg = finite_nonnegative(capacity_kg);
-    if capacity_kg <= f32::EPSILON {
+    if capacity_kg <= 0.0 {
         return 0.0;
     }
     (1.0 - burden_kg / capacity_kg).clamp(0.0, 1.0)
@@ -661,7 +661,7 @@ pub trait PlayerEquipment {
     /// returns the actual engaged layer. Implementations with only aggregate
     /// strategic data return that authored aggregate as one surface.
     fn armor_surface(&self, part: BodyPart, sample: f32) -> Option<ArmorSurface> {
-        (sample.clamp(0.0, 1.0 - f32::EPSILON) < self.armor_coverage(part).clamp(0.0, 1.0)).then(
+        (sample.clamp(0.0, 1.0_f32.next_down()) < self.armor_coverage(part).clamp(0.0, 1.0)).then(
             || ArmorSurface {
                 inventory_item_id: None,
                 material: None,
@@ -709,6 +709,21 @@ pub trait PlayerEquipment {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn tiny_positive_skill_weights_are_still_normalized() {
+        for weight in [1.0, 1.0e-10, 1.0e-30] {
+            let distribution = WeaponSkillDistribution {
+                sword: weight,
+                ..Default::default()
+            };
+            assert_eq!(distribution.weighted_check(|_| 2.0), 2.0);
+        }
+        assert_eq!(
+            WeaponSkillDistribution::default().weighted_check(|_| 2.0),
+            0.0
+        );
+    }
 
     #[test]
     fn weapon_skill_distribution_uses_the_shared_boundary_shape() {
@@ -887,10 +902,10 @@ mod tests {
             }
         );
         let halberd = weapon_skill_distribution_for_item("halberd");
-        assert!((halberd.polearm - 1.0 / 3.0).abs() < f32::EPSILON);
+        assert_eq!(halberd.polearm, 1.0 / 3.0);
         assert_eq!(halberd.polearm, halberd.axe);
         assert_eq!(halberd.axe, halberd.bludgeon);
-        assert!((halberd.total() - 1.0).abs() < f32::EPSILON);
+        assert_eq!(halberd.total(), 1.0);
         assert_eq!(
             weapon_skill_distribution_for_item("unknown_seeded_weapon"),
             WeaponSkillDistribution::default()
@@ -918,7 +933,7 @@ mod tests {
         let party =
             EncumbranceSummary::new(60.0, 100.0).combined(EncumbranceSummary::new(30.0, 200.0));
         assert_eq!(party, EncumbranceSummary::new(90.0, 300.0));
-        assert!((party.penalty_fraction() - 0.3).abs() < f32::EPSILON);
+        assert_eq!(party.penalty_fraction(), 0.3);
     }
 
     #[test]

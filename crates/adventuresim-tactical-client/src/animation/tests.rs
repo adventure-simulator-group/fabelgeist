@@ -60,8 +60,8 @@ mod legacy_tests {
             assert_eq!(routed.path, SemanticRoutePath::RaisedGuardAttack);
             assert!(routed.runtime_evaluated);
             assert_eq!(routed.evaluation, direct);
-            assert!((routed.inputs.gait_phase - presented.gait_phase).abs() < f32::EPSILON);
-            assert!((routed.evaluation.action_phase - expected_phase).abs() < f32::EPSILON);
+            assert_eq!(routed.inputs.gait_phase, presented.gait_phase);
+            assert_eq!(routed.evaluation.action_phase, expected_phase);
         }
     }
 
@@ -428,7 +428,7 @@ mod legacy_tests {
 
     #[test]
     fn frame_eight_is_sampled_at_thirty_fps() {
-        assert!((frame_seconds(8) - 8.0 / 30.0).abs() < f32::EPSILON);
+        assert_eq!(frame_seconds(8), 8.0 / 30.0);
     }
 
     #[test]
@@ -478,6 +478,43 @@ mod legacy_tests {
             );
         }
         runtime
+    }
+
+    #[test]
+    fn span_endpoints_remain_declared_at_zero_and_complete_progress() {
+        let catalog = AnimationPackCatalog::default();
+        for (start, end) in [
+            (SemanticPose::WalkContact, SemanticPose::WalkPassing),
+            (SemanticPose::GuardThrust, SemanticPose::ProneIdle),
+        ] {
+            let runtime = runtime_with_available([start, end]);
+            let mut identity = None;
+            for progress in [0.0, 1.0e-10, 0.5, 1.0] {
+                let mut weighted = Vec::new();
+                append_resolved_sample(
+                    &mut weighted,
+                    &runtime,
+                    &catalog,
+                    HUMANOID_UNARMED_PACK,
+                    PoseSample {
+                        pose: start,
+                        sampling: PoseSampling::Span { end, progress },
+                        weight: 1.0,
+                        mirror_lower_body: false,
+                    },
+                );
+                assert_eq!(weighted.len(), 2);
+                let current = weighted
+                    .iter()
+                    .map(|clip| (clip.clip.handle.id(), clip.clip.layer))
+                    .collect::<Vec<_>>();
+                assert_eq!(identity.get_or_insert_with(|| current.clone()), &current);
+                assert_eq!(weighted.iter().map(|clip| clip.weight).sum::<f32>(), 1.0);
+                if progress == 0.0 || progress == 1.0 {
+                    assert_eq!(weighted.iter().filter(|clip| clip.weight == 0.0).count(), 1);
+                }
+            }
+        }
     }
 
     #[test]

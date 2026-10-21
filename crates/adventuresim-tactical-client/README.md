@@ -522,6 +522,9 @@ complete main-hand set, and an absent family stays unavailable; only a pack
 with neither motion inherits its parent's main-hand attacks. `offhand` resolves
 independently through the parent chain. Missing, unloaded, zero-animation,
 multiple-animation, or short motion files are unavailable.
+Absent optional motion files are logged at info level while pose lookup uses
+the available fallbacks, including mirrored poses. Other loading failures
+remain errors, and invalid motion contents retain their validation warnings.
 Every local or remote character also gets a generated T-pose safety net until
 the base scene is available. Bind locals are reset before every animation
 evaluation so partial clips cannot accumulate stale or procedural transforms.
