@@ -65,10 +65,11 @@ impl CombatWeapon {
             .as_ref()
             .map_or([0.0; 3], |equipment| equipment.physical.dimensions_m);
         let total_length_m = dimensions_m[1];
-        let recipe = adventuresim_weapon_model::default_design(weapon_id)
-            .ok_or_else(|| AuthoredMeleeWeaponError::MissingRecipe {
+        let recipe = adventuresim_weapon_model::default_design(weapon_id).ok_or_else(|| {
+            AuthoredMeleeWeaponError::MissingRecipe {
                 weapon: weapon_id.to_owned(),
-            })?;
+            }
+        })?;
         let striking_head_length_m = adventuresim_weapon_model::derive_properties(&recipe)
             .map_err(|violations| AuthoredMeleeWeaponError::Recipe {
                 weapon: weapon_id.to_owned(),

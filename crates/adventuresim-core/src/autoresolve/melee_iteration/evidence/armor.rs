@@ -37,7 +37,8 @@ pub(super) fn forced_armor_contacts(
         .collect())
 }
 
-pub(super) fn mirrored_vambrace_contacts() -> MeleeIterationResult<Vec<MirroredArmorContactEvidence>> {
+pub(super) fn mirrored_vambrace_contacts() -> MeleeIterationResult<Vec<MirroredArmorContactEvidence>>
+{
     let definition = crate::item_catalog::definition("vambrace")
         .ok_or(MeleeIterationError::MissingEvidenceItem { item: "vambrace" })?;
     let equipment = definition

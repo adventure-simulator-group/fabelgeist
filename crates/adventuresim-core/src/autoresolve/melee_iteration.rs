@@ -259,10 +259,11 @@ fn authored_equipment(
     armor_ids: &[&str],
     shield_id: Option<&str>,
 ) -> MeleeIterationResult<CombatEquipment> {
-    let definition = crate::item_catalog::definition(weapon_id)
-        .ok_or_else(|| MeleeIterationError::UnknownWeapon {
+    let definition = crate::item_catalog::definition(weapon_id).ok_or_else(|| {
+        MeleeIterationError::UnknownWeapon {
             weapon: weapon_id.to_owned(),
-        })?;
+        }
+    })?;
     let weapon = CombatWeapon::from_authored_melee_definition(definition)?;
     let mut equipment = CombatEquipment {
         weapon: Some(weapon),
@@ -272,10 +273,11 @@ fn authored_equipment(
         ..CombatEquipment::default()
     };
     if let Some(shield_id) = shield_id {
-        let shield = crate::item_catalog::definition(shield_id)
-            .ok_or_else(|| MeleeIterationError::UnknownShield {
+        let shield = crate::item_catalog::definition(shield_id).ok_or_else(|| {
+            MeleeIterationError::UnknownShield {
                 shield: shield_id.to_owned(),
-            })?;
+            }
+        })?;
         let ItemKind::Shield { block, .. } = shield.kind else {
             return Err(MeleeIterationError::NotShield {
                 shield: shield_id.to_owned(),
@@ -299,10 +301,11 @@ fn apply_authored_armor(
     armor_ids: &[&str],
 ) -> MeleeIterationResult<()> {
     for (index, armor_id) in armor_ids.iter().enumerate() {
-        let armor = crate::item_catalog::definition(armor_id)
-            .ok_or_else(|| MeleeIterationError::UnknownArmor {
+        let armor = crate::item_catalog::definition(armor_id).ok_or_else(|| {
+            MeleeIterationError::UnknownArmor {
                 armor: (*armor_id).to_owned(),
-            })?;
+            }
+        })?;
         let ItemKind::Armor {
             coverage,
             resistance,
@@ -314,12 +317,11 @@ fn apply_authored_armor(
         else {
             continue;
         };
-        let authored = armor
-            .equipment
-            .as_ref()
-            .ok_or_else(|| MeleeIterationError::ArmorProjectionUnavailable {
+        let authored = armor.equipment.as_ref().ok_or_else(|| {
+            MeleeIterationError::ArmorProjectionUnavailable {
                 armor: (*armor_id).to_owned(),
-            })?;
+            }
+        })?;
         let occurrence = armor_ids[..index]
             .iter()
             .filter(|prior| *prior == armor_id)
