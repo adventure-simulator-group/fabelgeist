@@ -14,7 +14,8 @@
 //! The digits pick a plant from the hotbar, and a click then sows it where
 //! the pointer rests: on the ground, or at the foot of a wall. G picks
 //! Clear, which takes the plants out of the ring under the pointer. Esc puts
-//! the tool down, or opens the menu; F3 shows the figures.
+//! the tool down, or opens the menu; C keeps distant leaves' coverage; F3
+//! shows the figures.
 //!
 //! With `--snapshot out.png` it grows the scene for `--years` first, without
 //! the simulation thread, and renders it once headless, without a window;

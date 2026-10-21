@@ -12,7 +12,8 @@
 #import adventuresim_environment::leaf_geometry::leaf_vertex
 #import adventuresim_environment::leaf_surface::{leaf_shape, coverage, leaf_response}
 
-// x: blades a cluster.
+// x: blades a cluster. y: 1 when sub-pixel blades keep their coverage;
+// z: the smallest blade then drawn, pixels, as f32 bits.
 @group(3) @binding(0) var<uniform> lod: vec4<u32>;
 @group(3) @binding(1) var<storage, read> leaves: array<Leaf>;
 @group(3) @binding(2) var<storage, read> species: array<Species>;
@@ -60,7 +61,8 @@ fn vertex(vertex: Vertex) -> LeafOut {
     let i = u32(round(vertex.position.z));
     let corner = vec2<f32>(vertex.position.x, vertex.position.y);
 #endif
-    let geometry = leaf_vertex(inst, u32(species[inst.kind].leaf.w), i, corner, blades);
+    let foliage = u32(species[inst.kind].leaf.w);
+    let geometry = leaf_vertex(inst, foliage, i, corner, blades);
     var world = geometry.position;
     var normal = geometry.normal;
     var out: LeafOut;
@@ -71,6 +73,23 @@ fn vertex(vertex: Vertex) -> LeafOut {
     world = place_tree(pose, world);
     normal = tree_normal(pose, normal);
 #endif
+    if lod.y == 1u {
+        // The blade's extent across and along: the vertex's position less
+        // the opposite corner's, signed to run from corner 0 to corner 1.
+        let side = corner * 2.0 - 1.0;
+        let across = (geometry.position
+            - leaf_vertex(inst, foliage, i, vec2<f32>(1.0 - corner.x, corner.y), blades).position) * side.x;
+        let along = (geometry.position
+            - leaf_vertex(inst, foliage, i, vec2<f32>(corner.x, 1.0 - corner.y), blades).position) * side.y;
+        let kept = keep_coverage(world, across, along, inst.seed, i);
+        if kept.x == 0.0 {
+            var dropped: LeafOut;
+            dropped.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
+            return dropped;
+        }
+        world += across * (corner.x - 0.5) * (kept.y - 1.0)
+            + along * (corner.y - 0.5) * (kept.z - 1.0);
+    }
     out.world = vec4<f32>(world, 1.0);
     out.clip = view.clip_from_world * out.world;
     out.normal = normal;
@@ -79,6 +98,28 @@ fn vertex(vertex: Vertex) -> LeafOut {
     out.uv = geometry.uv;
     out.crown = inst.crown;
     return out;
+}
+
+// Keep a sub-pixel blade's coverage: x is 1 if it is drawn, y and z how
+// much larger it is drawn across and along. A blade under the smallest size
+// is drawn at that size, and only that share of such blades -- picked by a
+// number fixed per blade, so blades drop out one by one as the camera draws
+// back rather than flickering -- so a crown keeps its green however far off.
+// The extents are in the drawn tree's frame; their pixel size is taken at
+// the vertex's depth, which a blade spans too little to matter.
+fn keep_coverage(world: vec3<f32>, across: vec3<f32>, along: vec3<f32>, seed: f32, i: u32) -> vec3<f32> {
+    let depth = (view.clip_from_world * vec4<f32>(world, 1.0)).w;
+    let orthographic = view.clip_from_view[3][3] == 1.0;
+    let distance = select(depth, 1.0, orthographic);
+    let pixel = 2.0 * distance / (view.clip_from_view[1][1] * view.viewport.w);
+    let smallest = bitcast<f32>(lod.z) * pixel;
+    let grow = vec2<f32>(
+        max(smallest / max(length(across), 1e-6), 1.0),
+        max(smallest / max(length(along), 1e-6), 1.0),
+    );
+    let share = 1.0 / (grow.x * grow.y);
+    let pick = fract(sin(seed * 127.1 + f32(i) * 311.7) * 43758.5453);
+    return vec3<f32>(select(0.0, 1.0, pick < share), grow);
 }
 
 #import adventuresim_environment::surface_lighting::light_surface

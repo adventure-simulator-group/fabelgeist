@@ -224,6 +224,7 @@ fn display(ui: &mut Ui, viewer: &mut Viewer) {
     widgets::switch(ui, &mut lighting.shadows, "Shadows");
     widgets::section(ui, "Plants");
     widgets::switch(ui, &mut viewer.leaves, "Foliage");
+    widgets::switch(ui, &mut viewer.leaf_coverage, "Keep distant leaves (C)");
     if profile_controls::detail(ui, &mut viewer.profile) {
         let profile = profile_controls::drawable(viewer.profile);
         viewer

@@ -16,7 +16,7 @@ use fabelgeist_botany::viewer::sim::SpeciesInfo;
 
 use super::levels::{Level, Shape};
 use super::records::{ForestBuffers, PendingWrites, Records};
-use super::{ForestDetail, shapes};
+use super::{ForestDetail, LEAF_COVERAGE_PIXELS, LeafCoverage, shapes};
 
 pub(super) const BRANCH_SHADER: &str =
     "embedded://adventuresim_environment/render/shaders/branch.wgsl";
@@ -41,7 +41,9 @@ pub struct BranchMaterial {
 /// Leaf clusters, built as blades.
 #[derive(Asset, TypePath, AsBindGroup, Debug, Clone)]
 pub struct LeafMaterial {
-    /// x: blades a cluster.
+    /// x: blades a cluster; y: 1 when sub-pixel blades keep their coverage
+    /// ([`LeafCoverage`]); z: the smallest blade then drawn, pixels, as f32
+    /// bits.
     #[uniform(0)]
     lod: UVec4,
     #[storage(1, read_only, visibility(vertex, fragment))]
@@ -153,6 +155,7 @@ pub(super) struct ForestMaterials {
 pub(super) fn setup(
     mut commands: Commands,
     detail: Res<ForestDetail>,
+    coverage: Res<LeafCoverage>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut branch_materials: ResMut<Assets<BranchMaterial>>,
     mut leaf_materials: ResMut<Assets<LeafMaterial>>,
@@ -186,7 +189,7 @@ pub(super) fn setup(
                 plants: stored.plants(),
             }),
             leaves: leaf_materials.add(LeafMaterial {
-                lod: leaf_lod(&shape),
+                lod: leaf_lod(&shape, *coverage),
                 leaves: stored.leaves(),
                 species: stored.species(),
             }),
@@ -202,6 +205,7 @@ pub(super) fn setup(
 /// levels are fixed.
 pub(super) fn follow_detail(
     detail: Res<ForestDetail>,
+    coverage: Res<LeafCoverage>,
     forest: Option<Res<ForestMaterials>>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut branch_materials: ResMut<Assets<BranchMaterial>>,
@@ -224,7 +228,26 @@ pub(super) fn follow_detail(
         material.lod = branch_lod(&shape);
     }
     if let Some(mut material) = leaf_materials.get_mut(&full.leaves) {
-        material.lod = leaf_lod(&shape);
+        material.lod = leaf_lod(&shape, *coverage);
+    }
+}
+
+/// Switch every level's leaves when [`LeafCoverage`] changes.
+pub(super) fn follow_leaf_coverage(
+    coverage: Res<LeafCoverage>,
+    forest: Option<Res<ForestMaterials>>,
+    mut leaf_materials: ResMut<Assets<LeafMaterial>>,
+) {
+    let Some(forest) = forest else {
+        return;
+    };
+    if !coverage.is_changed() || coverage.is_added() {
+        return;
+    }
+    for level in &forest.levels {
+        if let Some(mut material) = leaf_materials.get_mut(&level.leaves) {
+            material.lod.y = u32::from(coverage.preserve);
+        }
     }
 }
 
@@ -264,6 +287,11 @@ fn branch_lod(shape: &Shape) -> UVec4 {
     UVec4::new(shape.sides, shape.spans, 0, 0)
 }
 
-fn leaf_lod(shape: &Shape) -> UVec4 {
-    UVec4::new(shape.blades, 0, 0, 0)
+fn leaf_lod(shape: &Shape, coverage: LeafCoverage) -> UVec4 {
+    UVec4::new(
+        shape.blades,
+        u32::from(coverage.preserve),
+        LEAF_COVERAGE_PIXELS.to_bits(),
+        0,
+    )
 }

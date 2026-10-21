@@ -89,6 +89,22 @@ pub struct ForestDetail {
     pub level: LevelSelection,
 }
 
+/// Whether leaf blades keep their coverage as they shrink below a pixel.
+///
+/// Off, a blade narrower than a pixel covers less and less of it and then no
+/// sample at all, and a distant crown thins to bare branches. On, a blade
+/// below [`LEAF_COVERAGE_PIXELS`] is drawn that large and a matching share
+/// of blades is left out, chosen by each blade's own seed, so a crown keeps
+/// its green at any distance (Cook et al., *Stochastic Simplification of
+/// Aggregate Detail*, 2007). Shared-tree leaves are unaffected.
+#[derive(Resource, Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct LeafCoverage {
+    pub preserve: bool,
+}
+
+/// The smallest a blade is drawn, across and along, with [`LeafCoverage`].
+pub const LEAF_COVERAGE_PIXELS: f32 = 1.5;
+
 /// The two independently rendered parts of forest geometry.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[cfg_attr(feature = "prepared", derive(serde::Serialize, serde::Deserialize))]
@@ -152,6 +168,7 @@ impl Plugin for ForestPlugin {
         .init_resource::<ForestFeed>()
         .init_resource::<ForestLodView>()
         .init_resource::<ForestDetail>()
+        .init_resource::<LeafCoverage>()
         .configure_sets(
             PostUpdate,
             (
@@ -170,6 +187,7 @@ impl Plugin for ForestPlugin {
             (
                 cull_from_cameras,
                 materials::follow_detail,
+                materials::follow_leaf_coverage,
                 feed::draw,
                 feed::prepare,
                 show_leaves,

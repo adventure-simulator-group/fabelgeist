@@ -105,6 +105,10 @@ fn figures(ctx: &Context, viewer: &Viewer) {
                     format!("{} modules", grouped(stats.modules)),
                     format!("{} segments", grouped(stats.branches)),
                     format!("{} leaf clusters", grouped(stats.leaves)),
+                    format!(
+                        "leaf coverage {}",
+                        if viewer.leaf_coverage { "kept" } else { "plain" }
+                    ),
                 ] {
                     ui.label(RichText::new(line).monospace().color(theme::MUTED));
                 }

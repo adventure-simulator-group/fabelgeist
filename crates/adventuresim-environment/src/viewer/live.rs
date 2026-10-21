@@ -3,7 +3,7 @@
 //! population, the time controls, a hotbar of tools, and a menu for the
 //! rest.
 
-use adventuresim_environment::render::{ForestDetail, ForestFeed};
+use adventuresim_environment::render::{ForestDetail, ForestFeed, LeafCoverage};
 use bevy::prelude::*;
 use bevy_egui::{EguiContexts, EguiPrimaryContextPass, egui};
 use bevy_panorbit_camera::PanOrbitCamera;
@@ -36,6 +36,8 @@ pub struct Viewer {
     pub lighting: Lighting,
     /// Whether the foliage is drawn.
     pub leaves: bool,
+    /// Whether sub-pixel leaf blades keep their coverage ([`LeafCoverage`]).
+    pub leaf_coverage: bool,
     pub profile: Profile,
     pub tool: Tool,
     pub menu: Menu,
@@ -65,6 +67,7 @@ pub fn install(app: &mut App, scene: Scene) {
         world,
         lighting: Lighting::default(),
         leaves: true,
+        leaf_coverage: coverage_from_page(),
         profile,
         tool: Tool::Look,
         menu: Menu::default(),
@@ -76,6 +79,23 @@ pub fn install(app: &mut App, scene: Scene) {
     .add_systems(Update, (receive, apply).chain())
     .add_systems(EguiPrimaryContextPass, interface);
     pointer::install(app);
+}
+
+/// Whether the page's address asks for kept leaf coverage (`?coverage=1`),
+/// so two tabs can compare it; off natively.
+fn coverage_from_page() -> bool {
+    #[cfg(target_arch = "wasm32")]
+    {
+        let search = web_sys::window()
+            .and_then(|window| window.location().search().ok())
+            .unwrap_or_default();
+        search
+            .trim_start_matches('?')
+            .split('&')
+            .any(|pair| pair == "coverage=1")
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    false
 }
 
 /// An orbiting camera, turned by the mouse.
@@ -112,6 +132,7 @@ fn receive(
 fn apply(
     mut viewer: ResMut<Viewer>,
     mut detail: ResMut<ForestDetail>,
+    mut coverage: ResMut<LeafCoverage>,
     mut sun: Query<(&mut Transform, &mut DirectionalLight), With<Sun>>,
 ) {
     let requests = std::mem::take(&mut viewer.requests);
@@ -128,6 +149,9 @@ fn apply(
         level: Default::default(),
     };
     detail.set_if_neq(wanted);
+    coverage.set_if_neq(LeafCoverage {
+        preserve: viewer.leaf_coverage,
+    });
     let lighting = viewer.lighting;
     for (mut transform, mut light) in &mut sun {
         transform.set_if_neq(stage::sun_transform(lighting));
@@ -163,8 +187,9 @@ fn interface(
     }
 }
 
-/// Space plays and pauses, the digits pick a plant to sow, G clears, Esc
-/// puts the tool down or opens the menu, F3 shows the figures.
+/// Space plays and pauses, the digits pick a plant to sow, G clears, C keeps
+/// or lets go of distant leaves' coverage, Esc puts the tool down or opens
+/// the menu, F3 shows the figures.
 fn keys(ctx: &egui::Context, viewer: &mut Viewer) {
     if ctx.egui_wants_keyboard_input() {
         return;
@@ -176,6 +201,9 @@ fn keys(ctx: &egui::Context, viewer: &mut Viewer) {
     }
     if pressed(egui::Key::G) {
         viewer.tool = Tool::Clear;
+    }
+    if pressed(egui::Key::C) {
+        viewer.leaf_coverage = !viewer.leaf_coverage;
     }
     if pressed(egui::Key::F3) {
         viewer.debug = !viewer.debug;
