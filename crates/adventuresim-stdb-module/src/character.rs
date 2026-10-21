@@ -1,4 +1,5 @@
 use adventuresim_world_schema::calendar::StrategicMinute;
+use attachment_capacity::{AttachmentCapacity, first_free_attachment_capacity};
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
 use weapon_carry::provision_generated_weapon_carry;
 
@@ -49,6 +50,7 @@ use crate::{
     },
 };
 
+mod attachment_capacity;
 #[cfg(feature = "authority-tests")]
 mod authority_tests;
 mod occupancy;
@@ -673,15 +675,6 @@ fn attachment_would_create_cycle(
         );
     }
     false
-}
-
-fn first_free_attachment_capacity(
-    capacity: u16,
-    inventory_item_id: u64,
-    mut occupant_at: impl FnMut(u16) -> Option<u64>,
-) -> Option<u16> {
-    (0..capacity)
-        .find(|index| occupant_at(*index).is_none_or(|occupant| occupant == inventory_item_id))
 }
 
 fn attachment_point_matches_requirement(
@@ -3061,13 +3054,15 @@ fn equip_equipment_internal(
         let capacity_index =
             first_free_attachment_capacity(point.capacity, inventory_item_id, |index| {
                 if reserved_capacity.contains(&(parent_id, point_id.to_owned(), index)) {
-                    return Some(u64::MAX);
+                    return AttachmentCapacity::Reserved;
                 }
                 ctx.db
                     .equipment_occupancy()
                     .id()
                     .find(attachment_occupancy_id(parent_id, point_id, index))
-                    .map(|row| row.inventory_item_id)
+                    .map_or(AttachmentCapacity::Free, |row| {
+                        AttachmentCapacity::Occupied(row.inventory_item_id)
+                    })
             })
             .or_else(|| {
                 replace_occupied.then(|| {
@@ -3294,7 +3289,7 @@ pub(crate) fn replace_development_loadout(
 mod starting_character_boundary_tests {
     use super::weapon_carry::select_sheath_compatible_parent_placement;
     use super::{
-        CharacterAttributes, CharacterCreationMode, NpcLifeFacts,
+        AttachmentCapacity, CharacterAttributes, CharacterCreationMode, NpcLifeFacts,
         attachment_point_matches_requirement, attachment_would_create_cycle,
         character_occupancy_id, first_free_attachment_capacity, hand_only_placement_is_held_root,
         initial_membership_minutes, named_character_id,
@@ -3877,15 +3872,15 @@ mod starting_character_boundary_tests {
     fn attachment_capacity_is_stable_full_and_reparent_idempotent() {
         assert_eq!(
             first_free_attachment_capacity(3, 99, |index| match index {
-                0 => Some(10),
-                1 => None,
-                _ => Some(11),
+                0 => AttachmentCapacity::Occupied(10),
+                1 => AttachmentCapacity::Free,
+                _ => AttachmentCapacity::Occupied(11),
             }),
             Some(1)
         );
-        assert_eq!(first_free_attachment_capacity(2, 99, |_| Some(10)), None);
+        assert_eq!(first_free_attachment_capacity(2, 99, |_| AttachmentCapacity::Occupied(10)), None);
         assert_eq!(
-            first_free_attachment_capacity(2, 99, |index| { (index == 0).then_some(99) }),
+            first_free_attachment_capacity(2, 99, |index| { if index == 0 { AttachmentCapacity::Occupied(99) } else { AttachmentCapacity::Free } }),
             Some(0),
             "an item's existing capacity cell remains a valid atomic reparent target"
         );

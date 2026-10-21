@@ -151,7 +151,7 @@ struct GrabSession {
     selection: Option<GrabSelection>,
     repeated_input: Option<(&'static str, usize)>,
     invalid_flash_remaining: f32,
-    next_sequence: u32,
+    next_sequence: EquipmentSequence,
 }
 
 #[derive(Clone)]
@@ -369,6 +369,11 @@ fn update_grab_input(
     if !released {
         return;
     }
+    let Ok(action_state) = action_states.get(actor) else {
+        warn!(?actor, "Equipment action not sent: authoritative revision is unavailable");
+        (session.active, session.selection, session.repeated_input) = (None, None, None);
+        return;
+    };
     let action = match session.selection {
         Some(GrabSelection::Slot { location, depth }) => EquipmentAction::Slot {
             location,
@@ -391,11 +396,12 @@ fn update_grab_input(
             return;
         }
     };
-    session.next_sequence = session.next_sequence.wrapping_add(1);
+    let sequence = session.next_sequence;
+    session.next_sequence = sequence.next();
     commands.client_trigger(EquipmentActionRequest {
         actor,
-        sequence: session.next_sequence,
-        expected_revision: action_states.get(actor).map_or(0, |state| state.revision),
+        sequence,
+        expected_revision: action_state.revision,
         hand,
         expected_hand_item: held,
         action,

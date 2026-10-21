@@ -80,7 +80,8 @@ pub mod prelude {
         can_grab_window_from_inside,
     };
     pub use crate::inventory::{
-        ArmorItem, ArmorSide, ArmorSlot, EquipSlot, EquipmentActionState, EquipmentTopology,
+        ArmorItem, ArmorSide, ArmorSlot, EquipSlot, EquipmentActionState, EquipmentRevision,
+        EquipmentSequence, EquipmentTopology,
         EquipmentTopologyOccupancy, InventoryItems, ItemOf, ItemProperties, ShieldItem,
         TACTICAL_ITEM_LAYER, TACTICAL_TERRAIN_LAYER, TacticalEquipmentAnchor,
         TacticalEquipmentPhysical, TacticalInventoryItemId, TacticalItemQuantity,

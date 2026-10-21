@@ -21,12 +21,14 @@ use crate::animation::AttackHand;
 use crate::inventory_armor::fold_armor_layers;
 
 mod armor;
+mod chronology;
 mod ordering;
 mod quantity;
 mod query;
 mod timing;
 
 pub use armor::*;
+pub use chronology::{EquipmentRevision, EquipmentSequence};
 pub use ordering::EquipmentRootOrder;
 pub use quantity::*;
 
@@ -215,7 +217,7 @@ pub struct TacticalSceneItem;
     Component, Reflect, Serialize, Deserialize, Clone, Copy, Debug, Default, PartialEq, Eq,
 )]
 pub struct EquipmentActionState {
-    pub revision: u32,
+    pub revision: EquipmentRevision,
 }
 
 #[derive(
