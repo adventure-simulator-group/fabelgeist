@@ -1625,7 +1625,7 @@ mod tests {
         for _ in 0..3 {
             sliced.advance_condition(0.5);
         }
-        assert!((whole.fatigue - sliced.fatigue).abs() < f32::EPSILON);
+        assert_eq!(whole.fatigue, sliced.fatigue);
         assert!(whole.fatigue < 0.5);
         let burden =
             combat_encumbrance_incapacitation(&whole.attributes, &whole.body, &whole.equipment);
@@ -2616,8 +2616,8 @@ mod tests {
             contact_at_seconds: 0.65,
             recovery_until_seconds: 0.9,
         };
-        let below = parameters.melee_dodge_reaction_chance - f32::EPSILON;
-        let above = parameters.melee_dodge_reaction_chance + f32::EPSILON;
+        let below = parameters.melee_dodge_reaction_chance.next_down();
+        let above = parameters.melee_dodge_reaction_chance.next_up();
         assert!(matches!(
             autoresolve_melee_defender_response(
                 &defender,

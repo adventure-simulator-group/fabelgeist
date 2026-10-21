@@ -5,6 +5,10 @@ use bevy::math::{Vec2, Vec3};
 use super::{BuildingLod, BuildingLodMaterial, FACADE_DETAIL_OFFSET_METRES, plan_vertex};
 use crate::{BuildingPlan, OpeningUse};
 
+// Dimensionless sine of the largest member angle retained in a wall overlay.
+// The depth-intersection check separately rejects members on another plane.
+const TIMBER_OVERLAY_MAX_OUTWARD_ALIGNMENT: f32 = 0.001;
+
 pub(super) fn append_opening_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
     for opening in plan
         .opening_assemblies
@@ -100,7 +104,9 @@ pub(super) fn append_timber_details(lod: &mut BuildingLod, plan: &BuildingPlan) 
             let axis = (member.end.metres() - member.start.metres()).normalize_or_zero();
             let side =
                 outward.cross(axis).normalize_or_zero() * member.section_metres.metres().x * 0.5;
-            if side.length_squared() <= f32::EPSILON || axis.dot(outward).abs() > 0.001 {
+            if side.length_squared() <= 0.0
+                || axis.dot(outward).abs() > TIMBER_OVERLAY_MAX_OUTWARD_ALIGNMENT
+            {
                 continue;
             }
             let project = |point: Vec3| point + outward * (surface_plane - point.dot(outward));

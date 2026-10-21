@@ -840,8 +840,8 @@ mod tests {
         assert!((lunar_phase(StrategicMinute::new(LUNAR_CYCLE_MINUTES / 2)) - 0.5).abs() < 0.0001);
         assert_eq!(lunar_phase(StrategicMinute::new(LUNAR_CYCLE_MINUTES)), 0.0);
         assert!(lunar_phase(StrategicMinute::new(u64::MAX)).is_finite());
-        assert!((lunar_illumination(0.0) - 0.0).abs() < f64::EPSILON);
-        assert!((lunar_illumination(0.5) - 1.0).abs() < f64::EPSILON);
+        assert_eq!(lunar_illumination(0.0), 0.0);
+        assert_eq!(lunar_illumination(0.5), 1.0);
     }
 
     #[test]

@@ -189,8 +189,10 @@ impl Head {
 
     /// Polar angle from straight up at the cranium's centre.
     pub fn polar(&self, p: Vec3) -> f32 {
-        let d = (p - self.cranium.center).normalize();
-        d.y.clamp(-1.0, 1.0).acos()
+        let offset = p - self.cranium.center;
+        // Keep the small horizontal component near the crown: normalizing
+        // first rounds the vertical component to one and loses that angle.
+        Vec3::new(offset.x, 0.0, offset.z).length().atan2(offset.y)
     }
 
     /// Where on the scalp a point is: 1 at the crown, 0 at the hairline

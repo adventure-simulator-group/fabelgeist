@@ -186,10 +186,10 @@ fn activity_training_uses_the_daily_minute_allocation() {
         (one_day.will, two_days.will),
     ] {
         assert!(daily > 0.0);
-        assert!((doubled - daily * 2.0).abs() < f32::EPSILON);
+        assert_eq!(doubled, daily * 2.0);
     }
-    assert!((one_day.sword - one_day.dodge).abs() < f32::EPSILON);
-    assert!((one_day.sword - one_day.balance).abs() < f32::EPSILON);
+    assert_eq!(one_day.sword, one_day.dodge);
+    assert_eq!(one_day.sword, one_day.balance);
     assert!(one_day.will > one_day.sword);
     assert_eq!(
         allocation.allocated_minutes(),

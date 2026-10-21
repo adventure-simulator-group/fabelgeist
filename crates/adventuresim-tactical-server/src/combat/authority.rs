@@ -382,8 +382,7 @@ impl MeleeAttackAuthority {
             .rng()
             .inclusive_unit_f32();
             ReciprocalAttackOpportunity {
-                input_reflex: (1.0 - delay.as_secs_f32() / window.max(f32::EPSILON))
-                    .clamp(0.0, 1.0),
+                input_reflex: (1.0 - delay.as_secs_f32() / window).clamp(0.0, 1.0),
                 precision: active.reported_precision,
                 own_contact_after_incoming_seconds: windup
                     .ready_at
@@ -484,7 +483,7 @@ mod tests {
                 CombatDuration::from_duration(Duration::from_millis(500)),
             )
             .unwrap();
-        assert!((opportunity.input_reflex - 0.8).abs() < f32::EPSILON);
+        assert_eq!(opportunity.input_reflex, 0.8);
         assert_eq!(opportunity.precision, precision);
         assert!(
             authority
@@ -565,7 +564,7 @@ mod tests {
         );
         let (key, retained) = authority.transform_attack_for_offhand_defense(1.0).unwrap();
         assert_eq!(key, 23);
-        assert!((retained - 0.6).abs() < f32::EPSILON);
+        assert_eq!(retained, 0.6);
         let authorized = authority
             .authorize_attack(
                 ValidatedMeleeAttack {
@@ -582,7 +581,7 @@ mod tests {
                 SECOND,
             )
             .unwrap();
-        assert!((authorized.power_multiplier() - 0.6).abs() < f32::EPSILON);
+        assert_eq!(authorized.power_multiplier(), 0.6);
     }
 }
 

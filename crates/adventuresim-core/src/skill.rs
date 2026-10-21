@@ -246,7 +246,7 @@ mod tests {
             (4.0, 1.75),
             (5.0, 2.25),
         ] {
-            assert!((aptitude_training_multiplier(attribute) - expected).abs() < f32::EPSILON);
+            assert_eq!(aptitude_training_multiplier(attribute), expected);
         }
         let values: Vec<_> = (0..=50)
             .map(|step| aptitude_training_multiplier(step as f32 / 10.0))
@@ -508,7 +508,7 @@ mod tests {
             knife: 30_000.0,
             sword: 0.0,
         };
-        assert!((epsilon.effective_skill_hours(Skill::Cooking) - 0.02).abs() < f32::EPSILON);
+        assert_eq!(epsilon.effective_skill_hours(Skill::Cooking), 0.02);
         let threshold = Hours {
             cooking: 1_000.0,
             knife: 2_000.0,

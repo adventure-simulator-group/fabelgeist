@@ -932,7 +932,7 @@ mod tests {
         assert_eq!(positions[0], positions[7]);
         assert_eq!(normals[0], normals[7]);
         assert_eq!(uvs[0][0], 0.0);
-        assert!(uvs[7][0] >= 1.0 && uvs[7][0].fract().abs() < f32::EPSILON);
+        assert!(uvs[7][0] >= 1.0 && uvs[7][0].fract() == 0.0);
         assert!(
             uvs.iter().map(|uv| uv[1]).fold(0.0_f32, f32::max) > 0.5,
             "a two-metre-long axis must advance a full physical bark tile"

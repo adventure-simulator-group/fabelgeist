@@ -279,10 +279,10 @@ pub(in crate::animation::procedural) fn advance_airborne_foot_rotation(
     }
     let angle = previous.angle_between(desired);
     let maximum_step = maximum_speed_degrees.max(0.0).to_radians() * delta_seconds.max(0.0);
-    if maximum_step <= f32::EPSILON {
+    if maximum_step <= 0.0 {
         return previous;
     }
-    if angle <= maximum_step || angle <= f32::EPSILON {
+    if angle <= maximum_step || angle <= 0.0 {
         desired
     } else {
         previous.slerp(desired, maximum_step / angle).normalize()
@@ -421,7 +421,7 @@ pub(in crate::animation::procedural) fn finalize_leg_rotation_chains(
         {
             let base_world = foot_snapshot.global.rotation();
             let roll_degrees = run_foot_roll_degrees(skeleton, left);
-            let desired_world = if roll_degrees.abs() > f32::EPSILON {
+            let desired_world = if roll_degrees.abs() > 0.0 {
                 let lateral = (rig_rotation * Vec3::X).normalize_or_zero();
                 Quat::from_axis_angle(lateral, roll_degrees.to_radians()) * base_world
             } else {

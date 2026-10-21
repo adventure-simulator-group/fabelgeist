@@ -114,7 +114,7 @@ pub(super) fn save(
                         .sum::<f64>()
                         .abs()
                         * 0.5;
-                    if area > f64::EPSILON {
+                    if area > 0.0 {
                         contacts.push(serde_json::json!({"building":building.id,"solid":solid.source,"owner":surface.property_id(),"region":region,"contact":world,"intersection":intersection,"area_square_metres":area}));
                     }
                 }
@@ -138,7 +138,7 @@ pub(super) fn save(
                 .sum::<f64>()
                 .abs()
                 * 0.5;
-            if area > f64::EPSILON {
+            if area > 0.0 {
                 pairs.push(serde_json::json!({"first_building":first_building,"first_solid":first_solid,
                 "second_building":second_building,"second_solid":second_solid,"first_contact":first_polygon,"second_contact":second_polygon,
                 "intersection":intersection,"area_square_metres":area,"world_solids":[first_shape,second_shape],

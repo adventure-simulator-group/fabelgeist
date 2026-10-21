@@ -465,18 +465,13 @@ fn above_hairline(p: vec3<f32>) -> f32 {
     return p.y - hairline_height(azimuth(p));
 }
 
-fn polar(p: vec3<f32>) -> f32 {
-    let d = normalize(p - cranium_center());
-    return acos(clamp(d.y, -1.0, 1.0));
-}
-
 fn elevation(p: vec3<f32>) -> f32 {
     let a = azimuth(p);
     let h = hairline_height(a);
     let c = cranium_center();
     let edge = c + vec3<f32>(sin(a) * 0.09, h - c.y, cos(a) * 0.09);
-    let hairline = clamp(polar(edge), 0.1, 2.6);
-    return clamp(1.0 - polar(p) / hairline, 0.0, 1.0);
+    let hairline = clamp(head_polar(edge), 0.1, 2.6);
+    return clamp(1.0 - head_polar(p) / hairline, 0.0, 1.0);
 }
 
 "#;

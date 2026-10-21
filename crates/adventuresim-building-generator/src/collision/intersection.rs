@@ -22,7 +22,8 @@ impl<F: crate::spatial_geometry::GeometryFrame> CollisionCuboid<F> {
         left.into_iter()
             .chain(right)
             .chain(left.into_iter().flat_map(|a| right.map(|b| a.cross(b))))
-            .filter(|axis| axis.length_squared() > f32::EPSILON)
+            // Projection and support radius scale together with axis length.
+            .filter(|axis| axis.is_finite() && axis.length_squared() > 0.0)
             .all(|axis| {
                 delta.dot(axis).abs()
                     < radius(axis, left, self.size.metres())
@@ -34,6 +35,25 @@ impl<F: crate::spatial_geometry::GeometryFrame> CollisionCuboid<F> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn oriented_intersections_preserve_small_physical_scales() {
+        for scale in [1.0e-5, 1.0, 100.0] {
+            let make = |offset| {
+                CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(
+                    crate::ResolvedItemId(1),
+                    Vec3::X * offset * scale,
+                    Vec3::splat(scale),
+                    0.0,
+                    0.0,
+                    0.0,
+                )
+                .unwrap()
+            };
+            assert!(make(0.0).intersects(make(0.5)));
+            assert!(!make(0.0).intersects(make(1.5)));
+        }
+    }
+
     #[test]
     fn diagonal_solids_require_oriented_intersection() {
         let beam = CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(

@@ -412,7 +412,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     }
     let distance = sqrt(radial.x * radial.x + radial.y * radial.y);
     var direction = vec2<f32>(0.0, 1.0);
-    if (distance > 1.1920929e-7) {
+    if (distance > 0.0) {
         direction = radial / distance;
     }
     let radius = section_radius(first, direction) * (1.0 - blend)
@@ -423,7 +423,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     if (params.style == 3u) {
         fitted = max(rho, 1.0);
     }
-    if (rho > 1.1920929e-7) {
+    if (rho > 0.0) {
         if (params.hand != 0u) {
             let fingertip_end = 1.1;
             let strength = clamp(

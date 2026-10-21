@@ -109,7 +109,7 @@ impl CityAccessSegment {
     pub fn contains_centreline(self, point: ScenePlanPoint) -> bool {
         let point = point.metres();
         let delta = self.end_metres() - self.start_metres();
-        if delta.length_squared() <= f32::EPSILON {
+        if delta.length_squared() <= 0.0 {
             return false;
         }
         let fraction = (point - self.start_metres()).dot(delta) / delta.length_squared();
