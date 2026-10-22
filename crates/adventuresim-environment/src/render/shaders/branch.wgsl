@@ -12,7 +12,8 @@
 #import adventuresim_environment::branch_geometry::branch_vertex
 #import adventuresim_environment::branch_surface::branch_response
 
-// x: sides around a tube; y: spans along it.
+// x: sides around a tube; y: spans along it; z: below how many pixels of
+// radius a plant with an impostor is drawn as it instead, as f32 bits.
 @group(3) @binding(0) var<uniform> lod: vec4<u32>;
 @group(3) @binding(1) var<storage, read> branches: array<Branch>;
 @group(3) @binding(2) var<storage, read> species: array<Species>;
@@ -20,6 +21,20 @@
 #ifdef FOREST_SHARED_TREES
 #import adventuresim_environment::tree_pose::{TreeInstance, TreeVertex, place_tree, tree_normal, tree_visible}
 @group(3) @binding(4) var<storage, read> placements: array<TreeInstance>;
+#else
+// Each plant's impostor: its centre and baked radius, zero without one.
+@group(3) @binding(5) var<storage, read> impostor_plants: array<vec4<f32>>;
+
+// Whether `plant` is drawn as its impostor now.
+fn as_impostor(plant: u32) -> bool {
+    if plant >= arrayLength(&impostor_plants) {
+        return false;
+    }
+    let sphere = impostor_plants[plant];
+    let distance = max(length(view.world_position - sphere.xyz), 1e-3);
+    let pixels = sphere.w * view.clip_from_view[1][1] * view.viewport.w * 0.5 / distance;
+    return sphere.w > 0.0 && pixels < bitcast<f32>(lod.z);
+}
 #endif
 
 struct BranchOut {
@@ -61,6 +76,13 @@ fn vertex(vertex: Vertex) -> BranchOut {
     let j = u32(round(vertex.position.y));
 #endif
     let branch = branches[index];
+#ifndef FOREST_SHARED_TREES
+    if as_impostor(branch.plant) {
+        var hidden: BranchOut;
+        hidden.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
+        return hidden;
+    }
+#endif
     let geometry = branch_vertex(branch, k, j, sides, spans);
     let surface = geometry.position;
     var world = vec4<f32>(surface, 1.0);

@@ -13,13 +13,29 @@
 #import adventuresim_environment::leaf_surface::{leaf_shape, coverage, leaf_response}
 
 // x: blades a cluster. y: 1 when sub-pixel blades keep their coverage;
-// z: the smallest blade then drawn, pixels, as f32 bits.
+// z: the smallest blade then drawn, pixels, as f32 bits; w: below how many
+// pixels of radius a plant with an impostor is drawn as it instead, as f32
+// bits.
 @group(3) @binding(0) var<uniform> lod: vec4<u32>;
 @group(3) @binding(1) var<storage, read> leaves: array<Leaf>;
 @group(3) @binding(2) var<storage, read> species: array<Species>;
 #ifdef FOREST_SHARED_TREES
 #import adventuresim_environment::tree_pose::{TreeInstance, TreeVertex, place_tree, tree_normal, tree_visible}
 @group(3) @binding(4) var<storage, read> placements: array<TreeInstance>;
+#else
+// Each plant's impostor: its centre and baked radius, zero without one.
+@group(3) @binding(5) var<storage, read> impostor_plants: array<vec4<f32>>;
+
+// Whether `plant` is drawn as its impostor now.
+fn as_impostor(plant: u32) -> bool {
+    if plant >= arrayLength(&impostor_plants) {
+        return false;
+    }
+    let sphere = impostor_plants[plant];
+    let distance = max(length(view.world_position - sphere.xyz), 1e-3);
+    let pixels = sphere.w * view.clip_from_view[1][1] * view.viewport.w * 0.5 / distance;
+    return sphere.w > 0.0 && pixels < bitcast<f32>(lod.w);
+}
 #endif
 
 struct LeafOut {
@@ -58,6 +74,11 @@ fn vertex(vertex: Vertex) -> LeafOut {
     let corner = vec2<f32>(f32(address % 2u), f32((address / 2u) % 2u));
 #else
     let inst = leaves[vertex.i_index];
+    if as_impostor(inst.plant) {
+        var hidden: LeafOut;
+        hidden.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
+        return hidden;
+    }
     let i = u32(round(vertex.position.z));
     let corner = vec2<f32>(vertex.position.x, vertex.position.y);
 #endif

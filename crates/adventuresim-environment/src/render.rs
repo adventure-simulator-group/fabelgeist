@@ -19,6 +19,7 @@ mod feed;
 mod ground;
 #[cfg(feature = "prepared")]
 pub mod grown;
+mod impostors;
 pub(crate) mod levels;
 mod materials;
 mod records;
@@ -37,6 +38,7 @@ use bevy_eidolon::{prelude::*, prepass::CullComputeCamera};
 
 pub use feed::ForestFeed;
 pub use ground::GroundPart;
+pub use impostors::{FRAMES, FRAME_TEXELS, ImpostorMaterial, ImpostorSettings, ImpostorStatus};
 pub use levels::{
     ForestLodCamera, ForestLodProjection, ForestLodView, Level, LevelSelection,
     ProjectedRadiusPixels, source_bounds_radius,
@@ -141,6 +143,7 @@ impl Plugin for ForestShaderLibraries {
         load_shader_library!(app, "render/shaders/leaf_geometry.wgsl");
         load_shader_library!(app, "render/shaders/leaf_surface.wgsl");
         load_shader_library!(app, "render/shaders/surface_lighting.wgsl");
+        load_shader_library!(app, "render/shaders/impostor_frames.wgsl");
     }
 }
 
@@ -152,6 +155,9 @@ impl Plugin for ForestPlugin {
         embedded_asset!(app, "render/shaders/branch.wgsl");
         embedded_asset!(app, "render/shaders/leaf.wgsl");
         embedded_asset!(app, "render/shaders/forest_cull.wgsl");
+        embedded_asset!(app, "render/shaders/impostor.wgsl");
+        embedded_asset!(app, "render/shaders/impostor_bake.wgsl");
+        embedded_asset!(app, "render/shaders/impostor_mip.wgsl");
         if !app.is_plugin_added::<InstancedMaterialCorePlugin>() {
             app.add_plugins(InstancedMaterialCorePlugin);
         }
@@ -164,6 +170,7 @@ impl Plugin for ForestPlugin {
             GpuCullComputePlugin::<BranchMaterial>::default(),
             InstancedMaterialPlugin::<LeafMaterial>::default(),
             GpuCullComputePlugin::<LeafMaterial>::default(),
+            impostors::ImpostorPlugin,
         ))
         .init_resource::<ForestFeed>()
         .init_resource::<ForestLodView>()
@@ -188,6 +195,7 @@ impl Plugin for ForestPlugin {
                 cull_from_cameras,
                 materials::follow_detail,
                 materials::follow_leaf_coverage,
+                materials::follow_impostor_switch,
                 feed::draw,
                 feed::prepare,
                 show_leaves,

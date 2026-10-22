@@ -151,6 +151,8 @@ pub(super) struct ForestBuffers {
     branches: Stored,
     plants: Stored,
     leaves: Stored,
+    /// Each plant's impostor, written apart from the snapshot's records.
+    impostors: Stored,
 }
 
 impl ForestBuffers {
@@ -160,7 +162,23 @@ impl ForestBuffers {
             branches: Stored::new(buffers),
             plants: Stored::new(buffers),
             leaves: Stored::new(buffers),
+            impostors: Stored::new(buffers),
         }
+    }
+
+    pub(super) fn impostors(&self) -> Handle<ShaderBuffer> {
+        self.impostors.handle.clone()
+    }
+
+    /// Queue each plant's impostor to be written; true when the buffer was
+    /// replaced.
+    pub(super) fn write_impostors(
+        &mut self,
+        bytes: Bytes,
+        buffers: &mut Assets<ShaderBuffer>,
+        writes: &mut PendingWrites,
+    ) -> bool {
+        self.impostors.write(bytes, buffers, writes)
     }
 
     pub(super) fn species(&self) -> Handle<ShaderBuffer> {

@@ -15,7 +15,8 @@ use fabelgeist_botany::species::Foliage;
 use fabelgeist_botany::viewer::sim::SpeciesInfo;
 
 use super::levels::{Level, Shape};
-use super::records::{ForestBuffers, PendingWrites, Records};
+use super::records::{Bytes, ForestBuffers, PendingWrites, Records};
+use super::impostors::ImpostorSettings;
 use super::{ForestDetail, LEAF_COVERAGE_PIXELS, LeafCoverage, shapes};
 
 pub(super) const BRANCH_SHADER: &str =
@@ -27,7 +28,8 @@ pub(super) const CULL_SHADER: &str =
 /// Branch segments, built as tubes.
 #[derive(Asset, TypePath, AsBindGroup, Debug, Clone)]
 pub struct BranchMaterial {
-    /// x: sides around a tube; y: spans along it.
+    /// x: sides around a tube; y: spans along it; z: below how many pixels
+    /// of radius a plant with an impostor is drawn as it instead, as f32 bits.
     #[uniform(0)]
     lod: UVec4,
     #[storage(1, read_only, visibility(vertex, fragment))]
@@ -36,6 +38,9 @@ pub struct BranchMaterial {
     species: Handle<ShaderBuffer>,
     #[storage(3, read_only, visibility(vertex, fragment))]
     plants: Handle<ShaderBuffer>,
+    /// Each plant's impostor: its centre and baked radius, zero without one.
+    #[storage(5, read_only, visibility(vertex))]
+    impostors: Handle<ShaderBuffer>,
 }
 
 /// Leaf clusters, built as blades.
@@ -43,13 +48,16 @@ pub struct BranchMaterial {
 pub struct LeafMaterial {
     /// x: blades a cluster; y: 1 when sub-pixel blades keep their coverage
     /// ([`LeafCoverage`]); z: the smallest blade then drawn, pixels, as f32
-    /// bits.
+    /// bits; w: below how many pixels of radius a plant with an impostor is
+    /// drawn as it instead, as f32 bits.
     #[uniform(0)]
     lod: UVec4,
     #[storage(1, read_only, visibility(vertex, fragment))]
     leaves: Handle<ShaderBuffer>,
     #[storage(2, read_only, visibility(vertex, fragment))]
     species: Handle<ShaderBuffer>,
+    #[storage(5, read_only, visibility(vertex))]
+    impostors: Handle<ShaderBuffer>,
 }
 
 impl InstancedMaterial for BranchMaterial {
@@ -156,6 +164,7 @@ pub(super) fn setup(
     mut commands: Commands,
     detail: Res<ForestDetail>,
     coverage: Res<LeafCoverage>,
+    impostors: Res<ImpostorSettings>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut branch_materials: ResMut<Assets<BranchMaterial>>,
     mut leaf_materials: ResMut<Assets<LeafMaterial>>,
@@ -183,15 +192,17 @@ pub(super) fn setup(
             branch_mesh,
             leaf_mesh,
             branches: branch_materials.add(BranchMaterial {
-                lod: branch_lod(&shape),
+                lod: branch_lod(&shape, &impostors),
                 branches: stored.branches(),
                 species: stored.species(),
                 plants: stored.plants(),
+                impostors: stored.impostors(),
             }),
             leaves: leaf_materials.add(LeafMaterial {
-                lod: leaf_lod(&shape, *coverage),
+                lod: leaf_lod(&shape, *coverage, &impostors),
                 leaves: stored.leaves(),
                 species: stored.species(),
+                impostors: stored.impostors(),
             }),
         }
     });
@@ -206,6 +217,7 @@ pub(super) fn setup(
 pub(super) fn follow_detail(
     detail: Res<ForestDetail>,
     coverage: Res<LeafCoverage>,
+    impostors: Res<ImpostorSettings>,
     forest: Option<Res<ForestMaterials>>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut branch_materials: ResMut<Assets<BranchMaterial>>,
@@ -225,10 +237,10 @@ pub(super) fn follow_detail(
     );
     let _ = meshes.insert(&full.leaf_mesh, shapes::leaf_blades(shape.blades));
     if let Some(mut material) = branch_materials.get_mut(&full.branches) {
-        material.lod = branch_lod(&shape);
+        material.lod = branch_lod(&shape, &impostors);
     }
     if let Some(mut material) = leaf_materials.get_mut(&full.leaves) {
-        material.lod = leaf_lod(&shape, *coverage);
+        material.lod = leaf_lod(&shape, *coverage, &impostors);
     }
 }
 
@@ -251,6 +263,34 @@ pub(super) fn follow_leaf_coverage(
     }
 }
 
+/// Switch every level's plants to their impostors at the size asked for.
+pub(super) fn follow_impostor_switch(
+    impostors: Res<ImpostorSettings>,
+    forest: Option<Res<ForestMaterials>>,
+    mut branch_materials: ResMut<Assets<BranchMaterial>>,
+    mut leaf_materials: ResMut<Assets<LeafMaterial>>,
+) {
+    let Some(forest) = forest else {
+        return;
+    };
+    if !impostors.is_changed() || impostors.is_added() {
+        return;
+    }
+    let bits = impostors.switch_pixels().to_bits();
+    for level in &forest.levels {
+        if let Some(mut material) = branch_materials.get_mut(&level.branches)
+            && material.lod.z != bits
+        {
+            material.lod.z = bits;
+        }
+        if let Some(mut material) = leaf_materials.get_mut(&level.leaves)
+            && material.lod.w != bits
+        {
+            material.lod.w = bits;
+        }
+    }
+}
+
 impl ForestMaterials {
     pub(super) fn level(&self, level: Level) -> &LevelAssets {
         &self.levels[level.index()]
@@ -259,39 +299,63 @@ impl ForestMaterials {
     /// Write a snapshot's records into the storage buffers, binding any
     /// buffer that had to be replaced.
     pub(super) fn store(&mut self, records: Records, stores: &mut ForestStores) {
+        if !self
+            .buffers
+            .write(records, &mut stores.buffers, &mut stores.writes)
+        {
+            return;
+        }
+        self.rebind(stores);
+    }
+
+    /// Write each plant's impostor, binding the buffer if it had to be
+    /// replaced.
+    pub(super) fn store_impostors(&mut self, bytes: Bytes, stores: &mut ForestStores) {
+        if self
+            .buffers
+            .write_impostors(bytes, &mut stores.buffers, &mut stores.writes)
+        {
+            self.rebind(stores);
+        }
+    }
+
+    fn rebind(&self, stores: &mut ForestStores) {
         let ForestStores {
             branch_materials,
             leaf_materials,
-            buffers,
-            writes,
+            ..
         } = stores;
-        if !self.buffers.write(records, buffers, writes) {
-            return;
-        }
         let bound = &self.buffers;
         for level in &self.levels {
             if let Some(mut material) = branch_materials.get_mut(&level.branches) {
                 material.branches = bound.branches();
                 material.plants = bound.plants();
                 material.species = bound.species();
+                material.impostors = bound.impostors();
             }
             if let Some(mut material) = leaf_materials.get_mut(&level.leaves) {
                 material.leaves = bound.leaves();
                 material.species = bound.species();
+                material.impostors = bound.impostors();
             }
         }
     }
 }
 
-fn branch_lod(shape: &Shape) -> UVec4 {
-    UVec4::new(shape.sides, shape.spans, 0, 0)
+fn branch_lod(shape: &Shape, impostors: &ImpostorSettings) -> UVec4 {
+    UVec4::new(
+        shape.sides,
+        shape.spans,
+        impostors.switch_pixels().to_bits(),
+        0,
+    )
 }
 
-fn leaf_lod(shape: &Shape, coverage: LeafCoverage) -> UVec4 {
+fn leaf_lod(shape: &Shape, coverage: LeafCoverage, impostors: &ImpostorSettings) -> UVec4 {
     UVec4::new(
         shape.blades,
         u32::from(coverage.preserve),
         LEAF_COVERAGE_PIXELS.to_bits(),
-        0,
+        impostors.switch_pixels().to_bits(),
     )
 }

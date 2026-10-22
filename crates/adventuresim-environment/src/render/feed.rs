@@ -21,6 +21,8 @@ use super::{ForestDetail, chunks, ground, levels, materials, records};
 pub struct ForestFeed {
     pending: Option<Arc<Snapshot>>,
     preparing: Option<Task<Prepared>>,
+    /// The snapshot on screen.
+    drawn: Option<Arc<Snapshot>>,
 }
 
 impl ForestFeed {
@@ -33,11 +35,17 @@ impl ForestFeed {
     pub fn is_drawn(&self) -> bool {
         self.pending.is_none() && self.preparing.is_none()
     }
+
+    /// The snapshot on screen, once one is drawn.
+    pub fn drawn(&self) -> Option<&Arc<Snapshot>> {
+        self.drawn.as_ref()
+    }
 }
 
 /// A snapshot made ready to draw: its records' bytes, its instances by
 /// chunk, and the ground it brings.
 struct Prepared {
+    snapshot: Arc<Snapshot>,
     records: records::Records,
     chunks: chunks::Chunks,
     ground: ground::Ground,
@@ -57,6 +65,7 @@ pub(super) fn prepare(mut feed: ResMut<ForestFeed>) {
             records: records::Records::new(&snapshot),
             chunks: chunks::Chunks::new(&snapshot),
             ground: ground::Ground::new(&snapshot),
+            snapshot,
         }
     }));
 }
@@ -88,6 +97,7 @@ pub(super) fn draw(
         return;
     };
     feed.preparing = None;
+    feed.drawn = Some(prepared.snapshot);
     forest.store(prepared.records, &mut stores);
     let placement = chunks::Placement {
         forest: &forest,

@@ -3,7 +3,9 @@
 //! population, the time controls, a hotbar of tools, and a menu for the
 //! rest.
 
-use adventuresim_environment::render::{ForestDetail, ForestFeed, LeafCoverage};
+use adventuresim_environment::render::{
+    ForestDetail, ForestFeed, ImpostorSettings, ImpostorStatus, LeafCoverage,
+};
 use bevy::prelude::*;
 use bevy_egui::{EguiContexts, EguiPrimaryContextPass, egui};
 use bevy_panorbit_camera::PanOrbitCamera;
@@ -38,6 +40,9 @@ pub struct Viewer {
     pub leaves: bool,
     /// Whether sub-pixel leaf blades keep their coverage ([`LeafCoverage`]).
     pub leaf_coverage: bool,
+    /// Trees drawn as baked impostors, and what has been baked.
+    pub impostors: ImpostorSettings,
+    pub impostor_status: ImpostorStatus,
     pub profile: Profile,
     pub tool: Tool,
     pub menu: Menu,
@@ -67,7 +72,12 @@ pub fn install(app: &mut App, scene: Scene) {
         world,
         lighting: Lighting::default(),
         leaves: true,
-        leaf_coverage: coverage_from_page(),
+        leaf_coverage: page_asks("coverage=1"),
+        impostors: ImpostorSettings {
+            enabled: page_asks("impostors=1"),
+            ..default()
+        },
+        impostor_status: ImpostorStatus::default(),
         profile,
         tool: Tool::Look,
         menu: Menu::default(),
@@ -81,9 +91,9 @@ pub fn install(app: &mut App, scene: Scene) {
     pointer::install(app);
 }
 
-/// Whether the page's address asks for kept leaf coverage (`?coverage=1`),
-/// so two tabs can compare it; off natively.
-fn coverage_from_page() -> bool {
+/// Whether the page's address holds `pair` (`?coverage=1`, `?impostors=1`),
+/// so two tabs can compare a setting; never natively.
+fn page_asks(pair: &str) -> bool {
     #[cfg(target_arch = "wasm32")]
     {
         let search = web_sys::window()
@@ -92,10 +102,13 @@ fn coverage_from_page() -> bool {
         search
             .trim_start_matches('?')
             .split('&')
-            .any(|pair| pair == "coverage=1")
+            .any(|asked| asked == pair)
     }
     #[cfg(not(target_arch = "wasm32"))]
-    false
+    {
+        let _ = pair;
+        false
+    }
 }
 
 /// An orbiting camera, turned by the mouse.
@@ -133,6 +146,8 @@ fn apply(
     mut viewer: ResMut<Viewer>,
     mut detail: ResMut<ForestDetail>,
     mut coverage: ResMut<LeafCoverage>,
+    mut impostors: ResMut<ImpostorSettings>,
+    status: Res<ImpostorStatus>,
     mut sun: Query<(&mut Transform, &mut DirectionalLight), With<Sun>>,
 ) {
     let requests = std::mem::take(&mut viewer.requests);
@@ -152,6 +167,8 @@ fn apply(
     coverage.set_if_neq(LeafCoverage {
         preserve: viewer.leaf_coverage,
     });
+    impostors.set_if_neq(viewer.impostors);
+    viewer.impostor_status = *status;
     let lighting = viewer.lighting;
     for (mut transform, mut light) in &mut sun {
         transform.set_if_neq(stage::sun_transform(lighting));
@@ -188,8 +205,9 @@ fn interface(
 }
 
 /// Space plays and pauses, the digits pick a plant to sow, G clears, C keeps
-/// or lets go of distant leaves' coverage, Esc puts the tool down or opens
-/// the menu, F3 shows the figures.
+/// or lets go of distant leaves' coverage, I draws trees as impostors or
+/// not, B bakes them again, Esc puts the tool down or opens the menu, F3
+/// shows the figures.
 fn keys(ctx: &egui::Context, viewer: &mut Viewer) {
     if ctx.egui_wants_keyboard_input() {
         return;
@@ -204,6 +222,12 @@ fn keys(ctx: &egui::Context, viewer: &mut Viewer) {
     }
     if pressed(egui::Key::C) {
         viewer.leaf_coverage = !viewer.leaf_coverage;
+    }
+    if pressed(egui::Key::I) {
+        viewer.impostors.enabled = !viewer.impostors.enabled;
+    }
+    if pressed(egui::Key::B) {
+        viewer.impostors.rebake += 1;
     }
     if pressed(egui::Key::F3) {
         viewer.debug = !viewer.debug;

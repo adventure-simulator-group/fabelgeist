@@ -205,6 +205,44 @@ fn world_page(ui: &mut Ui, viewer: &mut Viewer) {
         });
 }
 
+/// Trees as baked impostors: when scene trees switch, and the woods round
+/// the scene.
+fn impostors(ui: &mut Ui, viewer: &mut Viewer) {
+    widgets::section(ui, "Impostors");
+    let settings = &mut viewer.impostors;
+    widgets::switch(ui, &mut settings.enabled, "Trees as impostors (I)");
+    widgets::setting(
+        ui,
+        "Switch below",
+        if settings.switch >= 1_000.0 {
+            "always".to_owned()
+        } else {
+            format!("{:.0} px", settings.switch)
+        },
+        Slider::new(&mut settings.switch, 0.0..=1_000.0).logarithmic(true),
+    );
+    widgets::setting(
+        ui,
+        "Woods",
+        format!("{} trees", crate::hud::grouped(settings.woods as usize)),
+        Slider::new(&mut settings.woods, 0..=200_000).logarithmic(true),
+    );
+    widgets::setting(
+        ui,
+        "Woods reach",
+        format!("{:.0} m", settings.woods_reach),
+        Slider::new(&mut settings.woods_reach, 100.0..=4_000.0).logarithmic(true),
+    );
+    if ui.button("Bake again (B)").clicked() {
+        settings.rebake += 1;
+    }
+    ui.label(
+        RichText::new(crate::hud::impostor_line(viewer))
+            .small()
+            .color(theme::MUTED),
+    );
+}
+
 /// The sun, and how finely plants are drawn.
 fn display(ui: &mut Ui, viewer: &mut Viewer) {
     let lighting = &mut viewer.lighting;
@@ -225,6 +263,7 @@ fn display(ui: &mut Ui, viewer: &mut Viewer) {
     widgets::section(ui, "Plants");
     widgets::switch(ui, &mut viewer.leaves, "Foliage");
     widgets::switch(ui, &mut viewer.leaf_coverage, "Keep distant leaves (C)");
+    impostors(ui, viewer);
     if profile_controls::detail(ui, &mut viewer.profile) {
         let profile = profile_controls::drawable(viewer.profile);
         viewer

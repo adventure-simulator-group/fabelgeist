@@ -109,11 +109,32 @@ fn figures(ctx: &Context, viewer: &Viewer) {
                         "leaf coverage {}",
                         if viewer.leaf_coverage { "kept" } else { "plain" }
                     ),
+                    impostor_line(viewer),
                 ] {
                     ui.label(RichText::new(line).monospace().color(theme::MUTED));
                 }
             });
         });
+}
+
+/// What the impostors are doing.
+pub fn impostor_line(viewer: &Viewer) -> String {
+    let status = &viewer.impostor_status;
+    if !viewer.impostors.enabled {
+        return "impostors off".to_owned();
+    }
+    if let Some((done, of)) = status.baking {
+        return format!("impostors baking {done}/{of}");
+    }
+    let Some(year) = status.year else {
+        return "impostors waiting for a snapshot".to_owned();
+    };
+    format!(
+        "impostors: {} trees from year {year:.0}, {:.0} MB{}",
+        status.trees,
+        status.bytes as f64 / (1024.0 * 1024.0),
+        if status.scene { "" } else { ", scene stale" }
+    )
 }
 
 /// `count` with its thousands apart: 12,480.
