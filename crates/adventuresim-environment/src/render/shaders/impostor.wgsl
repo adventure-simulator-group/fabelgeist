@@ -23,7 +23,9 @@
 // rgb: the set's tint; w: 1 while tinted.
 @group(3) @binding(5) var<uniform> tint: vec4<f32>;
 // x: how much the coverage grows each mip level down, to make up for what
-// averaging takes away (Golus, *Anti-aliased Alpha Test*).
+// averaging takes away (Golus, *Anti-aliased Alpha Test*); y: mip levels
+// the views are read coarser than the screen asks, so near crowns hold
+// together in clumps rather than scatter in specks.
 @group(3) @binding(6) var<uniform> coverage_scale: vec4<f32>;
 
 struct ImpostorOut {
@@ -121,8 +123,9 @@ fn sample_view(cell: vec2<u32>, eye: vec3<f32>, ray: vec3<f32>, layer: u32) -> S
     let uv = atlas_uv(cell, local, frames);
     let inside = select(0.0, 1.0, all(abs(local) <= vec2<f32>(1.0)));
     var out: Seen;
-    out.albedo = textureSample(albedo_atlas, atlas_sampler, uv, layer) * inside;
-    out.normal = textureSample(normal_atlas, atlas_sampler, uv, layer) * inside;
+    let coarser = coverage_scale.y;
+    out.albedo = textureSampleBias(albedo_atlas, atlas_sampler, uv, layer, coarser) * inside;
+    out.normal = textureSampleBias(normal_atlas, atlas_sampler, uv, layer, coarser) * inside;
     return out;
 }
 
@@ -144,7 +147,7 @@ fn fragment(in: ImpostorOut) -> @location(0) vec4<f32> {
     // Mip levels below the full view average the leaves thinner; grow them
     // back by as many levels as the tree is drawn below its view's size.
     let view_texels = f32(textureDimensions(albedo_atlas).x) / f32(settings.x);
-    let level = max(log2(view_texels / max(2.0 * in.pixels, 1e-3)), 0.0);
+    let level = max(log2(view_texels / max(2.0 * in.pixels, 1e-3)), 0.0) + coverage_scale.y;
     let dense = alpha * bitcast<f32>(settings.w) * (1.0 + level * coverage_scale.x);
     let coverage = clamp((dense - 0.5) / max(fwidth(dense), 1e-4) + 0.5, 0.0, 1.0);
     // A scene tree part-way through the switch keeps the pixels its whole

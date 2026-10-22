@@ -101,6 +101,9 @@ pub struct ImpostorSettings {
     /// How much the coverage grows each mip level below a view's full size,
     /// to keep a distant crown as full as a near one.
     pub mip_scale: f32,
+    /// Mip levels the views are read coarser than the screen asks: near
+    /// crowns hold together in clumps rather than scatter in specks.
+    pub coarser: f32,
     /// Each blade is baked this much larger, across and along; applies to
     /// the next bake.
     pub leaf_size: f32,
@@ -118,8 +121,9 @@ impl Default for ImpostorSettings {
             woods: 20_000,
             woods_saplings: 20_000,
             woods_reach: 1_000.0,
-            density: 1.0,
+            density: 1.4,
             mip_scale: 0.25,
+            coarser: 1.0,
             leaf_size: 1.0,
             tint: false,
             rebake: 0,
@@ -166,7 +170,7 @@ pub struct ImpostorMaterial {
     /// rgb: the set's tint; w: 1 while tinted.
     #[uniform(5)]
     tint: Vec4,
-    /// x: the coverage's growth a mip level.
+    /// x: the coverage's growth a mip level; y: mip levels read coarser.
     #[uniform(6)]
     coverage_scale: Vec4,
 }
@@ -362,7 +366,7 @@ fn start_bake(
                 albedo,
                 normal,
                 tint: Vec4::ZERO,
-                coverage_scale: Vec4::new(settings.mip_scale, 0.0, 0.0, 0.0),
+                coverage_scale: Vec4::new(settings.mip_scale, settings.coarser, 0.0, 0.0),
             }),
             progress,
         }
@@ -613,8 +617,10 @@ fn show(
         if let Some(mut material) = materials.get_mut(&set.material)
             && (material.settings != wanted
                 || material.tint.w != tinted
-                || material.coverage_scale.x != settings.mip_scale)
+                || material.coverage_scale.x != settings.mip_scale
+                || material.coverage_scale.y != settings.coarser)
         {
+            material.coverage_scale.y = settings.coarser;
             material.settings = wanted;
             material.tint.w = tinted;
             material.coverage_scale.x = settings.mip_scale;

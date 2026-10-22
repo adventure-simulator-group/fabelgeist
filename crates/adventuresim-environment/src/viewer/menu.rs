@@ -247,6 +247,12 @@ fn impostors(ui: &mut Ui, viewer: &mut Viewer) {
     );
     widgets::setting(
         ui,
+        "Coarsen detail",
+        format!("+{:.1} mip", settings.coarser),
+        Slider::new(&mut settings.coarser, 0.0..=3.0),
+    );
+    widgets::setting(
+        ui,
         "Mip alpha scale",
         format!("+{:.2} a level", settings.mip_scale),
         Slider::new(&mut settings.mip_scale, 0.0..=1.0),
