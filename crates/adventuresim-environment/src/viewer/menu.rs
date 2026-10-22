@@ -247,6 +247,12 @@ fn impostors(ui: &mut Ui, viewer: &mut Viewer) {
     );
     widgets::setting(
         ui,
+        "Mip alpha scale",
+        format!("+{:.2} a level", settings.mip_scale),
+        Slider::new(&mut settings.mip_scale, 0.0..=1.0),
+    );
+    widgets::setting(
+        ui,
         "Wind flutter",
         format!("{:.0}%", settings.wind * 100.0),
         Slider::new(&mut settings.wind, 0.0..=1.0),

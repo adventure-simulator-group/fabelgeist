@@ -101,6 +101,9 @@ pub struct ImpostorSettings {
     /// How much a gusting wind, a noise drifting over the crowns, thins and
     /// thickens the leaves' coverage, as a share of it.
     pub wind: f32,
+    /// How much the coverage grows each mip level below a view's full size,
+    /// to keep a distant crown as full as a near one.
+    pub mip_scale: f32,
     /// Each blade is baked this much larger, across and along; applies to
     /// the next bake.
     pub leaf_size: f32,
@@ -118,8 +121,9 @@ impl Default for ImpostorSettings {
             woods: 20_000,
             woods_saplings: 20_000,
             woods_reach: 1_000.0,
-            density: 2.0,
+            density: 1.0,
             wind: 0.35,
+            mip_scale: 0.25,
             leaf_size: 1.0,
             tint: false,
             rebake: 0,
@@ -166,7 +170,7 @@ pub struct ImpostorMaterial {
     /// rgb: the set's tint; w: 1 while tinted.
     #[uniform(5)]
     tint: Vec4,
-    /// x: the wind's flutter.
+    /// x: the wind's flutter; y: the coverage's growth a mip level.
     #[uniform(6)]
     wind: Vec4,
 }
@@ -362,7 +366,7 @@ fn start_bake(
                 albedo,
                 normal,
                 tint: Vec4::ZERO,
-                wind: Vec4::new(settings.wind, 0.0, 0.0, 0.0),
+                wind: Vec4::new(settings.wind, settings.mip_scale, 0.0, 0.0),
             }),
             progress,
         }
@@ -613,11 +617,13 @@ fn show(
         if let Some(mut material) = materials.get_mut(&set.material)
             && (material.settings != wanted
                 || material.tint.w != tinted
-                || material.wind.x != settings.wind)
+                || material.wind.x != settings.wind
+                || material.wind.y != settings.mip_scale)
         {
             material.settings = wanted;
             material.tint.w = tinted;
             material.wind.x = settings.wind;
+            material.wind.y = settings.mip_scale;
         }
     }
     let woods = (settings.woods, settings.woods_saplings, settings.woods_reach);

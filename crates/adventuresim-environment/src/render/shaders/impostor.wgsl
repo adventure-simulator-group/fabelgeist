@@ -9,7 +9,7 @@
 // of the distant woods, always an impostor.
 #import bevy_pbr::mesh_view_bindings::{view, globals}
 #import bevy_eidolon::render::io_types::Vertex
-#import adventuresim_environment::forest::SurfaceResponse
+#import adventuresim_environment::forest::{SurfaceResponse, switch_fade, fizzle}
 #import adventuresim_environment::impostor_frames::{hemi_encode, frame_direction, frame_basis, atlas_uv, turn}
 #import adventuresim_environment::surface_lighting::light_surface
 
@@ -22,7 +22,9 @@
 @group(3) @binding(3) var normal_atlas: texture_2d_array<f32>;
 // rgb: the set's tint; w: 1 while tinted.
 @group(3) @binding(5) var<uniform> tint: vec4<f32>;
-// x: how much the wind thins and thickens the leaves, as a share of them.
+// x: how much the wind thins and thickens the leaves, as a share of them;
+// y: how much the coverage grows each mip level down, to make up for what
+// averaging takes away (Golus, *Anti-aliased Alpha Test*).
 @group(3) @binding(6) var<uniform> wind: vec4<f32>;
 
 struct ImpostorOut {
@@ -37,6 +39,8 @@ struct ImpostorOut {
     // Pixels of radius the tree spans, which the wind's detail must not
     // outrun.
     @location(6) @interpolate(flat) pixels: f32,
+    // How far a scene tree has turned into its impostor; one in the woods.
+    @location(7) @interpolate(flat) fade: f32,
 };
 
 // How many pixels of radius a tree of `radius` at `center` spans.
@@ -60,9 +64,13 @@ fn vertex(vertex: Vertex) -> ImpostorOut {
     let center = vertex.i_pos_scale.xyz;
     let radius = vertex.i_pos_scale.w;
     let scene = vertex.i_seed == 1u;
-    let switching = settings.y == 1u
-        && radius_pixels(center, radius) < bitcast<f32>(settings.z);
-    if scene && !switching {
+    let switching = select(0.0, 1.0, settings.y == 1u);
+    let fade = select(
+        1.0,
+        switching * switch_fade(radius_pixels(center, radius), bitcast<f32>(settings.z)),
+        scene,
+    );
+    if fade <= 0.0 {
         out.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
         return out;
     }
@@ -94,6 +102,7 @@ fn vertex(vertex: Vertex) -> ImpostorOut {
     out.yaw = vertex.i_rotation;
     out.layer = vertex.i_index;
     out.pixels = radius_pixels(center, radius);
+    out.fade = fade;
     return out;
 }
 
@@ -179,9 +188,15 @@ fn fragment(in: ImpostorOut) -> @location(0) vec4<f32> {
     // The leaves thickened as asked, stirred by the wind, and cut at one
     // half, sharp: solid inside, nothing outside, and only the edge, a
     // pixel wide, spread over the samples.
-    let dense = alpha * bitcast<f32>(settings.w) * (1.0 + flutter(in));
+    // Mip levels below the full view average the leaves thinner; grow them
+    // back by as many levels as the tree is drawn below its view's size.
+    let view_texels = f32(textureDimensions(albedo_atlas).x) / f32(settings.x);
+    let level = max(log2(view_texels / max(2.0 * in.pixels, 1e-3)), 0.0);
+    let dense = alpha * bitcast<f32>(settings.w) * (1.0 + level * wind.y) * (1.0 + flutter(in));
     let coverage = clamp((dense - 0.5) / max(fwidth(dense), 1e-4) + 0.5, 0.0, 1.0);
-    if coverage < 0.02 {
+    // A scene tree part-way through the switch keeps the pixels its whole
+    // self leaves.
+    if coverage < 0.02 || fizzle(in.clip.xy) >= in.fade {
         discard;
     }
     // Premultiplied by coverage, as baked.

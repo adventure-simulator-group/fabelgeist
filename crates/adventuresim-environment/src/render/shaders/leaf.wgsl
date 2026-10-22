@@ -7,7 +7,7 @@
 // fragment shader.
 #import bevy_pbr::mesh_view_bindings::view
 #import bevy_eidolon::render::io_types::Vertex
-#import adventuresim_environment::forest::{Species, Leaf, linear}
+#import adventuresim_environment::forest::{Species, Leaf, linear, switch_fade, fizzle}
 
 #import adventuresim_environment::leaf_geometry::leaf_vertex
 #import adventuresim_environment::leaf_surface::{leaf_shape, coverage, leaf_response}
@@ -26,15 +26,19 @@
 // Each plant's impostor: its centre and baked radius, zero without one.
 @group(3) @binding(5) var<storage, read> impostor_plants: array<vec4<f32>>;
 
-// Whether `plant` is drawn as its impostor now.
-fn as_impostor(plant: u32) -> bool {
+// How far `plant` has turned into its impostor now: zero whole, one an
+// impostor.
+fn impostor_fade(plant: u32) -> f32 {
     if plant >= arrayLength(&impostor_plants) {
-        return false;
+        return 0.0;
     }
     let sphere = impostor_plants[plant];
+    if sphere.w <= 0.0 {
+        return 0.0;
+    }
     let distance = max(length(view.world_position - sphere.xyz), 1e-3);
     let pixels = sphere.w * view.clip_from_view[1][1] * view.viewport.w * 0.5 / distance;
-    return sphere.w > 0.0 && pixels < bitcast<f32>(lod.w);
+    return switch_fade(pixels, bitcast<f32>(lod.w));
 }
 #endif
 
@@ -50,6 +54,8 @@ struct LeafOut {
     @location(5) @interpolate(flat) seed: f32,
     @location(6) @interpolate(flat) crown: vec4<f32>,
     @location(7) surface: vec3<f32>,
+    // How far the plant has turned into its impostor.
+    @location(8) @interpolate(flat) fade: f32,
 };
 
 @vertex
@@ -72,9 +78,11 @@ fn vertex(vertex: Vertex) -> LeafOut {
     let inst = leaves[placement.records.z + record];
     let i = (address / 4u) % blades;
     let corner = vec2<f32>(f32(address % 2u), f32((address / 2u) % 2u));
+    let fade = 0.0;
 #else
     let inst = leaves[vertex.i_index];
-    if as_impostor(inst.plant) {
+    let fade = impostor_fade(inst.plant);
+    if fade >= 1.0 {
         var hidden: LeafOut;
         hidden.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
         return hidden;
@@ -87,6 +95,7 @@ fn vertex(vertex: Vertex) -> LeafOut {
     var world = geometry.position;
     var normal = geometry.normal;
     var out: LeafOut;
+    out.fade = fade;
     out.seed = geometry.seed;
     out.surface = world;
 #ifdef FOREST_SHARED_TREES
@@ -149,7 +158,7 @@ fn keep_coverage(world: vec3<f32>, across: vec3<f32>, along: vec3<f32>, seed: f3
 fn fragment(in: LeafOut, @builtin(front_facing) front: bool) -> @location(0) vec4<f32> {
     let foliage = u32(species[in.kind].leaf.w);
     let alpha = coverage(leaf_shape(in.uv, foliage, in.seed));
-    if (alpha < 0.02) {
+    if (alpha < 0.02 || fizzle(in.clip.xy) < in.fade) {
         discard;
     }
     let n = select(-in.normal, in.normal, front);

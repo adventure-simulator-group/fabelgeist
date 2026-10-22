@@ -111,3 +111,25 @@ fn bark_noise(p: vec2<f32>, period: f32) -> f32 {
         w.y,
     );
 }
+
+// A plant turns into its impostor over a band of sizes, this share of the
+// switch either side of it, the two dissolving into each other pixel by
+// pixel rather than one popping into the other (as SpeedTree's fizzle LOD,
+// GPU Gems 3, ch. 4).
+const SWITCH_BAND: f32 = 0.3;
+
+// How far a plant spanning `pixels` of radius has turned into its impostor
+// at `switch`: zero whole, one an impostor.
+fn switch_fade(pixels: f32, switch: f32) -> f32 {
+    if switch <= 0.0 {
+        return 0.0;
+    }
+    return clamp((switch * (1.0 + SWITCH_BAND) - pixels) / (2.0 * SWITCH_BAND * switch), 0.0, 1.0);
+}
+
+// A number per pixel, zero to one, the same for a plant and its impostor:
+// the plant keeps a pixel where it is at least the fade, the impostor
+// where it is under (interleaved gradient noise, Jimenez 2014).
+fn fizzle(fragment: vec2<f32>) -> f32 {
+    return fract(52.9829189 * fract(dot(floor(fragment), vec2<f32>(0.06711056, 0.00583715))));
+}

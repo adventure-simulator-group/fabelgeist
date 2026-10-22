@@ -6,7 +6,7 @@
 #import bevy_pbr::mesh_view_bindings::view
 #import bevy_eidolon::render::io_types::Vertex
 #import adventuresim_environment::forest::{
-    Species, PlantInfo, Branch, linear
+    Species, PlantInfo, Branch, linear, switch_fade, fizzle
 }
 
 #import adventuresim_environment::branch_geometry::branch_vertex
@@ -25,15 +25,19 @@
 // Each plant's impostor: its centre and baked radius, zero without one.
 @group(3) @binding(5) var<storage, read> impostor_plants: array<vec4<f32>>;
 
-// Whether `plant` is drawn as its impostor now.
-fn as_impostor(plant: u32) -> bool {
+// How far `plant` has turned into its impostor now: zero whole, one an
+// impostor.
+fn impostor_fade(plant: u32) -> f32 {
     if plant >= arrayLength(&impostor_plants) {
-        return false;
+        return 0.0;
     }
     let sphere = impostor_plants[plant];
+    if sphere.w <= 0.0 {
+        return 0.0;
+    }
     let distance = max(length(view.world_position - sphere.xyz), 1e-3);
     let pixels = sphere.w * view.clip_from_view[1][1] * view.viewport.w * 0.5 / distance;
-    return sphere.w > 0.0 && pixels < bitcast<f32>(lod.z);
+    return switch_fade(pixels, bitcast<f32>(lod.z));
 }
 #endif
 
@@ -45,6 +49,8 @@ struct BranchOut {
     @location(3) @interpolate(flat) segment: u32,
     @location(4) @interpolate(flat) kind: u32,
     @location(5) surface: vec3<f32>,
+    // How far the plant has turned into its impostor.
+    @location(6) @interpolate(flat) fade: f32,
 };
 
 @vertex
@@ -77,11 +83,14 @@ fn vertex(vertex: Vertex) -> BranchOut {
 #endif
     let branch = branches[index];
 #ifndef FOREST_SHARED_TREES
-    if as_impostor(branch.plant) {
+    let fade = impostor_fade(branch.plant);
+    if fade >= 1.0 {
         var hidden: BranchOut;
         hidden.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
         return hidden;
     }
+#else
+    let fade = 0.0;
 #endif
     let geometry = branch_vertex(branch, k, j, sides, spans);
     let surface = geometry.position;
@@ -100,6 +109,7 @@ fn vertex(vertex: Vertex) -> BranchOut {
     out.surface = surface;
     out.light = geometry.light;
     out.segment = index;
+    out.fade = fade;
     out.kind = plants[branch.plant].kind;
     return out;
 }
@@ -108,6 +118,9 @@ fn vertex(vertex: Vertex) -> BranchOut {
 
 @fragment
 fn fragment(in: BranchOut) -> @location(0) vec4<f32> {
+    if fizzle(in.clip.xy) < in.fade {
+        discard;
+    }
     let branch = branches[in.segment];
     let response = branch_response(branch, species[in.kind], in.surface, in.light);
     return light_surface(response, 1.0, in.world, normalize(in.normal), in.clip);
