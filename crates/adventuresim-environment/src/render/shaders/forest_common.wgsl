@@ -119,12 +119,12 @@ fn bark_noise(p: vec2<f32>, period: f32) -> f32 {
 const SWITCH_BAND: f32 = 0.3;
 
 // How far a plant spanning `pixels` of radius has turned into its impostor
-// at `switch`: zero whole, one an impostor.
-fn switch_fade(pixels: f32, switch: f32) -> f32 {
-    if switch <= 0.0 {
+// at the switch `at`: zero whole, one an impostor.
+fn switch_fade(pixels: f32, at: f32) -> f32 {
+    if at <= 0.0 {
         return 0.0;
     }
-    return clamp((switch * (1.0 + SWITCH_BAND) - pixels) / (2.0 * SWITCH_BAND * switch), 0.0, 1.0);
+    return clamp((at * (1.0 + SWITCH_BAND) - pixels) / (2.0 * SWITCH_BAND * at), 0.0, 1.0);
 }
 
 // A number per pixel, zero to one, the same for a plant and its impostor:
