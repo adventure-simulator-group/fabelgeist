@@ -158,8 +158,6 @@ impl Plugin for ForestPlugin {
         embedded_asset!(app, "render/shaders/impostor.wgsl");
         embedded_asset!(app, "render/shaders/impostor_bake.wgsl");
         embedded_asset!(app, "render/shaders/impostor_mip.wgsl");
-        embedded_asset!(app, "render/shaders/impostor_scale.wgsl");
-        embedded_asset!(app, "render/shaders/impostor_mask.wgsl");
         if !app.is_plugin_added::<InstancedMaterialCorePlugin>() {
             app.add_plugins(InstancedMaterialCorePlugin);
         }

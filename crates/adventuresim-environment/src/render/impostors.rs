@@ -4,9 +4,6 @@
 //! Each tree the size of a tree is drawn from [`FRAMES`]² directions over the
 //! upper hemisphere into one layer of an atlas ([`bake`]); a tree then
 //! needs one quad, reading the three views nearest the eye's direction.
-//! Its outline is a mask cut at one half, read bicubically, whose mip
-//! levels keep the full-size view's share of texels over the cut, so leaves
-//! grow rather than fade with distance.
 //! Scene trees switch to theirs while they span fewer pixels than
 //! [`ImpostorSettings::switch`], their branches and leaves stepping aside in
 //! the same frame, the same test on both sides; and woods of their copies,
@@ -137,9 +134,6 @@ pub struct ImpostorMaterial {
     albedo: Handle<Image>,
     #[texture(3, dimension = "2d_array")]
     normal: Handle<Image>,
-    /// Coverage raised level by level to keep its share over the threshold.
-    #[texture(4, dimension = "2d_array")]
-    mask: Handle<Image>,
 }
 
 impl InstancedMaterial for ImpostorMaterial {
@@ -164,7 +158,6 @@ impl InstancedMaterial for ImpostorMaterial {
         _key: Self::Data,
     ) -> Result<(), SpecializedMeshPipelineError> {
         descriptor.primitive.cull_mode = None;
-        // The mask's edge, a pixel wide, becomes sample coverage.
         descriptor.multisample.alpha_to_coverage_enabled = descriptor.multisample.count > 1;
         Ok(())
     }
@@ -293,16 +286,14 @@ fn start_bake(
     };
     let albedo = atlas(bake::ALBEDO_FORMAT);
     let normal = atlas(bake::NORMAL_FORMAT);
-    let mask = atlas(bake::MASK_FORMAT);
     let side = u64::from(FRAMES * FRAME_TEXELS);
-    // Nine bytes a texel over three atlases, a third more for the mips.
-    let bytes = side * side * 9 * u64::from(layers) * 4 / 3;
+    // Four bytes a texel, two atlases, a third more for the mip levels.
+    let bytes = side * side * 4 * 2 * u64::from(layers) * 4 / 3;
     let progress = Arc::new(AtomicU32::new(0));
     if !trees.is_empty() {
         queue.push(BakeJob {
             albedo: albedo.id(),
             normal: normal.id(),
-            mask: mask.id(),
             progress: progress.clone(),
             ..job
         });
@@ -314,7 +305,6 @@ fn start_bake(
             settings: UVec4::new(FRAMES, 0, settings.switch.to_bits(), 0),
             albedo,
             normal,
-            mask,
         }),
         bytes,
         progress,
@@ -390,7 +380,6 @@ fn prepare(snapshot: &Snapshot, [sides, spans, blades]: [u32; 3]) -> (Vec<Tree>,
     let job = BakeJob {
         albedo: AssetId::default(),
         normal: AssetId::default(),
-        mask: AssetId::default(),
         frames: FRAMES,
         frame_texels: FRAME_TEXELS,
         mips: MIPS,
