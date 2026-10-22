@@ -14,7 +14,8 @@
 #import adventuresim_environment::surface_lighting::light_surface
 
 // x: views along each side of the grid; y: 1 while scene trees switch;
-// z: the switch, pixels of radius, as f32 bits.
+// z: the switch, pixels of radius, as f32 bits; w: the leaf density, a
+// factor on the baked coverage, as f32 bits.
 @group(3) @binding(0) var<uniform> settings: vec4<u32>;
 @group(3) @binding(1) var albedo_atlas: texture_2d_array<f32>;
 @group(3) @binding(2) var atlas_sampler: sampler;
@@ -123,7 +124,10 @@ fn fragment(in: ImpostorOut) -> @location(0) vec4<f32> {
     let albedo = a.albedo * w.x + b.albedo * w.y + c.albedo * w.z;
     let normal = a.normal * w.x + b.normal * w.y + c.normal * w.z;
     let alpha = albedo.a;
-    if alpha < 0.02 {
+    // The leaves thickened as asked: a partly covered texel fills in, an
+    // open one stays open.
+    let coverage = clamp(alpha * bitcast<f32>(settings.w), 0.0, 1.0);
+    if coverage < 0.02 {
         discard;
     }
     // Premultiplied by coverage, as baked.
@@ -132,7 +136,7 @@ fn fragment(in: ImpostorOut) -> @location(0) vec4<f32> {
     response.albedo = albedo.rgb / alpha;
     response.occlusion = clamp(normal.a / alpha, 0.0, 1.0);
     response.roughness = 0.7;
-    var color = light_surface(response, alpha, in.world, n, in.clip);
-    color.a = clamp(alpha, 0.0, 1.0);
+    var color = light_surface(response, coverage, in.world, n, in.clip);
+    color.a = coverage;
     return color;
 }

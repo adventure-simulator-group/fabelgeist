@@ -130,8 +130,9 @@ pub fn impostor_line(viewer: &Viewer) -> String {
         return "impostors waiting for a snapshot".to_owned();
     };
     format!(
-        "impostors: {} trees from year {year:.0}, {:.0} MB{}",
+        "impostors: {} trees, {} saplings from year {year:.0}, {:.0} MB{}",
         status.trees,
+        status.saplings,
         status.bytes as f64 / (1024.0 * 1024.0),
         if status.scene { "" } else { ", scene stale" }
     )

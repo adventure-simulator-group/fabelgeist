@@ -18,7 +18,8 @@ struct Model {
     // x: sides around a tube; y: spans along it; z: blades a cluster;
     // w: views along each side of the grid.
     shape: vec4<u32>,
-    // x: a texel's width, metres; y: the smallest blade drawn, texels.
+    // x: a texel's width, metres; y: the smallest blade drawn, texels;
+    // z: how much larger every blade is drawn, across and along.
     texel: vec4<f32>,
 };
 
@@ -161,8 +162,10 @@ fn leaf_vertex_main(@builtin(vertex_index) v: u32, @builtin(instance_index) inst
         out.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
         return out;
     }
-    let world = geometry.position + across * (corner.x - 0.5) * (kept.y - 1.0)
-        + along * (corner.y - 0.5) * (kept.z - 1.0);
+    // Grown past what keeps the coverage, every blade kept: denser leaves.
+    let grow = kept.yz * model.texel.z;
+    let world = geometry.position + across * (corner.x - 0.5) * (grow.x - 1.0)
+        + along * (corner.y - 0.5) * (grow.y - 1.0);
     let placed = place(world, frame);
     out.clip = placed.clip;
     out.local = placed.local;

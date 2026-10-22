@@ -233,6 +233,18 @@ fn impostors(ui: &mut Ui, viewer: &mut Viewer) {
         format!("{:.0} m", settings.woods_reach),
         Slider::new(&mut settings.woods_reach, 100.0..=4_000.0).logarithmic(true),
     );
+    widgets::setting(
+        ui,
+        "Leaf density",
+        format!("×{:.2}", settings.density),
+        Slider::new(&mut settings.density, 0.5..=4.0),
+    );
+    widgets::setting(
+        ui,
+        "Leaf size, baked",
+        format!("×{:.2}", settings.leaf_size),
+        Slider::new(&mut settings.leaf_size, 0.5..=3.0),
+    );
     if ui.button("Bake again (B)").clicked() {
         settings.rebake += 1;
     }

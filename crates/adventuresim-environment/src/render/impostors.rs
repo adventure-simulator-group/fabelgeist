@@ -1,8 +1,9 @@
 //! Trees as octahedral impostors, baked in the browser from the snapshot on
 //! screen.
 //!
-//! Each tree the size of a tree is drawn from [`FRAMES`]² directions over the
-//! upper hemisphere into one layer of an atlas ([`bake`]); a tree then
+//! Each tree the size of a tree, and each sapling of a species that grows
+//! to one, is drawn from [`FRAMES`]² directions over the upper hemisphere
+//! into one layer of an atlas ([`bake`]), trees finer than saplings; a tree then
 //! needs one quad, reading the three views nearest the eye's direction.
 //! Scene trees switch to theirs while they span fewer pixels than
 //! [`ImpostorSettings::switch`], their branches and leaves stepping aside in
@@ -46,15 +47,21 @@ const IMPOSTOR_SHADER: &str = "embedded://adventuresim_environment/render/shader
 
 /// Views along each side of a tree's grid: 64 views in all.
 pub const FRAMES: u32 = 8;
-/// A view's side, texels.
-pub const FRAME_TEXELS: u32 = 64;
-/// Mip levels, down to a texel a view.
-const MIPS: u32 = FRAME_TEXELS.ilog2() + 1;
+/// A tree's view's side, texels: at the switch a tree spans about as many
+/// pixels as its view has texels, so it is never drawn magnified.
+pub const FRAME_TEXELS: u32 = 128;
+/// A sapling's, which is never large on screen.
+pub const SAPLING_TEXELS: u32 = 32;
 /// Plants at least this wide, metres of radius, are trees with impostors:
 /// the size class the forest keeps apart from shrubs.
 const TREE_RADIUS: f32 = 4.0;
-/// The most trees a bake takes, largest first.
+/// Saplings this wide and wider, of a species with trees, have impostors.
+const SAPLING_RADIUS: f32 = 0.3;
+/// The most trees and saplings a bake takes, largest first.
 const MOST_TREES: usize = 64;
+const MOST_SAPLINGS: usize = 192;
+/// The share of the woods that are saplings, when there are any.
+const WOODS_SAPLINGS: f32 = 0.3;
 /// How far a cluster's blades reach past its centre, in cluster sizes, to
 /// bound a tree.
 const CLUSTER_REACH: f32 = 2.0;
@@ -84,6 +91,13 @@ pub struct ImpostorSettings {
     pub woods: u32,
     /// How far the woods reach from the scene's middle, metres.
     pub woods_reach: f32,
+    /// The baked leaves' coverage is multiplied by this as they are drawn:
+    /// above one, a partly covered texel fills in, and an open one stays
+    /// open.
+    pub density: f32,
+    /// Each blade is baked this much larger, across and along; applies to
+    /// the next bake.
+    pub leaf_size: f32,
     /// Raise to bake again now.
     pub rebake: u32,
 }
@@ -95,6 +109,8 @@ impl Default for ImpostorSettings {
             switch: 40.0,
             woods: 30_000,
             woods_reach: 1_000.0,
+            density: 1.0,
+            leaf_size: 1.0,
             rebake: 0,
         }
     }
@@ -110,8 +126,9 @@ impl ImpostorSettings {
 /// What has been baked, for display.
 #[derive(Resource, Clone, Copy, Debug, Default, PartialEq)]
 pub struct ImpostorStatus {
-    /// Trees in the bake drawn now, and the year it was taken.
+    /// Trees and saplings in the bake drawn now, and the year it was taken.
     pub trees: usize,
+    pub saplings: usize,
     pub year: Option<f32>,
     /// The atlas's size on the GPU, bytes.
     pub bytes: u64,
@@ -126,7 +143,8 @@ pub struct ImpostorStatus {
 #[derive(Asset, TypePath, AsBindGroup, Debug, Clone)]
 pub struct ImpostorMaterial {
     /// x: views along each side of the grid; y: 1 while scene trees switch;
-    /// z: the switch, pixels of radius, as f32 bits.
+    /// z: the switch, pixels of radius, as f32 bits; w: the leaf density, as
+    /// f32 bits.
     #[uniform(0)]
     settings: UVec4,
     #[texture(1, dimension = "2d_array")]
@@ -202,13 +220,26 @@ struct Tree {
     ground: f32,
 }
 
-/// A bake: its atlas, its trees, and the snapshot they were baked from.
+/// A bake: the trees and the saplings, and the snapshot they were baked
+/// from.
 struct Bake {
     snapshot: Arc<Snapshot>,
+    trees: Set,
+    saplings: Set,
+}
+
+/// Plants baked alike: their atlas, as a material, and how far along.
+struct Set {
     trees: Vec<Tree>,
     material: Handle<ImpostorMaterial>,
     bytes: u64,
     progress: Arc<AtomicU32>,
+}
+
+impl Bake {
+    fn sets(&self) -> [&Set; 2] {
+        [&self.trees, &self.saplings]
+    }
 }
 
 #[derive(Resource, Default)]
@@ -260,65 +291,115 @@ fn start_bake(
     }
     impostors.rebake = settings.rebake;
     let shape = Level::Middle.shape(&detail);
-    let (trees, job) = prepare(snapshot, [shape.sides, shape.spans, shape.blades]);
-    let layers = trees.len().max(1) as u32;
-    let mut atlas = |format| {
-        let side = FRAMES * FRAME_TEXELS;
-        let mut image = Image::new_uninit(
-            Extent3d {
-                width: side,
-                height: side,
-                depth_or_array_layers: layers,
-            },
-            TextureDimension::D2,
-            format,
-            RenderAssetUsages::RENDER_WORLD,
-        );
-        image.texture_descriptor.mip_level_count = MIPS;
-        image.texture_descriptor.usage =
-            TextureUsages::TEXTURE_BINDING | TextureUsages::RENDER_ATTACHMENT;
-        image.texture_view_descriptor = Some(TextureViewDescriptor {
-            dimension: Some(TextureViewDimension::D2Array),
-            ..default()
-        });
-        image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor::linear());
-        images.add(image)
+    let shape = [shape.sides, shape.spans, shape.blades];
+    let (trees, saplings) = choose(snapshot);
+    let mut jobs = Vec::new();
+    let mut set = |chosen: Vec<usize>, texels: u32| {
+        let (trees, job) = prepare(snapshot, &chosen, texels, shape, settings.leaf_size);
+        let layers = trees.len().max(1) as u32;
+        let side = FRAMES * texels;
+        let mips = texels.ilog2() + 1;
+        let mut atlas = |format| {
+            let mut image = Image::new_uninit(
+                Extent3d {
+                    width: side,
+                    height: side,
+                    depth_or_array_layers: layers,
+                },
+                TextureDimension::D2,
+                format,
+                RenderAssetUsages::RENDER_WORLD,
+            );
+            image.texture_descriptor.mip_level_count = mips;
+            image.texture_descriptor.usage =
+                TextureUsages::TEXTURE_BINDING | TextureUsages::RENDER_ATTACHMENT;
+            image.texture_view_descriptor = Some(TextureViewDescriptor {
+                dimension: Some(TextureViewDimension::D2Array),
+                ..default()
+            });
+            image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor::linear());
+            images.add(image)
+        };
+        let albedo = atlas(bake::ALBEDO_FORMAT);
+        let normal = atlas(bake::NORMAL_FORMAT);
+        let side = u64::from(side);
+        // Four bytes a texel, two atlases, a third more for the mip levels.
+        let bytes = side * side * 4 * 2 * u64::from(layers) * 4 / 3;
+        let progress = Arc::new(AtomicU32::new(0));
+        if !trees.is_empty() {
+            jobs.push(BakeJob {
+                albedo: albedo.id(),
+                normal: normal.id(),
+                progress: progress.clone(),
+                ..job
+            });
+        }
+        Set {
+            bytes: if trees.is_empty() { 0 } else { bytes },
+            trees,
+            material: materials.add(ImpostorMaterial {
+                settings: UVec4::new(FRAMES, 0, settings.switch.to_bits(), settings.density.to_bits()),
+                albedo,
+                normal,
+            }),
+            progress,
+        }
     };
-    let albedo = atlas(bake::ALBEDO_FORMAT);
-    let normal = atlas(bake::NORMAL_FORMAT);
-    let side = u64::from(FRAMES * FRAME_TEXELS);
-    // Four bytes a texel, two atlases, a third more for the mip levels.
-    let bytes = side * side * 4 * 2 * u64::from(layers) * 4 / 3;
-    let progress = Arc::new(AtomicU32::new(0));
-    if !trees.is_empty() {
-        queue.push(BakeJob {
-            albedo: albedo.id(),
-            normal: normal.id(),
-            progress: progress.clone(),
-            ..job
-        });
-    }
+    let trees = set(trees, FRAME_TEXELS);
+    let saplings = set(saplings, SAPLING_TEXELS);
+    queue.push(jobs);
     impostors.pending = Some(Bake {
         snapshot: snapshot.clone(),
         trees,
-        material: materials.add(ImpostorMaterial {
-            settings: UVec4::new(FRAMES, 0, settings.switch.to_bits(), 0),
-            albedo,
-            normal,
-        }),
-        bytes,
-        progress,
+        saplings,
     });
 }
 
-/// The trees of `snapshot` to bake, largest first, and their records.
-fn prepare(snapshot: &Snapshot, [sides, spans, blades]: [u32; 3]) -> (Vec<Tree>, BakeJob) {
+/// The plants of `snapshot` to bake, each largest first: its trees, and the
+/// saplings of species some of whose plants are trees.
+fn choose(snapshot: &Snapshot) -> (Vec<usize>, Vec<usize>) {
     let plants = &snapshot.plant_bounds;
-    let mut chosen: Vec<usize> = (0..plants.len())
-        .filter(|&plant| plants[plant].sphere[3] >= TREE_RADIUS)
+    let radius = |plant: usize| plants[plant].sphere[3];
+    let mut tree_species = vec![false; snapshot.species.len()];
+    for plant in plants {
+        if plant.sphere[3] >= TREE_RADIUS
+            && let Some(species) = tree_species.get_mut(plant.species as usize)
+        {
+            *species = true;
+        }
+    }
+    let largest_first = |mut chosen: Vec<usize>, most: usize| {
+        chosen.sort_by(|&a, &b| radius(b).total_cmp(&radius(a)));
+        chosen.truncate(most);
+        chosen
+    };
+    let trees = (0..plants.len()).filter(|&plant| radius(plant) >= TREE_RADIUS).collect();
+    let saplings = (0..plants.len())
+        .filter(|&plant| {
+            let r = radius(plant);
+            (SAPLING_RADIUS..TREE_RADIUS).contains(&r)
+                && tree_species
+                    .get(plants[plant].species as usize)
+                    .copied()
+                    .unwrap_or(false)
+        })
         .collect();
-    chosen.sort_by(|&a, &b| plants[b].sphere[3].total_cmp(&plants[a].sphere[3]));
-    chosen.truncate(MOST_TREES);
+    (
+        largest_first(trees, MOST_TREES),
+        largest_first(saplings, MOST_SAPLINGS),
+    )
+}
+
+/// The `chosen` plants of `snapshot` as trees to bake at `texels` a view,
+/// and their records.
+fn prepare(
+    snapshot: &Snapshot,
+    chosen: &[usize],
+    texels: u32,
+    [sides, spans, blades]: [u32; 3],
+    leaf_size: f32,
+) -> (Vec<Tree>, BakeJob) {
+    let plants = &snapshot.plant_bounds;
     let mut slot = vec![usize::MAX; plants.len()];
     for (index, &plant) in chosen.iter().enumerate() {
         slot[plant] = index;
@@ -371,7 +452,7 @@ fn prepare(snapshot: &Snapshot, [sides, spans, blades]: [u32; 3]) -> (Vec<Tree>,
             center_radius: [x, y, z, radius],
             records: [first_branch, branch_count, first_leaf, leaf_count],
             shape: [sides, spans, blades, FRAMES],
-            texel: [2.0 * radius / FRAME_TEXELS as f32, SMALLEST_BLADE, 0.0, 0.0],
+            texel: [2.0 * radius / texels as f32, SMALLEST_BLADE, leaf_size, 0.0],
         });
         first_branch += branch_count;
         first_leaf += leaf_count;
@@ -381,8 +462,8 @@ fn prepare(snapshot: &Snapshot, [sides, spans, blades]: [u32; 3]) -> (Vec<Tree>,
         albedo: AssetId::default(),
         normal: AssetId::default(),
         frames: FRAMES,
-        frame_texels: FRAME_TEXELS,
-        mips: MIPS,
+        frame_texels: texels,
+        mips: texels.ilog2() + 1,
         models,
         branches: bytemuck::cast_slice(&branches.concat()).to_vec(),
         leaves: bytemuck::cast_slice(&leaves.concat()).to_vec(),
@@ -403,9 +484,12 @@ fn finish_bake(
         status.baking = None;
         return;
     };
-    let done = pending.progress.load(Ordering::Acquire) as usize;
-    if done < pending.trees.len() {
-        status.baking = Some((done, pending.trees.len()));
+    let (done, all) = pending.sets().iter().fold((0, 0), |(done, all), set| {
+        let baked = set.progress.load(Ordering::Acquire) as usize;
+        (done + baked, all + set.trees.len())
+    });
+    if done < all {
+        status.baking = Some((done, all));
         return;
     }
     impostors.current = impostors.pending.take();
@@ -443,7 +527,7 @@ fn mark_plants(
     }
     let mut spheres = vec![[0.0f32; 4]; drawn.plant_bounds.len().max(1)];
     if let Some(current) = current {
-        for tree in &current.trees {
+        for tree in current.sets().iter().flat_map(|set| &set.trees) {
             spheres[tree.plant] = tree.center.extend(tree.radius).to_array();
         }
     }
@@ -473,17 +557,20 @@ fn show(
     let Some(current) = &impostors.current else {
         return;
     };
-    status.trees = current.trees.len();
+    status.trees = current.trees.trees.len();
+    status.saplings = current.saplings.trees.len();
     status.year = Some(current.snapshot.time);
-    status.bytes = if current.trees.is_empty() { 0 } else { current.bytes };
-    if let Some(mut material) = materials.get_mut(&current.material) {
-        let wanted = UVec4::new(
-            FRAMES,
-            u32::from(status.scene),
-            settings.switch.to_bits(),
-            0,
-        );
-        if material.settings != wanted {
+    status.bytes = current.sets().iter().map(|set| set.bytes).sum();
+    let wanted = UVec4::new(
+        FRAMES,
+        u32::from(status.scene),
+        settings.switch.to_bits(),
+        settings.density.to_bits(),
+    );
+    for set in current.sets() {
+        if let Some(mut material) = materials.get_mut(&set.material)
+            && material.settings != wanted
+        {
             material.settings = wanted;
         }
     }
@@ -493,7 +580,7 @@ fn show(
             commands.entity(entity).despawn();
         }
         impostors.woods = Some(woods);
-        if !current.trees.is_empty() {
+        if current.sets().iter().any(|set| !set.trees.is_empty()) {
             let mesh = impostors
                 .mesh
                 .get_or_insert_with(|| meshes.add(quad()))
@@ -534,19 +621,24 @@ fn spawn(
     floors: &mut Assets<StandardMaterial>,
 ) -> Vec<Entity> {
     let mut entities = Vec::new();
-    let scene: Vec<InstanceData> = bake
-        .trees
-        .iter()
-        .enumerate()
-        .map(|(layer, tree)| InstanceData {
-            position: tree.center,
-            scale: tree.radius,
-            index: layer as u32,
-            seed: 1,
-            ..default()
-        })
-        .collect();
-    entities.push(spawn_cell(commands, scene, mesh, &bake.material));
+    for set in bake.sets() {
+        if set.trees.is_empty() {
+            continue;
+        }
+        let scene: Vec<InstanceData> = set
+            .trees
+            .iter()
+            .enumerate()
+            .map(|(layer, tree)| InstanceData {
+                position: tree.center,
+                scale: tree.radius,
+                index: layer as u32,
+                seed: 1,
+                ..default()
+            })
+            .collect();
+        entities.push(spawn_cell(commands, scene, mesh, &set.material));
+    }
 
     let [low, high] = bounds.map(Vec3::from_array);
     let middle = (low + high) * 0.5;
@@ -554,7 +646,9 @@ fn spawn(
     let outer = reach.max(inner + 1.0);
     let floor = low.y;
     let mut rng = Rng(0x9e37_79b9_7f4a_7c15);
-    let mut cells: std::collections::HashMap<IVec2, Vec<InstanceData>> = Default::default();
+    // Each set's woods by cell.
+    let mut cells: [std::collections::HashMap<IVec2, Vec<InstanceData>>; 2] = Default::default();
+    let sets = bake.sets();
     for _ in 0..count {
         // Even over the ring's area.
         let r = (inner * inner + rng.unit() * (outer * outer - inner * inner)).sqrt();
@@ -564,8 +658,12 @@ fn spawn(
             floor,
             middle.z + r * angle.sin(),
         );
-        let layer = (rng.unit() * bake.trees.len() as f32) as usize % bake.trees.len();
-        let tree = &bake.trees[layer];
+        let sapling = sets[0].trees.is_empty()
+            || (!sets[1].trees.is_empty() && rng.unit() < WOODS_SAPLINGS);
+        let which = usize::from(sapling);
+        let set = sets[which];
+        let layer = (rng.unit() * set.trees.len() as f32) as usize % set.trees.len();
+        let tree = &set.trees[layer];
         let scale = WOODS_SCALE[0] + rng.unit() * (WOODS_SCALE[1] - WOODS_SCALE[0]);
         let yaw = rng.unit() * std::f32::consts::TAU;
         let lift = (tree.center.y - tree.ground) * scale;
@@ -578,10 +676,12 @@ fn spawn(
             ..default()
         };
         let cell = (foot.xz() / WOODS_CELL).floor().as_ivec2();
-        cells.entry(cell).or_default().push(instance);
+        cells[which].entry(cell).or_default().push(instance);
     }
-    for instances in cells.into_values() {
-        entities.push(spawn_cell(commands, instances, mesh, &bake.material));
+    for (set, cells) in sets.iter().zip(cells) {
+        for instances in cells.into_values() {
+            entities.push(spawn_cell(commands, instances, mesh, &set.material));
+        }
     }
     if count > 0 {
         let disc = meshes.add(Circle::new(outer + WOODS_CELL));

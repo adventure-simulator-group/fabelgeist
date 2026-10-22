@@ -46,7 +46,8 @@ pub(super) struct BakeModel {
     pub records: [u32; 4],
     /// Sides around a tube, spans along it, blades a cluster, views a side.
     pub shape: [u32; 4],
-    /// A texel's width, metres, and the smallest blade drawn, texels.
+    /// A texel's width, metres, the smallest blade drawn, texels, and how
+    /// much larger every blade is drawn.
     pub texel: [f32; 4],
 }
 
@@ -73,11 +74,11 @@ pub(super) struct BakeJob {
 pub(super) struct BakeQueue(pub Arc<Mutex<Vec<BakeJob>>>);
 
 impl BakeQueue {
-    pub(super) fn push(&self, job: BakeJob) {
+    pub(super) fn push(&self, jobs: Vec<BakeJob>) {
         let mut queue = self.0.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
         // Only the latest bake matters.
         queue.clear();
-        queue.push(job);
+        queue.extend(jobs.into_iter().rev());
     }
 
     fn take(&self) -> Option<BakeJob> {
