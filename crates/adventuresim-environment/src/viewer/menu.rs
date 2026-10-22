@@ -253,12 +253,6 @@ fn impostors(ui: &mut Ui, viewer: &mut Viewer) {
     );
     widgets::setting(
         ui,
-        "Wind flutter",
-        format!("{:.0}%", settings.wind * 100.0),
-        Slider::new(&mut settings.wind, 0.0..=1.0),
-    );
-    widgets::setting(
-        ui,
         "Leaf size, baked",
         format!("×{:.2}", settings.leaf_size),
         Slider::new(&mut settings.leaf_size, 0.5..=3.0),

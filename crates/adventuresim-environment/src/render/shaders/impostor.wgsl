@@ -7,7 +7,7 @@
 // vertical, and its atlas layer; its seed is 1 for a scene tree, which is an
 // impostor only while it spans fewer pixels than the switch, and 0 for one
 // of the distant woods, always an impostor.
-#import bevy_pbr::mesh_view_bindings::{view, globals}
+#import bevy_pbr::mesh_view_bindings::view
 #import bevy_eidolon::render::io_types::Vertex
 #import adventuresim_environment::forest::{SurfaceResponse, switch_fade, fizzle}
 #import adventuresim_environment::impostor_frames::{hemi_encode, frame_direction, frame_basis, atlas_uv, turn}
@@ -22,10 +22,9 @@
 @group(3) @binding(3) var normal_atlas: texture_2d_array<f32>;
 // rgb: the set's tint; w: 1 while tinted.
 @group(3) @binding(5) var<uniform> tint: vec4<f32>;
-// x: how much the wind thins and thickens the leaves, as a share of them;
-// y: how much the coverage grows each mip level down, to make up for what
+// x: how much the coverage grows each mip level down, to make up for what
 // averaging takes away (Golus, *Anti-aliased Alpha Test*).
-@group(3) @binding(6) var<uniform> wind: vec4<f32>;
+@group(3) @binding(6) var<uniform> coverage_scale: vec4<f32>;
 
 struct ImpostorOut {
     @builtin(position) clip: vec4<f32>,
@@ -36,8 +35,7 @@ struct ImpostorOut {
     // The three views, as cells packed x | y << 16, and their weights.
     @location(4) @interpolate(flat) cells: vec3<u32>,
     @location(5) @interpolate(flat) weights: vec3<f32>,
-    // Pixels of radius the tree spans, which the wind's detail must not
-    // outrun.
+    // Pixels of radius the tree spans.
     @location(6) @interpolate(flat) pixels: f32,
     // How far a scene tree has turned into its impostor; one in the woods.
     @location(7) @interpolate(flat) fade: f32,
@@ -128,50 +126,6 @@ fn sample_view(cell: vec2<u32>, eye: vec3<f32>, ray: vec3<f32>, layer: u32) -> S
     return out;
 }
 
-fn hash3(p: vec3<f32>) -> f32 {
-    let h = bitcast<vec3<u32>>(vec3<i32>(floor(p)));
-    var x = (h.x * 1597334677u) ^ (h.y * 3812015801u) ^ (h.z * 2798796415u);
-    x = (x ^ (x >> 16u)) * 2246822519u;
-    x = x ^ (x >> 13u);
-    return f32(x) / 4294967296.0;
-}
-
-// Smooth value noise, zero to one.
-fn noise3(p: vec3<f32>) -> f32 {
-    let i = floor(p);
-    let f = p - i;
-    let w = f * f * (3.0 - 2.0 * f);
-    let n000 = hash3(i);
-    let n100 = hash3(i + vec3<f32>(1.0, 0.0, 0.0));
-    let n010 = hash3(i + vec3<f32>(0.0, 1.0, 0.0));
-    let n110 = hash3(i + vec3<f32>(1.0, 1.0, 0.0));
-    let n001 = hash3(i + vec3<f32>(0.0, 0.0, 1.0));
-    let n101 = hash3(i + vec3<f32>(1.0, 0.0, 1.0));
-    let n011 = hash3(i + vec3<f32>(0.0, 1.0, 1.0));
-    let n111 = hash3(i + vec3<f32>(1.0, 1.0, 1.0));
-    return mix(
-        mix(mix(n000, n100, w.x), mix(n010, n110, w.x), w.y),
-        mix(mix(n001, n101, w.x), mix(n011, n111, w.x), w.y),
-        w.z,
-    );
-}
-
-// The wind over a crown, a share of its coverage to add or take: leaf-sized
-// noise drifting downwind and churning, under slow gusts that sweep over
-// whole trees. Faded out on small trees, where the leaf-sized detail
-// would only sparkle.
-fn flutter(in: ImpostorOut) -> f32 {
-    let t = globals.time;
-    let world = in.world.xyz;
-    // A crown is some eight leaf clumps across.
-    let clump = in.center_radius.w * 0.25;
-    let downwind = vec3<f32>(1.0, 0.0, 0.35);
-    let leaves = noise3(world / clump - downwind * t * 1.4 + vec3<f32>(0.0, t * 0.9, 0.0));
-    let gust = noise3(world * 0.03 - downwind * t * 0.25);
-    let detail = smoothstep(6.0, 24.0, in.pixels);
-    return (leaves - 0.5) * 2.0 * wind.x * (0.3 + 1.4 * gust) * detail;
-}
-
 @fragment
 fn fragment(in: ImpostorOut) -> @location(0) vec4<f32> {
     let center = in.center_radius.xyz;
@@ -185,14 +139,13 @@ fn fragment(in: ImpostorOut) -> @location(0) vec4<f32> {
     let albedo = a.albedo * w.x + b.albedo * w.y + c.albedo * w.z;
     let normal = a.normal * w.x + b.normal * w.y + c.normal * w.z;
     let alpha = albedo.a;
-    // The leaves thickened as asked, stirred by the wind, and cut at one
-    // half, sharp: solid inside, nothing outside, and only the edge, a
+    // The leaves thickened as asked, and cut at one half, sharp: solid inside, nothing outside, and only the edge, a
     // pixel wide, spread over the samples.
     // Mip levels below the full view average the leaves thinner; grow them
     // back by as many levels as the tree is drawn below its view's size.
     let view_texels = f32(textureDimensions(albedo_atlas).x) / f32(settings.x);
     let level = max(log2(view_texels / max(2.0 * in.pixels, 1e-3)), 0.0);
-    let dense = alpha * bitcast<f32>(settings.w) * (1.0 + level * wind.y) * (1.0 + flutter(in));
+    let dense = alpha * bitcast<f32>(settings.w) * (1.0 + level * coverage_scale.x);
     let coverage = clamp((dense - 0.5) / max(fwidth(dense), 1e-4) + 0.5, 0.0, 1.0);
     // A scene tree part-way through the switch keeps the pixels its whole
     // self leaves.
