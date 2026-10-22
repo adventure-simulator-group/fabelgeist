@@ -176,18 +176,19 @@ fn fragment(in: ImpostorOut) -> @location(0) vec4<f32> {
     let albedo = a.albedo * w.x + b.albedo * w.y + c.albedo * w.z;
     let normal = a.normal * w.x + b.normal * w.y + c.normal * w.z;
     let alpha = albedo.a;
-    // The leaves thickened as asked: a partly covered texel fills in, an
-    // open one stays open.
-    let dense = alpha * bitcast<f32>(settings.w);
-    let coverage = clamp(dense * (1.0 + flutter(in)), 0.0, 1.0);
+    // The leaves thickened as asked, stirred by the wind, and cut at one
+    // half, sharp: solid inside, nothing outside, and only the edge, a
+    // pixel wide, spread over the samples.
+    let dense = alpha * bitcast<f32>(settings.w) * (1.0 + flutter(in));
+    let coverage = clamp((dense - 0.5) / max(fwidth(dense), 1e-4) + 0.5, 0.0, 1.0);
     if coverage < 0.02 {
         discard;
     }
     // Premultiplied by coverage, as baked.
-    let n = turn(normalize(normal.rgb / alpha * 2.0 - 1.0), in.yaw);
+    let n = turn(normalize(normal.rgb / max(alpha, 1e-4) * 2.0 - 1.0), in.yaw);
     var response: SurfaceResponse;
-    response.albedo = mix(albedo.rgb / alpha, tint.rgb, tint.w * 0.7);
-    response.occlusion = clamp(normal.a / alpha, 0.0, 1.0);
+    response.albedo = mix(albedo.rgb / max(alpha, 1e-4), tint.rgb, tint.w * 0.7);
+    response.occlusion = clamp(normal.a / max(alpha, 1e-4), 0.0, 1.0);
     response.roughness = 0.7;
     var color = light_surface(response, coverage, in.world, n, in.clip);
     color.a = coverage;
