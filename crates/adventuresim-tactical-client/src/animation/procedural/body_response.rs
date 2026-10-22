@@ -317,7 +317,7 @@ mod tests {
                 - walk_locomotion_profile().reference_speed
                     / run_locomotion_profile().reference_speed)
                 .abs()
-                <= f32::EPSILON
+                <= 0.0
         );
         assert_eq!(
             deceleration_lean_scale(Vec3::Z * 0.5, Vec3::ZERO, Vec3::NEG_Z * 12.0),

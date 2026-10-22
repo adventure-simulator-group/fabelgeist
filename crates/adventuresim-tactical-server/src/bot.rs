@@ -296,7 +296,7 @@ fn aim_at_nearest_opponent(
             continue;
         };
         let offset = target_transform.translation.xz() - transform.translation.xz();
-        if offset.length_squared() > f32::EPSILON {
+        if offset.length_squared() > 0.0 {
             look.yaw = (-offset.x).atan2(-offset.y);
         }
     }

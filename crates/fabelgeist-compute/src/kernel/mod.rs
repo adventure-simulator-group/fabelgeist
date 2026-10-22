@@ -21,6 +21,21 @@ use crate::prelude::*;
 use std::collections::HashMap;
 use std::sync::{Arc, RwLock};
 
+// Validation scopes on one device must not interleave during compilation.
+static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
+/// The most workgroups one dispatch dimension may hold.
+pub const MAX_GROUPS: u32 = 65_535;
+
+/// The flat item index of an invocation dispatched by
+/// [`KernelBatch::dispatch_folded`], given its `global_invocation_id`, its
+/// `num_workgroups` and the kernel's workgroup width.
+pub const FOLDED_INDEX_WGSL: &str = r#"
+fn folded_index(id: vec3<u32>, groups: vec3<u32>, width: u32) -> u32 {
+    return id.y * groups.x * width + id.x;
+}
+"#;
+
 /// A compiled compute kernel: the pipeline plus the workgroup size declared in
 /// its own source, so that a dispatch can be sized in *items* rather than in
 /// workgroups.
@@ -59,7 +74,6 @@ impl Kernel {
     pub fn new(context: &WgpuContext, code: impl Into<String>) -> Result<Self> {
         // Shader and pipeline creation read back validation error scopes,
         // which interleave badly when two threads compile at once.
-        static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
         let _compiling = COMPILING
             .lock()
             .unwrap_or_else(|poisoned| poisoned.into_inner());
@@ -82,16 +96,25 @@ impl Kernel {
         }
 
         let shader = ComputeShader::new(context, code.clone())?;
-        let pipeline = ComputePipeline::new(context, shader)?;
+        let mut pipeline = ComputePipeline::prepare(context, shader)?;
 
-        let fast = pipeline
+        let fast = match pipeline
             .shader
             .module
             .as_ref()
             .zip(pipeline.reflection.as_ref())
-            .and_then(|(module, reflection)| {
-                fast::FastPath::new(context, &code, module, &entry_point, reflection)
-            });
+        {
+            Some((module, reflection)) => {
+                fast::FastPath::new(context, module, &entry_point, reflection)?
+            }
+            None => None,
+        };
+
+        // The batched layout owns its pipeline. Compile the static layout only
+        // for kernels requiring it, or when a caller uses a one-off dispatch.
+        if fast.is_none() {
+            pipeline.compile(context)?;
+        }
 
         Ok(Self {
             pipeline,
@@ -111,6 +134,16 @@ impl Kernel {
         [items.div_ceil(self.workgroup_size[0]), 1, 1]
     }
 
+    /// Workgroup count that covers `items` invocations, folded into y past
+    /// the 65535 groups one dimension may hold. The kernel recovers its item
+    /// with [`FOLDED_INDEX_WGSL`]'s `folded_index`, and must bounds-check it:
+    /// the last row of groups overshoots.
+    pub fn groups_folded(&self, items: u32) -> [u32; 3] {
+        let groups = items.div_ceil(self.workgroup_size[0]);
+        let x = groups.clamp(1, MAX_GROUPS);
+        [x, groups.div_ceil(x), 1]
+    }
+
     /// Run this kernel on its own -- one encoder, one submit. Convenient for a
     /// one-off; use a [`KernelBatch`] for anything in a loop.
     pub fn run(
@@ -119,13 +152,16 @@ impl Kernel {
         parameters: PassParameters,
         groups: [u32; 3],
     ) -> Result<()> {
+        let pipeline = {
+            let _compiling = COMPILING
+                .lock()
+                .unwrap_or_else(|poisoned| poisoned.into_inner());
+            let mut pipeline = self.pipeline.clone();
+            pipeline.compile(context)?;
+            pipeline
+        };
         ComputePass::dispatch(
-            context,
-            self.pipeline.clone(),
-            parameters,
-            groups[0],
-            groups[1],
-            groups[2],
+            context, pipeline, parameters, groups[0], groups[1], groups[2],
         )
     }
 }
@@ -182,6 +218,8 @@ pub struct KernelBatch<'a> {
     encoder: wgpu::CommandEncoder,
     dispatches: usize,
     uniforms: fast::UniformArena,
+    /// Run once the batch is submitted, in order.
+    after_submit: Vec<Box<dyn FnOnce() + Send + 'a>>,
 }
 
 impl<'a> KernelBatch<'a> {
@@ -198,7 +236,14 @@ impl<'a> KernelBatch<'a> {
             encoder,
             dispatches: 0,
             uniforms: fast::UniformArena::default(),
+            after_submit: Vec::new(),
         }
+    }
+
+    /// The context the batch records for -- for a pass that has to upload a
+    /// changed parameter before its dispatches run.
+    pub fn context(&self) -> &'a WgpuContext {
+        self.context
     }
 
     /// Record one dispatch of `kernel` over an explicit workgroup grid.
@@ -245,6 +290,20 @@ impl<'a> KernelBatch<'a> {
         Ok(self)
     }
 
+    /// Record one dispatch covering `items` invocations however many there
+    /// are, folded as [`Kernel::groups_folded`] describes.
+    pub fn dispatch_folded(
+        &mut self,
+        kernel: &Kernel,
+        parameters: &PassParameters,
+        items: u32,
+    ) -> Result<&mut Self> {
+        if items == 0 {
+            return Ok(self);
+        }
+        self.dispatch(kernel, parameters, kernel.groups_folded(items))
+    }
+
     /// Record one dispatch sized to cover `items` invocations along x.
     pub fn dispatch_items(
         &mut self,
@@ -284,10 +343,21 @@ impl<'a> KernelBatch<'a> {
         self.dispatches
     }
 
+    /// Run `work` once the batch has been submitted -- for what has to
+    /// follow the submission rather than be recorded in it, like asking for a
+    /// staging buffer to be mapped. Dropped unrun if the batch never is.
+    pub fn after_submit(&mut self, work: impl FnOnce() + Send + 'a) {
+        self.after_submit.push(Box::new(work));
+    }
+
     /// Finish the encoder and submit. Returns the submission index, which the
     /// caller can wait on if it needs the results back on the host.
     pub fn submit(self) -> wgpu::SubmissionIndex {
-        self.context.queue.submit(Some(self.encoder.finish()))
+        let index = self.context.queue.submit(Some(self.encoder.finish()));
+        for work in self.after_submit {
+            work();
+        }
+        index
     }
 }
 

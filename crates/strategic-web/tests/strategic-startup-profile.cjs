@@ -2,6 +2,7 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
+const { withDeadline } = require("./startup-deadline.cjs");
 
 function instrument(source, replacements) {
   for (const [from, to, all] of replacements) {
@@ -41,7 +42,8 @@ exports.attach = async (page, output) => {
   await cdp.send("Profiler.enable");
   await cdp.send("Profiler.setSamplingInterval", { interval: 1000 });
   const browserTrace = process.env.STRATEGIC_STARTUP_BROWSER_TRACE === "1"
-    ? require("./startup-browser-trace.cjs").attach(cdp, output) : null;
+    ? require("./startup-browser-trace.cjs").attach(
+      await page.context().browser().newBrowserCDPSession(), output) : null;
   if (process.env.STRATEGIC_STARTUP_WORKERS === "1")
     await require("./startup-worker-profile.cjs").attach(page, cdp, output);
   return {
@@ -55,13 +57,26 @@ exports.attach = async (page, output) => {
       await browserTrace?.start(); await cdp.send("Profiler.start");
     },
     async stop(name) {
-      const { profile } = await cdp.send("Profiler.stop");
-      const trace = await page.evaluate(() => { window.startupProfile.active = false; return ({ ...window.startupProfile,
-        now: performance.now(), generation: window.strategicGenerationMetrics,
-        metrics: window.strategicRendererMetrics }); });
-      fs.writeFileSync(path.join(output, `${name}.cpuprofile`), JSON.stringify(profile));
-      fs.writeFileSync(path.join(output, `${name}-trace.json`), JSON.stringify(trace));
+      // GPU-service tracing must survive a blocked renderer thread.
       await browserTrace?.stop(name);
+      const results = await Promise.allSettled([
+        withDeadline(cdp.send("Profiler.stop"), "renderer profiler stop", 5_000),
+        withDeadline(page.evaluate(() => {
+          window.startupProfile.active = false;
+          return { ...window.startupProfile, now: performance.now(),
+            generation: window.strategicGenerationMetrics?.scene,
+            metrics: window.strategicRendererMetrics };
+        }), "renderer trace snapshot", 5_000),
+      ]);
+      const failures = [];
+      for (const [index, result] of results.entries()) {
+        if (result.status === "fulfilled") {
+          const filename = index === 0 ? `${name}.cpuprofile` : `${name}-trace.json`;
+          const value = index === 0 ? result.value.profile : result.value;
+          fs.writeFileSync(path.join(output, filename), JSON.stringify(value));
+        } else failures.push(String(result.reason));
+      }
+      if (failures.length) fs.writeFileSync(path.join(output, `${name}-profile-errors.json`), JSON.stringify(failures));
     },
     async beginNavigation() {
       await page.evaluate(() => {
@@ -99,32 +114,36 @@ const transforms = {
       'runtime = value; window.startupProfile.readStatus = () => runtime.wasm_strategic_status(); schedule();'],
     ['command({ type: "sync-strategic-view", view: { ...view, revision: ++revision } });',
       'window.startupProfile.mark("view-command", {revision: revision + 1, place: view.active_place}); command({ type: "sync-strategic-view", view: { ...view, revision: ++revision } });', true],
-    ['await prepareGeneratedScene(await runtimePromise, input, venues);',
-      'window.startupProfile.mark("scene-response"); await prepareGeneratedScene(await runtimePromise, input, venues); window.startupProfile.mark("generation-ready");'],
     ['metrics.state = state;',
       'metrics.state = state; { const {daylight, view_lighting, street, ...brief} = state; window.startupProfile.mark("readiness", brief); }'],
   ],
+  "strategic-scene-request.js": [
+    ['const owned = prepareScene(runtime, input, venues, { signal });',
+      'window.startupProfile.mark("scene-response"); const owned = prepareScene(runtime, input, venues, { signal });'],
+    ['install({ location, input, preparation });',
+      'window.startupProfile.mark("generation-ready"); install({ location, input, preparation });'],
+  ],
   "strategic-generation.js": [
-    ['pool.close();',
-      'if (window.stopStartupWorkers) await window.stopStartupWorkers(); pool.close();'],
+    ['\n    pool?.close();',
+      '\n    if (window.stopStartupWorkers) await window.stopStartupWorkers(); pool?.close();'],
     ['const started = performance.now();',
       'const started = performance.now(); window.startupProfile.mark("generation-start");'],
-    ['runtime.wasm_receive_job(job, bytes);',
-      'runtime.wasm_receive_job(job, bytes); window.startupProfile.mark("receive", {start: receiveStarted, duration: performance.now() - receiveStarted, bytes: bytes.byteLength});'],
-    ['metrics.workerMilliseconds += milliseconds;',
-      'metrics.workerMilliseconds += milliseconds; { const parsed = JSON.parse(job); window.startupProfile.mark("worker-job", {type: parsed.Scene ? "scene" : parsed.Ground ? "ground" : parsed.Grass ? "grass" : parsed.Venue ? "venue" : "building", archetype: (parsed.Building || parsed.Venue)?.archetype, milliseconds, bytes: bytes.byteLength}); }'],
+    ['runtime.wasm_receive_job(preparation, job, bytes);',
+      'runtime.wasm_receive_job(preparation, job, bytes); window.startupProfile.mark("receive", {start: receiveStarted, duration: performance.now() - receiveStarted, bytes: bytes.byteLength});'],
+    ['metrics.workerMilliseconds += workerMilliseconds;',
+      'metrics.workerMilliseconds += workerMilliseconds; { const parsed = JSON.parse(job); window.startupProfile.mark("worker-job", {type: parsed.Scene ? "scene" : parsed.Ground ? "ground" : parsed.Grass ? "grass" : parsed.Venue ? "venue" : "building", archetype: (parsed.Building || parsed.Venue)?.archetype, milliseconds: workerMilliseconds, bytes: bytes.byteLength}); }'],
   ],
   "strategic-generation-cache.js": [
     ['if (error?.name !== "TimeoutError") disabled = true;',
       'window.startupProfile.mark("cache-transaction-error", {mode, error: String(error)}); if (error?.name !== "TimeoutError") disabled = true;'],
-    ['})().catch(() => { disabled = true; });',
-      '})().catch(error => { window.startupProfile.mark("cache-write-error", {error: String(error)}); disabled = true; });'],
+    ['} catch (cause) {',
+      '} catch (cause) { window.startupProfile.mark("cache-write-error", {error: String(cause)});'],
     ['async function decode(record) {',
       'async function decode(record) { const started = performance.now();'],
     ['return bytes;',
       'window.startupProfile.mark("decompress", {start: started, duration: performance.now() - started, bytes: record.size, decoded: length}); return bytes;'],
-    ['const record = await transaction("readonly",',
-      'const readStarted = performance.now(); const record = await transaction("readonly",'],
+    ['const read = await transaction("readonly",',
+      'const readStarted = performance.now(); const read = await transaction("readonly",'],
     ['if (!record) return undefined;',
       'window.startupProfile.mark("cache-read", {start: readStarted, duration: performance.now() - readStarted, bytes: record?.size || 0}); if (!record) return undefined;'],
   ],

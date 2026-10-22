@@ -7,9 +7,28 @@ const { chromium } = require("playwright");
 
 test("local products survive reload and invalidate on input, revision, or corruption", async () => {
   const server = http.createServer((request, response) => {
-    if (["/cache.js", "/strategic-generation-write-queue.js"].includes(request.url)) {
+    if (request.url === "/tactical/wasm/adventuresim-tactical-client.js") {
       response.setHeader("Content-Type", "text/javascript");
-      response.end(fs.readFileSync(path.join(__dirname, "../static/", request.url === "/cache.js" ? "strategic-generation-cache.js" : "strategic-generation-write-queue.js")));
+      response.end(`export default async function init({ module_or_path }) {
+        if (!(module_or_path instanceof WebAssembly.Module)) throw new Error("Expected compiled Wasm");
+      }
+      export function wasm_generate_job(job, dependencies) {
+        if (job === "failure-fixture") {
+          const error = new Error("fixture product mismatch");
+          error.name = "generation/product-mismatch"; throw error;
+        }
+        const address = new TextEncoder().encode(job);
+        const bytes = new Uint8Array(address.length + dependencies.length);
+        bytes.set(address); bytes.set(dependencies, address.length); return bytes;
+      }`);
+      return;
+    }
+    if (["/cache.js", "/strategic-generation-write-queue.js",
+      "/strategic-generation.js", "/strategic-generation-cache.js",
+      "/strategic-generation-pool.js", "/strategic-generation-worker.js"].includes(request.url)) {
+      response.setHeader("Content-Type", "text/javascript");
+      response.end(fs.readFileSync(path.join(__dirname, "../static/",
+        request.url === "/cache.js" ? "strategic-generation-cache.js" : path.basename(request.url))));
     } else { response.setHeader("Content-Type", "text/html"); response.end("<!doctype html><title>Cache test</title>"); }
   });
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
@@ -60,17 +79,26 @@ test("local products survive reload and invalidate on input, revision, or corrup
     });
     assert.deepEqual(result, { hit: [1, 2, 3], changedInput: undefined, missReads: 0, changedRevision: undefined,
       corrupted: undefined, regenerated: [4, 5], removed: undefined });
-    assert.equal(await page.evaluate(async () => {
+    assert.deepEqual(await page.evaluate(async () => {
       const { openGeneratedCache } = await import("/cache.js");
       const unavailable = await openGeneratedCache("A", { open() { throw new DOMException("disabled", "SecurityError"); } });
-      unavailable.put("job", new Uint8Array([1])); await unavailable.close();
+      const rejectedBytes = new Uint8Array([1]);
+      const unavailableAdmission = unavailable.put("job", rejectedBytes);
+      await unavailable.close();
       const cache = await openGeneratedCache("quota-test");
       const original = IDBObjectStore.prototype.put;
       IDBObjectStore.prototype.put = () => { throw new DOMException("full", "QuotaExceededError"); };
-      try { cache.put("job", new Uint8Array([2])); await cache.close(); }
+      let admission, flush;
+      try { admission = cache.put("job", new Uint8Array([2])); flush = await cache.close(); }
       finally { IDBObjectStore.prototype.put = original; }
-      return true;
-    }), true);
+      return { unavailableAdmission, retainedBytes: rejectedBytes.byteLength, admission,
+        flush: { status: flush.status, writtenProducts: flush.writtenProducts,
+          failures: flush.failures.map(failure => ({ job: failure.job,
+            code: failure.cause.code, cause: failure.cause.cause?.name })) } };
+    }), { unavailableAdmission: { status: "rejected", reason: "storage-unavailable" }, retainedBytes: 1,
+      admission: { status: "accepted", disposition: "inserted" },
+      flush: { status: "failed", writtenProducts: 0,
+        failures: [{ job: "job", code: "transaction-failed", cause: "QuotaExceededError" }] } });
     const pageErrors = [];
     page.on("pageerror", error => pageErrors.push(error.message));
     assert.equal(await page.evaluate(async () => {
@@ -95,6 +123,60 @@ test("local products survive reload and invalidate on input, revision, or corrup
         await cache.close();
       }
     }), true);
+    assert.deepEqual(await page.evaluate(async () => {
+      const { openGeneratedCache } = await import("/cache.js");
+      const cache = await openGeneratedCache("subview-roundtrip");
+      const source = new Uint8Array([99, 98, 4, 5, 6, 97]);
+      const view = source.subarray(2, 5);
+      const admission = cache.put("view", view);
+      const closing = cache.close();
+      const repeatedClose = cache.close() === closing;
+      const lateBytes = new Uint8Array([7]);
+      const late = cache.put("late", lateBytes);
+      const flush = await closing;
+      const reopened = await openGeneratedCache("subview-roundtrip");
+      const bytes = Array.from(await reopened.get("view"));
+      await reopened.close();
+      return { admission, detached: source.byteLength === 0 && view.byteLength === 0,
+        repeatedClose, late, retainedLateBytes: lateBytes.byteLength,
+        flush, bytes };
+    }), { admission: { status: "accepted", disposition: "inserted" }, detached: true,
+      repeatedClose: true, late: { status: "rejected", reason: "closed" }, retainedLateBytes: 1,
+      flush: { status: "flushed", writtenProducts: 1, failures: [] }, bytes: [4, 5, 6] });
+    assert.deepEqual(pageErrors, []);
+    assert.deepEqual(await page.evaluate(async () => {
+      const { createGenerationPool } = await import("/strategic-generation-pool.js");
+      const module = await WebAssembly.compile(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0]));
+      const generation = createGenerationPool(module, { hardwareConcurrency: 3 });
+      const jobs = ['{"Building":{"seed":18446744073709551615}}',
+        '{"Scene":{"seed":18446744073709551614}}'];
+      const buffers = [], deliveries = [];
+      const options = { dependencies() {
+        const bytes = new Uint8Array([0, 128, 255]); buffers.push(bytes); return bytes;
+      } };
+      const receive = ({ job, bytes }) => {
+        const text = new TextEncoder().encode(job);
+        deliveries.push({ job, address: new TextDecoder().decode(bytes.subarray(0, text.length)),
+          dependency: Array.from(bytes.subarray(text.length)) });
+      };
+      try {
+        const first = await generation.run(jobs, receive, options);
+        const reused = await generation.run([jobs[0]], receive, options);
+        let failure;
+        try { await generation.run(["failure-fixture"], receive, options); }
+        catch (error) { failure = { code: error.code, message: error.message }; }
+        return { first, reused, detached: buffers.every(bytes => bytes.byteLength === 0),
+          deliveries: deliveries.sort((a, b) => a.job.localeCompare(b.job)), failure };
+      } finally { generation.close(); }
+    }), (() => {
+      const first = '{"Building":{"seed":18446744073709551615}}';
+      const second = '{"Scene":{"seed":18446744073709551614}}';
+      const delivery = job => ({ job, address: job, dependency: [0, 128, 255] });
+      return { first: { status: "completed", createdWorkers: 2 },
+        reused: { status: "completed", createdWorkers: 0 }, detached: true,
+        deliveries: [delivery(first), delivery(first), delivery(second)],
+        failure: { code: "generation/product-mismatch", message: "fixture product mismatch" } };
+    })());
     assert.deepEqual(pageErrors, []);
     assert.equal(await page.evaluate(async () => {
       const { openGeneratedCache } = await import("/cache.js");
@@ -136,6 +218,64 @@ test("local products survive reload and invalidate on input, revision, or corrup
       await reopened.close();
       return ownershipTransferred && removed === undefined && latest[0] === 5 && latest[1] === 6;
     }), true);
+    assert.deepEqual(pageErrors, []);
+    assert.deepEqual(await page.evaluate(async () => {
+      const { prepareGeneratedScene } = await import("/strategic-generation.js");
+      const originalWorker = window.Worker;
+      const storageDescriptor = Object.getOwnPropertyDescriptor(window, "indexedDB");
+      const jobs = ['{"Building":{"seed":18446744073709551615}}',
+        '{"Scene":{"seed":18446744073709551615}}'];
+      let createdWorkers = 0;
+      window.Worker = class {
+        constructor() { createdWorkers++; }
+        postMessage(message) {
+          queueMicrotask(() => this.onmessage({ data: message.kind === "initialize"
+            ? { kind: "ready", dispatch: message.dispatch }
+            : { kind: "generated", dispatch: message.dispatch,
+              bytes: new Uint8Array([message.job === jobs[0] ? 4 : 7]), milliseconds: 1 } }));
+        }
+        terminate() {}
+      };
+      const run = async () => {
+        const received = [];
+        const runtime = { generationRevision: "preparation-contracts", generationModule: {},
+          wasm_begin_generation() { return JSON.stringify({owner:"scene",sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify(jobs),
+          wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
+          wasm_generation_dependencies: () => new Uint8Array(),
+          wasm_receive_job(preparation, job, bytes) { received.push({ job, bytes: Array.from(bytes) }); } };
+        await prepareGeneratedScene(runtime, "opaque-scene-input", []);
+        const metrics = window.strategicGenerationMetrics?.scene;
+        const flush = await window.strategicGenerationCacheSettled?.scene;
+        return { received, workers: metrics.workers, hits: metrics.cacheHits, misses: metrics.cacheMisses,
+          accepted: metrics.cacheWritesAccepted, replaced: metrics.cacheWritesReplaced,
+          rejections: metrics.cacheWriteRejections, written: flush.writtenProducts };
+      };
+      try {
+        const cold = await run();
+        const warm = await run();
+        Object.defineProperty(window, "indexedDB", { configurable: true,
+          value: { open() { throw new DOMException("disabled", "SecurityError"); } } });
+        const unavailable = await run();
+        return { cold, warm, unavailable, createdWorkers };
+      } finally {
+        window.Worker = originalWorker;
+        Object.defineProperty(window, "indexedDB", storageDescriptor);
+      }
+    }), (() => {
+      const received = [
+        { job: '{"Building":{"seed":18446744073709551615}}', bytes: [4] },
+        { job: '{"Scene":{"seed":18446744073709551615}}', bytes: [7] },
+      ];
+      return {
+        cold: { received, workers: 1, hits: 0, misses: 2, accepted: 2, replaced: 0,
+          rejections: {}, written: 2 },
+        warm: { received, workers: 0, hits: 2, misses: 0, accepted: 0, replaced: 0,
+          rejections: {}, written: 0 },
+        unavailable: { received, workers: 1, hits: 0, misses: 2, accepted: 0, replaced: 0,
+          rejections: { "storage-unavailable": 2 }, written: 0 },
+        createdWorkers: 2,
+      };
+    })());
     assert.deepEqual(pageErrors, []);
   } finally { await browser.close(); await new Promise(resolve => server.close(resolve)); }
 });

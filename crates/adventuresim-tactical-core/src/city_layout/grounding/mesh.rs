@@ -185,7 +185,7 @@ impl PropertySupportMesh {
                 let ac = c.xz() - a.xz();
                 let ap = point - a.xz();
                 let determinant = ab.perp_dot(ac);
-                if determinant.abs() <= f32::EPSILON {
+                if determinant == 0.0 {
                     return None;
                 }
                 let u = ap.perp_dot(ac) / determinant;

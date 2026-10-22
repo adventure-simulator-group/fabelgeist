@@ -7,8 +7,8 @@
 
 mod terrain_samples;
 pub use terrain_samples::{
-    EnvironmentalSample, SceneSource, SourcePackageDigest, TacticalSurface, TerrainSampleGrid,
-    VistaLevelIndex, VistaLod, VistaSample,
+    EnvironmentalSample, SceneSource, TacticalSurface, TerrainSampleGrid, VistaLevelIndex,
+    VistaLod, VistaSample,
 };
 mod rock_recipe;
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
@@ -410,9 +410,10 @@ fn rocky_substrate_relief(
         .rng(seed, &[])
         .inclusive_unit_f32()
         * core::f32::consts::TAU;
-    let downhill = shape
-        .map(|shape| shape.downhill)
-        .unwrap_or(Vec2::new(fallback_angle.cos(), fallback_angle.sin()));
+    let downhill = shape.map(|shape| shape.downhill).unwrap_or(Vec2::new(
+        libm::cosf(fallback_angle),
+        libm::sinf(fallback_angle),
+    ));
     let across = Vec2::new(-downhill.y, downhill.x);
     let slope_weight = shape
         .map(|shape| detail_smoothstep(0.018, 0.18, shape.slope))
@@ -463,9 +464,10 @@ fn boulder_ground_relief(
             .rng(rock_seed, &[])
             .inclusive_unit_f32()
             * core::f32::consts::TAU;
-        let downhill = shape
-            .map(|shape| shape.downhill)
-            .unwrap_or(Vec2::new(fallback_angle.cos(), fallback_angle.sin()));
+        let downhill = shape.map(|shape| shape.downhill).unwrap_or(Vec2::new(
+            libm::cosf(fallback_angle),
+            libm::sinf(fallback_angle),
+        ));
         let across_axis = Vec2::new(-downhill.y, downhill.x);
         let socket = (1.0 - detail_smoothstep(radius * 0.48, radius * 1.08, distance)) * -0.042;
         let apron = detail_smoothstep(radius * 0.72, radius * 1.04, distance)
@@ -510,7 +512,7 @@ fn tree_root_relief(
         let basin = detail_smoothstep(0.9, 1.8, radius)
             * (1.0 - detail_smoothstep(5.2, 7.7, radius))
             * -0.012;
-        let angle = offset.y.atan2(offset.x);
+        let angle = libm::atan2f(offset.y, offset.x);
         let mut ridges = 0.0_f32;
         for root in 0..7_u64 {
             let mut random = streams::ROOT_SHAPE.rng(tree_seed, &[root]);
@@ -520,7 +522,7 @@ fn tree_root_relief(
             if radius > length || radius < 0.28 {
                 continue;
             }
-            let curved_angle = origin + (radius * 0.9 + phase).sin() * 0.11;
+            let curved_angle = origin + libm::sinf(radius * 0.9 + phase) * 0.11;
             let angular_distance = wrapped_angle_difference(angle, curved_angle).abs() * radius;
             let width = 0.16 + radius * 0.045;
             let ridge = 1.0 - detail_smoothstep(width * 0.3, width, angular_distance);
@@ -543,7 +545,7 @@ fn road_surface_relief(point: bevy::math::Vec2, ground: &SceneGround, noise: &De
     let mut best_score = -1_i32;
     for direction_index in 0..8 {
         let angle = direction_index as f32 * core::f32::consts::PI / 8.0;
-        let candidate = Vec2::new(angle.cos(), angle.sin());
+        let candidate = Vec2::new(libm::cosf(angle), libm::sinf(angle));
         let score = [0.75_f32, 1.5, 2.5]
             .into_iter()
             .map(|distance| {
@@ -569,7 +571,7 @@ fn road_surface_relief(point: bevy::math::Vec2, ground: &SceneGround, noise: &De
     let across = (negative_edge - positive_edge) * 0.5;
     let rut_offset = (half_width * 0.46).clamp(0.38, 0.82);
     let rut_width = (half_width * 0.12).clamp(0.14, 0.27);
-    // Accepted terrain hashes require the same software exponential on all targets.
+    // Accepted terrain hashes require software transcendental math on all targets.
     let gaussian = |distance: f32| libm::expf(-(distance / rut_width).powi(2) * 1.7);
     let ruts = gaussian(across - rut_offset) + gaussian(across + rut_offset);
     let crown = (1.0 - (across / half_width).powi(2)).max(0.0) * 0.026;
@@ -737,7 +739,7 @@ fn add_authoritative_microrelief(
                 2.25,
             );
             let offset = (broad * 0.72 + fine * 0.28) * amplitude;
-            if offset.abs() > f32::EPSILON {
+            if offset.abs() > 0.0 {
                 heights[index] += offset;
                 adjusted += 1;
             }
@@ -783,7 +785,7 @@ fn repair_playable_terrain(
         adjusted_height_samples: heights
             .iter()
             .zip(original_heights)
-            .filter(|(after, before)| (*after - before).abs() > f32::EPSILON)
+            .filter(|(after, before)| (*after - before).abs() > 0.0)
             .count() as u32,
         repaired_water_samples,
         removed_corridor_obstacles: 0,
@@ -1304,7 +1306,7 @@ mod tests {
         let middle = tree_leaf_litter_probability(4.0);
         let edge = tree_leaf_litter_probability(TREE_CANOPY_GROUND_RADIUS_METRES);
         assert!(1.0 > inner && inner > middle && middle > edge);
-        assert!((edge - 0.12).abs() < f32::EPSILON);
+        assert_eq!(edge, 0.12);
     }
 
     #[test]

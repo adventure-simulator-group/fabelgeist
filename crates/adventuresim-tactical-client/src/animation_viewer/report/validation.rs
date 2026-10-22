@@ -165,7 +165,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             // a sampled zero-weight frame. If a true flight frame remains,
             // retain the toe-clearance gate; otherwise the ordinary contact
             // and penetration gates own the transition.
-            metrics.maximum_no_support_seconds <= f32::EPSILON
+            metrics.maximum_no_support_seconds <= 0.0
                 || strict_transition_flight_toe_clearance_is_valid(
                     metrics.minimum_flight_toe_clearance_metres,
                 )
@@ -174,7 +174,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             "steady-walk-2.0" | "flat-grid-walk-2.0"
         ) || raised_scenario_requires_zero_flight(&metrics.scenario)
         {
-            metrics.maximum_no_support_seconds <= f32::EPSILON
+            metrics.maximum_no_support_seconds <= 0.0
         } else {
             true
         }

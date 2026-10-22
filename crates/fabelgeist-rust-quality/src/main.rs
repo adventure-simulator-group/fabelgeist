@@ -1,6 +1,7 @@
 mod analyze;
 mod calendar_flow;
 mod config;
+mod float_epsilon;
 mod manifests;
 mod scan;
 

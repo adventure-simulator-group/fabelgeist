@@ -224,8 +224,7 @@ pub fn settlement_leisure_outcome(
     };
     let qualifying_days = (days - time_to_clear_fatigue).max(0.0);
     let daily_morale_quality = LEISURE_MORALE_LIMIT
-        * (1.0
-            - (-surplus_recovery_per_day / LEISURE_MORALE_SCALE_FATIGUE.max(f32::EPSILON)).exp());
+        * (1.0 - (-surplus_recovery_per_day / LEISURE_MORALE_SCALE_FATIGUE).exp());
     LeisureOutcome {
         fatigue_delta: fatigue_after - current_fatigue.max(0.0),
         // Morale begins only at the point within the interval where carried
@@ -1279,7 +1278,10 @@ mod tests {
 
         let next_day = settlement_leisure_outcome(schedule, MINUTES_PER_DAY, 0.0);
         assert_eq!(next_day.fatigue_delta, 0.0);
-        assert!(next_day.morale > 0.0);
+        // Shared with the JavaScript schedule preview's eight-hour fixture.
+        let eight_hour_morale = 2.5284822_f32;
+        let morale_roundoff = eight_hour_morale.next_up() - eight_hour_morale;
+        assert!((next_day.morale - eight_hour_morale).abs() <= morale_roundoff);
     }
 
     #[test]

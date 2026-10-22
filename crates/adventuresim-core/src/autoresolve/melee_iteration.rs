@@ -642,7 +642,7 @@ mod tests {
         for opponent in opponents {
             let john_reach = john.combatant.equipment.weapon_reach();
             let opponent_reach = opponent.combatant.equipment.weapon_reach();
-            if (john_reach - opponent_reach).abs() <= f32::EPSILON {
+            if (john_reach - opponent_reach) == 0.0 {
                 continue;
             }
             let shorter_id = if john_reach < opponent_reach {

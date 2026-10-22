@@ -18,7 +18,7 @@ use super::geometry::{
     COMMON_HAZEL_PARAMETERS, ENGLISH_OAK_PARAMETERS,
 };
 use crate::presentation::{
-    LeafTextureSet, ProceduralTextureAssets, color_vec4, terrain::TACTICAL_DIRT_SRGB,
+    LeafTextureSet, ProceduralTextureAssets, color_vec4, ground_palette::TACTICAL_DIRT_SRGB,
 };
 #[cfg(test)]
 use adventuresim_procedural_textures::generate_procedural_textures;
@@ -196,6 +196,7 @@ fn bark_material(
                 1.0,
                 0.82,
             ),
+            // y is the shader's reserved zero loop bound.
             soil_optics: Vec4::new(0.35, 0.0, 0.0, 0.0),
             terrain_heightmap,
             soil_height_ao: assets.forest_soil.height_ao.clone(),
@@ -483,8 +484,8 @@ mod tests {
         assert!(shader.contains("textureSampleGrad"));
         assert!(!shader.contains("textureSampleLevel"));
         assert!(shader.contains("fn directional_horizon_visibility"));
-        assert!(shader.contains("layer <= 16"));
-        assert!(shader.contains("horizon_step <= 3"));
+        assert!(shader.contains("16 + i32(bark.soil_optics.y)"));
+        assert!(shader.contains("3 + i32(bark.soil_optics.y)"));
         assert!(shader.contains("let bark_roughness = clamp"));
         assert!(shader.contains("bark.soil_surface.w"));
         assert!(shader.contains("vec3<f32>(bark.soil_optics.x)"));
@@ -561,7 +562,7 @@ mod tests {
         let oak_occlusion = canopy_ao_strength(ENGLISH_OAK_PARAMETERS.crown_radius_metres);
 
         assert!((oak_occlusion - 0.37).abs() < 0.01);
-        assert!((OAK_LEAF_DIFFUSE_TRANSMISSION - 0.46).abs() < f32::EPSILON);
+        assert_eq!(OAK_LEAF_DIFFUSE_TRANSMISSION, 0.46);
         assert!(oak_occlusion < OAK_LEAF_DIFFUSE_TRANSMISSION);
         const {
             assert!(OAK_LEAF_DIFFUSE_TRANSMISSION < 0.5);

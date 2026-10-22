@@ -120,7 +120,11 @@ fn rock_field(params: &crate::TextureParameters, u: f32, v: f32) -> RockFieldSam
     RockFieldSample {
         height,
         palette_index: palette_index.min(params.rock.palette.len() - 1),
-        cavity: pores.bowl / params.rock.pores.depth.max(f32::EPSILON),
+        cavity: if params.rock.pores.depth > 0.0 {
+            pores.bowl / params.rock.pores.depth
+        } else {
+            0.0
+        },
     }
 }
 
@@ -369,6 +373,17 @@ mod tests {
     use std::collections::BTreeSet;
 
     use super::*;
+
+    #[test]
+    fn disabled_pores_have_finite_zero_cavity() {
+        let mut params = crate::TextureParameters::default();
+        params.rock.pores.depth = 0.0;
+        for u in [0.0, 0.25, 0.75] {
+            let sample = rock_field(&params, u, 0.37);
+            assert!(sample.height.is_finite());
+            assert_eq!(sample.cavity, 0.0);
+        }
+    }
 
     #[test]
     fn field_is_periodic_deterministic_and_physically_scaled() {

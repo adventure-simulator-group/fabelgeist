@@ -56,8 +56,8 @@ pub fn has_distal_striking_surface(
     body_material: Option<EquipmentMaterial>,
     striking_material: Option<EquipmentMaterial>,
 ) -> bool {
-    grip_to_tip_metres > f32::EPSILON
-        && striking_head_length_metres > f32::EPSILON
+    grip_to_tip_metres > 0.0
+        && striking_head_length_metres > 0.0
         && striking_head_length_metres < grip_to_tip_metres * 0.5
         && body_material != striking_material
 }
@@ -74,7 +74,7 @@ pub fn preferred_melee_striking_measure(
     fallback_reach_fraction: f32,
 ) -> f32 {
     let reach = effective_reach_metres.max(0.0);
-    if !distal_headed || grip_to_tip_metres <= f32::EPSILON {
+    if !distal_headed || grip_to_tip_metres <= 0.0 {
         return reach * fallback_reach_fraction.clamp(0.0, 1.0);
     }
     let grip = grip_to_tip_metres.min(reach);
@@ -142,7 +142,7 @@ pub fn resolve_melee_contact_at_time(facts: MeleeContactAtTimeFacts) -> MeleeCon
         return MeleeContactAtTime::invalid(facts, cause);
     }
     let measure_accuracy_multiplier = measure_accuracy_multiplier(facts);
-    if facts.grip_to_tip_metres <= f32::EPSILON {
+    if facts.grip_to_tip_metres <= 0.0 {
         return unarmed_contact(facts, measure_accuracy_multiplier);
     }
 
@@ -169,7 +169,7 @@ fn invalid_contact_cause(facts: MeleeContactAtTimeFacts) -> Option<MeleeContactI
     if values
         .into_iter()
         .any(|value| !value.is_finite() || value < 0.0)
-        || facts.effective_reach_metres <= f32::EPSILON
+        || facts.effective_reach_metres <= 0.0
     {
         return Some(MeleeContactInvalidationCause::InvalidGeometry);
     }

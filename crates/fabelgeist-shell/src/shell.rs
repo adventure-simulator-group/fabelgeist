@@ -6,7 +6,10 @@ use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 use fabelgeist_physics::Collisions;
-use fabelgeist_xpbd::{ConstraintSet, Particles, Solver, SolverSettings, SubstepHook};
+use fabelgeist_xpbd::{
+    ConstraintEdges, ConstraintIncidence, ConstraintSet, ParticleIndex, Particles, Solver,
+    SolverSettings, SubstepHook,
+};
 
 use crate::ShellMaterial;
 use crate::ShellMesh;
@@ -25,16 +28,6 @@ pub struct HostContactSchedule {
     pub iterations: u32,
     /// Alternations between an outer layer and surface contacts.
     pub outer_layer_passes: u32,
-}
-
-impl Default for HostContactSchedule {
-    fn default() -> Self {
-        Self {
-            interval_substeps: 1,
-            iterations: 4,
-            outer_layer_passes: 4,
-        }
-    }
 }
 
 /// A simulable thin surface, shared by cloth and metal.
@@ -58,6 +51,27 @@ pub struct Shell {
     inverse_masses: Vec<crate::ParticleInverseMass>,
 }
 
+/// Body collision then self-collision, in that order.
+///
+/// Body first: the body is not going to move out of the way, so resolving the
+/// cloth against it first means the self-collision pass is working with
+/// positions that are already outside the body rather than pushing layers into
+/// it.
+struct ShellHook<'a> {
+    collisions: &'a mut Collisions,
+    self_collision: &'a mut SelfCollision,
+}
+
+impl Default for HostContactSchedule {
+    fn default() -> Self {
+        Self {
+            interval_substeps: 1,
+            iterations: 4,
+            outer_layer_passes: 4,
+        }
+    }
+}
+
 impl Shell {
     pub fn new(
         context: &WgpuContext,
@@ -78,7 +92,7 @@ impl Shell {
             context,
             cache,
             "stretch",
-            &mesh.edges,
+            &ConstraintEdges::from(mesh.edges.as_slice()),
             &mesh.rest_lengths,
             material.stretch_compliance,
         )?;
@@ -92,16 +106,17 @@ impl Shell {
             context,
             cache,
             "seams",
-            &mesh.seams,
+            &ConstraintEdges::from(mesh.seams.as_slice()),
             &seam_rest,
             material.seam_compliance,
         )?;
 
-        let bend_particles: Vec<u32> = mesh
+        let bend_particles: Vec<[ParticleIndex; 4]> = mesh
             .bends
             .iter()
-            .flat_map(|bend| bend.particles())
+            .map(|bend| bend.particles().map(ParticleIndex::from))
             .collect();
+        let bend_incidence = ConstraintIncidence::from_records(&bend_particles)?;
         let bend_kernel = cache.get(
             context,
             &fabelgeist_xpbd::wgsl::constraint_kernel(wgsl::BEND),
@@ -111,8 +126,7 @@ impl Shell {
             "bending",
             bend_kernel,
             cache,
-            &bend_particles,
-            4,
+            &bend_incidence,
             material.bend_compliance,
         )?;
         // The weights are per constraint and the set is stored in colour
@@ -282,45 +296,6 @@ impl Shell {
         Ok(())
     }
 
-    async fn project_host_contacts(
-        &self,
-        context: &WgpuContext,
-        schedule: HostContactSchedule,
-        interval_start: Option<&[Vec3]>,
-    ) -> Result<()> {
-        // Alternate the outer layer and swept self contacts. Neither may
-        // silently win merely because it is the last positional correction.
-        for _ in 0..schedule.outer_layer_passes.max(1) {
-            if let Some(layer) = &self.outer_layer {
-                layer
-                    .project_particles(context, &self.particles, &self.triangles)
-                    .await?;
-            }
-            if self.self_collision.enabled {
-                self.surface_contacts
-                    .project_particles(
-                        context,
-                        &self.particles,
-                        self.material.thickness,
-                        schedule.iterations,
-                        interval_start,
-                    )
-                    .await?;
-            } else {
-                context.submitted_work_done().await;
-            }
-            let Some(layer) = &self.outer_layer else {
-                break;
-            };
-            let positions = self.particles.read_positions(context).await?;
-            if layer.surface_residual(&positions, &self.triangles)
-                <= crate::outer_layer::CLEARANCE_TOLERANCE
-            {
-                break;
-            }
-        }
-        Ok(())
-    }
     pub async fn read_positions(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
         self.particles.read_positions(context).await
     }
@@ -365,17 +340,46 @@ impl Shell {
             .iter()
             .all(|p| p.is_finite()))
     }
-}
 
-/// Body collision then self-collision, in that order.
-///
-/// Body first: the body is not going to move out of the way, so resolving the
-/// cloth against it first means the self-collision pass is working with
-/// positions that are already outside the body rather than pushing layers into
-/// it.
-struct ShellHook<'a> {
-    collisions: &'a mut Collisions,
-    self_collision: &'a mut SelfCollision,
+    async fn project_host_contacts(
+        &self,
+        context: &WgpuContext,
+        schedule: HostContactSchedule,
+        interval_start: Option<&[Vec3]>,
+    ) -> Result<()> {
+        // Alternate the outer layer and swept self contacts. Neither may
+        // silently win merely because it is the last positional correction.
+        for _ in 0..schedule.outer_layer_passes.max(1) {
+            if let Some(layer) = &self.outer_layer {
+                layer
+                    .project_particles(context, &self.particles, &self.triangles)
+                    .await?;
+            }
+            if self.self_collision.enabled {
+                self.surface_contacts
+                    .project_particles(
+                        context,
+                        &self.particles,
+                        self.material.thickness,
+                        schedule.iterations,
+                        interval_start,
+                    )
+                    .await?;
+            } else {
+                context.submitted_work_done().await;
+            }
+            let Some(layer) = &self.outer_layer else {
+                break;
+            };
+            let positions = self.particles.read_positions(context).await?;
+            if layer.surface_residual(&positions, &self.triangles)
+                <= crate::outer_layer::CLEARANCE_TOLERANCE
+            {
+                break;
+            }
+        }
+        Ok(())
+    }
 }
 
 impl SubstepHook for ShellHook<'_> {
