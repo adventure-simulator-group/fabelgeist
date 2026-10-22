@@ -31,6 +31,9 @@ mod member_count;
 mod names;
 mod record_kind;
 
+// The scan window is the reader's selection policy, measured in native bytes.
+const END_DIRECTORY_SEARCH_WINDOW_BYTES: usize = 66_000;
+
 /// Selected directory metadata with distinct count and archive-byte addressing.
 struct CentralDirectory {
     member_count: ArchiveMemberCount,
@@ -76,8 +79,8 @@ impl std::ops::Deref for ArchiveData {
 impl CentralDirectory {
     /// Locates the central directory, following the zip64 locator when present.
     fn locate(data: &[u8]) -> Result<Self> {
-        // The end-of-central-directory record is within 64 KiB of the file end.
-        let earliest = data.len().saturating_sub(66_000);
+        // Select the nearest end record in the final 66,000-byte search window.
+        let earliest = data.len().saturating_sub(END_DIRECTORY_SEARCH_WINDOW_BYTES);
         let mut eocd = None;
         for offset in (earliest..data.len().saturating_sub(21)).rev() {
             if ZipRecordKind::read_at(data, offset) == ZipRecordKind::EndDirectory {

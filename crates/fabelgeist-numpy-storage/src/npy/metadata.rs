@@ -3,6 +3,8 @@ use derive_more::{Display, From, Into};
 
 use super::Dtype;
 
+pub type Result<T> = std::result::Result<T, NpyLayoutError>;
+
 #[derive(Clone, Copy, Debug, Display, PartialEq, Eq, From, Into)]
 pub struct NpyDimension(usize);
 
@@ -68,7 +70,7 @@ impl NpyElementCount {
             NpyOccupancy::Nonempty
         }
     }
-    pub fn payload_length(self, dtype: Dtype) -> Result<NpyPayloadLength, NpyLayoutError> {
+    pub fn payload_length(self, dtype: Dtype) -> Result<NpyPayloadLength> {
         let width = dtype.storage_width();
         self.0
             .checked_mul(width.native_width())
@@ -91,7 +93,7 @@ impl NpyElementWidth {
 }
 impl NpyPayloadLength {
     /// The narrow native serialization adapter, preserving trailing-file policy.
-    pub(super) fn admit(self, payload: &[u8]) -> Result<&[u8], NpyLayoutError> {
+    pub(super) fn admit(self, payload: &[u8]) -> Result<&[u8]> {
         payload
             .get(..self.0)
             .ok_or(NpyLayoutError::TruncatedPayload {
@@ -102,7 +104,7 @@ impl NpyPayloadLength {
 }
 impl TryFrom<Vec<NpyDimension>> for NpyShape {
     type Error = NpyLayoutError;
-    fn try_from(dimensions: Vec<NpyDimension>) -> Result<Self, NpyLayoutError> {
+    fn try_from(dimensions: Vec<NpyDimension>) -> std::result::Result<Self, NpyLayoutError> {
         let mut elements = 1usize;
         if dimensions.contains(&NpyDimension(0)) {
             elements = 0;
@@ -131,9 +133,7 @@ impl NpyShape {
     pub fn element_count(&self) -> NpyElementCount {
         self.elements
     }
-    pub(super) fn tensor_layout<const D: usize>(
-        &self,
-    ) -> Result<NpyTensorLayout<D>, NpyLayoutError> {
+    pub(super) fn tensor_layout<const D: usize>(&self) -> Result<NpyTensorLayout<D>> {
         let dimensions: [NpyDimension; D] =
             self.dimensions
                 .as_slice()

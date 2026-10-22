@@ -114,8 +114,8 @@ impl PoseCorrectives {
         }))
     }
 
-    pub fn num_vertices(&self) -> usize {
-        usize::from(self.layout.vertices())
+    pub fn num_vertices(&self) -> NpyDimension {
+        self.layout.vertices()
     }
 
     /// Per-vertex corrective offsets `[batch, vertices, 3]`, from joint
