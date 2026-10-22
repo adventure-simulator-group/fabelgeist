@@ -1,20 +1,11 @@
 //! Declared ZIP directory cardinality and its native allocation/iteration ports.
 
+use derive_more::From;
+
 /// A declared member count, preserving every ordinary or ZIP64 wire value.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, From, PartialEq, Eq)]
+#[from(u16, u64)]
 pub(super) struct ArchiveMemberCount(u64);
-
-impl From<u16> for ArchiveMemberCount {
-    fn from(value: u16) -> Self {
-        Self(u64::from(value))
-    }
-}
-
-impl From<u64> for ArchiveMemberCount {
-    fn from(value: u64) -> Self {
-        Self(value)
-    }
-}
 
 impl ArchiveMemberCount {
     // The inherited allocation cap is not a directory cardinality limit.
