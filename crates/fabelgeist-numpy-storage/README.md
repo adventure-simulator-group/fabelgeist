@@ -154,3 +154,8 @@ its size query take `NpzArrayName`. Both `contains` methods return the shared
 `ArchiveMemberPresence::Present` or `Absent` state. Text and Boolean conversions
 are explicit presentation and native-boundary adapters. The distinct types
 prevent an array key from silently becoming an exact archive lookup.
+
+## ZIP reader errors
+
+ZIP archive and member operations return concrete errors. See the
+[error contract](zip-reader-errors.md) for classifications and source chains.

@@ -4,7 +4,7 @@ use derive_more::Display;
 
 /// An unsupported two-byte ZIP wire method, retained for its diagnostic.
 #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
-pub(super) struct ZipCompressionCode(u16);
+pub struct ZipCompressionCode(u16);
 
 /// The archive reader's supported methods and a retained foreign method code.
 /// Unknown methods remain queryable metadata; member decoding rejects them only

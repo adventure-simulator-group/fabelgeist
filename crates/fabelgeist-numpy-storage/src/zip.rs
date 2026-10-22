@@ -12,10 +12,11 @@ use std::borrow::Cow;
 use std::io::Read;
 use std::path::Path;
 
-use anyhow::{Context, Result, bail};
 use flate2::read::DeflateDecoder;
 use memmap2::Mmap;
 
+pub use error::{Result, ZipFileOperation, ZipReadError};
+pub use compression::ZipCompressionCode;
 pub use extent::{ArchiveByteOffset, CompressedByteLength, DeclaredUncompressedByteLength};
 
 use compression::ZipCompression;
@@ -24,6 +25,7 @@ pub use names::{ArchiveMemberName, ArchiveMemberPresence};
 use record_kind::ZipRecordKind;
 
 mod compression;
+mod error;
 mod extent;
 mod member_count;
 mod names;
@@ -83,7 +85,7 @@ impl CentralDirectory {
                 break;
             }
         }
-        let eocd = eocd.context("not a zip archive: no end-of-central-directory record")?;
+        let eocd = eocd.ok_or(ZipReadError::MissingEndRecord)?;
         let mut count = ArchiveMemberCount::from(u16_at(data, eocd + 10));
         let mut offset = ArchiveByteOffset::from_archive_start(u64::from(u32_at(data, eocd + 16)));
 
@@ -143,12 +145,18 @@ impl Entry {
 impl ZipArchive {
     pub fn open(path: impl AsRef<Path>) -> Result<Self> {
         let path = path.as_ref();
-        let file =
-            std::fs::File::open(path).with_context(|| format!("opening {}", path.display()))?;
+        let file = std::fs::File::open(path).map_err(|source| ZipReadError::Native {
+            operation: ZipFileOperation::Open,
+            native_path: path.to_path_buf(),
+            source,
+        })?;
         // SAFETY: model assets are read-only inputs; concurrent truncation by
         // another process is out of scope, as elsewhere in this workspace.
-        let data = unsafe { Mmap::map(&file) }
-            .with_context(|| format!("memory-mapping {}", path.display()))?;
+        let data = unsafe { Mmap::map(&file) }.map_err(|source| ZipReadError::Native {
+            operation: ZipFileOperation::Map,
+            native_path: path.to_path_buf(),
+            source,
+        })?;
         Self::from_data(ArchiveData::Mapped(data))
     }
 
@@ -229,7 +237,7 @@ impl ZipArchive {
             .entries
             .iter()
             .find(|entry| entry.name == *name)
-            .with_context(|| format!("archive has no member {name:?}"))?;
+            .ok_or_else(|| ZipReadError::MissingMember { name: name.clone() })?;
         self.entry_bytes(entry)
     }
 
@@ -238,7 +246,7 @@ impl ZipArchive {
         if base + 30 > self.data.len()
             || ZipRecordKind::read_at(&self.data, base) != ZipRecordKind::LocalMember
         {
-            bail!("corrupt zip entry {}", entry.name);
+            return Err(ZipReadError::CorruptMember { name: entry.name.clone() });
         }
         // The local header repeats the name and may carry a different extra field.
         let name_len = u16_at(&self.data, base + 26) as usize;
@@ -246,7 +254,7 @@ impl ZipArchive {
         let start = base + 30 + name_len + extra_len;
         let end = start + entry.compressed_size.native_slice_length();
         if end > self.data.len() {
-            bail!("zip entry {} runs past the end of the archive", entry.name);
+            return Err(ZipReadError::MemberPastEnd { name: entry.name.clone() });
         }
         let raw = &self.data[start..end];
 
@@ -257,22 +265,28 @@ impl ZipArchive {
                     Vec::with_capacity(entry.uncompressed_size.native_allocation_capacity());
                 DeflateDecoder::new(raw)
                     .read_to_end(&mut out)
-                    .with_context(|| format!("inflating zip entry {}", entry.name))?;
+                    .map_err(|source| ZipReadError::Inflate { name: entry.name.clone(), source })?;
                 Ok(Cow::Owned(out))
             }
-            ZipCompression::Unsupported(code) => bail!("unsupported zip compression method {code}"),
+            ZipCompression::Unsupported(code) => Err(ZipReadError::UnsupportedCompression { code }),
         }
     }
 }
 
 fn u16_at(data: &[u8], offset: usize) -> u16 {
-    u16::from_le_bytes(data[offset..offset + 2].try_into().unwrap())
+    let mut scalar = [0; 2];
+    scalar.copy_from_slice(&data[offset..offset + 2]);
+    u16::from_le_bytes(scalar)
 }
 
 fn u32_at(data: &[u8], offset: usize) -> u32 {
-    u32::from_le_bytes(data[offset..offset + 4].try_into().unwrap())
+    let mut scalar = [0; 4];
+    scalar.copy_from_slice(&data[offset..offset + 4]);
+    u32::from_le_bytes(scalar)
 }
 
 fn u64_at(data: &[u8], offset: usize) -> u64 {
-    u64::from_le_bytes(data[offset..offset + 8].try_into().unwrap())
+    let mut scalar = [0; 8];
+    scalar.copy_from_slice(&data[offset..offset + 8]);
+    u64::from_le_bytes(scalar)
 }
