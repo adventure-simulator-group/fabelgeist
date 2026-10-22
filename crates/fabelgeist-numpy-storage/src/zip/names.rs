@@ -1,13 +1,14 @@
 //! Parsed archive filenames and lookup presence share one owner.
 
-use std::fmt;
+use derive_more::{Debug, Display, From};
 
 /// An archive member's parsed filename, without path or existence validation.
 ///
 /// Stored bytes use the reader's lossy UTF-8 admission. Distinct invalid byte
 /// spellings can therefore identify the same parsed name. Text constructors
 /// preserve accepted spelling, including case, separators, NUL and emptiness.
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Clone, Debug, Display, From, PartialEq, Eq)]
+#[debug("{_0:?}")]
 pub struct ArchiveMemberName(String);
 
 /// Whether a lookup found a matching central-directory member.
@@ -29,12 +30,6 @@ impl From<&str> for ArchiveMemberName {
     }
 }
 
-impl From<String> for ArchiveMemberName {
-    fn from(name: String) -> Self {
-        Self(name)
-    }
-}
-
 impl<'a> From<&'a ArchiveMemberName> for &'a str {
     fn from(name: &'a ArchiveMemberName) -> Self {
         &name.0
@@ -44,18 +39,6 @@ impl<'a> From<&'a ArchiveMemberName> for &'a str {
 impl From<ArchiveMemberPresence> for bool {
     fn from(presence: ArchiveMemberPresence) -> Self {
         presence == ArchiveMemberPresence::Present
-    }
-}
-
-impl fmt::Debug for ArchiveMemberName {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Debug::fmt(&self.0, formatter)
-    }
-}
-
-impl fmt::Display for ArchiveMemberName {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Display::fmt(&self.0, formatter)
     }
 }
 

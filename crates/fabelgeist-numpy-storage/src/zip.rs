@@ -15,8 +15,8 @@ use std::path::Path;
 use flate2::read::DeflateDecoder;
 use memmap2::Mmap;
 
-pub use error::{Result, ZipFileOperation, ZipReadError};
 pub use compression::ZipCompressionCode;
+pub use error::{Result, ZipFileOperation, ZipReadError};
 pub use extent::{ArchiveByteOffset, CompressedByteLength, DeclaredUncompressedByteLength};
 
 use compression::ZipCompression;
@@ -246,7 +246,9 @@ impl ZipArchive {
         if base + 30 > self.data.len()
             || ZipRecordKind::read_at(&self.data, base) != ZipRecordKind::LocalMember
         {
-            return Err(ZipReadError::CorruptMember { name: entry.name.clone() });
+            return Err(ZipReadError::CorruptMember {
+                name: entry.name.clone(),
+            });
         }
         // The local header repeats the name and may carry a different extra field.
         let name_len = u16_at(&self.data, base + 26) as usize;
@@ -254,7 +256,9 @@ impl ZipArchive {
         let start = base + 30 + name_len + extra_len;
         let end = start + entry.compressed_size.native_slice_length();
         if end > self.data.len() {
-            return Err(ZipReadError::MemberPastEnd { name: entry.name.clone() });
+            return Err(ZipReadError::MemberPastEnd {
+                name: entry.name.clone(),
+            });
         }
         let raw = &self.data[start..end];
 
@@ -265,7 +269,10 @@ impl ZipArchive {
                     Vec::with_capacity(entry.uncompressed_size.native_allocation_capacity());
                 DeflateDecoder::new(raw)
                     .read_to_end(&mut out)
-                    .map_err(|source| ZipReadError::Inflate { name: entry.name.clone(), source })?;
+                    .map_err(|source| ZipReadError::Inflate {
+                        name: entry.name.clone(),
+                        source,
+                    })?;
                 Ok(Cow::Owned(out))
             }
             ZipCompression::Unsupported(code) => Err(ZipReadError::UnsupportedCompression { code }),

@@ -3,6 +3,21 @@ use std::{error::Error, fmt, io, path::PathBuf};
 
 use super::{ArchiveMemberName, ZipCompressionCode};
 
+/// Concrete result shared by ZIP archive admission and member decoding.
+///
+/// ```
+/// use fabelgeist_numpy_storage::{ZipArchive, zip::{Result, ZipReadError}};
+/// let archive: Result<ZipArchive> = ZipArchive::from_bytes(Vec::new());
+/// assert!(matches!(archive, Err(ZipReadError::MissingEndRecord)));
+/// ```
+/// Native I/O is a retained cause, not the owning parser error:
+/// ```compile_fail
+/// use fabelgeist_numpy_storage::ZipArchive;
+/// let archive: std::result::Result<ZipArchive, std::io::Error> =
+///     ZipArchive::from_bytes(Vec::new());
+/// ```
+pub type Result<T> = std::result::Result<T, ZipReadError>;
+
 /// Native file operation whose original I/O failure is retained.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ZipFileOperation {
@@ -25,7 +40,7 @@ pub enum ZipReadError {
         source: io::Error,
     },
     MissingMember {
-        /// Original native lookup text, retained for quoted diagnostics.
+        /// Exact member query, retained without changing its spelling.
         name: ArchiveMemberName,
     },
     CorruptMember {
@@ -42,25 +57,10 @@ pub enum ZipReadError {
         source: io::Error,
     },
     UnsupportedCompression {
-        /// Rejected native wire method, before successful payload decoding.
+        /// Rejected method code, retained before successful payload decoding.
         code: ZipCompressionCode,
     },
 }
-
-/// Concrete result shared by ZIP archive admission and member decoding.
-///
-/// ```
-/// use fabelgeist_numpy_storage::{ZipArchive, zip::{Result, ZipReadError}};
-/// let archive: Result<ZipArchive> = ZipArchive::from_bytes(Vec::new());
-/// assert!(matches!(archive, Err(ZipReadError::MissingEndRecord)));
-/// ```
-/// Native I/O is a retained cause, not the owning parser error:
-/// ```compile_fail
-/// use fabelgeist_numpy_storage::ZipArchive;
-/// let archive: std::result::Result<ZipArchive, std::io::Error> =
-///     ZipArchive::from_bytes(Vec::new());
-/// ```
-pub type Result<T> = std::result::Result<T, ZipReadError>;
 
 impl fmt::Display for ZipReadError {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -91,10 +91,9 @@ impl fmt::Display for ZipReadError {
             Self::Inflate { name, .. } => {
                 write!(formatter, "inflating zip entry {name}")
             }
-            Self::UnsupportedCompression { code } => write!(
-                formatter,
-                "unsupported zip compression method {code}"
-            ),
+            Self::UnsupportedCompression { code } => {
+                write!(formatter, "unsupported zip compression method {code}")
+            }
         }?;
         if formatter.alternate()
             && let Some(source) = self.source()

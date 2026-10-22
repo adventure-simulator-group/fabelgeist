@@ -84,7 +84,7 @@ fn unsupported_method_retains_the_rejected_native_word() {
     let error = rejected(archive.bytes(&ArchiveMemberName::from("values.npy")));
     assert!(matches!(
         error,
-        ZipReadError::UnsupportedCompression { code } if code.to_string() == u16::MAX.to_string()
+        ZipReadError::UnsupportedCompression { code } if u16::from(code) == u16::MAX
     ));
     assert_eq!(
         error.to_string(),
@@ -98,11 +98,7 @@ fn inflate_failure_retains_the_native_cause_through_npz_anyhow() {
     let input = include_bytes!("fixtures/zip-errors/bad-deflate.zip");
     let archive = ZipArchive::from_bytes(input.to_vec()).unwrap();
     let error = rejected(archive.bytes(&ArchiveMemberName::from("values.npy")));
-    let ZipReadError::Inflate {
-        name,
-        source,
-    } = &error
-    else {
+    let ZipReadError::Inflate { name, source } = &error else {
         panic!("unexpected classification: {error:?}")
     };
     assert_eq!(name, &ArchiveMemberName::from("values.npy"));
@@ -186,9 +182,15 @@ fn native_directory_map_failure_is_distinct_from_open() {
 fn successful_stored_and_deflated_reads_preserve_borrowing_and_float_bits() {
     let stored = ZipArchive::from_bytes(STORED.to_vec()).unwrap();
     let deflated = ZipArchive::from_bytes(DEFLATED.to_vec()).unwrap();
-    let borrowed = stored.bytes(&ArchiveMemberName::from("values.npy")).unwrap();
-    let repeated = stored.bytes(&ArchiveMemberName::from("values.npy")).unwrap();
-    let decoded = deflated.bytes(&ArchiveMemberName::from("values.npy")).unwrap();
+    let borrowed = stored
+        .bytes(&ArchiveMemberName::from("values.npy"))
+        .unwrap();
+    let repeated = stored
+        .bytes(&ArchiveMemberName::from("values.npy"))
+        .unwrap();
+    let decoded = deflated
+        .bytes(&ArchiveMemberName::from("values.npy"))
+        .unwrap();
     assert!(matches!(borrowed, Cow::Borrowed(_)));
     assert!(matches!(decoded, Cow::Owned(_)));
     assert!(std::ptr::eq(borrowed.as_ptr(), repeated.as_ptr()));

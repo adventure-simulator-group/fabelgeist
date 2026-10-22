@@ -3,10 +3,11 @@
 //! Declarations preserve the full wire width, including zero. Native indexing
 //! and allocation ports retain the reader's casts and unchecked arithmetic.
 
-use std::fmt;
+use derive_more::{Debug, Display};
 
 /// Byte length of a member's encoded payload, before decompression.
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+#[debug("{_0:?}")]
 pub struct CompressedByteLength(u64);
 
 /// Declared decoded byte length of a ZIP member, including any NPY header.
@@ -43,14 +44,16 @@ pub struct CompressedByteLength(u64);
 /// use fabelgeist_numpy_storage::{ArchiveMemberName, ArchiveByteOffset, DeclaredUncompressedByteLength};
 /// let decoded: DeclaredUncompressedByteLength = ArchiveByteOffset::from_archive_start(3);
 /// ```
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+#[debug("{_0:?}")]
 pub struct DeclaredUncompressedByteLength(u64);
 
 /// Byte position relative to the archive's first byte, whose origin is zero.
 ///
 /// Local headers, the central directory and ZIP64 locator records share this
 /// frame. A position does not certify that bytes exist at that location.
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+#[debug("{_0:?}")]
 pub struct ArchiveByteOffset(u64);
 
 impl CompressedByteLength {
@@ -112,41 +115,5 @@ impl ArchiveByteOffset {
     /// Callers supply the fixed header plus native name/extra/comment widths.
     pub(super) fn advance_native_bytes(&mut self, bytes: usize) {
         self.0 += bytes as u64;
-    }
-}
-
-impl fmt::Debug for CompressedByteLength {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Debug::fmt(&self.0, formatter)
-    }
-}
-
-impl fmt::Display for CompressedByteLength {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Display::fmt(&self.0, formatter)
-    }
-}
-
-impl fmt::Debug for DeclaredUncompressedByteLength {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Debug::fmt(&self.0, formatter)
-    }
-}
-
-impl fmt::Display for DeclaredUncompressedByteLength {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Display::fmt(&self.0, formatter)
-    }
-}
-
-impl fmt::Debug for ArchiveByteOffset {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Debug::fmt(&self.0, formatter)
-    }
-}
-
-impl fmt::Display for ArchiveByteOffset {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Display::fmt(&self.0, formatter)
     }
 }

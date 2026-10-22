@@ -1,18 +1,20 @@
 //! Array axes, checked element counts, payload length, and fixed-rank SDK layout.
+use derive_more::{Display, From, Into};
+
 use super::Dtype;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq, From, Into)]
 pub struct NpyDimension(usize);
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq, From)]
 pub struct NpyRank(usize);
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq, From, Into)]
 pub struct NpyElementCount(usize);
 
 /// Byte length of the serialized array's element payload, separate from its
 /// logical element count. Native slices are admitted only at format decoding.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
 pub struct NpyPayloadLength(usize);
 
 /// Immutable dimensions and their admitted product. A rank-zero scalar contains
@@ -58,36 +60,6 @@ pub enum NpyLayoutError {
         source: std::array::TryFromSliceError,
     },
 }
-impl From<usize> for NpyDimension {
-    fn from(extent: usize) -> Self {
-        Self(extent)
-    }
-}
-impl From<NpyDimension> for usize {
-    fn from(dimension: NpyDimension) -> Self {
-        dimension.0
-    }
-}
-impl std::fmt::Display for NpyDimension {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(f)
-    }
-}
-impl From<usize> for NpyRank {
-    fn from(rank: usize) -> Self {
-        Self(rank)
-    }
-}
-impl std::fmt::Display for NpyRank {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(f)
-    }
-}
-impl From<usize> for NpyElementCount {
-    fn from(count: usize) -> Self {
-        Self(count)
-    }
-}
 impl NpyElementCount {
     pub fn occupancy(self) -> NpyOccupancy {
         if self.0 == 0 {
@@ -115,11 +87,6 @@ impl NpyElementWidth {
             Self::Word32 => 4,
             Self::Word64 => 8,
         }
-    }
-}
-impl std::fmt::Display for NpyPayloadLength {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(f)
     }
 }
 impl NpyPayloadLength {

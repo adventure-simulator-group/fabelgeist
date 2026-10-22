@@ -20,10 +20,11 @@ failure and an unsupported compression method. Native file failures also
 identify `ZipFileOperation::Open` or `ZipFileOperation::Map`. Existing
 `Display` messages and the order of validation remain unchanged.
 
-Paths, queried names, central-directory names and rejected method words in
-errors are diagnostic provenance captured at an OS or serialization boundary.
-They retain the failed input spelling; they do not validate successful archive
-metadata or establish a file, member, compression, offset or count owner.
+Queried and central-directory names retain `ArchiveMemberName` in the error.
+Unsupported methods retain the canonical `ZipCompressionCode`; its native
+integer conversion is an explicit diagnostic observation. Native OS paths
+remain rejected-input provenance. These values do not certify member existence,
+path safety or successful decoding.
 
 Native open, map and deflate failures retain the original `std::io::Error`
 through `std::error::Error::source`. `Npz` keeps its `anyhow::Result` boundary;
@@ -33,11 +34,16 @@ shows the structured class and its rejected input or native cause. MHR loader
 contexts continue to surround this error, including corrective-basis and
 sparse-activation diagnostics.
 
-The archive constructor owns directory scanning and archive admission. Count
-and offset words remain native at the existing capped `Vec` allocation,
-`u64` iteration and slice-address ports. The little-endian scalar decoders
-copy fixed-width slices into native arrays; they add no bounds policy.
-Stored payloads still borrow archive bytes, while deflated payloads are owned.
+`CentralDirectory` owns directory selection and retains the canonical member
+count and archive-origin offset. The archive constructor consumes that record
+for capped reservation and full-width iteration. Error classification does not
+replace those owners with raw words. The little-endian scalar decoders copy
+fixed-width slices into native arrays; they add no bounds policy. Stored
+payloads borrow archive bytes, while deflated payloads are owned.
+
+Default `Display` prints the owning context; alternate `Display` also prints the
+native cause, preserving direct ZIP diagnostics. The cause remains available
+through `Error::source`, so NPZ and MHR contexts retain the full cause chain.
 
 This error contract preserves the reader's limited ZIP policy: scanning and
 ZIP64 fallback, duplicate selection, lossy name decoding and declared sizes

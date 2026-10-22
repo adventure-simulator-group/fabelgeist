@@ -41,8 +41,7 @@ public size API and unchanged native addressing/allocation policy.
 
 The reader retains a bespoke compression choice from central-directory admission
 through member decoding. Stored members borrow the original bytes; Deflate, a
-ZIP
-compression format, produces owned decoded output. Unsupported method codes
+ZIP compression format, produces owned decoded output. Unsupported method codes
 remain available as metadata for name and size queries, then fail when bytes are
 requested. Local-header corruption and payload bounds are checked before that
 unsupported-method error, preserving diagnostic precedence.
@@ -55,11 +54,10 @@ errors remain separate concepts. This contract preserves their existing
 behavior.
 
 PKWARE APPNOTE section 4.4.5 defines the two-byte compression method field: code
-0
-stores bytes without compression, and code 8 uses Deflate. The reader classifies
-these codes at central-directory admission and retains every other `u16` as an
-unsupported code for the original decimal diagnostic. `ZipCompressionCode`
-derives decimal display without changing that message.
+0 stores bytes without compression, and code 8 uses Deflate. The reader
+classifies these codes at central-directory admission and retains every other
+`u16` as an unsupported code for the original decimal diagnostic.
+`ZipCompressionCode` derives decimal display without changing that message.
 
 [PKWARE ZIP format specification, section 4.4.5](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT)
 
@@ -68,46 +66,44 @@ derives decimal display without changing that message.
 The reader retains named record kinds after native signature decoding. See the
 [record-kind contract](record-kinds.md) for interpretation and framing limits.
 
-Decode a serialized array with `NpyArray::from_bytes`, or read a standalone
-file with `NpyArray::read`.
+Decode a serialized array with `NpyArray::from_bytes`, or read a standalone file
+with `NpyArray::read`.
 
 ## Array metadata
 
 The decoder checks the shape, element type, and payload length. A decoded
 `NpyArray` keeps that metadata immutable. Use `shape`, `dtype`, `element_count`,
 and `occupancy` to inspect it. Public mutation cannot reinterpret one decoded
-element as several differently sized values or
-replace the dimensions behind its checked element count.
+element as several differently sized values or replace the dimensions behind its
+checked element count.
 
 `NpyShape` owns a sequence of `NpyDimension` values and admits their product.
 `NpyRank` counts axes; `NpyElementCount` counts stored elements. A scalar has
 rank zero and one element. Any zero axis makes an array empty before other
-dimensions
-can overflow. `NpyElementWidth` describes the supported one-, four-, and
-eight-byte storage words. `NpyPayloadLength` owns the checked serialized payload
-length separately from element cardinality.
+dimensions can overflow. `NpyElementWidth` describes the supported one-, four-,
+and eight-byte storage words. `NpyPayloadLength` owns the checked serialized
+payload length separately from element cardinality.
 
 `NpyLayoutError` retains the failed dimensions, element count and width,
 expected and available payload lengths, or expected/actual ranks and the native
-rank
-conversion cause. Constructing a tensor with the wrong rank returns this
-concrete error.
-Existing file, header, and archive error paths are separate migration work.
+rank conversion cause. Constructing a tensor with the wrong rank returns this
+concrete error. Header and standalone-file errors remain format-adapter
+responsibilities. ZIP failures use the concrete classes described below.
 
 Native representations stay at explicit adapters: header dimension admission,
 little-endian word decoding, payload slicing, the immutable `bytes` encoding
 view, and Burn tensor construction. MHR corrective-basis comparisons retain
 `NpyDimension` until the direct tensor adapter. Shape queries expose nominal
 dimensions, not mutable integer vectors. Numeric value collections retain
-decoded storage numbers; general
-storage/transport types remain separate bespoke type families.
+decoded storage numbers; general storage/transport types remain separate bespoke
+type families.
 
-Supported dtype spellings, header admission order, scalar/empty meanings,
-stored value casts, row order, and tensor dimensions are preserved. Oversized
-shape and payload products return layout errors rather than panicking or
-wrapping. The focused tests cover overflow context, rank causes, zero axes,
-scalar shape, header failure priority, stored-width decoding, and compile-time
-metadata immutability.
+Supported dtype spellings, header admission order, scalar/empty meanings, stored
+value casts, row order, and tensor dimensions are preserved. Oversized shape and
+payload products return layout errors rather than panicking or wrapping. The
+focused tests cover overflow context, rank causes, zero axes, scalar shape,
+header failure priority, stored-width decoding, and compile-time metadata
+immutability.
 
 ## Decoded values
 
@@ -118,23 +114,26 @@ or nonzero, independently of element width.
 
 Construct a collection with `From<&NpyArray>` and inspect its typed slice.
 Convert explicitly to a native vector at a tensor-data or other external
-representation boundary. Decoding retains stored dtype semantics:
-float64-to-integer conversion occurs before any float32 projection,
-floating-to-integer casts saturate as Rust defines, float32 NaN bits and signed
-zero are preserved, and numeric byte values are not normalized to booleans.
+representation boundary. Decoding retains stored dtype semantics: float64-to-
+integer conversion occurs before any float32 projection, floating-to-integer
+casts saturate as Rust defines, float32 NaN bits and signed zero are preserved,
+and numeric byte values are not normalized to booleans.
 
 Native fixed-width word iterators preserve order and exclude an incomplete final
 word, as the previous decoder did. Each iterator supplies its exact allocation
 count to standard collection operations. Array shape, dtype admission, archive
-lookup and parser error handling retain their existing contracts; the
-decoded-value collection does not validate an array's metadata or classify a
-number as a mesh index or activation coefficient.
+lookup and parser error handling retain their existing contracts; the decoded-
+value collection does not validate an array's metadata or classify a number as a
+mesh index or activation coefficient.
 
-The character importer retains decoded values through sparse lookup and converts
-only at native indexing and tensor-buffer assignment. Sparse transposition,
-duplicate replacement, narrowing before bounds checks and diagnostic order are
-unchanged. Native tensor upload may use a backend's integer representation, such
-as i32, separately from the decoded i64 storage number.
+The character importer admits corrective tensor extents together and pairs the
+two sparse index columns with their weights before densification. Decoded values
+stay typed until native indexing and tensor-buffer assignment. Sparse
+transposition, duplicate replacement and native narrowing before bounds checks
+are unchanged. Impossible joint subtraction and overflowing tensor extents now
+return concrete corrective-import errors before allocation. Native tensor upload
+may use a backend's integer representation, such as i32, separately from the
+decoded i64 storage number.
 
 ## Archive filenames and array keys
 
@@ -144,10 +143,9 @@ parsed text. Case, separators, empty text, NUL and path-like spelling remain
 unchanged; the name validates neither a filesystem path nor membership.
 
 `NpzArrayName` carries a NumPy array query. A member matches its full filename
-or
-that filename with one trailing `.npy` removed. The first directory match wins,
-even if a later member is an exact filename match. `keys` returns typed keys in
-member order, removing one suffix without changing the stored filename.
+or that filename with one trailing `.npy` removed. The first directory match
+wins, even if a later member is an exact filename match. `keys` returns typed
+keys in member order, removing one suffix without changing the stored filename.
 
 `ZipArchive::bytes` and size queries take `ArchiveMemberName`; `Npz::array` and
 its size query take `NpzArrayName`. Both `contains` methods return the shared
@@ -157,5 +155,5 @@ prevent an array key from silently becoming an exact archive lookup.
 
 ## ZIP reader errors
 
-ZIP archive and member operations return concrete errors. See the
-[error contract](zip-reader-errors.md) for classifications and source chains.
+ZIP archive and member operations return concrete errors. See the [error
+contract](zip-reader-errors.md) for classifications and source chains.

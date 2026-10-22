@@ -1,7 +1,8 @@
 //! NumPy array keys retain query spelling and the optional member suffix rule.
 
 use std::borrow::Cow;
-use std::fmt;
+
+use derive_more::{Debug, Display};
 
 use crate::zip::{ArchiveMemberName, ArchiveMemberPresence};
 
@@ -39,7 +40,8 @@ const NPY_MEMBER_SUFFIX: &str = ".npy";
 ///     let _ = archive.bytes(key);
 /// }
 /// ```
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Clone, Debug, Display, PartialEq, Eq)]
+#[debug("{_0:?}")]
 pub struct NpzArrayName<'a>(Cow<'a, str>);
 
 impl<'a> NpzArrayName<'a> {
@@ -80,17 +82,5 @@ impl<'a> From<&'a ArchiveMemberName> for NpzArrayName<'a> {
 impl<'a, 'b> From<&'b NpzArrayName<'a>> for &'b str {
     fn from(name: &'b NpzArrayName<'a>) -> Self {
         &name.0
-    }
-}
-
-impl fmt::Debug for NpzArrayName<'_> {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Debug::fmt(&self.0, formatter)
-    }
-}
-
-impl fmt::Display for NpzArrayName<'_> {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Display::fmt(&self.0, formatter)
     }
 }
