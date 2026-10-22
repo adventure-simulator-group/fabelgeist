@@ -252,7 +252,11 @@ pub(super) fn bake(
     render_queue: Res<RenderQueue>,
 ) {
     let baker = &mut *baker;
-    if let Some(job) = queue.take() {
+    // One bake's sets run one after another; a new bake starts only once
+    // the last is drawn.
+    if baker.active.is_none()
+        && let Some(job) = queue.take()
+    {
         baker.active = Some(Active {
             job,
             bound: None,
