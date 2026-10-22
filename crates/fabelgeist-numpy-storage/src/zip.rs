@@ -1,9 +1,7 @@
 //! A minimal read-only zip archive reader.
 //!
-//! Stored and deflated members, zip64 included. Lives here because `.npz` is a
-//! zip of `.npy` members, and is public because PyTorch archives are zips too:
-//! `burn-torch-storage` reads `.pt`/`.ckpt` through this same code rather than
-//! carrying a second copy of the central-directory parser.
+//! Stored and deflated members, zip64 included. Provides the archive reader
+//! used by NumPy `.npz` loading.
 //!
 //! Stored members are handed back as borrowed slices of the mapping, so reading
 //! a multi-gigabyte tensor storage costs no copy.
