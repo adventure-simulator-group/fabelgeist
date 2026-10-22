@@ -229,6 +229,9 @@ fn keys(ctx: &egui::Context, viewer: &mut Viewer) {
     if pressed(egui::Key::B) {
         viewer.impostors.rebake += 1;
     }
+    if pressed(egui::Key::T) {
+        viewer.impostors.tint = !viewer.impostors.tint;
+    }
     if pressed(egui::Key::F3) {
         viewer.debug = !viewer.debug;
     }

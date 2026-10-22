@@ -56,7 +56,7 @@ pub const SAPLING_TEXELS: u32 = 32;
 /// the size class the forest keeps apart from shrubs.
 const TREE_RADIUS: f32 = 4.0;
 /// Saplings this wide and wider, of a species with trees, have impostors.
-const SAPLING_RADIUS: f32 = 0.3;
+const SAPLING_RADIUS: f32 = 0.1;
 /// The most trees and saplings a bake takes, largest first.
 const MOST_TREES: usize = 64;
 const MOST_SAPLINGS: usize = 192;
@@ -79,6 +79,9 @@ const WOODS_GAP: f32 = 4.0;
 const WOODS_SCALE: [f32; 2] = [0.8, 1.2];
 /// Forest floor under the woods, sRGB.
 const WOODS_FLOOR: Color = Color::srgb(0.27, 0.29, 0.18);
+/// What tree and sapling impostors are tinted, to tell them apart.
+const TREE_TINT: Vec3 = Vec3::new(1.0, 0.55, 0.2);
+const SAPLING_TINT: Vec3 = Vec3::new(0.2, 0.8, 1.0);
 
 /// Whether trees are drawn as impostors, and how.
 #[derive(Resource, Clone, Copy, Debug, PartialEq)]
@@ -98,6 +101,8 @@ pub struct ImpostorSettings {
     /// Each blade is baked this much larger, across and along; applies to
     /// the next bake.
     pub leaf_size: f32,
+    /// Tint tree impostors orange and sapling impostors cyan.
+    pub tint: bool,
     /// Raise to bake again now.
     pub rebake: u32,
 }
@@ -111,6 +116,7 @@ impl Default for ImpostorSettings {
             woods_reach: 1_000.0,
             density: 1.0,
             leaf_size: 1.0,
+            tint: false,
             rebake: 0,
         }
     }
@@ -152,6 +158,9 @@ pub struct ImpostorMaterial {
     albedo: Handle<Image>,
     #[texture(3, dimension = "2d_array")]
     normal: Handle<Image>,
+    /// rgb: the set's tint; w: 1 while tinted.
+    #[uniform(5)]
+    tint: Vec4,
 }
 
 impl InstancedMaterial for ImpostorMaterial {
@@ -253,6 +262,9 @@ struct Impostors {
     /// The entities drawing the bake, and the woods' settings they follow.
     entities: Vec<Entity>,
     woods: Option<(u32, f32)>,
+    /// The scene's terrain, which the woods' floor leaves a hole for: its
+    /// lower and upper corners.
+    terrain: Option<[Vec3; 2]>,
     /// Which snapshot the plants' impostors were last written for, whether
     /// they were marked, and how many bytes were written.
     marked: Option<(usize, bool)>,
@@ -341,12 +353,18 @@ fn start_bake(
                 settings: UVec4::new(FRAMES, 0, settings.switch.to_bits(), settings.density.to_bits()),
                 albedo,
                 normal,
+                tint: Vec4::ZERO,
             }),
             progress,
         }
     };
     let trees = set(trees, FRAME_TEXELS);
     let saplings = set(saplings, SAPLING_TEXELS);
+    for (set, tint) in [(&trees, TREE_TINT), (&saplings, SAPLING_TINT)] {
+        if let Some(mut material) = materials.get_mut(&set.material) {
+            material.tint = tint.extend(0.0);
+        }
+    }
     queue.push(jobs);
     impostors.pending = Some(Bake {
         snapshot: snapshot.clone(),
@@ -554,6 +572,20 @@ fn show(
     mut visibility: Query<&mut Visibility>,
 ) {
     let impostors = &mut *impostors;
+    // Only a scene's first snapshot brings its terrain.
+    if let Some(terrain) = feed.drawn().and_then(|drawn| drawn.terrain.as_ref()) {
+        let mut low = Vec3::INFINITY;
+        let mut high = Vec3::NEG_INFINITY;
+        for vertex in &terrain.vertices {
+            low = low.min(Vec3::from_array(vertex.position));
+            high = high.max(Vec3::from_array(vertex.position));
+        }
+        let corners = low.is_finite().then_some([low, high]);
+        if corners != impostors.terrain {
+            impostors.terrain = corners;
+            impostors.woods = None;
+        }
+    }
     let Some(current) = &impostors.current else {
         return;
     };
@@ -567,11 +599,13 @@ fn show(
         settings.switch.to_bits(),
         settings.density.to_bits(),
     );
+    let tinted = f32::from(u8::from(settings.tint));
     for set in current.sets() {
         if let Some(mut material) = materials.get_mut(&set.material)
-            && material.settings != wanted
+            && (material.settings != wanted || material.tint.w != tinted)
         {
             material.settings = wanted;
+            material.tint.w = tinted;
         }
     }
     let woods = (settings.woods, settings.woods_reach);
@@ -591,6 +625,7 @@ fn show(
                 current,
                 &mesh,
                 bounds,
+                impostors.terrain,
                 woods,
                 &mut meshes,
                 &mut floors,
@@ -616,6 +651,7 @@ fn spawn(
     bake: &Bake,
     mesh: &Handle<Mesh>,
     bounds: [[f32; 3]; 2],
+    terrain: Option<[Vec3; 2]>,
     (count, reach): (u32, f32),
     meshes: &mut Assets<Mesh>,
     floors: &mut Assets<StandardMaterial>,
@@ -684,25 +720,72 @@ fn spawn(
         }
     }
     if count > 0 {
-        let disc = meshes.add(Circle::new(outer + WOODS_CELL));
+        // Round the scene's terrain, never under it: two floors at one
+        // height fight over every pixel.
+        let [hole_low, hole_high] = terrain.unwrap_or([low, high]);
+        let floor_y = terrain.map_or(floor, |[low, _]| low.y);
+        let reach = outer + WOODS_CELL;
+        let frame = floor_frame(
+            hole_low.xz(),
+            hole_high.xz(),
+            middle.xz() - Vec2::splat(reach),
+            middle.xz() + Vec2::splat(reach),
+            floor_y,
+        );
         entities.push(
             commands
                 .spawn((
                     ForestGeometry,
-                    Mesh3d(disc),
+                    Mesh3d(meshes.add(frame)),
                     MeshMaterial3d(floors.add(StandardMaterial {
                         base_color: WOODS_FLOOR,
                         perceptual_roughness: 0.95,
                         ..default()
                     })),
-                    Transform::from_translation(Vec3::new(middle.x, floor - 0.05, middle.z))
-                        .with_rotation(Quat::from_rotation_x(-std::f32::consts::FRAC_PI_2)),
+                    // Flat ground shades itself from nothing; casting would
+                    // only stripe it.
+                    bevy::light::NotShadowCaster,
+                    Transform::default(),
                     Visibility::Hidden,
                 ))
                 .id(),
         );
     }
     entities
+}
+
+/// Flat ground at `y` from `outer_low` to `outer_high`, but for the hole from
+/// `hole_low` to `hole_high`: four rectangles round it.
+fn floor_frame(hole_low: Vec2, hole_high: Vec2, outer_low: Vec2, outer_high: Vec2, y: f32) -> Mesh {
+    let (a, b) = (outer_low, outer_high);
+    let (h, k) = (hole_low.max(a), hole_high.min(b));
+    let rects = [
+        [a, Vec2::new(b.x, h.y)],
+        [Vec2::new(a.x, k.y), b],
+        [Vec2::new(a.x, h.y), Vec2::new(h.x, k.y)],
+        [Vec2::new(k.x, h.y), Vec2::new(b.x, k.y)],
+    ];
+    let mut positions = Vec::new();
+    let mut indices = Vec::new();
+    for [low, high] in rects {
+        let base = positions.len() as u32;
+        positions.extend([
+            [low.x, y, low.y],
+            [high.x, y, low.y],
+            [high.x, y, high.y],
+            [low.x, y, high.y],
+        ]);
+        // Counter-clockwise from above.
+        indices.extend([0, 2, 1, 0, 3, 2].map(|i| base + i));
+    }
+    let normals = vec![[0.0, 1.0, 0.0]; positions.len()];
+    Mesh::new(
+        PrimitiveTopology::TriangleList,
+        RenderAssetUsages::default(),
+    )
+    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, positions)
+    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, normals)
+    .with_inserted_indices(Indices::U32(indices))
 }
 
 /// One instanced draw of impostors, culled by its bounds on the GPU.

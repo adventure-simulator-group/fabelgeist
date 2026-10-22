@@ -20,6 +20,8 @@
 @group(3) @binding(1) var albedo_atlas: texture_2d_array<f32>;
 @group(3) @binding(2) var atlas_sampler: sampler;
 @group(3) @binding(3) var normal_atlas: texture_2d_array<f32>;
+// rgb: the set's tint; w: 1 while tinted.
+@group(3) @binding(5) var<uniform> tint: vec4<f32>;
 
 struct ImpostorOut {
     @builtin(position) clip: vec4<f32>,
@@ -133,7 +135,7 @@ fn fragment(in: ImpostorOut) -> @location(0) vec4<f32> {
     // Premultiplied by coverage, as baked.
     let n = turn(normalize(normal.rgb / alpha * 2.0 - 1.0), in.yaw);
     var response: SurfaceResponse;
-    response.albedo = albedo.rgb / alpha;
+    response.albedo = mix(albedo.rgb / alpha, tint.rgb, tint.w * 0.7);
     response.occlusion = clamp(normal.a / alpha, 0.0, 1.0);
     response.roughness = 0.7;
     var color = light_surface(response, coverage, in.world, n, in.clip);

@@ -245,6 +245,7 @@ fn impostors(ui: &mut Ui, viewer: &mut Viewer) {
         format!("×{:.2}", settings.leaf_size),
         Slider::new(&mut settings.leaf_size, 0.5..=3.0),
     );
+    widgets::switch(ui, &mut settings.tint, "Tint impostors (T)");
     if ui.button("Bake again (B)").clicked() {
         settings.rebake += 1;
     }
