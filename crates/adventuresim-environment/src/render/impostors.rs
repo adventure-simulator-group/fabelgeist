@@ -60,8 +60,7 @@ const SAPLING_RADIUS: f32 = 0.1;
 /// The most trees and saplings a bake takes, largest first.
 const MOST_TREES: usize = 64;
 const MOST_SAPLINGS: usize = 192;
-/// The share of the woods that are saplings, when there are any.
-const WOODS_SAPLINGS: f32 = 0.3;
+
 /// How far a cluster's blades reach past its centre, in cluster sizes, to
 /// bound a tree.
 const CLUSTER_REACH: f32 = 2.0;
@@ -90,14 +89,18 @@ pub struct ImpostorSettings {
     /// A scene tree spanning fewer pixels of radius than this is drawn as its
     /// impostor; zero keeps every scene tree whole.
     pub switch: f32,
-    /// Trees in the woods round the scene.
+    /// Trees, and saplings under them, in the woods round the scene.
     pub woods: u32,
+    pub woods_saplings: u32,
     /// How far the woods reach from the scene's middle, metres.
     pub woods_reach: f32,
     /// The baked leaves' coverage is multiplied by this as they are drawn:
     /// above one, a partly covered texel fills in, and an open one stays
     /// open.
     pub density: f32,
+    /// How much a gusting wind, a noise drifting over the crowns, thins and
+    /// thickens the leaves' coverage, as a share of it.
+    pub wind: f32,
     /// Each blade is baked this much larger, across and along; applies to
     /// the next bake.
     pub leaf_size: f32,
@@ -112,9 +115,11 @@ impl Default for ImpostorSettings {
         Self {
             enabled: false,
             switch: 40.0,
-            woods: 30_000,
+            woods: 20_000,
+            woods_saplings: 20_000,
             woods_reach: 1_000.0,
-            density: 1.0,
+            density: 2.0,
+            wind: 0.35,
             leaf_size: 1.0,
             tint: false,
             rebake: 0,
@@ -161,6 +166,9 @@ pub struct ImpostorMaterial {
     /// rgb: the set's tint; w: 1 while tinted.
     #[uniform(5)]
     tint: Vec4,
+    /// x: the wind's flutter.
+    #[uniform(6)]
+    wind: Vec4,
 }
 
 impl InstancedMaterial for ImpostorMaterial {
@@ -261,7 +269,7 @@ struct Impostors {
     mesh: Option<Handle<Mesh>>,
     /// The entities drawing the bake, and the woods' settings they follow.
     entities: Vec<Entity>,
-    woods: Option<(u32, f32)>,
+    woods: Option<(u32, u32, f32)>,
     /// The scene's terrain, which the woods' floor leaves a hole for: its
     /// lower and upper corners.
     terrain: Option<[Vec3; 2]>,
@@ -354,6 +362,7 @@ fn start_bake(
                 albedo,
                 normal,
                 tint: Vec4::ZERO,
+                wind: Vec4::new(settings.wind, 0.0, 0.0, 0.0),
             }),
             progress,
         }
@@ -602,13 +611,16 @@ fn show(
     let tinted = f32::from(u8::from(settings.tint));
     for set in current.sets() {
         if let Some(mut material) = materials.get_mut(&set.material)
-            && (material.settings != wanted || material.tint.w != tinted)
+            && (material.settings != wanted
+                || material.tint.w != tinted
+                || material.wind.x != settings.wind)
         {
             material.settings = wanted;
             material.tint.w = tinted;
+            material.wind.x = settings.wind;
         }
     }
-    let woods = (settings.woods, settings.woods_reach);
+    let woods = (settings.woods, settings.woods_saplings, settings.woods_reach);
     if impostors.woods != Some(woods) {
         for entity in impostors.entities.drain(..) {
             commands.entity(entity).despawn();
@@ -652,7 +664,7 @@ fn spawn(
     mesh: &Handle<Mesh>,
     bounds: [[f32; 3]; 2],
     terrain: Option<[Vec3; 2]>,
-    (count, reach): (u32, f32),
+    (trees, saplings, reach): (u32, u32, f32),
     meshes: &mut Assets<Mesh>,
     floors: &mut Assets<StandardMaterial>,
 ) -> Vec<Entity> {
@@ -685,7 +697,16 @@ fn spawn(
     // Each set's woods by cell.
     let mut cells: [std::collections::HashMap<IVec2, Vec<InstanceData>>; 2] = Default::default();
     let sets = bake.sets();
-    for _ in 0..count {
+    // The saplings stand among the trees, or alone when no tree was baked.
+    let picks = [
+        (0, if sets[0].trees.is_empty() { 0 } else { trees }),
+        (1, if sets[1].trees.is_empty() { 0 } else { saplings }),
+    ];
+    let count = trees + saplings;
+    for which in picks
+        .into_iter()
+        .flat_map(|(which, count)| std::iter::repeat_n(which, count as usize))
+    {
         // Even over the ring's area.
         let r = (inner * inner + rng.unit() * (outer * outer - inner * inner)).sqrt();
         let angle = rng.unit() * std::f32::consts::TAU;
@@ -694,9 +715,6 @@ fn spawn(
             floor,
             middle.z + r * angle.sin(),
         );
-        let sapling = sets[0].trees.is_empty()
-            || (!sets[1].trees.is_empty() && rng.unit() < WOODS_SAPLINGS);
-        let which = usize::from(sapling);
         let set = sets[which];
         let layer = (rng.unit() * set.trees.len() as f32) as usize % set.trees.len();
         let tree = &set.trees[layer];

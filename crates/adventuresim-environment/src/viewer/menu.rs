@@ -229,6 +229,12 @@ fn impostors(ui: &mut Ui, viewer: &mut Viewer) {
     );
     widgets::setting(
         ui,
+        "Woods saplings",
+        format!("{} saplings", crate::hud::grouped(settings.woods_saplings as usize)),
+        Slider::new(&mut settings.woods_saplings, 0..=200_000).logarithmic(true),
+    );
+    widgets::setting(
+        ui,
         "Woods reach",
         format!("{:.0} m", settings.woods_reach),
         Slider::new(&mut settings.woods_reach, 100.0..=4_000.0).logarithmic(true),
@@ -238,6 +244,12 @@ fn impostors(ui: &mut Ui, viewer: &mut Viewer) {
         "Leaf density",
         format!("×{:.2}", settings.density),
         Slider::new(&mut settings.density, 0.5..=4.0),
+    );
+    widgets::setting(
+        ui,
+        "Wind flutter",
+        format!("{:.0}%", settings.wind * 100.0),
+        Slider::new(&mut settings.wind, 0.0..=1.0),
     );
     widgets::setting(
         ui,
