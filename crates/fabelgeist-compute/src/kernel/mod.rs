@@ -27,7 +27,6 @@ mod copy;
 mod dispatch_count;
 mod fast;
 
-// Validation scopes on one device must not interleave during compilation.
 static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
 /// The most workgroups one dispatch dimension may hold.
@@ -87,8 +86,6 @@ impl Kernel {
     /// `@group(0) @binding(n)` declarations; the binding *names* are what a
     /// dispatch matches its parameters against.
     pub fn new(context: &WgpuContext, code: impl Into<String>) -> Result<Self> {
-        // Shader and pipeline creation read back validation error scopes,
-        // which interleave badly when two threads compile at once.
         let _compiling = COMPILING
             .lock()
             .unwrap_or_else(|poisoned| poisoned.into_inner());

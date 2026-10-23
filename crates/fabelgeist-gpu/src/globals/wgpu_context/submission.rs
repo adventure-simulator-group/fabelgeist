@@ -3,7 +3,9 @@ use super::WgpuContext;
 impl WgpuContext {
     /// Finish and submit an encoder created by this context's device.
     ///
-    /// The encoder, device and queue must belong to the same native provider.
+    /// The encoder must be created by this context's device, and the queue
+    /// must belong to that same logical `wgpu::Device`. Sharing a backend or
+    /// adapter is insufficient.
     /// With native synchronous validation enabled, capture Validation errors
     /// from finalization before submitting, then capture submission errors
     /// separately. Preserve the SDK cause without waiting for GPU completion.

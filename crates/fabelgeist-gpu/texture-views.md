@@ -132,8 +132,9 @@ or copy does not establish native encoding acceptance: wgpu can defer validation
 until encoder finalization. `WgpuContext::submit` observes Validation errors from
 finalization before queue submission, then observes submission separately under
 the context's native validation policy. It returns the actual SDK cause without
-waiting for GPU completion. The encoder, context device and queue must belong to
-the same native provider. Native builds explicitly enable wgpu's `std` feature
+waiting for GPU completion. The encoder must be created by the context's device,
+and its queue must belong to that same logical `wgpu::Device`; sharing a backend
+or adapter is insufficient. Native builds explicitly enable wgpu's `std` feature
 so its scope tracking distinguishes threads.
 
 `KernelBatch::submit` and standalone dispatch preserve these causes through
