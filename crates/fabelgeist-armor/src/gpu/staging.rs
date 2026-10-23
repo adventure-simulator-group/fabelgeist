@@ -1,30 +1,50 @@
-//! Results of many stages brought back in one readback.
+//! Read many staged buffer prefixes through one grouped mapping.
 //!
-//! Every read of a device buffer waits for the queue, and the queue is shared
-//! by every thread fitting armor: a piece that read its positions, normals,
-//! indices and statuses one by one waited for everyone else's work a dozen
-//! times over. Instead each result stages the buffers it needs, one
-//! [`Readback`] brings them all back, and each result parses its own slice.
+//! Sources retain their staging order. Handle producing submission results
+//! before reading; the readback then waits for its copies and mapping, using
+//! native blocking progress or browser callbacks on the producing device.
 
-use fabelgeist_compute::Readback;
-use fabelgeist_gpu::prelude::Buffer;
-
-use super::ArmorGpu;
+use super::{ArmorGpu, device_error};
 use crate::GenerateError;
+use fabelgeist_compute::Readback;
+use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, BufferReadError};
+use std::sync::Arc;
 
 /// Buffers waiting to be read back together.
 #[derive(Default)]
 pub struct Staging<'a> {
+    session: Arc<StagingSession>,
     buffers: Vec<&'a Buffer>,
 }
 
-/// Where one staged buffer's bytes will be.
-#[derive(Clone, Copy, Debug)]
-pub struct Staged(usize);
+/// A buffer's position in one particular staged readback.
+#[derive(Clone, Debug)]
+pub struct Staged {
+    session: Arc<StagingSession>,
+    index: usize,
+}
 
-/// The bytes of every staged buffer.
+/// The bytes of every staged buffer, associated with their issued tickets.
 pub struct StagedResults {
+    session: Arc<StagingSession>,
     bytes: Vec<Vec<u8>>,
+}
+
+#[derive(Debug, Default)]
+struct StagingSession;
+
+/// A ticket or requested host prefix does not fit its staged bytes.
+#[derive(Debug, thiserror::Error)]
+pub enum StagingError {
+    #[error("the staged ticket does not belong to these results")]
+    InvalidTicket,
+    #[error("staged prefix of {elements} {element_bytes}-byte elements exceeds host addresses")]
+    PrefixSizeOverflow {
+        elements: usize,
+        element_bytes: usize,
+    },
+    #[error("armor staged bytes: {0}")]
+    Decode(#[from] BufferReadError),
 }
 
 impl<'a> Staging<'a> {
@@ -33,33 +53,68 @@ impl<'a> Staging<'a> {
     }
 
     pub fn stage(&mut self, buffer: &'a Buffer) -> Staged {
+        let index = self.buffers.len();
         self.buffers.push(buffer);
-        Staged(self.buffers.len() - 1)
+        Staged {
+            session: self.session.clone(),
+            index,
+        }
     }
 }
 
 impl StagedResults {
-    /// A staged buffer's contents as plain values.
-    pub fn get<T: bytemuck::Pod>(&self, staged: Staged) -> Vec<T> {
-        bytemuck::pod_collect_to_vec(&self.bytes[staged.0])
-    }
-
-    /// Typed prefix, excluding storage allocation padding.
-    pub fn prefix<T: bytemuck::Pod>(&self, staged: Staged, count: usize) -> Vec<T> {
-        let mut values = self.get(staged);
-        values.truncate(count);
+    /// Decode exactly `count` whole elements, excluding allocation padding.
+    ///
+    /// Zero elements are valid even when the allocation contains a sentinel
+    /// word. Foreign tickets, zero-sized elements and short prefixes fail;
+    /// missing bytes are never synthesized by padding or truncation.
+    pub fn prefix<T: bytemuck::Pod>(
+        &self,
+        staged: &Staged,
+        count: usize,
+    ) -> Result<Vec<T>, StagingError> {
+        if !Arc::ptr_eq(&self.session, &staged.session) {
+            return Err(StagingError::InvalidTicket);
+        }
+        let bytes = self
+            .bytes
+            .get(staged.index)
+            .ok_or(StagingError::InvalidTicket)?;
+        let element_bytes = std::mem::size_of::<T>();
+        if element_bytes == 0 {
+            return Err(BufferReadError::ZeroSizedElement.into());
+        }
+        let requested =
+            count
+                .checked_mul(element_bytes)
+                .ok_or(StagingError::PrefixSizeOverflow {
+                    elements: count,
+                    element_bytes,
+                })?;
+        let bytes = bytes
+            .get(..requested)
+            .ok_or_else(|| BufferReadError::Truncated {
+                requested: BufferByteLength::from(requested),
+                available: BufferByteLength::from(bytes.len()),
+            })?;
+        let mut values = Vec::new();
         values
+            .try_reserve_exact(count)
+            .map_err(BufferReadError::HostAllocation)?;
+        values.resize(count, T::zeroed());
+        bytemuck::cast_slice_mut(&mut values).copy_from_slice(bytes);
+        Ok(values)
     }
 
-    /// The first word of a staged status buffer.
-    pub fn status(&self, staged: Staged) -> u32 {
-        self.get::<u32>(staged)[0]
+    /// Decode the first complete native u32 status word.
+    pub fn status(&self, staged: &Staged) -> Result<u32, StagingError> {
+        // prefix proves this fixed one-element index before it is used.
+        Ok(self.prefix::<u32>(staged, 1)?[0])
     }
 }
 
 impl ArmorGpu {
-    /// Read every staged buffer back with one mapping, after everything
-    /// submitted so far.
+    /// Read all staged sources with one grouped mapping on their device.
     pub fn read_staged(&self, staging: Staging) -> Result<StagedResults, GenerateError> {
         pollster::block_on(self.read_staged_async(staging))
     }
@@ -69,9 +124,12 @@ impl ArmorGpu {
         staging: Staging<'_>,
     ) -> Result<StagedResults, GenerateError> {
         let mut batch = self.batch("armor readback");
-        let readback = Readback::record(self.context(), &mut batch, &staging.buffers)?;
-        batch.submit();
-        let bytes = readback.read(self.context()).await?;
-        Ok(StagedResults { bytes })
+        let readback = Readback::record(&mut batch, &staging.buffers)?;
+        batch.submit().map_err(device_error)?;
+        let bytes = readback.read().await?;
+        Ok(StagedResults {
+            session: staging.session,
+            bytes,
+        })
     }
 }
