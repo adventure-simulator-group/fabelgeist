@@ -30,6 +30,35 @@ Vertices per level of detail: 73 639 (LOD 0), 18 439, 10 661, 4 899, 2 461,
 971, 595 (LOD 6). The 127 joints, the parameter layout and the 117 blend shapes
 are the same at every LOD.
 
+## Model-parameter names
+
+`ModelParameterName` identifies a column in a `ParameterTransform`. Parsed names
+and generated blend-shape names retain their exact text and introduction order.
+`parameter_index` takes this bespoke type and returns the first matching column;
+names need not be unique. Construction accepts text without normalization,
+grammar validation or a membership guarantee. Generated `blend_0` names can
+repeat when columns are appended more than once.
+
+Admit text once when parsing the model format or binding an external asset key,
+then retain the name through lookup and diagnostics. For example, the character
+creator constructs a name from its pinned body-proportion key at the MHR binding
+boundary. Native text adapters are for serialization and presentation, rather
+than forwarding a typed name through another string-based lookup API.
+
+```rust
+use fabelgeist_mhr::{ModelParameterName, ParameterTransform};
+
+let name = ModelParameterName::from("scale_hip_width");
+let transform = ParameterTransform::default();
+assert_eq!(transform.parameter_index(&name), None);
+```
+
+`ParameterTransform::append_blend_shape_parameters` owns extension of the
+ordered names and matrix columns. Parameter counts, matrix coordinates, numeric
+values, parameter-set keys and parser errors are separate concepts from name
+identity.
+This API change preserves their current behavior.
+
 ## Assets
 
 Download `assets.zip` from the
