@@ -53,6 +53,11 @@ pub enum StrandLayoutError {
     },
     #[error("{points:?} points exceed native ribbon vertex addresses")]
     DrawVertices { points: PointsPerStrand },
+    #[error("{strands:?} strands of {points:?} points exceed host collection addresses")]
+    HostSampleCount {
+        strands: StrandCount,
+        points: PointsPerStrand,
+    },
     #[error("{strands:?} strands of {points:?} points have {actual} position records")]
     PositionCount {
         strands: StrandCount,
@@ -94,6 +99,39 @@ impl StrandLayout {
                 .ok_or(StrandLayoutError::DrawVertices { points })?;
         }
         Ok(Self { strands, points })
+    }
+
+    /// Admit a host level's complete shape, then choose its resident prefix.
+    /// Full host collections need not fit the native sample address space.
+    pub fn for_host_level(
+        level: &StrandLevel,
+        maximum: BufferByteLength,
+    ) -> StrandLayoutResult<Self> {
+        let strands = StrandCount::from_count(level.len());
+        let points = PointsPerStrand::from_count(level.points);
+        let expected = strands
+            .count()
+            .checked_mul(points.count())
+            .ok_or(StrandLayoutError::HostSampleCount { strands, points })?;
+        if level.positions.len() != expected {
+            return Err(StrandLayoutError::PositionCount {
+                strands,
+                points,
+                actual: level.positions.len(),
+            });
+        }
+        if strands.count() == 0 {
+            return Self::new(strands, points);
+        }
+        if points.count() < 2 {
+            return Err(StrandLayoutError::MissingRootOrTip { points });
+        }
+        // Divide before multiplying: the full host stride need not fit u64.
+        // Supported GPU hosts have 32-bit or 64-bit collection addresses.
+        let count = (strands.count() as u64)
+            .min(u64::from(maximum) / size_of::<[f32; 4]>() as u64 / points.count() as u64)
+            .min(u64::from(maximum) / size_of::<StrandInfo>() as u64);
+        Self::new(StrandCount::from_count(count as usize), points)
     }
 
     pub fn strands(self) -> StrandCount {
