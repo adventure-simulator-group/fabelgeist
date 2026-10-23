@@ -1,6 +1,6 @@
-//! Allocation and native readback of a hierarchy's owned storage.
+//! Allocation and growth of reusable hierarchy build storage.
 
-use super::{BvhKernels, BvhLayout, BvhNodeCount, BvhPrimitiveCount, GpuBvh, HostNode};
+use super::{BvhKernels, BvhLayout, BvhPrimitiveCount, GpuBvh};
 use fabelgeist_compute::SortScratch;
 use fabelgeist_gpu::prelude::*;
 
@@ -28,21 +28,11 @@ impl GpuBvh {
                 storage.with_label("bvh node bounds".into()))?,
             sort_scratch: SortScratch::new(context, primitives.into())?,
             capacity_layout: capacity,
-            recorded_layout: BvhLayout::EMPTY,
         })
     }
 
     pub fn capacity(&self) -> BvhPrimitiveCount {
         self.capacity_layout.primitive_count()
-    }
-
-    /// Primitive population as of the last recorded build.
-    pub fn count(&self) -> BvhPrimitiveCount {
-        self.recorded_layout.primitive_count()
-    }
-
-    pub fn node_count(&self) -> BvhNodeCount {
-        self.recorded_layout.node_count()
     }
 
     /// Replace all storage together if the checked capacity no longer fits.
@@ -56,36 +46,5 @@ impl GpuBvh {
         }
         *self = Self::new(context, self.kernels.clone(), capacity)?;
         Ok(BufferCapacityChange::Grown)
-    }
-
-    /// Read the hierarchy back as host-side nodes. For tests and debugging --
-    /// it stalls on the device.
-    pub async fn read_nodes(&self, context: &WgpuContext) -> Result<Vec<HostNode>> {
-        let raw: Vec<f32> = self.nodes.read(context).await?;
-        let count = usize::from(self.node_count());
-        Ok((0..count)
-            .map(|i| {
-                let lower = &raw[i * 8..i * 8 + 4];
-                let upper = &raw[i * 8 + 4..i * 8 + 8];
-                HostNode {
-                    bounds: crate::Aabb::new(
-                        fabelgeist_math::Vec3::new(lower[0], lower[1], lower[2]),
-                        fabelgeist_math::Vec3::new(upper[0], upper[1], upper[2]),
-                    ),
-                    left_or_first: lower[3].to_bits(),
-                    count: upper[3].to_bits(),
-                }
-            })
-            .collect())
-    }
-
-    pub async fn read_indices(&self, context: &WgpuContext) -> Result<Vec<u32>> {
-        let all: Vec<u32> = self.indices.read(context).await?;
-        Ok(all[..usize::from(self.count())].to_vec())
-    }
-
-    pub async fn read_right_children(&self, context: &WgpuContext) -> Result<Vec<u32>> {
-        let all: Vec<u32> = self.right_children.read(context).await?;
-        Ok(all[..usize::from(self.count().internal_nodes())].to_vec())
     }
 }

@@ -1,7 +1,7 @@
 //! Primitive populations and the native node layouts derived from them.
 
 use fabelgeist_compute::SortItemCount;
-use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, InvocationCount, PassParameter};
+use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, InvocationCount, PassParameter, PassParameters};
 use fabelgeist_mesh::MeshTriangleCount;
 use std::fmt;
 use std::num::TryFromIntError;
@@ -61,6 +61,15 @@ impl From<MeshTriangleCount> for BvhPrimitiveCount {
 }
 
 impl BvhPrimitiveCount {
+    pub(super) fn parameters(self) -> PassParameters {
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", self);
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        parameters.insert("pad2", 0u32);
+        parameters
+    }
+
     pub fn is_empty(self) -> bool {
         self.0 == 0
     }

@@ -160,7 +160,7 @@ impl Collisions {
         let mut parameters = PassParameters::new();
         parameters.insert("positions", particles.positions().clone());
         parameters.insert("previous", particles.previous().clone());
-        mesh.bind(&mut parameters);
+        mesh.bind(&mut parameters)?;
         parameters.insert("count", particles.count());
         parameters.insert("thickness", mesh.surface().thickness + self.particle_radius);
         parameters.insert("friction", mesh.surface().friction);

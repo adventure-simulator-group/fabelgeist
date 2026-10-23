@@ -390,7 +390,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 /// How a generated traversal names the buffers it reads and the function it
 /// calls back into.
 ///
-/// The defaults match what [`super::GpuBvh::parameters`] binds, so a kernel
+/// The defaults match what [`super::RecordedBvh::parameters`] binds, so a kernel
 /// that takes the BVH as-is only needs to set `callback`.
 #[derive(Clone, Debug)]
 pub struct TraversalConfig {

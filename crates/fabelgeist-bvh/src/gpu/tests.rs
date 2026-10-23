@@ -5,7 +5,7 @@ use super::*;
 use crate::tests::{Random, brute_force_overlaps, scattered_boxes, sphere_mesh};
 use crate::{Aabb, morton};
 
-async fn build(bounds: &[Aabb]) -> Result<(WgpuContext, GpuBvh)> {
+async fn build(bounds: &[Aabb]) -> Result<(WgpuContext, RecordedBvh)> {
     let context = WgpuContext::new().await?;
     let kernels = BvhKernels::new(&context)?;
     let count = BvhPrimitiveCount::try_from(bounds.len())?;
@@ -17,7 +17,7 @@ async fn build(bounds: &[Aabb]) -> Result<(WgpuContext, GpuBvh)> {
         BufferUpload::from_elements(&packed),
         BufferDefinition::storage().with_usage(BufferUse::CopySource),
     )?;
-    bvh.build(&context, &buffer, count)?;
+    let bvh = bvh.build(&context, &buffer, count)?;
     Ok((context, bvh))
 }
 
@@ -249,7 +249,7 @@ async fn handles_a_flat_scene() -> Result<()> {
 #[tokio::test]
 async fn refit_tracks_moved_primitives() -> Result<()> {
     let bounds = scattered_boxes(2000, 73);
-    let (context, mut bvh) = build(&bounds).await?;
+    let (context, bvh) = build(&bounds).await?;
 
     for round in 0..8 {
         let mut random = Random::new(79 + round * 7);
@@ -269,7 +269,7 @@ async fn refit_tracks_moved_primitives() -> Result<()> {
         )?;
         let mut batch = KernelBatch::new(&context);
         bvh.record_refit(&mut batch, &buffer)?;
-        batch.submit();
+        batch.submit()?;
 
         let nodes = bvh.read_nodes(&context).await?;
         let right_children = bvh.read_right_children(&context).await?;
