@@ -109,8 +109,7 @@ fn assert_clear(
             contact.is_none_or(|contact| contact.penetration <= 0.0001),
             "camera at {position:?} penetrated obstacle at {:?}: {contact:?}",
             obstacle.position
-        )
-        .unwrap();
+        );
     }
 }
 

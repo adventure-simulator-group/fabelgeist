@@ -1,4 +1,4 @@
-use crate::camera::authored_metres;
+use crate::camera::config::authored_metres;
 use crate::presentation::TreeLeafRepresentation;
 use adventuresim_tactical_core::animation::SignedAngleDegrees;
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;

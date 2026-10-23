@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_rig::RigJointOrdinal;
 
 fn skeleton() -> Skeleton {
     Skeleton {

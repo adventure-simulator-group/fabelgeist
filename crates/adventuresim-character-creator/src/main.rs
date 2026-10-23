@@ -201,7 +201,7 @@ fn main() -> Result<()> {
             .items
             .iter()
             .filter_map(|item| {
-                let design = catalog.design(item)?;
+                let design = catalog.design(catalog.item(&item.id)?)?;
                 Some((item.id.clone(), design.recipe()?.clone()))
             })
             .collect();

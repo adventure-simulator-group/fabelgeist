@@ -322,7 +322,6 @@ fn room_contains(room: &Room, point: Vec2) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use adventuresim_building_generator::spatial_geometry::Position;
     #[test]
     fn closed_keep_door_blocks_a_camera_ray_that_static_navigation_allows() {
         use adventuresim_building_generator::{

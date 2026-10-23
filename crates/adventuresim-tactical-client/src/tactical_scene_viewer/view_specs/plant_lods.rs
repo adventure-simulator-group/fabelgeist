@@ -1,5 +1,5 @@
 use super::*;
-use crate::camera::authored_metres;
+use crate::camera::config::authored_metres;
 
 pub(in crate::tactical_scene_viewer) const PLANT_LOD_ISOLATED_VIEWS: [CaptureViewSpec; 12] =
     isolated();

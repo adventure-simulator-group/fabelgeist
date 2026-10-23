@@ -328,7 +328,10 @@ mod tests {
                 .collect(),
             width: 220.0,
             height: 40.0,
-            front: Vec3::ZERO,
+            front: adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                Vec3::ZERO,
+            )
+            .unwrap(),
         };
         let scene = RetainedScene {
             street: Some(street),

@@ -18,7 +18,7 @@ pub use values::{CameraError, CameraResult, ScreenWindow};
 
 mod aim;
 pub(crate) mod collision;
-mod config;
+pub(crate) mod config;
 mod rig;
 mod rig_history;
 mod smoothing;

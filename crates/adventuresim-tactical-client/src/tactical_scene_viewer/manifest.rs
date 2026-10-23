@@ -818,7 +818,7 @@ mod tests {
                 "tree-cold-first-050",
                 "Cold",
                 CapturePose::TreeColdTraversal {
-                    distance: crate::camera::authored_metres(50.0),
+                    distance: crate::camera::config::authored_metres(50.0),
                 },
                 80.0,
                 100,
@@ -827,7 +827,7 @@ mod tests {
                 "tree-warm-second-050",
                 "Warm",
                 CapturePose::TreeColdTraversal {
-                    distance: crate::camera::authored_metres(50.0),
+                    distance: crate::camera::config::authored_metres(50.0),
                 },
                 80.0,
                 100,

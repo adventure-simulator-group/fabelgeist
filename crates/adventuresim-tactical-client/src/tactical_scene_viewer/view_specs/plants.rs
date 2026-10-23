@@ -1,6 +1,6 @@
 use super::super::view_camera::{CaptureCameraResult, SceneCameraView};
 use super::*;
-use crate::camera::authored_metres;
+use crate::camera::config::authored_metres;
 use adventuresim_building_generator::spatial_geometry::{Position, SpatialDirection};
 use adventuresim_tactical_core::scene_coordinates::Scene;
 impl CapturePose {
