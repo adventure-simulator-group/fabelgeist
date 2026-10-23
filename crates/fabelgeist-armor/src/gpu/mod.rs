@@ -48,6 +48,7 @@ mod puff_and_slash;
 pub(crate) mod recipe;
 pub(crate) mod shell_plan;
 mod skirt;
+mod skirt_attachment;
 pub mod staging;
 pub mod wgsl;
 pub mod wrapped_tassets;
@@ -68,6 +69,7 @@ pub use part::{BuiltPart, PartSlots};
 pub use puff_and_slash::record_puff_and_slash;
 pub use recipe::frame_words;
 pub use skirt::{SKIRT_FIT_WORDS, SKIRT_PROFILE_FIRST_WORD, SKIRT_SECTION_WORDS, record_skirt};
+pub use skirt_attachment::{SKIRT_ATTACHMENT_POINT_WORDS, SkirtAttachment, SkirtWaistVertex};
 pub use staging::{Staged, StagedResults, Staging};
 
 /// A part under construction on the device: its carriers, until

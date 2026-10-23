@@ -15,6 +15,8 @@ pub const SKIRT_AXIAL_SEGMENTS: usize = 32;
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SkirtDesign {
+    /// A body-conforming upper section joined to the hanging cloth.
+    pub bodice: Option<DressBodice>,
     /// Height above the pelvis landmark in the canonical fitting frame.
     pub waist_rise: Millimeters,
     /// Hip-to-ankle reach: 1000 ends at the ankle landmark.
@@ -25,6 +27,17 @@ pub struct SkirtDesign {
     pub clearance: Millimeters,
     pub thickness: Millimeters,
     pub color: TextileColor,
+}
+
+/// Minimal continuous dress upper section. Necklines, sleeves and corsetry
+/// belong to separate construction work.
+#[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct DressBodice {
+    /// Share of the distance from the waist to the upper chest landmark.
+    pub height: Permille,
+    /// Share of skirt length used to release the fitted waist into the skirt.
+    pub transition: Permille,
 }
 
 /// Width and depth gains are relative to the enclosing hip/leg profile.
@@ -44,9 +57,38 @@ pub enum SkirtProfile {
     },
 }
 
+impl Default for DressBodice {
+    fn default() -> Self {
+        Self {
+            height: Permille(800),
+            transition: Permille(150),
+        }
+    }
+}
+
+impl DressBodice {
+    pub const HEIGHT_RANGE: RangeInclusive<u16> = 400..=950;
+    pub const TRANSITION_RANGE: RangeInclusive<u16> = 100..=300;
+
+    /// The first ordinary skirt ring, after the body-to-skirt transition.
+    pub fn first_skirt_row(&self) -> usize {
+        (self.transition.unit() * SKIRT_AXIAL_SEGMENTS as f32).ceil() as usize
+    }
+
+    fn validate(&self) -> Result<(), GenerateError> {
+        if !Self::HEIGHT_RANGE.contains(&self.height.0)
+            || !Self::TRANSITION_RANGE.contains(&self.transition.0)
+        {
+            return Err(DesignError::ParametricParameters.into());
+        }
+        Ok(())
+    }
+}
+
 impl Default for SkirtDesign {
     fn default() -> Self {
         Self {
+            bodice: None,
             waist_rise: Millimeters(100),
             length: Permille(850),
             fitted_fraction: Permille(220),
@@ -69,6 +111,9 @@ impl SkirtDesign {
     pub const THICKNESS_RANGE: RangeInclusive<u16> = 1..=6;
 
     pub fn validate(&self) -> Result<(), GenerateError> {
+        if let Some(bodice) = &self.bodice {
+            bodice.validate()?;
+        }
         if !Self::WAIST_RISE_RANGE.contains(&self.waist_rise.0)
             || !Self::LENGTH_RANGE.contains(&self.length.0)
             || !Self::FITTED_FRACTION_RANGE.contains(&self.fitted_fraction.0)

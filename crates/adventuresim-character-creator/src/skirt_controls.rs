@@ -7,7 +7,8 @@ use std::ops::RangeInclusive;
 use super::number;
 
 pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
-    let mut changed = number(
+    let mut changed = bodice(ui, &mut design.bodice);
+    changed |= number(
         ui,
         &mut design.waist_rise.0,
         SkirtDesign::WAIST_RISE_RANGE,
@@ -89,6 +90,35 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
         ui.label("Fabric color");
         changed |= ui.color_edit_button_srgb(&mut design.color.0).changed();
     });
+    changed
+}
+
+fn bodice(ui: &mut egui::Ui, bodice: &mut Option<fabelgeist_armor::DressBodice>) -> bool {
+    let mut dress = bodice.is_some();
+    let mut changed = ui
+        .checkbox(&mut dress, "Join body-conforming dress upper")
+        .changed();
+    if changed {
+        *bodice = if dress {
+            Some(Default::default())
+        } else {
+            None
+        };
+    }
+    if let Some(bodice) = bodice {
+        changed |= proportion(
+            ui,
+            &mut bodice.height,
+            fabelgeist_armor::DressBodice::HEIGHT_RANGE,
+            "Upper height",
+        );
+        changed |= proportion(
+            ui,
+            &mut bodice.transition,
+            fabelgeist_armor::DressBodice::TRANSITION_RANGE,
+            "Waist transition",
+        );
+    }
     changed
 }
 

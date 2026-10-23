@@ -505,8 +505,17 @@ reach, the fitted upper share, clearance and thickness. Choose a straight,
 flared or bell profile; flared and bell skirts have separate width and depth
 controls. The fit samples triangle bands around both legs and the actual worn
 inner garments. Its rings share connectivity across body morph realizations.
-This plain carrier does not yet include a joined bodice, structural supports,
-pleats or puff-and-slash treatment.
+Enable a joined upper section to turn the skirt into a dress. Upper height is
+relative to the waist-to-upper-chest span; the transition controls how much
+skirt length releases the fitted waist. The upper patch clones the reference
+body's triangles and keeps barycentric correspondence through morphs. A shared
+waist boundary joins it to the skirt before thickening, so it is one continuous
+surface. The catalog's **Linen dress** starts from this construction. Detailed
+necklines, sleeves and corsetry are outside this construction stage.
+
+Structural supports, pleats and puff-and-slash treatment are separate controls
+in the following construction stages. Skinning and movement clipping remain
+provisional until cloth physics is implemented.
 
 ## Draped chainmail
 

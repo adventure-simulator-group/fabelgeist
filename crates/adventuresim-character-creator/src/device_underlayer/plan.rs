@@ -15,11 +15,6 @@ use crate::armor_frames::Wearer;
 use crate::surface_cut::{SurfaceCut, interpolate};
 use crate::underlayer::{RegionFrame, UnderlayerDesign, regions};
 
-/// Words per cut point in [`CutPlan::table`]: the source triangle's body
-/// vertices, its surface-coordinate vertices, then the barycentric weights
-/// as `f32` bits.
-pub const POINT_WORDS: usize = 9;
-
 /// The cut of one underlayer, and its two-layer shell with separate cut-edge
 /// vertices, as index buffers.
 #[derive(Clone, Debug, PartialEq)]
@@ -81,12 +76,7 @@ impl CutPlan {
             sources.extend([a, b, a + count, b + count]);
             indices.extend([first + 1, first, first + 2, first + 1, first + 2, first + 3]);
         }
-        let mut table = Vec::with_capacity(cut.points.len() * POINT_WORDS);
-        for point in &cut.points {
-            table.extend(body.faces[point.triangle]);
-            table.extend(uv_faces[point.triangle]);
-            table.extend(point.weights.map(f32::to_bits));
-        }
+        let table = cut.source_table(body.faces, uv_faces);
         Self {
             table,
             indices,
