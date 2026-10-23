@@ -191,7 +191,7 @@ pub fn parse_base_type(ty: &str) -> ResourceBaseType {
 pub fn parse_binary_op_signature(code: &str, func_name: &str) -> Result<ResourceBaseType> {
     let pattern = format!(
         r"(?s)fn\s+{}\s*\(\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^,]+)\s*,\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^)]+)\)\s*->\s*([^\{{]+)\{{",
-        func_name
+        regex::escape(func_name)
     );
     let re = regex::Regex::new(&pattern)?;
     let caps = re.captures(code).ok_or_else(|| {
@@ -203,7 +203,7 @@ pub fn parse_binary_op_signature(code: &str, func_name: &str) -> Result<Resource
     })?;
 
     // Extract type T
-    let ty_str = caps.get(1).unwrap().as_str().trim();
+    let ty_str = caps[1].trim();
     Ok(parse_base_type(ty_str))
 }
 
@@ -211,7 +211,7 @@ pub fn parse_binary_op_signature(code: &str, func_name: &str) -> Result<Resource
 pub fn parse_compare_signature(code: &str, func_name: &str) -> Result<ResourceBaseType> {
     let pattern = format!(
         r"(?s)fn\s+{}\s*\(\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^,]+)\s*,\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^)]+)\)\s*->\s*bool\s*\{{",
-        func_name
+        regex::escape(func_name)
     );
     let re = regex::Regex::new(&pattern)?;
     let caps = re.captures(code).ok_or_else(|| {
@@ -223,6 +223,6 @@ pub fn parse_compare_signature(code: &str, func_name: &str) -> Result<ResourceBa
     })?;
 
     // Extract type T
-    let ty_str = caps.get(1).unwrap().as_str().trim();
+    let ty_str = caps[1].trim();
     Ok(parse_base_type(ty_str))
 }
