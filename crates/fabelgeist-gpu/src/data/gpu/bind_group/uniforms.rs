@@ -6,7 +6,7 @@ use crate::data::{
 type UniformPackingResult<T> = Result<T, ComputePassError>;
 
 /// Pack provided value variants at Naga's reflected byte offsets.
-/// Missing and unsupported values retain the static layout's zero bytes.
+/// The block starts zero initialized; missing and unsupported values are skipped.
 pub(super) fn pack_uniforms(
     reflection: &BindGroupReflection,
     parameters: &PassParameters,
@@ -77,8 +77,8 @@ fn write_vector<const N: usize>(data: &mut [u8], offset: usize, values: [f32; N]
     }
 }
 
-// These spans and strides are the provided value's native matrix ABI, in bytes.
-// Mat3 retains the reflected member span/3 rule; the others retain fixed layouts.
+// Matrix encoding keeps the existing spans and strides in bytes. Mat3 uses
+// reflected member span/3; the other provided variants retain fixed layouts.
 fn write_matrix<const N: usize>(
     data: &mut [u8],
     start: usize,
