@@ -86,7 +86,19 @@ impl Default for Player {
 /// Strategic character identity projected into the transient tactical world.
 /// Network client identity remains a separate transport concern.
 #[derive(
-    Component, Serialize, Deserialize, Default, Debug, Reflect, Clone, Copy, PartialEq, Eq, Hash,
+    Component,
+    Serialize,
+    Deserialize,
+    Default,
+    Debug,
+    Reflect,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
 )]
 #[reflect(Component)]
 #[component(immutable)]
@@ -95,7 +107,7 @@ pub struct CharacterId(pub u64);
 impl CharacterId {
     /// Get associated color of this player.
     pub fn color(&self) -> Color {
-        let mut random = StreamId::new("character.display-color").rng(self.0, &[]);
+        let mut random = StreamId::new("character.display-color").rng(self.0.into(), &[]);
         let hue = random.index(360) as f32;
         let saturation = 0.28 + random.inclusive_unit_f32() * 0.18;
         let value = 0.90 + random.inclusive_unit_f32() * 0.08;

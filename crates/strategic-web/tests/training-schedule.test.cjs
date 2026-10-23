@@ -107,6 +107,8 @@ test("Leisure preview grants morale only after current and generated fatigue are
   assert.equal(carried.morale, 0);
   const partiallyCarried = leisurePreview({ currentFatigue: 100, leisureMinutes: 480 });
   const fatigueFree = leisurePreview({ leisureMinutes: 480 });
+  // Same eight-hour fixture as Rust's leisure_removes_carried_fatigue_before_morale.
+  assert.ok(Math.abs(fatigueFree.morale - 2.5284822353142307) < 1e-14);
   assert.ok(Math.abs(partiallyCarried.morale - fatigueFree.morale / 2) < 0.0001);
   const surplus = leisurePreview({ leisureMinutes: 540 });
   assert.equal(surplus.fatigueDelta, 0);
@@ -241,4 +243,12 @@ test("retry reattempts the retained snapshot after a terminal failure", async ()
   await nextTurn();
   assert.equal(queue.status().pending, false);
   assert.equal(drained, 1);
+});
+
+test("Leisure preview does not invent recovery when its display divisors are disabled", () => {
+  const disabled = leisurePreview({ moraleScale: 0, fatiguePreviewDivisor: 0 });
+  assert.equal(disabled.morale, 0);
+  assert.equal(disabled.leisureFatigue, 0);
+  const tiny = leisurePreview({ moraleScale: 1e-20, leisureMinutes: 480 });
+  assert.equal(tiny.morale, 4);
 });

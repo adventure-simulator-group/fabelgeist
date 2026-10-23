@@ -27,10 +27,15 @@ fn bound_building_has_static_collision_without_rewriting_surrounding_source() {
         ],
     };
     input.buildings.push(TacticalBuildingPlacement {
-        base_elevation_metres: 2.0,
-        id: 7,
-        program: BuildingProgram::fixture(BuildingArchetype::FachwerkCottage, 42),
-        centre_metres: bevy::math::Vec2::ZERO,
+        base_elevation_metres: crate::city_layout::grounding::SupportElevation::from_metres(2.0)
+            .unwrap(),
+        id: (7).into(),
+        program: BuildingProgram::fixture(
+            BuildingArchetype::FachwerkCottage,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ),
+        centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(bevy::math::Vec2::ZERO)
+            .unwrap(),
         orientation: BuildingOrientation::from_radians(core::f32::consts::FRAC_PI_2).unwrap(),
     });
 
@@ -41,12 +46,16 @@ fn bound_building_has_static_collision_without_rewriting_surrounding_source() {
         playable: input.buildings.clone(),
         single_properties: vec![CitySingleProperty {
             id: CityPropertyId(7),
-            building_id: 7,
-            plot: CityPlotBounds {
-                centre_metres: Vec2::ZERO,
-                dimensions_metres: Vec2::splat(20.0),
-                orientation: input.buildings[0].orientation,
-            },
+            building_id: (7).into(),
+            plot: CityPlotBounds::new(
+                crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::ZERO).unwrap(),
+                adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                    Vec2::splat(20.0),
+                )
+                .unwrap(),
+                input.buildings[0].orientation,
+            )
+            .unwrap(),
         }],
         ..Default::default()
     };
@@ -70,7 +79,7 @@ fn bound_building_has_static_collision_without_rewriting_surrounding_source() {
     assert!(!building.collision.cuboids.is_empty());
     assert_eq!(generated.repairs.levelled_building_samples, 0);
     let centre_height = generated.terrain.height_at(bevy::math::Vec2::ZERO).unwrap();
-    assert!((centre_height - building.placement.base_elevation_metres).abs() < 0.0001);
+    assert!((centre_height - building.placement.base_elevation_metres.metres()).abs() < 0.0001);
     assert_eq!(
         generated.ground.ground_at(bevy::math::Vec2::ZERO),
         Some(GroundSurface {
@@ -117,11 +126,14 @@ fn distant_buildings_affect_scene_identity_without_entering_tactical_generation(
         prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
         usage: None,
         service_size: None,
-        id: 1,
+        id: (1).into(),
         archetype: BuildingArchetype::TownHouse,
-        seed: 42,
-        centre_metres: bevy::math::Vec2::new(120.0, -90.0),
-        base_elevation_metres: 0.0,
+        seed: 42.into(),
+        centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(bevy::math::Vec2::new(
+            120.0, -90.0,
+        ))
+        .unwrap(),
+        base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
         orientation: BuildingOrientation::from_radians(core::f32::consts::PI).unwrap(),
     });
 
@@ -130,12 +142,17 @@ fn distant_buildings_affect_scene_identity_without_entering_tactical_generation(
         distant: input.distant_buildings.clone(),
         single_properties: vec![CitySingleProperty {
             id: CityPropertyId(1),
-            building_id: 1,
-            plot: CityPlotBounds {
-                centre_metres: original.centre_metres,
-                dimensions_metres: Vec2::splat(30.0),
-                orientation: original.orientation,
-            },
+            building_id: (1).into(),
+            plot: CityPlotBounds::new(
+                crate::scene_coordinates::ScenePlanPoint::try_from(original.centre_metres.metres())
+                    .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                    Vec2::splat(30.0),
+                )
+                .unwrap(),
+                original.orientation,
+            )
+            .unwrap(),
         }],
         ..Default::default()
     };
@@ -151,8 +168,8 @@ fn distant_buildings_affect_scene_identity_without_entering_tactical_generation(
             .generate()
             .unwrap()
             .terrain
-            .height_at(original.centre_metres),
-        Some(expected.base_elevation_metres)
+            .height_at(original.centre_metres.metres()),
+        Some(expected.base_elevation_metres.metres())
     );
     assert!(input.generate().unwrap().buildings.is_empty());
 }

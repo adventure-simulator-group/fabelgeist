@@ -1,4 +1,6 @@
 use super::*;
+pub use turn_deadline::body_turn_speed_for_deadline;
+mod turn_deadline;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize, Reflect)]
 pub enum Posture {
@@ -1129,7 +1131,7 @@ impl AttackCurve {
     /// contact. Bounding it by both neighboring secants keeps each quintic
     /// segment monotone while preventing the old stop-and-restart seam.
     fn contact_velocity(self) -> f32 {
-        if self.overshoot <= f32::EPSILON {
+        if self.overshoot <= 0.0 {
             return 0.0;
         }
         let strike_duration = 0.5 * (1.0 - self.tell_fraction);
@@ -2361,8 +2363,7 @@ impl SkeletonState {
                 let incoming_tangent = curve.overshoot
                     * queued_timeline.preparation_ticks as f32
                     * FOLLOW_READY_PREPARATION_FRACTION
-                    / (curve.follow_through_fraction.max(f32::EPSILON)
-                        * timeline.recovery_ticks as f32);
+                    / (curve.follow_through_fraction * timeline.recovery_ticks as f32);
                 let transition_phase = 0.5
                     + 0.5 * transition_tick.saturating_sub(timeline.contact_tick()) as f32
                         / timeline.recovery_ticks.max(1) as f32;
@@ -2588,22 +2589,6 @@ pub fn advance_body_facing_toward(
     Quat::from_rotation_y(current_yaw + delta.clamp(-maximum, maximum))
 }
 
-/// Angular speed required to reach a planar facing by a deadline without an
-/// instantaneous turn. Re-evaluating this as the target moves still lands on
-/// the live heading at canonical contact.
-pub fn body_turn_speed_for_deadline(
-    current: Quat,
-    desired_forward: Vec3,
-    remaining_seconds: f32,
-    delta_seconds: f32,
-) -> f32 {
-    let Some(desired) = desired_forward.xz().try_normalize() else {
-        return 0.0;
-    };
-    let current = (current * Vec3::Z).xz().normalize_or_zero();
-    current.angle_to(desired).abs() / remaining_seconds.max(delta_seconds).max(f32::EPSILON)
-}
-
 /// Rotates a downed body's fixed head direction toward camera yaw only while
 /// the caller keeps the alignment modifier held.
 pub fn advance_downed_body_facing(
@@ -2824,9 +2809,7 @@ fn advance_raised_locomotion_intent(
             observed_speed,
         )
     });
-    let requested = requested_local_direction
-        .filter(|direction| direction.is_finite() && direction.length_squared() > f32::EPSILON)
-        .map(|direction| direction.normalize());
+    let requested = requested_local_direction.and_then(|direction| direction.try_normalize());
     let moving = observed.or_else(|| {
         requested
             .map(|direction| RaisedLocomotionIntent::moving(direction, intent.speed().max(0.051)))

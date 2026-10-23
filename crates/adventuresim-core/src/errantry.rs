@@ -562,8 +562,11 @@ mod tests {
 
     #[test]
     fn replay_is_versioned_and_deterministic() {
-        let first =
-            OrderedSigilPuzzle::generate_versioned(ORDERED_SIGIL_RULES_VERSION, 41).unwrap();
+        let first = OrderedSigilPuzzle::generate_versioned(
+            ORDERED_SIGIL_RULES_VERSION,
+            fabelgeist_determinism::Seed::from_u64(41),
+        )
+        .unwrap();
         assert_eq!(
             first.solution,
             [
@@ -597,9 +600,16 @@ mod tests {
         );
         assert_eq!(
             first,
-            OrderedSigilPuzzle::generate_versioned(ORDERED_SIGIL_RULES_VERSION, 41).unwrap()
+            OrderedSigilPuzzle::generate_versioned(
+                ORDERED_SIGIL_RULES_VERSION,
+                fabelgeist_determinism::Seed::from_u64(41)
+            )
+            .unwrap()
         );
-        assert!(OrderedSigilPuzzle::generate_versioned(1, 41).is_err());
+        assert!(
+            OrderedSigilPuzzle::generate_versioned(1, fabelgeist_determinism::Seed::from_u64(41))
+                .is_err()
+        );
     }
 
     #[test]
@@ -621,7 +631,7 @@ mod tests {
 
     #[test]
     fn projection_is_safe() {
-        let puzzle = OrderedSigilPuzzle::generate(9);
+        let puzzle = OrderedSigilPuzzle::generate(fabelgeist_determinism::Seed::from_u64(9));
         let projection = puzzle.projection();
         let json = serde_json::to_string(&projection).unwrap();
         assert!(!json.contains("solution"));
@@ -631,7 +641,7 @@ mod tests {
 
     #[test]
     fn only_the_solution_is_accepted() {
-        let puzzle = OrderedSigilPuzzle::generate(77);
+        let puzzle = OrderedSigilPuzzle::generate(fabelgeist_determinism::Seed::from_u64(77));
         for candidate in solutions(&[], usize::MAX) {
             let submission = OrderedSigilSubmission {
                 expected_revision: 0,

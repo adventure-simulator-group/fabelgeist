@@ -11,7 +11,11 @@ fn resolve_requested_dodge(
     if elapsed > reflex_window {
         return None;
     }
-    let input_reflex = (1.0 - elapsed.as_secs_f32() / reflex_window.as_secs_f32()).clamp(0.0, 1.0);
+    let input_reflex = if reflex_window.is_zero() {
+        1.0
+    } else {
+        (1.0 - elapsed.as_secs_f32() / reflex_window.as_secs_f32()).clamp(0.0, 1.0)
+    };
     Some(match pending.choice {
         DefendRequest::Dodge { .. } => DefenderResponse::Dodge { input_reflex },
         DefendRequest::Roll => DefenderResponse::Dodge {
@@ -33,11 +37,15 @@ fn resolve_requested_melee_dodge(
         .set_at
         .elapsed_since(incoming_started_at)
         .as_secs_f32();
-    let window = config.reflex_window_seconds.max(f32::EPSILON);
+    let window = config.reflex_window_seconds;
     if delay > window {
         return None;
     }
-    let input_reflex = (1.0 - delay / window).clamp(0.0, 1.0);
+    let input_reflex = if window == 0.0 {
+        1.0
+    } else {
+        (1.0 - delay / window).clamp(0.0, 1.0)
+    };
     Some(match pending.choice {
         DefendRequest::Dodge { .. } => DefenderResponse::Dodge { input_reflex },
         DefendRequest::Roll => DefenderResponse::Dodge {

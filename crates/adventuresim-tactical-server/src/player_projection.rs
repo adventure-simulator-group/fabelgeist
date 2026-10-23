@@ -701,7 +701,7 @@ fn spawn_connected_player(
 
     let player_collider = player_collider();
     let mut spawn_random = fabelgeist_determinism::StreamId::new("tactical.player-spawn")
-        .rng(player.character.id, &[]);
+        .rng(player.character.id.into(), &[]);
     let spawn_position = Vec2::new(
         spawn_random.range_f32(-5.0, 5.0),
         spawn_random.range_f32(-5.0, 5.0),
@@ -1661,7 +1661,7 @@ pub(crate) fn restore_authoritative_movement_intent(
         accumulated_input.crouched =
             skeleton.body().is_downed() || skeleton.is_posture_transitioning();
         let roll_motion = skeleton.downed_lateral_motion();
-        if roll_motion.abs() > f32::EPSILON {
+        if roll_motion.abs() > 0.0 {
             accumulated_input.last_movement = match (controller, transform) {
                 (Some(controller), Some(transform)) => Some(body_relative_controller_input(
                     Vec3::new(-roll_motion, 0.0, 0.0),
@@ -2680,7 +2680,7 @@ mod tests {
 
     #[test]
     fn reconnect_at_or_after_expiry_deadline_is_rejected() {
-        for remaining_secs in [0.0, -f32::EPSILON] {
+        for remaining_secs in [0.0, 0.0_f32.next_down()] {
             let token = ReconnectToken([6; 32]);
             let mut session = DisconnectedPlayer {
                 character_id: CharacterId(7),

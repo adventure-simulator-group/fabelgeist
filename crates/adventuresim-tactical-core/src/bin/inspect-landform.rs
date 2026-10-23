@@ -38,7 +38,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             "input": input_path, "digest": generated.digest,
             "recipe": input.landform, "generation_ms": durations,
             "triangles": generated.terrain_patch.as_ref().map(SceneTerrainPatch::triangle_count),
-            "vertices": generated.terrain_patch.as_ref().map(|mesh| mesh.positions.len()),
+            "vertices": generated.terrain_patch.as_ref().map(|mesh| mesh.positions().len()),
             "obstacles": generated.obstacles.len(),
             "adjusted_height_samples": generated.repairs.adjusted_height_samples,
             "deterministic": true,

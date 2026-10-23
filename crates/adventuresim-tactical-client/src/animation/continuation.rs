@@ -83,7 +83,7 @@ pub(super) fn append_continuation_span(
         finish_time_seconds: frame_seconds(finish.anchor.frame),
         start_coordinate,
         incoming_tangent: incoming_tangent.max(0.0),
-        ready_phase: ready_phase.clamp(f32::EPSILON, 0.5 - f32::EPSILON),
+        ready_phase,
         progress: progress.clamp(0.0, 1.0),
         weight: sample.weight,
         mirrored_weight: if start.mirrored { sample.weight } else { 0.0 },

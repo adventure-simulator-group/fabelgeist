@@ -3,7 +3,7 @@ use adventuresim_plant_generator::{PlantLod, PlantSpecies};
 use std::{hint::black_box, time::Instant};
 
 const TIMING_SAMPLES: usize = 25;
-const SPECIMEN_SEED: u64 = 42;
+const SPECIMEN_SEED: fabelgeist_determinism::Seed = fabelgeist_determinism::Seed::from_u64(42);
 
 fn main() {
     println!("species,detail,vertices,triangles,first_us,median_us,p95_us");

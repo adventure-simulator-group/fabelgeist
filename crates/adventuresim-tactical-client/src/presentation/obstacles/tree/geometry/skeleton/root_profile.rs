@@ -1,6 +1,7 @@
 //! Root shoulder exposure and the tapered return into soil.
 
 use bevy::math::{FloatExt, Vec3};
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 use super::{OakGnarlingParameters, OakRootFork, OakRootSpec, polyline_tangent, sample_polyline};
@@ -61,7 +62,10 @@ mod tests {
 
     #[test]
     fn natural_oak_roots_have_no_above_grade_continuations() {
-        for seed in 0..256 {
+        for seed in (0..256)
+            .into_iter()
+            .map(fabelgeist_determinism::Seed::from_u64)
+        {
             let crown_phase =
                 StreamId::new("visual.obstacles.tree.geometry.skeleton.oak-crown-phase")
                     .rng(seed, &[])
@@ -93,7 +97,10 @@ mod tests {
             root_spread: 1.0,
             ..NATURAL_OAK_GNARLING
         };
-        for seed in 0..32 {
+        for seed in (0..32)
+            .into_iter()
+            .map(fabelgeist_determinism::Seed::from_u64)
+        {
             let phase = StreamId::new("visual.obstacles.tree.geometry.skeleton.oak-crown-phase")
                 .rng(seed, &[])
                 .inclusive_unit_f32()

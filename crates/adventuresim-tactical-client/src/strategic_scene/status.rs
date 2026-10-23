@@ -1,15 +1,19 @@
 //! Bounded readiness and timing telemetry consumed by the browser benchmark.
-use super::{RetainedScene, SceneModel, protocol::StrategicView};
+use super::{RetainedScene, protocol::StrategicView};
+use crate::presentation::ownership::PresentationOwner;
 use adventuresim_procedural_textures::{PROCEDURAL_TEXTURE_CATALOGUE, ProceduralTextureResidency};
 use bevy::{
     prelude::*,
     render::{Render, RenderApp, RenderSystems, render_resource::PipelineCache},
 };
+use characters::CharacterReadiness;
 use serde::Serialize;
 use std::sync::{
     Mutex, OnceLock,
     atomic::{AtomicUsize, Ordering},
 };
+
+mod characters;
 
 static STATUS: OnceLock<Mutex<String>> = OnceLock::new();
 static WAITING_PIPELINES: AtomicUsize = AtomicUsize::new(0);
@@ -18,7 +22,8 @@ const SETTLED_RENDER_FRAMES: usize = 4;
 #[derive(Resource, Default)]
 pub(super) struct SceneAssetsReady(pub bool);
 
-/// CPU installation and final lighting, independent of mesh pipeline preparation.
+/// Geometry, posed models and final lighting can prepare render pipelines while
+/// equipment fitting continues. Final asset readiness still includes equipment.
 #[derive(Resource, Default)]
 pub(super) struct SceneInstallationReady(pub bool);
 
@@ -35,6 +40,8 @@ struct Status {
     characters: usize,
     loaded_characters: usize,
     posed_characters: usize,
+    required_characters: usize,
+    posed_required_characters: usize,
     textures_ready: bool,
     sky_ready: bool,
     terrain_pending: usize,
@@ -97,6 +104,11 @@ fn pipeline_status(cache: Res<PipelineCache>) {
     WAITING_PIPELINES.store(cache.waiting_pipelines().count(), Ordering::Relaxed);
 }
 
+/// Shared render-device telemetry, independent of actor installation readiness.
+pub(crate) fn waiting_pipelines() -> usize {
+    WAITING_PIPELINES.load(Ordering::Relaxed)
+}
+
 pub(crate) fn json() -> String {
     STATUS
         .get_or_init(|| Mutex::new("{\"ready\":false}".into()))
@@ -109,14 +121,13 @@ pub(crate) fn json() -> String {
     clippy::too_many_arguments,
     reason = "Readiness joins assets, rigs, equipment and render pipeline state"
 )]
-pub(super) fn update_status(
+fn update_status(
     view: Option<Res<StrategicView>>,
     scene: Res<RetainedScene>,
-    models: Query<(), (With<SceneModel>, With<crate::animation::HumanoidRig>)>,
-    poses: Query<&crate::animation::pose_buffer::PoseBufferRig, With<SceneModel>>,
+    characters: CharacterReadiness,
     textures: Res<ProceduralTextureResidency>,
     failure: Res<SceneAssetFailure>,
-    equipment: super::equipment_readiness::EquipmentReadiness,
+    equipment: crate::equipment::readiness::EquipmentReadiness,
     items: Query<Entity, With<super::equipment::SceneEquipment>>,
     mut settled: Local<usize>,
     (mut assets_ready, mut installed_ready): (
@@ -133,11 +144,7 @@ pub(super) fn update_status(
     let waiting = WAITING_PIPELINES.load(Ordering::Relaxed);
     let equipment_state = equipment.check(items.iter());
     let equipment_ready = equipment_state == Ok(true);
-    let loaded = models.iter().count();
-    let posed = poses
-        .iter()
-        .filter(|pose| pose.has_presented_pose())
-        .count();
+    let counts = characters.counts(view.as_deref(), &scene);
     let textures_ready =
         textures.is_ready(PROCEDURAL_TEXTURE_CATALOGUE.iter().map(|recipe| recipe.id));
     if view.as_ref().is_some_and(|view| view.is_changed()) {
@@ -147,10 +154,13 @@ pub(super) fn update_status(
         scene.location == view.location
             && scene.next_place == view.places.len()
             && scene.pending.is_empty()
-            && view.people.iter().all(|p| scene.people.contains_key(&p.id))
-    }) && loaded == scene.people.len()
-        && posed == loaded
-        && equipment_ready
+            && view
+                .people
+                .iter()
+                .filter(|person| view.requires_person(person.id))
+                .all(|person| scene.people.contains_key(&person.id))
+    }) && counts.loaded == scene.people.len()
+        && counts.posed == counts.loaded
         && textures_ready
         && city.as_ref().is_none_or(|city| city.finished())
         && terrain.is_empty()
@@ -159,10 +169,11 @@ pub(super) fn update_status(
         && scene.error.is_none();
     installed_ready.0 = installed;
     let complete = installed
+        && equipment_ready
         && waiting == 0
-        && city
-            .as_ref()
-            .is_none_or(|city| city.total == 0 || crate::presentation::city_gpu_ready());
+        && city.as_ref().is_none_or(|city| {
+            city.total == 0 || crate::presentation::city_gpu_ready(PresentationOwner::Scene)
+        });
     assets_ready.0 = complete;
     if complete && cache.is_ready() {
         *settled += 1;
@@ -180,9 +191,11 @@ pub(super) fn update_status(
         settled_render_frames: *settled,
         buildings: scene.next_place,
         street: scene.street.clone(),
-        characters: scene.people.len(),
-        loaded_characters: loaded,
-        posed_characters: posed,
+        characters: counts.roster,
+        loaded_characters: counts.loaded,
+        posed_characters: counts.posed,
+        required_characters: counts.required,
+        posed_required_characters: counts.required_posed,
         textures_ready,
         sky_ready: sky.is_ready(&settings),
         terrain_pending: terrain.iter().count(),

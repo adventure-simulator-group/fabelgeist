@@ -7,12 +7,18 @@ pub fn combat_incapacitation_performance(incapacitation: f32) -> f32 {
     1.0 - incapacitation.clamp(0.0, 1.0)
 }
 
+/// A zero base duration stays zero. Positive recovery takes indefinitely long
+/// at zero performance; consumers that schedule bounded timers cap that value.
 #[must_use]
 pub fn incapacitation_adjusted_recovery_seconds(
     base_recovery_seconds: f32,
     performance: f32,
 ) -> f32 {
-    base_recovery_seconds.max(0.0) / performance.clamp(f32::EPSILON, 1.0)
+    let base = base_recovery_seconds.max(0.0);
+    if base == 0.0 {
+        return 0.0;
+    }
+    base / performance.clamp(0.0, 1.0)
 }
 
 /// Burden uses the existing carrying-capacity rule, but is now an explicit
@@ -42,5 +48,10 @@ mod tests {
         assert_eq!(combat_incapacitation_performance(1.2), 0.0);
         assert_eq!(combat_incapacitation_performance(-0.2), 1.0);
         assert_eq!(incapacitation_adjusted_recovery_seconds(0.4, 0.5), 0.8);
+        assert_eq!(incapacitation_adjusted_recovery_seconds(0.0, 0.0), 0.0);
+        assert_eq!(
+            incapacitation_adjusted_recovery_seconds(0.4, 0.0),
+            f32::INFINITY
+        );
     }
 }

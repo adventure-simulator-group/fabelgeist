@@ -1,6 +1,8 @@
 //! Compose disjoint owned support against one unchanged geographic surface.
 use super::*;
+use query::prepared::PreparedSupportTriangles;
 use std::collections::BTreeSet;
+use std::sync::{Arc, OnceLock};
 mod query;
 use query::SupportQueryIndex;
 
@@ -10,13 +12,51 @@ mod tests;
 /// A settlement surface owns each foundation once and clips source triangles
 /// once. Keeping every property's uncut source collider would put natural
 /// terrain back through the neighbouring property's graded floors.
-#[derive(Clone, Debug, PartialEq, Serialize, serde::Deserialize, bevy::prelude::Reflect)]
+#[derive(Clone, Debug, Serialize, serde::Deserialize, bevy::prelude::Reflect)]
+#[reflect(opaque)]
+#[serde(try_from = "SettlementWire")]
 pub struct BoundedSettlementTerrain {
-    pub foundations: Vec<PropertyFoundationMesh>,
+    pub(super) foundations: Vec<PropertyFoundationMesh>,
     #[serde(with = "crate::geometry_transport")]
-    pub natural_triangles: Vec<[Vec3; 3]>,
+    pub(super) natural_triangles: Vec<[Vec3; 3]>,
     contact_tolerance_metres: f32,
     query: SupportQueryIndex,
+    #[serde(skip)]
+    prepared: Arc<OnceLock<PreparedSupportTriangles>>,
+}
+
+#[derive(serde::Deserialize)]
+struct SettlementWire {
+    foundations: Vec<PropertyFoundationMesh>,
+    #[serde(with = "crate::geometry_transport")]
+    natural_triangles: Vec<[Vec3; 3]>,
+    contact_tolerance_metres: f32,
+    query: SupportQueryIndex,
+}
+
+impl TryFrom<SettlementWire> for BoundedSettlementTerrain {
+    type Error = SupportGeometryIssue;
+    fn try_from(wire: SettlementWire) -> Result<Self, Self::Error> {
+        let surface = Self {
+            foundations: wire.foundations,
+            natural_triangles: wire.natural_triangles,
+            contact_tolerance_metres: wire.contact_tolerance_metres,
+            query: wire.query,
+            prepared: Arc::default(),
+        };
+        surface.validate_geometry()?;
+        Ok(surface)
+    }
+}
+
+impl PartialEq for BoundedSettlementTerrain {
+    fn eq(&self, other: &Self) -> bool {
+        // Query cache population is not part of the authoritative surface.
+        self.foundations == other.foundations
+            && self.natural_triangles == other.natural_triangles
+            && self.contact_tolerance_metres == other.contact_tolerance_metres
+            && self.query == other.query
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, thiserror::Error)]
@@ -26,7 +66,7 @@ pub enum SettlementSupportError {
     DuplicateProperty { property: CityPropertyId },
     #[error("building {building} has support owned by both {first:?} and {second:?}")]
     DuplicateMember {
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
         first: CityPropertyId,
         second: CityPropertyId,
     },
@@ -35,19 +75,93 @@ pub enum SettlementSupportError {
     )]
     OwnershipOverlap {
         first: CityPropertyId,
-        first_members: Vec<u64>,
+        first_members: Vec<crate::scene_input::SceneBuildingId>,
         second: CityPropertyId,
-        second_members: Vec<u64>,
-        location_metres: Vec2,
-        area_square_metres: f64,
+        second_members: Vec<crate::scene_input::SceneBuildingId>,
+        location_metres: crate::scene_coordinates::ScenePlanPoint,
+        area_square_metres: DiagnosticArea,
         first_region: CityPlotBounds,
         second_region: CityPlotBounds,
     },
     #[error("property support rejected: {0:?}")]
     Property(SupportDiagnostic),
+    #[error("settlement geometry rejected: {0}")]
+    Geometry(#[from] SupportGeometryIssue),
 }
 
 impl BoundedSettlementTerrain {
+    pub fn foundations(&self) -> &[PropertyFoundationMesh] {
+        &self.foundations
+    }
+    /// Native scene-metre triangles for immutable rendering/physics adapters.
+    pub fn natural_triangles(&self) -> &[[Vec3; 3]] {
+        &self.natural_triangles
+    }
+    /// Build the query index only after admitting finite scene geometry and
+    /// unique property/member ownership. Native mesh buffers stay immutable.
+    pub fn from_foundations(
+        foundations: Vec<PropertyFoundationMesh>,
+        natural: Vec<
+            [adventuresim_building_generator::spatial_geometry::Position<
+                crate::scene_coordinates::Scene,
+            >; 3],
+        >,
+        contact_tolerance: adventuresim_building_generator::spatial_geometry::PositiveLength,
+    ) -> Result<Self, SupportGeometryIssue> {
+        let mut surface = Self {
+            foundations,
+            natural_triangles: natural.into_iter().map(|t| t.map(|p| p.metres())).collect(),
+            contact_tolerance_metres: contact_tolerance.metres(),
+            query: SupportQueryIndex::default(),
+            prepared: Arc::default(),
+        };
+        surface.validate_source_geometry()?;
+        surface.query = SupportQueryIndex::compile(&surface);
+        surface.query.validate(&surface)?;
+        Ok(surface)
+    }
+    fn validate_geometry(&self) -> Result<(), SupportGeometryIssue> {
+        self.validate_source_geometry()?;
+        self.query.validate(self)
+    }
+    fn validate_source_geometry(&self) -> Result<(), SupportGeometryIssue> {
+        let presentation_vertices = self
+            .foundations
+            .iter()
+            .try_fold(self.natural_triangles.len(), |count, foundation| {
+                count
+                    .checked_add(foundation.cut_faces.len())?
+                    .checked_add(foundation.solid_triangles.len())
+            })
+            .and_then(|count| count.checked_mul(3));
+        if presentation_vertices.is_none_or(|count| count > u32::MAX as usize) {
+            return Err(SupportGeometryIssue::Topology);
+        }
+        let mut properties = BTreeSet::new();
+        let mut members = BTreeSet::new();
+        for foundation in &self.foundations {
+            foundation.validate()?;
+            if !properties.insert(foundation.property_id)
+                || foundation
+                    .member_building_ids
+                    .iter()
+                    .any(|id| !members.insert(*id))
+            {
+                return Err(SupportGeometryIssue::Members);
+            }
+        }
+        if !self.contact_tolerance_metres.is_finite()
+            || self.contact_tolerance_metres < 0.0
+            || self.natural_triangles.iter().any(|triangle| {
+                triangle.iter().any(|p| !p.is_finite())
+                    || !triangle.iter().copied().sum::<Vec3>().is_finite()
+            })
+        {
+            return Err(SupportGeometryIssue::NonFinite);
+        }
+        Ok(())
+    }
+
     /// Canonical property order controls generated products, never their input
     /// iteration order. Overlapping owners are rejected before clipping; this
     /// operation does not choose the higher floor or merge nearby terraces.
@@ -68,9 +182,9 @@ impl BoundedSettlementTerrain {
                     .map_err(SettlementSupportError::Property)?,
             );
             outlines.extend(plan.clipping_outlines.clone());
-            tolerance = tolerance.max(plan.limits.contact_tolerance_metres);
+            tolerance = tolerance.max(plan.limits.contact_tolerance_metres.metres());
         }
-        let cuts = geometry::SourceCutRegions::from_outlines(outlines);
+        let cuts = geometry::SourceCutRegions::from_outlines(outlines)?;
         let natural_triangles = geographic
             .triangles
             .iter()
@@ -82,8 +196,11 @@ impl BoundedSettlementTerrain {
             natural_triangles,
             contact_tolerance_metres: tolerance,
             query: SupportQueryIndex::default(),
+            prepared: Arc::default(),
         };
+        surface.validate_source_geometry()?;
         surface.query = SupportQueryIndex::compile(&surface);
+        surface.validate_geometry()?;
         Ok(surface)
     }
 
@@ -98,7 +215,7 @@ impl BoundedSettlementTerrain {
         let mut heights: Vec<_> = self
             .query
             .triangles_at(self, point, self.contact_tolerance_metres)
-            .map(|triangle| SupportElevation(triangle.height_at(point)))
+            .filter_map(|triangle| SupportElevation::from_metres(triangle.height_at(point)))
             .collect();
         heights.sort_by(|a, b| a.metres().total_cmp(&b.metres()));
         heights.dedup_by(|a, b| (a.metres() - b.metres()).abs() <= self.contact_tolerance_metres);
@@ -107,11 +224,14 @@ impl BoundedSettlementTerrain {
 
     /// Convex foundation compounds and the clipped source trimesh are separate
     /// static bodies. Avian/Parry does not support nesting composite colliders.
-    pub fn colliders(&self) -> Vec<avian3d::prelude::Collider> {
+    pub fn colliders(&self) -> Result<Vec<avian3d::prelude::Collider>, SupportColliderError> {
         let mut colliders: Vec<_> = self
             .foundations
             .iter()
             .map(PropertyFoundationMesh::collider)
+            .collect::<Result<Vec<_>, _>>()?
+            .into_iter()
+            .filter_map(SupportCollision::into_solid)
             .collect();
         if !self.natural_triangles.is_empty() {
             let triangles: Vec<_> = self
@@ -122,8 +242,7 @@ impl BoundedSettlementTerrain {
             let positions: Vec<_> = triangles.iter().flat_map(|t| t.iter()).copied().collect();
             let indices = (0..triangles.len())
                 .map(|i| {
-                    let start =
-                        u32::try_from(i * 3).expect("bounded settlement source fits u32 indices");
+                    let start = (i * 3) as u32;
                     if i < self.natural_triangles.len() {
                         [start, start + 2, start + 1]
                     } else {
@@ -133,7 +252,7 @@ impl BoundedSettlementTerrain {
                 .collect();
             colliders.push(avian3d::prelude::Collider::trimesh(positions, indices));
         }
-        colliders
+        Ok(colliders)
     }
 
     /// Source, bearings and intentionally buried foundation faces use the
@@ -163,23 +282,22 @@ impl BoundedSettlementTerrain {
         &self,
         scene_point: crate::scene_coordinates::ScenePlanPoint,
     ) -> Option<super::super::SurfaceHit> {
-        let point = scene_point.metres();
-        self.surface_below(Vec3::new(point.x, f32::INFINITY, point.y))
+        self.surface_below(SupportQuery::unbounded(scene_point))
     }
 
     /// Select physical support below an explicit vertical query ceiling. The
     /// caller supplies its actor/threshold clearance; no movement limit is
     /// invented here. Buried prism bottoms and vertical faces are not bearings.
-    pub fn surface_below(&self, position: Vec3) -> Option<super::super::SurfaceHit> {
-        crate::scene_coordinates::ScenePlanPoint::from_metres(position.xz())?;
-        if position.y.is_nan() {
-            return None;
-        }
+    pub fn surface_below(&self, query: SupportQuery) -> Option<super::super::SurfaceHit> {
+        let point = query.point.metres();
         self.query
-            .triangles_at(self, position.xz(), self.contact_tolerance_metres)
+            .triangles_at(self, point, self.contact_tolerance_metres)
             .filter_map(|triangle| {
-                let height = triangle.height_at(position.xz());
-                if height > position.y + self.contact_tolerance_metres {
+                let height = triangle.height_at(point);
+                if !query.permits(
+                    SupportElevation::from_metres(height)?,
+                    self.contact_tolerance_metres,
+                ) {
                     return None;
                 }
                 let [a, b, c] = triangle.points();
@@ -216,9 +334,9 @@ fn validate_owners(plans: &[&PropertySupportSurface]) -> Result<(), SettlementSu
         .iter()
         .map(|plan| {
             PlanarBounds::from_points(plan.clipping_outlines.iter().flatten().copied())
-                .expect("validated property support has nonempty clipping outlines")
+                .ok_or(SupportGeometryIssue::Query)
         })
-        .collect();
+        .collect::<Result<_, _>>()?;
     let index = PlanarQueryIndex::from_bounds(bounds.clone());
     let mut properties = BTreeSet::new();
     let mut members = std::collections::BTreeMap::new();
@@ -258,8 +376,14 @@ fn validate_owners(plans: &[&PropertySupportSurface]) -> Result<(), SettlementSu
                             first_members: earlier.mesh.member_building_ids.clone(),
                             second: property,
                             second_members: plan.mesh.member_building_ids.clone(),
-                            location_metres,
-                            area_square_metres,
+                            location_metres: crate::scene_coordinates::ScenePlanPoint::try_from(
+                                location_metres,
+                            )
+                            .map_err(|_| SupportGeometryIssue::NonFinite)?,
+                            area_square_metres: DiagnosticArea::from_square_metres(
+                                area_square_metres,
+                            )
+                            .ok_or(SupportGeometryIssue::NonFinite)?,
                             first_region: *first,
                             second_region: *second,
                         });
@@ -288,7 +412,7 @@ fn overlap(
             crate::city_layout::grounding::planar::clip(intersection, |p| edge.perp_dot(p - a));
     }
     let area = crate::city_layout::grounding::planar::signed_area(&intersection).abs();
-    (area > f64::EPSILON).then(|| {
+    (area > 0.0).then(|| {
         let location =
             intersection.iter().copied().sum::<bevy::math::DVec2>() / intersection.len() as f64;
         (location.as_vec2(), area)

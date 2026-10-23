@@ -19,10 +19,10 @@ pub(super) fn validate(
     streets: &[CityStreetPatch],
 ) -> Result<()> {
     let error = |issue| CityCompileError::Church {
-        building: lot.id,
+        building: lot.id.into(),
         issue,
     };
-    let plot = CityPlotBounds::from(lot);
+    let plot = CityPlotBounds::try_from(lot)?;
     if !recipe.fits(placement, plot) {
         return Err(error(ChurchSitingIssue::GeometryOutsidePlot));
     }
@@ -44,7 +44,7 @@ pub(super) fn validate(
     let physical = |p| {
         let point = placement
             .orientation
-            .world_to_local(p - placement.centre_metres)
+            .world_to_local(p - placement.centre_metres.metres())
             + Vec2::new(origin.x, origin.z);
         adventuresim_building_generator::spatial_geometry::Position::<
             adventuresim_building_generator::Architectural,
@@ -72,7 +72,7 @@ mod tests {
     #[test]
     fn principal_frontage_rotates_with_its_plot_and_rejects_blocked_access() {
         let city = CitySite::central_german_market_town().generate(
-            42,
+            (42).into(),
             6500,
             &super::super::super::tests::economy(),
         );
@@ -84,7 +84,9 @@ mod tests {
                     && lot.service_size() == Some(ServiceBuildingSize::Large)
             })
             .unwrap();
-        let recipe = CityRecipePalette::default().front(42, lot).unwrap();
+        let recipe = CityRecipePalette::default()
+            .front((42).into(), lot)
+            .unwrap();
         lot.centre_metres = Vec2::ZERO;
         for yaw in [0.0, core::f32::consts::FRAC_PI_2, 0.37] {
             lot.orientation = BuildingOrientation::from_radians(yaw).unwrap();
@@ -96,13 +98,13 @@ mod tests {
                 surface: CityStreetSurface::Fieldstone,
             };
             let placement = recipe
-                .place(lot.id, lot.centre_metres, lot.orientation)
+                .place(lot.id.into(), lot.centre_metres, lot.orientation)
                 .unwrap();
             validate(lot, &placement, &recipe, &[street]).unwrap();
             assert_eq!(
                 validate(lot, &placement, &recipe, &[]),
                 Err(CityCompileError::Church {
-                    building: lot.id,
+                    building: lot.id.into(),
                     issue: ChurchSitingIssue::StreetDisconnected,
                 })
             );
@@ -113,7 +115,7 @@ mod tests {
             assert_eq!(
                 validate(smaller, &placement, &recipe, &[street]),
                 Err(CityCompileError::Church {
-                    building: lot.id,
+                    building: lot.id.into(),
                     issue: ChurchSitingIssue::GeometryOutsidePlot,
                 })
             );
@@ -134,7 +136,7 @@ mod tests {
             assert_eq!(
                 validate(lot, &placement, &blocked, &[street]),
                 Err(CityCompileError::Church {
-                    building: lot.id,
+                    building: lot.id.into(),
                     issue: ChurchSitingIssue::ApproachBlocked,
                 })
             );

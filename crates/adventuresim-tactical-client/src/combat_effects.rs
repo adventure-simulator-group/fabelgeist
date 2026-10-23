@@ -3,6 +3,7 @@ use adventuresim_tactical_netcode::message::{ImpactSound, SuccessfulAttackRespon
 use bevy::audio::{PlaybackMode, Volume};
 use bevy::ecs::system::SystemParam;
 use bevy::prelude::*;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 use crate::{audio_config::TacticalAudioConfig, presentation::ProceduralTextureAssets};
@@ -188,15 +189,11 @@ fn combat_sound_seed(
     attacker: Entity,
     identities: &Query<&CharacterId>,
     sequences: &mut std::collections::BTreeMap<u64, u64>,
-) -> Option<u64> {
+) -> Option<Seed> {
     let character_id = identities.get(attacker).ok()?.0;
     let sequence = sequences.entry(character_id).or_default();
     *sequence = sequence.wrapping_add(1);
-    Some(
-        StreamId::new("audio.combat-event")
-            .seed(character_id, &[*sequence])
-            .to_u64(),
-    )
+    Some(StreamId::new("audio.combat-event").seed(Seed::from_u64(character_id), &[*sequence]))
 }
 
 fn play_impact_sound(
@@ -204,7 +201,7 @@ fn play_impact_sound(
     asset_server: &AssetServer,
     sound: ImpactSound,
     world_point: Vec3,
-    seed: u64,
+    seed: Seed,
     config: &TacticalAudioConfig,
 ) {
     let family = match sound {
@@ -269,7 +266,7 @@ fn move_combat_particles(
         let movement = particle.velocity * delta_seconds;
         let distance = movement.length();
         if particle.blood
-            && distance > f32::EPSILON
+            && distance > 0.0
             && let Ok(direction) = Dir3::new(movement)
             && let Some(hit) = spatial.cast_ray(
                 transform.translation,

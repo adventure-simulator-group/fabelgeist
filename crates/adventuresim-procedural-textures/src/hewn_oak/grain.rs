@@ -2,6 +2,7 @@
 
 mod streams;
 use super::{grid_hash, periodic_delta, smooth, value_noise};
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 const GRAIN_FILTER_GRID: u32 = 4;
@@ -224,7 +225,7 @@ fn anatomical_marks(
     v: f32,
     cells: [i32; 2],
     radius: [f32; 2],
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * cells[0] as f32;
     let y = v.rem_euclid(1.0) * cells[1] as f32;
@@ -238,7 +239,7 @@ fn anatomical_marks(
                     iy,
                     cells[0],
                     cells[1],
-                    purpose.seed(field_seed, &[]).to_u64(),
+                    purpose.seed(field_seed, &[]),
                 )
             };
             if random(streams::MARK_PRESENCE) < 1.0 - params.hewn_oak_grain.anatomical_mark_density

@@ -13,17 +13,10 @@ impl GeneratedBuilding {
         adventuresim_building_generator::spatial_geometry::GeometryError,
     > {
         use crate::scene_coordinates::{ArchitecturalFloorDatum, ArchitecturalPlanProjection};
-        use adventuresim_building_generator::spatial_geometry::GeometryError;
         let origin = self.collision.bounds.centre()?;
         let plan =
             ArchitecturalPlanProjection::from_placement(&self.placement, self.collision.bounds)?;
-        let floor = crate::city_layout::grounding::SupportElevation::from_metres(
-            self.placement.base_elevation_metres,
-        )
-        .ok_or(GeometryError::NonFinite {
-            role: adventuresim_building_generator::spatial_geometry::GeometryRole::Elevation,
-            axis: adventuresim_building_generator::spatial_geometry::CoordinateAxis::Y,
-        })?;
+        let floor = self.placement.base_elevation_metres;
         ArchitecturalFloorDatum { plan, floor }.collision_centre(origin)
     }
     pub fn transform(
@@ -51,22 +44,30 @@ mod tests {
         use adventuresim_world_schema::ProsperityTier;
         for floor in [-4.75, 9.5] {
             let distant = DistantBuildingPlacement {
-                id: 1238,
+                id: (1238).into(),
                 prosperity: ProsperityTier::Wealthy,
                 archetype: BuildingArchetype::FachwerkMerchantHouse,
                 usage: Some(BuildingUse::Dwelling),
                 service_size: None,
-                seed: 7_989_866_213_631_017_260,
-                centre_metres: Vec2::new(-321.574_13, -345.572_57),
-                base_elevation_metres: floor,
+                seed: 7_989_866_213_631_017_260.into(),
+                centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+                    -321.574_13,
+                    -345.572_57,
+                ))
+                .unwrap(),
+                base_elevation_metres:
+                    crate::city_layout::grounding::SupportElevation::from_metres(floor).unwrap(),
                 orientation: BuildingOrientation::from_radians(-0.197_395_56).unwrap(),
             };
             let placement = TacticalBuildingPlacement::from(distant);
             assert_eq!(placement.program, distant.occupied_program());
-            assert_eq!(placement.centre_metres, distant.centre_metres);
+            assert_eq!(
+                placement.centre_metres.metres(),
+                distant.centre_metres.metres()
+            );
             assert_eq!(placement.orientation, distant.orientation);
             assert_eq!(placement.id, distant.id);
-            assert_eq!(placement.base_elevation_metres, floor);
+            assert_eq!(placement.base_elevation_metres.metres(), floor);
             let generated = super::super::prepare_buildings(
                 std::slice::from_ref(&placement),
                 &mut GeneratedBuildingRecipes::default(),
@@ -79,9 +80,9 @@ mod tests {
                 .unwrap()
                 .transform_point(-Vec3::Y * origin.y);
             assert!((world_floor.y - floor).abs() < 0.000_01);
-            let mut invalid = placement;
-            invalid.base_elevation_metres = f32::NAN;
-            assert!(super::super::validate_building_placements(&[invalid]).is_err());
+            assert!(
+                crate::city_layout::grounding::SupportElevation::from_metres(f32::NAN).is_none()
+            );
         }
     }
 
@@ -106,15 +107,24 @@ mod tests {
                 3.0,
             ),
         ] {
-            let program =
-                BuildingProgram::validated_settlement(archetype, usage, seed, size).unwrap();
+            let program = BuildingProgram::validated_settlement(
+                archetype,
+                usage,
+                fabelgeist_determinism::Seed::from_u64(seed),
+                size,
+            )
+            .unwrap();
             let recipe = GeneratedBuildingRecipe::generate(program.clone()).unwrap();
             let building = GeneratedBuilding {
                 placement: TacticalBuildingPlacement {
-                    base_elevation_metres: base,
-                    id,
+                    base_elevation_metres:
+                        crate::city_layout::grounding::SupportElevation::from_metres(base).unwrap(),
+                    id: (id).into(),
                     program,
-                    centre_metres: Vec2::new(-28.5, 20.37),
+                    centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+                        -28.5, 20.37,
+                    ))
+                    .unwrap(),
                     orientation: BuildingOrientation::from_radians(0.73).unwrap(),
                 },
                 plan: recipe.plan,
@@ -128,7 +138,12 @@ mod tests {
             let transform = building.transform().unwrap();
             let floor = transform.transform_point(Vec3::new(origin.x, 0.0, origin.z) - origin);
             assert!((floor.y - base).abs() < 0.000_01);
-            assert!(floor.xz().distance(building.placement.centre_metres) < 0.000_01);
+            assert!(
+                floor
+                    .xz()
+                    .distance(building.placement.centre_metres.metres())
+                    < 0.000_01
+            );
             let bottom =
                 transform.transform_point(building.collision.bounds.min().metres() - origin);
             assert!(bottom.y < floor.y, "legitimate slab remains buried");

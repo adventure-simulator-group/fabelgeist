@@ -66,7 +66,19 @@ fn indexed_source_retains_complete_rotated_intersections_and_interior_peak() {
                 })
             }));
         }
-        let range = source.height_range_in_outline(&outline).unwrap();
+        let range = source
+            .height_range_in_outline(
+                &crate::scene_coordinates::ScenePlanPolygon::from_ordered_vertices(
+                    (outline)
+                        .iter()
+                        .copied()
+                        .map(crate::scene_coordinates::ScenePlanPoint::try_from)
+                        .collect::<Result<Vec<_>, _>>()
+                        .unwrap(),
+                )
+                .unwrap(),
+            )
+            .unwrap();
         assert_eq!(
             range.minimum,
             *controls
@@ -100,7 +112,10 @@ fn indexed_sampling_retains_canonical_edges_and_reports_missing_source() {
             .iter()
             .find(|triangle| triangle.contains(point, 0.0))
             .map(|triangle| SupportElevation(triangle.height_at(point)));
-        assert_eq!(source.elevation_at(point), exact);
+        assert_eq!(
+            source.elevation_at(crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()),
+            exact
+        );
     }
     let mut reordered: Vec<_> = source.triangles().collect();
     reordered.reverse();
@@ -113,8 +128,12 @@ fn indexed_sampling_retains_canonical_edges_and_reports_missing_source() {
         other.triangles().collect::<Vec<_>>()
     );
     assert_eq!(
-        source.elevation_at(Vec2::splat(12.0)),
-        other.elevation_at(Vec2::splat(12.0))
+        source.elevation_at(
+            crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::splat(12.0)).unwrap()
+        ),
+        other.elevation_at(
+            crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::splat(12.0)).unwrap()
+        )
     );
 }
 
@@ -130,21 +149,68 @@ fn complete_surface_comparison_detects_diagonal_peak_and_missing_coverage() {
     let first = GeographicSurface::from_triangles([[a, b, c], [a, c, d]]).unwrap();
     let second = GeographicSurface::from_triangles([[a, b, d], [b, c, d]]).unwrap();
     let outline = [a, b, c, d].map(|p| p.xz());
-    let comparison = first.compare_in_outline(&second, &outline).unwrap();
-    assert_eq!(comparison.maximum.position_metres, Vec2::ONE);
-    assert_eq!(comparison.maximum.difference_metres, 2.0);
-    assert_eq!(comparison.minimum.difference_metres, 0.0);
-    assert_eq!(comparison.covered_area_square_metres, 4.0);
+    let comparison = first
+        .compare_in_outline(
+            &second,
+            &crate::scene_coordinates::ScenePlanPolygon::from_ordered_vertices(
+                (outline)
+                    .iter()
+                    .copied()
+                    .map(crate::scene_coordinates::ScenePlanPoint::try_from)
+                    .collect::<Result<Vec<_>, _>>()
+                    .unwrap(),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+    assert_eq!(comparison.maximum.position_metres.metres(), Vec2::ONE);
+    assert_eq!(comparison.maximum.difference_metres.metres(), 2.0);
+    assert_eq!(comparison.minimum.difference_metres.metres(), 0.0);
+    assert_eq!(comparison.covered_area_square_metres.square_metres(), 4.0);
     let reordered = GeographicSurface::from_triangles([[d, c, a], [c, b, a]]).unwrap();
     assert_eq!(
         serde_json::to_value(comparison).unwrap(),
-        serde_json::to_value(reordered.compare_in_outline(&second, &outline).unwrap()).unwrap(),
+        serde_json::to_value(
+            reordered
+                .compare_in_outline(
+                    &second,
+                    &crate::scene_coordinates::ScenePlanPolygon::from_ordered_vertices(
+                        (outline)
+                            .iter()
+                            .copied()
+                            .map(crate::scene_coordinates::ScenePlanPoint::try_from)
+                            .collect::<Result<Vec<_>, _>>()
+                            .unwrap()
+                    )
+                    .unwrap()
+                )
+                .unwrap()
+        )
+        .unwrap(),
     );
     let partial = GeographicSurface::from_triangles([[a, b, d]]).unwrap();
-    let comparison = first.compare_in_outline(&partial, &outline).unwrap();
-    assert_eq!(comparison.required_area_square_metres, 4.0);
-    assert_eq!(comparison.covered_area_square_metres, 2.0);
-    assert!(first.compare_in_outline(&partial, &[Vec2::ZERO]).is_none());
+    let comparison = first
+        .compare_in_outline(
+            &partial,
+            &crate::scene_coordinates::ScenePlanPolygon::from_ordered_vertices(
+                (outline)
+                    .iter()
+                    .copied()
+                    .map(crate::scene_coordinates::ScenePlanPoint::try_from)
+                    .collect::<Result<Vec<_>, _>>()
+                    .unwrap(),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+    assert_eq!(comparison.required_area_square_metres.square_metres(), 4.0);
+    assert_eq!(comparison.covered_area_square_metres.square_metres(), 2.0);
+    assert!(
+        crate::scene_coordinates::ScenePlanPolygon::from_ordered_vertices(vec![
+            crate::scene_coordinates::ScenePlanPoint::ORIGIN
+        ])
+        .is_err()
+    );
 }
 
 #[test]
@@ -165,13 +231,28 @@ fn complete_surface_comparison_accounts_for_rotated_footprint_intersections() {
         Vec2::new(-2.0, 1.0),
     ]
     .map(|p| Vec2::splat(12.0) + rotation * p);
-    let comparison = first.compare_in_outline(&second, &outline).unwrap();
+    let comparison = first
+        .compare_in_outline(
+            &second,
+            &crate::scene_coordinates::ScenePlanPolygon::from_ordered_vertices(
+                (outline)
+                    .iter()
+                    .copied()
+                    .map(crate::scene_coordinates::ScenePlanPoint::try_from)
+                    .collect::<Result<Vec<_>, _>>()
+                    .unwrap(),
+            )
+            .unwrap(),
+        )
+        .unwrap();
     assert!(
-        (comparison.covered_area_square_metres - comparison.required_area_square_metres).abs()
+        (comparison.covered_area_square_metres.square_metres()
+            - comparison.required_area_square_metres.square_metres())
+        .abs()
             < 1e-8
     );
-    assert!((comparison.minimum.difference_metres + 0.5).abs() < 1e-6);
-    assert!((comparison.maximum.difference_metres + 0.5).abs() < 1e-6);
+    assert!((comparison.minimum.difference_metres.metres() + 0.5).abs() < 1e-6);
+    assert!((comparison.maximum.difference_metres.metres() + 0.5).abs() < 1e-6);
 }
 
 #[test]
@@ -224,6 +305,7 @@ fn boundary_query_preserves_tolerated_segment_sections_and_acute_corner_extensio
             let indexed = sections(
                 source
                     .intersecting_boundary_segment(segment, 0.001)
+                    .unwrap()
                     .collect(),
             );
             assert!(!exact.is_empty());
@@ -232,7 +314,10 @@ fn boundary_query_preserves_tolerated_segment_sections_and_acute_corner_extensio
     }
     let local = [DVec2::splat(12.0), DVec2::new(12.5, 12.3)];
     assert!(
-        ordinary.intersecting_boundary_segment(local, 0.001).count()
+        ordinary
+            .intersecting_boundary_segment(local, 0.001)
+            .unwrap()
+            .count()
             < ordinary.triangles.len() / 10
     );
 }

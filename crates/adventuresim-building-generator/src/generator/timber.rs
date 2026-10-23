@@ -598,7 +598,8 @@ mod wall_infill_tests {
             let half_timber = section.max_element() * 0.5;
             let half_cut = timber_infill_cut_half_width(section);
             assert!(half_cut < half_timber);
-            assert!((half_timber - half_cut - 0.006).abs() < f32::EPSILON);
+            let cut_roundoff_metres = half_timber.next_up() - half_timber;
+            assert!((half_timber - half_cut - 0.006).abs() <= cut_roundoff_metres);
         }
     }
 
@@ -606,7 +607,7 @@ mod wall_infill_tests {
     fn generated_infill_finish_is_millimetres_behind_the_timber_plane() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let mut checked = 0;

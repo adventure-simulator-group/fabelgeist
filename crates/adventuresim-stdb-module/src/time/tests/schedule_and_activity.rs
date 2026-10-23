@@ -10,7 +10,7 @@ fn effective_schedule_redistributes_location_activities_without_mutating_saved_p
     let settlement = effective_location_schedule(
         &saved,
         ActivityLocation::Settlement { has_inn: false },
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     );
     assert_eq!(settlement.carousing_minutes, 0);
     assert_eq!(settlement.raiding_minutes, 0);
@@ -30,7 +30,7 @@ adventuresim_world_schema::calendar::StrategicMinute::new(0),
     assert_eq!(effective_recovery, saved_recovery);
 
     let outdoors =
-        effective_location_schedule(&saved, ActivityLocation::NamedOutdoorLocation, 42);
+        effective_location_schedule(&saved, ActivityLocation::NamedOutdoorLocation, fabelgeist_determinism::Seed::from_u64(42));
     assert_eq!(outdoors.carousing_minutes, 0);
     assert_eq!(outdoors.thievery_minutes, 0);
     assert!(outdoors.raiding_minutes >= 120);
@@ -51,7 +51,7 @@ fn effective_schedule_uses_leisure_when_every_planned_activity_is_unavailable() 
     let effective = effective_location_schedule(
         &saved,
         ActivityLocation::Settlement { has_inn: false },
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     );
     assert_eq!(effective.allocated_minutes(), 0);
     assert_eq!(saved.allocated_minutes(), 180);
@@ -186,10 +186,10 @@ fn activity_training_uses_the_daily_minute_allocation() {
         (one_day.will, two_days.will),
     ] {
         assert!(daily > 0.0);
-        assert!((doubled - daily * 2.0).abs() < f32::EPSILON);
+        assert_eq!(doubled, daily * 2.0);
     }
-    assert!((one_day.sword - one_day.dodge).abs() < f32::EPSILON);
-    assert!((one_day.sword - one_day.balance).abs() < f32::EPSILON);
+    assert_eq!(one_day.sword, one_day.dodge);
+    assert_eq!(one_day.sword, one_day.balance);
     assert!(one_day.will > one_day.sword);
     assert_eq!(
         allocation.allocated_minutes(),

@@ -1,5 +1,6 @@
 mod streams;
 use super::*;
+use fabelgeist_determinism::Seed;
 
 pub const ROCK_TEXTURE_SIZE: u32 = 1024;
 pub const ROCK_TILE_METRES: f32 = 2.0;
@@ -39,7 +40,7 @@ fn periodic_value_field(
     v: f32,
     columns: i32,
     rows: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * columns as f32;
     let y = v.rem_euclid(1.0) * rows as f32;
@@ -51,7 +52,10 @@ fn periodic_value_field(
         let wrapped_x = cell_x.rem_euclid(columns) as u64;
         let wrapped_y = cell_y.rem_euclid(rows) as u64;
         params
-            .rng(streams::LATTICE, &[field_seed, wrapped_x, wrapped_y])
+            .rng(
+                streams::LATTICE,
+                &[field_seed.to_u64(), wrapped_x, wrapped_y],
+            )
             .inclusive_unit_f32()
             * 2.0
             - 1.0
@@ -116,7 +120,11 @@ fn rock_field(params: &crate::TextureParameters, u: f32, v: f32) -> RockFieldSam
     RockFieldSample {
         height,
         palette_index: palette_index.min(params.rock.palette.len() - 1),
-        cavity: pores.bowl / params.rock.pores.depth.max(f32::EPSILON),
+        cavity: if params.rock.pores.depth > 0.0 {
+            pores.bowl / params.rock.pores.depth
+        } else {
+            0.0
+        },
     }
 }
 
@@ -365,6 +373,17 @@ mod tests {
     use std::collections::BTreeSet;
 
     use super::*;
+
+    #[test]
+    fn disabled_pores_have_finite_zero_cavity() {
+        let mut params = crate::TextureParameters::default();
+        params.rock.pores.depth = 0.0;
+        for u in [0.0, 0.25, 0.75] {
+            let sample = rock_field(&params, u, 0.37);
+            assert!(sample.height.is_finite());
+            assert_eq!(sample.cavity, 0.0);
+        }
+    }
 
     #[test]
     fn field_is_periodic_deterministic_and_physically_scaled() {

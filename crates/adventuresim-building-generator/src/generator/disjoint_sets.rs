@@ -45,21 +45,21 @@ mod tests {
     #[test]
     fn runtime_and_authoring_share_construction_results() {
         use adventuresim_world_schema::settlement_buildings::BuildingUse;
-        let mut heated = BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 3);
+        let mut heated = BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, fabelgeist_determinism::Seed::from_u64(3));
         heated.domestic_heating = Some(crate::DomesticHeatingProgramme::HearthAndRearFedStove);
         let programs = [
             heated,
             BuildingProgram::validated_settlement(
                 crate::settlement_archetype(BuildingUse::Inn),
                 BuildingUse::Inn,
-                47,
+                fabelgeist_determinism::Seed::from_u64(47),
                 None,
             )
             .unwrap(),
             BuildingProgram::validated_settlement(
                 crate::settlement_archetype(BuildingUse::GeneralShop),
                 BuildingUse::GeneralShop,
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 None,
             )
             .unwrap(),
@@ -90,7 +90,7 @@ mod tests {
         const SEEDS: [u64; 8] = [0, 1, 2, 17, 42, 47, 101, u64::MAX];
 
         for archetype in BuildingArchetype::ALL {
-            for seed in SEEDS {
+            for seed in SEEDS.map(fabelgeist_determinism::Seed::from_u64) {
                 let program = BuildingProgram::fixture(archetype, seed);
                 let plan = generate(&program).unwrap_or_else(|error| {
                     panic!("{archetype:?} seed {seed} must be supported: {error:?}")
@@ -106,7 +106,7 @@ mod tests {
     #[test]
     fn authoring_audit_rejects_an_invalid_generated_plan() {
         let mut plan = generate_unchecked(
-            &BuildingProgram::fixture(BuildingArchetype::TownHouse, 42),
+            &BuildingProgram::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42)),
             &[],
         )
         .unwrap();
@@ -126,7 +126,7 @@ mod tests {
 
     #[test]
     fn malformed_high_level_program_returns_a_typed_error() {
-        let mut program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 42);
+        let mut program = BuildingProgram::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         program.storeys[0].rooms.clear();
         assert!(matches!(
             generate(&program),
@@ -136,14 +136,14 @@ mod tests {
 
     #[test]
     fn multi_storey_program_without_vertical_connection_is_rejected() {
-        let mut program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 42);
+        let mut program = BuildingProgram::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         program.vertical_connections.clear();
         assert!(matches!(
             generate(&program),
             Err(GenerationError::UnsatisfiedVerticalCirculation { .. })
         ));
 
-        let mut missing_landing_room = BuildingProgram::fixture(BuildingArchetype::TownHouse, 42);
+        let mut missing_landing_room = BuildingProgram::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         missing_landing_room.storeys[1]
             .rooms
             .retain(|room| room.kind != RoomKind::StairHall);
@@ -153,7 +153,7 @@ mod tests {
         ));
 
         let mut uncovered_storey =
-            BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 42);
+            BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, fabelgeist_determinism::Seed::from_u64(42));
         uncovered_storey.vertical_connections[0] = VerticalConnectionRequirement::StraightStair {
             lowest_storey: 0,
             highest_storey: 1,
@@ -172,7 +172,7 @@ mod tests {
             BuildingArchetype::FachwerkMerchantHouse,
             BuildingArchetype::RenaissanceTownHall,
         ] {
-            let plan = generate(&BuildingProgram::fixture(archetype, 42))
+            let plan = generate(&BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(42)))
                 .unwrap_or_else(|error| panic!("{archetype:?}: {error:?}"));
             let straight_stairs = plan
                 .stairs
@@ -193,7 +193,7 @@ mod tests {
     #[test]
     fn circulation_audit_rejects_a_stair_moved_out_of_its_reserved_hall() {
         let mut plan =
-            generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+            generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42))).unwrap();
         let Stair::Straight { start, .. } = &mut plan.stairs[0] else {
             panic!("town house has a straight stair");
         };
@@ -208,7 +208,7 @@ mod tests {
 
     #[test]
     fn town_house_seed_one_has_a_clear_timber_entry_to_stair_route() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 1))
+        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(1)))
             .expect("town-house seed one has a traversable timber route");
         assert!(
             crate::audit_plan(&plan)
@@ -220,7 +220,7 @@ mod tests {
 
     #[test]
     fn editor_window_command_is_transactional_and_serializable() {
-        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         let base = generate_document(&document).unwrap();
         let storey = &base.storeys[1];
         let (wall_index, wall) = storey
@@ -264,7 +264,7 @@ mod tests {
 
     #[test]
     fn editor_opening_command_supports_audited_doors() {
-        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate_document(&document).unwrap();
         let storey = &plan.storeys[1];
         let wall = storey
@@ -303,7 +303,7 @@ mod tests {
 
     #[test]
     fn invalid_editor_command_preserves_the_previous_document() {
-        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate_document(&document).unwrap();
         let opening = plan.storeys[0].openings[0];
         let wall = plan.storeys[0].walls[opening.wall];
@@ -327,14 +327,14 @@ mod tests {
 
     #[test]
     fn editor_document_rejects_unknown_schema_and_inapplicable_styles() {
-        let mut future = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let mut future = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         future.schema_version += 1;
         assert!(matches!(
             generate_document(&future),
             Err(GenerationError::UnsupportedDocumentSchema { .. })
         ));
 
-        let cathedral = BuildingDocument::fixture(BuildingArchetype::Cathedral, 42);
+        let cathedral = BuildingDocument::fixture(BuildingArchetype::Cathedral, fabelgeist_determinism::Seed::from_u64(42));
         assert!(matches!(
             edit_document(
                 &cathedral,
@@ -357,7 +357,7 @@ mod tests {
 
     #[test]
     fn editor_style_edits_regenerate_a_valid_civilian_building() {
-        let document = BuildingDocument::fixture(BuildingArchetype::FachwerkMerchantHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::FachwerkMerchantHouse, fabelgeist_determinism::Seed::from_u64(42));
         let (document, plan) = edit_document(
             &document,
             BuildingEdit::SetWallStyle {
@@ -405,7 +405,7 @@ mod tests {
     fn roof_pitch_handle_recomputes_graph_or_rejects_topology_events() {
         let mut plain = generate(&BuildingProgram::fixture(
             BuildingArchetype::CastleGatehouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let id = plain
@@ -474,7 +474,7 @@ mod tests {
         );
         let mut merchant = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let parent = merchant.roof_assemblies[0].id;
@@ -488,7 +488,7 @@ mod tests {
     fn courtyard_roof_graph_owns_four_drained_peer_valleys() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::CourtyardCastle,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let valleys = plan
@@ -508,7 +508,7 @@ mod tests {
     #[test]
     fn every_fixture_is_deterministic_connected_and_room_complete() {
         for archetype in BuildingArchetype::ALL {
-            let program = BuildingProgram::fixture(archetype, 42);
+            let program = BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(42));
             let first = generate(&program).unwrap();
             let second = generate(&program).unwrap();
             let first_json = serde_json::to_vec(&first).unwrap();
@@ -587,12 +587,12 @@ mod tests {
 
     #[test]
     fn civilian_profiles_have_steep_independent_roof_pieces() {
-        let town = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 7)).unwrap();
+        let town = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(7))).unwrap();
         assert_eq!(town.roofs.len(), 1);
         assert_eq!(town.roofs[0].kind, RoofKind::Gable);
         assert!(town.roofs[0].pitch_degrees >= 50.0);
 
-        let hall = generate(&BuildingProgram::fixture(BuildingArchetype::HallHouse, 7)).unwrap();
+        let hall = generate(&BuildingProgram::fixture(BuildingArchetype::HallHouse, fabelgeist_determinism::Seed::from_u64(7))).unwrap();
         assert_eq!(hall.roofs[0].kind, RoofKind::HalfHip);
         assert!(hall.roofs[0].eave_metres >= 0.5);
     }
@@ -603,7 +603,7 @@ mod tests {
             BuildingArchetype::FachwerkMerchantHouse,
             BuildingArchetype::RenaissanceTownHall,
         ] {
-            let plan = generate(&BuildingProgram::fixture(archetype, 17)).unwrap();
+            let plan = generate(&BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(17))).unwrap();
             assert_eq!(
                 plan.timber_frame_style,
                 Some(TimberFrameStyle::EarlyModernOrnate)
@@ -630,7 +630,7 @@ mod tests {
         }
         let civic = generate(&BuildingProgram::fixture(
             BuildingArchetype::RenaissanceTownHall,
-            17,
+            fabelgeist_determinism::Seed::from_u64(17),
         ))
         .unwrap();
         assert!(
@@ -648,7 +648,7 @@ mod tests {
             BuildingArchetype::CourtyardCastle,
             BuildingArchetype::WalledKeep,
         ] {
-            let plan = generate(&BuildingProgram::fixture(archetype, 19)).unwrap();
+            let plan = generate(&BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(19))).unwrap();
             assert!(plan.towers.len() >= 2);
             assert!(
                 plan.stairs
@@ -666,7 +666,7 @@ mod tests {
             BuildingArchetype::CourtyardCastle,
             BuildingArchetype::WalledKeep,
         ] {
-            let plan = generate(&BuildingProgram::fixture(archetype, 29)).unwrap();
+            let plan = generate(&BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(29))).unwrap();
             let expected_linear_walks = plan
                 .battlements
                 .iter()
@@ -749,7 +749,7 @@ mod tests {
             BuildingArchetype::CourtyardCastle,
             BuildingArchetype::WalledKeep,
         ] {
-            let plan = generate(&BuildingProgram::fixture(archetype, 31)).unwrap();
+            let plan = generate(&BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(31))).unwrap();
             let exterior_openings = plan.storeys.iter().flat_map(|storey| {
                 storey
                     .openings
@@ -774,30 +774,30 @@ mod tests {
         let plans = [
             generate(&BuildingProgram::fixture(
                 BuildingArchetype::CastleGatehouse,
-                23,
+                fabelgeist_determinism::Seed::from_u64(23),
             ))
             .unwrap(),
             generate(&BuildingProgram::fixture(
                 BuildingArchetype::CastleGatehouse,
-                201,
+                fabelgeist_determinism::Seed::from_u64(201),
             ))
             .unwrap(),
             generate(&BuildingProgram::fixture(
                 BuildingArchetype::CastleGatehouse,
-                202,
+                fabelgeist_determinism::Seed::from_u64(202),
             ))
             .unwrap(),
             generate(&BuildingProgram::fixture(
                 BuildingArchetype::CastleGatehouse,
-                203,
+                fabelgeist_determinism::Seed::from_u64(203),
             ))
             .unwrap(),
             generate(&BuildingProgram::fixture(
                 BuildingArchetype::CourtyardCastle,
-                23,
+                fabelgeist_determinism::Seed::from_u64(23),
             ))
             .unwrap(),
-            generate(&BuildingProgram::fixture(BuildingArchetype::WalledKeep, 23)).unwrap(),
+            generate(&BuildingProgram::fixture(BuildingArchetype::WalledKeep, fabelgeist_determinism::Seed::from_u64(23))).unwrap(),
         ];
         let kinds = plans
             .iter()
@@ -838,7 +838,7 @@ mod tests {
 
     #[test]
     fn courtyard_footprint_leaves_a_real_open_court() {
-        let program = BuildingProgram::fixture(BuildingArchetype::CourtyardCastle, 3);
+        let program = BuildingProgram::fixture(BuildingArchetype::CourtyardCastle, fabelgeist_determinism::Seed::from_u64(3));
         let plan = generate(&program).unwrap();
         let Footprint::Courtyard {
             width, depth, wing, ..
@@ -875,7 +875,7 @@ mod tests {
     fn courtyard_castle_uses_unroofed_towers_and_permanent_stone_crowns() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::CourtyardCastle,
-            37,
+            fabelgeist_determinism::Seed::from_u64(37),
         ))
         .unwrap();
         assert!(plan.towers.iter().all(|tower| tower.roof.is_none()));
@@ -906,7 +906,7 @@ mod tests {
 
     #[test]
     fn walled_keep_has_detached_outer_curtain_and_central_fighting_roof() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::WalledKeep, 41)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::WalledKeep, fabelgeist_determinism::Seed::from_u64(41))).unwrap();
         assert_eq!(plan.curtain_walls.len(), 4);
         assert_eq!(plan.towers.len(), 6);
         assert_eq!(plan.defensive_circuits.len(), 2);
@@ -966,7 +966,7 @@ mod tests {
 
     #[test]
     fn round_tower_diameter_and_anchor_are_discrete_grid_authority() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::WalledKeep, 61)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::WalledKeep, fabelgeist_determinism::Seed::from_u64(61))).unwrap();
         let spec = plan.gatehouse_assemblies[0];
         assert_eq!(spec.tower_diameter.cells(), 4);
         assert_eq!(spec.tower_diameter.grid_units(), 120);
@@ -997,7 +997,7 @@ mod tests {
             BuildingArchetype::CastleGatehouse,
             BuildingArchetype::CourtyardCastle,
         ] {
-            let plan = generate(&BuildingProgram::fixture(archetype, 61)).unwrap();
+            let plan = generate(&BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(61))).unwrap();
             let round_walls = plan
                 .wall_assemblies
                 .iter()
@@ -1051,7 +1051,7 @@ mod tests {
     fn gatehouse_assembly_resolves_symmetrically_for_four_wall_orientations() {
         let spec = derive_gatehouse_assemblies(&BuildingProgram::fixture(
             BuildingArchetype::WalledKeep,
-            62,
+            fabelgeist_determinism::Seed::from_u64(62),
         ))[0];
         let walls = [
             CurtainWallRun {
@@ -1091,7 +1091,7 @@ mod tests {
                 gate_height_metres: 3.6,
             },
         ];
-        let program = BuildingProgram::fixture(BuildingArchetype::WalledKeep, 62);
+        let program = BuildingProgram::fixture(BuildingArchetype::WalledKeep, fabelgeist_determinism::Seed::from_u64(62));
         for wall in walls {
             let towers = resolve_gatehouse_towers(spec, wall, 6.0).unwrap();
             let tangent = (wall.end - wall.start).normalize();
@@ -1192,7 +1192,7 @@ mod tests {
 
     #[test]
     fn cathedral_has_independent_roof_slopes_and_a_bell_tower() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::Cathedral, 43)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::Cathedral, fabelgeist_determinism::Seed::from_u64(43))).unwrap();
         let pitches = plan
             .roofs
             .iter()

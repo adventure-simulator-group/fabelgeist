@@ -53,7 +53,7 @@ impl Curve {
         let upper = self.times.partition_point(|t| *t < time).min(last);
         let lower = upper.saturating_sub(1);
         let span = self.times[upper] - self.times[lower];
-        if span <= f64::EPSILON {
+        if span <= 0.0 {
             return Some(self.values[lower]);
         }
         let factor = (time - self.times[lower]) / span;
@@ -314,5 +314,27 @@ impl Scene {
         }
 
         channel
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn scalar_channels_interpolate_at_small_and_large_time_scales() {
+        for span in [1.0e-20, 1.0, 1.0e20] {
+            let curve = Curve {
+                times: vec![0.0, span],
+                values: vec![2.0, 4.0],
+            };
+            assert_eq!(curve.sample(span * 0.5), Some(3.0));
+            assert_eq!(curve.sample(0.0), Some(2.0));
+            assert_eq!(curve.sample(span), Some(4.0));
+        }
+        let repeated = Curve {
+            times: vec![0.0, 0.0, 1.0],
+            values: vec![2.0, 2.0, 4.0],
+        };
+        assert_eq!(repeated.sample(0.5), Some(3.0));
     }
 }

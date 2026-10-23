@@ -29,14 +29,27 @@ fn accepted_surfaces_require_selected_treatment_and_exact_member_arity() {
     let original: PropertySupportSurface =
         serde_json::from_value(fixture["surface"].clone()).unwrap();
     assert_eq!(original.validate_encoded(), Ok(()));
+    assert_eq!(original.clone().admit_generated().unwrap(), original);
     let mut unselected = original.clone();
     unselected.treatment = SupportGradingAttempt::NotSelected;
     assert_eq!(
         unselected.validate_encoded(),
         Err(SupportSurfaceIssue::Treatment)
     );
+    let diagnostic = unselected.admit_generated().unwrap_err();
+    assert_eq!(diagnostic.property_id, original.property_id());
+    assert_eq!(
+        diagnostic.member_building_ids,
+        original.member_building_ids()
+    );
+    assert_eq!(
+        diagnostic.construction_failure.as_deref(),
+        Some(&SupportConstructionError::Surface(
+            SupportSurfaceIssue::Treatment
+        ))
+    );
     let mut extra_member = original.clone();
-    extra_member.mesh.member_building_ids.push(10);
+    extra_member.mesh.member_building_ids.push((10).into());
     assert_eq!(
         extra_member.validate_encoded(),
         Err(SupportSurfaceIssue::Treatment)

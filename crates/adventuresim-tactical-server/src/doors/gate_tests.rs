@@ -13,16 +13,16 @@ fn property_gate_has_authoritative_collision_hinge_and_passage_control() {
 }
 
 fn assert_property_gate(boundary: GeneratedBoundary) {
-    let building_id = boundary.scene.front_building_id;
+    let building_id = boundary.scene().front_building_id();
     let spec = boundary
-        .scene
-        .boundary
+        .scene()
+        .boundary()
         .gate
-        .door(boundary.scene.property_id)
+        .door(boundary.scene().property_id())
         .unwrap();
-    let elevation = Vec3::Y * boundary.elevation_metres;
+    let elevation = Vec3::Y * boundary.elevation_metres().metres();
     let spec = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
-        boundary.elevation_metres,
+        boundary.elevation_metres().metres(),
     )
     .unwrap()
     .door(spec)
@@ -33,7 +33,10 @@ fn assert_property_gate(boundary: GeneratedBoundary) {
     app.add_observer(super::super::boundaries::on_scene_boundary_added);
     let anchor = app
         .world_mut()
-        .spawn((boundary.scene, Transform::from_translation(elevation)))
+        .spawn((
+            boundary.into_scene(),
+            Transform::from_translation(elevation),
+        ))
         .id();
     app.world_mut().flush();
     assert_eq!(
@@ -45,7 +48,7 @@ fn assert_property_gate(boundary: GeneratedBoundary) {
         .query::<(Entity, &SceneDoor, &Transform, &Collider, &DoorController)>();
     let (entity, door, transform, collider, controller) = query.single(app.world()).unwrap();
     assert_eq!(door.opening_id, spec.opening);
-    assert_eq!(door.building_id, building_id.into());
+    assert_eq!(door.building_id, building_id);
     let ray = spec.closed_centre.metres() + Vec3::NEG_Z * 2.0;
     assert!(
         collider

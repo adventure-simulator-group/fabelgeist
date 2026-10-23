@@ -149,7 +149,7 @@ fn generated_graph_issues_owner_scoped_initial_site_knowledge() {
     };
 
     let manifest = generate(&GenerationContext {
-        seed: 7,
+        seed: fabelgeist_determinism::Seed::from_u64(7),
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
         settlement_id: "lubeck".into(),
@@ -402,7 +402,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
         },
     };
     let context = GenerationContext {
-        seed: 7,
+        seed: fabelgeist_determinism::Seed::from_u64(7),
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
         settlement_id: "lubeck".into(),
@@ -456,7 +456,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
                 .unwrap_or(action::Terrain::Settlement)
         )
         .to_ascii_lowercase(),
-        seed: 1,
+        seed: fabelgeist_determinism::Seed::from_u64(1),
         evidence_age_origin_minute: StrategicMinute::ZERO,
         uncertainty_bps: 0,
         safe_summary: generated.safe_summary.clone(),
@@ -718,7 +718,7 @@ fn capability_randomness_is_private_persisted_and_attempt_domain_separated() {
         .nth(1)
         .and_then(|tail| tail.split("let area_id =").next())
         .expect("generated capability issuer");
-    assert!(generated_issuer.contains("ctx.random::<u64>()"));
+    assert!(generated_issuer.contains("ctx.random::<fabelgeist_determinism::Seed>()"));
     let performer = source
         .split("pub(crate) fn perform_investigation_action_authorized")
         .nth(1)
@@ -794,7 +794,7 @@ fn exact_generated_testimony_requires_matching_private_site_authority() {
         quest_generation::{GenerationContext, SiteId, TemplateFamily, generate, test_witnesses},
     };
     let generated = generate(&GenerationContext {
-        seed: 7,
+        seed: fabelgeist_determinism::Seed::from_u64(7),
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
         settlement_id: "lubeck".into(),

@@ -22,13 +22,33 @@ fn pigment_tracks_growth_and_knot_flow_without_tracking_relief_amplitude() {
         for x in 0..64 {
             let uv = Vec2::new(x as f32 / 64.0, y as f32 / 32.0);
             let footprint = Vec2::new(1.0 / 64.0, 1.0 / 32.0);
-            let a = grain.filtered(&params, uv, footprint, 17);
-            let b = flat.filtered(&params, uv, footprint, 17);
+            let a = grain.filtered(
+                &params,
+                uv,
+                footprint,
+                fabelgeist_determinism::Seed::from_u64(17),
+            );
+            let b = flat.filtered(
+                &params,
+                uv,
+                footprint,
+                fabelgeist_determinism::Seed::from_u64(17),
+            );
             assert_eq!(a.dark, b.dark);
             assert_eq!(b.height, 0.0);
             coverage += usize::from(a.dark > 0.0 && a.dark < 1.0);
             bent += usize::from(
-                (a.height - straight.filtered(&params, uv, footprint, 17).height).abs() > 0.001,
+                (a.height
+                    - straight
+                        .filtered(
+                            &params,
+                            uv,
+                            footprint,
+                            fabelgeist_determinism::Seed::from_u64(17),
+                        )
+                        .height)
+                    .abs()
+                    > 0.001,
             );
             // Unit-local cut grain may differ at its ends; the owning board
             // layout supplies the tile period and hides the cut under its joint.

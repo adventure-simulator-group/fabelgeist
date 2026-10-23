@@ -33,6 +33,13 @@ governed by the repository-root generation rule instead.
   enums, newtypes, and validated structs so invalid combinations are rejected
   by the compiler. Keep raw strings, numbers, and containers at explicit system
   boundaries or where the value is genuinely primitive.
+- Repeated primitive-to-bespoke conversions at internal call sites indicate an
+  incomplete producer migration. Carry the bespoke type through producer
+  fields, return types and parameters; convert at the actual literal, decoding,
+  storage or framework boundary. Avoid extracting a primitive only to admit it
+  again in the next application operation. Numeric fixtures and required native
+  adapters remain valid boundaries; conversion count is a review signal, not a
+  blanket prohibition on `From` or `TryFrom`.
 - Do not carry a naked primitive through domain logic when a bespoke type can
   express its unit, invariant, authority, or allowed state more precisely.
 - Represent domain records with small structs and named fields. Avoid positional
@@ -80,6 +87,11 @@ governed by the repository-root generation rule instead.
 
 ## Modules and files
 
+- After module documentation and inner attributes, order file-level items as:
+  `use` imports and re-exports; `mod` declarations; constants, statics and type
+  aliases; structs; enums; traits; impl blocks; then functions, public before
+  private. Put the `#[cfg(test)]` module last, whether inline or declared in
+  another file. Keep documentation and attributes attached to their items.
 - Split modules by responsibility, not to satisfy a mechanical line limit.
   Roughly 400 lines of production code is a healthy target and 500 lines is a
   design smell; exclude unit tests from that judgment.
@@ -128,6 +140,29 @@ governed by the repository-root generation rule instead.
 
 ## Lints, tests, and optimization
 
+- Machine epsilon describes floating-point precision near one; it is not a
+  general absolute tolerance or a minimum physical quantity. Use exact zero
+  and positivity checks for presence, checked vector normalization, and
+  `next_up`/`next_down` for open interval endpoints. Handle valid zero
+  denominators explicitly instead of flooring them to machine epsilon.
+- Approximate comparisons need a tolerance owned by the calculation, with
+  units and an error budget. Squared lengths need squared distance tolerances.
+  Keep rounding bounds dependent on the operands' scale and condition. Tests
+  use exact equality for exact contracts and quantity-specific error bounds
+  for approximate results; do not replace machine epsilon with a universal
+  decimal tolerance.
+- `fabelgeist-rust-quality` checks machine-epsilon references in production
+  code, tests, and macros. It also rejects float-module glob imports, including
+  module aliases, because they can conceal bare `EPSILON` references. Import
+  scanning includes macro definitions and assertions; alias provenance is
+  resolved across scanned first-party files through Cargo target roots, module
+  paths and literal `include!` fragments. Included fragments share the caller's
+  scope and retain their source locations. Crate, module and block bindings
+  remain separate, including aliases inside macro bodies and module re-exports.
+  Valid precision calculations require an exact `machine-epsilon` exception in
+  `rust-quality.toml`, including the owning item,
+  fingerprint, occurrence count, and numerical justification. Fixture and
+  adapter scopes do not exempt this rule, and it cannot be baselined.
 - The `fabelgeist-rust-quality check` command enforces the semantic-value
   registry, raw-string branching rules, Cargo lint inheritance, and the
   500-line file and 100-line function no-growth ceilings. `just lint` runs it

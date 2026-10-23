@@ -3,7 +3,11 @@ use crate::{BuildingArchetype, BuildingProgram, generate};
 
 #[test]
 fn missing_operable_closure_preserves_opening_and_source_identity() {
-    let mut plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+    let mut plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
     let window = compile_operable_windows(&plan).unwrap()[0];
     let sources = plan
         .opening_assemblies
@@ -31,7 +35,11 @@ fn missing_operable_closure_preserves_opening_and_source_identity() {
 
 #[test]
 fn invalid_frame_or_leaf_reports_the_actual_window_binding() {
-    let mut plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+    let mut plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
     let window = compile_operable_windows(&plan).unwrap()[0];
     let opening = plan
         .opening_assemblies
@@ -67,7 +75,11 @@ fn invalid_frame_or_leaf_reports_the_actual_window_binding() {
 
 #[test]
 fn window_and_bar_decoding_admit_named_roles_and_checked_geometry() {
-    let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+    let plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
     let window = compile_operable_windows(&plan).unwrap()[0];
     let wire = serde_json::to_value(window).unwrap();
     assert_eq!(wire["bars"], serde_json::to_value(window.bars).unwrap());
@@ -122,7 +134,11 @@ fn window_and_bar_decoding_admit_named_roles_and_checked_geometry() {
 
 #[test]
 fn bar_compilation_rejects_a_zero_frame_with_encoded_opening_identity() {
-    let mut plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+    let mut plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
     let window = plan
         .opening_assemblies
         .iter_mut()

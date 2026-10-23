@@ -1,5 +1,6 @@
 //! Accelerated, deterministic headless melee combat iteration runner.
 
+use fabelgeist_determinism::Seed;
 use std::{
     collections::BTreeMap,
     fs::{self, File},
@@ -42,8 +43,8 @@ struct Args {
     tactical_seeds: u64,
     #[arg(long, default_value_t = 1_000)]
     autoresolve_seeds: u64,
-    #[arg(long, default_value_t = 1)]
-    first_seed: u64,
+    #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(1))]
+    first_seed: Seed,
 }
 
 #[derive(Serialize)]
@@ -396,12 +397,21 @@ fn run_matchup(
         john_win_rate_difference: tactical_win_rate - autoresolve_win_rate,
         tactical_wall_milliseconds: tactical.wall_seconds * 1_000.0,
         autoresolve_wall_milliseconds: autoresolve.wall_seconds * 1_000.0,
-        tactical_duels_per_second: args.tactical_seeds as f64
-            / tactical.wall_seconds.max(f64::EPSILON),
-        tactical_simulated_seconds_per_wall_second: tactical.simulated_seconds
-            / tactical.wall_seconds.max(f64::EPSILON),
-        autoresolve_duels_per_second: args.autoresolve_seeds as f64
-            / autoresolve.wall_seconds.max(f64::EPSILON),
+        tactical_duels_per_second: if tactical.wall_seconds > 0.0 {
+            args.tactical_seeds as f64 / tactical.wall_seconds
+        } else {
+            0.0
+        },
+        tactical_simulated_seconds_per_wall_second: if tactical.wall_seconds > 0.0 {
+            tactical.simulated_seconds / tactical.wall_seconds
+        } else {
+            0.0
+        },
+        autoresolve_duels_per_second: if autoresolve.wall_seconds > 0.0 {
+            args.autoresolve_seeds as f64 / autoresolve.wall_seconds
+        } else {
+            0.0
+        },
     };
     write_json(&directory.join("summary.json"), &summary)?;
     let packet = ReviewerPacket {

@@ -147,7 +147,7 @@ fn baked_brick_pixel(colors: [Rgba; 2], x: u32, y: u32, size: u32) -> Rgba {
     } else {
         let tone = 0.30
             + StreamId::new("texture.building.brick-tone")
-                .rng(0, &[u64::from(course), u64::from(column)])
+                .rng(0.into(), &[u64::from(course), u64::from(column)])
                 .inclusive_unit_f32()
                 * 0.50;
         blend_rgba(colors[0], colors[1], tone)

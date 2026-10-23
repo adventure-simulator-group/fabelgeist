@@ -94,8 +94,8 @@ impl SupportProfile {
         for pair in points.windows(2) {
             let run = pair[1].coordinate.metres() - pair[0].coordinate.metres();
             let rise = (pair[1].elevation.metres() - pair[0].elevation.metres()).abs();
-            let permitted = run.max(0.0) * limits.maximum_grade;
-            if run <= 0.0 || rise > permitted + limits.contact_tolerance_metres {
+            let permitted = run.max(0.0) * limits.maximum_grade.ratio();
+            if run <= 0.0 || rise > permitted + limits.contact_tolerance_metres.metres() {
                 return Err(SupportDiagnostic::new(
                     property,
                     SupportConstraint::AccessGrade,
@@ -215,7 +215,13 @@ mod tests {
     #[test]
     fn passage_requires_strict_order_and_bounded_grade() {
         let fixture = super::super::tests::Fixture::load();
-        let limits = SupportLimits::new(0.2, 6.0, 0.001).unwrap();
+        let limits = SupportLimits::new(
+            crate::city_layout::grounding::SupportGrade::from_ratio(0.2).unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
+                .unwrap(),
+        );
         let checked = |points| {
             SupportProfile::checked(
                 &fixture.property,

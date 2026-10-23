@@ -9,6 +9,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 fabelgeist-gpu = { "default-features" = false, "path" = "../fabelgeist-gpu" }
 fabelgeist-math = { "default-features" = false, "features" = ["wgpu"], "path" = "../fabelgeist-math" }
 anyhow = { "version" = "1.0" }
+thiserror = "2"
 bytemuck = { "version" = "1.16", "features" = ["derive"] }
 futures-channel = { "version" = "0.3" }
 indexmap = { "version" = "2.12.1", "features" = ["serde"] }

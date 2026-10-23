@@ -7,11 +7,11 @@ pub(super) fn spawn(
     ground: SceneGround,
     terrain: SceneTerrain,
     terrain_patch: Option<&SceneTerrainPatch>,
-) {
+) -> Result {
     let colliders = terrain_patch.map_or_else(
         || terrain.colliders(),
         |patch| patch.colliders_with_terrain(&terrain),
-    );
+    )?;
     let mut terrain_entity = commands.spawn((
         Name::new("Captured tactical terrain"),
         SceneId(input.scene_key.clone()),
@@ -23,6 +23,9 @@ pub(super) fn spawn(
     if let Some(landform) = input.landform {
         terrain_entity.insert(landform);
     }
+    if let Some(patch) = terrain_patch {
+        terrain_entity.insert(patch.clone());
+    }
     terrain_entity.with_children(|parent| {
         for collider in colliders {
             parent.spawn((
@@ -33,4 +36,5 @@ pub(super) fn spawn(
             ));
         }
     });
+    Ok(())
 }

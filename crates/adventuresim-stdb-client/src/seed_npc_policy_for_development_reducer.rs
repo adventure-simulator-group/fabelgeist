@@ -4,12 +4,14 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::seed_type::Seed;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub(super) struct SeedNpcPolicyForDevelopmentArgs {
     pub character_id: u64,
     pub home_settlement_id: String,
-    pub policy_seed: u64,
+    pub policy_seed: Seed,
 }
 
 impl From<SeedNpcPolicyForDevelopmentArgs> for super::Reducer {
@@ -41,7 +43,7 @@ pub trait seed_npc_policy_for_development {
         &self,
         character_id: u64,
         home_settlement_id: String,
-        policy_seed: u64,
+        policy_seed: Seed,
     ) -> __sdk::Result<()> {
         self.seed_npc_policy_for_development_then(
             character_id,
@@ -61,7 +63,7 @@ pub trait seed_npc_policy_for_development {
         &self,
         character_id: u64,
         home_settlement_id: String,
-        policy_seed: u64,
+        policy_seed: Seed,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -76,7 +78,7 @@ impl seed_npc_policy_for_development for super::RemoteReducers {
         &self,
         character_id: u64,
         home_settlement_id: String,
-        policy_seed: u64,
+        policy_seed: Seed,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,

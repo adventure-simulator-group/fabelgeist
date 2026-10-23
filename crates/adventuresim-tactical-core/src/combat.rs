@@ -32,8 +32,14 @@ pub fn melee_lunge_delay_seconds(
     match lunge {
         MeleeLunge::None => 0.0,
         MeleeLunge::Forward { distance_metres } => {
-            let speed = forward_speed_metres_per_second.max(f32::EPSILON);
-            let acceleration = forward_acceleration_metres_per_second_squared.max(f32::EPSILON);
+            if distance_metres <= 0.0 {
+                return fixed_tick_safety;
+            }
+            let speed = forward_speed_metres_per_second;
+            let acceleration = forward_acceleration_metres_per_second_squared;
+            if speed <= 0.0 || acceleration <= 0.0 {
+                return f32::INFINITY;
+            }
             let acceleration_seconds = speed / acceleration;
             let acceleration_distance = 0.5 * acceleration * acceleration_seconds.powi(2);
             let travel_seconds = if distance_metres <= acceleration_distance {

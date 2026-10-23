@@ -1,5 +1,5 @@
 //! The wearer measured in WGSL: its frame, anchors and scales, and the
-//! torso section centres the fit measures against.
+//! torso section validity used by the fit.
 
 /// One invocation: the wearer's frame, anchors and semantic regression.
 pub(crate) const WEARER: &str = r#"
@@ -145,15 +145,16 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 }
 "#;
 
-/// One invocation per carrier vertex: the centre of the torso section at
-/// its height, the middle of the bounds of the torso's edge crossings.
-pub(crate) const CENTERS: &str = r#"
+/// One invocation per carrier vertex: whether its torso section has enough
+/// edge crossings for a support ray, and the column's neckline height.
+pub(crate) const SECTIONS: &str = r#"
 @group(0) @binding(0) var<storage, read> plate: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
 @group(0) @binding(2) var<storage, read> torso_faces: array<u32>;
 @group(0) @binding(3) var<storage, read> body_local: array<f32>;
-@group(0) @binding(4) var<storage, read_write> centers: array<f32>;
+@group(0) @binding(4) var<storage, read_write> sections: array<f32>;
 @group(0) @binding(5) var<uniform> params: Params;
+const MIN_SECTION_CROSSINGS: u32 = 4u;
 
 @compute @workgroup_size(64)
 fn main(@builtin(global_invocation_id) id: vec3<u32>) {
@@ -162,9 +163,9 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
         return;
     }
     let y = local(positions_at(i)).y;
-    let infinity = MAX_FINITE;
-    var low = vec2<f32>(infinity);
-    var high = vec2<f32>(-infinity);
+    let at = i * SECTION_WORDS;
+    sections[at] = 0.0;
+    sections[at + 1u] = positions_at((V_SAMPLES - 1u) * params.width + i % params.width).y;
     var crossings = 0u;
     let faces = params.torso_count;
     for (var f = 0u; f < faces; f = f + 1u) {
@@ -184,18 +185,15 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
             if (!(t >= -1e-5 && t <= 1.0 + 1e-5)) {
                 continue;
             }
-            let crossing = vec2<f32>(
-                host_add(a.x, host_mul(host_sub(b.x, a.x), t)), host_add(a.z, host_mul(host_sub(b.z, a.z), t))
-            );
-            low = min(low, crossing);
-            high = max(high, crossing);
             crossings = crossings + 1u;
+            // Support consumes only section validity, so further crossings
+            // and their lateral/depth bounds cannot affect the finished plate.
+            if (crossings >= MIN_SECTION_CROSSINGS) {
+                sections[at] = 1.0;
+                return;
+            }
         }
     }
-    let at = i * CENTER_WORDS;
-    centers[at] = host_mul(host_add(low.x, high.x), 0.5);
-    centers[at + 1u] = host_mul(host_add(low.y, high.y), 0.5);
-    centers[at + 2u] = select(0.0, 1.0, crossings >= 4u);
-    centers[at + 3u] = positions_at((V_SAMPLES - 1u) * params.width + i % params.width).y;
+
 }
 "#;

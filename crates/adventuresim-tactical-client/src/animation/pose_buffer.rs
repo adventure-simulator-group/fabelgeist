@@ -19,6 +19,8 @@ use bevy::{
 };
 
 use super::*;
+use locomotion_sampling::sample_locomotion_at_time;
+mod locomotion_sampling;
 mod visibility;
 
 mod inertialization;
@@ -208,9 +210,7 @@ impl LocalPose {
     fn continuation_transition(self, transition: ContinuationTransition, progress: f32) -> Self {
         let start = self.extrapolate(transition.contact, transition.start_coordinate);
         let progress = progress.clamp(0.0, 1.0);
-        let ready_phase = transition
-            .ready_phase
-            .clamp(f32::EPSILON, 0.5 - f32::EPSILON);
+        let ready_phase = transition.ready_phase;
         let knots = [0.0, ready_phase, 0.5, 1.0];
         let incoming_scale = transition.incoming_tangent / ready_phase;
         let rotation_values = [
@@ -767,12 +767,11 @@ fn sample_plan(
                 ClipLayer::CombatLower => joint.lower_body,
                 ClipLayer::MainHand | ClipLayer::Offhand => false,
             };
-            if !included || weighted.weight <= f32::EPSILON || !weighted.weight.is_finite() {
+            if !included || weighted.weight <= 0.0 || !weighted.weight.is_finite() {
                 continue;
             }
             let sample = if weighted.locomotion_phase.is_some() {
-                let authored_phase = weighted.time_seconds / source.duration().max(f32::EPSILON);
-                sample_two_pose_locomotion_clip(source, joint, authored_phase)
+                sample_locomotion_at_time(source, joint, weighted.time_seconds)
             } else {
                 clip.sample(joint_index, weighted.time_seconds)
             };
@@ -796,12 +795,12 @@ fn sample_plan(
                 continue;
             }
             let next_total = accumulated + weighted.weight;
-            let alpha = if next_total > f32::EPSILON {
+            let alpha = if next_total > 0.0 {
                 weighted.weight / next_total
             } else {
                 0.0
             };
-            blended = if accumulated <= f32::EPSILON {
+            blended = if accumulated <= 0.0 {
                 sample
             } else {
                 blended.interpolate(sample, alpha)
@@ -817,7 +816,7 @@ fn sample_plan(
                 ClipLayer::CombatLower => joint.lower_body,
                 ClipLayer::MainHand | ClipLayer::Offhand => false,
             };
-            if !included || span.weight <= f32::EPSILON || !span.weight.is_finite() {
+            if !included || span.weight <= 0.0 || !span.weight.is_finite() {
                 continue;
             }
             let start = sanitize_pose(
@@ -853,12 +852,12 @@ fn sample_plan(
                 continue;
             }
             let next_total = accumulated + span.weight;
-            let alpha = if next_total > f32::EPSILON {
+            let alpha = if next_total > 0.0 {
                 span.weight / next_total
             } else {
                 0.0
             };
-            blended = if accumulated <= f32::EPSILON {
+            blended = if accumulated <= 0.0 {
                 sample
             } else {
                 blended.interpolate(sample, alpha)
@@ -876,7 +875,7 @@ fn sample_plan(
                 ClipLayer::CombatLower => joint.lower_body,
                 ClipLayer::MainHand | ClipLayer::Offhand => false,
             };
-            if !included || span.weight <= f32::EPSILON || !span.weight.is_finite() {
+            if !included || span.weight <= 0.0 || !span.weight.is_finite() {
                 continue;
             }
             let start = sanitize_pose(
@@ -925,34 +924,33 @@ fn sample_plan(
                 continue;
             }
             let next_total = accumulated + span.weight;
-            let alpha = if next_total > f32::EPSILON {
+            let alpha = if next_total > 0.0 {
                 span.weight / next_total
             } else {
                 0.0
             };
-            blended = if accumulated <= f32::EPSILON {
+            blended = if accumulated <= 0.0 {
                 sample
             } else {
                 blended.interpolate(sample, alpha)
             };
             accumulated = next_total;
         }
-        let mut result =
-            if pelvis && combat_upper_weight > f32::EPSILON && combat_lower_weight > f32::EPSILON {
-                locomotion_pelvis_rotation = Some(combat_lower.rotation);
-                combine_combat_pelvis(combat_upper, combat_lower)
-            } else if accumulated > f32::EPSILON {
-                blended
-            } else {
-                joint.bind
-            };
+        let mut result = if pelvis && combat_upper_weight > 0.0 && combat_lower_weight > 0.0 {
+            locomotion_pelvis_rotation = Some(combat_lower.rotation);
+            combine_combat_pelvis(combat_upper, combat_lower)
+        } else if accumulated > 0.0 {
+            blended
+        } else {
+            joint.bind
+        };
         if let Some(hand) = hand_animation_joint(definition, joint_index) {
             let mut hand_pose = joint.bind;
             let mut hand_weight = 0.0_f32;
             for (weighted, clip, _) in &baked {
                 if weighted.clip.layer != hand
                     || !clip.tracks[joint_index].animated
-                    || weighted.weight <= f32::EPSILON
+                    || weighted.weight <= 0.0
                     || !weighted.weight.is_finite()
                 {
                     continue;
@@ -960,14 +958,14 @@ fn sample_plan(
                 let sample =
                     sanitize_pose(clip.sample(joint_index, weighted.time_seconds), joint.bind);
                 let total = hand_weight + weighted.weight;
-                hand_pose = if hand_weight <= f32::EPSILON {
+                hand_pose = if hand_weight <= 0.0 {
                     sample
                 } else {
                     hand_pose.interpolate(sample, weighted.weight / total)
                 };
                 hand_weight = total;
             }
-            if hand_weight > f32::EPSILON {
+            if hand_weight > 0.0 {
                 result = hand_pose;
             }
         }
@@ -987,7 +985,7 @@ fn accumulate_local_pose(
     weight: f32,
 ) {
     let next_total = *accumulated_weight + weight;
-    *accumulated_pose = if *accumulated_weight <= f32::EPSILON {
+    *accumulated_pose = if *accumulated_weight <= 0.0 {
         sample
     } else {
         accumulated_pose.interpolate(sample, weight / next_total)
@@ -1018,29 +1016,6 @@ fn sample_source_clip(clip: &AnimationClip, joint: &RigJoint, time_seconds: f32)
             .sample_clamped(scale_field, joint.target, time_seconds)
             .unwrap_or(joint.bind.scale),
     }
-}
-
-fn sample_two_pose_locomotion_clip(
-    clip: &AnimationClip,
-    joint: &RigJoint,
-    authored_phase: f32,
-) -> LocalPose {
-    // The source owns two unique poses: contact and passing/flight. Their
-    // mirrored counterparts occupy the other half-cycle. Sample only those
-    // four semantic anchors, then own every in-between here instead of asking
-    // the glTF sampler (or the 30 Hz baked cache) for intermediate frames.
-    let (start_index, end_index, amount) = sparse_locomotion_segment(authored_phase);
-    const ANCHOR_COUNT: f32 = 4.0;
-    let sample_anchor =
-        |index: u32| sample_source_clip(clip, joint, clip.duration() * index as f32 / ANCHOR_COUNT);
-    sample_anchor(start_index).interpolate(sample_anchor(end_index), amount)
-}
-
-fn sparse_locomotion_segment(authored_phase: f32) -> (u32, u32, f32) {
-    let coordinate = authored_phase.rem_euclid(1.0) * 4.0;
-    let start = coordinate.floor() as u32;
-    let t = coordinate - start as f32;
-    (start, (start + 1) % 4, t * t * (3.0 - 2.0 * t))
 }
 
 fn hand_animation_joint(definition: &RigDefinition, mut joint: usize) -> Option<ClipLayer> {
@@ -1121,7 +1096,7 @@ fn conform_upcoming_pose_to_terrain(
     .enumerate()
     {
         let weight = weight.clamp(0.0, 1.0);
-        if weight <= f32::EPSILON && locomotion_pelvis_rotation.is_none() {
+        if weight <= 0.0 && locomotion_pelvis_rotation.is_none() {
             plants[index] = None;
             continue;
         }
@@ -1469,10 +1444,7 @@ fn measure_authored_contact_step_distance(
     travel_axis: usize,
     expected_stance_direction: f32,
 ) -> Option<AuthoredLocomotionCalibration> {
-    if clip.duration <= f32::EPSILON
-        || clip.frames < 4
-        || expected_stance_direction.abs() <= f32::EPSILON
-    {
+    if clip.duration <= 0.0 || clip.frames < 4 || expected_stance_direction == 0.0 {
         return None;
     }
     let feet = ["l_foot", "r_foot"];
@@ -1614,7 +1586,7 @@ fn measure_authored_contact_step_distance(
     let mut warped_segments = Vec::<Vec<(f32, f32)>>::new();
     for samples in &oriented_segments {
         let phase_span = samples.last()?.0 - samples.first()?.0;
-        if phase_span <= f32::EPSILON {
+        if phase_span <= 0.0 {
             return None;
         }
         let positive_deltas = samples
@@ -1680,7 +1652,7 @@ fn measure_authored_contact_step_distance(
             phase_variance += centered_phase * centered_phase;
         }
     }
-    if phase_variance <= f32::EPSILON {
+    if phase_variance <= 0.0 {
         return None;
     }
     let fitted_slope = covariance / phase_variance;
@@ -2174,17 +2146,6 @@ mod tests {
     }
 
     #[test]
-    fn sparse_locomotion_sampling_uses_only_semantic_quarter_cycle_anchors() {
-        assert_eq!(sparse_locomotion_segment(0.0), (0, 1, 0.0));
-        assert_eq!(sparse_locomotion_segment(0.25), (1, 2, 0.0));
-        assert_eq!(sparse_locomotion_segment(0.5), (2, 3, 0.0));
-        assert_eq!(sparse_locomotion_segment(0.75), (3, 0, 0.0));
-        assert_eq!(sparse_locomotion_segment(1.0), (0, 1, 0.0));
-        let (_, _, midpoint) = sparse_locomotion_segment(0.125);
-        assert!((midpoint - 0.5).abs() < 0.0001);
-    }
-
-    #[test]
     fn authored_contact_fit_ignores_airborne_foot_excursions() {
         let joint = |name: &str, parent: Option<usize>| RigJoint {
             target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
@@ -2330,7 +2291,7 @@ mod tests {
             .map(|joint| joint.bind)
             .collect::<Vec<_>>();
         let mut next = previous.clone();
-        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.5);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.5).unwrap();
         conform_upcoming_pose_to_terrain(
             &definition,
             &mut next,
@@ -2456,7 +2417,7 @@ mod tests {
             .collect::<Vec<_>>();
         let before =
             local_pose_global(&definition, &next, 3, &mut vec![None; next.len()]).translation;
-        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0).unwrap();
 
         conform_upcoming_pose_to_terrain(
             &definition,
@@ -2498,7 +2459,7 @@ mod tests {
                 joint("r_foot", Some(5), Vec3::new(0.0, -1.003, 0.0)),
             ],
         };
-        let terrain = SceneTerrain::new(4, 4, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(4, 4, 1.0, |_| 0.0).unwrap();
         let paths = [
             Vec2::new(-0.12, 0.0),
             Vec2::new(0.12, 0.0),
@@ -2586,7 +2547,7 @@ mod tests {
             .iter()
             .map(|joint| joint.bind)
             .collect::<Vec<_>>();
-        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0).unwrap();
         let mut plants = [None; 2];
         let mut first = authored.clone();
         conform_upcoming_pose_to_terrain(

@@ -22,7 +22,7 @@ impl Camera {
         let target = Vec3::from_array(self.target_metres);
         position.is_finite()
             && target.is_finite()
-            && (target - position).cross(Vec3::Y).length_squared() > f32::EPSILON
+            && (target - position).cross(Vec3::Y).length_squared() > 0.0
     }
 
     fn review(&self) -> BuildingReviewCamera {
@@ -43,7 +43,7 @@ struct Document {
     /// Frozen eye-height pose; scene-performance uses its established 80° FOV.
     benchmark: Option<Camera>,
     /// Explicit physical members to inspect with the production playable LODs.
-    playable_building_ids: Vec<u64>,
+    playable_building_ids: Vec<adventuresim_tactical_core::scene_input::SceneBuildingId>,
 }
 
 #[derive(Resource)]

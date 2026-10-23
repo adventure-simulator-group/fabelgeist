@@ -195,7 +195,7 @@ fn constrained_camera_look(look: &CharacterLook, owner_rotation: Quat) -> Vec2 {
     // the rear hemisphere onto neutral instead: side look remains signed and
     // continuous, while a camera directly behind leaves the neck untwisted.
     let yaw = local.x.atan2(local.z.abs());
-    let pitch = local.y.atan2(local.xz().length().max(f32::EPSILON));
+    let pitch = local.y.atan2(local.xz().length());
     Vec2::new(
         (yaw / tuning.guarded_look_joint_count).clamp(-joint_limit, joint_limit),
         (pitch / tuning.guarded_look_joint_count).clamp(-joint_limit, joint_limit),
@@ -318,7 +318,7 @@ pub(super) fn apply_jump_anticipation(
             previous_pelvis_amount + (target - previous_pelvis_amount).clamp(-0.125, 0.125)
         };
         let mut applied = base;
-        if amount > f32::EPSILON {
+        if amount > 0.0 {
             match bone.role {
                 BoneRole::Pelvis => applied.translation.y -= 0.12 * pelvis_amount,
                 BoneRole::StomachOne => {
@@ -379,7 +379,7 @@ pub(super) fn apply_pose_mirroring(
             continue;
         };
         let whole_body_weight = playback.whole_body_mirror.clamp(0.0, 1.0);
-        if whole_body_weight <= f32::EPSILON {
+        if whole_body_weight <= 0.0 {
             continue;
         }
         let Some(rig_scene) = topology.rig_scene() else {
@@ -462,7 +462,7 @@ pub(super) fn apply_pose_mirroring(
             let Some(&weight) = mirror_weights.get(&bone.entity) else {
                 continue;
             };
-            if weight <= f32::EPSILON {
+            if weight <= 0.0 {
                 continue;
             }
             let desired_parent = bone
@@ -552,7 +552,7 @@ pub(crate) fn locomotion_height_wave(skeleton: &SkeletonState) -> f32 {
     }
     let profile = locomotion_profile(skeleton);
     let moving_weight = smoothstep(0.05, 0.75, speed);
-    if profile.flight_apex_metres <= f32::EPSILON {
+    if profile.flight_apex_metres <= 0.0 {
         return 0.0;
     }
     let half_step = (skeleton.gait_phase.rem_euclid(0.5) * 2.0).clamp(0.0, 1.0);
@@ -759,7 +759,7 @@ pub(super) fn apply_locomotion_height(
         let Some(&height) = heights.get(&bone.owner) else {
             continue;
         };
-        if height.displayed_wave.abs() <= f32::EPSILON {
+        if height.displayed_wave == 0.0 {
             continue;
         }
         if bone.role == BoneRole::Root {
@@ -1155,7 +1155,7 @@ mod contract_tests {
 
     #[test]
     fn measured_sole_offset_matches_the_authored_rig() {
-        assert!((measured_ankle_sole_offset_metres() - 0.085).abs() < f32::EPSILON);
+        assert_eq!(measured_ankle_sole_offset_metres(), 0.085);
     }
 
     #[test]
@@ -1442,7 +1442,7 @@ mod ik_tests {
         assert!((1.7..=1.9).contains(&(forward.x - steady_run.x).to_degrees()));
         assert!((-3.0..=-1.0).contains(&braking.x.to_degrees()));
         assert!((-1.0..=0.0).contains(&walking_braking.x.to_degrees()));
-        assert!(stopped_braking.x.abs() <= f32::EPSILON);
+        assert!(stopped_braking.x == 0.0);
         assert!((1.9..=2.0).contains(&stationary_lateral.y.abs().to_degrees()));
         assert!((17.3..=17.5).contains(&moving_lateral.y.abs().to_degrees()));
         assert!(
@@ -1551,7 +1551,7 @@ mod ik_tests {
         let reserved_reach = maximum_reach(upper, lower);
 
         let peak_reach = landing_maximum_reach(upper, lower, authored_reach, 0.04);
-        assert!((peak_reach - reserved_reach).abs() <= f32::EPSILON);
+        assert!((peak_reach - reserved_reach) == 0.0);
         let peak_flexion = 180.0
             - ((upper * upper + lower * lower - peak_reach * peak_reach) / (2.0 * upper * lower))
                 .clamp(-1.0, 1.0)

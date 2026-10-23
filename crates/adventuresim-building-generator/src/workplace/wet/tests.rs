@@ -6,8 +6,12 @@ use crate::{audit_plan, compile_building_collision, generate, settlement_archety
 fn wet_vessels_have_physical_basins_without_solid_liquid_barriers() {
     for kind in [WorkplaceKind::Dyer, WorkplaceKind::Tannery] {
         let usage = kind.usage();
-        let program = BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42)
-            .with_service_size(ServiceBuildingSize::Small);
+        let program = BuildingProgram::settlement(
+            settlement_archetype(usage),
+            Some(usage),
+            fabelgeist_determinism::Seed::from_u64(42),
+        )
+        .with_service_size(ServiceBuildingSize::Small);
         let plan = generate(&program).unwrap();
         let work = plan.workplace.as_ref().unwrap();
         let collision = compile_building_collision(&plan).unwrap();
@@ -53,8 +57,12 @@ fn wet_vessels_have_physical_basins_without_solid_liquid_barriers() {
 fn detached_textiles_and_blocked_wet_trade_lanes_fail_the_audit() {
     for kind in [WorkplaceKind::Dyer, WorkplaceKind::Tannery] {
         let usage = kind.usage();
-        let program = BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42)
-            .with_service_size(ServiceBuildingSize::Medium);
+        let program = BuildingProgram::settlement(
+            settlement_archetype(usage),
+            Some(usage),
+            fabelgeist_determinism::Seed::from_u64(42),
+        )
+        .with_service_size(ServiceBuildingSize::Medium);
         let mut plan = generate(&program).unwrap();
         let work = plan.workplace.as_ref().unwrap();
         let textile = work
@@ -118,8 +126,12 @@ fn detached_textiles_and_blocked_wet_trade_lanes_fail_the_audit() {
 #[test]
 fn sloping_fleshing_beams_update_their_actual_bearing_positions() {
     let usage = BuildingUse::Tannery;
-    let program = BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42)
-        .with_service_size(ServiceBuildingSize::Small);
+    let program = BuildingProgram::settlement(
+        settlement_archetype(usage),
+        Some(usage),
+        fabelgeist_determinism::Seed::from_u64(42),
+    )
+    .with_service_size(ServiceBuildingSize::Small);
     let plan = generate(&program).unwrap();
     let work = plan.workplace.as_ref().unwrap();
     let mut sloped = 0;

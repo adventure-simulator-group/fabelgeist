@@ -3,6 +3,7 @@ use adventuresim_plant_generator::{
     GenerationError, PlantMesh,
     fungus::{FungusParameters, FungusSpecies},
 };
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum)]
@@ -52,7 +53,7 @@ impl Recipe {
     }
     pub(super) fn generate(
         &self,
-        seed: u64,
+        seed: Seed,
         detail: PlantLod,
     ) -> Result<PlantMesh, GenerationError> {
         match self {

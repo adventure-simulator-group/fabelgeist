@@ -3,15 +3,20 @@ use super::*;
 use bevy::math::Vec2;
 
 pub(super) fn corridor(segment: CityAccessSegment) -> Option<CityPlotBounds> {
-    let direction = segment.end_metres - segment.start_metres;
-    Some(CityPlotBounds {
-        centre_metres: (segment.start_metres + segment.end_metres) * 0.5,
-        dimensions_metres: Vec2::new(
-            direction.length() + segment.half_width_metres * 2.0,
-            segment.half_width_metres * 2.0,
-        ),
-        orientation: BuildingOrientation::from_frontage_tangent(direction)?,
-    })
+    let direction = segment.end_metres() - segment.start_metres();
+    CityPlotBounds::new(
+        crate::scene_coordinates::ScenePlanPoint::try_from(
+            (segment.start_metres() + segment.end_metres()) * 0.5,
+        )
+        .ok()?,
+        adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(Vec2::new(
+            direction.length() + segment.half_width_metres() * 2.0,
+            segment.half_width_metres() * 2.0,
+        ))
+        .ok()?,
+        BuildingOrientation::from_frontage_tangent(direction)?,
+    )
+    .ok()
 }
 
 pub(super) fn overlaps(first: &[Vec2], second: &[Vec2], margin: f32) -> bool {
@@ -52,16 +57,27 @@ pub(in crate::city_layout) struct GardenClearanceGeometry {
 }
 
 impl CityGarden {
-    pub(in crate::city_layout) fn translate(&mut self, delta: Vec2, tangent: Vec2) {
-        self.plot.centre_metres += delta;
-        self.cultivated_bounds.centre_metres += delta;
+    pub(in crate::city_layout) fn translate(
+        &mut self,
+        delta: Vec2,
+        tangent: Vec2,
+    ) -> adventuresim_building_generator::spatial_geometry::GeometryResult<()> {
+        self.plot = self
+            .plot
+            .translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
+        self.cultivated_bounds = self
+            .cultivated_bounds
+            .translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
         for bed in &mut self.beds {
-            bed.centre_metres += delta;
+            *bed = bed.translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
         }
         for plant in &mut self.plants {
-            plant.centre_metres += delta;
+            plant.centre_metres = plant
+                .centre_metres
+                .translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
         }
-        super::super::compound::translate_property_access(&mut self.access, delta, tangent);
+        super::super::compound::translate_property_access(&mut self.access, delta, tangent)?;
+        Ok(())
     }
 
     pub(in crate::city_layout) fn clearance_geometry(
@@ -81,13 +97,13 @@ impl CityGarden {
     pub fn clears_building(&self, envelope: CityPlotBounds) -> bool {
         // Validated garden geometry stays in the plot, except its bounded
         // street approach. Reject distant pairs before constructing exact hulls.
-        let reach = self.plot.dimensions_metres.length() * 0.5
+        let reach = self.plot.dimensions_metres().length() * 0.5
             + MAX_STREET_APPROACH_METRES
-            + envelope.dimensions_metres.length() * 0.5;
+            + envelope.dimensions_metres().length() * 0.5;
         if self
             .plot
-            .centre_metres
-            .distance_squared(envelope.centre_metres)
+            .centre_metres()
+            .distance_squared(envelope.centre_metres())
             > reach * reach
         {
             return true;
@@ -120,7 +136,7 @@ impl CityGarden {
             || !self.cultivated_bounds.is_valid()
             || self.beds.is_empty()
             || self.access.is_empty()
-            || self.plot.dimensions_metres.max_element() > MAX_PROPERTY_EXTENT_METRES
+            || self.plot.dimensions_metres().max_element() > MAX_PROPERTY_EXTENT_METRES
             || self.beds.len() > MAX_GARDEN_ELEMENTS
             || self.access.len() > MAX_GARDEN_ELEMENTS
             || self.plants.len() > MAX_GARDEN_ELEMENTS
@@ -154,17 +170,18 @@ impl CityGarden {
     ) -> Result<(), GardenIssue> {
         if !streets
             .iter()
-            .any(|street| street.contains(self.access[0].start_metres))
+            .any(|street| street.contains(self.access[0].start_metres()))
         {
             return Err(GardenIssue::StreetDisconnected);
         }
         for (index, segment) in self.access.iter().enumerate() {
-            if !segment.start_metres.is_finite()
-                || !segment.end_metres.is_finite()
-                || !segment.half_width_metres.is_finite()
-                || segment.half_width_metres <= 0.0
-                || segment.half_width_metres > MAX_ACCESS_HALF_WIDTH_METRES
-                || segment.start_metres.distance(segment.end_metres) > MAX_PROPERTY_EXTENT_METRES
+            if !segment.start_metres().is_finite()
+                || !segment.end_metres().is_finite()
+                || !segment.half_width_metres().is_finite()
+                || segment.half_width_metres() <= 0.0
+                || segment.half_width_metres() > MAX_ACCESS_HALF_WIDTH_METRES
+                || segment.start_metres().distance(segment.end_metres())
+                    > MAX_PROPERTY_EXTENT_METRES
             {
                 return Err(GardenIssue::InvalidAccess);
             }
@@ -180,11 +197,11 @@ impl CityGarden {
             // stays within the side boundary and its end is inside the plot.
             let approach_corners = route.corners().map(|p| {
                 self.plot
-                    .orientation
-                    .world_to_local(p - self.plot.centre_metres)
+                    .orientation()
+                    .world_to_local(p - self.plot.centre_metres())
             });
-            let half = self.plot.dimensions_metres * 0.5;
-            if !self.plot.contains(segment.end_metres)
+            let half = self.plot.dimensions_metres() * 0.5;
+            if !self.plot.contains(segment.end_metres())
                 || (index == 0
                     && approach_corners.iter().any(|p| {
                         p.x.abs() > half.x
@@ -204,7 +221,7 @@ impl CityGarden {
 
     fn validate_plants(&self) -> Result<(), GardenIssue> {
         for (index, plant) in self.plants.iter().enumerate() {
-            if !plant.centre_metres.is_finite()
+            if !plant.centre_metres.metres().is_finite()
                 || !plant.orientation.is_valid()
                 || !plant.scale.is_valid()
                 || plant.scale.value() > MAX_PLANT_SCALE
@@ -215,10 +232,10 @@ impl CityGarden {
             if !hull.iter().all(|point| {
                 let local = self
                     .cultivated_bounds
-                    .orientation
-                    .world_to_local(*point - self.cultivated_bounds.centre_metres);
+                    .orientation()
+                    .world_to_local(*point - self.cultivated_bounds.centre_metres());
                 (local.abs() + Vec2::splat(GARDEN_LEAF_WIND_CLEARANCE_METRES))
-                    .cmple(self.cultivated_bounds.dimensions_metres * 0.5)
+                    .cmple(self.cultivated_bounds.dimensions_metres() * 0.5)
                     .all()
             }) {
                 return Err(GardenIssue::PlantOutsidePlot);

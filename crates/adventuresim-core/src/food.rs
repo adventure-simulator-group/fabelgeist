@@ -1,5 +1,6 @@
 //! Pure food-lot, spoilage, meal, and cooking rules.
 
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 pub const MAX_MEAL_FULLNESS_KCAL: f32 = 3_000.0;
@@ -309,7 +310,7 @@ pub fn definition(id: &str) -> Option<&'static FoodDefinition> {
     FOOD_CATALOG.iter().find(|food| food.id == id)
 }
 
-pub fn deterministic_initial_contamination(seed: u64) -> f32 {
+pub fn deterministic_initial_contamination(seed: Seed) -> f32 {
     let unit = fabelgeist_determinism::StreamId::new("food.initial-contamination")
         .rng(seed, &[])
         .unit_f64();
@@ -558,7 +559,7 @@ mod tests {
     use super::*;
     #[test]
     fn starting_load_is_deterministic_log_bounded() {
-        for seed in 0..10_000 {
+        for seed in (0..10_000).map(fabelgeist_determinism::Seed::from_u64) {
             let x = deterministic_initial_contamination(seed);
             assert!((MIN_INITIAL_CONTAMINATION..=MAX_INITIAL_CONTAMINATION).contains(&x));
             assert_eq!(x, deterministic_initial_contamination(seed));
@@ -609,7 +610,7 @@ mod tests {
         assert!(master < novice);
         assert!(master >= 22);
         assert_eq!(cooked_nutrition_retention(-1.0), 0.95);
-        assert!((cooked_nutrition_retention(5.0) - 0.99).abs() < f32::EPSILON);
+        assert_eq!(cooked_nutrition_retention(5.0), 0.99);
         assert_eq!(method_nutrition_retention(CookingMethod::Roast), 0.85);
         assert_eq!(method_nutrition_retention(CookingMethod::Bake), 1.0);
     }
@@ -779,11 +780,13 @@ mod tests {
         let ready = doneness_outcome(100, 100);
         let burnt = doneness_outcome(200, 100);
         assert_eq!(doneness_nutrition_factor(0.8, raw), 1.0);
-        assert!((doneness_nutrition_factor(0.8, half) - 0.9).abs() < f32::EPSILON);
-        assert!((doneness_nutrition_factor(0.8, ready) - 0.8).abs() < f32::EPSILON);
+        assert_eq!(doneness_nutrition_factor(0.8, half), 0.9);
+        assert_eq!(doneness_nutrition_factor(0.8, ready), 0.8);
         assert_eq!(doneness_nutrition_factor(0.8, burnt), 0.0);
         assert_eq!(partially_cooked_growth(0.08, 0.02, 0.0), 0.08);
-        assert!((partially_cooked_growth(0.08, 0.02, 0.5) - 0.05).abs() < f32::EPSILON);
+        // Interpolation rounds once at the expected bacterial growth rate.
+        let growth_roundoff = 0.05_f32.next_up() - 0.05;
+        assert!((partially_cooked_growth(0.08, 0.02, 0.5) - 0.05).abs() <= growth_roundoff);
         assert_eq!(partially_cooked_growth(0.08, 0.02, 1.0), 0.02);
     }
 
@@ -797,7 +800,7 @@ mod tests {
         let roast_smoked = method_doneness_outcome(CookingMethod::Roast, 200, 100);
         let roast_extreme = method_doneness_outcome(CookingMethod::Roast, 10_000, 100);
         assert_eq!(roast_ready.calorie_factor, 1.0);
-        assert!((roast_smoked.calorie_factor - 0.85).abs() < f32::EPSILON);
+        assert_eq!(roast_smoked.calorie_factor, 0.85);
         assert_eq!(roast_smoked, roast_extreme);
 
         assert_eq!(

@@ -95,9 +95,7 @@ fn authoritative_impact_effects(
         AttackResult::ToDefender { .. } if striking_material.is_some() && !metal_weapon => {
             ImpactSound::NonMetalWeapon
         }
-        AttackResult::ToDefender { cut_damage, .. } if cut_damage > f32::EPSILON => {
-            ImpactSound::CutFlesh
-        }
+        AttackResult::ToDefender { cut_damage, .. } if cut_damage > 0.0 => ImpactSound::CutFlesh,
         AttackResult::ToDefender { .. } => ImpactSound::BluntFlesh,
     };
     ImpactEffects {
@@ -109,7 +107,7 @@ fn authoritative_impact_effects(
                     ..
                 } if impact.surface.material.is_some_and(|material| material.is_metal())
             ),
-        blood: matches!(result, AttackResult::ToDefender { cut_damage, .. } if cut_damage > f32::EPSILON),
+        blood: matches!(result, AttackResult::ToDefender { cut_damage, .. } if cut_damage > 0.0),
         sound,
     }
 }
@@ -358,7 +356,7 @@ fn hit_velocity_change(
             (false, contact_force.max(0.0), defender_mass_kg)
         }
     };
-    if !contact_energy.is_finite() || contact_energy <= f32::EPSILON {
+    if !contact_energy.is_finite() || contact_energy <= 0.0 {
         return (hits_attacker, Vec3::ZERO);
     }
     let horizontal = (defender_position - attacker_position)
@@ -1008,7 +1006,7 @@ mod tests {
             .get::<TacticalCombatState>()
             .unwrap()
             .fatigue;
-        assert!((jog_fatigue - 0.25).abs() < f32::EPSILON);
+        assert_eq!(jog_fatigue, 0.25);
 
         *app.world_mut()
             .entity_mut(actor)

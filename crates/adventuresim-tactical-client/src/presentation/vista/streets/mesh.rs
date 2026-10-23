@@ -137,7 +137,7 @@ impl CitySurfaceMeshBuilder {
                         if (clipped[1] - clipped[0])
                             .cross(clipped[2] - clipped[0])
                             .length_squared()
-                            <= f64::from(f32::EPSILON)
+                            == 0.0
                         {
                             continue;
                         }
@@ -211,7 +211,7 @@ mod tests {
 
     #[test]
     fn short_surveyed_street_segment_has_finite_nonempty_ground_triangles() {
-        let terrain = SceneTerrain::new(12, 12, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(12, 12, 1.0, |_| 0.0).unwrap();
         let mut support = GroundSupport::default();
         support.add_mesh(&terrain.mesh(), Vec3::ZERO);
         let mut builder = CitySurfaceMeshBuilder::default();
@@ -237,7 +237,7 @@ mod tests {
                     .iter()
                     .all(|triangle| {
                         let [a, b, c] = triangle.map(Vec3::from_array);
-                        (b - a).cross(c - a).length_squared() > f32::EPSILON
+                        (b - a).cross(c - a).length_squared() > 0.0
                     })
             );
         }
@@ -251,7 +251,8 @@ mod tests {
             } else {
                 point.x * 0.013 + point.y * 0.007
             }
-        });
+        })
+        .unwrap();
         let mut support = GroundSupport::default();
         support.add_mesh(&terrain.mesh(), Vec3::ZERO);
         let groups = empty_groups();
@@ -300,7 +301,7 @@ mod tests {
 
     #[test]
     fn absent_source_terrain_cannot_create_default_height_geometry() {
-        let terrain = SceneTerrain::new(8, 8, 1.0, |_| 7.0);
+        let terrain = SceneTerrain::new(8, 8, 1.0, |_| 7.0).unwrap();
         let mut support = GroundSupport::default();
         support.add_mesh(&terrain.mesh(), Vec3::ZERO);
         let mut builder = CitySurfaceMeshBuilder::default();

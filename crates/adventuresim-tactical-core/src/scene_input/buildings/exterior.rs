@@ -19,7 +19,7 @@ impl DistantBuildingVariant {
 impl DistantBuildingPlacement {
     pub fn exterior_variant(self) -> DistantBuildingVariant {
         let index = EXTERIOR_VARIATION
-            .rng(self.seed, &[self.id])
+            .rng(self.seed, &[self.id.0])
             .index(DistantBuildingVariant::ALL.len());
         DistantBuildingVariant::ALL[index]
     }

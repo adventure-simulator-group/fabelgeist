@@ -28,8 +28,11 @@ mod tests {
 
     #[test]
     fn urban_church_lods_keep_exterior_clerestory_panels_and_buttress_masses() {
-        let program = BuildingProgram::fixture(BuildingArchetype::ParishChurch, 42)
-            .with_service_size(ServiceBuildingSize::Large);
+        let program = BuildingProgram::fixture(
+            BuildingArchetype::ParishChurch,
+            fabelgeist_determinism::Seed::from_u64(42),
+        )
+        .with_service_size(ServiceBuildingSize::Large);
         let plan = generate(&program).unwrap();
         let detail = crate::compile_building_detail(&plan).unwrap();
         let count = |meshes: &[LodMesh]| meshes.iter().map(|m| m.indices.len() / 3).sum::<usize>();
