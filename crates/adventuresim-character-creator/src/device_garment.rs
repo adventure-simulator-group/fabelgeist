@@ -21,7 +21,7 @@ use fabelgeist_compute::KernelBatch;
 use fabelgeist_geometry::SignedLength;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_math::Ratio;
+use fabelgeist_math::units::Ratio;
 use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
 
 pub(crate) use candidates::BAND;

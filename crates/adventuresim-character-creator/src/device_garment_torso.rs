@@ -16,7 +16,7 @@ use fabelgeist_armor::gpu::record_garment_torso;
 use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_geometry::SignedLength;
-use fabelgeist_math::Ratio;
+use fabelgeist_math::units::Ratio;
 use fabelgeist_rig::RigJointName;
 
 /// The torso frame rises above the neck to hold the shoulder seams.

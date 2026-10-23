@@ -231,27 +231,12 @@ pub fn generate_clothing_shells(
                     >= 2
             })
             .collect::<Vec<_>>();
-        for _ in 0..specification.expansion_rings {
-            let mut selected_vertices = vec![false; vertices];
-            for (face, selected) in faces.iter().zip(&selected_faces) {
-                if *selected {
-                    for vertex in face {
-                        selected_vertices[*vertex as usize] = true;
-                    }
-                }
-            }
-            let previous = selected_faces.clone();
-            for (index, face) in faces.iter().enumerate() {
-                selected_faces[index] |= face
-                    .iter()
-                    .filter(|vertex| selected_vertices[**vertex as usize])
-                    .count()
-                    >= 2;
-            }
-            if selected_faces == previous {
-                break;
-            }
-        }
+        validation::expand_selected_faces(
+            faces,
+            &mut selected_faces,
+            vertices,
+            specification.expansion_rings,
+        );
         let waist_joints = span_masks
             .iter()
             .filter_map(|mask| mask.4.as_ref())

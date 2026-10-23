@@ -5,6 +5,13 @@ use super::*;
 /// Unweighted cloth owns geometry and dynamics without any skin payload.
 /// A retained weighted binding may be ignored while physics is unweighted.
 pub enum ClothBinding {
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "unweighted simulation is covered by tests; the current preview supplies weighted cloth"
+        )
+    )]
     Unweighted,
     Weighted {
         indices: fabelgeist_rig::PackedRigSkin<8>,

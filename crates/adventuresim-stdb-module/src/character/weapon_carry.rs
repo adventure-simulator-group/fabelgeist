@@ -155,3 +155,28 @@ fn sheath_compatible_parent_placement_index(
         format!("Sheathable sidearm {item_id} lacks a single containment parent placement")
     })
 }
+
+pub(super) fn require_weapon_carry_placement(
+    item_id: &str,
+    placement: &crate::item::PersistedEquipmentPlacement,
+) -> Result<(), String> {
+    match adventuresim_core::item_catalog::weapon_carry(item_id) {
+        Some(adventuresim_core::item_catalog::WeaponCarry::HandOnly)
+            if !hand_only_placement_is_held_root(placement) =>
+        {
+            return Err(format!(
+                "Can't equip hand-only weapon {} anywhere except one held left/right hand root",
+                item_id
+            ));
+        }
+        Some(adventuresim_core::item_catalog::WeaponCarry::Sheathable) => {}
+        _ if !placement.parents.is_empty() => {
+            return Err(format!(
+                "Can't attach weapon {} without an authored sheathable carry contract",
+                item_id
+            ));
+        }
+        _ => {}
+    }
+    Ok(())
+}

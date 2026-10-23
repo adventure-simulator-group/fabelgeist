@@ -1,7 +1,7 @@
 use adventuresim_world_schema::calendar::StrategicMinute;
 use attachment_capacity::{AttachmentCapacity, first_free_attachment_capacity};
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
-use weapon_carry::provision_generated_weapon_carry;
+use weapon_carry::{provision_generated_weapon_carry, require_weapon_carry_placement};
 
 use adventuresim_core::{
     attribute::PlayerAttributeValues,
@@ -2916,24 +2916,7 @@ fn equip_equipment_internal(
             )
         })?;
     if definition.kind == crate::item::CatalogItemKind::Weapon {
-        match adventuresim_core::item_catalog::weapon_carry(&inventory.item_id) {
-            Some(adventuresim_core::item_catalog::WeaponCarry::HandOnly)
-                if !hand_only_placement_is_held_root(placement) =>
-            {
-                return Err(format!(
-                    "Can't equip hand-only weapon {} anywhere except one held left/right hand root",
-                    inventory.item_id
-                ));
-            }
-            Some(adventuresim_core::item_catalog::WeaponCarry::Sheathable) => {}
-            _ if !placement.parents.is_empty() => {
-                return Err(format!(
-                    "Can't attach weapon {} without an authored sheathable carry contract",
-                    inventory.item_id
-                ));
-            }
-            _ => {}
-        }
+        require_weapon_carry_placement(&inventory.item_id, placement)?;
     }
     if enforce_law {
         crate::equipment_law::require_item_legal(ctx, character_id, inventory_item_id)?;

@@ -283,16 +283,6 @@ fn procedural_equipment_asset_path(file: &str) -> String {
     }
 }
 
-fn held_item(
-    actor: Entity,
-    hand: EquipmentHand,
-    items: &Query<(Entity, &ItemOf, Option<&EquipSlot>)>,
-) -> Option<Entity> {
-    items.iter().find_map(|(entity, owner, slot)| {
-        (owner.0 == actor && slot.is_some_and(|slot| *slot == hand.slot())).then_some(entity)
-    })
-}
-
 fn key_code(input: &str) -> Option<KeyCode> {
     Some(match input {
         "q" => KeyCode::KeyQ,

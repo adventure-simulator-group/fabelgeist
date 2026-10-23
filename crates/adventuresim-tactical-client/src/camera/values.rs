@@ -44,6 +44,8 @@ pub(super) struct SignedBlendVelocity(f32);
 #[derive(Debug, thiserror::Error)]
 pub enum CameraError {
     #[error(transparent)]
+    Fraction(#[from] adventuresim_core::unit_interval::FractionError),
+    #[error(transparent)]
     Geometry(#[from] GeometryError),
     #[error(transparent)]
     Speed(#[from] SpeedError),

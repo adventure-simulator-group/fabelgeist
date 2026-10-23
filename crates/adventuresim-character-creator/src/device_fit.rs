@@ -302,7 +302,7 @@ pub async fn fit_recipe_async(
     } else {
         fit(&ParametricDesign::Garment(waist.tassets.clone())).await?
     };
-    Ok(suspended_waist(fauld, tassets, &waist.tassets))
+    suspended_waist(fauld, tassets, &waist.tassets)
 }
 
 /// Hang the tassets below the fauld's hem on every realization, and join
@@ -311,7 +311,7 @@ fn suspended_waist(
     fauld: DevicePiece,
     tassets: DevicePiece,
     design: &fabelgeist_armor::GarmentArmorDesign,
-) -> DevicePiece {
+) -> Result<DevicePiece> {
     let join = |mut fauld: BuiltPart, mut tassets: BuiltPart| {
         let hem = fauld
             .positions
@@ -355,7 +355,7 @@ fn suspended_waist(
         endpoints,
     } = fauld;
     skin.append(tassets.skin)?;
-    DevicePiece {
+    Ok(DevicePiece {
         base: join(base, tassets.base),
         skin,
         endpoints: endpoints
@@ -363,7 +363,7 @@ fn suspended_waist(
             .zip(tassets.endpoints)
             .map(|(fauld, tassets)| join(fauld, tassets))
             .collect(),
-    }
+    })
 }
 
 /// Record a recipe fitted to one realization of the wearer, short of

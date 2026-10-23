@@ -13,7 +13,7 @@ use fabelgeist_compute::KernelBatch;
 use fabelgeist_geometry::SignedLength;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_math::Ratio;
+use fabelgeist_math::units::Ratio;
 use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::FitRegion;

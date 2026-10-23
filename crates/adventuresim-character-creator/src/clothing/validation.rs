@@ -26,3 +26,33 @@ pub(super) fn validated_placeholder_faces(
     }
     Ok(faces.to_vec())
 }
+
+/// Grow an anatomical face mask by neighboring triangle rings.
+pub(super) fn expand_selected_faces(
+    faces: &[[u32; 3]],
+    selected_faces: &mut [bool],
+    vertices: usize,
+    rings: usize,
+) {
+    for _ in 0..rings {
+        let mut selected_vertices = vec![false; vertices];
+        for (face, selected) in faces.iter().zip(selected_faces.iter()) {
+            if *selected {
+                for vertex in face {
+                    selected_vertices[*vertex as usize] = true;
+                }
+            }
+        }
+        let previous = selected_faces.to_vec();
+        for (index, face) in faces.iter().enumerate() {
+            selected_faces[index] |= face
+                .iter()
+                .filter(|vertex| selected_vertices[**vertex as usize])
+                .count()
+                >= 2;
+        }
+        if *selected_faces == previous {
+            break;
+        }
+    }
+}

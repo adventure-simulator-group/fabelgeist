@@ -219,10 +219,10 @@ pub(super) fn update(
     for entity in &garments {
         scene.commands.entity(entity).despawn();
     }
-    if let Some((selection, garment)) = shown {
-        if let Err(error) = spawn(&mut scene, &mut mail, &selection, garment) {
-            wardrobe.fit_problems = Some(format!("{error:#}"));
-        }
+    if let Some((selection, garment)) = shown
+        && let Err(error) = spawn(&mut scene, &mut mail, &selection, garment)
+    {
+        wardrobe.fit_problems = Some(format!("{error:#}"));
     }
 }
 

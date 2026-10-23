@@ -182,8 +182,8 @@ impl RuntimeEquipmentBodyCache {
                 Some(Ok(_)) => {}
                 Some(Err(error)) => bail!(
                     "lower equipment {} {} failed: {error}",
-                    support.selection.item().id,
-                    support.selection.id
+                    support.selection.selection.item().id,
+                    support.selection.selection.definition().id
                 ),
                 None => return self.next_fit(&support),
             }

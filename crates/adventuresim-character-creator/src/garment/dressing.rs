@@ -94,7 +94,7 @@ impl Dressing {
                     .zip(weights)
                     .max_by(|a, b| a.1.total_cmp(b.1))
                     .expect("skin influences are never empty");
-                parts.get(*joint as usize).copied().unwrap_or(true)
+                parts.get(usize::from(*joint)).copied().unwrap_or(true)
             })
             .collect();
         Self {

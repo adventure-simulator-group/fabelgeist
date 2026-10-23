@@ -10,12 +10,11 @@ use fabelgeist_geometry::SignedLength;
 pub use adventuresim_tactical_core::animation::ResponseShapingTime;
 use aim::update_camera_aim;
 use collision::{CameraHit, CameraVolumeDebug};
-pub(crate) use config::authored_metres;
 pub use config::{CameraProfile, CameraRigConfig};
 use rig::update_camera_rig;
 use rig_history::CameraRigState;
 use values::ScreenError;
-pub use values::{CameraError, CameraResult, FramingOffset, MuzzleOffset, ScreenWindow};
+pub use values::{CameraError, CameraResult, ScreenWindow};
 
 mod aim;
 pub(crate) mod collision;

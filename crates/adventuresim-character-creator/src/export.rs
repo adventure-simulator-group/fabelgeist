@@ -670,29 +670,7 @@ pub fn export_rigged_glb(
         &u32_bytes(exported_faces.iter().flatten().copied()),
         Some(34_963),
     );
-    let shell_views = shells
-        .iter()
-        .map(|shell| {
-            let positions = buffer.push(
-                &f32_bytes(shell.positions.iter().flatten().copied()),
-                Some(34_962),
-            );
-            let normals = buffer.push(
-                &f32_bytes(shell.normals.iter().flatten().copied()),
-                Some(34_962),
-            );
-            let indices = buffer.push(
-                &u32_bytes(shell.faces.iter().flatten().copied()),
-                Some(34_963),
-            );
-            let skin = shell
-                .joint_indices
-                .zip(shell.joint_weights)
-                .map(|(joints, weights)| skinning::append(&mut buffer, joints, weights))
-                .transpose()?;
-            Ok((positions, normals, indices, skin))
-        })
-        .collect::<Result<Vec<_>>>()?;
+    let shell_views = buffer.shell_views(shells)?;
 
     let mut globals = mesh.global_transforms();
     let mut joint_names = mesh.joint_names.clone();
