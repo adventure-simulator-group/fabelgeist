@@ -182,11 +182,11 @@ impl GatherDefinition {
             )),
             ResourceDescriptor::Texture2d(_) => full_code.push_str(&format!(
                 "@group(0) @binding(1) var output: texture_storage_2d<{}, write>;\n",
-                output_res.to_wgsl_storage_format()
+                output_res.to_wgsl_storage_format()?
             )),
             ResourceDescriptor::Texture3d(_) => full_code.push_str(&format!(
                 "@group(0) @binding(1) var output: texture_storage_3d<{}, write>;\n",
-                output_res.to_wgsl_storage_format()
+                output_res.to_wgsl_storage_format()?
             )),
         }
 

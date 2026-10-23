@@ -614,7 +614,7 @@ impl TextureCube {
             }}
             "#,
             shader_src,
-            self.format.to_wgsl_storage_format()
+            self.effective_format(self.format).to_wgsl_storage_format()?
         );
 
         let shader_module = context
@@ -652,7 +652,7 @@ impl TextureCube {
                             visibility: wgpu::ShaderStages::COMPUTE,
                             ty: wgpu::BindingType::StorageTexture {
                                 access: wgpu::StorageTextureAccess::WriteOnly,
-                                format: self.format.linear_counterpart().into(),
+                                format: self.effective_format(self.format).into(),
                                 view_dimension: wgpu::TextureViewDimension::D2Array,
                             },
                             count: None,
@@ -787,7 +787,7 @@ impl TextureCube {
             }}
             "#,
             shader_src,
-            self.format.to_wgsl_storage_format()
+            self.effective_format(self.format).to_wgsl_storage_format()?
         );
 
         let shader_module = context
@@ -818,7 +818,7 @@ impl TextureCube {
                             visibility: wgpu::ShaderStages::COMPUTE,
                             ty: wgpu::BindingType::StorageTexture {
                                 access: wgpu::StorageTextureAccess::WriteOnly,
-                                format: self.format.linear_counterpart().into(),
+                                format: self.effective_format(self.format).into(),
                                 view_dimension: wgpu::TextureViewDimension::D2Array,
                             },
                             count: None,

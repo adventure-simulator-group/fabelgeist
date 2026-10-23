@@ -74,7 +74,7 @@ impl AdvectDefinition {
 
         full_code.push_str(&velocity_res.to_wgsl_input_binding(0, 0, "velocity"));
         full_code.push_str(&quantity_res.to_wgsl_input_binding(0, 1, "quantity"));
-        full_code.push_str(&output_res.to_wgsl_output_binding(0, 2, "output"));
+        full_code.push_str(&output_res.to_wgsl_output_binding(0, 2, "output")?);
         full_code.push_str("\nstruct Parameters {\n");
         full_code.push_str("    size: vec4<f32>,\n");
         full_code.push_str("    dt: f32,\n");

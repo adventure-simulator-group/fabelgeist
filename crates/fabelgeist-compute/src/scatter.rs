@@ -167,7 +167,7 @@ impl ScatterDefinition {
         let mut full_code = String::new();
 
         full_code.push_str(&input_res.to_wgsl_input_binding(0, 0, "input"));
-        full_code.push_str(&output_res.to_wgsl_output_binding(0, 1, "output"));
+        full_code.push_str(&output_res.to_wgsl_output_binding(0, 1, "output")?);
 
         full_code.push('\n');
         full_code.push_str(&transformed_code);

@@ -6,6 +6,8 @@
 //! `Scan`, `Sort`, marching cubes and the rest live in `fabelgeist-compute`, which
 //! depends on this crate.
 
+use crate::data::gpu::texture::StorageFormatResult;
+
 pub use pass::*;
 pub use pipeline::*;
 pub use resource_addressing::{ResourceFetch, TextureAddressError, TextureAddressing};
@@ -45,13 +47,17 @@ impl ResourceDescriptor {
         }
     }
 
-    pub fn to_wgsl_storage_format(&self) -> String {
-        match self {
+    /// Storage declarations use the linear view selected for storage bindings.
+    pub fn to_wgsl_storage_format(&self) -> StorageFormatResult<String> {
+        Ok(match self {
             ResourceDescriptor::Buffer(ty) => ty.as_str(),
-            ResourceDescriptor::Texture2d(f) | ResourceDescriptor::Texture3d(f) => {
-                f.to_wgsl_storage_format().to_string()
+            ResourceDescriptor::Texture2d(format) | ResourceDescriptor::Texture3d(format) => {
+                format
+                    .linear_counterpart()
+                    .to_wgsl_storage_format()?
+                    .to_string()
             }
-        }
+        })
     }
 
     pub fn to_wgsl_input_binding(&self, group: u32, binding: u32, name: &str) -> String {
@@ -80,8 +86,13 @@ impl ResourceDescriptor {
         }
     }
 
-    pub fn to_wgsl_output_binding(&self, group: u32, binding: u32, name: &str) -> String {
-        match self {
+    pub fn to_wgsl_output_binding(
+        &self,
+        group: u32,
+        binding: u32,
+        name: &str,
+    ) -> StorageFormatResult<String> {
+        Ok(match self {
             ResourceDescriptor::Buffer(ty) => format!(
                 "@group({}) @binding({}) var<storage, read_write> {}: array<{}>;\n",
                 group,
@@ -94,16 +105,16 @@ impl ResourceDescriptor {
                 group,
                 binding,
                 name,
-                self.to_wgsl_storage_format()
+                self.to_wgsl_storage_format()?
             ),
             ResourceDescriptor::Texture3d(_) => format!(
                 "@group({}) @binding({}) var {}: texture_storage_3d<{}, write>;\n",
                 group,
                 binding,
                 name,
-                self.to_wgsl_storage_format()
+                self.to_wgsl_storage_format()?
             ),
-        }
+        })
     }
 
     pub fn base_type_str(&self) -> &str {

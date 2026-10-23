@@ -162,7 +162,7 @@ impl MapDefinition {
             full_code.push_str(&res.to_wgsl_input_binding(0, 0, "input"));
         }
 
-        full_code.push_str(&output_res.to_wgsl_output_binding(0, 1, "output"));
+        full_code.push_str(&output_res.to_wgsl_output_binding(0, 1, "output")?);
 
         let mut uniform_params = Vec::new();
         let mut resource_params = Vec::new();

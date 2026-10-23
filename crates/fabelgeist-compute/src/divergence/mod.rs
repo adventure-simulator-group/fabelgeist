@@ -49,7 +49,7 @@ impl DivergenceDefinition {
         };
 
         full_code.push_str(&input_res.to_wgsl_input_binding(0, 0, "velocity"));
-        full_code.push_str(&output_res.to_wgsl_output_binding(0, 1, "output"));
+        full_code.push_str(&output_res.to_wgsl_output_binding(0, 1, "output")?);
 
         full_code.push_str("\nstruct Parameters {\n");
         full_code.push_str("    half_inverse_cell_size: f32,\n");
