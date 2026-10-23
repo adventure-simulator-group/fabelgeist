@@ -8,6 +8,7 @@ pub use capacity::BufferCapacityChange;
 pub use definition::{BufferDefinition, BufferUse};
 pub use extent::{BufferByteLength, BufferByteOffset};
 pub use label::BufferLabel;
+pub use prefix::{BufferPrefixError, PrefixResult};
 pub use read_error::BufferReadError;
 pub use stride::{BufferElementCount, BufferElementStride, BufferElementStrideError};
 use read_error::ReadResult;
@@ -19,6 +20,7 @@ mod definition;
 mod extent;
 mod label;
 mod mapping;
+mod prefix;
 mod read;
 mod read_error;
 mod readback;
@@ -48,13 +50,12 @@ impl Buffer {
         })
     }
 
-    /// Write through the creating device's paired queue.
+    /// Write within this logical extent through the creating device's paired queue.
     ///
     /// This buffer must belong to `context.device`, and `context.queue` must
     /// be paired with that same logical device.
     pub fn write(&self, context: &WgpuContext, data: BufferUpload<'_>) -> Result<()> {
-        data.write_to(context, &self.buffer, BufferByteOffset::START)?;
-        Ok(())
+        self.write_at(context, BufferByteOffset::START, data)
     }
 
     /// Write one host upload at a checked byte address within this buffer.
