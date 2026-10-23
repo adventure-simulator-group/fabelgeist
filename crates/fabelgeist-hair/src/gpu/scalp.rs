@@ -295,6 +295,7 @@ impl GpuGroomer {
         batch.clear_buffer(&box_words);
         let mut p = one(triangles);
         p.insert("triangles", tri_cells);
+        p.insert("flags", flags.clone());
         p.insert("vertex_of", vertex_of);
         p.insert("scalp_points", points.clone());
         p.insert("tri_index", tri_index.clone());
@@ -365,7 +366,7 @@ impl GpuGroomer {
         words.extend((0..6).map(|k| (box_words.clone(), k)));
         let read = self.read_words(batch, &words)?;
         let (vertices, boundary_count, boundary_fine_count) = (read[0], read[1], read[2]);
-        if vertices >= 1 << 16 {
+        if vertices >= super::wgsl::scalp::EDGE_VERTEX_LIMIT {
             return Err(HairGpuError::ScalpVertexLimit);
         }
         let area = f32::from_bits(read[3]);
