@@ -72,14 +72,19 @@ impl Collisions {
     pub fn set_colliders(&mut self, context: &WgpuContext, colliders: Vec<Collider>) -> Result<()> {
         let count = ColliderCount::from(colliders.len());
         if self.collider_capacity.fit(count) == ColliderCapacityFit::GrowthRequired {
-            self.collider_capacity = ColliderCapacity::for_count(count);
-            self.collider_buffer = Buffer::new(
+            let capacity = ColliderCapacity::for_count(count);
+            let buffer = Buffer::new(
                 context,
-                self.collider_capacity.byte_length(),
+                capacity.byte_length(),
                 BufferDefinition::storage().with_label(("colliders").into()),
             )?;
-        }
-        if !colliders.is_empty() {
+            buffer.write(
+                context,
+                BufferUpload::from_elements(&pack_colliders(&colliders)),
+            )?;
+            self.collider_buffer = buffer;
+            self.collider_capacity = capacity;
+        } else if !colliders.is_empty() {
             self.collider_buffer.write(
                 context,
                 BufferUpload::from_elements(&pack_colliders(&colliders)),

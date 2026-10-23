@@ -1,6 +1,7 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 
+pub use error::EmptyReductionResult;
 pub use execution::ReduceScratchpad;
 pub use max::Max;
 pub use min::Min;
@@ -8,6 +9,7 @@ pub use min::Min;
 use fabelgeist_gpu::prelude::BufferElementStride;
 use layout::REDUCTION_WORKGROUP_WIDTH;
 
+mod error;
 mod execution;
 mod layout;
 pub mod max;
