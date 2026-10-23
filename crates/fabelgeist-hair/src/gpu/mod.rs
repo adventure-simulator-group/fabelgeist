@@ -81,8 +81,7 @@ pub use layout::{StrandAttribute, StrandLayout, StrandLayoutError, StrandLayoutR
 
 mod buffers;
 pub mod error;
-use crate::identity::PartingGroup;
-use crate::identity::StrandId;
+use crate::identity::{PartingGroup, StrandId};
 use buffers::{Scratch, storage, upload};
 use fabelgeist_compute::ScanElementCount;
 mod collide;
@@ -100,8 +99,7 @@ use crate::gpu::error::{HairGpuError, Result};
 use fabelgeist_compute::{
     Kernel, KernelBatch, KernelCache, PrefixSum, PrefixSumScratch, RadixSort, SortScratch,
 };
-use fabelgeist_gpu::data::gpu::buffer::Buffer;
-use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_gpu::{data::gpu::buffer::Buffer, globals::WgpuContext};
 use fabelgeist_math::Vec3;
 use fabelgeist_spatial_hash::gpu::{GpuHashGrid, HashKernels};
 
