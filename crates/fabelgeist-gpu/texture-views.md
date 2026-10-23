@@ -106,6 +106,8 @@ Multiple blocks in one group, nested or array uniform values, unsupported
 scalar/vector/matrix representations and resource payloads absent from
 `PassParameter` return typed pipeline admission errors. This includes resource
 binding arrays and external textures. Unused globals require no bindings.
+Used immediate data is also rejected explicitly: this interface supplies named
+buffer and texture parameters, and records no native immediate-value commands.
 
 Cached kernels keep per-batch uniform slots with checked byte offsets and
 retain native pipeline/binding causes. Empty launches in a batch skip parameter

@@ -27,9 +27,6 @@ impl ReflectedInterface {
             .ok_or(ComputePipelineError::MissingEntryPoint)?;
         let mut groups = BTreeMap::new();
         for (handle, variable) in module.global_variables.iter() {
-            let Some(binding) = &variable.binding else {
-                continue;
-            };
             let used = module
                 .entry_points
                 .iter()
@@ -41,6 +38,14 @@ impl ReflectedInterface {
             if !used {
                 continue;
             }
+            if variable.space == wgpu::naga::AddressSpace::Immediate {
+                return Err(ComputePipelineError::UnsupportedImmediate {
+                    name: variable.name.clone().unwrap_or_default(),
+                });
+            }
+            let Some(binding) = &variable.binding else {
+                continue;
+            };
             // One retained layout serves every cached compute entry point.
             // A float image needs filtering if any of those entries samples it.
             let filterable = module

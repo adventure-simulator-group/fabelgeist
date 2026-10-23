@@ -40,6 +40,9 @@ pub enum ComputePipelineError {
         binding: u32,
         kind: UnsupportedBindingKind,
     },
+    UnsupportedImmediate {
+        name: String,
+    },
 }
 
 impl From<ShaderError> for ComputePipelineError {
@@ -87,6 +90,10 @@ impl fmt::Display for ComputePipelineError {
             } => write!(
                 formatter,
                 "Compute group {group} binding {binding}: {kind:?} is not supported by named pass parameters"
+            ),
+            Self::UnsupportedImmediate { name } => write!(
+                formatter,
+                "Compute immediate '{name}' is not supported by named pass parameters"
             ),
             Self::CachePoisoned => formatter.write_str("Failed to lock pipeline cache"),
         }
