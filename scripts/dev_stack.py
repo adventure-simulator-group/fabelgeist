@@ -42,6 +42,7 @@ ANIMATION_ENEMY_FIXTURE = "animation-demo"
 PASSIVE_ENEMY_FIXTURE = "passive-bandit"
 STANDARD_ENEMY_FIXTURE = "standard-bandit"
 DEFAULT_SCENE_INPUT = "dense-woodland"
+DEVELOPMENT_QUEST_BATCHES_PER_SETTLEMENT = 5
 
 
 @dataclass
@@ -906,13 +907,15 @@ def seed(server: str, database: str, bootstrap_token: str) -> int:
         if returncode:
             return returncode
 
-        # One call per settlement materializes its full activity (all quests) in a
-        # single transaction; that is well under the per-reducer budget and avoids
-        # re-running the idempotent population/incident work once per quest.
+        # Each activity call generates at most one quest so large settlements
+        # stay below SpacetimeDB's per-reducer compute budget. Five calls cover
+        # the current maximum quest target; calls after the target is reached are
+        # idempotent no-ops for quest generation.
         for index in range(client.count("settlement")):
-            returncode = client.call("dev_bootstrap_settlement_activity", index)
-            if returncode:
-                return returncode
+            for _ in range(DEVELOPMENT_QUEST_BATCHES_PER_SETTLEMENT):
+                returncode = client.call("dev_bootstrap_settlement_activity", index)
+                if returncode:
+                    return returncode
 
         # All demo characters in one call (each is individually cheap).
         returncode = client.call("dev_bootstrap_finalize")
