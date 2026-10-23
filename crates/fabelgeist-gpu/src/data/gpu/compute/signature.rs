@@ -1,6 +1,10 @@
 use crate::data::gpu::texture::TextureFormat;
 use crate::prelude::*;
 
+pub use coordinates::{CoordinateParameter, CoordinateParameterError, CoordinateShape};
+
+mod coordinates;
+
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub enum ResourceBaseType {
     F32,

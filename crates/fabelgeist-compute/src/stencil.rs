@@ -1,4 +1,5 @@
 use crate::prelude::*;
+use fabelgeist_gpu::data::gpu::signature::{CoordinateParameter, CoordinateShape};
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use fabelgeist_gpu::data::gpu::signature::ResourceBaseType;
@@ -27,10 +28,8 @@ pub struct StencilSignature {
     pub dim: u32,
     pub input_element_type: ResourceBaseType,
     pub output_element_type: ResourceBaseType,
-    pub index_type: Option<String>,
-    pub index_param_name: Option<String>,
-    pub size_type: Option<String>,
-    pub size_param_name: Option<String>,
+    pub index: Option<CoordinateParameter>,
+    pub size: Option<CoordinateParameter>,
     pub center_param_name: Option<String>,
     pub neighbors_param_name: Option<String>,
     pub user_params: Vec<(String, ResourceBaseType)>,
@@ -95,7 +94,7 @@ impl StencilDefinition {
             .captures(code)
             .ok_or_else(|| anyhow::anyhow!("Stencil shader must define a 'stencil' function"))?;
 
-        let args_str = caps.get(1).unwrap().as_str();
+        let args_str = &caps[1];
         let output_type_raw = caps.get(2).map(|m| m.as_str().trim().to_string());
 
         let mut args = Vec::new();
@@ -124,10 +123,8 @@ impl StencilDefinition {
             args.push(current_arg.trim().to_string());
         }
 
-        let mut index_type = None;
-        let mut index_param_name = None;
-        let mut size_type = None;
-        let mut size_param_name = None;
+        let mut index: Option<CoordinateParameter> = None;
+        let mut size: Option<CoordinateParameter> = None;
         let mut center_param_name = None;
         let mut neighbors_param_name = None;
         let mut user_params = vec![];
@@ -155,11 +152,9 @@ impl StencilDefinition {
             param_names.push(name.to_string());
 
             if name == "index" {
-                index_type = Some(ty_str.to_string());
-                index_param_name = Some(name.to_string());
+                index = Some(CoordinateParameter::from_native(name, ty_str)?);
             } else if name == "size" {
-                size_type = Some(ty_str.to_string());
-                size_param_name = Some(name.to_string());
+                size = Some(CoordinateParameter::from_native(name, ty_str)?);
             } else if is_neighborhood {
                 if ty_str.contains("Neighbors") {
                     neighbors_param_name = Some(name.to_string());
@@ -223,10 +218,8 @@ impl StencilDefinition {
             dim,
             input_element_type,
             output_element_type,
-            index_type,
-            index_param_name,
-            size_type,
-            size_param_name,
+            index,
+            size,
             center_param_name,
             neighbors_param_name,
             user_params,
@@ -267,16 +260,18 @@ impl StencilDefinition {
                 }
 
                 // Keep index, size, or uniform params in the signature
-                if arg == "index" {
-                    new_args.push(format!(
-                        "index: {}",
-                        sig.index_type.as_deref().unwrap_or("u32")
-                    ));
-                } else if arg == "size" {
-                    new_args.push(format!(
-                        "size: {}",
-                        sig.size_type.as_deref().unwrap_or("u32")
-                    ));
+                if let Some(parameter) = sig
+                    .index
+                    .as_ref()
+                    .filter(|parameter| parameter.name() == arg)
+                {
+                    new_args.push(format!("index: {}", parameter.shape().value_type().as_str()));
+                } else if let Some(parameter) = sig
+                    .size
+                    .as_ref()
+                    .filter(|parameter| parameter.name() == arg)
+                {
+                    new_args.push(format!("size: {}", parameter.shape().value_type().as_str()));
                 } else if let Some((_, ty)) = sig.user_params.iter().find(|(n, _)| n == arg) {
                     new_args.push(format!("{}: {}", arg, ty.as_str()));
                 }
@@ -408,24 +403,24 @@ impl StencilDefinition {
         full_code.push_str("fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {\n");
         full_code.push_str(&output_res.generate_prologue());
 
-        if let Some(ref idx_ty) = sig.index_type {
-            if idx_ty == "u32" {
+        if let Some(parameter) = &sig.index {
+            if parameter.shape() == CoordinateShape::Scalar {
                 addressing = addressing.combine(TextureAddressing::LinearIndex);
                 match output_res {
                     ResourceDescriptor::Buffer(_) => full_code.push_str("    let index = _global_index;\n"),
                     ResourceDescriptor::Texture2d(_) => full_code.push_str("    let index = _global_index.y * tex_dim.x + _global_index.x;\n"),
                     ResourceDescriptor::Texture3d(_) => full_code.push_str("    let index = (_global_index.z * tex_dim.y + _global_index.y) * tex_dim.x + _global_index.x;\n"),
                 }
-            } else if idx_ty == "vec2<u32>" {
+            } else if parameter.shape() == CoordinateShape::Plane {
                 full_code.push_str("    let index = _global_index.xy;\n");
-            } else if idx_ty == "vec3<u32>" {
+            } else if parameter.shape() == CoordinateShape::Volume {
                 full_code.push_str("    let index = _global_index;\n");
             }
         }
 
-        if let Some(ref size_ty) = sig.size_type {
-            match size_ty.as_str() {
-                "u32" => {
+        if let Some(parameter) = &sig.size {
+            match parameter.shape() {
+                CoordinateShape::Scalar => {
                     addressing = TextureAddressing::LinearPopulation;
                     match output_res {
                         ResourceDescriptor::Buffer(_) => {
@@ -439,7 +434,7 @@ impl StencilDefinition {
                         }
                     }
                 }
-                "vec2<u32>" => match output_res {
+                CoordinateShape::Plane => match output_res {
                     ResourceDescriptor::Buffer(_) => {
                         full_code.push_str("    let size = vec2<u32>(arrayLength(&output), 1u);\n")
                     }
@@ -450,7 +445,7 @@ impl StencilDefinition {
                         full_code.push_str("    let size = tex_dim.xy;\n")
                     }
                 },
-                "vec3<u32>" => match output_res {
+                CoordinateShape::Volume => match output_res {
                     ResourceDescriptor::Buffer(_) => full_code
                         .push_str("    let size = vec3<u32>(arrayLength(&output), 1u, 1u);\n"),
                     ResourceDescriptor::Texture2d(_) => {
@@ -460,7 +455,6 @@ impl StencilDefinition {
                         full_code.push_str("    let size = tex_dim;\n")
                     }
                 },
-                _ => return Err(anyhow::anyhow!("Unsupported size type: {}", size_ty)),
             }
         }
 
@@ -477,7 +471,7 @@ impl StencilDefinition {
                         "    let _grid_w = i32(textureDimensions(input).x);\n".to_string()
                     }
                     ResourceDescriptor::Buffer(_) => {
-                        if sig.size_type.is_some() {
+                        if sig.size.is_some() {
                             "    let _grid_w = i32(size);\n".to_string()
                         } else {
                             "    let _grid_w = i32(arrayLength(&input));\n".to_string()
@@ -494,10 +488,10 @@ impl StencilDefinition {
                                 .to_string()
                         }
                         ResourceDescriptor::Buffer(_) => {
-                            if let Some(ref sz_ty) = sig.size_type {
-                                if sz_ty == "vec2<u32>" {
+                            if let Some(parameter) = &sig.size {
+                                if parameter.shape() == CoordinateShape::Plane {
                                     "    let _grid_dim = vec2<i32>(size);\n".to_string()
-                                } else if sz_ty == "vec3<u32>" {
+                                } else if parameter.shape() == CoordinateShape::Volume {
                                     "    let _grid_dim = vec2<i32>(size.xy);\n".to_string()
                                 } else {
                                     "    let _grid_dim = vec2<i32>(i32(size), 1);\n".to_string()
@@ -522,10 +516,10 @@ impl StencilDefinition {
                             "    let _grid_dim = vec3<i32>(textureDimensions(input));\n".to_string()
                         }
                         ResourceDescriptor::Buffer(_) => {
-                            if let Some(ref sz_ty) = sig.size_type {
-                                if sz_ty == "vec3<u32>" {
+                            if let Some(parameter) = &sig.size {
+                                if parameter.shape() == CoordinateShape::Volume {
                                     "    let _grid_dim = vec3<i32>(size);\n".to_string()
-                                } else if sz_ty == "vec2<u32>" {
+                                } else if parameter.shape() == CoordinateShape::Plane {
                                     "    let _grid_dim = vec3<i32>(size, 1);\n".to_string()
                                 } else {
                                     "    let _grid_dim = vec3<i32>(i32(size), 1, 1);\n".to_string()
@@ -540,10 +534,8 @@ impl StencilDefinition {
                     }
                 }
                 4 => {
-                    if let Some(ref sz_ty) = sig.size_type {
-                        if sz_ty == "vec4<u32>" {
-                            "    let _grid_dim = vec4<i32>(size);\n".to_string()
-                        } else if sz_ty == "vec3<u32>" {
+                    if let Some(parameter) = &sig.size {
+                        if parameter.shape() == CoordinateShape::Volume {
                             "    let _grid_dim = vec4<i32>(size, 1);\n".to_string()
                         } else {
                             "    let _grid_dim = vec4<i32>(i32(size), 1, 1, 1);\n".to_string()
@@ -762,9 +754,9 @@ impl StencilDefinition {
 
         let mut stencil_call_args = vec![];
         for name in &sig.param_names {
-            if Some(name) == sig.index_param_name.as_ref() {
+            if sig.index.as_ref().map(CoordinateParameter::name) == Some(name.as_str()) {
                 stencil_call_args.push("index".to_string());
-            } else if Some(name) == sig.size_param_name.as_ref() {
+            } else if sig.size.as_ref().map(CoordinateParameter::name) == Some(name.as_str()) {
                 stencil_call_args.push("size".to_string());
             } else if sig.is_neighborhood {
                 if Some(name) == sig.center_param_name.as_ref() {

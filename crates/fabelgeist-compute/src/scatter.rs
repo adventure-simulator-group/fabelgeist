@@ -1,4 +1,5 @@
 use crate::prelude::*;
+use fabelgeist_gpu::data::gpu::signature::{CoordinateParameter, CoordinateShape};
 use fabelgeist_gpu::data::gpu::resource::{GpuResource, ResourceType};
 use std::sync::Arc;
 
@@ -7,8 +8,7 @@ pub struct ScatterSignature {
     pub scatter_args: Vec<String>, // Raw arguments
     pub input_element_type: ResourceBaseType,
     pub output_element_type: ResourceBaseType,
-    pub index_type: Option<String>,
-    pub index_param_name: Option<String>,
+    pub index: Option<CoordinateParameter>,
     pub param_names: Vec<String>,
 }
 
@@ -51,7 +51,7 @@ impl ScatterDefinition {
             .captures(code)
             .ok_or_else(|| anyhow::anyhow!("Compute shader must define a 'scatter' function"))?;
 
-        let args_str = caps.get(1).unwrap().as_str();
+        let args_str = &caps[1];
 
         let mut args = Vec::new();
         let mut bracket_level = 0;
@@ -79,8 +79,7 @@ impl ScatterDefinition {
             args.push(current_arg.trim().to_string());
         }
 
-        let mut index_type = None;
-        let mut index_param_name = None;
+        let mut index: Option<CoordinateParameter> = None;
         let mut param_names = vec![];
         let mut input_element_type = ResourceBaseType::F32;
         let mut output_element_type = ResourceBaseType::F32;
@@ -96,15 +95,14 @@ impl ScatterDefinition {
 
             param_names.push(name.to_string());
 
-            let is_index_type = ty_str == "u32" || ty_str == "vec2<u32>" || ty_str == "vec3<u32>";
+            let index_shape = CoordinateShape::from_native_type(ty_str);
             let is_resource = ty_str.contains("Resource")
                 || ty_str.contains("ptr<")
                 || ty_str.contains("texture_");
 
-            if is_index_type && !is_resource {
-                if name == "index" || index_param_name.is_none() {
-                    index_type = Some(ty_str.to_string());
-                    index_param_name = Some(name.to_string());
+            if let Some(shape) = index_shape.filter(|_| !is_resource) {
+                if name == "index" || index.is_none() {
+                    index = Some(CoordinateParameter::new(name, shape));
                 }
             } else if is_resource {
                 output_element_type = fabelgeist_gpu::data::gpu::signature::parse_base_type(ty_str);
@@ -124,8 +122,7 @@ impl ScatterDefinition {
             scatter_args: args,
             input_element_type,
             output_element_type,
-            index_type,
-            index_param_name,
+            index,
             param_names,
         })
     }
@@ -233,20 +230,20 @@ impl ScatterDefinition {
             }
         }
 
-        if let Some(ref idx_ty) = sig.index_type {
-            if idx_ty == "u32" {
+        if let Some(parameter) = &sig.index {
+            if parameter.shape() == CoordinateShape::Scalar {
                 addressing = addressing.combine(TextureAddressing::LinearIndex);
                 match input_res {
                     ResourceType::Buffer => full_code.push_str("    let index = _global_index;\n"),
                     ResourceType::Texture2d => full_code.push_str("    let index = _global_index.y * tex_dim.x + _global_index.x;\n"),
                     ResourceType::Texture3d => full_code.push_str("    let index = (_global_index.z * tex_dim.y + _global_index.y) * tex_dim.x + _global_index.x;\n"),
                 }
-            } else if idx_ty == "vec2<u32>" {
+            } else if parameter.shape() == CoordinateShape::Plane {
                 if input_res == ResourceType::Buffer {
                     return Err(anyhow::anyhow!("vec2 index not supported for Buffer"));
                 }
                 full_code.push_str("    let index = _global_index.xy;\n");
-            } else if idx_ty == "vec3<u32>" {
+            } else if parameter.shape() == CoordinateShape::Volume {
                 if input_res != ResourceType::Texture3d {
                     return Err(anyhow::anyhow!("vec3 index only supported for Texture3d"));
                 }
@@ -255,16 +252,10 @@ impl ScatterDefinition {
         }
 
         let mut call_args = vec![];
-        for name in &sig.param_names {
-            if Some(name) == sig.index_param_name.as_ref() {
+        for (name, argument) in sig.param_names.iter().zip(&sig.scatter_args) {
+            if sig.index.as_ref().map(CoordinateParameter::name) == Some(name.as_str()) {
                 call_args.push("index".to_string());
-            } else if !sig
-                .scatter_args
-                .iter()
-                .find(|a| a.starts_with(&format!("{}:", name)))
-                .unwrap()
-                .contains("Resource")
-            {
+            } else if !argument.contains("Resource") {
                 // If it is NOT the resource parameter (which got stripped), it must be the input value
                 call_args.push("in_val".to_string());
             }

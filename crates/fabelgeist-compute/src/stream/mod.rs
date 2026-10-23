@@ -1,15 +1,17 @@
 use crate::prelude::*;
+use fabelgeist_gpu::data::gpu::signature::{CoordinateParameter, CoordinateShape};
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::sync::Arc;
+
+mod call;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct StreamSignature {
     pub stream_args: Vec<String>,
     pub input_element_type: ResourceBaseType,
     pub output_element_type: ResourceBaseType,
-    pub index_type: Option<String>,
-    pub index_param_name: Option<String>,
+    pub index: Option<CoordinateParameter>,
     pub param_names: Vec<String>,
     pub has_offset: bool,
     pub has_input_val: bool,
@@ -51,7 +53,7 @@ impl StreamDefinition {
             anyhow::anyhow!("Compute shader must define a 'stream' function: fn stream(...)")
         })?;
 
-        let args_str = caps.get(1).unwrap().as_str();
+        let args_str = &caps[1];
 
         let mut args = Vec::new();
         let mut bracket_level = 0;
@@ -79,8 +81,7 @@ impl StreamDefinition {
             args.push(current_arg.trim().to_string());
         }
 
-        let mut index_type = None;
-        let mut index_param_name = None;
+        let mut index: Option<CoordinateParameter> = None;
         let mut param_names = vec![];
         let mut input_element_type = ResourceBaseType::F32;
         let mut output_element_type = ResourceBaseType::F32;
@@ -97,7 +98,7 @@ impl StreamDefinition {
 
             param_names.push(name.to_string());
 
-            let is_index_type = ty_str == "u32" || ty_str == "vec2<u32>" || ty_str == "vec3<u32>";
+            let index_shape = CoordinateShape::from_native_type(ty_str);
             let is_resource = ty_str.contains("Resource")
                 || ty_str.contains("ptr<")
                 || ty_str.contains("texture_");
@@ -107,10 +108,9 @@ impl StreamDefinition {
                     return Err(anyhow::anyhow!("Offset must be u32"));
                 }
                 has_offset = true;
-            } else if is_index_type && !is_resource {
-                if name == "index" || index_param_name.is_none() {
-                    index_type = Some(ty_str.to_string());
-                    index_param_name = Some(name.to_string());
+            } else if let Some(shape) = index_shape.filter(|_| !is_resource) {
+                if name == "index" || index.is_none() {
+                    index = Some(CoordinateParameter::new(name, shape));
                 } else {
                     has_input_val = true;
                     input_element_type =
@@ -128,8 +128,7 @@ impl StreamDefinition {
             stream_args: args,
             input_element_type,
             output_element_type,
-            index_type,
-            index_param_name,
+            index,
             param_names,
             has_offset,
             has_input_val,
@@ -251,21 +250,7 @@ impl StreamDefinition {
             }
         }
 
-        let mut call_args = vec![];
-        for (i, name) in sig.param_names.iter().enumerate() {
-            let ty = &sig.stream_args[i].split(':').collect::<Vec<&str>>()[1].trim();
-            if ty.contains("Resource<") || ty.contains("ptr<") || ty.contains("texture_") {
-                continue;
-            }
-
-            if Some(name) == sig.index_param_name.as_ref() {
-                call_args.push("_global_index".to_string());
-            } else if name == "offset" {
-                call_args.push("_offset".to_string());
-            } else {
-                call_args.push("in_val".to_string());
-            }
-        }
+        let call_args = sig.call_arguments(&input_res)?;
         full_code.push_str(&format!("    stream({});\n", call_args.join(", ")));
         full_code.push_str("}\n");
 

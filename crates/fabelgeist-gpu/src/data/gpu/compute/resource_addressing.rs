@@ -1,6 +1,7 @@
 //! Address projection required by generated native resource code.
 
 use std::num::TryFromIntError;
+use std::{error::Error, fmt};
 
 /// One generated fetch and its controlling texture-address requirement.
 #[derive(Clone, Debug)]
@@ -18,17 +19,38 @@ pub enum TextureAddressing {
 }
 
 /// The actual scalar projection cannot represent the texture extent.
-#[derive(Debug, thiserror::Error)]
+#[derive(Debug)]
 pub enum TextureAddressError {
-    #[error("texture extent {extent:?} overflows the widened population calculation")]
     VolumeOverflow { extent: wgpu::Extent3d },
-    #[error("texture extent {extent:?} exceeds its {addressing:?} native projection")]
     Projection {
         extent: wgpu::Extent3d,
         addressing: TextureAddressing,
-        #[source]
         source: TryFromIntError,
     },
+}
+
+impl fmt::Display for TextureAddressError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::VolumeOverflow { extent } => write!(
+                formatter,
+                "texture extent {extent:?} overflows the widened population calculation"
+            ),
+            Self::Projection { extent, addressing, .. } => write!(
+                formatter,
+                "texture extent {extent:?} exceeds its {addressing:?} native projection"
+            ),
+        }
+    }
+}
+
+impl Error for TextureAddressError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        match self {
+            Self::Projection { source, .. } => Some(source),
+            Self::VolumeOverflow { .. } => None,
+        }
+    }
 }
 
 impl ResourceFetch {

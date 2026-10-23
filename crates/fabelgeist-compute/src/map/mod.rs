@@ -1,4 +1,5 @@
 use crate::prelude::*;
+use fabelgeist_gpu::data::gpu::signature::{CoordinateParameter, CoordinateShape};
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -7,10 +8,8 @@ use std::sync::Arc;
 pub struct MapSignature {
     pub map_args: Vec<String>, // Raw arguments: e.g. "index: vec2<u32>", "in_val: f32"
     pub output_element_type: ResourceBaseType,
-    pub index_type: Option<String>, // e.g., "u32", "vec2<u32>", "vec3<u32>"
-    pub index_param_name: Option<String>,
-    pub size_type: Option<String>, // e.g., "u32", "vec2<u32>", "vec3<u32>"
-    pub size_param_name: Option<String>,
+    pub index: Option<CoordinateParameter>,
+    pub size: Option<CoordinateParameter>,
     pub user_params: Vec<(String, ResourceBaseType)>,
     pub param_names: Vec<String>,
 }
@@ -63,7 +62,7 @@ impl MapDefinition {
             .captures(code)
             .ok_or_else(|| anyhow::anyhow!("Compute shader must define a 'map' function"))?;
 
-        let args_str = caps.get(1).unwrap().as_str();
+        let args_str = &caps[1];
         let output_type_raw = caps.get(2).map(|m| m.as_str().trim().to_string());
 
         let mut args = Vec::new();
@@ -92,10 +91,8 @@ impl MapDefinition {
             args.push(current_arg.trim().to_string());
         }
 
-        let mut index_type = None;
-        let mut index_param_name = None;
-        let mut size_type = None;
-        let mut size_param_name = None;
+        let mut index: Option<CoordinateParameter> = None;
+        let mut size: Option<CoordinateParameter> = None;
         let mut user_params = vec![];
         let mut param_names = vec![];
 
@@ -110,11 +107,9 @@ impl MapDefinition {
             param_names.push(name.to_string());
 
             if name == "index" {
-                index_type = Some(ty_str.to_string());
-                index_param_name = Some(name.to_string());
+                index = Some(CoordinateParameter::from_native(name, ty_str)?);
             } else if name == "size" {
-                size_type = Some(ty_str.to_string());
-                size_param_name = Some(name.to_string());
+                size = Some(CoordinateParameter::from_native(name, ty_str)?);
             } else {
                 user_params.push((
                     name.to_string(),
@@ -132,10 +127,8 @@ impl MapDefinition {
         Ok(MapSignature {
             map_args: args,
             output_element_type,
-            index_type,
-            index_param_name,
-            size_type,
-            size_param_name,
+            index,
+            size,
             user_params,
             param_names,
         })
@@ -225,15 +218,15 @@ impl MapDefinition {
         full_code.push_str(&output_res.generate_prologue());
 
         // Generate the user's requested index type
-        if let Some(ref idx_ty) = sig.index_type {
-            if idx_ty == "u32" {
+        if let Some(parameter) = &sig.index {
+            if parameter.shape() == CoordinateShape::Scalar {
                 addressing = addressing.combine(TextureAddressing::LinearIndex);
                 match output_res {
                     ResourceDescriptor::Buffer(_) => full_code.push_str("    let index = _global_index;\n"),
                     ResourceDescriptor::Texture2d(_) => full_code.push_str("    let index = _global_index.y * tex_dim.x + _global_index.x;\n"),
                     ResourceDescriptor::Texture3d(_) => full_code.push_str("    let index = (_global_index.z * tex_dim.y + _global_index.y) * tex_dim.x + _global_index.x;\n"),
                 }
-            } else if idx_ty == "vec2<u32>" {
+            } else if parameter.shape() == CoordinateShape::Plane {
                 if !matches!(
                     output_res,
                     ResourceDescriptor::Texture2d(_) | ResourceDescriptor::Texture3d(_)
@@ -241,7 +234,7 @@ impl MapDefinition {
                     return Err(anyhow::anyhow!("vec2 index only supported for Textures"));
                 }
                 full_code.push_str("    let index = _global_index.xy;\n");
-            } else if idx_ty == "vec3<u32>" {
+            } else if parameter.shape() == CoordinateShape::Volume {
                 if !matches!(output_res, ResourceDescriptor::Texture3d(_)) {
                     return Err(anyhow::anyhow!("vec3 index only supported for Texture3d"));
                 }
@@ -250,9 +243,9 @@ impl MapDefinition {
         }
 
         // Generate the user's requested size type
-        if let Some(ref size_ty) = sig.size_type {
-            match size_ty.as_str() {
-                "u32" => {
+        if let Some(parameter) = &sig.size {
+            match parameter.shape() {
+                CoordinateShape::Scalar => {
                     addressing = TextureAddressing::LinearPopulation;
                     match output_res {
                         ResourceDescriptor::Buffer(_) => {
@@ -266,7 +259,7 @@ impl MapDefinition {
                         }
                     }
                 }
-                "vec2<u32>" => match output_res {
+                CoordinateShape::Plane => match output_res {
                     ResourceDescriptor::Buffer(_) => {
                         full_code.push_str("    let size = vec2<u32>(arrayLength(&output), 1u);\n")
                     }
@@ -277,7 +270,7 @@ impl MapDefinition {
                         full_code.push_str("    let size = tex_dim.xy;\n")
                     }
                 },
-                "vec3<u32>" => match output_res {
+                CoordinateShape::Volume => match output_res {
                     ResourceDescriptor::Buffer(_) => full_code
                         .push_str("    let size = vec3<u32>(arrayLength(&output), 1u, 1u);\n"),
                     ResourceDescriptor::Texture2d(_) => {
@@ -287,7 +280,6 @@ impl MapDefinition {
                         full_code.push_str("    let size = tex_dim;\n")
                     }
                 },
-                _ => return Err(anyhow::anyhow!("Unsupported size type: {}", size_ty)),
             }
         }
 
@@ -330,9 +322,9 @@ impl MapDefinition {
 
         let mut map_call_args = vec![];
         for name in &sig.param_names {
-            if Some(name) == sig.index_param_name.as_ref() {
+            if sig.index.as_ref().map(CoordinateParameter::name) == Some(name.as_str()) {
                 map_call_args.push("index".to_string());
-            } else if Some(name) == sig.size_param_name.as_ref() {
+            } else if sig.size.as_ref().map(CoordinateParameter::name) == Some(name.as_str()) {
                 map_call_args.push("size".to_string());
             } else if Some(name) == input_param_name {
                 map_call_args.push("in_val".to_string());

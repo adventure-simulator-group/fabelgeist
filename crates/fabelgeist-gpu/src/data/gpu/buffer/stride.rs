@@ -3,6 +3,7 @@
 use super::BufferByteLength;
 use crate::data::gpu::compute::{InvocationCount, WorkgroupCount};
 use std::num::{NonZeroU32, TryFromIntError};
+use std::{error::Error, fmt};
 
 /// Byte spacing of records in a native storage array, including padding.
 ///
@@ -18,9 +19,16 @@ pub struct BufferElementStride(NonZeroU32);
 pub struct BufferElementCount(u32);
 
 /// A storage-array stride cannot be zero.
-#[derive(Clone, Copy, Debug, thiserror::Error)]
-#[error("native storage-array stride must be nonzero")]
+#[derive(Clone, Copy, Debug)]
 pub struct BufferElementStrideError;
+
+impl fmt::Display for BufferElementStrideError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str("native storage-array stride must be nonzero")
+    }
+}
+
+impl Error for BufferElementStrideError {}
 
 impl TryFrom<u32> for BufferElementStride {
     type Error = BufferElementStrideError;
