@@ -240,6 +240,54 @@ impl DeviceWearer<'_> {
         self.record_seated_waist(batch, fit, plan, &header)
     }
 
+    /// Seat the finite sewn transition, not only its sampled oval rows.
+    /// Anatomical neckline points stay fixed; generated collar points can move.
+    pub(crate) fn record_partlet_collar_seating(
+        &self,
+        batch: &mut KernelBatch,
+        fit: &Buffer,
+        plan: &crate::partlet_plan::PartletPlan,
+    ) -> Result<()> {
+        if plan.collar.is_none() {
+            return Ok(());
+        }
+        let layer = plan
+            .cloth
+            .layers
+            .first()
+            .context("partlet collar has no main sheet")?;
+        let first = plan.cloth.surface.points.len();
+        let mut mask = vec![0; layer.point_count as usize];
+        mask.get_mut(first..)
+            .context("partlet collar exceeds its main carrier")?
+            .fill(1);
+        let buffers = CarrierBuffers::from_topology(
+            self,
+            CarrierAdjacency::from_indices(layer.point_count, layer.indices.clone())?,
+            &mask,
+        )?;
+        let header = format!(
+            "const FIRST_POINT:u32={}u;\nconst POINT_WORDS:u32={}u;\n",
+            fabelgeist_armor::gpu::BODY_CLOTH_FIRST_POINT,
+            fabelgeist_armor::gpu::BODY_CLOTH_POINT_WORDS
+        );
+        buffers.record_support(
+            self,
+            batch,
+            fit,
+            layer.point_count,
+            &header,
+            &SeatingSurface {
+                positions: &self.body.positions,
+                faces: &buffers.faces,
+                mask: &buffers.mask,
+                face_count: self.host.faces.len() as u32,
+                clearance_metres: crate::cloth_panel::MINIMUM_CLOTH_CLEARANCE_M,
+            },
+        )?;
+        buffers.record_normals(self, batch, fit, layer.point_count, &header)
+    }
+
     fn record_seated_waist(
         &self,
         batch: &mut KernelBatch,
