@@ -12,7 +12,11 @@ pub enum ComputeEntryPoint<'a> {
 }
 
 impl ComputeEntryPoint<'_> {
-    pub(super) fn resolve(
+    /// Resolve an identity in an already parsed native shader module.
+    ///
+    /// This does not validate the module or compile a pipeline. Callers can
+    /// inspect the selected entry's workgroup shape before native creation.
+    pub fn resolve(
         self,
         module: &wgpu::naga::Module,
     ) -> ComputePipelineResult<&wgpu::naga::EntryPoint> {
