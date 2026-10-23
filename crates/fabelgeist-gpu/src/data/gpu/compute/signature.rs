@@ -2,8 +2,10 @@ use crate::data::gpu::texture::TextureFormat;
 use crate::prelude::*;
 
 pub use coordinates::{CoordinateParameter, CoordinateParameterError, CoordinateShape};
+pub use texture_value::{TextureValue, TextureValueError, TextureValueResult};
 
 mod coordinates;
+mod texture_value;
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub enum ResourceBaseType {

@@ -237,11 +237,7 @@ impl StreamDefinition {
                     full_code.push_str("    let in_val = input[_linear_index];\n")
                 }
                 _ => {
-                    let swizzle = match sig.input_element_type.component_count() {
-                        1 => ".x",
-                        2 => ".xy",
-                        _ => "",
-                    };
+                    let swizzle = TextureValue::try_from(&sig.input_element_type)?.load_suffix();
                     full_code.push_str(&format!(
                         "    let in_val = textureLoad(input, _global_index, 0){};\n",
                         swizzle

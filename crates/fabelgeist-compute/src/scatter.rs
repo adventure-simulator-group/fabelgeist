@@ -1,7 +1,7 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::ComputeEntryPoint::Named;
 use fabelgeist_gpu::data::gpu::signature::{CoordinateParameter, CoordinateShape};
-use fabelgeist_gpu::data::gpu::resource::{GpuResource, ResourceType};
+use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::sync::Arc;
 
 type ScatterPipelineCache = ComputeSourceCache<ScatterRecipe, Arc<ResourcePipeline>>;
@@ -17,8 +17,8 @@ pub struct ScatterSignature {
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 struct ScatterRecipe {
-    input: ResourceType,
-    output: ResourceType,
+    input: ResourceDescriptor,
+    output: ResourceDescriptor,
 }
 
 #[derive(Clone, Debug)]
@@ -136,8 +136,8 @@ impl ScatterDefinition {
     pub fn build_pipeline(
         &self,
         context: &WgpuContext,
-        input_res: ResourceType,
-        output_res: ResourceType,
+        input_res: ResourceDescriptor,
+        output_res: ResourceDescriptor,
     ) -> Result<ResourcePipeline> {
         let sig = Self::parse_signature(&self.code)?;
         let mut addressing = TextureAddressing::Coordinates;
@@ -166,33 +166,8 @@ impl ScatterDefinition {
 
         let mut full_code = String::new();
 
-        match input_res {
-            ResourceType::Buffer => full_code.push_str(&format!(
-                "@group(0) @binding(0) var<storage, read> input: array<{}>;\n",
-                sig.input_element_type.as_str()
-            )),
-            ResourceType::Texture2d => full_code.push_str(&format!(
-                "@group(0) @binding(0) var input: texture_2d<{}>;\n",
-                sig.input_element_type.as_str()
-            )),
-            ResourceType::Texture3d => full_code.push_str(&format!(
-                "@group(0) @binding(0) var input: texture_3d<{}>;\n",
-                sig.input_element_type.as_str()
-            )),
-        }
-
-        match output_res {
-            ResourceType::Buffer => full_code.push_str(&format!(
-                "@group(0) @binding(1) var<storage, read_write> output: array<{}>;\n",
-                sig.output_element_type.as_str()
-            )),
-            ResourceType::Texture2d => full_code.push_str(
-                "@group(0) @binding(1) var output: texture_storage_2d<rgba32float, write>;\n",
-            ),
-            ResourceType::Texture3d => full_code.push_str(
-                "@group(0) @binding(1) var output: texture_storage_3d<rgba32float, write>;\n",
-            ),
-        }
+        full_code.push_str(&input_res.to_wgsl_input_binding(0, 0, "input"));
+        full_code.push_str(&output_res.to_wgsl_output_binding(0, 1, "output"));
 
         full_code.push('\n');
         full_code.push_str(&transformed_code);
@@ -200,39 +175,35 @@ impl ScatterDefinition {
 
         // Threads driven by INPUT resolution
         match input_res {
-            ResourceType::Buffer => full_code.push_str("@compute @workgroup_size(64)\n"),
-            ResourceType::Texture2d => full_code.push_str("@compute @workgroup_size(16, 16)\n"),
-            ResourceType::Texture3d => full_code.push_str("@compute @workgroup_size(4, 4, 4)\n"),
+            ResourceDescriptor::Buffer(_) => full_code.push_str("@compute @workgroup_size(64)\n"),
+            ResourceDescriptor::Texture2d(_) => full_code.push_str("@compute @workgroup_size(16, 16)\n"),
+            ResourceDescriptor::Texture3d(_) => full_code.push_str("@compute @workgroup_size(4, 4, 4)\n"),
         }
         full_code.push_str("fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {\n");
 
         match input_res {
-            ResourceType::Buffer => {
+            ResourceDescriptor::Buffer(_) => {
                 full_code.push_str("    let _global_index = global_id.x;\n");
                 full_code.push_str("    if (_global_index >= arrayLength(&input)) { return; }\n");
                 full_code.push_str("    let in_val = input[_global_index];\n");
             }
-            ResourceType::Texture2d => {
+            ResourceDescriptor::Texture2d(_) => {
                 full_code.push_str("    let _global_index = global_id.xy;\n");
                 full_code.push_str("    let tex_dim = textureDimensions(input);\n");
                 full_code.push_str("    if (_global_index.x >= tex_dim.x || _global_index.y >= tex_dim.y) { return; }\n");
-                if sig.input_element_type.is_scalar() {
-                    full_code
-                        .push_str("    let in_val = textureLoad(input, _global_index, 0).x;\n");
-                } else {
-                    full_code.push_str("    let in_val = textureLoad(input, _global_index, 0);\n");
-                }
+                let suffix = TextureValue::try_from(&sig.input_element_type)?.load_suffix();
+                full_code.push_str(&format!(
+                    "    let in_val = textureLoad(input, _global_index, 0){suffix};\n"
+                ));
             }
-            ResourceType::Texture3d => {
+            ResourceDescriptor::Texture3d(_) => {
                 full_code.push_str("    let _global_index = global_id;\n");
                 full_code.push_str("    let tex_dim = textureDimensions(input);\n");
                 full_code.push_str("    if (_global_index.x >= tex_dim.x || _global_index.y >= tex_dim.y || _global_index.z >= tex_dim.z) { return; }\n");
-                if sig.input_element_type.is_scalar() {
-                    full_code
-                        .push_str("    let in_val = textureLoad(input, _global_index, 0).x;\n");
-                } else {
-                    full_code.push_str("    let in_val = textureLoad(input, _global_index, 0);\n");
-                }
+                let suffix = TextureValue::try_from(&sig.input_element_type)?.load_suffix();
+                full_code.push_str(&format!(
+                    "    let in_val = textureLoad(input, _global_index, 0){suffix};\n"
+                ));
             }
         }
 
@@ -240,17 +211,17 @@ impl ScatterDefinition {
             if parameter.shape() == CoordinateShape::Scalar {
                 addressing = addressing.combine(TextureAddressing::LinearIndex);
                 match input_res {
-                    ResourceType::Buffer => full_code.push_str("    let index = _global_index;\n"),
-                    ResourceType::Texture2d => full_code.push_str("    let index = _global_index.y * tex_dim.x + _global_index.x;\n"),
-                    ResourceType::Texture3d => full_code.push_str("    let index = (_global_index.z * tex_dim.y + _global_index.y) * tex_dim.x + _global_index.x;\n"),
+                    ResourceDescriptor::Buffer(_) => full_code.push_str("    let index = _global_index;\n"),
+                    ResourceDescriptor::Texture2d(_) => full_code.push_str("    let index = _global_index.y * tex_dim.x + _global_index.x;\n"),
+                    ResourceDescriptor::Texture3d(_) => full_code.push_str("    let index = (_global_index.z * tex_dim.y + _global_index.y) * tex_dim.x + _global_index.x;\n"),
                 }
             } else if parameter.shape() == CoordinateShape::Plane {
-                if input_res == ResourceType::Buffer {
+                if matches!(input_res, ResourceDescriptor::Buffer(_)) {
                     return Err(anyhow::anyhow!("vec2 index not supported for Buffer"));
                 }
                 full_code.push_str("    let index = _global_index.xy;\n");
             } else if parameter.shape() == CoordinateShape::Volume {
-                if input_res != ResourceType::Texture3d {
+                if !matches!(input_res, ResourceDescriptor::Texture3d(_)) {
                     return Err(anyhow::anyhow!("vec3 index only supported for Texture3d"));
                 }
                 full_code.push_str("    let index = _global_index;\n");
@@ -261,7 +232,10 @@ impl ScatterDefinition {
         for (name, argument) in sig.param_names.iter().zip(&sig.scatter_args) {
             if sig.index.as_ref().map(CoordinateParameter::name) == Some(name.as_str()) {
                 call_args.push("index".to_string());
-            } else if !argument.contains("Resource") {
+            } else if !argument.contains("Resource")
+                && !argument.contains("ptr<")
+                && !argument.contains("texture_")
+            {
                 // If it is NOT the resource parameter (which got stripped), it must be the input value
                 call_args.push("in_val".to_string());
             }
@@ -279,12 +253,12 @@ impl ScatterDefinition {
     pub fn get_or_create_pipeline(
         &self,
         context: &WgpuContext,
-        input_res: ResourceType,
-        output_res: ResourceType,
+        input_res: ResourceDescriptor,
+        output_res: ResourceDescriptor,
     ) -> Result<Arc<ResourcePipeline>> {
         let recipe = ScatterRecipe {
-            input: input_res,
-            output: output_res,
+            input: input_res.clone(),
+            output: output_res.clone(),
         };
         self.cache
             .get_or_try_insert(context, &self.code, recipe, || {
@@ -304,10 +278,11 @@ impl Scatter {
         input: &GpuResource,
         output: &GpuResource,
     ) -> Result<()> {
+        let signature = ScatterDefinition::parse_signature(&definition.code)?;
         let pipeline_info = definition.get_or_create_pipeline(
             context,
-            input.resource_type(),
-            output.resource_type(),
+            ResourceDescriptor::from_resource(input, signature.input_element_type),
+            ResourceDescriptor::from_resource(output, signature.output_element_type),
         )?;
         let pipeline = pipeline_info.pipeline();
 

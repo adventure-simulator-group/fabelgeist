@@ -260,22 +260,8 @@ impl GatherDefinition {
             }
             ResourceDescriptor::Texture2d(_) | ResourceDescriptor::Texture3d(_) => {
                 full_code.push_str(&format!("    let _map_result = {};\n", gather_call));
-                let base_ty_str = sig.output_element_type.base_type().as_str();
-                let pad_val = if base_ty_str == "f32" { "0.0" } else { "0" };
-                let sig_comps = sig.output_element_type.component_count();
-
-                let store_val = match sig_comps {
-                    1 => format!(
-                        "vec4<{}>(_map_result, {}, {}, {})",
-                        base_ty_str, pad_val, pad_val, pad_val
-                    ),
-                    2 => format!(
-                        "vec4<{}>(_map_result, {}, {})",
-                        base_ty_str, pad_val, pad_val
-                    ),
-                    4 => "_map_result".to_string(),
-                    _ => "_map_result".to_string(),
-                };
+                let store_val = TextureValue::try_from(&sig.output_element_type)?
+                    .store_expression("_map_result");
 
                 full_code.push_str(&format!(
                     "    textureStore(output, _global_index, {});\n",

@@ -150,7 +150,7 @@ impl ResourceDescriptor {
         input_name: &str,
         output_res: &ResourceDescriptor,
         element_type: &ResourceBaseType,
-    ) -> ResourceFetch {
+    ) -> TextureValueResult<ResourceFetch> {
         let mut code = String::new();
         let mut addressing = TextureAddressing::Coordinates;
         match self {
@@ -186,11 +186,7 @@ impl ResourceDescriptor {
                     input_name
                 ));
                 code.push_str("    if (_in_global_index.x >= in_tex_dim.x || _in_global_index.y >= in_tex_dim.y) { return; }\n");
-                let swizzle = match element_type.component_count() {
-                    1 => ".x",
-                    2 => ".xy",
-                    _ => "",
-                };
+                let swizzle = TextureValue::try_from(element_type)?.load_suffix();
                 code.push_str(&format!(
                     "    let in_val = textureLoad({}, _in_global_index, 0){};\n",
                     input_name, swizzle
@@ -203,17 +199,13 @@ impl ResourceDescriptor {
                     input_name
                 ));
                 code.push_str("    if (_in_global_index.x >= in_tex_dim.x || _in_global_index.y >= in_tex_dim.y || _in_global_index.z >= in_tex_dim.z) { return; }\n");
-                let swizzle = match element_type.component_count() {
-                    1 => ".x",
-                    2 => ".xy",
-                    _ => "",
-                };
+                let swizzle = TextureValue::try_from(element_type)?.load_suffix();
                 code.push_str(&format!(
                     "    let in_val = textureLoad({}, _in_global_index, 0){};\n",
                     input_name, swizzle
                 ));
             }
         }
-        ResourceFetch::new(code, addressing)
+        Ok(ResourceFetch::new(code, addressing))
     }
 }

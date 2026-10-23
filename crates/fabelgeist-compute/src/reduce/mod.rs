@@ -93,22 +93,14 @@ impl ReduceDefinition {
             let fetch_logic = match input_res {
                 ResourceDescriptor::Buffer(_) => "input[index]".to_string(),
                 ResourceDescriptor::Texture2d(_) => {
-                    let swizzle = match ty.component_count() {
-                        1 => ".x",
-                        2 => ".xy",
-                        _ => "",
-                    };
+                    let swizzle = TextureValue::try_from(&ty)?.load_suffix();
                     format!(
                         "textureLoad(input, vec2<u32>(index % _dim.x, index / _dim.x), 0){}",
                         swizzle
                     )
                 }
                 ResourceDescriptor::Texture3d(_) => {
-                    let swizzle = match ty.component_count() {
-                        1 => ".x",
-                        2 => ".xy",
-                        _ => "",
-                    };
+                    let swizzle = TextureValue::try_from(&ty)?.load_suffix();
                     format!(
                         "textureLoad(input, vec3<u32>(index % _dim.x, (index / _dim.x) % _dim.y, index / (_dim.x * _dim.y)), 0){}",
                         swizzle

@@ -527,7 +527,10 @@ impl StencilDefinition {
                 _ => unreachable!(),
             };
 
-            let swizzle = get_swizzle(sig.input_element_type.component_count());
+            let swizzle = match &input_res {
+                ResourceDescriptor::Buffer(_) => "",
+                _ => TextureValue::try_from(&sig.input_element_type)?.load_suffix(),
+            };
             let fetch_expr = match &input_res {
                 ResourceDescriptor::Buffer(_) => match sig.dim {
                     1 => "input[{}]".to_string(),
@@ -772,22 +775,8 @@ impl StencilDefinition {
             }
             ResourceDescriptor::Texture2d(_) | ResourceDescriptor::Texture3d(_) => {
                 full_code.push_str(&format!("    let _stencil_result = {};\n", stencil_call));
-                let base_ty_str = sig.output_element_type.base_type().as_str();
-                let pad_val = if base_ty_str == "f32" { "0.0" } else { "0" };
-                let sig_comps = sig.output_element_type.component_count();
-
-                let store_val = match sig_comps {
-                    1 => format!(
-                        "vec4<{}>(_stencil_result, {}, {}, {})",
-                        base_ty_str, pad_val, pad_val, pad_val
-                    ),
-                    2 => format!(
-                        "vec4<{}>(_stencil_result, {}, {})",
-                        base_ty_str, pad_val, pad_val
-                    ),
-                    4 => "_stencil_result".to_string(),
-                    _ => "_stencil_result".to_string(),
-                };
+                let store_val = TextureValue::try_from(&sig.output_element_type)?
+                    .store_expression("_stencil_result");
 
                 full_code.push_str(&format!(
                     "    textureStore(output, _global_index, {});\n",
@@ -929,15 +918,6 @@ fn sanitize_type_name(t: &str) -> String {
         .replace(">", "")
         .replace(" ", "")
         .replace(",", "_")
-}
-
-fn get_swizzle(components: usize) -> &'static str {
-    match components {
-        1 => ".x",
-        2 => ".xy",
-        3 => ".xyz",
-        _ => "",
-    }
 }
 
 #[cfg(test)]
