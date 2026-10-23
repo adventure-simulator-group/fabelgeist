@@ -15,22 +15,16 @@ pub struct WgpuContext {
     pub surface: Option<Arc<wgpu::Surface<'static>>>,
     pub blitter: Option<Arc<Blitter>>,
     pub blit_lock: Arc<async_lock::Mutex<()>>,
-    /// Whether shader and pipeline creation may drain the queue to read back a
-    /// validation error scope.
+    /// Whether shader, pipeline and texture construction synchronously waits
+    /// for native validation results.
     ///
-    /// On a device this context owns, draining is instant and the error scope
-    /// turns a bad shader into a `Result` instead of a panic -- worth having.
-    /// On a *borrowed* device it is a trap: an application's render loop is
-    /// submitting continuously, so waiting for the queue to empty blocks until
-    /// the driver's watchdog gives up and removes the device. Borrowed devices
-    /// therefore skip it and let wgpu's uncaptured-error handler report,
-    /// which costs nothing: the naga validator has already run over the
-    /// source by that point and catches essentially everything.
-    ///
-    /// Only the shader and pipeline paths honour this so far. Texture
-    /// creation drains the queue the same way and would hang a borrowed
-    /// device identically -- nothing reaches it on a borrowed context today,
-    /// but that is the place to look if one ever does.
+    /// Native contexts created here enable this; borrowed contexts disable it
+    /// to avoid blocking their caller on GPU work. A blocking poll waits for
+    /// the latest submission observed when polling begins and has no timeout.
+    /// When disabled, these constructors install no validation scope, so
+    /// native errors follow the device's configured error handling. Browser
+    /// builds skip synchronous readback. Shader source is separately checked
+    /// by Naga.
     pub blocking_validation: bool,
 }
 
@@ -120,18 +114,12 @@ impl WgpuContext {
         }
     }
 
-    /// Wait until everything submitted so far has finished on the GPU.
+    /// Wait until a queue marker and all work submitted before it complete.
     ///
-    /// This is backpressure, and a loop that submits every frame needs it. A
-    /// submission is not throttled by anything: a caller that submits faster
-    /// than the device drains will queue work without bound, and the queue is
-    /// memory. It ends with the driver losing the device, tens of seconds
-    /// later, somewhere with no connection to the code that caused it.
-    ///
-    /// Waits on a submission index rather than the whole queue, so it is safe
-    /// on a device shared with a renderer -- unlike `poll(wait_indefinitely)`,
-    /// which never returns while something else keeps submitting. See
-    /// [`WgpuContext::blocking_validation`].
+    /// Callers can use this for backpressure before submitting more work.
+    /// Native builds wait on an explicit submission index; submissions made
+    /// after that marker need not finish before this call returns. Browser
+    /// builds wait for the queue's completion callback instead.
     pub async fn submitted_work_done(&self) {
         #[cfg(not(target_arch = "wasm32"))]
         {
@@ -284,12 +272,11 @@ unsafe impl Sync for WgpuContext {}
 mod tests {
     use super::*;
 
-    /// Borrowing a device must not opt into draining its queue.
+    /// Borrowed contexts leave synchronous validation to the application.
     ///
-    /// Getting this wrong does not fail a test or produce a wrong number: it
-    /// hangs the calling thread until the driver watchdog removes the device,
-    /// which surfaces as an unrelated `DEVICE_REMOVED` on whatever call comes
-    /// next. So the contract is pinned here rather than left to a comment.
+    /// Construction paths consult this flag before waiting for native
+    /// validation results. Wrapping an application's device must preserve the
+    /// nonblocking policy even when the original context permits a wait.
     #[tokio::test]
     async fn a_borrowed_device_skips_blocking_validation() -> Result<()> {
         let owned = WgpuContext::new().await?;
@@ -306,7 +293,7 @@ mod tests {
         );
         assert!(
             !borrowed.blocking_validation,
-            "a borrowed device may have someone else submitting to it; draining              its queue would block until the driver gives up"
+            "wrapping a device must not enable synchronous validation readback"
         );
         assert!(borrowed.surface.is_none());
         Ok(())

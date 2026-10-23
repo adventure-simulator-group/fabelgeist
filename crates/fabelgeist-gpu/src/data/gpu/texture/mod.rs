@@ -1,11 +1,3 @@
-mod cube_face;
-mod format;
-mod srgb_converter;
-mod texture_2d;
-mod texture_3d;
-mod texture_cube;
-mod texture_view;
-mod view_error;
 pub use cube_face::*;
 pub use format::*;
 pub use srgb_converter::*;
@@ -14,3 +6,15 @@ pub use texture_3d::*;
 pub use texture_cube::*;
 pub use texture_view::*;
 pub use view_error::*;
+
+mod cube_face;
+mod format;
+mod srgb_converter;
+mod texture_2d;
+mod texture_3d;
+mod texture_cube;
+mod texture_view;
+mod view_error;
+
+/// Default edge length, in pixels, for an unspecified texture size.
+const DEFAULT_TEXTURE_EDGE_PIXELS: f32 = 256.0;

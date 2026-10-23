@@ -1,6 +1,6 @@
-use crate::data::gpu::texture::Texture2d;
+use crate::data::gpu::texture::{Texture2d, TextureViewError};
 use crate::globals::WgpuContext;
-use anyhow::Result;
+use anyhow::{Context, Result};
 use std::sync::Arc;
 
 #[derive(Clone)]
@@ -92,11 +92,13 @@ impl TextureSrgbConverter {
         let src_view = src
             .view
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Source texture view missing"))?;
+            .ok_or(TextureViewError::MissingView)
+            .context("Source texture view missing")?;
         let dst_view = dst
             .view
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Destination texture view missing"))?;
+            .ok_or(TextureViewError::MissingView)
+            .context("Destination texture view missing")?;
 
         let bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
             label: Some("sRGB Conversion Bind Group"),

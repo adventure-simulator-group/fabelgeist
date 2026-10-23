@@ -1,16 +1,16 @@
-//! Failures selecting a format view of an existing whole texture.
+//! Texture resource admission and whole-texture format-view failures.
 
 use super::TextureFormat;
 
-/// Failures from the three whole-texture `view_with_format` methods.
+/// Missing texture resources and native whole-texture format-view failures.
 ///
 /// Native variants retain the original request, even when storage binding
 /// requires its linear counterpart at the WebGPU descriptor boundary.
 #[derive(Debug)]
 pub enum TextureViewError {
-    /// A different-format request has no native texture to view.
+    /// The operation requires a native texture, but none is present.
     Uninitialized,
-    /// A same-format request has no cached view to share.
+    /// The operation requires a cached view, but none is present.
     MissingView,
     /// Native rejection of a two-dimensional texture view.
     Texture2d {

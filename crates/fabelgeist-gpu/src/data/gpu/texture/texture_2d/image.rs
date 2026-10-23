@@ -94,6 +94,13 @@ impl Image {
 }
 
 impl super::Texture2d {
+    /// The texture's pixels, read back as an image.
+    ///
+    /// The inverse of [`Image::packed_for`], and no transfer function here
+    /// either: the stored bytes of an eight-bit texture are the image's bytes,
+    /// so uploading a picture and reading it back returns the picture. A float
+    /// texture is narrowed to eight bits, which is the one lossy step, and a
+    /// single-channel one is spread across the three.
     pub async fn read_image(&self, context: &WgpuContext) -> Result<Image> {
         let (width, height) = self.size;
         if width == 0 || height == 0 {

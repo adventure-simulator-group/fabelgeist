@@ -36,9 +36,13 @@ fn select(
 The WebGPU device, native view descriptor and returned Arc are SDK boundaries.
 Storage binding requires an sRGB request to select its linear counterpart at
 the descriptor boundary. The original request remains in a rejection. The
-method does not change native validation, descriptor inference, cube layers,
-labels, scope filtering or polling. Cached returns do not add a poll; native
-creation retains its existing poll before returning.
+methods preserve descriptor inference, cube layers, labels and validation
+filtering. Cached returns do not poll. Native contexts that own their device
+read back the validation scope before returning; borrowed contexts skip that
+blocking readback, as do browser builds. Those contexts report native failures
+through the device's uncaptured-error handler rather than a synchronous
+`TextureViewError`. Initial texture and cube-face view construction follow the
+same context policy and retain native causes when a scope is read back.
 
 The three ComputePass texture-binding paths preserve these errors through
 standard conversion. Their reflection and descriptor policies are unchanged.
@@ -47,7 +51,9 @@ separate operations. Further subresource work should compose this error owner
 where applicable rather than introduce an equivalent type.
 
 Public tests cover cache absence, branch priority, native rejection and retained
-causes. Software Vulkan observations cover view sharing, readback bits, and
-compute-pass propagation with explicitly authored public reflection metadata.
-They do not establish hardware-wide, browser runtime, performance or calibrated
-rendering behavior. Browser builds retain the existing native scope differences.
+causes. Earlier software Vulkan observations covered view sharing, readback
+bits and
+compute-pass propagation with authored public reflection metadata. Those
+historical observations do not validate the current source. They supply no
+hardware-wide, browser runtime, performance or calibrated rendering verdict.
+Current acceptance requires the hosted checks at the final PR revision.

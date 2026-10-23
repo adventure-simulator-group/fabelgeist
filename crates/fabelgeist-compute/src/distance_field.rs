@@ -2,7 +2,7 @@ use crate::prelude::*;
 use crate::{Map, MapDefinition};
 use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
-use fabelgeist_gpu::data::gpu::texture::Texture3d;
+use fabelgeist_gpu::data::gpu::texture::{Texture3d, TextureViewError};
 
 pub struct DistanceField;
 
@@ -32,6 +32,7 @@ impl DistanceField {
         parameters: Option<PassParameters>,
         io: &Texture3d,
     ) -> Result<()> {
+        let native_input = io.texture.as_ref().ok_or(TextureViewError::Uninitialized)?;
         let sig = MapDefinition::parse_signature(&definition.code)?;
         let re = regex::Regex::new(r"\bfn\s+map\b")?;
         let user_code = re.replace(&definition.code, "fn user_map").to_string();
@@ -77,13 +78,16 @@ impl DistanceField {
 
         encoder.copy_texture_to_texture(
             wgpu::TexelCopyTextureInfo {
-                texture: io.texture.as_ref().unwrap(),
+                texture: native_input,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
             },
             wgpu::TexelCopyTextureInfo {
-                texture: temp_tex.texture.as_ref().unwrap(),
+                texture: temp_tex
+                    .texture
+                    .as_ref()
+                    .ok_or(TextureViewError::Uninitialized)?,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
@@ -110,6 +114,7 @@ impl DistanceField {
         k: f32,
         io: &Texture3d,
     ) -> Result<()> {
+        let native_input = io.texture.as_ref().ok_or(TextureViewError::Uninitialized)?;
         let sig = MapDefinition::parse_signature(&definition.code)?;
         let re = regex::Regex::new(r"\bfn\s+map\b")?;
         let user_code = re.replace(&definition.code, "fn user_map").to_string();
@@ -164,13 +169,16 @@ impl DistanceField {
 
         encoder.copy_texture_to_texture(
             wgpu::TexelCopyTextureInfo {
-                texture: io.texture.as_ref().unwrap(),
+                texture: native_input,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
             },
             wgpu::TexelCopyTextureInfo {
-                texture: temp_tex.texture.as_ref().unwrap(),
+                texture: temp_tex
+                    .texture
+                    .as_ref()
+                    .ok_or(TextureViewError::Uninitialized)?,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
