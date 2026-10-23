@@ -15,7 +15,7 @@ pub(super) fn create(
     reflection: &BindGroupReflection,
     parameters: &PassParameters,
 ) -> Result<Option<Buffer>> {
-    if reflection.uniform_buffer_size == 0 {
+    if reflection.uniform_buffer_size == BufferByteLength::default() {
         return Ok(None);
     }
     // DeviceExt previously padded the initialized allocation to this native
@@ -34,8 +34,11 @@ pub(super) fn create(
         }
         .into());
     }
-    let mut data = uniforms::pack_uniforms(reflection, parameters);
-    data.resize(bytes as usize, 0);
+    let mut data = uniforms::pack_uniforms(reflection, parameters)?;
+    data.resize(
+        usize::try_from(bytes).map_err(ComputePassError::UniformHostAddress)?,
+        0,
+    );
     #[cfg(not(target_arch = "wasm32"))]
     let scope = context.blocking_validation.then(|| {
         context

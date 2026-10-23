@@ -1,9 +1,11 @@
-//! Admit the value shapes that named host parameters can actually pack.
+//! Retain the native byte layout and immediate struct-member lookup names.
 
 use super::GroupBuilder;
-use crate::data::gpu::shader::{UniformMember, UniformValueShape};
-use crate::data::{ComputePipelineError, ComputePipelineResult};
-use wgpu::naga::{Handle, Module, ScalarKind, Type, TypeInner, VectorSize};
+use crate::data::gpu::shader::UniformMember;
+use crate::data::{
+    BufferByteLength, BufferByteOffset, ComputePipelineError, ComputePipelineResult,
+};
+use wgpu::naga::{Handle, Module, Type, TypeInner};
 
 impl GroupBuilder {
     pub(super) fn uniform(
@@ -11,7 +13,6 @@ impl GroupBuilder {
         module: &Module,
         ty: Handle<Type>,
         binding: u32,
-        name: String,
     ) -> ComputePipelineResult<()> {
         if let Some(first) = self.reflection.uniform_binding {
             return Err(ComputePipelineError::MultipleUniformBindings {
@@ -26,28 +27,20 @@ impl GroupBuilder {
             for member in members {
                 let name = member.name.clone().unwrap_or_default();
                 let ty = &module.types[member.ty].inner;
-                let shape = self.uniform_shape(ty, binding, &name)?;
                 reflected.push(UniformMember {
                     name,
-                    shape,
-                    offset: member.offset,
-                    size: ty.size(module.to_ctx()),
+                    offset: BufferByteOffset::from(u64::from(member.offset)),
+                    size: BufferByteLength::from(u64::from(ty.size(module.to_ctx()))),
                 });
             }
             *span
         } else {
-            let shape = self.uniform_shape(ty, binding, &name)?;
-            let size = ty.size(module.to_ctx());
-            reflected.push(UniformMember {
-                name,
-                shape,
-                offset: 0,
-                size,
-            });
-            size
+            // Only immediate struct members are named parameter destinations.
+            // Direct nonstruct blocks retain their existing zero initialization.
+            ty.size(module.to_ctx())
         };
         self.reflection.uniform_binding = Some(binding);
-        self.reflection.uniform_buffer_size = span;
+        self.reflection.uniform_buffer_size = BufferByteLength::from(u64::from(span));
         self.reflection.uniform_members = reflected;
         self.entry(
             binding,
@@ -58,52 +51,5 @@ impl GroupBuilder {
             },
         );
         Ok(())
-    }
-
-    fn uniform_shape(
-        &self,
-        ty: &TypeInner,
-        binding: u32,
-        name: &str,
-    ) -> ComputePipelineResult<UniformValueShape> {
-        // Native f32/u32 widths match the existing host value representations.
-        let shape = match ty {
-            TypeInner::Scalar(scalar) if scalar.width == size_of::<u32>() as u8 => {
-                match scalar.kind {
-                    ScalarKind::Float => Some(UniformValueShape::Float),
-                    ScalarKind::Uint | ScalarKind::Sint => Some(UniformValueShape::IntegerWord),
-                    _ => None,
-                }
-            }
-            TypeInner::Vector { size, scalar }
-                if scalar.width == size_of::<f32>() as u8 && scalar.kind == ScalarKind::Float =>
-            {
-                Some(match size {
-                    VectorSize::Bi => UniformValueShape::Vec2,
-                    VectorSize::Tri => UniformValueShape::Vec3,
-                    VectorSize::Quad => UniformValueShape::Vec4,
-                })
-            }
-            TypeInner::Matrix {
-                columns,
-                rows,
-                scalar,
-            } if columns == rows
-                && scalar.width == size_of::<f32>() as u8
-                && scalar.kind == ScalarKind::Float =>
-            {
-                Some(match columns {
-                    VectorSize::Bi => UniformValueShape::Mat2,
-                    VectorSize::Tri => UniformValueShape::Mat3,
-                    VectorSize::Quad => UniformValueShape::Mat4,
-                })
-            }
-            _ => None,
-        };
-        shape.ok_or_else(|| ComputePipelineError::UnsupportedUniformType {
-            group: self.reflection.index,
-            binding,
-            name: name.to_owned(),
-        })
     }
 }

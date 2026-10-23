@@ -19,13 +19,8 @@ pub(super) fn write_uniform(
             }
             .into());
         };
-        if !member.shape.accepts(value) {
-            return Err(ComputePassError::UnsupportedUniform {
-                name: member.name.clone(),
-            }
-            .into());
-        }
-        let offset = member.offset as usize;
+        let offset = usize::try_from(u64::from(member.offset))
+            .map_err(ComputePassError::UniformHostAddress)?;
 
         let mut put = |values: &[f32]| {
             let end = offset + values.len() * 4;

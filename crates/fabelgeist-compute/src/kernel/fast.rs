@@ -114,11 +114,12 @@ impl FastPath {
             })
             .collect();
 
-        let uniform_size = u64::from(group.uniform_buffer_size);
-        if uniform_size as usize > MAX_UNIFORM_BYTES {
+        let uniform_size = group.uniform_buffer_size;
+        if uniform_size > BufferByteLength::from(MAX_UNIFORM_BYTES) {
             return Ok(None);
         }
-        let uniform_binding = group.uniform_binding.filter(|_| uniform_size > 0);
+        let native_uniform_size = u64::from(uniform_size);
+        let uniform_binding = group.uniform_binding.filter(|_| native_uniform_size > 0);
         if let Some(binding) = uniform_binding {
             entries.push(wgpu::BindGroupLayoutEntry {
                 binding,
@@ -128,7 +129,7 @@ impl FastPath {
                     // Each fresh group binds the batch's uniform chunk;
                     // the dynamic offset selects this dispatch's slot.
                     has_dynamic_offset: true,
-                    min_binding_size: std::num::NonZeroU64::new(uniform_size),
+                    min_binding_size: std::num::NonZeroU64::new(native_uniform_size),
                 },
                 count: None,
             });
@@ -138,7 +139,7 @@ impl FastPath {
         let compiled = CompiledLayout::new(context, &entries, module, entry_point)?;
 
         let alignment = context.device.limits().min_uniform_buffer_offset_alignment as u64;
-        let stride = uniform_size.div_ceil(alignment.max(1)) * alignment.max(1);
+        let stride = native_uniform_size.div_ceil(alignment.max(1)) * alignment.max(1);
 
         Ok(Some(Self {
             pipeline: compiled.pipeline,
@@ -146,7 +147,7 @@ impl FastPath {
             buffers: group.buffer_bindings.clone(),
             uniform_binding,
             uniform_members: group.uniform_members.clone(),
-            uniform_size: uniform_size.into(),
+            uniform_size,
             stride: stride.into(),
             device: context.device.clone(),
         }))
@@ -193,7 +194,7 @@ impl FastPath {
         }
         let mut data = [0u8; MAX_UNIFORM_BYTES];
         let size = usize::try_from(u64::from(self.uniform_size))
-            .map_err(|_| arena::UniformArenaError::AddressOverflow)?;
+            .map_err(ComputePassError::UniformHostAddress)?;
         let data = data
             .get_mut(..size)
             .ok_or(arena::UniformArenaError::StrideExceedsChunk)?;

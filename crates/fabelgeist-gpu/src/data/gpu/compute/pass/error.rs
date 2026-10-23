@@ -1,4 +1,4 @@
-use crate::data::gpu::buffer::BufferByteLength;
+use crate::data::gpu::buffer::{BufferByteLength, BufferByteOffset};
 use std::{error::Error, fmt, sync::Arc};
 
 /// The reflected resource required by a shader binding.
@@ -34,6 +34,13 @@ pub enum ComputePassError {
     UnsupportedUniform {
         name: String,
     },
+    UniformHostAddress(std::num::TryFromIntError),
+    UniformPackingOverflow,
+    UniformPackingOutOfBounds {
+        offset: BufferByteOffset,
+        size: BufferByteLength,
+        capacity: BufferByteLength,
+    },
     Native(Arc<wgpu::Error>),
 }
 
@@ -63,6 +70,21 @@ impl fmt::Display for ComputePassError {
                 formatter,
                 "Kernel: uniform '{name}' has a value the cached dispatch path does not pack"
             ),
+            Self::UniformHostAddress(cause) => write!(
+                formatter,
+                "ComputePass: uniform layout does not fit a host byte address: {cause}"
+            ),
+            Self::UniformPackingOverflow => {
+                formatter.write_str("ComputePass: uniform packing byte range overflow")
+            }
+            Self::UniformPackingOutOfBounds {
+                offset,
+                size,
+                capacity,
+            } => write!(
+                formatter,
+                "ComputePass: writing {size} uniform bytes at {offset} exceeds a {capacity}-byte block"
+            ),
             Self::Native(cause) => {
                 write!(formatter, "ComputePass native validation error: {cause}")
             }
@@ -74,6 +96,7 @@ impl Error for ComputePassError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match self {
             Self::Native(cause) => Some(cause.as_ref()),
+            Self::UniformHostAddress(cause) => Some(cause),
             _ => None,
         }
     }

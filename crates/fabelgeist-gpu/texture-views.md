@@ -98,18 +98,31 @@ Float textures require filtering only when an entry point samples them; a
 load-only float texture does not acquire that requirement. Provider features and
 limits still determine native acceptance.
 
-Named uniforms support one block per group: a flat struct or a direct scalar,
-float vector or square float matrix. Scalars use f32 or the existing 32-bit
-integer-word encoding, including signed inputs. Each reflected value retains its
-expected shape. Static packing leaves missing or mismatched values at zero; the
-cached path rejects them and retains its narrower matrix support. Supplied
-values cannot overwrite another member by selecting a wider packing shape.
-Multiple blocks in one group, nested or array uniform values, unsupported
-scalar/vector/matrix representations and resource payloads absent from
-`PassParameter` return typed pipeline admission errors. This includes resource
-binding arrays and external textures. Unused globals require no bindings. Used
-immediate data is also rejected explicitly: this interface supplies named buffer
-and texture parameters, and records no native immediate-value commands.
+Named uniform destinations are the immediate members of a reflected struct.
+Their native byte offsets and spans use `BufferByteOffset` and
+`BufferByteLength` through reflection, static packing and the cached path. Both
+packers choose the provided `PassParameter` variant, preserving its native byte
+encoding and the existing whole-block bounds. They do not require that variant
+to match the member's declared shader type or restrict writes to the member's
+span. Array and nested members therefore retain the same provided-value protocol
+as other struct members. Signed and unsigned inputs keep their existing 32-bit
+word representation.
+
+Static packing leaves missing or unsupported provided values at zero. The cached
+path rejects them and retains its narrower matrix support. Direct nonstruct
+blocks retain their native extent but have no named destinations, so they stay
+zero initialized; an extra parameter keyed by the global name does not change
+them. Matrix packing preserves the native component order and the existing
+reflected-span rule for Mat3. A component window that would run beyond the block
+now returns a typed packing error instead of panicking. Host address narrowing
+retains its concrete conversion cause.
+
+Multiple uniform blocks in one group remain unsupported by this interface.
+Resource binding arrays and external textures have no `PassParameter` payload
+and return typed pipeline admission errors. These binding arrays are distinct
+from array values inside one uniform block. Unused globals require no bindings.
+Used immediate data is also rejected explicitly: this interface records no
+native immediate-value commands.
 
 Cached kernels keep per-batch uniform slots with checked byte offsets and retain
 native pipeline/binding causes. Empty launches in a batch skip parameter

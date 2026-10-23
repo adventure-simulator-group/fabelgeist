@@ -1,23 +1,35 @@
-use crate::data::{BindGroupReflection, PassParameter, PassParameters, UniformMember};
+use crate::data::{
+    BindGroupReflection, BufferByteLength, BufferByteOffset, ComputePassError, PassParameter,
+    PassParameters, UniformMember,
+};
 
-/// Pack Naga's reflected byte offsets using the existing static-layout policy.
+type UniformPackingResult<T> = Result<T, ComputePassError>;
+
+/// Pack provided value variants at Naga's reflected byte offsets.
+/// Missing and unsupported values retain the static layout's zero bytes.
 pub(super) fn pack_uniforms(
     reflection: &BindGroupReflection,
     parameters: &PassParameters,
-) -> Vec<u8> {
-    let mut data = vec![0u8; reflection.uniform_buffer_size as usize];
+) -> UniformPackingResult<Vec<u8>> {
+    let size = usize::try_from(u64::from(reflection.uniform_buffer_size))
+        .map_err(ComputePassError::UniformHostAddress)?;
+    let mut data = vec![0u8; size];
     for member in &reflection.uniform_members {
-        if let Some(value) = parameters.get(&member.name)
-            && member.shape.accepts(value)
-        {
-            write_value(&mut data, member, value);
+        if let Some(value) = parameters.get(&member.name) {
+            write_value(&mut data, member, value)?;
         }
     }
-    data
+    Ok(data)
 }
 
-fn write_value(data: &mut [u8], member: &UniformMember, value: &PassParameter) {
-    let offset = member.offset as usize;
+fn write_value(
+    data: &mut [u8],
+    member: &UniformMember,
+    value: &PassParameter,
+) -> UniformPackingResult<()> {
+    // Host slice addresses and component strides are native byte-encoding ports.
+    let offset =
+        usize::try_from(u64::from(member.offset)).map_err(ComputePassError::UniformHostAddress)?;
     match value {
         PassParameter::Number(value) => write_bytes(data, offset, &(*value as f32).to_le_bytes()),
         PassParameter::Unsigned(value) => write_bytes(data, offset, &value.to_le_bytes()),
@@ -26,20 +38,19 @@ fn write_value(data: &mut [u8], member: &UniformMember, value: &PassParameter) {
         PassParameter::Vec4(value) => {
             write_vector(data, offset, [value.x, value.y, value.z, value.w])
         }
-        PassParameter::Mat2(value) => write_matrix(data, member, &value.columns, 16, 8),
-        PassParameter::Mat3(value) => write_matrix(
-            data,
-            member,
-            &value.columns,
-            member.size as usize,
-            (member.size / 3) as usize,
-        ),
-        PassParameter::Mat4(value) => write_matrix(data, member, &value.columns, 64, 16),
+        PassParameter::Mat2(value) => write_matrix(data, offset, &value.columns, 16, 8)?,
+        PassParameter::Mat3(value) => {
+            let span = usize::try_from(u64::from(member.size))
+                .map_err(ComputePassError::UniformHostAddress)?;
+            write_matrix(data, offset, &value.columns, span, span / 3)?;
+        }
+        PassParameter::Mat4(value) => write_matrix(data, offset, &value.columns, 64, 16)?,
         PassParameter::Transform(value) => {
-            write_matrix(data, member, &value.to_mat4().columns, 64, 16)
+            write_matrix(data, offset, &value.to_mat4().columns, 64, 16)?;
         }
         _ => {}
     }
+    Ok(())
 }
 
 fn write_bytes(data: &mut [u8], offset: usize, bytes: &[u8]) {
@@ -66,32 +77,44 @@ fn write_vector<const N: usize>(data: &mut [u8], offset: usize, values: [f32; N]
     }
 }
 
-// These spans and strides are the native scalar/matrix ABI, in bytes. Mat3
-// inherits Naga's padded column stride; Mat2/Mat4 retain their existing layout.
+// These spans and strides are the provided value's native matrix ABI, in bytes.
+// Mat3 retains the reflected member span/3 rule; the others retain fixed layouts.
 fn write_matrix<const N: usize>(
     data: &mut [u8],
-    member: &UniformMember,
+    start: usize,
     columns: &[[f32; N]; N],
     span: usize,
     column_stride: usize,
-) {
-    let start = member.offset as usize;
-    if let Some(end) = start.checked_add(span)
-        && end <= data.len()
-    {
-        for (column, values) in columns.iter().enumerate() {
-            for (row, value) in values.iter().enumerate() {
-                if let Some(offset) = column
-                    .checked_mul(column_stride)
-                    .and_then(|offset| start.checked_add(offset))
-                    .and_then(|offset| {
-                        row.checked_mul(size_of::<f32>())
-                            .and_then(|row| offset.checked_add(row))
-                    })
-                {
-                    write_bytes(data, offset, &value.to_le_bytes());
-                }
-            }
+) -> UniformPackingResult<()> {
+    let end = start
+        .checked_add(span)
+        .ok_or(ComputePassError::UniformPackingOverflow)?;
+    if end > data.len() {
+        return Ok(());
+    }
+    for (column, values) in columns.iter().enumerate() {
+        for (row, value) in values.iter().enumerate() {
+            let offset = column
+                .checked_mul(column_stride)
+                .and_then(|offset| start.checked_add(offset))
+                .and_then(|offset| {
+                    row.checked_mul(size_of::<f32>())
+                        .and_then(|row| offset.checked_add(row))
+                })
+                .ok_or(ComputePassError::UniformPackingOverflow)?;
+            let end = offset
+                .checked_add(size_of::<f32>())
+                .ok_or(ComputePassError::UniformPackingOverflow)?;
+            let capacity = BufferByteLength::from(data.len());
+            let target =
+                data.get_mut(offset..end)
+                    .ok_or(ComputePassError::UniformPackingOutOfBounds {
+                        offset: BufferByteOffset::from(offset as u64),
+                        size: BufferByteLength::from(size_of::<f32>()),
+                        capacity,
+                    })?;
+            target.copy_from_slice(&value.to_le_bytes());
         }
     }
+    Ok(())
 }

@@ -1,5 +1,7 @@
 pub use error::ShaderError;
 
+use super::buffer::{BufferByteLength, BufferByteOffset};
+
 mod error;
 
 pub type ShaderResult<T> = std::result::Result<T, ShaderError>;
@@ -7,9 +9,8 @@ pub type ShaderResult<T> = std::result::Result<T, ShaderError>;
 #[derive(Debug, Clone)]
 pub struct UniformMember {
     pub name: String,
-    pub offset: u32,
-    pub size: u32,
-    pub shape: UniformValueShape,
+    pub offset: BufferByteOffset,
+    pub size: BufferByteLength,
 }
 
 #[derive(Debug, Clone)]
@@ -37,7 +38,7 @@ pub struct SamplerBinding {
 pub struct BindGroupReflection {
     pub index: u32,
     pub uniform_members: Vec<UniformMember>,
-    pub uniform_buffer_size: u32,
+    pub uniform_buffer_size: BufferByteLength,
     pub uniform_binding: Option<u32>,
     pub texture_bindings: Vec<TextureBinding>,
     pub sampler_bindings: Vec<SamplerBinding>,
@@ -56,40 +57,6 @@ pub struct ReflectionData {
 pub enum ShaderLanguage {
     Glsl,
     Wgsl,
-}
-
-/// Declared host value roles supported by the named uniform packers.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum UniformValueShape {
-    Float,
-    /// Native 32-bit integer representation, including the existing i32 adapter.
-    IntegerWord,
-    Vec2,
-    Vec3,
-    Vec4,
-    Mat2,
-    Mat3,
-    Mat4,
-}
-
-impl UniformValueShape {
-    pub fn accepts(self, value: &crate::data::PassParameter) -> bool {
-        use crate::data::PassParameter;
-        matches!(
-            (self, value),
-            (Self::Float, PassParameter::Number(_))
-                | (Self::IntegerWord, PassParameter::Unsigned(_))
-                | (Self::Vec2, PassParameter::Vec2(_))
-                | (Self::Vec3, PassParameter::Vec3(_))
-                | (Self::Vec4, PassParameter::Vec4(_))
-                | (Self::Mat2, PassParameter::Mat2(_))
-                | (Self::Mat3, PassParameter::Mat3(_))
-                | (
-                    Self::Mat4,
-                    PassParameter::Mat4(_) | PassParameter::Transform(_)
-                )
-        )
-    }
 }
 
 pub fn detect_from_code(code: &str) -> ShaderLanguage {

@@ -135,7 +135,7 @@ impl GroupBuilder {
         let name = variable.name.clone().unwrap_or_default();
         match variable.space {
             wgpu::naga::AddressSpace::Uniform => {
-                self.uniform(module, variable.ty, binding, name)?;
+                self.uniform(module, variable.ty, binding)?;
             }
             wgpu::naga::AddressSpace::Storage { access } => {
                 let ty = wgpu::BufferBindingType::Storage {

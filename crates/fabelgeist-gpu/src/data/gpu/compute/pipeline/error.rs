@@ -30,11 +30,6 @@ pub enum ComputePipelineError {
         first: u32,
         additional: u32,
     },
-    UnsupportedUniformType {
-        group: u32,
-        binding: u32,
-        name: String,
-    },
     UnsupportedBinding {
         group: u32,
         binding: u32,
@@ -74,14 +69,6 @@ impl fmt::Display for ComputePipelineError {
             } => write!(
                 formatter,
                 "Compute group {group} has uniform bindings {first} and {additional}; named parameters support one block per group"
-            ),
-            Self::UnsupportedUniformType {
-                group,
-                binding,
-                name,
-            } => write!(
-                formatter,
-                "Compute group {group} binding {binding}: uniform '{name}' has an unsupported host value type"
             ),
             Self::UnsupportedBinding {
                 group,
