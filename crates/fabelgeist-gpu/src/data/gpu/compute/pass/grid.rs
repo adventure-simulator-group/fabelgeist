@@ -5,6 +5,8 @@ use std::{error::Error, fmt};
 /// Native per-axis folding limit used by the project's dispatch layout.
 const MAX_GROUPS_PER_DIMENSION: u32 = 65_535;
 
+pub type WorkgroupGridResult<T> = Result<T, WorkgroupGridError>;
+
 /// Native x-axis workgroups, distinct from shader invocations.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct WorkgroupCount(u32);
@@ -12,7 +14,7 @@ pub struct WorkgroupCount(u32);
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct WorkgroupGrid([u32; 3]);
 
-/// A native dispatch exceeds the allocating device's per-axis group limit.
+/// A native dispatch exceeds the receiving device's per-axis group limit.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct WorkgroupGridError {
     pub requested: WorkgroupGrid,
@@ -69,7 +71,7 @@ impl WorkgroupGrid {
 
     /// Check all native axes against the actual receiving device.
     /// Other pipeline, resource and submission validation remains separate.
-    pub fn validate_device(self, device: &wgpu::Device) -> Result<Self, WorkgroupGridError> {
+    pub fn validate_device(self, device: &wgpu::Device) -> WorkgroupGridResult<Self> {
         let limit = device.limits().max_compute_workgroups_per_dimension;
         if self.0.into_iter().any(|groups| groups > limit) {
             return Err(WorkgroupGridError {

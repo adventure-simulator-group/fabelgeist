@@ -77,23 +77,13 @@ impl WorkgroupShape {
     /// The kernel flattens `id.x + id.y * groups.x * width` into a u32
     /// index and bounds-checks it against its live population. Admit the
     /// padded final row too: wrapping a padded index could pass that check
-    /// and revisit live data. Device limits are checked by the receiver.
+    /// and revisit live data. Empty grids launch no indexing work. Device
+    /// limits are checked by the receiver.
     pub fn covering_folded_x(
         self,
         items: InvocationCount,
     ) -> Result<WorkgroupGrid, FoldedDispatchError> {
-        self.folded_workgroups_x(self.workgroup_count_x(items))
-    }
-
-    /// Admit a folded launch whose producer already counts workgroups.
-    ///
-    /// Uses the same declaration and padded-index contract as
-    /// [`Self::covering_folded_x`]. Empty grids launch no indexing work.
-    pub fn folded_workgroups_x(
-        self,
-        workgroups: WorkgroupCount,
-    ) -> Result<WorkgroupGrid, FoldedDispatchError> {
-        let groups = WorkgroupGrid::folded_x(workgroups);
+        let groups = WorkgroupGrid::folded_x(self.workgroup_count_x(items));
         if groups.occupancy() == DispatchOccupancy::Empty {
             return Ok(groups);
         }
