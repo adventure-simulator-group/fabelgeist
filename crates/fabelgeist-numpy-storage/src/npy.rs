@@ -1,5 +1,11 @@
 //! `.npy` array decoding.
 
+mod values;
+
+pub use values::{
+    NpyByteState, NpyByteStates, NpyFloatValue, NpyFloatValues, NpyIntegerValue, NpyIntegerValues,
+};
+
 use std::path::Path;
 
 use anyhow::{Context, Result, bail};
@@ -59,36 +65,6 @@ impl NpyArray {
         &self.bytes
     }
 
-    /// Values widened to `f32`, whatever the stored element type.
-    pub fn to_f32(&self) -> Vec<f32> {
-        match self.dtype {
-            Dtype::F32 => self.map_chunks(4, |b| f32::from_le_bytes(b.try_into().unwrap())),
-            Dtype::F64 => self.map_chunks(8, |b| f64::from_le_bytes(b.try_into().unwrap()) as f32),
-            Dtype::I32 => self.map_chunks(4, |b| i32::from_le_bytes(b.try_into().unwrap()) as f32),
-            Dtype::I64 => self.map_chunks(8, |b| i64::from_le_bytes(b.try_into().unwrap()) as f32),
-            Dtype::U8 | Dtype::Bool => self.bytes.iter().map(|b| *b as f32).collect(),
-        }
-    }
-
-    /// Values widened to `i64`, whatever the stored element type.
-    pub fn to_i64(&self) -> Vec<i64> {
-        match self.dtype {
-            Dtype::F32 => self.map_chunks(4, |b| f32::from_le_bytes(b.try_into().unwrap()) as i64),
-            Dtype::F64 => self.map_chunks(8, |b| f64::from_le_bytes(b.try_into().unwrap()) as i64),
-            Dtype::I32 => self.map_chunks(4, |b| i32::from_le_bytes(b.try_into().unwrap()) as i64),
-            Dtype::I64 => self.map_chunks(8, |b| i64::from_le_bytes(b.try_into().unwrap())),
-            Dtype::U8 | Dtype::Bool => self.bytes.iter().map(|b| *b as i64).collect(),
-        }
-    }
-
-    pub fn to_bool(&self) -> Vec<bool> {
-        self.bytes.iter().map(|b| *b != 0).collect()
-    }
-
-    fn map_chunks<T>(&self, width: usize, convert: impl Fn(&[u8]) -> T) -> Vec<T> {
-        self.bytes.chunks_exact(width).map(convert).collect()
-    }
-
     fn dims<const D: usize>(&self) -> Result<[usize; D]> {
         self.shape
             .as_slice()
@@ -99,7 +75,10 @@ impl NpyArray {
     /// Uploads the array to a device as a float tensor.
     pub fn to_tensor<const D: usize>(&self, device: &Device) -> Result<Tensor<D>> {
         Ok(Tensor::from_data(
-            TensorData::new(self.to_f32(), self.dims::<D>()?),
+            TensorData::new(
+                Vec::<f32>::from(NpyFloatValues::from(self)),
+                self.dims::<D>()?,
+            ),
             device,
         ))
     }
@@ -107,7 +86,10 @@ impl NpyArray {
     /// Uploads the array to a device as an integer tensor.
     pub fn to_int_tensor<const D: usize>(&self, device: &Device) -> Result<Tensor<D, Int>> {
         Ok(Tensor::from_data(
-            TensorData::new(self.to_i64(), self.dims::<D>()?),
+            TensorData::new(
+                Vec::<i64>::from(NpyIntegerValues::from(self)),
+                self.dims::<D>()?,
+            ),
             device,
         ))
     }
@@ -213,7 +195,10 @@ pub(crate) mod tests {
         let array = parse(&encode("<f4", "3,", &payload)).unwrap();
         assert_eq!(array.shape, [3]);
         assert_eq!(array.dtype, Dtype::F32);
-        assert_eq!(array.to_f32(), [1.0, -2.5, 3.25]);
+        assert_eq!(
+            Vec::<f32>::from(NpyFloatValues::from(&array)),
+            [1.0, -2.5, 3.25]
+        );
     }
 
     #[test]
@@ -224,14 +209,23 @@ pub(crate) mod tests {
             .collect();
         let array = parse(&encode("<i8", "2, 2", &payload)).unwrap();
         assert_eq!(array.shape, [2, 2]);
-        assert_eq!(array.to_i64(), [1, 2, 3, 4]);
-        assert_eq!(array.to_f32(), [1.0, 2.0, 3.0, 4.0]);
+        assert_eq!(
+            Vec::<i64>::from(NpyIntegerValues::from(&array)),
+            [1, 2, 3, 4]
+        );
+        assert_eq!(
+            Vec::<f32>::from(NpyFloatValues::from(&array)),
+            [1.0, 2.0, 3.0, 4.0]
+        );
     }
 
     #[test]
     fn parses_a_bool_array() {
         let array = parse(&encode("|b1", "4,", &[1, 0, 1, 1])).unwrap();
-        assert_eq!(array.to_bool(), [true, false, true, true]);
+        assert_eq!(
+            Vec::<bool>::from(NpyByteStates::from(&array)),
+            [true, false, true, true]
+        );
     }
 
     #[test]

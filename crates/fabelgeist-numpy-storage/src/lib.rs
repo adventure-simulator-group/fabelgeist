@@ -1,7 +1,7 @@
 //! NumPy array storage for Burn.
 //!
 //! Reads `.npy` files and `.npz` archives (stored or deflated, zip64 included)
-//! and hands the contents back either as plain vectors or as Burn tensors.
+//! and hands the contents back as ordered bespoke value collections or Burn tensors.
 //! Pure Rust: no NumPy, no C zlib.
 //!
 //! ```no_run
@@ -20,7 +20,10 @@ pub mod npy;
 pub mod npz;
 pub mod zip;
 
-pub use npy::{Dtype, NpyArray};
+pub use npy::{
+    Dtype, NpyArray, NpyByteState, NpyByteStates, NpyFloatValue, NpyFloatValues, NpyIntegerValue,
+    NpyIntegerValues,
+};
 pub use npz::Npz;
 pub use zip::ZipArchive;
 
