@@ -111,7 +111,8 @@ buffer and texture parameters, and records no native immediate-value commands.
 
 Cached kernels keep per-batch uniform slots with checked byte offsets and
 retain native pipeline/binding causes. Empty launches in a batch skip parameter
-admission and counter increments. Standalone empty dispatches still admit parameters.
+admission and counter increments. Standalone empty dispatches still admit
+parameters.
 Folded launches and callbacks after submission retain their existing ordering.
 Borrowed contexts and browser builds still provide no synchronous native
 validation verdict; typed errors cannot recover a cause the device never
