@@ -4,6 +4,7 @@ use bevy_egui::egui;
 use fabelgeist_armor::{
     MAX_TEXTILE_LAYERS, Permille, TextileAppearance, TextileAxis, TextileColor, TextileFill,
     TextileFinish, TextileLayer, TextileMotif, TextileRegion, TextileRepeatCount, TextileSpan,
+    TextileThreadCount,
 };
 
 enum LayerAction {
@@ -15,11 +16,34 @@ enum LayerAction {
 pub(super) fn show(ui: &mut egui::Ui, fabric: &mut TextileAppearance) -> bool {
     let mut changed = ui.color_edit_button_srgb(&mut fabric.color.0).changed();
     ui.horizontal(|ui| {
+        changed |= ui
+            .selectable_value(
+                &mut fabric.chart_boundary,
+                fabelgeist_armor::TextileChartBoundary::CyclicAcross,
+                "Wrap around garment",
+            )
+            .changed();
+        changed |= ui
+            .selectable_value(
+                &mut fabric.chart_boundary,
+                fabelgeist_armor::TextileChartBoundary::Open,
+                "Open cloth edges",
+            )
+            .changed();
+    });
+    changed |= proportion(
+        ui,
+        &mut fabric.opacity,
+        TextileAppearance::OPACITY_RANGE,
+        "Cloth opacity",
+    );
+    ui.horizontal(|ui| {
         for (finish, label) in [
             (TextileFinish::Linen, "Linen"),
             (TextileFinish::Wool, "Wool"),
             (TextileFinish::Silk, "Silk"),
             (TextileFinish::Velvet, "Velvet"),
+            (TextileFinish::MetallicThread, "Metal thread"),
         ] {
             changed |= ui
                 .selectable_value(&mut fabric.finish, finish, label)
@@ -80,6 +104,7 @@ pub(super) fn show(ui: &mut egui::Ui, fabric: &mut TextileAppearance) -> bool {
         });
         changed = true;
     }
+    changed |= super::needlework::show(ui, fabric);
     changed
 }
 
@@ -89,6 +114,21 @@ fn layer_controls(ui: &mut egui::Ui, layer: &mut TextileLayer) -> bool {
     changed |= fill_selection(ui, &mut layer.fill);
     match &mut layer.fill {
         TextileFill::Solid => {}
+        TextileFill::Weave { warp, weft, width } => {
+            changed |= ui
+                .add(
+                    egui::Slider::new(&mut warp.0, TextileThreadCount::RANGE)
+                        .text("Warp yarns across"),
+                )
+                .changed();
+            changed |= ui
+                .add(
+                    egui::Slider::new(&mut weft.0, TextileThreadCount::RANGE)
+                        .text("Weft yarns along"),
+                )
+                .changed();
+            changed |= proportion(ui, width, 1..=900, "Yarn width within spacing");
+        }
         TextileFill::Stripes {
             axis,
             repeats,
@@ -164,6 +204,15 @@ fn motif_controls(ui: &mut egui::Ui, motif: &mut TextileMotif) -> bool {
         for (label, candidate) in [
             ("Lozenge", TextileMotif::Lozenge),
             (
+                "Ringed medallion",
+                TextileMotif::Medallion {
+                    petals: TextileRepeatCount(4),
+                    rings: TextileRepeatCount(3),
+                    threads: TextileRepeatCount(32),
+                    stroke: Permille(25),
+                },
+            ),
+            (
                 "Rosette",
                 TextileMotif::Rosette {
                     petals: TextileRepeatCount(6),
@@ -204,6 +253,23 @@ fn motif_controls(ui: &mut egui::Ui, motif: &mut TextileMotif) -> bool {
                 .add(egui::Slider::new(&mut petals.0, 3..=12).text("Petals"))
                 .changed();
         }
+        TextileMotif::Medallion {
+            petals,
+            rings,
+            threads,
+            stroke,
+        } => {
+            changed |= ui
+                .add(egui::Slider::new(&mut petals.0, 3..=12).text("Petals"))
+                .changed();
+            changed |= ui
+                .add(egui::Slider::new(&mut rings.0, 1..=4).text("Thread rings"))
+                .changed();
+            changed |= ui
+                .add(egui::Slider::new(&mut threads.0, 8..=64).text("Thread density"))
+                .changed();
+            changed |= proportion(ui, stroke, 5..=80, "Thread stroke");
+        }
         TextileMotif::Palmette { leaf_pairs, spread }
         | TextileMotif::Damask { leaf_pairs, spread } => {
             changed |= ui
@@ -227,6 +293,14 @@ fn fill_selection(ui: &mut egui::Ui, fill: &mut TextileFill) -> bool {
     ui.horizontal(|ui| {
         for (label, candidate) in [
             ("Solid", TextileFill::Solid),
+            (
+                "Plain weave",
+                TextileFill::Weave {
+                    warp: TextileThreadCount(256),
+                    weft: TextileThreadCount(192),
+                    width: Permille(140),
+                },
+            ),
             (
                 "Stripes",
                 TextileFill::Stripes {
@@ -262,7 +336,7 @@ fn fill_selection(ui: &mut egui::Ui, fill: &mut TextileFill) -> bool {
     changed
 }
 
-fn region_controls(ui: &mut egui::Ui, region: &mut TextileRegion) -> bool {
+pub(super) fn region_controls(ui: &mut egui::Ui, region: &mut TextileRegion) -> bool {
     let mut changed = false;
     ui.horizontal(|ui| {
         for (label, candidate) in [

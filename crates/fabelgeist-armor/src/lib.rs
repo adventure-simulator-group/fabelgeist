@@ -1,5 +1,9 @@
 //! Deterministic, renderer-independent parametric armor fitted to canonical
 //! anatomical surface samples, and the metal it is finished in.
+mod cloth_pleat_profile;
+pub use cloth_pleat_profile::ClothPleatProfile;
+mod cloth_pleats;
+pub use cloth_pleats::ClothPleats;
 
 mod construction;
 pub mod engraving;
@@ -9,10 +13,25 @@ pub mod pattern;
 mod skin;
 mod skirt;
 mod skirt_structure;
+mod textile_needlework;
+pub use textile_needlework::{
+    TextileFoldProfile, TextileNeedlework, TextilePathClosure, TextilePathPoint, TextileStroke,
+    TextileStrokeStyle,
+};
+mod textile_pleat_relief;
+mod textile_pleat_zone;
+mod textile_stroke_raster;
+pub use textile_pleat_relief::{
+    ShirringPattern, TextileChartSize, TextilePleatLayout, TextilePleatRelief, TextileShirring,
+};
+pub use textile_pleat_zone::TextilePleatZone;
 mod textile_botanical;
 mod textile_pattern;
 mod textile_raster;
+mod textile_relief;
+mod textile_sampling;
 mod textile_seams;
+mod textile_weave;
 pub use skirt::{
     DressBodice, SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign, SkirtProfile,
 };
@@ -20,9 +39,9 @@ pub use skirt_structure::{
     PleatStyle, SkirtHoops, SkirtPleats, SkirtRepeatCount, SkirtStays, SkirtSupport,
 };
 pub use textile_pattern::{
-    MAX_TEXTILE_LAYERS, TextileAppearance, TextileAxis, TextileFill, TextileFinish, TextileLayer,
-    TextileLayers, TextileMotif, TextileOffset, TextilePatternSpace, TextileRegion,
-    TextileRepeatCount, TextileSpan,
+    MAX_TEXTILE_LAYERS, TextileAppearance, TextileAxis, TextileChartBoundary, TextileFill,
+    TextileFinish, TextileLayer, TextileLayers, TextileMotif, TextileOffset, TextilePatternSpace,
+    TextileRegion, TextileRepeatCount, TextileSpan, TextileThreadCount,
 };
 pub use textile_raster::TextilePixels;
 mod tiling;

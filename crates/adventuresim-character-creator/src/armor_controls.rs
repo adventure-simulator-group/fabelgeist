@@ -6,6 +6,8 @@ use std::ops::RangeInclusive;
 mod helmet;
 #[path = "limb_controls.rs"]
 mod limb;
+#[path = "needlework_controls.rs"]
+mod needlework;
 #[path = "puff_pattern_controls.rs"]
 mod puff_pattern;
 #[path = "skirt_controls.rs"]

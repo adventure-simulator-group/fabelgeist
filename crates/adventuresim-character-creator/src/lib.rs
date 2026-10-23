@@ -55,6 +55,7 @@ mod device_sabaton;
 mod device_skirt;
 mod device_skirt_join;
 mod device_textile_materials;
+mod device_textile_relief;
 mod device_textile_support;
 pub mod device_torso;
 mod device_torso_wgsl;

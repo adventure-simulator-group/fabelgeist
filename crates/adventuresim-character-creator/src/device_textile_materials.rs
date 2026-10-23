@@ -48,6 +48,7 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
             component.textile = Some(fabric.clone());
         }
     }
+    crate::device_textile_relief::apply(design, armor)?;
     armor.split_textile_seams()?;
     Ok(())
 }
