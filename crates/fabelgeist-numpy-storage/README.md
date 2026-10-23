@@ -84,9 +84,10 @@ checked element count.
 rank zero and one element. Native shape construction treats any zero axis as
 empty before other dimensions can overflow. File admission also requires the
 upstream header's strides to be representable, so it can reject an enormous
-empty shape whose native element count alone is zero. `NpyElementWidth` describes
-the supported one-, four-, and eight-byte storage words. `NpyPayloadLength` owns
-the checked serialized payload length separately from element cardinality.
+empty shape whose native element count alone is zero.
+`NpyElementWidth` describes the supported one-, four-, and eight-byte storage
+words. `NpyPayloadLength` owns the checked serialized payload length separately
+from element cardinality.
 
 `NpyLayoutError` retains the failed dimensions, element count and width,
 expected and available payload lengths, or expected/actual ranks and the native
