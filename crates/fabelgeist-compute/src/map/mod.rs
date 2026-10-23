@@ -23,7 +23,7 @@ type MapPipelineCache = ComputeSourceCache<
         ResourceDescriptor,
         Vec<(String, ResourceDescriptor)>,
     ),
-    Arc<(ComputePipeline, u64, u64)>,
+    Arc<ResourcePipeline>,
 >;
 
 #[derive(Clone, Debug)]
@@ -147,8 +147,9 @@ impl MapDefinition {
         input_res: Option<ResourceDescriptor>,
         output_res: ResourceDescriptor,
         secondary_resources: &HashMap<String, ResourceDescriptor>,
-    ) -> Result<(ComputePipeline, u64, u64)> {
+    ) -> Result<ResourcePipeline> {
         let sig = Self::parse_signature(&self.code)?;
+        let mut addressing = TextureAddressing::Coordinates;
 
         // 1. Build the full WGSL code
         let mut full_code = String::new();
@@ -226,6 +227,7 @@ impl MapDefinition {
         // Generate the user's requested index type
         if let Some(ref idx_ty) = sig.index_type {
             if idx_ty == "u32" {
+                addressing = addressing.combine(TextureAddressing::LinearIndex);
                 match output_res {
                     ResourceDescriptor::Buffer(_) => full_code.push_str("    let index = _global_index;\n"),
                     ResourceDescriptor::Texture2d(_) => full_code.push_str("    let index = _global_index.y * tex_dim.x + _global_index.x;\n"),
@@ -250,17 +252,20 @@ impl MapDefinition {
         // Generate the user's requested size type
         if let Some(ref size_ty) = sig.size_type {
             match size_ty.as_str() {
-                "u32" => match output_res {
-                    ResourceDescriptor::Buffer(_) => {
-                        full_code.push_str("    let size = arrayLength(&output);\n")
+                "u32" => {
+                    addressing = TextureAddressing::LinearPopulation;
+                    match output_res {
+                        ResourceDescriptor::Buffer(_) => {
+                            full_code.push_str("    let size = arrayLength(&output);\n")
+                        }
+                        ResourceDescriptor::Texture2d(_) => {
+                            full_code.push_str("    let size = tex_dim.x * tex_dim.y;\n")
+                        }
+                        ResourceDescriptor::Texture3d(_) => {
+                            full_code.push_str("    let size = tex_dim.x * tex_dim.y * tex_dim.z;\n")
+                        }
                     }
-                    ResourceDescriptor::Texture2d(_) => {
-                        full_code.push_str("    let size = tex_dim.x * tex_dim.y;\n")
-                    }
-                    ResourceDescriptor::Texture3d(_) => {
-                        full_code.push_str("    let size = tex_dim.x * tex_dim.y * tex_dim.z;\n")
-                    }
-                },
+                }
                 "vec2<u32>" => match output_res {
                     ResourceDescriptor::Buffer(_) => {
                         full_code.push_str("    let size = vec2<u32>(arrayLength(&output), 1u);\n")
@@ -288,22 +293,24 @@ impl MapDefinition {
 
         // Fetch input value if the map function uses it
         if let Some(res) = &input_res {
-            full_code.push_str(
-                &res.generate_fetch(
-                    "input",
-                    &output_res,
-                    input_element_type
-                        .as_ref()
-                        .unwrap_or(&ResourceBaseType::F32),
-                ),
+            let fetch = res.generate_fetch(
+                "input",
+                &output_res,
+                input_element_type
+                    .as_ref()
+                    .unwrap_or(&ResourceBaseType::F32),
             );
+            addressing = addressing.combine(fetch.addressing());
+            full_code.push_str(fetch.code());
         }
 
         // Fetch resource params
         for (name, ty) in &resource_params {
             let res_desc = &secondary_resources[name];
-            let fetch_code = res_desc.generate_fetch(name, &output_res, ty);
-            let fetch_code_custom = fetch_code
+            let fetch = res_desc.generate_fetch(name, &output_res, ty);
+            addressing = addressing.combine(fetch.addressing());
+            let fetch_code_custom = fetch
+                .code()
                 .replace("_in_global_index", &format!("_in_global_index_{}", name))
                 .replace(
                     "_fetch_out_tex_dim",
@@ -368,47 +375,7 @@ impl MapDefinition {
         }
         full_code.push_str("}\n");
 
-        // 3. Parse with naga to get struct sizes for validation
-        let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
-            wgpu::naga::ShaderStage::Compute,
-        )?;
-
-        let mut input_size = 0;
-        let mut output_size = 0;
-
-        let calculate_size = |var_name: &str, module: &wgpu::naga::Module| -> u64 {
-            if let Some((_, var)) = module
-                .global_variables
-                .iter()
-                .find(|(_, v)| v.name.as_deref() == Some(var_name))
-                && let wgpu::naga::TypeInner::Array { base, .. } = module.types[var.ty].inner
-            {
-                let mut layouter = wgpu::naga::proc::Layouter::default();
-                let _ = layouter.update(wgpu::naga::proc::GlobalCtx {
-                    types: &module.types,
-                    constants: &module.constants,
-                    overrides: &module.overrides,
-                    global_expressions: &module.global_expressions,
-                });
-                return layouter[base].size as u64;
-            }
-            0
-        };
-
-        if input_res.is_some()
-            && let Some(ResourceDescriptor::Buffer(_)) = &input_res
-        {
-            input_size = calculate_size("input", &module);
-        }
-        if let ResourceDescriptor::Buffer(_) = output_res {
-            output_size = calculate_size("output", &module);
-        }
-
-        let shader = ComputeShader::new(context, full_code)?;
-        let pipeline = ComputePipeline::new(context, shader)?;
-
-        Ok((pipeline, input_size, output_size))
+        ResourcePipeline::new(context, full_code, DispatchResource::Output, addressing)
     }
 
     pub fn get_or_create_pipeline(
@@ -417,7 +384,7 @@ impl MapDefinition {
         input_res: Option<ResourceDescriptor>,
         output_res: ResourceDescriptor,
         secondary_resources: &HashMap<String, ResourceDescriptor>,
-    ) -> Result<Arc<(ComputePipeline, u64, u64)>> {
+    ) -> Result<Arc<ResourcePipeline>> {
         let mut sec_res_sorted: Vec<(String, ResourceDescriptor)> = secondary_resources
             .iter()
             .map(|(k, v)| (k.clone(), v.clone()))
@@ -504,23 +471,20 @@ impl Map {
             output_descriptor,
             &secondary_resources,
         )?;
-        let (pipeline, _input_size, output_size) = pipeline_info.as_ref();
+        let pipeline = pipeline_info.pipeline();
 
         let mut parameters = extra_parameters.unwrap_or_default();
 
         // Output resource determines grid size
-        let output_num_elements: u64 = match output {
-            GpuResource::Buffer(b) => {
-                parameters.insert("output", b.clone());
-                u64::from(b.size) / output_size.max(&1)
+        match output {
+            GpuResource::Buffer(buffer) => {
+                parameters.insert("output", buffer.clone());
             }
-            GpuResource::Texture2d(t) => {
-                parameters.insert("output", t.clone());
-                (t.extent().width * t.extent().height) as u64
+            GpuResource::Texture2d(texture) => {
+                parameters.insert("output", texture.clone());
             }
-            GpuResource::Texture3d(t) => {
-                parameters.insert("output", t.clone());
-                (t.extent().width * t.extent().height * t.extent().depth_or_array_layers) as u64
+            GpuResource::Texture3d(texture) => {
+                parameters.insert("output", texture.clone());
             }
         };
 
@@ -539,25 +503,13 @@ impl Map {
             }
         }
 
-        let (wg_x, wg_y, wg_z) = match output {
-            GpuResource::Buffer(_) => ((output_num_elements as u32).div_ceil(64), 1, 1),
-            GpuResource::Texture2d(t) => (
-                t.extent().width.div_ceil(16),
-                t.extent().height.div_ceil(16),
-                1,
-            ),
-            GpuResource::Texture3d(t) => (
-                t.extent().width.div_ceil(8),
-                t.extent().height.div_ceil(8),
-                t.extent().depth_or_array_layers.div_ceil(4),
-            ),
-        };
+        let workgroups = pipeline_info.workgroups(output)?;
 
         fabelgeist_gpu::data::gpu::ComputePass::dispatch(
             context,
             pipeline.clone(),
             parameters,
-            fabelgeist_gpu::data::WorkgroupGrid::from([wg_x, wg_y, wg_z]),
+            workgroups,
         )?;
 
         Ok(())

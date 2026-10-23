@@ -49,6 +49,17 @@ impl TryFrom<[u32; 3]> for WorkgroupShape {
     }
 }
 impl WorkgroupShape {
+    /// Cover native resource axes with the admitted declaration's dimensions.
+    /// The axes count invocations; the returned axes count workgroups.
+    pub fn covering(self, axes: [InvocationCount; 3]) -> WorkgroupGrid {
+        let [x, y, z] = axes;
+        WorkgroupGrid::from([
+            x.0.div_ceil(self.0[0].get()),
+            y.0.div_ceil(self.0[1].get()),
+            z.0.div_ceil(self.0[2].get()),
+        ])
+    }
+
     /// Cover invocations with rows of workgroups for a folded-index kernel.
     pub fn covering_folded_x(self, items: InvocationCount) -> WorkgroupGrid {
         WorkgroupGrid::folded_x(items.0.div_ceil(self.0[0].get()))

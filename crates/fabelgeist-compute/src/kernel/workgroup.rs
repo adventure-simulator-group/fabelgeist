@@ -11,7 +11,7 @@ pub struct WorkgroupDeclarationError {
 
 impl WorkgroupDeclarationError {
     // The label comes directly from the native shader parser, for diagnostics.
-    pub(super) fn at_entry_point(entry_point: &str, source: WorkgroupShapeError) -> Self {
+    pub(crate) fn at_entry_point(entry_point: &str, source: WorkgroupShapeError) -> Self {
         Self {
             entry_point: entry_point.to_owned(),
             source,

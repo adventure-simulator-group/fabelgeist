@@ -3,11 +3,11 @@
 //! Each level has exactly its live byte extent: the shader's arrayLength then
 //! describes logical input, including when later calls reuse the allocation.
 
-use super::layout::{ReductionElements, ReductionStride};
+use super::layout::ReductionElements;
 use super::{Reduce, ReduceDefinition, ReductionPipeline};
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
-use fabelgeist_gpu::prelude::BufferUse;
+use fabelgeist_gpu::prelude::{BufferElementStride, BufferUse};
 
 #[derive(Default)]
 pub struct ReduceScratchpad {
@@ -67,7 +67,7 @@ impl ReduceScratchpad {
         &mut self,
         context: &WgpuContext,
         input_count: ReductionElements,
-        stride: ReductionStride,
+        stride: BufferElementStride,
     ) -> Result<&ReductionBuffers> {
         let previous = self
             .buffers

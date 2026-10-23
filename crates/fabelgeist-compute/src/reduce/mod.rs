@@ -5,7 +5,8 @@ pub use execution::ReduceScratchpad;
 pub use max::Max;
 pub use min::Min;
 
-use layout::{REDUCTION_WORKGROUP_WIDTH, ReductionStride};
+use fabelgeist_gpu::prelude::BufferElementStride;
+use layout::REDUCTION_WORKGROUP_WIDTH;
 
 mod execution;
 mod layout;
@@ -24,7 +25,7 @@ pub struct Reduce;
 #[derive(Clone, Debug)]
 struct ReductionPipeline {
     pipeline: ComputePipeline,
-    stride: ReductionStride,
+    stride: BufferElementStride,
 }
 
 impl Default for ReduceDefinition {
@@ -178,7 +179,7 @@ fn main(
                     _ => None,
                 })
                 .ok_or_else(|| anyhow!("Reduction output has no native array layout"))?;
-            let stride = ReductionStride::from_native_bytes(stride)?;
+            let stride = BufferElementStride::try_from(stride)?;
 
             let shader = ComputeShader::new(context, full_code)?;
             let pipeline = ComputePipeline::new(context, shader)?;

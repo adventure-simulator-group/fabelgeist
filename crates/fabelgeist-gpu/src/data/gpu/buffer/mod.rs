@@ -8,6 +8,7 @@ pub use capacity::BufferCapacityChange;
 pub use definition::{BufferDefinition, BufferUse};
 pub use extent::{BufferByteLength, BufferByteOffset};
 pub use label::BufferLabel;
+pub use stride::{BufferElementCount, BufferElementStride, BufferElementStrideError};
 pub use upload::{BufferUpload, BufferUploadOccupancy};
 
 mod binding;
@@ -16,6 +17,7 @@ mod definition;
 mod extent;
 mod label;
 mod readback;
+mod stride;
 mod upload;
 
 #[derive(Clone, Debug)]

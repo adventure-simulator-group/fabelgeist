@@ -8,12 +8,14 @@
 
 pub use pass::*;
 pub use pipeline::*;
+pub use resource_addressing::{ResourceFetch, TextureAddressError, TextureAddressing};
 pub use signature::*;
 pub use source_cache::ComputeSourceCache;
 pub use texture_ops::{TextureBinaryOp, TextureBinaryOpDefinition};
 
 mod pass;
 mod pipeline;
+mod resource_addressing;
 pub mod signature;
 mod source_cache;
 pub mod texture_ops;
@@ -140,13 +142,17 @@ impl ResourceDescriptor {
         code
     }
 
+    /// Generate one input fetch using output coordinates.
+    /// The returned source and address requirement belong together: combine
+    /// the requirement before dispatch and append the source to the program.
     pub fn generate_fetch(
         &self,
         input_name: &str,
         output_res: &ResourceDescriptor,
         element_type: &ResourceBaseType,
-    ) -> String {
+    ) -> ResourceFetch {
         let mut code = String::new();
+        let mut addressing = TextureAddressing::Coordinates;
         match self {
             ResourceDescriptor::Buffer(_) => {
                 match output_res {
@@ -155,10 +161,12 @@ impl ResourceDescriptor {
                     }
                     ResourceDescriptor::Texture2d(_) => {
                         code.push_str("    let _fetch_out_tex_dim = textureDimensions(output);\n");
+                        addressing = TextureAddressing::LinearIndex;
                         code.push_str("    let _in_global_index = global_id.y * _fetch_out_tex_dim.x + global_id.x;\n");
                     }
                     ResourceDescriptor::Texture3d(_) => {
                         code.push_str("    let _fetch_out_tex_dim = textureDimensions(output);\n");
+                        addressing = TextureAddressing::LinearIndex;
                         code.push_str("    let _in_global_index = (global_id.z * _fetch_out_tex_dim.y + global_id.y) * _fetch_out_tex_dim.x + global_id.x;\n");
                     }
                 }
@@ -206,6 +214,6 @@ impl ResourceDescriptor {
                 ));
             }
         }
-        code
+        ResourceFetch::new(code, addressing)
     }
 }

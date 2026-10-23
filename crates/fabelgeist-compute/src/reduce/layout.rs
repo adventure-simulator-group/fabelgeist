@@ -2,7 +2,7 @@
 
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
-use std::num::NonZeroU32;
+use fabelgeist_gpu::prelude::BufferElementStride;
 
 pub(super) const REDUCTION_WORKGROUP_WIDTH: u32 = 64;
 
@@ -10,14 +10,10 @@ pub(super) const REDUCTION_WORKGROUP_WIDTH: u32 = 64;
 #[derive(Clone, Copy, Debug)]
 pub(super) struct ReductionElements(u32);
 
-/// Byte spacing of records in the shader's output array, including padding.
-#[derive(Clone, Copy, Debug)]
-pub(super) struct ReductionStride(NonZeroU32);
-
 impl ReductionElements {
-    pub(super) fn from_resource(input: &GpuResource, stride: ReductionStride) -> Result<Self> {
+    pub(super) fn from_resource(input: &GpuResource, stride: BufferElementStride) -> Result<Self> {
         let elements = match input {
-            GpuResource::Buffer(buffer) => u64::from(buffer.size) / u64::from(stride.0.get()),
+            GpuResource::Buffer(buffer) => u64::from(buffer.size) / u64::from(stride.byte_length()),
             GpuResource::Texture2d(texture) => {
                 let extent = texture.extent();
                 u64::from(extent.width) * u64::from(extent.height)
@@ -46,20 +42,8 @@ impl ReductionElements {
         WorkgroupGrid::from([self.0.div_ceil(REDUCTION_WORKGROUP_WIDTH), 1, 1])
     }
 
-    pub(super) fn byte_length(self, stride: ReductionStride) -> BufferByteLength {
+    pub(super) fn byte_length(self, stride: BufferElementStride) -> BufferByteLength {
         // Both operands are admitted native u32 values, so their product fits u64.
-        (u64::from(self.0) * u64::from(stride.0.get())).into()
-    }
-}
-
-impl ReductionStride {
-    pub(super) fn from_native_bytes(bytes: u32) -> Result<Self> {
-        NonZeroU32::new(bytes)
-            .map(Self)
-            .ok_or_else(|| anyhow!("Reduction array stride must be nonzero"))
-    }
-
-    pub(super) fn byte_length(self) -> BufferByteLength {
-        u64::from(self.0.get()).into()
+        (u64::from(self.0) * u64::from(stride.byte_length())).into()
     }
 }

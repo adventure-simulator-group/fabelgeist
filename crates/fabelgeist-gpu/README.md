@@ -22,6 +22,12 @@ Allocation lengths and write offsets use distinct byte types. Conversion to
 native integers belongs at the WebGPU descriptor or queue boundary. Diagnostic
 labels use `BufferLabel`; they are distinct from shader binding lookup keys.
 
+`BufferElementStride` admits nonzero native storage-array byte spacing,
+including padding. `BufferElementCount` derives complete records from a byte
+extent and that stride, rejecting populations outside the native count range.
+Neither quantity proves storage contents or source identity. Array elements,
+byte extents and shader invocations remain distinct quantities.
+
 `BufferUse` selects independent capabilities. An unspecified definition retains
 the general allocation policy; selecting a capability makes that selection
 explicit. Storage includes copy-source and copy-destination capability.
