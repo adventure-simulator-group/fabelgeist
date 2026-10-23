@@ -5,16 +5,16 @@ use fabelgeist_compute::ScanElementCount;
 use std::sync::Arc;
 
 use crate::gpu::error::Result;
-use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
+use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_math::Vec3;
 use fabelgeist_spatial_hash::CellScale;
 
 use super::grow::params;
+use super::head::GpuHeadCover;
 use super::{GpuGroom, GpuGroomer, storage, upload};
 use crate::cards::{CardAtlas, CardSettings};
 use crate::lod::LodSettings;
-use fabelgeist_gpu::prelude::BufferUse;
 
 /// One strand level on the GPU, in the shuffled order, as the renderer
 /// draws it: positions with their sky visibility in `w`, and a
@@ -55,7 +55,7 @@ pub struct GpuLods {
     pub center: Vec3,
     /// How much hair covers each vertex of the head set with
     /// [`GpuGroomer::set_head_mesh`]: roots growing, hair over it.
-    pub cover: Option<Buffer>,
+    pub cover: Option<GpuHeadCover>,
 }
 
 impl GpuLods {
@@ -238,7 +238,7 @@ impl GpuGroomer {
         }
 
         let cover = self.record_cover(&mut batch, groom, bounds)?;
-        batch.submit();
+        batch.submit()?;
 
         let [w, h] = settings.atlas_size;
         let key = (settings.atlas_variants, [w, h]);
@@ -497,18 +497,24 @@ impl GpuGroomer {
         batch: &mut KernelBatch,
         groom: &GpuGroom,
         bounds: [Vec3; 2],
-    ) -> Result<Option<Buffer>> {
+    ) -> Result<Option<GpuHeadCover>> {
         let Some(mesh) = &self.head_mesh else {
             return Ok(None);
         };
+        let cover = mesh.allocate_cover(&self.context)?;
         let (vertices, head_points, head_normals, start, adjacency) = (
-            mesh.vertices,
+            mesh.layout.vertices(),
             mesh.points.clone(),
             mesh.normals.clone(),
             mesh.adjacency_start.clone(),
             mesh.adjacency.clone(),
         );
         let context = self.context.clone();
+        let out = cover.buffer();
+        let cover_bytes = out.size;
+        if vertices.is_empty() {
+            return Ok(Some(cover));
+        }
         let count = groom.strands;
         let radius = 0.004f32;
         self.grid.ensure_capacity(&context, count)?;
@@ -520,7 +526,7 @@ impl GpuGroomer {
         )?;
         let root_counts = self.scratch.root_counts.fit(
             &context,
-            (vertices as u64 * 4).into(),
+            vertices.word_bytes(),
             "hair cover roots".into(),
         )?;
         let totals =
@@ -540,7 +546,7 @@ impl GpuGroomer {
             "pad1" => 0u32,
         };
         recorded_grid.bind(&mut p);
-        batch.dispatch_folded(&self.kernels.cover_count, &p, vertices)?;
+        batch.dispatch_folded(&self.kernels.cover_count, &p, vertices.into())?;
 
         let reach = 0.024f32;
         let CoverDensity { grid, density } =
@@ -548,7 +554,7 @@ impl GpuGroomer {
         let raw =
             self.scratch
                 .cover
-                .fit(&context, (vertices as u64 * 8).into(), "hair cover".into())?;
+                .fit(&context, cover_bytes, "hair cover".into())?;
         let mut p = params! {
             "head_points" => head_points,
             "head_normals" => head_normals,
@@ -562,23 +568,11 @@ impl GpuGroomer {
             "pad1" => 0u32,
         };
         grid.insert(&mut p, count);
-        batch.dispatch_folded(&self.kernels.cover_finish, &p, vertices)?;
+        batch.dispatch_folded(&self.kernels.cover_finish, &p, vertices.into())?;
 
         // Smoothed over the mesh, three passes, into a buffer of its own.
-        let spare = storage(
-            &context,
-            (vertices as u64 * 8).into(),
-            "hair cover smoothing".into(),
-        )?;
-        // Drawn from directly: the head's second vertex buffer.
-        let out = Buffer::new(
-            &context,
-            (vertices as u64 * 8).into(),
-            BufferDefinition::storage()
-                .with_usage(BufferUse::Vertex)
-                .with_label("hair head cover".into()),
-        )?;
-        let passes = [(&raw, &spare), (&spare, &raw), (&raw, &out)];
+        let spare = storage(&context, cover_bytes, "hair cover smoothing".into())?;
+        let passes = [(&raw, &spare), (&spare, &raw), (&raw, out)];
         for (from, to) in passes {
             batch.dispatch_folded(
                 &self.kernels.cover_smooth,
@@ -592,9 +586,9 @@ impl GpuGroomer {
                     "pad1" => 0u32,
                     "pad2" => 0u32,
                 },
-                vertices,
+                vertices.into(),
             )?;
         }
-        Ok(Some(out))
+        Ok(Some(cover))
     }
 }

@@ -86,6 +86,7 @@ use fabelgeist_compute::{ScanElementCount, SortItemCount};
 mod collide;
 mod grow;
 mod guides;
+mod head;
 mod lods;
 mod readback;
 mod scalp;
@@ -107,10 +108,11 @@ use fabelgeist_spatial_hash::{HashLayout, HashPointCount};
 use crate::cards::CardAtlas;
 use crate::head::Head;
 use crate::strands::{Attachment, Strands};
-use crate::surface::Surface;
 
 pub use collide::FieldHeader;
 pub use guides::{GpuGuides, Guides};
+pub use head::GpuHeadCover;
+use head::HeadMesh;
 pub use lods::{GpuCards, GpuLevel, GpuLods};
 pub use scalp::GpuScalp;
 pub use sim::GpuSim;
@@ -370,15 +372,6 @@ struct Scratches {
     nets_fine: Scratch,
 }
 
-/// The head's mesh on the GPU, for measuring how much hair covers it.
-struct HeadMesh {
-    vertices: u32,
-    points: Buffer,
-    normals: Buffer,
-    adjacency_start: Buffer,
-    adjacency: Buffer,
-}
-
 pub struct GpuGroomer {
     context: WgpuContext,
     kernels: Kernels,
@@ -428,51 +421,6 @@ impl GpuGroomer {
 
     pub fn context(&self) -> &WgpuContext {
         &self.context
-    }
-
-    /// The head the hair is drawn on, to measure how much hair covers each
-    /// of its vertices ([`GpuLods::cover`]): its points, normals, and which
-    /// vertices neighbour which.
-    pub fn set_head_mesh(&mut self, surface: &Surface) -> Result<()> {
-        let n = surface.positions.len();
-        let mut neighbors: Vec<Vec<u32>> = vec![Vec::new(); n];
-        for t in &surface.triangles {
-            for &a in t {
-                for &b in t {
-                    if a != b && !neighbors[a as usize].contains(&b) {
-                        neighbors[a as usize].push(b);
-                    }
-                }
-            }
-        }
-        let mut start = Vec::with_capacity(n + 1);
-        let mut adjacency = Vec::new();
-        for list in &neighbors {
-            start.push(adjacency.len() as u32);
-            adjacency.extend_from_slice(list);
-        }
-        start.push(adjacency.len() as u32);
-        let four = |v: &[Vec3]| {
-            v.iter()
-                .map(|p| [p.x, p.y, p.z, 0.0])
-                .collect::<Vec<[f32; 4]>>()
-        };
-        self.head_mesh = Some(HeadMesh {
-            vertices: n as u32,
-            points: upload(
-                &self.context,
-                &four(&surface.positions),
-                "hair head points".into(),
-            )?,
-            normals: upload(
-                &self.context,
-                &four(&surface.normals),
-                "hair head normals".into(),
-            )?,
-            adjacency_start: upload(&self.context, &start, "hair head adjacency start".into())?,
-            adjacency: upload(&self.context, &adjacency, "hair head adjacency".into())?,
-        });
-        Ok(())
     }
 
     /// Strands already grown -- a DiffLocks sample, say -- onto the GPU, to
@@ -783,7 +731,7 @@ mod tests {
             );
 
             groomer
-                .set_head_mesh(&Head::mannequin().mesh(0.008))
+                .set_head_mesh(Arc::new(Head::mannequin().mesh(0.008)))
                 .expect("head");
             let lods = groomer
                 .lods(&grown, head.cranium.center, &crate::LodSettings::default())
@@ -791,7 +739,7 @@ mod tests {
             assert_eq!(lods.strand_count(), gpu.len());
             assert!(lods.cards.iter().all(|c| c.cards > 0), "{name}: no cards");
             let cover: Vec<[f32; 2]> =
-                pollster::block_on(lods.cover.as_ref().expect("cover").read(groomer.context()))
+                pollster::block_on(lods.cover.as_ref().expect("cover").buffer().read(groomer.context()))
                     .expect("cover read back");
             let covered = cover.iter().filter(|c| c[0] > 0.5).count();
             assert!(covered > 0, "{name}: nothing covered");
@@ -810,7 +758,7 @@ mod tests {
         };
         let mut groomer = GpuGroomer::new(context).expect("kernels");
         groomer
-            .set_head_mesh(&Head::mannequin().mesh(0.008))
+            .set_head_mesh(Arc::new(Head::mannequin().mesh(0.008)))
             .expect("head");
         for preset in [Preset::Long, Preset::Afro] {
             let mut look = Look::new(preset);
@@ -877,7 +825,7 @@ mod tests {
         };
         let mut groomer = GpuGroomer::new(context).expect("kernels");
         groomer
-            .set_head_mesh(&Head::mannequin().mesh(0.008))
+            .set_head_mesh(Arc::new(Head::mannequin().mesh(0.008)))
             .expect("head");
         let mut look = Look::new(Preset::Long);
         look.strands = StrandCount::from_count(10_000);
@@ -1192,7 +1140,7 @@ mod tests {
         };
         let mut groomer = GpuGroomer::new(context).expect("kernels");
         groomer
-            .set_head_mesh(&Head::mannequin().mesh(0.008))
+            .set_head_mesh(Arc::new(Head::mannequin().mesh(0.008)))
             .expect("head");
         let mut look = Look::new(Preset::Long);
         look.strands = StrandCount::from_count(20_000);
@@ -1421,7 +1369,7 @@ mod tests {
         };
         let mut groomer = GpuGroomer::new(context).expect("kernels");
         groomer
-            .set_head_mesh(&Head::mannequin().mesh(0.008))
+            .set_head_mesh(Arc::new(Head::mannequin().mesh(0.008)))
             .expect("head");
         let shake = |t: f32| {
             Rigid::from_angles(
@@ -1494,7 +1442,7 @@ mod tests {
         };
         let mut groomer = GpuGroomer::new(context).expect("kernels");
         groomer
-            .set_head_mesh(&Head::mannequin().mesh(0.008))
+            .set_head_mesh(Arc::new(Head::mannequin().mesh(0.008)))
             .expect("head");
         let mut look = Look::new(Preset::Long);
         look.strands = StrandCount::from_count(20_000);

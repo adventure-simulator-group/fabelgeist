@@ -13,6 +13,10 @@ use fabelgeist_math::Vec3;
 
 use crate::rng::Rng;
 
+pub use render_layout::{SurfaceRenderError, SurfaceRenderLayout, SurfaceRenderResult};
+
+mod render_layout;
+
 /// A triangle mesh with normals and a UV map.
 pub struct Surface {
     pub positions: Vec<Vec3>,
