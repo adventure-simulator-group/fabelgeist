@@ -8,6 +8,7 @@ use crate::gpu::error::Result;
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_math::Vec3;
+use fabelgeist_spatial_hash::CellScale;
 
 use super::grow::params;
 use super::{GpuGroom, GpuGroomer, storage, upload};
@@ -511,7 +512,12 @@ impl GpuGroomer {
         let count = groom.strands;
         let radius = 0.004f32;
         self.grid.ensure_capacity(&context, count)?;
-        self.grid.record_build(batch, &groom.roots, count, radius)?;
+        let recorded_grid = self.grid.record_build(
+            batch,
+            &groom.roots,
+            count,
+            CellScale::from_cell_size(radius),
+        )?;
         let root_counts = self.scratch.root_counts.fit(
             &context,
             (vertices as u64 * 4).into(),
@@ -523,20 +529,17 @@ impl GpuGroomer {
                 .fit(&context, 16_u64.into(), "hair cover totals".into())?;
         batch.clear_buffer(&totals);
         let mut p = params! {
-            "points" => groom.roots.clone(),
             "head_points" => head_points.clone(),
             "root_counts" => root_counts.clone(),
             "totals" => totals.clone(),
             "count" => count,
-            "table_size" => self.grid.table_size(),
-            "inverse_cell" => self.grid.inverse_cell(),
             "pad" => 0u32,
             "vertices" => vertices,
             "radius" => radius,
             "pad0" => 0u32,
             "pad1" => 0u32,
         };
-        self.grid.bind(&mut p);
+        recorded_grid.bind(&mut p);
         batch.dispatch_folded(&self.kernels.cover_count, &p, vertices)?;
 
         let reach = 0.024f32;
