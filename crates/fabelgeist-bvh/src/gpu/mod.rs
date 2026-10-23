@@ -18,7 +18,7 @@ use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 
 pub use shaders::{TraversalConfig, traversal_source};
-pub use layout::{BvhLayout, BvhLayoutError, BvhNodeCount, BvhPrimitiveCount};
+pub use layout::{BvhBoundsError, BvhLayout, BvhLayoutError, BvhNodeCount, BvhPrimitiveCount};
 
 mod layout;
 mod storage;
@@ -112,7 +112,9 @@ impl GpuBvh {
     /// refit.
     ///
     /// `primitive_bounds` holds two `vec4<f32>` per primitive, lower then
-    /// upper. Nothing is read back, so this can sit in the middle of a frame's
+    /// upper. Its logical and native extents must contain that prefix. This
+    /// checks byte availability, not the bounds' geometric validity.
+    /// Nothing is read back, so this can sit in the middle of a frame's
     /// batch between the kernel that wrote the bounds and the one that
     /// queries them.
     pub fn record_build(
@@ -128,6 +130,7 @@ impl GpuBvh {
             ));
         }
         let layout = BvhLayout::try_from(count)?;
+        count.check_bounds(primitive_bounds)?;
         if count.is_empty() {
             self.recorded_layout = layout;
             return Ok(());
@@ -200,6 +203,7 @@ impl GpuBvh {
         layout: BvhLayout,
     ) -> Result<()> {
         let count = layout.primitive_count();
+        count.check_bounds(primitive_bounds)?;
         let nodes = layout.node_count();
         let params = self.params(count);
 

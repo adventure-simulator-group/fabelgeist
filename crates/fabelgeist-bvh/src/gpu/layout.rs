@@ -1,7 +1,7 @@
 //! Primitive populations and the native node layouts derived from them.
 
 use fabelgeist_compute::SortItemCount;
-use fabelgeist_gpu::prelude::{BufferByteLength, InvocationCount, PassParameter};
+use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, InvocationCount, PassParameter};
 use fabelgeist_mesh::MeshTriangleCount;
 use std::fmt;
 use std::num::TryFromIntError;
@@ -31,6 +31,13 @@ pub struct BvhLayout {
 pub struct BvhLayoutError {
     primitives: BvhPrimitiveCount,
     source: TryFromIntError,
+}
+
+/// Primitive bounds do not contain the requested lower/upper native records.
+#[derive(Clone, Copy, Debug)]
+pub struct BvhBoundsError {
+    primitives: BvhPrimitiveCount,
+    available: BufferByteLength,
 }
 
 impl From<u32> for BvhPrimitiveCount {
@@ -64,6 +71,17 @@ impl BvhPrimitiveCount {
 
     pub(super) fn word_bytes(self) -> BufferByteLength {
         BufferByteLength::from(u64::from(self.0) * size_of::<u32>() as u64)
+    }
+
+    pub(super) fn check_bounds(self, bounds: &Buffer) -> Result<(), BvhBoundsError> {
+        let available = bounds.size.min(bounds.buffer.size().into());
+        if available < self.bounds_bytes() {
+            return Err(BvhBoundsError {
+                primitives: self,
+                available,
+            });
+        }
+        Ok(())
     }
 
     /// Native lower/upper vec4 records, written by a primitive-bounds kernel.
@@ -187,3 +205,17 @@ impl std::error::Error for BvhLayoutError {
         Some(&self.source)
     }
 }
+
+impl fmt::Display for BvhBoundsError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            formatter,
+            "BVH bounds for {} primitives require {} bytes, but only {} are available",
+            self.primitives,
+            self.primitives.bounds_bytes(),
+            self.available,
+        )
+    }
+}
+
+impl std::error::Error for BvhBoundsError {}
