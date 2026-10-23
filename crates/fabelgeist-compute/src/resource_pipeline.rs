@@ -19,6 +19,7 @@ pub enum DispatchResource {
     Input,
     Output,
     InclusiveOffsets,
+    Vertices,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -136,6 +137,7 @@ impl DispatchResource {
             Self::Input => "input",
             Self::Output => "output",
             Self::InclusiveOffsets => "inclusive_offsets",
+            Self::Vertices => "vertices",
         };
         let (_, variable) = module
             .global_variables

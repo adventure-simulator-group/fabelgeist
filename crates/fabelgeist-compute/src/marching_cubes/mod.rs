@@ -1,28 +1,34 @@
-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
-pub mod tables;
-
-use crate::Scan;
+use crate::extraction::wgsl as shared_wgsl;
+use crate::extraction::{AttributeLabels, EmissionKind, VertexOutputLayout};
 use crate::gather::Gather;
-use crate::{GatherDefinition, MapDefinition, ScanDefinition, StreamDefinition};
+use crate::{
+    ExtractionGrid, GatherDefinition, MapDefinition, Scan, ScanDefinition, StreamDefinition,
+    TriangleExtraction,
+};
 use anyhow::Result;
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
-use fabelgeist_gpu::globals::WgpuContext;
-
-use fabelgeist_gpu::data::PassParameter;
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
+use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+use fabelgeist_mesh::MeshVertexCount;
+
+pub mod tables;
+mod wgsl;
 
 #[derive(Clone, Debug)]
 pub struct MarchingCubesDefinition {
-    pub count_def: GatherDefinition,
-    pub scan_def: ScanDefinition,
-    pub stream_def: StreamDefinition,
-    pub sync_indirect_def: MapDefinition,
-    pub tri_table_buffer: Buffer,
-    pub edge_table_buffer: Buffer,
-    pub tri_count_table_buffer: Buffer,
-    pub deinterleave_pipeline: fabelgeist_gpu::data::gpu::ComputePipeline,
+    count_def: GatherDefinition,
+    scan_def: ScanDefinition,
+    stream_def: StreamDefinition,
+    sync_indirect_def: MapDefinition,
+    tri_table_buffer: Buffer,
+    edge_table_buffer: Buffer,
+    tri_count_table_buffer: Buffer,
+    deinterleave_pipeline: crate::ResourcePipeline,
 }
+
+pub struct MarchingCubes;
 
 impl PartialEq for MarchingCubesDefinition {
     fn eq(&self, other: &Self) -> bool {
@@ -54,63 +60,7 @@ impl MarchingCubesDefinition {
             BufferDefinition::storage().with_label(("TRI_COUNT_TABLE").into()),
         )?;
 
-        let params_struct = r#"
-struct Params {
-    grid_x: u32,
-    grid_y: u32,
-    grid_z: u32,
-    max_vertices: u32,
-    threshold: f32,
-    scale_x: f32,
-    scale_y: f32,
-    scale_z: f32,
-    offset_x: f32,
-    offset_y: f32,
-    offset_z: f32,
-}
-"#;
-
-        let count_wgsl = format!(
-            r#"
-{params_struct}
-@group(0) @binding(2) var<uniform> params: Params;
-@group(0) @binding(3) var<storage, read> tri_count_table: array<u32>;
-
-fn gather(index: u32) -> u32 {{
-    let grid_xy = params.grid_x * params.grid_y;
-    let z = index / grid_xy;
-    let y = (index % grid_xy) / params.grid_x;
-    let x = index % params.grid_x;
-    let id0 = vec3<u32>(x, y, z);
-
-    if (id0.x == 0u || id0.y == 0u || id0.z == 0u || id0.x >= params.grid_x - 2u || id0.y >= params.grid_y - 2u || id0.z >= params.grid_z - 2u) {{
-        return 0u;
-    }}
-
-    let v0 = textureLoad(input, id0, 0).x;
-    let v1 = textureLoad(input, id0 + vec3<u32>(1u, 0u, 0u), 0).x;
-    let v2 = textureLoad(input, id0 + vec3<u32>(1u, 1u, 0u), 0).x;
-    let v3 = textureLoad(input, id0 + vec3<u32>(0u, 1u, 0u), 0).x;
-    let v4 = textureLoad(input, id0 + vec3<u32>(0u, 0u, 1u), 0).x;
-    let v5 = textureLoad(input, id0 + vec3<u32>(1u, 0u, 1u), 0).x;
-    let v6 = textureLoad(input, id0 + vec3<u32>(1u, 1u, 1u), 0).x;
-    let v7 = textureLoad(input, id0 + vec3<u32>(0u, 1u, 1u), 0).x;
-
-    var cubeIndex = 0u;
-    if (v0 < params.threshold) {{ cubeIndex |= 1u; }}
-    if (v1 < params.threshold) {{ cubeIndex |= 2u; }}
-    if (v2 < params.threshold) {{ cubeIndex |= 4u; }}
-    if (v3 < params.threshold) {{ cubeIndex |= 8u; }}
-    if (v4 < params.threshold) {{ cubeIndex |= 16u; }}
-    if (v5 < params.threshold) {{ cubeIndex |= 32u; }}
-    if (v6 < params.threshold) {{ cubeIndex |= 64u; }}
-    if (v7 < params.threshold) {{ cubeIndex |= 128u; }}
-
-    return tri_count_table[cubeIndex];
-}}
-"#,
-            params_struct = params_struct
-        );
+        let count_wgsl = wgsl::count();
 
         let count_def = GatherDefinition::new(context, count_wgsl)?;
         let scan_def = ScanDefinition::new(
@@ -118,167 +68,14 @@ fn gather(index: u32) -> u32 {{
             "fn scan(a: u32, b: u32) -> u32 { return a + b; }".to_string(),
         )?;
 
-        let stream_wgsl = format!(
-            r#"
-struct Vertex {{
-    position: vec4<f32>,
-    normal: vec4<f32>,
-}}
-{params_struct}
-@group(0) @binding(4) var<uniform> params: Params;
-@group(0) @binding(5) var<storage, read> triTable: array<i32>;
-@group(0) @binding(6) var<storage, read> edgeTable: array<u32>;
-
-fn get_sdf(x: i32, y: i32, z: i32) -> f32 {{
-    let ux = clamp(u32(x), 0u, params.grid_x - 1u);
-    let uy = clamp(u32(y), 0u, params.grid_y - 1u);
-    let uz = clamp(u32(z), 0u, params.grid_z - 1u);
-    return textureLoad(input, vec3<u32>(ux, uy, uz), 0).x;
-}}
-
-fn calculate_normal(x: u32, y: u32, z: u32) -> vec3<f32> {{
-    let ix = i32(x); let iy = i32(y); let iz = i32(z);
-    let nx = get_sdf(ix + 1, iy, iz) - get_sdf(ix - 1, iy, iz);
-    let ny = get_sdf(ix, iy + 1, iz) - get_sdf(ix, iy - 1, iz);
-    let nz = get_sdf(ix, iy, iz + 1) - get_sdf(ix, iy, iz - 1);
-    return normalize(vec3<f32>(nx, ny, nz));
-}}
-
-fn interpolate(id1: vec3<u32>, id2: vec3<u32>, pos1: vec3<f32>, pos2: vec3<f32>) -> Vertex {{
-    let val1 = textureLoad(input, id1, 0).x;
-    let val2 = textureLoad(input, id2, 0).x;
-    let t = clamp((params.threshold - val1) / (val2 - val1), 0.0, 1.0);
-    let n1 = calculate_normal(id1.x, id1.y, id1.z);
-    let n2 = calculate_normal(id2.x, id2.y, id2.z);
-    let scale = vec3<f32>(params.scale_x, params.scale_y, params.scale_z);
-    let pos = mix(pos1, pos2, t) * scale + vec3<f32>(params.offset_x, params.offset_y, params.offset_z);
-    let norm = normalize(mix(n1, n2, t) / scale);
-    return Vertex(vec4<f32>(pos, 1.0), vec4<f32>(norm, 0.0));
-}}
-
-fn stream(index: vec3<u32>, offset: u32, _res: ptr<storage, array<Vertex>, read_write>) {{
-    if (index.x == 0u || index.y == 0u || index.z == 0u || index.x >= params.grid_x - 2u || index.y >= params.grid_y - 2u || index.z >= params.grid_z - 2u) {{
-        return;
-    }}
-
-    let id0 = index;
-    let id1 = id0 + vec3<u32>(1u, 0u, 0u);
-    let id2 = id0 + vec3<u32>(1u, 1u, 0u);
-    let id3 = id0 + vec3<u32>(0u, 1u, 0u);
-    let id4 = id0 + vec3<u32>(0u, 0u, 1u);
-    let id5 = id0 + vec3<u32>(1u, 0u, 1u);
-    let id6 = id0 + vec3<u32>(1u, 1u, 1u);
-    let id7 = id0 + vec3<u32>(0u, 1u, 1u);
-
-    let v0 = textureLoad(input, id0, 0).x;
-    let v1 = textureLoad(input, id1, 0).x;
-    let v2 = textureLoad(input, id2, 0).x;
-    let v3 = textureLoad(input, id3, 0).x;
-    let v4 = textureLoad(input, id4, 0).x;
-    let v5 = textureLoad(input, id5, 0).x;
-    let v6 = textureLoad(input, id6, 0).x;
-    let v7 = textureLoad(input, id7, 0).x;
-
-    var cubeIndex = 0u;
-    if (v0 < params.threshold) {{ cubeIndex |= 1u; }}
-    if (v1 < params.threshold) {{ cubeIndex |= 2u; }}
-    if (v2 < params.threshold) {{ cubeIndex |= 4u; }}
-    if (v3 < params.threshold) {{ cubeIndex |= 8u; }}
-    if (v4 < params.threshold) {{ cubeIndex |= 16u; }}
-    if (v5 < params.threshold) {{ cubeIndex |= 32u; }}
-    if (v6 < params.threshold) {{ cubeIndex |= 64u; }}
-    if (v7 < params.threshold) {{ cubeIndex |= 128u; }}
-
-    let edgeState = edgeTable[cubeIndex];
-    if (edgeState == 0u) {{ return; }}
-
-    let p0 = vec3<f32>(id0); let p1 = vec3<f32>(id1);
-    let p2 = vec3<f32>(id2); let p3 = vec3<f32>(id3);
-    let p4 = vec3<f32>(id4); let p5 = vec3<f32>(id5);
-    let p6 = vec3<f32>(id6); let p7 = vec3<f32>(id7);
-
-    var vertList: array<Vertex, 12>;
-    if ((edgeState & 1u) != 0u) {{ vertList[0] = interpolate(id0, id1, p0, p1); }}
-    if ((edgeState & 2u) != 0u) {{ vertList[1] = interpolate(id1, id2, p1, p2); }}
-    if ((edgeState & 4u) != 0u) {{ vertList[2] = interpolate(id2, id3, p2, p3); }}
-    if ((edgeState & 8u) != 0u) {{ vertList[3] = interpolate(id3, id0, p3, p0); }}
-    if ((edgeState & 16u) != 0u) {{ vertList[4] = interpolate(id4, id5, p4, p5); }}
-    if ((edgeState & 32u) != 0u) {{ vertList[5] = interpolate(id5, id6, p5, p6); }}
-    if ((edgeState & 64u) != 0u) {{ vertList[6] = interpolate(id6, id7, p6, p7); }}
-    if ((edgeState & 128u) != 0u) {{ vertList[7] = interpolate(id7, id4, p7, p4); }}
-    if ((edgeState & 256u) != 0u) {{ vertList[8] = interpolate(id0, id4, p0, p4); }}
-    if ((edgeState & 512u) != 0u) {{ vertList[9] = interpolate(id1, id5, p1, p5); }}
-    if ((edgeState & 1024u) != 0u) {{ vertList[10] = interpolate(id2, id6, p2, p6); }}
-    if ((edgeState & 2048u) != 0u) {{ vertList[11] = interpolate(id3, id7, p3, p7); }}
-
-    var tableOffset = cubeIndex * 16u;
-    for (var i = 0u; i < 16u; i += 3u) {{
-        let tri0 = triTable[tableOffset + i];
-        if (tri0 == -1) {{ break; }}
-
-        let t0 = u32(tri0);
-        let t1 = u32(triTable[tableOffset + i + 1u]);
-        let t2 = u32(triTable[tableOffset + i + 2u]);
-
-        if (offset + i + 3u <= params.max_vertices) {{
-            output[offset + i] = vertList[t0];
-            output[offset + i + 1u] = vertList[t1];
-            output[offset + i + 2u] = vertList[t2];
-        }}
-    }}
-}}
-"#,
-            params_struct = params_struct
-        );
+        let stream_wgsl = wgsl::stream();
 
         let stream_def = StreamDefinition::new(context, stream_wgsl)?;
 
-        let sync_indirect_wgsl = r#"
-@group(0) @binding(2) var<storage, read> inclusive_offsets: array<u32>;
-@group(0) @binding(3) var<storage, read_write> indirect: array<u32>;
+        let sync_indirect_wgsl = shared_wgsl::indirect_source(EmissionKind::TriangleVertices);
+        let sync_indirect_def = MapDefinition::new(sync_indirect_wgsl)?;
 
-fn map(val: u32) -> u32 {
-    let last_index = arrayLength(&inclusive_offsets) - 1u;
-    indirect[0] = inclusive_offsets[last_index];
-    indirect[1] = 1u;
-    indirect[2] = 0u;
-    indirect[3] = 0u;
-    return val;
-}
-"#;
-        let sync_indirect_def = MapDefinition::new(sync_indirect_wgsl.to_string())?;
-
-        let deinterleave_wgsl = r#"
-            struct Vertex {
-                position: vec4<f32>,
-                normal: vec4<f32>,
-            }
-
-            @group(0) @binding(0) var<storage, read> vertices: array<Vertex>;
-            @group(0) @binding(1) var<storage, read_write> out_positions: array<f32>;
-            @group(0) @binding(2) var<storage, read_write> out_normals: array<f32>;
-
-            @compute @workgroup_size(64)
-            fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
-                let idx = global_id.x;
-                if (idx >= arrayLength(&vertices)) {
-                    return;
-                }
-                let v = vertices[idx];
-                let pos_idx = idx * 3u;
-                out_positions[pos_idx] = v.position.x;
-                out_positions[pos_idx + 1u] = v.position.y;
-                out_positions[pos_idx + 2u] = v.position.z;
-
-                out_normals[pos_idx] = v.normal.x;
-                out_normals[pos_idx + 1u] = v.normal.y;
-                out_normals[pos_idx + 2u] = v.normal.z;
-            }
-        "#;
-        let deinterleave_shader =
-            fabelgeist_gpu::data::gpu::ComputeShader::new(context, deinterleave_wgsl.to_string())?;
-        let deinterleave_pipeline =
-            fabelgeist_gpu::data::gpu::ComputePipeline::new(context, deinterleave_shader)?;
+        let deinterleave_pipeline = shared_wgsl::deinterleave(context)?;
 
         Ok(Self {
             count_def,
@@ -293,29 +90,33 @@ fn map(val: u32) -> u32 {
     }
 }
 
-pub struct MarchingCubes;
-
 #[expect(
     clippy::too_many_arguments,
     reason = "surface extraction passes grid, threshold, output bounds and world transform to the GPU"
 )]
 impl MarchingCubes {
+    /// Emit a prefix of complete triangles within the vertex budget.
+    /// The indirect draw count reports only written vertices. The grid must
+    /// match the distance-field texture; zero and overflowing layouts fail
+    /// before GPU work.
     pub fn execute(
         context: &WgpuContext,
         definition: &MarchingCubesDefinition,
         sdf: &GpuResource,
-        grid: (u32, u32, u32),
+        grid: ExtractionGrid,
         threshold: f32,
-        max_vertices: u32,
+        max_vertices: MeshVertexCount,
         scale: (f32, f32, f32),
         offset: (f32, f32, f32),
-    ) -> Result<(Buffer, Buffer, Buffer)> {
-        let grid_total = (grid.0 * grid.1 * grid.2) as u64;
+    ) -> Result<TriangleExtraction> {
+        grid.ensure_sdf(sdf)?;
+        grid.admit_triangle_prefix()?;
+        let output_layout = VertexOutputLayout::new(max_vertices)?;
 
         // 1. Count Pass
         let counts_buffer = Buffer::new(
             context,
-            (grid_total * 4).into(),
+            grid.word_bytes(),
             fabelgeist_gpu::data::BufferDefinition::storage()
                 .with_label(("counts_buffer").into())
                 .with_usage(BufferUse::CopySource)
@@ -324,9 +125,7 @@ impl MarchingCubes {
         let counts_resource = GpuResource::Buffer(counts_buffer.clone());
 
         let mut count_params = PassParameters::new();
-        count_params.insert("grid_x", grid.0);
-        count_params.insert("grid_y", grid.1);
-        count_params.insert("grid_z", grid.2);
+        grid.insert(&mut count_params);
         count_params.insert("max_vertices", max_vertices);
         count_params.insert("threshold", threshold);
         count_params.insert("scale_x", scale.0);
@@ -368,7 +167,7 @@ impl MarchingCubes {
 
         let output_indirect = Buffer::new(
             context,
-            (16u64).into(),
+            EmissionKind::TriangleVertices.indirect_bytes(),
             fabelgeist_gpu::data::BufferDefinition::storage()
                 .with_label(("marching_cubes_indirect").into())
                 .with_usage(BufferUse::CopySource)
@@ -379,6 +178,7 @@ impl MarchingCubes {
         let mut sync_params = PassParameters::new();
         sync_params.insert("inclusive_offsets", inclusive_offsets.clone());
         sync_params.insert("indirect", output_indirect.clone());
+        sync_params.insert("capacity", max_vertices);
 
         crate::Map::execute_with_parameters(
             context,
@@ -390,9 +190,7 @@ impl MarchingCubes {
 
         // 4. Generate Pass (Stream)
         let mut gen_params = PassParameters::new();
-        gen_params.insert("grid_x", grid.0);
-        gen_params.insert("grid_y", grid.1);
-        gen_params.insert("grid_z", grid.2);
+        grid.insert(&mut gen_params);
         gen_params.insert("max_vertices", max_vertices);
         gen_params.insert("threshold", threshold);
         gen_params.insert("scale_x", scale.0);
@@ -406,7 +204,7 @@ impl MarchingCubes {
 
         let output_vertices = Buffer::new(
             context,
-            (max_vertices as u64 * 32).into(), // vec4 pos + vec4 norm
+            output_layout.storage_bytes(definition.deinterleave_pipeline.storage_stride()?),
             fabelgeist_gpu::data::BufferDefinition::storage()
                 .with_label(("marching_cubes_output_vertices").into())
                 .with_usage(BufferUse::CopySource)
@@ -423,40 +221,16 @@ impl MarchingCubes {
             Some(gen_params),
         )?;
 
-        // 5. Deinterleave Pass
-        let out_positions = Buffer::new(
+        let attributes = output_layout.project(
             context,
-            (max_vertices as u64 * 12).into(), // vec3 pos
-            fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("marching_cubes_positions").into())
-                .with_usage(BufferUse::CopySource)
-                .with_usage(BufferUse::CopyDestination)
-                .with_usage(BufferUse::Vertex),
+            &definition.deinterleave_pipeline,
+            output_vertices,
+            AttributeLabels {
+                positions: "marching_cubes_positions".into(),
+                normals: "marching_cubes_normals".into(),
+            },
         )?;
 
-        let out_normals = Buffer::new(
-            context,
-            (max_vertices as u64 * 12).into(), // vec3 norm
-            fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("marching_cubes_normals").into())
-                .with_usage(BufferUse::CopySource)
-                .with_usage(BufferUse::CopyDestination)
-                .with_usage(BufferUse::Vertex),
-        )?;
-
-        let mut deinterleave_params = PassParameters::new();
-        deinterleave_params.insert("vertices", PassParameter::from(output_vertices));
-        deinterleave_params.insert("out_positions", PassParameter::from(out_positions.clone()));
-        deinterleave_params.insert("out_normals", PassParameter::from(out_normals.clone()));
-
-        let workgroups_x = max_vertices.div_ceil(64);
-        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
-            context,
-            definition.deinterleave_pipeline.clone(),
-            deinterleave_params,
-            fabelgeist_gpu::data::WorkgroupGrid::from([workgroups_x, 1, 1]),
-        )?;
-
-        Ok((out_positions, out_normals, output_indirect))
+        Ok(TriangleExtraction::new(attributes, output_indirect))
     }
 }

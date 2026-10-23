@@ -33,6 +33,7 @@ pub mod distance_field;
 pub mod distance_field_jfa;
 pub mod divergence;
 pub mod dual_contouring;
+mod extraction;
 pub mod gather;
 pub mod gradient;
 pub mod host_float;
@@ -68,6 +69,10 @@ pub use broadcast::*;
 pub use distance_field::DistanceField;
 pub use distance_field_jfa::DistanceFieldJfa;
 pub use divergence::{Divergence, DivergenceDefinition};
+pub use extraction::{
+    ExtractedVertices, ExtractionError, ExtractionGrid, ExtractionIndexCapacity, IndexedExtraction,
+    TriangleExtraction,
+};
 pub use gather::*;
 pub use gradient::{Gradient, GradientDefinition};
 pub use kernel::*;

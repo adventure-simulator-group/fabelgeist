@@ -12,36 +12,35 @@
 //! thin facade avoids maintaining a second copy of the sizeable WGSL kernels.
 
 use crate::dual_contouring::{DualContouring, DualContouringDefinition};
+use crate::{ExtractionGrid, ExtractionIndexCapacity, IndexedExtraction};
 use anyhow::Result;
-use fabelgeist_gpu::data::gpu::buffer::Buffer;
+use fabelgeist_mesh::MeshVertexCount;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use fabelgeist_gpu::globals::WgpuContext;
-
-/// Compute resources used by the advancing-front extractor.
-pub type AdvancingFrontDefinition = DualContouringDefinition;
 
 pub struct AdvancingFront;
 
 impl AdvancingFront {
     /// Extract an indexed triangle mesh from a 3D distance field.
     ///
-    /// `max_vertices` follows the Marching Cubes API: it bounds both projected
-    /// front candidates and emitted triangle vertices (indices).
+    /// The same `max_vertices` budget bounds projected front candidates and
+    /// index slots. Only complete two-triangle quads are included in the draw
+    /// count; quads touching a suppressed candidate are omitted.
     #[expect(
         clippy::too_many_arguments,
         reason = "surface extraction passes grid, threshold, output bounds and world transform to the GPU"
     )]
     pub fn execute(
         context: &WgpuContext,
-        definition: &AdvancingFrontDefinition,
+        definition: &DualContouringDefinition,
         sdf: &GpuResource,
-        grid: (u32, u32, u32),
+        grid: ExtractionGrid,
         threshold: f32,
-        max_vertices: u32,
+        max_vertices: MeshVertexCount,
         scale: (f32, f32, f32),
         offset: (f32, f32, f32),
-    ) -> Result<(Buffer, Buffer, Buffer, Buffer)> {
-        let max_indices = max_vertices;
+    ) -> Result<IndexedExtraction> {
+        let max_indices = ExtractionIndexCapacity::from_vertex_budget(max_vertices)?;
         DualContouring::execute_advancing_front(
             context,
             definition,
