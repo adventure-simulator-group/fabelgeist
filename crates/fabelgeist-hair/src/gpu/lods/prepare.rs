@@ -1,5 +1,6 @@
 //! Native GPU layout preparation for level-of-detail passes.
 use super::*;
+use fabelgeist_gpu::prelude::{BufferDefinition, BufferUse};
 pub(super) struct CoverDensity {
     pub(super) grid: Grid,
     pub(super) density: Buffer,
