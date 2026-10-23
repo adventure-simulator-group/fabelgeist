@@ -17,6 +17,13 @@ pub struct SkirtPleats {
     pub style: PleatStyle,
     /// Rotation as a share of one repeat, rather than of the whole skirt.
     pub rotation: Permille,
+    /// Front fold depth relative to the side and rear folds. Zero leaves a
+    /// quiet center front; one preserves equal depth around the skirt.
+    pub front_depth: Permille,
+    /// Fold depth at the gathered waist, independent of lower-skirt depth.
+    pub waist_depth: Millimeters,
+    /// Circumference reserved for a quiet central front panel.
+    pub front_panel: Permille,
 }
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
@@ -27,7 +34,7 @@ pub struct SkirtSupport {
     pub color: TextileColor,
 }
 
-/// Longitudinal strips running from the waist toward the hem.
+/// Longitudinal strips along the hanging skirt section toward the hem.
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SkirtStays {
@@ -63,6 +70,9 @@ impl Default for SkirtPleats {
             depth: Millimeters(35),
             style: PleatStyle::Rounded,
             rotation: Permille(0),
+            front_depth: Permille::ONE,
+            waist_depth: Millimeters(6),
+            front_panel: Permille(0),
         }
     }
 }
@@ -70,11 +80,17 @@ impl Default for SkirtPleats {
 impl SkirtPleats {
     pub const COUNT_RANGE: RangeInclusive<u8> = 4..=24;
     pub const DEPTH_RANGE: RangeInclusive<u16> = 5..=70;
+    pub const FRONT_DEPTH_RANGE: RangeInclusive<u16> = 0..=1000;
+    pub const WAIST_DEPTH_RANGE: RangeInclusive<u16> = 0..=30;
+    pub const FRONT_PANEL_RANGE: RangeInclusive<u16> = 0..=500;
 
     pub fn validate(&self) -> Result<(), GenerateError> {
         if !Self::COUNT_RANGE.contains(&self.count.0)
             || !Self::DEPTH_RANGE.contains(&self.depth.0)
             || self.rotation.0 > Permille::ONE.0
+            || !Self::FRONT_DEPTH_RANGE.contains(&self.front_depth.0)
+            || !Self::WAIST_DEPTH_RANGE.contains(&self.waist_depth.0)
+            || !Self::FRONT_PANEL_RANGE.contains(&self.front_panel.0)
         {
             return Err(DesignError::ParametricParameters.into());
         }

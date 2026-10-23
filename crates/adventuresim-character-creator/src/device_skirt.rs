@@ -106,7 +106,12 @@ impl DeviceWearer<'_> {
         )?;
         self.record_fit_status(batch, &fit, &part)?;
         let clearance = design.clearance.metres();
-        let checks = if attachment.is_none() && design.support.is_none() && design.pleats.is_none()
+        // This whole-piece clearance predicate certifies the plain carrier.
+        // Added internal supports and textile panels need their own contacts.
+        let checks = if attachment.is_none()
+            && design.support.is_none()
+            && design.pleats.is_none()
+            && design.puff_and_slash.is_none()
         {
             vec![DeviceCheck::Mesh(Box::new(move |part| {
                 crate::skirt_clearance::validate(part, &support, clearance)

@@ -501,7 +501,8 @@ or preserve a rigid skirt support's shape.
 
 The catalog's **Linen skirt** uses a fitted procedural surface, without a
 sewing or settling simulation. Its editor controls waist rise, hip-to-ankle
-reach, the fitted upper share, clearance and thickness. Choose a straight,
+reach (up to 120% for hems below the ankle), the fitted upper share, clearance
+and thickness. Choose a straight,
 flared or bell profile; flared and bell skirts have separate width and depth
 controls. The fit samples triangle bands around both legs and the actual worn
 inner garments. Its rings share connectivity across body morph realizations.
@@ -514,13 +515,29 @@ surface. The catalog's **Linen dress** starts from this construction. Detailed
 necklines, sleeves and corsetry are outside this construction stage.
 
 Pleats have independent repeat count, depth, rotation and rounded or accordion
-folds. They release gradually below the waist. Optional longitudinal stays
+folds. Front depth can be reduced to leave a quieter center front while keeping
+fuller side and rear folds. A quiet front panel reserves part of the
+circumference and distributes the folds over the remaining cloth. Waist gather
+depth is independent of the lower fold depth. A flared carrier
+opens continuously from the waist; its final surface still encloses the wearer.
+Optional longitudinal stays
 (boning) and circumferential hoops sit under the fabric, with separate member
 counts, width, thickness and reach controls. Their exported component roles
 retain construction identity and rigid pelvis attachment. They express the
 reference construction; they do not simulate forces or constrain fabric yet.
-Puff-and-slash treatment is a separate construction stage. Skinning and movement clipping remain
-provisional until cloth physics is implemented.
+Enable puff-and-slash treatment to add puffed courses over a continuous lining.
+Skirts, dresses, sleeves and hose share the same pattern controls, panel
+construction and fullness profile. Edit course count, fullness and taper,
+roundness, constriction bands, slash count, opening dimensions, rotation and
+both textile colors. Turn off open slashes for closed puffed cloth; turn off the
+treatment for plain cloth. Treatment can accompany either pleats or supports.
+On dresses it covers the hanging section; the fitted upper section and waist
+transition remain continuous lining. These controls describe construction, not
+forces, cloth dynamics or collision response. Skinning and movement clipping
+remain provisional until cloth physics is implemented.
+Large fullness with many courses on a short skirt can produce shelf-like
+forms. The controls permit this stylization; finite topology does not establish
+plausible fabric construction across every combination.
 
 ## Draped chainmail
 

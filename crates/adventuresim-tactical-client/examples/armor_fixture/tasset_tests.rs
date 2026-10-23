@@ -8,6 +8,7 @@ use fabelgeist_armor::{
     WrappedTassetDesign,
 };
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::RigJointName;
 
 #[test]
 fn wrapped_waist_assembly_fits_completed_fauld_and_morph() -> Result<()> {
@@ -230,9 +231,12 @@ fn wrapped_tassets_fit_final_height_with_rigid_separate_thigh_ownership() -> Res
                 .flatten()
                 .all(|v| v.is_finite())
         );
-        for (side, name) in ["l_upleg", "r_upleg"].into_iter().enumerate() {
+        for (side, name) in [RigJointName::L_UPLEG, RigJointName::R_UPLEG]
+            .into_iter()
+            .enumerate()
+        {
             let component = &armor.components[side];
-            let owner = body.joint_names.iter().position(|n| n == name).unwrap() as u32;
+            let owner = body.joint_names.iter().position(|n| n == &name).unwrap() as u32;
             assert!(
                 armor.joint_indices.native_words()[component.vertices.clone()]
                     .iter()
