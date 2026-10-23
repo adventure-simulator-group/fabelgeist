@@ -52,9 +52,11 @@ impl From<[u32; 3]> for WorkgroupGrid {
 }
 impl WorkgroupGrid {
     /// Admit a native x-axis group count, folding excess groups into rows.
-    /// This constructs geometry only. A folded-index kernel must also admit
-    /// its declaration and padded lane addresses through
-    /// [`super::WorkgroupShape::covering_folded_x`].
+    /// This constructs geometry only. An unguarded lane-flattening kernel
+    /// admits its declaration and padded addresses through
+    /// [`super::WorkgroupShape::covering_folded_x`]. A block-index kernel
+    /// can instead guard the block ordinal before computing lane addresses.
+    /// The receiver checks actual device limits for either route.
     pub fn folded_x(workgroups: WorkgroupCount) -> Self {
         let workgroups = workgroups.0;
         let x = workgroups.clamp(1, MAX_GROUPS_PER_DIMENSION);
