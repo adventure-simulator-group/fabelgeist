@@ -5,6 +5,9 @@ use fabelgeist_gpu::prelude::{
     Buffer, BufferByteLength, BufferDefinition, BufferLabel, BufferUpload, WgpuContext,
 };
 
+// Native vec4-sized scratch binding: minimum allocation and alignment.
+const SCRATCH_ALIGNMENT_BYTES: u64 = 16;
+
 /// A buffer kept between grooms and grown by half again when too small, as
 /// the solvers keep theirs, so that grooming the same head again
 /// allocates nothing. Only for scratch: what a groom hands out is its own.
@@ -20,17 +23,26 @@ impl Scratch {
         bytes: BufferByteLength,
         label: BufferLabel,
     ) -> Result<Buffer> {
-        let bytes = bytes.max(BufferByteLength::from(16_u64));
+        let bytes = bytes.max(BufferByteLength::from(SCRATCH_ALIGNMENT_BYTES));
         let mut buffer = if let Some(cached) = &self.buffer
             && cached.buffer.size() >= u64::from(bytes)
         {
             cached.clone()
         } else {
-            // Byte-layout arithmetic at allocation: retain the previous 3/2
-            // growth and 16-byte alignment, without changing shader layouts.
-            let grown = u64::from(bytes)
-                .max(self.buffer.as_ref().map_or(0, |b| b.buffer.size() * 3 / 2))
-                .next_multiple_of(16);
+            let previous = self.buffer.as_ref().map_or(0, |buffer| buffer.buffer.size());
+            // previous + previous / 2 retains the exact floor of 3/2 growth
+            // without overflowing an intermediate product.
+            let grown = previous
+                .checked_add(previous / 2)
+                .map(|grown| grown.max(u64::from(bytes)))
+                .and_then(|grown| {
+                    grown.div_ceil(SCRATCH_ALIGNMENT_BYTES)
+                        .checked_mul(SCRATCH_ALIGNMENT_BYTES)
+                })
+                .ok_or(HairGpuError::ScratchCapacity {
+                    requested: bytes,
+                    previous: BufferByteLength::from(previous),
+                })?;
             Buffer::new(
                 context,
                 BufferByteLength::from(grown),

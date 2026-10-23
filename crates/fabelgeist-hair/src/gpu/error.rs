@@ -21,6 +21,11 @@ pub enum HairGpuError {
     EmptyScalp,
     #[error("the GPU scalp cut exceeds its vertex capacity")]
     ScalpVertexLimit,
+    #[error("hair scratch cannot represent growth/alignment of {requested} bytes from {previous} bytes")]
+    ScratchCapacity {
+        requested: BufferByteLength,
+        previous: BufferByteLength,
+    },
     #[error("hair readback needs {expected:?} but returned {actual:?}")]
     ShortReadback {
         expected: BufferByteLength,
