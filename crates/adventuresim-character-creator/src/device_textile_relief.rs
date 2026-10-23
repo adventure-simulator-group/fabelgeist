@@ -30,7 +30,28 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
             )?;
         }
     }
-
+    if let ParametricDesign::Partlet(partlet) = design {
+        for component in &mut armor.components {
+            if component.role == ArmorComponentRole::CollarFabric
+                && let Some(pleats) = partlet
+                    .collar
+                    .as_ref()
+                    .and_then(|collar| collar.pleats.as_ref())
+                && let Some(fabric) = &mut component.textile
+            {
+                fabric.relief = Some(Box::new(fabelgeist_armor::TextilePleatRelief {
+                    pleats: pleats.clone(),
+                    layout: fabelgeist_armor::TextilePleatLayout::FreeEdge,
+                    zone: None,
+                    chart: fabelgeist_armor::TextileChartSize::from_surface(
+                        &armor.positions,
+                        &armor.texcoords,
+                        &armor.indices[component.indices.clone()],
+                    )?,
+                }));
+            }
+        }
+    }
     let skirt = match design {
         ParametricDesign::Skirt(skirt) => Some(skirt),
         ParametricDesign::Gown(gown) => Some(&gown.skirt),

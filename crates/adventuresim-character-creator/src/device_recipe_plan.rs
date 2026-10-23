@@ -6,6 +6,7 @@ use crate::armor_recipes::ParametricDesign;
 use crate::body_cloth_plan::BodyClothPlan;
 use crate::device_fit::{FitBody, Realization, frame};
 use crate::gown_plan::GownPlan;
+use crate::partlet_plan::PartletPlan;
 use crate::skirt_join::SkirtJoinPlan;
 use fabelgeist_armor::{ArmorComponentRole, ArmorGpu};
 
@@ -17,6 +18,7 @@ pub(crate) enum RecipePlan {
     },
     Bodice(Box<BodyClothPlan>),
     Gown(Box<GownPlan>),
+    Partlet(Box<PartletPlan>),
 }
 
 impl RecipePlan {
@@ -46,7 +48,10 @@ impl RecipePlan {
                 gown.finish(gpu, body, wearer, morphs, piece, layers)
                     .await?
             }
-
+            Self::Partlet(partlet) => {
+                partlet.cloth.bind_skin(piece, &wearer.wearer(body))?;
+                partlet.finish(piece)?;
+            }
             Self::Skirt { join, carrier } => join.finish(piece, *carrier)?,
             Self::Bodice(plan) => plan.bind_skin(piece, &wearer.wearer(body))?,
             Self::None => {}
@@ -61,6 +66,14 @@ impl RecipePlan {
         design: &ParametricDesign,
     ) -> Result<Self> {
         match design {
+            ParametricDesign::Partlet(partlet) => {
+                let head = frame(gpu, body, wearer, FitRegion::Head)?;
+                Ok(Self::Partlet(Box::new(PartletPlan::new(
+                    partlet,
+                    &wearer.wearer(body),
+                    &head,
+                )?)))
+            }
             ParametricDesign::Gown(gown) => {
                 let hips = frame(gpu, body, wearer, FitRegion::Hips)?;
                 let head = frame(gpu, body, wearer, FitRegion::Head)?;

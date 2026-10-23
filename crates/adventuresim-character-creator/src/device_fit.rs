@@ -413,7 +413,12 @@ fn record_recipe(
             };
             wearer.record_fitted_skirt_textile(batch, &gown.skirt, layers, Some(&plan.join))
         }
-
+        ParametricDesign::Partlet(partlet) => {
+            let crate::device_recipe_plan::RecipePlan::Partlet(plan) = plan else {
+                anyhow::bail!("partlet has no frozen construction plan")
+            };
+            wearer.record_partlet(batch, partlet, plan, layers)
+        }
         ParametricDesign::WaistAssembly(_) => {
             anyhow::bail!("a waist assembly is fitted as its fauld and tassets")
         }

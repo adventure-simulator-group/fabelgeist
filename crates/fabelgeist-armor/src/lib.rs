@@ -8,10 +8,18 @@ mod cloth_pleat_profile;
 pub use cloth_pleat_profile::ClothPleatProfile;
 mod cloth_slit;
 pub use cloth_slit::ClothSlit;
-mod gown_dressing_slit;
-pub use gown_dressing_slit::{DressingOpeningSide, GownDressingSlit};
+mod cloth_tape;
+mod cloth_ties;
+pub use cloth_tape::ClothTape;
 mod gown;
+mod gown_dressing_slit;
+mod partlet;
+pub use cloth_ties::ClothTies;
 pub use gown::{FittedSleeves, GownBodyFit, GownDesign};
+pub use gown_dressing_slit::{DressingOpeningSide, GownDressingSlit};
+pub use partlet::{
+    ClothBinding, ClothNeckCurve, CollarBand, CollarSection, PartletDesign, StandingClothCollar,
+};
 mod construction;
 pub use bodice::{
     BodiceDesign, BodiceInterlining, BodiceLining, BodiceNeckline, BodiceOpening,
