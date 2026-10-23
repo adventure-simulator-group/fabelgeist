@@ -31,9 +31,8 @@ fn draped_chainmail_exports() -> Result<()> {
     );
     let positions: Vec<[f32; 3]> = serde_json::from_value(source["garment"].clone())?;
     let input = drape_preview::input(&model, &generated, selection);
-    let skin = transfer_skin(&input, &positions)?;
-    let indices = skin.indices;
-    let weights = skin.weights;
+    let adventuresim_character_creator::skin_transfer::SkinWeights { indices, weights } =
+        transfer_skin(&input, &positions)?;
     let mut garment = DrapedGarment {
         form: input.selection.form(),
         name: "Chainmail shirt".into(),
