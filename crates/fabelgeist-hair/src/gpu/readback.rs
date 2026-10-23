@@ -43,9 +43,9 @@ impl GpuGroomer {
                 },
             )?;
         }
-        let readback = Readback::record(&self.context, &mut batch, &[&out])?;
+        let readback = Readback::record(&mut batch, &[&out])?;
         batch.submit()?;
-        let results = pollster::block_on(readback.read(&self.context))?;
+        let results = pollster::block_on(readback.read())?;
         // Exactly one source was recorded, including the empty-word request.
         let bytes = &results[0];
         if BufferByteLength::from(bytes.len()) < expected {

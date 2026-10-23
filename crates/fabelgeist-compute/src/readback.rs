@@ -1,22 +1,21 @@
-//! Many results back to the host for the price of one.
+//! Grouped copies into one host-mapped staging buffer.
 //!
-//! [`Buffer::read`] copies its buffer to a staging buffer, submits, and
-//! waits for the queue: one round trip per buffer. A pipeline that ends with a
-//! dozen small results -- positions, normals, indices, a few status words --
-//! pays that wait a dozen times. A [`Readback`] records every copy into the
-//! batch that produced the results, lays them end to end in one staging
-//! buffer, and maps it once after the batch is submitted.
+//! For an unmappable source, [`Buffer::read`] allocates staging and submits a
+//! separate copy before mapping. [`Readback`] records all source copies into
+//! their producing batch, preserves their byte order and maps one allocation
+//! after successful submission. Its allocation and polling device come from
+//! that batch.
 //!
-//! Waiting at all is the other cost. [`Readback::record_pending`] asks for the
-//! mapping as the batch is submitted and returns a [`PendingReadback`], which
-//! hands the results over once the GPU has got there -- a frame later, say --
-//! and until then says so rather than waiting: a simulation stepped on the
-//! GPU can be read every frame without the CPU ever stalling on it.
+//! [`Readback::record_pending`] requests mapping after the submission helper
+//! returns `Ok`. [`PendingReadback`] polls for results without requesting a GPU
+//! completion wait. Discard it if submission fails or the batch is dropped:
+//! its mapping callback is not requested on those paths. [`Readback::read`]
+//! instead waits explicitly for native device work while mapping.
 
 use std::sync::{Arc, Mutex, MutexGuard};
 
 use fabelgeist_gpu::prelude::{
-    Buffer, BufferByteLength, BufferByteOffset, BufferDefinition, BufferUse, WgpuContext,
+    Buffer, BufferByteLength, BufferByteOffset, BufferDefinition, BufferUse,
 };
 
 use crate::{BufferCopy, KernelBatch};
@@ -33,6 +32,7 @@ struct StagedRange {
 /// Results staged for one mapping.
 #[derive(Debug)]
 pub struct Readback {
+    device: wgpu::Device,
     staging: Buffer,
     ranges: Vec<StagedRange>,
 }
@@ -40,6 +40,7 @@ pub struct Readback {
 /// Results on their way back: see [`Readback::record_pending`].
 #[derive(Debug)]
 pub struct PendingReadback {
+    device: wgpu::Device,
     staging: Buffer,
     ranges: Vec<StagedRange>,
     state: Arc<Mutex<ReadbackState>>,
@@ -94,11 +95,8 @@ impl StagedRange {
 impl Readback {
     /// Record each source's typed extent in an aligned staging allocation.
     /// Overflow is rejected before a GPU allocation or copy is recorded.
-    pub fn record(
-        context: &WgpuContext,
-        batch: &mut KernelBatch,
-        buffers: &[&Buffer],
-    ) -> Result<Self> {
+    pub fn record(batch: &mut KernelBatch, buffers: &[&Buffer]) -> Result<Self> {
+        let context = batch.context();
         let mut ranges = Vec::new();
         ranges
             .try_reserve_exact(buffers.len())
@@ -143,17 +141,24 @@ impl Readback {
                 )
                 .map_err(ReadbackError::Copy)?;
         }
-        Ok(Self { staging, ranges })
+        Ok(Self {
+            device: context.device.as_ref().clone(),
+            staging,
+            ranges,
+        })
     }
 
     /// Record copies and request mapping after a successful batch submission.
     /// Discard the pending result if submission fails or the batch is dropped.
     pub fn record_pending(
-        context: &WgpuContext,
         batch: &mut KernelBatch,
         buffers: &[&Buffer],
     ) -> Result<PendingReadback> {
-        let Self { staging, ranges } = Self::record(context, batch, buffers)?;
+        let Self {
+            device,
+            staging,
+            ranges,
+        } = Self::record(batch, buffers)?;
         let state = Arc::new(Mutex::new(ReadbackState::Pending));
         let (mapped, shared) = (staging.buffer.clone(), state.clone());
         batch.after_submit(move || {
@@ -167,26 +172,26 @@ impl Readback {
                 });
         });
         Ok(PendingReadback {
+            device,
             staging,
             ranges,
             state,
         })
     }
 
-    /// Map once and return each source's bytes in the recorded order.
-    pub async fn read(self, context: &WgpuContext) -> Result<Vec<Vec<u8>>> {
+    /// Map once after the producing batch has submitted successfully.
+    /// Return source bytes in recording order. Native builds explicitly wait
+    /// on the retained device; browser builds await the mapping callback.
+    pub async fn read(self) -> Result<Vec<Vec<u8>>> {
         let slice = self.staging.buffer.slice(..);
         let (sender, receiver) = futures_channel::oneshot::channel();
         slice.map_async(wgpu::MapMode::Read, move |result| {
             let _ = sender.send(result);
         });
         #[cfg(not(target_arch = "wasm32"))]
-        context
-            .device
+        self.device
             .poll(wgpu::PollType::wait_indefinitely())
             .map_err(ReadbackError::Poll)?;
-        #[cfg(target_arch = "wasm32")]
-        let _ = context;
         receiver
             .await
             .map_err(|_| ReadbackError::ChannelClosed)?
@@ -200,9 +205,10 @@ impl Readback {
 }
 
 impl PendingReadback {
-    /// Take completed results once, returning `None` while mapping is pending.
-    pub fn try_read(&self, context: &WgpuContext) -> Result<Option<Vec<Vec<u8>>>> {
-        poll(context)?;
+    /// Poll the staging device without requesting a GPU completion wait.
+    /// Take results once, returning `None` while mapping is pending.
+    pub fn try_read(&self) -> Result<Option<Vec<Vec<u8>>>> {
+        poll(&self.device)?;
         let mut state = lock_state(&self.state);
         match &*state {
             ReadbackState::Pending => return Ok(None),
@@ -220,8 +226,8 @@ impl PendingReadback {
     }
 
     /// Observe readiness without taking the mapped results.
-    pub fn is_ready(&self, context: &WgpuContext) -> Result<bool> {
-        poll(context)?;
+    pub fn is_ready(&self) -> Result<bool> {
+        poll(&self.device)?;
         match &*lock_state(&self.state) {
             ReadbackState::Ready => Ok(true),
             ReadbackState::Failed(error) => Err(ReadbackError::Mapping(error.clone())),
@@ -230,14 +236,13 @@ impl PendingReadback {
     }
 }
 
-fn poll(context: &WgpuContext) -> Result<()> {
+fn poll(device: &wgpu::Device) -> Result<()> {
     #[cfg(not(target_arch = "wasm32"))]
-    context
-        .device
+    device
         .poll(wgpu::PollType::Poll)
         .map_err(ReadbackError::Poll)?;
     #[cfg(target_arch = "wasm32")]
-    let _ = context;
+    let _ = device;
     Ok(())
 }
 
@@ -253,7 +258,7 @@ fn lock_state(state: &Mutex<ReadbackState>) -> MutexGuard<'_, ReadbackState> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use fabelgeist_gpu::prelude::{BufferDefinition, BufferUpload};
+    use fabelgeist_gpu::prelude::{BufferDefinition, BufferUpload, WgpuContext};
 
     #[tokio::test]
     async fn every_buffer_comes_back_in_order() -> anyhow::Result<()> {
@@ -272,9 +277,9 @@ mod tests {
         )?;
         let c = Buffer::from_upload(&context, BufferUpload::from_elements(&[0.5f32]), definition)?;
         let mut batch = KernelBatch::new(&context);
-        let readback = Readback::record(&context, &mut batch, &[&a, &b, &c])?;
+        let readback = Readback::record(&mut batch, &[&a, &b, &c])?;
         batch.submit()?;
-        let results = readback.read(&context).await?;
+        let results = readback.read().await?;
         assert_eq!(bytemuck::cast_slice::<u8, u32>(&results[0]), &[1, 2, 3]);
         assert_eq!(results[1], [7, 8, 9, 10, 11, 12, 13, 14]);
         assert_eq!(bytemuck::cast_slice::<u8, f32>(&results[2]), &[0.5]);
@@ -296,13 +301,13 @@ mod tests {
             definition,
         )?;
         let mut batch = KernelBatch::new(&context);
-        let pending = Readback::record_pending(&context, &mut batch, &[&a, &b])?;
+        let pending = Readback::record_pending(&mut batch, &[&a, &b])?;
         // Nothing has been submitted, so nothing can have come back.
-        assert!(pending.try_read(&context)?.is_none());
+        assert!(pending.try_read()?.is_none());
         batch.submit()?;
         let started = std::time::Instant::now();
         let results = loop {
-            if let Some(results) = pending.try_read(&context)? {
+            if let Some(results) = pending.try_read()? {
                 break results;
             }
             assert!(
@@ -314,7 +319,7 @@ mod tests {
         assert_eq!(bytemuck::cast_slice::<u8, u32>(&results[0]), &[4, 5, 6]);
         assert_eq!(bytemuck::cast_slice::<u8, f32>(&results[1]), &[0.25, 0.75]);
         assert!(
-            pending.try_read(&context).is_err(),
+            pending.try_read().is_err(),
             "a readback is read once"
         );
         Ok(())
