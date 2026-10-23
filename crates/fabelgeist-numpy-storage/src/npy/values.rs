@@ -1,7 +1,12 @@
 //! Ordered decoded NumPy numbers and byte states, retained until SDK conversion.
 use derive_more::{Display, From, Into};
 
+use super::decode_error::{NpyDecodeError, Result};
 use super::{Dtype, NpyArray};
+
+use decode::StoredValues;
+
+mod decode;
 
 /// A decoded storage number projected to f32 precision.
 /// Integer conversion uses the original stored number, independently of this
@@ -21,12 +26,13 @@ pub struct NpyIntegerValue(i64);
 /// ```
 ///
 /// ```no_run
-/// use fabelgeist_numpy_storage::{NpyArray, NpyFloatValues, NpyIntegerValues};
-/// fn decode(array: &NpyArray) {
-///     let floats = NpyFloatValues::from(array);
-///     let integers = NpyIntegerValues::from(array);
+/// use fabelgeist_numpy_storage::{NpyArray, NpyDecodeError, NpyFloatValues, NpyIntegerValues};
+/// fn decode(array: &NpyArray) -> Result<(), NpyDecodeError> {
+///     let floats = NpyFloatValues::try_from(array)?;
+///     let integers = NpyIntegerValues::try_from(array)?;
 ///     let native_floats = Vec::<f32>::from(floats);
 ///     let native_integers = Vec::<i64>::from(integers);
+///     Ok(())
 /// }
 /// ```
 pub struct NpyFloatValues(Vec<NpyFloatValue>);
@@ -59,27 +65,21 @@ enum StoredValue {
     Byte(u8),
 }
 
-enum StoredValues<'a> {
-    Float32(std::slice::Iter<'a, [u8; 4]>),
-    Float64(std::slice::Iter<'a, [u8; 8]>),
-    Integer32(std::slice::Iter<'a, [u8; 4]>),
-    Integer64(std::slice::Iter<'a, [u8; 8]>),
-    Byte(std::slice::Iter<'a, u8>),
-}
-
 impl From<u8> for NpyByteState {
     fn from(byte: u8) -> Self {
         if byte == 0 { Self::Zero } else { Self::Nonzero }
     }
 }
 
-impl From<&NpyArray> for NpyFloatValues {
-    fn from(array: &NpyArray) -> Self {
-        Self(
-            StoredValues::from(array)
-                .map(StoredValue::floating)
-                .collect(),
-        )
+impl TryFrom<&NpyArray> for NpyFloatValues {
+    type Error = NpyDecodeError;
+
+    fn try_from(array: &NpyArray) -> Result<Self> {
+        Ok(Self(
+            StoredValues::try_from(array)?
+                .map(|value| value.map(StoredValue::floating))
+                .collect::<std::io::Result<_>>()?,
+        ))
     }
 }
 
@@ -95,13 +95,15 @@ impl From<NpyFloatValues> for Vec<f32> {
     }
 }
 
-impl From<&NpyArray> for NpyIntegerValues {
-    fn from(array: &NpyArray) -> Self {
-        Self(
-            StoredValues::from(array)
-                .map(StoredValue::integer)
-                .collect(),
-        )
+impl TryFrom<&NpyArray> for NpyIntegerValues {
+    type Error = NpyDecodeError;
+
+    fn try_from(array: &NpyArray) -> Result<Self> {
+        Ok(Self(
+            StoredValues::try_from(array)?
+                .map(|value| value.map(StoredValue::integer))
+                .collect::<std::io::Result<_>>()?,
+        ))
     }
 }
 
@@ -156,50 +158,6 @@ impl StoredValue {
         })
     }
 }
-
-impl<'a> From<&'a NpyArray> for StoredValues<'a> {
-    fn from(array: &'a NpyArray) -> Self {
-        // The current dtype selects native fixed-width words. As in
-        // chunks_exact, an incomplete final word is not decoded.
-        match array.dtype {
-            Dtype::F32 => Self::Float32(array.bytes.as_chunks::<4>().0.iter()),
-            Dtype::F64 => Self::Float64(array.bytes.as_chunks::<8>().0.iter()),
-            Dtype::I32 => Self::Integer32(array.bytes.as_chunks::<4>().0.iter()),
-            Dtype::I64 => Self::Integer64(array.bytes.as_chunks::<8>().0.iter()),
-            Dtype::U8 | Dtype::Bool => Self::Byte(array.bytes.iter()),
-        }
-    }
-}
-
-impl Iterator for StoredValues<'_> {
-    type Item = StoredValue;
-    fn size_hint(&self) -> (usize, Option<usize>) {
-        match self {
-            Self::Float32(words) | Self::Integer32(words) => words.size_hint(),
-            Self::Float64(words) | Self::Integer64(words) => words.size_hint(),
-            Self::Byte(bytes) => bytes.size_hint(),
-        }
-    }
-    fn next(&mut self) -> Option<Self::Item> {
-        match self {
-            Self::Float32(words) => words
-                .next()
-                .map(|word| StoredValue::Float32(f32::from_le_bytes(*word))),
-            Self::Float64(words) => words
-                .next()
-                .map(|word| StoredValue::Float64(f64::from_le_bytes(*word))),
-            Self::Integer32(words) => words
-                .next()
-                .map(|word| StoredValue::Integer32(i32::from_le_bytes(*word))),
-            Self::Integer64(words) => words
-                .next()
-                .map(|word| StoredValue::Integer64(i64::from_le_bytes(*word))),
-            Self::Byte(bytes) => bytes.next().copied().map(StoredValue::Byte),
-        }
-    }
-}
-
-impl ExactSizeIterator for StoredValues<'_> {}
 
 impl From<NpyByteStates> for Vec<bool> {
     fn from(states: NpyByteStates) -> Self {

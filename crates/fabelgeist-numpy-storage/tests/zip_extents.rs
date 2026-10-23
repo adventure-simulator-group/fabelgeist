@@ -89,9 +89,12 @@ fn every_saturation_combination_replaces_only_requested_fields_in_order() {
             Some(expected)
         );
         assert_eq!(
-            Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-                &npz.array(&NpzArrayName::new("values")).unwrap()
-            ))
+            Vec::<f32>::from(
+                fabelgeist_numpy_storage::NpyFloatValues::try_from(
+                    &npz.array(&NpzArrayName::new("values")).unwrap()
+                )
+                .unwrap()
+            )
             .len(),
             4
         );
@@ -181,9 +184,12 @@ fn inherited_numpy_storage_and_first_duplicate_selection_remain_intact() {
     ));
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-            &npz.array(&NpzArrayName::new("values")).unwrap()
-        ))
+        Vec::<f32>::from(
+            fabelgeist_numpy_storage::NpyFloatValues::try_from(
+                &npz.array(&NpzArrayName::new("values")).unwrap()
+            )
+            .unwrap()
+        )
         .iter()
         .map(|v| v.to_bits())
         .collect::<Vec<_>>(),
@@ -192,9 +198,12 @@ fn inherited_numpy_storage_and_first_duplicate_selection_remain_intact() {
     let bytes = include_bytes!("fixtures/member-count/duplicate-count-2.zip");
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-            &npz.array(&NpzArrayName::new("values")).unwrap()
-        ))[0],
+        Vec::<f32>::from(
+            fabelgeist_numpy_storage::NpyFloatValues::try_from(
+                &npz.array(&NpzArrayName::new("values")).unwrap()
+            )
+            .unwrap()
+        )[0],
         1.0
     );
     assert_eq!(

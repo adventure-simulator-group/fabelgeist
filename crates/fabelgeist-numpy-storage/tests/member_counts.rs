@@ -270,18 +270,24 @@ fn assert_member_values_and_storage(archive: &ZipArchive, npz: &Npz) {
         [fabelgeist_numpy_storage::NpyDimension::from(4)]
     );
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-            &npz.array(&NpzArrayName::new("values")).unwrap()
-        ))
+        Vec::<f32>::from(
+            fabelgeist_numpy_storage::NpyFloatValues::try_from(
+                &npz.array(&NpzArrayName::new("values")).unwrap()
+            )
+            .unwrap()
+        )
         .iter()
         .map(|v| v.to_bits())
         .collect::<Vec<_>>(),
         [0x3f800000, 0x80000000, 0x7fc01234, 0x40200000]
     );
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-            &npz.array(&NpzArrayName::new("second")).unwrap()
-        )),
+        Vec::<f32>::from(
+            fabelgeist_numpy_storage::NpyFloatValues::try_from(
+                &npz.array(&NpzArrayName::new("second")).unwrap()
+            )
+            .unwrap()
+        ),
         [5.0, 6.0, 7.0, 8.0]
     );
 }
@@ -363,9 +369,12 @@ fn capacity_cap_does_not_limit_real_members_or_change_duplicate_selection() {
     ));
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-            &npz.array(&NpzArrayName::new("values")).unwrap()
-        ))[0],
+        Vec::<f32>::from(
+            fabelgeist_numpy_storage::NpyFloatValues::try_from(
+                &npz.array(&NpzArrayName::new("values")).unwrap()
+            )
+            .unwrap()
+        )[0],
         1.0
     );
 }

@@ -2,8 +2,8 @@ use std::error::Error;
 
 use burn::tensor::Device;
 use fabelgeist_numpy_storage::{
-    Dtype, NpyArray, NpyDimension, NpyElementCount, NpyElementWidth, NpyLayoutError, NpyOccupancy,
-    NpyRank, NpyShape,
+    Dtype, NpyArray, NpyDecodeError, NpyDimension, NpyElementCount, NpyElementWidth,
+    NpyLayoutError, NpyOccupancy, NpyRank, NpyShape,
 };
 
 fn encoded(dtype: &str, dimensions: &str, payload: &[u8]) -> Vec<u8> {
@@ -26,7 +26,7 @@ fn decoded_queries_keep_scalar_rank_count_and_storage_width_distinct() {
     assert_eq!(scalar.dtype().storage_width(), NpyElementWidth::Word32);
     assert_eq!(scalar.bytes(), &1.5f32.to_le_bytes());
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(&scalar)),
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::try_from(&scalar).unwrap()),
         [1.5]
     );
     assert_eq!(format!("{:?}", scalar.shape()), "[]");
@@ -39,7 +39,7 @@ fn decoded_queries_keep_scalar_rank_count_and_storage_width_distinct() {
 }
 
 #[test]
-fn zero_axes_precede_product_overflow_and_preserve_the_authored_shape() {
+fn zero_axes_keep_native_shape_but_file_strides_must_be_representable() {
     for position in 0..3 {
         let mut axes = [usize::MAX; 3];
         axes[position] = 0;
@@ -50,9 +50,24 @@ fn zero_axes_precede_product_overflow_and_preserve_the_authored_shape() {
         assert_eq!(shape.element_count(), NpyElementCount::from(0));
         assert_eq!(shape.element_count().occupancy(), NpyOccupancy::Empty);
         let text = format!("{}, {}, {}", axes[0], axes[1], axes[2]);
-        let array = NpyArray::from_bytes(&encoded("<f8", &text, &[])).unwrap();
-        assert_eq!(array.shape(), &shape);
-        assert!(array.bytes().is_empty());
+        let array = NpyArray::from_bytes(&encoded("<f8", &text, &[]));
+        assert_eq!(
+            array.as_ref().map(NpyArray::shape).map_err(|error| {
+                error
+                    .downcast_ref::<std::io::Error>()
+                    .map(std::io::Error::kind)
+            }),
+            if cfg!(target_pointer_width = "64") && position == 0 {
+                Err(Some(std::io::ErrorKind::InvalidData))
+            } else {
+                Ok(&shape)
+            }
+        );
+        assert!(
+            array
+                .as_ref()
+                .map_or(true, |array| array.bytes().is_empty())
+        );
     }
 }
 
@@ -85,7 +100,7 @@ fn rank_failure_occurs_before_device_upload_and_keeps_its_native_cause() {
     let array = NpyArray::from_bytes(&encoded("|u1", "", &[7])).unwrap();
     let error = array.to_tensor::<1>(&Device::default()).err().unwrap();
     assert!(
-        matches!(&error, NpyLayoutError::Rank { expected, actual, .. } if *expected == NpyRank::from(1) && *actual == NpyRank::from(0))
+        matches!(&error, NpyDecodeError::Layout(NpyLayoutError::Rank { expected, actual, .. }) if *expected == NpyRank::from(1) && *actual == NpyRank::from(0))
     );
     assert_eq!(error.to_string(), "array has 0 dimensions, expected 1");
     assert!(
@@ -99,19 +114,30 @@ fn rank_failure_occurs_before_device_upload_and_keeps_its_native_cause() {
 }
 
 #[test]
-fn header_priority_and_trailing_payload_policy_remain_observable() {
+fn upstream_header_policy_and_trailing_payload_policy_remain_observable() {
     let axes = format!("{}, 2", usize::MAX);
     let error = NpyArray::from_bytes(&encoded("<c8", &axes, &[]))
         .err()
         .unwrap();
-    assert_eq!(error.to_string(), "unsupported NumPy dtype \"<c8\"");
+    assert_eq!(
+        error.to_string(),
+        if cfg!(target_pointer_width = "64") {
+            "overflow computing NPY element count"
+        } else {
+            "unsupported NumPy dtype \"<c8\""
+        }
+    );
     let mut bytes = encoded("<f4", &axes, &[]);
     let position = bytes.windows(5).position(|v| v == b"False").unwrap();
     bytes[position..position + 5].copy_from_slice(b"True ");
     let error = NpyArray::from_bytes(&bytes).err().unwrap();
     assert_eq!(
         error.to_string(),
-        "Fortran-ordered .npy arrays are not supported"
+        if cfg!(target_pointer_width = "64") {
+            "overflow computing NPY element count"
+        } else {
+            "Fortran-ordered .npy arrays are not supported"
+        }
     );
     let array = NpyArray::from_bytes(&encoded("|u1", "2,", &[0, 255, 19])).unwrap();
     assert_eq!(array.bytes(), &[0, 255]);
@@ -132,14 +158,14 @@ fn stored_values_keep_float_bits_integer_casts_and_byte_boolean_semantics() {
     assert_eq!(array.shape().dimensions(), [NpyDimension::from(2); 2]);
     assert_eq!(array.element_count(), NpyElementCount::from(4));
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(&array))
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::try_from(&array).unwrap())
             .iter()
             .map(|v| v.to_bits())
             .collect::<Vec<_>>(),
         words.map(f32::to_bits)
     );
     assert_eq!(
-        Vec::<i64>::from(fabelgeist_numpy_storage::NpyIntegerValues::from(&array)),
+        Vec::<i64>::from(fabelgeist_numpy_storage::NpyIntegerValues::try_from(&array).unwrap()),
         [0, 0, i64::MAX, 0]
     );
     assert_eq!(

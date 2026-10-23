@@ -17,7 +17,7 @@ let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Devic
   handled (NumPy switches to it past 2 GB).
 - `uncompressed_size` returns a bespoke `DeclaredUncompressedByteLength` from
   archive metadata. It does not decode or verify the member's actual length.
-- Element types: `f4`, `f8`, `i4`, `i8`, `u1`, `b1`.
+- Element types: little-endian `f4`, `f8`, `i4`, `i8`, and byte `u1`, `b1`.
   Decoded numbers use `NpyFloatValues` and `NpyIntegerValues`; `NpyByteStates`
   classifies every payload byte as zero or nonzero. Tensor upload uses
   `to_tensor` / `to_int_tensor`, so a `.npz` written as `float64` still loads
@@ -71,7 +71,9 @@ with `NpyArray::read`.
 
 ## Array metadata
 
-The decoder checks the shape, element type, and payload length. A decoded
+The vendored `npyz` reader parses the versioned header and dtype descriptor,
+and checks header layout arithmetic. The application then admits its supported
+scalar types, C ordering, native dimensions and payload length. A decoded
 `NpyArray` keeps that metadata immutable. Use `shape`, `dtype`, `element_count`,
 and `occupancy` to inspect it. Public mutation cannot reinterpret one decoded
 element as several differently sized values or replace the dimensions behind its
@@ -79,16 +81,20 @@ checked element count.
 
 `NpyShape` owns a sequence of `NpyDimension` values and admits their product.
 `NpyRank` counts axes; `NpyElementCount` counts stored elements. A scalar has
-rank zero and one element. Any zero axis makes an array empty before other
-dimensions can overflow. `NpyElementWidth` describes the supported one-, four-,
+rank zero and one element. Native shape construction treats any zero axis as
+empty before other dimensions can overflow. File admission also requires the
+upstream header's strides to be representable, so it can reject an enormous
+empty shape whose native element count alone is zero. `NpyElementWidth` describes the supported one-, four-,
 and eight-byte storage words. `NpyPayloadLength` owns the checked serialized
 payload length separately from element cardinality.
 
 `NpyLayoutError` retains the failed dimensions, element count and width,
 expected and available payload lengths, or expected/actual ranks and the native
-rank conversion cause. Constructing a tensor with the wrong rank returns this
-concrete error. Header and standalone-file errors remain format-adapter
-responsibilities. ZIP failures use the concrete classes described below.
+rank conversion cause. `NpyDecodeError` distinguishes descriptor, scalar-reader,
+payload-reader and tensor-layout failures, retaining their concrete causes.
+Its layout variant preserves the native rank cause in the error chain. Header
+and standalone-file errors remain format-adapter responsibilities. ZIP failures
+use the concrete classes described below.
 
 Native representations stay at explicit adapters: header dimension admission,
 little-endian word decoding, payload slicing, the immutable `bytes` encoding
@@ -98,12 +104,13 @@ dimensions, not mutable integer vectors. Numeric value collections retain
 decoded storage numbers; general storage/transport types remain separate bespoke
 type families.
 
-Supported dtype spellings, header admission order, scalar/empty meanings, stored
-value casts, row order, and tensor dimensions are preserved. Oversized shape and
-payload products return layout errors rather than panicking or wrapping. The
-focused tests cover overflow context, rank causes, zero axes, scalar shape,
-header failure priority, stored-width decoding, and compile-time metadata
-immutability.
+Header grammar, dtype spellings and header validation order follow `npyz`.
+Its local arithmetic patch rejects overflowing counts, byte lengths and strides
+before returning header metadata. Header rejection can therefore precede an
+application unsupported-type or Fortran-order error. Short versioned headers
+return reader errors. There is no handwritten parser fallback. Stored numeric
+casts, row order, trailing-payload truncation and tensor dimensions retain their
+application contracts. See the [vendor patch contract](../../vendor/npyz/UPSTREAM.md).
 
 ## Decoded values
 
@@ -112,19 +119,21 @@ NumPy payload values in bespoke types. The first two contain storage numbers at
 f32 and i64 precision; the third classifies each individual payload byte as zero
 or nonzero, independently of element width.
 
-Construct a collection with `From<&NpyArray>` and inspect its typed slice.
-Convert explicitly to a native vector at a tensor-data or other external
-representation boundary. Decoding retains stored dtype semantics: float64-to-
+Construct numeric collections with `TryFrom<&NpyArray>` and propagate
+`NpyDecodeError`; byte-state collection uses `From<&NpyArray>`. Inspect each
+typed slice, then convert explicitly to a native vector at a tensor-data or
+other external representation boundary. Decoding retains stored dtype semantics: float64-to-
 integer conversion occurs before any float32 projection, floating-to-integer
 casts saturate as Rust defines, float32 NaN bits and signed zero are preserved,
 and numeric byte values are not normalized to booleans.
 
-Native fixed-width word iterators preserve order and exclude an incomplete final
-word, as the previous decoder did. Each iterator supplies its exact allocation
-count to standard collection operations. Array shape, dtype admission, archive
-lookup and parser error handling retain their existing contracts; the decoded-
-value collection does not validate an array's metadata or classify a number as a
-mesh index or activation coefficient.
+Fixed-width words are decoded through `npyz` primitive readers. The adapter
+preserves order and excludes an incomplete final word, while propagating reader
+failures. Each iterator supplies its exact word count to collection operations.
+Boolean storage retains numeric byte magnitudes instead of using the library's
+logical boolean decoder; byte-state collection still classifies every payload
+byte. These value collections do not classify a number as a mesh index or
+activation coefficient.
 
 The character importer admits corrective tensor extents together and pairs the
 two sparse index columns with their weights before densification. Decoded values

@@ -9,6 +9,7 @@ on:
       - "Cargo.toml"
       - "Cargo.lock"
       - "crates/**"
+      - "vendor/npyz/**"
       - "rustfmt.toml"
       - "rust-toolchain.toml"
       - "rust-quality.toml"
@@ -31,6 +32,7 @@ on:
       - "Cargo.toml"
       - "Cargo.lock"
       - "crates/**"
+      - "vendor/npyz/**"
       - "rustfmt.toml"
       - "rust-toolchain.toml"
       - "rust-quality.toml"
@@ -1267,12 +1269,13 @@ jobs:
           export XDG_RUNTIME_DIR="$RUNNER_TEMP/zip-numpy-runtime"
           mkdir -p "$XDG_RUNTIME_DIR"
           chmod 700 "$XDG_RUNTIME_DIR"
+          cargo test --locked --manifest-path vendor/npyz/Cargo.toml -- --test-threads=1 2>&1 | tee target/zip-numpy-validation/npyz.log
           cargo test --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-features -- --test-threads=1 2>&1 | tee target/zip-numpy-validation/numpy.log
           cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-features -- --test-threads=1 2>&1 | tee target/zip-numpy-validation/mhr.log
           python3 - <<'PY_RESULTS'
           import pathlib
           import re
-          for name in ["numpy", "mhr"]:
+          for name in ["npyz", "numpy", "mhr"]:
               log = pathlib.Path(f"target/zip-numpy-validation/{name}.log").read_text()
               results = re.findall(r"test result: ok\. (\d+) passed; (\d+) failed;", log)
               if not results or sum(int(passed) for passed, _ in results) == 0:
@@ -1281,7 +1284,7 @@ jobs:
                   raise SystemExit(f"Failed {name} result cell")
               print(name, results)
           PY_RESULTS
-          git diff --exit-code -- Cargo.lock crates/adventuresim-character-creator/Cargo.lock crates/fabelgeist-mhr/Cargo.lock crates/fabelgeist-numpy-storage/Cargo.lock
+          git diff --exit-code -- Cargo.lock crates/adventuresim-character-creator/Cargo.lock crates/fabelgeist-mhr/Cargo.lock crates/fabelgeist-numpy-storage/Cargo.lock vendor/npyz/Cargo.lock
       - name: Preserve cumulative ZIP NumPy validation evidence
         if: always() && steps.zip_numpy_contracts.outcome != 'skipped'
         uses: actions/upload-artifact@v7
@@ -1302,7 +1305,7 @@ jobs:
           mkdir -p "$XDG_RUNTIME_DIR"
           chmod 700 "$XDG_RUNTIME_DIR"
           cargo test --locked --package fabelgeist-xpbd --package fabelgeist-shell -- --test-threads=1 2>&1 | tee target/constraint-validation/tests.log
-          git diff --exit-code -- Cargo.lock crates/adventuresim-character-creator/Cargo.lock crates/fabelgeist-mhr/Cargo.lock crates/fabelgeist-numpy-storage/Cargo.lock
+          git diff --exit-code -- Cargo.lock crates/adventuresim-character-creator/Cargo.lock crates/fabelgeist-mhr/Cargo.lock crates/fabelgeist-numpy-storage/Cargo.lock vendor/npyz/Cargo.lock
       - name: Upload constraint validation evidence
         if: always()
         uses: actions/upload-artifact@v7

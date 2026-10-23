@@ -179,21 +179,27 @@ mod tests {
             [crate::NpyDimension::from(2); 2]
         );
         assert_eq!(
-            Vec::<f32>::from(crate::NpyFloatValues::from(&weights)),
+            Vec::<f32>::from(crate::NpyFloatValues::try_from(&weights).unwrap()),
             [1.0, 2.0, 3.0, 4.0]
         );
         assert_eq!(
-            Vec::<i64>::from(crate::NpyIntegerValues::from(
-                &npz.array(&NpzArrayName::new("indices")).unwrap()
-            )),
+            Vec::<i64>::from(
+                crate::NpyIntegerValues::try_from(
+                    &npz.array(&NpzArrayName::new("indices")).unwrap()
+                )
+                .unwrap()
+            ),
             [7, 9]
         );
 
         let memory_npz = Npz::from_bytes(archive).unwrap();
         assert_eq!(
-            Vec::<f32>::from(crate::NpyFloatValues::from(
-                &memory_npz.array(&NpzArrayName::new("weights")).unwrap()
-            )),
+            Vec::<f32>::from(
+                crate::NpyFloatValues::try_from(
+                    &memory_npz.array(&NpzArrayName::new("weights")).unwrap()
+                )
+                .unwrap()
+            ),
             [1.0, 2.0, 3.0, 4.0]
         );
 

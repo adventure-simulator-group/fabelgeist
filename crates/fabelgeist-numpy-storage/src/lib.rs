@@ -17,9 +17,9 @@
 //! ```
 
 pub use npy::{
-    Dtype, NpyArray, NpyByteState, NpyByteStates, NpyDimension, NpyElementCount, NpyElementWidth,
-    NpyFloatValue, NpyFloatValues, NpyIntegerValue, NpyIntegerValues, NpyLayoutError, NpyOccupancy,
-    NpyPayloadLength, NpyRank, NpyShape,
+    Dtype, NpyArray, NpyByteState, NpyByteStates, NpyDecodeError, NpyDimension, NpyElementCount,
+    NpyElementWidth, NpyFloatValue, NpyFloatValues, NpyIntegerValue, NpyIntegerValues,
+    NpyLayoutError, NpyOccupancy, NpyPayloadLength, NpyRank, NpyShape,
 };
 pub use npz::{Npz, NpzArrayName};
 pub use zip::{

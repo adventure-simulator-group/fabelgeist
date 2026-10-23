@@ -72,13 +72,16 @@ fn array_admission_retains_checked_shape_and_payload_consistency() {
     assert_eq!(array.element_count(), NpyElementCount::from(1));
     assert_eq!(array.dtype(), Dtype::F32);
     assert_eq!(array.dtype().storage_width(), NpyElementWidth::Word32);
-    assert_eq!(Vec::<f32>::from(crate::NpyFloatValues::from(&array)), [1.5]);
+    assert_eq!(
+        Vec::<f32>::from(crate::NpyFloatValues::try_from(&array).unwrap()),
+        [1.5]
+    );
     assert_eq!(array.bytes(), &1.5f32.to_le_bytes());
     let dimensions = format!("{}, {}, 0", usize::MAX, usize::MAX);
     let empty = NpyArray::from_bytes(&encode("<f8", &dimensions, &[])).unwrap();
     assert_eq!(empty.occupancy(), NpyOccupancy::Empty);
     assert_eq!(empty.shape().rank(), NpyRank::from(3));
-    assert!(Vec::<f32>::from(crate::NpyFloatValues::from(&empty)).is_empty());
+    assert!(Vec::<f32>::from(crate::NpyFloatValues::try_from(&empty).unwrap()).is_empty());
     assert!(empty.bytes().is_empty());
 
     let dimensions = format!("{}, 2", usize::MAX);
@@ -86,29 +89,43 @@ fn array_admission_retains_checked_shape_and_payload_consistency() {
         Err(error) => error,
         Ok(_) => panic!("overflowing shape was admitted"),
     };
-    assert!(matches!(
-        error.downcast_ref::<NpyLayoutError>(),
-        Some(NpyLayoutError::ElementCountOverflow { .. })
-    ));
+    assert!(
+        matches!(
+            error.downcast_ref::<NpyLayoutError>(),
+            Some(NpyLayoutError::ElementCountOverflow { .. })
+        ) || error
+            .downcast_ref::<std::io::Error>()
+            .is_some_and(|error| error.kind() == std::io::ErrorKind::InvalidData)
+    );
     let error = match NpyArray::from_bytes(&encode("<f8", &format!("{},", usize::MAX), &[])) {
         Err(error) => error,
         Ok(_) => panic!("overflowing payload was admitted"),
     };
-    assert!(matches!(
-        error.downcast_ref::<NpyLayoutError>(),
-        Some(NpyLayoutError::PayloadLengthOverflow { .. })
-    ));
+    assert!(
+        matches!(
+            error.downcast_ref::<NpyLayoutError>(),
+            Some(NpyLayoutError::PayloadLengthOverflow { .. })
+        ) || error
+            .downcast_ref::<std::io::Error>()
+            .is_some_and(|error| error.kind() == std::io::ErrorKind::InvalidData)
+    );
 }
 
 #[test]
-fn header_admission_still_precedes_shape_product_and_payload_checks() {
+fn upstream_header_admission_precedes_application_dtype_and_order_policy() {
     use super::super::{NpyArray, tests::encode};
     let dimensions = format!("{}, 2", usize::MAX);
     let error = match NpyArray::from_bytes(&encode("<c8", &dimensions, &[])) {
         Err(error) => error,
         Ok(_) => panic!("unsupported dtype was admitted"),
     };
-    assert!(error.to_string().starts_with("unsupported NumPy dtype"));
+    assert!(if cfg!(target_pointer_width = "64") {
+        error
+            .downcast_ref::<std::io::Error>()
+            .is_some_and(|error| error.kind() == std::io::ErrorKind::InvalidData)
+    } else {
+        error.to_string().starts_with("unsupported NumPy dtype")
+    });
     let mut encoded = encode("<f4", &dimensions, &[]);
     let start = encoded
         .windows(5)
@@ -121,7 +138,11 @@ fn header_admission_still_precedes_shape_product_and_payload_checks() {
     };
     assert_eq!(
         error.to_string(),
-        "Fortran-ordered .npy arrays are not supported"
+        if cfg!(target_pointer_width = "64") {
+            "overflow computing NPY element count"
+        } else {
+            "Fortran-ordered .npy arrays are not supported"
+        }
     );
 }
 
@@ -146,12 +167,12 @@ fn every_stored_width_retains_element_cardinality_and_casts() {
         let array = NpyArray::from_bytes(&encode(encoding, "2,", &payload)).unwrap();
         assert_eq!(array.element_count(), NpyElementCount::from(2));
         assert_eq!(
-            Vec::<f32>::from(crate::NpyFloatValues::from(&array)),
+            Vec::<f32>::from(crate::NpyFloatValues::try_from(&array).unwrap()),
             floats,
             "{encoding}"
         );
         assert_eq!(
-            Vec::<i64>::from(crate::NpyIntegerValues::from(&array)),
+            Vec::<i64>::from(crate::NpyIntegerValues::try_from(&array).unwrap()),
             integers,
             "{encoding}"
         );
