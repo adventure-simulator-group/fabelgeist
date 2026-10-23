@@ -33,7 +33,9 @@
 //! frames), [`LodPolicy::desktop`] and [`LodPolicy::mobile`].
 
 pub use counts::{CardLevelCount, CardLevelIndex, LodCounts, StrandLevelCount, StrandLevelIndex};
-pub use policy::{Band, Blend, Form, LodPolicy, LodPolicyError, PolicyResult, Selection, SimBand};
+pub use policy::{
+    Band, Blend, Form, LodPolicy, LodPolicyError, PolicyResult, Representation, Selection, SimBand,
+};
 pub use quality::{
     AccumulationFrames, HairShading, PixelSpan, Quality, ShadowMapSize, ShadowQuality,
 };
