@@ -127,8 +127,25 @@ native immediate-value commands.
 Cached kernels keep per-batch uniform slots with checked byte offsets and retain
 native pipeline/binding causes. Empty launches in a batch skip parameter
 admission and counter increments. Standalone empty dispatches still admit
-parameters. Folded launches and callbacks after submission retain their existing
-ordering. Borrowed contexts and browser builds still provide no synchronous
+parameters. Folded launches retain their existing ordering. Recording a dispatch
+or copy does not establish native encoding acceptance: wgpu can defer validation
+until encoder finalization. `WgpuContext::submit` observes Validation errors from
+finalization before queue submission, then observes submission separately under
+the context's native validation policy. It returns the actual SDK cause without
+waiting for GPU completion. The encoder must be created by the context's device,
+and its queue must belong to that same logical `wgpu::Device`; sharing a backend
+or adapter is insufficient. Native builds explicitly enable wgpu's `std` feature
+so its scope tracking distinguishes threads.
+
+`KernelBatch::submit` and standalone dispatch preserve these causes through
+`ComputePassError::Native`. Batch application callbacks run in registration
+order only after the submission helper returns `Ok`; a discarded or rejected
+batch drops them unrun. These callbacks can initiate mapping, but do not report
+GPU completion. A pending readback obtained before submission must be discarded
+when submission fails; callback removal does not supply a mapping outcome.
+Separate readback or completion operations remain necessary to obtain results.
+This boundary captures the Validation filter, not every possible device error.
+Borrowed contexts and browser builds still provide no synchronous
 native validation verdict; typed errors cannot recover a cause the device never
 reported through a read-back scope.
 

@@ -1,8 +1,10 @@
 use anyhow::{Result, anyhow};
+pub use blitter::Blitter;
 use std::sync::Arc;
 use wgpu::{Adapter, Device, Instance, Queue};
+
 pub mod blitter;
-pub use blitter::Blitter;
+mod submission;
 
 #[derive(Clone)]
 pub struct WgpuContext {
@@ -15,13 +17,14 @@ pub struct WgpuContext {
     pub surface: Option<Arc<wgpu::Surface<'static>>>,
     pub blitter: Option<Arc<Blitter>>,
     pub blit_lock: Arc<async_lock::Mutex<()>>,
-    /// Whether shader, pipeline and texture construction synchronously waits
-    /// for native validation results.
+    /// Whether native construction, encoder finalization and submission
+    /// observe Validation errors synchronously.
     ///
     /// Native contexts created here enable this; borrowed contexts disable it
     /// to avoid blocking their caller on GPU work. A blocking poll waits for
     /// the latest submission observed when polling begins and has no timeout.
-    /// When disabled, these constructors install no validation scope, so
+    /// Finalization and submission read their scopes without a completion wait.
+    /// When disabled, these operations install no validation scope, so
     /// native errors follow the device's configured error handling. Browser
     /// builds skip synchronous readback. Shader source is separately checked
     /// by Naga.

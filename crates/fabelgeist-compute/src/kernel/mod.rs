@@ -19,15 +19,16 @@ use crate::prelude::*;
 use std::sync::Arc;
 
 pub use batch_error::KernelBatchError;
+pub use copy::BufferCopy;
 pub use dispatch_count::RecordedDispatchCount;
 pub use workgroup::WorkgroupDeclarationError;
 
 mod batch_error;
+mod copy;
 mod dispatch_count;
 mod fast;
 mod workgroup;
 
-// Validation scopes on one device must not interleave during compilation.
 static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
 /// The flat item index of an invocation dispatched by
@@ -91,8 +92,6 @@ impl Kernel {
     /// `@group(0) @binding(n)` declarations; the binding *names* are what a
     /// dispatch matches its parameters against.
     pub fn new(context: &WgpuContext, code: impl Into<String>) -> Result<Self> {
-        // Shader and pipeline creation read back validation error scopes,
-        // which interleave badly when two threads compile at once.
         let _compiling = COMPILING
             .lock()
             .unwrap_or_else(|poisoned| poisoned.into_inner());
@@ -219,7 +218,7 @@ pub struct KernelBatch<'a> {
     encoder: wgpu::CommandEncoder,
     dispatches: RecordedDispatchCount,
     uniforms: fast::UniformArena,
-    /// Run once the batch is submitted, in order.
+    /// Run in order only after the context's submission helper returns `Ok`.
     after_submit: Vec<Box<dyn FnOnce() + Send + 'a>>,
 }
 
@@ -248,6 +247,7 @@ impl<'a> KernelBatch<'a> {
     }
 
     /// Record one dispatch of `kernel` over an explicit workgroup grid.
+    /// Native encoding errors can remain deferred until submission.
     pub fn dispatch(
         &mut self,
         kernel: &Kernel,
@@ -327,48 +327,6 @@ impl<'a> KernelBatch<'a> {
         self.dispatch(kernel, parameters, kernel.groups_for(items))
     }
 
-    /// Copy between buffers inside the batch, so that the copy is ordered
-    /// against the dispatches around it.
-    pub fn copy_buffer(
-        &mut self,
-        source: &Buffer,
-        destination: &Buffer,
-        bytes: BufferByteLength,
-    ) -> Result<()> {
-        if bytes > source.size || bytes > destination.size {
-            return Err(KernelBatchError::CopyOutOfBounds {
-                requested: bytes,
-                source: source.size,
-                destination: destination.size,
-            }
-            .into());
-        }
-        #[cfg(not(target_arch = "wasm32"))]
-        let scope = self.context.blocking_validation.then(|| {
-            self.context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
-        self.encoder.copy_buffer_to_buffer(
-            &source.buffer,
-            0,
-            &destination.buffer,
-            0,
-            u64::from(bytes),
-        );
-        #[cfg(not(target_arch = "wasm32"))]
-        if let Some(scope) = scope {
-            let _ = self
-                .context
-                .device
-                .poll(wgpu::PollType::wait_indefinitely());
-            if let Some(cause) = pollster::block_on(scope.pop()) {
-                return Err(ComputePassError::Native(Arc::new(cause)).into());
-            }
-        }
-        Ok(())
-    }
-
     /// Zero a buffer inside the batch.
     pub fn clear_buffer(&mut self, buffer: &Buffer) {
         self.encoder.clear_buffer(&buffer.buffer, 0, None);
@@ -383,21 +341,27 @@ impl<'a> KernelBatch<'a> {
         self.dispatches
     }
 
-    /// Run `work` once the batch has been submitted -- for what has to
-    /// follow the submission rather than be recorded in it, like asking for a
-    /// staging buffer to be mapped. Dropped unrun if the batch never is.
+    /// Run `work` after the context's submission helper returns `Ok`, in
+    /// registration order. Drop it unrun if the batch is discarded or
+    /// submission returns `Err`. This is a host submission callback, not a
+    /// GPU-completion callback; it can initiate a staging-buffer mapping.
     pub fn after_submit(&mut self, work: impl FnOnce() + Send + 'a) {
         self.after_submit.push(Box::new(work));
     }
 
-    /// Finish the encoder and submit. Returns the submission index, which the
-    /// caller can wait on if it needs the results back on the host.
-    pub fn submit(self) -> wgpu::SubmissionIndex {
-        let index = self.context.queue.submit(Some(self.encoder.finish()));
+    /// Consume the encoder and submit under the context's validation policy.
+    /// Propagate captured native errors before running application callbacks.
+    /// An `Ok` index is not GPU completion; device-handled paths provide no
+    /// synchronous native validation verdict.
+    pub fn submit(self) -> Result<wgpu::SubmissionIndex> {
+        let index = self
+            .context
+            .submit(self.encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
         for work in self.after_submit {
             work();
         }
-        index
+        Ok(index)
     }
 }
 

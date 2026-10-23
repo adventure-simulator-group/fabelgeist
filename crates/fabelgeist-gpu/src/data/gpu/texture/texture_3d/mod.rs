@@ -1,5 +1,6 @@
 use std::sync::Arc;
 
+use crate::data::ComputePassError;
 use crate::data::gpu::texture::{TextureFormat, TextureViewError};
 use anyhow::Result;
 
@@ -176,7 +177,9 @@ impl Texture3d {
             },
         );
 
-        context.queue.submit(Some(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
 
         #[allow(unused_mut)]
         let (tx, mut rx) = futures_channel::oneshot::channel();

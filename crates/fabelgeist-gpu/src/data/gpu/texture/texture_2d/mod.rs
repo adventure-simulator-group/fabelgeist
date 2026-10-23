@@ -3,6 +3,7 @@ use std::sync::Arc;
 use anyhow::Result;
 
 use crate::{
+    data::ComputePassError,
     data::gpu::texture::{TextureFormat, TextureViewError},
     data::vector::Vec2,
     globals::WgpuContext,
@@ -314,7 +315,9 @@ impl Texture2d {
             },
         );
 
-        context.queue.submit(Some(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
 
         #[allow(unused_mut)]
         let (tx, mut rx) = futures_channel::oneshot::channel();
@@ -495,7 +498,9 @@ impl Texture2d {
                 label: Some("Texture2d Blit Encoder"),
             });
         blitter.blit(&context.device, &mut encoder, source_view, target_view);
-        context.queue.submit(std::iter::once(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
         Ok(())
     }
     pub fn clear(
@@ -582,7 +587,9 @@ impl Texture2d {
                 });
             }
         }
-        context.queue.submit(Some(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
         Ok(())
     }
 }
