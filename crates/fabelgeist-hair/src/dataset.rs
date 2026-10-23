@@ -57,6 +57,17 @@ pub struct Shot {
     pub skin: [f32; 3],
 }
 
+/// One draw of the dataset.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Sample {
+    pub index: u64,
+    pub seed: u64,
+    pub preset: Preset,
+    pub look: Look,
+    pub material: HairMaterial,
+    pub shot: Shot,
+}
+
 impl Shot {
     pub fn random(rng: &mut Rng) -> Self {
         let skin_tone = rng.next_f32();
@@ -86,17 +97,6 @@ impl Shot {
     pub fn distance(&self) -> f32 {
         0.2 * self.framing / (self.fov_y() * 0.5).tan()
     }
-}
-
-/// One draw of the dataset.
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct Sample {
-    pub index: u64,
-    pub seed: u64,
-    pub preset: Preset,
-    pub look: Look,
-    pub material: HairMaterial,
-    pub shot: Shot,
 }
 
 impl Sample {

@@ -27,6 +27,12 @@ pub struct RenderInputError {
 
 #[derive(Clone, Copy)]
 pub(super) enum History {
+    Empty,
+    Current(HistorySlot),
+}
+
+#[derive(Clone, Copy)]
+pub(super) enum HistorySlot {
     First,
     Second,
 }
@@ -86,6 +92,21 @@ impl RenderedView {
 }
 
 impl History {
+    pub fn is_current(self) -> bool {
+        matches!(self, Self::Current(_))
+    }
+
+    pub fn previous(self) -> HistorySlot {
+        match self {
+            // With no history, the first blend has weight one, so the
+            // previous contents do not contribute to its result.
+            Self::Empty => HistorySlot::First,
+            Self::Current(slot) => slot,
+        }
+    }
+}
+
+impl HistorySlot {
     pub fn next(self) -> Self {
         match self {
             Self::First => Self::Second,

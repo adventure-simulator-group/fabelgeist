@@ -111,7 +111,8 @@ pub struct FrameInfo {
     pub pixels: PixelSpan,
     /// Frames in the running mean.
     pub frames: AccumulationFrames,
-    /// Strands or card quads drawn.
+    /// Population of the primary representation, excluding transition and
+    /// shadow draws. Card populations currently count quads.
     pub primitives: usize,
 }
 
@@ -858,7 +859,7 @@ impl HairRenderer {
             bounds: [[-0.2, -0.3, -0.2], [0.2, 0.2, 0.2]],
             center: [0.0; 3],
             frames: AccumulationFrames::default(),
-            history: History::First,
+            history: History::Empty,
             last: None,
             moving: false,
         })
@@ -1632,7 +1633,7 @@ impl HairRenderer {
     fn invalidate_view(&mut self) {
         self.last = None;
         self.frames = AccumulationFrames::default();
-        self.history = History::First;
+        self.history = History::Empty;
     }
 
     /// Whether the last rendered view has its requested running mean, with
@@ -1715,9 +1716,9 @@ impl HairRenderer {
             self.shadows = Self::shadow_maps(&self.device, resolution);
             self.rebind_lighting();
         }
-        let same = self.last == Some(view);
-        if !same {
-            self.frames = AccumulationFrames::default();
+        let accumulating = wanted.count() > 1 || self.moving;
+        if self.last != Some(view) || (accumulating && !self.history.is_current()) {
+            self.invalidate_view();
         }
         self.last = Some(view);
         let moving = std::mem::take(&mut self.moving);
@@ -1746,14 +1747,10 @@ impl HairRenderer {
                 bytemuck::bytes_of(&draw),
             );
         }
-        let plan = DrawPlan::new(
-            self,
-            Selection {
-                representation,
-                blend,
-            },
-            quality.min_pixels,
-        );
+        let plan = DrawPlan::new(Selection {
+            representation,
+            blend,
+        });
         if let Some(blend) = blend
             && let Some(draw) = self.draw_gpu(blend.to, quality.min_pixels)
         {
@@ -1960,9 +1957,8 @@ impl HairRenderer {
         }
 
         // Into the running mean, then onto the screen.
-        let accumulating = wanted.count() > 1 || moving;
         let source = if accumulating {
-            let from = self.history;
+            let from = self.history.previous();
             let to = from.next();
             // Moving hair keeps a share of each new frame: an exponential
             // mean, which smooths the stochastic coverage without trailing
@@ -1999,7 +1995,7 @@ impl HairRenderer {
                 pass.set_bind_group(0, &targets.accumulate[from.index()], &[]);
                 pass.draw(0..3, 0..1);
             }
-            self.history = to;
+            self.history = History::Current(to);
             &targets.tonemap_accum[to.index()]
         } else {
             &targets.tonemap_resolved

@@ -35,18 +35,21 @@ pub(super) enum CardCoverage {
 }
 
 impl DrawPlan {
-    pub fn new(renderer: &HairRenderer, selection: Selection, min_pixels: PixelSpan) -> Self {
+    pub fn new(selection: Selection) -> Self {
         let Selection {
             representation,
             blend,
         } = selection;
-        let population = |representation| {
-            renderer
-                .draw_gpu(representation, min_pixels)
-                .map_or(0, |draw| draw.count)
+        // Split the shared logical prefix before clamping each resident
+        // level. A finer level can hold fewer strands than a coarser one.
+        // Native instance ranges cannot address a population above u32.
+        let population = |representation| match representation {
+            Representation::Strands { count, .. } => count.count().min(u32::MAX as usize) as u32,
+            Representation::Cards { .. } | Representation::Empty => 0,
         };
         let amount = blend.map_or(Ratio::from_ratio(0.0), |blend| blend.amount);
-        let handed = |count: u32| ((count as f32) * (1.0 - amount.ratio())).round() as u32;
+        let handed =
+            |count: u32| (((count as f32) * (1.0 - amount.ratio())).round() as u32).min(count);
         let mut plan = Self {
             strands: Vec::new(),
             cards: Vec::new(),
@@ -109,8 +112,9 @@ impl DrawRole {
 
 impl CardCoverage {
     /// The native shader keeps a card when its [0, 1] random value lies in
-    /// this half-open interval. The outer endpoints retain the old shader's
-    /// complete outgoing/incoming coverage at transition endpoints.
+    /// this half-open interval. Generated random values lie in [0, 1).
+    /// A supplied value equal to one retains the shader's original cuts:
+    /// incoming amount one excludes it; outgoing amount one includes it.
     pub fn keep(&self) -> [f32; 4] {
         match *self {
             Self::Outgoing { amount } => [amount.ratio(), 2.0, 0.0, 0.0],
