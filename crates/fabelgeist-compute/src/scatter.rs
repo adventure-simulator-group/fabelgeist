@@ -27,6 +27,26 @@ pub struct ScatterDefinition {
     cache: ScatterPipelineCache,
 }
 
+impl ScatterSignature {
+    fn call_arguments(&self) -> Vec<String> {
+        let mut arguments = Vec::new();
+        for (name, declaration) in self.param_names.iter().zip(&self.scatter_args) {
+            // parse_signature admits exactly two colon-separated parts.
+            let parts: Vec<_> = declaration.split(':').collect();
+            let parameter_type = parts[1];
+            if self.index.as_ref().map(CoordinateParameter::name) == Some(name.as_str()) {
+                arguments.push("index".to_string());
+            } else if !parameter_type.contains("Resource")
+                && !parameter_type.contains("ptr<")
+                && !parameter_type.contains("texture_")
+            {
+                arguments.push("in_val".to_string());
+            }
+        }
+        arguments
+    }
+}
+
 impl Default for ScatterDefinition {
     fn default() -> Self {
         Self {
@@ -228,19 +248,7 @@ impl ScatterDefinition {
             }
         }
 
-        let mut call_args = vec![];
-        for (name, argument) in sig.param_names.iter().zip(&sig.scatter_args) {
-            if sig.index.as_ref().map(CoordinateParameter::name) == Some(name.as_str()) {
-                call_args.push("index".to_string());
-            } else if !argument.contains("Resource")
-                && !argument.contains("ptr<")
-                && !argument.contains("texture_")
-            {
-                // If it is NOT the resource parameter (which got stripped), it must be the input value
-                call_args.push("in_val".to_string());
-            }
-        }
-        let scatter_call = format!("scatter({})", call_args.join(", "));
+        let scatter_call = format!("scatter({})", sig.call_arguments().join(", "));
 
         full_code.push_str(&format!("    {};\n", scatter_call));
         full_code.push_str("}\n");
