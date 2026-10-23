@@ -1,4 +1,8 @@
-use anyhow::anyhow;
+pub use error::ShaderError;
+
+mod error;
+
+pub type ShaderResult<T> = std::result::Result<T, ShaderError>;
 
 #[derive(Debug, Clone)]
 pub struct UniformMember {
@@ -40,34 +44,43 @@ pub struct ReflectionData {
     pub vertex_entry_point: String,
 }
 
-pub fn detect_from_code(code: &str) -> String {
-    if code.contains("#version") {
-        return "glsl".to_string();
-    }
-    "wgsl".to_string()
+/// The language selected at the shader source boundary.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ShaderLanguage {
+    Glsl,
+    Wgsl,
 }
 
-pub fn parse_naga(
-    code: &str,
-    stage: wgpu::naga::ShaderStage,
-) -> anyhow::Result<wgpu::naga::Module> {
-    let lang = detect_from_code(code);
-
-    if lang == "glsl" {
-        let mut frontend = wgpu::naga::front::glsl::Frontend::default();
-        frontend
-            .parse(
-                &wgpu::naga::front::glsl::Options {
-                    stage,
-                    defines: Default::default(),
-                },
-                code,
-            )
-            .map_err(|e| anyhow!("GLSL Parse Error: {:?}", e))
+pub fn detect_from_code(code: &str) -> ShaderLanguage {
+    if code.contains("#version") {
+        ShaderLanguage::Glsl
     } else {
-        wgpu::naga::front::wgsl::parse_str(code).map_err(|e| {
-            let message = e.emit_to_string(code);
-            anyhow!("WGSL Parse Error: {}", message)
-        })
+        ShaderLanguage::Wgsl
+    }
+}
+
+pub fn parse_naga(code: &str, stage: wgpu::naga::ShaderStage) -> ShaderResult<wgpu::naga::Module> {
+    match detect_from_code(code) {
+        ShaderLanguage::Glsl => {
+            let mut frontend = wgpu::naga::front::glsl::Frontend::default();
+            frontend
+                .parse(
+                    &wgpu::naga::front::glsl::Options {
+                        stage,
+                        defines: Default::default(),
+                    },
+                    code,
+                )
+                .map_err(|cause| ShaderError::GlslParse {
+                    diagnostic: cause.emit_to_string(code),
+                    cause: std::sync::Arc::new(cause),
+                })
+        }
+        ShaderLanguage::Wgsl => {
+            wgpu::naga::front::wgsl::parse_str(code).map_err(|cause| ShaderError::WgslParse {
+                diagnostic: cause.emit_to_string(code),
+                cause: std::sync::Arc::new(cause),
+            })
+        }
     }
 }

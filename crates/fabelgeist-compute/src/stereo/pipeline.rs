@@ -380,7 +380,7 @@ impl StereoDepth {
                 p.insert("confidence", PassParameter::Buffer(self.confidence.clone()));
                 p.insert("points", PassParameter::Buffer(self.points.clone()));
                 p.insert("distance", PassParameter::Buffer(self.distance.clone()));
-                batch.dispatch(&k.depth, &p, groups)?;
+                batch.dispatch(&k.depth, &p, groups.into())?;
             }
             Stage::Temporal => {
                 let Some(temporal) = self.temporal else {
@@ -419,7 +419,7 @@ impl StereoDepth {
                     "filtered_distance",
                     PassParameter::Buffer(self.filtered_distance.clone()),
                 );
-                batch.dispatch(&k.temporal, &p, groups)?;
+                batch.dispatch(&k.temporal, &p, groups.into())?;
             }
             Stage::Unrectify => {
                 let Some(views) = &self.views else {
@@ -488,7 +488,11 @@ impl StereoDepth {
                         "view_distance",
                         PassParameter::Buffer(views.distance[eye].clone()),
                     );
-                    batch.dispatch(&k.unrectify, &p, [vw.div_ceil(16), vh.div_ceil(16), 1])?;
+                    batch.dispatch(
+                        &k.unrectify,
+                        &p,
+                        [vw.div_ceil(16), vh.div_ceil(16), 1].into(),
+                    )?;
                 }
             }
         }

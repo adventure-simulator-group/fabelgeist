@@ -2,15 +2,19 @@ use crate::globals::WgpuContext;
 use anyhow::{Result, anyhow};
 use std::sync::Arc;
 
+pub use binding::BufferBindingError;
+
+pub use definition::{BufferDefinition, BufferUse};
+pub use extent::{BufferByteLength, BufferByteOffset};
+pub use label::BufferLabel;
+pub use upload::{BufferUpload, BufferUploadOccupancy};
+
+mod binding;
 mod definition;
 mod extent;
 mod label;
 mod readback;
 mod upload;
-pub use definition::{BufferDefinition, BufferUse};
-pub use extent::{BufferByteLength, BufferByteOffset};
-pub use label::BufferLabel;
-pub use upload::{BufferUpload, BufferUploadOccupancy};
 
 #[derive(Clone, Debug)]
 pub struct Buffer {

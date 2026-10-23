@@ -1,5 +1,5 @@
 use crate::{
-    data::gpu::texture::{Image, TextureFormat},
+    data::gpu::texture::{Image, TextureFormat, TextureViewError, TextureViewResult},
     data::vector::{Vec2, Vec4},
     globals::WgpuContext,
 };
@@ -8,12 +8,14 @@ use std::sync::Arc;
 
 #[derive(Clone, Debug)]
 pub struct TextureView {
-    pub view: Option<Arc<wgpu::TextureView>>,
-    pub texture: Option<Arc<wgpu::Texture>>,
-    pub size: (u32, u32),
-    pub format: TextureFormat,
-    pub dimension: wgpu::TextureViewDimension,
-    pub layer: Option<u32>,
+    pub(super) view: Option<Arc<wgpu::TextureView>>,
+    pub(super) texture: Option<Arc<wgpu::Texture>>,
+    pub(super) size: (u32, u32),
+    pub(super) format: TextureFormat,
+    pub(super) view_format: TextureFormat,
+    pub(super) dimension: wgpu::TextureViewDimension,
+    pub(super) layer: Option<u32>,
+    pub(super) device: Option<Arc<wgpu::Device>>,
 }
 
 impl PartialEq for TextureView {
@@ -27,7 +29,9 @@ impl PartialEq for TextureView {
             (None, None) => true,
             _ => false,
         }) && self.size == other.size
+            && self.device == other.device
             && self.format == other.format
+            && self.view_format == other.view_format
             && self.dimension == other.dimension
             && self.layer == other.layer
     }
@@ -36,16 +40,57 @@ impl PartialEq for TextureView {
 impl Default for TextureView {
     fn default() -> Self {
         Self {
+            device: None,
             view: None,
             texture: None,
             size: (0, 0),
             format: TextureFormat::Rgba8Unorm,
+            view_format: TextureFormat::Rgba8Unorm,
             dimension: wgpu::TextureViewDimension::D2,
             layer: None,
         }
     }
 }
 impl TextureView {
+    pub fn format(&self) -> TextureFormat {
+        self.format
+    }
+    pub fn dimension(&self) -> wgpu::TextureViewDimension {
+        self.dimension
+    }
+    pub fn native_texture(&self) -> Option<&Arc<wgpu::Texture>> {
+        self.texture.as_ref()
+    }
+    pub fn cached_view(&self) -> Option<&Arc<wgpu::TextureView>> {
+        self.view.as_ref()
+    }
+    pub fn extent(&self) -> wgpu::Extent3d {
+        wgpu::Extent3d {
+            width: self.size.0,
+            height: self.size.1,
+            depth_or_array_layers: 1,
+        }
+    }
+    pub(super) fn selected_view(&self, context: &WgpuContext) -> super::SelectedTextureViewResult {
+        let view = self.view.clone().ok_or(TextureViewError::MissingView)?;
+        self.ensure_device(context)?;
+        Ok(super::SelectedTextureView::new(
+            view,
+            self.view_format.into(),
+            self.dimension,
+            self.device
+                .clone()
+                .ok_or(super::TextureViewError::Uninitialized)?,
+        ))
+    }
+
+    pub fn ensure_device(&self, context: &WgpuContext) -> TextureViewResult<()> {
+        if self.device.as_deref() != Some(context.device.as_ref()) {
+            return Err(TextureViewError::WrongDevice);
+        }
+        Ok(())
+    }
+
     pub fn size(&self) -> Vec2 {
         Vec2::new(self.size.0 as f32, self.size.1 as f32)
     }
@@ -71,10 +116,8 @@ impl TextureView {
         Image::from_pixels(rgba, width, height)
     }
     pub fn clear_raw(&self, context: &WgpuContext, color: Vec4) -> Result<()> {
-        let view = self
-            .view
-            .as_ref()
-            .ok_or_else(|| anyhow!("TextureView has no view"))?;
+        let view = self.view.as_ref().ok_or(TextureViewError::MissingView)?;
+        self.ensure_device(context)?;
         let mut encoder = context
             .device
             .create_command_encoder(&wgpu::CommandEncoderDescriptor {
@@ -148,7 +191,8 @@ impl TextureView {
         let texture = self
             .texture
             .as_ref()
-            .ok_or_else(|| anyhow!("TextureView has no underlying texture to read from"))?;
+            .ok_or(TextureViewError::Uninitialized)?;
+        self.ensure_device(context)?;
 
         let pixel_size = self.format.pixel_size();
         let bytes_per_row = width * pixel_size;
@@ -296,10 +340,12 @@ impl TextureView {
 impl From<&crate::data::gpu::texture::Texture2d> for TextureView {
     fn from(t: &crate::data::gpu::texture::Texture2d) -> Self {
         TextureView {
+            device: t.device.clone(),
             view: t.view.clone(),
             texture: t.texture.clone(),
             size: t.size,
             format: t.format,
+            view_format: t.effective_format(t.format),
             dimension: wgpu::TextureViewDimension::D2,
             layer: None,
         }

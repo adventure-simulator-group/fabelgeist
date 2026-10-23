@@ -141,7 +141,7 @@ impl GradientDefinition {
         }
 
         let shader = ComputeShader::new(context, full_code)?;
-        ComputePipeline::new(context, shader)
+        Ok(ComputePipeline::new(context, shader)?)
     }
 
     pub fn get_or_create_pipeline(
@@ -231,11 +231,15 @@ impl Gradient {
         parameters.insert("half_inverse_cell_size", half_inverse_cell_size);
 
         let (wg_x, wg_y, wg_z) = match output {
-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+            GpuResource::Texture2d(t) => (
+                t.extent().width.div_ceil(16),
+                t.extent().height.div_ceil(16),
+                1,
+            ),
             GpuResource::Texture3d(t) => (
-                t.size.0.div_ceil(8),
-                t.size.1.div_ceil(8),
-                t.size.2.div_ceil(4),
+                t.extent().width.div_ceil(8),
+                t.extent().height.div_ceil(8),
+                t.extent().depth_or_array_layers.div_ceil(4),
             ),
             _ => unreachable!(),
         };
@@ -244,9 +248,7 @@ impl Gradient {
             context,
             pipeline.as_ref().clone(),
             parameters,
-            wg_x,
-            wg_y,
-            wg_z,
+            fabelgeist_gpu::data::WorkgroupGrid::from([wg_x, wg_y, wg_z]),
         )?;
 
         Ok(())

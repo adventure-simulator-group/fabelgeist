@@ -197,7 +197,7 @@ impl Collisions {
         batch.copy_buffer(
             &particles.positions,
             &particles.previous,
-            particles.count() as u64 * 16,
+            (particles.count() as u64 * 16).into(),
         )?;
         self.record_mesh(batch, particles, search_radius)?;
         Ok(())

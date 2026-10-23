@@ -32,7 +32,8 @@ impl DistanceField {
         parameters: Option<PassParameters>,
         io: &Texture3d,
     ) -> Result<()> {
-        let native_input = io.texture.as_ref().ok_or(TextureViewError::Uninitialized)?;
+        let native_input = io.native_texture().ok_or(TextureViewError::Uninitialized)?;
+        io.ensure_device(context)?;
         let sig = MapDefinition::parse_signature(&definition.code)?;
         let re = regex::Regex::new(r"\bfn\s+map\b")?;
         let user_code = re.replace(&definition.code, "fn user_map").to_string();
@@ -63,11 +64,11 @@ impl DistanceField {
         let temp_tex = Texture3d::new(
             context,
             fabelgeist_gpu::data::vector::Vec3::new(
-                io.size.0 as f32,
-                io.size.1 as f32,
-                io.size.2 as f32,
+                io.extent().width as f32,
+                io.extent().height as f32,
+                io.extent().depth_or_array_layers as f32,
             ),
-            io.format,
+            io.format(),
         )?;
 
         let mut encoder = context
@@ -85,17 +86,16 @@ impl DistanceField {
             },
             wgpu::TexelCopyTextureInfo {
                 texture: temp_tex
-                    .texture
-                    .as_ref()
+                    .native_texture()
                     .ok_or(TextureViewError::Uninitialized)?,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
             },
             wgpu::Extent3d {
-                width: io.size.0,
-                height: io.size.1,
-                depth_or_array_layers: io.size.2,
+                width: io.extent().width,
+                height: io.extent().height,
+                depth_or_array_layers: io.extent().depth_or_array_layers,
             },
         );
         context.queue.submit(Some(encoder.finish()));
@@ -114,7 +114,8 @@ impl DistanceField {
         k: f32,
         io: &Texture3d,
     ) -> Result<()> {
-        let native_input = io.texture.as_ref().ok_or(TextureViewError::Uninitialized)?;
+        let native_input = io.native_texture().ok_or(TextureViewError::Uninitialized)?;
+        io.ensure_device(context)?;
         let sig = MapDefinition::parse_signature(&definition.code)?;
         let re = regex::Regex::new(r"\bfn\s+map\b")?;
         let user_code = re.replace(&definition.code, "fn user_map").to_string();
@@ -154,11 +155,11 @@ impl DistanceField {
         let temp_tex = Texture3d::new(
             context,
             fabelgeist_gpu::data::vector::Vec3::new(
-                io.size.0 as f32,
-                io.size.1 as f32,
-                io.size.2 as f32,
+                io.extent().width as f32,
+                io.extent().height as f32,
+                io.extent().depth_or_array_layers as f32,
             ),
-            io.format,
+            io.format(),
         )?;
 
         let mut encoder = context
@@ -176,17 +177,16 @@ impl DistanceField {
             },
             wgpu::TexelCopyTextureInfo {
                 texture: temp_tex
-                    .texture
-                    .as_ref()
+                    .native_texture()
                     .ok_or(TextureViewError::Uninitialized)?,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
             },
             wgpu::Extent3d {
-                width: io.size.0,
-                height: io.size.1,
-                depth_or_array_layers: io.size.2,
+                width: io.extent().width,
+                height: io.extent().height,
+                depth_or_array_layers: io.extent().depth_or_array_layers,
             },
         );
         context.queue.submit(Some(encoder.finish()));

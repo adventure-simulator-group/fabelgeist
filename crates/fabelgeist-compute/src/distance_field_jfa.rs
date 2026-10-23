@@ -125,10 +125,13 @@ impl DistanceFieldJfa {
         input: &Texture3d,
         output: &Texture3d,
     ) -> Result<()> {
-        let size = input.size;
-        let max_dim = (size.0.max(size.1).max(size.2)) as f32;
-        let size_vec3 =
-            fabelgeist_gpu::data::vector::Vec3::new(size.0 as f32, size.1 as f32, size.2 as f32);
+        let size = input.extent();
+        let max_dim = (size.width.max(size.height).max(size.depth_or_array_layers)) as f32;
+        let size_vec3 = fabelgeist_gpu::data::vector::Vec3::new(
+            size.width as f32,
+            size.height as f32,
+            size.depth_or_array_layers as f32,
+        );
 
         let temp_a = Texture3d::new(context, size_vec3, TextureFormat::Rgba32Float)?;
         let temp_b = Texture3d::new(context, size_vec3, TextureFormat::Rgba32Float)?;

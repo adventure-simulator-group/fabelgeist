@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use crate::data::gpu::texture::TextureFormat;
+use crate::data::gpu::texture::{TextureFormat, TextureViewError};
 use anyhow::Result;
 
 use crate::{data::vector::Vec3, globals::WgpuContext};
@@ -9,11 +9,12 @@ mod views;
 
 #[derive(Clone, Debug)]
 pub struct Texture3d {
-    pub texture: Option<Arc<wgpu::Texture>>,
-    pub view: Option<Arc<wgpu::TextureView>>,
-    pub size: (u32, u32, u32),
-    pub format: TextureFormat,
-    pub usage: wgpu::TextureUsages,
+    pub(super) texture: Option<Arc<wgpu::Texture>>,
+    pub(super) view: Option<Arc<wgpu::TextureView>>,
+    pub(super) size: (u32, u32, u32),
+    pub(super) format: TextureFormat,
+    pub(super) usage: wgpu::TextureUsages,
+    pub(super) device: Option<Arc<wgpu::Device>>,
 }
 
 impl PartialEq for Texture3d {
@@ -27,6 +28,7 @@ impl PartialEq for Texture3d {
             (None, None) => true,
             _ => false,
         }) && self.size == other.size
+            && self.device == other.device
             && self.format == other.format
             && self.usage == other.usage
     }
@@ -35,6 +37,7 @@ impl PartialEq for Texture3d {
 impl Default for Texture3d {
     fn default() -> Self {
         Self {
+            device: None,
             texture: None,
             view: None,
             size: (0, 0, 0),
@@ -117,6 +120,7 @@ impl Texture3d {
         }
 
         let texture_value = Texture3d {
+            device: Some(context.device.clone()),
             texture: Some(Arc::new(texture)),
             view: Some(Arc::new(view)),
             size: (width, height, depth),
@@ -135,7 +139,8 @@ impl Texture3d {
         let texture = self
             .texture
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+            .ok_or(TextureViewError::Uninitialized)?;
+        self.ensure_device(context)?;
         let pixel_size = self.format.pixel_size();
         let bytes_per_row = width * pixel_size;
         let align = wgpu::COPY_BYTES_PER_ROW_ALIGNMENT;
@@ -240,7 +245,8 @@ impl Texture3d {
         let texture = self
             .texture
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+            .ok_or(TextureViewError::Uninitialized)?;
+        self.ensure_device(context)?;
         let bytes = bytemuck::cast_slice(data);
         let pixel_size = self.format.pixel_size();
 

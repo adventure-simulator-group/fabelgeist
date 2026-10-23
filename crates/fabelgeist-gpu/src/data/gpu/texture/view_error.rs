@@ -12,6 +12,16 @@ pub enum TextureViewError {
     Uninitialized,
     /// The operation requires a cached view, but none is present.
     MissingView,
+    WrongDevice,
+    NotTexture,
+    FormatMismatch {
+        expected: wgpu::TextureFormat,
+        actual: wgpu::TextureFormat,
+    },
+    DimensionMismatch {
+        expected: wgpu::TextureViewDimension,
+        actual: wgpu::TextureViewDimension,
+    },
     /// Native rejection of a two-dimensional texture view.
     Texture2d {
         requested: TextureFormat,
@@ -19,6 +29,11 @@ pub enum TextureViewError {
     },
     /// Native rejection of a three-dimensional texture view.
     Texture3d {
+        requested: TextureFormat,
+        cause: Box<wgpu::Error>,
+    },
+    /// Native rejection of a cube-array storage view.
+    CubeArray {
         requested: TextureFormat,
         cause: Box<wgpu::Error>,
     },
@@ -60,6 +75,16 @@ impl std::fmt::Display for TextureViewError {
         match self {
             Self::Uninitialized => formatter.write_str("Texture is not initialized"),
             Self::MissingView => formatter.write_str("Texture has no view"),
+            Self::WrongDevice => formatter.write_str("Texture belongs to a different GPU device"),
+            Self::NotTexture => formatter.write_str("Parameter is not a texture"),
+            Self::FormatMismatch { expected, actual } => write!(
+                formatter,
+                "Texture format mismatch. Expected {expected:?}, got {actual:?}"
+            ),
+            Self::DimensionMismatch { expected, actual } => write!(
+                formatter,
+                "Texture dimension mismatch. Expected {expected:?}, got {actual:?}"
+            ),
             Self::Texture2d { requested, cause } => write!(
                 formatter,
                 "WGPU Texture2d view_with_format Error (requested {requested:?}): {cause}"
@@ -67,6 +92,10 @@ impl std::fmt::Display for TextureViewError {
             Self::Texture3d { requested, cause } => write!(
                 formatter,
                 "WGPU Texture3d view_with_format Error (requested {requested:?}): {cause}"
+            ),
+            Self::CubeArray { requested, cause } => write!(
+                formatter,
+                "WGPU TextureCube array view Error (requested {requested:?}): {cause}"
             ),
             Self::TextureCube { requested, cause } => write!(
                 formatter,
@@ -81,8 +110,9 @@ impl std::error::Error for TextureViewError {
         match self {
             Self::Texture2d { cause, .. }
             | Self::Texture3d { cause, .. }
-            | Self::TextureCube { cause, .. } => Some(cause.as_ref()),
-            Self::Uninitialized | Self::MissingView => None,
+            | Self::TextureCube { cause, .. }
+            | Self::CubeArray { cause, .. } => Some(cause.as_ref()),
+            _ => None,
         }
     }
 }

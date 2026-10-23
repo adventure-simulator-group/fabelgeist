@@ -15,11 +15,12 @@ mod views;
 
 #[derive(Clone, Debug)]
 pub struct Texture2d {
-    pub texture: Option<Arc<wgpu::Texture>>,
-    pub view: Option<Arc<wgpu::TextureView>>,
-    pub size: (u32, u32),
-    pub format: TextureFormat,
-    pub usage: wgpu::TextureUsages,
+    pub(super) texture: Option<Arc<wgpu::Texture>>,
+    pub(super) view: Option<Arc<wgpu::TextureView>>,
+    pub(super) size: (u32, u32),
+    pub(super) format: TextureFormat,
+    pub(super) usage: wgpu::TextureUsages,
+    pub(super) device: Option<Arc<wgpu::Device>>,
 }
 
 impl PartialEq for Texture2d {
@@ -33,6 +34,7 @@ impl PartialEq for Texture2d {
             (None, None) => true,
             _ => false,
         }) && self.size == other.size
+            && self.device == other.device
             && self.format == other.format
             && self.usage == other.usage
     }
@@ -41,6 +43,7 @@ impl PartialEq for Texture2d {
 impl Default for Texture2d {
     fn default() -> Self {
         Self {
+            device: None,
             texture: None,
             view: None,
             size: (0, 0),
@@ -166,6 +169,7 @@ impl Texture2d {
         }
 
         let texture_value = Texture2d {
+            device: Some(context.device.clone()),
             texture: Some(Arc::new(texture)),
             view: Some(Arc::new(view)),
             size: (width, height),
@@ -273,7 +277,8 @@ impl Texture2d {
         let texture = self
             .texture
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+            .ok_or(TextureViewError::Uninitialized)?;
+        self.ensure_device(context)?;
         let pixel_size = self.format.pixel_size();
         let bytes_per_row = width * pixel_size;
         let align = wgpu::COPY_BYTES_PER_ROW_ALIGNMENT;
@@ -383,7 +388,8 @@ impl Texture2d {
         let texture = self
             .texture
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+            .ok_or(TextureViewError::Uninitialized)?;
+        self.ensure_device(context)?;
         let bytes = bytemuck::cast_slice(data);
         let pixel_size = self.format.pixel_size();
 
@@ -483,7 +489,12 @@ impl Texture2d {
     pub fn blit(&self, context: &WgpuContext, target: &Texture2d) -> Result<()> {
         let source_view = self.view.as_ref().ok_or(TextureViewError::MissingView)?;
         let target_view = target.view.as_ref().ok_or(TextureViewError::MissingView)?;
-        let blitter = crate::globals::Blitter::new(&context.device, target.format.into());
+        self.ensure_device(context)?;
+        target.ensure_device(context)?;
+        let blitter = crate::globals::Blitter::new(
+            &context.device,
+            target.effective_format(target.format).into(),
+        );
         let mut encoder = context
             .device
             .create_command_encoder(&wgpu::CommandEncoderDescriptor {
@@ -505,10 +516,8 @@ impl Texture2d {
         Ok(target)
     }
     pub fn clear_raw(&self, context: &WgpuContext, color: crate::data::vector::Vec4) -> Result<()> {
-        let view = self
-            .view
-            .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Texture has no view"))?;
+        let view = self.view.as_ref().ok_or(TextureViewError::MissingView)?;
+        self.ensure_device(context)?;
         let mut encoder = context
             .device
             .create_command_encoder(&wgpu::CommandEncoderDescriptor {

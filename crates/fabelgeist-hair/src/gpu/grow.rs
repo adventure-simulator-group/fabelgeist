@@ -86,7 +86,11 @@ impl StrandSet {
     /// The positions back in the strands' own buffer.
     pub(super) fn settle(&mut self, batch: &mut KernelBatch) -> Result<()> {
         if self.positions.flipped {
-            batch.copy_buffer(&self.positions.scratch, &self.positions.own, self.bytes())?;
+            batch.copy_buffer(
+                &self.positions.scratch,
+                &self.positions.own,
+                self.bytes().into(),
+            )?;
             self.positions.flipped = false;
         }
         Ok(())
@@ -590,7 +594,7 @@ impl GpuGroomer {
                                 "reference_z" => reference.z,
                                 "collision_offset" => settle.collision_offset,
                             },
-                            [count, if settle.relative { 2 } else { 1 }, 1],
+                            [count, if settle.relative { 2 } else { 1 }, 1].into(),
                         )?;
                     }
                     let mut solve = |load: Vec3, solved: &Buffer| {

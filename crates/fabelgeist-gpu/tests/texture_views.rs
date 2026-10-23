@@ -64,9 +64,9 @@ impl TextureFixture {
 
     fn format(&self) -> TextureFormat {
         match self {
-            Self::Plane(texture) => texture.format,
-            Self::Volume(texture) => texture.format,
-            Self::Cube(texture) => texture.format,
+            Self::Plane(texture) => texture.format(),
+            Self::Volume(texture) => texture.format(),
+            Self::Cube(texture) => texture.format(),
         }
     }
 
@@ -84,17 +84,17 @@ impl TextureFixture {
 
     fn clear_view(&mut self) {
         match self {
-            Self::Plane(texture) => texture.view = None,
-            Self::Volume(texture) => texture.view = None,
-            Self::Cube(texture) => texture.view = None,
+            Self::Plane(texture) => texture.clear_cached_view(),
+            Self::Volume(texture) => texture.clear_cached_view(),
+            Self::Cube(texture) => texture.clear_cached_view(),
         }
     }
 
     fn clear_native_texture(&mut self) {
         match self {
-            Self::Plane(texture) => texture.texture = None,
-            Self::Volume(texture) => texture.texture = None,
-            Self::Cube(texture) => texture.texture = None,
+            Self::Plane(texture) => texture.clear_native_texture(),
+            Self::Volume(texture) => texture.clear_native_texture(),
+            Self::Cube(texture) => texture.clear_native_texture(),
         }
     }
 }

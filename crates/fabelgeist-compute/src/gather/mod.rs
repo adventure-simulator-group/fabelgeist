@@ -382,11 +382,11 @@ impl Gather {
             }
             GpuResource::Texture2d(t) => {
                 parameters.insert("output", t.clone());
-                (t.size.0 * t.size.1) as u64
+                (t.extent().width * t.extent().height) as u64
             }
             GpuResource::Texture3d(t) => {
                 parameters.insert("output", t.clone());
-                (t.size.0 * t.size.1 * t.size.2) as u64
+                (t.extent().width * t.extent().height * t.extent().depth_or_array_layers) as u64
             }
         };
 
@@ -405,11 +405,15 @@ impl Gather {
 
         let (wg_x, wg_y, wg_z) = match output {
             GpuResource::Buffer(_) => ((output_num_elements as u32).div_ceil(64), 1, 1),
-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+            GpuResource::Texture2d(t) => (
+                t.extent().width.div_ceil(16),
+                t.extent().height.div_ceil(16),
+                1,
+            ),
             GpuResource::Texture3d(t) => (
-                t.size.0.div_ceil(4),
-                t.size.1.div_ceil(4),
-                t.size.2.div_ceil(4),
+                t.extent().width.div_ceil(4),
+                t.extent().height.div_ceil(4),
+                t.extent().depth_or_array_layers.div_ceil(4),
             ),
         };
 
@@ -417,9 +421,7 @@ impl Gather {
             context,
             pipeline.clone(),
             parameters,
-            wg_x,
-            wg_y,
-            wg_z,
+            fabelgeist_gpu::data::WorkgroupGrid::from([wg_x, wg_y, wg_z]),
         )?;
 
         Ok(())

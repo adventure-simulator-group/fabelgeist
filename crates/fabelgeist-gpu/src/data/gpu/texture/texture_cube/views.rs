@@ -13,26 +13,43 @@ use crate::{
 impl TextureCube {
     pub fn view_with_format(
         &self,
-        _ctx: &WgpuContext,
+        context: &WgpuContext,
         format: TextureFormat,
     ) -> TextureViewResult<Arc<wgpu::TextureView>> {
+        Ok(self.select_view(context, format)?.view)
+    }
+
+    pub(super) fn select_view(
+        &self,
+        context: &WgpuContext,
+        format: TextureFormat,
+    ) -> TextureViewResult<super::super::SelectedTextureView> {
         if format == self.format {
-            return self.view.clone().ok_or(TextureViewError::MissingView);
+            let view = self.view.clone().ok_or(TextureViewError::MissingView)?;
+            return Ok(super::super::SelectedTextureView::new(
+                view,
+                self.effective_format(format).into(),
+                wgpu::TextureViewDimension::Cube,
+                self.device.clone().ok_or(TextureViewError::Uninitialized)?,
+            ));
         }
         let texture = self
             .texture
             .as_ref()
             .ok_or(TextureViewError::Uninitialized)?;
 
+        self.ensure_device(context)?;
         let mut requested_format = format;
         if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
             requested_format = format.linear_counterpart();
         }
 
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = _ctx
-            .blocking_validation
-            .then(|| _ctx.device.push_error_scope(wgpu::ErrorFilter::Validation));
+        let error_scope = context.blocking_validation.then(|| {
+            context
+                .device
+                .push_error_scope(wgpu::ErrorFilter::Validation)
+        });
 
         let view = texture.create_view(&wgpu::TextureViewDescriptor {
             label: Some("TextureCube View"),
@@ -44,13 +61,18 @@ impl TextureCube {
 
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(error_scope) = error_scope {
-            let _ = _ctx.device.poll(wgpu::PollType::wait_indefinitely());
+            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
             if let Some(cause) = pollster::block_on(error_scope.pop()) {
                 return Err(TextureViewError::from_texture_cube_view(format, cause));
             }
         }
 
-        Ok(Arc::new(view))
+        Ok(super::super::SelectedTextureView::new(
+            Arc::new(view),
+            requested_format.into(),
+            wgpu::TextureViewDimension::Cube,
+            self.device.clone().ok_or(TextureViewError::Uninitialized)?,
+        ))
     }
     pub fn face(context: &WgpuContext, target: TextureCube, face: CubeFace) -> Result<TextureView> {
         target.face_view_with_format(Some(context), face, target.format)
@@ -68,8 +90,11 @@ impl TextureCube {
         let texture = self
             .texture
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+            .ok_or(TextureViewError::Uninitialized)?;
 
+        if let Some(context) = context {
+            self.ensure_device(context)?;
+        }
         let mut requested_format = format;
         if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
             requested_format = format.linear_counterpart();
@@ -103,27 +128,89 @@ impl TextureCube {
         }
 
         Ok(TextureView {
+            device: self.device.clone(),
             view: Some(Arc::new(view)),
             texture: self.texture.clone(),
             size: (self.size, self.size),
             format: requested_format,
+            view_format: requested_format,
             dimension: wgpu::TextureViewDimension::D2,
             layer: Some(face.index()),
         })
     }
-    pub fn view_2d_array(&self) -> Option<wgpu::TextureView> {
-        self.texture.as_ref().map(|tex| {
-            let mut requested_format = self.format;
-            if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && self.format.is_srgb() {
-                requested_format = self.format.linear_counterpart();
+    pub fn view_2d_array(&self, context: &WgpuContext) -> TextureViewResult<wgpu::TextureView> {
+        let texture = self
+            .texture
+            .as_ref()
+            .ok_or(TextureViewError::Uninitialized)?;
+        self.ensure_device(context)?;
+        let requested_format = self.effective_format(self.format);
+        #[cfg(not(target_arch = "wasm32"))]
+        let scope = context.blocking_validation.then(|| {
+            context
+                .device
+                .push_error_scope(wgpu::ErrorFilter::Validation)
+        });
+        let view = texture.create_view(&wgpu::TextureViewDescriptor {
+            label: Some("TextureCube 2D Array View for Storage"),
+            dimension: Some(wgpu::TextureViewDimension::D2Array),
+            array_layer_count: Some(6),
+            format: Some(requested_format.into()),
+            ..Default::default()
+        });
+        #[cfg(not(target_arch = "wasm32"))]
+        if let Some(scope) = scope {
+            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+            if let Some(cause) = pollster::block_on(scope.pop()) {
+                return Err(TextureViewError::CubeArray {
+                    requested: self.format,
+                    cause: Box::new(cause),
+                });
             }
-            tex.create_view(&wgpu::TextureViewDescriptor {
-                label: Some("TextureCube 2D Array View for Storage"),
-                dimension: Some(wgpu::TextureViewDimension::D2Array),
-                array_layer_count: Some(6),
-                format: Some(requested_format.into()),
-                ..Default::default()
-            })
-        })
+        }
+        Ok(view)
+    }
+    pub fn format(&self) -> TextureFormat {
+        self.format
+    }
+    pub fn usage(&self) -> wgpu::TextureUsages {
+        self.usage
+    }
+    pub fn extent(&self) -> wgpu::Extent3d {
+        wgpu::Extent3d {
+            width: self.size,
+            height: self.size,
+            depth_or_array_layers: 6,
+        }
+    }
+    pub fn native_texture(&self) -> Option<&Arc<wgpu::Texture>> {
+        self.texture.as_ref()
+    }
+    pub fn cached_view(&self) -> Option<&Arc<wgpu::TextureView>> {
+        self.view.as_ref()
+    }
+
+    /// Remove the cached view without admitting a replacement or changing metadata.
+    pub fn clear_cached_view(&mut self) {
+        self.view = None;
+    }
+    /// Detach the allocation port; a previously cached view remains usable.
+    pub fn clear_native_texture(&mut self) {
+        self.texture = None;
+    }
+
+    pub(super) fn effective_format(&self, format: TextureFormat) -> TextureFormat {
+        if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
+            format.linear_counterpart()
+        } else {
+            format
+        }
+    }
+
+    pub fn ensure_device(&self, context: &WgpuContext) -> TextureViewResult<()> {
+        if self.device.as_deref() != Some(context.device.as_ref()) {
+            return Err(TextureViewError::WrongDevice);
+        }
+        Ok(())
     }
 }

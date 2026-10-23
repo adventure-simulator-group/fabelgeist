@@ -12,11 +12,12 @@ mod views;
 
 #[derive(Clone, Debug)]
 pub struct TextureCube {
-    pub texture: Option<Arc<wgpu::Texture>>,
-    pub view: Option<Arc<wgpu::TextureView>>,
-    pub size: u32,
-    pub format: TextureFormat,
-    pub usage: wgpu::TextureUsages,
+    pub(super) texture: Option<Arc<wgpu::Texture>>,
+    pub(super) view: Option<Arc<wgpu::TextureView>>,
+    pub(super) size: u32,
+    pub(super) format: TextureFormat,
+    pub(super) usage: wgpu::TextureUsages,
+    pub(super) device: Option<Arc<wgpu::Device>>,
 }
 
 impl PartialEq for TextureCube {
@@ -30,6 +31,7 @@ impl PartialEq for TextureCube {
             (None, None) => true,
             _ => false,
         }) && self.size == other.size
+            && self.device == other.device
             && self.format == other.format
             && self.usage == other.usage
     }
@@ -38,6 +40,7 @@ impl PartialEq for TextureCube {
 impl Default for TextureCube {
     fn default() -> Self {
         Self {
+            device: None,
             texture: None,
             view: None,
             size: 0,
@@ -143,6 +146,7 @@ impl TextureCube {
         }
 
         let texture_value = TextureCube {
+            device: Some(context.device.clone()),
             texture: Some(Arc::new(texture)),
             view: Some(Arc::new(view)),
             size,
@@ -281,7 +285,8 @@ impl TextureCube {
         let texture = self
             .texture
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+            .ok_or(TextureViewError::Uninitialized)?;
+        self.ensure_device(context)?;
 
         if image.width != self.size || image.height != self.size {
             return Err(anyhow::anyhow!(
@@ -331,7 +336,8 @@ impl TextureCube {
         let dst_texture = self
             .texture
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Target TextureCube is not initialized"))?;
+            .ok_or(TextureViewError::Uninitialized)?;
+        self.ensure_device(context)?;
 
         if let Some(src_texture) = &texture.texture
             && texture.size.0 == self.size
@@ -339,6 +345,7 @@ impl TextureCube {
             && texture.format == self.format
             && texture.layer.is_none()
         {
+            texture.ensure_device(context)?;
             let mut encoder =
                 context
                     .device
@@ -380,15 +387,9 @@ impl TextureCube {
         face: CubeFace,
         texture: &TextureView,
     ) -> Result<()> {
-        let src_view = texture
-            .view
-            .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Source TextureView view is not initialized"))?;
+        let src_view = texture.selected_view(context)?.view;
         let target_view_obj = self.face_view_with_format(Some(context), face, self.format)?;
-        let target_view = target_view_obj
-            .view
-            .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Target TextureCube face view is not initialized"))?;
+        let target_view = target_view_obj.selected_view(context)?.view;
 
         let shader_code = r#"
             struct VertexOutput {
@@ -464,7 +465,7 @@ impl TextureCube {
                 entries: &[
                     wgpu::BindGroupEntry {
                         binding: 0,
-                        resource: wgpu::BindingResource::TextureView(src_view),
+                        resource: wgpu::BindingResource::TextureView(&src_view),
                     },
                     wgpu::BindGroupEntry {
                         binding: 1,
@@ -528,7 +529,7 @@ impl TextureCube {
             let mut pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
                 label: Some("TextureCube Blit Render Pass"),
                 color_attachments: &[Some(wgpu::RenderPassColorAttachment {
-                    view: target_view,
+                    view: &target_view,
                     resolve_target: None,
                     ops: wgpu::Operations {
                         load: wgpu::LoadOp::Load,
@@ -571,9 +572,7 @@ impl TextureCube {
         shader_src: &str,
         time: f32,
     ) -> Result<()> {
-        let storage_view = self
-            .view_2d_array()
-            .ok_or_else(|| anyhow::anyhow!("Failed to create 2D array view"))?;
+        let storage_view = self.view_2d_array(context)?;
 
         let wgsl_code = format!(
             r#"
@@ -744,9 +743,7 @@ impl TextureCube {
         shader_src: &str,
         time: f32,
     ) -> Result<()> {
-        let storage_view = self
-            .view_2d_array()
-            .ok_or_else(|| anyhow::anyhow!("Failed to create 2D array view"))?;
+        let storage_view = self.view_2d_array(context)?;
 
         let wgsl_code = format!(
             r#"

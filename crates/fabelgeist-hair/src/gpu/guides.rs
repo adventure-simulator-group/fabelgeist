@@ -239,7 +239,7 @@ impl GpuGroomer {
                 "pad1" => 0u32,
                 "pad2" => 0u32,
             },
-            [1, 1, 1],
+            [1, 1, 1].into(),
         )?;
         Ok(roots)
     }

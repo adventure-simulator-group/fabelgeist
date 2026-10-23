@@ -216,9 +216,11 @@ impl Reduce {
             fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(b) => {
                 (u64::from(b.size) / element_size.max(1)).max(1) as u32
             }
-            fabelgeist_gpu::data::gpu::resource::GpuResource::Texture2d(t) => t.size.0 * t.size.1,
+            fabelgeist_gpu::data::gpu::resource::GpuResource::Texture2d(t) => {
+                t.extent().width * t.extent().height
+            }
             fabelgeist_gpu::data::gpu::resource::GpuResource::Texture3d(t) => {
-                t.size.0 * t.size.1 * t.size.2
+                t.extent().width * t.extent().height * t.extent().depth_or_array_layers
             }
         };
 
@@ -310,9 +312,7 @@ impl Reduce {
                 pipeline,
                 &parameters,
                 &mut encoder,
-                workgroup_count,
-                1,
-                1,
+                fabelgeist_gpu::data::WorkgroupGrid::from([workgroup_count, 1, 1]),
             )?;
 
             current_buffer = Some(output_buffer.clone());

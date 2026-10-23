@@ -33,10 +33,10 @@ impl ResourceDescriptor {
                 ResourceDescriptor::Buffer(sig_type)
             }
             crate::data::gpu::resource::GpuResource::Texture2d(t) => {
-                ResourceDescriptor::Texture2d(t.format)
+                ResourceDescriptor::Texture2d(t.format())
             }
             crate::data::gpu::resource::GpuResource::Texture3d(t) => {
-                ResourceDescriptor::Texture3d(t.format)
+                ResourceDescriptor::Texture3d(t.format())
             }
         }
     }
@@ -206,12 +206,4 @@ impl ResourceDescriptor {
         }
         code
     }
-}
-
-pub fn build_compute_pipeline(
-    context: &crate::globals::WgpuContext,
-    shader: &pipeline::ComputeShader,
-    _entry_point: &str,
-) -> anyhow::Result<pipeline::ComputePipeline> {
-    pipeline::ComputePipeline::new(context, shader.clone())
 }

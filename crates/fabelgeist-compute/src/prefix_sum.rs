@@ -287,18 +287,18 @@ impl PrefixSum {
         if blocks == 1 {
             parameters.insert("write_sums", 0u32);
             parameters.insert("sums", unused.clone());
-            batch.dispatch(&self.scan_blocks, &parameters, grid(1))?;
+            batch.dispatch(&self.scan_blocks, &parameters, grid(1).into())?;
             return Ok(());
         }
 
         let (sums, deeper) = levels.split_first().ok_or(ScanError::MissingScratchLevel)?;
         parameters.insert("write_sums", 1u32);
         parameters.insert("sums", sums.clone());
-        batch.dispatch(&self.scan_blocks, &parameters, grid(blocks))?;
+        batch.dispatch(&self.scan_blocks, &parameters, grid(blocks).into())?;
 
         self.record_level(batch, sums, deeper, unused, blocks)?;
 
-        batch.dispatch(&self.add_offsets, &parameters, grid(blocks))?;
+        batch.dispatch(&self.add_offsets, &parameters, grid(blocks).into())?;
         Ok(())
     }
 

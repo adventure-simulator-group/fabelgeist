@@ -219,7 +219,7 @@ impl GpuBvh {
         // kernel does this job with a count of one.
         let mut clear_scene = self.params(1);
         clear_scene.insert("node_bounds", self.scene_bounds.clone());
-        batch.dispatch(&self.kernels.clear_bounds, &clear_scene, [1, 1, 1])?;
+        batch.dispatch(&self.kernels.clear_bounds, &clear_scene, [1, 1, 1].into())?;
 
         let mut bounds = params.clone();
         bounds.insert("primitive_bounds", primitive_bounds.clone());
