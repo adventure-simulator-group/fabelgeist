@@ -217,7 +217,7 @@ pub struct KernelBatch<'a> {
     encoder: wgpu::CommandEncoder,
     dispatches: RecordedDispatchCount,
     uniforms: fast::UniformArena,
-    /// Run once the batch is submitted, in order.
+    /// Run in order only after the context's submission helper returns `Ok`.
     after_submit: Vec<Box<dyn FnOnce() + Send + 'a>>,
 }
 
@@ -246,6 +246,7 @@ impl<'a> KernelBatch<'a> {
     }
 
     /// Record one dispatch of `kernel` over an explicit workgroup grid.
+    /// Native encoding errors can remain deferred until submission.
     pub fn dispatch(
         &mut self,
         kernel: &Kernel,
@@ -342,21 +343,27 @@ impl<'a> KernelBatch<'a> {
         self.dispatches
     }
 
-    /// Run `work` once the batch has been submitted -- for what has to
-    /// follow the submission rather than be recorded in it, like asking for a
-    /// staging buffer to be mapped. Dropped unrun if the batch never is.
+    /// Run `work` after the context's submission helper returns `Ok`, in
+    /// registration order. Drop it unrun if the batch is discarded or
+    /// submission returns `Err`. This is a host submission callback, not a
+    /// GPU-completion callback; it can initiate a staging-buffer mapping.
     pub fn after_submit(&mut self, work: impl FnOnce() + Send + 'a) {
         self.after_submit.push(Box::new(work));
     }
 
-    /// Finish the encoder and submit. Returns the submission index, which the
-    /// caller can wait on if it needs the results back on the host.
-    pub fn submit(self) -> wgpu::SubmissionIndex {
-        let index = self.context.queue.submit(Some(self.encoder.finish()));
+    /// Consume the encoder and submit under the context's validation policy.
+    /// Propagate captured native errors before running application callbacks.
+    /// An `Ok` index is not GPU completion; device-handled paths provide no
+    /// synchronous native validation verdict.
+    pub fn submit(self) -> Result<wgpu::SubmissionIndex> {
+        let index = self
+            .context
+            .submit(self.encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
         for work in self.after_submit {
             work();
         }
-        index
+        Ok(index)
     }
 }
 

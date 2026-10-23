@@ -10,7 +10,7 @@ pub enum ComputeBindingKind {
     Uniform,
 }
 
-/// Failures at the native compute binding and recording boundary.
+/// Failures in compute binding, recording, finalization and submission.
 #[derive(Clone, Debug)]
 pub enum ComputePassError {
     MissingParameter {

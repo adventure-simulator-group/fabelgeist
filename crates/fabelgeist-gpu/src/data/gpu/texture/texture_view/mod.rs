@@ -1,4 +1,5 @@
 use crate::{
+    data::ComputePassError,
     data::gpu::texture::{Image, TextureFormat, TextureViewError, TextureViewResult},
     data::vector::{Vec2, Vec4},
     globals::WgpuContext,
@@ -176,7 +177,9 @@ impl TextureView {
                 });
             }
         }
-        context.queue.submit(Some(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
         Ok(())
     }
     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
@@ -235,7 +238,9 @@ impl TextureView {
             },
         );
 
-        context.queue.submit(Some(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
 
         #[allow(unused_mut)]
         let (tx, mut rx) = futures_channel::oneshot::channel();

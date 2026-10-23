@@ -21,6 +21,7 @@ impl KernelBatch<'_> {
     /// Copy byte ranges in order with the surrounding batch operations.
     /// Logical bounds are checked before recording. Native buffer requirements
     /// follow the context's validation policy, including for zero-byte copies.
+    /// Native encoding errors can remain deferred until batch submission.
     pub fn copy_buffer(
         &mut self,
         source: &Buffer,

@@ -3,6 +3,7 @@ use std::sync::Arc;
 use anyhow::Result;
 
 use crate::{
+    data::ComputePassError,
     data::gpu::texture::{CubeFace, Image, TextureFormat, TextureView, TextureViewError},
     globals::WgpuContext,
 };
@@ -370,7 +371,9 @@ impl TextureCube {
                     depth_or_array_layers: 1,
                 },
             );
-            context.queue.submit(Some(encoder.finish()));
+            context
+                .submit(encoder)
+                .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
             return Ok(());
         }
 
@@ -542,7 +545,9 @@ impl TextureCube {
             pass.draw(0..3, 0..1);
         }
 
-        context.queue.submit(Some(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
         Ok(())
     }
 
@@ -719,7 +724,9 @@ impl TextureCube {
             pass.dispatch_workgroups(workgroup_count, workgroup_count, 1);
         }
 
-        context.queue.submit(Some(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
         Ok(())
     }
 
@@ -883,7 +890,9 @@ impl TextureCube {
             pass.dispatch_workgroups(workgroup_count, workgroup_count, 6);
         }
 
-        context.queue.submit(Some(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
         Ok(())
     }
 }

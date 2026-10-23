@@ -13,6 +13,8 @@ mod shape;
 pub struct ComputePass;
 
 impl ComputePass {
+    /// Record and submit a standalone dispatch under the context's validation
+    /// policy. Successful submission does not establish GPU completion.
     pub fn dispatch(
         context: &WgpuContext,
         pipeline_def: ComputePipeline,
@@ -27,10 +29,14 @@ impl ComputePass {
 
         Self::record(context, &pipeline_def, &parameters, &mut encoder, groups)?;
 
-        context.queue.submit(std::iter::once(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(std::sync::Arc::new(cause)))?;
         Ok(())
     }
 
+    /// Append a dispatch after admitting its pipeline and bindings. Native
+    /// encoding errors can remain deferred until the encoder is finalized.
     pub fn record(
         context: &WgpuContext,
         pipeline_def: &ComputePipeline,
