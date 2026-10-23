@@ -29,12 +29,14 @@
 //! follow the head's transform.
 
 pub use frame_state::{RenderInputError, RenderInputPart};
+pub use head::RenderSourceError;
 pub use readback::RenderReadbackError;
 
 use deformation::{DeformationState, DeformationViews};
 use draws::{DrawPlan, DrawRole};
 use frame_state::{History, RenderedView};
 use frame_uniforms::FrameProjection;
+use head::HeadDraw;
 use std::sync::Arc;
 
 use crate::gpu::error::{HairGpuError, Result};
@@ -50,12 +52,12 @@ use crate::lod::{
 };
 use crate::material::HairMaterial;
 use crate::sim::{Rigid, SimBinding};
-use crate::surface::Surface;
 
 mod deformation;
 mod draws;
 mod frame_state;
 mod frame_uniforms;
+mod head;
 mod math;
 mod readback;
 
@@ -212,13 +214,7 @@ struct DeformGpu {
     pad: [u32; 3],
 }
 
-/// The head's surface as drawn: where to measure the hair's cover.
-struct HeadSurface {
-    positions: Vec<Vec3>,
-    normals: Vec<Vec3>,
-    triangles: Vec<[u32; 3]>,
-}
-
+#[derive(Clone)]
 struct GpuMesh {
     vertices: Arc<wgpu::Buffer>,
     indices: Arc<wgpu::Buffer>,
@@ -295,11 +291,7 @@ pub struct HairRenderer {
     counts: LodCounts,
     atlas: wgpu::TextureView,
     atlas_variants: u32,
-    head: Option<GpuMesh>,
-    /// The head's surface, to measure how much hair covers it.
-    head_surface: Option<HeadSurface>,
-    /// How much hair covers each of the head's vertices.
-    head_cover: Option<Arc<wgpu::Buffer>>,
+    head: Option<HeadDraw>,
     shadows: ShadowMaps,
     lighting_group: wgpu::BindGroup,
     opacity_group: wgpu::BindGroup,
@@ -850,8 +842,6 @@ impl HairRenderer {
             atlas,
             atlas_variants: 1,
             head: None,
-            head_surface: None,
-            head_cover: None,
             shadows,
             lighting_group,
             opacity_group,
@@ -1035,59 +1025,89 @@ impl HairRenderer {
             hi.max(Vec3::new(0.12, 0.13, 0.13)).to_array(),
         ];
         self.center = lods.center.to_array();
-        self.cover_head(lods);
+        self.head = self
+            .head
+            .as_ref()
+            .map(|head| head.with_cpu_cover(&self.device, lods));
         self.invalidate_view();
     }
 
     /// Upload a groom made on the GPU ([`crate::gpu::GpuGroomer::lods`]):
     /// The levels, cards and head coverage reuse the groomer's geometry
     /// buffers. The host card-atlas mip chain is uploaded to a texture.
-    pub fn set_gpu_groom(&mut self, lods: &crate::gpu::GpuLods) {
-        self.dynamics = None;
-        self.head_matrix = IDENTITY;
-        self.levels = lods
+    pub fn set_gpu_groom(&mut self, lods: &crate::gpu::GpuLods) -> Result<()> {
+        if lods.device() != self.device.as_ref() {
+            return Err(RenderSourceError::ForeignGroomDevice.into());
+        }
+        let head = match (&self.head, &lods.cover) {
+            (Some(head), cover) => Some(head.with_gpu_cover(&self.device, cover.as_ref())?),
+            (None, Some(_)) => return Err(RenderSourceError::MissingHead.into()),
+            (None, None) => None,
+        };
+        let levels = lods
             .levels
             .iter()
-            .map(|l| {
+            .map(|level| {
                 self.level_groups(
-                    l.points as usize,
-                    l.count as usize,
-                    l.positions.buffer.clone(),
-                    l.infos.buffer.clone(),
+                    level.points as usize,
+                    level.count as usize,
+                    level.positions.buffer.clone(),
+                    level.infos.buffer.clone(),
                 )
             })
             .collect();
-        self.cards = lods
+        let cards = lods
             .cards
             .iter()
-            .map(|c| GpuMesh {
-                vertices: c.vertices.buffer.clone(),
-                indices: c.indices.buffer.clone(),
-                count: c.index_count(),
+            .map(|cards| GpuMesh {
+                vertices: cards.vertices.buffer.clone(),
+                indices: cards.indices.buffer.clone(),
+                count: cards.index_count(),
             })
             .collect();
-        self.card_quads = lods.cards.iter().map(|c| c.quads() as usize).collect();
-        self.counts = lods.counts();
-        let atlas = &lods.atlas;
-        self.atlas = Self::atlas_texture(
+        let card_quads = lods
+            .cards
+            .iter()
+            .map(|cards| cards.quads() as usize)
+            .collect();
+        let counts = lods.counts();
+        let atlas = Self::atlas_texture(
             &self.device,
             &self.queue,
-            atlas.width,
-            atlas.height,
-            &atlas.levels,
+            lods.atlas.width,
+            lods.atlas.height,
+            &lods.atlas.levels,
         );
-        self.atlas_variants = atlas.variants;
-        self.rebind_lighting();
-        if let Some(cover) = &lods.cover {
-            self.head_cover = Some(cover.buffer.clone());
-        }
+        let (lighting_group, opacity_group) = Self::lighting_groups(
+            &self.device,
+            &self.layouts,
+            &self.shadows,
+            &atlas,
+            &self.linear,
+            &self.comparison,
+        );
         let [lo, hi] = lods.bounds;
-        self.bounds = [
+        let bounds = [
             lo.min(Vec3::new(-0.12, -0.3, -0.13)).to_array(),
             hi.max(Vec3::new(0.12, 0.13, 0.13)).to_array(),
         ];
+        // Fallible source admission and native candidate construction precede
+        // this publication; provider-handled errors retain that native policy.
+        self.dynamics = None;
+        self.head_matrix = IDENTITY;
+        self.levels = levels;
+        self.cards = cards;
+        self.card_quads = card_quads;
+        self.counts = counts;
+        self.atlas = atlas;
+        self.atlas_variants = lods.atlas.variants;
+        self.lighting_group = lighting_group;
+        self.opacity_group = opacity_group;
+        self.head = head;
+        self.bounds = bounds;
         self.center = lods.center.to_array();
         self.invalidate_view();
+        Ok(())
     }
 
     /// A level's bind groups, around its buffers.
@@ -1432,97 +1452,6 @@ impl HairRenderer {
         pass.dispatch_workgroups(x, y, 1);
     }
 
-    /// Upload the body the hair is on.
-    pub fn set_head(&mut self, surface: &Surface) {
-        let vertices: Vec<[f32; 6]> = surface
-            .positions
-            .iter()
-            .zip(&surface.normals)
-            .map(|(p, n)| [p.x, p.y, p.z, n.x, n.y, n.z])
-            .collect();
-        let indices: Vec<u32> = surface.triangles.iter().flatten().copied().collect();
-        // Bare until a groom covers it.
-        self.head_cover = Some(Arc::new(self.device.create_buffer_init(
-            &wgpu::util::BufferInitDescriptor {
-                label: Some("hair head cover"),
-                contents: bytemuck::cast_slice(&vec![[0.0f32; 2]; vertices.len().max(1)]),
-                usage: wgpu::BufferUsages::VERTEX | wgpu::BufferUsages::COPY_DST,
-            },
-        )));
-        self.head_surface = Some(HeadSurface {
-            positions: surface.positions.clone(),
-            normals: surface.normals.clone(),
-            triangles: surface.triangles.clone(),
-        });
-        self.head =
-            Some(GpuMesh {
-                vertices: Arc::new(self.device.create_buffer_init(
-                    &wgpu::util::BufferInitDescriptor {
-                        label: Some("hair head"),
-                        contents: bytemuck::cast_slice(&vertices),
-                        usage: wgpu::BufferUsages::VERTEX,
-                    },
-                )),
-                indices: Arc::new(self.device.create_buffer_init(
-                    &wgpu::util::BufferInitDescriptor {
-                        label: Some("hair head indices"),
-                        contents: bytemuck::cast_slice(&indices),
-                        usage: wgpu::BufferUsages::INDEX,
-                    },
-                )),
-                count: indices.len() as u32,
-            });
-        self.invalidate_view();
-    }
-
-    /// Shade the head under the groom's hair: how much of each vertex's
-    /// skin the hair covers, smoothed over the mesh -- measured a vertex at
-    /// a time it steps along the hairline.
-    fn cover_head(&mut self, lods: &HairLods) {
-        let Some(surface) = &self.head_surface else {
-            return;
-        };
-        let HeadSurface {
-            positions,
-            normals,
-            triangles,
-        } = surface;
-        let mut cover = lods.cover.at(positions, normals);
-        let n = cover.len();
-        let mut sum = vec![[0.0f32; 2]; n];
-        let mut count = vec![0.0f32; n];
-        for _ in 0..3 {
-            sum.iter_mut().for_each(|s| *s = [0.0; 2]);
-            count.iter_mut().for_each(|c| *c = 0.0);
-            for t in triangles {
-                for &a in t {
-                    for &b in t {
-                        let (a, b) = (a as usize, b as usize);
-                        sum[a][0] += cover[b][0];
-                        sum[a][1] += cover[b][1];
-                        count[a] += 1.0;
-                    }
-                }
-            }
-            for i in 0..n {
-                if count[i] > 0.0 {
-                    cover[i] = [sum[i][0] / count[i], sum[i][1] / count[i]];
-                }
-            }
-        }
-        // A buffer of the renderer's own: a groom from the GPU may have left
-        // its groomer's bound here.
-        let buffer = Arc::new(
-            self.device
-                .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                    label: Some("hair head cover"),
-                    contents: bytemuck::cast_slice(&cover),
-                    usage: wgpu::BufferUsages::VERTEX | wgpu::BufferUsages::COPY_DST,
-                }),
-        );
-        self.head_cover = Some(buffer);
-    }
-
     /// The output texture at `width` by `height`; whether it was made anew
     /// (and so needs registering again wherever it is shown).
     pub fn resize(
@@ -1823,9 +1752,9 @@ impl HairRenderer {
                 if let Some(head) = &self.head {
                     pass.set_pipeline(&self.pipelines.head_depth);
                     pass.set_bind_group(0, &self.globals_group, &[]);
-                    pass.set_vertex_buffer(0, head.vertices.slice(..));
-                    pass.set_index_buffer(head.indices.slice(..), wgpu::IndexFormat::Uint32);
-                    pass.draw_indexed(0..head.count, 0, 0..1);
+                    pass.set_vertex_buffer(0, head.mesh.vertices.slice(..));
+                    pass.set_index_buffer(head.mesh.indices.slice(..), wgpu::IndexFormat::Uint32);
+                    pass.draw_indexed(0..head.mesh.count, 0, 0..1);
                 }
             }
             // The hair's nearest depth.
@@ -1924,12 +1853,12 @@ impl HairRenderer {
             pass.draw(0..3, 0..1);
             pass.set_bind_group(1, &self.empty_group, &[]);
             pass.set_bind_group(2, &self.lighting_group, &[]);
-            if let (Some(head), Some(cover)) = (&self.head, &self.head_cover) {
+            if let Some(head) = &self.head {
                 pass.set_pipeline(&self.pipelines.head);
-                pass.set_vertex_buffer(0, head.vertices.slice(..));
-                pass.set_vertex_buffer(1, cover.slice(..));
-                pass.set_index_buffer(head.indices.slice(..), wgpu::IndexFormat::Uint32);
-                pass.draw_indexed(0..head.count, 0, 0..1);
+                pass.set_vertex_buffer(0, head.mesh.vertices.slice(..));
+                pass.set_vertex_buffer(1, head.cover.slice(..));
+                pass.set_index_buffer(head.mesh.indices.slice(..), wgpu::IndexFormat::Uint32);
+                pass.draw_indexed(0..head.mesh.count, 0, 0..1);
             }
             for draw in &plan.strands {
                 let Some(l) = self.levels.get(draw.level.index()) else {
