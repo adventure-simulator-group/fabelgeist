@@ -1,10 +1,12 @@
 //! Native deformation and each level's simulation-update obligation.
 
-use super::{DeformGpu, HairRenderer, deform_source, uniform_entry};
+use super::levels::GpuLevel;
+use super::{DeformGpu, DeformLevel, HairRenderer, deform_source, uniform_entry};
 use crate::gpu::error::Result;
 use crate::lod::{Representation, StrandLevelIndex};
 use fabelgeist_gpu::data::gpu::shader::parse_naga;
 use fabelgeist_gpu::prelude::{ComputeEntryPoint, DispatchOccupancy, WorkgroupShape};
+use std::num::NonZeroU64;
 
 /// The native deformation program and the declaration admitted from its source.
 pub(super) struct DeformationPipeline {
@@ -19,7 +21,17 @@ pub(super) struct DeformationViews {
     pub(super) blend: Option<Representation>,
 }
 
-/// Levels whose deformation commands were recorded into the frame encoder.
+/// Native inputs to a per-level deformation bind group.
+pub(super) struct DeformationBuffers<'a> {
+    pub ids: &'a wgpu::Buffer,
+    pub weights: &'a wgpu::Buffer,
+    pub guide_rest: &'a wgpu::Buffer,
+    pub guide_now: &'a wgpu::Buffer,
+    pub body: &'a wgpu::Buffer,
+    pub sim_points: u32,
+}
+
+/// Levels whose deformation update was recorded or required no work.
 pub(super) struct RecordedDeformations {
     levels: [Option<StrandLevelIndex>; 3],
 }
@@ -86,6 +98,82 @@ impl DeformationPipeline {
             pipeline,
             shape,
         })
+    }
+}
+
+impl DeformLevel {
+    pub(super) fn new(
+        renderer: &HairRenderer,
+        encoder: &mut wgpu::CommandEncoder,
+        level: &GpuLevel,
+        old_rest: Option<&wgpu::Buffer>,
+        inputs: &DeformationBuffers<'_>,
+    ) -> Self {
+        use wgpu::BufferUsages as U;
+        let binding_bytes = u64::from(level.layout.positions_binding_bytes());
+        let rest = match old_rest {
+            Some(rest) => rest.clone(),
+            None => {
+                let rest = renderer.device.create_buffer(&wgpu::BufferDescriptor {
+                    label: Some("hair rest pose"),
+                    size: binding_bytes,
+                    usage: U::STORAGE | U::COPY_DST | U::COPY_SRC,
+                    mapped_at_creation: false,
+                });
+                let data_bytes = u64::from(level.layout.positions_bytes());
+                if data_bytes > 0 {
+                    encoder.copy_buffer_to_buffer(&level.positions, 0, &rest, 0, data_bytes);
+                }
+                rest
+            }
+        };
+        let params = renderer.device.create_buffer(&wgpu::BufferDescriptor {
+            label: Some("hair deform params"),
+            size: size_of::<DeformGpu>() as u64,
+            usage: U::UNIFORM | U::COPY_DST,
+            mapped_at_creation: false,
+        });
+        let buffers: [&wgpu::Buffer; 8] = [
+            &rest,
+            &level.positions,
+            inputs.guide_rest,
+            inputs.guide_now,
+            inputs.ids,
+            inputs.weights,
+            &params,
+            inputs.body,
+        ];
+        let entries: Vec<_> = buffers
+            .into_iter()
+            .enumerate()
+            .map(|(binding, buffer)| wgpu::BindGroupEntry {
+                binding: binding as u32,
+                resource: wgpu::BindingResource::Buffer(wgpu::BufferBinding {
+                    buffer,
+                    offset: 0,
+                    // Only rest and output are per-level resident prefixes.
+                    // The remaining resources belong to the simulation source.
+                    size: match binding {
+                        0 | 1 => NonZeroU64::new(binding_bytes),
+                        _ => None,
+                    },
+                }),
+            })
+            .collect();
+        let group = renderer
+            .device
+            .create_bind_group(&wgpu::BindGroupDescriptor {
+                label: Some("hair deform"),
+                layout: &renderer.deformation.layout,
+                entries: &entries,
+            });
+        Self {
+            rest,
+            params,
+            group,
+            sim_points: inputs.sim_points,
+            state: DeformationState::Pending,
+        }
     }
 }
 

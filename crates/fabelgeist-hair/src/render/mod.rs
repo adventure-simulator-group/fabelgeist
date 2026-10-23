@@ -34,7 +34,7 @@ pub use levels::{LevelBufferRole, RenderLevelError};
 pub use readback::RenderReadbackError;
 
 use atlas::UploadedAtlas;
-use deformation::{DeformationPipeline, DeformationState, DeformationViews};
+use deformation::{DeformationBuffers, DeformationPipeline, DeformationState, DeformationViews};
 use draws::{DrawPlan, DrawRole};
 use frame_state::{History, RenderedView};
 use frame_uniforms::FrameProjection;
@@ -1145,9 +1145,13 @@ impl HairRenderer {
         // Physics already on (a simulation moved to another level): the
         // levels are deformed, and their rest poses are the copies made
         // when it started.
-        let mut kept: Vec<Option<wgpu::Buffer>> = match self.dynamics.take() {
-            Some(old) => old.levels.into_iter().map(|l| Some(l.rest)).collect(),
-            None => Vec::new(),
+        let inputs = DeformationBuffers {
+            ids: &ids,
+            weights: &weights,
+            guide_rest: &guide_rest_buffer,
+            guide_now: &guide_now,
+            body: &body_buffer,
+            sim_points,
         };
         let d = &*self.device;
         let mut encoder = d.create_command_encoder(&wgpu::CommandEncoderDescriptor {
@@ -1158,55 +1162,12 @@ impl HairRenderer {
             .iter()
             .enumerate()
             .map(|(at, level)| {
-                let size = level.positions.size();
-                let rest = match kept.get_mut(at).and_then(Option::take) {
-                    Some(rest) => rest,
-                    None => {
-                        let rest = d.create_buffer(&wgpu::BufferDescriptor {
-                            label: Some("hair rest pose"),
-                            size,
-                            usage: U::STORAGE | U::COPY_DST | U::COPY_SRC,
-                            mapped_at_creation: false,
-                        });
-                        encoder.copy_buffer_to_buffer(&level.positions, 0, &rest, 0, size);
-                        rest
-                    }
-                };
-                let params = d.create_buffer(&wgpu::BufferDescriptor {
-                    label: Some("hair deform params"),
-                    size: std::mem::size_of::<DeformGpu>() as u64,
-                    usage: U::UNIFORM | U::COPY_DST,
-                    mapped_at_creation: false,
-                });
-                let entries: [&wgpu::Buffer; 8] = [
-                    &rest,
-                    &level.positions,
-                    &guide_rest_buffer,
-                    &guide_now,
-                    &ids,
-                    &weights,
-                    &params,
-                    &body_buffer,
-                ];
-                let group = d.create_bind_group(&wgpu::BindGroupDescriptor {
-                    label: Some("hair deform"),
-                    layout: &self.deformation.layout,
-                    entries: &entries
-                        .iter()
-                        .enumerate()
-                        .map(|(k, buffer)| wgpu::BindGroupEntry {
-                            binding: k as u32,
-                            resource: buffer.as_entire_binding(),
-                        })
-                        .collect::<Vec<_>>(),
-                });
-                DeformLevel {
-                    rest,
-                    params,
-                    group,
-                    sim_points,
-                    state: DeformationState::Pending,
-                }
+                let old_rest = self
+                    .dynamics
+                    .as_ref()
+                    .and_then(|dynamics| dynamics.levels.get(at))
+                    .map(|level| &level.rest);
+                DeformLevel::new(self, &mut encoder, level, old_rest, &inputs)
             })
             .collect();
         self.queue.submit([encoder.finish()]);
@@ -1248,20 +1209,18 @@ impl HairRenderer {
 
     /// Physics off: every level back to its rest pose, the head home.
     pub fn clear_dynamics(&mut self) {
-        let Some(dynamics) = self.dynamics.take() else {
+        let Some(dynamics) = &self.dynamics else {
             return;
         };
         let mut encoder = self.device.create_command_encoder(&Default::default());
         for (level, deform) in self.levels.iter().zip(&dynamics.levels) {
-            encoder.copy_buffer_to_buffer(
-                &deform.rest,
-                0,
-                &level.positions,
-                0,
-                level.positions.size(),
-            );
+            let bytes = u64::from(level.layout.positions_bytes());
+            if bytes > 0 {
+                encoder.copy_buffer_to_buffer(&deform.rest, 0, &level.positions, 0, bytes);
+            }
         }
         self.queue.submit([encoder.finish()]);
+        self.dynamics = None;
         self.head_matrix = IDENTITY;
         self.invalidate_view();
     }
