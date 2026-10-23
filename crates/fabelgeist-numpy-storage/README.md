@@ -24,3 +24,8 @@ let weights = archive.array("layer0")?.to_tensor::<2>(&Device::default())?;
 - Fortran-ordered arrays are rejected rather than silently transposed.
 
 Used by `fabelgeist-mhr` for the MHR pose-corrective tensors.
+
+## ZIP record kinds
+
+The reader retains named record kinds after native signature decoding. See the
+[record-kind contract](record-kinds.md) for interpretation and framing limits.
