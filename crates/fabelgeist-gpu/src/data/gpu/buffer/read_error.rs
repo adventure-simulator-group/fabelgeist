@@ -1,4 +1,5 @@
 use super::BufferByteLength;
+use crate::globals::CallbackProgressError;
 use std::collections::TryReserveError;
 use std::error::Error;
 use std::fmt;
@@ -31,6 +32,15 @@ pub enum BufferReadError {
     Mapping(wgpu::BufferAsyncError),
     Poll(wgpu::PollError),
     Channel(futures_channel::oneshot::Canceled),
+}
+
+impl From<CallbackProgressError> for BufferReadError {
+    fn from(cause: CallbackProgressError) -> Self {
+        match cause {
+            CallbackProgressError::Poll(cause) => Self::Poll(cause),
+            CallbackProgressError::Canceled(cause) => Self::Channel(cause),
+        }
+    }
 }
 
 impl fmt::Display for BufferReadError {

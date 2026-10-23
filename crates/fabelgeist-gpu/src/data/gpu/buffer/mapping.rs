@@ -1,5 +1,9 @@
 use super::{BufferByteLength, BufferReadError, ReadResult};
 use crate::globals::WgpuContext;
+#[cfg(target_arch = "wasm32")]
+use crate::globals::await_browser_callback;
+#[cfg(not(target_arch = "wasm32"))]
+use crate::globals::poll_callback;
 use futures_channel::oneshot;
 use std::sync::Arc;
 
@@ -96,19 +100,9 @@ impl MappingRequest {
                 .poll(wgpu::PollType::wait_indefinitely())
                 .map_err(BufferReadError::Poll)?;
             loop {
-                match self
-                    .completion
-                    .try_recv()
-                    .map_err(BufferReadError::Channel)?
-                {
+                match poll_callback(&context.device, &mut self.completion)? {
                     Some(result) => return result.map_err(BufferReadError::Mapping),
                     None => {
-                        // Drive progress until delivery. Callback absence
-                        // does not identify the kind of source buffer.
-                        context
-                            .device
-                            .poll(wgpu::PollType::Poll)
-                            .map_err(BufferReadError::Poll)?;
                         std::thread::yield_now();
                     }
                 }
@@ -116,10 +110,9 @@ impl MappingRequest {
         }
         #[cfg(target_arch = "wasm32")]
         {
-            let _ = context;
-            (&mut self.completion)
+            await_browser_callback(&context.device, &mut self.completion)
                 .await
-                .map_err(BufferReadError::Channel)?
+                .map_err(BufferReadError::from)?
                 .map_err(BufferReadError::Mapping)
         }
     }

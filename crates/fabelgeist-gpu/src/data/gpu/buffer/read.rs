@@ -41,8 +41,8 @@ impl Buffer {
         let mut mapping = MappingRequest::request(context, target, extent)?;
         mapping.complete(context).await?;
 
-        // The typed destination was allocated before obtaining this view:
-        // WASM memory growth must not detach it during the copy.
+        // Reserve the typed destination before taking a mapped view, so host
+        // allocation failure returns without holding a view that needs cleanup.
         let data = mapping.mapped_range();
         let values = readback.copy_from(&data);
         drop(data);

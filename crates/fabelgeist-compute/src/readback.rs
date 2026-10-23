@@ -14,6 +14,9 @@
 
 use std::sync::{Arc, Mutex, MutexGuard};
 
+#[cfg(target_arch = "wasm32")]
+use fabelgeist_gpu::globals::await_browser_callback;
+use fabelgeist_gpu::globals::CallbackProgressError;
 use fabelgeist_gpu::prelude::{
     Buffer, BufferByteLength, BufferByteOffset, BufferDefinition, BufferUse,
 };
@@ -64,7 +67,7 @@ pub enum ReadbackError {
     #[error("readback copy recording failed")]
     Copy(#[source] anyhow::Error),
     #[error("readback mapping callback was dropped")]
-    ChannelClosed,
+    ChannelClosed(#[source] futures_channel::oneshot::Canceled),
     #[error("readback mapping failed")]
     Mapping(#[source] wgpu::BufferAsyncError),
     #[error("readback device polling failed")]
@@ -79,6 +82,15 @@ enum ReadbackState {
     Ready,
     Failed(wgpu::BufferAsyncError),
     Taken,
+}
+
+impl From<CallbackProgressError> for ReadbackError {
+    fn from(cause: CallbackProgressError) -> Self {
+        match cause {
+            CallbackProgressError::Poll(cause) => Self::Poll(cause),
+            CallbackProgressError::Canceled(cause) => Self::ChannelClosed(cause),
+        }
+    }
 }
 
 impl StagedRange {
@@ -181,7 +193,8 @@ impl Readback {
 
     /// Map once after the producing batch has submitted successfully.
     /// Return source bytes in recording order. Native builds explicitly wait
-    /// on the retained device; browser builds await the mapping callback.
+    /// on the retained device; browser builds drive nonblocking callback
+    /// progress while yielding to their event loop.
     pub async fn read(self) -> Result<Vec<Vec<u8>>> {
         let slice = self.staging.buffer.slice(..);
         let (sender, receiver) = futures_channel::oneshot::channel();
@@ -189,13 +202,18 @@ impl Readback {
             let _ = sender.send(result);
         });
         #[cfg(not(target_arch = "wasm32"))]
-        self.device
-            .poll(wgpu::PollType::wait_indefinitely())
-            .map_err(ReadbackError::Poll)?;
-        receiver
-            .await
-            .map_err(|_| ReadbackError::ChannelClosed)?
-            .map_err(ReadbackError::Mapping)?;
+        let mapped = {
+            self.device
+                .poll(wgpu::PollType::wait_indefinitely())
+                .map_err(ReadbackError::Poll)?;
+            receiver.await.map_err(ReadbackError::ChannelClosed)?
+        };
+        #[cfg(target_arch = "wasm32")]
+        let mapped = {
+            let mut receiver = receiver;
+            await_browser_callback(&self.device, &mut receiver).await?
+        };
+        mapped.map_err(ReadbackError::Mapping)?;
         let data = slice.get_mapped_range();
         let results = self.ranges.iter().map(|range| range.bytes(&data)).collect();
         drop(data);
@@ -208,7 +226,10 @@ impl PendingReadback {
     /// Poll the staging device without requesting a GPU completion wait.
     /// Take results once, returning `None` while mapping is pending.
     pub fn try_read(&self) -> Result<Option<Vec<Vec<u8>>>> {
-        poll(&self.device)?;
+        let pending = matches!(*lock_state(&self.state), ReadbackState::Pending);
+        if pending {
+            poll(&self.device)?;
+        }
         let mut state = lock_state(&self.state);
         match &*state {
             ReadbackState::Pending => return Ok(None),
@@ -227,7 +248,10 @@ impl PendingReadback {
 
     /// Observe readiness without taking the mapped results.
     pub fn is_ready(&self) -> Result<bool> {
-        poll(&self.device)?;
+        let pending = matches!(*lock_state(&self.state), ReadbackState::Pending);
+        if pending {
+            poll(&self.device)?;
+        }
         match &*lock_state(&self.state) {
             ReadbackState::Ready => Ok(true),
             ReadbackState::Failed(error) => Err(ReadbackError::Mapping(error.clone())),
@@ -237,12 +261,9 @@ impl PendingReadback {
 }
 
 fn poll(device: &wgpu::Device) -> Result<()> {
-    #[cfg(not(target_arch = "wasm32"))]
     device
         .poll(wgpu::PollType::Poll)
         .map_err(ReadbackError::Poll)?;
-    #[cfg(target_arch = "wasm32")]
-    let _ = device;
     Ok(())
 }
 
