@@ -17,7 +17,7 @@ pub(super) struct LightingDiagnostics<'w, 's> {
         'w,
         's,
         (&'static Camera, &'static GlobalTransform, &'static Exposure),
-        With<super::views::StrategicCamera>,
+        With<crate::presentation::ownership::StrategicCamera>,
     >,
 }
 

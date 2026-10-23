@@ -21,6 +21,7 @@ use super::{
 pub(super) enum ExhibitId {
     Henry,
     Nuremberg,
+    GermanDress,
     Longsword,
     ArmingSword,
     Rapier,
@@ -35,6 +36,7 @@ pub(super) enum ExhibitId {
 #[serde(rename_all = "kebab-case")]
 enum ExhibitKind {
     Armor,
+    Clothing,
     Weapon,
     Scenery,
 }
@@ -130,14 +132,14 @@ impl Exhibit {
 
     pub fn spawn(&self, world: &mut World) -> ArtDemoPreparationResult<Option<Handle<WorldAsset>>> {
         match self.kind {
-            ExhibitKind::Armor => {
+            ExhibitKind::Armor | ExhibitKind::Clothing => {
                 let asset = self
                     .asset
                     .as_ref()
-                    .ok_or(ArtDemoPreparationError::MissingArmorAsset)?;
+                    .ok_or(ArtDemoPreparationError::MissingModelAsset)?;
                 let handle = world
                     .resource::<AssetServer>()
-                    .load(GltfAssetLabel::Scene(0).from_asset(format!("art-demo/armor/{asset}")));
+                    .load(GltfAssetLabel::Scene(0).from_asset(format!("art-demo/{asset}")));
                 world.spawn((
                     DemoEntity(self.id),
                     WorldAssetRoot(handle.clone()),
@@ -248,9 +250,9 @@ mod tests {
             serde_json::from_str(include_str!("../../../../assets/art-demo/catalog.json")).unwrap();
         for exhibit in catalog {
             match exhibit.kind {
-                ExhibitKind::Armor => assert!(
+                ExhibitKind::Armor | ExhibitKind::Clothing => assert!(
                     std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-                        .join("../../assets/art-demo/armor")
+                        .join("../../assets/art-demo")
                         .join(exhibit.asset.unwrap())
                         .is_file()
                 ),

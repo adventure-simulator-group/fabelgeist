@@ -1,5 +1,5 @@
 //! Enforce the finite actor-camera range for ordinary meshes as well as the GPU city.
-use super::views::StrategicCamera;
+use crate::presentation::ownership::StrategicCamera;
 use bevy::{
     camera::{
         primitives::{Aabb, Frustum},

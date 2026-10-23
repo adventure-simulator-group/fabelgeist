@@ -212,7 +212,7 @@ fn setup(mut commands: Commands) {
     commands.spawn((RegionalMapRoot, Transform::default(), Visibility::Hidden));
     commands.spawn((
         RegionalMapCamera,
-        crate::strategic_scene::StrategicCamera,
+        crate::presentation::ownership::StrategicCamera,
         crate::presentation::interior_lighting::FixedViewExposure,
         Camera3d::default(),
         Camera {

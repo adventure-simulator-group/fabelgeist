@@ -88,7 +88,7 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
     let root = app.world_mut().spawn_empty().id();
     let place = PlaceId("inn".into());
     let id = PortraitId(42);
-    let rect = protocol::CanvasRect {
+    let rect = crate::camera::viewport::CanvasRect {
         x: 0,
         y: 0,
         width: 64,

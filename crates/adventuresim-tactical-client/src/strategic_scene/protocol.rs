@@ -1,6 +1,7 @@
 //! Presentation-only browser boundary. Rectangles are physical canvas pixels.
-use bevy::prelude::*;
-use serde::{Deserialize, Serialize};
+use crate::camera::viewport::CanvasRect;
+use bevy::prelude::Resource;
+use serde::Deserialize;
 
 pub(crate) const FORGE_LAYER: usize = 1;
 pub(crate) const COMPOSITOR_LAYER: usize = 2;
@@ -8,51 +9,6 @@ use crate::presentation::ownership::REGIONAL_MAP_LAYER;
 pub(crate) const FIRST_PERSON_LAYER: usize = REGIONAL_MAP_LAYER + 1;
 
 pub(crate) use crate::presentation::venues::{Place, PlaceId, PlaceKind, PortraitId};
-
-#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq)]
-pub(crate) struct CanvasRect {
-    pub x: u32,
-    pub y: u32,
-    pub width: u32,
-    pub height: u32,
-    pub full_width: u32,
-    pub full_height: u32,
-    pub offset_x: f32,
-    pub offset_y: f32,
-}
-
-impl CanvasRect {
-    pub(super) fn uncropped(self) -> Self {
-        Self {
-            x: 0,
-            y: 0,
-            width: self.full_width,
-            height: self.full_height,
-            offset_x: 0.0,
-            offset_y: 0.0,
-            ..self
-        }
-    }
-
-    pub fn apply(self, camera: &mut Camera, size: UVec2) {
-        let origin = UVec2::new(self.x, self.y).min(size);
-        let extent = UVec2::new(self.width, self.height).min(size - origin);
-        camera.is_active = extent.min_element() > 0;
-        if !camera.is_active {
-            return;
-        }
-        camera.viewport = Some(bevy::camera::Viewport {
-            physical_position: origin,
-            physical_size: extent,
-            ..default()
-        });
-        camera.sub_camera_view = Some(bevy::camera::SubCameraView {
-            full_size: UVec2::new(self.full_width.max(1), self.full_height.max(1)),
-            offset: Vec2::new(self.offset_x, self.offset_y),
-            size: extent,
-        });
-    }
-}
 
 #[derive(Clone, Debug, Deserialize)]
 pub(crate) struct Person {
@@ -105,29 +61,5 @@ impl StrategicView {
     pub(super) fn requires_person(&self, id: PortraitId) -> bool {
         self.portraits.iter().any(|portrait| portrait.id == id)
             || (self.stage.is_some() && self.stage_subject().is_none_or(|subject| subject == id))
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn offscreen_views_do_not_create_invalid_gpu_viewports() {
-        let mut camera = Camera::default();
-        let rect = CanvasRect {
-            x: 900,
-            y: 50,
-            width: 80,
-            height: 80,
-            full_width: 80,
-            full_height: 80,
-            offset_x: 0.0,
-            offset_y: 0.0,
-        };
-        rect.apply(&mut camera, UVec2::new(800, 600));
-        assert!(!camera.is_active);
-        CanvasRect { x: 760, ..rect }.apply(&mut camera, UVec2::new(800, 600));
-        assert_eq!(camera.viewport.unwrap().physical_size, UVec2::new(40, 80));
     }
 }

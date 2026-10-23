@@ -38,6 +38,8 @@ pub(crate) mod interior_lighting;
 mod materials;
 mod obstacles;
 pub(crate) mod ownership;
+#[cfg(any(target_family = "wasm", test))]
+pub(crate) mod pipeline_readiness;
 pub(crate) mod preparation;
 mod procedural;
 pub(crate) mod procedural_texture_setup;
@@ -332,6 +334,8 @@ impl Plugin for TacticalPresentationPlugin {
         // Install this after every plugin has built so the RenderApp and
         // Bevy's atmosphere extractor exist regardless of plugin order.
         install_atmosphere_cleanup_backport(app);
+        #[cfg(any(target_family = "wasm", test))]
+        pipeline_readiness::install(app);
     }
 }
 
