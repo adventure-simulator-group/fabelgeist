@@ -11,6 +11,15 @@ pub enum HairGpuError {
     Atlas(#[from] crate::cards::AtlasError),
     #[error("hair strand layout is invalid")]
     StrandLayout(#[from] super::StrandLayoutError),
+    #[error("simulation factor rows exceed native addresses for {layout:?}")]
+    SimulationFactors { layout: super::StrandLayout },
+    #[error("collision samples exceed native addresses for {strands:?} at {per_segment} samples per segment")]
+    CollisionSamples {
+        strands: super::StrandLayout,
+        per_segment: u32,
+    },
+    #[error("collision strand population {requested:?} exceeds exact native sample identities")]
+    CollisionStrandIdentity { requested: StrandCount },
     #[error("hair resources belong to another GPU device")]
     DeviceMismatch,
     #[error("GPU grooming needs an interpolation operation")]

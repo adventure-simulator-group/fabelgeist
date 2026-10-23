@@ -2,7 +2,6 @@
 
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_compute::ScanElementCount;
-use std::sync::Arc;
 
 use crate::gpu::error::Result;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
@@ -13,67 +12,15 @@ use fabelgeist_spatial_hash::{CellScale, HashLayout};
 use super::grow::params;
 use super::head::GpuHeadCover;
 use super::{GpuGroom, GpuGroomer, storage, upload};
-use crate::cards::{AtlasVariantCount, CardAtlas, CardSettings};
+use crate::cards::{AtlasVariantCount, CardSettings};
 use crate::lod::LodSettings;
 
 mod atlas;
+mod levels;
+mod records;
 
-/// One strand level on the GPU, in the shuffled order, as the renderer
-/// draws it: positions with their sky visibility in `w`, and a
-/// [`crate::lod::StrandInfo`] a strand.
-pub struct GpuLevel {
-    pub points: u32,
-    pub count: u32,
-    pub positions: Buffer,
-    pub infos: Buffer,
-}
-
-/// One cut of cards: [`crate::cards::CardVertex`] vertices and a triangle
-/// list.
-pub struct GpuCards {
-    pub cards: u32,
-    pub segments: u32,
-    pub vertices: Buffer,
-    pub indices: Buffer,
-}
-
-impl GpuCards {
-    pub fn quads(&self) -> u32 {
-        self.cards * self.segments
-    }
-
-    pub fn index_count(&self) -> u32 {
-        self.quads() * 6
-    }
-}
-
-/// A groom ready to draw at any distance, all of it on the GPU: the GPU
-/// counterpart of [`crate::HairLods`].
-pub struct GpuLods {
-    pub levels: Vec<GpuLevel>,
-    pub cards: Vec<GpuCards>,
-    pub atlas: Arc<CardAtlas>,
-    pub bounds: [Vec3; 2],
-    pub center: Vec3,
-    /// How much hair covers each vertex of the head set with
-    /// [`GpuGroomer::set_head_mesh`]: roots growing, hair over it.
-    pub cover: Option<GpuHeadCover>,
-}
-
-impl GpuLods {
-    pub fn strand_count(&self) -> usize {
-        self.levels.first().map_or(0, |l| l.count as usize)
-    }
-
-    /// How many strands, levels and card levels there are.
-    pub fn counts(&self) -> crate::lod::LodCounts {
-        crate::lod::LodCounts {
-            strands: self.strand_count(),
-            levels: self.levels.len(),
-            cards: self.cards.len(),
-        }
-    }
-}
+pub use records::{GpuCards, GpuLevel, GpuLods};
+use levels::LevelBake;
 
 /// A grid over a box: its origin, cell and size in cells.
 #[derive(Clone, Copy)]
@@ -126,7 +73,6 @@ impl GpuGroomer {
         groom.ensure_device(&context)?;
         let atlas = self.atlas_for(settings.atlas)?;
         let count = groom.layout.native_strands();
-        let points = groom.layout.native_points();
         let has_body = u32::from(body.is_some());
         let head = match body {
             Some(body) => body.clone(),
@@ -174,52 +120,18 @@ impl GpuGroomer {
         occlusion.insert(&mut p, count);
         batch.dispatch_folded(&self.kernels.occlusion, &p, occlusion.cells())?;
 
-        // The strand levels.
-        let mut counts = vec![points];
-        for &p in &settings.strand_points {
-            let p = p as u32;
-            if p >= 2 && p < counts[counts.len() - 1] && p <= 32 {
-                counts.push(p);
-            }
-        }
-        let mut levels = Vec::with_capacity(counts.len());
-        for &n in &counts {
-            let positions = storage(
-                &context,
-                (count as u64 * n as u64 * 16).into(),
-                "hair level positions".into(),
-            )?;
-            let infos = storage(
-                &context,
-                (count as u64 * 16).into(),
-                "hair level infos".into(),
-            )?;
-            let mut p = params! {
-                "positions" => groom.positions.clone(),
-                "strands" => groom.attributes.clone(),
-                "order" => order.clone(),
-                "grid_values" => visibility.clone(),
-                "head_shape" => head.clone(),
-                "level_positions" => positions.clone(),
-                "infos" => infos.clone(),
-                "points" => points,
-                "level_points" => n,
-                "body" => has_body,
-                "pad0" => 0u32,
-                "clearance" => 0.0012f32,
-                "pad1" => 0u32,
-                "pad2" => 0u32,
-                "pad3" => 0u32,
-            };
-            occlusion.insert(&mut p, count);
-            batch.dispatch_folded(&self.kernels.level, &p, count)?;
-            levels.push(GpuLevel {
-                points: n,
-                count,
-                positions,
-                infos,
-            });
-        }
+        let levels = self.record_levels(
+            &mut batch,
+            LevelBake {
+                groom,
+                grid: occlusion,
+                visibility: &visibility,
+                order: &order,
+                head: &head,
+                body: has_body,
+            },
+            settings,
+        )?;
 
         // The cards, a cut at a time: each needs its number of cards back
         // to size its buffers.

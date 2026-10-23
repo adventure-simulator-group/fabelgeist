@@ -49,6 +49,7 @@ use crate::collider::{Collider, keep_clear};
 use crate::cover::ScalpCover;
 use crate::occlusion::{Occlusion, OcclusionSettings};
 use crate::rng;
+use crate::parameters::PointsPerStrand;
 use crate::strands::{Strands, resample_into};
 
 mod counts;
@@ -85,7 +86,7 @@ pub struct StrandLevel {
 pub struct LodSettings {
     /// Points per strand at each level after the first (which keeps the
     /// groom's own count); a level is dropped if it would not be coarser.
-    pub strand_points: Vec<usize>,
+    pub strand_points: Vec<PointsPerStrand>,
     pub cards: Vec<CardSettings>,
     pub occlusion: OcclusionSettings,
     pub atlas: AtlasSettings,
@@ -120,7 +121,7 @@ impl StrandLevel {
 impl Default for LodSettings {
     fn default() -> Self {
         Self {
-            strand_points: vec![24, 12, 6],
+            strand_points: [24, 12, 6].map(PointsPerStrand::from_count).to_vec(),
             cards: vec![
                 CardSettings::default(),
                 CardSettings {
@@ -148,10 +149,10 @@ impl HairLods {
         let mut order: Vec<usize> = (0..strands.len()).collect();
         order.sort_by_key(|&s| rng::hash(strands.id[s].word(), 0x0D3E));
 
-        let mut counts = vec![strands.points];
-        for &p in &settings.strand_points {
-            if p >= 2 && p < counts[counts.len() - 1] {
-                counts.push(p);
+        let mut counts = vec![PointsPerStrand::from_count(strands.points)];
+        for &points in &settings.strand_points {
+            if points >= PointsPerStrand::from_count(2) && points < counts[counts.len() - 1] {
+                counts.push(points);
             }
         }
         let info: Vec<StrandInfo> = order
@@ -165,6 +166,7 @@ impl HairLods {
         let levels = counts
             .iter()
             .map(|&points| {
+                let points = points.count();
                 let positions: Vec<[f32; 4]> = order
                     .par_iter()
                     .flat_map_iter(|&s| {
@@ -222,9 +224,9 @@ impl HairLods {
     /// [`LodPolicy`] needs to choose among them.
     pub fn counts(&self) -> LodCounts {
         LodCounts {
-            strands: self.strand_count(),
-            levels: self.levels.len(),
-            cards: self.cards.len(),
+            strands: crate::parameters::StrandCount::from_count(self.strand_count()),
+            levels: StrandLevelCount::from_count(self.levels.len()),
+            cards: CardLevelCount::from_count(self.cards.len()),
         }
     }
 }

@@ -1,70 +1,19 @@
 //! Simulation recording and publication after an accepted submission.
 
-use super::{CollisionProgress, GpuGroomer, GpuSim, insert_from, insert_rigid, params};
+use super::collision_progress::CollisionProgress;
+use super::{GpuGroomer, GpuSim, insert_from, insert_rigid, params};
 use crate::gpu::error::Result;
 use crate::rod::Rod;
-use crate::sim::{Rigid, SimLevel, blend};
+use crate::sim::{Rigid, blend};
 use fabelgeist_compute::{KernelBatch, ScanElementCount};
-use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_math::Vec3;
 
 impl GpuSim {
-    /// Strands simulated.
-    pub fn strands(&self) -> usize {
-        self.count as usize
-    }
-
-    /// Points per simulated strand.
-    pub fn points(&self) -> usize {
-        self.points as usize
-    }
-
-    /// The level simulated.
-    pub fn level(&self) -> SimLevel {
-        SimLevel {
-            strands: self.count as usize,
-            points: self.points as usize,
-        }
-    }
-
-    /// How far apart strands keep, metres.
-    pub fn collision_radius(&self) -> f32 {
-        self.radius
-    }
-
-    /// How many of the strands collide.
-    pub fn colliding(&self) -> usize {
-        self.colliders as usize
-    }
-
-    pub fn head(&self) -> Rigid {
-        self.head
-    }
-
-    /// The simulated strands' groomed points, in the head's frame.
-    pub fn rest(&self) -> &Buffer {
-        &self.rest
-    }
-
-    /// The simulated strands' points now, world space.
-    pub fn positions(&self) -> &Buffer {
-        &self.position
-    }
-
-    /// The body the strands are kept off ([`crate::gpu::head_shape`]), if any.
-    pub fn body(&self) -> Option<&Buffer> {
-        (self.body != 0).then_some(&self.head_shape)
-    }
-
-    /// Each drawn strand's four simulated strands, and their weights.
-    pub fn binding(&self) -> (&Buffer, &Buffer) {
-        (&self.ids, &self.weights)
-    }
-
     /// Back to the groom, the head where it is.
     pub fn reset(&mut self, groomer: &GpuGroomer, head: Rigid) -> Result<()> {
         let context = groomer.context();
-        let count = self.count * self.points;
+        self.source.ensure_device(context)?;
+        let count = self.layout.native_samples();
         let mut p = params! {
             "rest" => self.rest.clone(),
             "position" => self.position.clone(),
@@ -76,12 +25,16 @@ impl GpuSim {
         };
         insert_rigid(&mut p, &head);
         let mut batch = KernelBatch::labelled(context, "hair sim reset");
-        batch.dispatch_folded(&groomer.kernels.sim_reset, &p, count)?;
+        batch.dispatch_folded(
+            &groomer.kernels.sim_reset,
+            &p,
+            self.layout.sample_invocations(),
+        )?;
         let rod = self.record_shape(groomer, &mut batch)?;
         self.record_orient(groomer, &mut batch, &head)?;
         batch.submit()?;
         // The reset pose has no collision samples from a preceding pass.
-        self.collision_progress.forget_previous();
+        self.collisions.progress.forget_previous();
         self.shaped = Some((rod, self.settings.sag_free));
         self.head = head;
         Ok(())
@@ -103,8 +56,8 @@ impl GpuSim {
             &params! {
                 "rest" => self.rest.clone(),
                 "shape" => self.shape.clone(),
-                "count" => self.count,
-                "points" => self.points,
+                "count" => self.layout.native_strands(),
+                "points" => self.layout.native_points(),
                 "sag_free" => u32::from(s.sag_free),
                 "pad0" => 0u32,
                 "stretch" => rod.stretch,
@@ -112,7 +65,7 @@ impl GpuSim {
                 "twist" => rod.twist,
                 "gravity" => s.gravity,
             },
-            self.count,
+            self.layout.strand_invocations(),
         )?;
         Ok(rod)
     }
@@ -125,19 +78,23 @@ impl GpuSim {
         batch: &mut KernelBatch,
         head: &Rigid,
     ) -> Result<()> {
-        let count = self.count * self.points;
+        let count = self.layout.native_samples();
         let mut p = params! {
             "rest" => self.rest.clone(),
             "shape" => self.shape.clone(),
             "position" => self.position.clone(),
             "frames" => self.frames.clone(),
             "count" => count,
-            "points" => self.points,
+            "points" => self.layout.native_points(),
             "pad0" => 0u32,
             "pad1" => 0u32,
         };
         insert_rigid(&mut p, head);
-        batch.dispatch_folded(&groomer.kernels.sim_orient, &p, count)?;
+        batch.dispatch_folded(
+            &groomer.kernels.sim_orient,
+            &p,
+            self.layout.sample_invocations(),
+        )?;
         Ok(())
     }
 
@@ -146,6 +103,7 @@ impl GpuSim {
     /// substep takes the rods through their implicit steps, then keeps the
     /// strands' volume and stops them closing through each other.
     pub fn step(&mut self, groomer: &GpuGroomer, dt: f32, head: Rigid) -> Result<()> {
+        self.source.ensure_device(groomer.context())?;
         let dt = dt.min(1.0 / 20.0);
         if dt.is_nan() || dt <= 0.0 {
             return Ok(());
@@ -159,7 +117,7 @@ impl GpuSim {
         let from = self.head;
         let mut last_step = self.h_last;
         let mut time = self.time;
-        let mut collision_progress = self.collision_progress;
+        let mut collision_progress = self.collisions.progress;
         let interacting = s.volume > 0.0 || s.friction > 0.0;
         for k in 0..substeps {
             // The head moves through the frame's substeps.
@@ -174,8 +132,8 @@ impl GpuSim {
                 "frames" => self.frames.clone(),
                 "head_shape" => self.head_shape.clone(),
                 "factors" => self.factors.clone(),
-                "count" => self.count,
-                "points" => self.points,
+                "count" => self.layout.native_strands(),
+                "points" => self.layout.native_points(),
                 "body" => self.body,
                 "inner" => inner,
                 "h" => h,
@@ -201,7 +159,11 @@ impl GpuSim {
             };
             insert_rigid(&mut p, &now);
             insert_from(&mut p, &start);
-            batch.dispatch_folded(&groomer.kernels.sim_step, &p, self.count)?;
+            batch.dispatch_folded(
+                &groomer.kernels.sim_step,
+                &p,
+                self.layout.strand_invocations(),
+            )?;
             last_step = h;
 
             if interacting {
@@ -219,7 +181,7 @@ impl GpuSim {
         self.shaped = Some((rod, s.sag_free));
         self.h_last = last_step;
         self.time = time;
-        self.collision_progress = collision_progress;
+        self.collisions.progress = collision_progress;
         self.head = head;
         Ok(())
     }
@@ -232,7 +194,7 @@ impl GpuSim {
         head: &Rigid,
     ) -> Result<()> {
         let s = self.settings;
-        let particles = self.count * self.points;
+        let particles = self.layout.native_samples();
         batch.clear_buffer(&self.grid.words);
         let mut p = params! {
             "position" => self.position.clone(),
@@ -242,7 +204,11 @@ impl GpuSim {
         };
         insert_rigid(&mut p, head);
         self.grid.insert(&mut p);
-        batch.dispatch_folded(&groomer.kernels.sim_splat, &p, particles)?;
+        batch.dispatch_folded(
+            &groomer.kernels.sim_splat,
+            &p,
+            self.layout.sample_invocations(),
+        )?;
         let mut p = params! {
             "position" => self.position.clone(),
             "previous" => self.previous.clone(),
@@ -250,14 +216,18 @@ impl GpuSim {
             "rest_density" => self.grid.rest_density.clone(),
             "stats" => self.grid.stats.clone(),
             "count" => particles,
-            "points" => self.points,
+            "points" => self.layout.native_points(),
             "volume" => s.volume,
             "tolerance" => s.volume_tolerance,
             "friction" => s.friction,
         };
         insert_rigid(&mut p, head);
         self.grid.insert(&mut p);
-        batch.dispatch_folded(&groomer.kernels.sim_volume, &p, particles)?;
+        batch.dispatch_folded(
+            &groomer.kernels.sim_volume,
+            &p,
+            self.layout.sample_invocations(),
+        )?;
         Ok(())
     }
 
@@ -272,12 +242,12 @@ impl GpuSim {
         head: &Rigid,
         progress: &mut CollisionProgress,
     ) -> Result<()> {
-        let samples = self.colliders * (self.points - 1) * self.per_segment;
+        let samples = self.collisions.layout.samples();
         // Last pass's samples become the ones before.
         progress.advance();
-        let now = self.samples[progress.current_index()].clone();
-        let before = self.samples[progress.previous_index()].clone();
-        let cells = &self.cells;
+        let now = self.collisions.samples[progress.current_index()].clone();
+        let before = self.collisions.samples[progress.previous_index()].clone();
+        let cells = &self.collisions.cells;
         let cell_count = cells.cells();
         batch.clear_buffer(&cells.counts);
         let mut p = params! {
@@ -285,9 +255,9 @@ impl GpuSim {
             "previous" => self.previous.clone(),
             "rest" => self.rest.clone(),
             "samples" => now.clone(),
-            "sample_data" => self.sample_data.clone(),
+            "sample_data" => self.collisions.sample_data.clone(),
             "cell_counts" => cells.counts.clone(),
-            "sample_slots" => self.sample_slots.clone(),
+            "sample_slots" => self.collisions.sample_slots.clone(),
             "cell_lo_x" => cells.lo.x,
             "cell_lo_y" => cells.lo.y,
             "cell_lo_z" => cells.lo.z,
@@ -296,13 +266,17 @@ impl GpuSim {
             "cell_ny" => cells.dims[1],
             "cell_nz" => cells.dims[2],
             "count" => samples,
-            "points" => self.points,
-            "per_segment" => self.per_segment,
+            "points" => self.layout.native_points(),
+            "per_segment" => self.collisions.layout.per_segment(),
             "pad0" => 0u32,
             "pad1" => 0u32,
         };
         insert_rigid(&mut p, head);
-        batch.dispatch_folded(&groomer.kernels.sim_samples, &p, samples)?;
+        batch.dispatch_folded(
+            &groomer.kernels.sim_samples,
+            &p,
+            self.collisions.layout.sample_invocations(),
+        )?;
         groomer.scan.record(
             batch,
             &cells.counts,
@@ -314,63 +288,53 @@ impl GpuSim {
             &params! {
                 "samples" => now,
                 "samples_before" => before,
-                "sample_data" => self.sample_data.clone(),
-                "sample_slots" => self.sample_slots.clone(),
+                "sample_data" => self.collisions.sample_data.clone(),
+                "sample_slots" => self.collisions.sample_slots.clone(),
                 "cell_offsets" => cells.counts.clone(),
-                "sorted" => self.sorted.clone(),
-                "sorted_index" => self.sorted_index.clone(),
+                "sorted" => self.collisions.sorted.clone(),
+                "sorted_index" => self.collisions.sorted_index.clone(),
                 "count" => samples,
                 "pad0" => 0u32,
                 "pad1" => 0u32,
                 "pad2" => 0u32,
             },
-            samples,
+            self.collisions.layout.sample_invocations(),
         )?;
         batch.dispatch_folded(
             &groomer.kernels.sim_collide,
             &params! {
-                "sorted" => self.sorted.clone(),
-                "sorted_index" => self.sorted_index.clone(),
+                "sorted" => self.collisions.sorted.clone(),
+                "sorted_index" => self.collisions.sorted_index.clone(),
                 "cell_offsets" => cells.counts.clone(),
-                "asks" => self.asks.clone(),
+                "asks" => self.collisions.asks.clone(),
                 "count" => samples,
                 "cell_nx" => cells.dims[0],
                 "cell_ny" => cells.dims[1],
                 "cell_nz" => cells.dims[2],
-                "radius" => self.radius,
-                "reach" => self.radius * 1.75,
+                "radius" => self.collisions.radius,
+                "reach" => self.collisions.radius * 1.75,
                 "friction" => self.settings.collision_friction,
                 "have_before" => u32::from(progress.has_previous()),
             },
-            samples,
+            self.collisions.layout.sample_invocations(),
         )?;
         // Only the colliding strands' points gather asks.
-        let colliding = self.colliders * self.points;
+        let colliding = self.collisions.layout.strands().native_samples();
         batch.dispatch_folded(
             &groomer.kernels.sim_collide_apply,
             &params! {
                 "position" => self.position.clone(),
                 "previous" => self.previous.clone(),
-                "asks" => self.asks.clone(),
+                "asks" => self.collisions.asks.clone(),
                 "count" => colliding,
-                "points" => self.points,
-                "per_segment" => self.per_segment,
+                "points" => self.layout.native_points(),
+                "per_segment" => self.collisions.layout.per_segment(),
                 "pad0" => 0u32,
             },
-            colliding,
+            self.collisions.layout.strands().sample_invocations(),
         )?;
         progress.mark_available();
         Ok(())
-    }
-
-    /// The simulated strands' points, read back: for tests and tools.
-    pub fn read_positions(&self, groomer: &GpuGroomer) -> Result<Vec<[f32; 4]>> {
-        Ok(pollster::block_on(self.position.read(groomer.context()))?)
-    }
-
-    /// The simulated strands' groomed points, read back.
-    pub fn read_rest(&self, groomer: &GpuGroomer) -> Result<Vec<[f32; 4]>> {
-        Ok(pollster::block_on(self.rest.read(groomer.context()))?)
     }
 
     /// Where the strands are, and were a substep ago, their frames along

@@ -5,7 +5,7 @@ impl GpuGroomer {
         &mut self,
         batch: &mut KernelBatch,
         rest: &Buffer,
-        samples: u32,
+        layout: StrandLayout,
         lo: Vec3,
         hi: Vec3,
         cell_metres: f32,
@@ -44,10 +44,10 @@ impl GpuGroomer {
         let mut p = params! {
             "rest" => rest.clone(),
             "rest_density" => grid.rest_density.clone(),
-            "count" => samples,
+            "count" => layout.native_samples(),
         };
         grid.insert(&mut p);
-        batch.dispatch_folded(&self.kernels.sim_rest_density, &p, samples)?;
+        batch.dispatch_folded(&self.kernels.sim_rest_density, &p, layout.sample_invocations())?;
         batch.dispatch_folded(
             &self.kernels.sim_rest_stats,
             &params! {
@@ -58,7 +58,7 @@ impl GpuGroomer {
                 "pad1" => 0u32,
                 "pad2" => 0u32,
             },
-            grid.cells(),
+            grid.cells().into(),
         )?;
         Ok(grid)
     }

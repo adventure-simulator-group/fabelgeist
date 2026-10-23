@@ -626,7 +626,7 @@ mod tests {
             let lods = groomer
                 .lods(&grown, head.cranium.center, &crate::LodSettings::default())
                 .expect("levels");
-            assert_eq!(lods.strand_count(), gpu.len());
+            assert_eq!(lods.strand_count().count(), gpu.len());
             assert!(lods.cards.iter().all(|c| c.cards > 0), "{name}: no cards");
             let cover: Vec<[f32; 2]> =
                 pollster::block_on(lods.cover.as_ref().expect("cover").buffer().read(groomer.context()))
@@ -682,8 +682,8 @@ mod tests {
 
             // The finest level is the groom; a coarser one is it resampled
             // and kept clear, as on the host.
-            let full = levels[0].len() / (levels[1].len() / settings.strand_points[0]);
-            let n = settings.strand_points[0];
+            let full = levels[0].len() / (levels[1].len() / settings.strand_points[0].count());
+            let n = settings.strand_points[0].count();
             for slot in (0..levels[1].len() / n).step_by(211) {
                 let strand: Vec<Vec3> = levels[0][slot * full..(slot + 1) * full]
                     .iter()
@@ -736,15 +736,15 @@ mod tests {
         // The host's simulation of the GPU's rest; its binding of every
         // drawn strand, by their roots, from the finest level.
         let positions = gpu.read_rest(&groomer).expect("read");
-        let (mut host, _) = HairSim::from_level(gpu.points(), &positions, settings);
-        assert_eq!(host.strands(), gpu.strands());
+        let (mut host, _) = HairSim::from_level(gpu.layout().points().count(), &positions, settings);
+        assert_eq!(host.strands(), gpu.layout().strands().count());
         let first = &lods.levels[0];
         let finest: Vec<[f32; 4]> =
             pollster::block_on(first.positions.read(groomer.context())).expect("read");
-        let (_, binding) = HairSim::from_level(first.points as usize, &finest, settings);
+        let (_, binding) = HairSim::from_level(first.layout().points().count(), &finest, settings);
 
         let context = groomer.context();
-        let ids: Vec<[u32; 4]> = pollster::block_on(gpu.binding().0.read(context)).expect("read");
+        let ids: Vec<[u32; 4]> = pollster::block_on(gpu.binding_ids().read(context)).expect("read");
         let same = ids
             .iter()
             .zip(&binding.guides)
@@ -1356,9 +1356,9 @@ mod tests {
         assert_eq!(high.level(), SimLevel::HIGH);
         let before = low.read_positions(&groomer).expect("read");
         let after = high.read_positions(&groomer).expect("read");
-        let (lp, hp) = (low.points(), high.points());
+        let (lp, hp) = (low.layout().points().count(), high.layout().points().count());
         // The low level's strands, at their tips, in both.
-        for g in 0..low.strands() {
+        for g in 0..low.layout().strands().count() {
             let a = before[g * lp + lp - 1];
             let b = after[g * hp + hp - 1];
             let off = (Vec3::new(a[0], a[1], a[2]) - Vec3::new(b[0], b[1], b[2])).length();
@@ -1366,7 +1366,7 @@ mod tests {
         }
         // And none of the new strands left at rest while the head is turned.
         let rest = high.read_rest(&groomer).expect("read");
-        let moved = (low.strands()..high.strands())
+        let moved = (low.layout().strands().count()..high.layout().strands().count())
             .filter(|g| {
                 let i = g * hp + hp - 1;
                 let p = Vec3::new(after[i][0], after[i][1], after[i][2]);
@@ -1375,7 +1375,7 @@ mod tests {
             })
             .count();
         assert!(
-            moved * 10 > (high.strands() - low.strands()) * 9,
+            moved * 10 > (high.layout().strands().count() - low.layout().strands().count()) * 9,
             "{moved} new strands moved"
         );
     }

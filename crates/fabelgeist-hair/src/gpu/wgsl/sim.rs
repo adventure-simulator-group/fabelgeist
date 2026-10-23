@@ -13,21 +13,27 @@ fn kernel(bindings: &str, helpers: &[&str], body: &str) -> String {
 }
 
 /// Each drawn strand's four simulated strands, nearest its root, weighted
-/// by inverse square distance -- the simulated ones follow themselves. The
-/// nearest four are kept sorted in registers, not a local array.
+/// by inverse square distance. With a shared source, the simulated prefix
+/// follows itself; transfers between sources compare their actual roots.
+/// The nearest four are kept sorted in registers, not a local array.
 pub fn sim_bind() -> String {
     kernel(
         r#"
 @group(0) @binding(0) var<storage, read> level: array<vec4<f32>>;
-@group(0) @binding(1) var<storage, read_write> ids: array<vec4<u32>>;
-@group(0) @binding(2) var<storage, read_write> weights: array<vec4<f32>>;
+@group(0) @binding(1) var<storage, read> guides: array<vec4<f32>>;
+@group(0) @binding(2) var<storage, read_write> ids: array<vec4<u32>>;
+@group(0) @binding(3) var<storage, read_write> weights: array<vec4<f32>>;
 struct Params {
     strands: u32,
     points: u32,
     count: u32,
+    guide_points: u32,
+    shared_prefix: u32,
     pad0: u32,
+    pad1: u32,
+    pad2: u32,
 };
-@group(0) @binding(3) var<uniform> params: Params;
+@group(0) @binding(4) var<uniform> params: Params;
 "#,
         &[],
         r#"
@@ -37,7 +43,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) g
     if (s >= params.strands) {
         return;
     }
-    if (s < params.count) {
+    if (params.shared_prefix != 0u && s < params.count) {
         ids[s] = vec4<u32>(s, 0u, 0u, 0u);
         weights[s] = vec4<f32>(1.0, 0.0, 0.0, 0.0);
         return;
@@ -47,7 +53,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) g
     var best = vec4<f32>(far);
     var near = vec4<u32>(0u);
     for (var g = 0u; g < params.count; g++) {
-        let d = distance(root, level[g * params.points].xyz);
+        let d = distance(root, guides[g * params.guide_points].xyz);
         if (d >= best.w) {
             continue;
         }
