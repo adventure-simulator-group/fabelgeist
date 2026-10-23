@@ -10,16 +10,6 @@ They preserve character travel limits and authored movement parameters.
 
 See [source provenance and patch contract](vendor/bevy_ahoy/UPSTREAM.md).
 
-## npyz NumPy format reader
-
-`vendor/npyz/` retains Michael Lamparski's npyz 0.9.1, based on Pavel Potoček's
-npy, under MIT. The upstream notices and MIT text accompany the source. The
-local patch checks header dimension, stride and payload arithmetic before
-returning parsed layout metadata. NumPy storage uses the NPY parser and scalar
-readers with optional features disabled.
-
-See [source provenance and patch contract](vendor/npyz/UPSTREAM.md).
-
 ## microlp bounded city packing solver
 
 The shared city compiler uses the pinned `microlp` 0.6.0 Cargo dependency for

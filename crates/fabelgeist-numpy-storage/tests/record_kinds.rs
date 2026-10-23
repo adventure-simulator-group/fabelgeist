@@ -211,24 +211,18 @@ fn assert_member_storage_and_values(archive: &ZipArchive, npz: &Npz) {
         [fabelgeist_numpy_storage::NpyDimension::from(4)]
     );
     assert_eq!(
-        Vec::<f32>::from(
-            fabelgeist_numpy_storage::NpyFloatValues::try_from(
-                &npz.array(&NpzArrayName::new("values")).unwrap()
-            )
-            .unwrap()
-        )
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+            &npz.array(&NpzArrayName::new("values")).unwrap()
+        ))
         .iter()
         .map(|v| v.to_bits())
         .collect::<Vec<_>>(),
         [0x3f800000, 0x80000000, 0x7fc01234, 0x40200000]
     );
     assert_eq!(
-        Vec::<f32>::from(
-            fabelgeist_numpy_storage::NpyFloatValues::try_from(
-                &npz.array(&NpzArrayName::new("second")).unwrap()
-            )
-            .unwrap()
-        ),
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+            &npz.array(&NpzArrayName::new("second")).unwrap()
+        )),
         [5.0, 6.0, 7.0, 8.0]
     );
 }
@@ -275,12 +269,9 @@ fn duplicate_and_disagreeing_headers_keep_member_semantics() {
     ));
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        Vec::<f32>::from(
-            fabelgeist_numpy_storage::NpyFloatValues::try_from(
-                &npz.array(&NpzArrayName::new("values")).unwrap()
-            )
-            .unwrap()
-        )[0],
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+            &npz.array(&NpzArrayName::new("values")).unwrap()
+        ))[0],
         1.0
     );
     for label in [
@@ -305,12 +296,9 @@ fn duplicate_and_disagreeing_headers_keep_member_semantics() {
         );
         let npz = Npz::from_bytes(fixture(label).to_vec()).unwrap();
         assert_eq!(
-            Vec::<f32>::from(
-                fabelgeist_numpy_storage::NpyFloatValues::try_from(
-                    &npz.array(&NpzArrayName::new("values")).unwrap()
-                )
-                .unwrap()
-            )[0],
+            Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+                &npz.array(&NpzArrayName::new("values")).unwrap()
+            ))[0],
             1.0,
             "{label}"
         );

@@ -123,10 +123,6 @@ and tensor coefficient order are unchanged. Joint and mesh count production
 remains owned by the model; corrective import treats those counts as array
 extents and does not establish rig membership or geometry validity.
 
-Corrective-array imports propagate NumPy scalar-reader failures before tensor
-upload. The storage crate uses the patched vendored NPY parser; corrective
-layout, sparse-coordinate and rig-count relationships remain MHR contracts.
-
 ## Memory
 
 The corrective basis dominates: `3000 x V x 3` floats, which is 663 MB at LOD 1

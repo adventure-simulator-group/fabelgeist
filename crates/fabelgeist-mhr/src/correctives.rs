@@ -88,27 +88,26 @@ impl PoseCorrectives {
             .array(&BASIS_ARRAY)
             .context("reading the corrective basis")?;
         let layout = CorrectiveLayout::new(basis.shape(), num_joints, num_vertices)?;
-        let basis_values =
-            NpyFloatValues::try_from(&basis).context("decoding the corrective basis")?;
 
-        let indices = NpyIntegerValues::try_from(
+        let indices = NpyIntegerValues::from(
             &activation
                 .array(&SPARSE_INDICES_ARRAY)
                 .context("reading the sparse activation indices")?,
-        )
-        .context("decoding the sparse activation indices")?;
-        let values = NpyFloatValues::try_from(
+        );
+        let values = NpyFloatValues::from(
             &activation
                 .array(&SPARSE_WEIGHT_ARRAY)
                 .context("reading the sparse activation weights")?,
-        )
-        .context("decoding the sparse activation weights")?;
+        );
         let activation = SparseActivation::new(indices, values)?.into_tensor(&layout, device)?;
 
         Ok(Some(Self {
             activation,
             basis: Tensor::from_data(
-                TensorData::new(Vec::<f32>::from(basis_values), layout.basis_dimensions()),
+                TensorData::new(
+                    Vec::<f32>::from(NpyFloatValues::from(&basis)),
+                    layout.basis_dimensions(),
+                ),
                 device,
             ),
             layout,

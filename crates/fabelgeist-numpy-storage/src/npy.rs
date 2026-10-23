@@ -14,9 +14,9 @@ use std::path::Path;
 use anyhow::{Context, Result, bail};
 use burn::tensor::{Device, Int, Tensor, TensorData};
 
-pub use decode_error::NpyDecodeError;
+use header::NpyHeader;
 
-mod decode_error;
+mod header;
 mod metadata;
 mod values;
 
@@ -49,27 +49,20 @@ pub enum Dtype {
 }
 
 impl Dtype {
-    fn parse(dtype: &npyz::DType) -> Result<Self> {
-        let npyz::DType::Plain(descriptor) = dtype else {
-            bail!("unsupported NumPy dtype {}", dtype.descr());
-        };
-        let kind = match (descriptor.type_char(), descriptor.size_field()) {
-            (npyz::TypeChar::Float, 4) => Self::F32,
-            (npyz::TypeChar::Float, 8) => Self::F64,
-            (npyz::TypeChar::Int, 4) => Self::I32,
-            (npyz::TypeChar::Int, 8) => Self::I64,
-            (npyz::TypeChar::Uint, 1) => Self::U8,
-            (npyz::TypeChar::Bool, 1) => Self::Bool,
-            _ => bail!("unsupported NumPy dtype {:?}", descriptor.to_string()),
-        };
-        let expected = match kind {
-            Self::F32 | Self::F64 | Self::I32 | Self::I64 => npyz::Endianness::Little,
-            Self::U8 | Self::Bool => npyz::Endianness::Irrelevant,
-        };
-        if descriptor.endianness() != expected {
-            bail!("unsupported NumPy dtype {:?}", descriptor.to_string());
-        }
-        Ok(kind)
+    fn parse(descr: &str) -> Result<Self> {
+        Ok(match descr {
+            "<f4" => Dtype::F32,
+            "=f4" | "f4" if cfg!(target_endian = "little") => Dtype::F32,
+            "<f8" => Dtype::F64,
+            "=f8" | "f8" if cfg!(target_endian = "little") => Dtype::F64,
+            "<i4" => Dtype::I32,
+            "=i4" | "i4" if cfg!(target_endian = "little") => Dtype::I32,
+            "<i8" => Dtype::I64,
+            "=i8" | "i8" if cfg!(target_endian = "little") => Dtype::I64,
+            "|u1" | "u1" => Dtype::U8,
+            "|b1" | "b1" => Dtype::Bool,
+            other => bail!("unsupported NumPy dtype {other:?}"),
+        })
     }
 
     pub fn storage_width(self) -> NpyElementWidth {
@@ -101,13 +94,13 @@ impl NpyArray {
     }
 
     /// Uploads the array to a device as a float tensor.
-    pub fn to_tensor<const D: usize>(&self, device: &Device) -> decode_error::Result<Tensor<D>> {
+    pub fn to_tensor<const D: usize>(
+        &self,
+        device: &Device,
+    ) -> std::result::Result<Tensor<D>, NpyLayoutError> {
         let dimensions = self.shape.tensor_layout::<D>()?.dimensions;
         Ok(Tensor::from_data(
-            TensorData::new(
-                Vec::<f32>::from(NpyFloatValues::try_from(self)?),
-                dimensions,
-            ),
+            TensorData::new(Vec::<f32>::from(NpyFloatValues::from(self)), dimensions),
             device,
         ))
     }
@@ -116,13 +109,10 @@ impl NpyArray {
     pub fn to_int_tensor<const D: usize>(
         &self,
         device: &Device,
-    ) -> decode_error::Result<Tensor<D, Int>> {
+    ) -> std::result::Result<Tensor<D, Int>, NpyLayoutError> {
         let dimensions = self.shape.tensor_layout::<D>()?.dimensions;
         Ok(Tensor::from_data(
-            TensorData::new(
-                Vec::<i64>::from(NpyIntegerValues::try_from(self)?),
-                dimensions,
-            ),
+            TensorData::new(Vec::<i64>::from(NpyIntegerValues::from(self)), dimensions),
             device,
         ))
     }
@@ -131,25 +121,12 @@ impl NpyArray {
 impl NpyArray {
     /// Parses a `.npy` buffer: header dictionary first, then the element payload.
     pub fn from_bytes(bytes: &[u8]) -> Result<Self> {
-        let array = npyz::NpyFile::new(bytes)?;
-        let dtype = Dtype::parse(&array.dtype())?;
-        if array.order() == npyz::Order::Fortran {
-            bail!("Fortran-ordered .npy arrays are not supported");
-        }
-        let dimensions = array
-            .shape()
-            .iter()
-            .map(|dimension| {
-                usize::try_from(*dimension)
-                    .map(NpyDimension::from)
-                    .context("bad .npy shape")
-            })
-            .collect::<Result<Vec<_>>>()?;
-        let shape = NpyShape::try_from(dimensions)?;
-        let length = shape.element_count().payload_length(dtype)?;
-        let payload = length.admit(array.into_inner())?;
-
-        Ok(NpyArray {
+        let NpyHeader {
+            dtype,
+            shape,
+            payload,
+        } = NpyHeader::from_bytes(bytes)?;
+        Ok(Self {
             shape,
             dtype,
             bytes: payload.to_vec(),
@@ -193,7 +170,7 @@ pub(crate) mod tests {
         assert_eq!(array.shape().dimensions(), [NpyDimension::from(3)]);
         assert_eq!(array.dtype(), Dtype::F32);
         assert_eq!(
-            Vec::<f32>::from(crate::NpyFloatValues::try_from(&array).unwrap()),
+            Vec::<f32>::from(crate::NpyFloatValues::from(&array)),
             [1.0, -2.5, 3.25]
         );
     }
@@ -210,11 +187,11 @@ pub(crate) mod tests {
             [NpyDimension::from(2), NpyDimension::from(2)]
         );
         assert_eq!(
-            Vec::<i64>::from(crate::NpyIntegerValues::try_from(&array).unwrap()),
+            Vec::<i64>::from(crate::NpyIntegerValues::from(&array)),
             [1, 2, 3, 4]
         );
         assert_eq!(
-            Vec::<f32>::from(crate::NpyFloatValues::try_from(&array).unwrap()),
+            Vec::<f32>::from(crate::NpyFloatValues::from(&array)),
             [1.0, 2.0, 3.0, 4.0]
         );
     }

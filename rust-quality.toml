@@ -202,8 +202,8 @@ reason = "NumPy header parsing is an external serialization boundary."
 
 [[scopes]]
 kind = "boundary_adapter"
-path = "crates/fabelgeist-numpy-storage/src/npy/values/decode.rs"
-reason = "Fixed-width NumPy words and descriptors are decoded by the vendored reader at the external serialization boundary."
+path = "crates/fabelgeist-numpy-storage/src/npy/header.rs"
+reason = "NPY version framing and supported dictionary tokens are decoded at the external serialization boundary."
 
 [[scopes]]
 kind = "boundary_adapter"
