@@ -9,6 +9,7 @@ pub struct UniformMember {
     pub name: String,
     pub offset: u32,
     pub size: u32,
+    pub shape: UniformValueShape,
 }
 
 #[derive(Debug, Clone)]
@@ -57,6 +58,40 @@ pub enum ShaderLanguage {
     Wgsl,
 }
 
+/// Declared host value roles supported by the named uniform packers.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum UniformValueShape {
+    Float,
+    /// Native 32-bit integer representation, including the existing i32 adapter.
+    IntegerWord,
+    Vec2,
+    Vec3,
+    Vec4,
+    Mat2,
+    Mat3,
+    Mat4,
+}
+
+impl UniformValueShape {
+    pub fn accepts(self, value: &crate::data::PassParameter) -> bool {
+        use crate::data::PassParameter;
+        matches!(
+            (self, value),
+            (Self::Float, PassParameter::Number(_))
+                | (Self::IntegerWord, PassParameter::Unsigned(_))
+                | (Self::Vec2, PassParameter::Vec2(_))
+                | (Self::Vec3, PassParameter::Vec3(_))
+                | (Self::Vec4, PassParameter::Vec4(_))
+                | (Self::Mat2, PassParameter::Mat2(_))
+                | (Self::Mat3, PassParameter::Mat3(_))
+                | (
+                    Self::Mat4,
+                    PassParameter::Mat4(_) | PassParameter::Transform(_)
+                )
+        )
+    }
+}
+
 pub fn detect_from_code(code: &str) -> ShaderLanguage {
     if code.contains("#version") {
         ShaderLanguage::Glsl
@@ -89,4 +124,20 @@ pub fn parse_naga(code: &str, stage: wgpu::naga::ShaderStage) -> ShaderResult<wg
             })
         }
     }
+}
+
+/// Validate parsed source using the same policy for module and layout admission.
+pub(crate) fn validate_naga(
+    module: &wgpu::naga::Module,
+    code: &str,
+) -> ShaderResult<wgpu::naga::valid::ModuleInfo> {
+    wgpu::naga::valid::Validator::new(
+        wgpu::naga::valid::ValidationFlags::all(),
+        wgpu::naga::valid::Capabilities::all(),
+    )
+    .validate(module)
+    .map_err(|cause| ShaderError::Validation {
+        diagnostic: cause.emit_to_string(code),
+        cause: std::sync::Arc::new(cause),
+    })
 }

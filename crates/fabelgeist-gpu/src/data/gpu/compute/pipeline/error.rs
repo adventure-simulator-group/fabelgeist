@@ -3,6 +3,15 @@ use std::{error::Error, fmt, sync::Arc};
 
 pub type ComputePipelineResult<T> = Result<T, ComputePipelineError>;
 
+/// Resource payloads that the named pass-parameter interface cannot represent.
+#[derive(Clone, Copy, Debug)]
+pub enum UnsupportedBindingKind {
+    BindingArray,
+    ExternalTexture,
+    Handle,
+    AddressSpace,
+}
+
 /// A pipeline's rejection remains available to every clone and cache lookup.
 #[derive(Clone, Debug)]
 pub enum ComputePipelineError {
@@ -12,7 +21,25 @@ pub enum ComputePipelineError {
     NotCompiled,
     Native(Arc<wgpu::Error>),
     CachePoisoned,
-    BindGroupLimit { index: u32, limit: u32 },
+    BindGroupLimit {
+        index: u32,
+        limit: u32,
+    },
+    MultipleUniformBindings {
+        group: u32,
+        first: u32,
+        additional: u32,
+    },
+    UnsupportedUniformType {
+        group: u32,
+        binding: u32,
+        name: String,
+    },
+    UnsupportedBinding {
+        group: u32,
+        binding: u32,
+        kind: UnsupportedBindingKind,
+    },
 }
 
 impl From<ShaderError> for ComputePipelineError {
@@ -36,6 +63,30 @@ impl fmt::Display for ComputePipelineError {
             Self::BindGroupLimit { index, limit } => write!(
                 formatter,
                 "Compute bind group {index} exceeds device group limit {limit}"
+            ),
+            Self::MultipleUniformBindings {
+                group,
+                first,
+                additional,
+            } => write!(
+                formatter,
+                "Compute group {group} has uniform bindings {first} and {additional}; named parameters support one block per group"
+            ),
+            Self::UnsupportedUniformType {
+                group,
+                binding,
+                name,
+            } => write!(
+                formatter,
+                "Compute group {group} binding {binding}: uniform '{name}' has an unsupported host value type"
+            ),
+            Self::UnsupportedBinding {
+                group,
+                binding,
+                kind,
+            } => write!(
+                formatter,
+                "Compute group {group} binding {binding}: {kind:?} is not supported by named pass parameters"
             ),
             Self::CachePoisoned => formatter.write_str("Failed to lock pipeline cache"),
         }

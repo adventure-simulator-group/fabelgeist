@@ -13,11 +13,18 @@ pub(super) fn write_uniform(
 ) -> Result<()> {
     for member in members {
         let Some(value) = parameters.get(&member.name) else {
-            return Err(anyhow!(
-                "Kernel: uniform `{}` was not supplied",
-                member.name
-            ));
+            return Err(ComputePassError::MissingParameter {
+                name: member.name.clone(),
+                kind: ComputeBindingKind::Uniform,
+            }
+            .into());
         };
+        if !member.shape.accepts(value) {
+            return Err(ComputePassError::UnsupportedUniform {
+                name: member.name.clone(),
+            }
+            .into());
+        }
         let offset = member.offset as usize;
 
         let mut put = |values: &[f32]| {
@@ -49,13 +56,11 @@ pub(super) fn write_uniform(
                 }
                 put(&values);
             }
-            other => {
-                return Err(anyhow!(
-                    "Kernel: uniform `{}` is a {:?}, which the cached dispatch path does not pack; \
-                     use ComputePass::record for this kernel",
-                    member.name,
-                    std::mem::discriminant(other)
-                ));
+            _ => {
+                return Err(ComputePassError::UnsupportedUniform {
+                    name: member.name.clone(),
+                }
+                .into());
             }
         }
     }

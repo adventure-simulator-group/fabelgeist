@@ -7,6 +7,7 @@ pub enum ComputeBindingKind {
     Buffer,
     Texture,
     Sampler,
+    Uniform,
 }
 
 /// Failures at the native compute binding and recording boundary.
@@ -29,6 +30,9 @@ pub enum ComputePassError {
     UniformBufferTooLarge {
         requested: BufferByteLength,
         limit: BufferByteLength,
+    },
+    UnsupportedUniform {
+        name: String,
     },
     Native(Arc<wgpu::Error>),
 }
@@ -54,6 +58,10 @@ impl fmt::Display for ComputePassError {
             Self::UniformBufferTooLarge { requested, limit } => write!(
                 formatter,
                 "ComputePass: uniform buffer needs {requested} bytes, device limit is {limit}"
+            ),
+            Self::UnsupportedUniform { name } => write!(
+                formatter,
+                "Kernel: uniform '{name}' has a value the cached dispatch path does not pack"
             ),
             Self::Native(cause) => {
                 write!(formatter, "ComputePass native validation error: {cause}")

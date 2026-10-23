@@ -1,4 +1,4 @@
-//! Static uniforms use a checked allocation before host packing or queue upload.
+//! Static uniform extents are checked before packing; allocation precedes upload.
 
 use super::uniforms;
 use crate::data::{

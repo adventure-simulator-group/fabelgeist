@@ -90,6 +90,23 @@ Compilation and recording check the actual creating device before using native
 resources. `WorkgroupGrid` reaches the native dispatch boundary without raw
 axis forwarding overloads.
 
+The shared compute layout includes resources used by any compute entry point.
+Reflection preserves sampler comparison, multisampling and storage access roles.
+Float textures require filtering only when an entry point samples them; a
+load-only float texture does not acquire that requirement. Provider features
+and limits still determine native acceptance.
+
+Named uniforms support one block per group: a flat struct or a direct scalar,
+float vector or square float matrix. Scalars use f32 or the existing 32-bit
+integer-word encoding, including signed inputs. Each reflected value retains its
+expected shape. Static packing leaves missing or mismatched values at zero;
+the cached path rejects them and retains its narrower matrix support. Supplied
+values cannot overwrite another member by selecting a wider packing shape.
+Multiple blocks in one group, nested or array uniform values, unsupported
+scalar/vector/matrix representations and resource payloads absent from
+`PassParameter` return typed pipeline admission errors. This includes resource
+binding arrays and external textures. Unused globals require no bindings.
+
 Cached kernels keep per-batch uniform slots with checked byte offsets and
 retain native pipeline/binding causes. Empty launches in a batch skip parameter
 admission and counter increments. Standalone empty dispatches still admit parameters.

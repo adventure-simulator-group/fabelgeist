@@ -1,6 +1,5 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::buffer::{BufferByteLength, BufferByteOffset};
-use std::{error::Error, fmt};
 
 /// Native buffer capacity for per-batch uniform slots, in bytes.
 const CHUNK_BYTES: u64 = 64 * 1024;
@@ -16,27 +15,17 @@ pub(super) struct UniformSlot {
     pub offset: BufferByteOffset,
 }
 
-#[derive(Debug)]
+#[derive(Debug, thiserror::Error)]
 pub(super) enum UniformArenaError {
+    #[error("Kernel uniform slot exceeds arena chunk capacity")]
     StrideExceedsChunk,
+    #[error("Kernel uniform arena byte address overflow")]
     AddressOverflow,
+    #[error("Kernel uniform arena has no allocated chunk")]
     MissingChunk,
+    #[error("Kernel uniform offset exceeds native dynamic-offset range")]
     DynamicOffsetOverflow,
 }
-
-impl fmt::Display for UniformArenaError {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        formatter.write_str(match self {
-            Self::StrideExceedsChunk => "Kernel uniform slot exceeds arena chunk capacity",
-            Self::AddressOverflow => "Kernel uniform arena byte address overflow",
-            Self::MissingChunk => "Kernel uniform arena has no allocated chunk",
-            Self::DynamicOffsetOverflow => {
-                "Kernel uniform offset exceeds native dynamic-offset range"
-            }
-        })
-    }
-}
-impl Error for UniformArenaError {}
 
 impl Default for UniformArena {
     fn default() -> Self {

@@ -125,8 +125,8 @@ impl FastPath {
                 visibility: wgpu::ShaderStages::COMPUTE,
                 ty: wgpu::BindingType::Buffer {
                     ty: wgpu::BufferBindingType::Uniform,
-                    // The whole point: one buffer, one bind group, and the
-                    // per-dispatch values selected by offset.
+                    // Each fresh group binds the batch's uniform chunk;
+                    // the dynamic offset selects this dispatch's slot.
                     has_dynamic_offset: true,
                     min_binding_size: std::num::NonZeroU64::new(uniform_size),
                 },
@@ -166,12 +166,18 @@ impl FastPath {
         let mut entries: Vec<wgpu::BindGroupEntry> = Vec::with_capacity(self.buffers.len() + 1);
         let mut bound: Vec<BoundBuffer> = Vec::with_capacity(self.buffers.len());
         for binding in &self.buffers {
-            let Some(PassParameter::Buffer(buffer)) = parameters.get(&binding.name) else {
-                return Err(anyhow!(
-                    "Kernel: parameter `{}` (binding {}) is missing or is not a buffer",
-                    binding.name,
-                    binding.binding
-                ));
+            let value = parameters.get(&binding.name).ok_or_else(|| {
+                ComputePassError::MissingParameter {
+                    name: binding.name.clone(),
+                    kind: ComputeBindingKind::Buffer,
+                }
+            })?;
+            let PassParameter::Buffer(buffer) = value else {
+                return Err(ComputePassError::WrongParameterKind {
+                    name: binding.name.clone(),
+                    kind: ComputeBindingKind::Buffer,
+                }
+                .into());
             };
             bound.push(BoundBuffer {
                 descriptor: binding.clone(),

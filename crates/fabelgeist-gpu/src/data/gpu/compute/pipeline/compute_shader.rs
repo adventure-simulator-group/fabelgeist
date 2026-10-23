@@ -1,5 +1,5 @@
 use crate::data::gpu::shader::{
-    ShaderError, ShaderLanguage, ShaderResult, detect_from_code, parse_naga,
+    ShaderError, ShaderLanguage, ShaderResult, detect_from_code, parse_naga, validate_naga,
 };
 use crate::globals::WgpuContext;
 use std::sync::Arc;
@@ -15,16 +15,7 @@ pub struct ComputeShader {
 impl ComputeShader {
     pub fn new(context: &WgpuContext, code: String) -> ShaderResult<Self> {
         let module = parse_naga(&code, wgpu::naga::ShaderStage::Compute)?;
-        let mut validator = wgpu::naga::valid::Validator::new(
-            wgpu::naga::valid::ValidationFlags::all(),
-            wgpu::naga::valid::Capabilities::all(),
-        );
-        let info = validator
-            .validate(&module)
-            .map_err(|cause| ShaderError::Validation {
-                diagnostic: cause.emit_to_string(&code),
-                cause: Arc::new(cause),
-            })?;
+        let info = validate_naga(&module, &code)?;
         let wgsl_code = match detect_from_code(&code) {
             ShaderLanguage::Glsl => wgpu::naga::back::wgsl::write_string(
                 &module,

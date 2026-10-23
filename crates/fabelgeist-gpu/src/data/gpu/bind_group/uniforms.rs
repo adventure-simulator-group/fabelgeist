@@ -7,7 +7,9 @@ pub(super) fn pack_uniforms(
 ) -> Vec<u8> {
     let mut data = vec![0u8; reflection.uniform_buffer_size as usize];
     for member in &reflection.uniform_members {
-        if let Some(value) = parameters.get(&member.name) {
+        if let Some(value) = parameters.get(&member.name)
+            && member.shape.accepts(value)
+        {
             write_value(&mut data, member, value);
         }
     }
