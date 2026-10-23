@@ -6,7 +6,7 @@ use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, BufferUpload};
 
 use crate::device_frames::DeviceWearer;
-use crate::device_garment_kernel::{Grid, Word, dispatch, read, read_u32, write};
+use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
 use crate::skirt_join::SkirtJoinPlan;
 use crate::surface_cut::POINT_WORDS;
 
@@ -17,6 +17,7 @@ impl DeviceWearer<'_> {
         fit: &Buffer,
         plan: &SkirtJoinPlan,
         allowance: f32,
+        status: &Buffer,
     ) -> Result<()> {
         let table = self.gpu.upload(BufferUpload::from_elements(&plan.table))?;
         let samples = self
@@ -37,6 +38,7 @@ impl DeviceWearer<'_> {
                 read("normals", &self.body.normals),
                 read_u32("table", &table),
                 read_u32("samples", &samples),
+                atomic("waist_status", status),
             ],
             &[
                 Word::U("count", count),

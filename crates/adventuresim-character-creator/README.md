@@ -509,7 +509,9 @@ inner garments. Its rings share connectivity across body morph realizations.
 Enable a joined upper section to turn the skirt into a dress. Upper height is
 relative to the waist-to-upper-chest span; the transition controls how much
 skirt length releases the fitted waist. The upper patch clones the reference
-body's triangles and keeps barycentric correspondence through morphs. A shared
+body's triangles and keeps barycentric correspondence through morphs. An
+optional front waist point joins an added wedge of body surface to the upper patch;
+the skirt columns follow its cut boundary toward a level hem. A shared
 waist boundary joins it to the skirt before thickening, so it is one continuous
 surface. The catalog's **Linen dress** starts from this construction. Detailed
 necklines, sleeves and corsetry are outside this construction stage.
@@ -517,11 +519,16 @@ necklines, sleeves and corsetry are outside this construction stage.
 Pleats have independent repeat count, depth, rotation and rounded or accordion
 folds. Front depth can be reduced to leave a quieter center front while keeping
 fuller side and rear folds. A quiet front panel reserves part of the
-circumference and distributes the folds over the remaining cloth. Waist gather
-depth is independent of the lower fold depth. A flared carrier
-opens continuously from the waist; its final surface still encloses the wearer.
-Optional longitudinal stays
-(boning) and circumferential hoops sit under the fabric, with separate member
+circumference and distributes the folds over the remaining cloth. Fine waist
+gathers have their own count, depth and falloff distance, independent of the
+broader lower folds, with an adjustable share retained toward the hem.
+The fitted share and dress transition can be shortened to release these gathers
+just below the waist. A flared carrier opens continuously from the waist; its
+final surface still encloses the wearer.
+Folds repeat evenly and the hem stays level. This is the tailored construction;
+uneven settling and drape belong to future cloth simulation.
+Optional longitudinal stays (boning) and circumferential hoops sit under the
+fabric, with separate member
 counts, width, thickness and reach controls. Their exported component roles
 retain construction identity and rigid pelvis attachment. They express the
 reference construction; they do not simulate forces or constrain fabric yet.
@@ -529,8 +536,9 @@ Enable puff-and-slash treatment to add puffed courses over a continuous lining.
 Skirts, dresses, sleeves and hose share the same pattern controls, panel
 construction and fullness profile. Edit course count, fullness and taper,
 roundness, constriction bands, slash count, opening dimensions, rotation and
-both textile colors. Turn off open slashes for closed puffed cloth; turn off the
-treatment for plain cloth. Treatment can accompany either pleats or supports.
+both textile appearances. Turn off open slashes for closed puffed cloth; turn
+off the treatment for plain cloth. Treatment can accompany either pleats or
+supports.
 On dresses it covers the hanging section; the fitted upper section and waist
 transition remain continuous lining. These controls describe construction, not
 forces, cloth dynamics or collision response. Skinning and movement clipping
@@ -538,6 +546,33 @@ remain provisional until cloth physics is implemented.
 Large fullness with many courses on a short skirt can produce shelf-like
 forms. The controls permit this stylization; finite topology does not establish
 plausible fabric construction across every combination.
+
+Fabric appearance is independent of construction. Skirts, joined dresses,
+puffed sleeves and hose share a base color, linen/wool/silk/velvet roughness,
+and up to twelve ordered color layers. Velvet uses a diffuse approximation
+without the default white glossy lobe. Each layer covers the whole fabric, a
+band, or a bounded panel. Fill it with a solid color, stripes, or repeating
+lozenges, rosettes, palmettes, curved foliage or nested floral damask.
+Damask combines an upright nested flower, veined leaves and a curved stem;
+leaf count and spread control its structure. Repeat count, scale, rotation
+and repeat-tile offsets control the arrangement; botanical controls change
+the leaves or scrolling branches. Choose a repeat within each region or one
+continuous garment pattern clipped through several bands and panels. The latter
+keeps ornament scale and alignment across separate pieces of the same fabric.
+These are stylized parametric ornaments, not certified reconstructions of
+historical textiles.
+
+Across runs around the garment, with a rear seam; along runs from its proximal
+edge to the hem or cuff. A joined dress uses the entire continuous surface for
+this chart. Layer intervals are percentages of that chart, so a hem band can
+be reused at a cuff. The chart is frozen across body morphs and is independent
+of anatomical correspondence used for fitting and skinning. Shading vertices
+at its wrap seam retain the same positions, skin weights and morph endpoints.
+The creator and runtime share the same sRGB color-map baker; exported GLBs
+include those maps and repeat around the garment while clamping at its ends.
+The exported material retains the finish through `KHR_materials_specular`.
+This supplies flat color ornament and surface roughness, without simulated
+weave, embroidery relief, metallic thread or velvet's directional sheen.
 
 ## Draped chainmail
 

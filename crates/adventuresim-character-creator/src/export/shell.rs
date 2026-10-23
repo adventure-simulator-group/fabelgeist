@@ -70,6 +70,9 @@ impl Writer<'_> {
             if let Some(textures) = shell.textures.clone() {
                 self.textures.apply(textures, self.buffer, &mut material);
             }
+            if let Some(finish) = shell.textile_finish {
+                self.textures.apply_textile_finish(finish, &mut material);
+            }
             if let Some((_, textures)) = shell.surface {
                 self.textures
                     .apply_shell_textures(textures, self.buffer, &mut material);

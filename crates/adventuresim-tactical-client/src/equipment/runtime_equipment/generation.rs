@@ -214,7 +214,12 @@ impl RuntimeEquipmentBodyCache {
         Ok(())
     }
 
-    fn finish(&mut self, meshes: &mut Assets<Mesh>, materials: &mut Assets<StandardMaterial>) {
+    fn finish(
+        &mut self,
+        meshes: &mut Assets<Mesh>,
+        materials: &mut Assets<StandardMaterial>,
+        images: &mut Assets<Image>,
+    ) {
         let Some(pending) = self.pending.as_mut() else {
             return;
         };
@@ -237,6 +242,7 @@ impl RuntimeEquipmentBodyCache {
                         key.selection.selection.item(),
                         meshes,
                         materials,
+                        images,
                     )?,
                     rigid_center: referenced_center(&generated),
                     generated: Arc::new(generated),
@@ -294,6 +300,7 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    mut images: ResMut<Assets<Image>>,
     mut bindposes: ResMut<Assets<SkinnedMeshInverseBindposes>>,
     mut cache: ResMut<RuntimeEquipmentBodyCache>,
     presentations: Query<(
@@ -312,7 +319,7 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
     )>,
     characters: Query<(&CharacterId, Option<&CharacterSkeletalProportions>)>,
 ) {
-    cache.finish(&mut meshes, &mut materials);
+    cache.finish(&mut meshes, &mut materials, &mut images);
     let outfits = layers::outfits(presentations.iter().filter_map(|(_, presentation, ..)| {
         let (owner, scene, _, slot) = items.get(presentation.item).ok()?;
         let owner = owner.filter(|_| !scene && holding_side(slot).is_none())?;
@@ -359,12 +366,7 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
             let Some(owner) = owner else {
                 continue;
             };
-            let outfit = &outfits[&owner.0];
-            match outfit
-                .as_ref()
-                .map_err(|error| anyhow::anyhow!("{error}"))
-                .and_then(|outfit| outfit.ancestors(&key.selection))
-            {
+            match key.layers_for_outfit(&outfits[&owner.0]) {
                 Ok(layers) => key.layers = layers,
                 Err(error) => {
                     presentation.fail_fit(entity, resolved, &error, &mut commands);

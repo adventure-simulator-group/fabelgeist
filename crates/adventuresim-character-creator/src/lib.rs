@@ -85,6 +85,7 @@ mod skirt_clearance;
 mod skirt_join;
 pub mod studio_environment;
 pub mod surface_cut;
+pub mod textile_surface;
 pub mod torso_domain;
 pub mod underlayer;
 pub mod underlayer_armor;

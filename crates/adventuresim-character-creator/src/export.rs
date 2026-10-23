@@ -19,7 +19,7 @@ mod shell;
 mod skeleton;
 pub mod skinning;
 mod textures;
-pub use textures::{GlbOutput, ShellTextures, SurfaceTextures};
+pub use textures::{GlbOutput, ShellTextures, SurfaceSampling, SurfaceTextures};
 mod sockets;
 mod validation;
 use validation::validate;
@@ -1192,6 +1192,7 @@ mod tests {
             normal_deltas: &normal_delta,
         }];
         let shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,
@@ -1312,6 +1313,7 @@ mod tests {
         )
         .unwrap();
         let shell = RiggedShell {
+            textile_finish: None,
             plate_edges: &[],
             surface: Some((&uvs, &textures)),
             textures: None,
@@ -1438,6 +1440,7 @@ mod tests {
         ];
         let shell_faces = [[0, 1, 2]];
         let shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,
@@ -1582,6 +1585,7 @@ mod tests {
         )
         .unwrap();
         let shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,
@@ -1729,6 +1733,7 @@ mod tests {
             global_joint_states: &global_joint_states.to_vec().into(),
         };
         let shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,
@@ -1786,6 +1791,7 @@ mod tests {
         assert!((bootstrapped[1] - 0.5).abs() < 1e-6);
 
         let open_shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,

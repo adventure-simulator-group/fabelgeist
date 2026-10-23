@@ -28,6 +28,9 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     }
     let frame = frame_at(0u);
     let point = host_local(frame, result.point);
+    // A pointed waist must leave a positive hanging span on every refit.
+    // Reject this wearer/design combination instead of clipping the waist.
+    if (point.y <= -frame.half_extents.y) { atomicOr(&waist_status[0], 1u); }
     let normal = vec3<f32>(host_dot(frame.x, result.normal), host_dot(frame.y, result.normal), host_dot(frame.z, result.normal));
     let start = FIRST_POINT + id.x * OUTPUT_WORDS;
     fit[start] = point.x; fit[start + 1u] = point.y; fit[start + 2u] = point.z;

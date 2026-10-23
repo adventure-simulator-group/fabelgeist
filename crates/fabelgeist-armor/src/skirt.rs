@@ -3,11 +3,14 @@
 use serde::{Deserialize, Serialize};
 use std::ops::RangeInclusive;
 
-use crate::{DesignError, GenerateError, Millimeters, Permille, TextileColor};
+use crate::{
+    DesignError, GenerateError, Millimeters, Permille, TextileAppearance, TextileColor,
+    TextileFinish,
+};
 
 /// Circumferential samples, shared with the fitted hull. This retains four
-/// samples per fold at 24 repeats with half the cloth reserved for a front panel.
-pub const SKIRT_RING_SEGMENTS: usize = 192;
+/// samples per fine gather at maximum repeat count and quiet-front width.
+pub const SKIRT_RING_SEGMENTS: usize = 384;
 /// Axial samples include both the waist and hem.
 pub const SKIRT_AXIAL_SEGMENTS: usize = 32;
 
@@ -30,7 +33,7 @@ pub struct SkirtDesign {
     pub profile: SkirtProfile,
     pub clearance: Millimeters,
     pub thickness: Millimeters,
-    pub color: TextileColor,
+    pub fabric: TextileAppearance,
 }
 
 /// Minimal continuous dress upper section. Necklines, sleeves and corsetry
@@ -42,6 +45,8 @@ pub struct DressBodice {
     pub height: Permille,
     /// Share of skirt length used to release the fitted waist into the skirt.
     pub transition: Permille,
+    /// Center-front drop of a pointed waist, measured on the reference body.
+    pub front_point: Millimeters,
 }
 
 /// Width and depth gains are relative to the enclosing hip/leg profile.
@@ -66,13 +71,15 @@ impl Default for DressBodice {
         Self {
             height: Permille(800),
             transition: Permille(150),
+            front_point: Millimeters(0),
         }
     }
 }
 
 impl DressBodice {
     pub const HEIGHT_RANGE: RangeInclusive<u16> = 400..=950;
-    pub const TRANSITION_RANGE: RangeInclusive<u16> = 100..=300;
+    pub const TRANSITION_RANGE: RangeInclusive<u16> = 20..=300;
+    pub const FRONT_POINT_RANGE: RangeInclusive<u16> = 0..=200;
 
     /// The first ordinary skirt ring, after the body-to-skirt transition.
     pub fn first_skirt_row(&self) -> usize {
@@ -82,6 +89,7 @@ impl DressBodice {
     fn validate(&self) -> Result<(), GenerateError> {
         if !Self::HEIGHT_RANGE.contains(&self.height.0)
             || !Self::TRANSITION_RANGE.contains(&self.transition.0)
+            || !Self::FRONT_POINT_RANGE.contains(&self.front_point.0)
         {
             return Err(DesignError::ParametricParameters.into());
         }
@@ -105,7 +113,7 @@ impl Default for SkirtDesign {
             },
             clearance: Millimeters(8),
             thickness: Millimeters(2),
-            color: TextileColor([82, 57, 103]),
+            fabric: TextileAppearance::solid(TextileColor([82, 57, 103]), TextileFinish::Wool),
         }
     }
 }
@@ -113,11 +121,12 @@ impl Default for SkirtDesign {
 impl SkirtDesign {
     pub const WAIST_RISE_RANGE: RangeInclusive<u16> = 0..=200;
     pub const LENGTH_RANGE: RangeInclusive<u16> = 100..=1200;
-    pub const FITTED_FRACTION_RANGE: RangeInclusive<u16> = 100..=500;
+    pub const FITTED_FRACTION_RANGE: RangeInclusive<u16> = 20..=500;
     pub const CLEARANCE_RANGE: RangeInclusive<u16> = 1..=30;
     pub const THICKNESS_RANGE: RangeInclusive<u16> = 1..=6;
 
     pub fn validate(&self) -> Result<(), GenerateError> {
+        self.fabric.validate()?;
         if let Some(pattern) = &self.puff_and_slash {
             pattern.validate()?;
         }

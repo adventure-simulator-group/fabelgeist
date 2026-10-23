@@ -147,6 +147,7 @@ impl PreviewScene<'_, '_> {
                 &mut self.commands,
                 &mut self.meshes,
                 &mut self.materials,
+                &mut self.images,
                 &piece.generated,
                 piece.name.clone(),
                 preview::ArmorShading {
@@ -161,6 +162,7 @@ impl PreviewScene<'_, '_> {
                     &mut self.commands,
                     &mut self.meshes,
                     &mut self.materials,
+                    &mut self.images,
                     &lacing.generated,
                     lacing.name.clone(),
                     preview::ArmorShading {

@@ -44,17 +44,11 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut fabelgeist_armor::PuffAndSlas
         40..=350,
         "Constricted band width",
     );
-    ui.horizontal(|ui| {
-        ui.label("Outer fabric");
-        changed |= ui
-            .color_edit_button_srgb(&mut design.outer_color.0)
-            .changed();
+    ui.collapsing("Outer fabric", |ui| {
+        changed |= super::textile::show(ui, &mut design.outer_fabric);
     });
-    ui.horizontal(|ui| {
-        ui.label("Undercloth");
-        changed |= ui
-            .color_edit_button_srgb(&mut design.undercloth_color.0)
-            .changed();
+    ui.collapsing("Undercloth", |ui| {
+        changed |= super::textile::show(ui, &mut design.undercloth_fabric);
     });
     changed
 }

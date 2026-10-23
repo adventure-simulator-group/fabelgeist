@@ -82,6 +82,8 @@ pub struct ArmorComponent {
     pub hinge: Option<ArmorHinge>,
     pub mount: Option<crate::PlateMount>,
     pub material: Option<ArmorComponentMaterial>,
+    /// Procedural cloth appearance; independent of folds and supporting members.
+    pub textile: Option<crate::TextileAppearance>,
 }
 
 /// Unlit surface parameters; generated textures supply normal and AO detail.
