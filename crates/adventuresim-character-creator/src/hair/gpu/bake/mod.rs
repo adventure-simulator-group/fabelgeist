@@ -210,7 +210,7 @@ impl GpuScalpTexture {
         grid.draw(gpu, &mut batch, groom, bust, map, [&topmost, &shadowed])?;
         grid.bare(gpu, &mut batch, [&topmost, &shadowed], &bare)?;
         baked.finish(gpu, &mut batch, &topmost, &bare[0])?;
-        batch.submit();
+        batch.submit()?;
         Ok(baked)
     }
 
@@ -285,8 +285,8 @@ impl Grid {
         batch.dispatch_folded(
             &kernels.draw,
             &params! {
-                "positions" => groom.positions.clone(),
-                "strands" => groom.attributes.clone(),
+                "positions" => groom.positions().clone(),
+                "strands" => groom.attributes().clone(),
                 "head_shape" => upload(context, &head_shape(bust), "hair bust shape")?,
                 "topmost" => topmost.clone(),
                 "shadowed" => shadowed.clone(),
@@ -301,11 +301,11 @@ impl Grid {
                 "forward_x" => forward.x,
                 "forward_y" => forward.y,
                 "forward_z" => forward.z,
-                "count" => groom.strands,
+                "count" => groom.layout().native_strands(),
                 "side_x" => side.x,
                 "side_y" => side.y,
                 "side_z" => side.z,
-                "points" => groom.points,
+                "points" => groom.layout().native_points(),
                 "step" => STEP,
                 "reach" => REACH,
                 "shadow_reach" => SHADOW_REACH,
@@ -319,7 +319,7 @@ impl Grid {
                 "pad0" => 0u32,
                 "pad1" => 0u32,
             },
-            groom.strands,
+            groom.layout().strand_invocations(),
         )?;
         Ok(())
     }
@@ -433,16 +433,16 @@ pub(crate) fn longest(gpu: &HairGpu, groom: &GpuGroom) -> Result<f32> {
     batch.dispatch_folded(
         &gpu.bake.longest,
         &params! {
-            "positions" => groom.positions.clone(),
+            "positions" => groom.positions().clone(),
             "longest" => out.clone(),
-            "count" => groom.strands,
-            "points" => groom.points,
+            "count" => groom.layout().native_strands(),
+            "points" => groom.layout().native_points(),
             "pad0" => 0u32,
             "pad1" => 0u32,
         },
-        groom.strands,
+        groom.layout().strand_invocations(),
     )?;
-    batch.submit();
+    batch.submit()?;
     let words: Vec<u32> = pollster::block_on(out.read(context))?;
     Ok(f32::from_bits(words.first().copied().unwrap_or(0)))
 }

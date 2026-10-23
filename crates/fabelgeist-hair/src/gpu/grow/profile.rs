@@ -8,7 +8,7 @@ impl GpuGroomer {
         set: &StrandSet,
         r: &Profile,
     ) -> Result<()> {
-        let count = set.count;
+        let count = set.layout.native_strands();
         batch.dispatch_folded(
             &self.kernels.profile,
             &params! {
@@ -22,7 +22,7 @@ impl GpuGroomer {
                 "grown" => r.relative_to.unwrap_or(0.0),
                 "pad1" => 0u32,
             },
-            count,
+            set.layout.strand_invocations(),
         )?;
         Ok(())
     }
@@ -35,7 +35,6 @@ impl GpuGroomer {
         guides: &super::super::guides::GpuGuides,
         guide_points: &Buffer,
         guide_info: &Buffer,
-        points: u32,
         parting: &Parting,
     ) -> Result<()> {
         let mut pack = params! {
@@ -43,14 +42,14 @@ impl GpuGroomer {
             "strands" => guides.attributes.clone(),
             "guide_points" => guide_points.clone(),
             "guide_info" => guide_info.clone(),
-            "count" => guides.count,
-            "points" => points,
+            "count" => guides.layout.native_strands(),
+            "points" => guides.layout.native_points(),
             "pad0" => 0u32,
         };
         for (key, value) in parting_parameters(parting) {
             pack.insert(key, value);
         }
-        batch.dispatch_folded(&self.kernels.guide_pack, &pack, guides.count)?;
+        batch.dispatch_folded(&self.kernels.guide_pack, &pack, guides.layout.strand_invocations())?;
         Ok(())
     }
 }

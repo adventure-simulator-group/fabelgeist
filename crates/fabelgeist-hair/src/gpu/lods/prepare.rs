@@ -1,6 +1,7 @@
 //! Native GPU layout preparation for level-of-detail passes.
 use super::*;
 use fabelgeist_gpu::prelude::{BufferDefinition, BufferUse};
+use fabelgeist_compute::SortKeyWidth;
 pub(super) struct CoverDensity {
     pub(super) grid: Grid,
     pub(super) density: Buffer,
@@ -40,13 +41,15 @@ impl GpuGroomer {
         batch: &mut KernelBatch,
         groom: &GpuGroom,
     ) -> Result<Buffer> {
-        let count = groom.strands;
+        let layout = groom.layout;
+        let count = layout.native_strands();
+        let items = layout.sort_items();
         // The shuffled order.
         let keys =
             self.scratch
                 .keys
-                .fit(context, (count as u64 * 4).into(), "hair order keys".into())?;
-        let order = storage(context, (count as u64 * 4).into(), "hair order".into())?;
+                .fit(context, items.word_bytes(), "hair order keys".into())?;
+        let order = storage(context, items.word_bytes(), "hair order".into())?;
         batch.dispatch_folded(
             &self.kernels.order_keys,
             &params! {
@@ -58,11 +61,11 @@ impl GpuGroomer {
                 "pad1" => 0u32,
                 "pad2" => 0u32,
             },
-            count,
+            layout.strand_invocations(),
         )?;
-        self.sort_scratch.ensure(context, count)?;
+        self.sort_scratch.ensure(context, items)?;
         self.sort
-            .record(batch, &keys, &order, &mut self.sort_scratch, count, 32)?;
+            .record(batch, &keys, &order, &mut self.sort_scratch, items, SortKeyWidth::from(u32::BITS))?;
 
         Ok(order)
     }

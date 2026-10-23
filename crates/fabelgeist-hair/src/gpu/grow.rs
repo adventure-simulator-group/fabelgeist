@@ -2,14 +2,15 @@
 
 use crate::gpu::error::{HairGpuError, Result};
 use crate::parameters::StrandCount;
-use fabelgeist_compute::KernelBatch;
+use fabelgeist_compute::{BufferCopy, KernelBatch};
+use fabelgeist_gpu::prelude::BufferByteOffset;
 use fabelgeist_compute::ScanElementCount;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_math::Vec3;
 
 use super::guides::Guides;
-use super::{GpuGroom, GpuGroomer, GpuScalp, StrandGpu, head_shape, storage, upload};
+use super::{GpuGroom, GpuGroomer, GpuScalp, StrandGpu, StrandLayout, StrandLayoutError, head_shape, storage, upload};
 use crate::follicles::Growth;
 use crate::groom::Groom;
 use crate::head::Head;
@@ -18,6 +19,8 @@ use crate::ops::{DensityMask, Interpolate, Op, Parting, STANDARD_GRAVITY};
 use crate::rng;
 
 mod input;
+mod maps;
+mod operations;
 mod profile;
 
 /// Parameters by name, as the compute kernels bind them.
@@ -38,6 +41,21 @@ pub(super) struct PingPong {
     pub(super) scratch: Buffer,
     /// The current positions are in `scratch`.
     pub(super) flipped: bool,
+}
+
+/// Strands a stack runs over -- the guides before interpolation, the
+/// groom after -- and what its operations share.
+pub(super) struct StrandSet {
+    pub(super) positions: PingPong,
+    pub(super) attributes: Buffer,
+    /// Each strand's root, for the guide maps.
+    pub(super) roots: Buffer,
+    pub(super) layout: StrandLayout,
+    /// A box the roots are inside.
+    pub(super) root_bounds: [Vec3; 2],
+    /// The guide map, and whether one has been made.
+    pub(super) guide_of: Buffer,
+    pub(super) mapped: bool,
 }
 
 impl PingPong {
@@ -62,34 +80,18 @@ impl PingPong {
     }
 }
 
-/// Strands a stack runs over -- the guides before interpolation, the
-/// groom after -- and what its operations share.
-pub(super) struct StrandSet {
-    pub(super) positions: PingPong,
-    pub(super) attributes: Buffer,
-    /// Each strand's root, for the guide maps.
-    pub(super) roots: Buffer,
-    pub(super) count: u32,
-    pub(super) points: u32,
-    /// A box the roots are inside.
-    pub(super) root_bounds: [Vec3; 2],
-    /// The guide map, and whether one has been made.
-    pub(super) guide_of: Buffer,
-    pub(super) mapped: bool,
-}
-
 impl StrandSet {
-    fn bytes(&self) -> u64 {
-        self.count as u64 * self.points as u64 * 16
-    }
-
     /// The positions back in the strands' own buffer.
     pub(super) fn settle(&mut self, batch: &mut KernelBatch) -> Result<()> {
         if self.positions.flipped {
             batch.copy_buffer(
                 &self.positions.scratch,
                 &self.positions.own,
-                self.bytes().into(),
+                BufferCopy {
+                    source_offset: BufferByteOffset::START,
+                    destination_offset: BufferByteOffset::START,
+                    bytes: self.layout.positions_bytes(),
+                },
             )?;
             self.positions.flipped = false;
         }
@@ -126,7 +128,10 @@ impl GpuGroomer {
         head: &Head,
         scalp: &GpuScalp,
     ) -> Result<GpuGroom> {
-        let points = groom.points.max(2) as u32;
+        let requested_points = crate::parameters::PointsPerStrand::from_count(groom.points.max(2));
+        let points = u32::try_from(requested_points.count()).map_err(|source| {
+            StrandLayoutError::PointCount { requested: requested_points, source }
+        })?;
         let input::Interpolation { at, interpolate } = input::Interpolation::find(groom)?;
         let context = self.context.clone();
         let head_shape = upload(&context, &head_shape(head), "hair head shape".into())?;
@@ -155,6 +160,7 @@ impl GpuGroomer {
             });
         }
 
+        let layout = StrandLayout::new(StrandCount::from_count(count as usize), requested_points)?;
         let mut batch = KernelBatch::labelled(&context, "hair groom");
         let guides = match guides {
             Guides::Host(strands) => self.upload_guides(strands, points)?,
@@ -177,34 +183,13 @@ impl GpuGroomer {
                 )?
             }
         };
-        if guides.count == 0 {
+        if guides.layout.native_strands() == 0 {
             return Err(HairGpuError::EmptyGuides);
         }
 
         // The operations before interpolation, on the guides.
-        let guide_bytes = guides.count as u64 * points as u64 * 16;
-        let mut guide_set = StrandSet {
-            positions: PingPong {
-                own: guides.positions.clone(),
-                scratch: self.scratch.guide_positions.fit(
-                    &context,
-                    (guide_bytes).into(),
-                    "hair guide positions scratch".into(),
-                )?,
-                flipped: false,
-            },
-            attributes: guides.attributes.clone(),
-            roots: guides.roots.clone(),
-            count: guides.count,
-            points,
-            root_bounds: scalp.bounds,
-            guide_of: self.scratch.guide_map.fit(
-                &context,
-                (guides.count as u64 * 4).into(),
-                "hair guide guide map".into(),
-            )?,
-            mapped: false,
-        };
+        let guide_bytes = guides.layout.positions_bytes();
+        let mut guide_set = guides.operation_set(self, scalp.bounds)?;
         self.record_ops(&mut batch, &groom.ops[..at], &mut guide_set, &head_shape)?;
         guide_set.settle(&mut batch)?;
 
@@ -216,7 +201,7 @@ impl GpuGroomer {
         )?;
         let guide_info = self.scratch.guide_info.fit(
             &context,
-            (guides.count as u64 * 16).into(),
+            (guides.layout.native_strands() as u64 * 16).into(),
             "hair guide info".into(),
         )?;
         self.record_guide_pack(
@@ -224,7 +209,6 @@ impl GpuGroomer {
             &guides,
             &guide_points,
             &guide_info,
-            points,
             &interpolate.parting,
         )?;
 
@@ -275,7 +259,7 @@ impl GpuGroomer {
                 "neighbors" => neighbors.clone(),
                 "weights" => weights.clone(),
                 "count" => count,
-                "guides" => guides.count,
+                "guides" => guides.layout.native_strands(),
                 "points" => points,
                 "wanted" => interpolate.neighbors.clamp(1, 8) as u32,
                 "divergence" => interpolate.divergence,
@@ -283,9 +267,9 @@ impl GpuGroomer {
                 "pad1" => 0u32,
                 "pad2" => 0u32,
             },
-            count,
+            layout.strand_invocations(),
         )?;
-        let bytes = count as u64 * points as u64 * 16;
+        let bytes = layout.positions_bytes();
         let mut strands = StrandSet {
             positions: PingPong {
                 own: storage(&context, (bytes).into(), "hair positions".into())?,
@@ -298,8 +282,7 @@ impl GpuGroomer {
             },
             attributes: attributes.clone(),
             roots: roots.clone(),
-            count,
-            points,
+            layout,
             root_bounds: scalp.bounds,
             guide_of: self.scratch.guide_of.fit(
                 &context,
@@ -327,17 +310,17 @@ impl GpuGroomer {
                 "pad2" => 0u32,
                 "pad3" => 0u32,
             },
-            count * points,
+            layout.sample_invocations(),
         )?;
 
         // Everything after.
         self.record_ops(&mut batch, &groom.ops[at + 1..], &mut strands, &head_shape)?;
         strands.settle(&mut batch)?;
-        batch.submit();
+        batch.submit()?;
 
         Ok(GpuGroom {
-            strands: count,
-            points,
+            layout,
+            device: context.device.as_ref().clone(),
             positions: strands.positions.own,
             attributes,
             roots,
@@ -346,313 +329,6 @@ impl GpuGroomer {
             head: Some(head.clone()),
             guides: Some(guides),
         })
-    }
-
-    /// Record `ops` over `set`, each reading the current positions and
-    /// writing the other buffer.
-    pub(super) fn record_ops(
-        &mut self,
-        batch: &mut KernelBatch,
-        ops: &[Op],
-        set: &mut StrandSet,
-        head_shape: &Buffer,
-    ) -> Result<()> {
-        let context = self.context.clone();
-        let (count, points, bytes) = (set.count, set.points, set.bytes());
-        for op in ops {
-            let (src, dst) = (set.positions.src(), set.positions.dst());
-            let attributes = set.attributes.clone();
-            let strand_params = |mut p: PassParameters| {
-                p.insert("src", src.clone());
-                p.insert("dst", dst.clone());
-                p.insert("strands", attributes.clone());
-                p.insert("count", count);
-                p.insert("points", points);
-                p
-            };
-            match op {
-                Op::Orient(o) => {
-                    if o.memory <= 0.0 {
-                        continue;
-                    }
-                    let field = &o.field;
-                    let w = |i: usize| field.whorls.get(i).copied();
-                    let w0 = w(0);
-                    let w1 = w(1);
-                    let point =
-                        |w: Option<crate::follicles::Whorl>| w.map_or(Vec3::default(), |w| w.point);
-                    let p = strand_params(params! {
-                        "seed" => rng::seed(o.seed, 0x0F0C),
-                        "growth" => Growth::ALL.iter().position(|g| *g == field.growth).unwrap_or(0) as u32,
-                        "memory" => o.memory,
-                        "direction_spread" => o.direction_spread,
-                        "angle_spread" => o.angle_spread,
-                        "whorls" => field.whorls.len() as u32,
-                        "center_x" => field.center.x,
-                        "center_y" => field.center.y,
-                        "center_z" => field.center.z,
-                        "pad0" => 0u32,
-                        "w0_x" => point(w0).x,
-                        "w0_y" => point(w0).y,
-                        "w0_z" => point(w0).z,
-                        "w0_spiral" => w0.map_or(0.0, |w| w.spiral),
-                        "w0_hand" => w0.map_or(1.0, |w| w.hand),
-                        "w0_reach" => w0.map_or(0.07, |w| w.reach),
-                        "w1_hand" => w1.map_or(1.0, |w| w.hand),
-                        "w1_reach" => w1.map_or(0.07, |w| w.reach),
-                        "w1_x" => point(w1).x,
-                        "w1_y" => point(w1).y,
-                        "w1_z" => point(w1).z,
-                        "w1_spiral" => w1.map_or(0.0, |w| w.spiral),
-                    });
-                    batch.dispatch_folded(&self.kernels.orient, &p, count)?;
-                }
-                Op::Trim(t) => {
-                    let p = strand_params(params! {
-                        "seed" => rng::seed(t.seed, 77_221),
-                        "pad0" => 0u32,
-                        "keep_share" => t.length,
-                        "random" => t.random,
-                        "max_length" => t.max_length,
-                        "pad1" => 0u32,
-                    });
-                    batch.dispatch_folded(&self.kernels.trim, &p, count)?;
-                }
-                Op::Clump(c) => {
-                    let seed = rng::seed(c.seed, 148_762);
-                    if !(c.reuse_guide_map && set.mapped) {
-                        self.record_set_map(batch, set, c.guide_distance, c.guide_mask, seed)?;
-                    }
-                    let mut p = strand_params(params! {
-                        "seed" => seed,
-                        "preserve" => u32::from(c.preserve_length),
-                        "factor" => c.factor,
-                        "shape" => c.shape,
-                        "twist" => c.twist,
-                        "twist_random" => c.twist_random,
-                        "twist_factor" => c.twist_factor,
-                        "tip_spread" => c.tip_spread,
-                        "clump_offset" => c.clump_offset,
-                        "distance_falloff" => c.distance_falloff,
-                        "distance_threshold" => c.distance_threshold,
-                        "min_length" => c.min_length,
-                        "pad0" => 0u32,
-                        "pad1" => 0u32,
-                    });
-                    p.insert("guide_of", set.guide_of.clone());
-                    batch.dispatch_folded(&self.kernels.clump, &p, count)?;
-                }
-                Op::Curl(c) => {
-                    let seed = rng::seed(c.seed, 91_487);
-                    if !(c.reuse_guide_map && set.mapped) {
-                        self.record_set_map(batch, set, c.guide_distance, c.guide_mask, seed)?;
-                    }
-                    let mut p = strand_params(params! {
-                        "seed" => seed,
-                        "pad0" => 0u32,
-                        "factor" => c.factor,
-                        "curl_start" => c.curl_start,
-                        "radius" => c.radius,
-                        "factor_start" => c.factor_start,
-                        "factor_end" => c.factor_end,
-                        "turns_per_metre" => c.frequency * 3.0,
-                        "random_offset" => c.random_offset,
-                        "pad1" => 0u32,
-                    });
-                    p.insert("guide_of", set.guide_of.clone());
-                    batch.dispatch_folded(&self.kernels.curl, &p, count)?;
-                }
-                Op::Wave(w) => {
-                    let seed = rng::seed(w.seed, 0x3A7E);
-                    if !(w.reuse_guide_map && set.mapped) {
-                        self.record_set_map(batch, set, w.guide_distance, 1.0, seed)?;
-                    }
-                    let mut p = strand_params(params! {
-                        "seed" => seed,
-                        "pad0" => 0u32,
-                        "amplitude" => w.amplitude,
-                        "wavelength" => w.wavelength,
-                        "start" => w.start,
-                        "random_phase" => w.random_phase,
-                    });
-                    p.insert("guide_of", set.guide_of.clone());
-                    batch.dispatch_folded(&self.kernels.wave, &p, count)?;
-                }
-                Op::Noise(n) => {
-                    let seed = rng::seed(n.seed, 368_741);
-                    let origin = rng::signed_vec3(n.seed as u32, seed) * 100.0;
-                    let p = strand_params(params! {
-                        "seed" => seed,
-                        "cumulative" => u32::from(n.cumulative),
-                        "scale_total" => n.factor * n.distance,
-                        "shape" => n.shape,
-                        "scale" => n.scale,
-                        "scale_along" => n.scale_along_curve,
-                        "offset_per_curve" => n.offset_per_curve,
-                        "preserve" => u32::from(n.preserve_length),
-                        "origin_x" => origin.x,
-                        "origin_y" => origin.y,
-                        "origin_z" => origin.z,
-                        "pad0" => 0u32,
-                        "pad1" => 0u32,
-                        "pad2" => 0u32,
-                    });
-                    batch.dispatch_folded(&self.kernels.noise, &p, count)?;
-                }
-                Op::Frizz(f) => {
-                    let p = strand_params(params! {
-                        "seed" => rng::seed(f.seed, 64_785),
-                        "cumulative" => u32::from(f.cumulative),
-                        "scale_total" => f.factor * f.distance,
-                        "shape" => f.shape,
-                        "share" => f.share,
-                        "calm" => f.calm,
-                        "frequency" => f.frequency,
-                        "preserve" => u32::from(f.preserve_length),
-                        "pad0" => 0u32,
-                        "pad1" => 0u32,
-                    });
-                    batch.dispatch_folded(&self.kernels.frizz, &p, count)?;
-                }
-                Op::Smooth(m) => {
-                    let p = strand_params(params! {
-                        "iterations" => m.iterations as u32,
-                        "preserve" => u32::from(m.preserve_length),
-                        "factor" => m.factor,
-                        "pad0" => 0u32,
-                        "pad1" => 0u32,
-                        "pad2" => 0u32,
-                    });
-                    batch.dispatch_folded(&self.kernels.smooth, &p, count)?;
-                }
-                Op::Shrinkwrap(w) => {
-                    let moves = self.scratch.moves.fit(
-                        &context,
-                        (bytes).into(),
-                        "hair shrinkwrap moves".into(),
-                    )?;
-                    let mut p = strand_params(params! {
-                        "smoothing" => w.smoothing as u32,
-                        "lock_roots" => u32::from(w.lock_roots),
-                        "factor" => w.factor,
-                        "offset" => w.offset,
-                        "above_surface" => w.above_surface,
-                        "preserve" => u32::from(w.preserve_length),
-                    });
-                    p.insert("head_shape", head_shape.clone());
-                    p.insert("moves", moves);
-                    batch.dispatch_folded(&self.kernels.shrinkwrap, &p, count)?;
-                }
-                Op::Settle(settle) => {
-                    let load = Vec3::new(0.0, -settle.gravity, 0.0) + Vec3::from_array(settle.wind);
-                    let reference = Vec3::new(0.0, -STANDARD_GRAVITY, 0.0);
-                    if settle.relative && (load - reference).length() < 1e-4 {
-                        // Standard conditions: nothing changes.
-                        continue;
-                    }
-                    let compliance = 1.0 / (STANDARD_GRAVITY * settle.stiffness.max(1e-3).powi(3));
-                    let moments = self.scratch.settle_moments.fit(
-                        &context,
-                        (bytes).into(),
-                        "hair drape moments".into(),
-                    )?;
-                    let dirs = self.scratch.settle_dirs.fit(
-                        &context,
-                        (bytes).into(),
-                        "hair drape directions".into(),
-                    )?;
-                    let under = self.scratch.settle_under.fit(
-                        &context,
-                        (bytes).into(),
-                        "hair drape".into(),
-                    )?;
-                    let standard = self.scratch.settle_standard.fit(
-                        &context,
-                        (bytes).into(),
-                        "hair drape at rest".into(),
-                    )?;
-                    let few = count <= 16_384 && points <= super::wgsl::groom::SETTLE_FEW_POINTS;
-                    if few {
-                        // A workgroup a strand and a solve, both at once.
-                        batch.dispatch(
-                            &self.kernels.settle_solve_few,
-                            &params! {
-                                "src" => src.clone(),
-                                "under" => under.clone(),
-                                "standard" => standard.clone(),
-                                "head_shape" => head_shape.clone(),
-                                "count" => count,
-                                "points" => points,
-                                "iterations" => settle.iterations as u32,
-                                "pad0" => 0u32,
-                                "load_x" => load.x,
-                                "load_y" => load.y,
-                                "load_z" => load.z,
-                                "compliance" => compliance,
-                                "reference_x" => reference.x,
-                                "reference_y" => reference.y,
-                                "reference_z" => reference.z,
-                                "collision_offset" => settle.collision_offset,
-                            },
-                            [count, if settle.relative { 2 } else { 1 }, 1],
-                        )?;
-                    }
-                    let mut solve = |load: Vec3, solved: &Buffer| {
-                        batch
-                            .dispatch_folded(
-                                &self.kernels.settle_solve,
-                                &params! {
-                                    "src" => src.clone(),
-                                    "solved" => solved.clone(),
-                                    "moments" => moments.clone(),
-                                    "dirs" => dirs.clone(),
-                                    "head_shape" => head_shape.clone(),
-                                    "count" => count,
-                                    "points" => points,
-                                    "iterations" => settle.iterations as u32,
-                                    "pad0" => 0u32,
-                                    "load_x" => load.x,
-                                    "load_y" => load.y,
-                                    "load_z" => load.z,
-                                    "compliance" => compliance,
-                                    "collision_offset" => settle.collision_offset,
-                                    "pad1" => 0u32,
-                                    "pad2" => 0u32,
-                                    "pad3" => 0u32,
-                                },
-                                count,
-                            )
-                            .map(|_| ())
-                    };
-                    if !few {
-                        solve(load, &under)?;
-                        if settle.relative {
-                            solve(reference, &standard)?;
-                        }
-                    }
-                    let mut p = strand_params(params! {
-                        "relative" => u32::from(settle.relative),
-                        "pad0" => 0u32,
-                        "collision_offset" => settle.collision_offset,
-                        "pad1" => 0u32,
-                        "pad2" => 0u32,
-                        "pad3" => 0u32,
-                    });
-                    p.insert("under", under);
-                    p.insert("standard", standard);
-                    p.insert("head_shape", head_shape.clone());
-                    batch.dispatch_folded(&self.kernels.settle_apply, &p, count)?;
-                }
-                Op::Profile(r) => {
-                    self.record_profile(batch, set, r)?;
-                    // In place: the positions stay where they are.
-                    continue;
-                }
-                Op::Interpolate(_) => return Err(HairGpuError::RepeatedInterpolation),
-            }
-            set.positions.swap();
-        }
-        Ok(())
     }
 
     /// The candidate roots over the scalp and which are kept, scanned into
@@ -755,91 +431,7 @@ impl GpuGroomer {
     }
 
     /// A guide map of `set` into its `guide_of`.
-    fn record_set_map(
-        &mut self,
-        batch: &mut KernelBatch,
-        set: &mut StrandSet,
-        distance: f32,
-        mask: f32,
-        seed: u32,
-    ) -> Result<()> {
-        self.record_map(
-            batch,
-            &set.roots,
-            &set.attributes,
-            &set.guide_of,
-            set.count,
-            set.root_bounds,
-            distance,
-            mask,
-            seed,
-        )?;
-        set.mapped = true;
-        Ok(())
-    }
 
-    /// A guide map into `out`: on a grid of `distance` over the roots' box,
-    /// each cell's lowest-hashed candidate of each parting group leads it,
-    /// and every strand takes the nearest leader around it.
-    #[allow(clippy::too_many_arguments)]
-    pub(super) fn record_map(
-        &mut self,
-        batch: &mut KernelBatch,
-        roots: &Buffer,
-        attributes: &Buffer,
-        out: &Buffer,
-        count: u32,
-        bounds: [Vec3; 2],
-        distance: f32,
-        mask: f32,
-        seed: u32,
-    ) -> Result<()> {
-        let mut cell = distance.max(0.002);
-        let pad = Vec3::splat(0.01);
-        let (lo, hi) = (bounds[0] - pad, bounds[1] + pad);
-        let extent = hi - lo;
-        let dims =
-            |cell: f32| [extent.x, extent.y, extent.z].map(|e| ((e / cell).ceil() as u32).max(1));
-        while dims(cell).iter().map(|&d| d as u64).product::<u64>() * 5 > 8 << 20 {
-            cell *= 1.25;
-        }
-        let [nx, ny, nz] = dims(cell);
-        let leaders = self.scratch.leaders.fit(
-            &self.context,
-            (nx as u64 * ny as u64 * nz as u64 * 5 * 4).into(),
-            "hair guide leaders".into(),
-        )?;
-        batch.clear_buffer(&leaders);
-        let grid = |mut p: PassParameters| {
-            p.insert("roots", roots.clone());
-            p.insert("strands", attributes.clone());
-            p.insert("leaders", leaders.clone());
-            p.insert("count", count);
-            p.insert("nx", nx);
-            p.insert("ny", ny);
-            p.insert("nz", nz);
-            p.insert("lo_x", lo.x);
-            p.insert("lo_y", lo.y);
-            p.insert("lo_z", lo.z);
-            p.insert("inverse_cell", 1.0 / cell);
-            p.insert("mask", mask);
-            p.insert("seed", seed);
-            p.insert("pad0", 0u32);
-            p.insert("pad1", 0u32);
-            p
-        };
-        batch.dispatch_folded(
-            &self.kernels.map_candidates,
-            &grid(PassParameters::new()),
-            count,
-        )?;
-        batch.dispatch_folded(
-            &self.kernels.map_assign,
-            &grid(params! { "guide_of" => out.clone() }),
-            count,
-        )?;
-        Ok(())
-    }
 }
 
 /// A parting as the kernels' parameters.

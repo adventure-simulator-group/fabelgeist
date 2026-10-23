@@ -38,11 +38,13 @@
 use std::sync::Arc;
 
 use anyhow::Result;
-use fabelgeist_compute::{Kernel, KernelBatch};
-use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_compute::{BufferCopy, Kernel, KernelBatch};
+use fabelgeist_gpu::prelude::{Buffer, BufferByteOffset};
 use fabelgeist_hair::Head;
 use fabelgeist_hair::gpu::wgsl::common::{HEAD, MATH};
-use fabelgeist_hair::gpu::{GpuGroom, head_shape};
+use fabelgeist_hair::gpu::{GpuGroom, GpuGroomTarget, head_shape};
+use fabelgeist_hair::gpu::error::HairGpuError;
+use fabelgeist_hair::parameters::StrandCount;
 use fabelgeist_hair::ops::{Op, STANDARD_GRAVITY, Settle, Shrinkwrap};
 use fabelgeist_math::Vec3;
 
@@ -77,9 +79,6 @@ const SINK_FULL: f32 = 0.05;
 /// where it takes hold fully, in the cranium's vertical radii.
 const DRAPE_START: f32 = 0.5;
 const DRAPE_FULL: f32 = 1.0;
-/// Bytes of a point and of a strand's attributes on the GPU.
-const POINT_BYTES: u64 = 16;
-const STRAND_BYTES: u64 = 32;
 
 /// The placing kernels.
 pub(super) struct PlaceKernels {
@@ -114,13 +113,6 @@ pub(crate) struct Draping<'a> {
     pub(crate) drapes: bool,
 }
 
-/// Strands carried onto the character, on the GPU.
-struct Carried {
-    positions: Buffer,
-    attributes: Buffer,
-    roots: Buffer,
-}
-
 impl Draping<'_> {
     /// `groomed` carried onto the character, its roots lifted onto the
     /// skin, draped on the body `field` samples if it hangs free, and
@@ -132,56 +124,35 @@ impl Draping<'_> {
         field: &BodyField,
     ) -> Result<GpuGroom> {
         let carried = self.carry(gpu, groomed, field)?;
-        let positions = if self.drapes {
-            self.drape(gpu, groomed, &carried.positions, field)?
-        } else {
-            carried.positions
-        };
-        let placed = GpuGroom {
-            strands: groomed.strands,
-            points: groomed.points,
-            positions,
-            attributes: carried.attributes,
-            roots: carried.roots,
-            bounds: None,
-            root_bounds: self.root_bounds(groomed.root_bounds),
-            head: None,
-            guides: None,
-        };
+        if self.drapes && groomed.layout().native_strands() != 0 {
+            self.drape(gpu, groomed, &carried, field)?;
+        }
+        let mut placed = carried.into_groom(self.root_bounds(groomed.root_bounds()));
         let shrinkwrap = Op::Shrinkwrap(Shrinkwrap {
             preserve_length: true,
             ..Shrinkwrap::default()
         });
-        gpu.groomer().apply(&placed, &[shrinkwrap], &field.buffer)?;
+        gpu.groomer().apply(&mut placed, &[shrinkwrap], &field.buffer)?;
         Ok(placed)
     }
 
     /// `groomed` carried onto the character, each strand moved whole so its
     /// root sits just outside the body.
-    fn carry(&self, gpu: &HairGpu, groomed: &GpuGroom, field: &BodyField) -> Result<Carried> {
+    fn carry(&self, gpu: &HairGpu, groomed: &GpuGroom, field: &BodyField) -> Result<GpuGroomTarget> {
         let context = gpu.context();
-        let (count, points) = (groomed.strands, groomed.points);
-        let bytes = u64::from(count) * u64::from(points) * POINT_BYTES;
-        let carried = Carried {
-            positions: storage(context, bytes, "hair carried")?,
-            attributes: storage(
-                context,
-                u64::from(count) * STRAND_BYTES,
-                "hair carried strands",
-            )?,
-            roots: storage(
-                context,
-                u64::from(count) * POINT_BYTES,
-                "hair carried roots",
-            )?,
-        };
+        if groomed.device() != context.device.as_ref() {
+            return Err(HairGpuError::DeviceMismatch.into());
+        }
+        let layout = groomed.layout();
+        let (count, points) = (layout.native_strands(), layout.native_points());
+        let carried = gpu.groomer().allocate(layout)?;
         let mut carry = self.frame().params();
-        carry.insert("src", groomed.positions.clone());
-        carry.insert("dst", carried.positions.clone());
-        carry.insert("strands_in", groomed.attributes.clone());
-        carry.insert("strands_out", carried.attributes.clone());
-        carry.insert("roots_in", groomed.roots.clone());
-        carry.insert("roots_out", carried.roots.clone());
+        carry.insert("src", groomed.positions().clone());
+        carry.insert("dst", carried.positions().clone());
+        carry.insert("strands_in", groomed.attributes().clone());
+        carry.insert("strands_out", carried.attributes().clone());
+        carry.insert("roots_in", groomed.roots().clone());
+        carry.insert("roots_out", carried.roots().clone());
         carry.insert("head_shape", field.buffer.clone());
         carry.insert("count", count);
         carry.insert("points", points);
@@ -193,8 +164,8 @@ impl Draping<'_> {
         carry.insert("pad0", 0u32);
         carry.insert("pad1", 0u32);
         let mut batch = KernelBatch::labelled(context, "hair carry");
-        batch.dispatch_folded(&gpu.place.carry, &carry, count)?;
-        batch.submit();
+        batch.dispatch_folded(&gpu.place.carry, &carry, layout.strand_invocations())?;
+        batch.submit()?;
         Ok(carried)
     }
 
@@ -204,25 +175,28 @@ impl Draping<'_> {
         &self,
         gpu: &HairGpu,
         groomed: &GpuGroom,
-        carried: &Buffer,
+        carried: &GpuGroomTarget,
         field: &BodyField,
-    ) -> Result<Buffer> {
+    ) -> Result<()> {
         let context = gpu.context();
         let kernels = &gpu.place;
-        let (count, points) = (groomed.strands, groomed.points);
+        let layout = groomed.layout();
+        let (count, points) = (layout.native_strands(), layout.native_points());
         // Guides spread evenly over the head: the groom's strands are in no
         // order of place, so every few makes an even sample.
         let step = (count / GUIDES).max(1);
         let guides = count.div_ceil(step);
-        let guide_bytes = u64::from(guides) * u64::from(points) * POINT_BYTES;
+        // The native gather chooses a prefix-sized population at this stride.
+        let guide_layout = layout.prefix(StrandCount::from_count(guides as usize))?;
+        let guide_bytes = u64::from(guide_layout.positions_bytes());
         let placed_guides = storage(context, guide_bytes, "hair guides as placed")?;
         let groomed_guides = storage(context, guide_bytes, "hair guides as groomed")?;
         let mut batch = KernelBatch::labelled(context, "hair guides");
         batch.dispatch_folded(
             &kernels.gather,
             &params! {
-                "placed" => carried.clone(),
-                "groomed" => groomed.positions.clone(),
+                "placed" => carried.positions().clone(),
+                "groomed" => groomed.positions().clone(),
                 "placed_guides" => placed_guides.clone(),
                 "groomed_guides" => groomed_guides.clone(),
                 "guides" => guides,
@@ -230,9 +204,9 @@ impl Draping<'_> {
                 "step" => step,
                 "pad0" => 0u32,
             },
-            guides * points,
+            guide_layout.sample_invocations(),
         )?;
-        batch.submit();
+        batch.submit()?;
 
         // Each guide's equilibrium against its body and against nothing.
         let settle = Settle::default();
@@ -255,7 +229,7 @@ impl Draping<'_> {
         let moves = storage(context, guide_bytes, "hair guide moves")?;
         let draped = storage(
             context,
-            u64::from(count) * u64::from(points) * POINT_BYTES,
+            u64::from(layout.positions_bytes()),
             "hair draped",
         )?;
         let mut batch = KernelBatch::labelled(context, "hair drape");
@@ -265,12 +239,12 @@ impl Draping<'_> {
         guide_moves.insert("by_bust", by_bust);
         guide_moves.insert("groomed_free", groomed_free);
         guide_moves.insert("moves", moves.clone());
-        guide_moves.insert("count", guides * points);
+        guide_moves.insert("count", guide_layout.native_samples());
         guide_moves.insert("pad0", 0u32);
         guide_moves.insert("pad1", 0u32);
         guide_moves.insert("pad2", 0u32);
         guide_moves.insert("pad3", 0u32);
-        batch.dispatch_folded(&kernels.moves, &guide_moves, guides * points)?;
+        batch.dispatch_folded(&kernels.moves, &guide_moves, guide_layout.sample_invocations())?;
         let [hold_start, hold_full] = [DRAPE_START, DRAPE_FULL].map(|radii| {
             let cranium = &self.bust.cranium;
             let below = cranium.center - Vec3::new(0.0, cranium.radii.y * radii, 0.0);
@@ -279,7 +253,7 @@ impl Draping<'_> {
         batch.dispatch_folded(
             &kernels.follow,
             &params! {
-                "src" => carried.clone(),
+                "src" => carried.positions().clone(),
                 "dst" => draped.clone(),
                 "moves" => moves,
                 "guides_at" => placed_guides,
@@ -293,10 +267,19 @@ impl Draping<'_> {
                 "hold_start" => hold_start,
                 "hold_full" => hold_full,
             },
-            count,
+            layout.strand_invocations(),
         )?;
-        batch.submit();
-        Ok(draped)
+        batch.copy_buffer(
+            &draped,
+            carried.positions(),
+            BufferCopy {
+                source_offset: BufferByteOffset::START,
+                destination_offset: BufferByteOffset::START,
+                bytes: layout.positions_bytes(),
+            },
+        )?;
+        batch.submit()?;
+        Ok(())
     }
 
     /// The box the carried roots are in, from the box `bust` the groomed

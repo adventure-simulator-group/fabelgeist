@@ -1,14 +1,15 @@
 //! The guides a groom grows from, on the GPU: grown there from a hairdo
 //! ([`crate::hairdo::Hairdo::guides`]'s kernels), or brought from the host.
 
-use crate::gpu::error::Result;
+use crate::gpu::error::{HairGpuError, Result};
+use crate::parameters::{PointsPerStrand, StrandCount};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::globals::WgpuContext;
 use fabelgeist_math::Vec3;
 
-use super::grow::{params, parting_parameters};
-use super::{GpuGroomer, GpuScalp, StrandGpu, read_strands, storage, upload};
+use super::grow::{PingPong, StrandSet, params, parting_parameters};
+use super::{GpuGroomer, GpuScalp, StrandGpu, StrandLayout, read_strands, storage, upload};
 use crate::follicles::Growth;
 use crate::hairdo::{Hairdo, Tied, edge_spacing, guide_key, guide_spacing};
 use crate::head::Head;
@@ -18,43 +19,14 @@ use crate::strands::Strands;
 
 mod packed;
 
-/// What a groom grows from.
-pub enum Guides<'a> {
-    /// Guides made elsewhere -- a hairdo's on the host, a sample's, drawn by
-    /// hand -- resampled to the groom's points.
-    Host(&'a Strands),
-    /// A hairdo's guides, grown on the GPU as [`Hairdo::guides`] grows them
-    /// on the host, from the same roots and the same random numbers.
-    Hairdo {
-        hairdo: &'a Hairdo,
-        variation: f32,
-        seed: u64,
-    },
-}
-
 /// The guides a groom was grown from, as the operations before
 /// interpolation left them, still on the GPU.
 pub struct GpuGuides {
-    pub count: u32,
-    pub points: u32,
-    pub positions: Buffer,
-    /// [`StrandGpu`] a guide.
-    pub attributes: Buffer,
-    /// Each guide's root.
+    pub(super) layout: StrandLayout,
+    pub(super) device: wgpu::Device,
+    pub(super) positions: Buffer,
+    pub(super) attributes: Buffer,
     pub(super) roots: Buffer,
-}
-
-impl GpuGuides {
-    /// The guides back on the host.
-    pub fn read(&self, context: &WgpuContext) -> Result<Strands> {
-        read_strands(
-            context,
-            &self.positions,
-            &self.attributes,
-            self.count,
-            self.points,
-        )
-    }
 }
 
 /// The hairdo as the comb kernel reads it: the WGSL `Hairdo` of
@@ -142,6 +114,79 @@ fn longest_guide(hairdo: &Hairdo, variation: f32) -> f32 {
         longest = longest.max((cut.dome + 0.16) * 1.4);
     }
     longest
+}
+
+/// What a groom grows from.
+pub enum Guides<'a> {
+    /// Guides made elsewhere -- a hairdo's on the host, a sample's, drawn by
+    /// hand -- resampled to the groom's points.
+    Host(&'a Strands),
+    /// A hairdo's guides, grown on the GPU as [`Hairdo::guides`] grows them
+    /// on the host, from the same roots and the same random numbers.
+    Hairdo {
+        hairdo: &'a Hairdo,
+        variation: f32,
+        seed: u64,
+    },
+}
+
+impl GpuGuides {
+    pub fn layout(&self) -> StrandLayout {
+        self.layout
+    }
+
+    pub fn device(&self) -> &wgpu::Device {
+        &self.device
+    }
+
+    pub fn positions(&self) -> &Buffer {
+        &self.positions
+    }
+
+    pub fn attributes(&self) -> &Buffer {
+        &self.attributes
+    }
+
+    /// Allocate the operation scratch around these exact native guide buffers.
+    pub(in crate::gpu) fn operation_set(
+        &self,
+        groomer: &mut GpuGroomer,
+        root_bounds: [Vec3; 2],
+    ) -> Result<StrandSet> {
+        let context = &groomer.context;
+        if &self.device != context.device.as_ref() {
+            return Err(HairGpuError::DeviceMismatch);
+        }
+        Ok(StrandSet {
+            positions: PingPong {
+                own: self.positions.clone(),
+                scratch: groomer.scratch.guide_positions.fit(
+                    context,
+                    self.layout.positions_bytes(),
+                    "hair guide positions scratch".into(),
+                )?,
+                flipped: false,
+            },
+            attributes: self.attributes.clone(),
+            roots: self.roots.clone(),
+            layout: self.layout,
+            root_bounds,
+            guide_of: groomer.scratch.guide_map.fit(
+                context,
+                self.layout.strand_word_bytes(),
+                "hair guide guide map".into(),
+            )?,
+            mapped: false,
+        })
+    }
+
+    /// The guides back on the host, without padded binding records.
+    pub fn read(&self, context: &WgpuContext) -> Result<Strands> {
+        if &self.device != context.device.as_ref() {
+            return Err(HairGpuError::DeviceMismatch);
+        }
+        read_strands(context, &self.positions, &self.attributes, self.layout)
+    }
 }
 
 impl GpuGroomer {
@@ -259,6 +304,10 @@ impl GpuGroomer {
         head_shape: &Buffer,
     ) -> Result<GpuGuides> {
         let context = self.context.clone();
+        let layout = StrandLayout::new(
+            StrandCount::from_count(count as usize),
+            PointsPerStrand::from_count(points as usize),
+        )?;
         let longest = longest_guide(hairdo, variation);
         let max_path = ((longest / 0.002).ceil() as u32).max(301) + 2;
         let packed::HairdoUpload { gpu, axis } =
@@ -270,21 +319,21 @@ impl GpuGroomer {
             "hair guide paths".into(),
         )?;
         let guides = GpuGuides {
-            count,
-            points,
+            layout,
+            device: context.device.as_ref().clone(),
             positions: storage(
                 &context,
-                (count as u64 * points as u64 * 16).into(),
+                layout.positions_bytes(),
                 "hair guides".into(),
             )?,
             attributes: storage(
                 &context,
-                (count as u64 * std::mem::size_of::<StrandGpu>() as u64).into(),
+                layout.attributes_bytes(),
                 "hair guide strands".into(),
             )?,
             roots: storage(
                 &context,
-                (count as u64 * 16).into(),
+                layout.roots_bytes(),
                 "hair guide roots".into(),
             )?,
         };
@@ -300,7 +349,7 @@ impl GpuGroomer {
                 "path" => path,
                 "positions" => guides.positions.clone(),
             },
-            [count, 1, 1],
+            [count, 1, 1].into(),
         )?;
         let mut p = params! {
             "root_position" => roots.position.clone(),
@@ -315,13 +364,18 @@ impl GpuGroomer {
         for (key, value) in parting_parameters(&hairdo.parting()) {
             p.insert(key, value);
         }
-        batch.dispatch_folded(&self.kernels.guide_attributes, &p, count)?;
+        batch.dispatch_folded(&self.kernels.guide_attributes, &p, layout.strand_invocations())?;
         Ok(guides)
     }
 
     /// Guides from the host, resampled to `points`.
     pub(super) fn upload_guides(&self, strands: &Strands, points: u32) -> Result<GpuGuides> {
-        let guides = strands.resampled(points as usize);
+        let source = StrandLayout::try_from(strands)?;
+        let layout = StrandLayout::new(
+            source.strands(),
+            PointsPerStrand::from_count(points as usize),
+        )?;
+        let guides = strands.resampled(layout.points().count());
         let positions: Vec<[f32; 4]> = guides
             .positions
             .iter()
@@ -347,8 +401,8 @@ impl GpuGroomer {
             .collect();
         let context = &self.context;
         Ok(GpuGuides {
-            count: guides.len() as u32,
-            points,
+            layout,
+            device: context.device.as_ref().clone(),
             positions: upload(context, &positions, "hair guides".into())?,
             attributes: upload(context, &attributes, "hair guide strands".into())?,
             roots: upload(context, &roots, "hair guide roots".into())?,

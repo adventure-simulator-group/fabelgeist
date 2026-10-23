@@ -8,7 +8,7 @@ use crate::gpu::error::Result;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_math::Vec3;
-use fabelgeist_spatial_hash::CellScale;
+use fabelgeist_spatial_hash::{CellScale, HashLayout};
 
 use super::grow::params;
 use super::head::GpuHeadCover;
@@ -121,8 +121,9 @@ impl GpuGroomer {
         body: Option<&Buffer>,
     ) -> Result<GpuLods> {
         let context = self.context.clone();
-        let count = groom.strands;
-        let points = groom.points;
+        groom.ensure_device(&context)?;
+        let count = groom.layout.native_strands();
+        let points = groom.layout.native_points();
         let has_body = u32::from(body.is_some());
         let head = match body {
             Some(body) => body.clone(),
@@ -260,51 +261,6 @@ impl GpuGroomer {
         })
     }
 
-    /// The box every point of `groom` is in, measured on the GPU.
-    pub fn measure_bounds(&mut self, groom: &GpuGroom) -> Result<[Vec3; 2]> {
-        let context = self.context.clone();
-        let words = self
-            .scratch
-            .box_words
-            .fit(&context, 32_u64.into(), "hair box".into())?;
-        let mut batch = KernelBatch::labelled(&context, "hair box");
-        batch.clear_buffer(&words);
-        let count = groom.strands * groom.points;
-        batch.dispatch_folded(
-            &self.kernels.bounds,
-            &params! {
-                "positions" => groom.positions.clone(),
-                "box_words" => words.clone(),
-                "count" => count,
-                "pad0" => 0u32,
-                "pad1" => 0u32,
-                "pad2" => 0u32,
-            },
-            count,
-        )?;
-        let read: Vec<(Buffer, u32)> = (0..6).map(|k| (words.clone(), k)).collect();
-        let values = self.read_words(batch, &read)?;
-        // Back from ordered words: a set top bit was a positive float.
-        let float = |key: u32| {
-            f32::from_bits(if key & 0x8000_0000 != 0 {
-                key & 0x7FFF_FFFF
-            } else {
-                !key
-            })
-        };
-        let v = |k: usize, least: bool| {
-            if least {
-                float(!values[k])
-            } else {
-                float(values[k])
-            }
-        };
-        Ok([
-            Vec3::new(v(0, true), v(1, true), v(2, true)),
-            Vec3::new(v(3, false), v(4, false), v(5, false)),
-        ])
-    }
-
     /// Segment density into `grid`'s cells (optical density times
     /// `strength`), the body's cells opaque when there is one, into the
     /// density scratch.
@@ -328,13 +284,13 @@ impl GpuGroomer {
             "positions" => groom.positions.clone(),
             "strands" => groom.attributes.clone(),
             "deposits" => deposits.clone(),
-            "points" => groom.points,
+            "points" => groom.layout.native_points(),
             "strength" => strength,
             "pad0" => 0u32,
             "pad1" => 0u32,
         };
-        grid.insert(&mut p, groom.strands);
-        batch.dispatch_folded(&self.kernels.splat, &p, groom.strands * (groom.points - 1))?;
+        grid.insert(&mut p, groom.layout.native_strands());
+        batch.dispatch_folded(&self.kernels.splat, &p, groom.layout.segment_invocations())?;
         let density = self.scratch.density.fit(
             &context,
             (grid.cells() as u64 * 4).into(),
@@ -349,7 +305,7 @@ impl GpuGroomer {
             "pad1" => 0u32,
             "pad2" => 0u32,
         };
-        grid.insert(&mut p, groom.strands);
+        grid.insert(&mut p, groom.layout.native_strands());
         batch.dispatch_folded(&self.kernels.densify, &p, grid.cells())?;
         Ok(())
     }
@@ -371,7 +327,7 @@ impl GpuGroomer {
         body: u32,
         variants: u32,
     ) -> Result<(GpuCards, KernelBatch<'a>)> {
-        let count = groom.strands;
+        let count = groom.layout.native_strands();
         let segments = card.segments.clamp(1, 31) as u32;
         let rows = segments + 1;
         let guide_of = self.scratch.card_guides.fit(
@@ -384,7 +340,7 @@ impl GpuGroomer {
             &groom.roots,
             &groom.attributes,
             &guide_of,
-            count,
+            groom.layout,
             groom.root_bounds,
             card.size,
             1.0,
@@ -399,7 +355,7 @@ impl GpuGroomer {
         batch.clear_buffer(&locks);
         let card_params = |mut p: PassParameters| {
             p.insert("count", count);
-            p.insert("points", groom.points);
+            p.insert("points", groom.layout.native_points());
             p.insert("segments", segments);
             p.insert("min_strands", card.min_strands as u32);
             p
@@ -461,7 +417,7 @@ impl GpuGroomer {
             "card_vertices" => vertices.clone(),
             "card_indices" => indices.clone(),
             "count" => count,
-            "points" => groom.points,
+            "points" => groom.layout.native_points(),
             "segments" => segments,
             "min_strands" => card.min_strands as u32,
             "body" => body,
@@ -515,13 +471,17 @@ impl GpuGroomer {
         if vertices.is_empty() {
             return Ok(Some(cover));
         }
-        let count = groom.strands;
+        let count = groom.layout.native_strands();
         let radius = 0.004f32;
-        self.grid.ensure_capacity(&context, count)?;
+        let roots = groom.layout.hash_points();
+        self.grid.ensure_capacity(
+            &context,
+            HashLayout::try_from(roots).map_err(anyhow::Error::new)?,
+        )?;
         let recorded_grid = self.grid.record_build(
             batch,
             &groom.roots,
-            count,
+            roots,
             CellScale::from_cell_size(radius),
         )?;
         let root_counts = self.scratch.root_counts.fit(

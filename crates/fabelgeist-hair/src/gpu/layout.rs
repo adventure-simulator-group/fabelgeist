@@ -186,6 +186,11 @@ impl StrandLayout {
         HashPointCount::from(self.native_strands())
     }
 
+    /// One native u32 value per strand, for maps and indices.
+    pub fn strand_word_bytes(self) -> BufferByteLength {
+        BufferByteLength::from(u64::from(self.native_strands()) * size_of::<u32>() as u64)
+    }
+
     /// Native point storage is one vec4 per sample.
     pub fn positions_bytes(self) -> BufferByteLength {
         BufferByteLength::from(u64::from(self.native_samples()) * size_of::<[f32; 4]>() as u64)

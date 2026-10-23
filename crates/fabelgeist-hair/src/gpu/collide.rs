@@ -83,10 +83,11 @@ impl GpuGroomer {
     /// where they lie, colliding with `body`: shapes as `head_shape` lays
     /// them out, or a sampled field ([`super::FieldHeader`]). Recorded and
     /// submitted; nothing waits.
-    pub fn apply(&mut self, groom: &GpuGroom, ops: &[Op], body: &Buffer) -> Result<()> {
+    pub fn apply(&mut self, groom: &mut GpuGroom, ops: &[Op], body: &Buffer) -> Result<()> {
         let context = self.context.clone();
-        let (count, points) = (groom.strands, groom.points);
-        let bytes = count as u64 * points as u64 * 16;
+        groom.ensure_device(&context)?;
+        let layout = groom.layout;
+        let bytes = layout.positions_bytes();
         let mut set = StrandSet {
             positions: PingPong {
                 own: groom.positions.clone(),
@@ -99,12 +100,11 @@ impl GpuGroomer {
             },
             attributes: groom.attributes.clone(),
             roots: groom.roots.clone(),
-            count,
-            points,
+            layout,
             root_bounds: groom.root_bounds,
             guide_of: self.scratch.guide_of.fit(
                 &context,
-                (count as u64 * 4).into(),
+                layout.strand_word_bytes(),
                 "hair guide map".into(),
             )?,
             mapped: false,
@@ -112,7 +112,8 @@ impl GpuGroomer {
         let mut batch = KernelBatch::labelled(&context, "hair operations");
         self.record_ops(&mut batch, ops, &mut set, body)?;
         set.settle(&mut batch)?;
-        batch.submit();
+        batch.submit()?;
+        groom.bounds = None;
         Ok(())
     }
 

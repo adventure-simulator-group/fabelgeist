@@ -7,6 +7,10 @@ pub type Result<T> = std::result::Result<T, HairGpuError>;
 
 #[derive(Debug, thiserror::Error)]
 pub enum HairGpuError {
+    #[error("hair strand layout is invalid")]
+    StrandLayout(#[from] super::StrandLayoutError),
+    #[error("hair resources belong to another GPU device")]
+    DeviceMismatch,
     #[error("GPU grooming needs an interpolation operation")]
     MissingInterpolation,
     #[error("no roots survive the density masks")]

@@ -78,13 +78,13 @@
 //! ```
 
 mod buffers;
+mod bounds;
 pub mod error;
-use crate::identity::PartingGroup;
-use crate::identity::StrandId;
 use buffers::{Scratch, storage, upload};
 use fabelgeist_compute::{ScanElementCount, SortItemCount};
 mod collide;
 mod grow;
+mod groom;
 mod guides;
 mod head;
 mod layout;
@@ -108,10 +108,11 @@ use fabelgeist_spatial_hash::{HashLayout, HashPointCount};
 
 use crate::cards::CardAtlas;
 use crate::head::Head;
-use crate::strands::{Attachment, Strands};
 
 pub use collide::FieldHeader;
 pub use guides::{GpuGuides, Guides};
+pub use groom::{GpuGroom, GpuGroomTarget};
+use groom::read_strands;
 pub use head::GpuHeadCover;
 pub use layout::{StrandAttribute, StrandLayout, StrandLayoutError, StrandLayoutResult};
 use head::HeadMesh;
@@ -131,27 +132,6 @@ pub struct StrandGpu {
     pub uv: [f32; 2],
     pub group: i32,
     pub radius: f32,
-}
-
-/// A groom grown on the GPU, and still there.
-pub struct GpuGroom {
-    pub strands: u32,
-    pub points: u32,
-    /// Strand-major, `xyz` a point.
-    pub positions: Buffer,
-    /// [`StrandGpu`] a strand.
-    pub attributes: Buffer,
-    /// Each strand's root, `w` how far in from the hairline (0 to 1).
-    pub roots: Buffer,
-    /// A box the hair is inside, when it is known on the host (strands
-    /// brought from there); otherwise measured on the GPU when needed.
-    pub bounds: Option<[Vec3; 2]>,
-    /// A box the roots are inside.
-    pub root_bounds: [Vec3; 2],
-    /// Grown against the mannequin: coarse levels are kept off it.
-    pub head: Option<Head>,
-    /// The guides it was grown from.
-    pub guides: Option<GpuGuides>,
 }
 
 /// The mannequin's shapes, as the kernels' `head_shape` reads them.
@@ -425,53 +405,6 @@ impl GpuGroomer {
         &self.context
     }
 
-    /// Strands already grown -- a DiffLocks sample, say -- onto the GPU, to
-    /// be prepared for drawing like a groom grown there.
-    pub fn upload(&self, strands: &Strands, head: Option<&Head>) -> Result<GpuGroom> {
-        let n = strands.len();
-        let positions: Vec<[f32; 4]> = strands
-            .positions
-            .iter()
-            .map(|p| [p.x, p.y, p.z, 0.0])
-            .collect();
-        let attributes: Vec<StrandGpu> = (0..n)
-            .map(|s| {
-                let a = strands.attachment(s);
-                StrandGpu {
-                    normal: a.normal.to_array(),
-                    id: (a.id).word(),
-                    uv: a.uv,
-                    group: (a.group).gpu_word(),
-                    radius: a.radius,
-                }
-            })
-            .collect();
-        let roots: Vec<[f32; 4]> = (0..n)
-            .map(|s| {
-                let r = strands.root(s);
-                [r.x, r.y, r.z, 1.0]
-            })
-            .collect();
-        let [lo, hi] = strands.bounds();
-        let (mut root_lo, mut root_hi) =
-            (Vec3::splat(f32::INFINITY), Vec3::splat(f32::NEG_INFINITY));
-        for s in 0..n {
-            root_lo = root_lo.min(strands.root(s));
-            root_hi = root_hi.max(strands.root(s));
-        }
-        Ok(GpuGroom {
-            strands: n as u32,
-            points: strands.points as u32,
-            positions: upload(&self.context, &positions, "hair positions".into())?,
-            attributes: upload(&self.context, &attributes, "hair strands".into())?,
-            roots: upload(&self.context, &roots, "hair roots".into())?,
-            bounds: Some([lo, hi]),
-            root_bounds: [root_lo, root_hi],
-            head: head.cloned(),
-            guides: None,
-        })
-    }
-
     /// Wait for everything submitted to finish.
     pub fn finish(&self) {
         let _ = self
@@ -485,52 +418,6 @@ impl GpuGroomer {
             .ensure(&self.context, ScanElementCount::from_elements(count))?;
         Ok(())
     }
-}
-
-impl GpuGroom {
-    /// The strands back on the host.
-    pub fn read(&self, context: &WgpuContext) -> Result<Strands> {
-        read_strands(
-            context,
-            &self.positions,
-            &self.attributes,
-            self.strands,
-            self.points,
-        )
-    }
-}
-
-/// `count` strands of `points` points back on the host.
-fn read_strands(
-    context: &WgpuContext,
-    positions: &Buffer,
-    attributes: &Buffer,
-    count: u32,
-    points: u32,
-) -> Result<Strands> {
-    let positions: Vec<[f32; 4]> = pollster::block_on(positions.read(context))?;
-    let attributes: Vec<StrandGpu> = pollster::block_on(attributes.read(context))?;
-    let points = points as usize;
-    let mut strands = Strands::with_capacity(points, count as usize);
-    let mut strand = vec![Vec3::default(); points];
-    for s in 0..count as usize {
-        for (j, p) in strand.iter_mut().enumerate() {
-            let q = positions[s * points + j];
-            *p = Vec3::new(q[0], q[1], q[2]);
-        }
-        let a = attributes[s];
-        strands.push(
-            &strand,
-            Attachment {
-                uv: a.uv,
-                normal: Vec3::from_array(a.normal),
-                id: StrandId::from_word(a.id),
-                group: PartingGroup::from_gpu_word(a.group),
-                radius: a.radius,
-            },
-        );
-    }
-    Ok(strands)
 }
 
 /// A device of its own, for grooming and drawing without a window.
@@ -585,7 +472,8 @@ pub fn required_limits(adapter: &wgpu::Adapter) -> wgpu::Limits {
 mod tests {
     use super::*;
     use crate::parameters::StrandCount;
-    use crate::{Look, Preset};
+    use crate::{Look, Preset, Strands};
+    use crate::identity::StrandId;
     use fabelgeist_math::units::AccelerationVector;
 
     fn validate(name: &str, source: &str) {
