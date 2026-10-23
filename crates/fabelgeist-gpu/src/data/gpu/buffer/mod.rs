@@ -46,13 +46,12 @@ impl Buffer {
         })
     }
 
-    /// Write through the creating device's paired queue.
+    /// Write within this logical extent through the creating device's paired queue.
     ///
     /// This buffer must belong to `context.device`, and `context.queue` must
     /// be paired with that same logical device.
     pub fn write(&self, context: &WgpuContext, data: BufferUpload<'_>) -> Result<()> {
-        data.write_to(context, &self.buffer, BufferByteOffset::START)?;
-        Ok(())
+        self.write_at(context, BufferByteOffset::START, data)
     }
 
     /// Write one host upload at a checked byte address within this buffer.

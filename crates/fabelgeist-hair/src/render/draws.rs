@@ -13,7 +13,8 @@ pub(super) struct DrawPlan {
 pub(super) struct StrandDraw {
     pub level: StrandLevelIndex,
     pub role: DrawRole,
-    /// Native instance range, bounded by the resident strand population.
+    /// Logical u32 instance interval; recording clamps it to the resident
+    /// strand population.
     pub instances: Range<u32>,
 }
 
