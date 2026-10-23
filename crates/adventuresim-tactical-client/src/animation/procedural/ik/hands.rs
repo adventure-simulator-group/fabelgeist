@@ -6,7 +6,7 @@ use super::*;
 pub(crate) struct HandIkTarget {
     pub translation: Vec3,
     pub rotation: Option<Quat>,
-    pub weight: f32,
+    pub weight: UnitInterval,
 }
 
 /// Optional client-only direct hand targets.
@@ -139,7 +139,7 @@ pub(in crate::animation) fn apply_arm_and_weapon_constraints(
             let target = HandIkTarget {
                 translation: secondary_grip_world(weapon_global, grip),
                 rotation: None,
-                weight: 1.0,
+                weight: UnitInterval::ONE,
             };
             let entry = derived_targets.entry(constraint.owner).or_default();
             match constraint.primary_hand {
@@ -220,7 +220,7 @@ fn apply_hand_target(
     parents: &Query<&ChildOf>,
     transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
 ) {
-    let weight = target.weight.clamp(0.0, 1.0);
+    let weight = target.weight.fraction();
     if weight <= 0.0 {
         return;
     }
@@ -245,24 +245,34 @@ fn apply_hand_target(
     } else {
         memory.right_arm
     };
-    let owner_rotation = transforms
-        .p0()
-        .compute_global_transform(owner)
-        .map(|global| global.rotation())
-        .unwrap_or(Quat::IDENTITY);
+    let Ok(owner_global) = transforms.p0().compute_global_transform(owner) else {
+        return;
+    };
+    let owner_rotation = match ObservedRigFrame::from_global(&owner_global) {
+        Ok(frame) => frame.rotation(),
+        Err(error) => {
+            warn!(%error, "arm owner frame rejected");
+            return;
+        }
+    };
+    let segments = match LimbSegments::measure(
+        upper_snapshot.global.translation(),
+        lower_snapshot.global.translation(),
+        hand_snapshot.global.translation(),
+    ) {
+        Ok(segments) => segments,
+        Err(error) => {
+            warn!(%error, "arm segment measurement rejected");
+            return;
+        }
+    };
     if let Some(solution) = solve_two_bone(
         TwoBoneChain::new(
             upper_snapshot.global.translation(),
             lower_snapshot.global.translation(),
             hand_snapshot.global.translation(),
-            upper_snapshot
-                .global
-                .translation()
-                .distance(lower_snapshot.global.translation()),
-            lower_snapshot
-                .global
-                .translation()
-                .distance(hand_snapshot.global.translation()),
+            segments.upper,
+            segments.lower,
             pole_to_world(owner_rotation, remembered.unwrap_or(Vec3::NEG_Y)),
         ),
         blended_target,

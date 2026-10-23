@@ -1,4 +1,4 @@
-use fabelgeist_determinism::Seed;
+use adventuresim_core::autoresolve::AuthoredThreatResult;
 use adventuresim_core::morale::fervor_event_occurs;
 use adventuresim_core::prelude::*;
 use adventuresim_world_schema::{
@@ -20,6 +20,7 @@ use adventuresim_world_schema::{
     historical_vegetation_matches_context, industry_profile_is_canonical,
     valid_bounded_source_text, valid_sources_markdown,
 };
+use fabelgeist_determinism::Seed;
 use sha2::{Digest, Sha256};
 use spacetimedb::{
     Identity, ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view,
@@ -121,7 +122,7 @@ pub(crate) fn autoresolve_enemy(
     enemy_type: &str,
     difficulty: i32,
     combat_scale_bps: u32,
-) -> Result<Combatant, String> {
+) -> AuthoredThreatResult<Combatant> {
     autoresolve_enemy_with_countermeasure(
         id,
         enemy_type,
@@ -137,7 +138,7 @@ pub(crate) fn autoresolve_enemy_with_countermeasure(
     difficulty: i32,
     combat_scale_bps: u32,
     countermeasure_multiplier_bps: u32,
-) -> Result<Combatant, String> {
+) -> AuthoredThreatResult<Combatant> {
     adventuresim_core::autoresolve::authored_threat_combatant(
         id,
         enemy_type,

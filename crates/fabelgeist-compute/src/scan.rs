@@ -1,19 +1,18 @@
 use crate::prelude::*;
 use fabelgeist_gpu::prelude::BufferUse;
 
-use std::sync::{Arc, RwLock};
 
 #[derive(Clone, Debug)]
 pub struct ScanDefinition {
     pub code: String,
-    pub cache: Arc<RwLock<Option<(ComputePipeline, ComputePipeline, String)>>>,
+    cache: ComputeSourceCache<(), (ComputePipeline, ComputePipeline, String)>,
 }
 
 impl Default for ScanDefinition {
     fn default() -> Self {
         Self {
             code: String::new(),
-            cache: Arc::new(RwLock::new(None)),
+            cache: ComputeSourceCache::default(),
         }
     }
 }
@@ -29,7 +28,7 @@ impl ScanDefinition {
         let _ = fabelgeist_gpu::data::gpu::signature::parse_binary_op_signature(&code, "scan")?;
         Ok(Self {
             code,
-            cache: Arc::new(RwLock::new(None)),
+            cache: ComputeSourceCache::default(),
         })
     }
 
@@ -37,22 +36,16 @@ impl ScanDefinition {
         &self,
         context: &WgpuContext,
     ) -> Result<(ComputePipeline, ComputePipeline, String)> {
-        {
-            let cache = self.cache.read().unwrap();
-            if let Some(p) = cache.as_ref() {
-                return Ok(p.clone());
-            }
-        }
+        self.cache.get_or_try_insert(context, &self.code, (), || {
+            let ty_base =
+                fabelgeist_gpu::data::gpu::signature::parse_binary_op_signature(&self.code, "scan")?;
+            let ty = ty_base.as_str().to_string();
 
-        let ty_base =
-            fabelgeist_gpu::data::gpu::signature::parse_binary_op_signature(&self.code, "scan")?;
-        let ty = ty_base.as_str().to_string();
+            let block_size = 256;
 
-        let block_size = 256;
-
-        // Pass 1: Local Scan & Block Sums
-        let scan_blocks_code = format!(
-            r#"@group(0) @binding(0) var<storage, read> input: array<{ty}>;
+            // Pass 1: Local Scan & Block Sums
+            let scan_blocks_code = format!(
+                r#"@group(0) @binding(0) var<storage, read> input: array<{ty}>;
 @group(0) @binding(1) var<storage, read_write> output: array<{ty}>;
 @group(0) @binding(2) var<storage, read_write> aux: array<{ty}>;
 
@@ -102,14 +95,14 @@ fn main(
     }}
 }}
 "#,
-            ty = ty,
-            code = self.code,
-            block_size = block_size
-        );
+                ty = ty,
+                code = self.code,
+                block_size = block_size
+            );
 
-        // Pass 3: Add Block Sums to Output
-        let add_aux_code = format!(
-            r#"@group(0) @binding(0) var<storage, read_write> output: array<{ty}>;
+            // Pass 3: Add Block Sums to Output
+            let add_aux_code = format!(
+                r#"@group(0) @binding(0) var<storage, read_write> output: array<{ty}>;
 @group(0) @binding(1) var<storage, read> aux: array<{ty}>;
 
 {code}
@@ -126,21 +119,20 @@ fn main(
     }}
 }}
 "#,
-            ty = ty,
-            code = self.code,
-            block_size = block_size
-        );
+                ty = ty,
+                code = self.code,
+                block_size = block_size
+            );
 
-        let scan_blocks_shader = ComputeShader::new(context, scan_blocks_code)?;
-        let add_aux_shader = ComputeShader::new(context, add_aux_code)?;
+            let scan_blocks_shader = ComputeShader::new(context, scan_blocks_code)?;
+            let add_aux_shader = ComputeShader::new(context, add_aux_code)?;
 
-        let p1 = ComputePipeline::new(context, scan_blocks_shader)?;
-        let p2 = ComputePipeline::new(context, add_aux_shader)?;
+            let p1 = ComputePipeline::new(context, scan_blocks_shader)?;
+            let p2 = ComputePipeline::new(context, add_aux_shader)?;
 
-        let res = (p1, p2, ty);
-        let mut cache = self.cache.write().unwrap();
-        *cache = Some(res.clone());
-        Ok(res)
+            let res = (p1, p2, ty);
+            Ok(res)
+        })
     }
 }
 

@@ -1,0 +1,50 @@
+//! Peak prominence and phase-window checks for sampled visual height.
+
+// Ignore sub-3 mm sampling noise, but reject any additional visible beat in
+// the phase-owned vertical curve.
+const HEIGHT_PEAK_PROMINENCE_METRES: f32 = 0.003;
+const PASSING_PEAK_PHASE_WINDOW: f32 = 0.10;
+
+pub(super) fn prominent_height_peaks(samples: &[(f32, f32)]) -> (usize, bool) {
+    if samples.len() < 3 {
+        return (0, false);
+    }
+    let mut peaks = Vec::new();
+    for (index, &(phase, height)) in samples.iter().enumerate() {
+        let previous = samples[(index + samples.len() - 1) % samples.len()].1;
+        let next = samples[(index + 1) % samples.len()].1;
+        if height <= previous || height < next {
+            continue;
+        }
+        let left_minimum = samples
+            .iter()
+            .filter_map(|&(candidate_phase, candidate_height)| {
+                let distance = (phase - candidate_phase).rem_euclid(1.0);
+                (distance > 0.0 && distance <= 0.125).then_some(candidate_height)
+            })
+            .fold(f32::INFINITY, f32::min);
+        let right_minimum = samples
+            .iter()
+            .filter_map(|&(candidate_phase, candidate_height)| {
+                let distance = (candidate_phase - phase).rem_euclid(1.0);
+                (distance > 0.0 && distance <= 0.125).then_some(candidate_height)
+            })
+            .fold(f32::INFINITY, f32::min);
+        let prominence = height - left_minimum.max(right_minimum);
+        if prominence >= HEIGHT_PEAK_PROMINENCE_METRES {
+            peaks.push(phase);
+        }
+    }
+    let phase_distance = |phase: f32, target: f32| {
+        let distance = (phase - target).abs();
+        distance.min(1.0 - distance)
+    };
+    let in_passing_windows = [0.25, 0.75].into_iter().all(|target| {
+        peaks
+            .iter()
+            .filter(|&&phase| phase_distance(phase, target) <= PASSING_PEAK_PHASE_WINDOW)
+            .count()
+            == 1
+    });
+    (peaks.len(), in_passing_windows)
+}

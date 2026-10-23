@@ -12,12 +12,15 @@ meshgen = ["bevy/bevy_mesh"]
 avian_debug = ["avian3d/debug-plugin"]
 
 [dependencies]
+fabelgeist-geometry.workspace = true
+derive_more = { version = "2.1.1", default-features = false, features = ["as_ref", "debug", "display", "from", "into"] }
 adventuresim-core.workspace = true
 adventuresim-world-schema.workspace = true
 adventuresim-building-generator.workspace = true
 fabelgeist-determinism.workspace = true
 bevy = { workspace = true, features = ["bevy_color"] }
 serde.workspace = true
+serde-saphyr.workspace = true
 serde_json.workspace = true
 sha2.workspace = true
 thiserror.workspace = true

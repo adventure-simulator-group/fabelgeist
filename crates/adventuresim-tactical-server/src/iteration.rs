@@ -11,14 +11,21 @@ use adventuresim_core::{
 use adventuresim_core::{
     combat::MeleeContactClassification, item_catalog_schema::EquipmentMaterial,
 };
-use adventuresim_tactical_core::{physics::AdventureSimulatorPhysicsPlugin, prelude::*};
+use adventuresim_tactical_core::{
+    animation::{AnimationValueResult, NonnegativeLength},
+    physics::AdventureSimulatorPhysicsPlugin,
+    prelude::*,
+};
 use adventuresim_tactical_netcode::replication::AdventureSimulatorReplicationPlugin;
 use bevy::{prelude::*, time::TimeUpdateStrategy};
 
-mod equipment;
-mod logging;
+pub use clock::TacticalElapsed;
 use equipment::spawn_equipment;
 pub use logging::*;
+
+mod clock;
+mod equipment;
+mod logging;
 
 use crate::{
     bot::{BotPlugin, CombatantBehaviorPackages, MissionEnemy},
@@ -40,7 +47,7 @@ pub fn resolve_tactical_server_melee_duel(
     left: &MeleeIterationBuild,
     right: &MeleeIterationBuild,
     seed: Seed,
-) -> TacticalMeleeOutcome {
+) -> AnimationValueResult<TacticalMeleeOutcome> {
     let mut app = tactical_iteration_app(seed);
     let left_entity = spawn_combatant(
         app.world_mut(),
@@ -76,15 +83,16 @@ pub fn resolve_tactical_server_melee_duel(
         .world()
         .get::<Transform>(left_entity)
         .zip(app.world().get::<Transform>(right_entity))
-        .map_or(f32::NAN, |(left, right)| {
-            left.translation.xz().distance(right.translation.xz())
-        });
+        .map(|(left, right)| {
+            NonnegativeLength::from_metres(left.translation.xz().distance(right.translation.xz()))
+        })
+        .transpose()?;
     let log = app.world_mut().remove_resource::<IterationLog>().unwrap();
-    TacticalMeleeOutcome {
+    Ok(TacticalMeleeOutcome {
         seed,
         resolution,
         simulated_ticks: final_tick + 1,
-        simulated_seconds: (final_tick + 1) as f32 * TACTICAL_TICK_SECONDS,
+        simulated_seconds: TacticalElapsed::from_tick_count(final_tick + 1),
         initial_center_separation_metres: 4.0,
         final_center_separation_metres,
         attack_starts: log.attack_starts,
@@ -93,7 +101,7 @@ pub fn resolve_tactical_server_melee_duel(
         decision_events: log.decision_events,
         condition_events: log.condition_events,
         wound_events: log.wound_events,
-    }
+    })
 }
 
 fn tactical_duel_resolution(
@@ -291,7 +299,8 @@ mod tests {
             &john,
             &opponents[1],
             fabelgeist_determinism::Seed::from_u64(2),
-        );
+        )
+        .unwrap();
         assert!(outcome.attack_starts > 0, "{outcome:?}");
         assert!(outcome.resolved_attacks > 0);
         assert_eq!(outcome.resolved_attacks as usize, outcome.events.len());
@@ -373,7 +382,7 @@ mod tests {
         let (john, opponents) = melee_iteration_roster().unwrap();
         let mut total_attempts = 0;
         for seed in (0..4).map(Seed::from_u64) {
-            let outcome = resolve_tactical_server_melee_duel(&john, &opponents[0], seed);
+            let outcome = resolve_tactical_server_melee_duel(&john, &opponents[0], seed).unwrap();
             let count = |status| {
                 outcome
                     .decision_events
@@ -420,7 +429,7 @@ mod tests {
             app.update();
         }
         let skeleton = app.world().get::<SkeletonState>(john_entity).unwrap();
-        assert!(skeleton.locomotion_sample_tick > 0);
+        assert!(skeleton.locomotion_sample_tick.encoded() > 0);
     }
 
     #[test]
@@ -430,12 +439,14 @@ mod tests {
             &john,
             &opponents[0],
             fabelgeist_determinism::Seed::from_u64(22),
-        );
+        )
+        .unwrap();
         let second = resolve_tactical_server_melee_duel(
             &john,
             &opponents[0],
             fabelgeist_determinism::Seed::from_u64(22),
-        );
+        )
+        .unwrap();
         assert_eq!(
             serde_json::to_string(&first).unwrap(),
             serde_json::to_string(&second).unwrap()
@@ -447,7 +458,7 @@ mod tests {
         let (john, opponents) = melee_iteration_roster().unwrap();
         let outcome = (1..=8)
             .map(Seed::from_u64)
-            .map(|seed| resolve_tactical_server_melee_duel(&john, &opponents[0], seed))
+            .map(|seed| resolve_tactical_server_melee_duel(&john, &opponents[0], seed).unwrap())
             .find(|outcome| {
                 outcome
                     .decision_events
@@ -488,7 +499,8 @@ mod tests {
             &john,
             &opponents[0],
             fabelgeist_determinism::Seed::from_u64(2),
-        );
+        )
+        .unwrap();
         assert!(outcome.events.iter().any(|event| {
             event.defender == "Shield Militiaman"
                 && event.defensive_implement.as_deref() == Some("buckler")
@@ -527,7 +539,7 @@ mod tests {
         );
         let outcomes = (1..=8)
             .map(Seed::from_u64)
-            .map(|seed| resolve_tactical_server_melee_duel(&john, veteran, seed))
+            .map(|seed| resolve_tactical_server_melee_duel(&john, veteran, seed).unwrap())
             .collect::<Vec<_>>();
         assert!(
             outcomes
@@ -587,7 +599,8 @@ mod tests {
             &john,
             &opponents[0],
             fabelgeist_determinism::Seed::from_u64(3),
-        );
+        )
+        .unwrap();
         let decisions = outcome
             .decision_events
             .iter()

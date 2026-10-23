@@ -1,5 +1,6 @@
 //! Install the server's physical outdoor instances in an acceptance world.
 use super::*;
+use crate::scene_coordinates::ScenePlanPoint;
 use crate::scene_input::furniture::{FurnitureLayout, furniture_collider};
 use crate::scene_input::{GeneratedObstacle, TacticalSceneInput};
 
@@ -34,15 +35,18 @@ impl OutdoorCollision {
                         * core::f32::consts::TAU,
                 ),
             };
-            let point = Vec2::new(f32::from(x), f32::from(z)) * input.playable.spacing_metres
-                - Vec2::new(terrain.width(), terrain.depth()) * 0.5;
+            let point = ScenePlanPoint::from_metres(
+                Vec2::new(f32::from(x), f32::from(z)) * input.playable.spacing_metres
+                    - Vec2::new(terrain.width(), terrain.depth()) * 0.5,
+            )
+            .unwrap();
             let height = terrain
                 .height_at(point)
                 .expect("physical obstacle has source support");
             bodies.push((
                 Name::new(format!("Obstacle {x},{z}")),
                 shape,
-                Transform::from_xyz(point.x, height + offset, point.y)
+                Transform::from_xyz(point.metres().x, height.metres() + offset, point.metres().y)
                     .with_rotation(Quat::from_rotation_y(yaw)),
             ));
         }

@@ -22,11 +22,12 @@ fn weapon_output(
     weapon: CombatWeapon,
     check: f32,
     arm_strength: f32,
-    minimum_attack_interval_seconds: f32,
+    minimum_attack_interval_seconds: AnimationElapsed,
 ) -> f32 {
     let tempo = weapon
         .attack_interval_seconds
         .max(minimum_attack_interval_seconds)
+        .seconds()
         .sqrt()
         .recip();
     let contact = if weapon.ranged {
@@ -59,7 +60,10 @@ fn armor_power(combatant: &Combatant) -> f32 {
         / BodyPart::FULL_BODY.len() as f32
 }
 
-fn ranged_opening_power(combatant: &Combatant, minimum_attack_interval_seconds: f32) -> f32 {
+fn ranged_opening_power(
+    combatant: &Combatant,
+    minimum_attack_interval_seconds: AnimationElapsed,
+) -> f32 {
     combatant.equipment.ranged_weapon.map_or(0.0, |weapon| {
         if combatant.equipment.ammunition == 0 {
             0.0
@@ -67,7 +71,8 @@ fn ranged_opening_power(combatant: &Combatant, minimum_attack_interval_seconds: 
             (weapon.ranged_range.max(0.0)
                 / weapon
                     .attack_interval_seconds
-                    .max(minimum_attack_interval_seconds))
+                    .max(minimum_attack_interval_seconds)
+                    .seconds())
             .sqrt()
             .min(5.0)
         }

@@ -1,5 +1,24 @@
 use super::*;
-use crate::bestiary::{AttackStyle, Protection, RigTopology, ThreatId};
+use crate::bestiary::{AttackStyle, Protection, RigTopology, ThreatId, UnknownThreatId};
+use crate::elapsed::ElapsedError;
+
+pub type AuthoredThreatResult<T> = Result<T, AuthoredThreatError>;
+
+#[derive(Clone, Debug, PartialEq, Eq, thiserror::Error)]
+pub enum AuthoredThreatError {
+    #[error("Unknown threat ID: {enemy_type}")]
+    UnknownThreat {
+        enemy_type: String,
+        #[source]
+        source: UnknownThreatId,
+    },
+    #[error(transparent)]
+    Timing(#[from] ElapsedError),
+    #[error("authored threat sidearm knife is absent from the item catalogue")]
+    MissingSidearmDefinition,
+    #[error(transparent)]
+    Sidearm(#[from] AuthoredMeleeWeaponError),
+}
 
 /// Build the same authored threat combatant used by strategic autoresolve and
 /// observer-safe contract assessment.
@@ -9,10 +28,14 @@ pub fn authored_threat_combatant(
     difficulty: i32,
     combat_scale_bps: u32,
     countermeasure_multiplier_bps: u32,
-) -> Result<Combatant, String> {
-    let threat: ThreatId = enemy_type
-        .parse()
-        .map_err(|_| format!("Unknown threat ID: {enemy_type}"))?;
+) -> AuthoredThreatResult<Combatant> {
+    let threat: ThreatId =
+        enemy_type
+            .parse()
+            .map_err(|source| AuthoredThreatError::UnknownThreat {
+                enemy_type: enemy_type.to_owned(),
+                source,
+            })?;
     let (physical_scale, training_scale) = crate::threat_escalation::combat_scaling_multipliers(
         combat_scale_bps,
         countermeasure_multiplier_bps,
@@ -27,9 +50,9 @@ pub fn authored_threat_combatant(
     let training = base_rating * 1_500.0 * profile.training_multiplier * training_scale;
     combatant.skills = threat_skills(training, profile.ranged, profile.protection, profile.morale);
     combatant.body.weight_kg = profile.weight_kg;
-    let weapon = threat_weapon(profile);
+    let weapon = threat_weapon(profile)?;
     combatant.equipment.weapon = Some(weapon);
-    equip_threat_weapon(&mut combatant, weapon, profile.ranged);
+    equip_threat_weapon(&mut combatant, weapon, profile.ranged)?;
     let innate = profile.innate_protection;
     if innate.resistance_joules > 0.0 || innate.padding_joules > 0.0 {
         combatant.equipment.armor.fill(CombatArmor::innate(
@@ -80,8 +103,8 @@ fn threat_skills(training: f32, ranged: bool, protection: Protection, morale: u8
     }
 }
 
-fn threat_weapon(profile: crate::bestiary::CombatProfile) -> CombatWeapon {
-    CombatWeapon {
+fn threat_weapon(profile: crate::bestiary::CombatProfile) -> ElapsedResult<CombatWeapon> {
+    Ok(CombatWeapon {
         skills: if profile.ranged {
             crate::equipment::WeaponSkillDistribution {
                 bow: 1.0,
@@ -117,28 +140,36 @@ fn threat_weapon(profile: crate::bestiary::CombatProfile) -> CombatWeapon {
         grip_to_tip_m: 0.8,
         total_length_m: 0.8,
         ranged_range: if profile.ranged { 20.0 } else { 0.0 },
-        attack_interval_seconds: if profile.ranged { 1.0 } else { 0.75 },
+        attack_interval_seconds: AnimationElapsed::from_seconds(if profile.ranged {
+            1.0
+        } else {
+            0.75
+        })?,
         balance: 0.3,
         ranged_force_joules: if profile.ranged { 40.0 } else { 0.0 },
         ..CombatWeapon::default()
-    }
+    })
 }
 
-fn equip_threat_weapon(combatant: &mut Combatant, weapon: CombatWeapon, ranged: bool) {
+fn equip_threat_weapon(
+    combatant: &mut Combatant,
+    weapon: CombatWeapon,
+    ranged: bool,
+) -> AuthoredThreatResult<()> {
     if ranged {
+        let sidearm = CombatWeapon::from_authored_melee_definition(
+            crate::item_catalog::definition("knife")
+                .ok_or(AuthoredThreatError::MissingSidearmDefinition)?,
+        )?;
         combatant.equipment.ranged_weapon = Some(weapon);
         combatant.equipment.ranged_projectile_kind = Some(ProjectileKind::Arrowhead);
-        combatant.equipment.melee_weapon = Some(
-            super::melee_iteration::authored_melee_weapon(
-                crate::item_catalog::definition("knife").expect("catalog knife"),
-            )
-            .expect("valid generated sidearm"),
-        );
+        combatant.equipment.melee_weapon = Some(sidearm);
         combatant.equipment.ammunition = 12;
         combatant.initial_ammunition = 12;
     } else {
         combatant.equipment.melee_weapon = Some(weapon);
     }
+    Ok(())
 }
 
 fn armored_threat_armor() -> CombatArmor {

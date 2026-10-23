@@ -12,8 +12,19 @@ use adventuresim_core::strategic_state::vocabulary::{
 };
 use adventuresim_core::weather::Precipitation;
 use adventuresim_dialogue::{PromptMode, ResolutionPolicy};
+use approved_action::ApprovedPartyAction;
+use battle_combatants::load_allied_combatants;
+pub use combat_error::{StrategicCombatError, StrategicCombatResult};
+pub(crate) use development_gallery::{
+    materialize_development_scenario_gallery, materialize_gallery_item,
+    validate_gallery_postcondition,
+};
 use std::str::FromStr;
+mod approved_action;
+mod battle_combatants;
 mod challenge_state;
+mod combat_error;
+mod development_gallery;
 mod dialogue_policy;
 mod mission_roster;
 #[cfg(feature = "authority-tests")]
@@ -26,9 +37,11 @@ pub use challenge_state::*;
 #[cfg(test)]
 pub(crate) const STRATEGIC_SOURCE: &str = concat!(
     include_str!("autoresolve.rs"),
+    include_str!("combat_error.rs"),
     include_str!("party_readiness.rs"),
     include_str!("world_import.rs"),
     include_str!("authority_model.rs"),
+    include_str!("approved_action.rs"),
     include_str!("dialogue_schema.rs"),
     include_str!("dialogue_sessions.rs"),
     include_str!("dialogue_provenance.rs"),
@@ -46,6 +59,7 @@ pub(crate) const STRATEGIC_SOURCE: &str = concat!(
     include_str!("encounters.rs"),
     include_str!("travel_reducers.rs"),
     include_str!("custody_objectives.rs"),
+    include_str!("development_gallery.rs"),
     include_str!("development_scenarios.rs"),
     include_str!("tactical_enemy_fixture.rs"),
     include_str!("mission_bootstrap.rs"),

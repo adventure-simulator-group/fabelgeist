@@ -122,6 +122,7 @@ dependencies = [
  "clap",
  "earcut",
  "fabelgeist-determinism",
+ "fabelgeist-geometry",
  "geo",
  "postcard",
  "serde",
@@ -143,6 +144,7 @@ dependencies = [
  "blake3",
  "bytemuck",
  "clap",
+ "derive_more 2.1.1",
  "egui_extras",
  "fabelgeist-armor",
  "fabelgeist-bvh",
@@ -151,9 +153,11 @@ dependencies = [
  "fabelgeist-determinism",
  "fabelgeist-garment-code",
  "fabelgeist-garment-fit",
+ "fabelgeist-geometry",
  "fabelgeist-gpu",
  "fabelgeist-hair",
  "fabelgeist-math",
+ "fabelgeist-rig",
  "fabelgeist-shell",
  "image",
  "pollster",
@@ -161,6 +165,7 @@ dependencies = [
  "rayon",
  "serde",
  "serde_json",
+ "spade",
  "thiserror 2.0.20",
  "tokio",
 ]
@@ -178,6 +183,7 @@ dependencies = [
  "enum-assoc",
  "enumflags2",
  "fabelgeist-determinism",
+ "fabelgeist-geometry",
  "serde",
  "serde-saphyr",
  "serde_json",
@@ -264,6 +270,7 @@ dependencies = [
  "serde_json",
  "sha2",
  "spacetimedb",
+ "thiserror 2.0.20",
 ]
 
 [[package]]
@@ -318,10 +325,14 @@ dependencies = [
  "ciborium",
  "clap",
  "console_error_panic_hook",
+ "derive_more 2.1.1",
  "fabelgeist-armor",
  "fabelgeist-bvh",
  "fabelgeist-determinism",
+ "fabelgeist-geometry",
+ "fabelgeist-gpu",
  "fabelgeist-math",
+ "fabelgeist-rig",
  "flate2",
  "gltf",
  "pollster",
@@ -330,6 +341,7 @@ dependencies = [
  "serde",
  "serde-saphyr",
  "serde_json",
+ "strum 0.27.2",
  "thiserror 2.0.20",
  "toml",
  "tracing",
@@ -355,13 +367,16 @@ dependencies = [
  "bevy_math",
  "bytemuck",
  "ciborium",
+ "derive_more 2.1.1",
  "fabelgeist-determinism",
+ "fabelgeist-geometry",
  "libm",
  "microlp",
  "noiz",
  "postcard",
  "rayon",
  "serde",
+ "serde-saphyr",
  "serde_json",
  "sha2",
  "smallvec",
@@ -401,12 +416,14 @@ dependencies = [
  "bevy",
  "clap",
  "fabelgeist-determinism",
+ "fabelgeist-geometry",
  "rand 0.9.5",
  "ron",
  "serde",
  "serde-saphyr",
  "serde_json",
  "spacetimedb-sdk",
+ "thiserror 2.0.20",
 ]
 
 [[package]]
@@ -4831,8 +4848,10 @@ dependencies = [
  "bytemuck",
  "fabelgeist-compute",
  "fabelgeist-garment-code",
+ "fabelgeist-geometry",
  "fabelgeist-gpu",
  "fabelgeist-math",
+ "fabelgeist-rig",
  "image",
  "pollster",
  "postcard",
@@ -4923,6 +4942,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "derive_more 2.1.1",
+ "fabelgeist-rig",
  "flate2",
  "num_enum",
 ]
@@ -4975,6 +4995,16 @@ dependencies = [
  "fabelgeist-shell",
  "fabelgeist-xpbd",
  "tokio",
+]
+
+[[package]]
+name = "fabelgeist-geometry"
+version = "0.1.0"
+dependencies = [
+ "bevy_math",
+ "bevy_reflect",
+ "serde",
+ "thiserror 2.0.20",
 ]
 
 [[package]]
@@ -5065,6 +5095,16 @@ dependencies = [
  "fabelgeist-mesh",
  "fabelgeist-xpbd",
  "tokio",
+]
+
+[[package]]
+name = "fabelgeist-rig"
+version = "0.1.0"
+dependencies = [
+ "derive_more 2.1.1",
+ "serde",
+ "serde_json",
+ "strum 0.27.2",
 ]
 
 [[package]]

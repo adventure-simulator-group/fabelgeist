@@ -1,11 +1,5 @@
 //! Fixed exhibits composed from shipped equipment and production generators.
 
-mod camera;
-mod district;
-mod exhibits;
-mod residency;
-mod scenery;
-
 use std::sync::Mutex;
 
 use adventuresim_tactical_core::physics::AdventureSimulatorPhysicsPlugin;
@@ -15,9 +9,29 @@ use serde::{Deserialize, Serialize};
 use crate::presentation::{TacticalCameraSetup, TacticalPresentationPlugin};
 use camera::OrbitView;
 use exhibits::{Exhibit, ExhibitId};
+use preparation::SharedArtDemoResult;
+
+mod camera;
+mod district;
+mod exhibits;
+mod preparation;
+mod residency;
+mod scenery;
 
 static PENDING: Mutex<Vec<DemoCommand>> = Mutex::new(Vec::new());
 static STATUS: Mutex<DemoStatus> = Mutex::new(DemoStatus::Starting);
+
+#[derive(Component)]
+struct DemoEntity(ExhibitId);
+
+#[derive(Component)]
+struct StudioEntity;
+
+#[derive(Resource)]
+struct CurrentExhibit {
+    id: ExhibitId,
+    scene: SharedArtDemoResult<Option<Handle<WorldAsset>>>,
+}
 
 #[derive(Deserialize)]
 #[serde(tag = "type", rename_all = "kebab-case", deny_unknown_fields)]
@@ -61,18 +75,6 @@ enum DemoStatus {
     Failed {
         message: String,
     },
-}
-
-#[derive(Component)]
-struct DemoEntity(ExhibitId);
-
-#[derive(Component)]
-struct StudioEntity;
-
-#[derive(Resource)]
-struct CurrentExhibit {
-    id: ExhibitId,
-    scene: Result<Option<Handle<WorldAsset>>, String>,
 }
 
 pub(super) fn queue(json: &str) -> Result<(), String> {
@@ -273,10 +275,10 @@ fn report_readiness(
         }
     }
     match &current.scene {
-        Err(message) => {
+        Err(error) => {
             status = DemoStatus::Unavailable {
                 exhibit: current.id,
-                message: message.clone(),
+                message: error.to_string(),
             }
         }
         Ok(Some(scene)) => {

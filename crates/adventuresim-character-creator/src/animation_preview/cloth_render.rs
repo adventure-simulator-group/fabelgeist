@@ -3,7 +3,7 @@ use super::*;
 impl ClothSkin {
     /// Keep separate material coordinates at panel seams while simulating one
     /// sewn vertex. Draping supplies exactly coincident seam copies.
-    pub fn weld_seams(self) -> Self {
+    pub fn weld_seams(self) -> Result<Self> {
         let mut unique = std::collections::BTreeMap::new();
         let mut source = Vec::new();
         let render_vertices: Vec<_> = self
@@ -24,16 +24,22 @@ impl ClothSkin {
             .map(|f| f.map(|i| render_vertices[i as usize] as u32))
             .filter(|f| f[0] != f[1] && f[1] != f[2] && f[2] != f[0])
             .collect();
+        let binding = match self.binding {
+            ClothBinding::Unweighted => ClothBinding::Unweighted,
+            ClothBinding::Weighted { indices, weights } => ClothBinding::Weighted {
+                indices: indices.select(source.iter().copied()),
+                weights: source.iter().map(|&vertex| weights[vertex]).collect(),
+            },
+        };
         let mut welded = Self::new(
             self.form,
             source.iter().map(|&i| self.positions[i]).collect(),
             Vec::new(),
             faces,
-            source.iter().map(|&i| self.indices[i]).collect(),
-            source.iter().map(|&i| self.weights[i]).collect(),
-        );
+            binding,
+        )?;
         welded.render_vertices = Some(render_vertices);
-        welded
+        Ok(welded)
     }
     pub(super) fn update_render_mesh(&self, mesh: &mut Mesh) {
         let render_vertices = self

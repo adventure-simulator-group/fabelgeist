@@ -9,11 +9,13 @@
 mod pass;
 mod pipeline;
 pub mod signature;
+mod source_cache;
 pub mod texture_ops;
 
 pub use pass::*;
 pub use pipeline::*;
 pub use signature::*;
+pub use source_cache::ComputeSourceCache;
 pub use texture_ops::{TextureBinaryOp, TextureBinaryOpDefinition};
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]

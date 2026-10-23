@@ -37,7 +37,7 @@ pub(in crate::presentation) fn on_scene_obstacle_added(
 // The presentation facade is compiled into several binaries, while only the
 // deterministic scene viewer consumes this review-specimen helper.
 pub(crate) fn oak_review_terminal_specimen(
-    root: Vec3,
+    root: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint,
     canopy_bps: u16,
 ) -> (Mesh, Mesh, Mesh, Mesh, Vec3, Vec3) {
     let seed = obstacle_seed(root);

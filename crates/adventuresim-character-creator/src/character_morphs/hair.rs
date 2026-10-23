@@ -35,32 +35,21 @@ impl CharacterMorphs {
                     &placed.normals,
                 )?;
                 let count = base.positions.len();
-                let skin = WholeJoint::new(placement.head_joint);
+                let skin = fabelgeist_rig::RigInfluences::<8>::whole_joint(placement.head_joint);
+                let joints = fabelgeist_rig::PackedRigSkin::repeated(
+                    skin.joints,
+                    count,
+                    self.reference_joints.joint_count(),
+                )?;
                 remove_skeletal_translation(
                     &mut delta.positions,
                     sample,
                     &self.reference_joints,
-                    &vec![skin.indices; count],
+                    &joints,
                     &vec![skin.weights; count],
                 );
                 Ok(delta)
             })
             .collect()
-    }
-}
-
-/// Eight skin influences carrying a vertex wholly with one joint.
-pub(crate) struct WholeJoint {
-    pub indices: [u32; 8],
-    pub weights: [f32; 8],
-}
-
-impl WholeJoint {
-    pub(crate) fn new(joint: u32) -> Self {
-        let mut indices = [0; 8];
-        indices[0] = joint;
-        let mut weights = [0.0; 8];
-        weights[0] = 1.0;
-        Self { indices, weights }
     }
 }

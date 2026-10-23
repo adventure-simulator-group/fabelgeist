@@ -6,7 +6,7 @@ use crate::tactical::tactical_server_request_authority;
 pub fn authority_test_mission_roster(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> StrategicCombatResult<()> {
     require_dev_bootstrap_token(&bootstrap_token)?;
     let actor = 732073;
     let mut party = ctx

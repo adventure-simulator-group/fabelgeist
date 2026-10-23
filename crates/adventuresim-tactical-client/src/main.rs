@@ -291,7 +291,7 @@ fn run(
         .unwrap_or_else(|error| panic!("invalid tactical client asset root: {error}"));
     #[cfg(not(target_family = "wasm"))]
     app.register_asset_source(
-        "workspace",
+        crate::animation::WORKSPACE_ASSET_SOURCE,
         AssetSourceBuilder::platform_default(&asset_root.to_string_lossy(), None),
     );
     #[cfg(feature = "debug")]

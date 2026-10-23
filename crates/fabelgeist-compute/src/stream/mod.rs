@@ -1,8 +1,7 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
-use std::collections::HashMap;
-use std::sync::{Arc, RwLock};
+use std::sync::Arc;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct StreamSignature {
@@ -19,14 +18,14 @@ pub struct StreamSignature {
 #[derive(Clone, Debug)]
 pub struct StreamDefinition {
     pub code: String,
-    pub cache: Arc<RwLock<HashMap<ResourceDescriptor, Arc<ComputePipeline>>>>,
+    cache: ComputeSourceCache<ResourceDescriptor, Arc<ComputePipeline>>,
 }
 
 impl Default for StreamDefinition {
     fn default() -> Self {
         Self {
             code: String::new(),
-            cache: Arc::new(RwLock::new(HashMap::new())),
+            cache: ComputeSourceCache::default(),
         }
     }
 }
@@ -42,7 +41,7 @@ impl StreamDefinition {
         let _ = Self::parse_signature(&code)?;
         Ok(Self {
             code,
-            cache: Arc::new(RwLock::new(HashMap::new())),
+            cache: ComputeSourceCache::default(),
         })
     }
 
@@ -286,19 +285,11 @@ impl StreamDefinition {
         context: &WgpuContext,
         input_res: ResourceDescriptor,
     ) -> Result<Arc<ComputePipeline>> {
-        {
-            let cache = self.cache.read().unwrap();
-            if let Some(p) = cache.get(&input_res) {
-                return Ok(p.clone());
-            }
-        }
-
-        let pipeline = self.build_pipeline(context, input_res.clone())?;
-        let arc_info = Arc::new(pipeline);
-
-        let mut cache = self.cache.write().unwrap();
-        cache.insert(input_res, arc_info.clone());
-        Ok(arc_info)
+        self.cache.get_or_try_insert(context, &self.code, input_res.clone(), || {
+            let pipeline = self.build_pipeline(context, input_res.clone())?;
+            let arc_info = Arc::new(pipeline);
+            Ok(arc_info)
+        })
     }
 }
 

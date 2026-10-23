@@ -1,6 +1,7 @@
 //! Matched production specimens for the four authored wood treatments.
 use super::*;
 use adventuresim_building_generator::furniture::{FinishableFurnitureKind, FurnitureWoodState};
+use adventuresim_building_generator::spatial_geometry::{CuboidDimensions, Position};
 
 pub(super) const LABELS: [(&str, &str); FinishableFurnitureKind::ALL.len()] = [
     (
@@ -30,7 +31,7 @@ pub(super) fn stage(
         .map(|(index, kind)| {
             let bay = Vec2::new(100.0, (index as f32 - 2.0) * CATALOG_BAY_SPACING_METRES);
             let key = FurnitureKey::natural(kind.kind(), FurnitureVariant::Compact);
-            let size = key.interior_spec().unwrap().size_metres.metres();
+            let size = key.interior_spec()?.size_metres.metres();
             let width = size.x * FurnitureWoodState::ALL.len() as f32
                 + CATALOG_PAIR_GAP_METRES * (FurnitureWoodState::ALL.len() - 1) as f32;
             for (state_index, state) in FurnitureWoodState::ALL.into_iter().enumerate() {
@@ -38,7 +39,7 @@ pub(super) fn stage(
                 let ordinal = FurnitureKey::ALL
                     .iter()
                     .position(|entry| *entry == key)
-                    .unwrap();
+                    .ok_or(CatalogAdmissionError::MissingCatalogueEntry { key })?;
                 let point = bay
                     + Vec2::X
                         * (-width * 0.5
@@ -60,16 +61,29 @@ pub(super) fn stage(
                     },
                     position_metres:
                         adventuresim_building_generator::spatial_geometry::Position::from_metres(
-                            Vec3::new(point.x, terrain.height_at(point).unwrap(), point.y),
+                            Vec3::new(
+                                point.x,
+                                terrain
+                                    .required_height_at(ScenePlanPoint::try_from(point)?)?
+                                    .metres(),
+                                point.y,
+                            ),
                         )?,
-                    orientation: BuildingOrientation::from_radians(std::f32::consts::PI).unwrap(),
+                    orientation: BuildingOrientation::from_radians(std::f32::consts::PI)
+                        .ok_or(CatalogAdmissionError::InvalidOrientation)?,
                 });
             }
-            Ok(catalog_camera(
+            catalog_camera(
                 kind.kind(),
-                Vec3::new(width, size.y, size.z),
-                Vec3::new(bay.x, terrain.height_at(bay).unwrap(), bay.y),
-            ))
+                CuboidDimensions::from_metres(Vec3::new(width, size.y, size.z))?,
+                Position::from_metres(Vec3::new(
+                    bay.x,
+                    terrain
+                        .required_height_at(ScenePlanPoint::try_from(bay)?)?
+                        .metres(),
+                    bay.y,
+                ))?,
+            )
         })
         .collect()
 }

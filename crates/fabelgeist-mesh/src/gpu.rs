@@ -135,9 +135,12 @@ impl GpuMesh {
         projection: Mat4,
         strength: f64,
     ) -> Result<GpuMesh> {
-        use fabelgeist_gpu::data::gpu::compute::{ComputePass, ComputePipeline, ComputeShader};
+        use fabelgeist_gpu::data::gpu::compute::{
+            ComputePass, ComputePipeline, ComputeShader, ComputeSourceCache,
+        };
         use std::sync::OnceLock;
-        static DISPLACEMENT_PIPELINE: OnceLock<ComputePipeline> = OnceLock::new();
+        static DISPLACEMENT_PIPELINES: OnceLock<ComputeSourceCache<(), ComputePipeline>> =
+            OnceLock::new();
 
         let pos_core = &source.positions;
         let norm_core = &source.normals;
@@ -151,8 +154,7 @@ impl GpuMesh {
                 .with_usage(BufferUse::Vertex),
         )?;
 
-        let pipeline = DISPLACEMENT_PIPELINE.get_or_init(|| {
-            let shader_code = r#"
+        let shader_code = r#"
                 struct Params {
                     projection:     mat4x4<f32>,
                     inv_projection: mat4x4<f32>,
@@ -208,9 +210,12 @@ impl GpuMesh {
                     out_pos[f32_idx+2u]  = displaced_p.z;
                 }
             "#;
-            let shader = ComputeShader::new(context, shader_code.to_string()).unwrap();
-            ComputePipeline::new(context, shader).unwrap()
-        });
+        let pipeline = DISPLACEMENT_PIPELINES
+            .get_or_init(ComputeSourceCache::default)
+            .get_or_try_insert(context, shader_code, (), || {
+                let shader = ComputeShader::new(context, shader_code.to_string())?;
+                Ok(ComputePipeline::new(context, shader)?)
+            })?;
 
         let buf = |core: Buffer| PassParameter::from(core);
 

@@ -1,13 +1,5 @@
-mod authority;
-mod condition;
-mod consequence;
-mod contact;
-mod defense;
-mod ingress;
-mod melee;
-mod protocol;
-mod ragdoll;
-mod ranged;
+use adventuresim_core::elapsed::{AnimationElapsed, ElapsedResult};
+use adventuresim_core::unit_interval::UnitInterval;
 
 use adventuresim_core::{
     combat::{
@@ -48,9 +40,9 @@ use consequence::{
     attacker_weapon_contact_matches, defender_equipment_contact_matches, record_party_injury,
 };
 use contact::canonical_impact_surface;
-use defense::{resolve_melee_defender_response, resolve_passive_block};
+use defense::{prepare_melee_defender_response, resolve_passive_block};
 pub(crate) use ingress::apply_defend_intent;
-pub(crate) use ingress::{MeleeLungeRequest, melee_target_lunge_delay};
+pub(crate) use ingress::{MeleeLungeRequest, melee_target_lunge_arrival};
 use ingress::{
     authoritative_line_of_sight, on_defender_response_request, on_melee_action_request,
     on_ranged_action_request, on_ranged_attack_started,
@@ -63,6 +55,17 @@ pub(crate) use protocol::{
 };
 use ragdoll::update_authoritative_ragdoll_lifecycle;
 use ranged::resolve_ranged_attack;
+
+mod authority;
+mod condition;
+mod consequence;
+mod contact;
+mod defense;
+mod ingress;
+mod melee;
+mod protocol;
+mod ragdoll;
+mod ranged;
 
 fn authoritative_impact_effects(
     inventory: &InventoryViewer<'_, '_>,
@@ -255,7 +258,7 @@ pub struct MeleeAttackResolved {
 pub(crate) struct MeleeAttackCommittedToDefense {
     pub(crate) defender: Entity,
     pub(crate) incoming_attacker: Entity,
-    pub(crate) canceled_attack_key: u64,
+    pub(crate) canceled_attack_key: MeleeAttackKey,
     pub(crate) response: DefenderResponse,
     pub(crate) engagement: f32,
 }
@@ -264,7 +267,7 @@ pub(crate) struct MeleeAttackCommittedToDefense {
 pub(crate) struct MeleeAttackTransformedByDefense {
     pub(crate) defender: Entity,
     pub(crate) incoming_attacker: Entity,
-    pub(crate) attack_key: u64,
+    pub(crate) attack_key: MeleeAttackKey,
     pub(crate) retained_power: f32,
     pub(crate) response: DefenderResponse,
     pub(crate) engagement: f32,
@@ -312,7 +315,7 @@ fn trace_attack_committed_to_defense(event: On<MeleeAttackCommittedToDefense>) {
     trace!(
         defender = ?event.defender,
         incoming_attacker = ?event.incoming_attacker,
-        canceled_attack_key = event.canceled_attack_key,
+        canceled_attack_key = event.canceled_attack_key.encoded(),
         response = ?event.response,
         engagement = event.engagement,
         "melee_attack_committed_to_defense"
@@ -324,7 +327,7 @@ fn trace_attack_transformed_by_defense(event: On<MeleeAttackTransformedByDefense
     trace!(
         defender = ?event.defender,
         incoming_attacker = ?event.incoming_attacker,
-        attack_key = event.attack_key,
+        attack_key = event.attack_key.encoded(),
         retained_power = event.retained_power,
         response = ?event.response,
         engagement = event.engagement,
@@ -372,7 +375,11 @@ fn hit_velocity_change(
     };
     let direction = Vec3::new(horizontal.x, 0.0, horizontal.y);
     let speed = ((2.0 * contact_energy / mass.max(1.0)).sqrt() * config.whole_body_velocity_scale)
-        .min(config.maximum_velocity_change_metres_per_second);
+        .min(
+            config
+                .maximum_velocity_change_metres_per_second
+                .metres_per_second(),
+        );
     (hits_attacker, direction * speed)
 }
 
@@ -827,8 +834,11 @@ mod tests {
         assert_eq!(defender.blood_loss_fraction, 0.0);
         assert_eq!(wounds.len(), 1);
         assert_eq!(wounds[0].kind, CombatWoundKind::Open);
-        defender.blood_loss_fraction =
-            advance_combat_bleeding(defender.blood_loss_fraction, &wounds, 60.0);
+        defender.blood_loss_fraction = advance_combat_bleeding(
+            defender.blood_loss_fraction,
+            &wounds,
+            adventuresim_core::elapsed::AnimationElapsed::from_seconds(60.0).unwrap(),
+        );
         assert!((defender.blood_loss_fraction - 0.1).abs() < 0.0001);
         assert!((defender.imbalance - 0.4).abs() < 0.0001);
 
@@ -912,8 +922,20 @@ mod tests {
         assert!(combat_incapacitation(0.0, 1.0, 0.3, 0.0, 1.0, 0.0) >= 1.0);
         assert!(combat_incapacitation(0.2, 1.0, 0.0, 1.0, 0.0, 0.0) >= 1.0);
         assert!(combat_incapacitation(0.0, 1.0, 0.0, 0.0, 1.0, 1.0) >= 1.0);
-        assert_eq!(recover_combat_imbalance(0.75, 2.0), 0.25);
-        assert_eq!(recover_combat_imbalance(0.01, 1.0), 0.0);
+        assert_eq!(
+            recover_combat_imbalance(
+                0.75,
+                adventuresim_core::elapsed::AnimationElapsed::from_seconds(2.0).unwrap()
+            ),
+            0.25
+        );
+        assert_eq!(
+            recover_combat_imbalance(
+                0.01,
+                adventuresim_core::elapsed::AnimationElapsed::from_seconds(1.0).unwrap()
+            ),
+            0.0
+        );
     }
 
     #[test]
@@ -973,7 +995,7 @@ mod tests {
             .init_resource::<TacticalCombatConfig>()
             .add_systems(Update, update_tactical_combat_state);
         let endurance = 3.0;
-        let jog_speed = tactical_jog_speed(endurance);
+        let jog_speed = tactical_jog_speed(endurance).unwrap();
         let actor = app
             .world_mut()
             .spawn((
@@ -992,7 +1014,7 @@ mod tests {
                 AuthoritativeMovementIntent(Some(Vec2::Y)),
                 MovementPace::Jog,
                 // External physics velocity must not affect movement exertion.
-                LinearVelocity(Vec3::new(jog_speed + 10.0, 0.0, 0.0)),
+                LinearVelocity(Vec3::new(jog_speed.metres_per_second() + 10.0, 0.0, 0.0)),
             ))
             .id();
 

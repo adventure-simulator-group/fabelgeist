@@ -36,7 +36,7 @@ impl UrbanGround {
         Self(UrbanGroundLookup::new(streets, yards, &[]))
     }
 
-    pub(super) fn suppresses_grass(&self, point: Vec2) -> bool {
+    pub(super) fn suppresses_grass(&self, point: ScenePlanPoint) -> bool {
         self.0.suppresses_grass(point)
     }
 }
@@ -51,15 +51,17 @@ impl CityGroundAssets<'_> {
     /// Install the complete worker-built paving as map-owned children. Traffic
     /// stays neutral until its shared bake can be scheduled independently; no
     /// actor traffic resource or scene bundle is installed by this path.
-    pub(in crate::presentation) fn spawn_focused<'a>(
+    pub(in crate::presentation) fn spawn_focused(
         &mut self,
         commands: &mut Commands,
-        prepared: &'a prepared::PreparedCityGround,
+        prepared: &prepared::PreparedCityGround,
         placement: FocusedPavingPlacement,
         meshes: &mut Assets<Mesh>,
         images: &mut Assets<Image>,
-    ) -> Result<Vec<Handle<CityGroundMaterial>>, &'a super::geographic_ground::GeographicGroundError>
-    {
+    ) -> Result<
+        Vec<Handle<CityGroundMaterial>>,
+        std::sync::Arc<super::geographic_ground::GeographicGroundError>,
+    > {
         let owner = crate::presentation::ownership::PresentationOwner::RegionalMap;
         let uploaded = prepared.meshes(owner, meshes)?;
         let mask = traffic::TrafficMask::neutral(images);

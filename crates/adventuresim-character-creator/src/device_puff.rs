@@ -6,11 +6,12 @@ use fabelgeist_armor::{PuffAndSlashDesign, PuffAndSlashKind, gpu::record_puff_an
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::BufferUpload;
 
-use crate::armor_frames::{FitRegion, Wearer};
+use crate::armor_frames::FitRegion;
 use crate::armor_layer::ArmorLayerSurface;
 use crate::device_frames::DeviceWearer;
 use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
 use crate::device_piece::DeviceRecording;
+use crate::device_textile_support::TextileSupport;
 
 const SECTION_COUNT: u32 = 25;
 const SECTION_RADII: u32 = 64;
@@ -30,7 +31,7 @@ impl DeviceWearer<'_> {
         layers: &[ArmorLayerSurface<'_>],
     ) -> Result<DeviceRecording> {
         let frame = self.record_frame(batch, region)?;
-        let support = PuffSupport::new(self.host, region, layers)?;
+        let support = TextileSupport::new(self.host, &[region], layers)?;
         let faces = &support.faces;
         anyhow::ensure!(
             !faces.is_empty(),
@@ -99,7 +100,7 @@ impl DeviceWearer<'_> {
 fn fit_parameters(
     design: &PuffAndSlashDesign,
     capacity: u32,
-    support: &PuffSupport,
+    support: &TextileSupport,
     carriers: u32,
 ) -> [Word; 10] {
     let sleeve = design.kind == PuffAndSlashKind::Sleeve;
@@ -122,59 +123,10 @@ fn fit_parameters(
         ),
         Word::F("length", design.length.unit()),
         Word::F("proximal", design.proximal_position.unit()),
-        Word::F("puffs", f32::from(design.puff_count)),
+        Word::F("puffs", f32::from(design.pattern.puff_count)),
         Word::F(
             "allowance",
             design.clearance.metres() + 2.0 * design.thickness.metres(),
         ),
     ]
-}
-
-struct PuffSupport {
-    positions: Vec<[f32; 3]>,
-    faces: Vec<[u32; 3]>,
-    body_faces: u32,
-}
-
-impl PuffSupport {
-    fn new(
-        wearer: &Wearer<'_>,
-        region: FitRegion,
-        layers: &[ArmorLayerSurface<'_>],
-    ) -> Result<Self> {
-        let mut owned = vec![false; wearer.positions.len()];
-        for index in wearer.support_indices(region)? {
-            owned[index] = true;
-        }
-        let mut faces = wearer
-            .faces
-            .iter()
-            .copied()
-            .filter(|face| face.iter().any(|&i| owned[i as usize]))
-            .collect::<Vec<_>>();
-        let body_faces = faces.len() as u32;
-        let mut positions = wearer.positions.to_vec();
-        for layer in layers {
-            let mut owned = vec![false; layer.positions.len()];
-            for index in
-                wearer.support_indices_for(region, layer.joint_indices, layer.joint_weights)?
-            {
-                owned[index] = true;
-            }
-            for face in layer
-                .faces
-                .iter()
-                .filter(|face| face.iter().all(|&i| owned[i as usize]))
-            {
-                let first = positions.len() as u32;
-                positions.extend(face.map(|i| layer.positions[i as usize]));
-                faces.push([first, first + 1, first + 2]);
-            }
-        }
-        Ok(Self {
-            positions,
-            faces,
-            body_faces,
-        })
-    }
 }

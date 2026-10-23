@@ -17,6 +17,9 @@
 use bevy::prelude::*;
 
 use super::LocalPose;
+use adventuresim_tactical_core::animation::{
+    AnimationElapsed, AnimationValueResult, PositiveAnimationDuration,
+};
 
 /// Neighbourhood-checked slerp: `q` and `-q` are the same rotation, and
 /// interpolating across the antipode is the classic one-frame bone teleport.
@@ -72,18 +75,22 @@ pub(super) fn quaternion_from_scaled_angle_axis(value: Vec3) -> Quat {
 /// Angular velocity in scaled-angle-axis form (rad/s) between two rotations
 /// `delta_seconds` apart. The hemisphere fix is mandatory: a near-antipodal
 /// pair would otherwise read as a spin of ~2π per step.
-pub(super) fn quaternion_angular_velocity(next: Quat, current: Quat, delta_seconds: f32) -> Vec3 {
-    scaled_angle_axis(shortest_rotation(next * current.inverse())) / delta_seconds.max(1e-5)
+pub(super) fn quaternion_angular_velocity(
+    next: Quat,
+    current: Quat,
+    elapsed: AnimationElapsed,
+) -> Vec3 {
+    scaled_angle_axis(shortest_rotation(next * current.inverse())) / elapsed.seconds().max(1e-5)
 }
 
 pub(super) fn local_pose_velocity(
     previous: LocalPose,
     current: LocalPose,
-    delta_seconds: f32,
+    elapsed: AnimationElapsed,
 ) -> (Vec3, Vec3) {
     (
-        (current.translation - previous.translation) / delta_seconds.max(1.0e-5),
-        quaternion_angular_velocity(current.rotation, previous.rotation, delta_seconds),
+        (current.translation - previous.translation) / elapsed.seconds().max(1.0e-5),
+        quaternion_angular_velocity(current.rotation, previous.rotation, elapsed),
     )
 }
 
@@ -98,14 +105,18 @@ struct QuinticChannel {
     a: f32,
     b: f32,
     c: f32,
-    duration: f32,
+    duration: AnimationElapsed,
 }
 
 impl QuinticChannel {
     /// `offset` is the offset vector at capture, `velocity` its rate of
     /// change, and `blend_seconds` the requested decay (shortened by the
     /// overshoot guard when the offset is already closing quickly).
-    fn new(offset: Vec3, velocity: Vec3, blend_seconds: f32) -> Self {
+    fn new(
+        offset: Vec3,
+        velocity: Vec3,
+        blend: PositiveAnimationDuration,
+    ) -> AnimationValueResult<Self> {
         let magnitude = offset.length();
         // A pure velocity discontinuity still needs a direction to decay
         // along.
@@ -117,11 +128,11 @@ impl QuinticChannel {
         if direction == Vec3::ZERO {
             // Nothing to decay: an already-finished channel must not hold
             // the other channel's `done` open for the full blend.
-            return Self::default();
+            return Ok(Self::default());
         }
         let x0 = magnitude;
         let mut v0 = velocity.dot(direction);
-        let mut duration = blend_seconds;
+        let mut duration = blend.seconds();
         if x0 * v0 > 0.0 {
             v0 = 0.0;
         } else if v0 < 0.0 && x0 > 0.0 {
@@ -134,7 +145,7 @@ impl QuinticChannel {
         let a = -(a0 * t2 + 6.0 * v0 * duration + 12.0 * x0) / (2.0 * t5);
         let b = (3.0 * a0 * t2 + 16.0 * v0 * duration + 30.0 * x0) / (2.0 * t4);
         let c = -(3.0 * a0 * t2 + 12.0 * v0 * duration + 20.0 * x0) / (2.0 * t3);
-        Self {
+        Ok(Self {
             direction,
             x0,
             v0,
@@ -142,25 +153,25 @@ impl QuinticChannel {
             a,
             b,
             c,
-            duration,
-        }
+            duration: AnimationElapsed::from_seconds(duration)?,
+        })
     }
 
-    fn offset(&self, elapsed: f32) -> Vec3 {
+    fn offset(&self, elapsed: AnimationElapsed) -> Vec3 {
         if elapsed >= self.duration {
             return Vec3::ZERO;
         }
-        let t = elapsed;
+        let t = elapsed.seconds();
         let x = ((((self.a * t + self.b) * t + self.c) * t + self.a0 / 2.0) * t + self.v0) * t
             + self.x0;
         self.direction * x
     }
 
-    fn velocity(&self, elapsed: f32) -> Vec3 {
+    fn velocity(&self, elapsed: AnimationElapsed) -> Vec3 {
         if elapsed >= self.duration {
             return Vec3::ZERO;
         }
-        let t = elapsed;
+        let t = elapsed.seconds();
         let v =
             (((5.0 * self.a * t + 4.0 * self.b) * t + 3.0 * self.c) * t + self.a0) * t + self.v0;
         self.direction * v
@@ -174,7 +185,7 @@ impl QuinticChannel {
 pub(super) struct JointInertialOffset {
     translation: QuinticChannel,
     rotation: QuinticChannel,
-    elapsed: f32,
+    elapsed: AnimationElapsed,
 }
 
 impl JointInertialOffset {
@@ -189,20 +200,23 @@ impl JointInertialOffset {
         displayed_velocity: (Vec3, Vec3),
         target: LocalPose,
         target_velocity: (Vec3, Vec3),
-        blend_seconds: f32,
-    ) {
-        self.translation = QuinticChannel::new(
+        blend: PositiveAnimationDuration,
+    ) -> AnimationValueResult<()> {
+        let translation = QuinticChannel::new(
             displayed.translation - target.translation,
             displayed_velocity.0 - target_velocity.0,
-            blend_seconds,
-        );
+            blend,
+        )?;
         let rotation_offset = shortest_rotation(displayed.rotation * target.rotation.inverse());
-        self.rotation = QuinticChannel::new(
+        let rotation = QuinticChannel::new(
             scaled_angle_axis(rotation_offset),
             displayed_velocity.1 - target_velocity.1,
-            blend_seconds,
-        );
-        self.elapsed = 0.0;
+            blend,
+        )?;
+        self.translation = translation;
+        self.rotation = rotation;
+        self.elapsed = AnimationElapsed::ZERO;
+        Ok(())
     }
 
     /// Both channels have reached zero; the joint sits on the raw target.
@@ -223,9 +237,14 @@ impl JointInertialOffset {
     }
 
     /// Advance the decay and return the displayed pose.
-    pub(super) fn update(&mut self, input: LocalPose, delta_seconds: f32) -> LocalPose {
-        self.elapsed += delta_seconds.max(0.0);
-        self.peek(input)
+    pub(super) fn update(
+        &mut self,
+        input: LocalPose,
+        elapsed: AnimationElapsed,
+    ) -> AnimationValueResult<LocalPose> {
+        let next = self.elapsed.checked_add(elapsed)?;
+        self.elapsed = next;
+        Ok(self.peek(input))
     }
 
     /// Apply the current offset without advancing it.
@@ -259,13 +278,15 @@ mod tests {
         let displayed = pose(Vec3::new(1.0, 0.0, 0.0), Quat::from_rotation_y(0.4));
         let target = pose(Vec3::new(-1.0, 0.5, 0.0), Quat::from_rotation_x(-0.7));
         let mut offset = JointInertialOffset::default();
-        offset.capture(
-            displayed,
-            (Vec3::ZERO, Vec3::ZERO),
-            target,
-            (Vec3::ZERO, Vec3::ZERO),
-            0.2,
-        );
+        offset
+            .capture(
+                displayed,
+                (Vec3::ZERO, Vec3::ZERO),
+                target,
+                (Vec3::ZERO, Vec3::ZERO),
+                PositiveAnimationDuration::try_from(0.2).unwrap(),
+            )
+            .unwrap();
 
         let start = offset.peek(target);
         assert!(start.translation.distance(displayed.translation) < 1.0e-5);
@@ -273,7 +294,9 @@ mod tests {
 
         let mut last = start;
         for _ in 0..20 {
-            last = offset.update(target, 0.01);
+            last = offset
+                .update(target, AnimationElapsed::from_seconds(0.01).unwrap())
+                .unwrap();
         }
         assert!(offset.done());
         assert_eq!(last.translation, target.translation);
@@ -285,18 +308,22 @@ mod tests {
         let displayed = pose(Vec3::X, Quat::from_rotation_z(0.6));
         let target = pose(Vec3::ZERO, Quat::IDENTITY);
         let mut offset = JointInertialOffset::default();
-        offset.capture(
-            displayed,
-            (Vec3::ZERO, Vec3::ZERO),
-            target,
-            (Vec3::ZERO, Vec3::ZERO),
-            0.3,
-        );
+        offset
+            .capture(
+                displayed,
+                (Vec3::ZERO, Vec3::ZERO),
+                target,
+                (Vec3::ZERO, Vec3::ZERO),
+                PositiveAnimationDuration::try_from(0.3).unwrap(),
+            )
+            .unwrap();
         let step = 0.001;
         let mut previous = offset.peek(target);
         let mut final_speed = f32::INFINITY;
         while !offset.done() {
-            let current = offset.update(target, step);
+            let current = offset
+                .update(target, AnimationElapsed::from_seconds(step).unwrap())
+                .unwrap();
             final_speed = current.translation.distance(previous.translation) / step;
             previous = current;
         }
@@ -310,13 +337,15 @@ mod tests {
         let displayed = pose(Vec3::X * 0.2, Quat::IDENTITY);
         let target = pose(Vec3::NEG_X, Quat::IDENTITY);
         let mut closing = JointInertialOffset::default();
-        closing.capture(
-            displayed,
-            (Vec3::new(-0.5, 0.0, 0.0), Vec3::ZERO),
-            target,
-            (Vec3::ZERO, Vec3::ZERO),
-            0.25,
-        );
+        closing
+            .capture(
+                displayed,
+                (Vec3::new(-0.5, 0.0, 0.0), Vec3::ZERO),
+                target,
+                (Vec3::ZERO, Vec3::ZERO),
+                PositiveAnimationDuration::try_from(0.25).unwrap(),
+            )
+            .unwrap();
         assert!(
             closing
                 .translation_velocity()
@@ -325,13 +354,15 @@ mod tests {
         );
 
         let mut diverging = JointInertialOffset::default();
-        diverging.capture(
-            displayed,
-            (Vec3::new(0.5, 0.0, 0.0), Vec3::ZERO),
-            target,
-            (Vec3::ZERO, Vec3::ZERO),
-            0.25,
-        );
+        diverging
+            .capture(
+                displayed,
+                (Vec3::new(0.5, 0.0, 0.0), Vec3::ZERO),
+                target,
+                (Vec3::ZERO, Vec3::ZERO),
+                PositiveAnimationDuration::try_from(0.25).unwrap(),
+            )
+            .unwrap();
         assert_eq!(diverging.translation_velocity(), Vec3::ZERO);
     }
 
@@ -340,16 +371,20 @@ mod tests {
         let displayed = pose(Vec3::X * 0.1, Quat::IDENTITY);
         let target = pose(Vec3::ZERO, Quat::IDENTITY);
         let mut offset = JointInertialOffset::default();
-        offset.capture(
-            displayed,
-            (Vec3::new(-5.0, 0.0, 0.0), Vec3::ZERO),
-            target,
-            (Vec3::ZERO, Vec3::ZERO),
-            1.0,
-        );
+        offset
+            .capture(
+                displayed,
+                (Vec3::new(-5.0, 0.0, 0.0), Vec3::ZERO),
+                target,
+                (Vec3::ZERO, Vec3::ZERO),
+                PositiveAnimationDuration::try_from(1.0).unwrap(),
+            )
+            .unwrap();
         let mut elapsed = 0.0;
         while !offset.done() {
-            let current = offset.update(target, 0.005);
+            let current = offset
+                .update(target, AnimationElapsed::from_seconds(0.005).unwrap())
+                .unwrap();
             elapsed += 0.005;
             assert!(current.translation.x >= -1.0e-4, "overshot at {elapsed}");
         }
@@ -362,21 +397,27 @@ mod tests {
         let second = pose(Vec3::new(-1.0, 0.0, 0.0), Quat::from_rotation_y(-0.7));
         let third = pose(Vec3::new(0.0, 1.0, 0.0), Quat::from_rotation_x(0.8));
         let mut offset = JointInertialOffset::default();
-        offset.capture(
-            first,
-            (Vec3::ZERO, Vec3::ZERO),
-            second,
-            (Vec3::ZERO, Vec3::ZERO),
-            0.2,
-        );
-        let displayed = offset.update(second, 0.025);
-        offset.capture(
-            displayed,
-            (offset.translation_velocity(), offset.angular_velocity()),
-            third,
-            (Vec3::ZERO, Vec3::ZERO),
-            0.2,
-        );
+        offset
+            .capture(
+                first,
+                (Vec3::ZERO, Vec3::ZERO),
+                second,
+                (Vec3::ZERO, Vec3::ZERO),
+                PositiveAnimationDuration::try_from(0.2).unwrap(),
+            )
+            .unwrap();
+        let displayed = offset
+            .update(second, AnimationElapsed::from_seconds(0.025).unwrap())
+            .unwrap();
+        offset
+            .capture(
+                displayed,
+                (offset.translation_velocity(), offset.angular_velocity()),
+                third,
+                (Vec3::ZERO, Vec3::ZERO),
+                PositiveAnimationDuration::try_from(0.2).unwrap(),
+            )
+            .unwrap();
         let after_interrupt = offset.peek(third);
         assert!(displayed.translation.distance(after_interrupt.translation) < 1.0e-4);
         assert!(displayed.rotation.angle_between(after_interrupt.rotation) < 1.0e-4);
@@ -392,7 +433,11 @@ mod tests {
     #[test]
     fn angular_velocity_uses_the_short_quaternion_hemisphere() {
         let rotation = Quat::from_rotation_x(0.4);
-        let velocity = quaternion_angular_velocity(-rotation, rotation, 1.0 / 30.0);
+        let velocity = quaternion_angular_velocity(
+            -rotation,
+            rotation,
+            AnimationElapsed::from_seconds(1.0 / 30.0).unwrap(),
+        );
         assert!(velocity.length() < 0.0001);
     }
 }

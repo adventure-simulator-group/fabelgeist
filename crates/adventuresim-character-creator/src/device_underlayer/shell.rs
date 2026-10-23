@@ -6,9 +6,9 @@ use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
-use super::plan::POINT_WORDS;
 use super::wgsl;
 use super::workspace::Workspace;
+use crate::surface_cut::POINT_WORDS;
 
 /// Skin influences a shell vertex keeps.
 pub(super) const INFLUENCES: usize = 8;

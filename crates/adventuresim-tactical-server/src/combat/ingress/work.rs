@@ -2,24 +2,26 @@ use super::*;
 
 pub(super) fn incapacitation_adjusted_attack_recovery(
     attacker: Entity,
-    recovery: CombatDuration,
+    recovery: AnimationElapsed,
     combat_states: &Query<&mut TacticalCombatState>,
-) -> CombatDuration {
+) -> adventuresim_tactical_core::animation::AnimationValueResult<RecoveryTime> {
+    if recovery.is_zero() {
+        return Ok(RecoveryTime::After(recovery));
+    }
     let Ok(state) = combat_states.get(attacker) else {
-        return recovery;
+        return Ok(RecoveryTime::After(recovery));
     };
-    let performance = combat_incapacitation_performance(state.incapacitation);
-    CombatDuration::from_secs_f32(incapacitation_adjusted_recovery_seconds(
-        recovery.as_secs_f32(),
+    let performance = combat_incapacitation_performance(state.incapacitation)?;
+    Ok(incapacitation_adjusted_recovery_seconds(
+        recovery,
         performance,
-    ))
+    )?)
 }
 
 pub(super) fn charge_started_attack_work(
     attacker: Entity,
     hand: AttackHand,
-    contact_windup: CombatDuration,
-    recovery: CombatDuration,
+    work_duration: AnimationElapsed,
     viewer: &TacticalPlayerViewer<'_, '_>,
     combat_states: &mut Query<&mut TacticalCombatState>,
     config: &TacticalCombatConfig,
@@ -32,7 +34,7 @@ pub(super) fn charge_started_attack_work(
     };
     let workload = combat_action_workload(
         CombatActionWork::Attack,
-        contact_windup.as_secs_f32() + recovery.as_secs_f32(),
+        work_duration,
         view.weapon_weight(),
         view.weapon_moment_of_inertia(),
         view.inventory_weight(),

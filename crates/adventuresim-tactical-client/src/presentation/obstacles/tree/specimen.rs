@@ -1,21 +1,24 @@
 //! Deterministic selection of existing oak variants for rendering and inspection.
 
-use bevy::prelude::Vec3;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 use super::{OAK_GNARLING_SHOWCASE, source::oak_gnarling_for_site};
 use crate::presentation::{SceneEnvironment, obstacle_seed};
 
-pub(super) fn oak_variant_for_site(position: Vec3) -> (usize, Seed) {
+pub(super) fn oak_variant_for_site(point: ScenePlanPoint) -> (usize, Seed) {
     let index = StreamId::new("visual.obstacles.tree.specimen.variant-selection")
-        .rng(obstacle_seed(position), &[])
+        .rng(obstacle_seed(point), &[])
         .index(OAK_GNARLING_SHOWCASE.len());
     (index, oak_variant_seed(index))
 }
 
-pub(crate) fn oak_root_exposure_for_site(position: Vec3, environment: &SceneEnvironment) -> f32 {
-    let (index, seed) = oak_variant_for_site(position);
+pub(crate) fn oak_root_exposure_for_site(
+    point: ScenePlanPoint,
+    environment: &SceneEnvironment,
+) -> f32 {
+    let (index, seed) = oak_variant_for_site(point);
     oak_gnarling_for_site(OAK_GNARLING_SHOWCASE[index], environment, seed).root_exposure
 }
 

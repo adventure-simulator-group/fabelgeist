@@ -45,12 +45,12 @@ fn scene(obstacles: &[Obstacle]) -> App {
 
 fn frame() -> CameraFrame {
     CameraFrame {
-        origin: Vec3::ZERO,
-        anchor: Vec3::Y * 0.5,
-        focus: Vec3::Y * 0.5,
-        rotation: Quat::IDENTITY,
-        shoulder_offset: 0.5,
-        distance: 2.75,
+        origin: Position::ORIGIN,
+        anchor: Position::from_metres(Vec3::Y * 0.5).unwrap(),
+        focus: Position::from_metres(Vec3::Y * 0.5).unwrap(),
+        rotation: RigidRotation::IDENTITY,
+        shoulder_offset: SignedLength::from_metres(0.5).unwrap(),
+        distance: SignedLength::from_metres(2.75).unwrap(),
     }
 }
 
@@ -74,21 +74,30 @@ fn place(
     let spatial = system.get(app.world()).unwrap();
     boom.place(
         frame,
-        &CameraVolume::new(projection, config.collision_margin),
+        &CameraVolume::new(projection, config.collision_margin).unwrap(),
         &spatial,
         &SpatialQueryFilter::default(),
         &|_| true,
         &config,
-        1.0 / 60.0,
+        AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
     )
+    .unwrap()
 }
 
-fn assert_clear(position: Vec3, rotation: Quat, projection: &Projection, obstacles: &[Obstacle]) {
-    let volume = CameraVolume::new(projection, CameraRigConfig::default().collision_margin);
+fn assert_clear(
+    position: Position<Scene>,
+    rotation: RigidRotation,
+    projection: &Projection,
+    obstacles: &[Obstacle],
+) {
+    let position = position.metres();
+    let rotation = rotation.quaternion();
+    let volume =
+        CameraVolume::new(projection, CameraRigConfig::default().collision_margin).unwrap();
     for obstacle in obstacles {
         let contact = contact_query::contact(
             &volume.shape,
-            position + rotation * volume.local_center,
+            position + rotation * volume.local_center.metres(),
             rotation,
             &obstacle.shape,
             obstacle.position,
@@ -116,12 +125,12 @@ fn close_view_clears_wall_and_keeps_subject_beside_manual_aim() {
     let mut boom = BoomRecovery::default();
     boom.reset(frame.distance);
     let placement = place(&mut app, &mut boom, &frame, &projection);
-    assert!(placement.position.z < 0.9 && placement.position.z > 0.5);
+    assert!(placement.position.metres().z < 0.9 && placement.position.metres().z > 0.5);
     assert!(
-        placement.position.x > 0.25,
+        placement.position.metres().x > 0.25,
         "close framing must retain a shoulder view"
     );
-    assert!(placement.position.y > frame.anchor.y);
+    assert!(placement.position.metres().y > frame.anchor.metres().y);
     assert_clear(placement.position, frame.rotation, &projection, &obstacles);
 }
 
@@ -135,16 +144,20 @@ fn final_close_offset_cannot_enter_an_inside_corner() {
     let projection = projection();
     let mut frame = frame();
     // The exploration camera starts centered, then close framing moves right.
-    frame.shoulder_offset = 0.0;
+    frame.shoulder_offset = SignedLength::ZERO;
     let mut boom = BoomRecovery::default();
     boom.reset(frame.distance);
-    let mut previous = None;
+    let mut previous: Option<Position<Scene>> = None;
     for step in 0..90 {
         let placement = place(&mut app, &mut boom, &frame, &projection);
         assert_clear(placement.position, frame.rotation, &projection, &obstacles);
         if step > 60 {
             assert!(
-                placement.position.distance(previous.unwrap()) < 0.001,
+                placement
+                    .position
+                    .metres()
+                    .distance(previous.unwrap().metres())
+                    < 0.001,
                 "a stationary corner must settle instead of pumping the view"
             );
         }
@@ -160,12 +173,12 @@ fn focus_lag_on_the_other_side_of_a_wall_cannot_move_camera_through_it() {
     )];
     let mut app = scene(&obstacles);
     let mut frame = frame();
-    frame.focus.x = 0.85;
+    frame.focus = Position::from_metres(frame.focus.metres().with_x(0.85)).unwrap();
     let projection = projection();
     let mut boom = BoomRecovery::default();
     boom.reset(frame.distance);
     let placement = place(&mut app, &mut boom, &frame, &projection);
-    assert!(placement.position.x < 0.5);
+    assert!(placement.position.metres().x < 0.5);
     assert_clear(placement.position, frame.rotation, &projection, &obstacles);
 }
 
@@ -187,11 +200,17 @@ fn near_plane_clears_doorway_ceiling_and_stairs_during_manual_orbit() {
             ..default()
         });
         let mut boom = BoomRecovery::default();
-        boom.reset(2.75);
+        boom.reset(SignedLength::from_metres(2.75).unwrap());
         for yaw in -12..=12 {
             for pitch in [-0.65, 0.0, 0.65] {
                 let mut frame = frame();
-                frame.rotation = Quat::from_euler(EulerRot::YXZ, yaw as f32 * 0.1, pitch, 0.0);
+                frame.rotation = RigidRotation::from_quaternion(Quat::from_euler(
+                    EulerRot::YXZ,
+                    yaw as f32 * 0.1,
+                    pitch,
+                    0.0,
+                ))
+                .unwrap();
                 let placement = place(&mut app, &mut boom, &frame, &projection);
                 assert_clear(placement.position, frame.rotation, &projection, &obstacles);
             }
@@ -209,6 +228,7 @@ fn open_space_preserves_full_distance_and_shoulder() {
     assert!(
         placement
             .position
+            .metres()
             .abs_diff_eq(Vec3::new(0.5, 0.5, 2.75), 0.0001)
     );
     assert!(placement.hit.is_none());
@@ -218,27 +238,58 @@ fn open_space_preserves_full_distance_and_shoulder() {
 fn brief_doorway_gaps_do_not_pump_distance_and_recovery_is_monotonic() {
     let config = CameraRigConfig::default();
     let mut boom = BoomRecovery::default();
-    boom.reset(3.75);
-    boom.recover(3.75, 1.2, &config, 1.0 / 60.0);
-    assert_eq!(boom.distance, 1.2);
+    boom.reset(SignedLength::from_metres(3.75).unwrap());
+    boom.recover(
+        SignedLength::from_metres(3.75).unwrap(),
+        SignedLength::from_metres(1.2).unwrap(),
+        &config,
+        AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(boom.distance.metres(), 1.2);
     // The camera may have been pressed against the jamb for several seconds.
     for _ in 0..120 {
-        boom.recover(3.75, 1.2, &config, 1.0 / 60.0);
+        boom.recover(
+            SignedLength::from_metres(3.75).unwrap(),
+            SignedLength::from_metres(1.2).unwrap(),
+            &config,
+            AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
+        )
+        .unwrap();
     }
     for _ in 0..4 {
-        boom.recover(3.75, 3.75, &config, 1.0 / 60.0);
-        assert_eq!(boom.distance, 1.2);
+        boom.recover(
+            SignedLength::from_metres(3.75).unwrap(),
+            SignedLength::from_metres(3.75).unwrap(),
+            &config,
+            AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
+        )
+        .unwrap();
+        assert_eq!(boom.distance.metres(), 1.2);
     }
     let mut previous = boom.distance;
     for _ in 0..180 {
-        boom.recover(3.75, 3.75, &config, 1.0 / 60.0);
-        assert!(boom.distance >= previous && boom.distance <= 3.75);
+        boom.recover(
+            SignedLength::from_metres(3.75).unwrap(),
+            SignedLength::from_metres(3.75).unwrap(),
+            &config,
+            AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
+        )
+        .unwrap();
+        assert!(boom.distance.metres() >= previous.metres() && boom.distance.metres() <= 3.75);
         previous = boom.distance;
     }
-    assert!(boom.distance > 3.74);
-    boom.recover(3.75, 0.6, &config, 1.0 / 60.0);
+    assert!(boom.distance.metres() > 3.74);
+    boom.recover(
+        SignedLength::from_metres(3.75).unwrap(),
+        SignedLength::from_metres(0.6).unwrap(),
+        &config,
+        AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
+    )
+    .unwrap();
     assert_eq!(
-        boom.distance, 0.6,
+        boom.distance.metres(),
+        0.6,
         "a new obstruction must override recovery immediately"
     );
 }

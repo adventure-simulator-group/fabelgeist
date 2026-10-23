@@ -1,10 +1,9 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
-use std::collections::HashMap;
-use std::sync::{Arc, RwLock};
+use std::sync::Arc;
 
-type GradientPipelineCache = HashMap<
+type GradientPipelineCache = ComputeSourceCache<
     (
         ResourceDescriptor,
         ResourceDescriptor,
@@ -17,14 +16,14 @@ type GradientPipelineCache = HashMap<
 #[derive(Clone, Debug)]
 pub struct GradientDefinition {
     pub boundary_mode: u32,
-    pub cache: Arc<RwLock<GradientPipelineCache>>,
+    cache: GradientPipelineCache,
 }
 
 impl GradientDefinition {
     pub fn new(boundary_mode: u32) -> Self {
         Self {
             boundary_mode,
-            cache: Arc::new(RwLock::new(HashMap::new())),
+            cache: ComputeSourceCache::default(),
         }
     }
 }
@@ -157,19 +156,11 @@ impl GradientDefinition {
             output_res.clone(),
             self.boundary_mode,
         );
-        {
-            let cache = self.cache.read().unwrap();
-            if let Some(p) = cache.get(&key) {
-                return Ok(p.clone());
-            }
-        }
-
-        let pipeline = self.build_pipeline(context, velocity_res, pressure_res, output_res)?;
-        let arc_p = Arc::new(pipeline);
-
-        let mut cache = self.cache.write().unwrap();
-        cache.insert(key, arc_p.clone());
-        Ok(arc_p)
+        self.cache.get_or_try_insert(context, "", key, || {
+            let pipeline = self.build_pipeline(context, velocity_res, pressure_res, output_res)?;
+            let arc_p = Arc::new(pipeline);
+            Ok(arc_p)
+        })
     }
 }
 

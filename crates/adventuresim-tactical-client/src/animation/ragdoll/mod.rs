@@ -10,19 +10,6 @@
 //! exit, where the ordinary inertialized transition carries the skeleton out
 //! of whatever tangle the ragdoll ended in.
 
-use adventuresim_tactical_core::prelude::*;
-use bevy::{math::Affine3A, prelude::*};
-
-mod definition;
-mod drive;
-mod entry;
-mod muscles;
-
-pub(super) use drive::{
-    apply_ragdoll_poses, drive_ragdoll_pose_buffers, resolve_ragdoll_terrain_contacts,
-};
-pub(super) use muscles::{apply_muscles, damp_joints};
-
 use self::{
     definition::{PELVIS_BODY, RagdollDefinition},
     entry::{
@@ -36,9 +23,26 @@ use super::{
     procedural::{BoneRole, HumanoidRig},
     skeletal_proportions::SkeletalJointOffset,
 };
+use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
+use adventuresim_tactical_core::prelude::*;
+use bevy::{math::Affine3A, prelude::*};
+pub(super) use drive::{
+    apply_ragdoll_poses, drive_ragdoll_pose_buffers, resolve_ragdoll_terrain_contacts,
+};
+use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
+pub(super) use muscles::{apply_muscles, damp_joints};
+
+mod definition;
+mod drive;
+mod entry;
+mod geometry;
+mod muscles;
 
 /// The client-only collision island every ragdoll body lives on.
 pub(super) const RAGDOLL_LAYER: u32 = 1 << 7;
+
+/// Stop malformed/cyclic authored parent chains before unbounded traversal.
+const MAXIMUM_BIND_PARENT_DEPTH: usize = 64;
 
 /// On a rig owner while its skeleton is a physics ragdoll.
 #[derive(Component)]
@@ -50,12 +54,12 @@ pub(crate) struct Ragdolling {
     /// Body entities aligned with the definition's bodies.
     bodies: Vec<Option<Entity>>,
     /// Pose-buffer joint index to definition body index.
-    joint_bodies: Vec<Option<usize>>,
+    joint_bodies: RigJointTable<Option<usize>>,
     /// Pose-buffer joints ordered parent before child.
-    joint_order: Vec<usize>,
+    joint_order: Vec<RigJointOrdinal>,
     muscles: Vec<MuscleTarget>,
     /// Seconds since entry; drives the stun, rise, and limp envelope.
-    age_seconds: f32,
+    age_seconds: AnimationElapsed,
     /// The owner's uniform world scale at entry: bind-space lengths are
     /// multiplied by it.
     scale: f32,
@@ -74,49 +78,11 @@ pub(super) struct RagdollPart {
 /// Capsule geometry for the terrain contact solver, world units.
 #[derive(Component, Debug, Clone, Copy)]
 pub(super) struct RagdollBodyPart {
-    radius: f32,
-    half_length: f32,
+    radius: PositiveLength,
+    half_length: SignedLength,
     center_local: Vec3,
     axis_local: Vec3,
     kinematic: bool,
-}
-
-/// The owner-space bind transform of a rig node with its skeletal
-/// proportion offset applied, composed from the authored locals.
-fn proportioned_bind_global(
-    entity: Entity,
-    owner: Entity,
-    bind_nodes: &Query<(
-        &AuthoredBindTransform,
-        Option<&SkeletalJointOffset>,
-        Option<&ChildOf>,
-    )>,
-) -> Option<Transform> {
-    let mut current = entity;
-    let mut locals = Vec::new();
-    for _ in 0..64 {
-        let Ok((bind, offset, parent)) = bind_nodes.get(current) else {
-            break;
-        };
-        if bind.owner != owner {
-            break;
-        }
-        let mut local = bind.local;
-        local.translation += offset.map(|offset| offset.0).unwrap_or_default();
-        locals.push(local);
-        let Some(parent) = parent else {
-            break;
-        };
-        current = parent.parent();
-    }
-    (!locals.is_empty()).then(|| {
-        locals
-            .into_iter()
-            .rev()
-            .fold(Transform::IDENTITY, |global, local| {
-                global.mul_transform(local)
-            })
-    })
 }
 
 #[expect(
@@ -184,6 +150,44 @@ pub(super) fn sync_ragdolls(
     }
 }
 
+/// The owner-space bind transform of a rig node with its skeletal
+/// proportion offset applied, composed from the authored locals.
+fn proportioned_bind_global(
+    entity: Entity,
+    owner: Entity,
+    bind_nodes: &Query<(
+        &AuthoredBindTransform,
+        Option<&SkeletalJointOffset>,
+        Option<&ChildOf>,
+    )>,
+) -> Option<Transform> {
+    let mut current = entity;
+    let mut locals = Vec::new();
+    for _ in 0..MAXIMUM_BIND_PARENT_DEPTH {
+        let Ok((bind, offset, parent)) = bind_nodes.get(current) else {
+            break;
+        };
+        if bind.owner != owner {
+            break;
+        }
+        let mut local = bind.local;
+        local.translation += offset.map(|offset| offset.0).unwrap_or_default();
+        locals.push(local);
+        let Some(parent) = parent else {
+            break;
+        };
+        current = parent.parent();
+    }
+    (!locals.is_empty()).then(|| {
+        locals
+            .into_iter()
+            .rev()
+            .fold(Transform::IDENTITY, |global, local| {
+                global.mul_transform(local)
+            })
+    })
+}
+
 #[expect(
     clippy::too_many_arguments,
     reason = "ragdoll entry samples every independently borrowed rig source once"
@@ -207,17 +211,24 @@ fn enter_ragdoll(
             .get(&role)
             .and_then(|entity| proportioned_bind_global(*entity, owner, bind_nodes))
     };
-    let Some(definition) = RagdollDefinition::from_bind_pose(bind, &config.capsules) else {
-        warn_once!("ragdoll: rig {owner} lacks a driving bone; no presentation ragdoll");
-        return;
+    let definition = match RagdollDefinition::from_bind_pose(bind, &config.capsules) {
+        Ok(Some(definition)) => definition,
+        Ok(None) => {
+            warn_once!("ragdoll: rig {owner} lacks a driving bone; no presentation ragdoll");
+            return;
+        }
+        Err(error) => {
+            warn!(?owner, %error, "Rejected presentation ragdoll joint angles");
+            return;
+        }
     };
     let joint_bodies = (0..rig.joint_count())
+        .map(RigJointOrdinal::from)
         .map(|joint| {
-            rig.joint_name(joint)
-                .and_then(BoneRole::from_name)
+            rig.joint_role(joint)
                 .and_then(|role| definition.body_of(role))
         })
-        .collect::<Vec<_>>();
+        .collect::<RigJointTable<_>>();
     let joint_order = topological_joint_order(rig);
     let owner_world = live_world_affine(owner, chain);
     let scale = owner_world.to_scale_rotation_translation().0.x;
@@ -237,10 +248,16 @@ fn enter_ragdoll(
         warn_once!("ragdoll: rig {owner} has no pelvis joint in its pose buffer");
         return;
     };
-    let spawned = spawn_ragdoll(commands, owner, &definition, &seeds, scale, config);
+    let spawned = match spawn_ragdoll(commands, owner, &definition, &seeds, scale, config) {
+        Ok(spawned) => spawned,
+        Err(error) => {
+            warn!(?owner, %error, "Rejected presentation ragdoll geometry");
+            return;
+        }
+    };
     let pelvis_owner_local = owner_world.inverse()
         * Affine3A::from_rotation_translation(pelvis.rotation, pelvis.position);
-    rig.set_physics_owned(true);
+    rig.set_ownership(crate::animation::PoseOwnership::Physics);
     commands.entity(owner).insert(Ragdolling {
         definition,
         parts: spawned.parts,
@@ -248,7 +265,7 @@ fn enter_ragdoll(
         joint_bodies,
         joint_order,
         muscles: spawned.muscles,
-        age_seconds: 0.0,
+        age_seconds: AnimationElapsed::ZERO,
         scale,
         pelvis_owner_local,
     });
@@ -266,7 +283,7 @@ fn exit_ragdoll(
         commands.entity(*part).despawn();
     }
     commands.entity(owner).remove::<Ragdolling>();
-    rig.set_physics_owned(false);
+    rig.set_ownership(crate::animation::PoseOwnership::Authored);
 }
 
 #[cfg(test)]

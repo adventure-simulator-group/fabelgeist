@@ -1,0 +1,100 @@
+//! Asset revision invalidation before loaded availability and pose sampling.
+
+use super::*;
+use bevy::ecs::system::SystemParam;
+use events::RevisionEvents;
+
+mod events;
+
+#[derive(SystemParam)]
+pub(super) struct RevisionCaches<'w, 's> {
+    bank: ResMut<'w, pose_buffer::BakedClipBank>,
+    strides: ResMut<'w, AuthoredLocomotionStrides>,
+    rigs: Query<'w, 's, &'static mut pose_buffer::PoseBufferRig>,
+    characters: Query<'w, 's, &'static mut pose_buffer::CharacterLocomotionStrides>,
+}
+
+pub(super) fn refresh_animation_revisions(
+    mut events: RevisionEvents,
+    asset_server: Res<AssetServer>,
+    gltfs: Res<Assets<Gltf>>,
+    catalog: Res<AnimationPackCatalog>,
+    mut runtime: ResMut<AnimationRuntime>,
+    mut caches: RevisionCaches,
+) {
+    let revisions = events.read(&runtime);
+    let mut changed = revisions.clips;
+    let sources = revisions.sources;
+    if changed.is_empty() && sources.is_empty() {
+        return;
+    }
+    let motions = {
+        let AnimationRuntime {
+            requested_motions,
+            clips,
+            ..
+        } = &mut *runtime;
+        requested_motions
+            .iter_mut()
+            .filter_map(|(key, load)| {
+                let source_changed = sources
+                    .iter()
+                    .any(|&id| load.observe_source_revision(&asset_server, id));
+                let affected = source_changed
+                    || clips
+                        .get(key)
+                        .is_some_and(|clip| changed.contains(&clip.handle.id()))
+                    || load
+                        .source()
+                        .and_then(|source| gltfs.get(source))
+                        .is_some_and(|gltf| {
+                            gltf.animations
+                                .iter()
+                                .any(|clip| changed.contains(&clip.id()))
+                        });
+                affected.then(|| key.clone())
+            })
+            .collect::<Vec<_>>()
+    };
+    let grips = runtime
+        .requested_grips
+        .iter()
+        .filter(|(grip, source)| {
+            sources.contains(&source.id())
+                || runtime
+                    .grips
+                    .get(*grip)
+                    .is_some_and(|clip| changed.contains(&clip.handle.id()))
+                || gltfs.get(*source).is_some_and(|gltf| {
+                    gltf.animations
+                        .iter()
+                        .any(|clip| changed.contains(&clip.id()))
+                })
+        })
+        .map(|(&grip, _)| grip)
+        .collect::<Vec<_>>();
+    for key in &motions {
+        if let Some(clip) = runtime.clips.remove(key) {
+            changed.insert(clip.handle.id());
+        }
+        runtime.unavailable_motions.remove(key);
+    }
+    for grip in grips {
+        if let Some(clip) = runtime.grips.remove(&grip) {
+            changed.insert(clip.handle.id());
+        }
+        runtime.processed_grips.remove(&grip);
+        runtime.unavailable_grips.remove(&grip);
+    }
+    caches.bank.invalidate_assets(&changed);
+    caches.strides.invalidate_assets(&changed);
+    for mut character in &mut caches.characters {
+        character.measurements.invalidate_assets(&changed);
+    }
+    for mut rig in &mut caches.rigs {
+        rig.invalidate_clip_revisions(&changed);
+    }
+    if !motions.is_empty() {
+        runtime.rebuild_loaded_library(&catalog);
+    }
+}

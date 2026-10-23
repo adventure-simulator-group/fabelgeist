@@ -1,13 +1,7 @@
-mod occupancy;
-mod origin;
-include!("character/name_types.rs");
-include!("character/name_identity.rs");
-include!("character/name_reducers.rs");
-#[cfg(feature = "authority-tests")]
-mod authority_tests;
-mod tactical_assignment;
 use adventuresim_world_schema::calendar::StrategicMinute;
+use attachment_capacity::{AttachmentCapacity, first_free_attachment_capacity};
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
+use weapon_carry::{provision_generated_weapon_carry, require_weapon_carry_placement};
 
 use adventuresim_core::{
     attribute::PlayerAttributeValues,
@@ -55,6 +49,18 @@ use crate::{
         character_training_schedule__view,
     },
 };
+
+mod attachment_capacity;
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
+mod occupancy;
+mod origin;
+mod tactical_assignment;
+mod weapon_carry;
+
+include!("character/name_types.rs");
+include!("character/name_identity.rs");
+include!("character/name_reducers.rs");
 
 const NPC_LIFE_AGE_DOMAIN: StreamId = StreamId::new("npc.life-age");
 const NPC_SETTLEMENT_SELECTION_DOMAIN: StreamId = StreamId::new("character.start-settlement");
@@ -669,15 +675,6 @@ fn attachment_would_create_cycle(
         );
     }
     false
-}
-
-fn first_free_attachment_capacity(
-    capacity: u16,
-    inventory_item_id: u64,
-    mut occupant_at: impl FnMut(u16) -> Option<u64>,
-) -> Option<u16> {
-    (0..capacity)
-        .find(|index| occupant_at(*index).is_none_or(|occupant| occupant == inventory_item_id))
 }
 
 fn attachment_point_matches_requirement(
@@ -2919,24 +2916,7 @@ fn equip_equipment_internal(
             )
         })?;
     if definition.kind == crate::item::CatalogItemKind::Weapon {
-        match adventuresim_core::item_catalog::weapon_carry(&inventory.item_id) {
-            Some(adventuresim_core::item_catalog::WeaponCarry::HandOnly)
-                if !hand_only_placement_is_held_root(placement) =>
-            {
-                return Err(format!(
-                    "Can't equip hand-only weapon {} anywhere except one held left/right hand root",
-                    inventory.item_id
-                ));
-            }
-            Some(adventuresim_core::item_catalog::WeaponCarry::Sheathable) => {}
-            _ if !placement.parents.is_empty() => {
-                return Err(format!(
-                    "Can't attach weapon {} without an authored sheathable carry contract",
-                    inventory.item_id
-                ));
-            }
-            _ => {}
-        }
+        require_weapon_carry_placement(&inventory.item_id, placement)?;
     }
     if enforce_law {
         crate::equipment_law::require_item_legal(ctx, character_id, inventory_item_id)?;
@@ -3057,13 +3037,15 @@ fn equip_equipment_internal(
         let capacity_index =
             first_free_attachment_capacity(point.capacity, inventory_item_id, |index| {
                 if reserved_capacity.contains(&(parent_id, point_id.to_owned(), index)) {
-                    return Some(u64::MAX);
+                    return AttachmentCapacity::Reserved;
                 }
                 ctx.db
                     .equipment_occupancy()
                     .id()
                     .find(attachment_occupancy_id(parent_id, point_id, index))
-                    .map(|row| row.inventory_item_id)
+                    .map_or(AttachmentCapacity::Free, |row| {
+                        AttachmentCapacity::Occupied(row.inventory_item_id)
+                    })
             })
             .or_else(|| {
                 replace_occupied.then(|| {
@@ -3181,153 +3163,6 @@ fn hand_only_placement_is_held_root(placement: &crate::item::PersistedEquipmentP
         && placement.occupancy[0].order == 0
 }
 
-/// Adds the physical carry kit implied by a generated loadout. A suitable
-/// weapon already authored in a hand stays there; a suitable sidearm that was
-/// not initially equipped is placed inside the generated sheath.
-fn provision_generated_weapon_carry(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    let sheathable: Vec<_> = ctx
-        .db
-        .inventory_item()
-        .character_id()
-        .filter(character_id)
-        .filter(|inventory| {
-            adventuresim_core::item_catalog::is_sheathable_weapon(&inventory.item_id)
-        })
-        .collect();
-    if sheathable.is_empty() {
-        return Ok(());
-    }
-    if sheathable.len() > 2 {
-        return Err(format!(
-            "Generated loadout has {} sheathable weapons but the authored belt kit carries at most two",
-            sheathable.len()
-        ));
-    }
-
-    let belt = add_inventory_item(ctx, character_id, "leather_belt", 1)
-        .ok_or("Could not add generated leather belt")?;
-    let belt_placement = authored_placement_index(ctx, "leather_belt", "worn")?;
-    equip_equipment_internal(
-        ctx,
-        character_id,
-        belt,
-        belt_placement,
-        Vec::new(),
-        false,
-        false,
-    )?;
-
-    for (weapon, hip) in sheathable.iter().zip(["right", "left"]) {
-        let holder_id = match adventuresim_weapon_model::recommended_holder(&weapon.item_id) {
-            Some(adventuresim_weapon_model::WeaponHolderKind::BladeSheath) => "scabbard",
-            Some(adventuresim_weapon_model::WeaponHolderKind::HaftLoop) => "weapon_loop",
-            None => {
-                return Err(format!(
-                    "Sheathable weapon {} has no procedural holder",
-                    weapon.item_id
-                ));
-            }
-        };
-        let holder = add_inventory_item(ctx, character_id, holder_id, 1)
-            .ok_or_else(|| format!("Could not add generated {holder_id}"))?;
-        crate::weapon_instance::fit_personal_holder(ctx, character_id, holder, weapon.id)?;
-        let holder_placement = authored_placement_index(ctx, holder_id, hip)?;
-        equip_equipment_internal(
-            ctx,
-            character_id,
-            holder,
-            holder_placement,
-            vec![EquipmentAttachmentTargetSelection {
-                requirement_index: 0,
-                parent_inventory_item_id: belt,
-                attachment_point_id: hip.into(),
-            }],
-            false,
-            false,
-        )?;
-        place_unheld_weapon_in_sheath(ctx, character_id, weapon, holder)?;
-    }
-    Ok(())
-}
-
-fn place_unheld_weapon_in_sheath(
-    ctx: &ReducerContext,
-    character_id: u64,
-    weapon: &crate::item::InventoryItem,
-    sheath: u64,
-) -> Result<(), String> {
-    if ctx
-        .db
-        .character_equipped_item()
-        .inventory_item_id()
-        .find(weapon.id)
-        .is_some()
-    {
-        return Ok(());
-    }
-    let placement = sheath_compatible_parent_placement_index(ctx, &weapon.item_id)?;
-    equip_equipment_internal(
-        ctx,
-        character_id,
-        weapon.id,
-        placement,
-        vec![EquipmentAttachmentTargetSelection {
-            requirement_index: 0,
-            parent_inventory_item_id: sheath,
-            attachment_point_id: "blade".into(),
-        }],
-        false,
-        false,
-    )
-}
-
-fn authored_placement_index(
-    ctx: &ReducerContext,
-    item_id: &str,
-    placement_id: &str,
-) -> Result<u16, String> {
-    let definition = ctx
-        .db
-        .item()
-        .id()
-        .find(item_id.to_owned())
-        .ok_or_else(|| format!("Generated carry kit item {item_id} is missing"))?;
-    definition
-        .equipment_placements
-        .iter()
-        .position(|placement| placement.id == placement_id)
-        .and_then(|index| u16::try_from(index).ok())
-        .ok_or_else(|| format!("{item_id} lacks authored placement {placement_id}"))
-}
-
-fn sheath_compatible_parent_placement_index(
-    ctx: &ReducerContext,
-    item_id: &str,
-) -> Result<u16, String> {
-    let definition = ctx
-        .db
-        .item()
-        .id()
-        .find(item_id.to_owned())
-        .ok_or_else(|| format!("Generated sidearm {item_id} is missing"))?;
-    select_sheath_compatible_parent_placement(&definition.equipment_placements).ok_or_else(|| {
-        format!("Sheathable sidearm {item_id} lacks a single containment parent placement")
-    })
-}
-
-fn select_sheath_compatible_parent_placement(
-    placements: &[crate::item::PersistedEquipmentPlacement],
-) -> Option<u16> {
-    placements
-        .iter()
-        .position(|placement| {
-            placement.parents.len() == 1
-                && placement.parents[0].channel == EquipmentChannel::Containment
-                && placement.parents[0].order == 0
-        })
-        .and_then(|index| u16::try_from(index).ok())
-}
-
 fn starting_item_placement_index(
     ctx: &ReducerContext,
     item_id: &str,
@@ -3435,11 +3270,12 @@ pub(crate) fn replace_development_loadout(
 
 #[cfg(test)]
 mod starting_character_boundary_tests {
+    use super::weapon_carry::select_sheath_compatible_parent_placement;
     use super::{
-        CharacterAttributes, CharacterCreationMode, NpcLifeFacts,
+        AttachmentCapacity, CharacterAttributes, CharacterCreationMode, NpcLifeFacts,
         attachment_point_matches_requirement, attachment_would_create_cycle,
         character_occupancy_id, first_free_attachment_capacity, hand_only_placement_is_held_root,
-        initial_membership_minutes, named_character_id, select_sheath_compatible_parent_placement,
+        initial_membership_minutes, named_character_id,
     };
 
     use crate::item::{PersistedEquipmentAttachmentPoint, PersistedEquipmentPlacement};
@@ -3448,6 +3284,21 @@ mod starting_character_boundary_tests {
         EquipmentChannel, EquipmentLocation, OccupancyRequirement, ParentRequirement,
     };
     use adventuresim_world_schema::calendar::StrategicMinute;
+
+    const WEAPON_CARRY_SOURCE: &str = include_str!("character/weapon_carry.rs");
+    const GENERATED_CARRY_FUNCTION: &str = "fn provision_generated_weapon_carry";
+    const STARTING_PLACEMENT_FUNCTION: &str = "fn starting_item_placement_index";
+    const GENERATED_CARRY_EVIDENCE: [&str; 9] = [
+        "is_sheathable_weapon",
+        "BELT_ID",
+        "recommended_holder",
+        "BLADE_SHEATH_ID",
+        "HAFT_LOOP_ID",
+        "zip(WEAPON_CARRY_HIP_PLACEMENTS)",
+        "attachment_point_id: hip.into()",
+        "attachment_point_id: BLADE_ATTACHMENT_POINT_ID.into()",
+        "place_unheld_weapon_in_sheath",
+    ];
 
     #[test]
     fn character_occupancy_id_identifies_each_item_requirement() {
@@ -3757,24 +3608,14 @@ mod starting_character_boundary_tests {
         assert!(insertion.contains(
             "if !newborn && options.materialize_generated_carry {\n        provision_generated_weapon_carry(ctx, character.id)?;\n    }"
         ));
-        let helper = source
-            .split("fn provision_generated_weapon_carry")
+        let helper = crate::production_source(WEAPON_CARRY_SOURCE)
+            .split(GENERATED_CARRY_FUNCTION)
             .nth(1)
             .unwrap()
-            .split("fn starting_item_placement_index")
+            .split(STARTING_PLACEMENT_FUNCTION)
             .next()
             .unwrap();
-        for evidence in [
-            "is_sheathable_weapon",
-            "leather_belt",
-            "recommended_holder",
-            "scabbard",
-            "weapon_loop",
-            "zip([\"right\", \"left\"])",
-            "attachment_point_id: hip.into()",
-            "attachment_point_id: \"blade\".into()",
-            "place_unheld_weapon_in_sheath",
-        ] {
+        for evidence in GENERATED_CARRY_EVIDENCE {
             assert!(helper.contains(evidence), "missing {evidence}");
         }
         let unheld_helper = helper
@@ -3874,7 +3715,7 @@ mod starting_character_boundary_tests {
             .split("fn equip_equipment_internal")
             .nth(1)
             .unwrap()
-            .split("fn starting_item_placement_index")
+            .split(STARTING_PLACEMENT_FUNCTION)
             .next()
             .unwrap();
         let conflict_check = reducer
@@ -4014,15 +3855,24 @@ mod starting_character_boundary_tests {
     fn attachment_capacity_is_stable_full_and_reparent_idempotent() {
         assert_eq!(
             first_free_attachment_capacity(3, 99, |index| match index {
-                0 => Some(10),
-                1 => None,
-                _ => Some(11),
+                0 => AttachmentCapacity::Occupied(10),
+                1 => AttachmentCapacity::Free,
+                _ => AttachmentCapacity::Occupied(11),
             }),
             Some(1)
         );
-        assert_eq!(first_free_attachment_capacity(2, 99, |_| Some(10)), None);
         assert_eq!(
-            first_free_attachment_capacity(2, 99, |index| { (index == 0).then_some(99) }),
+            first_free_attachment_capacity(2, 99, |_| AttachmentCapacity::Occupied(10)),
+            None
+        );
+        assert_eq!(
+            first_free_attachment_capacity(2, 99, |index| {
+                if index == 0 {
+                    AttachmentCapacity::Occupied(99)
+                } else {
+                    AttachmentCapacity::Free
+                }
+            }),
             Some(0),
             "an item's existing capacity cell remains a valid atomic reparent target"
         );
@@ -4071,7 +3921,7 @@ mod starting_character_boundary_tests {
             .split("fn equip_equipment_internal")
             .nth(1)
             .unwrap()
-            .split("fn starting_item_placement_index")
+            .split(STARTING_PLACEMENT_FUNCTION)
             .next()
             .unwrap();
         assert!(reducer.contains("refresh_equipment_dependents(ctx, character_id)"));

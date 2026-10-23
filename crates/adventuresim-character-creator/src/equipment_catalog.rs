@@ -2,11 +2,10 @@
 
 use crate::{
     armor_recipes,
-    item_catalog_schema::{
-        EquipmentMaterial, EquipmentPlacement, ItemCatalogDocument, ItemDefinition, ItemKind,
-    },
+    item_catalog_schema::{EquipmentMaterial, ItemCatalogDocument, ItemDefinition, ItemKind},
     item_design::{CatalogDesigns, ItemDesign},
 };
+pub use adventuresim_core::equipment_assets::{CatalogItem, CatalogPlacement};
 use anyhow::{Context, Result};
 
 /// The item definitions a character can wear, with each parametric item's default design.
@@ -14,6 +13,33 @@ use anyhow::{Context, Result};
 pub struct ItemCatalog {
     pub items: Vec<ItemDefinition>,
     pub designs: CatalogDesigns,
+}
+
+/// A validated export selection. Input spelling is admitted against this catalog
+/// once; duplicate catalog records with the same identity remain selected.
+pub struct EquipmentItemSelection<'a> {
+    ids: Vec<&'a str>,
+}
+
+impl<'a> EquipmentItemSelection<'a> {
+    pub fn admit(catalog: &'a ItemCatalog, filters: &[String]) -> Result<Self> {
+        let mut ids = Vec::new();
+        for filter in filters {
+            let Some(item) = catalog.wearable().find(|item| item.id == *filter) else {
+                anyhow::bail!("unknown procedural equipment item {filter}");
+            };
+            ids.push(item.definition().id.as_str());
+        }
+        Ok(Self { ids })
+    }
+
+    pub fn is_filtered(&self) -> bool {
+        !self.ids.is_empty()
+    }
+
+    pub fn includes(&self, item: CatalogItem<'_>) -> bool {
+        self.ids.is_empty() || self.ids.contains(&item.id.as_str())
+    }
 }
 
 impl ItemCatalog {
@@ -43,46 +69,35 @@ impl ItemCatalog {
         Self::new(items, designs)
     }
 
-    pub fn item(&self, id: &str) -> Option<&ItemDefinition> {
-        self.items.iter().find(|item| item.id == id)
+    pub fn item(&self, id: &str) -> Option<CatalogItem<'_>> {
+        CatalogItem::find(&self.items, id)
     }
 
-    pub fn placement(
-        &self,
-        item_id: &str,
-        placement_id: &str,
-    ) -> Option<(&ItemDefinition, &EquipmentPlacement)> {
-        let item = self.item(item_id)?;
-        let placement = item
-            .equipment
-            .as_ref()?
-            .placements
-            .iter()
-            .find(|placement| placement.id == placement_id)?;
-        Some((item, placement))
-    }
-
-    pub fn material(&self, id: &str) -> Result<EquipmentMaterial> {
-        self.item(id)
-            .and_then(|item| item.equipment.as_ref())
-            .and_then(|equipment| equipment.material)
-            .with_context(|| format!("equipment {id} has no material"))
+    pub fn placement(&self, item_id: &str, placement_id: &str) -> Option<CatalogPlacement<'_>> {
+        self.item(item_id)?.placement(placement_id)
     }
 
     /// The catalog default design for a parametric item.
-    pub fn design(&self, id: &str) -> Option<ItemDesign> {
-        self.designs.default_for(id)
+    pub fn design(&self, item: CatalogItem<'_>) -> Option<ItemDesign> {
+        self.designs.default_for(item)
     }
 
     /// The catalog design for a parametric item worn in `placement`.
-    pub fn placed_design(&self, id: &str, placement: &str) -> Option<ItemDesign> {
-        self.designs.default_at(id, placement)
+    pub fn placed_design(&self, placement: CatalogPlacement<'_>) -> Option<ItemDesign> {
+        self.designs.default_at(placement)
     }
 
     /// Items with a procedural material and body surface, which the creator can generate.
-    pub fn wearable(&self) -> impl Iterator<Item = &ItemDefinition> {
-        self.items.iter().filter(|item| is_wearable(item))
+    pub fn wearable(&self) -> impl Iterator<Item = CatalogItem<'_>> {
+        CatalogItem::all(&self.items).filter(|item| is_wearable(item.definition()))
     }
+}
+
+pub fn material(item: CatalogItem<'_>) -> Result<EquipmentMaterial> {
+    item.equipment
+        .as_ref()
+        .and_then(|equipment| equipment.material)
+        .with_context(|| format!("equipment {} has no material", item.id))
 }
 
 pub fn is_wearable(item: &ItemDefinition) -> bool {
@@ -96,9 +111,9 @@ pub fn is_wearable(item: &ItemDefinition) -> bool {
 }
 
 fn validate_armor_recipes(items: &[ItemDefinition]) -> Result<()> {
-    for item in items {
+    for item in CatalogItem::all(items) {
         anyhow::ensure!(
-            !matches!(item.kind, ItemKind::Armor { .. }) || armor_recipes::is_parametric(&item.id),
+            !matches!(item.kind, ItemKind::Armor { .. }) || armor_recipes::is_parametric(item),
             "armor {} has no authored parametric recipe",
             item.id
         );

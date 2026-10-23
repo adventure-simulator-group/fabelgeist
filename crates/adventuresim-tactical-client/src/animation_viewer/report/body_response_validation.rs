@@ -1,0 +1,133 @@
+//! Signed response and straight-run sway acceptance in the captured body frame.
+
+use super::*;
+
+pub(super) struct BodyResponseValidation {
+    pub(super) response: bool,
+    pub(super) straight_run_sway: bool,
+}
+
+pub(super) fn body_response_validation(frames: &[FrameSample]) -> BodyResponseValidation {
+    let (ramp_pitch_minimum, ramp_pitch_maximum) = lean_range(
+        frames,
+        &ScenarioMetadata::authored(ScenarioId::SpeedRampUpDown),
+        |frame| frame.body_lean_pitch_degrees.radians().to_degrees(),
+    );
+    let (hard_stop_pitch_minimum, _) = lean_range(
+        frames,
+        &ScenarioMetadata::authored(ScenarioId::HardStop),
+        |frame| frame.body_lean_pitch_degrees.radians().to_degrees(),
+    );
+    let (walk_stop_pitch_minimum, walk_stop_pitch_maximum) = lean_range(
+        frames,
+        &ScenarioMetadata::authored(ScenarioId::FlatGridWalkStop),
+        |frame| frame.body_lean_pitch_degrees.radians().to_degrees(),
+    );
+    let turn_90_roll = lean_range(
+        frames,
+        &ScenarioMetadata::authored(ScenarioId::DynamicsTurn90),
+        |frame| frame.body_lean_roll_degrees.radians().to_degrees().abs(),
+    );
+    let turn_180_roll = lean_range(
+        frames,
+        &ScenarioMetadata::authored(ScenarioId::DynamicsTurn180),
+        |frame| frame.body_lean_roll_degrees.radians().to_degrees().abs(),
+    );
+    let lean_step_valid = frames.windows(2).all(|pair| {
+        pair[0].scenario != pair[1].scenario
+            || Vec2::new(
+                pair[1].body_lean_pitch_degrees.radians().to_degrees()
+                    - pair[0].body_lean_pitch_degrees.radians().to_degrees(),
+                pair[1].body_lean_roll_degrees.radians().to_degrees()
+                    - pair[0].body_lean_roll_degrees.radians().to_degrees(),
+            )
+            .length()
+                <= 2.01
+    });
+    let has_scenario =
+        |name: &ScenarioMetadata<'_>| frames.iter().any(|frame| &frame.scenario == name);
+    let straight_run_torso_sway_valid = [
+        ScenarioMetadata::authored(ScenarioId::SteadyRun55),
+        ScenarioMetadata::authored(ScenarioId::FlatGridRun55),
+    ]
+    .iter()
+    .filter(|scenario| has_scenario(scenario))
+    .all(|scenario| {
+        body_lateral_range(frames, scenario, BoneRole::Chest) <= 0.015
+            && body_lateral_range(frames, scenario, BoneRole::Head) <= 0.025
+    });
+    let body_response_valid =
+        (!has_scenario(&ScenarioMetadata::authored(ScenarioId::SpeedRampUpDown))
+            || ((-2.5..=0.0).contains(&ramp_pitch_minimum)
+                && (15.5..=18.5).contains(&ramp_pitch_maximum)))
+            && (!has_scenario(&ScenarioMetadata::authored(ScenarioId::HardStop))
+                || (-0.1..=0.1).contains(&hard_stop_pitch_minimum))
+            && (!has_scenario(&ScenarioMetadata::authored(ScenarioId::FlatGridWalkStop))
+                || ((-2.5..=0.0).contains(&walk_stop_pitch_minimum)
+                    && (3.5..=5.0).contains(&walk_stop_pitch_maximum)))
+            && (!has_scenario(&ScenarioMetadata::authored(ScenarioId::DynamicsTurn90))
+                || (6.0..=18.0).contains(&turn_90_roll.1))
+            && (!has_scenario(&ScenarioMetadata::authored(ScenarioId::DynamicsTurn180))
+                || (6.0..=18.0).contains(&turn_180_roll.1))
+            && lean_step_valid
+            && [
+                ScenarioMetadata::authored(ScenarioId::SpeedRampUpDown),
+                ScenarioMetadata::authored(ScenarioId::HardStop),
+                ScenarioMetadata::authored(ScenarioId::FlatGridWalkStop),
+            ]
+            .iter()
+            .filter(|scenario| has_scenario(scenario))
+            .all(|scenario| {
+                frames
+                    .iter()
+                    .rev()
+                    .find(|frame| frame.scenario == *scenario)
+                    .is_some_and(|frame| {
+                        Vec2::new(
+                            frame.body_lean_pitch_degrees.radians().to_degrees(),
+                            frame.body_lean_roll_degrees.radians().to_degrees(),
+                        )
+                        .length()
+                            <= 0.5
+                    })
+            });
+    BodyResponseValidation {
+        response: body_response_valid,
+        straight_run_sway: straight_run_torso_sway_valid,
+    }
+}
+
+fn lean_range(
+    frames: &[FrameSample],
+    scenario: &ScenarioMetadata<'_>,
+    select: fn(&FrameSample) -> f32,
+) -> (f32, f32) {
+    frames
+        .iter()
+        .filter(|frame| &frame.scenario == scenario)
+        .map(select)
+        .fold(
+            (f32::INFINITY, f32::NEG_INFINITY),
+            |(minimum, maximum), value| (minimum.min(value), maximum.max(value)),
+        )
+}
+
+fn body_lateral_range(
+    frames: &[FrameSample],
+    scenario: &ScenarioMetadata<'_>,
+    bone: BoneRole,
+) -> f32 {
+    let (minimum, maximum) = frames
+        .iter()
+        .filter(|frame| &frame.scenario == scenario)
+        .filter_map(|frame| body_local(frame, bone).map(|position| position.x))
+        .fold(
+            (f32::INFINITY, f32::NEG_INFINITY),
+            |(minimum, maximum), value| (minimum.min(value), maximum.max(value)),
+        );
+    if minimum.is_finite() && maximum.is_finite() {
+        maximum - minimum
+    } else {
+        0.0
+    }
+}

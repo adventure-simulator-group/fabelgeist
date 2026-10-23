@@ -181,10 +181,10 @@ fn closest_weights(p: vec3<f32>, t: Triangle) -> vec3<f32> {{
         let w = (d4 - d3) / ((d4 - d3) + (d5 - d6));
         return vec3<f32>(0.0, 1.0 - w, w);
     }}
-    let denominator = 1.0 / (va + vb + vc);
-    let v = vb * denominator;
-    let w = vc * denominator;
-    return vec3<f32>(1.0 - v - w, v, w);
+    // All three face-region numerators are nonnegative. Normalize them
+    // directly: subtracting rounded v and w from one can create a negative
+    // first weight at a valid triangle edge.
+    return vec3<f32>(va, vb, vc) / (va + vb + vc);
 }}
 
 @compute @workgroup_size({TILE}u)

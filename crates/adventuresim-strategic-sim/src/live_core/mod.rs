@@ -5,6 +5,7 @@
 //! source units while retaining the established crate-root API.
 
 use crate::{ActivityPreference, AgentProfile, BuildRole, EquipmentStyle, generate_profile};
+use adventuresim_core::autoresolve::AuthoredThreatError;
 use adventuresim_core::case::CaseStatus as DomainCaseStatus;
 use adventuresim_core::dialogue_boundary::{PublicDialogueStartError, PublicDialogueStartOutcome};
 use adventuresim_core::investigation::DestinationKnowledgeStage as CoreDestinationKnowledgeStage;
@@ -40,6 +41,7 @@ use adventuresim_core::strategic_currency::is_currency_id;
 use adventuresim_core::strategic_time::{
     DEFAULT_JOURNEY_START_MINUTE_OF_DAY, DEFAULT_NIGHT_JOURNEY_START_MINUTE_OF_DAY,
 };
+pub use run_error::{CoreLoopRunError, CoreLoopRunResult, FailureReportError};
 use url::Url;
 
 use adventuresim_stdb_client::{
@@ -152,6 +154,7 @@ pub(crate) const LIVE_CORE_SOURCE: &str = concat!(
     include_str!("investigation_policy.rs"),
     include_str!("settlement_activity.rs"),
     include_str!("error.rs"),
+    include_str!("run_error.rs"),
     include_str!("failure_projection.rs"),
     include_str!("policy.rs"),
     include_str!("survival.rs"),
@@ -176,6 +179,7 @@ mod investigation_policy;
 mod journey_policy;
 mod quest_coverage;
 mod report;
+mod run_error;
 mod settlement_activity;
 mod thermal_projection;
 

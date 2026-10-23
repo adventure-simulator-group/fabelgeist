@@ -3,21 +3,23 @@
 
 use super::*;
 use adventuresim_character_creator::{
-    armor_frames::Side,
+    armor_frames::{FittingPlacement, Side},
     armor_recipes::ParametricDesign,
     device_fit::{self, DevicePiece},
     inventory::{FittedPiece, Loadout},
     item_design::ItemDesign,
 };
+use adventuresim_core::equipment_assets::CatalogPlacement;
 
 pub(super) fn fitted_design(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     design: &ParametricDesign,
-    placement: &str,
+    placement: CatalogPlacement<'_>,
     morphs: &[ForearmMorphSample],
     layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
+    let placement = FittingPlacement::from(placement);
     match design {
         ParametricDesign::Underlayer(d) => {
             return crate::underlayer_equipment::fitted(model, generated, d, placement, morphs);
@@ -39,7 +41,7 @@ fn assembled(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     design: &ParametricDesign,
-    placement: &str,
+    placement: FittingPlacement,
     piece: DevicePiece,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
@@ -68,7 +70,7 @@ pub(super) fn fitted_item(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     design: &ItemDesign,
-    placement: &str,
+    placement: CatalogPlacement<'_>,
     morphs: &[ForearmMorphSample],
     layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
@@ -78,7 +80,7 @@ pub(super) fn fitted_item(
             fitted_design(model, generated, design, placement, morphs, layers)
         }
         ItemDesign::Vambrace(design) => {
-            let side = match Side::from_placement(placement)? {
+            let side = match FittingPlacement::from(placement).side()? {
                 Side::Left => ForearmSide::Left,
                 Side::Right => ForearmSide::Right,
             };
@@ -92,14 +94,14 @@ pub(super) fn fitted_item(
 pub(super) fn fitted_catalog_item(
     model: &BodyModel,
     generated: &GeneratedCharacter,
-    item: &ItemDefinition,
+    placement: CatalogPlacement<'_>,
     design: &ItemDesign,
-    placement: &str,
     morphs: &[ForearmMorphSample],
     layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     let mut armor = fitted_item(model, generated, design, placement, morphs, layers)?;
-    let material = item
+    let material = placement
+        .item()
         .equipment
         .as_ref()
         .and_then(|equipment| equipment.material);
@@ -165,7 +167,8 @@ pub(super) struct SelectedLacing {
 fn is_steel(piece: &FittedPiece<'_>) -> bool {
     piece
         .piece
-        .item
+        .selection
+        .item()
         .equipment
         .as_ref()
         .and_then(|equipment| equipment.material)
@@ -223,12 +226,16 @@ fn trim(
 
 /// The name a worn piece's meshes go by.
 pub(super) fn piece_name(piece: &FittedPiece<'_>) -> String {
-    format!("{}--{}", piece.piece.item.id, piece.piece.placement.id)
+    format!(
+        "{}--{}",
+        piece.piece.selection.item().id,
+        piece.piece.selection.id
+    )
 }
 
 /// Whether a worn piece is rigid plate, which garments under it lie beneath.
 pub(super) fn is_rigid(piece: &FittedPiece<'_>) -> bool {
-    piece.piece.placement.outermost_channel()
+    piece.piece.selection.outermost_channel()
         == Some(adventuresim_character_creator::item_catalog_schema::EquipmentChannel::RigidArmor)
 }
 
@@ -240,17 +247,9 @@ pub(super) fn fit(
     morphs: &[ForearmMorphSample],
     layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
-    let placement = &piece.piece.placement.id;
-    fitted_catalog_item(
-        model,
-        generated,
-        piece.piece.item,
-        &piece.design,
-        placement,
-        morphs,
-        layers,
-    )
-    .with_context(|| format!("fitting {} ({placement})", piece.piece.item.id))
+    let placement = piece.piece.selection;
+    fitted_catalog_item(model, generated, placement, &piece.design, morphs, layers)
+        .with_context(|| format!("fitting {} ({})", placement.item().id, placement.id))
 }
 
 /// Build, lace and trim a fitted piece as its article asks.
@@ -277,7 +276,7 @@ pub(super) fn selected<'a>(
     let placements = loadout
         .fitted
         .iter()
-        .map(|piece| piece.piece.placement)
+        .map(|piece| piece.piece.selection.definition())
         .collect::<Vec<_>>();
     let plan = adventuresim_character_creator::equipment_layers::LayerPlan::new(&placements)?;
     let mut results = (0..loadout.fitted.len())
@@ -286,16 +285,21 @@ pub(super) fn selected<'a>(
     for &index in plan.order() {
         let supports = plan
             .supports(index)
-            .map(|inner| &results[inner].as_ref().expect("ordered support").generated)
-            .collect::<Vec<_>>();
+            .map(|inner| {
+                results[inner]
+                    .as_ref()
+                    .map(|piece| &piece.generated)
+                    .context("equipment support was not fitted in layer order")
+            })
+            .collect::<Result<Vec<_>>>()?;
         let piece = &loadout.fitted[index];
         let fitted = fit(model, generated, piece, morphs, &supports)?;
         results[index] = Some(SelectedArmor::new(piece, finish(piece, fitted)?));
     }
-    Ok(results
+    results
         .into_iter()
-        .map(|piece| piece.expect("all selections fitted"))
-        .collect())
+        .map(|piece| piece.context("equipment selection was not fitted"))
+        .collect()
 }
 
 #[cfg(test)]
@@ -320,14 +324,13 @@ mod tests {
         let mut fitted = 0;
         let mut tiled = 0;
         for item in catalog.wearable() {
-            let Some(design) = catalog.design(&item.id) else {
+            let Some(design) = catalog.design(item) else {
                 continue;
             };
-            for placement in &item.equipment.as_ref().expect("wearable item").placements {
+            for placement in item.placements() {
                 eprintln!("{}--{}", item.id, placement.id);
-                let armor =
-                    fitted_catalog_item(&model, &body, item, &design, &placement.id, &morphs, &[])
-                        .with_context(|| format!("fitting {}--{}", item.id, placement.id))?;
+                let armor = fitted_catalog_item(&model, &body, placement, &design, &morphs, &[])
+                    .with_context(|| format!("fitting {}--{}", item.id, placement.id))?;
                 let count = armor.positions.len();
                 anyhow::ensure!(count > 0 && armor.indices.len().is_multiple_of(3));
                 anyhow::ensure!(armor.indices.iter().all(|i| (*i as usize) < count));

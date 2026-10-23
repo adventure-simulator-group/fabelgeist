@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_rig::RigJointName;
 
 fn maps() -> SurfaceTextures {
     SurfaceTextures {
@@ -12,7 +13,9 @@ fn maps() -> SurfaceTextures {
             include_bytes!("../../../../../assets_src/equipment/materials/mail-occlusion.png")
                 .to_vec(),
         ),
-        cutout: true,
+        alpha: crate::export::SurfaceAlpha::Mask,
+        sides: crate::export::SurfaceSides::Both,
+        sampling: crate::export::SurfaceSampling::Tile,
     }
 }
 
@@ -29,9 +32,13 @@ fn export_equipment_with_maps(
 ) -> Result<()> {
     let positions = [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
     let normals = [[0.0, 0.0, 1.0]; 3];
-    let joints = [[0; 8]; 3];
+    let joints = fabelgeist_rig::PackedRigSkin::from_native(
+        vec![[0; 8]; 3],
+        fabelgeist_rig::RigJointTable::from(vec![RigJointName::ROOT]).joint_count(),
+    )?;
     let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
     let shell = RiggedShell {
+        textile_finish: None,
         surface: None,
         plate_edges: &[],
         name: "mail",
@@ -60,10 +67,10 @@ fn export_equipment_with_maps(
             export_body: false,
             joint_indices: &joints,
             joint_weights: &weights,
-            joint_names: &["root".to_owned()],
-            joint_parents: &[-1],
-            global_joint_states: &[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]],
-            joint_proportions: &[],
+            joint_names: &vec![RigJointName::ROOT].into(),
+            joint_parents: &vec![None].into(),
+            global_joint_states: &vec![[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]].into(),
+            joint_proportions: &Default::default(),
             morph_targets: &[],
         },
         &[shell],
@@ -78,7 +85,8 @@ fn normal_only_material_preserves_its_authored_metal_properties() {
     let mut normal_only = maps();
     normal_only.base_color_png = None;
     normal_only.occlusion_png = None;
-    normal_only.cutout = false;
+    normal_only.alpha = crate::export::SurfaceAlpha::Opaque;
+    normal_only.sampling = SurfaceSampling::WrappedGarment;
     export_equipment_with_maps(&path, normal_only, [0.25, 0.5, 0.75, 1.0], 0.8, 0.2).unwrap();
 
     let parsed = gltf::Gltf::from_slice(&fs::read(&path).unwrap()).unwrap();
@@ -90,6 +98,16 @@ fn normal_only_material_preserves_its_authored_metal_properties() {
     assert_eq!(pbr.roughness_factor(), 0.2);
     assert!(material.normal_texture().is_some());
     assert_eq!(parsed.images().count(), 1);
+    for texture in parsed.textures() {
+        assert_eq!(
+            texture.sampler().wrap_s(),
+            gltf::texture::WrappingMode::Repeat
+        );
+        assert_eq!(
+            texture.sampler().wrap_t(),
+            gltf::texture::WrappingMode::ClampToEdge
+        );
+    }
 
     let image_uri = match parsed.images().next().unwrap().source() {
         gltf::image::Source::Uri { uri, .. } => uri.to_owned(),

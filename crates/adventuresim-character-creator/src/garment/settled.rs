@@ -213,12 +213,14 @@ impl SettledDrape {
             positions,
             normals: Vec::new(),
             faces: self.faces.clone(),
-            indices: Vec::new(),
+            indices: Default::default(),
             weights: Vec::new(),
             stage: DrapeStage::Worn,
         };
         garment.normals = garment.normals_for(&garment.positions);
-        (garment.indices, garment.weights) = transfer_skin(input, &garment.positions)?;
+        let skin = transfer_skin(input, &garment.positions)?;
+        garment.indices = skin.indices;
+        garment.weights = skin.weights;
         warnings.extend(garment.contact_issues(&collision));
         Ok(garment)
     }

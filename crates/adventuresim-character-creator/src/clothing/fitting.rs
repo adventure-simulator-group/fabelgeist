@@ -2,9 +2,13 @@ use super::*;
 
 /// Refit an existing garment without changing its trim or vertex correspondence.
 impl ClothingShell {
-    pub fn refit(&self, positions: &[[f32; 3]], normals: &[[f32; 3]]) -> Result<Self, String> {
+    pub fn refit(
+        &self,
+        positions: &[[f32; 3]],
+        normals: &[[f32; 3]],
+    ) -> Result<Self, ClothingError> {
         if positions.len() != self.positions.len() || normals.len() != positions.len() {
-            return Err("garment morph changed body vertex correspondence".into());
+            return Err(ClothingError::MorphCorrespondenceChanged);
         }
         let (positions, normals) = fitted_surface(
             positions,
@@ -14,7 +18,7 @@ impl ClothingShell {
         );
         let faces = validated_placeholder_faces(&self.specification.name, &self.faces, &positions)?;
         if faces != self.faces {
-            return Err("garment morph invalidated base triangles".into());
+            return Err(ClothingError::MorphTrianglesInvalidated);
         }
         Ok(Self {
             specification: self.specification.clone(),
@@ -29,7 +33,7 @@ pub(super) fn fitted_surface(
     positions: &[[f32; 3]],
     normals: &[[f32; 3]],
     faces: &[[u32; 3]],
-    offset_metres: f32,
+    offset_metres: SignedLength,
 ) -> (Vec<[f32; 3]>, Vec<[f32; 3]>) {
     let relaxed = relax_concavities(positions, normals, faces);
     let shell_normals = surface_normals(&relaxed, normals, faces);
@@ -37,7 +41,7 @@ pub(super) fn fitted_surface(
         .iter()
         .zip(&shell_normals)
         .map(|(position, normal)| {
-            std::array::from_fn(|axis| position[axis] + normal[axis] * offset_metres)
+            std::array::from_fn(|axis| position[axis] + normal[axis] * offset_metres.metres())
         })
         .collect::<Vec<_>>();
     weld_split_vertex_positions(positions, &mut shell_positions);

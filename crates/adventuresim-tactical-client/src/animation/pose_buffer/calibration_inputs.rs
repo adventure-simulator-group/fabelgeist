@@ -1,0 +1,59 @@
+//! Calibration identity and current-rig cache selection before either consumer.
+
+use super::*;
+use adventuresim_building_generator::spatial_geometry::PositiveLength;
+use adventuresim_tactical_core::animation::{
+    ContactHeightScale, PhaseCalibrationIntervals, PositiveAnimationDuration,
+};
+use bevy::ecs::system::SystemParam;
+
+/// Only tuning which changes baking, contact selection, fitting or acceptance.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub(in crate::animation) struct CalibrationInputs {
+    sample_hz: adventuresim_tactical_core::animation::AnimationSampleRate,
+    minimum_grid: PositiveAnimationDuration,
+    minimum_displacement: PositiveLength,
+    intervals: PhaseCalibrationIntervals,
+    minimum_range: PositiveLength,
+    maximum_range: PositiveLength,
+    height_scale: ContactHeightScale,
+    minimum_height_window: PositiveLength,
+    maximum_height_window: PositiveLength,
+}
+
+#[derive(SystemParam)]
+pub(in crate::animation) struct CalibrationLookup<'w, 's> {
+    reference: Res<'w, AuthoredLocomotionStrides>,
+    characters: Query<'w, 's, (&'static CharacterLocomotionStrides, &'static PoseBufferRig)>,
+    joints: Query<'w, 's, &'static skeletal_proportions::SkeletalJointOffset>,
+}
+
+impl CalibrationInputs {
+    pub(in crate::animation) fn current() -> Self {
+        let config = pose_tuning();
+        Self {
+            sample_hz: config.sample_hz,
+            minimum_grid: config.minimum_baked_grid_seconds,
+            minimum_displacement: config.minimum_phase_fit_displacement_metres,
+            intervals: config.authored_phase_calibration_intervals,
+            minimum_range: config.minimum_authored_foot_range_metres,
+            maximum_range: config.maximum_authored_foot_range_metres,
+            height_scale: config.authored_contact_height_fraction,
+            minimum_height_window: config.authored_contact_minimum_height_window_metres,
+            maximum_height_window: config.authored_contact_maximum_height_window_metres,
+        }
+    }
+}
+
+impl CalibrationLookup<'_, '_> {
+    pub(in crate::animation) fn for_actor(&self, entity: Entity) -> &AuthoredLocomotionStrides {
+        if let Ok((current, rig)) = self.characters.get(entity)
+            && current.matches_offsets(rig, &self.joints)
+        {
+            return &current.measurements;
+        }
+        // Existing no-character-calibration policy: use the reference rig's
+        // calibration. Its own operations exclude stale configuration too.
+        &self.reference
+    }
+}

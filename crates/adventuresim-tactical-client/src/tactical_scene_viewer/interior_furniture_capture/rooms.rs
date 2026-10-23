@@ -1,5 +1,6 @@
 //! Semantic room views selected from proven walking routes and unobstructed sightlines.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_building_generator::{
     OpeningUse, Room, RoomKind, SolidRole, StoreyPlan,
     interior::{InteriorLayout, InteriorPlacement},
@@ -107,8 +108,8 @@ pub(super) fn camera(
     let transform = building.transform()?;
     let origin = building.collision.bounds.centre()?.metres();
     Ok(BuildingReviewCamera {
-        position: transform.transform_point(eye - origin),
-        target: transform.transform_point(target - origin),
+        position: Position::from_metres(transform.transform_point(eye - origin))?,
+        target: Position::from_metres(transform.transform_point(target - origin))?,
         plaster_raking_light: None,
     })
 }
@@ -216,7 +217,7 @@ fn furniture_subject(
     index: usize,
     selection: RoomSelection,
 ) -> Result<Subject> {
-    let size = placement.key.interior_spec().unwrap().size_metres.metres();
+    let size = placement.key.interior_spec()?.size_metres.metres();
     let rotation = Quat::from_rotation_y(placement.yaw_radians().radians());
     let translation = Vec3::new(
         placement.centre_metres.metres().x,

@@ -1,0 +1,268 @@
+//! Open-sided shoulder panels retain frozen body-triangle correspondence.
+use crate::armor_frames::Wearer;
+use crate::cloth_tie_plan::ClothTieAnchors;
+use crate::cloth_torso_frame::ClothTorsoFrame;
+use crate::surface_cut::{
+    CUT_VERTEX_SNAP_METRES, ConvexRegion, Plane, SurfaceCut, dot, interpolate, weld_patch,
+};
+use anyhow::{Context, Result, ensure};
+use fabelgeist_armor::{PartFrame, PartletDesign};
+use std::collections::{BTreeMap, BTreeSet};
+
+const NECK_CURVE_SEGMENTS: usize = 24;
+const SIDE_OPENING_ARC_SEGMENTS: usize = 24;
+
+pub(crate) struct PartletCut {
+    pub surface: SurfaceCut,
+    pub reference: Vec<[f32; 3]>,
+    pub neck: Vec<u32>,
+    pub frame: ClothTorsoFrame,
+}
+
+impl PartletCut {
+    pub fn new(design: &PartletDesign, body: &Wearer<'_>, head: &PartFrame) -> Result<Self> {
+        design.validate()?;
+        let frame = ClothTorsoFrame::new(body, head)?;
+        let hem = frame.waist[1] + design.hem_rise.metres();
+        let neck = frame.neck[1] + design.neck_rise.metres();
+        let top_normal: [f32; 3] = std::array::from_fn(|axis| {
+            (if axis == 1 { 1. } else { 0. }) + frame.anterior[axis] * design.neckline_slope.unit()
+        });
+        let top_length = dot(top_normal, top_normal).sqrt();
+        let top = Plane {
+            normal: top_normal.map(|v| v / top_length),
+            offset: (dot(frame.neck, top_normal) + design.neck_rise.metres()) / top_length,
+        };
+        let bridge = frame
+            .shoulders
+            .iter()
+            .map(|p| p[1])
+            .fold(f32::INFINITY, f32::min)
+            - design.shoulder_bridge.metres();
+        // On the posterior half, the sloping neckline is never below this
+        // nominal neck height. This conservatively keeps the slit above hem.
+        ensure!(
+            frame.breadth() > 0.
+                && hem < bridge
+                && bridge < neck
+                && neck - design.back_slit.metres() > hem,
+            "partlet needs open side spans and a rear slit ending above its hem"
+        );
+        let mut neckline_planes = vec![top];
+        neckline_planes.extend(front_curve(&frame, design));
+        let mut torso = vec![Plane {
+            normal: [0., -1., 0.],
+            offset: -hem,
+        }];
+        torso.extend(&neckline_planes);
+        for (side, shoulder) in [-1., 1.].into_iter().zip(frame.shoulders) {
+            torso.push(Plane {
+                normal: frame.lateral.map(|v| v * side),
+                offset: side * dot(shoulder, frame.lateral),
+            });
+        }
+        let mut subtract = side_openings(&frame, design, hem, bridge)?;
+        let mut slit = vec![
+            frame.depth_half(-1.),
+            Plane {
+                normal: top.normal.map(|v| -v),
+                // Parallel cut: the same vertical slit length at either edge.
+                offset: -top.offset + design.back_slit.metres() / top_length,
+            },
+        ];
+        for sign in [-1., 1.] {
+            slit.push(Plane {
+                normal: frame.lateral.map(|v| v * sign),
+                offset: sign * dot(frame.neck, frame.lateral) + design.back_gap.metres() * 0.5,
+            });
+        }
+        subtract.push(slit);
+        let surface = SurfaceCut::new(body.positions, body.faces, body.faces, &[torso], &subtract);
+        let reference = positions(&surface, body);
+        let surface = weld_patch(surface, &reference).cut;
+        let reference = positions(&surface, body);
+        let surface = surface.collapse_cut_roundoff(&reference)?;
+        surface.validate_connected()?;
+        let reference = positions(&surface, body);
+        let boundaries = surface.boundary_loops(&reference)?;
+        ensure!(
+            boundaries.len() == 2,
+            "partlet must retain shoulder bridges, open sides and a neckline ({} boundary loops)",
+            boundaries.len()
+        );
+        let neck = neckline_chain(&surface, &reference, &[neckline_planes])?;
+        Ok(Self {
+            surface,
+            reference,
+            neck,
+            frame,
+        })
+    }
+
+    pub fn tie_anchors(&self) -> Result<Vec<ClothTieAnchors>> {
+        let hem = self
+            .reference
+            .iter()
+            .map(|p| p[1])
+            .fold(f32::INFINITY, f32::min);
+        [-1_f32, 1.]
+            .into_iter()
+            .map(|side| {
+                let corner = |direction: f32| -> Result<u32> {
+                    self.reference
+                        .iter()
+                        .enumerate()
+                        .filter(|(_, p)| {
+                            (p[1] - hem).abs() <= 2. * CUT_VERTEX_SNAP_METRES
+                                && direction
+                                    * (dot(**p, self.frame.anterior)
+                                        - dot(self.frame.neck, self.frame.anterior))
+                                    >= 0.
+                        })
+                        .max_by(|(_, a), (_, b)| {
+                            (side * dot(**a, self.frame.lateral))
+                                .total_cmp(&(side * dot(**b, self.frame.lateral)))
+                        })
+                        .map(|(i, _)| i as u32)
+                        .context("partlet has no hem corner for its tie")
+                };
+                Ok(ClothTieAnchors {
+                    front: corner(1.)?,
+                    back: corner(-1.)?,
+                })
+            })
+            .collect()
+    }
+}
+
+fn front_curve(frame: &ClothTorsoFrame, design: &PartletDesign) -> ConvexRegion {
+    let Some(curve) = &design.front_curve else {
+        return Vec::new();
+    };
+    let mut region = Vec::new();
+    // Tangents to y = neck - drop*(anterior/reach)^2 on the anterior half.
+    // Their tangent envelope joins the posterior plane with zero extra slope.
+    for segment in 1..=NECK_CURVE_SEGMENTS {
+        let progress = segment as f32 / NECK_CURVE_SEGMENTS as f32;
+        let slope = design.neckline_slope.unit()
+            + 2. * curve.drop.metres() * progress / curve.reach.metres();
+        let mut normal = frame.anterior.map(|v| v * slope);
+        normal[1] += 1.;
+        let length = dot(normal, normal).sqrt();
+        region.push(Plane {
+            normal: normal.map(|v| v / length),
+            offset: (dot(frame.neck, normal)
+                + design.neck_rise.metres()
+                + curve.drop.metres() * progress * progress)
+                / length,
+        });
+    }
+    region
+}
+
+fn side_openings(
+    frame: &ClothTorsoFrame,
+    design: &PartletDesign,
+    hem: f32,
+    top: f32,
+) -> Result<Vec<ConvexRegion>> {
+    let slope = (design.side_opening.unit() * std::f32::consts::FRAC_PI_2).tan();
+    [-1., 1.]
+        .into_iter()
+        .zip(frame.shoulders)
+        .map(|(side, shoulder)| {
+            let mut region = vec![Plane {
+                normal: frame.lateral.map(|v| -side * v),
+                offset: -side * dot(frame.neck, frame.lateral),
+            }];
+            let shoulder_reach =
+                side * (dot(shoulder, frame.lateral) - dot(frame.neck, frame.lateral));
+            ensure!(
+                shoulder_reach > 0.,
+                "partlet neck must lie between shoulders"
+            );
+            // Elliptic cone: the hem retains its angular opening. Its upper
+            // boundary rounds continuously into the shoulder bridge, reaching
+            // `top` on the shoulder's lateral axis instead of making a step.
+            for segment in 0..=SIDE_OPENING_ARC_SEGMENTS {
+                let angle =
+                    std::f32::consts::PI * segment as f32 / SIDE_OPENING_ARC_SEGMENTS as f32;
+                let rise = angle.sin() * shoulder_reach / (top - hem);
+                let mut normal = std::array::from_fn(|i| {
+                    angle.cos() * frame.anterior[i] / slope - side * frame.lateral[i]
+                });
+                let offset = dot(frame.neck, normal) + hem * rise;
+                normal[1] += rise;
+                let length = dot(normal, normal).sqrt();
+                region.push(Plane {
+                    normal: normal.map(|v| v / length),
+                    offset: offset / length,
+                });
+            }
+            Ok(region)
+        })
+        .collect()
+}
+
+fn positions(surface: &SurfaceCut, body: &Wearer<'_>) -> Vec<[f32; 3]> {
+    surface
+        .points
+        .iter()
+        .map(|point| {
+            interpolate(
+                body.faces[point.triangle].map(|v| body.positions[v as usize]),
+                point.weights,
+            )
+        })
+        .collect()
+}
+
+/// Only the actual top cut belongs to the collar. Rear slit edges remain free.
+fn neckline_chain(
+    surface: &SurfaceCut,
+    points: &[[f32; 3]],
+    regions: &[ConvexRegion],
+) -> Result<Vec<u32>> {
+    let mut edges = BTreeMap::new();
+    let mut incoming = BTreeSet::new();
+    for [a, b] in surface.borders(points) {
+        if regions.iter().any(|region| {
+            let inside = region.iter().all(|plane| {
+                [a, b].iter().all(|&v| {
+                    dot(points[v as usize], plane.normal) - plane.offset
+                        <= 2. * CUT_VERTEX_SNAP_METRES
+                })
+            });
+            inside
+                && region.iter().any(|plane| {
+                    [a, b].iter().all(|&v| {
+                        (dot(points[v as usize], plane.normal) - plane.offset).abs()
+                            <= 2. * CUT_VERTEX_SNAP_METRES
+                    })
+                })
+        }) {
+            ensure!(edges.insert(a, b).is_none(), "partlet neckline branches");
+            incoming.insert(b);
+        }
+    }
+    let starts = edges
+        .keys()
+        .filter(|v| !incoming.contains(v))
+        .copied()
+        .collect::<Vec<_>>();
+    ensure!(
+        starts.len() == 1,
+        "partlet collar needs one open neck chain"
+    );
+    let mut at = *starts.first().context("partlet neckline is empty")?;
+    let mut chain = vec![at];
+    while let Some(next) = edges.remove(&at) {
+        chain.push(next);
+        at = next;
+    }
+    ensure!(
+        edges.is_empty() && chain.len() >= 3,
+        "partlet neckline is disconnected"
+    );
+    Ok(chain)
+}

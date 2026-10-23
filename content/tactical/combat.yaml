@@ -176,7 +176,7 @@ presentation:
 animation:
   locomotion:
     sample_hz: 64.0
-    landing: { compression_per_metre_per_second: 0.012, minimum_compression_metres: 0.04, maximum_compression_metres: 0.08, recovery_seconds: 0.16 }
+    landing: { minimum_impact_speed_metres_per_second: 1.0, compression_per_metre_per_second: 0.012, minimum_compression_metres: 0.04, maximum_compression_metres: 0.08, recovery_seconds: 0.16 }
     walk: { reference_speed_metres_per_second: 2.0, step_distance_metres: 1.22, support_phase_radius: 0.28, bounce_metres: 0.04, flight_apex_metres: 0.0 }
     run: { reference_speed_metres_per_second: 5.5, step_distance_metres: 1.78, support_phase_radius: 0.175, bounce_metres: 0.0, flight_apex_metres: 0.12 }
     raised_guard: { reference_speed_metres_per_second: 2.0, step_distance_metres: 0.38, support_phase_radius: 0.25, bounce_metres: 0.03, flight_apex_metres: 0.0 }
@@ -204,12 +204,23 @@ animation:
     phase_drift_measurement_blend: 0.15
     phase_snap_error: 0.20
     maximum_source_gap_ticks: 32
-    maximum_authored_step_cadence_per_second: 5.0
+    authored_step_cadence:
+      maximum_per_second: 5.0
+      transition_width_per_second: 1.0
+      minimum_step_distance_metres: 0.01
     maximum_authored_stance_slip_metres: 0.03
-    authored_cadence_cap_transition_width: 1.0
     maximum_coalesced_events: 8
+    initial_locomotion_speed_metres_per_second: 0.05
+    locomotion_deactivation_speed_metres_per_second: 0.03
+    locomotion_activation_speed_metres_per_second: 0.08
   pose_buffer:
+    minimum_baked_grid_seconds: 0.001
+    minimum_phase_fit_displacement_metres: 0.02
     sample_hz: 30.0
+    maximum_observation_seconds: 0.1
+    authored_phase_calibration_intervals: 256
+    minimum_authored_foot_range_metres: 0.05
+    maximum_authored_foot_range_metres: 3.0
     inertial_blend_seconds: 0.2
     cull_distance_metres: 100.0
     cull_radius_metres: 2.0
@@ -224,9 +235,20 @@ animation:
     height_transition_speed_metres_per_second: 0.4
     locomotion_stop_height_speed_metres_per_second: 0.8
     authored_ordinary_passing_rise_metres: 0.033
+    minimum_landing_absorption_speed_metres_per_second: 0.001
+    landing_compression_arrival_tolerance_metres: 0.0001
+    landing_plant_minimum_compression_metres: 0.001
     body_response:
       maximum_presentation_sample_gap_ticks: 32
       steady_travel_lean_degrees: 16.0
+      maximum_travel_lean_degrees: 18.0
+      forward_reference_acceleration_metres_per_second_squared: 12.0
+      maximum_forward_acceleration_lean_degrees: 14.0
+      braking_acceleration_lean_degrees: 18.0
+      maximum_braking_lean_degrees: 22.0
+      lateral_reference_acceleration_metres_per_second_squared: 10.0
+      maximum_lateral_acceleration_lean_degrees: 8.0
+      maximum_response_degrees: 30.0
       forward_acceleration_lean_degrees: 10.0
       lateral_acceleration_lean_degrees: 6.4
       startup_inertial_lean_scale: 0.25
@@ -246,6 +268,7 @@ animation:
     maximum_angle_radians: 0.8
   inverse_kinematics:
     minimum_inter_foot_separation_metres: 0.16
+    safe_settle_fallback_seconds: 0.75
     outer_foot_track_metres: 0.55
     maximum_plant_discontinuity_metres: 2.0
     maximum_owner_translation_per_tick_metres: 0.5

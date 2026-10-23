@@ -16,8 +16,10 @@ const TILT: f32 = 1.5;
 struct Fixture {
     positions: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
-    joint_indices: Vec<[u32; 8]>,
+    joint_indices: fabelgeist_rig::PackedRigSkin<8>,
     joint_weights: Vec<[f32; 8]>,
+    names: fabelgeist_rig::RigJointTable<fabelgeist_rig::RigJointName>,
+    joints: fabelgeist_rig::RigJointTable<[f32; 8]>,
 }
 
 impl Fixture {
@@ -70,7 +72,13 @@ impl Fixture {
             }
         }
         Self {
-            joint_indices: vec![[0; 8]; positions.len()],
+            joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
+                vec![[0; 8]; positions.len()],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            )
+            .unwrap(),
+            names: Default::default(),
+            joints: Default::default(),
             joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; positions.len()],
             positions,
             faces,
@@ -151,8 +159,8 @@ fn wearer<'a>(
         faces: &fixture.faces,
         joint_indices: &fixture.joint_indices,
         joint_weights: &fixture.joint_weights,
-        joint_names: &[],
-        joints: &[],
+        joint_names: &fixture.names,
+        joints: &fixture.joints,
     }
 }
 
@@ -220,10 +228,14 @@ fn a_cut_shell_is_closed_offset_by_its_layers_and_carries_surface_coordinates() 
         positions: &positions,
         normals: &normals,
         faces: &faces,
-        joint_indices: &[[0; 8]; 4],
+        joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
+            vec![[0; 8]; 4],
+            fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+        )
+        .unwrap(),
         joint_weights: &[[1., 0., 0., 0., 0., 0., 0., 0.]; 4],
-        joint_names: &[],
-        joints: &[],
+        joint_names: &Default::default(),
+        joints: &Default::default(),
     };
     let plane = |normal: [f32; 3], offset: f32| Plane { normal, offset };
     // A central opening cuts both triangles and their shared edge.

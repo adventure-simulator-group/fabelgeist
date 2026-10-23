@@ -27,13 +27,13 @@ impl<'a> VistaVertexColors<'a> {
         }
     }
 
-    pub(super) fn at(&self, local: Vec2, playable_half_extent: Vec2) -> Option<[f32; 4]> {
+    pub(super) fn at(
+        &self,
+        local: PlanDisplacement,
+        playable_half_extent: Vec2,
+    ) -> Option<[f32; 4]> {
         let lod = self.own.lod;
-        let world = local
-            + Vec2::new(
-                lod.origin_east_metres as f32,
-                lod.origin_north_metres as f32,
-            );
+        let world = lod.scene_point(local).ok()?;
         let own = self.own.at(world)?;
         let vista_color = self
             .coarser
@@ -52,7 +52,7 @@ impl<'a> VistaVertexColors<'a> {
                     // Cover proportions summarize wider ecological patches than height
                     // samples. Keep the existing four-cell pigment transition.
                     stitch_vista_color_to_playable_edge(
-                        local,
+                        local.metres(),
                         playable_half_extent,
                         lod.spacing_metres * PLAYABLE_COLOR_TRANSITION_CELLS,
                         vista_color,
@@ -82,7 +82,8 @@ impl<'a> SampleColors<'a> {
         }
     }
 
-    fn at(&self, world: Vec2) -> Option<Vec4> {
+    fn at(&self, world: ScenePlanPoint) -> Option<Vec4> {
+        let world = world.metres();
         let lod = self.lod;
         let width = usize::from(lod.width);
         let depth = usize::from(lod.depth);
@@ -178,6 +179,7 @@ pub(super) fn presented_color(
     let Some(coarser) = coarser_lod else {
         return own.to_array();
     };
+    let world = ScenePlanPoint::try_from(world).unwrap();
     let weight = lod_transition_weight(lod, coarser, world);
     SampleColors::new(coarser, weather)
         .at(world)

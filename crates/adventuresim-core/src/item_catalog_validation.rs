@@ -1926,6 +1926,7 @@ mod tests {
             (
                 "equipment".into(),
                 json!({
+                    "material": "linen",
                     "physical": {
                         "dimensions_m": [0.3, 0.6, 0.1],
                         "grip_to_tip_m": 0.0,
@@ -1937,9 +1938,10 @@ mod tests {
                             "location": "chest",
                             "channel": "base_clothing"
                         }],
-                        "protection": ["chest"]
+                        "protection": ["chest"],
+                        "surface": [{"regions": ["chest"], "anchor": "proximal", "coverage": 1.0}]
                     }],
-                    "protection": {"coverage": 0.5}
+                    "protection": {}
                 }),
             ),
         ]);
@@ -1957,8 +1959,12 @@ mod tests {
         assert_eq!(protection.range_of_motion, 1.0);
 
         item["equipment"]["placements"][0]["occupancy"][0]["order"] = json!(1);
-        let error =
-            validate_documents(&[document(vec![item])], &["equipment.yaml".into()]).unwrap_err();
+        let shipped: Value =
+            serde_json::from_str(include_str!("../../../content/items/catalog.yaml")).unwrap();
+        let files = ["catalog.yaml".into(), "equipment.yaml".into()];
+        validate_documents(&[shipped.clone(), document(vec![item.clone()])], &files).unwrap();
+        item["equipment"]["placements"][0]["occupancy"][0]["channel"] = json!("rigid_armor");
+        let error = validate_documents(&[shipped, document(vec![item])], &files).unwrap_err();
         assert!(validation_contains(
             &error,
             "singleton channel requires order 0"

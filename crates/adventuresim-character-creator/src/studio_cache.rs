@@ -159,7 +159,7 @@ fn fit_keys(
     let placements = loadout
         .fitted
         .iter()
-        .map(|piece| piece.piece.placement)
+        .map(|piece| piece.piece.selection.definition())
         .collect::<Vec<_>>();
     let plan = LayerPlan::new(&placements)?;
     let mut keys = vec![Vec::new(); placements.len()];
@@ -172,8 +172,8 @@ fn fit_keys(
             .map(|inner| finish_key(&keys[inner], &loadout.fitted[inner]))
             .collect::<Result<Vec<_>>>()?;
         let bytes = serde_json::to_vec(&(
-            &piece.piece.item.id,
-            &piece.piece.placement.id,
+            &piece.piece.selection.item().id,
+            &piece.piece.selection.id,
             &piece.design,
             supports,
         ))?;

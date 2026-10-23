@@ -1,0 +1,206 @@
+//! Typed behavior traits of the authored review catalogue.
+
+use super::*;
+
+impl ScenarioId {
+    pub(crate) fn features(self) -> BTreeSet<ScenarioFeature> {
+        self.motion_traits()
+            .iter()
+            .chain(self.terrain_traits())
+            .chain(self.guard_traits())
+            .chain(self.transition_traits())
+            .chain(self.action_traits())
+            .copied()
+            .collect()
+    }
+
+    fn motion_traits(self) -> &'static [ScenarioFeature] {
+        match self {
+            Self::DiveBackward | Self::DiveBackwardAimedImpact | Self::DiveBackwardImpact => {
+                &[ScenarioFeature::Dive, ScenarioFeature::DiveBackward]
+            }
+            Self::DiveForward | Self::DiveForwardAimedImpact => {
+                &[ScenarioFeature::Dive, ScenarioFeature::DiveForward]
+            }
+            Self::DiveLeft | Self::DiveLeftAimedImpact | Self::DiveLeftImpact => {
+                &[ScenarioFeature::Dive, ScenarioFeature::DiveLeft]
+            }
+            Self::DiveRight | Self::DiveRightAimedImpact | Self::DiveRightImpact => {
+                &[ScenarioFeature::Dive, ScenarioFeature::DiveRight]
+            }
+            Self::DownedProneCrawl | Self::DownedProneLookAt | Self::DownedSupineScamper => {
+                &[ScenarioFeature::Downed]
+            }
+            Self::ProneGetUp | Self::SupineGetUp => &[ScenarioFeature::GetUp],
+            Self::ProneRollLeft | Self::ProneRollRight => &[ScenarioFeature::ProneRoll],
+            Self::QuickstepLeft | Self::QuickstepRight => &[ScenarioFeature::Quickstep],
+            _ => &[],
+        }
+    }
+
+    fn terrain_traits(self) -> &'static [ScenarioFeature] {
+        match self {
+            Self::AttackLiveTerrainCrossSlope => &[ScenarioFeature::TerrainNamed],
+            Self::FlatGridRun55
+            | Self::FlatGridSprintNoIk
+            | Self::FlatGridWalk20
+            | Self::FlatGridWalkNoIk
+            | Self::FlatGridWalkStop => &[ScenarioFeature::FlatGrid],
+            Self::TerrainDiagonalWalk
+            | Self::TerrainDownhillWalk
+            | Self::TerrainHalfTurnReversal
+            | Self::TerrainHardStop
+            | Self::TerrainRunFlightStop
+            | Self::TerrainStopMidSwing
+            | Self::TerrainTapStopForward
+            | Self::TerrainTurn90
+            | Self::TerrainUphillWalk => &[
+                ScenarioFeature::TerrainPrefix,
+                ScenarioFeature::TerrainNamed,
+            ],
+            Self::TerrainSpeedThresholdChatter => &[
+                ScenarioFeature::TerrainPrefix,
+                ScenarioFeature::TerrainNamed,
+                ScenarioFeature::Chatter,
+            ],
+            Self::TerrainSteadyRun | Self::TerrainSteadyRun55 => &[
+                ScenarioFeature::TerrainPrefix,
+                ScenarioFeature::TerrainSteadyRun,
+                ScenarioFeature::TerrainNamed,
+            ],
+            Self::TerrainTapRestartCrossfade => &[
+                ScenarioFeature::TerrainPrefix,
+                ScenarioFeature::TerrainNamed,
+                ScenarioFeature::Restart,
+            ],
+            Self::TerrainToggleMidStride => &[
+                ScenarioFeature::TerrainPrefix,
+                ScenarioFeature::TerrainNamed,
+                ScenarioFeature::Toggle,
+            ],
+            _ => &[],
+        }
+    }
+
+    fn guard_traits(self) -> &'static [ScenarioFeature] {
+        match self {
+            Self::RaisedGuard => &[ScenarioFeature::RaisedGuard],
+            Self::RaisedGuardAccelerateFromRest
+            | Self::RaisedGuardBackward
+            | Self::RaisedGuardBackwardLeft
+            | Self::RaisedGuardBackwardRight
+            | Self::RaisedGuardForward
+            | Self::RaisedGuardForwardLeft
+            | Self::RaisedGuardForwardRight
+            | Self::RaisedGuardHalfSpeed
+            | Self::RaisedGuardLeft
+            | Self::RaisedGuardLeftRightReversal
+            | Self::RaisedGuardRight
+            | Self::RaisedGuardRightSupportAccelerate
+            | Self::RaisedGuardRightSupportForwardRight
+            | Self::RaisedGuardRightSupportLeft
+            | Self::RaisedGuardRightSupportReversal
+            | Self::RaisedGuardRightSupportRight
+            | Self::RaisedGuardStationaryTurn
+            | Self::RaisedGuardTransition => &[
+                ScenarioFeature::RaisedGuard,
+                ScenarioFeature::RaisedGuardHyphen,
+            ],
+            Self::RaisedGuardReleaseAtPeak | Self::RaisedGuardRightSupportRelease => &[
+                ScenarioFeature::RaisedGuard,
+                ScenarioFeature::RaisedGuardHyphen,
+                ScenarioFeature::Release,
+            ],
+            Self::RaisedGuardTapStop => &[
+                ScenarioFeature::RaisedGuard,
+                ScenarioFeature::RaisedGuardHyphen,
+                ScenarioFeature::RaisedTapStopAny,
+                ScenarioFeature::TapStop,
+            ],
+            Self::RaisedGuardTapStopLeft | Self::RaisedGuardTapStopRight => &[
+                ScenarioFeature::RaisedGuard,
+                ScenarioFeature::RaisedGuardHyphen,
+                ScenarioFeature::RaisedTapStop,
+                ScenarioFeature::RaisedTapStopAny,
+                ScenarioFeature::TapStop,
+            ],
+            Self::TapStop | Self::TerrainTapStopForward => &[ScenarioFeature::TapStop],
+            _ => &[],
+        }
+    }
+
+    fn transition_traits(self) -> &'static [ScenarioFeature] {
+        match self {
+            Self::AttackLiveHighSpeedReversal
+            | Self::AttackLiveReversal
+            | Self::RaisedGuardLeftRightReversal
+            | Self::RaisedGuardRightSupportReversal => &[ScenarioFeature::Reversal],
+            Self::DynamicsTurn180
+            | Self::DynamicsTurn90
+            | Self::GradualCameraTurn
+            | Self::PlantedGuardTurn
+            | Self::RaisedGuardStationaryTurn
+            | Self::TerrainTurn90 => &[ScenarioFeature::Turn],
+            Self::EnterExit => &[ScenarioFeature::EnterExit],
+            Self::FlatGridWalkStop
+            | Self::RaisedGuardTapStop
+            | Self::RaisedGuardTapStopLeft
+            | Self::RaisedGuardTapStopRight
+            | Self::TapStop
+            | Self::TerrainRunFlightStop
+            | Self::TerrainStopMidSwing
+            | Self::TerrainTapStopForward => &[ScenarioFeature::Stop],
+            Self::HalfTurnReversal | Self::TerrainHalfTurnReversal => {
+                &[ScenarioFeature::Turn, ScenarioFeature::Reversal]
+            }
+            Self::HardStop | Self::TerrainHardStop => {
+                &[ScenarioFeature::Stop, ScenarioFeature::HardStop]
+            }
+            Self::RaisedGuardAccelerateFromRest | Self::RaisedGuardRightSupportAccelerate => {
+                &[ScenarioFeature::Accelerate]
+            }
+            Self::RaisedGuardTransition => &[ScenarioFeature::Transition],
+            Self::SpeedRampUpDown => &[ScenarioFeature::Ramp],
+            Self::StartStopTransition => &[ScenarioFeature::Stop, ScenarioFeature::Transition],
+            _ => &[],
+        }
+    }
+
+    fn action_traits(self) -> &'static [ScenarioFeature] {
+        match self {
+            Self::AttackLiveBackwardLeftSupport
+            | Self::AttackLiveBackwardRightSupport
+            | Self::AttackLiveForwardLeftSupport
+            | Self::AttackLiveForwardRightSupport
+            | Self::AttackLiveMovingThrust
+            | Self::AttackLiveReversal
+            | Self::AttackLiveTerrainCrossSlope => &[ScenarioFeature::AttackLive],
+            Self::AttackLiveHighSpeedReversal => {
+                &[ScenarioFeature::AttackLive, ScenarioFeature::HighSpeed]
+            }
+            Self::AttackLiveStationary | Self::AttackLiveStationarySwing => &[
+                ScenarioFeature::AttackLive,
+                ScenarioFeature::StationaryAttack,
+            ],
+            Self::AttackLiveYawOnly => &[ScenarioFeature::AttackLive, ScenarioFeature::YawOnly],
+            Self::DiveBackwardAimedImpact
+            | Self::DiveForwardAimedImpact
+            | Self::DiveLeftAimedImpact
+            | Self::DiveRightAimedImpact => {
+                &[ScenarioFeature::Impact, ScenarioFeature::AimedImpact]
+            }
+            Self::DiveBackwardImpact | Self::DiveLeftImpact | Self::DiveRightImpact => {
+                &[ScenarioFeature::Impact]
+            }
+            Self::FlatGridRun55
+            | Self::SteadyRun55
+            | Self::TerrainRunFlightStop
+            | Self::TerrainSteadyRun
+            | Self::TerrainSteadyRun55
+            | Self::WalkRunBlend375 => &[ScenarioFeature::Run],
+            Self::HighSpeed => &[ScenarioFeature::HighSpeed],
+            Self::YawOnly => &[ScenarioFeature::YawOnly],
+            _ => &[],
+        }
+    }
+}
