@@ -80,6 +80,8 @@ impl GpuSim {
         let rod = self.record_shape(groomer, &mut batch)?;
         self.record_orient(groomer, &mut batch, &head)?;
         batch.submit()?;
+        // The reset pose has no collision samples from a preceding pass.
+        self.collision_progress.forget_previous();
         self.shaped = Some((rod, self.settings.sag_free));
         self.head = head;
         Ok(())
