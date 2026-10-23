@@ -74,14 +74,14 @@ impl ResourceDescriptor {
                 group,
                 binding,
                 name,
-                self.base_type_str()
+                self.base_type().as_str()
             ),
             ResourceDescriptor::Texture3d(_) => format!(
                 "@group({}) @binding({}) var {}: texture_3d<{}>;\n",
                 group,
                 binding,
                 name,
-                self.base_type_str()
+                self.base_type().as_str()
             ),
         }
     }
@@ -117,17 +117,11 @@ impl ResourceDescriptor {
         })
     }
 
-    pub fn base_type_str(&self) -> &str {
+    pub fn base_type(&self) -> ResourceBaseType {
         match self {
-            ResourceDescriptor::Buffer(ty) => ty.base_type().as_str().leak(), // leak for static str for now
-            ResourceDescriptor::Texture2d(f) | ResourceDescriptor::Texture3d(f) => {
-                if f.is_float() {
-                    "f32"
-                } else if f.is_uint() {
-                    "u32"
-                } else {
-                    "i32"
-                }
+            ResourceDescriptor::Buffer(element_type) => element_type.base_type(),
+            ResourceDescriptor::Texture2d(format) | ResourceDescriptor::Texture3d(format) => {
+                ResourceBaseType::from_texture_format(*format).base_type()
             }
         }
     }
