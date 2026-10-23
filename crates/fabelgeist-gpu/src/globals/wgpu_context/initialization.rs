@@ -69,7 +69,6 @@ impl WgpuContext {
             blocking_validation: !cfg!(target_arch = "wasm32"),
         };
         if matches!(mode, ContextMode::Presentation) {
-            // Texture3d presentation renders into this sRGB target format.
             context.blitter = Some(Arc::new(
                 context
                     .observe_validation(|| {

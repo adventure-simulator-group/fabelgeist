@@ -1,12 +1,14 @@
 #[cfg(test)]
 use anyhow::Result;
 pub use blitter::Blitter;
+pub use completion::WorkCompletionError;
 #[cfg(target_arch = "wasm32")]
 pub use initialization_error::BrowserContextError;
 use std::sync::Arc;
 use wgpu::{Adapter, Device, Instance, Queue};
 
 pub mod blitter;
+mod completion;
 mod initialization;
 #[cfg(target_arch = "wasm32")]
 mod initialization_error;
@@ -44,6 +46,9 @@ pub struct WgpuContext {
 impl WgpuContext {
     /// Wrap a device that already exists.
     ///
+    /// `queue` must be paired with `device` for operations using this context
+    /// to submit work or upload data.
+    ///
     /// An application that has its own wgpu setup -- a renderer, a compositor
     /// -- wants the solver on that same device, so that simulated positions
     /// can be drawn straight from the buffer they were written into rather
@@ -68,47 +73,6 @@ impl WgpuContext {
             // Someone else's device, and very likely someone else's render
             // loop with it.
             blocking_validation: false,
-        }
-    }
-
-    /// Wait until a queue marker and all work submitted before it complete.
-    ///
-    /// Callers can use this for backpressure before submitting more work.
-    /// Native builds wait on an explicit submission index; submissions made
-    /// after that marker need not finish before this call returns. Browser
-    /// builds wait for the queue's completion callback instead.
-    pub async fn submitted_work_done(&self) {
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            // Wait for this point in the queue only. A submission index
-            // returns once earlier work finishes even while a renderer keeps
-            // submitting, and without a sleep's timer granularity, which on
-            // Windows is the system tick rather than a millisecond.
-            let index = self.queue.submit([]);
-            let _ = self.device.poll(wgpu::PollType::Wait {
-                submission_index: Some(index),
-                timeout: None,
-            });
-        }
-        // WebGPU ignores `Wait`; its callbacks run from the event loop.
-        #[cfg(target_arch = "wasm32")]
-        {
-            let (sender, mut receiver) = futures_channel::oneshot::channel();
-            self.queue.on_submitted_work_done(move || {
-                let _ = sender.send(());
-            });
-            loop {
-                let _ = self.device.poll(wgpu::PollType::Poll);
-                match receiver.try_recv() {
-                    Ok(Some(())) => return,
-                    Ok(None) => {
-                        fabelgeist_timer::sleep(std::time::Duration::from_millis(1)).await;
-                    }
-                    // The callback was dropped, which can only happen if the
-                    // device is going away. Nothing left to wait for.
-                    Err(_) => return,
-                }
-            }
         }
     }
 

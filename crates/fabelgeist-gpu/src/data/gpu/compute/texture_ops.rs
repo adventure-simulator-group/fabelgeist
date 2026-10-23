@@ -99,7 +99,11 @@ impl TextureBinaryOpDefinition {
         full_code.push_str("}\n");
 
         let shader = ComputeShader::new(context, full_code)?;
-        Ok(ComputePipeline::new(context, shader)?)
+        Ok(ComputePipeline::new(
+            context,
+            shader,
+            ComputeEntryPoint::Named("main"),
+        )?)
     }
 
     pub fn get_or_create_pipeline(

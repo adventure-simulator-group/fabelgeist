@@ -1,13 +1,16 @@
 pub use compute_shader::*;
+pub use entry_point::ComputeEntryPoint;
 pub use error::*;
+pub use reflection::ComputeReflection;
 
 use crate::data::TextureFormat;
-use crate::data::gpu::shader::{ReflectionData, parse_naga};
+use crate::data::gpu::shader::parse_naga;
 use crate::globals::WgpuContext;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
 mod compute_shader;
+mod entry_point;
 mod error;
 mod reflection;
 
@@ -18,7 +21,7 @@ type PipelineCache = HashMap<String, CachedPipeline>;
 pub struct ComputePipeline {
     shader: ComputeShader,
     bind_group_layouts: Vec<Option<Arc<wgpu::BindGroupLayout>>>,
-    reflection: Arc<ReflectionData>,
+    reflection: Arc<ComputeReflection>,
     pipeline_cache: Arc<Mutex<PipelineCache>>,
     state: CompilationState,
 }
@@ -45,19 +48,27 @@ impl CachedPipeline {
 }
 
 impl ComputePipeline {
-    pub fn new(context: &WgpuContext, shader: ComputeShader) -> ComputePipelineResult<Self> {
-        let mut pipeline = Self::prepare(context, shader)?;
+    pub fn new(
+        context: &WgpuContext,
+        shader: ComputeShader,
+        entry: ComputeEntryPoint<'_>,
+    ) -> ComputePipelineResult<Self> {
+        let mut pipeline = Self::prepare(context, shader, entry)?;
         pipeline.compile(context)?;
         Ok(pipeline)
     }
 
     /// Reflect bindings without compiling a GPU pipeline. A caller choosing a
     /// different uniform layout can compile only the dispatch layout it uses.
-    pub fn prepare(context: &WgpuContext, shader: ComputeShader) -> ComputePipelineResult<Self> {
+    pub fn prepare(
+        context: &WgpuContext,
+        shader: ComputeShader,
+        entry: ComputeEntryPoint<'_>,
+    ) -> ComputePipelineResult<Self> {
         if shader.device() != context.device.as_ref() {
             return Err(ComputePipelineError::WrongDevice);
         }
-        let interface = reflection::ReflectedInterface::new(context, shader.code())?;
+        let interface = reflection::ReflectedInterface::new(context, shader.code(), entry)?;
         Ok(Self {
             shader,
             bind_group_layouts: interface.layouts,
@@ -70,7 +81,7 @@ impl ComputePipeline {
     pub fn shader(&self) -> &ComputeShader {
         &self.shader
     }
-    pub fn reflection(&self) -> &ReflectionData {
+    pub fn reflection(&self) -> &ComputeReflection {
         &self.reflection
     }
     pub fn bind_group_layouts(&self) -> &[Option<Arc<wgpu::BindGroupLayout>>] {
@@ -95,7 +106,7 @@ impl ComputePipeline {
         if matches!(self.state, CompilationState::Prepared) {
             return Err(ComputePipelineError::NotCompiled);
         }
-        self.get_or_create_pipeline(context, &self.reflection.vertex_entry_point)
+        self.get_or_create_pipeline(context, &self.reflection.entry_point)
     }
 
     /// Native validation follows the supplied context's existing blocking policy.
@@ -127,20 +138,14 @@ impl ComputePipeline {
     /// share the complete entry-point outcome, including native rejection.
     pub fn compile(&mut self, context: &WgpuContext) -> ComputePipelineResult<()> {
         self.ensure_device(context)?;
-        self.get_or_create_pipeline(context, &self.reflection.vertex_entry_point)?;
+        self.get_or_create_pipeline(context, &self.reflection.entry_point)?;
         self.state = CompilationState::Compiled;
         Ok(())
     }
 
     pub fn validate_interface(&self) -> ComputePipelineResult<()> {
         let module = parse_naga(self.shader.code(), wgpu::naga::ShaderStage::Compute)?;
-        if !module
-            .entry_points
-            .iter()
-            .any(|entry| entry.stage == wgpu::naga::ShaderStage::Compute)
-        {
-            return Err(ComputePipelineError::MissingEntryPoint);
-        }
+        ComputeEntryPoint::Named(&self.reflection.entry_point).resolve(&module)?;
         Ok(())
     }
 

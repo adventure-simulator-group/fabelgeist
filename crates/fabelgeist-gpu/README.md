@@ -1,8 +1,10 @@
 # GPU buffers
 
 `BufferUpload` borrows the native bytes of `NoUninit` host elements through
-queue submission. `Buffer::from_upload`, `write`, and `write_at` consume that
-upload. Convert host elements once, where the owning consumer admits them:
+the queue write. The queue copies the bytes before that call returns; the GPU
+transfer begins on a subsequent submission. `Buffer::from_upload`, `write`, and
+`write_at` consume the upload. Convert host elements once, where the owning
+consumer admits them:
 
 ```rust
 use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload};

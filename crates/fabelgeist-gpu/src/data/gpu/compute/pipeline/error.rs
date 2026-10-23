@@ -17,7 +17,9 @@ pub enum UnsupportedBindingKind {
 pub enum ComputePipelineError {
     Shader(ShaderError),
     WrongDevice,
-    MissingEntryPoint,
+    MissingEntryPoint {
+        requested: Option<String>,
+    },
     NotCompiled,
     Native(Arc<wgpu::Error>),
     CachePoisoned,
@@ -53,7 +55,14 @@ impl fmt::Display for ComputePipelineError {
             Self::WrongDevice => {
                 formatter.write_str("ComputePipeline belongs to a different GPU device")
             }
-            Self::MissingEntryPoint => formatter.write_str("Compute Shader missing entry point"),
+            Self::MissingEntryPoint {
+                requested: Some(name),
+            } => {
+                write!(formatter, "Compute shader missing entry point `{name}`")
+            }
+            Self::MissingEntryPoint { requested: None } => {
+                formatter.write_str("Compute shader missing a compute entry point")
+            }
             Self::NotCompiled => {
                 formatter.write_str("ComputePass: ComputePipeline missing actual WGPU pipeline")
             }
