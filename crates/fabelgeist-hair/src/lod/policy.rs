@@ -57,7 +57,7 @@ pub struct SimBand {
 /// What to draw this frame.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Representation {
-    /// No groom geometry has been prepared.
+    /// No geometry is selected for this draw.
     Empty,
     /// The first `count` strands of `level`, `width_scale` times as wide.
     Strands {
