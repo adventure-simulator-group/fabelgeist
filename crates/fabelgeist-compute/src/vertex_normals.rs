@@ -374,7 +374,7 @@ mod tests {
             triangle_count,
             &mut output,
         )?;
-        batch.submit();
+        batch.submit()?;
         output.read(&context, vertex_count).await
     }
 

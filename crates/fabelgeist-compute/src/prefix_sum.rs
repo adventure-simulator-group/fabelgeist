@@ -257,7 +257,7 @@ impl PrefixSum {
     ) -> Result<()> {
         let mut batch = KernelBatch::labelled(context, "PrefixSum");
         self.record(&mut batch, data, scratch, count)?;
-        batch.submit();
+        batch.submit()?;
         Ok(())
     }
 }

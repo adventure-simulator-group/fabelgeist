@@ -275,12 +275,11 @@ unsafe impl Sync for WgpuContext {}
 mod tests {
     use super::*;
 
-    /// Borrowing a device must not opt into draining its queue.
+    /// Borrowed contexts leave synchronous validation to the application.
     ///
-    /// Getting this wrong does not fail a test or produce a wrong number: it
-    /// hangs the calling thread until the driver watchdog removes the device,
-    /// which surfaces as an unrelated `DEVICE_REMOVED` on whatever call comes
-    /// next. So the contract is pinned here rather than left to a comment.
+    /// Construction paths consult this flag before waiting for native
+    /// validation results. Wrapping an application's device must preserve the
+    /// nonblocking policy even when the original context permits a wait.
     #[tokio::test]
     async fn a_borrowed_device_skips_blocking_validation() -> Result<()> {
         let owned = WgpuContext::new().await?;
@@ -297,7 +296,7 @@ mod tests {
         );
         assert!(
             !borrowed.blocking_validation,
-            "a borrowed device may have someone else submitting to it; draining              its queue would block until the driver gives up"
+            "wrapping a device must not enable synchronous validation readback"
         );
         assert!(borrowed.surface.is_none());
         Ok(())

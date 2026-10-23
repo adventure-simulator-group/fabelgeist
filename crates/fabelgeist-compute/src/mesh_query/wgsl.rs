@@ -5,9 +5,9 @@
 //! its own query against the whole tile. The targets are read from global
 //! memory once per workgroup rather than once per query.
 //!
-//! Ties go to the lowest target index. Targets are visited in ascending order
-//! and only a strictly better candidate replaces the incumbent, so a query
-//! gets the same answer as a host loop taking the first minimum.
+//! Equal distances or ray parameters select the lowest target index through
+//! an explicit index comparison. Candidate lists can have arbitrary order;
+//! their visitation order does not decide ties.
 
 /// Workgroup size, and targets per tile.
 pub(super) const TILE: u32 = 256;

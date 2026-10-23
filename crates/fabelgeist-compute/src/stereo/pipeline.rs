@@ -501,15 +501,16 @@ impl StereoDepth {
     /// Run every stage over the uploaded disparity, in one submit.
     ///
     /// `motion` takes the previous frame's grid to this one's; None is a rig
-    /// that has not moved. Nothing waits for the card: read an output, or
-    /// wait on the queue, to know it is done.
+    /// that has not moved. Results require separate readback or completion
+    /// waiting. The context's validation policy applies during recording and
+    /// submission.
     pub fn run(&mut self, context: &WgpuContext, motion: Option<Matrix4>) -> Result<()> {
         let motion = motion.unwrap_or(STILL);
         let mut batch = KernelBatch::labelled(context, "stereo depth");
         for stage in Stage::ALL {
             self.record(stage, &mut batch, &motion)?;
         }
-        batch.submit();
+        batch.submit()?;
         if self.temporal.is_some() {
             self.front = 1 - self.front;
         }
