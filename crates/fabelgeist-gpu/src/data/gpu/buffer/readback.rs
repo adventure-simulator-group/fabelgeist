@@ -1,5 +1,5 @@
 //! Allocate before taking a mapped view; initialize before exposing typed data.
-use anyhow::{Result, ensure};
+use super::{BufferByteLength, BufferReadError};
 use bytemuck::AnyBitPattern;
 
 pub(super) struct Readback<T> {
@@ -8,26 +8,33 @@ pub(super) struct Readback<T> {
 }
 
 impl<T: AnyBitPattern> Readback<T> {
-    pub(super) fn new(byte_len: u64) -> Result<Self> {
-        let byte_len = usize::try_from(byte_len)?;
+    pub(super) fn new(byte_len: u64) -> Result<Self, BufferReadError> {
+        let byte_len = usize::try_from(byte_len).map_err(BufferReadError::HostAddress)?;
         let element_size = std::mem::size_of::<T>();
-        ensure!(
-            element_size != 0,
-            "GPU readback requires nonzero-sized elements"
-        );
-        ensure!(
-            byte_len.is_multiple_of(element_size),
-            "GPU readback byte length is not a whole number of elements"
-        );
-        Ok(Self {
-            values: Vec::with_capacity(byte_len / element_size),
-            byte_len,
-        })
+        if element_size == 0 {
+            return Err(BufferReadError::ZeroSizedElement);
+        }
+        if !byte_len.is_multiple_of(element_size) {
+            return Err(BufferReadError::PartialElement {
+                bytes: BufferByteLength::from(byte_len),
+                element_bytes: element_size,
+            });
+        }
+        let mut values = Vec::new();
+        values
+            .try_reserve_exact(byte_len / element_size)
+            .map_err(BufferReadError::HostAllocation)?;
+        Ok(Self { values, byte_len })
     }
 
-    pub(super) fn copy_from(mut self, bytes: &[u8]) -> Result<Vec<T>> {
+    pub(super) fn copy_from(mut self, bytes: &[u8]) -> Result<Vec<T>, BufferReadError> {
         // GPU allocations may include trailing alignment padding.
-        ensure!(bytes.len() >= self.byte_len, "GPU readback is truncated");
+        if bytes.len() < self.byte_len {
+            return Err(BufferReadError::Truncated {
+                requested: BufferByteLength::from(self.byte_len),
+                available: BufferByteLength::from(bytes.len()),
+            });
+        }
         // SAFETY: the allocation fits every byte and is aligned for T. The
         // buffers do not overlap, and AnyBitPattern permits all copied values.
         // Set the length only after every element has been initialized.

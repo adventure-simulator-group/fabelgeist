@@ -52,7 +52,7 @@ impl<'a> BufferUpload<'a> {
         context: &WgpuContext,
         buffer: &wgpu::Buffer,
         at: BufferByteOffset,
-    ) {
-        context.queue.write_buffer(buffer, u64::from(at), self.0);
+    ) -> Result<(), wgpu::Error> {
+        context.observe_validation(|| context.queue.write_buffer(buffer, u64::from(at), self.0))
     }
 }

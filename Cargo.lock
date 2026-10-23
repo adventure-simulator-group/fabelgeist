@@ -4844,6 +4844,7 @@ dependencies = [
 name = "fabelgeist-armor"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "blake3",
  "bytemuck",
  "fabelgeist-compute",
@@ -4851,6 +4852,7 @@ dependencies = [
  "fabelgeist-geometry",
  "fabelgeist-gpu",
  "fabelgeist-math",
+ "fabelgeist-mesh",
  "fabelgeist-rig",
  "image",
  "pollster",

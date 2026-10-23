@@ -120,16 +120,18 @@ impl BufferDefinition {
         &self,
         context: &WgpuContext,
         length: BufferByteLength,
-    ) -> wgpu::Buffer {
+    ) -> Result<wgpu::Buffer, wgpu::Error> {
         let usage = match self.usage {
             UsageSelection::Unspecified => GENERAL_USAGE,
             UsageSelection::Explicit(flags) => flags,
         };
-        context.device.create_buffer(&wgpu::BufferDescriptor {
-            label: self.label.as_ref().map(<&str>::from),
-            size: u64::from(length),
-            usage,
-            mapped_at_creation: false,
+        context.observe_validation(|| {
+            context.device.create_buffer(&wgpu::BufferDescriptor {
+                label: self.label.as_ref().map(<&str>::from),
+                size: u64::from(length),
+                usage,
+                mapped_at_creation: false,
+            })
         })
     }
 }

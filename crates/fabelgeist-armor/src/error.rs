@@ -11,6 +11,8 @@ pub enum GenerateError {
     Skin(#[from] fabelgeist_rig::RigSkinError),
     #[error("armor GPU readback: {0}")]
     Readback(#[from] ReadbackError),
+    #[error("armor staged readback: {0}")]
+    Staging(#[from] crate::gpu::staging::StagingError),
     #[error("armor plate shell: {0}")]
     PlateShell(#[from] PlateShellFailure),
     #[error(
@@ -29,7 +31,7 @@ pub enum GenerateError {
     #[error("generated armor geometry is degenerate")]
     Degenerate,
     #[error("armor GPU: {0}")]
-    Gpu(std::sync::Arc<str>),
+    Gpu(#[source] anyhow::Error),
 }
 
 /// An evaluated metal wall has unusable facets.
