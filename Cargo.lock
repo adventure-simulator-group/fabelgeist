@@ -204,6 +204,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "adventuresim-environment"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bevy",
+ "bevy_egui",
+ "bevy_eidolon",
+ "bevy_panorbit_camera",
+ "bytemuck",
+ "clap",
+ "fabelgeist-botany",
+ "fabelgeist-gpu",
+ "pollster",
+ "thiserror 2.0.20",
+]
+
+[[package]]
 name = "adventuresim-plant-generator"
 version = "0.1.0"
 dependencies = [
@@ -4862,6 +4879,38 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-botany"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-buildings",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-hlod",
+ "fabelgeist-math",
+ "fabelgeist-mesh",
+ "fabelgeist-spatial-hash",
+ "fabelgeist-surface-field",
+ "fabelgeist-tube",
+ "image",
+ "naga",
+ "pollster",
+ "rayon",
+ "tokio",
+ "web-time",
+ "wgpu",
+]
+
+[[package]]
+name = "fabelgeist-buildings"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "naga",
+]
+
+[[package]]
 name = "fabelgeist-bvh"
 version = "0.1.0"
 dependencies = [
@@ -5057,6 +5106,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-hlod"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "naga",
+ "pollster",
+ "wgpu",
+]
+
+[[package]]
 name = "fabelgeist-math"
 version = "0.1.0"
 dependencies = [
@@ -5148,10 +5207,33 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-surface-field"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "naga",
+ "pollster",
+ "rayon",
+ "wgpu",
+]
+
+[[package]]
 name = "fabelgeist-timer"
 version = "0.1.0"
 dependencies = [
  "gloo-timers",
+ "tokio",
+]
+
+[[package]]
+name = "fabelgeist-tube"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-mesh",
  "tokio",
 ]
 
