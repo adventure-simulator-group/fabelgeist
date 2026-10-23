@@ -36,7 +36,7 @@ impl DrapedGarment {
 }
 
 /// Cloth must not cross the wearer or an inner garment.
-pub(super) fn validate_surface(
+pub(crate) fn validate_surface(
     cloth: &fabelgeist_bvh::TriangleBvh,
     body: &fabelgeist_bvh::TriangleBvh,
 ) -> Result<()> {

@@ -31,6 +31,7 @@ pub use lining::{PlateLining, UnderPlate};
 pub use selection::{ClothLayer, Construction, FabricPreset, GarmentForm, GarmentSelection};
 pub use settled::{BodyTopology, SettledDrape, SettledGarment};
 pub use stages::{DrapeCheckpoints, DrapeSettings, StageSettings};
+pub(crate) use validation::validate_surface;
 
 #[derive(Clone)]
 pub struct DrapeInput {
