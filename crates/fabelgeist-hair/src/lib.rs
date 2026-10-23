@@ -137,7 +137,8 @@
 //! let head = look.head(&Head::mannequin());
 //! let scalp = head.scalp(0.004);
 //! let hair = look.grow(&head, &scalp);
-//! let lods = HairLods::build(&hair, head.cranium.center, Some(&head), &LodSettings::default());
+//! let lods = HairLods::build(&hair, head.cranium.center, Some(&head), &LodSettings::default())?;
+//! # Ok::<(), fabelgeist_hair::cards::AtlasError>(())
 //! ```
 
 pub mod cards;

@@ -7,6 +7,8 @@ pub type Result<T> = std::result::Result<T, HairGpuError>;
 
 #[derive(Debug, thiserror::Error)]
 pub enum HairGpuError {
+    #[error("hair card atlas creation failed")]
+    Atlas(#[from] crate::cards::AtlasError),
     #[error("hair strand layout is invalid")]
     StrandLayout(#[from] super::StrandLayoutError),
     #[error("hair resources belong to another GPU device")]

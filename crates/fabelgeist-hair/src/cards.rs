@@ -93,7 +93,7 @@ impl CardMesh {
         occlusion: Option<&Occlusion>,
         body: Option<&dyn Collider>,
         settings: &CardSettings,
-        variants: u32,
+        variants: AtlasVariantCount,
     ) -> Self {
         let map = GuideMap::new(strands, settings.size, 1.0, 0xCA4D);
         let mut members: Vec<Vec<u32>> = vec![Vec::new(); strands.len()];
@@ -169,7 +169,7 @@ impl CardMesh {
                     widths[j] = (raw[j - 1] + 2.0 * raw[j] + raw[j + 1]) * 0.25;
                 }
                 let id = strands.id[g as usize];
-                let variant = (rng::hash((id).word(), 0x7A) % variants.max(1)) as f32;
+                let variant = (rng::hash((id).word(), 0x7A) % variants.count()) as f32;
                 let random = rng::unit((id).word(), 0x7B);
                 let mut vertices = Vec::with_capacity((segments + 1) * 2);
                 for j in 0..=segments {
@@ -248,7 +248,7 @@ mod tests {
                 size: 0.02,
                 ..Default::default()
             },
-            4,
+            AtlasVariantCount::try_from(4).unwrap(),
         );
         assert!(mesh.cards >= 2 && mesh.cards <= 8, "{}", mesh.cards);
         assert_eq!(mesh.indices.len(), mesh.cards * 12 * 6);

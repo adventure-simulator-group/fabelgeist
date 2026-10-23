@@ -13,8 +13,10 @@ use fabelgeist_spatial_hash::{CellScale, HashLayout};
 use super::grow::params;
 use super::head::GpuHeadCover;
 use super::{GpuGroom, GpuGroomer, storage, upload};
-use crate::cards::{CardAtlas, CardSettings};
+use crate::cards::{AtlasVariantCount, CardAtlas, CardSettings};
 use crate::lod::LodSettings;
+
+mod atlas;
 
 /// One strand level on the GPU, in the shuffled order, as the renderer
 /// draws it: positions with their sky visibility in `w`, and a
@@ -122,6 +124,7 @@ impl GpuGroomer {
     ) -> Result<GpuLods> {
         let context = self.context.clone();
         groom.ensure_device(&context)?;
+        let atlas = self.atlas_for(settings.atlas)?;
         let count = groom.layout.native_strands();
         let points = groom.layout.native_points();
         let has_body = u32::from(body.is_some());
@@ -175,7 +178,7 @@ impl GpuGroomer {
         let mut counts = vec![points];
         for &p in &settings.strand_points {
             let p = p as u32;
-            if p >= 2 && p < *counts.last().unwrap() && p <= 32 {
+            if p >= 2 && p < counts[counts.len() - 1] && p <= 32 {
                 counts.push(p);
             }
         }
@@ -232,7 +235,7 @@ impl GpuGroomer {
                 &visibility,
                 &head,
                 has_body,
-                settings.atlas_variants,
+                atlas.variants(),
             )?;
             cards.push(built);
             batch = next;
@@ -241,16 +244,7 @@ impl GpuGroomer {
         let cover = self.record_cover(&mut batch, groom, bounds)?;
         batch.submit()?;
 
-        let [w, h] = settings.atlas_size;
-        let key = (settings.atlas_variants, [w, h]);
-        let atlas = match &self.atlas {
-            Some((v, size, atlas)) if (*v, *size) == key => atlas.clone(),
-            _ => {
-                let atlas = Arc::new(CardAtlas::paint(settings.atlas_variants, w, h, 0xA71A5));
-                self.atlas = Some((key.0, key.1, atlas.clone()));
-                atlas
-            }
-        };
+        self.atlas = Some(atlas.clone());
         Ok(GpuLods {
             levels,
             cards,
@@ -325,7 +319,7 @@ impl GpuGroomer {
         visibility: &Buffer,
         head: &Buffer,
         body: u32,
-        variants: u32,
+        variants: AtlasVariantCount,
     ) -> Result<(GpuCards, KernelBatch<'a>)> {
         let count = groom.layout.native_strands();
         let segments = card.segments.clamp(1, 31) as u32;
@@ -426,7 +420,7 @@ impl GpuGroomer {
             "center_z" => center.z,
             "size" => card.size,
             "width_scale" => card.width_scale,
-            "variants" => variants.max(1),
+            "variants" => variants.count(),
             "pad0" => 0u32,
             "pad1" => 0u32,
         };

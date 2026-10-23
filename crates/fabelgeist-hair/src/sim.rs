@@ -582,7 +582,8 @@ mod tests {
             cards: Vec::new(),
             ..Default::default()
         };
-        let lods = HairLods::build(&hair, head.cranium.center, Some(&head), &settings);
+        let lods = HairLods::build(&hair, head.cranium.center, Some(&head), &settings)
+            .expect("prepare levels");
         (head, lods)
     }
 

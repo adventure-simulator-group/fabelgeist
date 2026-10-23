@@ -364,7 +364,7 @@ pub struct GpuGroomer {
     grid: GpuHashGrid,
     scratch: Scratches,
     head_mesh: Option<HeadMesh>,
-    atlas: Option<(u32, [u32; 2], Arc<CardAtlas>)>,
+    atlas: Option<Arc<CardAtlas>>,
 }
 
 impl GpuGroomer {

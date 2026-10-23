@@ -41,9 +41,10 @@ pub use quality::{
 };
 
 use fabelgeist_math::Vec3;
+use fabelgeist_determinism::Seed;
 use rayon::prelude::*;
 
-use crate::cards::{CardAtlas, CardMesh, CardSettings};
+use crate::cards::{AtlasResult, AtlasSettings, CardAtlas, CardMesh, CardSettings};
 use crate::collider::{Collider, keep_clear};
 use crate::cover::ScalpCover;
 use crate::occlusion::{Occlusion, OcclusionSettings};
@@ -58,6 +59,9 @@ mod quality;
 /// How far off the head a coarse strand's segments are kept, metres: about
 /// where the groom's own strands lie over the scalp.
 const STRAND_CLEARANCE: f32 = 0.0012;
+
+/// The shared authored atlas stream for host and native level builders.
+pub(crate) const ATLAS_SEED: Seed = Seed::from_u64(0xA71A5);
 
 /// A strand's per-strand data as the strand shader reads it.
 #[repr(C)]
@@ -78,6 +82,27 @@ pub struct StrandLevel {
     pub strands: Vec<StrandInfo>,
 }
 
+pub struct LodSettings {
+    /// Points per strand at each level after the first (which keeps the
+    /// groom's own count); a level is dropped if it would not be coarser.
+    pub strand_points: Vec<usize>,
+    pub cards: Vec<CardSettings>,
+    pub occlusion: OcclusionSettings,
+    pub atlas: AtlasSettings,
+}
+
+/// A groom ready to draw at any distance.
+pub struct HairLods {
+    pub levels: Vec<StrandLevel>,
+    pub cards: Vec<CardMesh>,
+    pub atlas: CardAtlas,
+    pub bounds: [Vec3; 2],
+    /// The head's centre, for card orientation and framing.
+    pub center: Vec3,
+    /// How much hair covers the skin, for shading the head under it.
+    pub cover: ScalpCover,
+}
+
 impl StrandLevel {
     pub fn len(&self) -> usize {
         self.strands.len()
@@ -90,16 +115,6 @@ impl StrandLevel {
     pub fn bytes(&self) -> usize {
         self.positions.len() * 16 + self.strands.len() * 16
     }
-}
-
-pub struct LodSettings {
-    /// Points per strand at each level after the first (which keeps the
-    /// groom's own count); a level is dropped if it would not be coarser.
-    pub strand_points: Vec<usize>,
-    pub cards: Vec<CardSettings>,
-    pub occlusion: OcclusionSettings,
-    pub atlas_variants: u32,
-    pub atlas_size: [u32; 2],
 }
 
 impl Default for LodSettings {
@@ -116,22 +131,9 @@ impl Default for LodSettings {
                 },
             ],
             occlusion: OcclusionSettings::default(),
-            atlas_variants: 8,
-            atlas_size: [64, 256],
+            atlas: AtlasSettings::default(),
         }
     }
-}
-
-/// A groom ready to draw at any distance.
-pub struct HairLods {
-    pub levels: Vec<StrandLevel>,
-    pub cards: Vec<CardMesh>,
-    pub atlas: CardAtlas,
-    pub bounds: [Vec3; 2],
-    /// The head's centre, for card orientation and framing.
-    pub center: Vec3,
-    /// How much hair covers the skin, for shading the head under it.
-    pub cover: ScalpCover,
 }
 
 impl HairLods {
@@ -140,14 +142,15 @@ impl HairLods {
         center: Vec3,
         body: Option<&dyn Collider>,
         settings: &LodSettings,
-    ) -> Self {
+    ) -> AtlasResult<Self> {
+        let atlas = CardAtlas::paint(settings.atlas, ATLAS_SEED)?;
         let occlusion = Occlusion::bake(strands, body, &settings.occlusion);
         let mut order: Vec<usize> = (0..strands.len()).collect();
         order.sort_by_key(|&s| rng::hash(strands.id[s].word(), 0x0D3E));
 
         let mut counts = vec![strands.points];
         for &p in &settings.strand_points {
-            if p >= 2 && p < *counts.last().unwrap() {
+            if p >= 2 && p < counts[counts.len() - 1] {
                 counts.push(p);
             }
         }
@@ -197,19 +200,18 @@ impl HairLods {
                     Some(&occlusion),
                     body,
                     c,
-                    settings.atlas_variants,
+                    atlas.variants(),
                 )
             })
             .collect();
-        let [w, h] = settings.atlas_size;
-        Self {
+        Ok(Self {
             levels,
             cards,
-            atlas: CardAtlas::paint(settings.atlas_variants, w, h, 0xA71A5),
+            atlas,
             bounds: strands.bounds(),
             center,
             cover: ScalpCover::new(strands),
-        }
+        })
     }
 
     pub fn strand_count(&self) -> usize {
