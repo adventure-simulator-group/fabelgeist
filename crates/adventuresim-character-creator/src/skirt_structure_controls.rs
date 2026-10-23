@@ -44,6 +44,7 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
             SkirtPleats::FRONT_PANEL_RANGE,
             "Quiet front panel width",
         );
+        changed |= gather_controls(ui, pleats);
     }
     changed |= toggle(ui, &mut design.support, "Structural support");
     if let Some(support) = &mut design.support {
@@ -106,6 +107,28 @@ fn gauge(
         &mut thickness.0,
         SkirtSupport::THICKNESS_RANGE,
         "Member thickness (mm)",
+    );
+    changed
+}
+
+fn gather_controls(ui: &mut egui::Ui, pleats: &mut SkirtPleats) -> bool {
+    let mut changed = ui
+        .add(
+            egui::Slider::new(&mut pleats.waist_count.0, SkirtPleats::WAIST_COUNT_RANGE)
+                .text("Fine waist gathers"),
+        )
+        .changed();
+    changed |= proportion(
+        ui,
+        &mut pleats.gather_falloff,
+        SkirtPleats::GATHER_FALLOFF_RANGE,
+        "Waist gather reach",
+    );
+    changed |= proportion(
+        ui,
+        &mut pleats.gather_retention,
+        SkirtPleats::GATHER_RETENTION_RANGE,
+        "Fine folds retained toward hem",
     );
     changed
 }

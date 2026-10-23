@@ -14,6 +14,7 @@ use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 mod layout;
 mod shell_kernels;
 
+use super::shell_plan::INNER_BIT;
 use super::staging::{Staged, StagedResults, Staging};
 use super::{ArmorGpu, device_error};
 use crate::{ArmorComponent, ArmorHinge, GenerateError, PlateFace, SurfaceGrid};
@@ -50,6 +51,7 @@ pub(crate) struct PartBuild {
     /// are evaluated in its own frame.
     pub placement: Option<Buffer>,
     final_triangle_count: u32,
+    textile_coordinates: Option<Buffer>,
 }
 
 /// Hinge records: origin and axis, each padded to four floats.
@@ -96,12 +98,29 @@ impl PartBuild {
             final_triangle_count,
             hinge_count: hinges,
             placement: None,
+            textile_coordinates: None,
             layout,
         })
     }
 
     pub(crate) fn layout(&self) -> &PartLayout {
         &self.layout
+    }
+
+    pub(crate) fn record_textile_chart(
+        &mut self,
+        gpu: &ArmorGpu,
+        batch: &mut KernelBatch,
+        frame: &Buffer,
+    ) -> Result<(), GenerateError> {
+        self.textile_coordinates = Some(super::textile_chart::record(
+            gpu,
+            batch,
+            &self.carriers,
+            self.layout.carrier_count,
+            frame,
+        )?);
+        Ok(())
     }
 
     /// Thicken every shell and compute the final normals.
@@ -236,6 +255,10 @@ impl PartBuild {
             normals: staging.stage(&self.normals.normals),
             hinges: staging.stage(&self.hinges),
             indices: staging.stage(&self.final_indices),
+            textile_coordinates: self
+                .textile_coordinates
+                .as_ref()
+                .map(|uv| staging.stage(uv)),
         }
     }
 
@@ -281,6 +304,14 @@ impl PartBuild {
         let mut indices: Vec<u32> = results.get(slots.indices);
         indices.truncate(self.final_triangle_count as usize * 3);
         Ok(BuiltPart {
+            texcoords: slots.textile_coordinates.map(|slot| {
+                let coordinates: Vec<[f32; 2]> = results.get(slot);
+                self.layout
+                    .sources()
+                    .iter()
+                    .map(|source| coordinates[(source & !INNER_BIT) as usize])
+                    .collect()
+            }),
             positions,
             normals,
             indices,
@@ -294,6 +325,7 @@ impl PartBuild {
 /// Where a part's results are in a staged readback.
 #[derive(Clone, Copy, Debug)]
 pub struct PartSlots {
+    textile_coordinates: Option<Staged>,
     area: Staged,
     angle: Staged,
     shell: Staged,
@@ -307,6 +339,8 @@ pub struct PartSlots {
 /// A finished part, back on the host.
 #[derive(Clone, Debug)]
 pub struct BuiltPart {
+    /// Optional fabric shading coordinates. Skin correspondence is independent.
+    pub texcoords: Option<Vec<[f32; 2]>>,
     pub positions: Vec<[f32; 3]>,
     pub normals: Vec<[f32; 3]>,
     pub indices: Vec<u32>,
@@ -322,6 +356,18 @@ impl BuiltPart {
     /// keeps its own vertices, faces, components and grids.
     pub fn append(&mut self, other: BuiltPart) {
         let vertices = self.positions.len();
+        if self.texcoords.is_some() || other.texcoords.is_some() {
+            // Nontextile components never sample this channel. Preserve the
+            // real fabric chart when appending a mixed-material assembly.
+            let first = self
+                .texcoords
+                .get_or_insert_with(|| vec![[0.0; 2]; vertices]);
+            if let Some(second) = &other.texcoords {
+                first.extend_from_slice(second);
+            } else {
+                first.resize(first.len() + other.positions.len(), [0.0; 2]);
+            }
+        }
         let indices = self.indices.len();
         let offset = vertices as u32;
         self.positions.extend(other.positions);

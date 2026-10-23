@@ -122,6 +122,17 @@ impl OutfitPlan {
 }
 
 impl generation::FitKey {
+    /// Resolve this article's lower garments from the wearer's admitted outfit.
+    pub(super) fn layers_for_outfit(
+        &self,
+        outfit: &Result<OutfitPlan, String>,
+    ) -> anyhow::Result<Vec<LayerSelection>> {
+        outfit
+            .as_ref()
+            .map_err(|error| anyhow::anyhow!("{error}"))?
+            .ancestors(&self.selection)
+    }
+
     /// Recreate every direct support's full fit key. Its own lower surfaces
     /// remain in the key; flat item IDs alone would reuse incorrectly seated
     /// geometry after a garment underneath that support changes.

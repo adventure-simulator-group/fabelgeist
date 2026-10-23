@@ -91,9 +91,8 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
         "Cloth thickness (mm)",
     );
     if design.puff_and_slash.is_none() {
-        ui.horizontal(|ui| {
-            ui.label("Fabric color");
-            changed |= ui.color_edit_button_srgb(&mut design.color.0).changed();
+        ui.collapsing("Fabric appearance", |ui| {
+            changed |= super::textile::show(ui, &mut design.fabric);
         });
     }
     changed
@@ -144,6 +143,12 @@ fn bodice(ui: &mut egui::Ui, bodice: &mut Option<fabelgeist_armor::DressBodice>)
             &mut bodice.transition,
             fabelgeist_armor::DressBodice::TRANSITION_RANGE,
             "Waist transition",
+        );
+        changed |= number(
+            ui,
+            &mut bodice.front_point.0,
+            fabelgeist_armor::DressBodice::FRONT_POINT_RANGE,
+            "Front waist point (mm)",
         );
     }
     changed

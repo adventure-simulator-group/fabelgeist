@@ -287,6 +287,7 @@ impl PartLayout {
                 let last = &self.shells[shells.end - 1];
                 (
                     ArmorComponent {
+                        textile: None,
                         role: component.role,
                         vertices: first.first_final as usize
                             ..(last.first_final as usize + last.plan.sources.len()),

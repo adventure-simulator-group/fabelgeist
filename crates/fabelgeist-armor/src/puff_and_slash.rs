@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{GenerateError, Millimeters, Permille, TextileColor};
+use crate::{GenerateError, Millimeters, Permille, TextileAppearance, TextileColor, TextileFinish};
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub enum PuffAndSlashKind {
@@ -27,8 +27,8 @@ pub struct PuffAndSlashPattern {
     /// Fraction of each puff course reserved for fitted constriction bands.
     pub constriction_width: Permille,
     pub rotation: Permille,
-    pub outer_color: TextileColor,
-    pub undercloth_color: TextileColor,
+    pub outer_fabric: TextileAppearance,
+    pub undercloth_fabric: TextileAppearance,
 }
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
@@ -55,8 +55,14 @@ impl Default for PuffAndSlashPattern {
             slash_length: Permille(700),
             constriction_width: Permille(120),
             rotation: Permille(0),
-            outer_color: TextileColor([150, 32, 28]),
-            undercloth_color: TextileColor([224, 184, 58]),
+            outer_fabric: TextileAppearance::solid(
+                TextileColor([150, 32, 28]),
+                TextileFinish::Wool,
+            ),
+            undercloth_fabric: TextileAppearance::solid(
+                TextileColor([224, 184, 58]),
+                TextileFinish::Silk,
+            ),
         }
     }
 }
@@ -76,6 +82,8 @@ impl Default for PuffAndSlashDesign {
 
 impl PuffAndSlashPattern {
     pub fn validate(&self) -> Result<(), GenerateError> {
+        self.outer_fabric.validate()?;
+        self.undercloth_fabric.validate()?;
         let valid = (1..=8).contains(&self.puff_count)
             && (5..=90).contains(&self.puff_fullness.0)
             && (250..=1500).contains(&self.distal_fullness.0)

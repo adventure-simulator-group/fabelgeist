@@ -158,11 +158,13 @@ fn main() -> Result<()> {
                 joints: &body.joints,
             },
         )?;
+        let textile_maps = write_textile_maps(&args.output, &generated)?;
         std::fs::write(
             args.output.join(format!("{name}--worn.json")),
             serde_json::to_vec(&serde_json::json!({
                 "id": name, "placement": "worn", "design": design,
                 "positions": generated.positions, "normals": generated.normals,
+                "texcoords": generated.texcoords, "textile_maps": textile_maps,
                 "indices": generated.indices, "components": generated.components,
                 "joint_indices": generated.joint_indices, "joint_weights": generated.joint_weights,
                 "morphs": generated.morphs.iter().map(|morph| serde_json::json!({
@@ -174,4 +176,22 @@ fn main() -> Result<()> {
         )?;
     }
     Ok(())
+}
+
+fn write_textile_maps(
+    output: &std::path::Path,
+    armor: &fabelgeist_armor::GeneratedArmor,
+) -> Result<Vec<serde_json::Value>> {
+    let mut maps = Vec::new();
+    for (index, component) in armor.components.iter().enumerate() {
+        if let Some(fabric) = &component.textile
+            && let Some(textures) =
+                adventuresim_character_creator::textile_surface::textures(fabric)?
+        {
+            let name = format!("textile-{index}-color.png");
+            std::fs::write(output.join(&name), textures.base_color_png)?;
+            maps.push(serde_json::json!({"component":index,"base_color":name}));
+        }
+    }
+    Ok(maps)
 }

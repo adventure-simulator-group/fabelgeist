@@ -9,6 +9,12 @@ excluded_paths = [
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/textile_controls.rs"
+item = "show"
+reason = "Egui layer buttons dispatch typed edit actions through widget responses; their labels are not compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-tactical-client/build.rs"
 item = "CargoPackageRole::from"
 reason = "Classifies Cargo lockfile package names in the derived Serde String conversion without admitting non-string values."
