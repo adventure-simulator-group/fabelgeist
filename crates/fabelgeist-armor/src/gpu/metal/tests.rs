@@ -3,10 +3,10 @@
 use super::MetalGpu;
 use super::bake::bake;
 use crate::engraving::{
-    Cut, Engraving, Relief,
+    Cut, Engraving, EngravingImage, Relief,
     tests::{groove_png, png},
 };
-use crate::material::{Metal, MetalTextureSize, MetalTextures};
+use crate::material::{Metal, MetalTextureSize, MetalTextures, ValidatedMetal};
 
 fn gpu() -> &'static MetalGpu {
     static GPU: std::sync::OnceLock<MetalGpu> = std::sync::OnceLock::new();
@@ -28,8 +28,8 @@ fn polished() -> Metal {
 
 /// Bake `metal` with `engraving` decoded from `image`.
 fn engraved(metal: &Metal, engraving: &Engraving, image: &[u8], size: u32) -> MetalTextures {
-    let image = Cut::Image(engraving.decode(image).unwrap());
-    bake(gpu(), metal, MetalTextureSize::try_from(size).unwrap(), Some((engraving, &image))).unwrap()
+    let image = Cut::Image(EngravingImage::decode(engraving, image).unwrap());
+    bake(gpu(), ValidatedMetal::new(metal).unwrap(), MetalTextureSize::try_from(size).unwrap(), Some(&image)).unwrap()
 }
 
 fn pixel(map: &[u8], size: u32, x: u32, y: u32) -> &[u8] {
@@ -42,25 +42,25 @@ fn scratches_are_deterministic_and_change_normal_and_roughness() {
     let mut m = Metal::default();
     let a = gpu().textures(&m, MetalTextureSize::try_from(64).unwrap()).unwrap();
     let b = gpu().textures(&m, MetalTextureSize::try_from(64).unwrap()).unwrap();
-    assert_eq!(u32::from(a.size), 64);
-    assert_eq!(a.normal.len(), 64 * 64 * 4);
-    assert_eq!(a.metal_roughness.len(), 64 * 64 * 4);
-    assert_eq!(a.normal, b.normal);
-    assert_eq!(a.metal_roughness, b.metal_roughness);
-    assert!(a.depth.is_none());
+    assert_eq!(u32::from(a.size()), 64);
+    assert_eq!(a.normal().len(), 64 * 64 * 4);
+    assert_eq!(a.metal_roughness().len(), 64 * 64 * 4);
+    assert_eq!(a.normal(), b.normal());
+    assert_eq!(a.metal_roughness(), b.metal_roughness());
+    assert!(a.depth().is_none());
     m.seed += 1;
-    assert_ne!(a.normal, gpu().textures(&m, MetalTextureSize::try_from(64).unwrap()).unwrap().normal);
+    assert_ne!(a.normal(), gpu().textures(&m, MetalTextureSize::try_from(64).unwrap()).unwrap().normal());
     let smooth = gpu().textures(&polished(), MetalTextureSize::try_from(64).unwrap()).unwrap();
     assert!(
         smooth
-            .normal
+            .normal()
             .as_chunks::<4>()
             .0
             .iter()
             .all(|p| *p == FLAT_NORMAL)
     );
-    assert_ne!(a.normal, smooth.normal);
-    assert_ne!(a.metal_roughness, smooth.metal_roughness);
+    assert_ne!(a.normal(), smooth.normal());
+    assert_ne!(a.metal_roughness(), smooth.metal_roughness());
 }
 
 #[test]
@@ -73,15 +73,15 @@ fn the_finish_tilts_and_roughens_the_surface_and_still_tiles() {
         ..polished()
     };
     let a = gpu().textures(&finished, MetalTextureSize::try_from(size).unwrap()).unwrap();
-    assert_eq!(a.normal, gpu().textures(&finished, MetalTextureSize::try_from(size).unwrap()).unwrap().normal);
+    assert_eq!(a.normal(), gpu().textures(&finished, MetalTextureSize::try_from(size).unwrap()).unwrap().normal());
     let tilted = a
-        .normal
+        .normal()
         .as_chunks::<4>()
         .0
         .iter()
         .filter(|p| **p != FLAT_NORMAL);
     assert!(tilted.count() > (size * size / 2) as usize);
-    let roughness = |x, y| i32::from(pixel(&a.metal_roughness, size, x, y)[1]);
+    let roughness = |x, y| i32::from(pixel(a.metal_roughness(), size, x, y)[1]);
     let values = (0..size).flat_map(|y| (0..size).map(move |x| (x, y)));
     let (low, high) = values.fold((255, 0), |(low, high), (x, y)| {
         (low.min(roughness(x, y)), high.max(roughness(x, y)))
@@ -100,7 +100,7 @@ fn texture_sizes_and_engraving_images_are_checked() {
     assert!(MetalTextureSize::try_from(16).is_err());
     assert!(MetalTextureSize::try_from(u32::MAX).is_err());
     let full = gpu().textures(&metal, MetalTextureSize::PREVIEW).unwrap();
-    assert_eq!(full.normal.len(), (u32::from(MetalTextureSize::PREVIEW).pow(2) * 4) as usize);
+    assert_eq!(full.normal().len(), (u32::from(MetalTextureSize::PREVIEW).pow(2) * 4) as usize);
     let engraved = Metal {
         engraving: Some(Engraving::new("missing.png")),
         ..Metal::default()
@@ -121,7 +121,7 @@ fn a_groove_cuts_below_the_surface_and_tilts_the_normal_at_its_walls() {
         depth: Relief::MAX_DEPTH,
     };
     let baked = engraved(&polished(), &engraving, &groove_png(), size);
-    let normal = |x| pixel(&baked.normal, size, x, 0);
+    let normal = |x| pixel(baked.normal(), size, x, 0);
     // Descending into the groove the surface falls to the right: normal
     // tilts right. Climbing out it rises to the right: normal tilts left.
     assert!(
@@ -131,12 +131,12 @@ fn a_groove_cuts_below_the_surface_and_tilts_the_normal_at_its_walls() {
         normal(40)
     );
     assert_eq!(normal(0), FLAT_NORMAL);
-    let depth = baked.depth.expect("a height map has depth");
+    let depth = baked.depth().expect("a height map has depth");
     assert!((depth.uv_scale - Relief::MAX_DEPTH * Metal::TILES_PER_METRE).abs() < 1e-6);
     let cut = |x| pixel(&depth.pixels, size, x, 0)[0];
     assert!(cut(32) > 250 && cut(0) < 3);
     // The floor of the cut is rougher than the polished surface.
-    let roughness = |x| pixel(&baked.metal_roughness, size, x, 0)[1];
+    let roughness = |x| pixel(baked.metal_roughness(), size, x, 0)[1];
     assert!(roughness(32) > roughness(0) + 60);
 }
 
@@ -153,10 +153,10 @@ fn a_normal_map_tilts_with_its_turn_and_has_no_depth() {
     let tilted = byte(-lean);
     let near = |a: u8, b: u8| a.abs_diff(b) <= 2;
     let baked = engraved(&polished(), &engraving, &image, size);
-    assert!(baked.depth.is_none());
+    assert!(baked.depth().is_none());
     assert!(
         baked
-            .normal
+            .normal()
             .as_chunks::<4>()
             .0
             .iter()
@@ -168,7 +168,7 @@ fn a_normal_map_tilts_with_its_turn_and_has_no_depth() {
     let raised = byte(lean);
     assert!(
         turned
-            .normal
+            .normal()
             .as_chunks::<4>()
             .0
             .iter()
@@ -182,7 +182,7 @@ fn tiling_repeats_the_engraving() {
     let mut engraving = Engraving::new("groove.png");
     engraving.tiles = 2.0;
     let baked = engraved(&polished(), &engraving, &groove_png(), size);
-    let depth = baked.depth.expect("a height map has depth");
+    let depth = baked.depth().expect("a height map has depth");
     let row = (0..size)
         .map(|x| pixel(&depth.pixels, size, x, 0)[0])
         .collect::<Vec<_>>();
@@ -203,7 +203,7 @@ fn ornament_rows(ornament: crate::ornament::Ornament, size: u32) -> (MetalTextur
             MetalTextureSize::try_from(size).unwrap(),
         )
         .unwrap();
-    let depth = baked.depth.as_ref().expect("an ornament is cut as heights");
+    let depth = baked.depth().expect("an ornament is cut as heights");
     let rows = (0..size)
         .map(|y| {
             (0..size)
@@ -227,7 +227,7 @@ fn every_ornament_motif_cuts_part_of_its_cell() {
         };
         let (a, rows) = ornament_rows(ornament.clone(), size);
         let (b, _) = ornament_rows(ornament, size);
-        assert_eq!(a.normal, b.normal, "{motif:?} is deterministic");
+        assert_eq!(a.normal(), b.normal(), "{motif:?} is deterministic");
         let cut = rows.iter().sum::<f32>() / size as f32;
         assert!((0.03..0.6).contains(&cut), "{motif:?} cuts {cut}");
         // Without fillets the cell's long sides stay untouched.

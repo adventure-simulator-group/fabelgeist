@@ -18,11 +18,13 @@ impl MetalImages {
     pub(super) fn new(images: &mut Assets<Image>, metal: &Metal) -> anyhow::Result<Self> {
         let textures = adventuresim_character_creator::metal_gpu()?
             .textures(metal, MetalTextureSize::PREVIEW)?;
+        let size = textures.size();
+        let maps = textures.into_maps();
         let mut upload = |data| {
             let mut image = Image::new(
                 Extent3d {
-                    width: textures.size.into(),
-                    height: textures.size.into(),
+                    width: size.into(),
+                    height: size.into(),
                     depth_or_array_layers: 1,
                 },
                 TextureDimension::D2,
@@ -38,9 +40,9 @@ impl MetalImages {
             images.add(image)
         };
         Ok(Self {
-            normal: upload(textures.normal),
-            metal_roughness: upload(textures.metal_roughness),
-            depth: textures
+            normal: upload(maps.normal),
+            metal_roughness: upload(maps.metal_roughness),
+            depth: maps
                 .depth
                 .map(|depth| (upload(depth.pixels), depth.uv_scale)),
         })

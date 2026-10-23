@@ -7,14 +7,19 @@
 //! so its floor can roughen and the preview can show it in parallax; a normal
 //! map only tilts the shading. A procedural [`Ornament`] is always cut as a
 //! height map.
+use crate::material::MetalTextureSize;
 use crate::ornament::Ornament;
 use serde::{Deserialize, Serialize};
 use std::fmt;
 use std::path::PathBuf;
 
 pub use error::EngravingError;
+pub use decoded_image::ReliefImage;
+pub(crate) use decoded_image::ReliefPixels;
 
 mod error;
+mod decoded_image;
+pub(crate) mod sampling;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Engraving {
@@ -27,6 +32,22 @@ pub struct Engraving {
     /// Roughness added at the floor of a cut; the untouched surface keeps the
     /// metal's finish.
     pub recess_roughness: f32,
+}
+
+/// A decoded image held with the immutable recipe that defines its relief.
+pub struct EngravingImage<'a> {
+    recipe: &'a Engraving,
+    image: ReliefImage,
+}
+
+pub(crate) struct EngravingOrnament<'a> {
+    recipe: &'a Engraving,
+    ornament: &'a Ornament,
+}
+
+pub(crate) enum Cut<'a> {
+    Image(EngravingImage<'a>),
+    Ornament(EngravingOrnament<'a>),
 }
 
 /// What the engraving cuts.
@@ -110,70 +131,74 @@ impl Engraving {
         }
         Ok(())
     }
+}
 
-    /// What the bake cuts: the relief image, read and decoded, or the
-    /// ornament to draw.
-    pub(crate) fn cut(&self) -> Result<Cut<'_>, EngravingError> {
-        match &self.source {
-            ReliefSource::Image(image) => {
-                let bytes = std::fs::read(image).map_err(|source| EngravingError::Read {
-                    path: image.clone(),
+impl<'a> Cut<'a> {
+    pub(crate) fn new(recipe: &'a Engraving) -> Result<Self, EngravingError> {
+        recipe.validate()?;
+        match &recipe.source {
+            ReliefSource::Image(path) => {
+                let bytes = std::fs::read(path).map_err(|source| EngravingError::Read {
+                    path: path.clone(),
                     source,
                 })?;
-                self.decode(&bytes).map(Cut::Image)
+                Ok(Cut::Image(EngravingImage {
+                    recipe,
+                    image: ReliefImage::decode(recipe, &bytes)?,
+                }))
             }
-            ReliefSource::Ornament(ornament) => Ok(Cut::Ornament(ornament)),
+            ReliefSource::Ornament(ornament) => Ok(Cut::Ornament(EngravingOrnament {
+                recipe,
+                ornament,
+            })),
         }
     }
 
-    /// Decode PNG `bytes` as this engraving's kind of relief.
-    pub fn decode(&self, bytes: &[u8]) -> Result<ReliefImage, EngravingError> {
-        let image = image::load_from_memory(bytes).map_err(|source| EngravingError::Decode {
-            origin: self.source.clone(),
-            source,
-        })?;
-        let (width, height) = (image.width() as usize, image.height() as usize);
-        let pixels = match self.relief {
-            Relief::Height { .. } => ReliefPixels::Height(image.to_luma32f().into_raw()),
-            Relief::Normal { .. } => ReliefPixels::Slopes(
-                image
-                    .to_rgb32f()
-                    .pixels()
-                    .map(|pixel| {
-                        let [x, y, z] = pixel.0.map(|channel| channel * 2.0 - 1.0);
-                        // Steeper than a normal map can encode reliably.
-                        let z = z.max(0.05);
-                        [-x / z, y / z]
-                    })
-                    .collect(),
-            ),
-        };
-        Ok(ReliefImage {
-            width,
-            height,
-            pixels,
-        })
+    pub(crate) fn recipe(&self) -> &Engraving {
+        match self {
+            Self::Image(image) => image.recipe,
+            Self::Ornament(ornament) => ornament.recipe,
+        }
     }
 }
 
-/// What a bake cuts into the metal.
-pub(crate) enum Cut<'a> {
-    Image(ReliefImage),
-    Ornament(&'a Ornament),
+impl<'a> EngravingImage<'a> {
+    /// Decode supplied PNG bytes using this validated image recipe.
+    pub fn decode(recipe: &'a Engraving, bytes: &[u8]) -> Result<Self, EngravingError> {
+        recipe.validate()?;
+        if !matches!(recipe.source, ReliefSource::Image(_)) {
+            return Err(EngravingError::ImageSource);
+        }
+        Ok(Self {
+            recipe,
+            image: ReliefImage::decode(recipe, bytes)?,
+        })
+    }
+
+    pub(crate) fn recipe(&self) -> &Engraving {
+        self.recipe
+    }
+
+    pub(crate) fn image(&self) -> &ReliefImage {
+        &self.image
+    }
+
+    pub(crate) fn sampling(&self, size: MetalTextureSize) -> Result<[f32; 2], EngravingError> {
+        let (sine, cosine) = self.recipe.rotation.sin_cos();
+        let coefficients = [sine, cosine];
+        self.image.admit_samples(size, self.recipe, coefficients)?;
+        Ok(coefficients)
+    }
 }
 
-/// A decoded relief image.
-pub struct ReliefImage {
-    pub(crate) width: usize,
-    pub(crate) height: usize,
-    pub(crate) pixels: ReliefPixels,
-}
+impl EngravingOrnament<'_> {
+    pub(crate) fn recipe(&self) -> &Engraving {
+        self.recipe
+    }
 
-pub(crate) enum ReliefPixels {
-    /// Surface height 0..=1, 1 the untouched surface.
-    Height(Vec<f32>),
-    /// Rise per run along the image's columns and rows.
-    Slopes(Vec<[f32; 2]>),
+    pub(crate) fn ornament(&self) -> &Ornament {
+        self.ornament
+    }
 }
 
 impl fmt::Display for ReliefSource {
@@ -216,9 +241,9 @@ pub(crate) mod tests {
     #[test]
     fn a_height_map_decodes_white_as_the_untouched_surface() {
         let engraving = Engraving::new("groove.png");
-        let image = engraving.decode(&groove_png()).unwrap();
-        assert_eq!((image.width, image.height), (8, 8));
-        let ReliefPixels::Height(heights) = image.pixels else {
+        let image = EngravingImage::decode(&engraving, &groove_png()).unwrap();
+        assert_eq!(image.image.dimensions(), [8, 8]);
+        let ReliefPixels::Height(heights) = image.image.pixels else {
             panic!("a height map decodes to heights");
         };
         assert!((heights[0] - 1.0).abs() < 1e-6 && heights[3].abs() < 1e-6);
@@ -230,7 +255,7 @@ pub(crate) mod tests {
         let bytes = png(4, 4, |_, _| [64, 128, 255]);
         let mut engraving = Engraving::new("tilt.png");
         engraving.relief = Relief::Normal { strength: 1.0 };
-        let ReliefPixels::Slopes(slopes) = engraving.decode(&bytes).unwrap().pixels else {
+        let ReliefPixels::Slopes(slopes) = EngravingImage::decode(&engraving, &bytes).unwrap().image.pixels else {
             panic!("a normal map decodes to slopes");
         };
         let expected = -(64.0 / 255.0 * 2.0 - 1.0);
@@ -250,7 +275,7 @@ pub(crate) mod tests {
         engraving.relief = Relief::Height { depth: 1.0 };
         assert!(engraving.validate().is_err());
         assert!(Engraving::new("").validate().is_err());
-        assert!(Engraving::new("missing.png").cut().is_err());
+        assert!(Cut::new(&Engraving::new("missing.png")).is_err());
         let mut ornament = Engraving::ornament(Ornament::default());
         assert!(ornament.validate().is_ok());
         ornament.relief = Relief::Normal { strength: 1.0 };
@@ -258,6 +283,6 @@ pub(crate) mod tests {
             ornament.validate().is_err(),
             "an ornament is cut as heights"
         );
-        assert!(Engraving::new("garbage.png").decode(b"not a png").is_err());
+        assert!(EngravingImage::decode(&Engraving::new("garbage.png"), b"not a png").is_err());
     }
 }

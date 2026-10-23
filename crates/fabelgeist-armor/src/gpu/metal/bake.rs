@@ -7,26 +7,26 @@ use fabelgeist_gpu::prelude::{Buffer, PassParameters, Result, WorkgroupGrid};
 use super::MetalGpu;
 use super::finish::FINISH_WORDS;
 use super::textures::{DRAWS_PER_SCRATCH, STAMP_GROUP};
-use crate::engraving::{Cut, Engraving, EngravingError, Relief, ReliefImage, ReliefPixels};
-use crate::material::{DepthMap, Metal, MetalTextureSize, MetalTextures};
-use crate::ornament::Ornament;
+use crate::engraving::{Cut, Engraving, EngravingError, EngravingImage, EngravingOrnament, Relief, ReliefPixels};
+use crate::material::{DepthMap, Metal, MetalTextureMaps, MetalTextureSize, MetalTextures, ValidatedMetal};
 
 pub(super) fn textures(gpu: &MetalGpu, metal: &Metal, size: MetalTextureSize) -> Result<MetalTextures> {
-    metal.validate()?;
-    let cut = metal
+    let material = ValidatedMetal::new(metal)?;
+    let cut = material
+        .source()
         .engraving
         .as_ref()
-        .map(|engraving| engraving.cut().map(|cut| (engraving, cut)))
+        .map(Cut::new)
         .transpose()?;
-    bake(gpu, metal, size, cut.as_ref().map(|(e, cut)| (*e, cut)))
+    bake(gpu, material, size, cut.as_ref())
 }
 
 /// Bake the maps with the engraving's cut already resolved.
 pub(super) fn bake(
     gpu: &MetalGpu,
-    metal: &Metal,
+    metal: ValidatedMetal<'_>,
     size: MetalTextureSize,
-    engraving: Option<(&Engraving, &Cut<'_>)>,
+    engraving: Option<&Cut<'_>>,
 ) -> Result<MetalTextures> {
     let texels = size.texels();
     let slope_words = size.words(2)?;
@@ -42,28 +42,29 @@ pub(super) fn bake(
     record_scratches(gpu, &mut batch, metal, size, &height)?;
     record_finish(gpu, &mut batch, metal, size, &finish)?;
     let depth_uv = match engraving {
-        Some((engraving, cut)) => {
+        Some(cut) => {
             match cut {
                 Cut::Image(image) => {
-                    record_image(gpu, &mut batch, engraving, image, size, &recess, &slopes)?
+                    record_image(gpu, &mut batch, image, size, &recess, &slopes)?
                 }
                 Cut::Ornament(ornament) => {
-                    record_ornament(gpu, &mut batch, engraving, ornament, size, &recess)?
+                    record_ornament(gpu, &mut batch, ornament, size, &recess)?
                 }
             }
-            record_cut_slopes(gpu, &mut batch, engraving, size, &recess, &slopes)?
+            record_cut_slopes(gpu, &mut batch, cut.recipe(), size, &recess, &slopes)?
         }
         None => None,
     };
+    let material = metal.source();
     let mut bake = PassParameters::new();
     bake.insert("size", size);
-    bake.insert("seed", metal.seed);
-    bake.insert("scratch_draws", metal.scratch_density * DRAWS_PER_SCRATCH);
+    bake.insert("seed", material.seed);
+    bake.insert("scratch_draws", material.scratch_density * DRAWS_PER_SCRATCH);
     bake.insert("engraved", u32::from(engraving.is_some()));
-    bake.insert("roughness", metal.roughness);
+    bake.insert("roughness", material.roughness);
     bake.insert(
         "recess_roughness",
-        engraving.map_or(0.0, |(engraving, _)| engraving.recess_roughness),
+        engraving.map_or(0.0, |cut| cut.recipe().recess_roughness),
     );
     bake.insert(host_float::ZERO_FIELD, 0u32);
     bake.insert("pad0", 0u32);
@@ -80,8 +81,7 @@ pub(super) fn bake(
         let words: Vec<u32> = gpu.read(buffer)?;
         Ok(bytemuck::cast_slice(&words[..usize::from(texels)]).to_vec())
     };
-    Ok(MetalTextures {
-        size,
+    Ok(MetalTextures::from_native(size, MetalTextureMaps {
         normal: bytes(&normal)?,
         metal_roughness: bytes(&metal_roughness)?,
         depth: depth_uv
@@ -92,17 +92,18 @@ pub(super) fn bake(
                 })
             })
             .transpose()?,
-    })
+    })?)
 }
 
 /// Evaluate the planishing, polish grain and smudges into `finish`.
 fn record_finish(
     gpu: &MetalGpu,
     batch: &mut KernelBatch,
-    metal: &Metal,
+    metal: ValidatedMetal<'_>,
     size: MetalTextureSize,
     finish: &Buffer,
 ) -> Result<()> {
+    let metal = metal.source();
     let mut parameters = PassParameters::new();
     parameters.insert("size", size);
     parameters.insert("seed", metal.seed);
@@ -120,10 +121,11 @@ fn record_finish(
 fn record_scratches(
     gpu: &MetalGpu,
     batch: &mut KernelBatch,
-    metal: &Metal,
+    metal: ValidatedMetal<'_>,
     size: MetalTextureSize,
     height: &Buffer,
 ) -> Result<()> {
+    let metal = metal.source();
     if metal.scratch_density == 0 {
         return Ok(());
     }
@@ -162,11 +164,12 @@ fn record_scratches(
 fn record_ornament(
     gpu: &MetalGpu,
     batch: &mut KernelBatch,
-    engraving: &Engraving,
-    ornament: &Ornament,
+    cut: &EngravingOrnament<'_>,
     size: MetalTextureSize,
     recess: &Buffer,
 ) -> Result<()> {
+    let engraving = cut.recipe();
+    let ornament = cut.ornament();
     let (sin, cos) = engraving.rotation.sin_cos();
     let (motif, first, second, strands) = ornament.motif.words();
     let mut draw = PassParameters::new();
@@ -190,15 +193,17 @@ fn record_ornament(
 fn record_image(
     gpu: &MetalGpu,
     batch: &mut KernelBatch,
-    engraving: &Engraving,
-    image: &ReliefImage,
+    cut: &EngravingImage<'_>,
     size: MetalTextureSize,
     recess: &Buffer,
     slopes: &Buffer,
 ) -> Result<()> {
     let texels = size.texels();
-    let (sin, cos) = engraving.rotation.sin_cos();
-    let (pixels, normal_map, strength) = match (&image.pixels, engraving.relief) {
+    let engraving = cut.recipe();
+    let image = cut.image();
+    let [sin, cos] = cut.sampling(size)?;
+    let [width, height] = image.dimensions();
+    let (pixels, normal_map, strength) = match (image.pixels(), engraving.relief) {
         (ReliefPixels::Height(heights), Relief::Height { .. }) => {
             (gpu.upload(BufferUpload::from_elements(heights))?, 0u32, 0.0)
         }
@@ -211,8 +216,8 @@ fn record_image(
     };
     let mut sample = PassParameters::new();
     sample.insert("size", size);
-    sample.insert("image_width", image.width as u32);
-    sample.insert("image_height", image.height as u32);
+    sample.insert("image_width", width);
+    sample.insert("image_height", height);
     sample.insert("normal_map", normal_map);
     sample.insert("tiles", engraving.tiles);
     sample.insert("sin_rotation", sin);

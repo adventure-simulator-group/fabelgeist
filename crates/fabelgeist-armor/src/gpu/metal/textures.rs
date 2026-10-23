@@ -13,6 +13,7 @@
 //! (see [`fabelgeist_compute::host_float`]).
 
 use super::wgsl;
+use crate::engraving::sampling;
 use crate::material::Metal;
 
 /// Draws each scratch takes: position, angle, length, depth.
@@ -132,10 +133,7 @@ struct Params {{
 
 {math}
 
-fn wrap(i: i32, n: u32) -> u32 {{
-    let m = i32(n);
-    return u32(((i % m) + m) % m);
-}}
+{wrap_source}
 
 @compute @workgroup_size(256)
 fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
@@ -144,19 +142,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
     if (index >= n * n) {{
         return;
     }}
-    let size = f32(n);
-    let px = host_fence(host_div(f32(index % n) + 0.5, size) - 0.5);
-    let py = host_fence(host_div(f32(index / n) + 0.5, size) - 0.5);
-    let s = params.sin_rotation;
-    let c = params.cos_rotation;
-    // Turn the tile back into the image, then repeat the image.
-    let qx = host_fence(host_mul(c, px) + host_mul(s, py));
-    let qy = host_fence(host_mul(-s, px) + host_mul(c, py));
-    let width = f32(params.image_width);
-    let height = f32(params.image_height);
-    let x = host_fence(host_mul(host_fence(host_mul(qx, params.tiles) + 0.5), width) - 0.5);
-    let y = host_fence(host_mul(host_fence(host_mul(qy, params.tiles) + 0.5), height) - 0.5);
-    let x0 = floor(x);
+{sample_coordinates}    let x0 = floor(x);
     let y0 = floor(y);
     let fx = host_fence(x - x0);
     let fy = host_fence(y - y0);
@@ -192,6 +178,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 }}
 "#,
         math = wgsl::math(),
+        wrap_source = sampling::WRAP,
+        sample_coordinates = sampling::COORDINATES,
     )
 }
 

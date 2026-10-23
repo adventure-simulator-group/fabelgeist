@@ -1,8 +1,10 @@
 use crate::engraving::{Engraving, EngravingError};
 use serde::{Deserialize, Serialize};
 
+pub use textures::{DepthMap, MetalTextureDataError, MetalTextureMap, MetalTextureMaps, MetalTextures};
 pub use tile::{MetalTextureLayoutError, MetalTextureSize, MetalTextureSizeError};
 
+mod textures;
 mod tile;
 
 /// Worked steel: a base color and roughness with a tiling map of its finish --
@@ -28,6 +30,10 @@ pub struct Metal {
     pub smudge: f32,
     pub engraving: Option<Engraving>,
 }
+/// An immutable material recipe admitted for native baking.
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct ValidatedMetal<'a>(&'a Metal);
+
 /// A procedural metal recipe fails its material admission contract.
 #[derive(Debug, thiserror::Error)]
 pub enum MetalError {
@@ -98,19 +104,14 @@ impl Metal {
     }
 }
 
-pub struct MetalTextures {
-    pub size: MetalTextureSize,
-    /// Tangent-space normals, RGBA8.
-    pub normal: Vec<u8>,
-    /// glTF metallic-roughness, RGBA8 with roughness in green.
-    pub metal_roughness: Vec<u8>,
-    /// The engraving's cut below the surface, when it has a depth.
-    pub depth: Option<DepthMap>,
-}
+impl<'a> ValidatedMetal<'a> {
+    pub(crate) fn new(metal: &'a Metal) -> Result<Self, MetalError> {
+        metal.validate()?;
+        Ok(Self(metal))
+    }
 
-/// A parallax depth map: 0 on the surface, 255 at the floor of the cut.
-pub struct DepthMap {
-    pub pixels: Vec<u8>,
-    /// The depth of a full cut in texture coordinate units.
-    pub uv_scale: f32,
+    /// Native parameter projection; the immutable borrow preserves admission.
+    pub(crate) fn source(self) -> &'a Metal {
+        self.0
+    }
 }

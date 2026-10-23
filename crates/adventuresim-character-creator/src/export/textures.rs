@@ -70,15 +70,15 @@ impl ShellTextures {
             let mut bytes = Vec::new();
             image::codecs::png::PngEncoder::new(&mut bytes).write_image(
                 pixels,
-                textures.size.into(),
-                textures.size.into(),
+                textures.size().into(),
+                textures.size().into(),
                 image::ExtendedColorType::Rgba8,
             )?;
             Ok(bytes)
         };
         Ok(Self {
-            normal_png: encode(&textures.normal)?,
-            metal_roughness_png: encode(&textures.metal_roughness)?,
+            normal_png: encode(textures.normal())?,
+            metal_roughness_png: encode(textures.metal_roughness())?,
         })
     }
 }
