@@ -197,7 +197,11 @@ impl Collisions {
         batch.copy_buffer(
             particles.positions(),
             particles.previous(),
-            particles.count().packed_bytes(),
+            BufferCopy {
+                source_offset: BufferByteOffset::START,
+                destination_offset: BufferByteOffset::START,
+                bytes: particles.count().packed_bytes(),
+            },
         )?;
         self.record_mesh(batch, particles, search_radius)?;
         Ok(())
@@ -215,7 +219,7 @@ impl Collisions {
         for _ in 0..passes {
             self.record_push_out(&mut batch, particles, search_radius)?;
         }
-        batch.submit();
+        batch.submit()?;
         Ok(())
     }
 }

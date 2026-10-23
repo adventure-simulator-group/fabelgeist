@@ -54,12 +54,20 @@ async fn recording_counts_only_successful_nonempty_dispatches_in_both_paths() ->
         parameters.insert("values", PassParameter::Buffer(values.clone()));
         batch.dispatch_items(&kernel, &parameters, InvocationCount::from(3))?;
         assert_eq!(batch.dispatch_count().to_string(), "1");
-        batch.copy_buffer(&values, &copied, 12)?;
+        batch.copy_buffer(
+            &values,
+            &copied,
+            BufferCopy {
+                source_offset: BufferByteOffset::START,
+                destination_offset: BufferByteOffset::START,
+                bytes: 12u64.into(),
+            },
+        )?;
         batch.clear_buffer(&copied);
         assert_eq!(batch.dispatch_count().to_string(), "1");
         batch.dispatch(&kernel, &parameters, WorkgroupGrid::from([1, 1, 1]))?;
         assert_eq!(batch.dispatch_count().to_string(), "2");
-        batch.submit();
+        batch.submit()?;
         assert_eq!(values.read::<u32>(&context).await?, [4, 8, 12]);
         assert_eq!(copied.read::<u32>(&context).await?, [0, 0, 0]);
     }

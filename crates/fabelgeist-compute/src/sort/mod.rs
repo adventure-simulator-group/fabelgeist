@@ -308,8 +308,13 @@ impl RadixSort {
         }
 
         if passes.copy_back() == SortCopyBack::Required {
-            batch.copy_buffer(&source_keys, keys, needed)?;
-            batch.copy_buffer(&source_values, values, needed)?;
+            let copy = BufferCopy {
+                source_offset: BufferByteOffset::START,
+                destination_offset: BufferByteOffset::START,
+                bytes: needed,
+            };
+            batch.copy_buffer(&source_keys, keys, copy)?;
+            batch.copy_buffer(&source_values, values, copy)?;
         }
 
         Ok(())
@@ -328,7 +333,7 @@ impl RadixSort {
     ) -> Result<()> {
         let mut batch = KernelBatch::labelled(context, "RadixSort");
         self.record(&mut batch, keys, values, scratch, count, bits)?;
-        batch.submit();
+        batch.submit()?;
         Ok(())
     }
 }
