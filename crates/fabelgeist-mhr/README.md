@@ -120,6 +120,21 @@ interactive wgpu window (drag to orbit, wheel to zoom, `B` for the skeleton,
 cargo run --release -p tasks
 ```
 
+## Corrective archive admission
+
+Corrective import checks the basis axes, mesh vertex count and hidden-unit
+count before tensor construction. It admits joint subtraction and tensor-extent
+products with checked arithmetic, then pairs the two sparse index columns with
+their ordered weights. A mismatch returns `CorrectiveImportError` through the
+loader's existing error context. Archive and NumPy decoding causes remain
+available through that context.
+
+Densification retains the native index cast, bounds diagnostics, transposed
+layout and last-write behavior for duplicate coordinates. Numeric storage casts
+and tensor coefficient order are unchanged. Joint and mesh count production
+remains owned by the model; corrective import treats those counts as array
+extents and does not establish rig membership or geometry validity.
+
 ## Memory
 
 The corrective basis dominates: `3000 x V x 3` floats, which is 663 MB at LOD 1

@@ -110,6 +110,1130 @@ jobs:
           cargo test --locked --package fabelgeist-fbx --lib
           array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior
           -- --exact --nocapture
+      - name: Test existing ZIP member-count target
+        id: zip_member_counts
+        timeout-minutes: 30
+        env:
+          ZIP_MEMBER_EVIDENCE: ${{ runner.temp }}/zip-member-count-evidence
+        run: |
+          set -euo pipefail
+          python3 - <<'PY_ZIP_MEMBER_COUNTS'
+          import hashlib
+          import json
+          import os
+          import pathlib
+          import selectors
+          import shlex
+          import signal
+          import subprocess
+          import time
+          
+          evidence = pathlib.Path(os.environ["ZIP_MEMBER_EVIDENCE"])
+          evidence.mkdir()
+          repository = pathlib.Path.cwd().resolve()
+          deadline = time.monotonic() + 30 * 60 - 10
+          text_limit = 32 * 1024 * 1024
+          failure_reserve = 64 * 1024
+          processes = []
+          
+          
+          def text_bytes():
+              return sum(path.stat().st_size for path in evidence.iterdir() if path.is_file())
+          
+          
+          def remaining():
+              if time.monotonic() >= deadline:
+                  raise RuntimeError("ZIP member-count step reached its 30-minute deadline")
+              return text_limit - failure_reserve - text_bytes()
+          
+          
+          def write(name, value):
+              data = value.encode() if isinstance(value, str) else value
+              if len(data) > remaining():
+                  raise RuntimeError("ZIP member-count evidence reached its 32 MiB text cap")
+              with (evidence / name).open("xb") as destination:
+                  destination.write(data)
+          
+          
+          def group_exists(pid):
+              try:
+                  os.killpg(pid, 0)
+                  return True
+              except ProcessLookupError:
+                  return False
+          
+          
+          def close_group(process):
+              if group_exists(process.pid):
+                  os.killpg(process.pid, signal.SIGTERM)
+                  stop = time.monotonic() + 4
+                  while group_exists(process.pid) and time.monotonic() < stop:
+                      process.poll()
+                      time.sleep(0.05)
+                  if group_exists(process.pid):
+                      os.killpg(process.pid, signal.SIGKILL)
+              process.wait(timeout=1)
+              if group_exists(process.pid):
+                  raise RuntimeError("Owned ZIP validation process group remains present")
+          
+          
+          def run(argv, stdout_name, stderr_name=None):
+              remaining()
+              started = time.monotonic()
+              process = subprocess.Popen(
+                  argv, stdout=subprocess.PIPE,
+                  stderr=subprocess.PIPE if stderr_name else subprocess.STDOUT,
+                  start_new_session=True,
+              )
+              record = {"argv": argv, "pid": process.pid, "process_group": process.pid,
+                        "stdout": stdout_name, "stderr": stderr_name, "closed": False}
+              processes.append(record)
+              selector = selectors.DefaultSelector()
+              outputs = []
+              try:
+                  for stream, name in [(process.stdout, stdout_name),
+                                       (process.stderr, stderr_name)]:
+                      if stream is None:
+                          continue
+                      output = (evidence / name).open("xb")
+                      outputs.append(output)
+                      selector.register(stream, selectors.EVENT_READ, output)
+                  while selector.get_map():
+                      remaining()
+                      for key, _ in selector.select(timeout=1):
+                          chunk = os.read(key.fileobj.fileno(), 64 * 1024)
+                          if not chunk:
+                              selector.unregister(key.fileobj)
+                              key.fileobj.close()
+                              continue
+                          available = remaining()
+                          if len(chunk) > available:
+                              key.data.write(chunk[:max(available, 0)])
+                              key.data.flush()
+                              raise RuntimeError("ZIP member-count evidence reached its 32 MiB text cap")
+                          key.data.write(chunk)
+                          key.data.flush()
+                  returncode = process.wait(timeout=1)
+                  record["returncode"] = returncode
+                  if returncode:
+                      raise RuntimeError("ZIP validation command failed: " + str(argv))
+              finally:
+                  for output in outputs:
+                      output.close()
+                  selector.close()
+                  close_group(process)
+                  record["closed"] = True
+                  record["elapsed_seconds"] = time.monotonic() - started
+              write("process-" + str(len(processes)) + ".json",
+                    json.dumps(record, indent=2) + "\n")
+          
+          
+          def digest(path):
+              value = hashlib.sha256()
+              with path.open("rb") as source:
+                  while chunk := source.read(1024 * 1024):
+                      remaining()
+                      value.update(chunk)
+              return value.hexdigest()
+          
+          
+          try:
+              run(["git", "rev-parse", "HEAD"], "head.txt")
+              run(["rustc", "-Vv"], "toolchain.txt")
+              host_lines = [line.removeprefix("host: ")
+                            for line in (evidence / "toolchain.txt").read_text().splitlines()
+                            if line.startswith("host: ")]
+              if len(host_lines) != 1:
+                  raise RuntimeError("Expected one pinned Rust host triple")
+              manifest = repository / "crates/fabelgeist-numpy-storage/Cargo.toml"
+              common = ["cargo", "test", "--locked", "--manifest-path",
+                        str(manifest.relative_to(repository)), "--all-features",
+                        "--test", "member_counts"]
+              graph_argv = ["cargo", "metadata", "--locked", "--manifest-path",
+                            str(manifest.relative_to(repository)), "--all-features",
+                            "--filter-platform", host_lines[0], "--format-version", "1"]
+              build_argv = common + ["--no-run", "--message-format=json"]
+              runtime_argv = common + ["-vv"]
+              write("commands.json", json.dumps({"graph_argv": graph_argv,
+                    "build_argv": build_argv, "planned_runtime_argv": runtime_argv}, indent=2) + "\n")
+              run(graph_argv, "graph.json", "graph-stderr.log")
+              run(build_argv, "artifacts.jsonl", "compiler.log")
+              graph = json.loads((evidence / "graph.json").read_text())
+              packages = {package["id"]: package for package in graph["packages"]}
+              selected_packages = [package for package in packages.values()
+                                   if pathlib.Path(package["manifest_path"]).resolve() == manifest]
+              if len(selected_packages) != 1:
+                  raise RuntimeError("Expected one selected NumPy storage package")
+              package = selected_packages[0]
+              if pathlib.Path(package["manifest_path"]).parent.parent.parent != repository:
+                  raise RuntimeError("Selected package does not identify the checked-out repository")
+              targets = [target for target in package["targets"]
+                         if target["name"] == "member_counts" and target["kind"] == ["test"]
+                         and target.get("test")]
+              if len(targets) != 1:
+                  raise RuntimeError("Expected exactly the existing member_counts integration target")
+              records = {}
+              depfiles = set()
+              executables = set()
+              compiled = []
+          
+              def bind(path):
+                  path = path.resolve(strict=True)
+                  if path not in records:
+                      if not path.is_file():
+                          raise RuntimeError("Bound input is not a regular file: " + str(path))
+                      records[path] = {"path": str(path), "bytes": path.stat().st_size,
+                                       "sha256": digest(path)}
+          
+              for name in ["head.txt", "toolchain.txt", "graph.json", "graph-stderr.log",
+                           "artifacts.jsonl", "compiler.log", "commands.json"]:
+                  bind(evidence / name)
+              for path in [repository / "Cargo.toml", repository / "Cargo.lock", manifest,
+                           manifest.parent / "Cargo.lock", repository / "rust-toolchain.toml",
+                           repository / ".github/workflows/rust-quality.yml"]:
+                  bind(path)
+              for path in (repository / ".cargo").glob("config*"):
+                  bind(path)
+              tracked = subprocess.check_output(
+                  ["git", "ls-files", "-z", "crates/fabelgeist-numpy-storage"], cwd=repository)
+              for filename in tracked.split(b"\0"):
+                  if filename:
+                      bind(repository / os.fsdecode(filename))
+              for line in (evidence / "artifacts.jsonl").read_text().splitlines():
+                  message = json.loads(line)
+                  if message.get("reason") != "compiler-artifact":
+                      continue
+                  if message["package_id"] not in packages:
+                      raise RuntimeError("Compiled package absent from captured graph")
+                  bind(pathlib.Path(message["manifest_path"]))
+                  bind(pathlib.Path(message["target"]["src_path"]))
+                  compiled.append({"package_id": message["package_id"], "target": message["target"],
+                                   "features": message["features"], "profile": message["profile"],
+                                   "filenames": message["filenames"], "executable": message.get("executable")})
+                  for filename in message["filenames"]:
+                      bind(pathlib.Path(filename))
+                  if "custom-build" in message["target"]["kind"]:
+                      continue
+                  if message["package_id"] == package["id"] and message["profile"]["test"]:
+                      if (message["target"]["name"] != "member_counts"
+                              or message["target"]["kind"] != ["test"] or not message.get("executable")):
+                          raise RuntimeError("Unexpected selected NumPy test executable")
+                      executable = pathlib.Path(message["executable"]).resolve(strict=True)
+                      bind(executable)
+                      executables.add(executable)
+                  selected = set()
+                  for filename in message["filenames"]:
+                      path = pathlib.Path(filename)
+                      stem = path.stem if path.suffix in {".rlib", ".rmeta", ".so"} else path.name
+                      if path.suffix in {".rlib", ".rmeta", ".so"} and stem.startswith("lib"):
+                          stem = stem[3:]
+                      candidate = path.with_name(stem + ".d")
+                      if candidate.is_file():
+                          selected.add(candidate)
+                  if not selected:
+                      raise RuntimeError("No selected depfile for " + message["target"]["name"])
+                  for depfile in selected:
+                      if depfile in depfiles:
+                          continue
+                      depfiles.add(depfile)
+                      bind(depfile)
+                      prerequisites = depfile.read_text().replace("\\\n", " ").split(": ", 1)[1].splitlines()[0]
+                      for filename in shlex.split(prerequisites):
+                          path = pathlib.Path(filename)
+                          if not path.is_absolute():
+                              path = repository / path
+                              if not path.is_file():
+                                  path = pathlib.Path(message["manifest_path"]).parent / filename
+                          bind(path)
+              if len(executables) != 1 or not depfiles:
+                  raise RuntimeError("Expected one bound member_counts executable and compiler depfiles")
+              if subprocess.check_output(["git", "rev-parse", "HEAD"]).decode() != (evidence / "head.txt").read_text():
+                  raise RuntimeError("HEAD changed before ZIP member-count runtime")
+              binding = {"bound_before_runtime": True, "selected_package": package["id"],
+                         "selected_target": targets[0], "selected_native_executable": str(next(iter(executables))),
+                         "compiled_artifacts": compiled, "inputs_and_artifacts": list(records.values()),
+                         "selected_depfiles": [str(path) for path in sorted(depfiles)],
+                         "custom_build_depfiles_required": False, "prior_processes": processes}
+              write("binding-before-runtime.json", json.dumps(binding, indent=2) + "\n")
+              print("ZIP member-count binding closed before runtime")
+              run(runtime_argv, "full.log")
+              for path, record in records.items():
+                  if path.stat().st_size != record["bytes"] or digest(path) != record["sha256"]:
+                      raise RuntimeError("Bound input or artifact changed during runtime: " + str(path))
+              runtime_text = (evidence / "full.log").read_text()
+              executable = str(next(iter(executables)))
+              if executable not in runtime_text:
+                  raise RuntimeError("Runtime log does not identify the bound member_counts executable")
+              write("runtime-closure.json", json.dumps({"runtime_argv": runtime_argv,
+                    "selected_native_executable": executable, "all_bound_records_unchanged": True,
+                    "processes": processes, "text_bytes_before_receipt": text_bytes(),
+                    "text_limit_bytes": text_limit, "upload_limit_bytes": 48 * 1024 * 1024,
+                    "no_Vulkan_setup_or_runtime_claim": True}, indent=2) + "\n")
+              print(runtime_text[-6000:])
+          except Exception as failure:
+              receipt = {"status": "FAILED_FIRST_CONTRACT", "error": str(failure)[:4096],
+                         "processes": processes, "text_bytes": text_bytes(),
+                         "runtime_bound": (evidence / "binding-before-runtime.json").exists()}
+              data = (json.dumps(receipt, indent=2) + "\n").encode()
+              if len(data) > failure_reserve or text_bytes() + len(data) > text_limit:
+                  raise RuntimeError("Failure receipt exceeds its reserved evidence capacity") from failure
+              with (evidence / "first-failure.json").open("xb") as destination:
+                  destination.write(data)
+              raise
+          finally:
+              if text_bytes() > 48 * 1024 * 1024:
+                  raise RuntimeError("ZIP evidence exceeds its 48 MiB upload cap")
+          PY_ZIP_MEMBER_COUNTS
+      - name: Preserve ZIP member-count hosted evidence
+        if: always() && steps.zip_member_counts.outcome != 'skipped'
+        uses: actions/upload-artifact@v7
+        with:
+          name: zip-member-count-evidence
+          path: ${{ runner.temp }}/zip-member-count-evidence
+          if-no-files-found: error
+      - name: Test existing ZIP extent target
+        id: zip_extents
+        timeout-minutes: 30
+        env:
+          ZIP_EXTENT_EVIDENCE: ${{ runner.temp }}/zip-extents-evidence
+        run: |
+          set -euo pipefail
+          python3 - <<'PY_ZIP_EXTENTS'
+          import hashlib
+          import json
+          import os
+          import pathlib
+          import selectors
+          import shlex
+          import signal
+          import subprocess
+          import time
+          
+          evidence = pathlib.Path(os.environ["ZIP_EXTENT_EVIDENCE"])
+          evidence.mkdir()
+          repository = pathlib.Path.cwd().resolve()
+          deadline = time.monotonic() + 30 * 60 - 10
+          text_limit = 32 * 1024 * 1024
+          failure_reserve = 64 * 1024
+          processes = []
+          
+          
+          def text_bytes():
+              return sum(path.stat().st_size for path in evidence.iterdir() if path.is_file())
+          
+          
+          def remaining():
+              if time.monotonic() >= deadline:
+                  raise RuntimeError("ZIP extent step reached its 30-minute deadline")
+              return text_limit - failure_reserve - text_bytes()
+          
+          
+          def write(name, value):
+              data = value.encode() if isinstance(value, str) else value
+              if len(data) > remaining():
+                  raise RuntimeError("ZIP extent evidence reached its 32 MiB text cap")
+              with (evidence / name).open("xb") as destination:
+                  destination.write(data)
+          
+          
+          def group_exists(pid):
+              try:
+                  os.killpg(pid, 0)
+                  return True
+              except ProcessLookupError:
+                  return False
+          
+          
+          def close_group(process):
+              if group_exists(process.pid):
+                  os.killpg(process.pid, signal.SIGTERM)
+                  stop = time.monotonic() + 4
+                  while group_exists(process.pid) and time.monotonic() < stop:
+                      process.poll()
+                      time.sleep(0.05)
+                  if group_exists(process.pid):
+                      os.killpg(process.pid, signal.SIGKILL)
+              process.wait(timeout=1)
+              if group_exists(process.pid):
+                  raise RuntimeError("Owned ZIP validation process group remains present")
+          
+          
+          def run(argv, stdout_name, stderr_name=None):
+              remaining()
+              started = time.monotonic()
+              process = subprocess.Popen(
+                  argv, stdout=subprocess.PIPE,
+                  stderr=subprocess.PIPE if stderr_name else subprocess.STDOUT,
+                  start_new_session=True,
+              )
+              record = {"argv": argv, "pid": process.pid, "process_group": process.pid,
+                        "stdout": stdout_name, "stderr": stderr_name, "closed": False}
+              processes.append(record)
+              selector = selectors.DefaultSelector()
+              outputs = []
+              try:
+                  for stream, name in [(process.stdout, stdout_name),
+                                       (process.stderr, stderr_name)]:
+                      if stream is None:
+                          continue
+                      output = (evidence / name).open("xb")
+                      outputs.append(output)
+                      selector.register(stream, selectors.EVENT_READ, output)
+                  while selector.get_map():
+                      remaining()
+                      for key, _ in selector.select(timeout=1):
+                          chunk = os.read(key.fileobj.fileno(), 64 * 1024)
+                          if not chunk:
+                              selector.unregister(key.fileobj)
+                              key.fileobj.close()
+                              continue
+                          available = remaining()
+                          if len(chunk) > available:
+                              key.data.write(chunk[:max(available, 0)])
+                              key.data.flush()
+                              raise RuntimeError("ZIP extent evidence reached its 32 MiB text cap")
+                          key.data.write(chunk)
+                          key.data.flush()
+                  returncode = process.wait(timeout=1)
+                  record["returncode"] = returncode
+                  if returncode:
+                      raise RuntimeError("ZIP validation command failed: " + str(argv))
+              finally:
+                  for output in outputs:
+                      output.close()
+                  selector.close()
+                  close_group(process)
+                  record["closed"] = True
+                  record["elapsed_seconds"] = time.monotonic() - started
+              write("process-" + str(len(processes)) + ".json",
+                    json.dumps(record, indent=2) + "\n")
+          
+          
+          def digest(path):
+              value = hashlib.sha256()
+              with path.open("rb") as source:
+                  while chunk := source.read(1024 * 1024):
+                      remaining()
+                      value.update(chunk)
+              return value.hexdigest()
+          
+          
+          try:
+              run(["git", "rev-parse", "HEAD"], "head.txt")
+              run(["rustc", "-Vv"], "toolchain.txt")
+              host_lines = [line.removeprefix("host: ")
+                            for line in (evidence / "toolchain.txt").read_text().splitlines()
+                            if line.startswith("host: ")]
+              if len(host_lines) != 1:
+                  raise RuntimeError("Expected one pinned Rust host triple")
+              manifest = repository / "crates/fabelgeist-numpy-storage/Cargo.toml"
+              common = ["cargo", "test", "--locked", "--manifest-path",
+                        str(manifest.relative_to(repository)), "--all-features",
+                        "--test", "zip_extents"]
+              graph_argv = ["cargo", "metadata", "--locked", "--manifest-path",
+                            str(manifest.relative_to(repository)), "--all-features",
+                            "--filter-platform", host_lines[0], "--format-version", "1"]
+              build_argv = common + ["--no-run", "--message-format=json"]
+              runtime_argv = common + ["-vv"]
+              write("commands.json", json.dumps({"graph_argv": graph_argv,
+                    "build_argv": build_argv, "planned_runtime_argv": runtime_argv}, indent=2) + "\n")
+              run(graph_argv, "graph.json", "graph-stderr.log")
+              run(build_argv, "artifacts.jsonl", "compiler.log")
+              graph = json.loads((evidence / "graph.json").read_text())
+              packages = {package["id"]: package for package in graph["packages"]}
+              selected_packages = [package for package in packages.values()
+                                   if pathlib.Path(package["manifest_path"]).resolve() == manifest]
+              if len(selected_packages) != 1:
+                  raise RuntimeError("Expected one selected NumPy storage package")
+              package = selected_packages[0]
+              if pathlib.Path(package["manifest_path"]).parent.parent.parent != repository:
+                  raise RuntimeError("Selected package does not identify the checked-out repository")
+              targets = [target for target in package["targets"]
+                         if target["name"] == "zip_extents" and target["kind"] == ["test"]
+                         and target.get("test")]
+              if len(targets) != 1:
+                  raise RuntimeError("Expected exactly the existing zip_extents integration target")
+              records = {}
+              depfiles = set()
+              executables = set()
+              compiled = []
+          
+              def bind(path):
+                  path = path.resolve(strict=True)
+                  if path not in records:
+                      if not path.is_file():
+                          raise RuntimeError("Bound input is not a regular file: " + str(path))
+                      records[path] = {"path": str(path), "bytes": path.stat().st_size,
+                                       "sha256": digest(path)}
+          
+              for name in ["head.txt", "toolchain.txt", "graph.json", "graph-stderr.log",
+                           "artifacts.jsonl", "compiler.log", "commands.json"]:
+                  bind(evidence / name)
+              for path in [repository / "Cargo.toml", repository / "Cargo.lock", manifest,
+                           manifest.parent / "Cargo.lock", repository / "rust-toolchain.toml",
+                           repository / ".github/workflows/rust-quality.yml"]:
+                  bind(path)
+              for path in (repository / ".cargo").glob("config*"):
+                  bind(path)
+              tracked = subprocess.check_output(
+                  ["git", "ls-files", "-z", "crates/fabelgeist-numpy-storage"], cwd=repository)
+              for filename in tracked.split(b"\0"):
+                  if filename:
+                      bind(repository / os.fsdecode(filename))
+              for line in (evidence / "artifacts.jsonl").read_text().splitlines():
+                  message = json.loads(line)
+                  if message.get("reason") != "compiler-artifact":
+                      continue
+                  if message["package_id"] not in packages:
+                      raise RuntimeError("Compiled package absent from captured graph")
+                  bind(pathlib.Path(message["manifest_path"]))
+                  bind(pathlib.Path(message["target"]["src_path"]))
+                  compiled.append({"package_id": message["package_id"], "target": message["target"],
+                                   "features": message["features"], "profile": message["profile"],
+                                   "filenames": message["filenames"], "executable": message.get("executable")})
+                  for filename in message["filenames"]:
+                      bind(pathlib.Path(filename))
+                  if "custom-build" in message["target"]["kind"]:
+                      continue
+                  if message["package_id"] == package["id"] and message["profile"]["test"]:
+                      if (message["target"]["name"] != "zip_extents"
+                              or message["target"]["kind"] != ["test"] or not message.get("executable")):
+                          raise RuntimeError("Unexpected selected NumPy test executable")
+                      executable = pathlib.Path(message["executable"]).resolve(strict=True)
+                      bind(executable)
+                      executables.add(executable)
+                  selected = set()
+                  for filename in message["filenames"]:
+                      path = pathlib.Path(filename)
+                      stem = path.stem if path.suffix in {".rlib", ".rmeta", ".so"} else path.name
+                      if path.suffix in {".rlib", ".rmeta", ".so"} and stem.startswith("lib"):
+                          stem = stem[3:]
+                      candidate = path.with_name(stem + ".d")
+                      if candidate.is_file():
+                          selected.add(candidate)
+                  if not selected:
+                      raise RuntimeError("No selected depfile for " + message["target"]["name"])
+                  for depfile in selected:
+                      if depfile in depfiles:
+                          continue
+                      depfiles.add(depfile)
+                      bind(depfile)
+                      prerequisites = depfile.read_text().replace("\\\n", " ").split(": ", 1)[1].splitlines()[0]
+                      for filename in shlex.split(prerequisites):
+                          path = pathlib.Path(filename)
+                          if not path.is_absolute():
+                              path = repository / path
+                              if not path.is_file():
+                                  path = pathlib.Path(message["manifest_path"]).parent / filename
+                          bind(path)
+              if len(executables) != 1 or not depfiles:
+                  raise RuntimeError("Expected one bound zip_extents executable and compiler depfiles")
+              if subprocess.check_output(["git", "rev-parse", "HEAD"]).decode() != (evidence / "head.txt").read_text():
+                  raise RuntimeError("HEAD changed before ZIP extent runtime")
+              binding = {"bound_before_runtime": True, "selected_package": package["id"],
+                         "selected_target": targets[0], "selected_native_executable": str(next(iter(executables))),
+                         "compiled_artifacts": compiled, "inputs_and_artifacts": list(records.values()),
+                         "selected_depfiles": [str(path) for path in sorted(depfiles)],
+                         "custom_build_depfiles_required": False, "prior_processes": processes}
+              write("binding-before-runtime.json", json.dumps(binding, indent=2) + "\n")
+              print("ZIP extent binding closed before runtime")
+              run(runtime_argv, "full.log")
+              for path, record in records.items():
+                  if path.stat().st_size != record["bytes"] or digest(path) != record["sha256"]:
+                      raise RuntimeError("Bound input or artifact changed during runtime: " + str(path))
+              runtime_text = (evidence / "full.log").read_text()
+              executable = str(next(iter(executables)))
+              if executable not in runtime_text:
+                  raise RuntimeError("Runtime log does not identify the bound zip_extents executable")
+              write("runtime-closure.json", json.dumps({"runtime_argv": runtime_argv,
+                    "selected_native_executable": executable, "all_bound_records_unchanged": True,
+                    "processes": processes, "text_bytes_before_receipt": text_bytes(),
+                    "text_limit_bytes": text_limit, "upload_limit_bytes": 48 * 1024 * 1024,
+                    "no_Vulkan_setup_or_runtime_claim": True}, indent=2) + "\n")
+              print(runtime_text[-6000:])
+          except Exception as failure:
+              receipt = {"status": "FAILED_FIRST_CONTRACT", "error": str(failure)[:4096],
+                         "processes": processes, "text_bytes": text_bytes(),
+                         "runtime_bound": (evidence / "binding-before-runtime.json").exists()}
+              data = (json.dumps(receipt, indent=2) + "\n").encode()
+              if len(data) > failure_reserve or text_bytes() + len(data) > text_limit:
+                  raise RuntimeError("Failure receipt exceeds its reserved evidence capacity") from failure
+              with (evidence / "first-failure.json").open("xb") as destination:
+                  destination.write(data)
+              raise
+          finally:
+              if text_bytes() > 48 * 1024 * 1024:
+                  raise RuntimeError("ZIP evidence exceeds its 48 MiB upload cap")
+          PY_ZIP_EXTENTS
+      - name: Preserve ZIP extent hosted evidence
+        if: always() && steps.zip_extents.outcome != 'skipped'
+        uses: actions/upload-artifact@v7
+        with:
+          name: zip-extents-evidence
+          path: ${{ runner.temp }}/zip-extents-evidence
+          if-no-files-found: error
+      - name: Test existing ZIP compression target
+        id: zip_compression
+        timeout-minutes: 30
+        env:
+          ZIP_COMPRESSION_EVIDENCE: ${{ runner.temp }}/zip-compression-evidence
+        run: |
+          set -euo pipefail
+          python3 - <<'PY_ZIP_COMPRESSION'
+          import hashlib
+          import json
+          import os
+          import pathlib
+          import selectors
+          import shlex
+          import signal
+          import subprocess
+          import time
+          
+          evidence = pathlib.Path(os.environ["ZIP_COMPRESSION_EVIDENCE"])
+          evidence.mkdir()
+          repository = pathlib.Path.cwd().resolve()
+          deadline = time.monotonic() + 30 * 60 - 10
+          text_limit = 32 * 1024 * 1024
+          failure_reserve = 64 * 1024
+          processes = []
+          
+          
+          def text_bytes():
+              return sum(path.stat().st_size for path in evidence.iterdir() if path.is_file())
+          
+          
+          def remaining():
+              if time.monotonic() >= deadline:
+                  raise RuntimeError("ZIP compression step reached its 30-minute deadline")
+              return text_limit - failure_reserve - text_bytes()
+          
+          
+          def write(name, value):
+              data = value.encode() if isinstance(value, str) else value
+              if len(data) > remaining():
+                  raise RuntimeError("ZIP compression evidence reached its 32 MiB text cap")
+              with (evidence / name).open("xb") as destination:
+                  destination.write(data)
+          
+          
+          def group_exists(pid):
+              try:
+                  os.killpg(pid, 0)
+                  return True
+              except ProcessLookupError:
+                  return False
+          
+          
+          def close_group(process):
+              if group_exists(process.pid):
+                  os.killpg(process.pid, signal.SIGTERM)
+                  stop = time.monotonic() + 4
+                  while group_exists(process.pid) and time.monotonic() < stop:
+                      process.poll()
+                      time.sleep(0.05)
+                  if group_exists(process.pid):
+                      os.killpg(process.pid, signal.SIGKILL)
+              process.wait(timeout=1)
+              if group_exists(process.pid):
+                  raise RuntimeError("Owned ZIP validation process group remains present")
+          
+          
+          def run(argv, stdout_name, stderr_name=None):
+              remaining()
+              started = time.monotonic()
+              process = subprocess.Popen(
+                  argv, stdout=subprocess.PIPE,
+                  stderr=subprocess.PIPE if stderr_name else subprocess.STDOUT,
+                  start_new_session=True,
+              )
+              record = {"argv": argv, "pid": process.pid, "process_group": process.pid,
+                        "stdout": stdout_name, "stderr": stderr_name, "closed": False}
+              processes.append(record)
+              selector = selectors.DefaultSelector()
+              outputs = []
+              try:
+                  for stream, name in [(process.stdout, stdout_name),
+                                       (process.stderr, stderr_name)]:
+                      if stream is None:
+                          continue
+                      output = (evidence / name).open("xb")
+                      outputs.append(output)
+                      selector.register(stream, selectors.EVENT_READ, output)
+                  while selector.get_map():
+                      remaining()
+                      for key, _ in selector.select(timeout=1):
+                          chunk = os.read(key.fileobj.fileno(), 64 * 1024)
+                          if not chunk:
+                              selector.unregister(key.fileobj)
+                              key.fileobj.close()
+                              continue
+                          available = remaining()
+                          if len(chunk) > available:
+                              key.data.write(chunk[:max(available, 0)])
+                              key.data.flush()
+                              raise RuntimeError("ZIP compression evidence reached its 32 MiB text cap")
+                          key.data.write(chunk)
+                          key.data.flush()
+                  returncode = process.wait(timeout=1)
+                  record["returncode"] = returncode
+                  if returncode:
+                      raise RuntimeError("ZIP validation command failed: " + str(argv))
+              finally:
+                  for output in outputs:
+                      output.close()
+                  selector.close()
+                  close_group(process)
+                  record["closed"] = True
+                  record["elapsed_seconds"] = time.monotonic() - started
+              write("process-" + str(len(processes)) + ".json",
+                    json.dumps(record, indent=2) + "\n")
+          
+          
+          def digest(path):
+              value = hashlib.sha256()
+              with path.open("rb") as source:
+                  while chunk := source.read(1024 * 1024):
+                      remaining()
+                      value.update(chunk)
+              return value.hexdigest()
+          
+          
+          try:
+              run(["git", "rev-parse", "HEAD"], "head.txt")
+              run(["rustc", "-Vv"], "toolchain.txt")
+              host_lines = [line.removeprefix("host: ")
+                            for line in (evidence / "toolchain.txt").read_text().splitlines()
+                            if line.startswith("host: ")]
+              if len(host_lines) != 1:
+                  raise RuntimeError("Expected one pinned Rust host triple")
+              manifest = repository / "crates/fabelgeist-numpy-storage/Cargo.toml"
+              common = ["cargo", "test", "--locked", "--manifest-path",
+                        str(manifest.relative_to(repository)), "--all-features",
+                        "--test", "zip_compression"]
+              graph_argv = ["cargo", "metadata", "--locked", "--manifest-path",
+                            str(manifest.relative_to(repository)), "--all-features",
+                            "--filter-platform", host_lines[0], "--format-version", "1"]
+              build_argv = common + ["--no-run", "--message-format=json"]
+              runtime_argv = common + ["-vv"]
+              write("commands.json", json.dumps({"graph_argv": graph_argv,
+                    "build_argv": build_argv, "planned_runtime_argv": runtime_argv}, indent=2) + "\n")
+              run(graph_argv, "graph.json", "graph-stderr.log")
+              run(build_argv, "artifacts.jsonl", "compiler.log")
+              graph = json.loads((evidence / "graph.json").read_text())
+              packages = {package["id"]: package for package in graph["packages"]}
+              selected_packages = [package for package in packages.values()
+                                   if pathlib.Path(package["manifest_path"]).resolve() == manifest]
+              if len(selected_packages) != 1:
+                  raise RuntimeError("Expected one selected NumPy storage package")
+              package = selected_packages[0]
+              if pathlib.Path(package["manifest_path"]).parent.parent.parent != repository:
+                  raise RuntimeError("Selected package does not identify the checked-out repository")
+              targets = [target for target in package["targets"]
+                         if target["name"] == "zip_compression" and target["kind"] == ["test"]
+                         and target.get("test")]
+              if len(targets) != 1:
+                  raise RuntimeError("Expected exactly the existing zip_compression integration target")
+              records = {}
+              depfiles = set()
+              executables = set()
+              compiled = []
+          
+              def bind(path):
+                  path = path.resolve(strict=True)
+                  if path not in records:
+                      if not path.is_file():
+                          raise RuntimeError("Bound input is not a regular file: " + str(path))
+                      records[path] = {"path": str(path), "bytes": path.stat().st_size,
+                                       "sha256": digest(path)}
+          
+              for name in ["head.txt", "toolchain.txt", "graph.json", "graph-stderr.log",
+                           "artifacts.jsonl", "compiler.log", "commands.json"]:
+                  bind(evidence / name)
+              for path in [repository / "Cargo.toml", repository / "Cargo.lock", manifest,
+                           manifest.parent / "Cargo.lock", repository / "rust-toolchain.toml",
+                           repository / ".github/workflows/rust-quality.yml"]:
+                  bind(path)
+              for path in (repository / ".cargo").glob("config*"):
+                  bind(path)
+              tracked = subprocess.check_output(
+                  ["git", "ls-files", "-z", "crates/fabelgeist-numpy-storage"], cwd=repository)
+              for filename in tracked.split(b"\0"):
+                  if filename:
+                      bind(repository / os.fsdecode(filename))
+              for line in (evidence / "artifacts.jsonl").read_text().splitlines():
+                  message = json.loads(line)
+                  if message.get("reason") != "compiler-artifact":
+                      continue
+                  if message["package_id"] not in packages:
+                      raise RuntimeError("Compiled package absent from captured graph")
+                  bind(pathlib.Path(message["manifest_path"]))
+                  bind(pathlib.Path(message["target"]["src_path"]))
+                  compiled.append({"package_id": message["package_id"], "target": message["target"],
+                                   "features": message["features"], "profile": message["profile"],
+                                   "filenames": message["filenames"], "executable": message.get("executable")})
+                  for filename in message["filenames"]:
+                      bind(pathlib.Path(filename))
+                  if "custom-build" in message["target"]["kind"]:
+                      continue
+                  if message["package_id"] == package["id"] and message["profile"]["test"]:
+                      if (message["target"]["name"] != "zip_compression"
+                              or message["target"]["kind"] != ["test"] or not message.get("executable")):
+                          raise RuntimeError("Unexpected selected NumPy test executable")
+                      executable = pathlib.Path(message["executable"]).resolve(strict=True)
+                      bind(executable)
+                      executables.add(executable)
+                  selected = set()
+                  for filename in message["filenames"]:
+                      path = pathlib.Path(filename)
+                      stem = path.stem if path.suffix in {".rlib", ".rmeta", ".so"} else path.name
+                      if path.suffix in {".rlib", ".rmeta", ".so"} and stem.startswith("lib"):
+                          stem = stem[3:]
+                      candidate = path.with_name(stem + ".d")
+                      if candidate.is_file():
+                          selected.add(candidate)
+                  if not selected:
+                      raise RuntimeError("No selected depfile for " + message["target"]["name"])
+                  for depfile in selected:
+                      if depfile in depfiles:
+                          continue
+                      depfiles.add(depfile)
+                      bind(depfile)
+                      prerequisites = depfile.read_text().replace("\\\n", " ").split(": ", 1)[1].splitlines()[0]
+                      for filename in shlex.split(prerequisites):
+                          path = pathlib.Path(filename)
+                          if not path.is_absolute():
+                              path = repository / path
+                              if not path.is_file():
+                                  path = pathlib.Path(message["manifest_path"]).parent / filename
+                          bind(path)
+              if len(executables) != 1 or not depfiles:
+                  raise RuntimeError("Expected one bound zip_compression executable and compiler depfiles")
+              if subprocess.check_output(["git", "rev-parse", "HEAD"]).decode() != (evidence / "head.txt").read_text():
+                  raise RuntimeError("HEAD changed before ZIP compression runtime")
+              binding = {"bound_before_runtime": True, "selected_package": package["id"],
+                         "selected_target": targets[0], "selected_native_executable": str(next(iter(executables))),
+                         "compiled_artifacts": compiled, "inputs_and_artifacts": list(records.values()),
+                         "selected_depfiles": [str(path) for path in sorted(depfiles)],
+                         "custom_build_depfiles_required": False, "prior_processes": processes}
+              write("binding-before-runtime.json", json.dumps(binding, indent=2) + "\n")
+              print("ZIP compression binding closed before runtime")
+              run(runtime_argv, "full.log")
+              for path, record in records.items():
+                  if path.stat().st_size != record["bytes"] or digest(path) != record["sha256"]:
+                      raise RuntimeError("Bound input or artifact changed during runtime: " + str(path))
+              runtime_text = (evidence / "full.log").read_text()
+              executable = str(next(iter(executables)))
+              if executable not in runtime_text:
+                  raise RuntimeError("Runtime log does not identify the bound zip_compression executable")
+              write("runtime-closure.json", json.dumps({"runtime_argv": runtime_argv,
+                    "selected_native_executable": executable, "all_bound_records_unchanged": True,
+                    "processes": processes, "text_bytes_before_receipt": text_bytes(),
+                    "text_limit_bytes": text_limit, "upload_limit_bytes": 48 * 1024 * 1024,
+                    "no_Vulkan_setup_or_runtime_claim": True}, indent=2) + "\n")
+              print(runtime_text[-6000:])
+          except Exception as failure:
+              receipt = {"status": "FAILED_FIRST_CONTRACT", "error": str(failure)[:4096],
+                         "processes": processes, "text_bytes": text_bytes(),
+                         "runtime_bound": (evidence / "binding-before-runtime.json").exists()}
+              data = (json.dumps(receipt, indent=2) + "\n").encode()
+              if len(data) > failure_reserve or text_bytes() + len(data) > text_limit:
+                  raise RuntimeError("Failure receipt exceeds its reserved evidence capacity") from failure
+              with (evidence / "first-failure.json").open("xb") as destination:
+                  destination.write(data)
+              raise
+          finally:
+              if text_bytes() > 48 * 1024 * 1024:
+                  raise RuntimeError("ZIP evidence exceeds its 48 MiB upload cap")
+          PY_ZIP_COMPRESSION
+      - name: Preserve ZIP compression hosted evidence
+        if: always() && steps.zip_compression.outcome != 'skipped'
+        uses: actions/upload-artifact@v7
+        with:
+          name: zip-compression-evidence
+          path: ${{ runner.temp }}/zip-compression-evidence
+          if-no-files-found: error
+      - name: Test existing ZIP record kinds target
+        id: record_kinds
+        timeout-minutes: 30
+        env:
+          ZIP_RECORD_KIND_EVIDENCE: ${{ runner.temp }}/zip-record-kinds-evidence
+        run: |
+          set -euo pipefail
+          python3 - <<'PY_ZIP_RECORD_KINDS'
+          import hashlib
+          import json
+          import os
+          import pathlib
+          import selectors
+          import shlex
+          import signal
+          import subprocess
+          import time
+          
+          evidence = pathlib.Path(os.environ["ZIP_RECORD_KIND_EVIDENCE"])
+          evidence.mkdir()
+          repository = pathlib.Path.cwd().resolve()
+          deadline = time.monotonic() + 30 * 60 - 10
+          text_limit = 32 * 1024 * 1024
+          failure_reserve = 64 * 1024
+          processes = []
+          
+          
+          def text_bytes():
+              return sum(path.stat().st_size for path in evidence.iterdir() if path.is_file())
+          
+          
+          def remaining():
+              if time.monotonic() >= deadline:
+                  raise RuntimeError("ZIP record kinds step reached its 30-minute deadline")
+              return text_limit - failure_reserve - text_bytes()
+          
+          
+          def write(name, value):
+              data = value.encode() if isinstance(value, str) else value
+              if len(data) > remaining():
+                  raise RuntimeError("ZIP record kinds evidence reached its 32 MiB text cap")
+              with (evidence / name).open("xb") as destination:
+                  destination.write(data)
+          
+          
+          def group_exists(pid):
+              try:
+                  os.killpg(pid, 0)
+                  return True
+              except ProcessLookupError:
+                  return False
+          
+          
+          def close_group(process):
+              if group_exists(process.pid):
+                  os.killpg(process.pid, signal.SIGTERM)
+                  stop = time.monotonic() + 4
+                  while group_exists(process.pid) and time.monotonic() < stop:
+                      process.poll()
+                      time.sleep(0.05)
+                  if group_exists(process.pid):
+                      os.killpg(process.pid, signal.SIGKILL)
+              process.wait(timeout=1)
+              if group_exists(process.pid):
+                  raise RuntimeError("Owned ZIP validation process group remains present")
+          
+          
+          def run(argv, stdout_name, stderr_name=None):
+              remaining()
+              started = time.monotonic()
+              process = subprocess.Popen(
+                  argv, stdout=subprocess.PIPE,
+                  stderr=subprocess.PIPE if stderr_name else subprocess.STDOUT,
+                  start_new_session=True,
+              )
+              record = {"argv": argv, "pid": process.pid, "process_group": process.pid,
+                        "stdout": stdout_name, "stderr": stderr_name, "closed": False}
+              processes.append(record)
+              selector = selectors.DefaultSelector()
+              outputs = []
+              try:
+                  for stream, name in [(process.stdout, stdout_name),
+                                       (process.stderr, stderr_name)]:
+                      if stream is None:
+                          continue
+                      output = (evidence / name).open("xb")
+                      outputs.append(output)
+                      selector.register(stream, selectors.EVENT_READ, output)
+                  while selector.get_map():
+                      remaining()
+                      for key, _ in selector.select(timeout=1):
+                          chunk = os.read(key.fileobj.fileno(), 64 * 1024)
+                          if not chunk:
+                              selector.unregister(key.fileobj)
+                              key.fileobj.close()
+                              continue
+                          available = remaining()
+                          if len(chunk) > available:
+                              key.data.write(chunk[:max(available, 0)])
+                              key.data.flush()
+                              raise RuntimeError("ZIP record kinds evidence reached its 32 MiB text cap")
+                          key.data.write(chunk)
+                          key.data.flush()
+                  returncode = process.wait(timeout=1)
+                  record["returncode"] = returncode
+                  if returncode:
+                      raise RuntimeError("ZIP validation command failed: " + str(argv))
+              finally:
+                  for output in outputs:
+                      output.close()
+                  selector.close()
+                  close_group(process)
+                  record["closed"] = True
+                  record["elapsed_seconds"] = time.monotonic() - started
+              write("process-" + str(len(processes)) + ".json",
+                    json.dumps(record, indent=2) + "\n")
+          
+          
+          def digest(path):
+              value = hashlib.sha256()
+              with path.open("rb") as source:
+                  while chunk := source.read(1024 * 1024):
+                      remaining()
+                      value.update(chunk)
+              return value.hexdigest()
+          
+          
+          try:
+              run(["git", "rev-parse", "HEAD"], "head.txt")
+              run(["rustc", "-Vv"], "toolchain.txt")
+              host_lines = [line.removeprefix("host: ")
+                            for line in (evidence / "toolchain.txt").read_text().splitlines()
+                            if line.startswith("host: ")]
+              if len(host_lines) != 1:
+                  raise RuntimeError("Expected one pinned Rust host triple")
+              manifest = repository / "crates/fabelgeist-numpy-storage/Cargo.toml"
+              common = ["cargo", "test", "--locked", "--manifest-path",
+                        str(manifest.relative_to(repository)), "--all-features",
+                        "--test", "record_kinds"]
+              graph_argv = ["cargo", "metadata", "--locked", "--manifest-path",
+                            str(manifest.relative_to(repository)), "--all-features",
+                            "--filter-platform", host_lines[0], "--format-version", "1"]
+              build_argv = common + ["--no-run", "--message-format=json"]
+              runtime_argv = common + ["-vv"]
+              write("commands.json", json.dumps({"graph_argv": graph_argv,
+                    "build_argv": build_argv, "planned_runtime_argv": runtime_argv}, indent=2) + "\n")
+              run(graph_argv, "graph.json", "graph-stderr.log")
+              run(build_argv, "artifacts.jsonl", "compiler.log")
+              graph = json.loads((evidence / "graph.json").read_text())
+              packages = {package["id"]: package for package in graph["packages"]}
+              selected_packages = [package for package in packages.values()
+                                   if pathlib.Path(package["manifest_path"]).resolve() == manifest]
+              if len(selected_packages) != 1:
+                  raise RuntimeError("Expected one selected NumPy storage package")
+              package = selected_packages[0]
+              if pathlib.Path(package["manifest_path"]).parent.parent.parent != repository:
+                  raise RuntimeError("Selected package does not identify the checked-out repository")
+              targets = [target for target in package["targets"]
+                         if target["name"] == "record_kinds" and target["kind"] == ["test"]
+                         and target.get("test")]
+              if len(targets) != 1:
+                  raise RuntimeError("Expected exactly the existing record_kinds integration target")
+              records = {}
+              depfiles = set()
+              executables = set()
+              compiled = []
+          
+              def bind(path):
+                  path = path.resolve(strict=True)
+                  if path not in records:
+                      if not path.is_file():
+                          raise RuntimeError("Bound input is not a regular file: " + str(path))
+                      records[path] = {"path": str(path), "bytes": path.stat().st_size,
+                                       "sha256": digest(path)}
+          
+              for name in ["head.txt", "toolchain.txt", "graph.json", "graph-stderr.log",
+                           "artifacts.jsonl", "compiler.log", "commands.json"]:
+                  bind(evidence / name)
+              for path in [repository / "Cargo.toml", repository / "Cargo.lock", manifest,
+                           manifest.parent / "Cargo.lock", repository / "rust-toolchain.toml",
+                           repository / ".github/workflows/rust-quality.yml"]:
+                  bind(path)
+              for path in (repository / ".cargo").glob("config*"):
+                  bind(path)
+              tracked = subprocess.check_output(
+                  ["git", "ls-files", "-z", "crates/fabelgeist-numpy-storage"], cwd=repository)
+              for filename in tracked.split(b"\0"):
+                  if filename:
+                      bind(repository / os.fsdecode(filename))
+              for line in (evidence / "artifacts.jsonl").read_text().splitlines():
+                  message = json.loads(line)
+                  if message.get("reason") != "compiler-artifact":
+                      continue
+                  if message["package_id"] not in packages:
+                      raise RuntimeError("Compiled package absent from captured graph")
+                  bind(pathlib.Path(message["manifest_path"]))
+                  bind(pathlib.Path(message["target"]["src_path"]))
+                  compiled.append({"package_id": message["package_id"], "target": message["target"],
+                                   "features": message["features"], "profile": message["profile"],
+                                   "filenames": message["filenames"], "executable": message.get("executable")})
+                  for filename in message["filenames"]:
+                      bind(pathlib.Path(filename))
+                  if "custom-build" in message["target"]["kind"]:
+                      continue
+                  if message["package_id"] == package["id"] and message["profile"]["test"]:
+                      if (message["target"]["name"] != "record_kinds"
+                              or message["target"]["kind"] != ["test"] or not message.get("executable")):
+                          raise RuntimeError("Unexpected selected NumPy test executable")
+                      executable = pathlib.Path(message["executable"]).resolve(strict=True)
+                      bind(executable)
+                      executables.add(executable)
+                  selected = set()
+                  for filename in message["filenames"]:
+                      path = pathlib.Path(filename)
+                      stem = path.stem if path.suffix in {".rlib", ".rmeta", ".so"} else path.name
+                      if path.suffix in {".rlib", ".rmeta", ".so"} and stem.startswith("lib"):
+                          stem = stem[3:]
+                      candidate = path.with_name(stem + ".d")
+                      if candidate.is_file():
+                          selected.add(candidate)
+                  if not selected:
+                      raise RuntimeError("No selected depfile for " + message["target"]["name"])
+                  for depfile in selected:
+                      if depfile in depfiles:
+                          continue
+                      depfiles.add(depfile)
+                      bind(depfile)
+                      prerequisites = depfile.read_text().replace("\\\n", " ").split(": ", 1)[1].splitlines()[0]
+                      for filename in shlex.split(prerequisites):
+                          path = pathlib.Path(filename)
+                          if not path.is_absolute():
+                              path = repository / path
+                              if not path.is_file():
+                                  path = pathlib.Path(message["manifest_path"]).parent / filename
+                          bind(path)
+              if len(executables) != 1 or not depfiles:
+                  raise RuntimeError("Expected one bound record_kinds executable and compiler depfiles")
+              if subprocess.check_output(["git", "rev-parse", "HEAD"]).decode() != (evidence / "head.txt").read_text():
+                  raise RuntimeError("HEAD changed before ZIP record kinds runtime")
+              binding = {"bound_before_runtime": True, "selected_package": package["id"],
+                         "selected_target": targets[0], "selected_native_executable": str(next(iter(executables))),
+                         "compiled_artifacts": compiled, "inputs_and_artifacts": list(records.values()),
+                         "selected_depfiles": [str(path) for path in sorted(depfiles)],
+                         "custom_build_depfiles_required": False, "prior_processes": processes}
+              write("binding-before-runtime.json", json.dumps(binding, indent=2) + "\n")
+              print("ZIP record kinds binding closed before runtime")
+              run(runtime_argv, "full.log")
+              for path, record in records.items():
+                  if path.stat().st_size != record["bytes"] or digest(path) != record["sha256"]:
+                      raise RuntimeError("Bound input or artifact changed during runtime: " + str(path))
+              runtime_text = (evidence / "full.log").read_text()
+              executable = str(next(iter(executables)))
+              if executable not in runtime_text:
+                  raise RuntimeError("Runtime log does not identify the bound record_kinds executable")
+              write("runtime-closure.json", json.dumps({"runtime_argv": runtime_argv,
+                    "selected_native_executable": executable, "all_bound_records_unchanged": True,
+                    "processes": processes, "text_bytes_before_receipt": text_bytes(),
+                    "text_limit_bytes": text_limit, "upload_limit_bytes": 48 * 1024 * 1024,
+                    "no_Vulkan_setup_or_runtime_claim": True}, indent=2) + "\n")
+              print(runtime_text[-6000:])
+          except Exception as failure:
+              receipt = {"status": "FAILED_FIRST_CONTRACT", "error": str(failure)[:4096],
+                         "processes": processes, "text_bytes": text_bytes(),
+                         "runtime_bound": (evidence / "binding-before-runtime.json").exists()}
+              data = (json.dumps(receipt, indent=2) + "\n").encode()
+              if len(data) > failure_reserve or text_bytes() + len(data) > text_limit:
+                  raise RuntimeError("Failure receipt exceeds its reserved evidence capacity") from failure
+              with (evidence / "first-failure.json").open("xb") as destination:
+                  destination.write(data)
+              raise
+          finally:
+              if text_bytes() > 48 * 1024 * 1024:
+                  raise RuntimeError("ZIP evidence exceeds its 48 MiB upload cap")
+          PY_ZIP_RECORD_KINDS
+      - name: Preserve ZIP record kinds hosted evidence
+        if: always() && steps.record_kinds.outcome != 'skipped'
+        uses: actions/upload-artifact@v7
+        with:
+          name: zip-record-kinds-evidence
+          path: ${{ runner.temp }}/zip-record-kinds-evidence
+          if-no-files-found: error
       - name: Test existing FBX object-name consumers
         run: cargo test --locked --package fabelgeist-fbx
       - name: Check semantic values and Rust growth
@@ -134,6 +1258,41 @@ jobs:
           cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
           cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
           cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+      - name: Test cumulative ZIP NumPy and corrective import contracts
+        id: zip_numpy_contracts
+        timeout-minutes: 30
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p target/zip-numpy-validation
+          git rev-parse HEAD | tee target/zip-numpy-validation/source.txt
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          export XDG_RUNTIME_DIR="$RUNNER_TEMP/zip-numpy-runtime"
+          mkdir -p "$XDG_RUNTIME_DIR"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          cargo test --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-features -- --test-threads=1 2>&1 | tee target/zip-numpy-validation/numpy.log
+          cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-features -- --test-threads=1 2>&1 | tee target/zip-numpy-validation/mhr.log
+          python3 - <<'PY_RESULTS'
+          import pathlib
+          import re
+          for name in ["numpy", "mhr"]:
+              log = pathlib.Path(f"target/zip-numpy-validation/{name}.log").read_text()
+              results = re.findall(r"test result: ok\. (\d+) passed; (\d+) failed;", log)
+              if not results or sum(int(passed) for passed, _ in results) == 0:
+                  raise SystemExit(f"Missing nonempty {name} test results")
+              if any(int(failed) for _, failed in results):
+                  raise SystemExit(f"Failed {name} result cell")
+              print(name, results)
+          PY_RESULTS
+          git diff --exit-code -- Cargo.lock crates/adventuresim-character-creator/Cargo.lock crates/fabelgeist-mhr/Cargo.lock crates/fabelgeist-numpy-storage/Cargo.lock
+      - name: Preserve cumulative ZIP NumPy validation evidence
+        if: always() && steps.zip_numpy_contracts.outcome != 'skipped'
+        uses: actions/upload-artifact@v7
+        with:
+          name: zip-numpy-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/zip-numpy-validation/
+          if-no-files-found: error
       - name: Test constraint graph and shell consumers
         timeout-minutes: 20
         env:

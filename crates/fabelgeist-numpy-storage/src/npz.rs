@@ -8,8 +8,13 @@ use std::path::Path;
 
 use anyhow::{Context, Result};
 
-use crate::npy::{self, NpyArray};
-use crate::zip::ZipArchive;
+use crate::npy::NpyArray;
+use crate::zip::{
+    ArchiveMemberName, ArchiveMemberPresence, DeclaredUncompressedByteLength, Entry, ZipArchive,
+};
+pub use name::NpzArrayName;
+
+mod name;
 
 /// A memory-mapped `.npz` archive.
 pub struct Npz {
@@ -30,41 +35,45 @@ impl Npz {
         })
     }
 
-    /// Member names, as stored (NumPy keeps the `.npy` suffix).
-    pub fn names(&self) -> impl Iterator<Item = &str> {
+    /// Parsed member names in central-directory order, retaining their suffix.
+    pub fn names(&self) -> impl Iterator<Item = &ArchiveMemberName> {
         self.archive.names()
     }
 
-    /// Array names, with the `.npy` suffix stripped.
-    pub fn keys(&self) -> impl Iterator<Item = &str> {
-        self.names()
-            .map(|name| name.strip_suffix(".npy").unwrap_or(name))
+    /// Array keys in member order, each with one trailing `.npy` removed.
+    pub fn keys(&self) -> impl Iterator<Item = NpzArrayName<'_>> {
+        self.names().map(NpzArrayName::from)
     }
 
-    pub fn contains(&self, name: &str) -> bool {
-        self.archive.find(|member| matches(member, name)).is_some()
+    pub fn contains(&self, name: &NpzArrayName<'_>) -> ArchiveMemberPresence {
+        match self.entry(name) {
+            Some(_) => ArchiveMemberPresence::Present,
+            None => ArchiveMemberPresence::Absent,
+        }
     }
 
-    /// Size of a member once decoded, without decoding it.
-    pub fn uncompressed_size(&self, name: &str) -> Option<u64> {
-        self.archive
-            .find(|member| matches(member, name))
+    /// Declared decoded byte length of the first match, without payload verification.
+    pub fn uncompressed_size(
+        &self,
+        name: &NpzArrayName<'_>,
+    ) -> Option<DeclaredUncompressedByteLength> {
+        self.entry(name)
             .and_then(|entry| self.archive.uncompressed_size(&entry.name))
     }
 
-    /// Decodes one member. The `.npy` suffix is optional.
-    pub fn array(&self, name: &str) -> Result<NpyArray> {
+    /// Decodes the first matching member; the query spelling is unchanged.
+    pub fn array(&self, name: &NpzArrayName<'_>) -> Result<NpyArray> {
         let entry = self
-            .archive
-            .find(|member| matches(member, name))
+            .entry(name)
             .with_context(|| format!("archive has no member {name:?}"))?;
         let bytes = self.archive.entry_bytes(entry)?;
-        npy::parse(&bytes).with_context(|| format!("reading array {name:?}"))
+        NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {name:?}"))
     }
-}
 
-fn matches(member: &str, name: &str) -> bool {
-    member == name || member.strip_suffix(".npy") == Some(name)
+    fn entry(&self, name: &NpzArrayName<'_>) -> Option<&Entry> {
+        self.archive
+            .find(|member| name.matches(member) == ArchiveMemberPresence::Present)
+    }
 }
 
 #[cfg(test)]
@@ -156,19 +165,35 @@ mod tests {
 
         let path = write_temp(&archive);
         let npz = Npz::open(&path).unwrap();
-        assert_eq!(npz.keys().collect::<Vec<_>>(), ["weights", "indices"]);
-        assert!(npz.contains("weights"));
-        assert!(npz.contains("weights.npy"));
-        assert!(!npz.contains("missing"));
+        assert_eq!(
+            npz.keys().map(|name| name.to_string()).collect::<Vec<_>>(),
+            ["weights", "indices"]
+        );
+        assert!(bool::from(npz.contains(&NpzArrayName::new("weights"))));
+        assert!(bool::from(npz.contains(&NpzArrayName::new("weights.npy"))));
+        assert!(!bool::from(npz.contains(&NpzArrayName::new("missing"))));
 
-        let weights = npz.array("weights").unwrap();
-        assert_eq!(weights.shape, [2, 2]);
-        assert_eq!(weights.to_f32(), [1.0, 2.0, 3.0, 4.0]);
-        assert_eq!(npz.array("indices").unwrap().to_i64(), [7, 9]);
+        let weights = npz.array(&NpzArrayName::new("weights")).unwrap();
+        assert_eq!(
+            weights.shape().dimensions(),
+            [crate::NpyDimension::from(2); 2]
+        );
+        assert_eq!(
+            Vec::<f32>::from(crate::NpyFloatValues::from(&weights)),
+            [1.0, 2.0, 3.0, 4.0]
+        );
+        assert_eq!(
+            Vec::<i64>::from(crate::NpyIntegerValues::from(
+                &npz.array(&NpzArrayName::new("indices")).unwrap()
+            )),
+            [7, 9]
+        );
 
         let memory_npz = Npz::from_bytes(archive).unwrap();
         assert_eq!(
-            memory_npz.array("weights").unwrap().to_f32(),
+            Vec::<f32>::from(crate::NpyFloatValues::from(
+                &memory_npz.array(&NpzArrayName::new("weights")).unwrap()
+            )),
             [1.0, 2.0, 3.0, 4.0]
         );
 
@@ -180,7 +205,7 @@ mod tests {
         let archive = zip(&[("a.npy", crate::npy::tests::encode("<f4", "1,", &[0; 4]))]);
         let path = write_temp(&archive);
         let npz = Npz::open(&path).unwrap();
-        assert!(npz.array("b").is_err());
+        assert!(npz.array(&NpzArrayName::new("b")).is_err());
         std::fs::remove_file(path).ok();
     }
 }

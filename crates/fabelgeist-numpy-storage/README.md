@@ -4,23 +4,155 @@ NumPy `.npy` and `.npz` reading for Burn, in pure Rust — no NumPy, no C zlib.
 
 ```rust
 use burn::tensor::Device;
-use fabelgeist_numpy_storage::Npz;
+use fabelgeist_numpy_storage::{Npz, NpzArrayName};
 
 let archive = Npz::open("weights.npz")?;
 for name in archive.keys() {
-    println!("{name}: {:?}", archive.array(name)?.shape);
+    println!("{name}: {:?}", archive.array(&name)?.shape());
 }
-let weights = archive.array("layer0")?.to_tensor::<2>(&Device::default())?;
+let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Device::default())?;
 ```
 
 - Archives are memory-mapped; members may be stored or deflated, and zip64 is
   handled (NumPy switches to it past 2 GB).
-- `uncompressed_size` reports a member's decoded size without decoding it.
+- `uncompressed_size` returns a bespoke `DeclaredUncompressedByteLength` from
+  archive metadata. It does not decode or verify the member's actual length.
 - Element types: `f4`, `f8`, `i4`, `i8`, `u1`, `b1`.
-  Values are widened on
-  access with `to_f32`, `to_i64` or `to_bool`, or uploaded straight to a device
-  with `to_tensor` / `to_int_tensor`, so a `.npz` written as `float64` still
-  loads into an f32 tensor.
+  Decoded numbers use `NpyFloatValues` and `NpyIntegerValues`; `NpyByteStates`
+  classifies every payload byte as zero or nonzero. Tensor upload uses
+  `to_tensor` / `to_int_tensor`, so a `.npz` written as `float64` still loads
+  into an f32 tensor.
 - Fortran-ordered arrays are rejected rather than silently transposed.
 
 Used by `fabelgeist-mhr` for the MHR pose-corrective tensors.
+
+## ZIP structure and byte quantities
+
+[`rawzip` 0.5.2](https://docs.rs/rawzip/0.5.2/rawzip/) owns end records,
+ZIP64 metadata, central-directory framing and bounded member access. Our adapter
+owns the 66,000-byte end-record search window, declared member-count bound,
+lookup names and decompression policy. Parser errors reject admission rather
+than publishing a partially parsed directory. The [count contract](member-count.md)
+describes the retained application bound and structural-policy differences.
+
+The public `DeclaredUncompressedByteLength` remains an unverified archive
+declaration. Structural positions and compressed ranges stay inside rawzip's
+private entry handles; application APIs do not expose those parser details.
+See the [size contract](zip-extents.md).
+
+## Archive compression
+
+The reader classifies rawzip's central-directory method into its supported
+Stored or Deflated state, retaining any other method as a bespoke
+`ZipCompressionCode` for decimal diagnostics. Unsupported methods remain
+queryable metadata and fail when member bytes are requested. Local framing and
+compressed bounds are checked before the method error. The central directory
+selects the method even when the local header declares a different one.
+
+Stored members borrow the original archive bytes. `flate2` decodes Deflate into
+owned bytes. Checksums, encryption and agreement between declared and decoded
+sizes are not verified. A declared size is used for the initial Deflate
+reservation, retaining the existing native cast and allocation policy; it is
+not a resource budget. `rawzip` is an unmodified registry dependency, not
+vendored source. There is one structural parser.
+
+Decode a serialized array with `NpyArray::from_bytes`, or read a standalone file
+with `NpyArray::read`.
+
+## Array metadata
+
+The decoder checks the shape, element type, and payload length. A decoded
+`NpyArray` keeps that metadata immutable. Use `shape`, `dtype`, `element_count`,
+and `occupancy` to inspect it. Public mutation cannot reinterpret one decoded
+element as several differently sized values or replace the dimensions behind its
+checked element count.
+
+`NpyShape` owns a sequence of `NpyDimension` values and admits their product.
+`NpyRank` counts axes; `NpyElementCount` counts stored elements. A scalar has
+rank zero and one element. Any zero axis makes an array empty before other
+dimensions can overflow. `NpyElementWidth` describes the supported one-, four-,
+and eight-byte storage words. `NpyPayloadLength` owns the checked serialized
+payload length separately from element cardinality.
+
+`NpyLayoutError` retains the failed dimensions, element count and width,
+expected and available payload lengths, or expected/actual ranks and the native
+rank conversion cause. Constructing a tensor with the wrong rank returns this
+concrete error. Header and standalone-file errors remain format-adapter
+responsibilities. ZIP failures use the concrete classes described below.
+
+Native representations stay at explicit adapters: header dimension admission,
+little-endian word decoding, payload slicing, the immutable `bytes` encoding
+view, and Burn tensor construction. MHR corrective-basis comparisons retain
+`NpyDimension` until the direct tensor adapter. Shape queries expose nominal
+dimensions, not mutable integer vectors. Numeric value collections retain
+decoded storage numbers; general storage/transport types remain separate bespoke
+type families.
+
+The reader supports NPY versions 1.0, 2.0 and 3.0 with checked header lengths.
+The scalar header dictionary accepts either quote style and any key order.
+It requires exactly `descr`, `fortran_order` and a shape tuple; duplicate or
+unknown fields, malformed separators and escaped strings are rejected.
+Structured descriptors, pickled objects and Fortran ordering are unsupported.
+This is a parser for the supported scalar format, not a general Python parser.
+
+Supported scalar and ordering admission precedes shape-product and payload
+checks. Any zero axis gives zero elements; this flat reader computes no strides.
+Oversized shape and payload products return layout errors. Numeric words are
+little-endian; native-endian dtype spellings are admitted only on little-endian
+hosts. Trailing payload bytes are ignored. Tensor rank admission precedes value
+collection and device upload. Existing observations cover scalar and empty
+shapes, overflow context, rank causes, header failure priority, stored-width
+decoding and metadata immutability.
+
+## Decoded values
+
+`NpyFloatValues`, `NpyIntegerValues` and `NpyByteStates` retain ordered decoded
+NumPy payload values in bespoke types. The first two contain storage numbers at
+f32 and i64 precision; the third classifies each individual payload byte as zero
+or nonzero, independently of element width.
+
+Construct a collection with `From<&NpyArray>` and inspect its typed slice.
+Convert explicitly to a native vector at a tensor-data or other external
+representation boundary. Decoding retains stored dtype semantics: float64-to-
+integer conversion occurs before any float32 projection, floating-to-integer
+casts saturate as Rust defines, float32 NaN bits and signed zero are preserved,
+and numeric byte values are not normalized to booleans.
+
+Native fixed-width word iterators preserve order and exclude an incomplete final
+word, as the previous decoder did. Each iterator supplies its exact allocation
+count to standard collection operations. Array shape, dtype admission, archive
+lookup and parser error handling retain their existing contracts; the decoded-
+value collection does not validate an array's metadata or classify a number as a
+mesh index or activation coefficient.
+
+The character importer admits corrective tensor extents together and pairs the
+two sparse index columns with their weights before densification. Decoded values
+stay typed until native indexing and tensor-buffer assignment. Sparse
+transposition, duplicate replacement and native narrowing before bounds checks
+are unchanged. Impossible joint subtraction and overflowing tensor extents now
+return concrete corrective-import errors before allocation. Native tensor upload
+may use a backend's integer representation, such as i32, separately from the
+decoded i64 storage number.
+
+## Archive filenames and array keys
+
+`ArchiveMemberName` retains an exact parsed archive filename. Serialized names
+use lossy UTF-8 decoding: two invalid byte spellings can identify the same
+parsed text. Case, separators, empty text, NUL and path-like spelling remain
+unchanged; the name validates neither a filesystem path nor membership.
+
+`NpzArrayName` carries a NumPy array query. A member matches its full filename
+or that filename with one trailing `.npy` removed. The first directory match
+wins, even if a later member is an exact filename match. `keys` returns typed
+keys in member order, removing one suffix without changing the stored filename.
+
+`ZipArchive::bytes` and size queries take `ArchiveMemberName`; `Npz::array` and
+its size query take `NpzArrayName`. Both `contains` methods return the shared
+`ArchiveMemberPresence::Present` or `Absent` state. Text and Boolean conversions
+are explicit presentation and native-boundary adapters. The distinct types
+prevent an array key from silently becoming an exact archive lookup.
+
+## ZIP reader errors
+
+ZIP archive and member operations return concrete errors. See the [error
+contract](zip-reader-errors.md) for classifications and source chains.

@@ -1,28 +1,31 @@
 //! NumPy array storage for Burn.
 //!
 //! Reads `.npy` files and `.npz` archives (stored or deflated, zip64 included)
-//! and hands the contents back either as plain vectors or as Burn tensors.
+//! and retains decoded values in bespoke collections until Burn tensor adapters.
 //! Pure Rust: no NumPy, no C zlib.
 //!
 //! ```no_run
 //! # fn main() -> anyhow::Result<()> {
 //! use burn::tensor::Device;
-//! use fabelgeist_numpy_storage::Npz;
+//! use fabelgeist_numpy_storage::{Npz, NpzArrayName};
 //!
 //! let archive = Npz::open("weights.npz")?;
-//! let weights = archive.array("layer0")?.to_tensor::<2>(&Device::default())?;
+//! let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Device::default())?;
 //! # let _ = weights;
 //! # Ok(())
 //! # }
 //! ```
 
+pub use npy::{
+    Dtype, NpyArray, NpyByteState, NpyByteStates, NpyDimension, NpyElementCount, NpyElementWidth,
+    NpyFloatValue, NpyFloatValues, NpyIntegerValue, NpyIntegerValues, NpyLayoutError, NpyOccupancy,
+    NpyPayloadLength, NpyRank, NpyShape,
+};
+pub use npz::{Npz, NpzArrayName};
+pub use zip::{
+    ArchiveMemberName, ArchiveMemberPresence, DeclaredUncompressedByteLength, ZipArchive,
+};
+
 pub mod npy;
 pub mod npz;
 pub mod zip;
-
-pub use npy::{Dtype, NpyArray};
-pub use npz::Npz;
-pub use zip::ZipArchive;
-
-/// Reads a standalone `.npy` file.
-pub use npy::read as read_npy;
