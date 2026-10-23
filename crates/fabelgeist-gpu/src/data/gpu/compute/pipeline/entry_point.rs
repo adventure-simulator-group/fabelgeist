@@ -1,4 +1,4 @@
-//! Entry identity is admitted independently of source declaration order.
+//! Explicit compute entry selection, including source-order first selection.
 
 use super::{ComputePipelineError, ComputePipelineResult};
 
