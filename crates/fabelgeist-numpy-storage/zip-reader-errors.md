@@ -39,8 +39,9 @@ of path safety or successful file identity.
 `std::error::Error::source`; MHR's corrective-basis and sparse-activation
 contexts surround the same chain. Default display prints the owning member or
 file context. Alternate display also appends native I/O causes; structural
-member causes remain in the source chain. Archive framing diagnostics include
-the upstream explanation directly.
+member causes remain in the source chain. NPZ's alternate `anyhow` display
+includes those chained parser causes. Archive framing diagnostics include the
+upstream explanation directly.
 
 The adapter retains lossy names, duplicate selection, application count bounds,
 central compression authority and declared-size queries. It does not enable

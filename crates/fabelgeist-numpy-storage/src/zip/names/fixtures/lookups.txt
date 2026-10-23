@@ -55,4 +55,4 @@ query:"�";zip=false,None,Err("archive has no member \"�\"");npz=true,Some(14
 query:"path/../raw";zip=false,None,Err("archive has no member \"path/../raw\"");npz=true,Some(140),Ok([1091567616, 1091567616, 1091567616])
 failure:decode;zip=Ok([110, 111, 116, 45, 110, 112, 121]);npz=Err("reading array \"bad\": not a .npy array")
 failure:compression;zip=Err("unsupported zip compression method 99");npz=Err("unsupported zip compression method 99")
-failure:local-header;zip=Err("corrupt zip entry bad.npy");npz=Err("corrupt zip entry bad.npy")
+failure:local-header;zip=Err("corrupt zip entry bad.npy");npz=Err("corrupt zip entry bad.npy: Invalid signature: expected 0x04034b50, got 0x04034b00")
