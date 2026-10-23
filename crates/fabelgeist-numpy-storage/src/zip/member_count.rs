@@ -1,8 +1,8 @@
-//! Declared ZIP directory cardinality and its native allocation/iteration ports.
+//! Application count bound and capped native directory reservation.
 
 use derive_more::From;
 
-/// A declared member count, preserving every ordinary or ZIP64 wire value.
+/// The count selected by rawzip, retained without native-width narrowing.
 #[derive(Debug, Clone, Copy, From, PartialEq, Eq)]
 #[from(u16, u64)]
 pub(super) struct ArchiveMemberCount(u64);
@@ -10,11 +10,6 @@ pub(super) struct ArchiveMemberCount(u64);
 impl ArchiveMemberCount {
     // The inherited allocation cap is not a directory cardinality limit.
     const INITIAL_CAPACITY_LIMIT: Self = Self(4096);
-
-    /// Whether the ordinary field requests ZIP64 count/offset substitution.
-    pub(super) fn is_saturated_ordinary(self) -> bool {
-        self == Self::from(u16::MAX)
-    }
 
     /// Projects only the capped count into native `Vec` allocation capacity.
     pub(super) fn initial_capacity(self) -> usize {
@@ -35,52 +30,43 @@ mod tests {
 
     struct OrdinaryCase {
         wire: u16,
-        requests_zip64: bool,
         capacity: usize,
     }
 
     #[test]
-    fn ordinary_fields_preserve_saturation_and_initial_reservation() {
+    fn ordinary_fields_preserve_initial_reservation() {
         let cases = [
             OrdinaryCase {
                 wire: 0,
-                requests_zip64: false,
                 capacity: 0,
             },
             OrdinaryCase {
                 wire: 1,
-                requests_zip64: false,
                 capacity: 1,
             },
             OrdinaryCase {
                 wire: 4095,
-                requests_zip64: false,
                 capacity: 4095,
             },
             OrdinaryCase {
                 wire: 4096,
-                requests_zip64: false,
                 capacity: 4096,
             },
             OrdinaryCase {
                 wire: 4097,
-                requests_zip64: false,
                 capacity: 4096,
             },
             OrdinaryCase {
                 wire: 65534,
-                requests_zip64: false,
                 capacity: 4096,
             },
             OrdinaryCase {
                 wire: 65535,
-                requests_zip64: true,
                 capacity: 4096,
             },
         ];
         for case in cases {
             let count = ArchiveMemberCount::from(case.wire);
-            assert_eq!(count.is_saturated_ordinary(), case.requests_zip64);
             assert_eq!(count.initial_capacity(), case.capacity);
         }
     }

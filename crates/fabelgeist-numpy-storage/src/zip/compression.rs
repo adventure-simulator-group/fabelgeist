@@ -16,13 +16,12 @@ pub(super) enum ZipCompression {
     Unsupported(ZipCompressionCode),
 }
 
-impl From<u16> for ZipCompression {
-    fn from(code: u16) -> Self {
-        // PKWARE APPNOTE 4.4.5 assigns stored=0 and deflated=8; see the guide.
-        match code {
-            0 => Self::Stored,
-            8 => Self::Deflated,
-            code => Self::Unsupported(ZipCompressionCode(code)),
+impl From<rawzip::CompressionMethod> for ZipCompression {
+    fn from(method: rawzip::CompressionMethod) -> Self {
+        match method {
+            rawzip::CompressionMethod::STORE => Self::Stored,
+            rawzip::CompressionMethod::DEFLATE => Self::Deflated,
+            method => Self::Unsupported(ZipCompressionCode(method.as_u16())),
         }
     }
 }

@@ -6,7 +6,7 @@ use fabelgeist_numpy_storage::{
 
 struct DirectoryCase {
     label: &'static str,
-    names: &'static [&'static str],
+    names: Option<&'static [&'static str]>,
 }
 
 fn fixture(label: &str) -> &'static [u8] {
@@ -67,82 +67,91 @@ fn fixture(label: &str) -> &'static [u8] {
 }
 
 #[test]
-fn directory_and_zip64_signatures_keep_existing_selection_and_fallbacks() {
+fn directory_and_zip64_records_use_checked_admission_and_selected_counts() {
     let cases = [
         DirectoryCase {
             label: "stored-deflated",
-            names: &["values.npy", "second.npy"],
+            names: Some(&["values.npy", "second.npy"]),
         },
         DirectoryCase {
             label: "nearest-end-is-empty",
-            names: &[],
+            names: Some(&[]),
         },
         DirectoryCase {
             label: "nearest-end-selects-second",
-            names: &["second.npy"],
+            names: Some(&["second.npy"]),
         },
         DirectoryCase {
             label: "end-with-comment-candidate",
-            names: &[],
+            names: Some(&[]),
         },
         DirectoryCase {
             label: "end-window-inclusive",
-            names: &["values.npy", "second.npy"],
+            names: Some(&["values.npy", "second.npy"]),
         },
         DirectoryCase {
             label: "unknown-central-3735928559",
-            names: &[],
+            names: None,
         },
         DirectoryCase {
             label: "central-second-is-local",
-            names: &["values.npy"],
+            names: None,
         },
         DirectoryCase {
             label: "zip64-count-saturated",
-            names: &["values.npy"],
+            names: None,
         },
         DirectoryCase {
             label: "zip64-offset-saturated",
-            names: &["values.npy"],
+            names: None,
         },
         DirectoryCase {
             label: "zip64-locator-mismatch",
-            names: &["values.npy", "second.npy"],
+            names: None,
         },
         DirectoryCase {
             label: "zip64-end-mismatch",
-            names: &["values.npy", "second.npy"],
+            names: None,
         },
         DirectoryCase {
             label: "zip64-locator-known-wrong",
-            names: &["values.npy", "second.npy"],
+            names: None,
         },
         DirectoryCase {
             label: "zip64-end-known-wrong",
-            // After fallback, this central signature admits an empty third member.
-            names: &["values.npy", "second.npy", ""],
+            names: None,
         },
         DirectoryCase {
             label: "zip64-record-outside",
-            names: &["values.npy", "second.npy"],
+            names: None,
         },
         DirectoryCase {
             label: "zip64-not-triggered",
-            names: &["values.npy", "second.npy"],
+            names: Some(&["values.npy", "second.npy"]),
         },
         DirectoryCase {
             label: "short-end-no-locator",
-            names: &[],
+            names: Some(&[]),
         },
     ];
     for case in cases {
-        let archive = ZipArchive::from_bytes(fixture(case.label).to_vec()).unwrap();
+        let archive = ZipArchive::from_bytes(fixture(case.label).to_vec());
         assert_eq!(
             archive
-                .names()
-                .map(|name| name.to_string())
-                .collect::<Vec<_>>(),
-            case.names,
+                .map(|archive| archive
+                    .names()
+                    .map(|name| name.to_string())
+                    .collect::<Vec<_>>())
+                .map_err(|error| matches!(
+                    error,
+                    fabelgeist_numpy_storage::zip::ZipReadError::Archive { .. }
+                )),
+            case.names
+                .map(|names| names
+                    .iter()
+                    .map(|name| name.to_string())
+                    .collect::<Vec<_>>())
+                .ok_or(true),
             "{}",
             case.label
         );
@@ -305,9 +314,10 @@ fn duplicate_and_disagreeing_headers_keep_member_semantics() {
     }
 }
 
-// This is an inherited framing limitation, outside signature interpretation.
 #[test]
-#[should_panic(expected = "range end index 65838 out of range for slice of length 391")]
-fn malformed_name_frame_keeps_existing_panic() {
-    let _ = ZipArchive::from_bytes(fixture("central-name-overrun").to_vec());
+fn malformed_name_frame_returns_a_structural_error() {
+    assert!(matches!(
+        ZipArchive::from_bytes(fixture("central-name-overrun").to_vec()),
+        Err(fabelgeist_numpy_storage::zip::ZipReadError::Archive { .. })
+    ));
 }

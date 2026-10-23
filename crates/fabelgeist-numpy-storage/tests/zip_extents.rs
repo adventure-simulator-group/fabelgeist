@@ -1,9 +1,7 @@
 use std::borrow::Cow;
-use std::panic::{AssertUnwindSafe, catch_unwind};
 
 use fabelgeist_numpy_storage::{
-    ArchiveByteOffset, ArchiveMemberName, CompressedByteLength, DeclaredUncompressedByteLength,
-    Npz, NpzArrayName, ZipArchive,
+    ArchiveMemberName, DeclaredUncompressedByteLength, Npz, NpzArrayName, ZipArchive,
 };
 
 struct WireCase {
@@ -207,27 +205,13 @@ fn inherited_numpy_storage_and_first_duplicate_selection_remain_intact() {
 fn native_numeric_formatter_options_survive_each_bespoke_quantity() {
     for value in [0, 3, 1 << 32, u64::MAX] {
         let decoded = DeclaredUncompressedByteLength::from_bytes(value);
-        let compressed = CompressedByteLength::from_bytes(value);
-        let offset = ArchiveByteOffset::from_archive_start(value);
-        for actual in [
-            format!("{decoded:>24.3}"),
-            format!("{compressed:>24.3}"),
-            format!("{offset:>24.3}"),
-        ] {
-            assert_eq!(actual, format!("{value:>24.3}"));
-        }
-        for actual in [
-            format!("{decoded:#024?}"),
-            format!("{compressed:#024?}"),
-            format!("{offset:#024?}"),
-        ] {
-            assert_eq!(actual, format!("{value:#024?}"));
-        }
+        assert_eq!(format!("{decoded:>24.3}"), format!("{value:>24.3}"));
+        assert_eq!(format!("{decoded:#024?}"), format!("{value:#024?}"));
     }
 }
 
 #[test]
-fn inherited_offset_cast_and_error_panic_policy_remain_observable() {
+fn out_of_archive_offsets_return_errors_without_native_overflow() {
     let mut case = wire();
     case.offset = u32::MAX;
     case.extra = extra(&[1 << 32]);
@@ -237,16 +221,15 @@ fn inherited_offset_cast_and_error_panic_policy_remain_observable() {
             .bytes(&ArchiveMemberName::from("values.npy"))
             .unwrap_err()
             .to_string(),
-        "corrupt zip entry values.npy"
+        "zip entry values.npy runs past the end of the archive"
     );
     let mut case = wire();
     case.offset = u32::MAX;
     case.extra = extra(&[u64::MAX]);
     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
     assert!(
-        catch_unwind(AssertUnwindSafe(
-            || archive.bytes(&ArchiveMemberName::from("values.npy"))
-        ))
-        .is_err()
+        archive
+            .bytes(&ArchiveMemberName::from("values.npy"))
+            .is_err()
     );
 }

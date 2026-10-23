@@ -26,45 +26,35 @@ let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Devic
 
 Used by `fabelgeist-mhr` for the MHR pose-corrective tensors.
 
-## ZIP directory cardinality
+## ZIP structure and byte quantities
 
-The reader retains the declared member count through selection and iteration.
-See the [count contract](member-count.md) for native ports and format limits.
+[`rawzip` 0.5.2](https://docs.rs/rawzip/0.5.2/rawzip/) owns end records,
+ZIP64 metadata, central-directory framing and bounded member access. Our adapter
+owns the 66,000-byte end-record search window, declared member-count bound,
+lookup names and decompression policy. Parser errors reject admission rather
+than publishing a partially parsed directory. The [count contract](member-count.md)
+describes the retained application bound and structural-policy differences.
 
-## ZIP byte quantities
-
-Compressed lengths, declared decoded lengths and archive-origin byte positions
-have distinct bespoke types. See the [extent contract](zip-extents.md) for the
-public size API and unchanged native addressing/allocation policy.
+The public `DeclaredUncompressedByteLength` remains an unverified archive
+declaration. Structural positions and compressed ranges stay inside rawzip's
+private entry handles; application APIs do not expose those parser details.
+See the [size contract](zip-extents.md).
 
 ## Archive compression
 
-The reader retains a bespoke compression choice from central-directory admission
-through member decoding. Stored members borrow the original bytes; Deflate, a
-ZIP compression format, produces owned decoded output. Unsupported method codes
-remain available as metadata for name and size queries, then fail when bytes are
-requested. Local-header corruption and payload bounds are checked before that
-unsupported-method error, preserving diagnostic precedence.
+The reader classifies rawzip's central-directory method into its supported
+Stored or Deflated state, retaining any other method as a bespoke
+`ZipCompressionCode` for decimal diagnostics. Unsupported methods remain
+queryable metadata and fail when member bytes are requested. Local framing and
+compressed bounds are checked before the method error. The central directory
+selects the method even when the local header declares a different one.
 
-The central directory selects the method; a different method in the local header
-does not change that policy. The two-byte wire code is admitted at its decoding
-boundary and retained as a bespoke diagnostic code for unsupported methods.
-Checksums, protection flags, counts, offsets, member identity and wider archive
-errors remain separate concepts. This contract preserves their existing
-behavior.
-
-PKWARE APPNOTE section 4.4.5 defines the two-byte compression method field: code
-0 stores bytes without compression, and code 8 uses Deflate. The reader
-classifies these codes at central-directory admission and retains every other
-`u16` as an unsupported code for the original decimal diagnostic.
-`ZipCompressionCode` derives decimal display without changing that message.
-
-[PKWARE ZIP format specification, section 4.4.5](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT)
-
-## ZIP record kinds
-
-The reader retains named record kinds after native signature decoding. See the
-[record-kind contract](record-kinds.md) for interpretation and framing limits.
+Stored members borrow the original archive bytes. `flate2` decodes Deflate into
+owned bytes. Checksums, encryption and agreement between declared and decoded
+sizes are not verified. A declared size is used for the initial Deflate
+reservation, retaining the existing native cast and allocation policy; it is
+not a resource budget. `rawzip` is an unmodified registry dependency, not
+vendored source. There is one structural parser.
 
 Decode a serialized array with `NpyArray::from_bytes`, or read a standalone file
 with `NpyArray::read`.

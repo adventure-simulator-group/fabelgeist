@@ -1,10 +1,7 @@
-//! A minimal read-only zip archive reader.
+//! Read-only ZIP storage with application-owned member selection and decoding.
 //!
-//! Stored and deflated members, zip64 included. Provides the archive reader
-//! used by NumPy `.npz` loading.
-//!
-//! Stored members are handed back as borrowed slices of the mapping, so reading
-//! a multi-gigabyte tensor storage costs no copy.
+//! `rawzip` owns directory, ZIP64 and member framing. Stored members borrow the
+//! mapped or owned archive bytes; `flate2` decodes Deflate members into owned data.
 
 use std::borrow::Cow;
 use std::io::Read;
@@ -12,43 +9,35 @@ use std::path::Path;
 
 use flate2::read::DeflateDecoder;
 use memmap2::Mmap;
+use rawzip::{ZipArchiveEntryWayfinder, ZipLocator, ZipSliceArchive};
 
 pub use compression::ZipCompressionCode;
 pub use error::{Result, ZipFileOperation, ZipReadError};
-pub use extent::{ArchiveByteOffset, CompressedByteLength, DeclaredUncompressedByteLength};
+pub use extent::DeclaredUncompressedByteLength;
 
 use compression::ZipCompression;
 use member_count::ArchiveMemberCount;
 pub use names::{ArchiveMemberName, ArchiveMemberPresence};
-use record_kind::ZipRecordKind;
 
 mod compression;
 mod error;
 mod extent;
 mod member_count;
 mod names;
-mod record_kind;
 
-// The scan window is the reader's selection policy, measured in native bytes.
-const END_DIRECTORY_SEARCH_WINDOW_BYTES: usize = 66_000;
-
-/// Selected directory metadata with distinct count and archive-byte addressing.
-struct CentralDirectory {
-    member_count: ArchiveMemberCount,
-    byte_offset: ArchiveByteOffset,
-}
+// Application selection policy, measured in archive bytes from the end.
+const END_DIRECTORY_SEARCH_WINDOW_BYTES: u64 = 66_000;
 
 pub(crate) struct Entry {
     pub name: ArchiveMemberName,
     compression: ZipCompression,
-    compressed_size: CompressedByteLength,
     uncompressed_size: DeclaredUncompressedByteLength,
-    local_header_offset: ArchiveByteOffset,
+    location: ZipArchiveEntryWayfinder,
 }
 
-/// A memory-mapped zip archive.
+/// A ZIP archive backed by a read-only mapping or an owned byte buffer.
 pub struct ZipArchive {
-    data: ArchiveData,
+    archive: ZipSliceArchive<ArchiveData>,
     entries: Vec<Entry>,
 }
 
@@ -62,83 +51,6 @@ impl AsRef<[u8]> for ArchiveData {
         match self {
             Self::Mapped(data) => data,
             Self::Owned(data) => data,
-        }
-    }
-}
-
-impl std::ops::Deref for ArchiveData {
-    type Target = [u8];
-
-    fn deref(&self) -> &Self::Target {
-        self.as_ref()
-    }
-}
-
-impl CentralDirectory {
-    /// Locates the central directory, following the zip64 locator when present.
-    fn locate(data: &[u8]) -> Result<Self> {
-        // Select the nearest end record in the final 66,000-byte search window.
-        let earliest = data.len().saturating_sub(END_DIRECTORY_SEARCH_WINDOW_BYTES);
-        let mut eocd = None;
-        for offset in (earliest..data.len().saturating_sub(21)).rev() {
-            if ZipRecordKind::read_at(data, offset) == ZipRecordKind::EndDirectory {
-                eocd = Some(offset);
-                break;
-            }
-        }
-        let eocd = eocd.ok_or(ZipReadError::MissingEndRecord)?;
-        let mut count = ArchiveMemberCount::from(u16_at(data, eocd + 10));
-        let mut offset = ArchiveByteOffset::from_archive_start(u64::from(u32_at(data, eocd + 16)));
-
-        if (count.is_saturated_ordinary() || offset.is_saturated_ordinary()) && eocd >= 20 {
-            let locator = eocd - 20;
-            if ZipRecordKind::read_at(data, locator) == ZipRecordKind::Zip64Locator {
-                let record = ArchiveByteOffset::from_archive_start(u64_at(data, locator + 8))
-                    .native_byte_index();
-                if record + 56 <= data.len()
-                    && ZipRecordKind::read_at(data, record) == ZipRecordKind::Zip64End
-                {
-                    count = ArchiveMemberCount::from(u64_at(data, record + 32));
-                    offset = ArchiveByteOffset::from_archive_start(u64_at(data, record + 48));
-                }
-            }
-        }
-        Ok(Self {
-            member_count: count,
-            byte_offset: offset,
-        })
-    }
-}
-
-impl Entry {
-    /// Replaces saturated fields in uncompressed/compressed/local-offset order.
-    fn apply_zip64_extra(&mut self, extra: &[u8]) {
-        let mut offset = 0;
-        while offset + 4 <= extra.len() {
-            let id = u16_at(extra, offset);
-            let size = u16_at(extra, offset + 2) as usize;
-            let body = offset + 4;
-            if body + size > extra.len() {
-                return;
-            }
-            if id == 0x0001 {
-                let mut cursor = body;
-                if self.uncompressed_size.is_saturated_ordinary() && cursor + 8 <= body + size {
-                    self.uncompressed_size =
-                        DeclaredUncompressedByteLength::from_bytes(u64_at(extra, cursor));
-                    cursor += 8;
-                }
-                if self.compressed_size.is_saturated_ordinary() && cursor + 8 <= body + size {
-                    self.compressed_size = CompressedByteLength::from_bytes(u64_at(extra, cursor));
-                    cursor += 8;
-                }
-                if self.local_header_offset.is_saturated_ordinary() && cursor + 8 <= body + size {
-                    self.local_header_offset =
-                        ArchiveByteOffset::from_archive_start(u64_at(extra, cursor));
-                }
-                return;
-            }
-            offset = body + size;
         }
     }
 }
@@ -166,43 +78,29 @@ impl ZipArchive {
     }
 
     fn from_data(data: ArchiveData) -> Result<Self> {
-        let CentralDirectory {
-            member_count,
-            byte_offset: mut offset,
-        } = CentralDirectory::locate(data.as_ref())?;
+        let archive = ZipLocator::new()
+            .max_search_space(END_DIRECTORY_SEARCH_WINDOW_BYTES)
+            .locate_in_slice(data)
+            .map_err(|(_, source)| ZipReadError::from(source))?;
+        let member_count = ArchiveMemberCount::from(archive.entries_hint());
         let mut entries = Vec::with_capacity(member_count.initial_capacity());
+        let mut directory = archive.entries();
+        // The declaration remains our upper bound; rawzip bounds each record
+        // by the selected directory span. No partial archive is published on error.
         for _ in member_count.native_iteration_range() {
-            let base = offset.native_byte_index();
-            if base + 46 > data.len()
-                || ZipRecordKind::read_at(&data, base) != ZipRecordKind::CentralMember
-            {
+            let Some(header) = directory.next_entry().map_err(ZipReadError::from)? else {
                 break;
-            }
-            let name_len = u16_at(&data, base + 28) as usize;
-            let extra_len = u16_at(&data, base + 30) as usize;
-            let comment_len = u16_at(&data, base + 32) as usize;
-            let mut entry = Entry {
-                name: ArchiveMemberName::from(&data[base + 46..base + 46 + name_len]),
-                compression: ZipCompression::from(u16_at(&data, base + 10)),
-                compressed_size: CompressedByteLength::from_bytes(u64::from(u32_at(
-                    &data,
-                    base + 20,
-                ))),
-                uncompressed_size: DeclaredUncompressedByteLength::from_bytes(u64::from(u32_at(
-                    &data,
-                    base + 24,
-                ))),
-                local_header_offset: ArchiveByteOffset::from_archive_start(u64::from(u32_at(
-                    &data,
-                    base + 42,
-                ))),
             };
-            entry.apply_zip64_extra(&data[base + 46 + name_len..base + 46 + name_len + extra_len]);
-            entries.push(entry);
-            offset.advance_native_bytes(46 + name_len + extra_len + comment_len);
+            entries.push(Entry {
+                name: ArchiveMemberName::from(header.file_path().as_ref()),
+                compression: ZipCompression::from(header.compression_method()),
+                uncompressed_size: DeclaredUncompressedByteLength::from_bytes(
+                    header.uncompressed_size_hint(),
+                ),
+                location: header.wayfinder(),
+            });
         }
-
-        Ok(Self { data, entries })
+        Ok(Self { archive, entries })
     }
 
     /// Member names, in central-directory order.
@@ -232,7 +130,7 @@ impl ZipArchive {
         self.entries.iter().find(|entry| predicate(&entry.name))
     }
 
-    /// Decodes one member. Stored members borrow from the mapping.
+    /// Decodes one member. Stored members borrow from the archive buffer.
     pub fn bytes(&self, name: &ArchiveMemberName) -> Result<Cow<'_, [u8]>> {
         let entry = self
             .entries
@@ -243,26 +141,11 @@ impl ZipArchive {
     }
 
     pub(crate) fn entry_bytes(&self, entry: &Entry) -> Result<Cow<'_, [u8]>> {
-        let base = entry.local_header_offset.native_byte_index();
-        if base + 30 > self.data.len()
-            || ZipRecordKind::read_at(&self.data, base) != ZipRecordKind::LocalMember
-        {
-            return Err(ZipReadError::CorruptMember {
-                name: entry.name.clone(),
-            });
-        }
-        // The local header repeats the name and may carry a different extra field.
-        let name_len = u16_at(&self.data, base + 26) as usize;
-        let extra_len = u16_at(&self.data, base + 28) as usize;
-        let start = base + 30 + name_len + extra_len;
-        let end = start + entry.compressed_size.native_slice_length();
-        if end > self.data.len() {
-            return Err(ZipReadError::MemberPastEnd {
-                name: entry.name.clone(),
-            });
-        }
-        let raw = &self.data[start..end];
-
+        let member = self
+            .archive
+            .get_entry(entry.location)
+            .map_err(|source| ZipReadError::member(entry.name.clone(), source))?;
+        let raw = member.data();
         match entry.compression {
             ZipCompression::Stored => Ok(Cow::Borrowed(raw)),
             ZipCompression::Deflated => {
@@ -279,22 +162,4 @@ impl ZipArchive {
             ZipCompression::Unsupported(code) => Err(ZipReadError::UnsupportedCompression { code }),
         }
     }
-}
-
-fn u16_at(data: &[u8], offset: usize) -> u16 {
-    let mut scalar = [0; 2];
-    scalar.copy_from_slice(&data[offset..offset + 2]);
-    u16::from_le_bytes(scalar)
-}
-
-fn u32_at(data: &[u8], offset: usize) -> u32 {
-    let mut scalar = [0; 4];
-    scalar.copy_from_slice(&data[offset..offset + 4]);
-    u32::from_le_bytes(scalar)
-}
-
-fn u64_at(data: &[u8], offset: usize) -> u64 {
-    let mut scalar = [0; 8];
-    scalar.copy_from_slice(&data[offset..offset + 8]);
-    u64::from_le_bytes(scalar)
 }

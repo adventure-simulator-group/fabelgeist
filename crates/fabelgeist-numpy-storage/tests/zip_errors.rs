@@ -54,10 +54,14 @@ fn local_header_and_payload_extent_keep_their_earlier_failure_precedence() {
     let archive = ZipArchive::from_bytes(corrupt).unwrap();
     let error = rejected(archive.bytes(&ArchiveMemberName::from("values.npy")));
     assert!(
-        matches!(&error, ZipReadError::CorruptMember { name } if name == &ArchiveMemberName::from("values.npy"))
+        matches!(&error, ZipReadError::CorruptMember { name, .. } if name == &ArchiveMemberName::from("values.npy"))
     );
     assert_eq!(error.to_string(), "corrupt zip entry values.npy");
-    assert!(error.source().is_none());
+    assert!(
+        error
+            .source()
+            .is_some_and(|source| source.is::<rawzip::Error>())
+    );
 
     let mut past = include_bytes!("fixtures/zip-errors/past-end.zip").to_vec();
     let directory =
@@ -66,13 +70,17 @@ fn local_header_and_payload_extent_keep_their_earlier_failure_precedence() {
     let archive = ZipArchive::from_bytes(past).unwrap();
     let error = rejected(archive.bytes(&ArchiveMemberName::from("values.npy")));
     assert!(
-        matches!(&error, ZipReadError::MemberPastEnd { name } if name == &ArchiveMemberName::from("values.npy"))
+        matches!(&error, ZipReadError::MemberPastEnd { name, .. } if name == &ArchiveMemberName::from("values.npy"))
     );
     assert_eq!(
         error.to_string(),
         "zip entry values.npy runs past the end of the archive"
     );
-    assert!(error.source().is_none());
+    assert!(
+        error
+            .source()
+            .is_some_and(|source| source.is::<rawzip::Error>())
+    );
 }
 
 #[test]

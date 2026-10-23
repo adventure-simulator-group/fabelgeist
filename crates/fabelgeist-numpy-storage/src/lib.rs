@@ -23,8 +23,7 @@ pub use npy::{
 };
 pub use npz::{Npz, NpzArrayName};
 pub use zip::{
-    ArchiveByteOffset, ArchiveMemberName, ArchiveMemberPresence, CompressedByteLength,
-    DeclaredUncompressedByteLength, ZipArchive,
+    ArchiveMemberName, ArchiveMemberPresence, DeclaredUncompressedByteLength, ZipArchive,
 };
 
 pub mod npy;

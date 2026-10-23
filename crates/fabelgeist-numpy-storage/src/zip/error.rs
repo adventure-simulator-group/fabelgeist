@@ -1,4 +1,4 @@
-//! Existing ZIP-reader failures and rejected native diagnostic provenance.
+//! ZIP application failures with concrete parser and native I/O provenance.
 use std::{error::Error, fmt, io, path::PathBuf};
 
 use super::{ArchiveMemberName, ZipCompressionCode};
@@ -25,7 +25,7 @@ pub enum ZipFileOperation {
     Map,
 }
 
-/// One of the ZIP reader's existing failures.
+/// A ZIP admission, lookup or decoding failure.
 ///
 /// Member names and rejected compression codes retain their canonical owners.
 /// Native paths are diagnostic provenance from a failed operating-system call;
@@ -33,6 +33,10 @@ pub enum ZipFileOperation {
 #[derive(Debug)]
 pub enum ZipReadError {
     MissingEndRecord,
+    /// Directory or end-record framing rejected by the structural parser.
+    Archive {
+        source: rawzip::Error,
+    },
     Native {
         operation: ZipFileOperation,
         /// Original native OS path used by the failed open or map.
@@ -46,10 +50,12 @@ pub enum ZipReadError {
     CorruptMember {
         /// Central-directory name retained at the failed serialized read.
         name: ArchiveMemberName,
+        source: rawzip::Error,
     },
     MemberPastEnd {
-        /// Central-directory name retained at the failed payload extent check.
+        /// Member whose local framing or compressed payload is incomplete.
         name: ArchiveMemberName,
+        source: rawzip::Error,
     },
     Inflate {
         /// Central-directory name retained at the failed native decompressor.
@@ -68,6 +74,7 @@ impl fmt::Display for ZipReadError {
             Self::MissingEndRecord => {
                 formatter.write_str("not a zip archive: no end-of-central-directory record")
             }
+            Self::Archive { source } => write!(formatter, "invalid zip archive: {source}"),
             Self::Native {
                 operation,
                 native_path,
@@ -81,10 +88,10 @@ impl fmt::Display for ZipReadError {
             Self::MissingMember { name } => {
                 write!(formatter, "archive has no member {name:?}")
             }
-            Self::CorruptMember { name } => {
+            Self::CorruptMember { name, .. } => {
                 write!(formatter, "corrupt zip entry {name}")
             }
-            Self::MemberPastEnd { name } => write!(
+            Self::MemberPastEnd { name, .. } => write!(
                 formatter,
                 "zip entry {name} runs past the end of the archive"
             ),
@@ -96,6 +103,7 @@ impl fmt::Display for ZipReadError {
             }
         }?;
         if formatter.alternate()
+            && matches!(self, Self::Native { .. } | Self::Inflate { .. })
             && let Some(source) = self.source()
         {
             write!(formatter, ": {source}")?;
@@ -107,7 +115,28 @@ impl Error for ZipReadError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match self {
             Self::Native { source, .. } | Self::Inflate { source, .. } => Some(source),
+            Self::Archive { source }
+            | Self::CorruptMember { source, .. }
+            | Self::MemberPastEnd { source, .. } => Some(source),
             _ => None,
+        }
+    }
+}
+
+impl From<rawzip::Error> for ZipReadError {
+    fn from(source: rawzip::Error) -> Self {
+        match source.kind() {
+            rawzip::ErrorKind::MissingEndOfCentralDirectory => Self::MissingEndRecord,
+            _ => Self::Archive { source },
+        }
+    }
+}
+
+impl ZipReadError {
+    pub(super) fn member(name: ArchiveMemberName, source: rawzip::Error) -> Self {
+        match source.kind() {
+            rawzip::ErrorKind::Eof => Self::MemberPastEnd { name, source },
+            _ => Self::CorruptMember { name, source },
         }
     }
 }
