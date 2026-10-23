@@ -141,11 +141,14 @@ impl Kernel {
         self.workgroup_size
     }
 
-    /// Workgroup count that covers `items` invocations, folded into y past
-    /// the 65535 groups one dimension may hold. The kernel recovers its item
-    /// with [`FOLDED_INDEX_WGSL`]'s `folded_index`, and must bounds-check it:
-    /// the last row of groups overshoots.
-    pub fn groups_folded(&self, items: InvocationCount) -> WorkgroupGrid {
+    /// Cover `items` with the canonical folded-X geometry and lane admission.
+    /// The kernel uses [`FOLDED_INDEX_WGSL`] and bounds-checks its live count:
+    /// the final row may overshoot. Unsupported declarations or padded u32
+    /// addresses fail here; actual device limits are checked by the receiver.
+    pub fn groups_folded(
+        &self,
+        items: InvocationCount,
+    ) -> std::result::Result<WorkgroupGrid, FoldedDispatchError> {
         self.workgroup_size.covering_folded_x(items)
     }
 
@@ -248,6 +251,7 @@ impl<'a> KernelBatch<'a> {
             return Ok(self);
         }
 
+        let groups = groups.validate_device(&self.context.device)?;
         kernel.pipeline.ensure_device(self.context)?;
         match &kernel.fast {
             Some(fast) => {
@@ -302,7 +306,7 @@ impl<'a> KernelBatch<'a> {
         parameters: &PassParameters,
         items: InvocationCount,
     ) -> Result<&mut Self> {
-        self.dispatch(kernel, parameters, kernel.groups_folded(items))
+        self.dispatch(kernel, parameters, kernel.groups_folded(items)?)
     }
 
     /// Record one dispatch sized to cover `items` invocations along x.
