@@ -32,7 +32,7 @@ impl BroadcastDefinition {
 
         self.cache.get_or_try_insert(context, shader_code, (), || {
             let shader = ComputeShader::new(context, shader_code.to_string())?;
-            let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
+            let pipeline = ComputePipeline::new(context, shader)?;
             Ok(pipeline)
         })
     }
@@ -65,7 +65,10 @@ impl Broadcast {
         };
 
         fabelgeist_gpu::data::gpu::ComputePass::dispatch(
-            context, pipeline, parameters, wg_x, 1, 1,
+            context,
+            pipeline,
+            parameters,
+            fabelgeist_gpu::data::WorkgroupGrid::from([wg_x, 1, 1]),
         )?;
 
         Ok(())

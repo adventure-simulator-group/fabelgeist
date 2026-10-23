@@ -26,21 +26,26 @@
 //! WGSL, because "how much do these spheres overlap" is what most callers do
 //! with the neighbours they find.
 
+pub use host::HashGrid;
+pub use layout::{CellScale, HashBucketCount, HashLayout, HashLayoutError, HashPointCount};
+pub use overlap::{SPHERE_OVERLAP_WGSL, sphere_overlap_volume, sphere_volume};
+
 pub mod host;
+mod layout;
 pub mod overlap;
 
 #[cfg(feature = "gpu")]
 pub mod gpu;
 
-pub use host::HashGrid;
-pub use overlap::{SPHERE_OVERLAP_WGSL, sphere_overlap_volume, sphere_volume};
-
 /// Marks an empty bucket in the range table.
 pub const EMPTY: u32 = u32::MAX;
 
-/// The integer cell a point falls into.
+/// The integer cell a point falls into, using the caller's coordinate units.
+/// The host cast retains Rust's saturating float-to-integer behavior; GPU
+/// producers must supply representable projected cells and query offsets.
 #[inline]
-pub fn cell_of(point: [f32; 3], inverse_cell: f32) -> [i32; 3] {
+pub fn cell_of(point: [f32; 3], scale: CellScale) -> [i32; 3] {
+    let inverse_cell = scale.inverse_cell();
     [
         (point[0] * inverse_cell).floor() as i32,
         (point[1] * inverse_cell).floor() as i32,
@@ -48,20 +53,15 @@ pub fn cell_of(point: [f32; 3], inverse_cell: f32) -> [i32; 3] {
     ]
 }
 
-/// The bucket a cell hashes to. `table_size` must be a power of two.
+/// The bucket a native integer cell hashes to in the admitted table.
 ///
 /// Three large odd primes, the usual spatial hash; the WGSL in
 /// [`gpu::HASH_WGSL`] is the same function word for word.
 #[inline]
-pub fn bucket_of(cell: [i32; 3], table_size: u32) -> u32 {
+pub fn bucket_of(cell: [i32; 3], table_size: HashBucketCount) -> u32 {
     let h = (cell[0] as u32).wrapping_mul(73_856_093)
         ^ (cell[1] as u32).wrapping_mul(19_349_663)
         ^ (cell[2] as u32).wrapping_mul(83_492_791);
-    h & (table_size - 1)
+    h & table_size.mask()
 }
 
-/// A table size for `count` entries: a power of two with roughly two buckets
-/// per entry, which keeps a bucket to a handful of entries.
-pub fn table_size_for(count: u32) -> u32 {
-    (count.max(1) * 2).next_power_of_two().max(64)
-}

@@ -198,8 +198,6 @@ impl SelfCollision {
             // No grid, or another population: old sorted slots cannot be reused.
             return self.record(batch, particles, GridUpdate::Rebuild);
         }
-        self.grid_state = GridState::Recorded(count);
-
         let mut hash_parameters = PassParameters::new();
         hash_parameters.insert("positions", particles.positions().clone());
         hash_parameters.insert("cells", self.cells.clone());
@@ -237,7 +235,9 @@ impl SelfCollision {
         range_parameters.insert("pad1", 0u32);
         batch.dispatch_items(&self.cell_ranges, &range_parameters, count.into())?;
 
-        self.record_collide(batch, particles, inverse_spacing)
+        self.record_collide(batch, particles, inverse_spacing)?;
+        self.grid_state = GridState::Recorded(count);
+        Ok(())
     }
 
     /// The collision itself: two dispatches against whatever grid is current.

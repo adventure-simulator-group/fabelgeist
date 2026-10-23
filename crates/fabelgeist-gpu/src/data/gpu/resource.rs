@@ -20,8 +20,8 @@ impl GpuResource {
     pub fn base_type(&self) -> ResourceBaseType {
         match self {
             GpuResource::Buffer(_) => ResourceBaseType::F32, // Default to f32 for buffers
-            GpuResource::Texture2d(t) => ResourceBaseType::from_texture_format(t.format),
-            GpuResource::Texture3d(t) => ResourceBaseType::from_texture_format(t.format),
+            GpuResource::Texture2d(t) => ResourceBaseType::from_texture_format(t.format()),
+            GpuResource::Texture3d(t) => ResourceBaseType::from_texture_format(t.format()),
         }
     }
 

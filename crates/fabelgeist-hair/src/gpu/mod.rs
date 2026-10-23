@@ -82,7 +82,7 @@ pub mod error;
 use crate::identity::PartingGroup;
 use crate::identity::StrandId;
 use buffers::{Scratch, storage, upload};
-use fabelgeist_compute::ScanElementCount;
+use fabelgeist_compute::{ScanElementCount, SortItemCount};
 mod collide;
 mod grow;
 mod guides;
@@ -101,6 +101,7 @@ use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::globals::WgpuContext;
 use fabelgeist_math::Vec3;
 use fabelgeist_spatial_hash::gpu::{GpuHashGrid, HashKernels};
+use fabelgeist_spatial_hash::{HashLayout, HashPointCount};
 
 use crate::cards::CardAtlas;
 use crate::head::Head;
@@ -112,6 +113,9 @@ pub use guides::{GpuGuides, Guides};
 pub use lods::{GpuCards, GpuLevel, GpuLods};
 pub use scalp::GpuScalp;
 pub use sim::GpuSim;
+
+/// Initial element capacity; each scratch grows independently when needed.
+const INITIAL_SCRATCH_CAPACITY: u32 = 1024;
 
 /// A strand's per-strand data on the GPU.
 #[repr(C)]
@@ -392,10 +396,21 @@ impl GpuGroomer {
         let cache = KernelCache::new();
         let kernels = Kernels::new(&context, &cache)?;
         let scan = PrefixSum::with_cache(&context, &cache)?;
-        let scan_scratch = PrefixSumScratch::new(&context, ScanElementCount::from_elements(1024))?;
+        let scan_scratch = PrefixSumScratch::new(
+            &context,
+            ScanElementCount::from_elements(INITIAL_SCRATCH_CAPACITY),
+        )?;
         let sort = RadixSort::with_cache(&context, &cache)?;
-        let sort_scratch = SortScratch::new(&context, 1024)?;
-        let grid = GpuHashGrid::new(&context, HashKernels::new(&context, &cache)?, 1024)?;
+        let sort_scratch = SortScratch::new(
+            &context,
+            SortItemCount::from(INITIAL_SCRATCH_CAPACITY),
+        )?;
+        let grid = GpuHashGrid::new(
+            &context,
+            HashKernels::new(&context, &cache)?,
+            HashLayout::try_from(HashPointCount::from(INITIAL_SCRATCH_CAPACITY))
+                .map_err(anyhow::Error::from)?,
+        )?;
         Ok(Self {
             context,
             kernels,

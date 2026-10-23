@@ -256,9 +256,7 @@ impl DualContouring {
             context,
             definition.deinterleave_pipeline.clone(),
             deinterleave_params,
-            workgroups_x,
-            1,
-            1,
+            fabelgeist_gpu::data::WorkgroupGrid::from([workgroups_x, 1, 1]),
         )?;
 
         Ok((out_positions, out_normals, output_indices, output_indirect))

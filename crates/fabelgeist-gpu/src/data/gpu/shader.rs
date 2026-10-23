@@ -1,10 +1,16 @@
-use anyhow::anyhow;
+pub use error::ShaderError;
+
+use super::buffer::{BufferByteLength, BufferByteOffset};
+
+mod error;
+
+pub type ShaderResult<T> = std::result::Result<T, ShaderError>;
 
 #[derive(Debug, Clone)]
 pub struct UniformMember {
     pub name: String,
-    pub offset: u32,
-    pub size: u32,
+    pub offset: BufferByteOffset,
+    pub size: BufferByteLength,
 }
 
 #[derive(Debug, Clone)]
@@ -22,14 +28,20 @@ pub struct BufferBinding {
     pub ty: wgpu::BufferBindingType,
 }
 
+#[derive(Debug, Clone)]
+pub struct SamplerBinding {
+    pub name: String,
+    pub binding: u32,
+}
+
 #[derive(Debug, Clone, Default)]
 pub struct BindGroupReflection {
     pub index: u32,
     pub uniform_members: Vec<UniformMember>,
-    pub uniform_buffer_size: u32,
+    pub uniform_buffer_size: BufferByteLength,
     pub uniform_binding: Option<u32>,
     pub texture_bindings: Vec<TextureBinding>,
-    pub sampler_bindings: Vec<(String, u32)>, // name, binding index
+    pub sampler_bindings: Vec<SamplerBinding>,
     pub buffer_bindings: Vec<BufferBinding>,
 }
 
@@ -40,34 +52,59 @@ pub struct ReflectionData {
     pub vertex_entry_point: String,
 }
 
-pub fn detect_from_code(code: &str) -> String {
-    if code.contains("#version") {
-        return "glsl".to_string();
-    }
-    "wgsl".to_string()
+/// The language selected at the shader source boundary.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ShaderLanguage {
+    Glsl,
+    Wgsl,
 }
 
-pub fn parse_naga(
-    code: &str,
-    stage: wgpu::naga::ShaderStage,
-) -> anyhow::Result<wgpu::naga::Module> {
-    let lang = detect_from_code(code);
-
-    if lang == "glsl" {
-        let mut frontend = wgpu::naga::front::glsl::Frontend::default();
-        frontend
-            .parse(
-                &wgpu::naga::front::glsl::Options {
-                    stage,
-                    defines: Default::default(),
-                },
-                code,
-            )
-            .map_err(|e| anyhow!("GLSL Parse Error: {:?}", e))
+pub fn detect_from_code(code: &str) -> ShaderLanguage {
+    if code.contains("#version") {
+        ShaderLanguage::Glsl
     } else {
-        wgpu::naga::front::wgsl::parse_str(code).map_err(|e| {
-            let message = e.emit_to_string(code);
-            anyhow!("WGSL Parse Error: {}", message)
-        })
+        ShaderLanguage::Wgsl
     }
+}
+
+pub fn parse_naga(code: &str, stage: wgpu::naga::ShaderStage) -> ShaderResult<wgpu::naga::Module> {
+    match detect_from_code(code) {
+        ShaderLanguage::Glsl => {
+            let mut frontend = wgpu::naga::front::glsl::Frontend::default();
+            frontend
+                .parse(
+                    &wgpu::naga::front::glsl::Options {
+                        stage,
+                        defines: Default::default(),
+                    },
+                    code,
+                )
+                .map_err(|cause| ShaderError::GlslParse {
+                    diagnostic: cause.emit_to_string(code),
+                    cause: std::sync::Arc::new(cause),
+                })
+        }
+        ShaderLanguage::Wgsl => {
+            wgpu::naga::front::wgsl::parse_str(code).map_err(|cause| ShaderError::WgslParse {
+                diagnostic: cause.emit_to_string(code),
+                cause: std::sync::Arc::new(cause),
+            })
+        }
+    }
+}
+
+/// Validate parsed source using the same policy for module and layout admission.
+pub(crate) fn validate_naga(
+    module: &wgpu::naga::Module,
+    code: &str,
+) -> ShaderResult<wgpu::naga::valid::ModuleInfo> {
+    wgpu::naga::valid::Validator::new(
+        wgpu::naga::valid::ValidationFlags::all(),
+        wgpu::naga::valid::Capabilities::all(),
+    )
+    .validate(module)
+    .map_err(|cause| ShaderError::Validation {
+        diagnostic: cause.emit_to_string(code),
+        cause: std::sync::Arc::new(cause),
+    })
 }

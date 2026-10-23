@@ -12,7 +12,8 @@ pub struct ScatterSignature {
     pub param_names: Vec<String>,
 }
 
-type ScatterPipelineCache = ComputeSourceCache<(ResourceType, ResourceType), Arc<(ComputePipeline, u64, u64)>>;
+type ScatterPipelineCache =
+    ComputeSourceCache<(ResourceType, ResourceType), Arc<(ComputePipeline, u64, u64)>>;
 
 #[derive(Clone, Debug)]
 pub struct ScatterDefinition {
@@ -316,11 +317,12 @@ impl ScatterDefinition {
         input_res: ResourceType,
         output_res: ResourceType,
     ) -> Result<Arc<(ComputePipeline, u64, u64)>> {
-        self.cache.get_or_try_insert(context, &self.code, (input_res, output_res), || {
-            let pipeline_info = self.build_pipeline(context, input_res, output_res)?;
-            let arc_info = Arc::new(pipeline_info);
-            Ok(arc_info)
-        })
+        self.cache
+            .get_or_try_insert(context, &self.code, (input_res, output_res), || {
+                let pipeline_info = self.build_pipeline(context, input_res, output_res)?;
+                let arc_info = Arc::new(pipeline_info);
+                Ok(arc_info)
+            })
     }
 }
 
@@ -349,11 +351,11 @@ impl Scatter {
             }
             GpuResource::Texture2d(t) => {
                 parameters.insert("input", t.clone());
-                (t.size.0 * t.size.1) as u64
+                (t.extent().width * t.extent().height) as u64
             }
             GpuResource::Texture3d(t) => {
                 parameters.insert("input", t.clone());
-                (t.size.0 * t.size.1 * t.size.2) as u64
+                (t.extent().width * t.extent().height * t.extent().depth_or_array_layers) as u64
             }
         };
 
@@ -372,11 +374,15 @@ impl Scatter {
 
         let (wg_x, wg_y, wg_z) = match input {
             GpuResource::Buffer(_) => ((input_num_elements as u32).div_ceil(64), 1, 1),
-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+            GpuResource::Texture2d(t) => (
+                t.extent().width.div_ceil(16),
+                t.extent().height.div_ceil(16),
+                1,
+            ),
             GpuResource::Texture3d(t) => (
-                t.size.0.div_ceil(4),
-                t.size.1.div_ceil(4),
-                t.size.2.div_ceil(4),
+                t.extent().width.div_ceil(4),
+                t.extent().height.div_ceil(4),
+                t.extent().depth_or_array_layers.div_ceil(4),
             ),
         };
 
@@ -384,9 +390,7 @@ impl Scatter {
             context,
             pipeline.clone(),
             parameters,
-            wg_x,
-            wg_y,
-            wg_z,
+            fabelgeist_gpu::data::WorkgroupGrid::from([wg_x, wg_y, wg_z]),
         )?;
 
         Ok(())

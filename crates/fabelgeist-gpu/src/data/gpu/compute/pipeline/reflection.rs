@@ -1,11 +1,14 @@
 //! Compute bindings are reflected before choosing a dispatch pipeline layout.
 use super::*;
-use crate::data::gpu::shader::{BindGroupReflection, BufferBinding, TextureBinding, UniformMember};
+use crate::data::gpu::shader::{BindGroupReflection, BufferBinding, SamplerBinding, validate_naga};
 use std::collections::BTreeMap;
+
+mod images;
+mod uniforms;
 
 pub(super) struct ReflectedInterface {
     pub reflection: Arc<ReflectionData>,
-    pub layouts: Vec<Arc<wgpu::BindGroupLayout>>,
+    pub layouts: Vec<Option<Arc<wgpu::BindGroupLayout>>>,
 }
 
 struct GroupBuilder {
@@ -14,35 +17,85 @@ struct GroupBuilder {
 }
 
 impl ReflectedInterface {
-    pub(super) fn new(context: &WgpuContext, code: &str) -> Result<Self> {
-        let module = parse_naga(code, wgpu::naga::ShaderStage::Compute)
-            .map_err(|e| anyhow!("Compute Shader Parse Error for Reflection: {e}"))?;
+    pub(super) fn new(context: &WgpuContext, code: &str) -> ComputePipelineResult<Self> {
+        let module = parse_naga(code, wgpu::naga::ShaderStage::Compute)?;
+        let info = validate_naga(&module, code)?;
         let entry = module
             .entry_points
             .iter()
             .find(|entry| entry.stage == wgpu::naga::ShaderStage::Compute)
-            .ok_or_else(|| anyhow!("Compute Shader missing entry point"))?;
+            .ok_or(ComputePipelineError::MissingEntryPoint)?;
         let mut groups = BTreeMap::new();
-        for (_, variable) in module.global_variables.iter() {
+        for (handle, variable) in module.global_variables.iter() {
+            let used = module
+                .entry_points
+                .iter()
+                .enumerate()
+                .any(|(index, entry)| {
+                    entry.stage == wgpu::naga::ShaderStage::Compute
+                        && !info.get_entry_point(index)[handle].is_empty()
+                });
+            if !used {
+                continue;
+            }
+            if variable.space == wgpu::naga::AddressSpace::Immediate {
+                return Err(ComputePipelineError::UnsupportedImmediate {
+                    name: variable.name.clone().unwrap_or_default(),
+                });
+            }
             let Some(binding) = &variable.binding else {
                 continue;
             };
+            // One retained layout serves every cached compute entry point.
+            // A float image needs filtering if any of those entries samples it.
+            let filterable = module
+                .entry_points
+                .iter()
+                .enumerate()
+                .any(|(index, entry)| {
+                    entry.stage == wgpu::naga::ShaderStage::Compute
+                        && info
+                            .get_entry_point(index)
+                            .sampling_set
+                            .iter()
+                            .any(|pair| pair.image == handle)
+                });
             groups
                 .entry(binding.group)
                 .or_insert_with(|| GroupBuilder::new(binding.group))
-                .reflect(&module, variable, binding.binding);
+                .reflect(&module, variable, binding.binding, filterable)?;
         }
+        let limit = context.device.limits().max_bind_groups;
+        if let Some(&index) = groups.keys().find(|&&index| index >= limit) {
+            return Err(ComputePipelineError::BindGroupLimit { index, limit });
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        let scope = context.blocking_validation.then(|| {
+            context
+                .device
+                .push_error_scope(wgpu::ErrorFilter::Validation)
+        });
         let mut layouts = Vec::new();
         let mut reflected = Vec::new();
         for (index, mut group) in groups {
+            while layouts.len() < index as usize {
+                layouts.push(None);
+            }
             group.entries.sort_by_key(|entry| entry.binding);
-            layouts.push(Arc::new(context.device.create_bind_group_layout(
+            layouts.push(Some(Arc::new(context.device.create_bind_group_layout(
                 &wgpu::BindGroupLayoutDescriptor {
                     label: Some(&format!("ComputePipeline Bind Layout Group {index}")),
                     entries: &group.entries,
                 },
-            )));
+            ))));
             reflected.push(group.reflection);
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        if let Some(scope) = scope {
+            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+            if let Some(cause) = pollster::block_on(scope.pop()) {
+                return Err(ComputePipelineError::Native(Arc::new(cause)));
+            }
         }
         Ok(Self {
             reflection: Arc::new(ReflectionData {
@@ -71,11 +124,18 @@ impl GroupBuilder {
         module: &wgpu::naga::Module,
         variable: &wgpu::naga::GlobalVariable,
         binding: u32,
-    ) {
+        filterable: bool,
+    ) -> ComputePipelineResult<()> {
+        if matches!(
+            &module.types[variable.ty].inner,
+            wgpu::naga::TypeInner::BindingArray { .. }
+        ) {
+            return Err(self.unsupported(binding, UnsupportedBindingKind::BindingArray));
+        }
         let name = variable.name.clone().unwrap_or_default();
         match variable.space {
             wgpu::naga::AddressSpace::Uniform => {
-                self.uniform(module, variable.ty, binding);
+                self.uniform(module, variable.ty, binding)?;
             }
             wgpu::naga::AddressSpace::Storage { access } => {
                 let ty = wgpu::BufferBindingType::Storage {
@@ -94,96 +154,39 @@ impl GroupBuilder {
                 );
             }
             wgpu::naga::AddressSpace::Handle => match &module.types[variable.ty].inner {
-                wgpu::naga::TypeInner::Image { dim, class, .. } => {
-                    self.image(name, binding, *dim, class);
+                wgpu::naga::TypeInner::Image {
+                    dim,
+                    class,
+                    arrayed,
+                } => {
+                    self.image(name, binding, *dim, *arrayed, class, filterable)?;
                 }
-                wgpu::naga::TypeInner::Sampler { .. } => {
-                    self.reflection.sampler_bindings.push((name, binding));
+                wgpu::naga::TypeInner::Sampler { comparison } => {
+                    self.reflection
+                        .sampler_bindings
+                        .push(SamplerBinding { name, binding });
                     self.entry(
                         binding,
-                        wgpu::BindingType::Sampler(wgpu::SamplerBindingType::Filtering),
+                        wgpu::BindingType::Sampler(if *comparison {
+                            wgpu::SamplerBindingType::Comparison
+                        } else {
+                            wgpu::SamplerBindingType::Filtering
+                        }),
                     );
                 }
-                _ => {}
+                _ => return Err(self.unsupported(binding, UnsupportedBindingKind::Handle)),
             },
-            _ => {}
+            _ => return Err(self.unsupported(binding, UnsupportedBindingKind::AddressSpace)),
         }
+        Ok(())
     }
 
-    fn uniform(
-        &mut self,
-        module: &wgpu::naga::Module,
-        ty: wgpu::naga::Handle<wgpu::naga::Type>,
-        binding: u32,
-    ) {
-        let ty = &module.types[ty];
-        self.reflection.uniform_binding = Some(binding);
-        if let wgpu::naga::TypeInner::Struct { members, span } = &ty.inner {
-            self.reflection.uniform_buffer_size = *span;
-            for member in members {
-                self.reflection.uniform_members.push(UniformMember {
-                    name: member.name.clone().unwrap_or_default(),
-                    offset: member.offset,
-                    size: module.types[member.ty].inner.size(module.to_ctx()),
-                });
-            }
-        } else {
-            self.reflection.uniform_buffer_size = ty.inner.size(module.to_ctx());
+    fn unsupported(&self, binding: u32, kind: UnsupportedBindingKind) -> ComputePipelineError {
+        ComputePipelineError::UnsupportedBinding {
+            group: self.reflection.index,
+            binding,
+            kind,
         }
-        self.entry(
-            binding,
-            wgpu::BindingType::Buffer {
-                ty: wgpu::BufferBindingType::Uniform,
-                has_dynamic_offset: false,
-                min_binding_size: None,
-            },
-        );
-    }
-
-    fn image(
-        &mut self,
-        name: String,
-        binding: u32,
-        dimension: wgpu::naga::ImageDimension,
-        class: &wgpu::naga::ImageClass,
-    ) {
-        let dimension = match dimension {
-            wgpu::naga::ImageDimension::D1 => wgpu::TextureViewDimension::D1,
-            wgpu::naga::ImageDimension::D2 => wgpu::TextureViewDimension::D2,
-            wgpu::naga::ImageDimension::D3 => wgpu::TextureViewDimension::D3,
-            wgpu::naga::ImageDimension::Cube => wgpu::TextureViewDimension::Cube,
-        };
-        let mut format = None;
-        let ty = match class {
-            wgpu::naga::ImageClass::Storage {
-                format: storage,
-                access,
-            } => {
-                let storage = TextureFormat::naga_to_wgpu_format(*storage);
-                format = Some(storage);
-                wgpu::BindingType::StorageTexture {
-                    access: if access.contains(wgpu::naga::StorageAccess::STORE) {
-                        wgpu::StorageTextureAccess::WriteOnly
-                    } else {
-                        wgpu::StorageTextureAccess::ReadOnly
-                    },
-                    format: storage,
-                    view_dimension: dimension,
-                }
-            }
-            _ => wgpu::BindingType::Texture {
-                multisampled: false,
-                view_dimension: dimension,
-                sample_type: sample_type(class),
-            },
-        };
-        self.entry(binding, ty);
-        self.reflection.texture_bindings.push(TextureBinding {
-            name,
-            binding,
-            format,
-            dimension,
-        });
     }
 
     fn entry(&mut self, binding: u32, ty: wgpu::BindingType) {
@@ -193,17 +196,5 @@ impl GroupBuilder {
             ty,
             count: None,
         });
-    }
-}
-
-fn sample_type(class: &wgpu::naga::ImageClass) -> wgpu::TextureSampleType {
-    match class {
-        wgpu::naga::ImageClass::Sampled { kind, .. } => match kind {
-            wgpu::naga::ScalarKind::Uint => wgpu::TextureSampleType::Uint,
-            wgpu::naga::ScalarKind::Sint => wgpu::TextureSampleType::Sint,
-            _ => wgpu::TextureSampleType::Float { filterable: true },
-        },
-        wgpu::naga::ImageClass::Depth { .. } => wgpu::TextureSampleType::Depth,
-        _ => wgpu::TextureSampleType::Float { filterable: true },
     }
 }

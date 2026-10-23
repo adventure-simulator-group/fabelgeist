@@ -245,9 +245,7 @@ impl GpuMesh {
             context,
             pipeline.clone(),
             PassParameters::from(parameters),
-            workgroups,
-            1,
-            1,
+            fabelgeist_gpu::data::WorkgroupGrid::from([workgroups, 1, 1]),
         )?;
 
         Ok(GpuMesh {

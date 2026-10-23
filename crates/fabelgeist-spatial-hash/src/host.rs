@@ -1,6 +1,7 @@
 //! The host grid.
 
-use crate::{EMPTY, bucket_of, cell_of, table_size_for};
+use crate::{CellScale, EMPTY, HashBucketCount, HashLayout, HashPointCount, bucket_of, cell_of};
+use anyhow::Result;
 
 /// Spheres (or points) hashed into a uniform grid.
 ///
@@ -9,8 +10,8 @@ use crate::{EMPTY, bucket_of, cell_of, table_size_for};
 /// [`HashGrid::rebuild`].
 #[derive(Clone, Debug, Default)]
 pub struct HashGrid {
-    inverse_cell: f32,
-    table_size: u32,
+    scale: CellScale,
+    table_size: HashBucketCount,
     /// Each entry's own cell, to reject bucket collisions.
     cells: Vec<[i32; 3]>,
     /// Entry indices, grouped by bucket.
@@ -21,25 +22,30 @@ pub struct HashGrid {
 }
 
 impl HashGrid {
-    /// Hash `points` (the centres) into cells of side `cell_size`.
-    pub fn new(points: impl ExactSizeIterator<Item = [f32; 3]>, cell_size: f32) -> Self {
+    /// Hash `points` (the centres) using `scale` in their coordinate units.
+    pub fn new(points: impl ExactSizeIterator<Item = [f32; 3]>, scale: CellScale) -> Result<Self> {
         let mut grid = Self::default();
-        grid.rebuild(points, cell_size);
-        grid
+        grid.rebuild(points, scale)?;
+        Ok(grid)
     }
 
     /// Rebuild in place, reusing the tables.
-    pub fn rebuild(&mut self, points: impl ExactSizeIterator<Item = [f32; 3]>, cell_size: f32) {
+    pub fn rebuild(
+        &mut self,
+        points: impl ExactSizeIterator<Item = [f32; 3]>,
+        scale: CellScale,
+    ) -> Result<()> {
         let count = points.len();
-        self.inverse_cell = 1.0 / cell_size.max(f32::MIN_POSITIVE);
-        self.table_size = table_size_for(count as u32);
+        let layout = HashLayout::try_from(HashPointCount::try_from(count)?)?;
+        self.scale = scale;
+        self.table_size = layout.bucket_count();
         self.cells.clear();
         self.buckets.clear();
         self.ranges.clear();
-        self.ranges.resize(self.table_size as usize, [0, 0]);
+        self.ranges.resize(usize::from(self.table_size), [0, 0]);
 
         for point in points {
-            let cell = cell_of(point, self.inverse_cell);
+            let cell = cell_of(point, self.scale);
             let bucket = bucket_of(cell, self.table_size);
             self.cells.push(cell);
             self.buckets.push(bucket);
@@ -65,6 +71,7 @@ impl HashGrid {
             self.sorted[range[1] as usize] = index as u32;
             range[1] += 1;
         }
+        Ok(())
     }
 
     pub fn len(&self) -> usize {
@@ -75,8 +82,8 @@ impl HashGrid {
         self.cells.is_empty()
     }
 
-    pub fn cell_size(&self) -> f32 {
-        1.0 / self.inverse_cell
+    pub fn cell_scale(&self) -> CellScale {
+        self.scale
     }
 
     /// Call `visit` with every entry whose cell lies within `reach` cells of
@@ -86,7 +93,7 @@ impl HashGrid {
         if self.cells.is_empty() {
             return;
         }
-        let base = cell_of(point, self.inverse_cell);
+        let base = cell_of(point, self.scale);
         for dz in -reach..=reach {
             for dy in -reach..=reach {
                 for dx in -reach..=reach {
@@ -129,7 +136,7 @@ mod tests {
     fn finds_exactly_the_neighbours_brute_force_finds() {
         let points = lattice();
         let radius = 1.3;
-        let grid = HashGrid::new(points.iter().copied(), radius);
+        let grid = HashGrid::new(points.iter().copied(), CellScale::from_cell_size(radius)).unwrap();
         for (i, p) in points.iter().enumerate().step_by(37) {
             let mut found = Vec::new();
             grid.for_each_near(*p, 1, |j| {
@@ -155,7 +162,7 @@ mod tests {
     #[test]
     fn visits_each_entry_once() {
         let points = lattice();
-        let grid = HashGrid::new(points.iter().copied(), 3.0);
+        let grid = HashGrid::new(points.iter().copied(), CellScale::from_cell_size(3.0)).unwrap();
         let mut seen = vec![0u32; points.len()];
         grid.for_each_near([0.0; 3], 4, |j| seen[j as usize] += 1);
         assert!(seen.iter().all(|&n| n <= 1));

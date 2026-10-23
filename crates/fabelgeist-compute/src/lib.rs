@@ -80,7 +80,7 @@ pub use scan::*;
 pub use scatter::*;
 pub use simplex_noise::RenderSimplex;
 pub use sort::{
-    RadixSort, ScratchGrowth, SortDigit, SortDigits, SortItemCount, SortKeyWidth, SortLayoutError, SortPassCount,
+    RadixSort, SortDigit, SortDigits, SortItemCount, SortKeyWidth, SortLayoutError, SortPassCount,
     SortScratch,
 };
 pub use stencil::*;

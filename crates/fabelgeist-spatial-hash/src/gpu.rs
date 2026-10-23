@@ -30,12 +30,12 @@ use anyhow::{Result, anyhow};
 use fabelgeist_compute::{
     FOLDED_INDEX_WGSL, Kernel, KernelBatch, KernelCache, RadixSort, SortScratch,
 };
-use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
+use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferCapacityChange, BufferDefinition};
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_gpu::globals::WgpuContext;
 use std::sync::Arc;
 
-use crate::table_size_for;
+use crate::{CellScale, HashBucketCount, HashLayout, HashPointCount};
 
 /// The cell and bucket functions alone, with no bindings.
 pub const HASH_WGSL: &str = r#"
@@ -73,6 +73,182 @@ struct HashParams {
     pad: u32,
 };
 "#;
+
+/// The compiled passes, shareable between grids.
+#[derive(Clone, Debug)]
+pub struct HashKernels {
+    hash: Arc<Kernel>,
+    clear: Arc<Kernel>,
+    ranges: Arc<Kernel>,
+    sort: RadixSort,
+}
+
+/// A spatial hash over the checked layout capacity, built on the GPU.
+pub struct GpuHashGrid {
+    kernels: HashKernels,
+    layout: HashLayout,
+    recorded: HashBuild,
+    keys: Buffer,
+    indices: Buffer,
+    ranges: Buffer,
+    scratch: SortScratch,
+}
+
+/// Metadata of the last successfully recorded build, in caller coordinates.
+#[derive(Clone, Copy, Debug)]
+struct HashBuild {
+    count: HashPointCount,
+    scale: CellScale,
+}
+
+impl HashKernels {
+    pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
+        Ok(Self {
+            hash: cache.get(context, &hash_source())?,
+            clear: cache.get(context, &clear_source())?,
+            ranges: cache.get(context, &ranges_source())?,
+            sort: RadixSort::with_cache(context, cache)?,
+        })
+    }
+}
+
+impl GpuHashGrid {
+    pub fn new(context: &WgpuContext, kernels: HashKernels, layout: HashLayout) -> Result<Self> {
+        let layout = layout.with_sentinel();
+        let capacity = layout.point_count();
+        let storage = BufferDefinition::storage();
+        Ok(Self {
+            kernels,
+            layout,
+            recorded: HashBuild {
+                count: HashPointCount::default(),
+                scale: CellScale::from_cell_size(1.0),
+            },
+            keys: Buffer::new(
+                context,
+                capacity.word_bytes(),
+                storage.clone().with_label(("hash keys").into()),
+            )?,
+            indices: Buffer::new(
+                context,
+                capacity.word_bytes(),
+                storage.clone().with_label(("hash indices").into()),
+            )?,
+            ranges: Buffer::new(
+                context,
+                layout.bucket_count().range_bytes(),
+                storage.with_label(("hash ranges").into()),
+            )?,
+            scratch: SortScratch::new(context, capacity.into())?,
+        })
+    }
+
+    /// Reallocate if `requested` no longer fits, reporting the allocation outcome.
+    /// Grows by half again, so a slowly growing population does not
+    /// reallocate every step.
+    pub fn ensure_capacity(
+        &mut self,
+        context: &WgpuContext,
+        requested: HashLayout,
+    ) -> Result<BufferCapacityChange> {
+        if requested.point_count() <= self.capacity() {
+            return Ok(BufferCapacityChange::Unchanged);
+        }
+        let grown = self.layout.grown_for(requested);
+        *self = Self::new(context, self.kernels.clone(), grown)?;
+        Ok(BufferCapacityChange::Grown)
+    }
+
+    pub fn capacity(&self) -> HashPointCount {
+        self.layout.point_count()
+    }
+
+    pub fn table_size(&self) -> HashBucketCount {
+        self.layout.bucket_count()
+    }
+
+    pub fn cell_scale(&self) -> CellScale {
+        self.recorded.scale
+    }
+
+    pub fn count(&self) -> HashPointCount {
+        self.recorded.count
+    }
+
+    /// Record a build over the first `count` entries of `points`
+    /// (`array<vec4<f32>>`), using `scale` in their coordinate units.
+    /// Projected cells and query offsets must fit native signed cell coordinates.
+    /// On error, discard the partially recorded batch. Successful encoding does
+    /// not establish execution or certify the external point buffer's identity.
+    pub fn record_build(
+        &mut self,
+        batch: &mut KernelBatch,
+        points: &Buffer,
+        count: HashPointCount,
+        scale: CellScale,
+    ) -> Result<()> {
+        if count > self.capacity() {
+            return Err(anyhow!(
+                "GpuHashGrid: built for {} points, asked for {count}",
+                self.capacity()
+            ));
+        }
+        let available = points.size.min(points.buffer.size().into());
+        if count.point_bytes() > available {
+            return Err(anyhow!(
+                "GpuHashGrid: {count} points require {} bytes, buffer holds {available}",
+                count.point_bytes()
+            ));
+        }
+        let build = HashBuild { count, scale };
+
+        let mut clear = self.params(build);
+        clear.insert("hash_ranges", self.ranges.clone());
+        batch.dispatch_folded(&self.kernels.clear, &clear, self.table_size().into())?;
+        if count.is_empty() {
+            self.recorded = build;
+            return Ok(());
+        }
+
+        let mut hash = self.params(build);
+        hash.insert("points", points.clone());
+        hash.insert("hash_keys", self.keys.clone());
+        hash.insert("hash_indices", self.indices.clone());
+        batch.dispatch_folded(&self.kernels.hash, &hash, count.into())?;
+
+        let bits = self.table_size().sort_key_width();
+        self.kernels.sort.record(
+            batch,
+            &self.keys,
+            &self.indices,
+            &mut self.scratch,
+            count.into(),
+            bits,
+        )?;
+
+        let mut ranges = self.params(build);
+        ranges.insert("hash_keys", self.keys.clone());
+        ranges.insert("hash_ranges", self.ranges.clone());
+        batch.dispatch_folded(&self.kernels.ranges, &ranges, count.into())?;
+        self.recorded = build;
+        Ok(())
+    }
+
+    /// Bind `hash_indices` and `hash_ranges` for a querying kernel.
+    pub fn bind(&self, parameters: &mut PassParameters) {
+        parameters.insert("hash_indices", self.indices.clone());
+        parameters.insert("hash_ranges", self.ranges.clone());
+    }
+
+    fn params(&self, build: HashBuild) -> PassParameters {
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", build.count);
+        parameters.insert("table_size", self.table_size());
+        parameters.insert("inverse_cell", build.scale);
+        parameters.insert("pad", 0u32);
+        parameters
+    }
+}
 
 fn hash_source() -> String {
     format!(
@@ -146,161 +322,6 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) g
     )
 }
 
-/// The compiled passes, shareable between grids.
-#[derive(Clone, Debug)]
-pub struct HashKernels {
-    hash: Arc<Kernel>,
-    clear: Arc<Kernel>,
-    ranges: Arc<Kernel>,
-    sort: RadixSort,
-}
-
-impl HashKernels {
-    pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
-        Ok(Self {
-            hash: cache.get(context, &hash_source())?,
-            clear: cache.get(context, &clear_source())?,
-            ranges: cache.get(context, &ranges_source())?,
-            sort: RadixSort::with_cache(context, cache)?,
-        })
-    }
-}
-
-/// A spatial hash over up to `capacity` points, built on the GPU.
-pub struct GpuHashGrid {
-    kernels: HashKernels,
-    capacity: u32,
-    table_size: u32,
-    count: u32,
-    inverse_cell: f32,
-    keys: Buffer,
-    pub indices: Buffer,
-    pub ranges: Buffer,
-    scratch: SortScratch,
-}
-
-impl GpuHashGrid {
-    pub fn new(context: &WgpuContext, kernels: HashKernels, capacity: u32) -> Result<Self> {
-        let capacity = capacity.max(1);
-        let table_size = table_size_for(capacity);
-        let storage = BufferDefinition::storage();
-        Ok(Self {
-            kernels,
-            capacity,
-            table_size,
-            count: 0,
-            inverse_cell: 1.0,
-            keys: Buffer::new(
-                context,
-                (capacity as u64 * 4).into(),
-                storage.clone().with_label(("hash keys").into()),
-            )?,
-            indices: Buffer::new(
-                context,
-                (capacity as u64 * 4).into(),
-                storage.clone().with_label(("hash indices").into()),
-            )?,
-            ranges: Buffer::new(
-                context,
-                (table_size as u64 * 8).into(),
-                storage.with_label(("hash ranges").into()),
-            )?,
-            scratch: SortScratch::new(context, capacity)?,
-        })
-    }
-
-    /// Reallocate if `capacity` no longer fits; returns whether it grew.
-    /// Grows by half again, so a slowly growing population does not
-    /// reallocate every step.
-    pub fn ensure_capacity(&mut self, context: &WgpuContext, capacity: u32) -> Result<bool> {
-        if capacity <= self.capacity {
-            return Ok(false);
-        }
-        let grown = capacity.max(self.capacity + self.capacity / 2);
-        *self = Self::new(context, self.kernels.clone(), grown)?;
-        Ok(true)
-    }
-
-    pub fn capacity(&self) -> u32 {
-        self.capacity
-    }
-
-    pub fn table_size(&self) -> u32 {
-        self.table_size
-    }
-
-    pub fn inverse_cell(&self) -> f32 {
-        self.inverse_cell
-    }
-
-    pub fn count(&self) -> u32 {
-        self.count
-    }
-
-    fn params(&self, count: u32) -> PassParameters {
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", count);
-        parameters.insert("table_size", self.table_size);
-        parameters.insert("inverse_cell", self.inverse_cell);
-        parameters.insert("pad", 0u32);
-        parameters
-    }
-
-    /// Record a build over the first `count` entries of `points`
-    /// (`array<vec4<f32>>`), in cells of side `cell_size`.
-    pub fn record_build(
-        &mut self,
-        batch: &mut KernelBatch,
-        points: &Buffer,
-        count: u32,
-        cell_size: f32,
-    ) -> Result<()> {
-        if count > self.capacity {
-            return Err(anyhow!(
-                "GpuHashGrid: built for {} points, asked for {count}",
-                self.capacity
-            ));
-        }
-        self.count = count;
-        self.inverse_cell = 1.0 / cell_size.max(f32::MIN_POSITIVE);
-
-        let mut clear = self.params(count);
-        clear.insert("hash_ranges", self.ranges.clone());
-        batch.dispatch_folded(&self.kernels.clear, &clear, self.table_size)?;
-        if count == 0 {
-            return Ok(());
-        }
-
-        let mut hash = self.params(count);
-        hash.insert("points", points.clone());
-        hash.insert("hash_keys", self.keys.clone());
-        hash.insert("hash_indices", self.indices.clone());
-        batch.dispatch_folded(&self.kernels.hash, &hash, count)?;
-
-        let bits = self.table_size.trailing_zeros();
-        self.kernels.sort.record(
-            batch,
-            &self.keys,
-            &self.indices,
-            &mut self.scratch,
-            count,
-            bits,
-        )?;
-
-        let mut ranges = self.params(count);
-        ranges.insert("hash_keys", self.keys.clone());
-        ranges.insert("hash_ranges", self.ranges.clone());
-        batch.dispatch_folded(&self.kernels.ranges, &ranges, count)?;
-        Ok(())
-    }
-
-    /// Bind `hash_indices` and `hash_ranges` for a querying kernel.
-    pub fn bind(&self, parameters: &mut PassParameters) {
-        parameters.insert("hash_indices", self.indices.clone());
-        parameters.insert("hash_ranges", self.ranges.clone());
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -368,27 +389,29 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
             (points.len() as u64 * 4).into(),
             BufferDefinition::storage(),
         )?;
-        let mut grid = GpuHashGrid::new(&context, kernels, points.len() as u32)?;
+        let count = HashPointCount::try_from(points.len())?;
+        let scale = CellScale::from_cell_size(radius);
+        let mut grid = GpuHashGrid::new(&context, kernels, HashLayout::try_from(count)?)?;
 
         let kernel = Kernel::new(
             &context,
             format!("{COUNT_KERNEL}{HASH_WGSL}{RANGE_WGSL}{COUNT_MAIN}"),
         )?;
         let mut batch = KernelBatch::new(&context);
-        grid.record_build(&mut batch, &buffer, points.len() as u32, radius)?;
+        grid.record_build(&mut batch, &buffer, count, scale)?;
         let mut parameters = PassParameters::new();
         parameters.insert("points", buffer.clone());
         parameters.insert("counts", counts.clone());
-        parameters.insert("count", points.len() as u32);
+        parameters.insert("count", count);
         parameters.insert("table_size", grid.table_size());
-        parameters.insert("inverse_cell", grid.inverse_cell());
+        parameters.insert("inverse_cell", grid.cell_scale());
         parameters.insert("radius", radius);
         grid.bind(&mut parameters);
-        batch.dispatch_items(&kernel, &parameters, points.len() as u32)?;
+        batch.dispatch_items(&kernel, &parameters, count.into())?;
         batch.submit();
 
         let gpu: Vec<u32> = counts.read(&context).await?;
-        let host = HashGrid::new(points.iter().map(|p| [p[0], p[1], p[2]]), radius);
+        let host = HashGrid::new(points.iter().map(|p| [p[0], p[1], p[2]]), scale)?;
         for (i, p) in points.iter().enumerate() {
             let mut n = 0;
             host.for_each_near([p[0], p[1], p[2]], 1, |j| {

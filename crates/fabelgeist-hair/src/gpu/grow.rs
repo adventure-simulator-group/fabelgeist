@@ -86,7 +86,11 @@ impl StrandSet {
     /// The positions back in the strands' own buffer.
     pub(super) fn settle(&mut self, batch: &mut KernelBatch) -> Result<()> {
         if self.positions.flipped {
-            batch.copy_buffer(&self.positions.scratch, &self.positions.own, self.bytes())?;
+            batch.copy_buffer(
+                &self.positions.scratch,
+                &self.positions.own,
+                self.bytes().into(),
+            )?;
             self.positions.flipped = false;
         }
         Ok(())

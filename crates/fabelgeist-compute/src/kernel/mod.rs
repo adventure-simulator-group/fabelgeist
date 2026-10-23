@@ -15,16 +15,20 @@
 //! hundreds of submits per frame is a lost frame. [`KernelBatch`] records into
 //! a single encoder and submits once.
 
-mod fast;
-
 use crate::prelude::*;
 use std::sync::Arc;
 
+pub use batch_error::KernelBatchError;
+pub use dispatch_count::RecordedDispatchCount;
+pub use workgroup::WorkgroupDeclarationError;
+
+mod batch_error;
+mod dispatch_count;
+mod fast;
+mod workgroup;
+
 // Validation scopes on one device must not interleave during compilation.
 static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
-
-/// The most workgroups one dispatch dimension may hold.
-pub const MAX_GROUPS: u32 = 65_535;
 
 /// The flat item index of an invocation dispatched by
 /// [`KernelBatch::dispatch_folded`], given its `global_invocation_id`, its
@@ -47,9 +51,16 @@ fn folded_index(id: vec3<u32>, groups: vec3<u32>, width: u32) -> u32 {
 /// A compiled compute kernel: the pipeline plus the workgroup size declared in
 /// its own source, so that a dispatch can be sized in *items* rather than in
 /// workgroups.
+///
+/// ```compile_fail
+/// use fabelgeist_compute::kernel::Kernel;
+/// fn change_declaration(kernel: &mut Kernel) {
+///     kernel.workgroup_size = [0, 1, 1];
+/// }
+/// ```
 pub struct Kernel {
-    pub pipeline: ComputePipeline,
-    pub workgroup_size: [u32; 3],
+    pipeline: ComputePipeline,
+    workgroup_size: WorkgroupShape,
     pub entry_point: String,
     /// The cached dispatch path, when this kernel's shape allows one.
     ///
@@ -71,7 +82,7 @@ impl std::fmt::Debug for Kernel {
 
 impl PartialEq for Kernel {
     fn eq(&self, other: &Self) -> bool {
-        self.pipeline.shader.code == other.pipeline.shader.code
+        self.pipeline.shader().code() == other.pipeline.shader().code()
     }
 }
 
@@ -94,29 +105,20 @@ impl Kernel {
             .iter()
             .find(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
             .ok_or_else(|| anyhow!("Kernel: no compute entry point"))?;
-        let workgroup_size = entry.workgroup_size;
+        let native_workgroup_size = entry.workgroup_size;
         let entry_point = entry.name.clone();
-
-        if workgroup_size.contains(&0) {
-            return Err(anyhow!(
-                "Kernel `{entry_point}`: workgroup size {workgroup_size:?} has a zero dimension"
-            ));
-        }
+        let workgroup_size = WorkgroupShape::try_from(native_workgroup_size)
+            .map_err(|source| WorkgroupDeclarationError::at_entry_point(&entry_point, source))?;
 
         let shader = ComputeShader::new(context, code.clone())?;
         let mut pipeline = ComputePipeline::prepare(context, shader)?;
 
-        let fast = match pipeline
-            .shader
-            .module
-            .as_ref()
-            .zip(pipeline.reflection.as_ref())
-        {
-            Some((module, reflection)) => {
-                fast::FastPath::new(context, module, &entry_point, reflection)?
-            }
-            None => None,
-        };
+        let fast = fast::FastPath::new(
+            context,
+            pipeline.shader().module(),
+            &entry_point,
+            pipeline.reflection(),
+        )?;
 
         // The batched layout owns its pipeline. Compile the static layout only
         // for kernels requiring it, or when a caller uses a one-off dispatch.
@@ -132,24 +134,32 @@ impl Kernel {
         })
     }
 
+    /// The immutable pipeline definition admitted with this kernel.
+    pub fn pipeline(&self) -> &ComputePipeline {
+        &self.pipeline
+    }
+
     /// Whether this kernel dispatches through the cached path.
     pub fn is_cached(&self) -> bool {
         self.fast.is_some()
     }
 
     /// Workgroup count that covers `items` invocations along x.
-    pub fn groups_for(&self, items: u32) -> [u32; 3] {
-        [items.div_ceil(self.workgroup_size[0]), 1, 1]
+    pub fn groups_for(&self, items: InvocationCount) -> WorkgroupGrid {
+        self.workgroup_size.covering_x(items)
+    }
+
+    /// The nonzero shape admitted from this kernel's native declaration.
+    pub fn workgroup_shape(&self) -> WorkgroupShape {
+        self.workgroup_size
     }
 
     /// Workgroup count that covers `items` invocations, folded into y past
     /// the 65535 groups one dimension may hold. The kernel recovers its item
     /// with [`FOLDED_INDEX_WGSL`]'s `folded_index`, and must bounds-check it:
     /// the last row of groups overshoots.
-    pub fn groups_folded(&self, items: u32) -> [u32; 3] {
-        let groups = items.div_ceil(self.workgroup_size[0]);
-        let x = groups.clamp(1, MAX_GROUPS);
-        [x, groups.div_ceil(x), 1]
+    pub fn groups_folded(&self, items: InvocationCount) -> WorkgroupGrid {
+        self.workgroup_size.covering_folded_x(items)
     }
 
     /// Run this kernel on its own -- one encoder, one submit. Convenient for a
@@ -158,7 +168,7 @@ impl Kernel {
         &self,
         context: &WgpuContext,
         parameters: PassParameters,
-        groups: [u32; 3],
+        groups: WorkgroupGrid,
     ) -> Result<()> {
         let pipeline = {
             let _compiling = COMPILING
@@ -168,9 +178,7 @@ impl Kernel {
             pipeline.compile(context)?;
             pipeline
         };
-        ComputePass::dispatch(
-            context, pipeline, parameters, groups[0], groups[1], groups[2],
-        )
+        ComputePass::dispatch(context, pipeline, parameters, groups)
     }
 }
 
@@ -209,7 +217,7 @@ impl KernelCache {
 pub struct KernelBatch<'a> {
     context: &'a WgpuContext,
     encoder: wgpu::CommandEncoder,
-    dispatches: usize,
+    dispatches: RecordedDispatchCount,
     uniforms: fast::UniformArena,
     /// Run once the batch is submitted, in order.
     after_submit: Vec<Box<dyn FnOnce() + Send + 'a>>,
@@ -227,7 +235,7 @@ impl<'a> KernelBatch<'a> {
         Self {
             context,
             encoder,
-            dispatches: 0,
+            dispatches: RecordedDispatchCount::default(),
             uniforms: fast::UniformArena::default(),
             after_submit: Vec::new(),
         }
@@ -244,42 +252,57 @@ impl<'a> KernelBatch<'a> {
         &mut self,
         kernel: &Kernel,
         parameters: &PassParameters,
-        groups: [u32; 3],
+        groups: WorkgroupGrid,
     ) -> Result<&mut Self> {
         // A zero-sized grid is a no-op, not an error: an empty constraint
         // colour or an empty contact list is a perfectly ordinary frame.
-        if groups.contains(&0) {
+        if groups.occupancy() == DispatchOccupancy::Empty {
             return Ok(self);
         }
 
+        kernel.pipeline.ensure_device(self.context)?;
         match &kernel.fast {
             Some(fast) => {
                 let prepared = fast.prepare(self.context, parameters, &mut self.uniforms)?;
-                let mut pass = self
-                    .encoder
-                    .begin_compute_pass(&wgpu::ComputePassDescriptor {
-                        label: Some("Kernel Pass"),
-                        timestamp_writes: None,
-                    });
-                pass.set_pipeline(&prepared.pipeline);
-                match prepared.dynamic_offset {
-                    Some(offset) => pass.set_bind_group(0, &prepared.bind_group, &[offset]),
-                    None => pass.set_bind_group(0, &prepared.bind_group, &[]),
+                #[cfg(not(target_arch = "wasm32"))]
+                let scope = self.context.blocking_validation.then(|| {
+                    self.context
+                        .device
+                        .push_error_scope(wgpu::ErrorFilter::Validation)
+                });
+                let outcome = {
+                    let mut pass = self
+                        .encoder
+                        .begin_compute_pass(&wgpu::ComputePassDescriptor {
+                            label: Some("Kernel Pass"),
+                            timestamp_writes: None,
+                        });
+                    prepared.record(&mut pass, groups)
+                };
+                #[cfg(not(target_arch = "wasm32"))]
+                let native_error = scope.and_then(|scope| {
+                    let _ = self
+                        .context
+                        .device
+                        .poll(wgpu::PollType::wait_indefinitely());
+                    pollster::block_on(scope.pop())
+                });
+                outcome?;
+                #[cfg(not(target_arch = "wasm32"))]
+                if let Some(cause) = native_error {
+                    return Err(ComputePassError::Native(Arc::new(cause)).into());
                 }
-                pass.dispatch_workgroups(groups[0], groups[1], groups[2]);
             }
             None => ComputePass::record(
                 self.context,
                 &kernel.pipeline,
                 parameters,
                 &mut self.encoder,
-                groups[0],
-                groups[1],
-                groups[2],
+                groups,
             )?,
         }
 
-        self.dispatches += 1;
+        self.dispatches.record();
         Ok(self)
     }
 
@@ -289,11 +312,8 @@ impl<'a> KernelBatch<'a> {
         &mut self,
         kernel: &Kernel,
         parameters: &PassParameters,
-        items: u32,
+        items: InvocationCount,
     ) -> Result<&mut Self> {
-        if items == 0 {
-            return Ok(self);
-        }
         self.dispatch(kernel, parameters, kernel.groups_folded(items))
     }
 
@@ -302,23 +322,50 @@ impl<'a> KernelBatch<'a> {
         &mut self,
         kernel: &Kernel,
         parameters: &PassParameters,
-        items: u32,
+        items: InvocationCount,
     ) -> Result<&mut Self> {
         self.dispatch(kernel, parameters, kernel.groups_for(items))
     }
 
     /// Copy between buffers inside the batch, so that the copy is ordered
     /// against the dispatches around it.
-    pub fn copy_buffer(&mut self, source: &Buffer, destination: &Buffer, bytes: u64) -> Result<()> {
-        if bytes > u64::from(source.size) || bytes > u64::from(destination.size) {
-            return Err(anyhow!(
-                "KernelBatch::copy_buffer: {bytes} bytes does not fit {} -> {}",
-                u64::from(source.size),
-                u64::from(destination.size)
-            ));
+    pub fn copy_buffer(
+        &mut self,
+        source: &Buffer,
+        destination: &Buffer,
+        bytes: BufferByteLength,
+    ) -> Result<()> {
+        if bytes > source.size || bytes > destination.size {
+            return Err(KernelBatchError::CopyOutOfBounds {
+                requested: bytes,
+                source: source.size,
+                destination: destination.size,
+            }
+            .into());
         }
-        self.encoder
-            .copy_buffer_to_buffer(&source.buffer, 0, &destination.buffer, 0, bytes);
+        #[cfg(not(target_arch = "wasm32"))]
+        let scope = self.context.blocking_validation.then(|| {
+            self.context
+                .device
+                .push_error_scope(wgpu::ErrorFilter::Validation)
+        });
+        self.encoder.copy_buffer_to_buffer(
+            &source.buffer,
+            0,
+            &destination.buffer,
+            0,
+            u64::from(bytes),
+        );
+        #[cfg(not(target_arch = "wasm32"))]
+        if let Some(scope) = scope {
+            let _ = self
+                .context
+                .device
+                .poll(wgpu::PollType::wait_indefinitely());
+            if let Some(cause) = pollster::block_on(scope.pop()) {
+                return Err(ComputePassError::Native(Arc::new(cause)).into());
+            }
+        }
         Ok(())
     }
 
@@ -332,7 +379,7 @@ impl<'a> KernelBatch<'a> {
         &mut self.encoder
     }
 
-    pub fn dispatch_count(&self) -> usize {
+    pub fn dispatch_count(&self) -> RecordedDispatchCount {
         self.dispatches
     }
 
@@ -354,13 +401,9 @@ impl<'a> KernelBatch<'a> {
     }
 }
 
-// There is no unit test here for the barrier between dependent dispatches,
-// and not for want of trying: a synthetic chain -- one kernel repeated, or two
-// alternating on one buffer -- keeps working even with the bind group cached,
-// which is the mistake that breaks the real thing. The case that does catch it
-// is `fabelgeist_bvh::gpu::tests::refit_tracks_moved_primitives`, where three
-// different kernels take turns on one buffer through atomics. That test is the
-// guard; see the note at the top of `fast.rs` for what it guards against.
+// `fabelgeist_bvh::gpu::tests::refit_tracks_moved_primitives` exercises
+// dependent kernels sharing buffers through atomics. It guards observable
+// refit behavior; it does not prove a bind-group identity/barrier mechanism.
 
 #[cfg(test)]
 mod context_tests {
@@ -393,7 +436,13 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 }
 "#,
         )?;
-        assert_eq!(kernel.workgroup_size, [64, 1, 1]);
+        assert_eq!(
+            kernel.workgroup_shape(),
+            WorkgroupShape::try_from([64, 1, 1]).unwrap()
+        );
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod dispatch_tests;

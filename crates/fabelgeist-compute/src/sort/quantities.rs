@@ -156,8 +156,3 @@ impl Iterator for SortDigits {
         Some(digit)
     }
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum ScratchGrowth {
-    Unchanged,
-    Grown,
-}

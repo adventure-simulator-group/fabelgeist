@@ -1,6 +1,6 @@
 //! Allocation and native readback of a hierarchy's owned storage.
 
-use super::{BvhGrowth, BvhKernels, BvhLayout, BvhNodeCount, BvhPrimitiveCount, GpuBvh, HostNode};
+use super::{BvhKernels, BvhLayout, BvhNodeCount, BvhPrimitiveCount, GpuBvh, HostNode};
 use fabelgeist_compute::SortScratch;
 use fabelgeist_gpu::prelude::*;
 
@@ -46,12 +46,16 @@ impl GpuBvh {
     }
 
     /// Replace all storage together if the checked capacity no longer fits.
-    pub fn ensure_capacity(&mut self, context: &WgpuContext, capacity: BvhLayout) -> Result<BvhGrowth> {
+    pub fn ensure_capacity(
+        &mut self,
+        context: &WgpuContext,
+        capacity: BvhLayout,
+    ) -> Result<BufferCapacityChange> {
         if capacity.primitive_count() <= self.capacity() {
-            return Ok(BvhGrowth::Unchanged);
+            return Ok(BufferCapacityChange::Unchanged);
         }
         *self = Self::new(context, self.kernels.clone(), capacity)?;
-        Ok(BvhGrowth::Grown)
+        Ok(BufferCapacityChange::Grown)
     }
 
     /// Read the hierarchy back as host-side nodes. For tests and debugging --

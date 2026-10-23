@@ -1,7 +1,6 @@
 use crate::prelude::*;
 use fabelgeist_gpu::prelude::BufferUse;
 
-
 #[derive(Clone, Debug)]
 pub struct ScanDefinition {
     pub code: String,
@@ -184,9 +183,7 @@ impl Scan {
                 context,
                 scan_blocks_pipeline,
                 parameters,
-                1,
-                1,
-                1,
+                fabelgeist_gpu::data::WorkgroupGrid::from([1, 1, 1]),
             )?;
         } else {
             let aux = fabelgeist_gpu::data::gpu::Buffer::new(
@@ -208,9 +205,7 @@ impl Scan {
                 context,
                 scan_blocks_pipeline.clone(),
                 parameters_p1,
-                num_blocks,
-                1,
-                1,
+                fabelgeist_gpu::data::WorkgroupGrid::from([num_blocks, 1, 1]),
             )?;
 
             // Pass 2
@@ -248,9 +243,7 @@ impl Scan {
                     context,
                     scan_blocks_pipeline.clone(),
                     parameters_p2,
-                    next_num_blocks,
-                    1,
-                    1,
+                    fabelgeist_gpu::data::WorkgroupGrid::from([next_num_blocks, 1, 1]),
                 )?;
 
                 let last_idx = aux_buffers.len() - 1;
@@ -275,9 +268,7 @@ impl Scan {
                         context,
                         add_aux_pipeline.clone(),
                         parameters_p3,
-                        num_blocks,
-                        1,
-                        1,
+                        fabelgeist_gpu::data::WorkgroupGrid::from([num_blocks, 1, 1]),
                     )?;
                 } else {
                     let target = aux_buffers.last().unwrap();
@@ -289,9 +280,7 @@ impl Scan {
                         context,
                         add_aux_pipeline.clone(),
                         parameters_p3,
-                        target_blocks,
-                        1,
-                        1,
+                        fabelgeist_gpu::data::WorkgroupGrid::from([target_blocks, 1, 1]),
                     )?;
                 }
             }

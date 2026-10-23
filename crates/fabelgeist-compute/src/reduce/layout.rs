@@ -18,11 +18,17 @@ impl ReductionElements {
     pub(super) fn from_resource(input: &GpuResource, stride: ReductionStride) -> Result<Self> {
         let elements = match input {
             GpuResource::Buffer(buffer) => u64::from(buffer.size) / u64::from(stride.0.get()),
-            GpuResource::Texture2d(texture) => u64::from(texture.size.0) * u64::from(texture.size.1),
-            GpuResource::Texture3d(texture) => u64::from(texture.size.0)
-                .checked_mul(u64::from(texture.size.1))
-                .and_then(|plane| plane.checked_mul(u64::from(texture.size.2)))
-                .ok_or_else(|| anyhow!("Reduction texture population overflows"))?,
+            GpuResource::Texture2d(texture) => {
+                let extent = texture.extent();
+                u64::from(extent.width) * u64::from(extent.height)
+            }
+            GpuResource::Texture3d(texture) => {
+                let extent = texture.extent();
+                u64::from(extent.width)
+                    .checked_mul(u64::from(extent.height))
+                    .and_then(|plane| plane.checked_mul(u64::from(extent.depth_or_array_layers)))
+                    .ok_or_else(|| anyhow!("Reduction texture population overflows"))?
+            }
         };
         Ok(Self(u32::try_from(elements)?))
     }

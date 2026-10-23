@@ -6,17 +6,17 @@
 //! `Scan`, `Sort`, marching cubes and the rest live in `fabelgeist-compute`, which
 //! depends on this crate.
 
-mod pass;
-mod pipeline;
-pub mod signature;
-mod source_cache;
-pub mod texture_ops;
-
 pub use pass::*;
 pub use pipeline::*;
 pub use signature::*;
 pub use source_cache::ComputeSourceCache;
 pub use texture_ops::{TextureBinaryOp, TextureBinaryOpDefinition};
+
+mod pass;
+mod pipeline;
+pub mod signature;
+mod source_cache;
+pub mod texture_ops;
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub enum ResourceDescriptor {
@@ -35,10 +35,10 @@ impl ResourceDescriptor {
                 ResourceDescriptor::Buffer(sig_type)
             }
             crate::data::gpu::resource::GpuResource::Texture2d(t) => {
-                ResourceDescriptor::Texture2d(t.format)
+                ResourceDescriptor::Texture2d(t.format())
             }
             crate::data::gpu::resource::GpuResource::Texture3d(t) => {
-                ResourceDescriptor::Texture3d(t.format)
+                ResourceDescriptor::Texture3d(t.format())
             }
         }
     }
@@ -208,12 +208,4 @@ impl ResourceDescriptor {
         }
         code
     }
-}
-
-pub fn build_compute_pipeline(
-    context: &crate::globals::WgpuContext,
-    shader: &pipeline::ComputeShader,
-    _entry_point: &str,
-) -> anyhow::Result<pipeline::ComputePipeline> {
-    pipeline::ComputePipeline::new(context, shader.clone())
 }

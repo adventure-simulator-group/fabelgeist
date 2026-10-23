@@ -311,7 +311,7 @@ impl GpuGroomer {
         let mut p = one(triangles);
         p.insert("areas", areas);
         p.insert("tri_cdf", tri_cdf.clone());
-        batch.dispatch(&self.kernels.nets_cdf, &p, [1, 1, 1])?;
+        batch.dispatch(&self.kernels.nets_cdf, &p, [1, 1, 1].into())?;
         // The edges sorted by their vertices, as the host sorts its open
         // edges; how many points each open one gets at either spacing.
         self.sort_scratch.ensure(&context, uses)?;

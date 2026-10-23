@@ -285,11 +285,12 @@ impl StreamDefinition {
         context: &WgpuContext,
         input_res: ResourceDescriptor,
     ) -> Result<Arc<ComputePipeline>> {
-        self.cache.get_or_try_insert(context, &self.code, input_res.clone(), || {
-            let pipeline = self.build_pipeline(context, input_res.clone())?;
-            let arc_info = Arc::new(pipeline);
-            Ok(arc_info)
-        })
+        self.cache
+            .get_or_try_insert(context, &self.code, input_res.clone(), || {
+                let pipeline = self.build_pipeline(context, input_res.clone())?;
+                let arc_info = Arc::new(pipeline);
+                Ok(arc_info)
+            })
     }
 }
 
@@ -329,11 +330,15 @@ impl Stream {
                 1,
                 1,
             ),
-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+            GpuResource::Texture2d(t) => (
+                t.extent().width.div_ceil(16),
+                t.extent().height.div_ceil(16),
+                1,
+            ),
             GpuResource::Texture3d(t) => (
-                t.size.0.div_ceil(4),
-                t.size.1.div_ceil(4),
-                t.size.2.div_ceil(4),
+                t.extent().width.div_ceil(4),
+                t.extent().height.div_ceil(4),
+                t.extent().depth_or_array_layers.div_ceil(4),
             ),
         };
 
@@ -341,9 +346,7 @@ impl Stream {
             context,
             pipeline.as_ref().clone(),
             parameters,
-            workgroups_x,
-            workgroups_y,
-            workgroups_z,
+            fabelgeist_gpu::data::WorkgroupGrid::from([workgroups_x, workgroups_y, workgroups_z]),
         )?;
 
         Ok(())

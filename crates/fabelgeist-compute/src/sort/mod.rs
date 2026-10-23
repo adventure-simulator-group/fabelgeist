@@ -29,8 +29,9 @@
 //! the tens of thousands of elements a cloth solve sorts.
 
 use crate::prelude::*;
+use fabelgeist_gpu::prelude::BufferCapacityChange;
 pub use quantities::{
-    ScratchGrowth, SortDigit, SortDigits, SortItemCount, SortKeyWidth, SortLayoutError, SortPassCount,
+    SortDigit, SortDigits, SortItemCount, SortKeyWidth, SortLayoutError, SortPassCount,
 };
 use quantities::{SortCopyBack, SortWork};
 use std::sync::Arc;
@@ -197,12 +198,12 @@ impl SortScratch {
         &mut self,
         context: &WgpuContext,
         capacity: SortItemCount,
-    ) -> Result<ScratchGrowth> {
+    ) -> Result<BufferCapacityChange> {
         if capacity <= self.capacity {
-            return Ok(ScratchGrowth::Unchanged);
+            return Ok(BufferCapacityChange::Unchanged);
         }
         *self = Self::new(context, capacity)?;
-        Ok(ScratchGrowth::Grown)
+        Ok(BufferCapacityChange::Grown)
     }
 }
 

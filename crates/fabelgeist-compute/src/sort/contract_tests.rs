@@ -1,5 +1,5 @@
 use super::*;
-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse, WorkgroupGrid};
+use fabelgeist_gpu::prelude::{BufferCapacityChange, BufferUpload, BufferUse, WorkgroupGrid};
 use serde::Deserialize;
 
 // Native fixtures pin the original sorter's serialized words and metadata.
@@ -125,9 +125,9 @@ async fn preserves_scratch_growth_admission_order_and_noops() -> Result<()> {
     for row in fixture.growth {
         let growth = scratch.ensure(&context, row.requested.into())?;
         let expected = if row.grew {
-            ScratchGrowth::Grown
+            BufferCapacityChange::Grown
         } else {
-            ScratchGrowth::Unchanged
+            BufferCapacityChange::Unchanged
         };
         assert_eq!(growth, expected);
         assert_eq!(scratch.capacity(), row.capacity.into());

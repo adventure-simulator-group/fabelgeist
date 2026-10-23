@@ -9,16 +9,47 @@
 //! The classic three-step scan, applied recursively: each workgroup scans its
 //! own block of 256 in shared memory and writes the block's total aside; the
 //! totals are scanned the same way; then every block adds its total's offset
-//! back. Three levels cover 16.7 million elements, and nothing limits the
-//! depth beyond that.
+//! back. Additional levels are recorded within the admitted element count;
+//! device limits still constrain storage and dispatch.
 
 use crate::prelude::*;
-use fabelgeist_gpu::prelude::BufferByteLength;
+use fabelgeist_gpu::prelude::{BufferByteLength, BufferCapacityChange};
 use std::sync::Arc;
+use wgsl::{add_offsets_code, scan_blocks_code};
+
+mod wgsl;
+
+/// Elements per block, and threads per workgroup in the native scan.
+const BLOCK: u32 = 256;
+
+type Result<T> = std::result::Result<T, ScanError>;
 
 /// Number of `u32` elements in an exclusive scan, not a byte extent.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
 pub struct ScanElementCount(u32);
+
+/// A scan block emits one total and occupies one workgroup.
+#[derive(Clone, Copy, Debug)]
+struct ScanBlockCount(u32);
+
+/// The block totals of every level of the recursion, allocated for a
+/// capacity and reused.
+#[derive(Clone, Debug)]
+pub struct PrefixSumScratch {
+    /// One buffer per level: level `k` holds the block totals of level `k - 1`.
+    levels: Vec<Buffer>,
+    /// Bound as `sums` where a pass writes none, because a binding cannot be
+    /// left empty.
+    unused: Buffer,
+    capacity: ScanElementCount,
+}
+
+/// The two compiled passes.
+#[derive(Clone, Debug)]
+pub struct PrefixSum {
+    scan_blocks: Arc<Kernel>,
+    add_offsets: Arc<Kernel>,
+}
 
 /// The scan's application-owned failures, retaining lower-level GPU causes.
 #[derive(Debug, thiserror::Error)]
@@ -39,8 +70,6 @@ pub enum ScanError {
     Gpu(#[from] anyhow::Error),
 }
 
-type Result<T> = std::result::Result<T, ScanError>;
-
 impl ScanElementCount {
     /// Admit an element count at a native collection or GPU-word boundary.
     pub const fn from_elements(elements: u32) -> Self {
@@ -52,8 +81,41 @@ impl ScanElementCount {
         self.0
     }
 
+    pub fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+
+    fn spans_multiple_blocks(self) -> bool {
+        self.0 > BLOCK
+    }
+
+    fn blocks(self) -> ScanBlockCount {
+        ScanBlockCount(self.0.div_ceil(BLOCK))
+    }
+
     pub fn byte_length(self) -> BufferByteLength {
         BufferByteLength::from(u64::from(self.0) * std::mem::size_of::<u32>() as u64)
+    }
+}
+
+impl From<ScanElementCount> for PassParameter {
+    fn from(count: ScanElementCount) -> Self {
+        Self::Unsigned(count.0)
+    }
+}
+
+impl ScanBlockCount {
+    fn is_single(self) -> bool {
+        self.0 == 1
+    }
+
+    /// One recorded total becomes one element of the next recursive scan.
+    fn totals(self) -> ScanElementCount {
+        ScanElementCount(self.0)
+    }
+
+    fn workgroups(self) -> WorkgroupGrid {
+        WorkgroupGrid::folded_x(self.0)
     }
 }
 
@@ -63,126 +125,17 @@ impl std::fmt::Display for ScanElementCount {
     }
 }
 
-/// Elements per block, and threads per workgroup.
-const BLOCK: u32 = 256;
-
-fn scan_blocks_code() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read_write> data: array<u32>;
-@group(0) @binding(1) var<storage, read_write> sums: array<u32>;
-
-struct Params {{
-    count: u32,
-    write_sums: u32,
-    pad0: u32,
-    pad1: u32,
-}};
-@group(0) @binding(2) var<uniform> params: Params;
-
-var<workgroup> shared_values: array<u32, {BLOCK}u>;
-
-@compute @workgroup_size({BLOCK}u)
-fn main(
-    @builtin(local_invocation_id) local_id: vec3<u32>,
-    @builtin(workgroup_id) group_id: vec3<u32>,
-    @builtin(num_workgroups) groups: vec3<u32>,
-) {{
-    // Blocks fold into y past the 65535 groups one dimension holds.
-    let block = group_id.y * groups.x + group_id.x;
-    let index = block * {BLOCK}u + local_id.x;
-
-    var value = 0u;
-    if (index < params.count) {{
-        value = data[index];
-    }}
-    shared_values[local_id.x] = value;
-    workgroupBarrier();
-
-    // Hillis-Steele, inclusive. Every lane reads before any lane writes, so
-    // the barrier between them is all the double-buffering it needs.
-    for (var offset = 1u; offset < {BLOCK}u; offset = offset * 2u) {{
-        var carried = 0u;
-        if (local_id.x >= offset) {{
-            carried = shared_values[local_id.x - offset];
-        }}
-        workgroupBarrier();
-        shared_values[local_id.x] = shared_values[local_id.x] + carried;
-        workgroupBarrier();
-    }}
-
-    let inclusive = shared_values[local_id.x];
-    if (index < params.count) {{
-        data[index] = inclusive - value;
-    }}
-    if (local_id.x == {BLOCK}u - 1u && params.write_sums != 0u) {{
-        sums[block] = inclusive;
-    }}
-}}
-"#
-    )
-}
-
-fn add_offsets_code() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read_write> data: array<u32>;
-@group(0) @binding(1) var<storage, read> sums: array<u32>;
-
-struct Params {{
-    count: u32,
-    write_sums: u32,
-    pad0: u32,
-    pad1: u32,
-}};
-@group(0) @binding(2) var<uniform> params: Params;
-
-@compute @workgroup_size({BLOCK}u)
-fn main(
-    @builtin(local_invocation_id) local_id: vec3<u32>,
-    @builtin(workgroup_id) group_id: vec3<u32>,
-    @builtin(num_workgroups) groups: vec3<u32>,
-) {{
-    let block = group_id.y * groups.x + group_id.x;
-    let index = block * {BLOCK}u + local_id.x;
-    if (index < params.count) {{
-        data[index] = data[index] + sums[block];
-    }}
-}}
-"#
-    )
-}
-
-/// Workgroups for `blocks` blocks, folded into y past one dimension's limit.
-fn grid(blocks: u32) -> [u32; 3] {
-    let x = blocks.clamp(1, MAX_GROUPS);
-    [x, blocks.div_ceil(x), 1]
-}
-
-/// The block totals of every level of the recursion, allocated for a
-/// capacity and reused.
-#[derive(Clone, Debug)]
-pub struct PrefixSumScratch {
-    /// One buffer per level: level `k` holds the block totals of level `k - 1`.
-    levels: Vec<Buffer>,
-    /// Bound as `sums` where a pass writes none, because a binding cannot be
-    /// left empty.
-    unused: Buffer,
-    capacity: ScanElementCount,
-}
-
 impl PrefixSumScratch {
     pub fn new(context: &WgpuContext, capacity: ScanElementCount) -> Result<Self> {
         let capacity = capacity.max(ScanElementCount::from_elements(1));
         let storage = BufferDefinition::storage();
         let mut levels = Vec::new();
-        // Native recursion arithmetic computes the GPU scratch layout in words.
-        let mut count = capacity.elements();
-        while count > BLOCK {
-            count = count.div_ceil(BLOCK);
+        let mut count = capacity;
+        while count.spans_multiple_blocks() {
+            count = count.blocks().totals();
             levels.push(Buffer::new(
                 context,
-                (count as u64 * 4).into(),
+                count.byte_length(),
                 storage.clone().with_label("prefix sum block totals".into()),
             )?);
         }
@@ -190,7 +143,7 @@ impl PrefixSumScratch {
             levels,
             unused: Buffer::new(
                 context,
-                BufferByteLength::from(4_u64),
+                BufferByteLength::from(std::mem::size_of::<u32>()),
                 storage.with_label("prefix sum unused".into()),
             )?,
             capacity,
@@ -201,21 +154,18 @@ impl PrefixSumScratch {
         self.capacity
     }
 
-    /// Reallocate if `capacity` no longer fits. Returns whether it grew.
-    pub fn ensure(&mut self, context: &WgpuContext, capacity: ScanElementCount) -> Result<bool> {
+    /// Reallocate if `capacity` no longer fits, reporting the allocation outcome.
+    pub fn ensure(
+        &mut self,
+        context: &WgpuContext,
+        capacity: ScanElementCount,
+    ) -> Result<BufferCapacityChange> {
         if capacity <= self.capacity {
-            return Ok(false);
+            return Ok(BufferCapacityChange::Unchanged);
         }
         *self = Self::new(context, capacity)?;
-        Ok(true)
+        Ok(BufferCapacityChange::Grown)
     }
-}
-
-/// The two compiled passes.
-#[derive(Clone, Debug)]
-pub struct PrefixSum {
-    scan_blocks: Arc<Kernel>,
-    add_offsets: Arc<Kernel>,
 }
 
 impl PrefixSum {
@@ -244,7 +194,7 @@ impl PrefixSum {
         scratch: &PrefixSumScratch,
         count: ScanElementCount,
     ) -> Result<()> {
-        if count.elements() == 0 {
+        if count.is_empty() {
             return Ok(());
         }
         if count > scratch.capacity {
@@ -260,13 +210,7 @@ impl PrefixSum {
                 available: data.size,
             });
         }
-        self.record_level(
-            batch,
-            data,
-            &scratch.levels,
-            &scratch.unused,
-            count.elements(),
-        )
+        self.record_level(batch, data, &scratch.levels, &scratch.unused, count)
     }
 
     fn record_level(
@@ -275,30 +219,30 @@ impl PrefixSum {
         data: &Buffer,
         levels: &[Buffer],
         unused: &Buffer,
-        count: u32,
+        count: ScanElementCount,
     ) -> Result<()> {
-        let blocks = count.div_ceil(BLOCK);
+        let blocks = count.blocks();
         let mut parameters = PassParameters::new();
-        parameters.insert("count", count);
+        parameters.insert("count", PassParameter::from(count));
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
         parameters.insert("data", data.clone());
 
-        if blocks == 1 {
+        if blocks.is_single() {
             parameters.insert("write_sums", 0u32);
             parameters.insert("sums", unused.clone());
-            batch.dispatch(&self.scan_blocks, &parameters, grid(1))?;
+            batch.dispatch(&self.scan_blocks, &parameters, blocks.workgroups())?;
             return Ok(());
         }
 
         let (sums, deeper) = levels.split_first().ok_or(ScanError::MissingScratchLevel)?;
         parameters.insert("write_sums", 1u32);
         parameters.insert("sums", sums.clone());
-        batch.dispatch(&self.scan_blocks, &parameters, grid(blocks))?;
+        batch.dispatch(&self.scan_blocks, &parameters, blocks.workgroups())?;
 
-        self.record_level(batch, sums, deeper, unused, blocks)?;
+        self.record_level(batch, sums, deeper, unused, blocks.totals())?;
 
-        batch.dispatch(&self.add_offsets, &parameters, grid(blocks))?;
+        batch.dispatch(&self.add_offsets, &parameters, blocks.workgroups())?;
         Ok(())
     }
 

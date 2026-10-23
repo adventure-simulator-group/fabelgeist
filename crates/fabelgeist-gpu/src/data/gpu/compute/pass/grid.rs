@@ -1,4 +1,8 @@
 //! A dispatched grid counts workgroups, rather than shader invocations.
+
+/// Native per-axis folding limit used by the project's dispatch layout.
+const MAX_GROUPS_PER_DIMENSION: u32 = 65_535;
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct WorkgroupGrid([u32; 3]);
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -15,7 +19,7 @@ impl WorkgroupGrid {
     /// Admit a native x-axis group count, folding excess groups into rows.
     /// Kernels must flatten both axes and bounds-check the final row.
     pub fn folded_x(workgroups: u32) -> Self {
-        let x = workgroups.clamp(1, 65_535);
+        let x = workgroups.clamp(1, MAX_GROUPS_PER_DIMENSION);
         Self([x, workgroups.div_ceil(x), 1])
     }
 

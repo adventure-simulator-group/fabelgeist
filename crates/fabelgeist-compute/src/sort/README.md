@@ -5,7 +5,8 @@
 does not prove buffer size, usage, or membership in a particular allocation.
 `SortScratch` retains that quantity for capacity and byte-layout admission.
 Empty allocation requests retain the existing one-record sentinel. `ensure`
-returns `ScratchGrowth::Unchanged` or `ScratchGrowth::Grown`.
+returns `fabelgeist_gpu::prelude::BufferCapacityChange::Unchanged` or
+`BufferCapacityChange::Grown`.
 
 Requested key widths clamp to one through 32 bits and schedule whole eight-bit
 digits. `SortKeyWidth::pass_count` and `digits` own that schedule. Reduced widths
