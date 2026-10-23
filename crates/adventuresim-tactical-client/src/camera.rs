@@ -23,6 +23,8 @@ mod rig;
 mod rig_history;
 mod smoothing;
 mod values;
+#[cfg(any(target_family = "wasm", test))]
+pub(crate) mod viewport;
 
 pub struct TacticalCameraPlugin;
 

@@ -1,18 +1,12 @@
 //! Multiple clipped camera views, all targeting the single game canvas.
-use super::{
-    RetainedScene,
-    buildings::ROOM_LAYER,
-    protocol::{CanvasRect, StrategicView},
-};
+use super::{RetainedScene, buildings::ROOM_LAYER, protocol::StrategicView};
+use crate::{camera::viewport::CanvasRect, presentation::ownership::StrategicCamera};
 use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::scene_coordinates::Scene;
 use bevy::{camera::visibility::RenderLayers, prelude::*};
 
 #[derive(Resource, Default)]
 pub(super) struct ViewCameras(Vec<Entity>);
-
-#[derive(Component)]
-pub(crate) struct StrategicCamera;
 
 const HEAD_HEIGHT_METRES: f32 = 1.65;
 const PORTRAIT_DISTANCE_METRES: f32 = 0.30;

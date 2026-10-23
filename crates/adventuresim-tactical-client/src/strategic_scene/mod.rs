@@ -13,8 +13,6 @@ mod staging;
 pub(crate) mod status;
 mod street;
 mod views;
-#[cfg(target_family = "wasm")]
-pub(crate) use views::StrategicCamera;
 mod visibility;
 mod world;
 

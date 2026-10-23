@@ -5,6 +5,11 @@ use serde::{Deserialize, Serialize};
 
 pub(crate) const REGIONAL_MAP_LAYER: usize = 3;
 
+/// Cameras participating in retained strategic and regional-map visibility.
+#[cfg(any(target_family = "wasm", test))]
+#[derive(Component)]
+pub(crate) struct StrategicCamera;
+
 /// Retained geographic presentation owns its own visibility and light proxies.
 #[cfg(any(target_family = "wasm", test))]
 #[derive(Component)]

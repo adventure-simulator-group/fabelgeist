@@ -2,21 +2,14 @@
 use super::{RetainedScene, protocol::StrategicView};
 use crate::presentation::ownership::PresentationOwner;
 use adventuresim_procedural_textures::{PROCEDURAL_TEXTURE_CATALOGUE, ProceduralTextureResidency};
-use bevy::{
-    prelude::*,
-    render::{Render, RenderApp, RenderSystems, render_resource::PipelineCache},
-};
+use bevy::prelude::*;
 use characters::CharacterReadiness;
 use serde::Serialize;
-use std::sync::{
-    Mutex, OnceLock,
-    atomic::{AtomicUsize, Ordering},
-};
+use std::sync::{Mutex, OnceLock};
 
 mod characters;
 
 static STATUS: OnceLock<Mutex<String>> = OnceLock::new();
-static WAITING_PIPELINES: AtomicUsize = AtomicUsize::new(0);
 const SETTLED_RENDER_FRAMES: usize = 4;
 
 #[derive(Resource, Default)]
@@ -77,9 +70,6 @@ pub(super) fn install(app: &mut App) {
             )
                 .chain(),
         );
-    if let Some(render) = app.get_sub_app_mut(RenderApp) {
-        render.add_systems(Render, pipeline_status.after(RenderSystems::Prepare));
-    }
 }
 
 #[derive(Resource, Default)]
@@ -98,15 +88,6 @@ fn capture_asset_failures(
             failure.0 = Some(format!("Could not load scene asset {}", path.display()));
         }
     }
-}
-
-fn pipeline_status(cache: Res<PipelineCache>) {
-    WAITING_PIPELINES.store(cache.waiting_pipelines().count(), Ordering::Relaxed);
-}
-
-/// Shared render-device telemetry, independent of actor installation readiness.
-pub(crate) fn waiting_pipelines() -> usize {
-    WAITING_PIPELINES.load(Ordering::Relaxed)
 }
 
 pub(crate) fn json() -> String {
@@ -141,7 +122,7 @@ fn update_status(
     settings: Res<crate::presentation::TacticalGraphicsSettings>,
     lighting: super::lighting_diagnostics::LightingDiagnostics,
 ) {
-    let waiting = WAITING_PIPELINES.load(Ordering::Relaxed);
+    let waiting = crate::presentation::pipeline_readiness::waiting_pipelines();
     let equipment_state = equipment.check(items.iter());
     let equipment_ready = equipment_state == Ok(true);
     let counts = characters.counts(view.as_deref(), &scene);

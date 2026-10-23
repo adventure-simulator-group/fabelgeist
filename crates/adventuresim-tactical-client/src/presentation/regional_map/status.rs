@@ -106,7 +106,7 @@ pub(super) fn publish(
             .presented
             .as_ref()
             .is_some_and(|surface| matches!(surface.coverage, SurfaceCoverage::Drawn { .. }));
-    let waiting = crate::strategic_scene::status::waiting_pipelines();
+    let waiting = crate::presentation::pipeline_readiness::waiting_pipelines();
     let environment_ready = sky.is_ready(&settings);
     let route_capacity_exceeded = state
         .presented_route

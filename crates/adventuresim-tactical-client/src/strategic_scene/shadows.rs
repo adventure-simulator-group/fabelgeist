@@ -1,5 +1,6 @@
 //! Retained residents outside live views must not be skinned for shadow maps.
-use super::{SceneMesh, views::StrategicCamera};
+use super::SceneMesh;
+use crate::presentation::ownership::StrategicCamera;
 use bevy::{camera::visibility::RenderLayers, light::NotShadowCaster, prelude::*};
 
 #[derive(Component)]

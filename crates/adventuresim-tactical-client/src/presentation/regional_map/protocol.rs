@@ -9,7 +9,7 @@ use adventuresim_world_schema::source_package::SourcePackageDigest;
 use bevy::math::Vec2;
 use serde::{Deserialize, Serialize};
 
-pub(crate) use crate::strategic_scene::protocol::CanvasRect;
+pub(crate) use crate::camera::viewport::CanvasRect;
 
 const MAX_BROWSER_OVERLAY_REVISION: u64 = (1_u64 << 53) - 1;
 
