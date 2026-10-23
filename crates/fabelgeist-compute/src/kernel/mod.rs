@@ -19,9 +19,11 @@ use crate::prelude::*;
 use std::sync::Arc;
 
 pub use batch_error::KernelBatchError;
+pub use copy::BufferCopy;
 pub use dispatch_count::RecordedDispatchCount;
 
 mod batch_error;
+mod copy;
 mod dispatch_count;
 mod fast;
 
@@ -324,48 +326,6 @@ impl<'a> KernelBatch<'a> {
         items: u32,
     ) -> Result<&mut Self> {
         self.dispatch(kernel, parameters, kernel.groups_for(items))
-    }
-
-    /// Copy between buffers inside the batch, so that the copy is ordered
-    /// against the dispatches around it.
-    pub fn copy_buffer(
-        &mut self,
-        source: &Buffer,
-        destination: &Buffer,
-        bytes: BufferByteLength,
-    ) -> Result<()> {
-        if bytes > source.size || bytes > destination.size {
-            return Err(KernelBatchError::CopyOutOfBounds {
-                requested: bytes,
-                source: source.size,
-                destination: destination.size,
-            }
-            .into());
-        }
-        #[cfg(not(target_arch = "wasm32"))]
-        let scope = self.context.blocking_validation.then(|| {
-            self.context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
-        self.encoder.copy_buffer_to_buffer(
-            &source.buffer,
-            0,
-            &destination.buffer,
-            0,
-            u64::from(bytes),
-        );
-        #[cfg(not(target_arch = "wasm32"))]
-        if let Some(scope) = scope {
-            let _ = self
-                .context
-                .device
-                .poll(wgpu::PollType::wait_indefinitely());
-            if let Some(cause) = pollster::block_on(scope.pop()) {
-                return Err(ComputePassError::Native(Arc::new(cause)).into());
-            }
-        }
-        Ok(())
     }
 
     /// Zero a buffer inside the batch.
