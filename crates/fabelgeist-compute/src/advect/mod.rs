@@ -11,24 +11,24 @@ pub struct AdvectSignature {
     pub dimension: u32, // 2 or 3
 }
 
-type AdvectPipelineCache = ComputeSourceCache<
-    (
-        ResourceDescriptor,
-        ResourceDescriptor,
-        ResourceDescriptor,
-        u32,
-    ),
-    Arc<ComputePipeline>,
->;
+type AdvectPipelineCache = ComputeSourceCache<AdvectRecipe, Arc<ComputePipeline>>;
+
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+struct AdvectRecipe {
+    velocity: ResourceDescriptor,
+    quantity: ResourceDescriptor,
+    output: ResourceDescriptor,
+    boundary_mode: BoundaryMode,
+}
 
 #[derive(Clone, Debug)]
 pub struct AdvectDefinition {
-    pub mode: u32,
+    pub mode: BoundaryMode,
     cache: AdvectPipelineCache,
 }
 
 impl AdvectDefinition {
-    pub fn new(mode: u32) -> Self {
+    pub fn new(mode: BoundaryMode) -> Self {
         Self {
             mode,
             cache: ComputeSourceCache::default(),
@@ -38,7 +38,7 @@ impl AdvectDefinition {
 
 impl Default for AdvectDefinition {
     fn default() -> Self {
-        Self::new(0)
+        Self::new(BoundaryMode::Clamp)
     }
 }
 
@@ -81,7 +81,7 @@ impl AdvectDefinition {
         full_code.push_str("};\n");
         full_code.push_str("@group(0) @binding(3) var<uniform> _params: Parameters;\n\n");
 
-        let wrap_logic = if self.mode == 1 {
+        let wrap_logic = if self.mode == BoundaryMode::Wrap {
             "((pos % 1.0) + 1.0) % 1.0"
         } else {
             "clamp(pos, vec2<f32>(0.0), vec2<f32>(1.0))"
@@ -103,7 +103,7 @@ fn sample_bilinear(tex: texture_2d<f32>, pos: vec2<f32>) -> vec4<f32> {{
 
         full_code.push_str(&bilinear_logic);
 
-        if self.mode == 1 {
+        if self.mode == BoundaryMode::Wrap {
             full_code.push_str(
                 r#"
     let c00 = textureLoad(tex, (i_coords + vec2<i32>(0, 0) + t_size_i) % t_size_i, 0);
@@ -174,7 +174,7 @@ fn sample_bilinear(tex: texture_2d<f32>, pos: vec2<f32>) -> vec4<f32> {{
             full_code.push_str("    let vel_norm = vel_pixel / vel_dim;\n");
             full_code.push_str("    let pos = normalized_pos - vel_norm * _params.dt;\n");
 
-            if self.mode == 1 {
+            if self.mode == BoundaryMode::Wrap {
                 full_code.push_str("    let wrapped_pos = ((pos % 1.0) + 1.0) % 1.0;\n");
                 full_code.push_str("    let val = textureLoad(quantity, vec3<u32>(wrapped_pos * vec3<f32>(textureDimensions(quantity))), 0);\n");
             } else {
@@ -195,12 +195,12 @@ fn sample_bilinear(tex: texture_2d<f32>, pos: vec2<f32>) -> vec4<f32> {{
         quantity_res: ResourceDescriptor,
         output_res: ResourceDescriptor,
     ) -> Result<Arc<ComputePipeline>> {
-        let key = (
-            velocity_res.clone(),
-            quantity_res.clone(),
-            output_res.clone(),
-            self.mode,
-        );
+        let key = AdvectRecipe {
+            velocity: velocity_res.clone(),
+            quantity: quantity_res.clone(),
+            output: output_res.clone(),
+            boundary_mode: self.mode,
+        };
         self.cache.get_or_try_insert(context, "", key, || {
             let pipeline = self.build_pipeline(context, velocity_res, quantity_res, output_res)?;
             let arc_p = Arc::new(pipeline);

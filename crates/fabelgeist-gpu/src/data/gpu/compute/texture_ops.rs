@@ -4,10 +4,14 @@ use crate::data::gpu::resource::GpuResource;
 use crate::prelude::*;
 use std::sync::Arc;
 
-type TexturePipelineCache = ComputeSourceCache<
-    (ResourceDescriptor, ResourceDescriptor, ResourceDescriptor),
-    Arc<ComputePipeline>,
->;
+type TexturePipelineCache = ComputeSourceCache<TextureRecipe, Arc<ComputePipeline>>;
+
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+struct TextureRecipe {
+    input_a: ResourceDescriptor,
+    input_b: ResourceDescriptor,
+    output: ResourceDescriptor,
+}
 
 #[derive(Clone, Debug)]
 pub struct TextureBinaryOpDefinition {
@@ -105,7 +109,11 @@ impl TextureBinaryOpDefinition {
         input_b_res: ResourceDescriptor,
         output_res: ResourceDescriptor,
     ) -> Result<Arc<ComputePipeline>> {
-        let key = (input_a_res.clone(), input_b_res.clone(), output_res.clone());
+        let key = TextureRecipe {
+            input_a: input_a_res.clone(),
+            input_b: input_b_res.clone(),
+            output: output_res.clone(),
+        };
         self.cache
             .get_or_try_insert(context, &self.op_code, key, || {
                 let pipeline =

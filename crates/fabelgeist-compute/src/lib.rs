@@ -27,6 +27,7 @@
 
 pub mod advancing_front;
 pub mod advect;
+mod boundary;
 pub mod broadcast;
 pub mod distance_field;
 pub mod distance_field_jfa;
@@ -47,6 +48,7 @@ pub mod readback;
 pub mod reduce;
 pub mod reshape;
 mod resource_pipeline;
+mod resource_recipe;
 pub mod scan;
 pub mod scatter;
 pub mod simplex_noise;
@@ -61,6 +63,7 @@ pub mod vertex_normals;
 pub mod test_utils;
 
 pub use advect::{Advect, AdvectDefinition};
+pub use boundary::BoundaryMode;
 pub use broadcast::*;
 pub use distance_field::DistanceField;
 pub use distance_field_jfa::DistanceFieldJfa;

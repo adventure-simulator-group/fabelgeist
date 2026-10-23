@@ -3,24 +3,24 @@ use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::sync::Arc;
 
-type GradientPipelineCache = ComputeSourceCache<
-    (
-        ResourceDescriptor,
-        ResourceDescriptor,
-        ResourceDescriptor,
-        u32,
-    ),
-    Arc<ComputePipeline>,
->;
+type GradientPipelineCache = ComputeSourceCache<GradientRecipe, Arc<ComputePipeline>>;
+
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+struct GradientRecipe {
+    velocity: ResourceDescriptor,
+    pressure: ResourceDescriptor,
+    output: ResourceDescriptor,
+    boundary_mode: BoundaryMode,
+}
 
 #[derive(Clone, Debug)]
 pub struct GradientDefinition {
-    pub boundary_mode: u32,
+    pub boundary_mode: BoundaryMode,
     cache: GradientPipelineCache,
 }
 
 impl GradientDefinition {
-    pub fn new(boundary_mode: u32) -> Self {
+    pub fn new(boundary_mode: BoundaryMode) -> Self {
         Self {
             boundary_mode,
             cache: ComputeSourceCache::default(),
@@ -30,7 +30,7 @@ impl GradientDefinition {
 
 impl Default for GradientDefinition {
     fn default() -> Self {
-        Self::new(0)
+        Self::new(BoundaryMode::Clamp)
     }
 }
 
@@ -72,7 +72,7 @@ impl GradientDefinition {
             full_code.push_str("    let w = i32(tex_dim.x);\n");
             full_code.push_str("    let h = i32(tex_dim.y);\n");
 
-            if self.boundary_mode == 1 {
+            if self.boundary_mode == BoundaryMode::Wrap {
                 full_code.push_str(
                     "    let pL = textureLoad(pressure, vec2<i32>((x - 1 + w) % w, y), 0).x;\n",
                 );
@@ -116,7 +116,7 @@ impl GradientDefinition {
             full_code.push_str("    let coords = vec3<i32>(global_id.xyz);\n");
             full_code.push_str("    let dim = vec3<i32>(tex_dim);\n");
 
-            if self.boundary_mode == 1 {
+            if self.boundary_mode == BoundaryMode::Wrap {
                 full_code.push_str("    let pL = textureLoad(pressure, (coords - vec3<i32>(1, 0, 0) + dim) % dim, 0).x;\n");
                 full_code.push_str("    let pR = textureLoad(pressure, (coords + vec3<i32>(1, 0, 0)) % dim, 0).x;\n");
                 full_code.push_str("    let pB = textureLoad(pressure, (coords - vec3<i32>(0, 1, 0) + dim) % dim, 0).x;\n");
@@ -150,12 +150,12 @@ impl GradientDefinition {
         pressure_res: ResourceDescriptor,
         output_res: ResourceDescriptor,
     ) -> Result<Arc<ComputePipeline>> {
-        let key = (
-            velocity_res.clone(),
-            pressure_res.clone(),
-            output_res.clone(),
-            self.boundary_mode,
-        );
+        let key = GradientRecipe {
+            velocity: velocity_res.clone(),
+            pressure: pressure_res.clone(),
+            output: output_res.clone(),
+            boundary_mode: self.boundary_mode,
+        };
         self.cache.get_or_try_insert(context, "", key, || {
             let pipeline = self.build_pipeline(context, velocity_res, pressure_res, output_res)?;
             let arc_p = Arc::new(pipeline);

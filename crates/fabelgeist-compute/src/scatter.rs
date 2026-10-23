@@ -3,6 +3,8 @@ use fabelgeist_gpu::data::gpu::signature::{CoordinateParameter, CoordinateShape}
 use fabelgeist_gpu::data::gpu::resource::{GpuResource, ResourceType};
 use std::sync::Arc;
 
+type ScatterPipelineCache = ComputeSourceCache<ScatterRecipe, Arc<ResourcePipeline>>;
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct ScatterSignature {
     pub scatter_args: Vec<String>, // Raw arguments
@@ -12,8 +14,11 @@ pub struct ScatterSignature {
     pub param_names: Vec<String>,
 }
 
-type ScatterPipelineCache =
-    ComputeSourceCache<(ResourceType, ResourceType), Arc<ResourcePipeline>>;
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+struct ScatterRecipe {
+    input: ResourceType,
+    output: ResourceType,
+}
 
 #[derive(Clone, Debug)]
 pub struct ScatterDefinition {
@@ -276,8 +281,12 @@ impl ScatterDefinition {
         input_res: ResourceType,
         output_res: ResourceType,
     ) -> Result<Arc<ResourcePipeline>> {
+        let recipe = ScatterRecipe {
+            input: input_res,
+            output: output_res,
+        };
         self.cache
-            .get_or_try_insert(context, &self.code, (input_res, output_res), || {
+            .get_or_try_insert(context, &self.code, recipe, || {
                 let pipeline_info = self.build_pipeline(context, input_res, output_res)?;
                 let arc_info = Arc::new(pipeline_info);
                 Ok(arc_info)

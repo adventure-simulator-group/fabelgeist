@@ -6,21 +6,11 @@ use fabelgeist_gpu::data::gpu::signature::ResourceBaseType;
 use std::collections::HashMap;
 use std::sync::Arc;
 
-fn sanitize_type_name(t: &str) -> String {
-    t.replace("<", "_")
-        .replace(">", "")
-        .replace(" ", "")
-        .replace(",", "_")
-}
+use recipe::StencilRecipe;
 
-fn get_swizzle(components: usize) -> &'static str {
-    match components {
-        1 => ".x",
-        2 => ".xy",
-        3 => ".xyz",
-        _ => "",
-    }
-}
+mod recipe;
+
+type StencilPipelineCache = ComputeSourceCache<StencilRecipe, Arc<ResourcePipeline>>;
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct StencilSignature {
@@ -36,20 +26,10 @@ pub struct StencilSignature {
     pub param_names: Vec<String>,
 }
 
-type StencilPipelineCache = ComputeSourceCache<
-    (
-        ResourceDescriptor,                // input_res
-        ResourceDescriptor,                // output_res
-        Vec<(String, ResourceDescriptor)>, // secondary_resources
-        u32,                               // boundary_mode
-    ),
-    Arc<ResourcePipeline>,
->;
-
 #[derive(Clone, Debug)]
 pub struct StencilDefinition {
     pub code: String,
-    pub boundary_mode: u32,
+    pub boundary_mode: BoundaryMode,
     cache: StencilPipelineCache,
 }
 
@@ -57,7 +37,7 @@ impl Default for StencilDefinition {
     fn default() -> Self {
         Self {
             code: String::new(),
-            boundary_mode: 0,
+            boundary_mode: BoundaryMode::Clamp,
             cache: ComputeSourceCache::default(),
         }
     }
@@ -74,12 +54,12 @@ impl StencilDefinition {
         let _ = Self::parse_signature(&code)?;
         Ok(Self {
             code,
-            boundary_mode: 0,
+            boundary_mode: BoundaryMode::Clamp,
             cache: ComputeSourceCache::default(),
         })
     }
 
-    pub fn new_with_boundary(code: String, boundary_mode: u32) -> Result<Self> {
+    pub fn new_with_boundary(code: String, boundary_mode: BoundaryMode) -> Result<Self> {
         let _ = Self::parse_signature(&code)?;
         Ok(Self {
             code,
@@ -355,25 +335,25 @@ impl StencilDefinition {
         }
 
         if sig.is_neighborhood {
-            let get_coord_1d = if self.boundary_mode == 1 {
+            let get_coord_1d = if self.boundary_mode == BoundaryMode::Wrap {
                 "fn get_coord_1d(x: i32, w: i32) -> i32 { return (x % w + w) % w; }\n"
             } else {
                 "fn get_coord_1d(x: i32, w: i32) -> i32 { return clamp(x, 0, w - 1); }\n"
             };
 
-            let get_coord_2d = if self.boundary_mode == 1 {
+            let get_coord_2d = if self.boundary_mode == BoundaryMode::Wrap {
                 "fn get_coord_2d(c: vec2<i32>, dim: vec2<i32>) -> vec2<i32> { return vec2<i32>((c.x % dim.x + dim.x) % dim.x, (c.y % dim.y + dim.y) % dim.y); }\n"
             } else {
                 "fn get_coord_2d(c: vec2<i32>, dim: vec2<i32>) -> vec2<i32> { return clamp(c, vec2<i32>(0), dim - 1); }\n"
             };
 
-            let get_coord_3d = if self.boundary_mode == 1 {
+            let get_coord_3d = if self.boundary_mode == BoundaryMode::Wrap {
                 "fn get_coord_3d(c: vec3<i32>, dim: vec3<i32>) -> vec3<i32> { return vec3<i32>((c.x % dim.x + dim.x) % dim.x, (c.y % dim.y + dim.y) % dim.y, (c.z % dim.z + dim.z) % dim.z); }\n"
             } else {
                 "fn get_coord_3d(c: vec3<i32>, dim: vec3<i32>) -> vec3<i32> { return clamp(c, vec3<i32>(0), dim - 1); }\n"
             };
 
-            let get_coord_4d = if self.boundary_mode == 1 {
+            let get_coord_4d = if self.boundary_mode == BoundaryMode::Wrap {
                 "fn get_coord_4d(c: vec4<i32>, dim: vec4<i32>) -> vec4<i32> { return vec4<i32>((c.x % dim.x + dim.x) % dim.x, (c.y % dim.y + dim.y) % dim.y, (c.z % dim.z + dim.z) % dim.z, (c.w % dim.w + dim.w) % dim.w); }\n"
             } else {
                 "fn get_coord_4d(c: vec4<i32>, dim: vec4<i32>) -> vec4<i32> { return clamp(c, vec4<i32>(0), dim - 1); }\n"
@@ -829,18 +809,12 @@ impl StencilDefinition {
         output_res: ResourceDescriptor,
         secondary_resources: &HashMap<String, ResourceDescriptor>,
     ) -> Result<Arc<ResourcePipeline>> {
-        let mut sec_res_sorted: Vec<(String, ResourceDescriptor)> = secondary_resources
-            .iter()
-            .map(|(k, v)| (k.clone(), v.clone()))
-            .collect();
-        sec_res_sorted.sort_by(|a, b| a.0.cmp(&b.0));
-
-        let key = (
-            input_res.clone(),
-            output_res.clone(),
-            sec_res_sorted,
-            self.boundary_mode,
-        );
+        let key = StencilRecipe {
+            input: input_res.clone(),
+            output: output_res.clone(),
+            secondary: secondary_resources.into(),
+            boundary_mode: self.boundary_mode,
+        };
 
         self.cache.get_or_try_insert(context, &self.code, key, || {
             let pipeline_info = self.build_pipeline(
@@ -950,6 +924,22 @@ impl Stencil {
     }
 }
 
+fn sanitize_type_name(t: &str) -> String {
+    t.replace("<", "_")
+        .replace(">", "")
+        .replace(" ", "")
+        .replace(",", "_")
+}
+
+fn get_swizzle(components: usize) -> &'static str {
+    match components {
+        1 => ".x",
+        2 => ".xy",
+        3 => ".xyz",
+        _ => "",
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -960,7 +950,7 @@ mod tests {
         definition_code: &str,
         input_data: &[IN],
         expected_output: &[OUT],
-        boundary_mode: u32,
+        boundary_mode: BoundaryMode,
     ) -> Result<()>
     where
         IN: bytemuck::NoUninit
@@ -995,7 +985,13 @@ mod tests {
         ($name:ident, $definition:expr, $input:expr, $output:expr, $s:ty) => {
             #[tokio::test]
             async fn $name() -> Result<()> {
-                test_stencil_generalized::<_, _, $s>($definition, &$input, &$output, 0).await
+                test_stencil_generalized::<_, _, $s>(
+                    $definition,
+                    &$input,
+                    &$output,
+                    BoundaryMode::Clamp,
+                )
+                .await
             }
         };
         ($name:ident, $definition:expr, $input:expr, $output:expr, $s:ty, $boundary:expr) => {

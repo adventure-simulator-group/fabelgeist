@@ -1,8 +1,15 @@
 use crate::prelude::*;
+use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::signature::{CoordinateParameter, CoordinateShape};
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::collections::HashMap;
 use std::sync::Arc;
+
+use recipe::MapRecipe;
+
+mod recipe;
+
+type MapPipelineCache = ComputeSourceCache<MapRecipe, Arc<ResourcePipeline>>;
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct MapSignature {
@@ -13,17 +20,6 @@ pub struct MapSignature {
     pub user_params: Vec<(String, ResourceBaseType)>,
     pub param_names: Vec<String>,
 }
-
-use fabelgeist_gpu::data::gpu::ResourceDescriptor;
-
-type MapPipelineCache = ComputeSourceCache<
-    (
-        Option<ResourceDescriptor>,
-        ResourceDescriptor,
-        Vec<(String, ResourceDescriptor)>,
-    ),
-    Arc<ResourcePipeline>,
->;
 
 #[derive(Clone, Debug)]
 pub struct MapDefinition {
@@ -379,12 +375,11 @@ impl MapDefinition {
         output_res: ResourceDescriptor,
         secondary_resources: &HashMap<String, ResourceDescriptor>,
     ) -> Result<Arc<ResourcePipeline>> {
-        let mut sec_res_sorted: Vec<(String, ResourceDescriptor)> = secondary_resources
-            .iter()
-            .map(|(k, v)| (k.clone(), v.clone()))
-            .collect();
-        sec_res_sorted.sort_by(|a, b| a.0.cmp(&b.0));
-        let key = (input_res.clone(), output_res.clone(), sec_res_sorted);
+        let key = MapRecipe {
+            input: input_res.clone(),
+            output: output_res.clone(),
+            secondary: secondary_resources.into(),
+        };
 
         self.cache.get_or_try_insert(context, &self.code, key, || {
             let pipeline_info = self.build_pipeline(

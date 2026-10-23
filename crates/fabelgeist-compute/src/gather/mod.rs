@@ -4,6 +4,12 @@ use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::sync::Arc;
 
+use recipe::GatherRecipe;
+
+mod recipe;
+
+type GatherPipelineCache = ComputeSourceCache<GatherRecipe, Arc<ResourcePipeline>>;
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct GatherSignature {
     pub gather_args: Vec<String>, // Raw arguments
@@ -12,9 +18,6 @@ pub struct GatherSignature {
     pub index: Option<CoordinateParameter>,
     pub param_names: Vec<String>,
 }
-
-type GatherPipelineCache =
-    ComputeSourceCache<(ResourceDescriptor, ResourceDescriptor), Arc<ResourcePipeline>>;
 
 #[derive(Clone, Debug)]
 pub struct GatherDefinition {
@@ -296,7 +299,10 @@ impl GatherDefinition {
         self.cache.get_or_try_insert(
             context,
             &self.code,
-            (input_res.clone(), output_res.clone()),
+            GatherRecipe {
+                input: input_res.clone(),
+                output: output_res.clone(),
+            },
             || {
                 let pipeline_info =
                     self.build_pipeline(context, input_res.clone(), output_res.clone())?;

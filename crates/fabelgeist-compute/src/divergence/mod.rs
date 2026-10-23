@@ -3,17 +3,23 @@ use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::sync::Arc;
 
-type DivergencePipelineCache =
-    ComputeSourceCache<(ResourceDescriptor, ResourceDescriptor, u32), Arc<ComputePipeline>>;
+type DivergencePipelineCache = ComputeSourceCache<DivergenceRecipe, Arc<ComputePipeline>>;
+
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+struct DivergenceRecipe {
+    input: ResourceDescriptor,
+    output: ResourceDescriptor,
+    boundary_mode: BoundaryMode,
+}
 
 #[derive(Clone, Debug)]
 pub struct DivergenceDefinition {
-    pub boundary_mode: u32,
+    pub boundary_mode: BoundaryMode,
     cache: DivergencePipelineCache,
 }
 
 impl DivergenceDefinition {
-    pub fn new(boundary_mode: u32) -> Self {
+    pub fn new(boundary_mode: BoundaryMode) -> Self {
         Self {
             boundary_mode,
             cache: ComputeSourceCache::default(),
@@ -23,7 +29,7 @@ impl DivergenceDefinition {
 
 impl Default for DivergenceDefinition {
     fn default() -> Self {
-        Self::new(0)
+        Self::new(BoundaryMode::Clamp)
     }
 }
 
@@ -62,7 +68,7 @@ impl DivergenceDefinition {
             full_code.push_str("    let y = i32(global_id.y);\n");
             full_code.push_str("    let w = i32(tex_dim.x);\n");
             full_code.push_str("    let h = i32(tex_dim.y);\n");
-            if self.boundary_mode == 1 {
+            if self.boundary_mode == BoundaryMode::Wrap {
                 full_code.push_str(
                     "    let L = textureLoad(velocity, vec2<i32>((x - 1 + w) % w, y), 0).x;\n",
                 );
@@ -101,7 +107,7 @@ impl DivergenceDefinition {
             full_code.push_str("    if (global_id.x >= tex_dim.x || global_id.y >= tex_dim.y || global_id.z >= tex_dim.z) { return; }\n");
             full_code.push_str("    let coords = vec3<i32>(global_id.xyz);\n");
             full_code.push_str("    let dim = vec3<i32>(tex_dim);\n");
-            if self.boundary_mode == 1 {
+            if self.boundary_mode == BoundaryMode::Wrap {
                 full_code.push_str("    let L = textureLoad(velocity, (coords - vec3<i32>(1, 0, 0) + dim) % dim, 0).x;\n");
                 full_code.push_str("    let R = textureLoad(velocity, (coords + vec3<i32>(1, 0, 0)) % dim, 0).x;\n");
                 full_code.push_str("    let B = textureLoad(velocity, (coords - vec3<i32>(0, 1, 0) + dim) % dim, 0).y;\n");
@@ -134,7 +140,11 @@ impl DivergenceDefinition {
         input_res: ResourceDescriptor,
         output_res: ResourceDescriptor,
     ) -> Result<Arc<ComputePipeline>> {
-        let key = (input_res.clone(), output_res.clone(), self.boundary_mode);
+        let key = DivergenceRecipe {
+            input: input_res.clone(),
+            output: output_res.clone(),
+            boundary_mode: self.boundary_mode,
+        };
         self.cache.get_or_try_insert(context, "", key, || {
             let pipeline = self.build_pipeline(context, input_res, output_res)?;
             let arc_p = Arc::new(pipeline);
