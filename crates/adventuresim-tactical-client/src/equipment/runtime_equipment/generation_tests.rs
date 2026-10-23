@@ -86,6 +86,7 @@ fn physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_weare
     let mut app = App::new();
     app.init_resource::<Assets<Mesh>>()
         .init_resource::<Assets<StandardMaterial>>()
+        .init_resource::<Assets<Image>>()
         .init_resource::<Assets<SkinnedMeshInverseBindposes>>()
         .init_resource::<WeaponMeshCache>()
         .add_systems(
