@@ -108,14 +108,14 @@ span. Array and nested members therefore retain the same provided-value protocol
 as other struct members. Signed and unsigned inputs keep their existing 32-bit
 word representation.
 
-Static packing leaves missing or unsupported provided values at zero. The cached
-path rejects them and retains its narrower matrix support. Direct nonstruct
-blocks retain their native extent but have no named destinations, so they stay
-zero initialized; an extra parameter keyed by the global name does not change
-them. Matrix packing preserves the native component order and the existing
-reflected-span rule for Mat3. A component window that would run beyond the block
-now returns a typed packing error instead of panicking. Host address narrowing
-retains its concrete conversion cause.
+Static packing starts with zero-filled bytes and skips missing or unsupported
+provided values. The cached path rejects them and retains its narrower matrix
+support. Direct nonstruct blocks retain their native extent but have no named
+destinations, so they stay zero initialized; an extra parameter keyed by the
+global name does not change them. Matrix packing preserves the native component
+order and the existing reflected-span rule for Mat3. A component window that
+would run beyond the block now returns a typed packing error instead of
+panicking. Host address narrowing retains its concrete conversion cause.
 
 Multiple uniform blocks in one group remain unsupported by this interface.
 Resource binding arrays and external textures have no `PassParameter` payload
