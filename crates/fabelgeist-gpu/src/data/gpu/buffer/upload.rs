@@ -10,7 +10,9 @@ pub enum BufferUploadOccupancy {
     Populated,
 }
 
-/// Exact `NoUninit` element representation, retained through queue submission.
+/// Exact `NoUninit` element representation, borrowed through the queue write.
+/// The queue copies these bytes before the write returns; their GPU transfer
+/// begins on a subsequent submission.
 ///
 /// ```compile_fail
 /// use crate::prelude::{BufferUpload, BufferByteLength};

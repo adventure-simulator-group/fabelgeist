@@ -1,6 +1,6 @@
-use super::mapping::MappingRequest;
+use super::mapping::{MappingExtent, MappingRequest};
 use super::readback::Readback;
-use super::{Buffer, BufferByteLength, BufferReadError};
+use super::{Buffer, BufferByteLength, BufferReadError, ReadResult};
 use crate::globals::WgpuContext;
 use anyhow::Result;
 use std::sync::Arc;
@@ -28,21 +28,22 @@ impl Buffer {
             }
             .into());
         }
-        let readback = Readback::<T>::new(size)?;
-        if size == 0 {
+        let extent = MappingExtent::for_prefix(self.size, BufferByteLength::from(allocated))?;
+        let readback = Readback::<T>::new(self.size)?;
+        let Some(extent) = extent else {
             return Ok(readback.copy_from(&[])?);
-        }
+        };
         let target = if self.buffer.usage().contains(wgpu::BufferUsages::MAP_READ) {
             self.buffer.clone()
         } else {
-            self.readback_target(context)?
+            self.readback_target(context, extent)?
         };
-        let mut mapping = MappingRequest::request(context, target)?;
+        let mut mapping = MappingRequest::request(context, target, extent)?;
         mapping.complete(context).await?;
 
         // The typed destination was allocated before obtaining this view:
         // WASM memory growth must not detach it during the copy.
-        let data = mapping.buffer().slice(..).get_mapped_range();
+        let data = mapping.mapped_range();
         let values = readback.copy_from(&data);
         drop(data);
         let values = values?;
@@ -50,12 +51,16 @@ impl Buffer {
         Ok(values)
     }
 
-    fn readback_target(&self, context: &WgpuContext) -> Result<Arc<wgpu::Buffer>, BufferReadError> {
+    fn readback_target(
+        &self,
+        context: &WgpuContext,
+        extent: MappingExtent,
+    ) -> ReadResult<Arc<wgpu::Buffer>> {
         let target = context
             .observe_validation(|| {
                 context.device.create_buffer(&wgpu::BufferDescriptor {
                     label: Some("Staging Buffer"),
-                    size: u64::from(self.size),
+                    size: u64::from(extent.bytes()),
                     usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
                     mapped_at_creation: false,
                 })
@@ -64,7 +69,7 @@ impl Buffer {
         let mut encoder = context
             .device
             .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
-        encoder.copy_buffer_to_buffer(&self.buffer, 0, &target, 0, u64::from(self.size));
+        encoder.copy_buffer_to_buffer(&self.buffer, 0, &target, 0, u64::from(extent.bytes()));
         context.submit(encoder).map_err(BufferReadError::Native)?;
         Ok(Arc::new(target))
     }

@@ -4,9 +4,14 @@ use std::error::Error;
 use std::fmt;
 use std::num::TryFromIntError;
 
+pub(super) type ReadResult<T> = Result<T, BufferReadError>;
+
 /// Why a logical buffer prefix could not be read into host elements.
 #[derive(Debug)]
 pub enum BufferReadError {
+    MappingExtentOverflow {
+        requested: BufferByteLength,
+    },
     ExtentExceedsAllocation {
         requested: BufferByteLength,
         available: BufferByteLength,
@@ -31,6 +36,10 @@ pub enum BufferReadError {
 impl fmt::Display for BufferReadError {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
+            Self::MappingExtentOverflow { requested } => write!(
+                formatter,
+                "GPU readback cannot align a {requested}-byte mapping extent"
+            ),
             Self::ExtentExceedsAllocation {
                 requested,
                 available,

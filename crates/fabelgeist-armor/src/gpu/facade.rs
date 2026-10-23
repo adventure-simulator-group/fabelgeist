@@ -11,6 +11,8 @@ use fabelgeist_gpu::prelude::{
 };
 use fabelgeist_mesh::MeshVertexCount;
 
+type Result<T> = std::result::Result<T, GenerateError>;
+
 /// A compute device and the armor kernels compiled for it.
 pub struct ArmorGpu {
     context: WgpuContext,
@@ -30,7 +32,7 @@ impl std::fmt::Debug for ArmorGpu {
 
 impl ArmorGpu {
     /// Compile the shared kernels on `context`.
-    pub fn new(context: WgpuContext) -> Result<Self, GenerateError> {
+    pub fn new(context: WgpuContext) -> Result<Self> {
         let cache = KernelCache::new();
         Ok(Self {
             query: MeshQuery::with_cache(&context, &cache).map_err(device_error)?,
@@ -48,12 +50,12 @@ impl ArmorGpu {
     }
 
     /// Open the default adapter's device.
-    pub fn open() -> Result<Self, GenerateError> {
+    pub fn open() -> Result<Self> {
         pollster::block_on(Self::open_async())
     }
 
     /// Open a device without blocking the browser event loop.
-    pub async fn open_async() -> Result<Self, GenerateError> {
+    pub async fn open_async() -> Result<Self> {
         Self::new(WgpuContext::new_compute().await.map_err(device_error)?)
     }
 
@@ -86,15 +88,15 @@ impl ArmorGpu {
     pub fn build_in(
         &self,
         frames: &[PartFrame],
-        record: impl FnOnce(&mut KernelBatch, &[&Buffer]) -> Result<DevicePart, GenerateError>,
-    ) -> Result<BuiltPart, GenerateError> {
+        record: impl FnOnce(&mut KernelBatch, &[&Buffer]) -> Result<DevicePart>,
+    ) -> Result<BuiltPart> {
         let buffers = frames
             .iter()
             .map(|frame| {
                 frame.validate()?;
                 self.upload(BufferUpload::from_elements(&frame_words(frame)))
             })
-            .collect::<Result<Vec<_>, _>>()?;
+            .collect::<Result<Vec<_>>>()?;
         let buffers = buffers.iter().collect::<Vec<_>>();
         let mut batch = self.batch("armor in host frames");
         let mut part = record(&mut batch, &buffers)?;
@@ -104,7 +106,7 @@ impl ArmorGpu {
     }
 
     /// Upload plain data into a new storage buffer.
-    pub fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer, GenerateError> {
+    pub fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer> {
         Buffer::from_upload(
             &self.context,
             data.with_empty_word(),
@@ -114,11 +116,7 @@ impl ArmorGpu {
     }
 
     /// Zeroed storage with at least one native u32 word, even for no logical bytes.
-    pub fn scratch(
-        &self,
-        bytes: BufferByteLength,
-        label: BufferLabel,
-    ) -> Result<Buffer, GenerateError> {
+    pub fn scratch(&self, bytes: BufferByteLength, label: BufferLabel) -> Result<Buffer> {
         let minimum = BufferByteLength::from(std::mem::size_of::<u32>());
         Buffer::new(
             &self.context,
@@ -134,26 +132,16 @@ impl ArmorGpu {
     ///
     /// Native progress blocks; browser callers use `read_async` to yield to
     /// mapping callbacks. External mapping ownership follows `Buffer::read`.
-    pub fn read<T: bytemuck::AnyBitPattern>(
-        &self,
-        buffer: &Buffer,
-    ) -> Result<Vec<T>, GenerateError> {
+    pub fn read<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>> {
         pollster::block_on(self.read_async(buffer))
     }
 
-    pub async fn read_async<T: bytemuck::AnyBitPattern>(
-        &self,
-        buffer: &Buffer,
-    ) -> Result<Vec<T>, GenerateError> {
+    pub async fn read_async<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>> {
         buffer.read(&self.context).await.map_err(device_error)
     }
 
     /// The nearest of `targets` to each query, ties going to the lowest index.
-    pub fn nearest_points(
-        &self,
-        queries: &[[f32; 3]],
-        targets: &[[f32; 3]],
-    ) -> Result<Vec<u32>, GenerateError> {
+    pub fn nearest_points(&self, queries: &[[f32; 3]], targets: &[[f32; 3]]) -> Result<Vec<u32>> {
         if queries.is_empty() {
             return Ok(Vec::new());
         }

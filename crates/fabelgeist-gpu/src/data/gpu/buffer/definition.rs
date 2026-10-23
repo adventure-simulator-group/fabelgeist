@@ -4,6 +4,20 @@ use crate::globals::WgpuContext;
 
 use super::{BufferByteLength, BufferLabel};
 
+const GENERAL_USAGE: wgpu::BufferUsages = wgpu::BufferUsages::STORAGE
+    .union(wgpu::BufferUsages::UNIFORM)
+    .union(wgpu::BufferUsages::VERTEX)
+    .union(wgpu::BufferUsages::INDEX)
+    .union(wgpu::BufferUsages::INDIRECT)
+    .union(wgpu::BufferUsages::COPY_DST)
+    .union(wgpu::BufferUsages::COPY_SRC);
+
+#[derive(Clone, Debug)]
+pub struct BufferDefinition {
+    label: Option<BufferLabel>,
+    usage: UsageSelection,
+}
+
 /// Independent uses of one allocation; storage also permits device copies.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BufferUse {
@@ -23,20 +37,6 @@ enum UsageSelection {
     Unspecified,
     Explicit(wgpu::BufferUsages),
 }
-
-#[derive(Clone, Debug)]
-pub struct BufferDefinition {
-    label: Option<BufferLabel>,
-    usage: UsageSelection,
-}
-
-const GENERAL_USAGE: wgpu::BufferUsages = wgpu::BufferUsages::STORAGE
-    .union(wgpu::BufferUsages::UNIFORM)
-    .union(wgpu::BufferUsages::VERTEX)
-    .union(wgpu::BufferUsages::INDEX)
-    .union(wgpu::BufferUsages::INDIRECT)
-    .union(wgpu::BufferUsages::COPY_DST)
-    .union(wgpu::BufferUsages::COPY_SRC);
 
 impl Default for BufferDefinition {
     fn default() -> Self {

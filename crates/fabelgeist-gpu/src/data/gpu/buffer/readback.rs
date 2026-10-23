@@ -1,5 +1,5 @@
 //! Allocate before taking a mapped view; initialize before exposing typed data.
-use super::{BufferByteLength, BufferReadError};
+use super::{BufferByteLength, BufferReadError, ReadResult};
 use bytemuck::AnyBitPattern;
 
 pub(super) struct Readback<T> {
@@ -8,15 +8,15 @@ pub(super) struct Readback<T> {
 }
 
 impl<T: AnyBitPattern> Readback<T> {
-    pub(super) fn new(byte_len: u64) -> Result<Self, BufferReadError> {
-        let byte_len = usize::try_from(byte_len).map_err(BufferReadError::HostAddress)?;
+    pub(super) fn new(bytes: BufferByteLength) -> ReadResult<Self> {
+        let byte_len = usize::try_from(u64::from(bytes)).map_err(BufferReadError::HostAddress)?;
         let element_size = std::mem::size_of::<T>();
         if element_size == 0 {
             return Err(BufferReadError::ZeroSizedElement);
         }
         if !byte_len.is_multiple_of(element_size) {
             return Err(BufferReadError::PartialElement {
-                bytes: BufferByteLength::from(byte_len),
+                bytes,
                 element_bytes: element_size,
             });
         }
@@ -27,7 +27,7 @@ impl<T: AnyBitPattern> Readback<T> {
         Ok(Self { values, byte_len })
     }
 
-    pub(super) fn copy_from(mut self, bytes: &[u8]) -> Result<Vec<T>, BufferReadError> {
+    pub(super) fn copy_from(mut self, bytes: &[u8]) -> ReadResult<Vec<T>> {
         // GPU allocations may include trailing alignment padding.
         if bytes.len() < self.byte_len {
             return Err(BufferReadError::Truncated {
@@ -57,15 +57,20 @@ mod tests {
 
     #[test]
     fn readback_rejects_partial_and_zero_sized_elements() {
-        assert!(Readback::<u32>::new(3).is_err());
-        assert!(Readback::<()>::new(0).is_err());
-        assert!(Readback::<u32>::new(4).unwrap().copy_from(&[0; 3]).is_err());
+        assert!(Readback::<u32>::new(BufferByteLength::from(3u64)).is_err());
+        assert!(Readback::<()>::new(BufferByteLength::from(0u64)).is_err());
+        assert!(
+            Readback::<u32>::new(BufferByteLength::from(4u64))
+                .unwrap()
+                .copy_from(&[0; 3])
+                .is_err()
+        );
     }
 
     #[test]
     fn readback_copies_unaligned_bytes_and_preserves_bits() {
         let bytes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-        let values = Readback::<u32>::new(8)
+        let values = Readback::<u32>::new(BufferByteLength::from(8u64))
             .unwrap()
             .copy_from(&bytes[1..])
             .unwrap();
@@ -77,7 +82,7 @@ mod tests {
             ]
         );
         assert!(
-            Readback::<u32>::new(0)
+            Readback::<u32>::new(BufferByteLength::from(0u64))
                 .unwrap()
                 .copy_from(&[])
                 .unwrap()
@@ -87,7 +92,7 @@ mod tests {
 
     #[test]
     fn readback_excludes_gpu_allocation_padding() {
-        let values = Readback::<u8>::new(3)
+        let values = Readback::<u8>::new(BufferByteLength::from(3u64))
             .unwrap()
             .copy_from(&[1, 2, 3, 0])
             .unwrap();
