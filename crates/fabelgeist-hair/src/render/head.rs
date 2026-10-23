@@ -124,7 +124,7 @@ impl HeadDraw {
         })
     }
 
-    /// Measure this exact paired surface, retaining the existing smoothing.
+    /// Measure this exact paired surface and smooth over adjacent vertices.
     pub(super) fn with_cpu_cover(&self, device: &wgpu::Device, lods: &HairLods) -> Self {
         let mut cover = lods.cover.at(&self.source.positions, &self.source.normals);
         let n = cover.len();
@@ -172,8 +172,8 @@ impl HeadDraw {
 impl HairRenderer {
     /// Install an immutable head capture after native topology admission.
     ///
-    /// Coverage starts bare. Allocation failures follow the device's configured
-    /// error handling. A malformed layout leaves the previous head installed.
+    /// Coverage starts bare. Native allocation failures follow the device's
+    /// configured error handling. A malformed layout preserves the old head.
     pub fn set_head(&mut self, surface: Arc<Surface>) -> Result<()> {
         let head = HeadDraw::new(&self.device, surface)?;
         self.head = Some(head);

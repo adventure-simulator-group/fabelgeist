@@ -126,7 +126,7 @@ impl Globals {
                 } else {
                     0.0
                 },
-                renderer.atlas_variants as f32,
+                renderer.atlas.variants.count() as f32,
                 material.tip_lightness,
                 material.grey,
             ],

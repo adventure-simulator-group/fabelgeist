@@ -32,6 +32,7 @@ pub use frame_state::{RenderInputError, RenderInputPart};
 pub use head::RenderSourceError;
 pub use readback::RenderReadbackError;
 
+use atlas::UploadedAtlas;
 use deformation::{DeformationState, DeformationViews};
 use draws::{DrawPlan, DrawRole};
 use frame_state::{History, RenderedView};
@@ -45,7 +46,7 @@ use wgpu::util::DeviceExt;
 
 pub use math::{Mat4, halton, look_at, multiply, orthographic, perspective};
 
-use crate::cards::{CardMesh, CardVertex};
+use crate::cards::{CardAtlas, CardMesh, CardVertex};
 use crate::lod::{
     AccumulationFrames, HairLods, HairShading, LodCounts, LodPolicy, PixelSpan, Representation,
     Selection, ShadowMapSize, StrandLevel, StrandLevelIndex,
@@ -53,6 +54,7 @@ use crate::lod::{
 use crate::material::HairMaterial;
 use crate::sim::{Rigid, SimBinding};
 
+mod atlas;
 mod deformation;
 mod draws;
 mod frame_state;
@@ -289,8 +291,7 @@ pub struct HairRenderer {
     card_quads: Vec<usize>,
     /// The sizes of the groom's levels, to choose among them.
     counts: LodCounts,
-    atlas: wgpu::TextureView,
-    atlas_variants: u32,
+    atlas: UploadedAtlas,
     head: Option<HeadDraw>,
     shadows: ShadowMaps,
     lighting_group: wgpu::BindGroup,
@@ -812,10 +813,10 @@ impl HairRenderer {
             compilation_options: Default::default(),
             cache: None,
         });
-        let atlas = Self::atlas_texture(d, &queue, 1, 1, &[vec![0; 4]]);
+        let atlas = UploadedAtlas::new(d, &queue, &CardAtlas::transparent()?)?;
         let shadows = Self::shadow_maps(d, ShadowMapSize::from_texels(16));
         let (lighting_group, opacity_group) =
-            Self::lighting_groups(d, &layouts, &shadows, &atlas, &linear, &comparison);
+            Self::lighting_groups(d, &layouts, &shadows, &atlas.view, &linear, &comparison);
         Ok(Self {
             device,
             queue,
@@ -840,7 +841,6 @@ impl HairRenderer {
             card_quads: Vec::new(),
             counts: LodCounts::default(),
             atlas,
-            atlas_variants: 1,
             head: None,
             shadows,
             lighting_group,
@@ -853,53 +853,6 @@ impl HairRenderer {
             last: None,
             moving: false,
         })
-    }
-
-    fn atlas_texture(
-        device: &wgpu::Device,
-        queue: &wgpu::Queue,
-        width: u32,
-        height: u32,
-        levels: &[Vec<u8>],
-    ) -> wgpu::TextureView {
-        let texture = device.create_texture(&wgpu::TextureDescriptor {
-            label: Some("hair card atlas"),
-            size: wgpu::Extent3d {
-                width,
-                height,
-                depth_or_array_layers: 1,
-            },
-            mip_level_count: levels.len() as u32,
-            sample_count: 1,
-            dimension: wgpu::TextureDimension::D2,
-            format: wgpu::TextureFormat::Rgba8Unorm,
-            usage: wgpu::TextureUsages::TEXTURE_BINDING | wgpu::TextureUsages::COPY_DST,
-            view_formats: &[],
-        });
-        for (level, data) in levels.iter().enumerate() {
-            let w = (width >> level).max(1);
-            let h = (height >> level).max(1);
-            queue.write_texture(
-                wgpu::TexelCopyTextureInfo {
-                    texture: &texture,
-                    mip_level: level as u32,
-                    origin: wgpu::Origin3d::ZERO,
-                    aspect: wgpu::TextureAspect::All,
-                },
-                data,
-                wgpu::TexelCopyBufferLayout {
-                    offset: 0,
-                    bytes_per_row: Some(w * 4),
-                    rows_per_image: Some(h),
-                },
-                wgpu::Extent3d {
-                    width: w,
-                    height: h,
-                    depth_or_array_layers: 1,
-                },
-            );
-        }
-        texture.create_view(&Default::default())
     }
 
     fn shadow_maps(device: &wgpu::Device, resolution: ShadowMapSize) -> ShadowMaps {
@@ -984,7 +937,7 @@ impl HairRenderer {
             &self.device,
             &self.layouts,
             &self.shadows,
-            &self.atlas,
+            &self.atlas.view,
             &self.linear,
             &self.comparison,
         );
@@ -995,46 +948,68 @@ impl HairRenderer {
     /// Upload a groom: every strand level, the cards and their atlas. A
     /// level larger than one storage binding may hold keeps the prefix of
     /// its strands that fits -- an even sample of the rest.
-    pub fn set_groom(&mut self, lods: &HairLods) {
+    pub fn set_groom(&mut self, lods: &HairLods) -> Result<()> {
+        let atlas = UploadedAtlas::new(&self.device, &self.queue, &lods.atlas)?;
         let limit = self.device.limits().max_storage_buffer_binding_size as usize;
-        // New strands: any physics bound to the old ones is gone.
-        self.dynamics = None;
-        self.head_matrix = IDENTITY;
-        self.levels = lods
+        let levels = lods
             .levels
             .iter()
             .map(|level| self.upload_level(level, limit))
             .collect();
-        self.cards = lods.cards.iter().map(|c| self.upload_cards(c)).collect();
-        self.card_quads = lods.cards.iter().map(|c| c.indices.len() / 6).collect();
-        self.counts = lods.counts();
-        let atlas = &lods.atlas;
-        self.atlas = Self::atlas_texture(
-            &self.device,
-            &self.queue,
-            atlas.width,
-            atlas.height,
-            &atlas.levels,
-        );
-        self.atlas_variants = atlas.variants;
-        self.rebind_lighting();
-        let [lo, hi] = lods.bounds;
-        // The head is in the light's frustum too, however short the hair.
-        self.bounds = [
-            lo.min(Vec3::new(-0.12, -0.3, -0.13)).to_array(),
-            hi.max(Vec3::new(0.12, 0.13, 0.13)).to_array(),
-        ];
-        self.center = lods.center.to_array();
-        self.head = self
+        let cards = lods
+            .cards
+            .iter()
+            .map(|cards| self.upload_cards(cards))
+            .collect();
+        let card_quads = lods
+            .cards
+            .iter()
+            .map(|cards| cards.indices.len() / 6)
+            .collect();
+        let counts = lods.counts();
+        let head = self
             .head
             .as_ref()
             .map(|head| head.with_cpu_cover(&self.device, lods));
+        let (lighting_group, opacity_group) = Self::lighting_groups(
+            &self.device,
+            &self.layouts,
+            &self.shadows,
+            &atlas.view,
+            &self.linear,
+            &self.comparison,
+        );
+        let [lo, hi] = lods.bounds;
+        // The head is in the light's frustum too, however short the hair.
+        let bounds = [
+            lo.min(Vec3::new(-0.12, -0.3, -0.13)).to_array(),
+            hi.max(Vec3::new(0.12, 0.13, 0.13)).to_array(),
+        ];
+        self.dynamics = None;
+        self.head_matrix = IDENTITY;
+        self.levels = levels;
+        self.cards = cards;
+        self.card_quads = card_quads;
+        self.counts = counts;
+        self.atlas = atlas;
+        self.lighting_group = lighting_group;
+        self.opacity_group = opacity_group;
+        self.head = head;
+        self.bounds = bounds;
+        self.center = lods.center.to_array();
         self.invalidate_view();
+        Ok(())
     }
 
     /// Upload a groom made on the GPU ([`crate::gpu::GpuGroomer::lods`]):
     /// The levels, cards and head coverage reuse the groomer's geometry
     /// buffers. The host card-atlas mip chain is uploaded to a texture.
+    ///
+    /// The groom must belong to this renderer's native device. Coverage
+    /// requires its exact shared head capture to be installed first, with
+    /// matching device and byte extents. Absent coverage replaces a present
+    /// head's old coverage with bare skin. Failed admission preserves the
+    /// previous scene; native construction follows the device's error policy.
     pub fn set_gpu_groom(&mut self, lods: &crate::gpu::GpuLods) -> Result<()> {
         if lods.device() != self.device.as_ref() {
             return Err(RenderSourceError::ForeignGroomDevice.into());
@@ -1071,18 +1046,12 @@ impl HairRenderer {
             .map(|cards| cards.quads() as usize)
             .collect();
         let counts = lods.counts();
-        let atlas = Self::atlas_texture(
-            &self.device,
-            &self.queue,
-            lods.atlas.width,
-            lods.atlas.height,
-            &lods.atlas.levels,
-        );
+        let atlas = UploadedAtlas::new(&self.device, &self.queue, &lods.atlas)?;
         let (lighting_group, opacity_group) = Self::lighting_groups(
             &self.device,
             &self.layouts,
             &self.shadows,
-            &atlas,
+            &atlas.view,
             &self.linear,
             &self.comparison,
         );
@@ -1100,7 +1069,6 @@ impl HairRenderer {
         self.card_quads = card_quads;
         self.counts = counts;
         self.atlas = atlas;
-        self.atlas_variants = lods.atlas.variants;
         self.lighting_group = lighting_group;
         self.opacity_group = opacity_group;
         self.head = head;
