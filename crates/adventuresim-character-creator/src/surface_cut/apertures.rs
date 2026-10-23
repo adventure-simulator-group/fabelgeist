@@ -6,12 +6,19 @@ use std::collections::BTreeSet;
 #[derive(Clone, Debug)]
 pub(crate) struct ClothAperture {
     pub region: ConvexRegion,
+    pub center: [f32; 3],
+    pub across: [f32; 3],
+    pub up: [f32; 3],
 }
 impl ClothAperture {
     pub fn contains(&self, point: [f32; 3]) -> bool {
         self.region
             .iter()
             .all(|p| dot(point, p.normal) - p.offset <= CUT_VERTEX_SNAP_METRES)
+    }
+    pub fn project(&self, point: [f32; 3]) -> [f32; 2] {
+        let delta = std::array::from_fn(|i| point[i] - self.center[i]);
+        [dot(delta, self.across), dot(delta, self.up)]
     }
 }
 impl SurfaceCut {

@@ -96,7 +96,7 @@ pub(super) fn regenerate_mesh(
     let spawned = scene.spawn_equipment(&armor);
     studio.status = match spawned {
         Ok(()) => format!(
-            "Generated {} body vertices Â· {} clothing shells Â· {} armor pieces in {:.2} s",
+            "Generated {} body vertices · {} clothing shells · {} armor pieces in {:.2} s",
             model.mhr.num_vertices(),
             clothing_shell_count,
             armor.len(),

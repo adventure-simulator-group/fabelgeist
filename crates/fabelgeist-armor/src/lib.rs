@@ -2,24 +2,32 @@
 //! anatomical surface samples, and the metal it is finished in.
 
 mod bodice;
+mod cloth_closures;
 mod cloth_pleats;
 pub use cloth_pleats::ClothPleats;
 mod cloth_pleat_profile;
 pub use cloth_pleat_profile::ClothPleatProfile;
+mod cloth_lacing;
+pub use cloth_lacing::{ClothLacing, LaceRouting, LacingEyelet};
 mod cloth_slit;
 pub use cloth_slit::ClothSlit;
 mod cloth_tape;
+pub use cloth_closures::{ClothClosures, ClothFastener};
 mod cloth_ties;
 pub use cloth_tape::ClothTape;
 mod gown;
 mod gown_dressing_slit;
+mod gown_waist_support;
 mod partlet;
+mod waist_band_fasteners;
 pub use cloth_ties::ClothTies;
 pub use gown::{FittedSleeves, GownBodyFit, GownDesign};
 pub use gown_dressing_slit::{DressingOpeningSide, GownDressingSlit};
+pub use gown_waist_support::GownWaistSupport;
 pub use partlet::{
     ClothBinding, ClothNeckCurve, CollarBand, CollarSection, PartletDesign, StandingClothCollar,
 };
+pub use waist_band_fasteners::WaistBandFasteners;
 mod construction;
 pub use bodice::{
     BodiceDesign, BodiceInterlining, BodiceLining, BodiceNeckline, BodiceOpening,

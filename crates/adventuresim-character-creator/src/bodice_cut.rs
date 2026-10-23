@@ -58,7 +58,34 @@ impl BodiceSurface {
             &[],
             gown.sleeves.as_ref(),
         )?;
-        Ok(plain)
+        let holes = crate::cloth_eyelet_holes::regions(&plain.cut, body, head, gown)?;
+        let mut surface = if holes.is_empty() {
+            plain
+        } else {
+            Self::build(
+                &gown.bodice,
+                body,
+                anatomy,
+                head,
+                gown.waist_band,
+                &holes,
+                gown.sleeves.as_ref(),
+            )?
+        };
+        if gown.dressing_slit.is_some() {
+            let open = Self::build(
+                &gown.bodice,
+                body,
+                anatomy,
+                head,
+                Millimeters(0),
+                &holes,
+                gown.sleeves.as_ref(),
+            )?;
+            surface.inner = open.inner;
+            surface.facing = open.facing;
+        }
+        Ok(surface)
     }
     fn build(
         design: &BodiceDesign,
