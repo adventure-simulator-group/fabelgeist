@@ -16,6 +16,8 @@ pub(crate) enum Extrusion {
     CappedAxis,
     Along,
     Radial,
+    FieldNormal,
+    FieldAngleWeightedNormal,
 }
 
 impl Extrusion {
@@ -26,6 +28,8 @@ impl Extrusion {
             Self::CappedAxis => 2,
             Self::Along => 3,
             Self::Radial => 4,
+            Self::FieldNormal => 5,
+            Self::FieldAngleWeightedNormal => 6,
         }
     }
 }
@@ -174,9 +178,12 @@ impl PartLayout {
     }
 
     pub(super) fn uses_angle_normals(&self) -> bool {
-        self.shells
-            .iter()
-            .any(|shell| shell.extrusion == Extrusion::AngleWeightedNormal)
+        self.shells.iter().any(|shell| {
+            matches!(
+                shell.extrusion,
+                Extrusion::AngleWeightedNormal | Extrusion::FieldAngleWeightedNormal
+            )
+        })
     }
 
     /// The final triangles, indexed into the whole part, and the shell of

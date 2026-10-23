@@ -18,7 +18,7 @@ the FBX rigs and model definition under `target/mhr-assets/v1.0.1/assets`. That
 default cache is about 50 MB after extraction. Run
 `just init-mhr-lod4-correctives` only when comparing the optional LOD 4
 pose-corrective network; installing all supported corrective bases requires
-`scripts/init_mhr_assets.py --all-correctives` for LODs 4–6. Override the
+`scripts/init_mhr_assets.py --all-correctives` for LODs 4â€“6. Override the
 location with `--assets` or `MHR_ASSETS` when needed. The
 downloaded archive and extracted source assets are not committed; deliberately
 exported game and Cascadeur artifacts are tracked separately.
@@ -54,7 +54,7 @@ bar below it frames a **Full body** or **Portrait** shot, turns the view,
 randomizes or resets the appearance and saves the recipe. The camera orbits
 the framed subject: drag to orbit, right-drag to pan and use the mouse wheel
 to zoom. The default is MHR LOD 4 with pose correctives disabled. Only LODs
-4–6 are available in the UI, CLI, and GLB exporter. LOD 4 has 2,461 vertices
+4â€“6 are available in the UI, CLI, and GLB exporter. LOD 4 has 2,461 vertices
 and 4,918 triangles before clothing hides body faces. The **Pose-corrective
 model** checkbox reloads the selected LOD with or without MHR's corrective
 network for direct comparison. Recipes contain model
@@ -370,7 +370,7 @@ wall, in rows from head to feet, each with its name underneath. Pieces that
 failed to fit are named in red, and their errors show on hover and in the
 editor. **Both sides** shows the left and right placements of paired pieces, and
 **Selected only** hides every other piece. Clicking a name on the wall or in the
-list selects that piece and frames it. **◀ ▶**, or the arrow keys over the
+list selects that piece and frames it. **â—€ â–¶**, or the arrow keys over the
 viewport, step through the pieces. **On body** shows the selected piece where it
 is worn, in every placement, and **See-through body** shows where it clears or
 cuts into the body.
@@ -547,8 +547,47 @@ Large fullness with many courses on a short skirt can produce shelf-like
 forms. The controls permit this stylization; finite topology does not establish
 plausible fabric construction across every combination.
 
+The catalog's **Fitted linen bodice** uses a separate `BodiceDesign`. Choose a
+square or round neckline, front and back drop, and independent armhole width
+and depth. Front or back openings have separate waist and neckline widths.
+The upper width must fit within the neckline. A round neckline rejects an
+opening flare that would meet it below the requested upper endpoint.
+
+Face cloth, lining and interlining remain separate mesh components. The
+interlining can cover the whole bodice, as in a supportive underdress, or form
+opening-edge and neck facings. Each sheet has its own thickness and shared
+parametric fabric controls. Set body clearance to leave room for other garments.
+This fitted sleeveless primitive does not include sleeves, collars, lacing,
+sewn skirt attachment or cloth simulation.
+
+The **German wool gown** uses `GownDesign` to sew a fitted bodice to a hanging
+skirt. The joined face shares a physical waist boundary; material copies retain
+identical positions, skin and morph endpoints. Bodice and skirt fabrics have
+separate pattern charts. Optional lining and interlining are upper sheets behind
+the face cloth.
+
+The bodice hem and skirt waist must have the same rise and cloth thickness.
+The editor keeps those values together. An uncut waist band beneath a front or
+back opening keeps the sewn waist continuous. The skirt cannot also supply its
+minimal upper band or a puff-and-slash treatment. Lacing, waist supports and a
+dressing slit are separate controls.
+
+Optional fitted sleeves extend the same anatomical surface from the shoulders
+towards the wrists. They share the bodice fabric and clearance. Their reach is
+40 to 98 percent of the shoulder-to-wrist arm length. This mode requires a
+fitted torso and no lower equipment layers; loose bodies remain sleeveless.
+It does not offer a separate free-volume cap, expanded cuff or frill. The
+retained body chart is not an independent cylindrical sleeve pattern chart.
+
+The authored gown represents a restrained German design around 1544, rather
+than the earlier ornate reconstruction. See the
+[design and deferred-construction guide](../fabelgeist-armor/review/textiles/german1544.md)
+for sources, scope and advice on the benched experimental features. Cloth
+dynamics and refined posed skinning remain future work. Generated-pose clipping
+is a defect even though motion clipping is deferred.
+
 Fabric appearance is independent of construction. Skirts, joined dresses,
-puffed sleeves and hose share a base color, linen/wool/silk/velvet roughness,
+fitted bodices, puffed sleeves and hose share a base color, linen/wool/silk/velvet roughness,
 and up to twelve ordered color layers. Velvet uses a diffuse approximation
 without the default white glossy lobe. Each layer covers the whole fabric, a
 band, or a bounded panel. Fill it with a solid color, stripes, or repeating
@@ -563,8 +602,8 @@ These are stylized parametric ornaments, not certified reconstructions of
 historical textiles.
 
 Across runs around the garment, with a rear seam; along runs from its proximal
-edge to the hem or cuff. A joined dress uses the entire continuous surface for
-this chart. Layer intervals are percentages of that chart, so a hem band can
+edge to the hem or cuff. A joined dress charts the bodice and hanging skirt separately.
+Fitted sleeves currently retain the bodice chart. Layer intervals are percentages of that chart, so a hem band can
 be reused at a cuff. The chart is frozen across body morphs and is independent
 of anatomical correspondence used for fitting and skinning. Shading vertices
 at its wrap seam retain the same positions, skin weights and morph endpoints.
@@ -968,10 +1007,10 @@ sides. Shaft fitting includes the supported default leg garments.
 The shared `PlateFluting` recipe applies to metal limb and garment plates,
 vambraces, helmet crowns and close-helmet visors. Set the appropriate `fluting`
 field to `null` for a plain surface (`crown.fluting` or `visor_fluting` on
-helmets). Its fields are `count` (2–64), `width` (350–850 permille of pitch),
-`depth` (1–4 mm), `spread` (400–850), `lower_spread` (500–1000), `start`, `end`,
-and `fade` (100–250). The pattern runs from lower to upper plate coordinates;
-start/end must remain within 50–950 and leave room for both fades. Lower spread
+helmets). Its fields are `count` (2â€“64), `width` (350â€“850 permille of pitch),
+`depth` (1â€“4 mm), `spread` (400â€“850), `lower_spread` (500â€“1000), `start`, `end`,
+and `fade` (100â€“250). The pattern runs from lower to upper plate coordinates;
+start/end must remain within 50â€“950 and leave room for both fades. Lower spread
 controls the fan at the bottom of the pattern. Mail and textile recipes do not
 accept metal fluting.
 
@@ -984,8 +1023,8 @@ changes. Opening, length, waist width, clearance, and flange controls remain
 independent.
 
 The breastplate uses the shared flute recipe with a torso-specific distribution.
-Set `fluting` to `null` for a plain plate, or provide that recipe. Count (2–24),
-width (350–850 permille of pitch), depth (1–4 mm), spread, lower spread,
+Set `fluting` to `null` for a plain plate, or provide that recipe. Count (2â€“24),
+width (350â€“850 permille of pitch), depth (1â€“4 mm), spread, lower spread,
 start/end heights, and end taper are independent controls. Width is a proportion
 of spacing, not an absolute millimetre width: increasing count at fixed spread
 makes the flutes closer and physically narrower. Changing width at fixed count
@@ -1065,7 +1104,7 @@ the equipment manifest, then capture idle, walking and raised-guard scenarios.
 ## Equipment material UVs
 
 `just generate-procedural-equipment DIRECTORY` exports native LOD4 body
-geometry with the device-built armor. Runtime body exports support LODs 4–6.
+geometry with the device-built armor. Runtime body exports support LODs 4â€“6.
 Structural openings and plate boundaries remain explicit.
 
 The tactical client generates armor and clothing at runtime from its base rig
@@ -1128,17 +1167,17 @@ to `scripts/finish_equipment.py` for a different finish document. Python needs
 NumPy and Pillow. Regenerate before changing an already applied finish.
 
 The document has `defaults` and per-item `items` overrides. Patterns are `none`,
-`plain`, `double`, `chevron`, `scallop`, and `vine`. `width_mm` accepts 1–30 mm;
-`repeats` accepts 1–128 repetitions around each closed rim. `color` is an sRGB
-`#RRGGBB` value; `metallic` and `roughness` accept 0–1. The vine is a stylized
+`plain`, `double`, `chevron`, `scallop`, and `vine`. `width_mm` accepts 1â€“30 mm;
+`repeats` accepts 1â€“128 repetitions around each closed rim. `color` is an sRGB
+`#RRGGBB` value; `metallic` and `roughness` accept 0â€“1. The vine is a stylized
 ornament, not an exact historical engraving reproduction.
 
 Optional `bands` add straight stripes across a piece, using the same patterns
 and material controls. Each band requires `axis` (`x`, `y`, or `z`) and
-`position` (0–1 across the complete metal piece's bounds). The axis is the
+`position` (0â€“1 across the complete metal piece's bounds). The axis is the
 stripe's width direction: an `x` band at `0.5` centers a vertical stripe across
 the piece's width.
-Band widths accept 1–100 mm. `phase_axis` controls the perpendicular direction
+Band widths accept 1â€“100 mm. `phase_axis` controls the perpendicular direction
 of pattern repetition; it defaults to `y` for `x`/`z` bands and `x` for `y`
 bands. Style fields inherit from the rim recipe unless overridden. Bands paint
 over rim trim in list order and remain continuous across atlas seams and plate
@@ -1201,11 +1240,11 @@ surfaces, including the space between the thighs. Bone-translation checks use
 the same reference offset vectors that the exported mesh retains. These fitting
 constraints do not repair a self-intersecting source body.
 
-Recipe distances are millimetres. `clearance` accepts 1–10 and `thickness` 1–8.
+Recipe distances are millimetres. `clearance` accepts 1â€“10 and `thickness` 1â€“8.
 They describe the uncompressed stack: tight concave body creases reduce both
-distances together using a shared body field. Doublet `length` accepts 700–1200
-permille; hose length accepts 700–1000. `sleeve_length` accepts 500–1000 and
-`patch_width` 35–100 mm. `cuts` contains boxes with `minimum` and `maximum`
+distances together using a shared body field. Doublet `length` accepts 700â€“1200
+permille; hose length accepts 700â€“1000. `sleeve_length` accepts 500â€“1000 and
+`patch_width` 35â€“100 mm. `cuts` contains boxes with `minimum` and `maximum`
 three-coordinate points in the reference body's metre space. Cuts follow the
 body after morphing rather than remaining stationary in world space.
 
@@ -1278,7 +1317,7 @@ an equipment rig with constrained lap pivots; assigning separate body-spine
 joints opens gaps and is not used.
 
 Construction references are the Philadelphia Museum of Art's
-[arming doublet, 1977-167-240, c. 1550–1650](https://www.philamuseum.org/objects/71390),
+[arming doublet, 1977-167-240, c. 1550â€“1650](https://www.philamuseum.org/objects/71390),
 and the Met's German sixteenth-century
 [armpit defense, 27.183.35](https://www.metmuseum.org/art/collection/search/34856).
 The latter supplies the mail link dimensions: 6.2 mm outside and 4.0 mm inside

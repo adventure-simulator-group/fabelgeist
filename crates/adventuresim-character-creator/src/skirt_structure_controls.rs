@@ -25,6 +25,9 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
         changed |= ui
             .selectable_value(&mut pleats.style, PleatStyle::Accordion, "Accordion folds")
             .changed();
+        changed |= ui
+            .selectable_value(&mut pleats.style, PleatStyle::Knife, "Knife pleats")
+            .changed();
         changed |= proportion(ui, &mut pleats.rotation, 0..=1000, "Pleat rotation");
         changed |= proportion(
             ui,
@@ -41,9 +44,14 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
         changed |= proportion(
             ui,
             &mut pleats.front_panel,
-            SkirtPleats::FRONT_PANEL_RANGE,
+            0..=if pleats.front_style.is_some() {
+                499
+            } else {
+                500
+            },
             "Quiet front panel width",
         );
+        changed |= front_profile_controls(ui, pleats);
         changed |= gather_controls(ui, pleats);
     }
     changed |= toggle(ui, &mut design.support, "Structural support");
@@ -139,6 +147,44 @@ fn toggle<T: Default>(ui: &mut egui::Ui, value: &mut Option<T>, label: &str) -> 
     let changed = ui.checkbox(&mut enabled, label).changed();
     if changed {
         *value = if enabled { Some(T::default()) } else { None };
+    }
+    changed
+}
+
+fn front_profile_controls(ui: &mut egui::Ui, pleats: &mut SkirtPleats) -> bool {
+    let mut enabled = pleats.front_style.is_some();
+    let mut changed = ui
+        .checkbox(&mut enabled, "Different front pleats")
+        .changed();
+    if changed {
+        pleats.front_style = enabled.then_some(fabelgeist_armor::SkirtFrontPleats {
+            width: fabelgeist_armor::Permille((pleats.front_panel.0 + 100).min(500)),
+            style: PleatStyle::Knife,
+        });
+        if pleats.front_panel.0 >= 500 {
+            pleats.front_panel.0 = 499;
+        }
+    }
+    if let Some(front) = &mut pleats.front_style {
+        // A changed quiet panel must leave room for the alternate folds.
+        let width = front.width.0.max(pleats.front_panel.0 + 1);
+        changed |= width != front.width.0;
+        front.width.0 = width;
+        changed |= proportion(
+            ui,
+            &mut front.width,
+            pleats.front_panel.0 + 1..=500,
+            "Front pleat width",
+        );
+        for (style, label) in [
+            (PleatStyle::Rounded, "Rounded"),
+            (PleatStyle::Accordion, "Accordion"),
+            (PleatStyle::Knife, "Knife"),
+        ] {
+            changed |= ui
+                .selectable_value(&mut front.style, style, label)
+                .changed();
+        }
     }
     changed
 }

@@ -19,6 +19,8 @@ pub(crate) enum ArmorHarness {
     Mail,
     Padded,
     Puffed,
+    GermanDress,
+    GermanDressUpper,
     Anime,
     Pauldron,
     WearerFit,
@@ -33,6 +35,7 @@ impl ArmorHarness {
             Self::CloseHelmet => &["close_helmet"],
             Self::WearerFit => &["gorget", "cuirass", "vambrace"],
             Self::Puffed => &["puffed_sleeve", "puffed_hose"],
+            Self::GermanDress | Self::GermanDressUpper => &["wool_gown"],
             Self::Anime => &["breastplate"],
             Self::Pauldron => &["cuirass", "pauldron"],
             Self::MuseumHenry => museum::HENRY_ITEMS,
@@ -174,7 +177,10 @@ impl ArmorCapture {
                 HELMET_REVIEW_DISTANCE_METRES,
                 0.0,
             )
-        } else if matches!(harness, ArmorHarness::Anime | ArmorHarness::Pauldron) {
+        } else if matches!(
+            harness,
+            ArmorHarness::Anime | ArmorHarness::Pauldron | ArmorHarness::GermanDressUpper
+        ) {
             (
                 head? - Vec3::Y * TORSO_FOCUS_BELOW_HEAD_METRES,
                 TORSO_REVIEW_DISTANCE_METRES,
@@ -459,6 +465,7 @@ mod tests {
             (ArmorHarness::PlateTassets, 22),
             (ArmorHarness::Mail, 9),
             (ArmorHarness::Padded, 6),
+            (ArmorHarness::GermanDress, 1),
             (ArmorHarness::Underlayers, 8),
             (ArmorHarness::PlateUnderlayers, 29),
             (ArmorHarness::CloseHelmet, 1),

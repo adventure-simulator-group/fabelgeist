@@ -41,7 +41,7 @@ impl DeviceWearer<'_> {
         let head = self.record_frame(batch, FitRegion::Head)?;
         let fit_words = SKIRT_FIT_WORDS
             + attachment.map_or(0, |plan| {
-                (plan.patch.point_count + SKIRT_RING_SEGMENTS as u32) * SKIRT_ATTACHMENT_POINT_WORDS
+                plan.fitted_point_count() * SKIRT_ATTACHMENT_POINT_WORDS
             });
         let fit = self.record_upright(
             batch,
@@ -51,11 +51,13 @@ impl DeviceWearer<'_> {
             UprightSpan {
                 top: JointHeightAnchor {
                     joint: RigJointName::ROOT,
-                    offset: design.waist_rise.signed_length(),
+                    offset: fabelgeist_geometry::SignedLength::from_metres(
+                        design.waist_rise.metres(),
+                    )?,
                 },
                 bottom: JointHeightAnchor {
                     joint: RigJointName::ROOT,
-                    offset: fabelgeist_geometry::SignedLength::from_millimetres(0),
+                    offset: fabelgeist_geometry::SignedLength::from_metres(0.0)?,
                 },
                 reach: JointReachTarget {
                     joint: RigJointName::L_FOOT,
@@ -76,15 +78,10 @@ impl DeviceWearer<'_> {
             layers,
         )?;
         ensure!(!support.faces.is_empty(), "skirt has no body support");
-        let status = self.record_skirt_profile(batch, design, &fit, &support)?;
+        let ease = attachment.map_or(fabelgeist_armor::Millimeters(0), |plan| plan.ease);
+        let status = self.record_skirt_profile(batch, design, &fit, &support, ease)?;
         if let Some(plan) = attachment {
-            self.record_skirt_attachment(
-                batch,
-                &fit,
-                plan,
-                design.clearance.metres() + design.thickness.metres(),
-                &status,
-            )?;
+            self.record_skirt_attachment(batch, &fit, plan, plan.offset_metres, &status, layers)?;
         }
         // The profile must be written before the coordinate kernel reads it.
         let part = record_skirt(
@@ -133,6 +130,7 @@ impl DeviceWearer<'_> {
         design: &SkirtDesign,
         fit: &fabelgeist_gpu::prelude::Buffer,
         support: &TextileSupport,
+        ease: fabelgeist_armor::Millimeters,
     ) -> Result<fabelgeist_gpu::prelude::Buffer> {
         let gpu = self.gpu;
         let face_count = u32::try_from(support.faces.len())?;
@@ -146,11 +144,9 @@ impl DeviceWearer<'_> {
         let faces = gpu.upload(BufferUpload::from_elements(&support.faces))?;
         let bytes = u64::from(capacity) * u64::from(sections) * 8;
         let samples = gpu.scratch(bytes, "skirt section samples")?;
-        let hulls = gpu.scratch(bytes, "skirt section hulls")?;
-        let status = gpu.upload(BufferUpload::from_elements(&[0u32]))?;
+        let status = gpu.upload(BufferUpload::from_elements(&[0u32, u32::MAX, u32::MAX]))?;
         let source = format!(
-            "const SECTIONS: u32 = {sections}u;\nconst RADII: u32 = {SKIRT_RING_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst HALF_WIDTH: f32 = {SECTION_HALF_WIDTH_M};\n{}\n{}",
-            include_str!("device_section_hull.wgsl"),
+            "const SECTIONS: u32 = {sections}u;\nconst RADII: u32 = {SKIRT_RING_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst HALF_WIDTH: f32 = {SECTION_HALF_WIDTH_M};\n{}",
             include_str!("device_skirt_sections.wgsl"),
         );
         dispatch(
@@ -162,7 +158,6 @@ impl DeviceWearer<'_> {
                 read("positions", &positions),
                 read_u32("faces", &faces),
                 write("samples", &samples),
-                write("hulls", &hulls),
                 atomic("status", &status),
             ],
             &[
@@ -172,6 +167,7 @@ impl DeviceWearer<'_> {
                     "allowance",
                     design.clearance.metres() + design.thickness.metres(),
                 ),
+                Word::F("ease", ease.metres()),
             ],
             Grid::Singles(sections),
         )?;

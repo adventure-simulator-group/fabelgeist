@@ -87,10 +87,13 @@ fn assert_closed(part: &BuiltPart) {
 #[test]
 fn open_and_closed_treatments_keep_valid_shells_on_both_carriers() -> Result<()> {
     let gpu = ArmorGpu::open()?;
-    for (puff_count, slash_count) in [(1, 0), (3, 8), (8, 16)] {
+    for (puff_count, slash_count, slash_width) in
+        [(1, 0, 300), (3, 8, 300), (3, 3, 50), (8, 16, 300)]
+    {
         let pattern = PuffAndSlashPattern {
             puff_count,
             slash_count,
+            slash_width: fabelgeist_armor::Permille(slash_width),
             ..Default::default()
         };
         let [skirt, limb] = finished(&gpu, &pattern)?;

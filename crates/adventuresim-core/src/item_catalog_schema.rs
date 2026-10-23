@@ -146,6 +146,7 @@ pub enum EquipmentMaterial {
 #[serde(rename_all = "snake_case")]
 pub enum EquipmentChannel {
     Held,
+    /// Ordinary garments use distinct authored orders within this channel.
     BaseClothing,
     Padding,
     FlexibleArmor,
@@ -174,12 +175,7 @@ impl EquipmentChannel {
     pub const fn singleton_per_location(self) -> bool {
         matches!(
             self,
-            Self::Held
-                | Self::BaseClothing
-                | Self::Padding
-                | Self::FlexibleArmor
-                | Self::RigidArmor
-                | Self::Outerwear
+            Self::Held | Self::Padding | Self::FlexibleArmor | Self::RigidArmor | Self::Outerwear
         )
     }
 }

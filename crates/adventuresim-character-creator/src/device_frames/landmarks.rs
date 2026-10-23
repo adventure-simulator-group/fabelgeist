@@ -142,7 +142,7 @@ impl Wearer<'_> {
                 self.limb(s, Lowarm, Wrist, unused)?,
                 FrameSide::Paired(s),
             ),
-            WholeArm(s) => (
+            WholeArm(s) | SleevedArm(s) => (
                 Rule::Limb,
                 self.limb(s, Uparm, Wrist, unused)?,
                 FrameSide::Paired(s),

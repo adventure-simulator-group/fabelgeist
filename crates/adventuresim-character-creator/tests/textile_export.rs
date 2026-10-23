@@ -1,92 +1,110 @@
-//! Native preview and portable garment files retain the same finish contract.
+//! Portable cloth preserves preview opacity, ornament and face policy.
 #![cfg(feature = "offline-creator")]
-use adventuresim_character_creator::{export::*, textile_surface};
-use anyhow::Result;
-use bevy::prelude::*;
-use fabelgeist_armor::{TextileAppearance, TextileColor, TextileFinish};
+
+use adventuresim_character_creator::export::{
+    GlbOutput, RiggedMesh, RiggedShell, export_rigged_glb,
+};
+use anyhow::{Context, Result};
+use fabelgeist_armor::{
+    Permille, TextileAppearance, TextileAxis, TextileColor, TextileFill, TextileFinish,
+    TextileLayer, TextileRegion,
+};
 use fabelgeist_rig::RigJointName;
 
 #[test]
-fn portable_garment_finish_matches_its_native_material() -> Result<()> {
-    let directory = std::env::temp_dir().join(format!("textile-optics-{}", std::process::id()));
-    std::fs::create_dir_all(&directory)?;
-    let positions = [[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]];
+fn portable_sheer_cloth_blends_once_and_retains_opaque_pattern_pixels() -> Result<()> {
+    let mut fabric = TextileAppearance::solid(TextileColor([240, 235, 220]), TextileFinish::Linen);
+    fabric.opacity = Permille(200);
+    fabric.layers.0.push(TextileLayer {
+        region: TextileRegion::Band {
+            axis: TextileAxis::Along,
+            start: Permille(750),
+            end: Permille::ONE,
+        },
+        fill: TextileFill::Solid,
+        color: TextileColor([190, 150, 55]),
+    });
+    let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?
+        .context("missing sheer maps")?;
+    // Native portable-file fixture: metre triangle and one identity rig joint.
+    let points = [[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]];
     let normals = [[0., 0., 1.]; 3];
-    let joints = [[0; 8]; 3];
+    let names: fabelgeist_rig::RigJointTable<_> = vec![RigJointName::ROOT].into();
+    let indices = fabelgeist_rig::PackedRigSkin::from_native(vec![[0; 8]; 3], names.joint_count())?;
     let weights = [[1., 0., 0., 0., 0., 0., 0., 0.]; 3];
-    for (index, finish) in [TextileFinish::Velvet, TextileFinish::Silk]
-        .into_iter()
-        .enumerate()
-    {
-        let fabric = TextileAppearance::solid(TextileColor([65, 9, 16]), finish);
-        let native = textile_surface::material(&fabric, &mut Assets::default())?;
-        let path = directory.join(format!("finish-{index}.glb"));
-        let shell = RiggedShell {
-            textile_finish: Some(finish),
-            plate_edges: &[],
-            surface: None,
-            textures: None,
-            texcoords: Some(&[[0., 0.], [1., 0.], [0., 1.]]),
-            hinge: None,
-            name: "fabric",
-            positions: &positions,
-            normals: &normals,
-            faces: &[[0, 1, 2]],
-            joint_indices: Some(&joints),
-            joint_weights: Some(&weights),
+    let surface = fabric.material();
+    let shell = RiggedShell {
+        textile_finish: Some(fabric.finish),
+        plate_edges: &[],
+        surface: None,
+        textures: Some(maps.into()),
+        texcoords: Some(&[[0., 0.], [1., 0.], [0., 1.]]),
+        hinge: None,
+        name: "sheer textile",
+        positions: &points,
+        normals: &normals,
+        faces: &[[0, 1, 2]],
+        joint_indices: Some(&indices),
+        joint_weights: Some(&weights),
+        morph_targets: &[],
+        base_color: surface.base_color,
+        metallic: surface.metallic,
+        roughness: surface.roughness,
+    };
+    let path = std::env::temp_dir().join(format!(
+        "fabelgeist-sheer-export-{}.glb",
+        std::process::id()
+    ));
+    export_rigged_glb(
+        GlbOutput::Standalone(&path),
+        "textile",
+        1,
+        4,
+        &RiggedMesh {
+            joint_proportions: &Default::default(),
             morph_targets: &[],
-            base_color: fabric.material().base_color,
-            metallic: 0.,
-            roughness: native.perceptual_roughness,
-        };
-        export_rigged_glb(
-            GlbOutput::Standalone(&path),
-            "fabric",
-            1,
-            4,
-            &RiggedMesh {
-                positions: &positions,
-                normals: &normals,
-                faces: &[],
-                export_body: false,
-                joint_indices: &joints,
-                joint_weights: &weights,
-                joint_names: &[RigJointName::ROOT],
-                joint_parents: &[-1],
-                global_joint_states: &[[0., 0., 0., 0., 0., 0., 1., 1.]],
-                joint_proportions: &[],
-                morph_targets: &[],
-            },
-            &[shell],
-            &[],
-        )?;
-        let bytes = std::fs::read(&path)?;
-        let parsed = gltf::Gltf::from_slice(&bytes)?;
-        let document: serde_json::Value = serde_json::from_slice(
-            &bytes[20..20 + u32::from_le_bytes(bytes[12..16].try_into()?) as usize],
-        )?;
-        let factor =
-            document["materials"][0]["extensions"]["KHR_materials_specular"]["specularFactor"]
-                .as_f64()
-                .unwrap() as f32;
-        assert_eq!(factor * 0.5, native.reflectance);
-        assert_eq!(
-            parsed
-                .materials()
-                .next()
-                .unwrap()
-                .pbr_metallic_roughness()
-                .roughness_factor(),
-            native.perceptual_roughness
-        );
-        assert!(
-            document["extensionsUsed"]
-                .as_array()
-                .unwrap()
-                .contains(&serde_json::json!("KHR_materials_specular"))
-        );
-        std::fs::remove_file(&path)?;
-    }
-    std::fs::remove_dir(directory)?;
+            positions: &points,
+            normals: &normals,
+            faces: &[],
+            export_body: false,
+            joint_indices: &indices,
+            joint_weights: &weights,
+            joint_names: &names,
+            joint_parents: &vec![None].into(),
+            global_joint_states: &vec![[0., 0., 0., 0., 0., 0., 1., 1.]].into(),
+        },
+        &[shell],
+        &[],
+    )?;
+    let file = gltf::Gltf::open(&path)?;
+    let material = file
+        .document
+        .materials()
+        .next()
+        .context("missing material")?;
+    assert_eq!(material.alpha_mode(), gltf::material::AlphaMode::Blend);
+    assert!(!material.double_sided());
+    assert_eq!(
+        material.pbr_metallic_roughness().base_color_factor(),
+        [1.; 4]
+    );
+    let texture = material
+        .pbr_metallic_roughness()
+        .base_color_texture()
+        .context("missing cloth texture")?;
+    let gltf::image::Source::View { view, .. } = texture.texture().source().source() else {
+        anyhow::bail!("cloth image was not embedded")
+    };
+    let blob = file.blob.as_ref().context("missing portable image bytes")?;
+    let pixels =
+        image::load_from_memory(&blob[view.offset()..view.offset() + view.length()])?.to_rgba8();
+    assert_eq!(pixels.get_pixel(100, 100).0, [240, 235, 220, 51]);
+    assert_eq!(
+        pixels
+            .get_pixel(pixels.width() / 2, pixels.height() * 9 / 10)
+            .0,
+        [190, 150, 55, 255]
+    );
+    std::fs::remove_file(path)?;
     Ok(())
 }

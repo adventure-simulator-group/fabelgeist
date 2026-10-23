@@ -300,7 +300,7 @@ fn run_studio(
                 })
                 .set(WindowPlugin {
                     primary_window: Some(Window {
-                        title: "Fabelgeist · Character Studio".into(),
+                        title: "Fabelgeist Â· Character Studio".into(),
                         resolution: (1440, 900).into(),
                         ..default()
                     }),
@@ -439,7 +439,7 @@ fn reload_model(args: Res<Args>, mut model: ResMut<BodyModel>, mut studio: ResMu
             *model = loaded;
             studio.dirty = true;
             studio.status = format!(
-                "MHR LOD {requested} ready · correctives {}",
+                "MHR LOD {requested} ready Â· correctives {}",
                 if requested_correctives { "on" } else { "off" }
             );
         }

@@ -3,7 +3,9 @@
 //! by its coverage.
 use super::*;
 use crate::hair_preview;
-use adventuresim_character_creator::export::SurfaceTextures;
+use adventuresim_character_creator::export::{
+    SurfaceAlpha, SurfaceSampling, SurfaceSides, SurfaceTextures,
+};
 use adventuresim_character_creator::hair::{
     GroomedHair, HAIR_ROUGHNESS, HairDesign, HairGeometry, HairGpu, PlacedHair,
 };
@@ -58,7 +60,9 @@ impl ExportedHair {
                 base_color_png: Some(tinted_atlas(&placed, design)?),
                 normal_png: encode(&FLAT_NORMAL, 1, 1)?,
                 occlusion_png: None,
-                cutout: true,
+                alpha: SurfaceAlpha::Mask,
+                sides: SurfaceSides::Both,
+                sampling: SurfaceSampling::OpenGarment,
             },
             cards,
             joint_indices: fabelgeist_rig::PackedRigSkin::repeated(
@@ -76,6 +80,7 @@ impl ExportedHair {
 
     pub(super) fn shell<'a>(&'a self, targets: &'a [RiggedMorphTarget<'a>]) -> RiggedShell<'a> {
         RiggedShell {
+            textile_finish: None,
             plate_edges: &[],
             surface: None,
             textures: Some(self.textures.clone()),

@@ -1,22 +1,91 @@
 //! Frozen cloned-body topology and angular correspondence at a dress waist.
 
 use anyhow::{Context, Result, ensure};
-use fabelgeist_armor::gpu::{SkirtAttachment, SkirtWaistVertex};
+use fabelgeist_armor::gpu::{ClothRingVertex, SkirtAttachment};
 use fabelgeist_armor::{PartFrame, SKIRT_RING_SEGMENTS, SkirtDesign};
 use fabelgeist_rig::RigJointName;
-use std::collections::{BTreeMap, BTreeSet};
 
 use crate::armor_frames::Wearer;
-use crate::surface_cut::{CORRESPONDENCE_PRECISION, ConvexRegion, Plane, SurfaceCut, interpolate};
+use crate::surface_cut::{ConvexRegion, Plane, SurfaceCut, interpolate};
 
 pub(crate) struct SkirtJoinPlan {
+    pub source: crate::cloth_source::ClothSource,
     pub patch: SkirtAttachment,
     pub table: Vec<u32>,
+    /// Original Boolean upper cut, excluding subsequently sewn construction.
+    pub source_faces: Vec<[u32; 3]>,
+    /// Complete torso support remains available after trimming the render cut.
+    pub enclosure_table: Vec<u32>,
     /// Native source-point pair and f32 interpolation bits per angular column.
     pub samples: Vec<u32>,
+    pub offset_metres: f32,
+    /// Face sheet gauge, separate from the assembled torso stack offset.
+    pub face_thickness: fabelgeist_armor::Millimeters,
+    pub ease: fabelgeist_armor::Millimeters,
+    pub release: fabelgeist_armor::Permille,
+    pub release_weights: Vec<f32>,
+    pub neckline_samples: Vec<u32>,
+}
+
+/// Native sewing boundary in canonical upright metres and skirt row indices.
+pub(crate) struct SewnWaist {
+    pub first_row: usize,
+    pub anchor: [f32; 3],
+    pub hanging_rows: fabelgeist_armor::gpu::SkirtHangingRows,
+    pub ring_segments: usize,
+    pub offset_metres: f32,
+    /// Face sheet gauge, separate from the assembled torso stack offset.
+    pub face_thickness: fabelgeist_armor::Millimeters,
 }
 
 impl SkirtJoinPlan {
+    /// Native fit-table capacity includes dense waist samples and finishing tape.
+    pub fn fitted_point_count(&self) -> u32 {
+        self.patch.point_count
+            + SKIRT_RING_SEGMENTS as u32
+            + self
+                .patch
+                .layers
+                .iter()
+                .map(|a| a.layer.point_count)
+                .sum::<u32>()
+    }
+
+    /// Partition the cloned upper patch using render ancestry, then give each
+    /// cut fabric its own chart. Fine waist relief never reaches the torso.
+    pub fn finish(
+        &self,
+        piece: &mut crate::device_fit::DevicePiece,
+        carrier: fabelgeist_armor::ArmorComponentRole,
+    ) -> Result<()> {
+        use fabelgeist_armor::ArmorComponentRole;
+        let first = self.patch.carrier_point_count();
+        let upper = first..first + self.patch.point_count as usize;
+        let sources = piece
+            .skin_aliases
+            .iter()
+            .map(|&v| {
+                self.patch
+                    .dressing_opening
+                    .as_ref()
+                    .map_or(v, |o| o.source_vertex(v))
+            })
+            .collect::<Vec<_>>();
+        let charts = crate::gown_charts::SewnCharts::new(self, piece)?;
+        piece.partition_first_component(|triangle, _face| {
+            if triangle
+                .iter()
+                .all(|&v| upper.contains(&sources[v as usize]))
+            {
+                ArmorComponentRole::BodiceFabric
+            } else {
+                carrier
+            }
+        })?;
+        charts.apply(piece)?;
+        piece.normalize_cloth_charts(&[ArmorComponentRole::BodiceFabric, carrier])
+    }
+
     pub fn new(
         design: &SkirtDesign,
         body: &Wearer<'_>,
@@ -49,7 +118,11 @@ impl SkirtJoinPlan {
                 )
             })
             .collect::<Vec<_>>();
-        let cut = central_patch(cut, &reference, [hips.origin[0], waist, hips.origin[2]])?;
+        let cut = crate::surface_cut::connected_patch(
+            cut,
+            &reference,
+            [hips.origin[0], waist, hips.origin[2]],
+        )?;
         let reference = cut
             .points
             .iter()
@@ -60,19 +133,75 @@ impl SkirtJoinPlan {
                 )
             })
             .collect::<Vec<_>>();
-        let mut borders = loops(&cut, &reference)?;
+        let borders = cut.boundary_loops(&reference)?;
         ensure!(
             borders.len() == 2,
             "dress upper patch must have a waist and upper opening"
         );
-        borders.sort_by(|a, b| mean_height(a, &reference).total_cmp(&mean_height(b, &reference)));
+        let mut plan = Self::from_cut(
+            cut,
+            body,
+            hips,
+            head,
+            SewnWaist {
+                anchor: [hips.origin[0], waist, hips.origin[2]],
+                first_row: bodice.first_skirt_row(),
+                hanging_rows: fabelgeist_armor::gpu::SkirtHangingRows::for_design(
+                    design,
+                    bodice.first_skirt_row(),
+                )?,
+                ring_segments: design.mesh_ring_segments(),
+                offset_metres: design.thickness.metres(),
+                face_thickness: design.thickness,
+            },
+        )?;
+        plan.source = crate::cloth_source::ClothSource::AnatomicalSurface {
+            clearance: design.clearance,
+        };
+        Ok(plan)
+    }
+
+    pub fn from_cut(
+        cut: SurfaceCut,
+        body: &Wearer<'_>,
+        hips: &PartFrame,
+        head: &PartFrame,
+        seam: SewnWaist,
+    ) -> Result<Self> {
+        let reference = cut
+            .points
+            .iter()
+            .map(|point| {
+                interpolate(
+                    body.faces[point.triangle].map(|v| body.positions[v as usize]),
+                    point.weights,
+                )
+            })
+            .collect::<Vec<_>>();
+        let mut borders = cut.boundary_loops(&reference)?;
+        // A cuff can lie below the torso hem in the canonical A-pose. Only a
+        // loop enclosing the anatomical pelvis axis can own the skirt seam.
+        borders.retain(|border| encloses_axis(border, &reference, seam.anchor, head));
+        let distance = |border: &Vec<u32>| {
+            let height = border
+                .iter()
+                .map(|&v| reference[v as usize][1])
+                .sum::<f32>()
+                / border.len() as f32;
+            (height - seam.anchor[1]).abs()
+        };
+        borders.sort_by(|a, b| distance(a).total_cmp(&distance(b)));
+        ensure!(
+            !borders.is_empty(),
+            "sewn upper has no waist around the pelvis axis"
+        );
         let mut waist = borders
             .remove(0)
             .into_iter()
             .map(|vertex| {
                 let point = reference[vertex as usize];
                 let local = [point[0] - hips.origin[0], 0.0, point[2] - hips.origin[2]];
-                SkirtWaistVertex {
+                ClothRingVertex {
                     vertex,
                     angle: dot(local, head.axes[0])
                         .atan2(dot(local, head.axes[2]))
@@ -95,11 +224,28 @@ impl SkirtJoinPlan {
         );
         let samples = angular_samples(&waist);
         Ok(Self {
+            source: crate::cloth_source::ClothSource::AnatomicalSurface {
+                clearance: fabelgeist_armor::Millimeters(0),
+            },
+            ease: fabelgeist_armor::Millimeters(0),
+            release: fabelgeist_armor::Permille::ONE,
+            release_weights: vec![0.; cut.points.len()],
+            neckline_samples: vec![0; crate::gown_ease::NECK_SAMPLE_WORDS],
+            offset_metres: seam.offset_metres,
+            face_thickness: seam.face_thickness,
+            enclosure_table: Vec::new(),
             table: cut.source_table(body.faces, body.faces),
+            source_faces: cut.faces.clone(),
             patch: SkirtAttachment {
+                seam_layout: fabelgeist_armor::gpu::SkirtSeamLayout::Transition,
+                ring_segments: seam.ring_segments,
+                hanging_rows: seam.hanging_rows,
+                first_row: seam.first_row,
                 point_count: u32::try_from(cut.points.len())?,
                 indices: cut.faces.into_iter().flatten().collect(),
                 waist,
+                layers: Vec::new(),
+                dressing_opening: None,
             },
             samples,
         })
@@ -157,134 +303,67 @@ fn waist_regions(
     regions
 }
 
-/// Weld physical seams, then retain the component nearest the pelvis axis.
-/// Arms clipped by the same horizontal band do not become detached dress parts.
-fn central_patch(cut: SurfaceCut, positions: &[[f32; 3]], center: [f32; 3]) -> Result<SurfaceCut> {
-    let mut physical = BTreeMap::new();
-    let mut points = Vec::new();
-    let mut reference = Vec::new();
-    let vertices = positions
-        .iter()
-        .enumerate()
-        .map(|(i, p)| {
-            *physical
-                .entry(p.map(|v| (v * CORRESPONDENCE_PRECISION).round() as i64))
-                .or_insert_with(|| {
-                    let next = points.len() as u32;
-                    points.push(cut.points[i]);
-                    reference.push(*p);
-                    next
-                })
+fn angular_samples(waist: &[ClothRingVertex]) -> Vec<u32> {
+    (0..SKIRT_RING_SEGMENTS)
+        .flat_map(|column| {
+            angular_sample(
+                waist,
+                std::f32::consts::TAU * column as f32 / SKIRT_RING_SEGMENTS as f32,
+            )
         })
-        .collect::<Vec<_>>();
-    let faces = cut
-        .faces
-        .iter()
-        .map(|face| face.map(|v| vertices[v as usize]))
-        .filter(|[a, b, c]| a != b && b != c && c != a)
-        .collect::<Vec<_>>();
-    let first = reference
-        .iter()
-        .enumerate()
-        .min_by(|a, b| distance(*a.1, center).total_cmp(&distance(*b.1, center)))
-        .map(|(i, _)| i as u32)
-        .context("dress body cut is empty")?;
-    let mut adjacent = vec![Vec::new(); points.len()];
-    for face in &faces {
-        for &v in face {
-            adjacent[v as usize].extend(face);
-        }
-    }
-    let mut kept = BTreeSet::new();
-    let mut pending = vec![first];
-    while let Some(vertex) = pending.pop() {
-        if kept.insert(vertex) {
-            pending.extend(&adjacent[vertex as usize]);
-        }
-    }
-    let mut remap = BTreeMap::new();
-    let points = kept
-        .iter()
-        .map(|&v| {
-            remap.insert(v, remap.len() as u32);
-            points[v as usize]
-        })
-        .collect();
-    let faces = faces
-        .into_iter()
-        .filter(|face| kept.contains(&face[0]))
-        .map(|face| face.map(|v| remap[&v]))
-        .collect();
-    Ok(SurfaceCut { points, faces })
+        .collect()
 }
 
-fn loops(cut: &SurfaceCut, positions: &[[f32; 3]]) -> Result<Vec<Vec<u32>>> {
-    let edges = cut.borders(positions);
-    let mut next = BTreeMap::new();
-    for [a, b] in edges {
-        ensure!(
-            next.insert(a, b).is_none(),
-            "dress opening is not a simple boundary"
-        );
+/// Native ordered ring boundary: source ordinals, radians, f32 blend bits.
+pub(crate) fn angular_sample(ring: &[ClothRingVertex], mut angle: f32) -> [u32; 3] {
+    if angle < ring[0].angle {
+        angle += std::f32::consts::TAU;
     }
-    let mut loops = Vec::new();
-    while let Some((&first, _)) = next.first_key_value() {
-        let mut boundary = Vec::new();
-        let mut at = first;
-        loop {
-            boundary.push(at);
-            at = next.remove(&at).context("dress opening is not closed")?;
-            if at == first {
-                break;
-            }
-        }
-        loops.push(boundary);
-    }
-    Ok(loops)
-}
-
-fn angular_samples(waist: &[SkirtWaistVertex]) -> Vec<u32> {
-    let mut samples = Vec::with_capacity(SKIRT_RING_SEGMENTS * 3);
-    for column in 0..SKIRT_RING_SEGMENTS {
-        let mut angle = std::f32::consts::TAU * column as f32 / SKIRT_RING_SEGMENTS as f32;
-        if angle < waist[0].angle {
-            angle += std::f32::consts::TAU;
-        }
-        let next = waist
-            .iter()
-            .position(|p| p.angle > angle)
-            .unwrap_or(waist.len());
-        let a = &waist[next - 1];
-        let b = &waist[next % waist.len()];
-        let end = b.angle
-            + if next == waist.len() {
-                std::f32::consts::TAU
-            } else {
-                0.0
-            };
-        samples.extend([
-            a.vertex,
-            b.vertex,
-            ((angle - a.angle) / (end - a.angle)).to_bits(),
-        ]);
-    }
-    samples
-}
-
-fn mean_height(boundary: &[u32], positions: &[[f32; 3]]) -> f32 {
-    boundary
+    let next = ring
         .iter()
-        .map(|&v| positions[v as usize][1])
-        .sum::<f32>()
-        / boundary.len() as f32
-}
-
-fn distance(point: [f32; 3], center: [f32; 3]) -> f32 {
-    (0..3)
-        .map(|axis| (point[axis] - center[axis]).powi(2))
-        .sum()
+        .position(|p| p.angle > angle)
+        .unwrap_or(ring.len());
+    let a = &ring[next - 1];
+    let b = &ring[next % ring.len()];
+    let end = b.angle
+        + if next == ring.len() {
+            std::f32::consts::TAU
+        } else {
+            0.
+        };
+    [
+        a.vertex,
+        b.vertex,
+        ((angle - a.angle) / (end - a.angle)).to_bits(),
+    ]
 }
 
 fn dot(a: [f32; 3], b: [f32; 3]) -> f32 {
     (0..3).map(|axis| a[axis] * b[axis]).sum()
+}
+
+/// An anatomical waist must surround the pelvis axis, rather than close around
+/// one arm. Native points are canonical metres; angles use the fitted head axes.
+fn encloses_axis(
+    border: &[u32],
+    positions: &[[f32; 3]],
+    anchor: [f32; 3],
+    head: &PartFrame,
+) -> bool {
+    let mut angles = border
+        .iter()
+        .map(|&vertex| {
+            let point = positions[vertex as usize];
+            let offset = [point[0] - anchor[0], 0., point[2] - anchor[2]];
+            dot(offset, head.axes[0]).atan2(dot(offset, head.axes[2]))
+        })
+        .collect::<Vec<_>>();
+    angles.sort_by(f32::total_cmp);
+    let Some((&first, &last)) = angles.first().zip(angles.last()) else {
+        return false;
+    };
+    angles
+        .windows(2)
+        .all(|pair| pair[1] - pair[0] < std::f32::consts::PI)
+        && first + std::f32::consts::TAU - last < std::f32::consts::PI
 }

@@ -28,16 +28,32 @@ pub struct SurfaceTextures {
     pub normal_png: Vec<u8>,
     /// Linear ambient visibility, read from the red channel by glTF and Bevy.
     pub occlusion_png: Option<Vec<u8>>,
-    pub cutout: bool,
+    pub alpha: SurfaceAlpha,
+    pub sides: SurfaceSides,
     pub sampling: SurfaceSampling,
 }
 
 /// Addressing follows the physical chart: a tile repeats both axes; a wrapped
 /// garment repeats around its seam and clamps at its hem and proximal edge.
+/// An open cloth chart clamps both directions at its free edges.
 #[derive(Clone, Copy)]
 pub enum SurfaceSampling {
     Tile,
     WrappedGarment,
+    OpenGarment,
+}
+
+#[derive(Clone, Copy)]
+pub enum SurfaceAlpha {
+    Opaque,
+    Mask,
+    Blend,
+}
+
+#[derive(Clone, Copy)]
+pub enum SurfaceSides {
+    Front,
+    Both,
 }
 
 pub struct ShellTextures {
@@ -103,6 +119,7 @@ impl TextureImages {
         let sampler = match sampling {
             SurfaceSampling::Tile => 0,
             SurfaceSampling::WrappedGarment => 1,
+            SurfaceSampling::OpenGarment => 2,
         };
         self.textures
             .push(json!({"source":index,"sampler":sampler}));
@@ -146,7 +163,8 @@ impl TextureImages {
             // glTF native sampler constants; linear filtering matches preview.
             document["samplers"] = json!([
                 {"wrapS":10497,"wrapT":10497,"magFilter":9729,"minFilter":9729},
-                {"wrapS":10497,"wrapT":33071,"magFilter":9729,"minFilter":9729}
+                {"wrapS":10497,"wrapT":33071,"magFilter":9729,"minFilter":9729},
+                {"wrapS":33071,"wrapT":33071,"magFilter":9729,"minFilter":9729}
             ]);
         }
         Ok(())
@@ -158,6 +176,7 @@ impl TextureImages {
         buffer: &mut BufferBuilder,
         material: &mut Value,
     ) {
+        material["doubleSided"] = matches!(maps.sides, SurfaceSides::Both).into();
         if let Some(bytes) = maps.base_color_png {
             let color = self.image(&bytes, buffer, maps.sampling);
             material["pbrMetallicRoughness"]["baseColorFactor"] = json!([1.0, 1.0, 1.0, 1.0]);
@@ -169,9 +188,17 @@ impl TextureImages {
             let occlusion = self.image(&bytes, buffer, maps.sampling);
             material["occlusionTexture"] = json!({"index":occlusion,"strength":1.0});
         }
-        if maps.cutout {
-            material["alphaMode"] = "MASK".into();
-            material["alphaCutoff"] = 0.5.into();
+        match maps.alpha {
+            SurfaceAlpha::Opaque => {
+                material["alphaMode"] = "OPAQUE".into();
+            }
+            SurfaceAlpha::Mask => {
+                material["alphaMode"] = "MASK".into();
+                material["alphaCutoff"] = 0.5.into();
+            }
+            SurfaceAlpha::Blend => {
+                material["alphaMode"] = "BLEND".into();
+            }
         }
     }
 

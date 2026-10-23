@@ -31,17 +31,30 @@ pub fn record_skirt(
     attachment: Option<&SkirtAttachment>,
 ) -> Result<DevicePart, GenerateError> {
     design.validate()?;
-    if design.bodice.is_some() != attachment.is_some() {
+    if attachment.is_some_and(|patch| patch.seam_layout == super::SkirtSeamLayout::StraightFall)
+        && (!matches!(design.profile, crate::SkirtProfile::Straight)
+            || design.pleats.is_some()
+            || design.puff_and_slash.is_some())
+    {
         return Err(GenerateError::InvalidSurface);
     }
-    let first_row = design
-        .bodice
-        .as_ref()
-        .map_or(0, |bodice| bodice.first_skirt_row());
-    let kernel = coordinate_kernel(gpu, include_str!("skirt.wgsl"))?;
+    if design.bodice.is_some() && attachment.is_none() {
+        return Err(GenerateError::InvalidSurface);
+    }
+    let first_row = attachment.map_or(0, |patch| patch.first_row);
+    let kernel = CoordKernel::with_extrusion(
+        gpu,
+        &coordinate_source(include_str!("skirt.wgsl")),
+        include_str!("skirt_extrusion.wgsl"),
+    )?;
     let mut recipe = PartRecipe::new();
     recipe.textile_chart();
-    recipe.push_coord(carrier(design, attachment)?, kernel.clone())?;
+    let cloth = match attachment.and_then(|p| p.dressing_opening.as_ref()) {
+        Some(opening) => opening.shell.clone(),
+        None => carrier(design, attachment)?,
+    };
+    let first_finish = cloth.coords.len() as u32;
+    recipe.push_coord(cloth, kernel.clone())?;
     recipe.component(
         if design.puff_and_slash.is_some() {
             ArmorComponentRole::Undercloth
@@ -50,9 +63,13 @@ pub fn record_skirt(
         },
         None,
     );
-    super::skirt_structure::append(&mut recipe, &kernel, design)?;
+    if let Some(patch) = attachment {
+        super::skirt_attachment_layers::append(&mut recipe, &kernel, patch, first_finish)?;
+    }
+    super::skirt_structure::append(&mut recipe, &kernel, design, first_row)?;
     if let Some(pattern) = &design.puff_and_slash {
-        let puff_kernel = coordinate_kernel(gpu, include_str!("skirt_puff.wgsl"))?;
+        let puff_kernel =
+            CoordKernel::new(gpu, &coordinate_source(include_str!("skirt_puff.wgsl")))?;
         super::textile_pattern::append_outer(&mut recipe, &puff_kernel, pattern, design.thickness)?;
     }
     let mut words = design.profile.shader_words().to_vec();
@@ -77,58 +94,84 @@ pub fn record_skirt(
             .as_ref()
             .map_or(1.0, |pleats| pleats.front_depth.unit()),
     );
-    words.extend(design.pleats.as_ref().map_or([0.0; 2], |pleats| {
-        [pleats.waist_depth.metres(), pleats.front_panel.unit()]
-    }));
-    words.extend(design.pleats.as_ref().map_or([0.0, 1.0], |pleats| {
-        [
-            f32::from(pleats.waist_count.0),
-            pleats.gather_falloff.unit(),
-        ]
-    }));
-    words.push(attachment.map_or(0, |patch| patch.point_count) as f32);
     words.push(
         design
             .pleats
             .as_ref()
-            .map_or(0.0, |pleats| pleats.gather_retention.unit()),
+            .map_or(0., |pleats| pleats.front_panel.unit()),
     );
+    words.push(attachment.map_or(0, |patch| patch.point_count) as f32);
+    words.extend(
+        attachment
+            .and_then(|p| p.dressing_opening.as_ref())
+            .map_or([0.; 5], |o| o.shader_words()),
+    );
+    let front = design.pleats.as_ref().and_then(|p| p.front_style.as_ref());
+    words.extend(front.map_or([0.; 2], |front| {
+        [front.width.unit(), front.style as u32 as f32]
+    }));
     recipe.record(gpu, batch, &words, &[fit])
 }
 
-fn coordinate_kernel(gpu: &ArmorGpu, shape: &str) -> Result<CoordKernel, GenerateError> {
-    let source = format!(
-        "const COLUMNS: u32 = {SKIRT_RING_SEGMENTS}u;\nconst ROWS: u32 = {SKIRT_AXIAL_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst ATTACHMENT: u32 = {SKIRT_FIT_WORDS}u;\nconst POINT_WORDS: u32 = {SKIRT_ATTACHMENT_POINT_WORDS}u;\n{AUTHORED}{}{}{}{}",
+fn coordinate_source(shape: &str) -> String {
+    format!(
+        "const KNIFE_FACE: f32 = {knife_face};\nconst COLUMNS: u32 = {SKIRT_RING_SEGMENTS}u;\nconst ROWS: u32 = {SKIRT_AXIAL_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst SLIT_COORD_VARIANTS: f32 = {slit_variants};\nconst ATTACHMENT: u32 = {SKIRT_FIT_WORDS}u;\nconst POINT_WORDS: u32 = {SKIRT_ATTACHMENT_POINT_WORDS}u;\n{AUTHORED}{}{}{}{}",
         include_str!("skirt_folds.wgsl"),
         include_str!("skirt_surface.wgsl"),
         include_str!("textile_fullness.wgsl"),
         shape,
-    );
-    CoordKernel::new(gpu, &source)
+        knife_face = crate::ClothPleatProfile::KNIFE_FACE_SHARE.unit(),
+        slit_variants = super::skirt_opening::ORIGINAL_COORD_VARIANTS,
+    )
 }
 
 /// Native topology adapter; all positions remain GPU evaluated.
-fn carrier(
+pub(super) fn carrier(
     design: &SkirtDesign,
     attachment: Option<&SkirtAttachment>,
 ) -> Result<CoordShell, GenerateError> {
     let mut coords = Vec::new();
     let mut indices = Vec::new();
-    let first_row = design
-        .bodice
-        .as_ref()
-        .map_or(0, |bodice| bodice.first_skirt_row());
-    for row in first_row..=SKIRT_AXIAL_SEGMENTS {
-        for column in 0..SKIRT_RING_SEGMENTS {
-            coords.push([column as f32, row as f32, 0.0, 0.0]);
+    let first_row = attachment.map_or(0, |patch| patch.first_row);
+    let standalone_rows = super::SkirtHangingRows::for_design(design, first_row)?;
+    let rows = attachment.map_or(standalone_rows.shares(), |patch| {
+        patch.hanging_rows.shares()
+    });
+    let hanging_intervals = rows.len() - 1;
+    let columns = attachment.map_or_else(
+        || design.mesh_ring_segments(),
+        |patch| patch.hanging_columns(),
+    );
+    for &share in rows {
+        let descent = share * SKIRT_AXIAL_SEGMENTS as f32;
+        for column in 0..columns {
+            if let Some(patch) =
+                attachment.filter(|patch| patch.seam_layout == super::SkirtSeamLayout::StraightFall)
+            {
+                // Native point ordinal, descent share, and straight-fall tag.
+                const STRAIGHT_FALL_COORDINATE: f32 = 5.;
+                coords.push([
+                    patch.waist[column].vertex as f32,
+                    descent / SKIRT_AXIAL_SEGMENTS as f32,
+                    0.,
+                    STRAIGHT_FALL_COORDINATE,
+                ]);
+            } else {
+                coords.push([
+                    column as f32 * SKIRT_RING_SEGMENTS as f32 / columns as f32,
+                    descent,
+                    0.0,
+                    0.0,
+                ]);
+            }
         }
     }
-    for row in 0..SKIRT_AXIAL_SEGMENTS - first_row {
-        for column in 0..SKIRT_RING_SEGMENTS {
-            let a = (row * SKIRT_RING_SEGMENTS + column) as u32;
-            let b = (row * SKIRT_RING_SEGMENTS + (column + 1) % SKIRT_RING_SEGMENTS) as u32;
-            let c = b + SKIRT_RING_SEGMENTS as u32;
-            let d = a + SKIRT_RING_SEGMENTS as u32;
+    for row in 0..hanging_intervals {
+        for column in 0..columns {
+            let a = (row * columns + column) as u32;
+            let b = (row * columns + (column + 1) % columns) as u32;
+            let c = b + columns as u32;
+            let d = a + columns as u32;
             // Rows descend: reverse the upward-tube convention.
             indices.extend([a, c, b, a, d, c]);
         }
@@ -141,7 +184,12 @@ fn carrier(
         indices,
         boundary_normals: BoundaryNormals::Smooth,
         thickness: design.thickness.metres(),
-        extrusion: CoordExtrusion::Normal,
+        extrusion: match attachment.map_or(fabelgeist_compute::NormalWeighting::Area, |a| {
+            a.normal_weighting()
+        }) {
+            fabelgeist_compute::NormalWeighting::Angle => CoordExtrusion::FieldAngleWeightedNormal,
+            fabelgeist_compute::NormalWeighting::Area => CoordExtrusion::FieldNormal,
+        },
         values: [0.0; 4],
         mirrored: false,
         frame: 0,

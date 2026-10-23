@@ -6,7 +6,7 @@ const ROUNDNESS: u32 = 3u;
 const FITTED_FRACTION: u32 = 4u;
 const FIRST_SKIRT_ROW: u32 = 5u;
 const MINIMUM_JOIN_RADIAL_NORMAL: f32 = 0.2;
-const ATTACHMENT_POINT_COUNT: u32 = 21u;
+const ATTACHMENT_POINT_COUNT: u32 = 18u;
 
 // A shaped cloned-body waist is authoritative. Advect each material column
 // from that actual boundary toward the common hem, sampling the enclosing

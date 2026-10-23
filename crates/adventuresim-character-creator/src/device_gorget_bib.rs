@@ -219,6 +219,8 @@ mod tests {
             let layer = ArmorLayerSurface {
                 positions: &lower,
                 faces: &faces,
+                plate_faces: &[],
+                components: &[],
                 joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
                     indices.to_vec(),
                     names.joint_count(),
