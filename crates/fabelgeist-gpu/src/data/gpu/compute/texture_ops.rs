@@ -1,16 +1,18 @@
+use super::ComputeSourceCache;
 use crate::data::gpu::parameters::PassParameter;
 use crate::data::gpu::resource::GpuResource;
 use crate::prelude::*;
-use std::collections::HashMap;
-use std::sync::{Arc, RwLock};
+use std::sync::Arc;
 
-type TexturePipelineCache =
-    HashMap<(ResourceDescriptor, ResourceDescriptor, ResourceDescriptor), Arc<ComputePipeline>>;
+type TexturePipelineCache = ComputeSourceCache<
+    (ResourceDescriptor, ResourceDescriptor, ResourceDescriptor),
+    Arc<ComputePipeline>,
+>;
 
 #[derive(Clone, Debug)]
 pub struct TextureBinaryOpDefinition {
     pub op_code: String,
-    pub cache: Arc<RwLock<TexturePipelineCache>>,
+    cache: TexturePipelineCache,
 }
 
 impl PartialEq for TextureBinaryOpDefinition {
@@ -31,7 +33,7 @@ impl TextureBinaryOpDefinition {
     pub fn new(op_code: impl ToString) -> Self {
         Self {
             op_code: op_code.to_string(),
-            cache: Arc::new(RwLock::new(HashMap::new())),
+            cache: ComputeSourceCache::default(),
         }
     }
 
@@ -104,19 +106,13 @@ impl TextureBinaryOpDefinition {
         output_res: ResourceDescriptor,
     ) -> Result<Arc<ComputePipeline>> {
         let key = (input_a_res.clone(), input_b_res.clone(), output_res.clone());
-        {
-            let cache = self.cache.read().unwrap();
-            if let Some(p) = cache.get(&key) {
-                return Ok(p.clone());
-            }
-        }
-
-        let pipeline = self.build_pipeline(context, input_a_res, input_b_res, output_res)?;
-        let arc_p = Arc::new(pipeline);
-
-        let mut cache = self.cache.write().unwrap();
-        cache.insert(key, arc_p.clone());
-        Ok(arc_p)
+        self.cache
+            .get_or_try_insert(context, &self.op_code, key, || {
+                let pipeline =
+                    self.build_pipeline(context, input_a_res, input_b_res, output_res)?;
+                let arc_p = Arc::new(pipeline);
+                Ok(arc_p)
+            })
     }
 }
 

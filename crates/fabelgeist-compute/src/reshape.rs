@@ -1,11 +1,10 @@
 use crate::prelude::*;
 
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
-use std::sync::{Arc, RwLock};
 
 #[derive(Clone, Debug, Default)]
 pub struct ReshapeDefinition {
-    pub cache: Arc<RwLock<Option<ComputePipeline>>>,
+    cache: ComputeSourceCache<(), ComputePipeline>,
 }
 
 impl PartialEq for ReshapeDefinition {
@@ -17,18 +16,11 @@ impl PartialEq for ReshapeDefinition {
 impl ReshapeDefinition {
     pub fn new(_context: &WgpuContext, _code: String) -> Result<Self> {
         Ok(Self {
-            cache: Arc::new(RwLock::new(None)),
+            cache: ComputeSourceCache::default(),
         })
     }
 
     pub fn get_or_create_pipeline(&self, context: &WgpuContext) -> Result<ComputePipeline> {
-        {
-            let cache = self.cache.read().unwrap();
-            if let Some(p) = cache.as_ref() {
-                return Ok(p.clone());
-            }
-        }
-
         let shader_code = "
             @group(0) @binding(0) var<storage, read> input: array<f32>;
             @group(0) @binding(1) var<storage, read_write> output: array<f32>;
@@ -37,12 +29,12 @@ impl ReshapeDefinition {
                 output[global_id.x] = input[global_id.x];
             }
         ";
-        let shader = ComputeShader::new(context, shader_code.to_string())?;
-        let pipeline = ComputePipeline::new(context, shader)?;
 
-        let mut cache = self.cache.write().unwrap();
-        *cache = Some(pipeline.clone());
-        Ok(pipeline)
+        self.cache.get_or_try_insert(context, shader_code, (), || {
+            let shader = ComputeShader::new(context, shader_code.to_string())?;
+            let pipeline = ComputePipeline::new(context, shader)?;
+            Ok(pipeline)
+        })
     }
 }
 

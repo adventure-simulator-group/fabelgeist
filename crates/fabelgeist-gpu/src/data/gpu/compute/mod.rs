@@ -6,15 +6,17 @@
 //! `Scan`, `Sort`, marching cubes and the rest live in `fabelgeist-compute`, which
 //! depends on this crate.
 
-mod pass;
-mod pipeline;
-pub mod signature;
-pub mod texture_ops;
-
 pub use pass::*;
 pub use pipeline::*;
 pub use signature::*;
+pub use source_cache::ComputeSourceCache;
 pub use texture_ops::{TextureBinaryOp, TextureBinaryOpDefinition};
+
+mod pass;
+mod pipeline;
+pub mod signature;
+mod source_cache;
+pub mod texture_ops;
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub enum ResourceDescriptor {

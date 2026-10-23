@@ -16,8 +16,7 @@
 //! a single encoder and submits once.
 
 use crate::prelude::*;
-use std::collections::HashMap;
-use std::sync::{Arc, RwLock};
+use std::sync::Arc;
 
 pub use batch_error::KernelBatchError;
 pub use dispatch_count::RecordedDispatchCount;
@@ -35,9 +34,18 @@ pub const MAX_GROUPS: u32 = 65_535;
 /// The flat item index of an invocation dispatched by
 /// [`KernelBatch::dispatch_folded`], given its `global_invocation_id`, its
 /// `num_workgroups` and the kernel's workgroup width.
+///
+/// An unrepresentable padded index becomes `u32::MAX`. Callers must reject
+/// indices outside their live prefix before accessing resources; this sentinel
+/// is outside every population representable by an invocation count.
 pub const FOLDED_INDEX_WGSL: &str = r#"
 fn folded_index(id: vec3<u32>, groups: vec3<u32>, width: u32) -> u32 {
-    return id.y * groups.x * width + id.x;
+    let outside_prefix = 0xffffffffu;
+    if (groups.x == 0u || width == 0u) { return outside_prefix; }
+    if (id.y > outside_prefix / groups.x) { return outside_prefix; }
+    let row_groups = id.y * groups.x;
+    if (row_groups > (outside_prefix - id.x) / width) { return outside_prefix; }
+    return row_groups * width + id.x;
 }
 "#;
 
@@ -169,15 +177,11 @@ impl Kernel {
     }
 }
 
-/// Compiles each distinct kernel source once and hands out clones after that.
-///
-/// Kernels here are generated -- a constraint kernel is a template with the
-/// fabric model pasted into it -- so the same source comes back around every
-/// frame and for every solver instance. Compiling it once per source rather
-/// than once per call is the difference between a stutter and a steady frame.
+/// Shares successful kernel builds for the same source, native device and
+/// validation policy.
 #[derive(Clone, Debug, Default)]
 pub struct KernelCache {
-    kernels: Arc<RwLock<HashMap<String, Arc<Kernel>>>>,
+    kernels: ComputeSourceCache<(), Arc<Kernel>>,
 }
 
 impl KernelCache {
@@ -186,27 +190,17 @@ impl KernelCache {
     }
 
     pub fn get(&self, context: &WgpuContext, code: &str) -> Result<Arc<Kernel>> {
-        if let Some(kernel) = self.kernels.read().unwrap().get(code) {
-            return Ok(kernel.clone());
-        }
-
-        // Compiled outside the write lock: a shader compile is slow, and
-        // holding the lock across it would serialise every other kernel's
-        // first use behind this one.
-        let kernel = Arc::new(Kernel::new(context, code)?);
-
-        let mut kernels = self.kernels.write().unwrap();
-        // A racing caller may have inserted the same source in the meantime;
-        // keep theirs, so that every holder of this source shares one pipeline.
-        Ok(kernels.entry(code.to_string()).or_insert(kernel).clone())
+        self.kernels.get_or_try_insert(context, code, (), || {
+            Ok(Arc::new(Kernel::new(context, code)?))
+        })
     }
 
     pub fn len(&self) -> usize {
-        self.kernels.read().unwrap().len()
+        self.kernels.len()
     }
 
     pub fn is_empty(&self) -> bool {
-        self.len() == 0
+        self.kernels.is_empty()
     }
 }
 

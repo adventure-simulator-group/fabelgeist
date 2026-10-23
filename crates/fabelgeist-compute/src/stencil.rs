@@ -3,7 +3,7 @@ use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use fabelgeist_gpu::data::gpu::signature::ResourceBaseType;
 use std::collections::HashMap;
-use std::sync::{Arc, RwLock};
+use std::sync::Arc;
 
 fn sanitize_type_name(t: &str) -> String {
     t.replace("<", "_")
@@ -37,7 +37,7 @@ pub struct StencilSignature {
     pub param_names: Vec<String>,
 }
 
-type StencilPipelineCache = HashMap<
+type StencilPipelineCache = ComputeSourceCache<
     (
         ResourceDescriptor,                // input_res
         ResourceDescriptor,                // output_res
@@ -51,7 +51,7 @@ type StencilPipelineCache = HashMap<
 pub struct StencilDefinition {
     pub code: String,
     pub boundary_mode: u32,
-    pub cache: Arc<RwLock<StencilPipelineCache>>,
+    cache: StencilPipelineCache,
 }
 
 impl Default for StencilDefinition {
@@ -59,7 +59,7 @@ impl Default for StencilDefinition {
         Self {
             code: String::new(),
             boundary_mode: 0,
-            cache: Arc::new(RwLock::new(HashMap::new())),
+            cache: ComputeSourceCache::default(),
         }
     }
 }
@@ -76,7 +76,7 @@ impl StencilDefinition {
         Ok(Self {
             code,
             boundary_mode: 0,
-            cache: Arc::new(RwLock::new(HashMap::new())),
+            cache: ComputeSourceCache::default(),
         })
     }
 
@@ -85,7 +85,7 @@ impl StencilDefinition {
         Ok(Self {
             code,
             boundary_mode,
-            cache: Arc::new(RwLock::new(HashMap::new())),
+            cache: ComputeSourceCache::default(),
         })
     }
 
@@ -877,24 +877,16 @@ impl StencilDefinition {
             self.boundary_mode,
         );
 
-        {
-            let cache = self.cache.read().unwrap();
-            if let Some(p) = cache.get(&key) {
-                return Ok(p.clone());
-            }
-        }
-
-        let pipeline_info = self.build_pipeline(
-            context,
-            input_res.clone(),
-            output_res.clone(),
-            secondary_resources,
-        )?;
-        let arc_info = Arc::new(pipeline_info);
-
-        let mut cache = self.cache.write().unwrap();
-        cache.insert(key, arc_info.clone());
-        Ok(arc_info)
+        self.cache.get_or_try_insert(context, &self.code, key, || {
+            let pipeline_info = self.build_pipeline(
+                context,
+                input_res.clone(),
+                output_res.clone(),
+                secondary_resources,
+            )?;
+            let arc_info = Arc::new(pipeline_info);
+            Ok(arc_info)
+        })
     }
 }
 

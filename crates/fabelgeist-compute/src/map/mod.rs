@@ -1,7 +1,7 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::collections::HashMap;
-use std::sync::{Arc, RwLock};
+use std::sync::Arc;
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct MapSignature {
@@ -17,7 +17,7 @@ pub struct MapSignature {
 
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 
-type MapPipelineCache = HashMap<
+type MapPipelineCache = ComputeSourceCache<
     (
         Option<ResourceDescriptor>,
         ResourceDescriptor,
@@ -29,14 +29,14 @@ type MapPipelineCache = HashMap<
 #[derive(Clone, Debug)]
 pub struct MapDefinition {
     pub code: String,
-    pub cache: Arc<RwLock<MapPipelineCache>>,
+    cache: MapPipelineCache,
 }
 
 impl Default for MapDefinition {
     fn default() -> Self {
         Self {
             code: String::new(),
-            cache: Arc::new(RwLock::new(HashMap::new())),
+            cache: ComputeSourceCache::default(),
         }
     }
 }
@@ -53,7 +53,7 @@ impl MapDefinition {
         let _ = Self::parse_signature(&code)?;
         Ok(Self {
             code,
-            cache: Arc::new(RwLock::new(HashMap::new())),
+            cache: ComputeSourceCache::default(),
         })
     }
 
@@ -425,24 +425,16 @@ impl MapDefinition {
         sec_res_sorted.sort_by(|a, b| a.0.cmp(&b.0));
         let key = (input_res.clone(), output_res.clone(), sec_res_sorted);
 
-        {
-            let cache = self.cache.read().unwrap();
-            if let Some(p) = cache.get(&key) {
-                return Ok(p.clone());
-            }
-        }
-
-        let pipeline_info = self.build_pipeline(
-            context,
-            input_res.clone(),
-            output_res.clone(),
-            secondary_resources,
-        )?;
-        let arc_info = Arc::new(pipeline_info);
-
-        let mut cache = self.cache.write().unwrap();
-        cache.insert(key, arc_info.clone());
-        Ok(arc_info)
+        self.cache.get_or_try_insert(context, &self.code, key, || {
+            let pipeline_info = self.build_pipeline(
+                context,
+                input_res.clone(),
+                output_res.clone(),
+                secondary_resources,
+            )?;
+            let arc_info = Arc::new(pipeline_info);
+            Ok(arc_info)
+        })
     }
 }
 
