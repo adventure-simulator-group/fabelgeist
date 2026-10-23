@@ -19,7 +19,10 @@ pub struct ReduceDefinition {
     cache: ComputeSourceCache<ResourceDescriptor, ReductionPipeline>,
 }
 
-/// Records a reduction into one returned native record.
+/// Reduces multiple input values to one native record.
+///
+/// Buffers containing at most one complete record are returned unchanged;
+/// textures with at most one element are rejected.
 pub struct Reduce;
 
 #[derive(Clone, Debug)]

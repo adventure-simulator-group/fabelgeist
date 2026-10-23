@@ -32,7 +32,7 @@ const DEINTERLEAVE: &str = r#"
         "#;
 
 pub(crate) fn deinterleave(context: &WgpuContext) -> Result<ResourcePipeline> {
-    let shader = ComputeShader::new(context, DEINTERLEAVE)?;
+    let shader = ComputeShader::new(context, DEINTERLEAVE.to_owned())?;
     let pipeline = ComputePipeline::new(context, shader)?;
     ResourcePipeline::new(
         pipeline,
