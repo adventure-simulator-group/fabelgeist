@@ -264,23 +264,7 @@ pub async fn fit_recipe_async(
     };
     let ParametricDesign::WaistAssembly(waist) = design else {
         let mut piece = fit(design).await?;
-        if matches!(design, ParametricDesign::Garment(garment) if matches!(
-            garment.kind,
-            fabelgeist_armor::GarmentArmorKind::MailSkirt
-                | fabelgeist_armor::GarmentArmorKind::PaddedSkirt
-        )) {
-            let skin = crate::skin_transfer::SkinSource {
-                positions: wearer.positions,
-                faces: body.faces,
-                indices: body.joint_indices,
-                weights: body.joint_weights,
-                names: body.joint_names,
-                joints: wearer.joints,
-            }
-            .skirt(&piece.base.positions)?;
-            piece.skin.joint_indices = skin.indices;
-            piece.skin.joint_weights = skin.weights;
-        }
+        piece.bind_flexible_textile(body, wearer, design)?;
         return Ok(piece);
     };
     let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone())).await?;
@@ -438,6 +422,7 @@ fn record_recipe(
             armor_recipes::fit_region(design, placement)?,
             layers,
         ),
+        ParametricDesign::Skirt(skirt) => wearer.record_fitted_plain_skirt(batch, skirt, layers),
         ParametricDesign::WaistAssembly(_) => {
             anyhow::bail!("a waist assembly is fitted as its fauld and tassets")
         }
@@ -515,6 +500,11 @@ pub fn assemble_recipe(
                 ArmorComponentRole::OuterFabric => Some(puff.outer_color.material()),
                 _ => component.material,
             };
+        }
+    }
+    if let ParametricDesign::Skirt(skirt) = design {
+        for component in &mut armor.components {
+            component.material = Some(skirt.color.material());
         }
     }
     crate::skin_rules::attach(
