@@ -87,6 +87,7 @@ mod collide;
 mod grow;
 mod guides;
 mod lods;
+mod readback;
 mod scalp;
 mod sim;
 pub mod wgsl;
@@ -527,40 +528,6 @@ impl GpuGroomer {
             .context
             .device
             .poll(wgpu::PollType::wait_indefinitely());
-    }
-
-    /// One word of `buffer`, `at` words in, read back.
-    fn read_word(&mut self, batch: KernelBatch, buffer: &Buffer, at: u32) -> Result<u32> {
-        Ok(self.read_words(batch, &[(buffer.clone(), at)])?[0])
-    }
-
-    /// Words of buffers (each `at` words in), read back after `batch` in
-    /// one wait.
-    fn read_words(&mut self, batch: KernelBatch, words: &[(Buffer, u32)]) -> Result<Vec<u32>> {
-        let mut batch = batch;
-        let out = self.scratch.word.fit(
-            &self.context,
-            ((words.len() as u64 * 4).max(16)).into(),
-            "hair readback words".into(),
-        )?;
-        for (k, (buffer, at)) in words.iter().enumerate() {
-            batch.encoder().copy_buffer_to_buffer(
-                &buffer.buffer,
-                *at as u64 * 4,
-                &out.buffer,
-                k as u64 * 4,
-                4,
-            );
-        }
-        batch.submit();
-        let values: Vec<u32> = pollster::block_on(out.read(&self.context))?;
-        if values.len() < words.len() {
-            return Err(HairGpuError::ShortReadback {
-                expected: (words.len() * std::mem::size_of::<u32>()).into(),
-                actual: (values.len() * std::mem::size_of::<u32>()).into(),
-            });
-        }
-        Ok(values[..words.len()].to_vec())
     }
 
     fn ensure_scan(&mut self, count: u32) -> Result<()> {

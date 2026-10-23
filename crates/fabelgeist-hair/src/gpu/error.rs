@@ -26,6 +26,10 @@ pub enum HairGpuError {
         requested: BufferByteLength,
         previous: BufferByteLength,
     },
+    #[error("hair readback word extent exceeds the host byte address space")]
+    ReadbackExtentOverflow,
+    #[error("hair grouped readback failed")]
+    Readback(#[from] fabelgeist_compute::ReadbackError),
     #[error("hair readback needs {expected:?} but returned {actual:?}")]
     ShortReadback {
         expected: BufferByteLength,

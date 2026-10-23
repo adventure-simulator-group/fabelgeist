@@ -15,9 +15,11 @@
 
 use std::sync::{Arc, Mutex, MutexGuard};
 
-use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, BufferByteOffset, WgpuContext};
+use fabelgeist_gpu::prelude::{
+    Buffer, BufferByteLength, BufferByteOffset, BufferDefinition, BufferUse, WgpuContext,
+};
 
-use crate::KernelBatch;
+use crate::{BufferCopy, KernelBatch};
 
 type Result<T> = std::result::Result<T, ReadbackError>;
 
@@ -31,14 +33,14 @@ struct StagedRange {
 /// Results staged for one mapping.
 #[derive(Debug)]
 pub struct Readback {
-    staging: wgpu::Buffer,
+    staging: Buffer,
     ranges: Vec<StagedRange>,
 }
 
 /// Results on their way back: see [`Readback::record_pending`].
 #[derive(Debug)]
 pub struct PendingReadback {
-    staging: Arc<wgpu::Buffer>,
+    staging: Buffer,
     ranges: Vec<StagedRange>,
     state: Arc<Mutex<ReadbackState>>,
 }
@@ -48,6 +50,18 @@ pub struct PendingReadback {
 pub enum ReadbackError {
     #[error("readback staging extent exceeds the addressable buffer size")]
     ExtentOverflow,
+    #[error("readback staging extent {bytes} cannot be addressed on this host")]
+    HostExtent {
+        bytes: BufferByteLength,
+        #[source]
+        source: std::num::TryFromIntError,
+    },
+    #[error("readback range allocation failed")]
+    RangeAllocation(#[source] std::collections::TryReserveError),
+    #[error("readback staging allocation failed")]
+    Staging(#[source] anyhow::Error),
+    #[error("readback copy recording failed")]
+    Copy(#[source] anyhow::Error),
     #[error("readback mapping callback was dropped")]
     ChannelClosed,
     #[error("readback mapping failed")]
@@ -69,6 +83,8 @@ enum ReadbackState {
 impl StagedRange {
     /// Convert byte addresses only when slicing the mapped native bytes.
     fn bytes(self, data: &[u8]) -> Vec<u8> {
+        // record admits the complete staging extent within isize::MAX;
+        // every range ends within it, so both casts and their sum fit usize.
         let start = u64::from(self.offset) as usize;
         let length = u64::from(self.length) as usize;
         data[start..start + length].to_vec()
@@ -83,7 +99,10 @@ impl Readback {
         batch: &mut KernelBatch,
         buffers: &[&Buffer],
     ) -> Result<Self> {
-        let mut ranges = Vec::with_capacity(buffers.len());
+        let mut ranges = Vec::new();
+        ranges
+            .try_reserve_exact(buffers.len())
+            .map_err(ReadbackError::RangeAllocation)?;
         let mut end = BufferByteOffset::START;
         for buffer in buffers {
             ranges.push(StagedRange {
@@ -100,25 +119,35 @@ impl Readback {
                 .checked_after(BufferByteLength::from(padded))
                 .ok_or(ReadbackError::ExtentOverflow)?;
         }
-        let staging = context.device.create_buffer(&wgpu::BufferDescriptor {
-            label: Some("Readback"),
-            size: u64::from(end).max(wgpu::COPY_BUFFER_ALIGNMENT),
-            usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
-            mapped_at_creation: false,
-        });
+        let bytes = BufferByteLength::from(u64::from(end).max(wgpu::COPY_BUFFER_ALIGNMENT));
+        isize::try_from(u64::from(bytes))
+            .map_err(|source| ReadbackError::HostExtent { bytes, source })?;
+        let staging = Buffer::new(
+            context,
+            bytes,
+            BufferDefinition::map_read()
+                .with_usage(BufferUse::CopyDestination)
+                .with_label("Readback".into()),
+        )
+        .map_err(ReadbackError::Staging)?;
         for (buffer, range) in buffers.iter().zip(&ranges) {
-            batch.encoder().copy_buffer_to_buffer(
-                &buffer.buffer,
-                0,
-                &staging,
-                u64::from(range.offset),
-                u64::from(range.length),
-            );
+            batch
+                .copy_buffer(
+                    buffer,
+                    &staging,
+                    BufferCopy {
+                        source_offset: BufferByteOffset::START,
+                        destination_offset: range.offset,
+                        bytes: range.length,
+                    },
+                )
+                .map_err(ReadbackError::Copy)?;
         }
         Ok(Self { staging, ranges })
     }
 
-    /// Record copies and request mapping when the producing batch is submitted.
+    /// Record copies and request mapping after a successful batch submission.
+    /// Discard the pending result if submission fails or the batch is dropped.
     pub fn record_pending(
         context: &WgpuContext,
         batch: &mut KernelBatch,
@@ -126,8 +155,7 @@ impl Readback {
     ) -> Result<PendingReadback> {
         let Self { staging, ranges } = Self::record(context, batch, buffers)?;
         let state = Arc::new(Mutex::new(ReadbackState::Pending));
-        let staging = Arc::new(staging);
-        let (mapped, shared) = (staging.clone(), state.clone());
+        let (mapped, shared) = (staging.buffer.clone(), state.clone());
         batch.after_submit(move || {
             mapped
                 .slice(..)
@@ -147,7 +175,7 @@ impl Readback {
 
     /// Map once and return each source's bytes in the recorded order.
     pub async fn read(self, context: &WgpuContext) -> Result<Vec<Vec<u8>>> {
-        let slice = self.staging.slice(..);
+        let slice = self.staging.buffer.slice(..);
         let (sender, receiver) = futures_channel::oneshot::channel();
         slice.map_async(wgpu::MapMode::Read, move |result| {
             let _ = sender.send(result);
@@ -166,7 +194,7 @@ impl Readback {
         let data = slice.get_mapped_range();
         let results = self.ranges.iter().map(|range| range.bytes(&data)).collect();
         drop(data);
-        self.staging.unmap();
+        self.staging.buffer.unmap();
         Ok(results)
     }
 }
@@ -182,11 +210,11 @@ impl PendingReadback {
             ReadbackState::Taken => return Err(ReadbackError::AlreadyRead),
             ReadbackState::Ready => {}
         }
-        let slice = self.staging.slice(..);
+        let slice = self.staging.buffer.slice(..);
         let data = slice.get_mapped_range();
         let results = self.ranges.iter().map(|range| range.bytes(&data)).collect();
         drop(data);
-        self.staging.unmap();
+        self.staging.buffer.unmap();
         *state = ReadbackState::Taken;
         Ok(Some(results))
     }
@@ -245,7 +273,7 @@ mod tests {
         let c = Buffer::from_upload(&context, BufferUpload::from_elements(&[0.5f32]), definition)?;
         let mut batch = KernelBatch::new(&context);
         let readback = Readback::record(&context, &mut batch, &[&a, &b, &c])?;
-        batch.submit();
+        batch.submit()?;
         let results = readback.read(&context).await?;
         assert_eq!(bytemuck::cast_slice::<u8, u32>(&results[0]), &[1, 2, 3]);
         assert_eq!(results[1], [7, 8, 9, 10, 11, 12, 13, 14]);
@@ -271,7 +299,7 @@ mod tests {
         let pending = Readback::record_pending(&context, &mut batch, &[&a, &b])?;
         // Nothing has been submitted, so nothing can have come back.
         assert!(pending.try_read(&context)?.is_none());
-        batch.submit();
+        batch.submit()?;
         let started = std::time::Instant::now();
         let results = loop {
             if let Some(results) = pending.try_read(&context)? {
