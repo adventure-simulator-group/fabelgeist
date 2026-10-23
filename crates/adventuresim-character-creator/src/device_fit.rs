@@ -6,7 +6,6 @@
 
 use crate::armor_frames::FittingPlacement;
 use anyhow::{Context, Result};
-use fabelgeist_armor::gpu::Staging;
 use fabelgeist_armor::gpu::body::{BodySurface, Correspondence, GpuBody, Skin};
 use fabelgeist_armor::{
     ArmorComponent, ArmorComponentRole, ArmorGpu, ArmorMorph, BuiltPart, GeneratedArmor,
@@ -19,8 +18,11 @@ use crate::armor_frames::{FitRegion, Wearer};
 use crate::armor_layer::ArmorLayerSurface;
 use crate::armor_recipes::{self, ParametricDesign};
 use crate::device_body::DeviceBody;
-use crate::device_frames::{DeviceFrame, DeviceWearer};
+use crate::device_frames::DeviceWearer;
 use crate::device_piece::DeviceRecording;
+
+#[path = "device_fit_readback.rs"]
+mod readback;
 
 /// What every realization of one body shares: its topology, surface
 /// coordinates and skin.
@@ -82,6 +84,7 @@ impl<'a> Realization<'a> {
 
 /// A piece fitted to the wearer and to each morph realization, with the
 /// wearer's skin carried onto it.
+#[derive(Clone)]
 pub struct DevicePiece {
     pub base: BuiltPart,
     pub skin: Skin,
@@ -151,7 +154,12 @@ pub async fn fit_piece_async(
             host,
         };
         let target = index.checked_sub(1).map(|i| morphs[i].0);
-        let mut recording = record(&wearer, &mut batch, target)?;
+        let mut recording = record(&wearer, &mut batch, target).with_context(|| {
+            target.map_or_else(
+                || "fitting base wearer".to_owned(),
+                |name| format!("fitting body target {name}"),
+            )
+        })?;
         recording.part.record_shells(gpu, &mut batch)?;
         if skin.is_none() {
             skin = Some(Correspondence::record(
@@ -166,68 +174,8 @@ pub async fn fit_piece_async(
         recordings.push(recording);
     }
     let names = morphs.iter().map(|(name, _)| *name).collect::<Vec<_>>();
-    read(
-        gpu,
-        &recordings,
-        &skin.expect("the wearer is always fitted"),
-        &names,
-    )
-    .await
-}
-
-async fn read(
-    gpu: &ArmorGpu,
-    recordings: &[DeviceRecording],
-    skin: &Correspondence,
-    names: &[&str],
-) -> Result<DevicePiece> {
-    let mut staging = Staging::new();
-    let slots = recordings
-        .iter()
-        .map(|recording| {
-            let frames = recording
-                .frames
-                .iter()
-                .map(|(frame, _)| frame.stage(&mut staging))
-                .collect::<Vec<_>>();
-            (frames, recording.part.stage(&mut staging))
-        })
-        .collect::<Vec<_>>();
-    let skin_slots = skin.stage(&mut staging);
-    let results = gpu.read_staged_async(staging).await?;
-    let mut parts = Vec::with_capacity(recordings.len());
-    for (index, (recording, (frames, part))) in recordings.iter().zip(slots).enumerate() {
-        for ((_, region), frame) in recording.frames.iter().zip(frames) {
-            DeviceFrame::check_status(results.status(frame), *region)?;
-        }
-        let context = || match index {
-            0 => "fitting armor".to_string(),
-            i => format!("fitting armor morph {}", names[i - 1]),
-        };
-        for check in &recording.checks {
-            if let crate::device_piece::DeviceCheck::Device(check) = check {
-                check(gpu).await.with_context(context)?;
-            }
-        }
-        let part = recording
-            .part
-            .finish(&results, part)
-            .with_context(context)?;
-        for check in &recording.checks {
-            if let crate::device_piece::DeviceCheck::Mesh(check) = check {
-                check(&part).with_context(context)?;
-            }
-        }
-        parts.push(part);
-    }
-    let mut parts = parts.into_iter();
-    let base = parts.next().expect("the wearer is always fitted");
-    Ok(DevicePiece {
-        skin_aliases: recordings[0].part.outer_aliases(),
-        base,
-        skin: skin.finish(&results, skin_slots)?,
-        endpoints: parts.collect(),
-    })
+    let skin = skin.context("wearer has no staged skin")?;
+    readback::read(gpu, &recordings, &skin, &names).await
 }
 
 /// Fit a recipe to `wearer` and each of `morphs` in `placement`.
@@ -255,42 +203,30 @@ pub async fn fit_recipe_async(
     placement: FittingPlacement,
     layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
-    let skirt_join = if let ParametricDesign::Skirt(skirt) = design {
-        if skirt.bodice.is_some() {
-            let hips = frame(gpu, body, wearer, FitRegion::Hips)?;
-            let head = frame(gpu, body, wearer, FitRegion::Head)?;
-            Some(crate::skirt_join::SkirtJoinPlan::new(
-                skirt,
-                &wearer.wearer(body),
-                &hips,
-                &head,
-            )?)
-        } else {
-            None
-        }
-    } else {
-        None
-    };
+    // The fitted arm carrier currently admits anatomy, not arbitrary sleeve
+    // layers. Reject unsupported combinations rather than silently clipping.
+    anyhow::ensure!(
+        layers.is_empty()
+            || !matches!(design, ParametricDesign::Gown(gown) if gown.sleeves.is_some()),
+        "fitted-sleeve gowns currently require no lower equipment layers"
+    );
+    let plan = crate::device_recipe_plan::RecipePlan::prepare(gpu, body, wearer, design).await?;
     let fit = async |design: &ParametricDesign| {
         fit_piece_async(gpu, body, wearer, morphs, |device, batch, target| {
             let surfaces = layers
                 .iter()
                 .map(|armor| ArmorLayerSurface::from_generated(armor, target))
                 .collect::<Result<Vec<_>>>()?;
-            record_recipe(
-                device,
-                batch,
-                design,
-                placement,
-                &surfaces,
-                skirt_join.as_ref(),
-            )
+            record_recipe(device, batch, design, placement, &surfaces, &plan)
         })
         .await
     };
     let ParametricDesign::WaistAssembly(waist) = design else {
         let mut piece = fit(design).await?;
         piece.bind_flexible_textile(body, wearer, design)?;
+        plan.finish(gpu, body, wearer, morphs, &mut piece, layers)
+            .await
+            .context("finishing sewn textile")?;
         return Ok(piece);
     };
     let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone())).await?;
@@ -321,6 +257,8 @@ pub async fn fit_recipe_async(
             surfaces.push(ArmorLayerSurface {
                 positions: &lower.positions,
                 faces: lower.indices.as_chunks::<3>().0,
+                plate_faces: &lower.faces,
+                components: &lower.components,
                 joint_indices: &fauld.skin.joint_indices,
                 joint_weights: &fauld.skin.joint_weights,
             });
@@ -407,7 +345,7 @@ fn record_recipe(
     design: &ParametricDesign,
     placement: FittingPlacement,
     layers: &[ArmorLayerSurface<'_>],
-    skirt_join: Option<&crate::skirt_join::SkirtJoinPlan>,
+    plan: &crate::device_recipe_plan::RecipePlan,
 ) -> Result<DeviceRecording> {
     match design {
         ParametricDesign::Helmet(HelmetDesign::CloseHelmet(d)) => {
@@ -454,9 +392,28 @@ fn record_recipe(
             armor_recipes::fit_region(design, placement)?,
             layers,
         ),
-        ParametricDesign::Skirt(skirt) => {
-            wearer.record_fitted_skirt_textile(batch, skirt, layers, skirt_join)
+        ParametricDesign::Skirt(skirt) => wearer.record_fitted_skirt_textile(
+            batch,
+            skirt,
+            layers,
+            match plan {
+                crate::device_recipe_plan::RecipePlan::Skirt { join, .. } => Some(join),
+                _ => None,
+            },
+        ),
+        ParametricDesign::Bodice(_) => {
+            let crate::device_recipe_plan::RecipePlan::Bodice(plan) = plan else {
+                anyhow::bail!("bodice has no frozen construction plan");
+            };
+            wearer.record_body_cloth(batch, plan, layers)
         }
+        ParametricDesign::Gown(gown) => {
+            let crate::device_recipe_plan::RecipePlan::Gown(plan) = plan else {
+                anyhow::bail!("gown has no frozen sewing plan");
+            };
+            wearer.record_fitted_skirt_textile(batch, &gown.skirt, layers, Some(&plan.join))
+        }
+
         ParametricDesign::WaistAssembly(_) => {
             anyhow::bail!("a waist assembly is fitted as its fauld and tassets")
         }

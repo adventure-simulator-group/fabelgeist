@@ -3,11 +3,12 @@ use super::coord::{CoordExtrusion, CoordKernel, CoordShell};
 use super::recipe::PartRecipe;
 use crate::{ArmorComponentRole, BoundaryNormals, GenerateError, Millimeters, PuffAndSlashPattern};
 
-const RING_COLUMNS: usize = 64;
-const LINING_ROWS: usize = 64;
-const PANEL_COLUMNS: usize = 8;
-const PANEL_ROWS: usize = 16;
-const BAND_ROWS: usize = 4;
+const RING_COLUMNS: usize = 32;
+const PANEL_COLUMNS: usize = 2;
+/// Broad panes need angular samples for their volume, independent of slashes.
+const PANEL_ARC_INTERVALS: f32 = 24.;
+const PANEL_ROWS: usize = 4;
+const BAND_ROWS: usize = 1;
 /// Separate cuff and panel boundaries by a construction-scale seam.
 const PANEL_SEAM_GAP_M: f32 = 0.0001;
 
@@ -18,15 +19,45 @@ enum Fabric {
     Band,
 }
 
-pub(super) fn lining(thickness: Millimeters) -> CoordShell {
-    patch(
+pub(super) fn lining(thickness: Millimeters, design: &PuffAndSlashPattern) -> CoordShell {
+    let course = 1. / f32::from(design.puff_count);
+    let half_band = course * design.constriction_width.unit() * 0.5;
+    let mut stations = vec![0., 1.];
+    for puff in 0..design.puff_count {
+        let low = f32::from(puff) * course + half_band;
+        let high = f32::from(puff + 1) * course - half_band;
+        stations.extend([low, high]);
+        let margin = if design.slash_count == 0 {
+            0.
+        } else {
+            (high - low) * (1. - design.slash_length.unit()) * 0.5
+        };
+        let rows = if design.slash_count == 0 {
+            1..PANEL_ROWS
+        } else {
+            0..PANEL_ROWS + 1
+        };
+        let span = [low + margin, high - margin];
+        for row in rows {
+            stations.push(span[0] + (span[1] - span[0]) * row as f32 / PANEL_ROWS as f32);
+        }
+    }
+    stations.sort_by(f32::total_cmp);
+    stations.dedup();
+    let mut shell = patch(
         thickness,
         [0.0, 1.0],
         [0.0; 2],
         None,
-        LINING_ROWS,
+        stations.len() - 1,
         Fabric::Lining,
-    )
+    );
+    for (ring, &height) in shell.coords.chunks_mut(RING_COLUMNS).zip(&stations) {
+        for point in ring {
+            point[1] = height;
+        }
+    }
+    shell
 }
 
 pub(super) fn append_outer(
@@ -70,7 +101,8 @@ fn patch(
     let columns = if periodic {
         RING_COLUMNS
     } else {
-        PANEL_COLUMNS
+        let span = angles.map_or(0., |arc| arc[1] - arc[0]);
+        ((span / std::f32::consts::TAU * PANEL_ARC_INTERVALS).ceil() as usize).max(PANEL_COLUMNS)
     };
     let stride = columns + usize::from(!periodic);
     let angles = angles.unwrap_or([0.0, std::f32::consts::TAU]);

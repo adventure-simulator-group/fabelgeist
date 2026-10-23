@@ -17,6 +17,10 @@ use crate::{GenerateError, PartFrame};
 
 pub mod anatomy;
 pub mod body;
+mod body_cloth;
+pub use body_cloth::{
+    BODY_CLOTH_FIRST_POINT, BODY_CLOTH_POINT_WORDS, BodyClothLayer, record_body_cloth,
+};
 pub mod bracer;
 mod bracer_contour_wgsl;
 mod bracer_wgsl;
@@ -48,7 +52,18 @@ mod puff_and_slash;
 pub(crate) mod recipe;
 pub(crate) mod shell_plan;
 mod skirt;
+mod skirt_opening;
+mod skirt_opening_cut;
+mod skirt_opening_path;
+mod skirt_opening_split;
+pub use skirt_opening::{
+    OpeningChartPoint, OpeningEdgeSource, SkirtDressingOpening, SkirtOpeningError,
+    SkirtOpeningSource,
+};
+mod skirt_sampling;
+pub use skirt_sampling::SkirtHangingRows;
 mod skirt_attachment;
+mod skirt_attachment_layers;
 mod skirt_structure;
 pub mod staging;
 mod textile_chart;
@@ -72,7 +87,10 @@ pub use part::{BuiltPart, PartSlots};
 pub use puff_and_slash::record_puff_and_slash;
 pub use recipe::frame_words;
 pub use skirt::{SKIRT_FIT_WORDS, SKIRT_PROFILE_FIRST_WORD, SKIRT_SECTION_WORDS, record_skirt};
-pub use skirt_attachment::{SKIRT_ATTACHMENT_POINT_WORDS, SkirtAttachment, SkirtWaistVertex};
+pub use skirt_attachment::{
+    AttachedClothLayer, ClothRingVertex, SKIRT_ATTACHMENT_POINT_WORDS, SkirtAttachment,
+    SkirtSeamLayout,
+};
 pub use staging::{Staged, StagedResults, Staging};
 
 /// A part under construction on the device: its carriers, until

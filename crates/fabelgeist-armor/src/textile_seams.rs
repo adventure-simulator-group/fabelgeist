@@ -1,5 +1,5 @@
 //! Split shading seams while retaining physical positions and morph identity.
-use crate::{GenerateError, GeneratedArmor};
+use crate::{ArmorComponentRole, GenerateError, GeneratedArmor};
 use std::collections::BTreeMap;
 
 #[derive(Clone, Copy)]
@@ -35,7 +35,13 @@ impl GeneratedArmor {
                 ];
                 let low = uv.iter().copied().fold(f32::INFINITY, f32::min);
                 let high = uv.iter().copied().fold(f32::NEG_INFINITY, f32::max);
-                let crosses = component.textile.is_some() && high - low > 0.5;
+                // Open waist bands have physical ends at U=0 and U=1;
+                // those ends are not copies of a cylindrical rear seam.
+                let cyclic = !matches!(
+                    component.role,
+                    ArmorComponentRole::WaistSupportBand | ArmorComponentRole::WaistFrontBand
+                );
+                let crosses = component.textile.is_some() && cyclic && high - low > 0.5;
                 for &old in triangle {
                     let old = old as usize;
                     let index = if crosses && source.texcoords[old][0] < 0.5 {

@@ -7,25 +7,26 @@ use crate::{
     SkirtDesign,
 };
 
+const STAY_INTERVALS: usize = 8;
+const HOOP_INTERVALS: usize = 32;
+
 pub(super) fn append(
     recipe: &mut PartRecipe,
     kernel: &CoordKernel,
     design: &SkirtDesign,
+    first_row: usize,
 ) -> Result<(), GenerateError> {
     let Some(support) = &design.support else {
         return Ok(());
     };
-    let first = design
-        .bodice
-        .as_ref()
-        .map_or(0.0, |bodice| bodice.first_skirt_row() as f32);
+    let first = first_row as f32;
     if let Some(stays) = &support.stays {
         for stay in 0..stays.count.0 {
             let column = SKIRT_RING_SEGMENTS as f32 * f32::from(stay) / f32::from(stays.count.0);
             let end = first + (SKIRT_AXIAL_SEGMENTS as f32 - first) * stays.length.unit();
             let mut coords = Vec::new();
-            for row in 0..=SKIRT_AXIAL_SEGMENTS {
-                let descent = first + (end - first) * row as f32 / SKIRT_AXIAL_SEGMENTS as f32;
+            for row in 0..=STAY_INTERVALS {
+                let descent = first + (end - first) * row as f32 / STAY_INTERVALS as f32;
                 for side in [-1.0, 1.0] {
                     coords.push([column, descent, side, 3.0]);
                 }
@@ -34,7 +35,7 @@ pub(super) fn append(
                 strip(
                     coords,
                     2,
-                    SKIRT_AXIAL_SEGMENTS,
+                    STAY_INTERVALS,
                     false,
                     stays.width.metres(),
                     stays.thickness.metres(),
@@ -57,13 +58,18 @@ pub(super) fn append(
                     * (SKIRT_AXIAL_SEGMENTS as f32 - first);
             let mut coords = Vec::new();
             for side in [-1.0, 1.0] {
-                for column in 0..SKIRT_RING_SEGMENTS {
-                    coords.push([column as f32, descent, side, 4.0]);
+                for column in 0..HOOP_INTERVALS {
+                    coords.push([
+                        column as f32 * SKIRT_RING_SEGMENTS as f32 / HOOP_INTERVALS as f32,
+                        descent,
+                        side,
+                        4.0,
+                    ]);
                 }
             }
             let mut shell = strip(
                 coords,
-                SKIRT_RING_SEGMENTS,
+                HOOP_INTERVALS,
                 1,
                 true,
                 hoops.width.metres(),

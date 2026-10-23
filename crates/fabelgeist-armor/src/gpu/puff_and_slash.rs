@@ -24,7 +24,7 @@ pub fn record_puff_and_slash(
     let mut recipe = PartRecipe::new();
     recipe.textile_chart();
     recipe.push_coord(
-        super::textile_pattern::lining(design.thickness),
+        super::textile_pattern::lining(design.thickness, &design.pattern),
         kernel.clone(),
     )?;
     recipe.component(ArmorComponentRole::Undercloth, None);

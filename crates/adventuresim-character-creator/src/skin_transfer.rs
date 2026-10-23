@@ -185,6 +185,45 @@ impl SkinSource<'_> {
     }
 }
 
+/// Native tailoring-source adapter: three source indices, three chart indices,
+/// and three f32 barycentric words. Material sheets share this canonical field.
+pub(crate) fn interpolate_sources(
+    table: &[u32],
+    indices: &PackedRigSkin<8>,
+    weights: &[[f32; 8]],
+) -> Result<SkinWeights> {
+    let words = crate::surface_cut::POINT_WORDS;
+    ensure!(
+        table.len().is_multiple_of(words) && indices.len() == weights.len(),
+        "invalid cloth skin source table"
+    );
+    let mut output = SkinWeights {
+        indices: PackedRigSkin::empty(indices.joint_count()),
+        weights: Vec::new(),
+    };
+    for source in table.chunks_exact(words) {
+        let mut influences = BTreeMap::new();
+        for corner in 0..3 {
+            let vertex = source[corner] as usize;
+            let factor = f32::from_bits(source[6 + corner]);
+            ensure!(factor.is_finite(), "invalid cloth source weight");
+            ensure!(
+                vertex < indices.len(),
+                "cloth skin source uses another surface's indices"
+            );
+            let indices = indices.vertex(vertex);
+            let weights = *weights
+                .get(vertex)
+                .context("cloth skin source has no weights")?;
+            accumulate(&mut influences, indices, weights, factor.max(0.));
+        }
+        let row = normalized(influences)?;
+        output.indices.push(row.indices)?;
+        output.weights.push(row.weights);
+    }
+    Ok(output)
+}
+
 fn normalized(influences: BTreeMap<RigJointOrdinal, f32>) -> Result<SkinRow> {
     let mut influences: Vec<_> = influences.into_iter().filter(|(_, w)| *w > 0.0).collect();
     influences.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(&b.0)));

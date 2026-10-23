@@ -11,6 +11,7 @@ use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
+mod cloth_chart;
 mod layout;
 mod shell_kernels;
 
@@ -56,6 +57,9 @@ pub(crate) struct PartBuild {
 
 /// Hinge records: origin and axis, each padded to four floats.
 pub(crate) const HINGE_WORDS: u32 = 8;
+/// One relief height per carrier, followed by four extrusion-field words per
+/// carrier: categorical mode then canonical displacement vector per metre.
+pub(crate) const CARRIER_ATTRIBUTE_WORDS: u64 = 5;
 
 impl PartBuild {
     pub(crate) fn new(
@@ -72,7 +76,10 @@ impl PartBuild {
         let final_triangle_count = final_shells.len() as u32;
         Ok(Self {
             carriers: gpu.scratch(carriers as u64 * 12, "part carriers")?,
-            heights: gpu.scratch(carriers as u64 * 4, "part heights")?,
+            heights: gpu.scratch(
+                carriers as u64 * CARRIER_ATTRIBUTE_WORDS * 4,
+                "part carrier attributes",
+            )?,
             shells: gpu.upload(BufferUpload::from_elements(&shell_table(&layout)))?,
             hinges: gpu.scratch(hinges.max(1) as u64 * HINGE_WORDS as u64 * 4, "part hinges")?,
             status: gpu.scratch(4, "part status")?,
@@ -105,22 +112,6 @@ impl PartBuild {
 
     pub(crate) fn layout(&self) -> &PartLayout {
         &self.layout
-    }
-
-    pub(crate) fn record_textile_chart(
-        &mut self,
-        gpu: &ArmorGpu,
-        batch: &mut KernelBatch,
-        frame: &Buffer,
-    ) -> Result<(), GenerateError> {
-        self.textile_coordinates = Some(super::textile_chart::record(
-            gpu,
-            batch,
-            &self.carriers,
-            self.layout.carrier_count,
-            frame,
-        )?);
-        Ok(())
     }
 
     /// Thicken every shell and compute the final normals.

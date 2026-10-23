@@ -66,6 +66,8 @@ pub enum FitRegion {
     UpperArm(Side),
     Forearm(Side),
     WholeArm(Side),
+    /// Sleeve obstacles include the complete hand, including the thumb.
+    SleevedArm(Side),
     Shoulder(Side),
     Elbow(Side),
     Thigh(Side),
@@ -113,6 +115,21 @@ impl FitRegion {
             LowerLeg(s) | Knee(s) => sided(s, &[RigJointPart::Lowleg]),
             WholeLeg(s) => sided(s, &[RigJointPart::Upleg, RigJointPart::Lowleg]),
             Hand(s) => sided(s, HAND_SKIN_JOINTS),
+            SleevedArm(s) => {
+                let mut owners = WholeArm(s).owners();
+                owners.extend(Hand(s).owners());
+                owners.extend(sided(
+                    s,
+                    &[
+                        RigJointPart::Thumb,
+                        RigJointPart::Thumb0,
+                        RigJointPart::Thumb1,
+                        RigJointPart::Thumb3,
+                        RigJointPart::ThumbNull,
+                    ],
+                ));
+                owners
+            }
             Foot(s) => sided(
                 s,
                 &[
@@ -139,6 +156,7 @@ impl FitRegion {
     }
 }
 
+#[derive(Clone, Copy)]
 pub struct Wearer<'a> {
     pub faces: &'a [[u32; 3]],
     pub positions: &'a [[f32; 3]],
@@ -195,6 +213,22 @@ impl Wearer<'_> {
         joint_indices: &fabelgeist_rig::PackedRigSkin<8>,
         joint_weights: &[[f32; 8]],
     ) -> Result<Vec<usize>> {
+        Ok(self
+            .support_weights_for(region, joint_indices, joint_weights)?
+            .into_iter()
+            .enumerate()
+            .filter_map(|(index, weight)| (weight >= SKIN_SUPPORT_THRESHOLD).then_some(index))
+            .collect())
+    }
+
+    /// Native skin interpolation boundary: dimensionless regional affinity at
+    /// each source vertex, before clipping mixed-ownership support triangles.
+    pub(crate) fn support_weights_for(
+        &self,
+        region: FitRegion,
+        joint_indices: &fabelgeist_rig::PackedRigSkin<8>,
+        joint_weights: &[[f32; 8]],
+    ) -> Result<Vec<f32>> {
         anyhow::ensure!(
             joint_indices.len() == joint_weights.len()
                 && joint_indices.joint_count() == self.joint_names.joint_count(),
@@ -214,15 +248,13 @@ impl Wearer<'_> {
         Ok(joint_indices
             .iter()
             .zip(joint_weights)
-            .enumerate()
-            .filter_map(|(i, (indices, weights))| {
-                let weight: f32 = indices
+            .map(|(indices, weights)| {
+                indices
                     .iter()
                     .zip(weights)
-                    .filter(|(j, _)| owned[**j] == RigJointMembership::Included)
-                    .map(|(_, w)| w)
-                    .sum();
-                (weight >= SKIN_SUPPORT_THRESHOLD).then_some(i)
+                    .filter(|(joint, _)| owned[**joint] == RigJointMembership::Included)
+                    .map(|(_, weight)| weight)
+                    .sum()
             })
             .collect())
     }

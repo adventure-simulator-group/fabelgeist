@@ -287,6 +287,8 @@ mod tests {
         let layer = crate::armor_layer::ArmorLayerSurface {
             positions: &layer_positions,
             faces: &layer_faces,
+            plate_faces: &[],
+            components: &[],
             joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
                 indices[..8].to_vec(),
                 names.joint_count(),

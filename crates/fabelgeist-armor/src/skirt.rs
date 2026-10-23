@@ -8,11 +8,15 @@ use crate::{
     TextileFinish,
 };
 
-/// Circumferential samples, shared with the fitted hull. This retains four
-/// samples per fine gather at maximum repeat count and quiet-front width.
+/// Dense circumferential fitting samples; independent of render tessellation.
 pub const SKIRT_RING_SEGMENTS: usize = 384;
 /// Axial samples include both the waist and hem.
 pub const SKIRT_AXIAL_SEGMENTS: usize = 32;
+/// Coarse hanging intervals preserve silhouette without tessellating the weave.
+pub const SKIRT_MESH_AXIAL_SEGMENTS: usize = 16;
+const COARSE_RENDER_COLUMNS: usize = 96;
+const DENSE_RENDER_COLUMNS: usize = 192;
+const COARSE_SAMPLES_PER_BROAD_FOLD: usize = 8;
 
 /// Skirt placement, silhouette and optional construction. Structure and surface
 /// treatments remain independent; this carrier needs no cloth simulation.
@@ -124,6 +128,26 @@ impl SkirtDesign {
     pub const FITTED_FRACTION_RANGE: RangeInclusive<u16> = 20..=500;
     pub const CLEARANCE_RANGE: RangeInclusive<u16> = 1..=30;
     pub const THICKNESS_RANGE: RangeInclusive<u16> = 1..=6;
+
+    /// Native render-grid count, frozen with the design across every refit.
+    /// The coarse tier leaves at least eight samples per broad fold in the
+    /// folded arc. Denser or compressed folds keep the 192-column tier. Fine
+    /// waist gathers are a normal map and do not increase carrier density.
+    pub fn mesh_ring_segments(&self) -> usize {
+        let Some(pleats) = &self.pleats else {
+            return COARSE_RENDER_COLUMNS;
+        };
+        let required = usize::from(pleats.count.0)
+            * COARSE_SAMPLES_PER_BROAD_FOLD
+            * usize::from(Permille::ONE.0);
+        let folded = Permille::ONE.0.saturating_sub(pleats.front_panel.0);
+        let available = COARSE_RENDER_COLUMNS * usize::from(folded);
+        if required <= available {
+            COARSE_RENDER_COLUMNS
+        } else {
+            DENSE_RENDER_COLUMNS
+        }
+    }
 
     pub fn validate(&self) -> Result<(), GenerateError> {
         self.fabric.validate()?;

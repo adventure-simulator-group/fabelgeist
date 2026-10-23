@@ -13,6 +13,7 @@ pub(crate) struct TextileSupport {
 }
 
 impl TextileSupport {
+    /// Collect body and garment faces supported by the requested regions.
     pub fn new(
         wearer: &Wearer<'_>,
         regions: &[FitRegion],

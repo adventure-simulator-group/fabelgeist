@@ -15,6 +15,8 @@ pub struct SkirtPleats {
     pub count: SkirtRepeatCount,
     pub depth: Millimeters,
     pub style: PleatStyle,
+    /// Alternate profile at center front; repeat spacing and phase stay even.
+    pub front_style: Option<SkirtFrontPleats>,
     /// Rotation as a share of one repeat, rather than of the whole skirt.
     pub rotation: Permille,
     /// Front fold depth relative to the side and rear folds. Zero leaves a
@@ -67,6 +69,15 @@ pub struct SkirtHoops {
 pub enum PleatStyle {
     Rounded,
     Accordion,
+    Knife,
+}
+
+#[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct SkirtFrontPleats {
+    /// Circumference occupied by the front profile, including its edge feather.
+    pub width: Permille,
+    pub style: PleatStyle,
 }
 
 impl Default for SkirtPleats {
@@ -75,6 +86,7 @@ impl Default for SkirtPleats {
             count: SkirtRepeatCount(12),
             depth: Millimeters(35),
             style: PleatStyle::Rounded,
+            front_style: None,
             rotation: Permille(0),
             front_depth: Permille::ONE,
             waist_depth: Millimeters(6),
@@ -106,6 +118,9 @@ impl SkirtPleats {
             || !Self::GATHER_FALLOFF_RANGE.contains(&self.gather_falloff.0)
             || !Self::GATHER_RETENTION_RANGE.contains(&self.gather_retention.0)
             || !Self::FRONT_PANEL_RANGE.contains(&self.front_panel.0)
+            || self.front_style.as_ref().is_some_and(|front| {
+                front.width.0 == 0 || front.width.0 > 500 || self.front_panel.0 >= front.width.0
+            })
         {
             return Err(DesignError::ParametricParameters.into());
         }
@@ -120,9 +135,38 @@ impl SkirtPleats {
             match self.style {
                 PleatStyle::Rounded => 0.0,
                 PleatStyle::Accordion => 1.0,
+                PleatStyle::Knife => 2.0,
             },
             self.rotation.unit(),
         ]
+    }
+}
+
+impl SkirtFrontPleats {
+    const RELIEF_EDGE_FEATHER: Permille = Permille(100);
+
+    /// The fitted skirt material chart centers its front at U=0.5.
+    pub fn relief_zone(&self) -> crate::TextilePleatZone {
+        let start = (Permille::ONE.0 - self.width.0) / 2;
+        crate::TextilePleatZone {
+            region: crate::TextileRegion::Band {
+                axis: crate::TextileAxis::Across,
+                start: Permille(start),
+                end: Permille(start + self.width.0),
+            },
+            profile: self.style.cloth_profile(),
+            feather: Self::RELIEF_EDGE_FEATHER,
+        }
+    }
+}
+
+impl PleatStyle {
+    pub fn cloth_profile(self) -> crate::ClothPleatProfile {
+        match self {
+            Self::Rounded => crate::ClothPleatProfile::RoundedGathers,
+            Self::Accordion => crate::ClothPleatProfile::Accordion,
+            Self::Knife => crate::ClothPleatProfile::Knife,
+        }
     }
 }
 

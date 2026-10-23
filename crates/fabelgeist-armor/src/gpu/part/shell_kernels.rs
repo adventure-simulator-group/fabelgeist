@@ -142,6 +142,10 @@ fn walls_source() -> String {
 {walls}
 
 const ANGLE_WEIGHTED_NORMAL: u32 = {angle_weighted}u;
+const FIELD_NORMAL: u32 = {field_normal}u;
+const FIELD_ANGLE_NORMAL: u32 = {field_angle}u;
+const GEOMETRIC_SHELL_EXTRUSION: u32 = 0u;
+const FITTED_SHELL_EXTRUSION: u32 = 1u;
 const CAPPED_AXIS: u32 = {capped_axis}u;
 const ALONG: u32 = {along}u;
 const RADIAL: u32 = {radial}u;
@@ -159,8 +163,16 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
     let origin = vec3<f32>(shells[shell + 4u], shells[shell + 5u], shells[shell + 6u]);
     let axis = vec3<f32>(shells[shell + 8u], shells[shell + 9u], shells[shell + 10u]);
     var n = area_normals_at(c);
-    if (kind == ANGLE_WEIGHTED_NORMAL) {{
+    if (kind == ANGLE_WEIGHTED_NORMAL || kind == FIELD_ANGLE_NORMAL) {{
         n = angle_normals_at(c);
+    }}
+    if (kind == FIELD_NORMAL || kind == FIELD_ANGLE_NORMAL) {{
+        let first = params.count + c * 4u;
+        let choice = bitcast<u32>(heights[first]);
+        if (choice == FITTED_SHELL_EXTRUSION) {{
+            n = vec3<f32>(heights[first+1u], heights[first+2u], heights[first+3u]);
+            if (!(dot(n,n)>0.0) || !all(abs(n)<vec3<f32>(3.402823e38))) {{ fail(STATUS_INVALID_SURFACE); }}
+        }} else if (choice != GEOMETRIC_SHELL_EXTRUSION) {{ fail(STATUS_INVALID_SURFACE); }}
     }}
     let carrier = carriers_at(c);
     let relief = carrier + extrusion_offset(kind, origin, axis, carrier, n) * heights[c];
@@ -177,6 +189,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         angle = wgsl::read_points("angle_normals"),
         walls = wgsl::points("walls"),
         angle_weighted = Extrusion::AngleWeightedNormal.code(),
+        field_normal = Extrusion::FieldNormal.code(),
+        field_angle = Extrusion::FieldAngleWeightedNormal.code(),
         capped_axis = Extrusion::CappedAxis.code(),
         along = Extrusion::Along.code(),
         radial = Extrusion::Radial.code(),

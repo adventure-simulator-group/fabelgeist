@@ -52,7 +52,13 @@ pub struct CoordShell {
 pub enum CoordExtrusion {
     Normal,
     AngleWeightedNormal,
-    Radial { origin: [f32; 3], axis: [f32; 3] },
+    /// Per-carrier geometric or fitted-vector extrusion, supplied by the kernel.
+    FieldNormal,
+    FieldAngleWeightedNormal,
+    Radial {
+        origin: [f32; 3],
+        axis: [f32; 3],
+    },
 }
 
 impl CoordExtrusion {
@@ -61,6 +67,10 @@ impl CoordExtrusion {
             Self::Normal => (Extrusion::Normal, [0.0; 3], [0.0, 1.0, 0.0]),
             Self::AngleWeightedNormal => {
                 (Extrusion::AngleWeightedNormal, [0.0; 3], [0.0, 1.0, 0.0])
+            }
+            Self::FieldNormal => (Extrusion::FieldNormal, [0.; 3], [0., 1., 0.]),
+            Self::FieldAngleWeightedNormal => {
+                (Extrusion::FieldAngleWeightedNormal, [0.; 3], [0., 1., 0.])
             }
             Self::Radial { origin, axis } => (Extrusion::Radial, origin, axis),
         }
@@ -82,17 +92,48 @@ impl CoordShell {
 
 /// A shape's coordinate-shell kernel.
 #[derive(Clone, Debug)]
-pub struct CoordKernel(Arc<Kernel>);
+pub struct CoordKernel {
+    kernel: Arc<Kernel>,
+    extrusion: KernelExtrusion,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum KernelExtrusion {
+    Geometric,
+    Field,
+}
 
 impl CoordKernel {
     /// Compile the coordinate template around a shape's WGSL, which defines
     /// `shell_vertex`, `shell_pass` and `shell_origin`.
     pub fn new(gpu: &ArmorGpu, shape: &str) -> Result<Self, GenerateError> {
-        Ok(Self(
-            gpu.cache()
-                .get(gpu.context(), &source(shape))
+        Self::compile(gpu, shape, GEOMETRIC_EXTRUSION, KernelExtrusion::Geometric)
+    }
+
+    /// `extrusion` defines `shell_extrusion(index, coord) -> ShellExtrusion`.
+    /// Its tagged result chooses geometric thickness or the exact fitted
+    /// displacement vector used by the shape to place that carrier point.
+    pub fn with_extrusion(
+        gpu: &ArmorGpu,
+        shape: &str,
+        extrusion: &str,
+    ) -> Result<Self, GenerateError> {
+        Self::compile(gpu, shape, extrusion, KernelExtrusion::Field)
+    }
+
+    fn compile(
+        gpu: &ArmorGpu,
+        shape: &str,
+        field: &str,
+        extrusion: KernelExtrusion,
+    ) -> Result<Self, GenerateError> {
+        Ok(Self {
+            kernel: gpu
+                .cache()
+                .get(gpu.context(), &source(shape, field))
                 .map_err(device_error)?,
-        ))
+            extrusion,
+        })
     }
 }
 
@@ -128,6 +169,13 @@ pub(crate) fn record(
     frames: &[&Buffer],
 ) -> Result<(), GenerateError> {
     let (_, origin, axis) = coord_shell.extrusion.parts();
+    if matches!(
+        coord_shell.extrusion,
+        CoordExtrusion::FieldNormal | CoordExtrusion::FieldAngleWeightedNormal
+    ) && kernel.extrusion != KernelExtrusion::Field
+    {
+        return Err(GenerateError::InvalidSurface);
+    }
     let frame = frames
         .get(coord_shell.frame)
         .ok_or(GenerateError::InvalidSurface)?;
@@ -140,7 +188,7 @@ pub(crate) fn record(
             ("stage", pass),
             ("mirrored", u32::from(coord_shell.mirrored)),
             ("hinge", coord_shell.hinge.map_or(NO_HINGE, |slot| slot.0)),
-            ("pad1", 0),
+            ("carrier_capacity", build.layout().total_carriers()),
             ("pad2", 0),
         ] {
             parameters.insert(name, value);
@@ -169,7 +217,7 @@ pub(crate) fn record(
         parameters.insert("shells", build.shells.clone());
         parameters.insert("hinges", build.hinges.clone());
         batch
-            .dispatch_items(&kernel.0, &parameters, coord_shell.coords.len() as u32)
+            .dispatch_items(&kernel.kernel, &parameters, coord_shell.coords.len() as u32)
             .map_err(device_error)?;
     }
     Ok(())
@@ -181,6 +229,9 @@ struct ShellVertex {
     point: vec3<f32>,
     height: f32,
 };
+const GEOMETRIC_SHELL_EXTRUSION: u32 = 0u;
+const FITTED_SHELL_EXTRUSION: u32 = 1u;
+struct ShellExtrusion { kind: u32, direction: vec3<f32> };
 "#;
 
 /// The coordinate kernel's bindings and parameters.
@@ -199,7 +250,7 @@ struct Params {
     stage: u32,
     mirrored: u32,
     hinge: u32,
-    pad1: u32,
+    carrier_capacity: u32,
     pad2: u32,
     value0: f32,
     value1: f32,
@@ -220,7 +271,13 @@ struct Params {
 /// A shell's hinge slot when it carries no hinge.
 const NO_HINGE: u32 = u32::MAX;
 
-fn source(shape: &str) -> String {
+const GEOMETRIC_EXTRUSION: &str = r#"
+fn shell_extrusion(index: u32, coord: vec4<f32>) -> ShellExtrusion {
+    return ShellExtrusion(GEOMETRIC_SHELL_EXTRUSION, vec3<f32>(0.0));
+}
+"#;
+
+fn source(shape: &str, extrusion: &str) -> String {
     format!(
         r#"
 {BINDINGS}{math}
@@ -257,6 +314,7 @@ fn local_carrier(index: u32) -> vec3<f32> {{
 }}
 
 {shape}
+{extrusion}
 
 @compute @workgroup_size(64)
 fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
@@ -270,6 +328,13 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         let vertex = shell_vertex(i, coord);
         carriers_set(params.first + i, placed(vertex.point));
         heights[params.first + i] = vertex.height;
+        let field = shell_extrusion(i, coord);
+        let direction = placed_vector(field.direction);
+        let attributes = params.carrier_capacity + (params.first + i) * 4u;
+        heights[attributes] = bitcast<f32>(field.kind);
+        heights[attributes + 1u] = direction.x;
+        heights[attributes + 2u] = direction.y;
+        heights[attributes + 3u] = direction.z;
     }}
     if (i == 0u && params.stage == 0u) {{
         let origin = placed(shell_origin());

@@ -132,6 +132,7 @@ pub struct ArmorMorph {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GeneratedArmor {
+    /// Semantic cloth support; independent of appearance texture coordinates.
     pub components: Vec<crate::ArmorComponent>,
     pub design_hash: [u8; 32],
     pub surface_domain: String,

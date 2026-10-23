@@ -219,7 +219,11 @@ fn skinned(mut part: BuiltPart) -> GeneratedArmor {
         positions: part.positions,
         normals: part.normals,
         texcoords: part.texcoords.unwrap(),
-        joint_indices: vec![[2, 5, 0, 0, 0, 0, 0, 0]; count],
+        joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
+            vec![[2, 5, 0, 0, 0, 0, 0, 0]; count],
+            fabelgeist_rig::RigJointCount::from_native_joint_count(6),
+        )
+        .unwrap(),
         joint_weights: vec![[0.7, 0.3, 0., 0., 0., 0., 0., 0.]; count],
         indices: part.indices,
         faces: part.faces,
@@ -234,6 +238,16 @@ fn rear_shading_seam_preserves_triangles_skin_and_morph_endpoints() -> Result<()
     let source = skinned(generated(&gpu, false, false)?);
     let mut split = source.clone();
     split.split_textile_seams()?;
+    let chart = fabelgeist_armor::TextileChartSize::from_surface(
+        &split.positions,
+        &split.texcoords,
+        &split.indices,
+    )?;
+    // The fixture flares from radius 0.20 m to 0.32 m. Its mean circumference
+    // must survive the rear seam; interpreting the wrap as a long UV edge
+    // would nearly halve this physical dimension and exaggerate normal slopes.
+    let circumference = std::f32::consts::TAU * (0.20 + 0.32) * 0.5;
+    assert!((chart.across.metres() - circumference).abs() < 0.03);
     assert!(split.positions.len() > source.positions.len());
     assert_eq!(split.indices.len(), source.indices.len());
     for (&before, &after) in source.indices.iter().zip(&split.indices) {
@@ -241,7 +255,10 @@ fn rear_shading_seam_preserves_triangles_skin_and_morph_endpoints() -> Result<()
         let b = after as usize;
         assert_eq!(source.positions[a], split.positions[b]);
         assert_eq!(source.normals[a], split.normals[b]);
-        assert_eq!(source.joint_indices[a], split.joint_indices[b]);
+        assert_eq!(
+            source.joint_indices.native_words()[a],
+            split.joint_indices.native_words()[b]
+        );
         assert_eq!(source.joint_weights[a], split.joint_weights[b]);
         assert_eq!(
             source.morphs[0].position_deltas[a],
@@ -279,8 +296,12 @@ fn rear_shading_seam_preserves_triangles_skin_and_morph_endpoints() -> Result<()
 #[test]
 fn bounded_layers_composite_into_the_same_preview_and_export_pixels() -> Result<()> {
     let fabric = TextileAppearance {
+        relief: None,
+        needlework: None,
+        chart_boundary: fabelgeist_armor::TextileChartBoundary::CyclicAcross,
         color: TextileColor([20, 30, 40]),
         finish: TextileFinish::Linen,
+        opacity: Permille(1000),
         layers: TextileLayers(vec![
             TextileLayer {
                 region: TextileRegion::Band {
@@ -326,5 +347,414 @@ fn bounded_layers_composite_into_the_same_preview_and_export_pixels() -> Result<
         end: Permille(500),
     };
     assert!(invalid.pixels().is_err());
+    Ok(())
+}
+
+#[test]
+fn sheer_cloth_keeps_opaque_ornament_in_shared_preview_and_portable_pixels() -> Result<()> {
+    use bevy::prelude::{Alpha, AlphaMode, Assets, Image};
+    let mut fabric = TextileAppearance::solid(TextileColor([240, 235, 220]), TextileFinish::Linen);
+    fabric.opacity = Permille(200);
+    fabric.layers.0.push(TextileLayer {
+        region: TextileRegion::Band {
+            axis: TextileAxis::Along,
+            start: Permille(750),
+            end: Permille::ONE,
+        },
+        fill: TextileFill::Solid,
+        color: TextileColor([190, 150, 55]),
+    });
+    let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let pixels = image::load_from_memory(&maps.base_color_png)?.to_rgba8();
+    assert_eq!(pixels.get_pixel(100, 100).0, [240, 235, 220, 51]);
+    assert_eq!(
+        pixels
+            .get_pixel(pixels.width() / 2, pixels.height() * 9 / 10)
+            .0,
+        [190, 150, 55, 255]
+    );
+    let material = adventuresim_character_creator::textile_surface::material(
+        &fabric,
+        &mut Assets::<Image>::default(),
+    )?;
+    assert_eq!(material.alpha_mode, AlphaMode::Blend);
+    assert_eq!(material.base_color.alpha(), 1.);
+    assert!(material.base_color_texture.is_some());
+    assert!(material.cull_mode.is_some());
+    #[cfg(feature = "offline-creator")]
+    {
+        let portable: adventuresim_character_creator::export::SurfaceTextures = maps.into();
+        assert!(matches!(
+            portable.alpha,
+            adventuresim_character_creator::export::SurfaceAlpha::Blend
+        ));
+        assert!(matches!(
+            portable.sides,
+            adventuresim_character_creator::export::SurfaceSides::Front
+        ));
+    }
+    fabric.layers.0.clear();
+    assert!(adventuresim_character_creator::textile_surface::textures(&fabric)?.is_some());
+    let material = adventuresim_character_creator::textile_surface::material(
+        &fabric,
+        &mut Assets::<Image>::default(),
+    )?;
+    assert!((material.base_color.alpha() - 0.2).abs() < 1e-6);
+    fabric.layers.0.push(TextileLayer {
+        region: TextileRegion::Whole,
+        fill: TextileFill::Weave {
+            warp: fabelgeist_armor::TextileThreadCount(1024),
+            weft: fabelgeist_armor::TextileThreadCount(768),
+            width: Permille(200),
+        },
+        color: TextileColor([248, 246, 238]),
+    });
+    let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let yarns = image::load_from_memory(&maps.base_color_png)?.to_rgba8();
+    let mean_alpha = yarns
+        .pixels()
+        .map(|pixel| f64::from(pixel.0[3]))
+        .sum::<f64>()
+        / f64::from(yarns.width() * yarns.height());
+    // Two 20% yarn families cover 36% of the otherwise 20%-opaque ground.
+    // Pixel integration preserves that coverage when yarns are subpixel wide.
+    assert!((mean_alpha / 255. - 0.488).abs() < 0.006);
+    assert!(
+        yarns
+            .pixels()
+            .any(|pixel| pixel.0[3] > 51 && pixel.0[3] < 255)
+    );
+    let mut images = Assets::<Image>::default();
+    let material = adventuresim_character_creator::textile_surface::material(&fabric, &mut images)?;
+    let preview = images
+        .get(material.base_color_texture.as_ref().unwrap())
+        .unwrap();
+    assert_eq!(preview.data.as_ref().unwrap(), yarns.as_raw());
+    fabric.opacity = Permille(1001);
+    assert!(fabric.validate().is_err());
+    Ok(())
+}
+
+#[test]
+fn portable_raster_keeps_narrow_regions_and_small_stripe_duties() -> Result<()> {
+    let ink = TextileColor([20, 30, 40]);
+    for (region, fill) in [
+        (
+            TextileRegion::Band {
+                axis: TextileAxis::Across,
+                start: Permille(500),
+                end: Permille(501),
+            },
+            TextileFill::Solid,
+        ),
+        (
+            TextileRegion::Band {
+                axis: TextileAxis::Across,
+                start: Permille(500),
+                end: Permille(501),
+            },
+            TextileFill::Stripes {
+                axis: TextileAxis::Along,
+                repeats: fabelgeist_armor::TextileRepeatCount(1),
+                width: Permille(100),
+                phase: Permille(0),
+            },
+        ),
+        (
+            TextileRegion::Whole,
+            TextileFill::Stripes {
+                axis: TextileAxis::Across,
+                repeats: fabelgeist_armor::TextileRepeatCount(1),
+                width: Permille(1),
+                phase: Permille(0),
+            },
+        ),
+        (
+            TextileRegion::Whole,
+            TextileFill::Stripes {
+                axis: TextileAxis::Across,
+                repeats: fabelgeist_armor::TextileRepeatCount(1),
+                width: Permille(999),
+                phase: Permille(0),
+            },
+        ),
+    ] {
+        let mut fabric =
+            TextileAppearance::solid(TextileColor([240, 235, 220]), TextileFinish::Linen);
+        fabric.layers.0.push(TextileLayer {
+            region,
+            fill,
+            color: ink,
+        });
+        let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+        let image = image::load_from_memory(&maps.base_color_png)?.to_rgba8();
+        assert!(image.pixels().any(|pixel| pixel.0[..3] == ink.0));
+        assert!(image.pixels().any(|pixel| pixel.0[..3] == fabric.color.0));
+        assert!(image.width() * image.height() <= 2_097_152);
+    }
+    Ok(())
+}
+
+#[test]
+fn narrow_medallion_trim_retains_detail_through_isotropic_mip_reduction() -> Result<()> {
+    use fabelgeist_armor::{TextileMotif, TextileOffset, TextilePatternSpace, TextileRepeatCount};
+    let mut fabric =
+        TextileAppearance::solid(TextileColor([174, 128, 40]), TextileFinish::MetallicThread);
+    fabric.layers.0.push(TextileLayer {
+        region: TextileRegion::Whole,
+        color: TextileColor([222, 184, 87]),
+        fill: TextileFill::Motifs {
+            space: TextilePatternSpace::Garment,
+            motif: TextileMotif::Medallion {
+                petals: TextileRepeatCount(4),
+                rings: TextileRepeatCount(3),
+                threads: TextileRepeatCount(32),
+                stroke: Permille(30),
+            },
+            across: TextileRepeatCount(24),
+            along: TextileRepeatCount(1),
+            scale: Permille(950),
+            rotation: Permille(0),
+            stagger: Permille(0),
+            offset: TextileOffset::default(),
+        },
+    });
+    let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let mut image = image::load_from_memory(&maps.base_color_png)?.to_rgba8();
+    let normals = image::load_from_memory(&maps.normal_png)?.to_rgba8();
+    assert_eq!(normals.dimensions(), image.dimensions());
+    assert!(
+        normals
+            .pixels()
+            .any(|pixel| pixel.0[0] != 128 || pixel.0[1] != 128)
+    );
+    let mut images = bevy::prelude::Assets::<bevy::prelude::Image>::default();
+    let material = adventuresim_character_creator::textile_surface::material(&fabric, &mut images)?;
+    let preview = images
+        .get(material.normal_map_texture.as_ref().unwrap())
+        .unwrap();
+    assert_eq!(preview.data.as_ref().unwrap(), normals.as_raw());
+    assert_eq!(
+        preview.texture_descriptor.format,
+        bevy::render::render_resource::TextureFormat::Rgba8Unorm
+    );
+    let mut single = fabric.clone();
+    if let TextileFill::Motifs {
+        across,
+        along,
+        scale,
+        ..
+    } = &mut single.layers.0[0].fill
+    {
+        *across = TextileRepeatCount(1);
+        *along = TextileRepeatCount(1);
+        *scale = Permille::ONE;
+    }
+    let single_maps = adventuresim_character_creator::textile_surface::textures(&single)?.unwrap();
+    let single_image = image::load_from_memory(&single_maps.base_color_png)?.to_rgba8();
+    // The ground threads continue outside the circular medallion.
+    assert!(
+        single_image.enumerate_pixels().any(|(x, y, pixel)| {
+            let u = (x as f32 + 0.5) / single_image.width() as f32 - 0.5;
+            let v = (y as f32 + 0.5) / single_image.height() as f32 - 0.5;
+            u.hypot(v) > 0.45 && pixel.0[..3] == single.layers.0[0].color.0
+        }),
+        "ground stitches disappeared outside the circular ornament"
+    );
+    while image.height() > 32 {
+        image = image::imageops::resize(
+            &image,
+            image.width() / 2,
+            image.height() / 2,
+            image::imageops::FilterType::Triangle,
+        );
+    }
+    let row = image.rows().nth(image.height() as usize / 2).unwrap();
+    let values = row.map(|pixel| pixel.0[0]).collect::<Vec<_>>();
+    assert!(
+        values.iter().max().unwrap() - values.iter().min().unwrap() > 25,
+        "collar ornament was averaged away at its display mip level"
+    );
+    Ok(())
+}
+
+#[test]
+fn fine_gathers_reach_preview_and_export_without_tessellation() -> Result<()> {
+    use fabelgeist_armor::{
+        ClothPleatProfile, ClothPleats, Millimeters, TextileChartSize, TextilePleatLayout,
+        TextilePleatRelief, TextileRepeatCount,
+    };
+    let mut fabric = TextileAppearance::solid(TextileColor([240, 239, 231]), TextileFinish::Linen);
+    fabric.relief = Some(Box::new(TextilePleatRelief {
+        zone: None,
+        pleats: ClothPleats {
+            count: TextileRepeatCount(128),
+            depth: Millimeters(2),
+            profile: ClothPleatProfile::RoundedGathers,
+        },
+        chart: TextileChartSize {
+            across: Millimeters(480),
+            along: Millimeters(35),
+        },
+        layout: TextilePleatLayout::FreeEdge,
+    }));
+    let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let normals = image::load_from_memory(&maps.normal_png)?.to_rgba8();
+    let variation = |row: u32| {
+        normals
+            .rows()
+            .nth(row as usize)
+            .unwrap()
+            .map(|pixel| (i16::from(pixel.0[0]) - 128).unsigned_abs() as u64)
+            .sum::<u64>()
+    };
+    assert!(variation(0) > variation(normals.height() - 1) * 10);
+    let mut images = bevy::prelude::Assets::<bevy::prelude::Image>::default();
+    let material = adventuresim_character_creator::textile_surface::material(&fabric, &mut images)?;
+    let preview = images
+        .get(material.normal_map_texture.as_ref().unwrap())
+        .unwrap();
+    assert_eq!(preview.data.as_ref().unwrap(), normals.as_raw());
+    assert_eq!(
+        preview.texture_descriptor.format,
+        bevy::render::render_resource::TextureFormat::Rgba8Unorm
+    );
+    fabric.relief.as_mut().unwrap().pleats.profile = ClothPleatProfile::Fluted;
+    let changed = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let changed = image::load_from_memory(&changed.normal_png)?.to_rgba8();
+    assert_ne!(normals.as_raw(), changed.as_raw());
+    let relief = fabric.relief.as_mut().unwrap();
+    relief.pleats.count = TextileRepeatCount(48);
+    relief.layout = TextilePleatLayout::Waist {
+        front_panel: Permille(500),
+        front_depth: Permille::ONE,
+        rotation: Permille(250),
+        falloff: Permille(400),
+        retention: Permille::ONE,
+        release: Permille(100),
+    };
+    let quiet = fabric.pixels()?.surface_normals(&fabric)?;
+    let pixels = fabric.pixels()?;
+    let normal_at = |u: u32| {
+        let first = ((pixels.height / 2 * pixels.width + u) * 4) as usize;
+        &quiet[first..first + 3]
+    };
+    assert_eq!(normal_at(pixels.width / 2), &[128, 128, 255]);
+    assert_ne!(normal_at(pixels.width / 8), &[128, 128, 255]);
+    if let TextilePleatLayout::Waist { front_panel, .. } =
+        &mut fabric.relief.as_mut().unwrap().layout
+    {
+        *front_panel = Permille(0);
+    }
+    let open = fabric.pixels()?;
+    let normals = open.surface_normals(&fabric)?;
+    let first = ((open.height / 2 * open.width + open.width / 2) * 4) as usize;
+    assert_ne!(
+        &normals[first..first + 3],
+        &[128, 128, 255],
+        "zero quiet-front width suppressed a rotated front gather"
+    );
+    // Relief input is a physical chart boundary; malformed native data fails
+    // before indexing rather than partially measuring or panicking.
+    assert!(TextileChartSize::from_surface(&[[0.; 3]], &[], &[0, 0, 0]).is_err());
+    assert!(TextileChartSize::from_surface(&[[0.; 3]], &[[0.; 2]], &[0, 0]).is_err());
+    assert!(TextileChartSize::from_surface(&[[0.; 3]], &[[0.; 2]], &[0, 1, 0]).is_err());
+    Ok(())
+}
+
+#[test]
+fn ordinary_skirt_and_slash_sleeve_fit_the_runtime_triangle_budget() -> Result<()> {
+    let gpu = ArmorGpu::open()?;
+    for limb in [false, true] {
+        let part = generated(&gpu, false, limb)?;
+        assert!(part.indices.len() / 3 < fabelgeist_armor::EQUIPMENT_TRIANGLE_BUDGET);
+        assert!(
+            part.positions
+                .iter()
+                .flatten()
+                .all(|value| value.is_finite())
+        );
+        assert!(
+            part.indices
+                .iter()
+                .all(|&vertex| (vertex as usize) < part.positions.len())
+        );
+    }
+    Ok(())
+}
+
+#[test]
+fn bounded_shirring_changes_exported_normals_and_keeps_the_cloth_color() -> Result<()> {
+    use fabelgeist_armor::{
+        ClothPleatProfile, ClothPleats, Millimeters, ShirringPattern, TextileChartSize,
+        TextilePleatLayout, TextilePleatRelief, TextileRepeatCount, TextileShirring,
+    };
+    let mut fabric = TextileAppearance::solid(TextileColor([240, 239, 231]), TextileFinish::Linen);
+    fabric.relief = Some(Box::new(TextilePleatRelief {
+        zone: None,
+        pleats: ClothPleats {
+            count: TextileRepeatCount(32),
+            depth: Millimeters(1),
+            profile: ClothPleatProfile::Fluted,
+        },
+        chart: TextileChartSize {
+            across: Millimeters(800),
+            along: Millimeters(600),
+        },
+        layout: TextilePleatLayout::Shirred(TextileShirring {
+            band: TextileSpan {
+                start: Permille(200),
+                end: Permille(500),
+            },
+            rows: TextileRepeatCount(8),
+            pattern: ShirringPattern::Diamonds,
+            retention: Permille(500),
+        }),
+    }));
+    let pixels = fabric.pixels()?;
+    let preview = pixels.surface_normals(&fabric)?;
+    let diamond = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let diamond_normals = image::load_from_memory(&diamond.normal_png)?.to_rgba8();
+    assert_eq!(preview, diamond_normals.as_raw().as_slice());
+    if let TextilePleatLayout::Shirred(shirring) = &mut fabric.relief.as_mut().unwrap().layout {
+        shirring.pattern = ShirringPattern::Chevron;
+    }
+    let chevron = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let chevron_normals = image::load_from_memory(&chevron.normal_png)?.to_rgba8();
+    assert_eq!(diamond.base_color_png, chevron.base_color_png);
+    assert_eq!(diamond_normals.dimensions(), chevron_normals.dimensions());
+    let mut changed_inside = 0;
+    for row in 0..diamond_normals.height() {
+        let along = (row as f32 + 0.5) / diamond_normals.height() as f32;
+        for column in 0..diamond_normals.width() {
+            let a = diamond_normals.get_pixel(column, row);
+            let b = chevron_normals.get_pixel(column, row);
+            if !(0.15..=0.55).contains(&along) {
+                assert_eq!(a, b, "shirring altered cloth outside its bounded region");
+            } else if a != b {
+                changed_inside += 1;
+            }
+            let length = a.0[..3]
+                .iter()
+                .map(|&c| (f32::from(c) / 127.5 - 1.).powi(2))
+                .sum::<f32>()
+                .sqrt();
+            assert!(
+                (length - 1.).abs() < 0.015,
+                "non-unit exported tangent normal"
+            );
+        }
+    }
+    assert!(
+        changed_inside > 100,
+        "shirring patterns did not change the sewn band"
+    );
+    if let TextilePleatLayout::Shirred(shirring) = &mut fabric.relief.as_mut().unwrap().layout {
+        shirring.band.end = shirring.band.start;
+    }
+    assert!(
+        fabric.validate().is_err(),
+        "empty shirring band was admitted"
+    );
     Ok(())
 }

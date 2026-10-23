@@ -3,7 +3,9 @@
 These recipes exercise gathered skirts, continuous upper sections, colored
 border panels and repeating foliage. They adapt the referenced designs to
 the wearer; they do not certify exact historical textile or construction.
-Cloth physics, detailed bodices and separate accessories remain outside scope.
+Cloth physics and separate accessories remain outside scope. The
+[German gown guide](german1544.md) describes the simpler shipped gown and the
+construction experiments deliberately excluded from it.
 
 `pisa.json` uses the crimson velvet gown displayed at the Museo nazionale di
 Palazzo Reale in Pisa, dated around 1560. The museum attributes it to Mastro

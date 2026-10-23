@@ -1,11 +1,22 @@
 //! Deterministic, renderer-independent parametric armor fitted to canonical
 //! anatomical surface samples, and the metal it is finished in.
-mod cloth_pleat_profile;
-pub use cloth_pleat_profile::ClothPleatProfile;
+
+mod bodice;
 mod cloth_pleats;
 pub use cloth_pleats::ClothPleats;
-
+mod cloth_pleat_profile;
+pub use cloth_pleat_profile::ClothPleatProfile;
+mod cloth_slit;
+pub use cloth_slit::ClothSlit;
+mod gown_dressing_slit;
+pub use gown_dressing_slit::{DressingOpeningSide, GownDressingSlit};
+mod gown;
+pub use gown::{FittedSleeves, GownBodyFit, GownDesign};
 mod construction;
+pub use bodice::{
+    BodiceDesign, BodiceInterlining, BodiceLining, BodiceNeckline, BodiceOpening,
+    InterliningCoverage, NecklineShape,
+};
 pub mod engraving;
 pub mod material;
 pub mod ornament;
@@ -13,30 +24,32 @@ pub mod pattern;
 mod skin;
 mod skirt;
 mod skirt_structure;
+mod textile_botanical;
 mod textile_needlework;
+mod textile_pattern;
+mod textile_stroke_raster;
 pub use textile_needlework::{
     TextileFoldProfile, TextileNeedlework, TextilePathClosure, TextilePathPoint, TextileStroke,
     TextileStrokeStyle,
 };
 mod textile_pleat_relief;
 mod textile_pleat_zone;
-mod textile_stroke_raster;
+pub use textile_pleat_zone::TextilePleatZone;
+mod textile_raster;
+mod textile_relief;
 pub use textile_pleat_relief::{
     ShirringPattern, TextileChartSize, TextilePleatLayout, TextilePleatRelief, TextileShirring,
 };
-pub use textile_pleat_zone::TextilePleatZone;
-mod textile_botanical;
-mod textile_pattern;
-mod textile_raster;
-mod textile_relief;
 mod textile_sampling;
 mod textile_seams;
 mod textile_weave;
 pub use skirt::{
-    DressBodice, SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign, SkirtProfile,
+    DressBodice, SKIRT_AXIAL_SEGMENTS, SKIRT_MESH_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign,
+    SkirtProfile,
 };
 pub use skirt_structure::{
-    PleatStyle, SkirtHoops, SkirtPleats, SkirtRepeatCount, SkirtStays, SkirtSupport,
+    PleatStyle, SkirtFrontPleats, SkirtHoops, SkirtPleats, SkirtRepeatCount, SkirtStays,
+    SkirtSupport,
 };
 pub use textile_pattern::{
     MAX_TEXTILE_LAYERS, TextileAppearance, TextileAxis, TextileChartBoundary, TextileFill,
@@ -51,7 +64,7 @@ pub use tiling::{Constructed, MAX_TILES};
 mod helmet_crown;
 mod sampling;
 pub use helmet_crown::HelmetCrown;
-pub use sampling::{ArmorDetail, ArmorLod};
+pub use sampling::{ArmorDetail, ArmorLod, EQUIPMENT_TRIANGLE_BUDGET};
 
 mod breastplate_design;
 pub use breastplate_design::*;
@@ -124,7 +137,7 @@ pub use error::{GenerateError, PlateShellFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
-pub const GENERATOR_VERSION: u16 = 27;
+pub const GENERATOR_VERSION: u16 = 33;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {

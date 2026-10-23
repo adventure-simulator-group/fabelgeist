@@ -2,7 +2,7 @@
 use super::{ArmorGpu, device_error, wgsl};
 use crate::GenerateError;
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::{Buffer, BufferUpload, PassParameters};
 
 const BOUNDS: &str = r#"
 struct Params { count: u32, pad0: u32, pad1: u32, pad2: u32 }
@@ -73,4 +73,48 @@ pub(super) fn record(
         .dispatch_items(&kernel, &params, count)
         .map_err(device_error)?;
     Ok(coordinates)
+}
+
+/// Patch native carrier UVs after the geometric chart, before shell copies.
+pub(super) fn record_authored(
+    gpu: &ArmorGpu,
+    batch: &mut KernelBatch,
+    coordinates: &Buffer,
+    points: &[u32],
+) -> Result<(), GenerateError> {
+    if points.is_empty() {
+        return Ok(());
+    }
+    let source = r#"
+struct Params { count:u32, pad0:u32, pad1:u32, pad2:u32 }
+@group(0) @binding(0) var<uniform> params:Params;
+@group(0) @binding(1) var<storage,read> points:array<u32>;
+@group(0) @binding(2) var<storage,read_write> coordinates:array<f32>;
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) id:vec3<u32>) {
+    if (id.x>=params.count) {return;}
+    let word=id.x*3u;let vertex=points[word];
+    coordinates[vertex*2u]=bitcast<f32>(points[word+1u]);
+    coordinates[vertex*2u+1u]=bitcast<f32>(points[word+2u]);
+}
+"#;
+    let kernel = gpu
+        .cache()
+        .get(gpu.context(), source)
+        .map_err(device_error)?;
+    let mut params = PassParameters::new();
+    for (name, value) in [
+        ("count", points.len() as u32 / 3),
+        ("pad0", 0),
+        ("pad1", 0),
+        ("pad2", 0),
+    ] {
+        params.insert(name, value);
+    }
+    params.insert("points", gpu.upload(BufferUpload::from_elements(points))?);
+    params.insert("coordinates", coordinates.clone());
+    batch
+        .dispatch_items(&kernel, &params, points.len() as u32 / 3)
+        .map_err(device_error)?;
+    Ok(())
 }
