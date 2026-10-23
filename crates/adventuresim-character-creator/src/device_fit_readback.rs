@@ -29,7 +29,7 @@ pub(super) async fn read(
     let mut parts = Vec::with_capacity(recordings.len());
     for (index, (recording, (frames, part))) in recordings.iter().zip(slots).enumerate() {
         for ((_, region), frame) in recording.frames.iter().zip(frames) {
-            DeviceFrame::check_status(results.status(frame), *region)?;
+            DeviceFrame::check_status(results.status(&frame)?, *region)?;
         }
         let context = || match index {
             0 => "fitting armor".to_string(),

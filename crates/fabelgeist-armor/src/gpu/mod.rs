@@ -82,6 +82,7 @@ mod skirt_opening_path;
 mod skirt_opening_split;
 mod skirt_sampling;
 mod skirt_structure;
+mod surface_readback;
 pub mod staging;
 mod textile_chart;
 mod textile_pattern;

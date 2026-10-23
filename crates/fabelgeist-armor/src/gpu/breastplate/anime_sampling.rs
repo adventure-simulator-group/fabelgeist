@@ -102,19 +102,19 @@ impl<'a> CourseSampler<'a> {
         let bounds = staging.stage(&self.bounds);
         let status = staging.stage(self.input.status);
         let results = gpu.read_staged_async(staging).await?;
-        match results.status(status) {
+        match results.status(&status)? {
             0 => {}
             bits if bits & crate::gpu::anatomy::STATUS_DEGENERATE != 0 => {
                 return Err(GenerateError::Degenerate);
             }
             _ => return Err(GenerateError::InvalidSurface),
         }
-        let points = results.prefix::<[f32; 3]>(points, self.source.count() as usize);
+        let points = results.prefix::<[f32; 3]>(&points, self.source.count() as usize)?;
         let frame = CourseFrame::from_words(&results.prefix::<f32>(
-            frame,
+            &frame,
             (super::shape_wgsl::DESIGN_WORDS + super::shape_wgsl::WEARER_WORDS) as usize,
-        ))?;
-        let bounds = results.prefix::<[f32; 4]>(bounds, 2);
+        )?)?;
+        let bounds = results.prefix::<[f32; 4]>(&bounds, 2)?;
         Layout::new(
             self.input.plates,
             design,

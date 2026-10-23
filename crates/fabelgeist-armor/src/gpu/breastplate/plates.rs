@@ -151,22 +151,26 @@ impl Plates {
         let back_arm = staging.stage(&self.back.arm_distances);
         let status = staging.stage(status);
         let results = gpu.read_staged_async(staging).await?;
-        let front = results.prefix::<[f32; 3]>(front, self.front.count() as usize);
-        let back = results.prefix::<[f32; 3]>(back, self.back.count() as usize);
-        let front_extrusion =
-            results.prefix::<[f32; 3]>(front_extrusion, self.front.count() as usize);
-        let back_extrusion = results.prefix::<[f32; 3]>(back_extrusion, self.back.count() as usize);
-        match results.status(status) {
+        match results.status(&status)? {
             0 => {}
             bits if bits & crate::gpu::anatomy::STATUS_DEGENERATE != 0 => {
                 return Err(GenerateError::Degenerate);
             }
             _ => return Err(GenerateError::InvalidSurface),
         }
+        let front = results.prefix::<[f32; 3]>(&front, self.front.count() as usize)?;
+        let back = results.prefix::<[f32; 3]>(&back, self.back.count() as usize)?;
+        let coarse = results.prefix::<[f32; 3]>(&coarse, self.coarse.count() as usize)?;
+        let front_extrusion =
+            results.prefix::<[f32; 3]>(&front_extrusion, self.front.count() as usize)?;
+        let back_extrusion =
+            results.prefix::<[f32; 3]>(&back_extrusion, self.back.count() as usize)?;
+        let front_arm = results.prefix::<f32>(&front_arm, self.front.count() as usize)?;
+        let back_arm = results.prefix::<f32>(&back_arm, self.back.count() as usize)?;
         let mut front = ClippedCarrier::new(&self.front.topology, &front, &front_extrusion)?;
         let mut back = ClippedCarrier::new(&self.back.topology, &back, &back_extrusion)?;
-        front.trim_arms(&results.prefix::<f32>(front_arm, self.front.count() as usize))?;
-        back.trim_arms(&results.prefix::<f32>(back_arm, self.back.count() as usize))?;
+        front.trim_arms(&front_arm)?;
+        back.trim_arms(&back_arm)?;
         front.validate_outer(self.gauge)?;
         back.validate_outer(self.gauge)?;
         front.install(&mut self.front.topology);
@@ -177,8 +181,7 @@ impl Plates {
         self.back.outer = self.back.topology.clone();
         self.front.positions = gpu.upload(BufferUpload::from_elements(&front.positions))?;
         self.back.positions = gpu.upload(BufferUpload::from_elements(&back.positions))?;
-        let coarse = front
-            .carrier_positions(results.prefix::<[f32; 3]>(coarse, self.coarse.count() as usize));
+        let coarse = front.carrier_positions(coarse);
         self.coarse
             .topology
             .cut_columns

@@ -96,6 +96,14 @@ pub struct Skin {
     pub joint_weights: Vec<[f32; 8]>,
 }
 
+/// Named tickets for the attributes of one skin correspondence.
+#[derive(Clone, Debug)]
+pub struct SkinSlots {
+    pub(super) texcoords: Staged,
+    pub(super) joint_indices: Staged,
+    pub(super) joint_weights: Staged,
+}
+
 impl Skin {
     /// Add `other`'s points after this skin's, matching an appended part.
     pub fn append(&mut self, other: Skin) -> Result<(), GenerateError> {
@@ -164,27 +172,24 @@ impl Correspondence {
     }
 
     /// Stage the skin for a shared readback.
-    pub fn stage<'a>(&'a self, staging: &mut Staging<'a>) -> [Staged; 3] {
-        [
-            staging.stage(&self.texcoords),
-            staging.stage(&self.joint_indices),
-            staging.stage(&self.joint_weights),
-        ]
+    pub fn stage<'a>(&'a self, staging: &mut Staging<'a>) -> SkinSlots {
+        SkinSlots {
+            texcoords: staging.stage(&self.texcoords),
+            joint_indices: staging.stage(&self.joint_indices),
+            joint_weights: staging.stage(&self.joint_weights),
+        }
     }
 
     /// The skin, from a shared readback.
     pub fn finish(
         &self,
         results: &StagedResults,
-        slots: [Staged; 3],
+        slots: SkinSlots,
     ) -> Result<Skin, GenerateError> {
         let count = self.count as usize;
-        let mut texcoords: Vec<[f32; 2]> = results.get(slots[0]);
-        let mut joint_indices: Vec<[u32; 8]> = results.get(slots[1]);
-        let mut joint_weights: Vec<[f32; 8]> = results.get(slots[2]);
-        texcoords.truncate(count);
-        joint_indices.truncate(count);
-        joint_weights.truncate(count);
+        let texcoords = results.prefix(&slots.texcoords, count)?;
+        let joint_indices = results.prefix(&slots.joint_indices, count)?;
+        let joint_weights = results.prefix(&slots.joint_weights, count)?;
         Ok(Skin {
             texcoords,
             joint_indices: fabelgeist_rig::PackedRigSkin::from_native(joint_indices, self.joints)?,

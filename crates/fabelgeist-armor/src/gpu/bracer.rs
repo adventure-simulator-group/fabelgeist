@@ -14,9 +14,10 @@ use fabelgeist_compute::{Kernel, KernelBatch, NormalWeighting, VertexNormals};
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::anatomy::{DeviceSurface, STATUS_DEGENERATE};
-use super::body::GpuBody;
+use super::body::{GpuBody, SkinSlots};
 use super::bracer_contour_wgsl;
 use super::bracer_wgsl::{self, AXIS_WORDS, POINT_WORDS, SAMPLE_WORDS};
+use super::surface_readback::{SurfaceSlots, SurfaceVertices};
 use super::{ArmorGpu, device_error};
 use crate::{
     ArmorMorph, BracerDesign, GenerateError, GeneratedArmor, PlateFace, SurfaceGrid, design_hash,
@@ -52,9 +53,6 @@ struct Layout {
     indices: Buffer,
     triangle_count: u32,
 }
-
-/// A mesh's positions and normals, read back.
-type MeshSurface = (Vec<[f32; 3]>, Vec<[f32; 3]>);
 
 impl Layout {
     fn sample_count(&self) -> u32 {
@@ -406,23 +404,16 @@ impl DeviceBracer {
             .collect::<Vec<_>>();
         let slots = meshes
             .iter()
-            .map(|mesh| {
-                [
-                    staging.stage(&mesh.normals.status),
-                    staging.stage(&mesh.positions),
-                    staging.stage(&mesh.normals.normals),
-                ]
-            })
+            .map(|mesh| SurfaceSlots::stage(&mut staging, &mesh.positions, &mesh.normals))
             .collect::<Vec<_>>();
-        let attributes = [
-            &self.texcoords,
-            &self.joint_indices,
-            &self.joint_weights,
-            &self.layout.indices,
-        ]
-        .map(|buffer| staging.stage(buffer));
+        let skin = SkinSlots {
+            texcoords: staging.stage(&self.texcoords),
+            joint_indices: staging.stage(&self.joint_indices),
+            joint_weights: staging.stage(&self.joint_weights),
+        };
+        let indices = staging.stage(&self.layout.indices);
         let results = gpu.read_staged_async(staging).await?;
-        let status = results.status(status_slot);
+        let status = results.status(&status_slot)?;
         if status & STATUS_EMPTY_CONTOUR != 0 {
             return Err(GenerateError::EmptySelection);
         }
@@ -433,22 +424,16 @@ impl DeviceBracer {
             return Err(GenerateError::InvalidSurface);
         }
         let vertex_count = self.layout.vertex_count() as usize;
-        let read_mesh = |slots: [super::Staged; 3]| -> Result<MeshSurface, GenerateError> {
-            if results.status(slots[0]) != 0 {
-                return Err(GenerateError::Degenerate);
-            }
-            Ok((
-                results.prefix(slots[1], vertex_count),
-                results.prefix(slots[2], vertex_count),
-            ))
-        };
-        let (positions, normals) = read_mesh(slots[0])?;
+        let SurfaceVertices { positions, normals } = slots[0].read(&results, vertex_count)?;
         let morphs = slots
             .iter()
             .skip(1)
             .zip(morphs)
             .map(|(target, name)| {
-                let (target_positions, target_normals) = read_mesh(*target)?;
+                let SurfaceVertices {
+                    positions: target_positions,
+                    normals: target_normals,
+                } = target.read(&results, vertex_count)?;
                 Ok(ArmorMorph {
                     name: name.clone(),
                     position_deltas: deltas(&positions, &target_positions),
@@ -463,13 +448,13 @@ impl DeviceBracer {
             surface_domain: domain.to_owned(),
             positions,
             normals,
-            texcoords: results.prefix(attributes[0], vertex_count),
+            texcoords: results.prefix(&skin.texcoords, vertex_count)?,
             joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
-                results.prefix(attributes[1], vertex_count),
+                results.prefix(&skin.joint_indices, vertex_count)?,
                 self.rig_joints,
             )?,
-            joint_weights: results.prefix(attributes[2], vertex_count),
-            indices: results.prefix(attributes[3], self.layout.triangle_count as usize * 3),
+            joint_weights: results.prefix(&skin.joint_weights, vertex_count)?,
+            indices: results.prefix(&indices, self.layout.triangle_count as usize * 3)?,
             faces: self.layout.faces(),
             trim: None,
             grids: vec![self.layout.grid()],

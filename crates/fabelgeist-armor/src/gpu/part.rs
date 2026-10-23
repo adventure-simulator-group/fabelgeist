@@ -263,46 +263,50 @@ impl PartBuild {
         // area is degenerate, an angle-weighted carrier that cannot be
         // normalised is not a surface, and neither is an extrusion that does
         // not leave its carrier.
-        if results.status(slots.area) != 0 {
+        if results.status(&slots.area)? != 0 {
             return Err(GenerateError::Degenerate);
         }
-        if results.status(slots.angle) != 0 && self.layout.uses_angle_normals()
-            || results.status(slots.shell) != 0
+        if results.status(&slots.angle)? != 0 && self.layout.uses_angle_normals()
+            || results.status(&slots.shell)? != 0
         {
             return Err(GenerateError::InvalidSurface);
         }
-        if results.status(slots.normals_status) != 0 {
+        if results.status(&slots.normals_status)? != 0 {
             return Err(GenerateError::Degenerate);
         }
         let count = self.layout.final_count as usize;
-        let mut positions: Vec<[f32; 3]> = results.get(slots.positions);
-        positions.truncate(count);
-        let mut normals: Vec<[f32; 3]> = results.get(slots.normals);
-        normals.truncate(count);
-        let hinges: Vec<[f32; 4]> = results.get(slots.hinges);
+        let positions = results.prefix(&slots.positions, count)?;
+        let normals = results.prefix(&slots.normals, count)?;
+        // One native hinge record contains its padded origin and axis.
+        let hinges: Vec<[[f32; 4]; 2]> =
+            results.prefix(&slots.hinges, self.hinge_count as usize)?;
         let components = self
             .layout
             .components()
             .into_iter()
             .map(|(mut component, slot)| {
                 component.hinge = slot.map(|HingeSlot(slot)| ArmorHinge {
-                    origin: std::array::from_fn(|i| hinges[slot as usize * 2][i]),
-                    axis: std::array::from_fn(|i| hinges[slot as usize * 2 + 1][i]),
+                    origin: std::array::from_fn(|i| hinges[slot as usize][0][i]),
+                    axis: std::array::from_fn(|i| hinges[slot as usize][1][i]),
                 });
                 component
             })
             .collect();
-        let mut indices: Vec<u32> = results.get(slots.indices);
-        indices.truncate(self.final_triangle_count as usize * 3);
+        let indices = results.prefix(&slots.indices, self.final_triangle_count as usize * 3)?;
         Ok(BuiltPart {
-            texcoords: slots.textile_coordinates.map(|slot| {
-                let coordinates: Vec<[f32; 2]> = results.get(slot);
-                self.layout
-                    .sources()
-                    .iter()
-                    .map(|source| coordinates[(source & !INNER_BIT) as usize])
-                    .collect()
-            }),
+            texcoords: slots
+                .textile_coordinates
+                .map(|slot| -> Result<_, GenerateError> {
+                    let coordinates: Vec<[f32; 2]> =
+                        results.prefix(&slot, self.layout.carrier_count as usize)?;
+                    Ok(self
+                        .layout
+                        .sources()
+                        .iter()
+                        .map(|source| coordinates[(source & !INNER_BIT) as usize])
+                        .collect())
+                })
+                .transpose()?,
             positions,
             normals,
             indices,
@@ -314,7 +318,7 @@ impl PartBuild {
 }
 
 /// Where a part's results are in a staged readback.
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Debug)]
 pub struct PartSlots {
     textile_coordinates: Option<Staged>,
     area: Staged,

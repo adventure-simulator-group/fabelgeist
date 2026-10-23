@@ -257,16 +257,12 @@ impl DeviceBreastplate {
         );
         let slots = meshes
             .map(|(positions, normals)| {
-                [
-                    staging.stage(&normals.status),
-                    staging.stage(positions),
-                    staging.stage(&normals.normals),
-                ]
+                super::surface_readback::SurfaceSlots::stage(&mut staging, positions, normals)
             })
             .collect::<Vec<_>>();
         let skin_slot = staging.stage(&self.skin);
         let results = gpu.read_staged_async(staging).await?;
-        let status = results.status(status_slot);
+        let status = results.status(&status_slot)?;
         if status & STATUS_DEGENERATE != 0 {
             return Err(GenerateError::Degenerate);
         }
@@ -274,23 +270,18 @@ impl DeviceBreastplate {
             return Err(GenerateError::InvalidSurface);
         }
         let count = self.shell.count() as usize;
-        let read_mesh = |slots: [super::Staged; 3]| {
-            if results.status(slots[0]) != 0 {
-                return Err(GenerateError::Degenerate);
-            }
-            Ok::<_, GenerateError>((
-                results.prefix::<[f32; 3]>(slots[1], count),
-                results.prefix::<[f32; 3]>(slots[2], count),
-            ))
-        };
-        let (positions, normals) = read_mesh(slots[0])?;
-        let skin: Vec<[u32; SKIN_WORDS as usize]> = results.prefix(skin_slot, count);
+        let super::surface_readback::SurfaceVertices { positions, normals } =
+            slots[0].read(&results, count)?;
+        let skin: Vec<[u32; SKIN_WORDS as usize]> = results.prefix(&skin_slot, count)?;
         let morphs = slots
             .iter()
             .skip(1)
             .zip(morphs)
             .map(|(target, name)| {
-                let (direct, target_normals) = read_mesh(*target)?;
+                let super::surface_readback::SurfaceVertices {
+                    positions: direct,
+                    normals: target_normals,
+                } = target.read(&results, count)?;
                 Ok(ArmorMorph {
                     name: name.clone(),
                     position_deltas: deltas(&positions, &direct),
