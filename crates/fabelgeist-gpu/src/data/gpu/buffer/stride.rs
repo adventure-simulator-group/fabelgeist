@@ -1,6 +1,7 @@
 //! Native spacing of consecutive storage-array elements.
 
 use super::BufferByteLength;
+use crate::data::PassParameter;
 use crate::data::gpu::compute::{InvocationCount, WorkgroupCount};
 use std::num::{NonZeroU32, TryFromIntError};
 use std::{error::Error, fmt};
@@ -12,9 +13,10 @@ use std::{error::Error, fmt};
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct BufferElementStride(NonZeroU32);
 
-/// Complete records in a native storage-array byte extent.
+/// Complete records in a native storage array.
 ///
-/// This quantity does not certify the contents or identity of that storage.
+/// Admit a population at its native count boundary, or decode a byte extent
+/// using its stride. This quantity does not certify storage contents or identity.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct BufferElementCount(u32);
 
@@ -45,6 +47,11 @@ impl BufferElementStride {
 }
 
 impl BufferElementCount {
+    /// Scale a native record population without wrapping its address space.
+    pub fn checked_mul(self, factor: u32) -> Option<Self> {
+        self.0.checked_mul(factor).map(Self)
+    }
+
     pub fn is_empty(self) -> bool {
         self.0 == 0
     }
@@ -66,6 +73,26 @@ impl BufferElementCount {
     ) -> Result<Self, TryFromIntError> {
         let records = u64::from(bytes) / u64::from(stride.byte_length());
         u32::try_from(records).map(Self)
+    }
+}
+
+impl From<u32> for BufferElementCount {
+    fn from(elements: u32) -> Self {
+        Self(elements)
+    }
+}
+
+/// Encode a native record population in a shader's unsigned count field.
+impl From<BufferElementCount> for PassParameter {
+    fn from(elements: BufferElementCount) -> Self {
+        Self::Unsigned(elements.0)
+    }
+}
+
+/// Native host indexing on the supported 32-bit and 64-bit GPU targets.
+impl From<BufferElementCount> for usize {
+    fn from(elements: BufferElementCount) -> Self {
+        elements.0 as usize
     }
 }
 
