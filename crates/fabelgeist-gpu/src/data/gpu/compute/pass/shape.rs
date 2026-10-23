@@ -1,7 +1,7 @@
 //! Declared invocation dimensions and their covering dispatch grid.
 use std::num::NonZeroU32;
 
-use super::{WorkgroupCount, WorkgroupGrid};
+use super::{DispatchOccupancy, WorkgroupCount, WorkgroupGrid};
 
 /// Invocations to cover along x, distinct from a count of workgroups.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
@@ -82,10 +82,24 @@ impl WorkgroupShape {
         self,
         items: InvocationCount,
     ) -> Result<WorkgroupGrid, FoldedDispatchError> {
+        self.folded_workgroups_x(self.workgroup_count_x(items))
+    }
+
+    /// Admit a folded launch whose producer already counts workgroups.
+    ///
+    /// Uses the same declaration and padded-index contract as
+    /// [`Self::covering_folded_x`]. Empty grids launch no indexing work.
+    pub fn folded_workgroups_x(
+        self,
+        workgroups: WorkgroupCount,
+    ) -> Result<WorkgroupGrid, FoldedDispatchError> {
+        let groups = WorkgroupGrid::folded_x(workgroups);
+        if groups.occupancy() == DispatchOccupancy::Empty {
+            return Ok(groups);
+        }
         if self.0[1].get() != 1 || self.0[2].get() != 1 {
             return Err(FoldedDispatchError::NonLinearShape { shape: self });
         }
-        let groups = WorkgroupGrid::folded_x(self.workgroup_count_x(items));
         let [x, y, _] = groups.dimensions();
         let covered = u64::from(x)
             .checked_mul(u64::from(y))
