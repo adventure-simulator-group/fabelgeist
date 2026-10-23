@@ -18,6 +18,7 @@ serde = { "version" = "1", "features" = ["derive"] }
 serde_json = { "version" = "1.0", "features" = ["preserve_order"] }
 crc32fast = { "version" = "1" }
 miniz_oxide = { "version" = "0.8" }
+futures-channel = { version = "0.3", optional = true }
 wgpu = { "version" = "29.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"], "optional" = true }
 fabelgeist-gpu = { "default-features" = false, "optional" = true, "path" = "../fabelgeist-gpu" }
 fabelgeist-compute = { "optional" = true, "path" = "../fabelgeist-compute" }
@@ -31,7 +32,7 @@ naga = { "version" = "29.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
 [features]
 default = ["render"]
 gpu = ["dep:wgpu", "dep:pollster", "dep:fabelgeist-gpu", "dep:fabelgeist-compute", "dep:fabelgeist-spatial-hash"]
-render = ["gpu", "dep:image"]
+render = ["gpu", "dep:image", "dep:futures-channel"]
 
 [lints]
 workspace = true

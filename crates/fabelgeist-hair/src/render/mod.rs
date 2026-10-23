@@ -28,8 +28,9 @@
 //! strands it is bound to ([`crate::sim`]), and the head, cards and roots
 //! follow the head's transform.
 
-mod math;
+pub use readback::RenderReadbackError;
 
+use deformation::{DeformationState, DeformationViews};
 use std::sync::Arc;
 
 use crate::gpu::error::{HairGpuError, Result};
@@ -44,9 +45,31 @@ use crate::material::HairMaterial;
 use crate::sim::{Rigid, SimBinding};
 use crate::surface::Surface;
 
+mod deformation;
+mod math;
+mod readback;
+
 const SAMPLES: u32 = 4;
 const HDR: wgpu::TextureFormat = wgpu::TextureFormat::Rgba16Float;
 const DEPTH: wgpu::TextureFormat = wgpu::TextureFormat::Depth32Float;
+
+/// The strand draws a frame makes: the view's, the shadows', and the
+/// coarser level's fading in under the view's.
+const MAIN: usize = 0;
+const SHADOW: usize = 1;
+const BLEND: usize = 2;
+
+const IDENTITY: Mat4 = [
+    [1.0, 0.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0, 0.0],
+    [0.0, 0.0, 1.0, 0.0],
+    [0.0, 0.0, 0.0, 1.0],
+];
+
+/// The WGSL of the scene passes and of the full-screen passes after them.
+pub const HAIR_WGSL: &str = include_str!("hair.wgsl");
+pub const POST_WGSL: &str = include_str!("post.wgsl");
+pub const DEFORM_WGSL: &str = include_str!("deform.wgsl");
 
 /// Where the view is from.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -56,44 +79,12 @@ pub struct Camera {
     pub fov_y: f32,
 }
 
-impl Camera {
-    pub fn view_projection(&self, aspect: f32) -> Mat4 {
-        let distance = math::length(math::sub(self.target, self.eye));
-        let near = (distance * 0.02).max(0.005);
-        let far = distance * 10.0 + 5.0;
-        let forward = math::normalize(math::sub(self.target, self.eye));
-        let up = if forward[1].abs() > 0.99 {
-            [0.0, 0.0, 1.0]
-        } else {
-            [0.0, 1.0, 0.0]
-        };
-        multiply(
-            &perspective(self.fov_y, aspect, near, far),
-            &look_at(self.eye, self.target, up),
-        )
-    }
-}
-
 /// A directional light: towards it, its colour and strength.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Light {
     pub direction: [f32; 3],
     pub color: [f32; 3],
     pub intensity: f32,
-}
-
-impl Light {
-    /// From an azimuth (around the vertical, from the front) and an
-    /// elevation, radians.
-    pub fn from_angles(azimuth: f32, elevation: f32, color: [f32; 3], intensity: f32) -> Self {
-        let (sa, ca) = azimuth.sin_cos();
-        let (se, ce) = elevation.sin_cos();
-        Self {
-            direction: [ce * sa, se, ce * ca],
-            color,
-            intensity,
-        }
-    }
 }
 
 /// A three-point studio: key, fill and rim, a sky for ambient light.
@@ -106,20 +97,6 @@ pub struct Lighting {
     pub sky_bottom: [f32; 3],
     pub exposure: f32,
     pub skin: [f32; 3],
-}
-
-impl Default for Lighting {
-    fn default() -> Self {
-        Self {
-            key: Light::from_angles(0.7, 0.75, [1.0, 0.96, 0.9], 2.4),
-            fill: Light::from_angles(-1.1, 0.2, [0.75, 0.85, 1.0], 0.5),
-            rim: Light::from_angles(2.9, 0.5, [1.0, 0.95, 0.9], 1.8),
-            sky_top: [0.55, 0.62, 0.72],
-            sky_bottom: [0.18, 0.16, 0.15],
-            exposure: 0.8,
-            skin: [0.62, 0.45, 0.36],
-        }
-    }
 }
 
 /// What a frame drew.
@@ -162,6 +139,16 @@ struct Globals {
     waves: [f32; 4],
 }
 
+/// Effective inputs of the last view, excluding its temporal jitter and pose.
+#[derive(Clone, Copy, PartialEq)]
+struct RenderedView {
+    globals: Globals,
+    representation: Representation,
+    blend: Option<Blend>,
+    shadow: Option<Representation>,
+    min_pixels: f32,
+}
+
 #[repr(C)]
 #[derive(Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
 struct DrawGpu {
@@ -178,12 +165,6 @@ struct DrawGpu {
 struct PostGpu {
     params: [f32; 4],
 }
-
-/// The strand draws a frame makes: the view's, the shadows', and the
-/// coarser level's fading in under the view's.
-const MAIN: usize = 0;
-const SHADOW: usize = 1;
-const BLEND: usize = 2;
 
 /// Which cards a card draw keeps: those whose own random number is in
 /// `keep.x .. keep.y`, so two cuts of cards dissolve into each other.
@@ -214,8 +195,6 @@ struct Dynamics {
     _body: Arc<wgpu::Buffer>,
     body: Option<f32>,
     levels: Vec<DeformLevel>,
-    /// The simulated strands moved since the levels were deformed.
-    dirty: bool,
 }
 
 struct DeformLevel {
@@ -223,6 +202,7 @@ struct DeformLevel {
     params: wgpu::Buffer,
     group: wgpu::BindGroup,
     sim_points: u32,
+    state: DeformationState,
 }
 
 #[repr(C)]
@@ -236,13 +216,6 @@ struct DeformGpu {
     offset: f32,
     pad: [u32; 3],
 }
-
-const IDENTITY: Mat4 = [
-    [1.0, 0.0, 0.0, 0.0],
-    [0.0, 1.0, 0.0, 0.0],
-    [0.0, 0.0, 1.0, 0.0],
-    [0.0, 0.0, 0.0, 1.0],
-];
 
 /// The head's surface as drawn: where to measure the hair's cover.
 struct HeadSurface {
@@ -343,7 +316,7 @@ pub struct HairRenderer {
     /// what the view was.
     frames: u32,
     history: usize,
-    last: Option<(Globals, Representation, Option<Blend>)>,
+    last: Option<RenderedView>,
     generation: u64,
     last_generation: u64,
     /// The simulated strands moved since the last frame: keep blending
@@ -351,67 +324,50 @@ pub struct HairRenderer {
     moving: bool,
 }
 
-fn uniform_entry(binding: u32, visibility: wgpu::ShaderStages) -> wgpu::BindGroupLayoutEntry {
-    wgpu::BindGroupLayoutEntry {
-        binding,
-        visibility,
-        ty: wgpu::BindingType::Buffer {
-            ty: wgpu::BufferBindingType::Uniform,
-            has_dynamic_offset: false,
-            min_binding_size: None,
-        },
-        count: None,
+impl Camera {
+    pub fn view_projection(&self, aspect: f32) -> Mat4 {
+        let distance = math::length(math::sub(self.target, self.eye));
+        let near = (distance * 0.02).max(0.005);
+        let far = distance * 10.0 + 5.0;
+        let forward = math::normalize(math::sub(self.target, self.eye));
+        let up = if forward[1].abs() > 0.99 {
+            [0.0, 0.0, 1.0]
+        } else {
+            [0.0, 1.0, 0.0]
+        };
+        multiply(
+            &perspective(self.fov_y, aspect, near, far),
+            &look_at(self.eye, self.target, up),
+        )
     }
 }
 
-fn storage_entry(binding: u32) -> wgpu::BindGroupLayoutEntry {
-    wgpu::BindGroupLayoutEntry {
-        binding,
-        visibility: wgpu::ShaderStages::VERTEX,
-        ty: wgpu::BindingType::Buffer {
-            ty: wgpu::BufferBindingType::Storage { read_only: true },
-            has_dynamic_offset: false,
-            min_binding_size: None,
-        },
-        count: None,
+impl Light {
+    /// From an azimuth (around the vertical, from the front) and an
+    /// elevation, radians.
+    pub fn from_angles(azimuth: f32, elevation: f32, color: [f32; 3], intensity: f32) -> Self {
+        let (sa, ca) = azimuth.sin_cos();
+        let (se, ce) = elevation.sin_cos();
+        Self {
+            direction: [ce * sa, se, ce * ca],
+            color,
+            intensity,
+        }
     }
 }
 
-fn texture_entry(binding: u32, sample_type: wgpu::TextureSampleType) -> wgpu::BindGroupLayoutEntry {
-    wgpu::BindGroupLayoutEntry {
-        binding,
-        visibility: wgpu::ShaderStages::FRAGMENT,
-        ty: wgpu::BindingType::Texture {
-            sample_type,
-            view_dimension: wgpu::TextureViewDimension::D2,
-            multisampled: false,
-        },
-        count: None,
+impl Default for Lighting {
+    fn default() -> Self {
+        Self {
+            key: Light::from_angles(0.7, 0.75, [1.0, 0.96, 0.9], 2.4),
+            fill: Light::from_angles(-1.1, 0.2, [0.75, 0.85, 1.0], 0.5),
+            rim: Light::from_angles(2.9, 0.5, [1.0, 0.95, 0.9], 1.8),
+            sky_top: [0.55, 0.62, 0.72],
+            sky_bottom: [0.18, 0.16, 0.15],
+            exposure: 0.8,
+            skin: [0.62, 0.45, 0.36],
+        }
     }
-}
-
-fn sampler_entry(binding: u32, kind: wgpu::SamplerBindingType) -> wgpu::BindGroupLayoutEntry {
-    wgpu::BindGroupLayoutEntry {
-        binding,
-        visibility: wgpu::ShaderStages::FRAGMENT,
-        ty: wgpu::BindingType::Sampler(kind),
-        count: None,
-    }
-}
-
-/// The WGSL of the scene passes and of the full-screen passes after them.
-pub const HAIR_WGSL: &str = include_str!("hair.wgsl");
-pub const POST_WGSL: &str = include_str!("post.wgsl");
-pub const DEFORM_WGSL: &str = include_str!("deform.wgsl");
-
-/// The deform pass's source: [`DEFORM_WGSL`] and the head's distance field
-/// it keeps the drawn strands off.
-fn deform_source() -> String {
-    format!(
-        "{DEFORM_WGSL}{}{}",
-        crate::gpu::wgsl::common::MATH,
-        crate::gpu::wgsl::common::HEAD
-    )
 }
 
 impl HairRenderer {
@@ -1386,6 +1342,7 @@ impl HairRenderer {
                     params,
                     group,
                     sim_points,
+                    state: DeformationState::Pending,
                 }
             })
             .collect();
@@ -1398,7 +1355,6 @@ impl HairRenderer {
             _body: body_buffer,
             body,
             levels,
-            dirty: true,
         });
         self.generation += 1;
     }
@@ -1420,7 +1376,9 @@ impl HairRenderer {
         let Some(dynamics) = &mut self.dynamics else {
             return;
         };
-        dynamics.dirty = true;
+        for level in &mut dynamics.levels {
+            level.state = DeformationState::Pending;
+        }
         self.head_matrix = head.matrix();
         self.moving = true;
     }
@@ -1673,13 +1631,20 @@ impl HairRenderer {
             tonemap_accum,
         });
         self.last = None;
+        self.frames = 0;
+        self.history = 0;
         (output, output_view, true)
     }
 
-    /// Whether another frame would change the image: the view moved, or the
-    /// running mean has not yet taken all its frames.
+    /// Whether the last rendered view has its requested running mean, with
+    /// no scene replacement or simulation movement waiting to be drawn.
     pub fn converged(&self, policy: &LodPolicy) -> bool {
-        self.frames >= policy.quality.accumulate.max(1) && self.last_generation == self.generation
+        self.last.is_some_and(|view| {
+            view.min_pixels == policy.quality.min_pixels
+                && view.shadow == policy.quality.shadows.then(|| policy.shadow(self.counts))
+        }) && !self.moving
+            && self.frames >= policy.quality.accumulate.max(1)
+            && self.last_generation == self.generation
     }
 
     /// Draw a frame into the output texture.
@@ -1826,14 +1791,18 @@ impl HairRenderer {
         // the mean again: the view is the same, the hair is moving.
         let mut view = globals;
         view.head = IDENTITY;
-        let same = self.last_generation == self.generation
-            && self
-                .last
-                .is_some_and(|(g, r, b)| g == view && r == representation && b == blend);
+        let view = RenderedView {
+            globals: view,
+            representation,
+            blend,
+            shadow: quality.shadows.then_some(shadow_draw),
+            min_pixels: quality.min_pixels,
+        };
+        let same = self.last_generation == self.generation && self.last == Some(view);
         if !same {
             self.frames = 0;
         }
-        self.last = Some((view, representation, blend));
+        self.last = Some(view);
         self.last_generation = self.generation;
         let moving = std::mem::take(&mut self.moving);
         if self.frames >= wanted && !moving {
@@ -1938,25 +1907,18 @@ impl HairRenderer {
             .create_command_encoder(&wgpu::CommandEncoderDescriptor {
                 label: Some("hair frame"),
             });
-        // Physics: move the levels this frame draws.
-        if self.dynamics.as_ref().is_some_and(|d| d.dirty) {
-            let mut levels = Vec::new();
-            if let Representation::Strands { level, .. } = representation {
-                levels.push(level);
-            }
-            if let (true, Representation::Strands { level, .. }) = (quality.shadows, shadow_draw)
-                && !levels.contains(&level)
-            {
-                levels.push(level);
-            }
-            for level in levels {
-                self.deform(&mut encoder, level);
-            }
-            if let Some(d) = &mut self.dynamics {
-                d.dirty = false;
-            }
-        }
-        let targets = self.targets.as_ref().expect("checked above");
+        self.record_deformations(
+            &mut encoder,
+            DeformationViews {
+                main: representation,
+                shadow: quality.shadows.then_some(shadow_draw),
+                blend: blend.map(|blend| blend.to),
+            },
+        );
+        let targets = self
+            .targets
+            .as_ref()
+            .ok_or(HairGpuError::MissingRenderTargets)?;
         if quality.shadows {
             // The head's shadow.
             {
@@ -2107,7 +2069,7 @@ impl HairRenderer {
             // Moving hair keeps a share of each new frame: an exponential
             // mean, which smooths the stochastic coverage without trailing
             // far behind the motion.
-            let mut weight = 1.0 / (self.frames + 1) as f32;
+            let mut weight = 1.0 / (u64::from(self.frames) + 1) as f32;
             if moving {
                 weight = weight.max(0.35);
             }
@@ -2182,7 +2144,7 @@ impl HairRenderer {
             pass.draw(0..3, 0..1);
         }
         self.queue.submit([encoder.finish()]);
-        self.frames += 1;
+        self.frames = self.frames.saturating_add(1);
         Ok(FrameInfo {
             representation,
             pixels,
@@ -2213,62 +2175,6 @@ impl HairRenderer {
             info = self.render(camera, lighting, material, policy)?;
         }
         Ok(info)
-    }
-
-    /// The output texture's pixels, tightly packed rows of four bytes each.
-    pub fn read_rgba(&self) -> Result<(u32, u32, Vec<u8>)> {
-        let Some(targets) = &self.targets else {
-            return Err(HairGpuError::NothingRendered);
-        };
-        let (width, height) = (targets.width, targets.height);
-        let row = width * 4;
-        let padded = row.next_multiple_of(wgpu::COPY_BYTES_PER_ROW_ALIGNMENT);
-        let buffer = self.device.create_buffer(&wgpu::BufferDescriptor {
-            label: Some("hair readback"),
-            size: (padded * height) as u64,
-            usage: wgpu::BufferUsages::COPY_DST | wgpu::BufferUsages::MAP_READ,
-            mapped_at_creation: false,
-        });
-        let mut encoder = self.device.create_command_encoder(&Default::default());
-        encoder.copy_texture_to_buffer(
-            targets.output.as_image_copy(),
-            wgpu::TexelCopyBufferInfo {
-                buffer: &buffer,
-                layout: wgpu::TexelCopyBufferLayout {
-                    offset: 0,
-                    bytes_per_row: Some(padded),
-                    rows_per_image: Some(height),
-                },
-            },
-            wgpu::Extent3d {
-                width,
-                height,
-                depth_or_array_layers: 1,
-            },
-        );
-        self.queue.submit([encoder.finish()]);
-        let (tx, rx) = std::sync::mpsc::channel();
-        buffer.slice(..).map_async(wgpu::MapMode::Read, move |r| {
-            let _ = tx.send(r);
-        });
-        self.device.poll(wgpu::PollType::wait_indefinitely())?;
-        rx.recv()??;
-        let mapped = buffer.slice(..).get_mapped_range();
-        let mut pixels = Vec::with_capacity((row * height) as usize);
-        for y in 0..height {
-            let start = (y * padded) as usize;
-            pixels.extend_from_slice(&mapped[start..start + row as usize]);
-        }
-        // Blue-first formats read back swapped.
-        if matches!(
-            self.output_format,
-            wgpu::TextureFormat::Bgra8Unorm | wgpu::TextureFormat::Bgra8UnormSrgb
-        ) {
-            for p in pixels.chunks_mut(4) {
-                p.swap(0, 2);
-            }
-        }
-        Ok((width, height, pixels))
     }
 }
 
@@ -2307,6 +2213,64 @@ pub fn headless_device() -> Result<(Arc<wgpu::Device>, Arc<wgpu::Queue>)> {
             .await?;
         Ok((Arc::new(device), Arc::new(queue)))
     })
+}
+
+fn uniform_entry(binding: u32, visibility: wgpu::ShaderStages) -> wgpu::BindGroupLayoutEntry {
+    wgpu::BindGroupLayoutEntry {
+        binding,
+        visibility,
+        ty: wgpu::BindingType::Buffer {
+            ty: wgpu::BufferBindingType::Uniform,
+            has_dynamic_offset: false,
+            min_binding_size: None,
+        },
+        count: None,
+    }
+}
+
+fn storage_entry(binding: u32) -> wgpu::BindGroupLayoutEntry {
+    wgpu::BindGroupLayoutEntry {
+        binding,
+        visibility: wgpu::ShaderStages::VERTEX,
+        ty: wgpu::BindingType::Buffer {
+            ty: wgpu::BufferBindingType::Storage { read_only: true },
+            has_dynamic_offset: false,
+            min_binding_size: None,
+        },
+        count: None,
+    }
+}
+
+fn texture_entry(binding: u32, sample_type: wgpu::TextureSampleType) -> wgpu::BindGroupLayoutEntry {
+    wgpu::BindGroupLayoutEntry {
+        binding,
+        visibility: wgpu::ShaderStages::FRAGMENT,
+        ty: wgpu::BindingType::Texture {
+            sample_type,
+            view_dimension: wgpu::TextureViewDimension::D2,
+            multisampled: false,
+        },
+        count: None,
+    }
+}
+
+fn sampler_entry(binding: u32, kind: wgpu::SamplerBindingType) -> wgpu::BindGroupLayoutEntry {
+    wgpu::BindGroupLayoutEntry {
+        binding,
+        visibility: wgpu::ShaderStages::FRAGMENT,
+        ty: wgpu::BindingType::Sampler(kind),
+        count: None,
+    }
+}
+
+/// The deform pass's source: [`DEFORM_WGSL`] and the head's distance field
+/// it keeps the drawn strands off.
+fn deform_source() -> String {
+    format!(
+        "{DEFORM_WGSL}{}{}",
+        crate::gpu::wgsl::common::MATH,
+        crate::gpu::wgsl::common::HEAD
+    )
 }
 
 #[cfg(test)]

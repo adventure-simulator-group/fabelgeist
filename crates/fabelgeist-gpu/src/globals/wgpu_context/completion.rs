@@ -1,6 +1,9 @@
 //! Explicit queue completion, separate from command acceptance and readback.
 
 use super::WgpuContext;
+use crate::globals::CallbackProgressError;
+#[cfg(target_arch = "wasm32")]
+use crate::globals::await_browser_callback;
 use std::{error::Error, fmt};
 
 type Result<T> = std::result::Result<T, WorkCompletionError>;
@@ -11,6 +14,15 @@ pub enum WorkCompletionError {
     Marker(wgpu::Error),
     Poll(wgpu::PollError),
     Callback(futures_channel::oneshot::Canceled),
+}
+
+impl From<CallbackProgressError> for WorkCompletionError {
+    fn from(cause: CallbackProgressError) -> Self {
+        match cause {
+            CallbackProgressError::Poll(cause) => Self::Poll(cause),
+            CallbackProgressError::Canceled(cause) => Self::Callback(cause),
+        }
+    }
 }
 
 impl fmt::Display for WorkCompletionError {
@@ -62,11 +74,13 @@ impl WgpuContext {
         }
         #[cfg(target_arch = "wasm32")]
         {
-            let (sender, receiver) = futures_channel::oneshot::channel();
+            let (sender, mut receiver) = futures_channel::oneshot::channel();
             self.queue.on_submitted_work_done(move || {
                 let _ = sender.send(());
             });
-            receiver.await.map_err(WorkCompletionError::Callback)
+            await_browser_callback(&self.device, &mut receiver)
+                .await
+                .map_err(WorkCompletionError::from)
         }
     }
 }
