@@ -360,8 +360,9 @@ impl HairRenderer {
     /// Build pipelines on `device` and its paired `queue`.
     ///
     /// Supplied native resources must belong to this same logical device.
-    /// Pipeline, allocation and submission failures follow the device's
-    /// configured error handling; this constructor does not replace it.
+    /// Host atlas admission and allocation failures are returned. Native
+    /// pipeline, resource and queue failures follow the device's configured
+    /// error handling; this constructor does not replace it.
     pub fn new(
         device: Arc<wgpu::Device>,
         queue: Arc<wgpu::Queue>,
@@ -1613,22 +1614,19 @@ impl HairRenderer {
             self.shadows = Self::shadow_maps(&self.device, resolution);
             self.rebind_lighting();
         }
-        let accumulating = wanted.count() > 1 || self.moving;
-        if self.last != Some(view) || (accumulating && !self.history.is_current()) {
-            self.invalidate_view();
-        }
-        self.last = Some(view);
-        let moving = std::mem::take(&mut self.moving);
-        if self.frames >= wanted && !moving {
+        let mut frame = self.prepare_frame(view, wanted);
+        let accumulating = frame.accumulating(wanted);
+        let moving = frame.moving;
+        if frame.is_complete(wanted) {
             return Ok(FrameInfo {
                 representation,
                 pixels,
-                frames: self.frames,
+                frames: frame.frames,
                 primitives: self.primitives(representation),
             });
         }
-        if self.frames.count() > 0 {
-            let n = self.frames.count() % 64 + 1;
+        if frame.frames.count() > 0 {
+            let n = frame.frames.count() % 64 + 1;
             globals.jitter[0] = (halton(n, 2) - 0.5) * 2.0 / width as f32;
             globals.jitter[1] = (halton(n, 3) - 0.5) * 2.0 / height as f32;
             globals.jitter[2] = n as f32;
@@ -1687,7 +1685,7 @@ impl HairRenderer {
             .create_command_encoder(&wgpu::CommandEncoderDescriptor {
                 label: Some("hair frame"),
             });
-        self.record_deformations(
+        let deformations = self.record_deformations(
             &mut encoder,
             DeformationViews {
                 main: representation,
@@ -1855,12 +1853,12 @@ impl HairRenderer {
 
         // Into the running mean, then onto the screen.
         let source = if accumulating {
-            let from = self.history.previous();
+            let from = frame.history.previous();
             let to = from.next();
             // Moving hair keeps a share of each new frame: an exponential
             // mean, which smooths the stochastic coverage without trailing
             // far behind the motion.
-            let mut weight = self.frames.next_weight();
+            let mut weight = frame.frames.next_weight();
             if moving {
                 weight = weight.max(0.35);
             }
@@ -1892,7 +1890,7 @@ impl HairRenderer {
                 pass.set_bind_group(0, &targets.accumulate[from.index()], &[]);
                 pass.draw(0..3, 0..1);
             }
-            self.history = History::Current(to);
+            frame.history = History::Current(to);
             &targets.tonemap_accum[to.index()]
         } else {
             &targets.tonemap_resolved
@@ -1935,7 +1933,9 @@ impl HairRenderer {
             pass.draw(0..3, 0..1);
         }
         self.queue.submit([encoder.finish()]);
-        self.frames = self.frames.next();
+        // These states describe submitted commands, not completed GPU work.
+        self.publish_deformations(deformations);
+        self.publish_frame(frame);
         Ok(FrameInfo {
             representation,
             pixels,

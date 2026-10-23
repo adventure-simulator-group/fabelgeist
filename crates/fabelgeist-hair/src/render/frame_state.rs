@@ -1,8 +1,11 @@
 //! Frame identity and admission before publishing a temporal running mean.
 
-use super::Globals;
+use super::{Globals, HairRenderer};
 use crate::gpu::error::{HairGpuError, Result};
-use crate::lod::{Blend, HairShading, LodPolicyError, PixelSpan, Representation, ShadowMapSize};
+use crate::lod::{
+    AccumulationFrames, Blend, HairShading, LodPolicyError, PixelSpan, Representation,
+    ShadowMapSize,
+};
 
 /// Effective inputs of the last view, excluding its temporal jitter and pose.
 #[derive(Clone, Copy, PartialEq)]
@@ -16,6 +19,14 @@ pub(super) struct RenderedView {
     pub pixels: PixelSpan,
     pub shading: HairShading,
     pub shadow_resolution: Option<ShadowMapSize>,
+}
+
+/// Candidate temporal state until the complete frame encoder is submitted.
+pub(super) struct FrameProgress {
+    view: RenderedView,
+    pub frames: AccumulationFrames,
+    pub history: History,
+    pub moving: bool,
 }
 
 /// A frame contains a non-finite numerical input.
@@ -88,6 +99,44 @@ impl RenderedView {
             return Err(RenderInputError { part }.into());
         }
         Ok(self)
+    }
+}
+
+impl FrameProgress {
+    pub fn accumulating(&self, wanted: AccumulationFrames) -> bool {
+        wanted.count() > 1 || self.moving
+    }
+
+    pub fn is_complete(&self, wanted: AccumulationFrames) -> bool {
+        self.frames >= wanted && !self.moving
+    }
+}
+
+impl HairRenderer {
+    pub(super) fn prepare_frame(
+        &self,
+        view: RenderedView,
+        wanted: AccumulationFrames,
+    ) -> FrameProgress {
+        let mut frame = FrameProgress {
+            view,
+            frames: self.frames,
+            history: self.history,
+            moving: self.moving,
+        };
+        if self.last != Some(view) || (frame.accumulating(wanted) && !frame.history.is_current()) {
+            frame.frames = AccumulationFrames::default();
+            frame.history = History::Empty;
+        }
+        frame
+    }
+
+    /// Publish a normally submitted frame, without claiming GPU completion.
+    pub(super) fn publish_frame(&mut self, frame: FrameProgress) {
+        self.last = Some(frame.view);
+        self.frames = frame.frames.next();
+        self.history = frame.history;
+        self.moving = false;
     }
 }
 
