@@ -62,7 +62,7 @@ impl GpuResource {
         context: &crate::globals::WgpuContext,
     ) -> anyhow::Result<Vec<T>> {
         match self {
-            GpuResource::Buffer(b) => b.read(context).await,
+            GpuResource::Buffer(b) => b.read(context).await.map_err(anyhow::Error::from),
             GpuResource::Texture2d(t) => t.read(context).await,
             GpuResource::Texture3d(t) => t.read(context).await,
         }
