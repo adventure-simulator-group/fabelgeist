@@ -1,5 +1,9 @@
-use crate::engraving::Engraving;
+use crate::engraving::{Engraving, EngravingError};
 use serde::{Deserialize, Serialize};
+
+pub use tile::{MetalTextureLayoutError, MetalTextureSize, MetalTextureSizeError};
+
+mod tile;
 
 /// Worked steel: a base color and roughness with a tiling map of its finish --
 /// the undulation left by planishing, the grain of its polish, uneven gloss
@@ -24,6 +28,15 @@ pub struct Metal {
     pub smudge: f32,
     pub engraving: Option<Engraving>,
 }
+/// A procedural metal recipe fails its material admission contract.
+#[derive(Debug, thiserror::Error)]
+pub enum MetalError {
+    #[error("Invalid metal parameters")]
+    Parameters,
+    #[error(transparent)]
+    Engraving(#[from] EngravingError),
+}
+
 impl Default for Metal {
     /// Polished steel.
     fn default() -> Self {
@@ -47,14 +60,11 @@ impl Default for Metal {
 impl Metal {
     /// Texture repeats per metre of armor surface.
     pub const TILES_PER_METRE: f32 = 4.0;
-    /// The texture size previews and exports bake: a quarter millimetre
-    /// per texel, fine enough for hairline scratches.
-    pub const TEXTURE_SIZE: u32 = 1024;
     pub const MAX_WAVINESS: f32 = 0.002;
     /// Roughness added at the bottom of the deepest scratch.
     pub(crate) const SCRATCH_ROUGHNESS: f32 = 0.45;
 
-    pub fn validate(&self) -> Result<(), String> {
+    pub fn validate(&self) -> Result<(), MetalError> {
         let values = [
             (self.roughness, 0.08, 0.9),
             (self.scratch_length, 0.005, 0.4),
@@ -79,14 +89,17 @@ impl Metal {
                 .iter()
                 .any(|x| !x.is_finite() || !(0.0..=1.0).contains(x))
         {
-            return Err("Invalid metal parameters".into());
+            return Err(MetalError::Parameters);
         }
-        self.engraving.as_ref().map_or(Ok(()), Engraving::validate)
+        if let Some(engraving) = &self.engraving {
+            engraving.validate()?;
+        }
+        Ok(())
     }
 }
 
 pub struct MetalTextures {
-    pub size: u32,
+    pub size: MetalTextureSize,
     /// Tangent-space normals, RGBA8.
     pub normal: Vec<u8>,
     /// glTF metallic-roughness, RGBA8 with roughness in green.

@@ -2,7 +2,11 @@ use crate::item_catalog_schema::EquipmentMaterial;
 
 pub fn pbr(material: EquipmentMaterial) -> ([f32; 4], f32, f32) {
     match material {
-        EquipmentMaterial::PolishedSteel => ([0.769, 0.776, 0.776, 1.0], 1.0, 0.20),
+        EquipmentMaterial::PolishedSteel => {
+            let metal = fabelgeist_armor::material::Metal::default();
+            let [red, green, blue] = metal.color;
+            ([red, green, blue, 1.0], 1.0, metal.roughness)
+        }
         EquipmentMaterial::RoughSteel => ([0.769, 0.776, 0.776, 1.0], 1.0, 0.58),
         EquipmentMaterial::OxidizedSteel => ([0.420, 0.275, 0.196, 1.0], 0.0, 0.82),
         EquipmentMaterial::MailSteel => ([0.769, 0.776, 0.776, 1.0], 1.0, 0.42),

@@ -45,7 +45,7 @@ impl EquipmentMaps {
         material: EquipmentMaterial,
         design: Option<&ParametricDesign>,
         engraving: Option<&Engraving>,
-    ) -> Result<StandardMaterial, String> {
+    ) -> anyhow::Result<StandardMaterial> {
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
         if let Some(metal) = armor_metal::metal(material, engraving) {
             return self.metal(images, &metal, metallic);
@@ -111,7 +111,7 @@ impl EquipmentMaps {
         images: &mut Assets<Image>,
         metal: &Metal,
         metallic: f32,
-    ) -> Result<StandardMaterial, String> {
+    ) -> anyhow::Result<StandardMaterial> {
         let index = match self.metals.iter().position(|baked| baked.metal == *metal) {
             Some(index) => index,
             None => {

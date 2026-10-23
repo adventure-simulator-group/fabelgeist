@@ -9,7 +9,12 @@
 //! height map.
 use crate::ornament::Ornament;
 use serde::{Deserialize, Serialize};
+use std::fmt;
 use std::path::PathBuf;
+
+pub use error::EngravingError;
+
+mod error;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Engraving {
@@ -81,7 +86,7 @@ impl Engraving {
         }
     }
 
-    pub fn validate(&self) -> Result<(), String> {
+    pub fn validate(&self) -> Result<(), EngravingError> {
         let bounded =
             |value: f32, low: f32, high: f32| value.is_finite() && (low..=high).contains(&value);
         let relief = match self.relief {
@@ -101,18 +106,20 @@ impl Engraving {
             || !bounded(self.rotation, -std::f32::consts::PI, std::f32::consts::PI)
             || !bounded(self.recess_roughness, 0.0, 1.0)
         {
-            return Err("Invalid engraving parameters".into());
+            return Err(EngravingError::Parameters);
         }
         Ok(())
     }
 
     /// What the bake cuts: the relief image, read and decoded, or the
     /// ornament to draw.
-    pub(crate) fn cut(&self) -> Result<Cut<'_>, String> {
+    pub(crate) fn cut(&self) -> Result<Cut<'_>, EngravingError> {
         match &self.source {
             ReliefSource::Image(image) => {
-                let bytes = std::fs::read(image)
-                    .map_err(|error| format!("Engraving {}: {error}", image.display()))?;
+                let bytes = std::fs::read(image).map_err(|source| EngravingError::Read {
+                    path: image.clone(),
+                    source,
+                })?;
                 self.decode(&bytes).map(Cut::Image)
             }
             ReliefSource::Ornament(ornament) => Ok(Cut::Ornament(ornament)),
@@ -120,13 +127,11 @@ impl Engraving {
     }
 
     /// Decode PNG `bytes` as this engraving's kind of relief.
-    pub fn decode(&self, bytes: &[u8]) -> Result<ReliefImage, String> {
-        let name = match &self.source {
-            ReliefSource::Image(image) => image.display().to_string(),
-            ReliefSource::Ornament(_) => "ornament".into(),
-        };
-        let image =
-            image::load_from_memory(bytes).map_err(|error| format!("Engraving {name}: {error}"))?;
+    pub fn decode(&self, bytes: &[u8]) -> Result<ReliefImage, EngravingError> {
+        let image = image::load_from_memory(bytes).map_err(|source| EngravingError::Decode {
+            origin: self.source.clone(),
+            source,
+        })?;
         let (width, height) = (image.width() as usize, image.height() as usize);
         let pixels = match self.relief {
             Relief::Height { .. } => ReliefPixels::Height(image.to_luma32f().into_raw()),
@@ -169,6 +174,15 @@ pub(crate) enum ReliefPixels {
     Height(Vec<f32>),
     /// Rise per run along the image's columns and rows.
     Slopes(Vec<[f32; 2]>),
+}
+
+impl fmt::Display for ReliefSource {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Image(path) => fmt::Display::fmt(&path.display(), formatter),
+            Self::Ornament(_) => formatter.write_str("ornament"),
+        }
+    }
 }
 
 #[cfg(test)]

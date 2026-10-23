@@ -20,6 +20,11 @@ pub struct Ornament {
     pub fillets: bool,
 }
 
+/// A procedural ornament fails its authored parameter bounds.
+#[derive(Clone, Copy, Debug, thiserror::Error)]
+#[error("Invalid ornament parameters")]
+pub struct OrnamentError;
+
 /// The repeated figure. Heights are fractions of the room left between the
 /// fillets, and lengths fractions of one repeat.
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
@@ -125,13 +130,13 @@ impl Ornament {
     pub const MIN_LINE: f32 = 0.01;
     pub const MAX_LINE: f32 = 0.2;
 
-    pub fn validate(&self) -> Result<(), String> {
+    pub fn validate(&self) -> Result<(), OrnamentError> {
         if !(1..=Self::MAX_REPEATS).contains(&self.repeats)
             || !self.line.is_finite()
             || !(Self::MIN_LINE..=Self::MAX_LINE).contains(&self.line)
             || !self.motif.valid()
         {
-            return Err("Invalid ornament parameters".into());
+            return Err(OrnamentError);
         }
         Ok(())
     }

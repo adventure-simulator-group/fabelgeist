@@ -6,7 +6,7 @@ use crate::engraving::{
     Cut, Engraving, Relief,
     tests::{groove_png, png},
 };
-use crate::material::{Metal, MetalTextures};
+use crate::material::{Metal, MetalTextureSize, MetalTextures};
 
 fn gpu() -> &'static MetalGpu {
     static GPU: std::sync::OnceLock<MetalGpu> = std::sync::OnceLock::new();
@@ -29,7 +29,7 @@ fn polished() -> Metal {
 /// Bake `metal` with `engraving` decoded from `image`.
 fn engraved(metal: &Metal, engraving: &Engraving, image: &[u8], size: u32) -> MetalTextures {
     let image = Cut::Image(engraving.decode(image).unwrap());
-    bake(gpu(), metal, size, Some((engraving, &image))).unwrap()
+    bake(gpu(), metal, MetalTextureSize::try_from(size).unwrap(), Some((engraving, &image))).unwrap()
 }
 
 fn pixel(map: &[u8], size: u32, x: u32, y: u32) -> &[u8] {
@@ -40,17 +40,17 @@ fn pixel(map: &[u8], size: u32, x: u32, y: u32) -> &[u8] {
 #[test]
 fn scratches_are_deterministic_and_change_normal_and_roughness() {
     let mut m = Metal::default();
-    let a = gpu().textures(&m, 64).unwrap();
-    let b = gpu().textures(&m, 64).unwrap();
-    assert_eq!(a.size, 64);
+    let a = gpu().textures(&m, MetalTextureSize::try_from(64).unwrap()).unwrap();
+    let b = gpu().textures(&m, MetalTextureSize::try_from(64).unwrap()).unwrap();
+    assert_eq!(u32::from(a.size), 64);
     assert_eq!(a.normal.len(), 64 * 64 * 4);
     assert_eq!(a.metal_roughness.len(), 64 * 64 * 4);
     assert_eq!(a.normal, b.normal);
     assert_eq!(a.metal_roughness, b.metal_roughness);
     assert!(a.depth.is_none());
     m.seed += 1;
-    assert_ne!(a.normal, gpu().textures(&m, 64).unwrap().normal);
-    let smooth = gpu().textures(&polished(), 64).unwrap();
+    assert_ne!(a.normal, gpu().textures(&m, MetalTextureSize::try_from(64).unwrap()).unwrap().normal);
+    let smooth = gpu().textures(&polished(), MetalTextureSize::try_from(64).unwrap()).unwrap();
     assert!(
         smooth
             .normal
@@ -72,8 +72,8 @@ fn the_finish_tilts_and_roughens_the_surface_and_still_tiles() {
         smudge: 0.3,
         ..polished()
     };
-    let a = gpu().textures(&finished, size).unwrap();
-    assert_eq!(a.normal, gpu().textures(&finished, size).unwrap().normal);
+    let a = gpu().textures(&finished, MetalTextureSize::try_from(size).unwrap()).unwrap();
+    assert_eq!(a.normal, gpu().textures(&finished, MetalTextureSize::try_from(size).unwrap()).unwrap().normal);
     let tilted = a
         .normal
         .as_chunks::<4>()
@@ -97,20 +97,20 @@ fn the_finish_tilts_and_roughens_the_surface_and_still_tiles() {
 #[test]
 fn texture_sizes_and_engraving_images_are_checked() {
     let metal = Metal::default();
-    assert!(gpu().textures(&metal, 16).is_err());
-    assert!(gpu().textures(&metal, u32::MAX).is_err());
-    let full = gpu().textures(&metal, Metal::TEXTURE_SIZE).unwrap();
-    assert_eq!(full.normal.len(), (Metal::TEXTURE_SIZE.pow(2) * 4) as usize);
+    assert!(MetalTextureSize::try_from(16).is_err());
+    assert!(MetalTextureSize::try_from(u32::MAX).is_err());
+    let full = gpu().textures(&metal, MetalTextureSize::PREVIEW).unwrap();
+    assert_eq!(full.normal.len(), (u32::from(MetalTextureSize::PREVIEW).pow(2) * 4) as usize);
     let engraved = Metal {
         engraving: Some(Engraving::new("missing.png")),
         ..Metal::default()
     };
-    assert!(gpu().textures(&engraved, 64).is_err());
+    assert!(gpu().textures(&engraved, MetalTextureSize::try_from(64).unwrap()).is_err());
     let invalid = Metal {
         roughness: f32::NAN,
         ..Metal::default()
     };
-    assert!(gpu().textures(&invalid, 64).is_err());
+    assert!(gpu().textures(&invalid, MetalTextureSize::try_from(64).unwrap()).is_err());
 }
 
 #[test]
@@ -200,7 +200,7 @@ fn ornament_rows(ornament: crate::ornament::Ornament, size: u32) -> (MetalTextur
                 engraving: Some(engraving),
                 ..polished()
             },
-            size,
+            MetalTextureSize::try_from(size).unwrap(),
         )
         .unwrap();
     let depth = baked.depth.as_ref().expect("an ornament is cut as heights");

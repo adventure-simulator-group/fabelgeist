@@ -4,7 +4,7 @@ use bevy::{
     image::{ImageAddressMode, ImageSampler, ImageSamplerDescriptor},
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
-use fabelgeist_armor::material::Metal;
+use fabelgeist_armor::material::{Metal, MetalTextureSize};
 
 /// A metal's baked maps, uploaded for the preview.
 pub(super) struct MetalImages {
@@ -15,15 +15,14 @@ pub(super) struct MetalImages {
 }
 
 impl MetalImages {
-    pub(super) fn new(images: &mut Assets<Image>, metal: &Metal) -> Result<Self, String> {
-        let textures = adventuresim_character_creator::metal_gpu()
-            .map_err(|error| error.to_string())?
-            .textures(metal, Metal::TEXTURE_SIZE)?;
+    pub(super) fn new(images: &mut Assets<Image>, metal: &Metal) -> anyhow::Result<Self> {
+        let textures = adventuresim_character_creator::metal_gpu()?
+            .textures(metal, MetalTextureSize::PREVIEW)?;
         let mut upload = |data| {
             let mut image = Image::new(
                 Extent3d {
-                    width: textures.size,
-                    height: textures.size,
+                    width: textures.size.into(),
+                    height: textures.size.into(),
                     depth_or_array_layers: 1,
                 },
                 TextureDimension::D2,

@@ -1372,7 +1372,7 @@ mod tests {
             let decoded =
                 image::load_from_memory(&blob[view.offset()..view.offset() + view.length()])
                     .unwrap();
-            let size = fabelgeist_armor::material::Metal::TEXTURE_SIZE;
+            let size = u32::from(fabelgeist_armor::material::MetalTextureSize::PREVIEW);
             assert_eq!((decoded.width(), decoded.height()), (size, size));
         }
         let _ = fs::remove_dir_all(directory);

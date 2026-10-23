@@ -2,23 +2,17 @@
 
 use fabelgeist_compute::{KernelBatch, host_float};
 use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters, Result, WorkgroupGrid};
 
 use super::MetalGpu;
 use super::finish::FINISH_WORDS;
 use super::textures::{DRAWS_PER_SCRATCH, STAMP_GROUP};
-use crate::engraving::{Cut, Engraving, Relief, ReliefImage, ReliefPixels};
-use crate::material::{DepthMap, Metal, MetalTextures};
+use crate::engraving::{Cut, Engraving, EngravingError, Relief, ReliefImage, ReliefPixels};
+use crate::material::{DepthMap, Metal, MetalTextureSize, MetalTextures};
 use crate::ornament::Ornament;
 
-/// The texture sizes a bake supports.
-const SIZES: std::ops::RangeInclusive<u32> = 32..=1024;
-
-pub(super) fn textures(gpu: &MetalGpu, metal: &Metal, size: u32) -> Result<MetalTextures, String> {
+pub(super) fn textures(gpu: &MetalGpu, metal: &Metal, size: MetalTextureSize) -> Result<MetalTextures> {
     metal.validate()?;
-    if !SIZES.contains(&size) {
-        return Err("Texture size must be 32–1024".into());
-    }
     let cut = metal
         .engraving
         .as_ref()
@@ -31,17 +25,19 @@ pub(super) fn textures(gpu: &MetalGpu, metal: &Metal, size: u32) -> Result<Metal
 pub(super) fn bake(
     gpu: &MetalGpu,
     metal: &Metal,
-    size: u32,
+    size: MetalTextureSize,
     engraving: Option<(&Engraving, &Cut<'_>)>,
-) -> Result<MetalTextures, String> {
-    let texels = size * size;
-    let height = gpu.scratch(texels.into(), "metal scratch height")?;
-    let recess = gpu.scratch(texels.into(), "metal recess")?;
-    let slopes = gpu.scratch(u64::from(texels) * 2, "metal slopes")?;
-    let normal = gpu.scratch(texels.into(), "metal normal")?;
-    let metal_roughness = gpu.scratch(texels.into(), "metal roughness")?;
-    let depth = gpu.scratch(texels.into(), "metal depth")?;
-    let finish = gpu.scratch(u64::from(texels) * u64::from(FINISH_WORDS), "metal finish")?;
+) -> Result<MetalTextures> {
+    let texels = size.texels();
+    let slope_words = size.words(2)?;
+    let finish_words = size.words(FINISH_WORDS)?;
+    let height = gpu.scratch(texels, "metal scratch height".into())?;
+    let recess = gpu.scratch(texels, "metal recess".into())?;
+    let slopes = gpu.scratch(slope_words, "metal slopes".into())?;
+    let normal = gpu.scratch(texels, "metal normal".into())?;
+    let metal_roughness = gpu.scratch(texels, "metal roughness".into())?;
+    let depth = gpu.scratch(texels, "metal depth".into())?;
+    let finish = gpu.scratch(finish_words, "metal finish".into())?;
     let mut batch = gpu.batch("metal textures");
     record_scratches(gpu, &mut batch, metal, size, &height)?;
     record_finish(gpu, &mut batch, metal, size, &finish)?;
@@ -78,11 +74,11 @@ pub(super) fn bake(
     bake.insert("metal_roughness", metal_roughness.clone());
     bake.insert("depth", depth.clone());
     bake.insert("finish", finish);
-    gpu.dispatch(&mut batch, &gpu.bake, &bake, texels)?;
-    batch.submit();
-    let bytes = |buffer: &Buffer| -> Result<Vec<u8>, String> {
+    gpu.dispatch(&mut batch, &gpu.bake, &bake, texels.into())?;
+    batch.submit()?;
+    let bytes = |buffer: &Buffer| -> Result<Vec<u8>> {
         let words: Vec<u32> = gpu.read(buffer)?;
-        Ok(bytemuck::cast_slice(&words[..texels as usize]).to_vec())
+        Ok(bytemuck::cast_slice(&words[..usize::from(texels)]).to_vec())
     };
     Ok(MetalTextures {
         size,
@@ -90,7 +86,7 @@ pub(super) fn bake(
         metal_roughness: bytes(&metal_roughness)?,
         depth: depth_uv
             .map(|uv_scale| {
-                Ok::<_, String>(DepthMap {
+                Ok::<_, fabelgeist_gpu::prelude::Error>(DepthMap {
                     pixels: bytes(&depth)?,
                     uv_scale,
                 })
@@ -104,9 +100,9 @@ fn record_finish(
     gpu: &MetalGpu,
     batch: &mut KernelBatch,
     metal: &Metal,
-    size: u32,
+    size: MetalTextureSize,
     finish: &Buffer,
-) -> Result<(), String> {
+) -> Result<()> {
     let mut parameters = PassParameters::new();
     parameters.insert("size", size);
     parameters.insert("seed", metal.seed);
@@ -117,7 +113,7 @@ fn record_finish(
     parameters.insert("smudge", metal.smudge);
     parameters.insert("pad1", 0.0f32);
     parameters.insert("finish", finish.clone());
-    gpu.dispatch(batch, &gpu.finish, &parameters, size * size)
+    gpu.dispatch(batch, &gpu.finish, &parameters, size.texels().into())
 }
 
 /// Stamp the metal's scratches into `height`.
@@ -125,15 +121,15 @@ fn record_scratches(
     gpu: &MetalGpu,
     batch: &mut KernelBatch,
     metal: &Metal,
-    size: u32,
+    size: MetalTextureSize,
     height: &Buffer,
-) -> Result<(), String> {
+) -> Result<()> {
     if metal.scratch_density == 0 {
         return Ok(());
     }
     // No scratch takes more steps than its longest possible length allows;
     // the margin covers rounding, and any unused invocation returns early.
-    let most_steps = (metal.scratch_length * size as f32 * 2.0).ceil() as u32 + 2;
+    let most_steps = (metal.scratch_length * f32::from(size) * 2.0).ceil() as u32 + 2;
     let mut stamp = PassParameters::new();
     stamp.insert("size", size);
     stamp.insert("seed", metal.seed);
@@ -152,11 +148,11 @@ fn record_scratches(
         .dispatch(
             &gpu.scratches,
             &stamp,
-            [
+            WorkgroupGrid::from([
                 (most_steps + 1).div_ceil(STAMP_GROUP),
                 metal.scratch_density,
                 1,
-            ],
+            ]),
         )
         .map(|_| ())
         .map_err(super::device_error)
@@ -168,9 +164,9 @@ fn record_ornament(
     batch: &mut KernelBatch,
     engraving: &Engraving,
     ornament: &Ornament,
-    size: u32,
+    size: MetalTextureSize,
     recess: &Buffer,
-) -> Result<(), String> {
+) -> Result<()> {
     let (sin, cos) = engraving.rotation.sin_cos();
     let (motif, first, second, strands) = ornament.motif.words();
     let mut draw = PassParameters::new();
@@ -187,7 +183,7 @@ fn record_ornament(
     draw.insert("fillets", u32::from(ornament.fillets));
     draw.insert(host_float::ZERO_FIELD, 0u32);
     draw.insert("recess", recess.clone());
-    gpu.dispatch(batch, &gpu.ornament, &draw, size * size)
+    gpu.dispatch(batch, &gpu.ornament, &draw, size.texels().into())
 }
 
 /// Resample the engraving's image onto the tile.
@@ -196,11 +192,11 @@ fn record_image(
     batch: &mut KernelBatch,
     engraving: &Engraving,
     image: &ReliefImage,
-    size: u32,
+    size: MetalTextureSize,
     recess: &Buffer,
     slopes: &Buffer,
-) -> Result<(), String> {
-    let texels = size * size;
+) -> Result<()> {
+    let texels = size.texels();
     let (sin, cos) = engraving.rotation.sin_cos();
     let (pixels, normal_map, strength) = match (&image.pixels, engraving.relief) {
         (ReliefPixels::Height(heights), Relief::Height { .. }) => {
@@ -211,7 +207,7 @@ fn record_image(
             1,
             strength,
         ),
-        _ => return Err("the relief image does not match the engraving's relief".into()),
+        _ => return Err(EngravingError::ReliefMismatch.into()),
     };
     let mut sample = PassParameters::new();
     sample.insert("size", size);
@@ -229,7 +225,7 @@ fn record_image(
     sample.insert("image", pixels);
     sample.insert("recess", recess.clone());
     sample.insert("slopes", slopes.clone());
-    gpu.dispatch(batch, &gpu.engraving, &sample, texels)
+    gpu.dispatch(batch, &gpu.engraving, &sample, texels.into())
 }
 
 /// The slopes of a height map's cut; returns its parallax depth.
@@ -237,11 +233,11 @@ fn record_cut_slopes(
     gpu: &MetalGpu,
     batch: &mut KernelBatch,
     engraving: &Engraving,
-    size: u32,
+    size: MetalTextureSize,
     recess: &Buffer,
     slopes: &Buffer,
-) -> Result<Option<f32>, String> {
-    let texels = size * size;
+) -> Result<Option<f32>> {
+    let texels = size.texels();
     let Relief::Height { depth } = engraving.relief else {
         return Ok(None);
     };
@@ -257,6 +253,6 @@ fn record_cut_slopes(
     }
     cut.insert("recess", recess.clone());
     cut.insert("slopes", slopes.clone());
-    gpu.dispatch(batch, &gpu.cut_slopes, &cut, texels)?;
+    gpu.dispatch(batch, &gpu.cut_slopes, &cut, texels.into())?;
     Ok(Some(depth * Metal::TILES_PER_METRE))
 }

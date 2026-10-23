@@ -24,11 +24,14 @@ impl Decoration {
         self.engraving.is_none() && self.trim.is_none()
     }
 
-    pub fn validate(&self) -> Result<(), String> {
+    pub fn validate(&self) -> Result<()> {
         self.engraving
             .as_ref()
             .map_or(Ok(()), Engraving::validate)?;
-        self.trim.as_ref().map_or(Ok(()), Trim::validate)
+        if let Some(trim) = &self.trim {
+            trim.validate()?;
+        }
+        Ok(())
     }
 }
 
@@ -69,7 +72,6 @@ impl DecorationLibrary {
             ensure!(!decoration.is_plain(), "{name} decorates nothing");
             decoration
                 .validate()
-                .map_err(anyhow::Error::msg)
                 .with_context(|| format!("invalid decoration {name}"))?;
         }
         Ok(())
@@ -78,7 +80,7 @@ impl DecorationLibrary {
     /// Save `decoration` under `name`, replacing any decoration named so.
     pub fn insert(&mut self, name: LibraryName, decoration: Decoration) -> Result<()> {
         ensure!(!decoration.is_plain(), "{name} decorates nothing");
-        decoration.validate().map_err(anyhow::Error::msg)?;
+        decoration.validate()?;
         self.entries.insert(name, decoration);
         Ok(())
     }

@@ -5,7 +5,7 @@
 //! runs along it. The ornament repeats once per engraving cell along the edge,
 //! starting at the edge itself.
 use crate::engraving::Engraving;
-use crate::material::Metal;
+use crate::material::{Metal, MetalError};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -13,6 +13,15 @@ pub struct Trim {
     /// How far the band reaches in from the edge, metres.
     pub width: f32,
     pub metal: Metal,
+}
+
+/// A trim's material or authored band width is invalid.
+#[derive(Debug, thiserror::Error)]
+pub enum TrimMaterialError {
+    #[error("Invalid trim width")]
+    Width,
+    #[error(transparent)]
+    Metal(#[from] MetalError),
 }
 
 impl Default for Trim {
@@ -73,11 +82,12 @@ impl Trim {
         self.metal.engraving.as_ref().map_or(1.0, |e| e.tiles)
     }
 
-    pub fn validate(&self) -> Result<(), String> {
+    pub fn validate(&self) -> Result<(), TrimMaterialError> {
         if !self.width.is_finite() || !(Self::MIN_WIDTH..=Self::MAX_WIDTH).contains(&self.width) {
-            return Err("Invalid trim width".into());
+            return Err(TrimMaterialError::Width);
         }
-        self.metal.validate()
+        self.metal.validate()?;
+        Ok(())
     }
 }
 
