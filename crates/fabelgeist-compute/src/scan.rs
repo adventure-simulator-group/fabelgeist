@@ -1,10 +1,61 @@
+//! Inclusive operator scans over native storage-array records.
+//!
+//! Scratch extents follow the reflected array stride. Both selected native
+//! stages must match the authored workgroup schedule before caching.
+
 use crate::prelude::*;
-use fabelgeist_gpu::prelude::BufferUse;
+use fabelgeist_gpu::prelude::{BufferElementCount, BufferUse};
+use wgsl::{add_offsets_code, scan_blocks_code};
+
+mod wgsl;
+
+/// Elements processed by one native inclusive-scan workgroup.
+const SCAN_WORKGROUP_WIDTH: u32 = 256;
 
 #[derive(Clone, Debug)]
 pub struct ScanDefinition {
     pub code: String,
-    cache: ComputeSourceCache<(), (ComputePipeline, ComputePipeline, String)>,
+    cache: ComputeSourceCache<(), ScanPipelines>,
+}
+
+/// The two scan stages, with native layouts from the same authored operator.
+#[derive(Clone, Debug)]
+pub struct ScanPipelines {
+    scan_blocks: ResourcePipeline,
+    add_offsets: ResourcePipeline,
+}
+
+/// Inclusive scan with an authored binary operator over native array records.
+pub struct Scan;
+
+/// A completed auxiliary scan and its exact allocated record population.
+struct ScannedAuxiliary {
+    buffer: Buffer,
+    elements: BufferElementCount,
+}
+
+/// Each native x workgroup emits one total for the next scan level.
+#[derive(Clone, Copy, Debug)]
+struct ScanLevel {
+    groups: WorkgroupCount,
+}
+
+/// The stage whose selected native program failed scan admission.
+#[derive(Clone, Copy, Debug)]
+pub enum ScanStage {
+    Blocks,
+    AddOffsets,
+}
+
+/// The selected program does not implement the generated scan's block shape.
+#[derive(Debug, thiserror::Error)]
+pub enum ScanProgramError {
+    #[error("scan {stage:?} requires {expected:?}, selected program declares {actual:?}")]
+    WorkgroupShape {
+        stage: ScanStage,
+        expected: WorkgroupShape,
+        actual: WorkgroupShape,
+    },
 }
 
 impl Default for ScanDefinition {
@@ -31,97 +82,13 @@ impl ScanDefinition {
         })
     }
 
-    pub fn get_or_create_pipelines(
-        &self,
-        context: &WgpuContext,
-    ) -> Result<(ComputePipeline, ComputePipeline, String)> {
+    pub fn get_or_create_pipelines(&self, context: &WgpuContext) -> Result<ScanPipelines> {
         self.cache.get_or_try_insert(context, &self.code, (), || {
-            let ty_base =
+            let value_type =
                 fabelgeist_gpu::data::gpu::signature::parse_binary_op_signature(&self.code, "scan")?;
-            let ty = ty_base.as_str().to_string();
 
-            let block_size = 256;
-
-            // Pass 1: Local Scan & Block Sums
-            let scan_blocks_code = format!(
-                r#"@group(0) @binding(0) var<storage, read> input: array<{ty}>;
-@group(0) @binding(1) var<storage, read_write> output: array<{ty}>;
-@group(0) @binding(2) var<storage, read_write> aux: array<{ty}>;
-
-var<workgroup> shared_data: array<{ty}, {block_size}>;
-
-{code}
-
-@compute @workgroup_size({block_size})
-fn main(
-    @builtin(global_invocation_id) global_id: vec3<u32>,
-    @builtin(local_invocation_id) local_id: vec3<u32>,
-    @builtin(workgroup_id) group_id: vec3<u32>
-) {{
-    let input_len = arrayLength(&input);
-    let index = global_id.x;
-
-    // Load into shared memory
-    if (index < input_len) {{
-        shared_data[local_id.x] = input[index];
-    }}
-    workgroupBarrier();
-
-    // Hillis-Steele inclusive scan within workgroup
-    for (var offset = 1u; offset < {block_size}u; offset *= 2u) {{
-        var t: {ty};
-        if (local_id.x >= offset) {{
-            t = scan(shared_data[local_id.x - offset], shared_data[local_id.x]);
-        }}
-        workgroupBarrier();
-        if (local_id.x >= offset) {{
-            shared_data[local_id.x] = t;
-        }}
-        workgroupBarrier();
-    }}
-
-    // Write to output and aux
-    if (index < input_len) {{
-        output[index] = shared_data[local_id.x];
-    }}
-    if (local_id.x == {block_size}u - 1u && group_id.x < arrayLength(&aux)) {{
-        aux[group_id.x] = shared_data[local_id.x];
-    }}
-
-    // Handle the case where the last block is partially full
-    if (index == input_len - 1u && local_id.x != {block_size}u - 1u && group_id.x < arrayLength(&aux)) {{
-        aux[group_id.x] = shared_data[local_id.x];
-    }}
-}}
-"#,
-                ty = ty,
-                code = self.code,
-                block_size = block_size
-            );
-
-            // Pass 3: Add Block Sums to Output
-            let add_aux_code = format!(
-                r#"@group(0) @binding(0) var<storage, read_write> output: array<{ty}>;
-@group(0) @binding(1) var<storage, read> aux: array<{ty}>;
-
-{code}
-
-@compute @workgroup_size({block_size})
-fn main(
-    @builtin(global_invocation_id) global_id: vec3<u32>,
-    @builtin(local_invocation_id) local_id: vec3<u32>,
-    @builtin(workgroup_id) group_id: vec3<u32>
-) {{
-    if (group_id.x > 0u && global_id.x < arrayLength(&output)) {{
-        let block_sum = aux[group_id.x - 1u];
-        output[global_id.x] = scan(block_sum, output[global_id.x]);
-    }}
-}}
-"#,
-                ty = ty,
-                code = self.code,
-                block_size = block_size
-            );
+            let scan_blocks_code = scan_blocks_code(&self.code, &value_type);
+            let add_aux_code = add_offsets_code(&self.code, &value_type);
 
             let scan_blocks_shader = ComputeShader::new(context, scan_blocks_code)?;
             let add_aux_shader = ComputeShader::new(context, add_aux_code)?;
@@ -129,163 +96,206 @@ fn main(
             let p1 = ComputePipeline::new(context, scan_blocks_shader)?;
             let p2 = ComputePipeline::new(context, add_aux_shader)?;
 
-            let res = (p1, p2, ty);
-            Ok(res)
+            let scan_blocks = ResourcePipeline::new(
+                p1,
+                DispatchResource::Input,
+                TextureAddressing::Coordinates,
+            )?;
+            let add_offsets = ResourcePipeline::new(
+                p2,
+                DispatchResource::Output,
+                TextureAddressing::Coordinates,
+            )?;
+            let pipelines = ScanPipelines {
+                scan_blocks,
+                add_offsets,
+            };
+            pipelines.admit_shape()?;
+            Ok(pipelines)
         })
     }
 }
 
-pub struct Scan;
+impl ScanPipelines {
+    pub fn scan_blocks(&self) -> &ResourcePipeline {
+        &self.scan_blocks
+    }
+
+    pub fn add_offsets(&self) -> &ResourcePipeline {
+        &self.add_offsets
+    }
+
+    fn admit_shape(&self) -> Result<()> {
+        let expected = WorkgroupShape::try_from([SCAN_WORKGROUP_WIDTH, 1, 1])?;
+        for stage in [ScanStage::Blocks, ScanStage::AddOffsets] {
+            let pipeline = match stage {
+                ScanStage::Blocks => &self.scan_blocks,
+                ScanStage::AddOffsets => &self.add_offsets,
+            };
+            let actual = pipeline.workgroup_shape();
+            if actual != expected {
+                return Err(ScanProgramError::WorkgroupShape {
+                    stage,
+                    expected,
+                    actual,
+                }
+                .into());
+            }
+        }
+        Ok(())
+    }
+
+    fn level(&self, elements: BufferElementCount) -> ScanLevel {
+        ScanLevel {
+            groups: self.scan_blocks
+                .workgroup_shape()
+                .workgroup_count_x(elements.into()),
+        }
+    }
+}
+
+impl ScanLevel {
+    fn totals(self) -> BufferElementCount {
+        // One native record per x workgroup, not one per invocation.
+        self.groups.into()
+    }
+
+    fn workgroups(self) -> WorkgroupGrid {
+        self.groups.into()
+    }
+}
 
 impl Scan {
     pub fn execute(
         context: &WgpuContext,
         definition: &ScanDefinition,
-        input: &fabelgeist_gpu::data::gpu::Buffer,
-    ) -> Result<fabelgeist_gpu::data::gpu::Buffer> {
-        let (scan_blocks_pipeline, add_aux_pipeline, _element_type) =
-            definition.get_or_create_pipelines(context)?;
-
-        let num_elements = (u64::from(input.size) / 4) as u32;
-        if num_elements == 0 {
+        input: &Buffer,
+    ) -> Result<Buffer> {
+        let pipelines = definition.get_or_create_pipelines(context)?;
+        let stride = pipelines.scan_blocks().storage_stride()?;
+        let elements = BufferElementCount::from_extent(input.size, stride)?;
+        if elements.is_empty() {
             return Ok(input.clone());
         }
-
-        let block_size = 256;
-        let num_blocks = num_elements.div_ceil(block_size);
-
-        // Output buffer
-        let output = fabelgeist_gpu::data::gpu::Buffer::new(
+        let level = pipelines.level(elements);
+        let output = Buffer::new(
             context,
-            (u64::from(input.size)).into(),
-            fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("output").into())
+            input.size,
+            BufferDefinition::storage()
+                .with_label("output".into())
                 .with_usage(BufferUse::CopySource)
                 .with_usage(BufferUse::CopyDestination),
         )?;
 
-        if num_blocks <= 1 {
-            let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
+        if level.totals().is_single() {
+            let mut parameters = PassParameters::new();
             parameters.insert("input", input.clone());
             parameters.insert("output", output.clone());
-
-            let aux = fabelgeist_gpu::data::gpu::Buffer::new(
+            let aux = Buffer::new(
                 context,
-                (4u64).into(),
-                fabelgeist_gpu::data::BufferDefinition::storage()
-                    .with_label(("aux").into())
+                stride.byte_length(),
+                BufferDefinition::storage()
+                    .with_label("aux".into())
                     .with_usage(BufferUse::CopySource)
                     .with_usage(BufferUse::CopyDestination),
             )?;
             parameters.insert("aux", aux);
-
-            fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+            ComputePass::dispatch(
                 context,
-                scan_blocks_pipeline,
+                pipelines.scan_blocks().pipeline().clone(),
                 parameters,
-                fabelgeist_gpu::data::WorkgroupGrid::from([1, 1, 1]),
+                level.workgroups(),
             )?;
         } else {
-            let aux = fabelgeist_gpu::data::gpu::Buffer::new(
+            let aux = Buffer::new(
                 context,
-                ((num_blocks as u64) * 4).into(),
-                fabelgeist_gpu::data::BufferDefinition::storage()
-                    .with_label(("aux").into())
+                level.totals().byte_length(stride),
+                BufferDefinition::storage()
+                    .with_label("aux".into())
                     .with_usage(BufferUse::CopySource)
                     .with_usage(BufferUse::CopyDestination),
             )?;
-
-            // Pass 1
-            let mut parameters_p1 = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
-            parameters_p1.insert("input", input.clone());
-            parameters_p1.insert("output", output.clone());
-            parameters_p1.insert("aux", aux.clone());
-
-            fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+            let mut parameters = PassParameters::new();
+            parameters.insert("input", input.clone());
+            parameters.insert("output", output.clone());
+            parameters.insert("aux", aux.clone());
+            ComputePass::dispatch(
                 context,
-                scan_blocks_pipeline.clone(),
-                parameters_p1,
-                fabelgeist_gpu::data::WorkgroupGrid::from([num_blocks, 1, 1]),
+                pipelines.scan_blocks().pipeline().clone(),
+                parameters,
+                level.workgroups(),
             )?;
 
-            // Pass 2
-            let mut aux_buffers = vec![aux.clone()];
-            let mut current_num_blocks = num_blocks;
-
-            while current_num_blocks > 1 {
-                let next_num_blocks = current_num_blocks.div_ceil(block_size);
-                let next_aux = fabelgeist_gpu::data::gpu::Buffer::new(
+            let mut current = ScannedAuxiliary {
+                buffer: aux.clone(),
+                elements: level.totals(),
+            };
+            let mut scanned_levels: Vec<ScannedAuxiliary> = Vec::new();
+            while !current.elements.is_single() {
+                let next = pipelines.level(current.elements);
+                let next_aux = Buffer::new(
                     context,
-                    ((next_num_blocks as u64) * 4).into(),
-                    fabelgeist_gpu::data::BufferDefinition::storage()
-                        .with_label(("next_aux").into())
+                    next.totals().byte_length(stride),
+                    BufferDefinition::storage()
+                        .with_label("next_aux".into())
                         .with_usage(BufferUse::CopySource)
                         .with_usage(BufferUse::CopyDestination),
                 )?;
-
-                let scanned_aux = fabelgeist_gpu::data::gpu::Buffer::new(
+                let scanned_aux = Buffer::new(
                     context,
-                    ((current_num_blocks as u64) * 4).into(),
-                    fabelgeist_gpu::data::BufferDefinition::storage()
-                        .with_label(("scanned_aux").into())
+                    current.elements.byte_length(stride),
+                    BufferDefinition::storage()
+                        .with_label("scanned_aux".into())
                         .with_usage(BufferUse::CopySource)
                         .with_usage(BufferUse::CopyDestination),
                 )?;
-
-                let mut parameters_p2 =
-                    fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
-                let last_aux = aux_buffers.last().unwrap();
-                parameters_p2.insert("input", last_aux.clone());
-                parameters_p2.insert("output", scanned_aux.clone());
-                parameters_p2.insert("aux", next_aux.clone());
-
-                fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+                let mut parameters = PassParameters::new();
+                parameters.insert("input", current.buffer.clone());
+                parameters.insert("output", scanned_aux.clone());
+                parameters.insert("aux", next_aux.clone());
+                ComputePass::dispatch(
                     context,
-                    scan_blocks_pipeline.clone(),
-                    parameters_p2,
-                    fabelgeist_gpu::data::WorkgroupGrid::from([next_num_blocks, 1, 1]),
+                    pipelines.scan_blocks().pipeline().clone(),
+                    parameters,
+                    next.workgroups(),
                 )?;
-
-                let last_idx = aux_buffers.len() - 1;
-                aux_buffers[last_idx] = scanned_aux;
-
-                aux_buffers.push(next_aux);
-                current_num_blocks = next_num_blocks;
+                scanned_levels.push(ScannedAuxiliary {
+                    buffer: scanned_aux,
+                    elements: current.elements,
+                });
+                current = ScannedAuxiliary {
+                    buffer: next_aux,
+                    elements: next.totals(),
+                };
             }
+            drop(current);
 
-            // Pass 3
-            aux_buffers.pop();
-
-            while let Some(current_aux) = aux_buffers.pop() {
-                let mut parameters_p3 =
-                    fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
-
-                if aux_buffers.is_empty() {
-                    parameters_p3.insert("output", output.clone());
-                    parameters_p3.insert("aux", current_aux.clone());
-
-                    fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+            while let Some(current_aux) = scanned_levels.pop() {
+                let mut parameters = PassParameters::new();
+                if let Some(target) = scanned_levels.last() {
+                    parameters.insert("output", target.buffer.clone());
+                    parameters.insert("aux", current_aux.buffer.clone());
+                    // Intermediate levels launch one group per stored total;
+                    // native bounds guards restrict writes to the live prefix.
+                    let groups = WorkgroupCount::from(target.elements);
+                    ComputePass::dispatch(
                         context,
-                        add_aux_pipeline.clone(),
-                        parameters_p3,
-                        fabelgeist_gpu::data::WorkgroupGrid::from([num_blocks, 1, 1]),
+                        pipelines.add_offsets().pipeline().clone(),
+                        parameters,
+                        groups.into(),
                     )?;
                 } else {
-                    let target = aux_buffers.last().unwrap();
-                    parameters_p3.insert("output", target.clone());
-                    parameters_p3.insert("aux", current_aux.clone());
-
-                    let target_blocks = (u64::from(target.size) / 4) as u32;
-                    fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+                    parameters.insert("output", output.clone());
+                    parameters.insert("aux", current_aux.buffer.clone());
+                    ComputePass::dispatch(
                         context,
-                        add_aux_pipeline.clone(),
-                        parameters_p3,
-                        fabelgeist_gpu::data::WorkgroupGrid::from([target_blocks, 1, 1]),
+                        pipelines.add_offsets().pipeline().clone(),
+                        parameters,
+                        level.workgroups(),
                     )?;
                 }
             }
         }
-
         Ok(output)
     }
 }

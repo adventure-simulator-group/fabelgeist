@@ -274,7 +274,9 @@ impl ScatterDefinition {
         full_code.push_str(&format!("    {};\n", scatter_call));
         full_code.push_str("}\n");
 
-        ResourcePipeline::new(context, full_code, DispatchResource::Input, addressing)
+        let shader = ComputeShader::new(context, full_code)?;
+        let pipeline = ComputePipeline::new(context, shader)?;
+        ResourcePipeline::new(pipeline, DispatchResource::Input, addressing)
     }
 
     pub fn get_or_create_pipeline(

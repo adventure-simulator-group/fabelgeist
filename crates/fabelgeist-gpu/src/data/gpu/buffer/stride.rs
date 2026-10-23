@@ -1,7 +1,7 @@
 //! Native spacing of consecutive storage-array elements.
 
 use super::BufferByteLength;
-use crate::data::gpu::compute::InvocationCount;
+use crate::data::gpu::compute::{InvocationCount, WorkgroupCount};
 use std::num::{NonZeroU32, TryFromIntError};
 
 /// Byte spacing of records in a native storage array, including padding.
@@ -37,6 +37,19 @@ impl BufferElementStride {
 }
 
 impl BufferElementCount {
+    pub fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+
+    pub fn is_single(self) -> bool {
+        self.0 == 1
+    }
+
+    pub fn byte_length(self, stride: BufferElementStride) -> BufferByteLength {
+        // Both record count and native stride are u32 quantities.
+        BufferByteLength::from(u64::from(self.0) * u64::from(stride.byte_length()))
+    }
+
     /// Decode a logical byte extent using the admitted native array stride.
     /// Trailing bytes do not form another complete record.
     pub fn from_extent(
@@ -49,6 +62,20 @@ impl BufferElementCount {
 }
 
 impl From<BufferElementCount> for InvocationCount {
+    fn from(elements: BufferElementCount) -> Self {
+        Self::from(elements.0)
+    }
+}
+
+/// One stored total for each x-axis workgroup.
+impl From<WorkgroupCount> for BufferElementCount {
+    fn from(groups: WorkgroupCount) -> Self {
+        Self(groups.native_groups())
+    }
+}
+
+/// A launch that assigns one x-axis workgroup to each stored record.
+impl From<BufferElementCount> for WorkgroupCount {
     fn from(elements: BufferElementCount) -> Self {
         Self::from(elements.0)
     }

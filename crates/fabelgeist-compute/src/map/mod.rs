@@ -375,7 +375,9 @@ impl MapDefinition {
         }
         full_code.push_str("}\n");
 
-        ResourcePipeline::new(context, full_code, DispatchResource::Output, addressing)
+        let shader = ComputeShader::new(context, full_code)?;
+        let pipeline = ComputePipeline::new(context, shader)?;
+        ResourcePipeline::new(pipeline, DispatchResource::Output, addressing)
     }
 
     pub fn get_or_create_pipeline(

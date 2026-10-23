@@ -28,6 +28,11 @@ extent and that stride, rejecting populations outside the native count range.
 Neither quantity proves storage contents or source identity. Array elements,
 byte extents and shader invocations remain distinct quantities.
 
+`InvocationCount` counts shader invocations; `WorkgroupCount` counts x-axis
+workgroups. `WorkgroupShape` derives group demand from the native declaration,
+and `WorkgroupGrid` carries the launch axes. One-record-per-group algorithms
+convert explicitly between the stored-record and workgroup quantities.
+
 `BufferUse` selects independent capabilities. An unspecified definition retains
 the general allocation policy; selecting a capability makes that selection
 explicit. Storage includes copy-source and copy-destination capability.

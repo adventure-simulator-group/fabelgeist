@@ -115,7 +115,7 @@ impl ScanBlockCount {
     }
 
     fn workgroups(self) -> WorkgroupGrid {
-        WorkgroupGrid::folded_x(self.0)
+        WorkgroupGrid::folded_x(WorkgroupCount::from(self.0))
     }
 }
 

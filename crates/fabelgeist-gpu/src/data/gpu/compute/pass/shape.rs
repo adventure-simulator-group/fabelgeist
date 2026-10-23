@@ -1,7 +1,7 @@
 //! Declared invocation dimensions and their covering dispatch grid.
 use std::num::NonZeroU32;
 
-use super::WorkgroupGrid;
+use super::{WorkgroupCount, WorkgroupGrid};
 
 /// Invocations to cover along x, distinct from a count of workgroups.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
@@ -62,13 +62,18 @@ impl WorkgroupShape {
 
     /// Cover invocations with rows of workgroups for a folded-index kernel.
     pub fn covering_folded_x(self, items: InvocationCount) -> WorkgroupGrid {
-        WorkgroupGrid::folded_x(items.0.div_ceil(self.0[0].get()))
+        WorkgroupGrid::folded_x(self.workgroup_count_x(items))
+    }
+
+    /// X-axis workgroups needed to cover an invocation prefix.
+    pub fn workgroup_count_x(self, items: InvocationCount) -> WorkgroupCount {
+        WorkgroupCount::from(items.0.div_ceil(self.0[0].get()))
     }
 
     /// Cover items along x with ceiling division. Y and z each dispatch one
     /// group, retaining the kernel API's existing one-dimensional policy.
     pub fn covering_x(self, items: InvocationCount) -> WorkgroupGrid {
-        WorkgroupGrid::from([items.0.div_ceil(self.0[0].get()), 1, 1])
+        self.workgroup_count_x(items).into()
     }
 }
 impl std::fmt::Debug for WorkgroupShape {

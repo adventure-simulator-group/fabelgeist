@@ -18,7 +18,7 @@ pub struct StreamSignature {
 #[derive(Clone, Debug)]
 pub struct StreamDefinition {
     pub code: String,
-    cache: ComputeSourceCache<ResourceDescriptor, Arc<ComputePipeline>>,
+    cache: ComputeSourceCache<ResourceDescriptor, Arc<ResourcePipeline>>,
 }
 
 impl Default for StreamDefinition {
@@ -140,7 +140,7 @@ impl StreamDefinition {
         &self,
         context: &WgpuContext,
         input_res: ResourceDescriptor,
-    ) -> Result<ComputePipeline> {
+    ) -> Result<ResourcePipeline> {
         let sig = Self::parse_signature(&self.code)?;
 
         // 1. Strip the Resource parameter from the function signature in the code
@@ -269,22 +269,21 @@ impl StreamDefinition {
         full_code.push_str(&format!("    stream({});\n", call_args.join(", ")));
         full_code.push_str("}\n");
 
-        let _module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
-            wgpu::naga::ShaderStage::Compute,
-        )?;
-
         let shader = ComputeShader::new(context, full_code)?;
         let pipeline = ComputePipeline::new(context, shader)?;
 
-        Ok(pipeline)
+        let resource = match input_res {
+            ResourceDescriptor::Buffer(_) => DispatchResource::InclusiveOffsets,
+            _ => DispatchResource::Input,
+        };
+        ResourcePipeline::new(pipeline, resource, TextureAddressing::LinearIndex)
     }
 
     pub fn get_or_create_pipeline(
         &self,
         context: &WgpuContext,
         input_res: ResourceDescriptor,
-    ) -> Result<Arc<ComputePipeline>> {
+    ) -> Result<Arc<ResourcePipeline>> {
         self.cache
             .get_or_try_insert(context, &self.code, input_res.clone(), || {
                 let pipeline = self.build_pipeline(context, input_res.clone())?;
@@ -297,6 +296,9 @@ impl StreamDefinition {
 pub struct Stream;
 
 impl Stream {
+    /// Record work over the offset prefix for buffers, or input texture axes.
+    /// Counts and inclusive offsets must describe that same input population;
+    /// the authored writer must keep its writes inside the output allocation.
     pub fn execute(
         context: &WgpuContext,
         definition: &StreamDefinition,
@@ -324,29 +326,20 @@ impl Stream {
         parameters.insert("inclusive_offsets", inclusive_offsets.clone());
         parameters.insert("output", output.clone());
 
-        let (workgroups_x, workgroups_y, workgroups_z) = match input {
-            GpuResource::Buffer(_b) => (
-                ((u64::from(inclusive_offsets.size) / 4) as u32).div_ceil(64),
-                1,
-                1,
-            ),
-            GpuResource::Texture2d(t) => (
-                t.extent().width.div_ceil(16),
-                t.extent().height.div_ceil(16),
-                1,
-            ),
-            GpuResource::Texture3d(t) => (
-                t.extent().width.div_ceil(4),
-                t.extent().height.div_ceil(4),
-                t.extent().depth_or_array_layers.div_ceil(4),
-            ),
+        let workgroups = match input {
+            GpuResource::Buffer(_) => {
+                // The offset table, rather than input T, defines this prefix.
+                let offsets = GpuResource::Buffer(inclusive_offsets.clone());
+                pipeline.workgroups(&offsets)?
+            }
+            _ => pipeline.workgroups(input)?,
         };
 
         fabelgeist_gpu::data::gpu::ComputePass::dispatch(
             context,
-            pipeline.as_ref().clone(),
+            pipeline.pipeline().clone(),
             parameters,
-            fabelgeist_gpu::data::WorkgroupGrid::from([workgroups_x, workgroups_y, workgroups_z]),
+            workgroups,
         )?;
 
         Ok(())

@@ -18,6 +18,7 @@ pub struct ResourcePipeline {
 pub enum DispatchResource {
     Input,
     Output,
+    InclusiveOffsets,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -43,13 +44,12 @@ pub enum ResourcePipelineError {
 
 impl ResourcePipeline {
     pub(crate) fn new(
-        context: &WgpuContext,
-        source: String,
+        pipeline: ComputePipeline,
         resource: DispatchResource,
         addressing: TextureAddressing,
     ) -> Result<Self> {
         let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &source,
+            pipeline.shader().code(),
             wgpu::naga::ShaderStage::Compute,
         )?;
         let entry = module
@@ -60,8 +60,6 @@ impl ResourcePipeline {
         let shape = WorkgroupShape::try_from(entry.workgroup_size)
             .map_err(|cause| WorkgroupDeclarationError::at_entry_point(&entry.name, cause))?;
         let layout = resource.layout(&module, addressing)?;
-        let shader = ComputeShader::new(context, source)?;
-        let pipeline = ComputePipeline::new(context, shader)?;
         Ok(Self {
             pipeline,
             layout,
@@ -71,6 +69,21 @@ impl ResourcePipeline {
 
     pub fn pipeline(&self) -> &ComputePipeline {
         &self.pipeline
+    }
+
+    pub(crate) fn workgroup_shape(&self) -> WorkgroupShape {
+        self.shape
+    }
+
+    pub(crate) fn storage_stride(&self) -> Result<BufferElementStride> {
+        match self.layout {
+            ResourceLayout::Buffer(stride) => Ok(stride),
+            actual => Err(ResourcePipelineError::ResourceKind {
+                expected: ResourceType::Buffer,
+                actual: actual.resource_type(),
+            }
+            .into()),
+        }
     }
 
     /// Cover the controlling resource with the actual native declaration.
@@ -122,6 +135,7 @@ impl DispatchResource {
         let name = match self {
             Self::Input => "input",
             Self::Output => "output",
+            Self::InclusiveOffsets => "inclusive_offsets",
         };
         let (_, variable) = module
             .global_variables
