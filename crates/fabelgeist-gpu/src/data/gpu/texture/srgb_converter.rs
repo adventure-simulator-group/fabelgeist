@@ -1,44 +1,49 @@
 use crate::data::gpu::texture::{Texture2d, TextureViewError};
+use crate::data::{ComputePassError, ComputePipelineError, ComputeShader};
 use crate::globals::WgpuContext;
 use anyhow::{Context, Result};
 use std::sync::Arc;
+
+// Native dispatch dimensions match the fixed conversion shader below.
+const CONVERSION_WORKGROUP_SIDE: u32 = 16;
+const CONVERSION_SHADER: &str = r#"
+@group(0) @binding(0) var src_tex: texture_2d<f32>;
+@group(0) @binding(1) var dst_tex: texture_storage_2d<rgba8unorm, write>;
+
+fn linear_to_srgb(linear: vec3<f32>) -> vec3<f32> {
+    let a = 12.92 * linear;
+    let b = 1.055 * pow(linear, vec3<f32>(1.0 / 2.4)) - 0.055;
+    return select(b, a, linear <= vec3<f32>(0.0031308));
+}
+
+@compute @workgroup_size(16, 16, 1)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let size = textureDimensions(src_tex);
+    if (id.x >= size.x || id.y >= size.y) {
+        return;
+    }
+    let pos = id.xy;
+    let color = textureLoad(src_tex, pos, 0);
+    let srgb_rgb = linear_to_srgb(color.rgb);
+    textureStore(dst_tex, pos, vec4<f32>(srgb_rgb, color.a));
+}
+"#;
 
 #[derive(Clone)]
 pub struct TextureSrgbConverter {
     pipeline: Arc<wgpu::ComputePipeline>,
     bind_group_layout: Arc<wgpu::BindGroupLayout>,
+    device: Arc<wgpu::Device>,
 }
 
 impl TextureSrgbConverter {
     pub fn new(context: &WgpuContext) -> Result<Self> {
         let device = &context.device;
-        let shader = device.create_shader_module(wgpu::ShaderModuleDescriptor {
-            label: Some("sRGB Conversion Shader"),
-            source: wgpu::ShaderSource::Wgsl(std::borrow::Cow::Borrowed(
-                r#"
-                @group(0) @binding(0) var src_tex: texture_2d<f32>;
-                @group(0) @binding(1) var dst_tex: texture_storage_2d<rgba8unorm, write>;
-
-                fn linear_to_srgb(linear: vec3<f32>) -> vec3<f32> {
-                    let a = 12.92 * linear;
-                    let b = 1.055 * pow(linear, vec3<f32>(1.0 / 2.4)) - 0.055;
-                    return select(b, a, linear <= vec3<f32>(0.0031308));
-                }
-
-                @compute @workgroup_size(16, 16, 1)
-                fn main(@builtin(global_invocation_id) id: vec3<u32>) {
-                    let size = textureDimensions(src_tex);
-                    if (id.x >= size.x || id.y >= size.y) {
-                        return;
-                    }
-                    let pos = id.xy;
-                    let color = textureLoad(src_tex, pos, 0);
-                    let srgb_rgb = linear_to_srgb(color.rgb);
-                    textureStore(dst_tex, pos, vec4<f32>(srgb_rgb, color.a));
-                }
-                "#,
-            )),
-        });
+        let shader = ComputeShader::new(context, CONVERSION_SHADER.to_owned())?;
+        #[cfg(not(target_arch = "wasm32"))]
+        let scope = context
+            .blocking_validation
+            .then(|| device.push_error_scope(wgpu::ErrorFilter::Validation));
 
         let bind_group_layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
             label: Some("sRGB Conversion Bind Group Layout"),
@@ -75,30 +80,46 @@ impl TextureSrgbConverter {
         let pipeline = device.create_compute_pipeline(&wgpu::ComputePipelineDescriptor {
             label: Some("sRGB Conversion Compute Pipeline"),
             layout: Some(&pipeline_layout),
-            module: &shader,
+            module: shader.module(),
             entry_point: Some("main"),
             compilation_options: wgpu::PipelineCompilationOptions::default(),
             cache: None,
         });
 
+        #[cfg(not(target_arch = "wasm32"))]
+        if let Some(scope) = scope {
+            let _ = device.poll(wgpu::PollType::wait_indefinitely());
+            if let Some(cause) = pollster::block_on(scope.pop()) {
+                return Err(ComputePipelineError::Native(Arc::new(cause)).into());
+            }
+        }
         Ok(Self {
             pipeline: Arc::new(pipeline),
             bind_group_layout: Arc::new(bind_group_layout),
+            device: context.device.clone(),
         })
     }
 
     pub fn convert(&self, context: &WgpuContext, src: &Texture2d, dst: &Texture2d) -> Result<()> {
         let device = &context.device;
-        let src_view = src
-            .view
-            .as_ref()
+        // Preserve source-then-destination cache absence before device admission.
+        src.cached_view()
             .ok_or(TextureViewError::MissingView)
             .context("Source texture view missing")?;
-        let dst_view = dst
-            .view
-            .as_ref()
+        dst.cached_view()
             .ok_or(TextureViewError::MissingView)
             .context("Destination texture view missing")?;
+        src.ensure_device(context)?;
+        dst.ensure_device(context)?;
+        if self.device.as_ref() != device.as_ref() {
+            return Err(ComputePipelineError::WrongDevice.into());
+        }
+        let src_view = src.select_view(context, src.format())?;
+        let dst_view = dst.select_view(context, dst.format())?;
+        #[cfg(not(target_arch = "wasm32"))]
+        let scope = context
+            .blocking_validation
+            .then(|| device.push_error_scope(wgpu::ErrorFilter::Validation));
 
         let bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
             label: Some("sRGB Conversion Bind Group"),
@@ -106,11 +127,11 @@ impl TextureSrgbConverter {
             entries: &[
                 wgpu::BindGroupEntry {
                     binding: 0,
-                    resource: wgpu::BindingResource::TextureView(src_view),
+                    resource: wgpu::BindingResource::TextureView(&src_view.view),
                 },
                 wgpu::BindGroupEntry {
                     binding: 1,
-                    resource: wgpu::BindingResource::TextureView(dst_view),
+                    resource: wgpu::BindingResource::TextureView(&dst_view.view),
                 },
             ],
         });
@@ -127,13 +148,32 @@ impl TextureSrgbConverter {
             cpass.set_pipeline(&self.pipeline);
             cpass.set_bind_group(0, &bind_group, &[]);
 
-            // 16x16 workgroup size
-            let workgroups_x = src.size.0.div_ceil(16);
-            let workgroups_y = src.size.1.div_ceil(16);
+            // Cover the fixed conversion shader's invocation dimensions.
+            let workgroups_x = src.extent().width.div_ceil(CONVERSION_WORKGROUP_SIDE);
+            let workgroups_y = src.extent().height.div_ceil(CONVERSION_WORKGROUP_SIDE);
             cpass.dispatch_workgroups(workgroups_x, workgroups_y, 1);
         }
 
-        context.queue.submit(Some(encoder.finish()));
+        let commands = encoder.finish();
+        #[cfg(not(target_arch = "wasm32"))]
+        if let Some(scope) = scope {
+            let _ = device.poll(wgpu::PollType::wait_indefinitely());
+            if let Some(cause) = pollster::block_on(scope.pop()) {
+                return Err(ComputePassError::Native(Arc::new(cause)).into());
+            }
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        let scope = context
+            .blocking_validation
+            .then(|| device.push_error_scope(wgpu::ErrorFilter::Validation));
+        context.queue.submit(Some(commands));
+        #[cfg(not(target_arch = "wasm32"))]
+        if let Some(scope) = scope {
+            let _ = device.poll(wgpu::PollType::wait_indefinitely());
+            if let Some(cause) = pollster::block_on(scope.pop()) {
+                return Err(ComputePassError::Native(Arc::new(cause)).into());
+            }
+        }
         Ok(())
     }
 }

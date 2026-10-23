@@ -39,11 +39,8 @@ impl ComputePass {
         groups: WorkgroupGrid,
     ) -> Result<()> {
         let pipeline = pipeline_def.compiled(context)?;
-        let bind_groups = crate::data::gpu::bind_group::create_pipeline_bind_groups(
-            context,
-            pipeline_def,
-            parameters,
-        )?;
+        let bind_groups =
+            crate::data::gpu::bind_group::create_bind_groups(context, pipeline_def, parameters)?;
 
         #[cfg(not(target_arch = "wasm32"))]
         let scope = context.blocking_validation.then(|| {

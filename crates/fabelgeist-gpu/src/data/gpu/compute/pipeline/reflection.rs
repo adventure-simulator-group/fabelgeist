@@ -1,6 +1,8 @@
 //! Compute bindings are reflected before choosing a dispatch pipeline layout.
 use super::*;
-use crate::data::gpu::shader::{BindGroupReflection, BufferBinding, TextureBinding, UniformMember};
+use crate::data::gpu::shader::{
+    BindGroupReflection, BufferBinding, SamplerBinding, TextureBinding, UniformMember,
+};
 use std::collections::BTreeMap;
 
 pub(super) struct ReflectedInterface {
@@ -121,7 +123,9 @@ impl GroupBuilder {
                     self.image(name, binding, *dim, *arrayed, class);
                 }
                 wgpu::naga::TypeInner::Sampler { .. } => {
-                    self.reflection.sampler_bindings.push((name, binding));
+                    self.reflection
+                        .sampler_bindings
+                        .push(SamplerBinding { name, binding });
                     self.entry(
                         binding,
                         wgpu::BindingType::Sampler(wgpu::SamplerBindingType::Filtering),

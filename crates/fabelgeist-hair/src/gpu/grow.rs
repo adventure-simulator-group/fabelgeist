@@ -594,7 +594,7 @@ impl GpuGroomer {
                                 "reference_z" => reference.z,
                                 "collision_offset" => settle.collision_offset,
                             },
-                            [count, if settle.relative { 2 } else { 1 }, 1].into(),
+                            [count, if settle.relative { 2 } else { 1 }, 1],
                         )?;
                     }
                     let mut solve = |load: Vec3, solved: &Buffer| {

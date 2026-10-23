@@ -12,7 +12,6 @@ pub struct TextureView {
     pub(super) texture: Option<Arc<wgpu::Texture>>,
     pub(super) size: (u32, u32),
     pub(super) format: TextureFormat,
-    pub(super) view_format: TextureFormat,
     pub(super) dimension: wgpu::TextureViewDimension,
     pub(super) layer: Option<u32>,
     pub(super) device: Option<Arc<wgpu::Device>>,
@@ -31,7 +30,6 @@ impl PartialEq for TextureView {
         }) && self.size == other.size
             && self.device == other.device
             && self.format == other.format
-            && self.view_format == other.view_format
             && self.dimension == other.dimension
             && self.layer == other.layer
     }
@@ -45,7 +43,6 @@ impl Default for TextureView {
             texture: None,
             size: (0, 0),
             format: TextureFormat::Rgba8Unorm,
-            view_format: TextureFormat::Rgba8Unorm,
             dimension: wgpu::TextureViewDimension::D2,
             layer: None,
         }
@@ -76,7 +73,7 @@ impl TextureView {
         self.ensure_device(context)?;
         Ok(super::SelectedTextureView::new(
             view,
-            self.view_format.into(),
+            self.format.into(),
             self.dimension,
             self.device
                 .clone()
@@ -345,7 +342,6 @@ impl From<&crate::data::gpu::texture::Texture2d> for TextureView {
             texture: t.texture.clone(),
             size: t.size,
             format: t.format,
-            view_format: t.effective_format(t.format),
             dimension: wgpu::TextureViewDimension::D2,
             layer: None,
         }

@@ -2,6 +2,25 @@
 
 use super::TextureFormat;
 
+/// The concrete result of selecting a whole-texture format view.
+///
+/// A generic caller admits the error with `?` or a standard error conversion;
+/// the public producer itself retains this bespoke error type.
+///
+/// ```compile_fail
+/// use fabelgeist_gpu::prelude::{Texture2d, TextureFormat};
+/// use fabelgeist_gpu::globals::WgpuContext;
+/// use std::sync::Arc;
+///
+/// fn erase_at_producer(
+///     texture: &Texture2d,
+///     context: &WgpuContext,
+/// ) -> anyhow::Result<Arc<wgpu::TextureView>> {
+///     texture.view_with_format(context, TextureFormat::R32Float)
+/// }
+/// ```
+pub type TextureViewResult<T> = std::result::Result<T, TextureViewError>;
+
 /// Missing texture resources and native whole-texture format-view failures.
 ///
 /// Native variants retain the original request, even when storage binding
@@ -116,22 +135,3 @@ impl std::error::Error for TextureViewError {
         }
     }
 }
-
-/// The concrete result of selecting a whole-texture format view.
-///
-/// A generic caller admits the error with `?` or a standard error conversion;
-/// the public producer itself retains this bespoke error type.
-///
-/// ```compile_fail
-/// use fabelgeist_gpu::prelude::{Texture2d, TextureFormat};
-/// use fabelgeist_gpu::globals::WgpuContext;
-/// use std::sync::Arc;
-///
-/// fn erase_at_producer(
-///     texture: &Texture2d,
-///     context: &WgpuContext,
-/// ) -> anyhow::Result<Arc<wgpu::TextureView>> {
-///     texture.view_with_format(context, TextureFormat::R32Float)
-/// }
-/// ```
-pub type TextureViewResult<T> = std::result::Result<T, TextureViewError>;

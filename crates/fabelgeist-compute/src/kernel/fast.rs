@@ -1,37 +1,14 @@
 //! The cached dispatch path.
 //!
-//! [`ComputePass::record`] builds a uniform buffer and a bind group for every
-//! dispatch. That is fine at a handful of dispatches per frame, which is what
-//! the other primitives here do. A solver is different: an XPBD step is
-//! substeps times constraint colours, comfortably five hundred dispatches in a
-//! frame, and allocating two GPU objects for each of them costs more in CPU
-//! time than the shaders cost on the GPU -- and, run at speed, exhausts the
-//! allocator outright.
+//! Kernels with one buffer-only bind group can use a dynamic uniform offset
+//! into per-batch allocation chunks. Each dispatch writes its own slot and
+//! creates a fresh bind group; the batch retains the chunks until submission.
 //!
-//! So a [`Kernel`](super::Kernel) builds its own pipeline with a
-//! **dynamic-offset** uniform and per-batch uniform slots, written by offset,
-//! so the per-dispatch values cost a `write_buffer` into memory that already
-//! exists rather than a fresh allocation.
+//! Fresh groups preserve the existing recording policy. The BVH refit test
+//! exercises dependent dispatches, but does not establish that bind-group
+//! identity controls barriers. Native synchronization remains wgpu's contract.
 //!
-//! # The bind group is *not* cached, deliberately
-//!
-//! Caching it is the obvious next step and it is wrong. Reusing one bind group
-//! across consecutive compute passes makes wgpu's resource tracker treat the
-//! buffers as already in the right state, and it stops emitting the barrier
-//! between them -- so a dispatch can start reading what the previous one has
-//! not finished writing. It shows up as a solver that is subtly, intermittently
-//! wrong: in the case that found this, a refit BVH that had lost a few
-//! primitives, failing about two runs in three.
-//!
-//! Creating the bind group per dispatch re-registers the resources and the
-//! barrier comes back. Measured on a full garment step, that costs six per
-//! cent -- 4.7 ms a frame against 4.4 -- which is not a trade worth making.
-//! The expensive part was never the bind group; it was allocating a uniform
-//! *buffer* per dispatch, and the ring is what fixes that.
-//!
-//! Kernels whose shape this cannot serve -- more than one bind group, or any
-//! texture or sampler binding -- have no fast path and fall back to
-//! `ComputePass::record`, which still handles everything.
+//! Unsupported interfaces fall back to [`ComputePass::record`].
 
 use crate::prelude::*;
 pub(super) use arena::UniformArena;
@@ -47,12 +24,9 @@ mod arena;
 mod compile;
 mod uniforms;
 
-/// The largest uniform block the cached path packs without allocating.
-///
-/// Every kernel here passes a few scalars and at most a vector or two. A
-/// kernel wanting more than this is refused a fast path rather than silently
-/// allocating per dispatch, which is the cost this whole module exists to
-/// avoid.
+/// Capacity of the cached path's stack scratch buffer, in native uniform bytes.
+/// Larger reflected blocks use the static recording path. Individual value
+/// writers may still allocate while packing a block within this capacity.
 const MAX_UNIFORM_BYTES: usize = 256;
 
 pub(super) struct FastPath {
@@ -188,8 +162,7 @@ impl FastPath {
         if self.device.as_ref() != context.device.as_ref() {
             return Err(ComputePipelineError::WrongDevice.into());
         }
-        // Built fresh every dispatch. See the note at the top of this file:
-        // reusing one costs wgpu the barrier between dependent passes.
+        // Preserve fresh groups for each dispatch, including dependent kernels.
         let mut entries: Vec<wgpu::BindGroupEntry> = Vec::with_capacity(self.buffers.len() + 1);
         let mut bound: Vec<BoundBuffer> = Vec::with_capacity(self.buffers.len());
         for binding in &self.buffers {

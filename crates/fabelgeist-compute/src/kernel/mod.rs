@@ -406,13 +406,9 @@ impl<'a> KernelBatch<'a> {
     }
 }
 
-// There is no unit test here for the barrier between dependent dispatches,
-// and not for want of trying: a synthetic chain -- one kernel repeated, or two
-// alternating on one buffer -- keeps working even with the bind group cached,
-// which is the mistake that breaks the real thing. The case that does catch it
-// is `fabelgeist_bvh::gpu::tests::refit_tracks_moved_primitives`, where three
-// different kernels take turns on one buffer through atomics. That test is the
-// guard; see the note at the top of `fast.rs` for what it guards against.
+// `fabelgeist_bvh::gpu::tests::refit_tracks_moved_primitives` exercises
+// dependent kernels sharing buffers through atomics. It guards observable
+// refit behavior; it does not prove a bind-group identity/barrier mechanism.
 
 #[cfg(test)]
 mod context_tests {

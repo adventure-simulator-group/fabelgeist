@@ -123,16 +123,11 @@ impl TextureCube {
 
         let texture = context.device.create_texture(&texture_desc);
 
-        let mut initial_view_format = format;
-        if usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
-            initial_view_format = format.linear_counterpart();
-        }
-
         let view = texture.create_view(&wgpu::TextureViewDescriptor {
             label: Some("TextureCube View"),
             dimension: Some(wgpu::TextureViewDimension::Cube),
             array_layer_count: Some(6),
-            format: Some(initial_view_format.into()),
+            format: Some(format.into()),
             ..Default::default()
         });
 

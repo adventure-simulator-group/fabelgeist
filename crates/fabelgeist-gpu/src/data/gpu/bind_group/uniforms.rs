@@ -41,13 +41,19 @@ fn write_value(data: &mut [u8], member: &UniformMember, value: &PassParameter) {
 }
 
 fn write_bytes(data: &mut [u8], offset: usize, bytes: &[u8]) {
-    if let Some(target) = data.get_mut(offset..offset + bytes.len()) {
+    if let Some(end) = offset.checked_add(bytes.len())
+        && let Some(target) = data.get_mut(offset..end)
+    {
         target.copy_from_slice(bytes);
     }
 }
 
 fn write_vector<const N: usize>(data: &mut [u8], offset: usize, values: [f32; N]) {
-    if offset + N * size_of::<f32>() <= data.len() {
+    if let Some(end) = N
+        .checked_mul(size_of::<f32>())
+        .and_then(|span| offset.checked_add(span))
+        && end <= data.len()
+    {
         for (index, value) in values.iter().enumerate() {
             write_bytes(
                 data,
@@ -68,14 +74,21 @@ fn write_matrix<const N: usize>(
     column_stride: usize,
 ) {
     let start = member.offset as usize;
-    if start + span <= data.len() {
+    if let Some(end) = start.checked_add(span)
+        && end <= data.len()
+    {
         for (column, values) in columns.iter().enumerate() {
             for (row, value) in values.iter().enumerate() {
-                write_bytes(
-                    data,
-                    start + column * column_stride + row * size_of::<f32>(),
-                    &value.to_le_bytes(),
-                );
+                if let Some(offset) = column
+                    .checked_mul(column_stride)
+                    .and_then(|offset| start.checked_add(offset))
+                    .and_then(|offset| {
+                        row.checked_mul(size_of::<f32>())
+                            .and_then(|row| offset.checked_add(row))
+                    })
+                {
+                    write_bytes(data, offset, &value.to_le_bytes());
+                }
             }
         }
     }

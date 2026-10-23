@@ -26,6 +26,12 @@ pub struct BufferBinding {
     pub ty: wgpu::BufferBindingType,
 }
 
+#[derive(Debug, Clone)]
+pub struct SamplerBinding {
+    pub name: String,
+    pub binding: u32,
+}
+
 #[derive(Debug, Clone, Default)]
 pub struct BindGroupReflection {
     pub index: u32,
@@ -33,7 +39,7 @@ pub struct BindGroupReflection {
     pub uniform_buffer_size: u32,
     pub uniform_binding: Option<u32>,
     pub texture_bindings: Vec<TextureBinding>,
-    pub sampler_bindings: Vec<(String, u32)>, // name, binding index
+    pub sampler_bindings: Vec<SamplerBinding>,
     pub buffer_bindings: Vec<BufferBinding>,
 }
 

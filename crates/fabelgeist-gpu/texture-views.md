@@ -54,20 +54,28 @@ request retains its earlier cache-first behavior and does not use that context.
 
 Compute bindings select a single handle with its effective format, dimension
 and creating device. They validate those facts rather than the allocation's
-format. A logical sRGB texture can have a linear storage view; converting it to
-`TextureView` retains both the logical image interpretation and the effective
-view format. Whole cube, face and array views retain Cube, D2 and D2Array
+format. A linear storage texture maps an alternate sRGB request back to its
+linear view format. Whole-texture constructors exclude storage usage for logical
+sRGB formats; generic cached views therefore retain one admitted format. Whole cube, face and array views retain Cube, D2 and D2Array
 geometry. Face construction checks device identity when a context is supplied;
 the context-free face API uses its retained native allocation. Array view
 construction receives a context and retains native rejection in `CubeArray`.
 
 `ComputePass` and the public `create_bind_groups` adapter share static binding
-assembly. Both consume `PassParameters` and preserve typed texture errors
-through standard conversion. Returned `ComputeBindGroup` values retain their
+assembly. Both consume the immutable `ComputePipeline` and `PassParameters`,
+preserving typed texture errors through standard conversion. Returned `ComputeBindGroup` values retain their
 reflected indices, including sparse groups, and bind themselves to a native
 pass. Logical buffer prefixes remain distinct from native allocation lengths.
 `Buffer::binding_resource` rejects a zero-byte or oversized binding with
 `BufferBindingError`; a zero logical extent remains valid as buffer metadata.
+
+Static uniform assembly checks the padded native buffer extent against both
+allocation and uniform-binding limits before packing. It allocates an unmapped
+buffer and observes available native validation before uploading the bytes.
+This avoids mapping a rejected allocation. The sRGB converter retains its
+creating device, checks both cached texture devices and preserves available
+native causes. Its fixed layout still accepts unfilterable float inputs for
+`textureLoad`.
 
 `ComputeShader` admits source, module and device together. `ShaderError` keeps
 concrete Naga parse, validation and translation causes, source diagnostics and
@@ -83,8 +91,8 @@ resources. `WorkgroupGrid` reaches the native dispatch boundary without raw
 axis forwarding overloads.
 
 Cached kernels keep per-batch uniform slots with checked byte offsets and
-retain native pipeline/binding causes. Empty batches skip parameter admission
-and counter increments. Standalone empty dispatches still admit parameters.
+retain native pipeline/binding causes. Empty launches in a batch skip parameter
+admission and counter increments. Standalone empty dispatches still admit parameters.
 Folded launches and callbacks after submission retain their existing ordering.
 Borrowed contexts and browser builds still provide no synchronous native
 validation verdict; typed errors cannot recover a cause the device never

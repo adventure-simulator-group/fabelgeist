@@ -1,21 +1,23 @@
-use super::{ComputeBindGroup, uniforms};
+use super::{ComputeBindGroup, uniform_buffer};
 use crate::data::{BindGroupReflection, ComputePipeline, PassParameter, PassParameters};
 use crate::data::{ComputeBindingKind, ComputePassError};
 use crate::globals::WgpuContext;
 use anyhow::{Context, Result};
 use std::sync::Arc;
-use wgpu::util::DeviceExt;
 
 struct BoundTexture {
     binding: u32,
     view: Arc<wgpu::TextureView>,
 }
 
-pub(crate) fn create_pipeline_bind_groups(
+/// Assemble the pipeline's admitted static interface, preserving logical buffer
+/// prefixes and selected texture format, dimension and creating device.
+pub fn create_bind_groups(
     context: &WgpuContext,
     pipeline: &ComputePipeline,
     parameters: &PassParameters,
 ) -> Result<Vec<ComputeBindGroup>> {
+    pipeline.ensure_device(context)?;
     pipeline
         .reflection()
         .bind_groups
@@ -37,27 +39,18 @@ pub(crate) fn create_pipeline_bind_groups(
         .collect()
 }
 
-pub(super) fn create_group(
+fn create_group(
     context: &WgpuContext,
     layout: &wgpu::BindGroupLayout,
     reflection: &BindGroupReflection,
     parameters: &PassParameters,
 ) -> Result<wgpu::BindGroup> {
-    let uniform_buffer = (reflection.uniform_buffer_size > 0).then(|| {
-        let data = uniforms::pack_uniforms(reflection, parameters);
-        context
-            .device
-            .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                label: Some("ComputePass Uniforms"),
-                contents: &data,
-                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
-            })
-    });
+    let uniform_buffer = uniform_buffer::create(context, reflection, parameters)?;
     let mut entries = Vec::new();
     if let (Some(buffer), Some(binding)) = (&uniform_buffer, reflection.uniform_binding) {
         entries.push(wgpu::BindGroupEntry {
             binding,
-            resource: buffer.as_entire_binding(),
+            resource: buffer.buffer.as_entire_binding(),
         });
     }
     add_buffers(&mut entries, reflection, parameters)?;
@@ -155,7 +148,8 @@ fn add_samplers<'a>(
     reflection: &BindGroupReflection,
     parameters: &'a PassParameters,
 ) -> Result<()> {
-    for (name, binding) in &reflection.sampler_bindings {
+    for binding in &reflection.sampler_bindings {
+        let name = &binding.name;
         let PassParameter::Sampler(sampler) =
             parameter(parameters, name, ComputeBindingKind::Sampler)?
         else {
@@ -170,7 +164,7 @@ fn add_samplers<'a>(
             .as_ref()
             .ok_or_else(|| ComputePassError::MissingSampler { name: name.clone() })?;
         entries.push(wgpu::BindGroupEntry {
-            binding: *binding,
+            binding: binding.binding,
             resource: wgpu::BindingResource::Sampler(sampler),
         });
     }

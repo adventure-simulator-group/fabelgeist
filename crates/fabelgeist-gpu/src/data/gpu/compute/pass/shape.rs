@@ -6,11 +6,7 @@ use super::WorkgroupGrid;
 /// Invocations to cover along x, distinct from a count of workgroups.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
 pub struct InvocationCount(u32);
-impl From<u32> for InvocationCount {
-    fn from(items: u32) -> Self {
-        Self(items)
-    }
-}
+
 /// A shader's admitted, nonzero invocation dimensions within one workgroup.
 ///
 /// Device limits remain the pipeline provider's admission responsibility.
@@ -21,6 +17,13 @@ pub struct WorkgroupShape([NonZeroU32; 3]);
 /// A native declaration with at least one zero invocation dimension.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct WorkgroupShapeError([u32; 3]);
+
+impl From<u32> for InvocationCount {
+    fn from(items: u32) -> Self {
+        Self(items)
+    }
+}
+
 impl std::fmt::Display for WorkgroupShapeError {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(

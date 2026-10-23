@@ -82,8 +82,8 @@ impl TextureCube {
     }
     pub fn face_view_with_format(
         &self,
-        // Only read to check the view natively; the web cannot block on it.
-        #[cfg_attr(target_arch = "wasm32", allow(unused_variables))] context: Option<&WgpuContext>,
+        // A supplied context proves device identity on every target.
+        context: Option<&WgpuContext>,
         face: CubeFace,
         format: TextureFormat,
     ) -> Result<TextureView> {
@@ -133,7 +133,6 @@ impl TextureCube {
             texture: self.texture.clone(),
             size: (self.size, self.size),
             format: requested_format,
-            view_format: requested_format,
             dimension: wgpu::TextureViewDimension::D2,
             layer: Some(face.index()),
         })

@@ -1,3 +1,4 @@
+use crate::data::gpu::buffer::BufferByteLength;
 use std::{error::Error, fmt, sync::Arc};
 
 /// The reflected resource required by a shader binding.
@@ -25,6 +26,10 @@ pub enum ComputePassError {
     MissingLayout {
         index: u32,
     },
+    UniformBufferTooLarge {
+        requested: BufferByteLength,
+        limit: BufferByteLength,
+    },
     Native(Arc<wgpu::Error>),
 }
 
@@ -46,6 +51,10 @@ impl fmt::Display for ComputePassError {
             Self::MissingLayout { index } => {
                 write!(formatter, "ComputePass: bind group layout {index} missing")
             }
+            Self::UniformBufferTooLarge { requested, limit } => write!(
+                formatter,
+                "ComputePass: uniform buffer needs {requested} bytes, device limit is {limit}"
+            ),
             Self::Native(cause) => {
                 write!(formatter, "ComputePass native validation error: {cause}")
             }
