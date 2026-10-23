@@ -8,11 +8,16 @@ use crate::device_fit::{DevicePiece, FitBody, Realization, fit_piece_async};
 use crate::skirt_join::{SewnWaist, SkirtJoinPlan};
 use crate::surface_cut::SurfaceCut;
 
+#[path = "gown_opening_skin.rs"]
+mod opening_skin;
+
 pub(crate) struct GownPlan {
     pub join: SkirtJoinPlan,
-
+    pub dressing_source: Option<Box<fabelgeist_armor::gpu::SkirtOpeningSource>>,
     inner: BodyClothPlan,
     carrier_role: ArmorComponentRole,
+    lacing: Option<Box<crate::bodice_lacing_plan::BodiceLacingPlan>>,
+    waist_support: Option<Box<crate::waist_support_plan::WaistSupportPlan>>,
 }
 
 impl GownPlan {
@@ -75,17 +80,32 @@ impl GownPlan {
         join.source = inner.source.clone();
         join.release_body(design, &inner.surface, body, hips, head, enclosure_table)
             .context("releasing gown fullness")?;
+        let dressing_source =
+            crate::gown_dressing_opening::prepare(design, &inner.surface, body, hips, head)?
+                .map(Box::new);
+        let waist_support = crate::waist_support_plan::WaistSupportPlan::new(
+            design,
+            &join,
+            body,
+            dressing_source.as_deref(),
+        )?
+        .map(Box::new);
         let carrier_role = if design.skirt.puff_and_slash.is_some() {
             ArmorComponentRole::Undercloth
         } else {
             ArmorComponentRole::OuterFabric
         };
+        let lacing =
+            crate::bodice_lacing_plan::BodiceLacingPlan::new(&inner.surface, body, head, design)
+                .context("planning bodice lacing")?;
         Self::share_body_source(&mut join, &mut inner)?;
         Ok(Self {
+            lacing: lacing.map(Box::new),
             join,
-
+            dressing_source,
             inner,
             carrier_role,
+            waist_support,
         })
     }
 
@@ -120,10 +140,23 @@ impl GownPlan {
                 piece.skin.joint_weights[vertex] = skin.weights[raw];
             }
         }
-
+        if let Some(opening) = &self.join.patch.dressing_opening {
+            piece.bind_dressing_opening(opening)?;
+        }
+        if let Some(lacing) = &self.lacing {
+            let first = self.join.patch.carrier_point_count();
+            let torso_end = first + self.join.table.len() / crate::surface_cut::POINT_WORDS;
+            piece.attach_lacing(
+                lacing,
+                first..torso_end,
+                self.join.patch.dressing_opening.as_ref(),
+            )?;
+        }
         // Source ordinals refer to the unsplit outer carrier. Attach before
         // material partitioning duplicates and reorders those vertices.
-
+        if let Some(support) = &self.waist_support {
+            support.attach(piece, &self.join)?;
+        }
         if !self.inner.layers.is_empty() {
             let mut lining = fit_piece_async(gpu, body, wearer, morphs, |device, batch, target| {
                 let surfaces = layers

@@ -61,6 +61,9 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut GownDesign) -> bool {
             "Fullness release",
         );
     }
+    changed |= super::gown_dressing::show(ui, design);
+    changed |= super::waist_support::show(ui, design);
+    changed |= super::cloth_lacing::show(ui, design);
     changed |= sleeve_controls(ui, design);
     changed
 }

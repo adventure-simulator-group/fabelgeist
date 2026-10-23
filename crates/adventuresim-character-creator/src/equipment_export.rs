@@ -135,7 +135,7 @@ impl EquipmentExporter<'_> {
             .as_ref()
             .context("filtered equipment is missing its definition")?;
         let specification = GarmentSpecification::from_catalog(
-            format!("{} Â· {}", item.display_name, placement.id).into(),
+            format!("{} · {}", item.display_name, placement.id).into(),
             selection,
         )?;
         let clothed = generate_clothing_shells(

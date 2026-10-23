@@ -29,8 +29,13 @@ impl RecipePlan {
         wearer: &Realization<'_>,
         design: &ParametricDesign,
     ) -> Result<Self> {
-        let plan = Self::new(gpu, body, wearer, design).context("planning textile construction")?;
-
+        let mut plan =
+            Self::new(gpu, body, wearer, design).context("planning textile construction")?;
+        if let Self::Gown(gown) = &mut plan
+            && let ParametricDesign::Gown(design) = design
+        {
+            gown.finalize_dressing_opening(design)?;
+        }
         Ok(plan)
     }
 

@@ -16,9 +16,11 @@ pub struct GownDesign {
     /// Uncut cloth below a front/back opening keeps a closed sewn waist.
     /// Fastenings and a skirt slit are separate construction features.
     pub waist_band: Millimeters,
-
+    pub waist_support: Option<crate::GownWaistSupport>,
+    pub dressing_slit: Option<crate::GownDressingSlit>,
     pub body_fit: GownBodyFit,
     pub sleeves: Option<FittedSleeves>,
+    pub lacing: Option<crate::ClothLacing>,
 }
 
 /// A fitted upper sheet or loose cloth released from a bound neckline.
@@ -64,6 +66,50 @@ impl GownDesign {
 
     pub fn validate(&self) -> Result<(), GenerateError> {
         self.bodice.validate()?;
+        if let Some(slit) = &self.dressing_slit {
+            slit.validate()?;
+            if !matches!(self.bodice.opening, crate::BodiceOpening::Front { .. })
+                || !matches!(self.body_fit, GownBodyFit::Fitted)
+            {
+                return Err(DesignError::ParametricParameters.into());
+            }
+        }
+        if let Some(support) = &self.waist_support {
+            support.validate()?;
+            if let Some(fasteners) = &support.fasteners {
+                if self.dressing_slit.as_ref().is_none_or(|s| s.overlap.0 == 0) {
+                    return Err(DesignError::ParametricParameters.into());
+                }
+                if fasteners.return_hook.is_some()
+                    && self
+                        .lacing
+                        .as_ref()
+                        .is_none_or(|l| !matches!(l.eyelet, crate::LacingEyelet::Metal { .. }))
+                {
+                    return Err(DesignError::ParametricParameters.into());
+                }
+            }
+            if self
+                .dressing_slit
+                .as_ref()
+                .is_some_and(|slit| slit.overlap.0 >= support.front_width.0)
+            {
+                return Err(DesignError::ParametricParameters.into());
+            }
+            if !matches!(self.bodice.opening, crate::BodiceOpening::Front { .. })
+                || !matches!(self.body_fit, GownBodyFit::Fitted)
+            {
+                return Err(DesignError::ParametricParameters.into());
+            }
+        }
+        if let Some(lacing) = &self.lacing {
+            lacing.validate()?;
+            if matches!(self.bodice.opening, crate::BodiceOpening::Closed)
+                || !matches!(self.body_fit, GownBodyFit::Fitted)
+            {
+                return Err(DesignError::ParametricParameters.into());
+            }
+        }
         self.skirt.validate()?;
         if let Some(sleeves) = &self.sleeves {
             sleeves.validate()?;

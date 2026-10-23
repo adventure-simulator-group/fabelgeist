@@ -1,6 +1,6 @@
 //! Each gown construction selects its own cloth without replacing fitted data.
 use crate::device_textile_materials::{bodice_fabric, skirt_fabric};
-use anyhow::Result;
+use anyhow::{Context, Result};
 use fabelgeist_armor::{ArmorComponent, ArmorComponentRole, GownDesign, TextileAppearance};
 
 pub(crate) fn fabric<'a>(
@@ -8,6 +8,14 @@ pub(crate) fn fabric<'a>(
     component: &mut ArmorComponent,
 ) -> Result<Option<&'a TextileAppearance>> {
     Ok(match component.role {
+        ArmorComponentRole::WaistSupportBand | ArmorComponentRole::WaistFrontBand => Some(
+            &gown
+                .waist_support
+                .as_ref()
+                .context("waist support without its design")?
+                .main
+                .fabric,
+        ),
         ArmorComponentRole::BodiceFabric
         | ArmorComponentRole::Lining
         | ArmorComponentRole::Interlining => bodice_fabric(&gown.bodice, component.role)?,

@@ -4,10 +4,16 @@ use bevy_egui::egui;
 use std::ops::RangeInclusive;
 #[path = "bodice_controls.rs"]
 mod bodice;
+#[path = "cloth_closure_controls.rs"]
+mod cloth_closures;
+#[path = "cloth_lacing_controls.rs"]
+mod cloth_lacing;
 #[path = "cloth_tie_controls.rs"]
 mod cloth_ties;
 #[path = "gown_controls.rs"]
 mod gown;
+#[path = "gown_dressing_controls.rs"]
+mod gown_dressing;
 #[path = "helmet_controls.rs"]
 mod helmet;
 #[path = "limb_controls.rs"]
@@ -22,6 +28,10 @@ mod puff_pattern;
 mod skirt;
 #[path = "textile_controls.rs"]
 mod textile;
+#[path = "waist_fastener_controls.rs"]
+mod waist_fasteners;
+#[path = "waist_support_controls.rs"]
+mod waist_support;
 
 /// The mail coif's shape controls, for the draped chainmail coif.
 pub(super) fn coif(ui: &mut egui::Ui, design: &mut fabelgeist_armor::CoifDesign) -> bool {
