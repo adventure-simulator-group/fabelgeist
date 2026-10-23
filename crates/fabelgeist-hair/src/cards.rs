@@ -16,15 +16,22 @@
 //! converging towards the tip, each with its own shade and depth in the
 //! bundle, mipmapped by coverage.
 
+pub use atlas::{
+    AtlasError, AtlasMip, AtlasResult, AtlasSettings, AtlasTileSize, AtlasTileSpan,
+    AtlasVariantCount, CardAtlas,
+};
+
 use crate::identity::StrandId;
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 
 use crate::collider::{Collider, keep_clear, push_out};
 use crate::occlusion::Occlusion;
-use crate::ops::{GuideMap, smoothstep};
-use crate::rng::{self, Rng};
+use crate::ops::GuideMap;
+use crate::rng;
 use crate::strands::{Strands, safe_normalize};
+
+mod atlas;
 
 #[derive(Clone, Copy, Debug)]
 pub struct CardSettings {
@@ -208,126 +215,6 @@ impl CardMesh {
     }
 }
 
-/// Painted strand bundles, side by side, with their mip chain.
-pub struct CardAtlas {
-    pub width: u32,
-    pub height: u32,
-    pub variants: u32,
-    /// RGBA8 per level: coverage, strand shade, depth in the bundle,
-    /// coverage again.
-    pub levels: Vec<Vec<u8>>,
-}
-
-impl CardAtlas {
-    /// `variants` bundles, each `width` by `height` texels.
-    pub fn paint(variants: u32, width: u32, height: u32, seed: u64) -> Self {
-        let atlas_width = width * variants;
-        let mut base = vec![0u8; (atlas_width * height * 4) as usize];
-        let columns: Vec<Vec<u8>> = (0..variants)
-            .into_par_iter()
-            .map(|v| paint_bundle(width, height, seed ^ (v as u64 * 0x9E37)))
-            .collect();
-        for (v, column) in columns.iter().enumerate() {
-            for y in 0..height {
-                let from = (y * width * 4) as usize;
-                let to = ((y * atlas_width + v as u32 * width) * 4) as usize;
-                base[to..to + (width * 4) as usize]
-                    .copy_from_slice(&column[from..from + (width * 4) as usize]);
-            }
-        }
-        let mut levels = vec![base];
-        let (mut w, mut h) = (atlas_width, height);
-        while w > 1 && h > 1 && levels.len() < 12 {
-            let previous = levels.last().unwrap();
-            let (nw, nh) = ((w / 2).max(1), (h / 2).max(1));
-            let mut next = vec![0u8; (nw * nh * 4) as usize];
-            for y in 0..nh {
-                for x in 0..nw {
-                    for c in 0..4 {
-                        let texel =
-                            |xx: u32, yy: u32| previous[((yy * w + xx) * 4 + c) as usize] as u32;
-                        let sum = texel(2 * x, 2 * y)
-                            + texel((2 * x + 1).min(w - 1), 2 * y)
-                            + texel(2 * x, (2 * y + 1).min(h - 1))
-                            + texel((2 * x + 1).min(w - 1), (2 * y + 1).min(h - 1));
-                        next[((y * nw + x) * 4 + c) as usize] = ((sum + 2) / 4) as u8;
-                    }
-                }
-            }
-            levels.push(next);
-            w = nw;
-            h = nh;
-        }
-        Self {
-            width: atlas_width,
-            height,
-            variants,
-            levels,
-        }
-    }
-}
-
-/// One bundle: strands down a `width` by `height` column, root at the top.
-fn paint_bundle(width: u32, height: u32, seed: u64) -> Vec<u8> {
-    let mut rng = Rng::new(seed);
-    let mut coverage = vec![0.0f32; (width * height) as usize];
-    let mut shade = vec![0.0f32; (width * height) as usize];
-    let mut depth = vec![0.0f32; (width * height) as usize];
-    let strands = 26 + rng.index(20);
-    let converge = rng.range(0.2, 0.6);
-    for _ in 0..strands {
-        let x0 = rng.range(0.1, 0.9);
-        let amplitude = rng.range(0.0, 0.035);
-        let frequency = rng.range(0.5, 3.0);
-        let phase = rng.range(0.0, std::f32::consts::TAU);
-        let end = rng.range(0.7, 1.0);
-        let start = rng.range(0.0, 0.05);
-        let root_width = rng.range(0.9, 1.6) * width as f32 / 64.0;
-        let tone = rng.next_f32();
-        let layer = rng.next_f32();
-        let path = |v: f32| {
-            let pull = smoothstep(0.2, 1.0, v) * converge;
-            let x = x0
-                + (0.5 - x0) * pull
-                + amplitude * (frequency * v * std::f32::consts::TAU + phase).sin();
-            [x * width as f32, v * height as f32]
-        };
-        let steps = height as usize * 2;
-        for k in 0..steps {
-            let v = start + (end - start) * k as f32 / steps as f32;
-            let [px, py] = path(v);
-            let taper = 1.0 - smoothstep(0.6, 1.0, (v - start) / (end - start)) * 0.7;
-            let r = (root_width * 0.5 * taper).max(0.35);
-            let (x0i, x1i) = ((px - r - 1.0).floor() as i32, (px + r + 1.0).ceil() as i32);
-            let y = py as i32;
-            if y < 0 || y >= height as i32 {
-                continue;
-            }
-            for x in x0i..=x1i {
-                // The column wraps, so bundles tile across wide cards.
-                let xw = x.rem_euclid(width as i32) as u32;
-                let d = (x as f32 + 0.5 - px).abs();
-                let c = (r + 0.5 - d).clamp(0.0, 1.0);
-                let i = (y as u32 * width + xw) as usize;
-                if c > coverage[i] || (c > 0.0 && layer < depth[i]) {
-                    coverage[i] = coverage[i].max(c);
-                    shade[i] = tone;
-                    depth[i] = layer;
-                }
-            }
-        }
-    }
-    let mut out = vec![0u8; (width * height * 4) as usize];
-    for i in 0..(width * height) as usize {
-        let c = (coverage[i] * 255.0).round() as u8;
-        out[i * 4] = c;
-        out[i * 4 + 1] = (shade[i] * 255.0) as u8;
-        out[i * 4 + 2] = (depth[i] * 255.0) as u8;
-        out[i * 4 + 3] = c;
-    }
-    out
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -365,11 +252,21 @@ mod tests {
         );
         assert!(mesh.cards >= 2 && mesh.cards <= 8, "{}", mesh.cards);
         assert_eq!(mesh.indices.len(), mesh.cards * 12 * 6);
-        let atlas = CardAtlas::paint(4, 32, 128, 1);
+        let atlas = CardAtlas::paint(
+            AtlasSettings {
+                variants: AtlasVariantCount::try_from(4).unwrap(),
+                tile: AtlasTileSize {
+                    width: AtlasTileSpan::try_from(32).unwrap(),
+                    height: AtlasTileSpan::try_from(128).unwrap(),
+                },
+            },
+            fabelgeist_determinism::Seed::from_u64(1),
+        )
+        .unwrap();
         assert_eq!(
-            atlas.levels[0].len(),
-            (atlas.width * atlas.height * 4) as usize
+            atlas.base().pixel_bytes().len(),
+            (atlas.base().width_texels() * atlas.base().height_texels() * 4) as usize
         );
-        assert!(atlas.levels[0].chunks(4).any(|t| t[0] > 200));
+        assert!(atlas.base().pixel_bytes().chunks(4).any(|t| t[0] > 200));
     }
 }

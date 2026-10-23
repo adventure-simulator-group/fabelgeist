@@ -6,6 +6,7 @@ license = "GPL-3.0"
 repository = "https://github.com/adventure-simulator-group/fabelgeist"
 
 [dependencies]
+fabelgeist-color = { path = "../fabelgeist-color", default-features = false }
 fabelgeist-determinism = { path = "../fabelgeist-determinism" }
 fabelgeist-mesh = { path = "../fabelgeist-mesh", default-features = false }
 fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
@@ -32,7 +33,7 @@ naga = { "version" = "29.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
 
 [features]
 default = ["render"]
-gpu = ["fabelgeist-mesh/gpu", "dep:wgpu", "dep:pollster", "dep:fabelgeist-gpu", "dep:fabelgeist-compute", "dep:fabelgeist-spatial-hash"]
+gpu = ["fabelgeist-color/wgpu", "fabelgeist-mesh/gpu", "dep:wgpu", "dep:pollster", "dep:fabelgeist-gpu", "dep:fabelgeist-compute", "dep:fabelgeist-spatial-hash"]
 render = ["gpu", "dep:image", "dep:futures-channel"]
 
 [lints]
