@@ -415,6 +415,11 @@ fn deform_source() -> String {
 }
 
 impl HairRenderer {
+    /// Use a device and queue from the same logical wgpu device.
+    ///
+    /// Native validation follows the supplied device's error handling.
+    /// Successful construction or rendering does not certify validation or
+    /// GPU completion; readback separately reports polling and mapping errors.
     pub fn new(
         device: Arc<wgpu::Device>,
         queue: Arc<wgpu::Queue>,
@@ -2274,7 +2279,8 @@ impl HairRenderer {
 
 /// A device and queue of their own, for drawing without a window: the
 /// dataset's renders, snapshots and tests. Asks for the adapter's own
-/// storage limits, so a full groom fits in one binding.
+/// storage limits, so a full groom fits in one binding. Native validation uses
+/// the SDK's default device error handling.
 pub fn headless_device() -> Result<(Arc<wgpu::Device>, Arc<wgpu::Queue>)> {
     pollster::block_on(async {
         let instance = wgpu::Instance::new(wgpu::InstanceDescriptor {

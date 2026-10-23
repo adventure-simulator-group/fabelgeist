@@ -5,6 +5,9 @@
 //! rows padded as a copy into a texture moves them. Its image is made with
 //! no data and copied into once the renderer has made its texture, so no
 //! texel comes back to the CPU.
+//!
+//! Copies use Bevy's configured device error handling. This render system does
+//! not observe a synchronous native validation result.
 use super::*;
 use adventuresim_character_creator::hair::scalp_levels;
 use bevy::image::{ImageAddressMode, ImageFilterMode, ImageSampler, ImageSamplerDescriptor};
