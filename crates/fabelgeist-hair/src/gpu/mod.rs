@@ -86,10 +86,13 @@ use fabelgeist_compute::ScanElementCount;
 mod collide;
 mod grow;
 mod guides;
+mod layout;
 mod lods;
 mod scalp;
 mod sim;
 pub mod wgsl;
+
+pub use layout::{StrandAttribute, StrandLayout, StrandLayoutError, StrandLayoutResult};
 
 use std::sync::Arc;
 

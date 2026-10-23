@@ -30,6 +30,7 @@
 
 pub use frame_state::{RenderInputError, RenderInputPart};
 pub use head::RenderSourceError;
+pub use levels::{LevelBufferRole, RenderLevelError};
 pub use readback::RenderReadbackError;
 
 use atlas::UploadedAtlas;
@@ -38,6 +39,7 @@ use draws::{DrawPlan, DrawRole};
 use frame_state::{History, RenderedView};
 use frame_uniforms::FrameProjection;
 use head::HeadDraw;
+use levels::GpuLevel;
 use std::sync::Arc;
 
 use crate::gpu::error::{HairGpuError, Result};
@@ -60,6 +62,7 @@ mod draws;
 mod frame_state;
 mod frame_uniforms;
 mod head;
+mod levels;
 mod math;
 mod readback;
 
@@ -171,14 +174,6 @@ struct PostGpu {
 #[derive(Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
 struct CardDrawGpu {
     keep: [f32; 4],
-}
-
-struct GpuLevel {
-    points: u32,
-    count: u32,
-    groups: [wgpu::BindGroup; 3],
-    positions: Arc<wgpu::Buffer>,
-    _infos: Arc<wgpu::Buffer>,
 }
 
 /// Real-time physics on the GPU: the binding, the simulated strands, and
@@ -951,12 +946,11 @@ impl HairRenderer {
     /// its strands that fits -- an even sample of the rest.
     pub fn set_groom(&mut self, lods: &HairLods) -> Result<()> {
         let atlas = UploadedAtlas::new(&self.device, &self.queue, &lods.atlas)?;
-        let limit = self.device.limits().max_storage_buffer_binding_size as usize;
         let levels = lods
             .levels
             .iter()
-            .map(|level| self.upload_level(level, limit))
-            .collect();
+            .map(|level| self.upload_level(level))
+            .collect::<Result<Vec<_>>>()?;
         let cards = lods
             .cards
             .iter()
@@ -1023,15 +1017,8 @@ impl HairRenderer {
         let levels = lods
             .levels
             .iter()
-            .map(|level| {
-                self.level_groups(
-                    level.points as usize,
-                    level.count as usize,
-                    level.positions.buffer.clone(),
-                    level.infos.buffer.clone(),
-                )
-            })
-            .collect();
+            .map(|level| self.upload_gpu_level(level))
+            .collect::<Result<Vec<_>>>()?;
         let cards = lods
             .cards
             .iter()
@@ -1077,74 +1064,6 @@ impl HairRenderer {
         self.center = lods.center.to_array();
         self.invalidate_view();
         Ok(())
-    }
-
-    /// A level's bind groups, around its buffers.
-    fn level_groups(
-        &self,
-        points: usize,
-        count: usize,
-        positions: Arc<wgpu::Buffer>,
-        infos: Arc<wgpu::Buffer>,
-    ) -> GpuLevel {
-        let group = |draw: &wgpu::Buffer| {
-            self.device.create_bind_group(&wgpu::BindGroupDescriptor {
-                label: Some("hair strands"),
-                layout: &self.layouts.strands,
-                entries: &[
-                    wgpu::BindGroupEntry {
-                        binding: 0,
-                        resource: positions.as_entire_binding(),
-                    },
-                    wgpu::BindGroupEntry {
-                        binding: 1,
-                        resource: infos.as_entire_binding(),
-                    },
-                    wgpu::BindGroupEntry {
-                        binding: 2,
-                        resource: draw.as_entire_binding(),
-                    },
-                ],
-            })
-        };
-        GpuLevel {
-            points: points as u32,
-            count: count as u32,
-            groups: [
-                group(&self.draws[DrawRole::Main.index()]),
-                group(&self.draws[DrawRole::Shadow.index()]),
-                group(&self.draws[DrawRole::Blend.index()]),
-            ],
-            positions,
-            _infos: infos,
-        }
-    }
-
-    fn upload_level(&self, level: &StrandLevel, limit: usize) -> GpuLevel {
-        let per_strand = level.points * 16;
-        let count = level
-            .len()
-            .min(limit / per_strand.max(1))
-            .max(1.min(level.len()));
-        let positions = self
-            .device
-            .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                label: Some("hair positions"),
-                contents: bytemuck::cast_slice(&level.positions[..count * level.points]),
-                usage: wgpu::BufferUsages::STORAGE
-                    | wgpu::BufferUsages::COPY_SRC
-                    | wgpu::BufferUsages::COPY_DST,
-            });
-        let infos = self
-            .device
-            .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                label: Some("hair strand info"),
-                contents: bytemuck::cast_slice(
-                    &level.strands[..count.max(1).min(level.len().max(1))],
-                ),
-                usage: wgpu::BufferUsages::STORAGE,
-            });
-        self.level_groups(level.points, count, Arc::new(positions), Arc::new(infos))
     }
 
     fn upload_cards(&self, mesh: &CardMesh) -> GpuMesh {
@@ -1400,16 +1319,16 @@ impl HairRenderer {
         let deform = &dynamics.levels[level.index()];
         let params = DeformGpu {
             head: self.head_matrix,
-            points: gpu.points,
+            points: gpu.layout.native_points(),
             sim_points: deform.sim_points,
-            strands: gpu.count,
+            strands: gpu.layout.native_strands(),
             body: u32::from(dynamics.body.is_some()),
             offset: dynamics.body.unwrap_or(0.0),
             pad: [0; 3],
         };
         self.queue
             .write_buffer(&deform.params, 0, bytemuck::bytes_of(&params));
-        let groups = (gpu.points * gpu.count).div_ceil(64);
+        let groups = gpu.layout.native_samples().div_ceil(64);
         let x = groups.clamp(1, 65535);
         let y = groups.div_ceil(x);
         let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
@@ -1749,7 +1668,10 @@ impl HairRenderer {
                         &self.levels[level.index()].groups[DrawRole::Shadow.index()],
                         &[],
                     );
-                    pass.draw(0..d.points * 2, 0..d.count);
+                    pass.draw(
+                        0..self.levels[level.index()].layout.native_draw_vertices(),
+                        0..d.count,
+                    );
                 }
             }
             // Its opacity, layer by layer behind that.
@@ -1780,7 +1702,10 @@ impl HairRenderer {
                         &[],
                     );
                     pass.set_bind_group(2, &self.opacity_group, &[]);
-                    pass.draw(0..d.points * 2, 0..d.count);
+                    pass.draw(
+                        0..self.levels[level.index()].layout.native_draw_vertices(),
+                        0..d.count,
+                    );
                 }
             }
         }
@@ -1830,13 +1755,14 @@ impl HairRenderer {
                 let Some(l) = self.levels.get(draw.level.index()) else {
                     continue;
                 };
-                let instances = draw.instances.start.min(l.count)..draw.instances.end.min(l.count);
+                let instances = draw.instances.start.min(l.layout.native_strands())
+                    ..draw.instances.end.min(l.layout.native_strands());
                 if instances.is_empty() {
                     continue;
                 }
                 pass.set_pipeline(&self.pipelines.strands);
                 pass.set_bind_group(1, &l.groups[draw.role.index()], &[]);
-                pass.draw(0..l.points * 2, instances);
+                pass.draw(0..l.layout.native_draw_vertices(), instances);
             }
             for (i, draw) in plan.cards.iter().enumerate() {
                 if let Some(cards) = self.cards.get(draw.level.index())
@@ -1949,7 +1875,7 @@ impl HairRenderer {
             Representation::Strands { level, count, .. } => count.count().min(
                 self.levels
                     .get(level.index())
-                    .map_or(0, |l| l.count as usize),
+                    .map_or(0, |level| level.layout.strands().count()),
             ),
             Representation::Cards { level } => {
                 self.card_quads.get(level.index()).copied().unwrap_or(0)

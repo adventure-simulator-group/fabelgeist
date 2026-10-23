@@ -140,9 +140,9 @@ impl HairRenderer {
         };
         let resident = self.levels.get(level.index())?;
         Some(DrawGpu {
-            points: resident.points,
+            points: resident.layout.native_points(),
             // Clamp to an existing u32 native population before narrowing.
-            count: count.count().min(resident.count as usize) as u32,
+            count: count.count().min(resident.layout.strands().count()) as u32,
             pad: [0; 2],
             width_scale: width_scale.ratio(),
             min_pixels: min_pixels.pixels(),
