@@ -28,9 +28,13 @@
 //! strands it is bound to ([`crate::sim`]), and the head, cards and roots
 //! follow the head's transform.
 
+pub use frame_state::{RenderInputError, RenderInputPart};
 pub use readback::RenderReadbackError;
 
 use deformation::{DeformationState, DeformationViews};
+use draws::{DrawPlan, DrawRole};
+use frame_state::{History, RenderedView};
+use frame_uniforms::FrameProjection;
 use std::sync::Arc;
 
 use crate::gpu::error::{HairGpuError, Result};
@@ -40,24 +44,24 @@ use wgpu::util::DeviceExt;
 pub use math::{Mat4, halton, look_at, multiply, orthographic, perspective};
 
 use crate::cards::{CardMesh, CardVertex};
-use crate::lod::{Blend, HairLods, LodCounts, LodPolicy, Representation, StrandLevel};
+use crate::lod::{
+    AccumulationFrames, HairLods, HairShading, LodCounts, LodPolicy, PixelSpan, Representation,
+    Selection, ShadowMapSize, StrandLevel, StrandLevelIndex,
+};
 use crate::material::HairMaterial;
 use crate::sim::{Rigid, SimBinding};
 use crate::surface::Surface;
 
 mod deformation;
+mod draws;
+mod frame_state;
+mod frame_uniforms;
 mod math;
 mod readback;
 
 const SAMPLES: u32 = 4;
 const HDR: wgpu::TextureFormat = wgpu::TextureFormat::Rgba16Float;
 const DEPTH: wgpu::TextureFormat = wgpu::TextureFormat::Depth32Float;
-
-/// The strand draws a frame makes: the view's, the shadows', and the
-/// coarser level's fading in under the view's.
-const MAIN: usize = 0;
-const SHADOW: usize = 1;
-const BLEND: usize = 2;
 
 const IDENTITY: Mat4 = [
     [1.0, 0.0, 0.0, 0.0],
@@ -104,9 +108,9 @@ pub struct Lighting {
 pub struct FrameInfo {
     pub representation: Representation,
     /// The head's height on screen.
-    pub pixels: f32,
+    pub pixels: PixelSpan,
     /// Frames in the running mean.
-    pub frames: u32,
+    pub frames: AccumulationFrames,
     /// Strands or card quads drawn.
     pub primitives: usize,
 }
@@ -137,16 +141,6 @@ struct Globals {
     skin: [f32; 4],
     roots: [f32; 4],
     waves: [f32; 4],
-}
-
-/// Effective inputs of the last view, excluding its temporal jitter and pose.
-#[derive(Clone, Copy, PartialEq)]
-struct RenderedView {
-    globals: Globals,
-    representation: Representation,
-    blend: Option<Blend>,
-    shadow: Option<Representation>,
-    min_pixels: f32,
 }
 
 #[repr(C)]
@@ -247,7 +241,7 @@ struct Targets {
 }
 
 struct ShadowMaps {
-    resolution: u32,
+    resolution: ShadowMapSize,
     depth: wgpu::TextureView,
     layers: wgpu::TextureView,
     head: wgpu::TextureView,
@@ -314,11 +308,9 @@ pub struct HairRenderer {
     center: [f32; 3],
     /// The accumulation: frames in the mean, which history holds it, and
     /// what the view was.
-    frames: u32,
-    history: usize,
+    frames: AccumulationFrames,
+    history: History,
     last: Option<RenderedView>,
-    generation: u64,
-    last_generation: u64,
     /// The simulated strands moved since the last frame: keep blending
     /// frames (a temporal filter) rather than starting the mean again.
     moving: bool,
@@ -371,6 +363,11 @@ impl Default for Lighting {
 }
 
 impl HairRenderer {
+    /// Build pipelines on `device` and its paired `queue`.
+    ///
+    /// Supplied native resources must belong to this same logical device.
+    /// Pipeline, allocation and submission failures follow the device's
+    /// configured error handling; this constructor does not replace it.
     pub fn new(
         device: Arc<wgpu::Device>,
         queue: Arc<wgpu::Queue>,
@@ -499,7 +496,6 @@ impl HairRenderer {
             step_mode: wgpu::VertexStepMode::Vertex,
             attributes: &cover_attributes,
         };
-        #[allow(clippy::too_many_arguments)]
         let scene = |label: &str,
                      layout: &wgpu::PipelineLayout,
                      vs: &str,
@@ -824,7 +820,7 @@ impl HairRenderer {
             cache: None,
         });
         let atlas = Self::atlas_texture(d, &queue, 1, 1, &[vec![0; 4]]);
-        let shadows = Self::shadow_maps(d, 16);
+        let shadows = Self::shadow_maps(d, ShadowMapSize::from_texels(16));
         let (lighting_group, opacity_group) =
             Self::lighting_groups(d, &layouts, &shadows, &atlas, &linear, &comparison);
         Ok(Self {
@@ -861,11 +857,9 @@ impl HairRenderer {
             targets: None,
             bounds: [[-0.2, -0.3, -0.2], [0.2, 0.2, 0.2]],
             center: [0.0; 3],
-            frames: 0,
-            history: 0,
+            frames: AccumulationFrames::default(),
+            history: History::First,
             last: None,
-            generation: 0,
-            last_generation: u64::MAX,
             moving: false,
         })
     }
@@ -917,14 +911,14 @@ impl HairRenderer {
         texture.create_view(&Default::default())
     }
 
-    fn shadow_maps(device: &wgpu::Device, resolution: u32) -> ShadowMaps {
+    fn shadow_maps(device: &wgpu::Device, resolution: ShadowMapSize) -> ShadowMaps {
         let texture = |label: &str, format: wgpu::TextureFormat| {
             device
                 .create_texture(&wgpu::TextureDescriptor {
                     label: Some(label),
                     size: wgpu::Extent3d {
-                        width: resolution,
-                        height: resolution,
+                        width: resolution.texels(),
+                        height: resolution.texels(),
                         depth_or_array_layers: 1,
                     },
                     mip_level_count: 1,
@@ -1041,12 +1035,12 @@ impl HairRenderer {
         ];
         self.center = lods.center.to_array();
         self.cover_head(lods);
-        self.generation += 1;
+        self.invalidate_view();
     }
 
     /// Upload a groom made on the GPU ([`crate::gpu::GpuGroomer::lods`]):
-    /// nothing is copied -- the levels, the cards and the head's cover are
-    /// drawn from the buffers the groomer's kernels wrote.
+    /// The levels, cards and head coverage reuse the groomer's geometry
+    /// buffers. The host card-atlas mip chain is uploaded to a texture.
     pub fn set_gpu_groom(&mut self, lods: &crate::gpu::GpuLods) {
         self.dynamics = None;
         self.head_matrix = IDENTITY;
@@ -1092,7 +1086,7 @@ impl HairRenderer {
             hi.max(Vec3::new(0.12, 0.13, 0.13)).to_array(),
         ];
         self.center = lods.center.to_array();
-        self.generation += 1;
+        self.invalidate_view();
     }
 
     /// A level's bind groups, around its buffers.
@@ -1127,9 +1121,9 @@ impl HairRenderer {
             points: points as u32,
             count: count as u32,
             groups: [
-                group(&self.draws[MAIN]),
-                group(&self.draws[SHADOW]),
-                group(&self.draws[BLEND]),
+                group(&self.draws[DrawRole::Main.index()]),
+                group(&self.draws[DrawRole::Shadow.index()]),
+                group(&self.draws[DrawRole::Blend.index()]),
             ],
             positions,
             _infos: infos,
@@ -1356,7 +1350,7 @@ impl HairRenderer {
             body,
             levels,
         });
-        self.generation += 1;
+        self.invalidate_view();
     }
 
     /// The simulated strands' points this frame (world space), and where
@@ -1400,7 +1394,7 @@ impl HairRenderer {
         }
         self.queue.submit([encoder.finish()]);
         self.head_matrix = IDENTITY;
-        self.generation += 1;
+        self.invalidate_view();
     }
 
     /// Whether physics is on.
@@ -1409,11 +1403,11 @@ impl HairRenderer {
     }
 
     /// Deform `level`'s strands from the simulated ones.
-    fn deform(&self, encoder: &mut wgpu::CommandEncoder, level: usize) {
-        let (Some(dynamics), Some(gpu)) = (&self.dynamics, self.levels.get(level)) else {
+    fn deform(&self, encoder: &mut wgpu::CommandEncoder, level: StrandLevelIndex) {
+        let (Some(dynamics), Some(gpu)) = (&self.dynamics, self.levels.get(level.index())) else {
             return;
         };
-        let deform = &dynamics.levels[level];
+        let deform = &dynamics.levels[level.index()];
         let params = DeformGpu {
             head: self.head_matrix,
             points: gpu.points,
@@ -1477,7 +1471,7 @@ impl HairRenderer {
                 )),
                 count: indices.len() as u32,
             });
-        self.generation += 1;
+        self.invalidate_view();
     }
 
     /// Shade the head under the groom's hair: how much of each vertex's
@@ -1630,21 +1624,38 @@ impl HairRenderer {
             tonemap_resolved,
             tonemap_accum,
         });
-        self.last = None;
-        self.frames = 0;
-        self.history = 0;
+        self.invalidate_view();
         (output, output_view, true)
+    }
+
+    /// Forget the mean when its targets or scene inputs are replaced.
+    fn invalidate_view(&mut self) {
+        self.last = None;
+        self.frames = AccumulationFrames::default();
+        self.history = History::First;
     }
 
     /// Whether the last rendered view has its requested running mean, with
     /// no scene replacement or simulation movement waiting to be drawn.
     pub fn converged(&self, policy: &LodPolicy) -> bool {
         self.last.is_some_and(|view| {
-            view.min_pixels == policy.quality.min_pixels
-                && view.shadow == policy.quality.shadows.then(|| policy.shadow(self.counts))
+            policy
+                .select_blended(view.pixels, self.counts)
+                .is_ok_and(|selection| {
+                    view.representation == selection.representation
+                        && view.blend == selection.blend
+                        && view.min_pixels == policy.quality.min_pixels
+                        && view.shading == policy.quality.shading
+                        && view.shadow
+                            == policy
+                                .quality
+                                .shadows
+                                .enabled()
+                                .then(|| policy.shadow(self.counts))
+                        && view.shadow_resolution == policy.quality.shadows.size()
+                })
         }) && !self.moving
-            && self.frames >= policy.quality.accumulate.max(1)
-            && self.last_generation == self.generation
+            && self.frames >= policy.quality.accumulate.target()
     }
 
     /// Draw a frame into the output texture.
@@ -1655,138 +1666,34 @@ impl HairRenderer {
         material: &HairMaterial,
         policy: &LodPolicy,
     ) -> Result<FrameInfo> {
-        let Some(targets) = &self.targets else {
-            return Err(HairGpuError::MissingRenderTargets);
-        };
-        let (width, height) = (targets.width, targets.height);
-        let aspect = width as f32 / height as f32;
+        let (width, height) = self
+            .targets
+            .as_ref()
+            .map(|targets| (targets.width, targets.height))
+            .ok_or(HairGpuError::MissingRenderTargets)?;
         let quality = policy.quality;
-
-        // How tall the head is on screen, and what to draw for it.
-        let distance = math::length(math::sub(self.center, camera.eye)).max(1e-3);
-        let pixel_angle = 2.0 * (camera.fov_y * 0.5).tan() / height as f32;
-        let pixels = 0.25 / (distance * pixel_angle);
-        let (representation, blend) = if self.levels.is_empty() {
-            (Representation::Cards { level: 0 }, None)
-        } else {
-            policy.select_blended(pixels, self.counts)
-        };
-        let shadow_draw = policy.shadow(self.counts);
-
-        // The key light's frustum: a box around everything, from the light.
-        let [mut lo, mut hi] = self.bounds;
-        // Moving hair may leave its rest bounds: room for it in the light's
-        // frustum.
-        if self.dynamics.is_some() {
-            lo = math::sub(lo, [0.12; 3]);
-            hi = math::add(hi, [0.12; 3]);
-        }
-        let center = math::scale(math::add(lo, hi), 0.5);
-        let radius = math::length(math::sub(hi, lo)) * 0.5;
-        let key = math::normalize(lighting.key.direction);
-        let light_up = if key[1].abs() > 0.99 {
-            [0.0, 0.0, 1.0]
-        } else {
-            [0.0, 1.0, 0.0]
-        };
-        let light_eye = math::add(center, math::scale(key, radius * 2.0));
-        let light_view_proj = multiply(
-            &orthographic(-radius, radius, -radius, radius, radius, radius * 3.0),
-            &look_at(light_eye, center, light_up),
+        let projection = FrameProjection::new(
+            self,
+            camera,
+            lighting,
+            wgpu::Extent3d {
+                width,
+                height,
+                depth_or_array_layers: 1,
+            },
         );
-        let resolution = quality.shadow_resolution.max(16);
-        if quality.shadows && self.shadows.resolution != resolution {
-            self.shadows = Self::shadow_maps(&self.device, resolution);
-            self.rebind_lighting();
-        }
-        let texel = 2.0 * radius / self.shadows.resolution as f32;
-        let base = material.base_color();
-        let darkness = 1.0 - (base[0] * 0.3 + base[1] * 0.59 + base[2] * 0.11).clamp(0.0, 1.0);
-        let light = |l: &Light| {
-            let d = math::normalize(l.direction);
-            (
-                [d[0], d[1], d[2], l.intensity],
-                [l.color[0], l.color[1], l.color[2], 0.0],
-            )
-        };
-        let (key_dir, key_color) = light(&lighting.key);
-        let (fill_dir, fill_color) = light(&lighting.fill);
-        let (rim_dir, rim_color) = light(&lighting.rim);
-        let mut globals = Globals {
-            view_proj: camera.view_projection(aspect),
-            light_view_proj,
-            head: self.head_matrix,
-            camera: [camera.eye[0], camera.eye[1], camera.eye[2], pixel_angle],
-            jitter: [0.0, 0.0, 0.0, lighting.exposure],
-            viewport: [
-                width as f32,
-                height as f32,
-                1.0 / width as f32,
-                1.0 / height as f32,
-            ],
-            key_dir,
-            key_color,
-            fill_dir,
-            fill_color,
-            rim_dir,
-            rim_color,
-            sky_top: [
-                lighting.sky_top[0],
-                lighting.sky_top[1],
-                lighting.sky_top[2],
-                0.0,
-            ],
-            sky_bottom: [
-                lighting.sky_bottom[0],
-                lighting.sky_bottom[1],
-                lighting.sky_bottom[2],
-                0.0,
-            ],
-            base_color: [base[0], base[1], base[2], material.random_color],
-            material: [
-                material.roughness,
-                material.radial_roughness,
-                material.cuticle_tilt,
-                material.random_roughness,
-            ],
-            taper: [material.taper.tip, material.taper.shape, 0.35, 0.45],
-            dom: [0.003, 0.01, 0.03, 2.0 * radius],
-            shadow: [
-                texel,
-                0.9,
-                0.35 + 0.5 * darkness,
-                if quality.shadows { 1.0 } else { 0.0 },
-            ],
-            mode: [
-                if quality.marschner { 1.0 } else { 0.0 },
-                self.atlas_variants as f32,
-                material.tip_lightness,
-                material.grey,
-            ],
-            // The key's softness: a 12 mm penumbra, in shadow-map UV.
-            skin: [
-                lighting.skin[0],
-                lighting.skin[1],
-                lighting.skin[2],
-                0.012 / (2.0 * radius),
-            ],
-            roots: [
-                material.root_darkness_start,
-                material.root_darkness_end,
-                material.root_darkness_strength,
-                material.wave_strength,
-            ],
-            waves: [
-                material.wave_scale,
-                material.wave_phase.to_radians(),
-                0.0,
-                0.0,
-            ],
-        };
+        let pixels = projection.pixels;
+        let Selection {
+            representation,
+            blend,
+        } = policy.select_blended(pixels, self.counts)?;
+        let shadow_draw = policy.shadow(self.counts);
+        let resolution = quality.shadows.size();
+        let mut globals = Globals::for_frame(&projection, self, lighting, material, quality)?;
 
         // A new view starts the mean again; a still one takes the next
         // jittered frame, until it has all it wants.
-        let wanted = quality.accumulate.max(1);
+        let wanted = quality.accumulate.target();
         // The head's pose moves with the simulation, which does not start
         // the mean again: the view is the same, the hair is moving.
         let mut view = globals;
@@ -1795,15 +1702,24 @@ impl HairRenderer {
             globals: view,
             representation,
             blend,
-            shadow: quality.shadows.then_some(shadow_draw),
+            shadow: quality.shadows.enabled().then_some(shadow_draw),
             min_pixels: quality.min_pixels,
-        };
-        let same = self.last_generation == self.generation && self.last == Some(view);
+            pixels,
+            shading: quality.shading,
+            shadow_resolution: resolution,
+        }
+        .validate()?;
+        if let Some(resolution) = resolution
+            && self.shadows.resolution != resolution
+        {
+            self.shadows = Self::shadow_maps(&self.device, resolution);
+            self.rebind_lighting();
+        }
+        let same = self.last == Some(view);
         if !same {
-            self.frames = 0;
+            self.frames = AccumulationFrames::default();
         }
         self.last = Some(view);
-        self.last_generation = self.generation;
         let moving = std::mem::take(&mut self.moving);
         if self.frames >= wanted && !moving {
             return Ok(FrameInfo {
@@ -1813,93 +1729,63 @@ impl HairRenderer {
                 primitives: self.primitives(representation),
             });
         }
-        if self.frames > 0 {
-            let n = self.frames % 64 + 1;
+        if self.frames.count() > 0 {
+            let n = self.frames.count() % 64 + 1;
             globals.jitter[0] = (halton(n, 2) - 0.5) * 2.0 / width as f32;
             globals.jitter[1] = (halton(n, 3) - 0.5) * 2.0 / height as f32;
             globals.jitter[2] = n as f32;
         }
         self.queue
             .write_buffer(&self.globals, 0, bytemuck::bytes_of(&globals));
-        let draw = |r: Representation, levels: &[GpuLevel]| -> Option<DrawGpu> {
-            let Representation::Strands {
-                level,
-                count,
-                width_scale,
-            } = r
-            else {
-                return None;
-            };
-            let l = levels.get(level)?;
-            Some(DrawGpu {
-                points: l.points,
-                count: (count as u32).min(l.count),
-                pad: [0; 2],
-                width_scale,
-                min_pixels: quality.min_pixels,
-                pad2: [0.0; 2],
-            })
-        };
-        let main_draw = draw(representation, &self.levels);
-        let shadow_gpu = draw(shadow_draw, &self.levels);
-        if let Some(d) = main_draw {
-            self.queue
-                .write_buffer(&self.draws[MAIN], 0, bytemuck::bytes_of(&d));
-        }
-        // What the view draws: the band's form, and the coarser one fading
-        // in -- strands handing over along the shared order (the first
-        // strands at the finer level, the rest at the coarser, all as wide
-        // as the finer count wants), cards dissolving in card by card.
-        let strands_of = |r: Representation| match r {
-            Representation::Strands { count, .. } => count as u32,
-            Representation::Cards { .. } => 0,
-        };
-        let amount = blend.map_or(0.0, |b| b.amount);
-        let handed = |count: u32| ((count as f32) * (1.0 - amount)).round() as u32;
-        let mut strand_draws: Vec<(usize, usize, std::ops::Range<u32>)> = Vec::new();
-        let mut card_draws: Vec<(usize, [f32; 2])> = Vec::new();
-        match representation {
-            Representation::Strands { level, .. } => {
-                let count = strands_of(representation);
-                strand_draws.push((level, MAIN, 0..handed(count)));
-            }
-            Representation::Cards { level } => card_draws.push((level, [amount, 2.0])),
-        }
-        if let Some(Blend { to, .. }) = blend {
-            match (representation, to) {
-                (Representation::Strands { .. }, Representation::Strands { level, .. }) => {
-                    let count = strands_of(representation);
-                    strand_draws.push((level, BLEND, handed(count)..count));
-                }
-                (Representation::Cards { .. }, Representation::Strands { level, .. }) => {
-                    let count = strands_of(to);
-                    strand_draws.push((level, BLEND, 0..count - handed(count)));
-                }
-                (_, Representation::Cards { level }) => card_draws.push((level, [-1.0, amount])),
-            }
-            if let (Representation::Strands { .. }, Some(d)) = (to, draw(to, &self.levels)) {
-                // As wide as the finer form draws its strands.
-                let width_scale = match representation {
-                    Representation::Strands { width_scale, .. } => width_scale,
-                    _ => d.width_scale,
-                };
-                let d = DrawGpu { width_scale, ..d };
-                self.queue
-                    .write_buffer(&self.draws[BLEND], 0, bytemuck::bytes_of(&d));
-            }
-        }
-        for (i, (_, keep)) in card_draws.iter().enumerate() {
+        let main_draw = self.draw_gpu(representation, quality.min_pixels);
+        let shadow_gpu = self.draw_gpu(shadow_draw, quality.min_pixels);
+        if let Some(draw) = main_draw {
             self.queue.write_buffer(
-                &self.card_draws[i],
+                &self.draws[DrawRole::Main.index()],
+                0,
+                bytemuck::bytes_of(&draw),
+            );
+        }
+        let plan = DrawPlan::new(
+            self,
+            Selection {
+                representation,
+                blend,
+            },
+            quality.min_pixels,
+        );
+        if let Some(blend) = blend
+            && let Some(draw) = self.draw_gpu(blend.to, quality.min_pixels)
+        {
+            // The incoming strands keep the finer form's apparent width.
+            let width_scale = match representation {
+                Representation::Strands { width_scale, .. } => width_scale.ratio(),
+                _ => draw.width_scale,
+            };
+            self.queue.write_buffer(
+                &self.draws[DrawRole::Blend.index()],
+                0,
+                bytemuck::bytes_of(&DrawGpu {
+                    width_scale,
+                    ..draw
+                }),
+            );
+        }
+        for (slot, draw) in plan.cards.iter().enumerate() {
+            self.queue.write_buffer(
+                &self.card_draws[slot],
                 0,
                 bytemuck::bytes_of(&CardDrawGpu {
-                    keep: [keep[0], keep[1], 0.0, 0.0],
+                    keep: draw.coverage.keep(),
                 }),
             );
         }
         if let Some(d) = shadow_gpu {
-            self.queue
-                .write_buffer(&self.draws[SHADOW], 0, bytemuck::bytes_of(&d));
+            self.queue.write_buffer(
+                &self.draws[DrawRole::Shadow.index()],
+                0,
+                bytemuck::bytes_of(&d),
+            );
         }
 
         let mut encoder = self
@@ -1911,7 +1797,7 @@ impl HairRenderer {
             &mut encoder,
             DeformationViews {
                 main: representation,
-                shadow: quality.shadows.then_some(shadow_draw),
+                shadow: quality.shadows.enabled().then_some(shadow_draw),
                 blend: blend.map(|blend| blend.to),
             },
         );
@@ -1919,7 +1805,7 @@ impl HairRenderer {
             .targets
             .as_ref()
             .ok_or(HairGpuError::MissingRenderTargets)?;
-        if quality.shadows {
+        if quality.shadows.enabled() {
             // The head's shadow.
             {
                 let mut pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
@@ -1966,7 +1852,11 @@ impl HairRenderer {
                 {
                     pass.set_pipeline(&self.pipelines.strand_depth);
                     pass.set_bind_group(0, &self.globals_group, &[]);
-                    pass.set_bind_group(1, &self.levels[level].groups[SHADOW], &[]);
+                    pass.set_bind_group(
+                        1,
+                        &self.levels[level.index()].groups[DrawRole::Shadow.index()],
+                        &[],
+                    );
                     pass.draw(0..d.points * 2, 0..d.count);
                 }
             }
@@ -1992,7 +1882,11 @@ impl HairRenderer {
                 {
                     pass.set_pipeline(&self.pipelines.strand_opacity);
                     pass.set_bind_group(0, &self.globals_group, &[]);
-                    pass.set_bind_group(1, &self.levels[level].groups[SHADOW], &[]);
+                    pass.set_bind_group(
+                        1,
+                        &self.levels[level.index()].groups[DrawRole::Shadow.index()],
+                        &[],
+                    );
                     pass.set_bind_group(2, &self.opacity_group, &[]);
                     pass.draw(0..d.points * 2, 0..d.count);
                 }
@@ -2000,6 +1894,10 @@ impl HairRenderer {
         }
 
         // The view.
+        let targets = self
+            .targets
+            .as_ref()
+            .ok_or(HairGpuError::MissingRenderTargets)?;
         {
             let mut pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
                 label: Some("hair view"),
@@ -2036,20 +1934,20 @@ impl HairRenderer {
                 pass.set_index_buffer(head.indices.slice(..), wgpu::IndexFormat::Uint32);
                 pass.draw_indexed(0..head.count, 0, 0..1);
             }
-            for (level, slot, instances) in &strand_draws {
-                let Some(l) = self.levels.get(*level) else {
+            for draw in &plan.strands {
+                let Some(l) = self.levels.get(draw.level.index()) else {
                     continue;
                 };
-                let instances = instances.start.min(l.count)..instances.end.min(l.count);
+                let instances = draw.instances.start.min(l.count)..draw.instances.end.min(l.count);
                 if instances.is_empty() {
                     continue;
                 }
                 pass.set_pipeline(&self.pipelines.strands);
-                pass.set_bind_group(1, &l.groups[*slot], &[]);
+                pass.set_bind_group(1, &l.groups[draw.role.index()], &[]);
                 pass.draw(0..l.points * 2, instances);
             }
-            for (i, (level, _)) in card_draws.iter().enumerate() {
-                if let Some(cards) = self.cards.get(*level)
+            for (i, draw) in plan.cards.iter().enumerate() {
+                if let Some(cards) = self.cards.get(draw.level.index())
                     && cards.count > 0
                 {
                     pass.set_pipeline(&self.pipelines.cards);
@@ -2062,14 +1960,14 @@ impl HairRenderer {
         }
 
         // Into the running mean, then onto the screen.
-        let accumulating = wanted > 1 || moving;
+        let accumulating = wanted.count() > 1 || moving;
         let source = if accumulating {
             let from = self.history;
-            let to = 1 - from;
+            let to = from.next();
             // Moving hair keeps a share of each new frame: an exponential
             // mean, which smooths the stochastic coverage without trailing
             // far behind the motion.
-            let mut weight = 1.0 / (u64::from(self.frames) + 1) as f32;
+            let mut weight = self.frames.next_weight();
             if moving {
                 weight = weight.max(0.35);
             }
@@ -2084,7 +1982,7 @@ impl HairRenderer {
                 let mut pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
                     label: Some("hair accumulate"),
                     color_attachments: &[Some(wgpu::RenderPassColorAttachment {
-                        view: &targets.accum[to],
+                        view: &targets.accum[to.index()],
                         depth_slice: None,
                         resolve_target: None,
                         ops: wgpu::Operations {
@@ -2098,11 +1996,11 @@ impl HairRenderer {
                     multiview_mask: None,
                 });
                 pass.set_pipeline(&self.pipelines.accumulate);
-                pass.set_bind_group(0, &targets.accumulate[from], &[]);
+                pass.set_bind_group(0, &targets.accumulate[from.index()], &[]);
                 pass.draw(0..3, 0..1);
             }
             self.history = to;
-            &targets.tonemap_accum[to]
+            &targets.tonemap_accum[to.index()]
         } else {
             &targets.tonemap_resolved
         };
@@ -2144,7 +2042,7 @@ impl HairRenderer {
             pass.draw(0..3, 0..1);
         }
         self.queue.submit([encoder.finish()]);
-        self.frames = self.frames.saturating_add(1);
+        self.frames = self.frames.next();
         Ok(FrameInfo {
             representation,
             pixels,
@@ -2155,10 +2053,15 @@ impl HairRenderer {
 
     fn primitives(&self, representation: Representation) -> usize {
         match representation {
-            Representation::Strands { level, count, .. } => {
-                count.min(self.levels.get(level).map_or(0, |l| l.count as usize))
+            Representation::Strands { level, count, .. } => count.count().min(
+                self.levels
+                    .get(level.index())
+                    .map_or(0, |l| l.count as usize),
+            ),
+            Representation::Cards { level } => {
+                self.card_quads.get(level.index()).copied().unwrap_or(0)
             }
-            Representation::Cards { level } => self.card_quads.get(level).copied().unwrap_or(0),
+            Representation::Empty => 0,
         }
     }
 
@@ -2171,7 +2074,7 @@ impl HairRenderer {
         policy: &LodPolicy,
     ) -> Result<FrameInfo> {
         let mut info = self.render(camera, lighting, material, policy)?;
-        while info.frames < policy.quality.accumulate.max(1) {
+        while info.frames < policy.quality.accumulate.target() {
             info = self.render(camera, lighting, material, policy)?;
         }
         Ok(info)
@@ -2179,8 +2082,9 @@ impl HairRenderer {
 }
 
 /// A device and queue of their own, for drawing without a window: the
-/// dataset's renders, snapshots and tests. Asks for the adapter's own
-/// storage limits, so a full groom fits in one binding.
+/// dataset's renders, snapshots and tests. Requests the adapter's buffer
+/// and storage-binding limits; individual inputs must still fit them.
+/// Native errors use the provider's default error handling.
 pub fn headless_device() -> Result<(Arc<wgpu::Device>, Arc<wgpu::Queue>)> {
     pollster::block_on(async {
         let instance = wgpu::Instance::new(wgpu::InstanceDescriptor {

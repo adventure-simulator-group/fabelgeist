@@ -101,8 +101,8 @@ impl HairRenderer {
     /// Read the last submitted frame as tightly packed RGBA8 pixels.
     ///
     /// Resize alone does not produce a frame. RGBA8 and BGRA8 unorm/sRGB
-    /// outputs are supported; other formats remain usable for rendering but
-    /// cannot be decoded by this operation. BGRA channels are reordered.
+    /// outputs are supported. Other formats accepted by the native render
+    /// pipeline cannot be decoded here. BGRA channels are reordered.
     ///
     /// Native progress blocks explicitly. Browser progress yields to the
     /// event loop while driving providers that require polling. Native
@@ -112,7 +112,7 @@ impl HairRenderer {
         let Some(targets) = self
             .targets
             .as_ref()
-            .filter(|_| self.last.is_some() && self.frames > 0)
+            .filter(|_| self.last.is_some() && self.frames.count() > 0)
         else {
             return Err(HairGpuError::NothingRendered);
         };

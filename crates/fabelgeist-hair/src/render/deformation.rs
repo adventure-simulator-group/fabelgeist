@@ -31,7 +31,7 @@ impl HairRenderer {
             let pending = self
                 .dynamics
                 .as_ref()
-                .and_then(|dynamics| dynamics.levels.get(level))
+                .and_then(|dynamics| dynamics.levels.get(level.index()))
                 .is_some_and(|level| level.state == DeformationState::Pending);
             if !pending {
                 continue;
@@ -40,7 +40,7 @@ impl HairRenderer {
             if let Some(level) = self
                 .dynamics
                 .as_mut()
-                .and_then(|dynamics| dynamics.levels.get_mut(level))
+                .and_then(|dynamics| dynamics.levels.get_mut(level.index()))
             {
                 level.state = DeformationState::Current;
             }

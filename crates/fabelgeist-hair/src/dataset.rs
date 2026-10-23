@@ -32,7 +32,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::lod::LodPolicy;
+use crate::lod::{AccumulationFrames, LodPolicy};
 use crate::look::Look;
 use crate::material::HairMaterial;
 use crate::presets::Preset;
@@ -191,9 +191,9 @@ impl Sample {
     }
 
     /// The policy a sample is drawn with: every strand, accumulated.
-    pub fn policy(frames: u32) -> LodPolicy {
+    pub fn policy(frames: AccumulationFrames) -> LodPolicy {
         let mut policy = LodPolicy::cinematic();
-        policy.quality.accumulate = frames.max(1);
+        policy.quality.accumulate = frames.target();
         policy
     }
 }
