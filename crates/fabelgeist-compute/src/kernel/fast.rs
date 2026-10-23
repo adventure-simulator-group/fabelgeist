@@ -80,10 +80,10 @@ impl FastPath {
     /// suit one.
     pub(super) fn new(
         context: &WgpuContext,
-        module: &wgpu::ShaderModule,
-        entry_point: &str,
-        reflection: &fabelgeist_gpu::data::gpu::shader::ReflectionData,
+        pipeline: &ComputePipeline,
     ) -> Result<Option<Self>> {
+        pipeline.ensure_device(context)?;
+        let reflection = pipeline.reflection();
         // One bind group only. Everything the solver writes uses group 0, and
         // supporting more would mean a dynamic offset per group.
         if reflection.bind_groups.len() != 1 {
@@ -136,7 +136,12 @@ impl FastPath {
         }
         entries.sort_by_key(|entry| entry.binding);
 
-        let compiled = CompiledLayout::new(context, &entries, module, entry_point)?;
+        let compiled = CompiledLayout::new(
+            context,
+            &entries,
+            pipeline.shader().module(),
+            &reflection.entry_point,
+        )?;
 
         let alignment = context.device.limits().min_uniform_buffer_offset_alignment as u64;
         let stride = native_uniform_size.div_ceil(alignment.max(1)) * alignment.max(1);

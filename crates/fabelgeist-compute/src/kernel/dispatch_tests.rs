@@ -23,6 +23,7 @@ async fn recording_counts_only_successful_nonempty_dispatches_in_both_paths() ->
         assert!(kernel.fast.is_some());
         if matches!(path, RecordingPath::General) {
             kernel.fast = None;
+            kernel.pipeline.compile(&context)?;
         }
         let mut batch = KernelBatch::new(&context);
         let missing = PassParameters::new();

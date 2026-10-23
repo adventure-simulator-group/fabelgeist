@@ -62,7 +62,6 @@ fn folded_index(id: vec3<u32>, groups: vec3<u32>, width: u32) -> u32 {
 pub struct Kernel {
     pipeline: ComputePipeline,
     workgroup_size: WorkgroupShape,
-    pub entry_point: String,
     /// The cached dispatch path, when this kernel's shape allows one.
     ///
     /// Without it every dispatch builds a uniform buffer and a bind group,
@@ -74,7 +73,7 @@ pub struct Kernel {
 impl std::fmt::Debug for Kernel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Kernel")
-            .field("entry_point", &self.entry_point)
+            .field("entry_point", &self.pipeline.reflection().entry_point)
             .field("workgroup_size", &self.workgroup_size)
             .field("cached", &self.fast.is_some())
             .finish()
@@ -99,25 +98,15 @@ impl Kernel {
 
         let module =
             fabelgeist_gpu::data::gpu::shader::parse_naga(&code, wgpu::naga::ShaderStage::Compute)?;
-        let entry = module
-            .entry_points
-            .iter()
-            .find(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
-            .ok_or_else(|| anyhow!("Kernel: no compute entry point"))?;
-        let native_workgroup_size = entry.workgroup_size;
-        let entry_point = entry.name.clone();
-        let workgroup_size = WorkgroupShape::try_from(native_workgroup_size)
-            .map_err(|source| WorkgroupDeclarationError::at_entry_point(&entry_point, source))?;
+        let selection = ComputeEntryPoint::First;
+        let entry = selection.resolve(&module)?;
+        let workgroup_size = WorkgroupShape::try_from(entry.workgroup_size)
+            .map_err(|source| WorkgroupDeclarationError::at_entry_point(&entry.name, source))?;
 
         let shader = ComputeShader::new(context, code.clone())?;
-        let mut pipeline = ComputePipeline::prepare(context, shader)?;
+        let mut pipeline = ComputePipeline::prepare(context, shader, selection)?;
 
-        let fast = fast::FastPath::new(
-            context,
-            pipeline.shader().module(),
-            &entry_point,
-            pipeline.reflection(),
-        )?;
+        let fast = fast::FastPath::new(context, &pipeline)?;
 
         // The batched layout owns its pipeline. Compile the static layout only
         // for kernels requiring it, or when a caller uses a one-off dispatch.
@@ -128,7 +117,6 @@ impl Kernel {
         Ok(Self {
             pipeline,
             workgroup_size,
-            entry_point,
             fast,
         })
     }

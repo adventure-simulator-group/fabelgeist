@@ -1,6 +1,6 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::signature::{CoordinateParameter, CoordinateShape};
-use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+use fabelgeist_gpu::data::gpu::{ComputeEntryPoint::Named, ResourceDescriptor};
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use fabelgeist_gpu::data::gpu::signature::ResourceBaseType;
 use std::collections::HashMap;
@@ -798,7 +798,7 @@ impl StencilDefinition {
         full_code.push_str("}\n");
 
         let shader = ComputeShader::new(context, full_code)?;
-        let pipeline = ComputePipeline::new(context, shader)?;
+        let pipeline = ComputePipeline::new(context, shader, Named("main"))?;
         ResourcePipeline::new(pipeline, DispatchResource::Output, addressing)
     }
 

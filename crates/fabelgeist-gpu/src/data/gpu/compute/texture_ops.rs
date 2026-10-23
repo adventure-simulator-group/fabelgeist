@@ -19,6 +19,8 @@ pub struct TextureBinaryOpDefinition {
     cache: TexturePipelineCache,
 }
 
+pub struct TextureBinaryOp;
+
 impl PartialEq for TextureBinaryOpDefinition {
     fn eq(&self, other: &Self) -> bool {
         self.op_code == other.op_code
@@ -127,8 +129,6 @@ impl TextureBinaryOpDefinition {
             })
     }
 }
-
-pub struct TextureBinaryOp;
 
 impl TextureBinaryOp {
     pub fn execute(

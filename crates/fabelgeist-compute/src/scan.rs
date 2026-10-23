@@ -4,7 +4,7 @@
 //! stages must match the authored workgroup schedule before caching.
 
 use crate::prelude::*;
-use fabelgeist_gpu::prelude::{BufferElementCount, BufferUse};
+use fabelgeist_gpu::prelude::{BufferElementCount, BufferUse, ComputeEntryPoint::Named};
 use wgsl::{add_offsets_code, scan_blocks_code};
 
 mod wgsl;
@@ -93,8 +93,9 @@ impl ScanDefinition {
             let scan_blocks_shader = ComputeShader::new(context, scan_blocks_code)?;
             let add_aux_shader = ComputeShader::new(context, add_aux_code)?;
 
-            let p1 = ComputePipeline::new(context, scan_blocks_shader)?;
-            let p2 = ComputePipeline::new(context, add_aux_shader)?;
+            let entry = Named("main");
+            let p1 = ComputePipeline::new(context, scan_blocks_shader, entry)?;
+            let p2 = ComputePipeline::new(context, add_aux_shader, entry)?;
 
             let scan_blocks = ResourcePipeline::new(
                 p1,

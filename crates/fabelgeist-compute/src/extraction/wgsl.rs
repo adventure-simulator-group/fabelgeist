@@ -2,6 +2,7 @@
 
 use super::EmissionKind;
 use crate::prelude::*;
+use fabelgeist_gpu::data::gpu::ComputeEntryPoint::Named;
 
 const DEINTERLEAVE: &str = r#"
             struct Vertex {
@@ -33,7 +34,7 @@ const DEINTERLEAVE: &str = r#"
 
 pub(crate) fn deinterleave(context: &WgpuContext) -> Result<ResourcePipeline> {
     let shader = ComputeShader::new(context, DEINTERLEAVE.to_owned())?;
-    let pipeline = ComputePipeline::new(context, shader)?;
+    let pipeline = ComputePipeline::new(context, shader, Named("main"))?;
     ResourcePipeline::new(
         pipeline,
         DispatchResource::Vertices,

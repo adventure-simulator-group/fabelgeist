@@ -53,11 +53,7 @@ impl ResourcePipeline {
             pipeline.shader().code(),
             wgpu::naga::ShaderStage::Compute,
         )?;
-        let entry = module
-            .entry_points
-            .iter()
-            .find(|entry| entry.stage == wgpu::naga::ShaderStage::Compute)
-            .ok_or(ComputePipelineError::MissingEntryPoint)?;
+        let entry = ComputeEntryPoint::Named(&pipeline.reflection().entry_point).resolve(&module)?;
         let shape = WorkgroupShape::try_from(entry.workgroup_size)
             .map_err(|cause| WorkgroupDeclarationError::at_entry_point(&entry.name, cause))?;
         let layout = resource.layout(&module, addressing)?;

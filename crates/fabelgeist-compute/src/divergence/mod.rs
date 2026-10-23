@@ -1,5 +1,5 @@
 use crate::prelude::*;
-use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+use fabelgeist_gpu::data::gpu::{ComputeEntryPoint::Named, ResourceDescriptor};
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::sync::Arc;
 
@@ -131,7 +131,7 @@ impl DivergenceDefinition {
         }
 
         let shader = ComputeShader::new(context, full_code)?;
-        Ok(ComputePipeline::new(context, shader)?)
+        Ok(ComputePipeline::new(context, shader, Named("main"))?)
     }
 
     pub fn get_or_create_pipeline(

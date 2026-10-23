@@ -1,4 +1,5 @@
 use crate::prelude::*;
+use fabelgeist_gpu::data::gpu::ComputeEntryPoint::Named;
 
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 
@@ -33,7 +34,7 @@ impl MatMulDefinition {
 
         self.cache.get_or_try_insert(context, shader_code, (), || {
             let shader = ComputeShader::new(context, shader_code.to_string())?;
-            let pipeline = ComputePipeline::new(context, shader)?;
+            let pipeline = ComputePipeline::new(context, shader, Named("main"))?;
             Ok(pipeline)
         })
     }

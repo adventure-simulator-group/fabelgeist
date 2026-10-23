@@ -7,7 +7,7 @@ use fabelgeist_gpu::data::{
     vector::{Vec2, Vec3},
 };
 use fabelgeist_gpu::globals::WgpuContext;
-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse, ComputeEntryPoint::Named};
 use indexmap::IndexMap;
 #[derive(Debug, Clone, PartialEq)]
 pub struct GpuMesh {
@@ -214,7 +214,7 @@ impl GpuMesh {
             .get_or_init(ComputeSourceCache::default)
             .get_or_try_insert(context, shader_code, (), || {
                 let shader = ComputeShader::new(context, shader_code.to_string())?;
-                Ok(ComputePipeline::new(context, shader)?)
+                Ok(ComputePipeline::new(context, shader, Named("main"))?)
             })?;
 
         let buf = |core: Buffer| PassParameter::from(core);

@@ -1,5 +1,5 @@
 use crate::prelude::*;
-use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+use fabelgeist_gpu::data::gpu::{ComputeEntryPoint::Named, ResourceDescriptor};
 
 pub use error::EmptyReductionResult;
 pub use execution::ReduceScratchpad;
@@ -187,7 +187,7 @@ fn main(
             let stride = BufferElementStride::try_from(stride)?;
 
             let shader = ComputeShader::new(context, full_code)?;
-            let pipeline = ComputePipeline::new(context, shader)?;
+            let pipeline = ComputePipeline::new(context, shader, Named("main"))?;
             Ok(ReductionPipeline { pipeline, stride })
         })
     }

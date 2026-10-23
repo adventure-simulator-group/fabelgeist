@@ -1,4 +1,5 @@
 use crate::prelude::*;
+use fabelgeist_gpu::data::gpu::ComputeEntryPoint::Named;
 use fabelgeist_gpu::data::gpu::parameters::PassParameter;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::sync::Arc;
@@ -185,7 +186,7 @@ fn sample_bilinear(tex: texture_2d<f32>, pos: vec2<f32>) -> vec4<f32> {{
         }
 
         let shader = ComputeShader::new(context, full_code)?;
-        Ok(ComputePipeline::new(context, shader)?)
+        Ok(ComputePipeline::new(context, shader, Named("main"))?)
     }
 
     pub fn get_or_create_pipeline(
