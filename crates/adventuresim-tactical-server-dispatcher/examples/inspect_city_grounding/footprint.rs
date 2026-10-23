@@ -1,21 +1,50 @@
 //! Exact extrema of playable terrain triangles clipped to a rotated footprint.
-use adventuresim_tactical_core::prelude::SceneTerrain;
+use adventuresim_tactical_core::{
+    city_layout::grounding::{GeographicHeightControl, SupportElevation},
+    prelude::SceneTerrain,
+    scene_coordinates::ScenePlanPoint,
+};
 use bevy::math::Vec2;
 use serde_json::{Value, json};
-#[path = "footprint/vista.rs"]
-mod vista;
 pub(super) use vista::{
     extrema as vista_extrema, height_in_triangle, triangles as vista_triangles,
 };
 
-pub(super) fn terrain_extrema(terrain: &SceneTerrain, corners: [Vec2; 4]) -> Value {
+#[path = "footprint/vista.rs"]
+mod vista;
+
+#[derive(Default)]
+struct HeightExtrema {
+    vertices: usize,
+    low: Option<GeographicHeightControl>,
+    high: Option<GeographicHeightControl>,
+}
+
+impl HeightExtrema {
+    fn observe(&mut self, control: GeographicHeightControl) {
+        self.vertices += 1;
+        if self
+            .low
+            .is_none_or(|low| control.elevation.metres() < low.elevation.metres())
+        {
+            self.low = Some(control);
+        }
+        if self
+            .high
+            .is_none_or(|high| control.elevation.metres() > high.elevation.metres())
+        {
+            self.high = Some(control);
+        }
+    }
+}
+
+pub(super) fn terrain_extrema(terrain: &SceneTerrain, corners: [ScenePlanPoint; 4]) -> Value {
+    // Native clipping uses a complete nonempty scene-plane polygon.
+    let corners = corners.map(ScenePlanPoint::metres);
     let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
-    let minimum = corners
-        .into_iter()
-        .fold(Vec2::splat(f32::INFINITY), Vec2::min);
-    let maximum = corners
-        .into_iter()
-        .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
+    let [first, rest @ ..] = corners;
+    let minimum = rest.into_iter().fold(first, Vec2::min);
+    let maximum = rest.into_iter().fold(first, Vec2::max);
     let grid_min = ((minimum + half) / terrain.grid_scale())
         .floor()
         .max(Vec2::ZERO);
@@ -25,11 +54,7 @@ pub(super) fn terrain_extrema(terrain: &SceneTerrain, corners: [Vec2; 4]) -> Val
             (terrain.grid_width() - 1) as f32,
             (terrain.grid_depth() - 1) as f32,
         ));
-    let mut vertices = 0;
-    let mut low = f32::INFINITY;
-    let mut high = f32::NEG_INFINITY;
-    let mut low_point = None;
-    let mut high_point = None;
+    let mut result = HeightExtrema::default();
     for z in grid_min.y as usize..grid_max.y as usize {
         for x in grid_min.x as usize..grid_max.x as usize {
             let a = Vec2::new(x as f32, z as f32) * terrain.grid_scale() - half;
@@ -39,27 +64,24 @@ pub(super) fn terrain_extrema(terrain: &SceneTerrain, corners: [Vec2; 4]) -> Val
             // SceneTerrain and Avian subdivide across b--d, not a--c.
             for triangle in [[a, b, d], [b, c, d]] {
                 for point in clip(triangle.to_vec(), &corners) {
-                    let Some(height) = terrain.height_at(point) else {
+                    let Some(point) = ScenePlanPoint::from_metres(point) else {
                         continue;
                     };
-                    vertices += 1;
-                    if height < low {
-                        low = height;
-                        low_point = Some(point);
-                    }
-                    if height > high {
-                        high = height;
-                        high_point = Some(point);
-                    }
+                    let Some(elevation) = terrain.height_at(point) else {
+                        continue;
+                    };
+                    result.observe(GeographicHeightControl { point, elevation });
                 }
             }
         }
     }
     json!({
         "complete_playable_coverage":corners.iter().all(|p| p.abs().cmple(half).all()),
-        "intersection_vertices":vertices,
-        "minimum_metres":low_point.map(|_|low), "minimum_location":low_point,
-        "maximum_metres":high_point.map(|_|high), "maximum_location":high_point,
+        "intersection_vertices":result.vertices,
+        "minimum_metres":result.low.map(|sample|sample.elevation),
+        "minimum_location":result.low.map(|sample|sample.point),
+        "maximum_metres":result.high.map(|sample|sample.elevation),
+        "maximum_location":result.high.map(|sample|sample.point),
         "method":"Linear terrain-triangle extrema at clipped intersection vertices, including interior terrain vertices; outside-playable coverage is not certified.",
     })
 }
@@ -101,8 +123,13 @@ mod tests {
             Vec2::new(3.0, 0.0),
             Vec2::new(0.0, 3.0),
             Vec2::new(-3.0, 0.0),
-        ];
-        assert!(corners.iter().all(|p| terrain.height_at(*p) == Some(0.0)));
+        ]
+        .map(|point| ScenePlanPoint::try_from(point).unwrap());
+        assert!(
+            corners
+                .iter()
+                .all(|p| { terrain.height_at(*p).map(SupportElevation::metres) == Some(0.0) })
+        );
         let report = terrain_extrema(&terrain, corners);
         assert_eq!(report["maximum_metres"], 2.0);
         assert_eq!(report["minimum_metres"], 0.0);
@@ -117,7 +144,8 @@ mod tests {
             Vec2::new(0.1, -0.1),
             Vec2::new(0.1, 0.1),
             Vec2::new(-0.1, 0.1),
-        ];
+        ]
+        .map(|point| ScenePlanPoint::try_from(point).unwrap());
         let report = terrain_extrema(&terrain, corners);
         assert_eq!(report["maximum_metres"], 2.0);
         assert!((report["minimum_metres"].as_f64().unwrap() - 1.6).abs() < 0.001);

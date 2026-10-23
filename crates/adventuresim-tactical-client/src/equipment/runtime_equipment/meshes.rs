@@ -1,6 +1,13 @@
 //! Material partitions of generated equipment, sharing one rigid origin.
 use super::*;
+use adventuresim_core::equipment_assets::CatalogItem;
 use fabelgeist_armor::ArmorComponentMaterial;
+
+struct MaterialPartition<'a> {
+    material: Option<ArmorComponentMaterial>,
+    textile: Option<&'a fabelgeist_armor::TextileAppearance>,
+    indices: Vec<u32>,
+}
 
 #[derive(Clone)]
 pub(super) struct CachedPart {
@@ -12,47 +19,68 @@ pub(super) struct CachedPart {
 /// catalog material. Shared vertices are compacted independently per draw.
 pub(super) fn equipment_parts(
     armor: &GeneratedArmor,
-    item: &str,
+    item: CatalogItem<'static>,
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
-) -> Vec<CachedPart> {
-    let mut groups: Vec<(Option<ArmorComponentMaterial>, Vec<u32>)> = Vec::new();
+    images: &mut Assets<Image>,
+) -> anyhow::Result<Vec<CachedPart>> {
+    let mut groups: Vec<MaterialPartition<'_>> = Vec::new();
     for (triangle, face) in armor.indices.as_chunks::<3>().0.iter().enumerate() {
-        let material = armor.components.iter().find_map(|component| {
-            component
-                .indices
-                .contains(&(triangle * 3))
-                .then_some(component.material)
-                .flatten()
-        });
-        let group = match groups.iter().position(|(found, _)| *found == material) {
+        let component = armor
+            .components
+            .iter()
+            .find(|component| component.indices.contains(&(triangle * 3)));
+        let material = component.and_then(|component| component.material);
+        let textile = component.and_then(|component| component.textile.as_ref());
+        let group = match groups
+            .iter()
+            .position(|found| found.material == material && found.textile == textile)
+        {
             Some(index) => index,
             None => {
-                groups.push((material, Vec::new()));
+                groups.push(MaterialPartition {
+                    material,
+                    textile,
+                    indices: Vec::new(),
+                });
                 groups.len() - 1
             }
         };
-        groups[group].1.extend(face);
+        groups[group].indices.extend(face);
     }
     groups
         .into_iter()
-        .map(|(material, indices)| CachedPart {
-            mesh: runtime_equipment_mesh(armor, &indices, meshes),
-            material: match material {
-                Some(material) => materials.add(StandardMaterial {
-                    base_color: Color::srgba(
-                        material.base_color[0],
-                        material.base_color[1],
-                        material.base_color[2],
-                        material.base_color[3],
-                    ),
-                    metallic: material.metallic,
-                    perceptual_roughness: material.roughness,
-                    ..default()
-                }),
-                None => runtime_equipment_material(item, materials),
+        .map(
+            |MaterialPartition {
+                 material,
+                 textile,
+                 indices,
+             }| {
+                Ok(CachedPart {
+                    mesh: runtime_equipment_mesh(armor, &indices, meshes)?,
+                    material: if let Some(textile) = textile {
+                        materials.add(adventuresim_character_creator::textile_surface::material(
+                            textile, images,
+                        )?)
+                    } else {
+                        match material {
+                            Some(material) => materials.add(StandardMaterial {
+                                base_color: Color::srgba(
+                                    material.base_color[0],
+                                    material.base_color[1],
+                                    material.base_color[2],
+                                    material.base_color[3],
+                                ),
+                                metallic: material.metallic,
+                                perceptual_roughness: material.roughness,
+                                ..default()
+                            }),
+                            None => runtime_equipment_material(item, materials)?,
+                        }
+                    },
+                })
             },
-        })
+        )
         .collect()
 }
 
@@ -77,7 +105,7 @@ fn runtime_equipment_mesh(
     armor: &GeneratedArmor,
     indices: &[u32],
     meshes: &mut Assets<Mesh>,
-) -> Handle<Mesh> {
+) -> anyhow::Result<Handle<Mesh>> {
     let mut remap = BTreeMap::new();
     let mut vertices = Vec::new();
     let indices = indices
@@ -89,6 +117,19 @@ fn runtime_equipment_mesh(
             })
         })
         .collect::<Vec<_>>();
+    let skin = vertices
+        .iter()
+        .map(|&vertex| {
+            armor
+                .joint_indices
+                .weighted_vertex(vertex, armor.joint_weights[vertex])
+                .strongest_four()
+        })
+        .collect::<Vec<_>>();
+    let native_joints = skin
+        .iter()
+        .map(|skin| skin.native_u16())
+        .collect::<Result<Vec<_>, _>>()?;
     let mesh = Mesh::new(
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::default(),
@@ -116,55 +157,29 @@ fn runtime_equipment_mesh(
     )
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_JOINT_INDEX,
-        VertexAttributeValues::Uint16x4(
-            vertices
-                .iter()
-                .map(|&v| strongest_four(armor.joint_indices[v], armor.joint_weights[v]).0)
-                .collect::<Vec<[u16; 4]>>(),
-        ),
+        VertexAttributeValues::Uint16x4(native_joints),
     )
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_JOINT_WEIGHT,
-        vertices
-            .iter()
-            .map(|&v| strongest_four(armor.joint_indices[v], armor.joint_weights[v]).1)
-            .collect::<Vec<[f32; 4]>>(),
+        skin.iter().map(|skin| skin.weights).collect::<Vec<_>>(),
     )
     .with_inserted_indices(Indices::U32(indices));
 
-    meshes.add(mesh)
+    Ok(meshes.add(mesh))
 }
 
 fn runtime_equipment_material(
-    item_id: &str,
+    item: CatalogItem<'static>,
     materials: &mut Assets<StandardMaterial>,
-) -> Handle<StandardMaterial> {
+) -> anyhow::Result<Handle<StandardMaterial>> {
     let material =
-        adventuresim_character_creator::runtime_equipment::runtime_equipment_material(item_id)
-            .unwrap_or_else(|| panic!("runtime armor material missing for {item_id}"));
+        adventuresim_character_creator::runtime_equipment::runtime_equipment_material(item)
+            .with_context(|| format!("runtime armor material missing for {}", item.id))?;
     let (base_color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
-    materials.add(StandardMaterial {
+    Ok(materials.add(StandardMaterial {
         base_color: Color::srgba(base_color[0], base_color[1], base_color[2], base_color[3]),
         metallic,
         perceptual_roughness: roughness,
         ..default()
-    })
-}
-
-fn strongest_four(joints: [u32; 8], weights: [f32; 8]) -> ([u16; 4], [f32; 4]) {
-    let mut combined = std::collections::BTreeMap::<u32, f32>::new();
-    for (joint, weight) in joints.into_iter().zip(weights) {
-        *combined.entry(joint).or_default() += weight;
-    }
-    let mut influences = combined.into_iter().collect::<Vec<_>>();
-    influences.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(&b.0)));
-    influences.truncate(4);
-    let sum = influences.iter().map(|(_, weight)| *weight).sum::<f32>();
-    let mut result_joints = [0; 4];
-    let mut result_weights = [0.0; 4];
-    for (index, (joint, weight)) in influences.into_iter().enumerate() {
-        result_joints[index] = joint as u16;
-        result_weights[index] = weight / sum;
-    }
-    (result_joints, result_weights)
+    }))
 }

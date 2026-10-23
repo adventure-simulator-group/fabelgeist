@@ -25,6 +25,7 @@ pub mod iteration;
 pub mod mission;
 pub mod openings;
 pub mod player_projection;
+mod scene_spawn;
 pub mod stdb;
 
 /// Stand-in for `main.rs`'s real (clap-derived) `Args` - `player_projection`

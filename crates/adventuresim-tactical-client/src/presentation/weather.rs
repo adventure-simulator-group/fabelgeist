@@ -1,7 +1,12 @@
-use super::terrain::terrain_heightmap_image;
+use super::terrain::TerrainContactHeightmap;
 use super::*;
-use fabelgeist_determinism::Seed;
-use fabelgeist_determinism::StreamId;
+use adventuresim_tactical_core::scene::SceneElevationRange;
+use occlusion::empty_weather_occlusion_image;
+pub(super) use occlusion::update_weather_occlusion_map;
+
+use fabelgeist_determinism::{Seed, StreamId};
+
+mod occlusion;
 
 const WEATHER_SHADER: &str = "shaders/tactical_weather.wgsl";
 const FALLING_PARTICLE_CAPACITY: usize = 3_072;
@@ -15,18 +20,23 @@ const ATTRIBUTE_WEATHER_PARTICLE_DATA: MeshVertexAttribute =
 const ATTRIBUTE_WEATHER_PARTICLE_CORNER: MeshVertexAttribute =
     MeshVertexAttribute::new("WeatherParticleCorner", 2_180_102, VertexFormat::Float32x2);
 
-#[derive(Component, Clone, Copy, Debug, Eq, PartialEq)]
-pub(crate) enum WeatherParticle {
-    Falling,
-    Impact,
-    DistantSheet,
+struct WeatherParticleBatch {
+    name: &'static str,
+    layer: WeatherParticle,
+    mesh: Mesh,
+    material: TacticalWeatherMaterial,
 }
 
 #[derive(Resource, Default)]
 pub(in crate::presentation) struct WeatherOcclusionState {
     scene: Option<Entity>,
     tree_signature: Option<u64>,
-    image: Option<Handle<Image>>,
+    map: Option<WeatherOcclusionMap>,
+}
+
+struct WeatherOcclusionMap {
+    image: Handle<Image>,
+    range: SceneElevationRange,
 }
 
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
@@ -46,6 +56,13 @@ pub(in crate::presentation) struct TacticalWeatherMaterial {
     /// Top-down woody shelter height, with alpha marking covered texels.
     #[texture(4)]
     occlusion_map: Handle<Image>,
+}
+
+#[derive(Component, Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum WeatherParticle {
+    Falling,
+    Impact,
+    DistantSheet,
 }
 
 impl Material for TacticalWeatherMaterial {
@@ -103,7 +120,7 @@ pub(super) fn apply_active_scene_weather(
     }
     occlusion.scene = active.entity;
     occlusion.tree_signature = None;
-    occlusion.image = None;
+    occlusion.map = None;
     let Some((environment, terrain, backdrop)) =
         active.entity.and_then(|entity| scenes.get(entity).ok())
     else {
@@ -118,66 +135,85 @@ pub(super) fn apply_active_scene_weather(
         return;
     }
 
-    let heightmap = images.add(terrain_heightmap_image(terrain));
+    let contact = match TerrainContactHeightmap::from_terrain(terrain) {
+        Ok(contact) => contact,
+        Err(error) => {
+            warn!(%error, "Weather contact heightmap rejected");
+            return;
+        }
+    };
+    let range = contact.range();
+    let heightmap = images.add(contact.into_image());
     let occlusion_map = images.add(empty_weather_occlusion_image());
-    occlusion.image = Some(occlusion_map.clone());
-    let falling_material = materials.add(weather_material(
-        environment,
-        terrain,
-        heightmap.clone(),
-        occlusion_map.clone(),
-        WeatherParticle::Falling,
-    ));
-    commands.spawn((
-        Name::new("GPU tactical falling precipitation"),
-        WeatherParticle::Falling,
-        NoFrustumCulling,
-        NotShadowCaster,
-        Mesh3d(meshes.add(weather_particle_mesh(FALLING_PARTICLE_CAPACITY))),
-        MeshMaterial3d(falling_material),
-        Transform::default(),
-    ));
-
-    if environment.weather.precipitation == Precipitation::Rain {
-        let impact_material = materials.add(weather_material(
-            environment,
-            terrain,
-            heightmap.clone(),
-            occlusion_map.clone(),
-            WeatherParticle::Impact,
-        ));
+    occlusion.map = Some(WeatherOcclusionMap {
+        image: occlusion_map.clone(),
+        range,
+    });
+    for batch in weather_particle_batches(environment, terrain, range, heightmap, occlusion_map) {
+        let material = materials.add(batch.material);
         commands.spawn((
-            Name::new("GPU tactical rain impacts"),
-            WeatherParticle::Impact,
+            Name::new(batch.name),
+            batch.layer,
             NoFrustumCulling,
             NotShadowCaster,
-            Mesh3d(meshes.add(weather_particle_mesh(IMPACT_PARTICLE_CAPACITY))),
-            MeshMaterial3d(impact_material),
+            Mesh3d(meshes.add(batch.mesh)),
+            MeshMaterial3d(material),
             Transform::default(),
         ));
+    }
+}
 
-        if environment.weather.intensity_bps >= 8_000 {
-            let sheet_material = materials.add(weather_material(
+fn weather_particle_batches(
+    environment: &SceneEnvironment,
+    terrain: &SceneTerrain,
+    range: SceneElevationRange,
+    heightmap: Handle<Image>,
+    occlusion_map: Handle<Image>,
+) -> Vec<WeatherParticleBatch> {
+    let mut batches = vec![WeatherParticleBatch {
+        name: "GPU tactical falling precipitation",
+        layer: WeatherParticle::Falling,
+        mesh: weather_particle_mesh(FALLING_PARTICLE_CAPACITY),
+        material: weather_material(
+            environment,
+            terrain,
+            range,
+            heightmap.clone(),
+            occlusion_map.clone(),
+            WeatherParticle::Falling,
+        ),
+    }];
+    if environment.weather.precipitation == Precipitation::Rain {
+        batches.push(WeatherParticleBatch {
+            name: "GPU tactical rain impacts",
+            layer: WeatherParticle::Impact,
+            mesh: weather_particle_mesh(IMPACT_PARTICLE_CAPACITY),
+            material: weather_material(
                 environment,
                 terrain,
-                heightmap,
-                occlusion_map,
-                WeatherParticle::DistantSheet,
-            ));
-            commands.spawn((
-                Name::new("GPU tactical distant rain sheets"),
-                WeatherParticle::DistantSheet,
-                NoFrustumCulling,
-                NotShadowCaster,
-                Mesh3d(meshes.add(weather_sheet_mesh(
-                    DISTANT_SHEET_SEGMENTS,
-                    DISTANT_SHEET_LAYERS,
-                ))),
-                MeshMaterial3d(sheet_material),
-                Transform::default(),
-            ));
+                range,
+                heightmap.clone(),
+                occlusion_map.clone(),
+                WeatherParticle::Impact,
+            ),
+        });
+        if environment.weather.intensity_bps >= 8_000 {
+            batches.push(WeatherParticleBatch {
+                name: "GPU tactical distant rain sheets",
+                layer: WeatherParticle::DistantSheet,
+                mesh: weather_sheet_mesh(DISTANT_SHEET_SEGMENTS, DISTANT_SHEET_LAYERS),
+                material: weather_material(
+                    environment,
+                    terrain,
+                    range,
+                    heightmap,
+                    occlusion_map,
+                    WeatherParticle::DistantSheet,
+                ),
+            });
         }
     }
+    batches
 }
 
 // Exactly one scene source owns precipitation heights. A sampled strategic
@@ -196,6 +232,7 @@ fn weather_surface<'a>(
 fn weather_material(
     environment: &SceneEnvironment,
     terrain: &SceneTerrain,
+    range: SceneElevationRange,
     heightmap: Handle<Image>,
     occlusion_map: Handle<Image>,
     layer: WeatherParticle,
@@ -231,8 +268,8 @@ fn weather_material(
         terrain: Vec4::new(
             terrain.width() * 0.5,
             terrain.depth() * 0.5,
-            terrain.minimum_height(),
-            terrain.maximum_height(),
+            range.minimum().metres(),
+            range.maximum().metres(),
         ),
         heightmap,
         occlusion_map,
@@ -307,191 +344,6 @@ fn weather_sheet_mesh(segments: usize, layers: usize) -> Mesh {
     mesh
 }
 
-pub(super) fn update_weather_occlusion_map(
-    active: Res<ActiveTacticalScene>,
-    scenes: Query<(
-        &SceneEnvironment,
-        Option<&SceneTerrain>,
-        Option<&StrategicBackdrop>,
-    )>,
-    trees: Query<(&GlobalTransform, &StreamedTreePresentation)>,
-    tree_cache: Res<TreePresentationCache>,
-    mut state: ResMut<WeatherOcclusionState>,
-    mut images: ResMut<Assets<Image>>,
-) {
-    let Some(scene) = active.entity else {
-        return;
-    };
-    let Some(image_handle) = state
-        .scene
-        .filter(|selected| *selected == scene)
-        .and(state.image.as_ref())
-    else {
-        return;
-    };
-    let Ok((environment, terrain, backdrop)) = scenes.get(scene) else {
-        return;
-    };
-    let Some(terrain) = weather_surface(terrain, backdrop) else {
-        return;
-    };
-    if environment.weather.precipitation == Precipitation::Clear {
-        return;
-    }
-
-    let signature = weather_occlusion_tree_signature(scene, &trees);
-    if state.tree_signature == Some(signature) {
-        return;
-    }
-    let Some(mut image) = images.get_mut(image_handle) else {
-        return;
-    };
-    *image = weather_occlusion_image(terrain, &trees, &tree_cache);
-    state.tree_signature = Some(signature);
-}
-
-fn weather_occlusion_tree_signature(
-    scene: Entity,
-    trees: &Query<(&GlobalTransform, &StreamedTreePresentation)>,
-) -> u64 {
-    let mut records = Vec::new();
-    for (transform, presentation) in trees {
-        let translation = transform.translation();
-        let mut record = [0; 20];
-        record[..8].copy_from_slice(&presentation.weather_occlusion_cache_key().to_le_bytes());
-        record[8..12].copy_from_slice(&translation.x.to_bits().to_le_bytes());
-        record[12..16].copy_from_slice(&translation.y.to_bits().to_le_bytes());
-        record[16..].copy_from_slice(&translation.z.to_bits().to_le_bytes());
-        records.push(record);
-    }
-    records.sort_unstable();
-    let fields = records.iter().map(<[u8; 20]>::as_slice).collect::<Vec<_>>();
-    fabelgeist_determinism::Seed::derive(
-        &scene.to_bits().to_le_bytes(),
-        StreamId::new("visual.weather.occlusion-signature"),
-        &fields,
-    )
-    .to_u64()
-}
-
-fn empty_weather_occlusion_image() -> Image {
-    Image::new(
-        Extent3d {
-            width: WEATHER_OCCLUSION_RESOLUTION,
-            height: WEATHER_OCCLUSION_RESOLUTION,
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        vec![0; WEATHER_OCCLUSION_RESOLUTION as usize * WEATHER_OCCLUSION_RESOLUTION as usize * 4],
-        TextureFormat::Rgba8Unorm,
-        RenderAssetUsages::RENDER_WORLD,
-    )
-}
-
-fn weather_occlusion_image(
-    terrain: &SceneTerrain,
-    trees: &Query<(&GlobalTransform, &StreamedTreePresentation)>,
-    tree_cache: &TreePresentationCache,
-) -> Image {
-    let pixel_count = WEATHER_OCCLUSION_RESOLUTION as usize * WEATHER_OCCLUSION_RESOLUTION as usize;
-    let mut shelter_heights = vec![f32::NEG_INFINITY; pixel_count];
-    for (transform, presentation) in trees {
-        let Some(branches) =
-            tree_cache.weather_occlusion_branches(presentation.weather_occlusion_cache_key())
-        else {
-            continue;
-        };
-        for branch in branches.iter().filter(|branch| branch.depth <= 2) {
-            rasterize_weather_branch(&mut shelter_heights, terrain, transform, branch);
-        }
-    }
-
-    let minimum = terrain.minimum_height() - 2.0;
-    let range = terrain.maximum_height() + 24.0 - minimum;
-    let mut pixels = vec![0; pixel_count * 4];
-    for (index, height) in shelter_heights.into_iter().enumerate() {
-        if !height.is_finite() {
-            continue;
-        }
-        let encoded = (((height - minimum) / range).clamp(0.0, 1.0) * 65_535.0).round() as u16;
-        pixels[index * 4] = (encoded & 0xff) as u8;
-        pixels[index * 4 + 1] = (encoded >> 8) as u8;
-        pixels[index * 4 + 3] = 255;
-    }
-    Image::new(
-        Extent3d {
-            width: WEATHER_OCCLUSION_RESOLUTION,
-            height: WEATHER_OCCLUSION_RESOLUTION,
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        pixels,
-        TextureFormat::Rgba8Unorm,
-        RenderAssetUsages::RENDER_WORLD,
-    )
-}
-
-fn rasterize_weather_branch(
-    shelter_heights: &mut [f32],
-    terrain: &SceneTerrain,
-    transform: &GlobalTransform,
-    branch: &TreeBranchSegment,
-) {
-    let start = transform.transform_point(branch.start);
-    let end = transform.transform_point(branch.end);
-    let scale = transform
-        .to_scale_rotation_translation()
-        .0
-        .abs()
-        .max_element();
-    let start_radius = branch.start_radius * scale;
-    let end_radius = branch.end_radius * scale;
-    let cell_width = terrain.width() / WEATHER_OCCLUSION_RESOLUTION as f32;
-    let cell_depth = terrain.depth() / WEATHER_OCCLUSION_RESOLUTION as f32;
-    let footprint_margin = start_radius.max(end_radius) + cell_width.hypot(cell_depth) * 0.5;
-    let minimum = start.xz().min(end.xz()) - Vec2::splat(footprint_margin);
-    let maximum = start.xz().max(end.xz()) + Vec2::splat(footprint_margin);
-    let to_texel = |value: f32, half_extent: f32, span: f32| {
-        (((value + half_extent) / span) * WEATHER_OCCLUSION_RESOLUTION as f32).floor() as i32
-    };
-    let min_x = to_texel(minimum.x, terrain.width() * 0.5, terrain.width())
-        .clamp(0, WEATHER_OCCLUSION_RESOLUTION as i32 - 1);
-    let max_x = to_texel(maximum.x, terrain.width() * 0.5, terrain.width())
-        .clamp(0, WEATHER_OCCLUSION_RESOLUTION as i32 - 1);
-    let min_z = to_texel(minimum.y, terrain.depth() * 0.5, terrain.depth())
-        .clamp(0, WEATHER_OCCLUSION_RESOLUTION as i32 - 1);
-    let max_z = to_texel(maximum.y, terrain.depth() * 0.5, terrain.depth())
-        .clamp(0, WEATHER_OCCLUSION_RESOLUTION as i32 - 1);
-    if min_x > max_x || min_z > max_z {
-        return;
-    }
-
-    let axis = end.xz() - start.xz();
-    let axis_length_squared = axis.length_squared();
-    let half_diagonal = cell_width.hypot(cell_depth) * 0.5;
-    for z in min_z..=max_z {
-        for x in min_x..=max_x {
-            let point = Vec2::new(
-                (x as f32 + 0.5) * cell_width - terrain.width() * 0.5,
-                (z as f32 + 0.5) * cell_depth - terrain.depth() * 0.5,
-            );
-            let along = if axis_length_squared > 0.000_001 {
-                ((point - start.xz()).dot(axis) / axis_length_squared).clamp(0.0, 1.0)
-            } else {
-                0.0
-            };
-            let centre = start.xz() + axis * along;
-            let radius = start_radius + (end_radius - start_radius) * along;
-            if point.distance_squared(centre) > (radius + half_diagonal).powi(2) {
-                continue;
-            }
-            let shelter_height = start.y + (end.y - start.y) * along + radius;
-            let index = z as usize * WEATHER_OCCLUSION_RESOLUTION as usize + x as usize;
-            shelter_heights[index] = shelter_heights[index].max(shelter_height);
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -508,7 +360,9 @@ mod tests {
     #[test]
     fn heightmap_encoding_preserves_terrain_range() {
         let terrain = SceneTerrain::from_heightmap(2, 2, 1.0, vec![-2.0, 0.0, 1.0, 4.0]).unwrap();
-        let image = terrain_heightmap_image(&terrain);
+        let image = TerrainContactHeightmap::from_terrain(&terrain)
+            .unwrap()
+            .into_image();
         assert_eq!(image.texture_descriptor.size.width, 2);
         assert_eq!(image.texture_descriptor.size.height, 2);
         let pixels = image.data.as_deref().unwrap();
@@ -522,8 +376,14 @@ mod tests {
         .unwrap();
         let backdrop = StrategicBackdrop::new(&input, input.vista.lods.len()).unwrap();
         assert_eq!(
-            terrain_heightmap_image(weather_surface(None, Some(&backdrop)).unwrap()).data,
-            terrain_heightmap_image(backdrop.weather_surface()).data
+            TerrainContactHeightmap::from_terrain(weather_surface(None, Some(&backdrop)).unwrap())
+                .unwrap()
+                .into_image()
+                .data,
+            TerrainContactHeightmap::from_terrain(backdrop.weather_surface())
+                .unwrap()
+                .into_image()
+                .data
         );
         assert!(std::ptr::eq(
             weather_surface(Some(&terrain), None).unwrap(),
@@ -538,45 +398,5 @@ mod tests {
         let mesh = weather_sheet_mesh(8, 6);
         assert_eq!(mesh.count_vertices(), 8 * 6 * 4);
         assert_eq!(mesh.indices().unwrap().len(), 8 * 6 * 6);
-    }
-
-    #[test]
-    fn branch_occlusion_raster_preserves_a_large_limb_footprint() {
-        let terrain = SceneTerrain::from_heightmap(11, 11, 1.0, vec![0.0; 121]).unwrap();
-        let branch = TreeBranchSegment {
-            start: Vec3::new(-3.0, 5.0, 0.0),
-            end: Vec3::new(3.0, 5.0, 0.0),
-            start_radius: 0.32,
-            end_radius: 0.18,
-            depth: 1,
-            primary_group: 0,
-            secondary_group: 0,
-            is_limb_tip: false,
-        };
-        let mut heights = vec![
-            f32::NEG_INFINITY;
-            WEATHER_OCCLUSION_RESOLUTION as usize
-                * WEATHER_OCCLUSION_RESOLUTION as usize
-        ];
-        rasterize_weather_branch(&mut heights, &terrain, &GlobalTransform::IDENTITY, &branch);
-        let covered = heights
-            .iter()
-            .enumerate()
-            .filter_map(|(index, height)| {
-                height.is_finite().then_some((
-                    index % WEATHER_OCCLUSION_RESOLUTION as usize,
-                    index / WEATHER_OCCLUSION_RESOLUTION as usize,
-                ))
-            })
-            .collect::<Vec<_>>();
-        let width = covered.iter().map(|(x, _)| *x).max().unwrap()
-            - covered.iter().map(|(x, _)| *x).min().unwrap()
-            + 1;
-        let depth = covered.iter().map(|(_, z)| *z).max().unwrap()
-            - covered.iter().map(|(_, z)| *z).min().unwrap()
-            + 1;
-        assert!(covered.len() > 1_000);
-        assert!(width > depth * 5);
-        assert!(heights[256 * WEATHER_OCCLUSION_RESOLUTION as usize + 256] >= 5.18);
     }
 }

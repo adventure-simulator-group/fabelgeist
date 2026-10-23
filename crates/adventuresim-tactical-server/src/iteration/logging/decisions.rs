@@ -11,7 +11,7 @@ pub(in crate::iteration) fn record_attack_committed_to_defense(
     };
     log.decision_events.push(TacticalDecisionLogEntry {
         tick: clock.tick,
-        elapsed_seconds: clock.tick as f32 * TACTICAL_TICK_SECONDS,
+        elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
         combatant: defender.name.clone(),
         decision: TacticalDecision::Attack,
         status: TacticalDecisionStatus::CanceledForDefense,
@@ -42,7 +42,7 @@ pub(in crate::iteration) fn record_attack_transformed_by_defense(
     };
     log.decision_events.push(TacticalDecisionLogEntry {
         tick: clock.tick,
-        elapsed_seconds: clock.tick as f32 * TACTICAL_TICK_SECONDS,
+        elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
         combatant: defender.name.clone(),
         decision: TacticalDecision::Attack,
         status: TacticalDecisionStatus::TransformedByDefense,
@@ -76,7 +76,7 @@ pub(in crate::iteration) fn record_continuation_decision(
     };
     log.decision_events.push(TacticalDecisionLogEntry {
         tick: clock.tick,
-        elapsed_seconds: clock.tick as f32 * TACTICAL_TICK_SECONDS,
+        elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
         combatant: combatant.name.clone(),
         decision,
         status,

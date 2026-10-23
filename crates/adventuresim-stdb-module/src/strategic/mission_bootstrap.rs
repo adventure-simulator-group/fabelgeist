@@ -107,7 +107,7 @@ pub fn autoresolve_mission(
     ctx: &ReducerContext,
     character_id: u64,
     mission_id: String,
-) -> Result<(), String> {
+) -> StrategicCombatResult<()> {
     require_strategic_character_authority(ctx, character_id)?;
     adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
     crate::character::require_living_character(ctx, character_id)?;
@@ -196,20 +196,7 @@ pub fn autoresolve_mission(
     }
 
     let member_ids = living_party_member_ids(ctx, &party_id);
-    let allies = member_ids
-        .iter()
-        .map(|member_id| {
-            let condition =
-                crate::condition::refresh_character_strategic_condition(ctx, *member_id)?;
-            crate::capability::load_combatant(
-                ctx,
-                *member_id,
-                condition.incapacitation,
-                condition.pain,
-                condition.blood_loss,
-            )
-        })
-        .collect::<Result<Vec<_>, String>>()?;
+    let allies = load_allied_combatants(ctx, &member_ids)?;
     let enemy_ids = mission.enemy_roster(ctx)
         .map_err(|error| error.to_string())?.into_enemy_ids();
     let enemies = enemy_ids
@@ -223,14 +210,14 @@ pub fn autoresolve_mission(
                 u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
             )
         })
-        .collect::<Result<Vec<_>, String>>()?;
+        .collect::<AuthoredThreatResult<Vec<_>>>()?;
     let seed = ctx.random();
     let opening = if mission.contacted_before_combat {
         BattleOpening::Normal
     } else {
         BattleOpening::AlliesSurprise
     };
-    let outcome = resolve_battle(allies, enemies, seed, opening);
+    let outcome = resolve_battle(allies, enemies, seed, opening)?;
     let morale_difficulty = mission.enemy_difficulty.max(
         mission
             .normalized_combat_power
@@ -330,7 +317,7 @@ pub fn cancel_mission_request(
 pub fn bootstrap_development_world(
     ctx: &ReducerContext,
     bootstrap_token: String,
-) -> Result<(), String> {
+) -> StrategicCombatResult<()> {
     if !adventuresim_core::simulation_security::simulation_bootstrap_authorized(
         COMPILED_DEV_BOOTSTRAP_TOKEN,
         &bootstrap_token,
@@ -450,7 +437,7 @@ pub fn dev_bootstrap_gallery(
     bootstrap_token: String,
     offset: u32,
     count: u32,
-) -> Result<(), String> {
+) -> StrategicCombatResult<()> {
     require_dev_bootstrap_token(&bootstrap_token)?;
     // Materialize a contiguous batch of gallery items in one transaction (a
     // batch of several stays well under the budget); stop early once past the
@@ -1906,7 +1893,7 @@ const SIMULATION_QUEST_ENEMY_TYPE: &str = "cultist";
 const SIMULATION_QUEST_ENEMY_DIFFICULTY: i32 = 1;
 const SIMULATION_QUEST_ENEMY_COMBAT_SCALE_BPS: u32 =
     adventuresim_world_schema::BASIS_POINTS_PER_WHOLE as u32;
-pub(crate) fn simulation_quest_fixture_enemy_power() -> Result<u64, String> {
+pub(crate) fn simulation_quest_fixture_enemy_power() -> AuthoredThreatResult<u64> {
     autoresolve_enemy(
         u64::MAX,
         SIMULATION_QUEST_ENEMY_TYPE,
@@ -2672,7 +2659,10 @@ mod developer_quest_source_tests {
         );
 
         let challenges = crate::production_source(include_str!("challenges.rs"));
-        let gallery = crate::production_source(include_str!("development_scenarios.rs"));
+        let gallery = crate::production_source(concat!(
+            include_str!("development_gallery.rs"),
+            include_str!("development_scenarios.rs"),
+        ));
         assert!(!challenges.contains("pub fn load_puzzle_demo"));
         assert!(gallery.contains("ErrantryLaunch::DirectDemoCamp(kind)"));
         assert!(gallery.contains("PuzzleKind::ResourceAllocation"));

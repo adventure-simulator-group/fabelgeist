@@ -3,10 +3,14 @@ use std::collections::HashMap;
 use bevy::prelude::Vec3;
 use rayon::prelude::*;
 
-use crate::{terrain_transition::TerrainTransitionCollar, volumetric_terrain::SceneTerrainPatch};
+use crate::{
+    terrain_transition::TerrainTransitionCollar,
+    volumetric_terrain::{SceneTerrainPatch, TerrainRecipeError, TerrainRecipeResult},
+};
+
+pub(crate) use height_surface::marching_height_surface;
 
 mod height_surface;
-pub(crate) use height_surface::marching_height_surface;
 
 // Fields are in metres. Snap sub-millimetre roundoff to the shared lattice
 // endpoint instead of producing several almost-coincident edge vertices.
@@ -40,9 +44,9 @@ struct LatticeSample {
 pub(crate) fn marching_tetrahedra(
     dimensions: [usize; 3],
     position_at: impl Fn([usize; 3]) -> Vec3 + Sync,
-    field: impl Fn(Vec3) -> f32 + Sync,
+    field: impl Fn(Vec3) -> TerrainRecipeResult<f32> + Sync,
     transition_collar: TerrainTransitionCollar,
-) -> crate::volumetric_terrain::TerrainRecipeResult<SceneTerrainPatch> {
+) -> TerrainRecipeResult<SceneTerrainPatch> {
     let (positions, values) = sample_field(dimensions, &position_at, &field)?;
     let (mesh_positions, indices) = extract_surface(dimensions, &positions, &values)?;
     build_surface(mesh_positions, indices, transition_collar)
@@ -51,12 +55,12 @@ pub(crate) fn marching_tetrahedra(
 fn sample_field(
     dimensions: [usize; 3],
     position_at: &(impl Fn([usize; 3]) -> Vec3 + Sync),
-    field: &(impl Fn(Vec3) -> f32 + Sync),
-) -> crate::volumetric_terrain::TerrainRecipeResult<(Vec<Vec3>, Vec<f32>)> {
+    field: &(impl Fn(Vec3) -> TerrainRecipeResult<f32> + Sync),
+) -> TerrainRecipeResult<(Vec<Vec3>, Vec<f32>)> {
     let count = dimensions[0]
         .checked_mul(dimensions[1])
         .and_then(|n| n.checked_mul(dimensions[2]))
-        .ok_or(crate::volumetric_terrain::TerrainRecipeError::SampleCountOverflow)?;
+        .ok_or(TerrainRecipeError::SampleCountOverflow)?;
     let samples = (0..count)
         .into_par_iter()
         .map(|index| {
@@ -67,13 +71,13 @@ fn sample_field(
                 yz / dimensions[1],
             ];
             let position = position_at(coordinate);
-            let value = field(position);
+            let value = field(position)?;
             let value = snap_field_zero(value);
             (position.is_finite() && value.is_finite())
                 .then_some((position, value))
-                .ok_or(crate::volumetric_terrain::TerrainRecipeError::NonFiniteField)
+                .ok_or(TerrainRecipeError::NonFiniteField)
         })
-        .collect::<Result<Vec<_>, _>>()?;
+        .collect::<TerrainRecipeResult<Vec<_>>>()?;
     Ok(samples.into_iter().unzip())
 }
 
@@ -81,7 +85,7 @@ fn extract_surface(
     dimensions: [usize; 3],
     positions: &[Vec3],
     values: &[f32],
-) -> crate::volumetric_terrain::TerrainRecipeResult<(Vec<Vec3>, Vec<u32>)> {
+) -> TerrainRecipeResult<(Vec<Vec3>, Vec<u32>)> {
     let sample_id = |x: usize, y: usize, z: usize| (z * dimensions[1] + y) * dimensions[0] + x;
     let mut mesh_positions = Vec::new();
     let mut indices = Vec::new();
@@ -124,7 +128,7 @@ fn emit_tetrahedron(
     edge_vertices: &mut HashMap<(usize, usize), u32>,
     mesh_positions: &mut Vec<Vec3>,
     indices: &mut Vec<u32>,
-) -> crate::volumetric_terrain::TerrainRecipeResult<()> {
+) -> TerrainRecipeResult<()> {
     let mut inside = [0; 4];
     let mut outside = [0; 4];
     let mut inside_count = 0;
@@ -188,7 +192,7 @@ fn vertex_on_edge(
     sample_at: &impl Fn(usize) -> LatticeSample,
     edge_vertices: &mut HashMap<(usize, usize), u32>,
     mesh_positions: &mut Vec<Vec3>,
-) -> crate::volumetric_terrain::TerrainRecipeResult<u32> {
+) -> TerrainRecipeResult<u32> {
     // Several tetrahedra can reach the same zero-valued lattice vertex along
     // different edges. Give that endpoint one identity to preserve topology.
     let start = sample_at(a);
@@ -212,8 +216,8 @@ fn vertex_on_edge(
         start.value / denominator
     }
     .clamp(0.0, 1.0);
-    let index = u32::try_from(mesh_positions.len())
-        .map_err(|_| crate::volumetric_terrain::TerrainRecipeError::VertexCountOverflow)?;
+    let index =
+        u32::try_from(mesh_positions.len()).map_err(|_| TerrainRecipeError::VertexCountOverflow)?;
     mesh_positions.push(start.position.lerp(end.position, fraction));
     edge_vertices.insert(key, index);
     Ok(index)
@@ -231,7 +235,7 @@ fn build_surface(
     mesh_positions: Vec<Vec3>,
     indices: Vec<u32>,
     transition_collar: TerrainTransitionCollar,
-) -> crate::volumetric_terrain::TerrainRecipeResult<SceneTerrainPatch> {
+) -> TerrainRecipeResult<SceneTerrainPatch> {
     let oriented = indices
         .par_chunks_exact(3)
         .map(|source| triangle_normal(source, &mesh_positions))
@@ -245,7 +249,7 @@ fn build_surface(
         oriented_indices.extend(triangle);
     }
     if oriented_indices.is_empty() {
-        return Err(crate::volumetric_terrain::TerrainRecipeError::EmptySurface);
+        return Err(TerrainRecipeError::EmptySurface);
     }
     SceneTerrainPatch::from_mesh_buffers(
         transition_collar,

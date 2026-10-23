@@ -10,9 +10,13 @@ use crate::{
     inventory::{InventoryView, InventoryViewer},
 };
 
-mod combat_state;
-
+pub use attack_timing::{attack_preparation_secs, attack_recovery_secs};
 pub use combat_state::*;
+pub use input_tick::PlayerInputTick;
+
+mod attack_timing;
+mod combat_state;
+mod input_tick;
 
 /// BEI Component alias to mark players that are controlled by the present client.
 pub type ControlledPlayer = Actions<Player>;
@@ -546,38 +550,6 @@ pub fn configure_attack_curve(
         config,
     );
     spec
-}
-
-/// Contact timing combines authored rotational inertia with the attacker's arm
-/// strength. The correction is deliberately bounded: strength helps control a
-/// difficult weapon but does not erase the physical distinction between it
-/// and a knife.
-pub fn attack_preparation_secs(
-    view: &TacticalPlayerView<'_, '_, '_>,
-    style: MeleeAttackStyle,
-) -> f32 {
-    let inertia = view.weapon_moment_of_inertia().max(0.0);
-    let inertia_difficulty = if view.weapon_is_unarmed() {
-        0.35
-    } else {
-        (inertia / (inertia + 0.45)).sqrt()
-    };
-    let strength = view.limb_attr_by_weight(LimbAttribute::Strength, LimbWeights::both_arms());
-    let strength_scale = (1.0 + (3.0 - strength) * 0.08 * inertia_difficulty).clamp(0.85, 1.20);
-    (view.weapon_windup_secs_for(style) * strength_scale).clamp(0.08, 0.75)
-}
-
-/// Skill mostly improves braking and redirection rather than raw peak weapon
-/// speed. Continuations save additional recovery but remain bounded.
-pub fn attack_recovery_secs(
-    view: &TacticalPlayerView<'_, '_, '_>,
-    style: MeleeAttackStyle,
-    continuation: bool,
-) -> f32 {
-    let control = (effective_weapon_handling_skill(view) / 5.0).clamp(0.0, 1.0);
-    let skill_scale = 1.12 - 0.28 * control;
-    let continuation_scale = if continuation { 0.78 } else { 1.0 };
-    (view.weapon_recovery_secs_for(style) * skill_scale * continuation_scale).clamp(0.08, 0.55)
 }
 
 #[cfg(test)]

@@ -122,12 +122,19 @@ mod tests {
                 include_bytes!("../../../../assets_src/equipment/materials/mail-occlusion.png")
                     .to_vec(),
             ),
-            cutout: true,
+            alpha: crate::export::SurfaceAlpha::Mask,
+            sides: crate::export::SurfaceSides::Both,
+            sampling: crate::export::SurfaceSampling::Tile,
         };
         let joints = [[0; 8]; 4];
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
-        let names = ["c_head".to_owned()];
+        let names = [RigJointName::C_HEAD];
         let states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
+        let joints = fabelgeist_rig::PackedRigSkin::from_native(
+            joints.to_vec(),
+            fabelgeist_rig::RigJointTable::from(names.to_vec()).joint_count(),
+        )
+        .unwrap();
         let target_count = adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
             + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len();
         let target_names = (0..target_count)
@@ -153,6 +160,7 @@ mod tests {
         };
         let faces = [[1, 2, 3]];
         let shells = ["skull", "bevor", "visor"].map(|name| RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[[1, 2], [0, 1]],
             textures: Some(maps.clone()),
@@ -175,7 +183,7 @@ mod tests {
             1,
             4,
             &RiggedMesh {
-                joint_proportions: &[],
+                joint_proportions: &Default::default(),
                 morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
@@ -183,9 +191,9 @@ mod tests {
                 export_body: false,
                 joint_indices: &joints,
                 joint_weights: &weights,
-                joint_names: &names,
-                joint_parents: &[-1],
-                global_joint_states: &states,
+                joint_names: &names.to_vec().into(),
+                joint_parents: &vec![None].into(),
+                global_joint_states: &states.to_vec().into(),
             },
             &shells,
             &[],

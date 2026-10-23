@@ -14,8 +14,8 @@ pub(super) fn sample_character_plan(
 }
 
 fn apply_offsets(
-    poses: &mut [LocalPose],
-    entities: &[Option<Entity>],
+    poses: &mut RigJointTable<LocalPose>,
+    entities: &RigJointTable<Option<Entity>>,
     offsets: &Query<&skeletal_proportions::SkeletalJointOffset>,
 ) {
     for (pose, entity) in poses.iter_mut().zip(entities) {
@@ -32,6 +32,7 @@ mod tests {
 
     #[test]
     fn skeletal_proportions_preserve_shared_motion_and_do_not_accumulate() {
+        const OFFSET_COMPARISON_TOLERANCE_METRES: f32 = 1e-6;
         let mut world = World::new();
         let narrow = world
             .spawn(skeletal_proportions::SkeletalJointOffset(
@@ -43,28 +44,60 @@ mod tests {
             .id();
         let mut state =
             SystemState::<Query<&skeletal_proportions::SkeletalJointOffset>>::new(&mut world);
-        let clip = BakedClip {
-            duration: 1.0,
-            frame_dt: 1.0,
-            frames: 2,
-            tracks: vec![BoneTrack {
+        let clip = BakedClip::new(
+            ClipDuration::from_seconds(1.0).unwrap(),
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(1.0)
+                .unwrap(),
+            BakedFrameCount::try_from(2).unwrap(),
+            vec![BoneTrack {
                 translations: vec![Vec3::new(0.1, 0.0, 0.0), Vec3::new(0.1, 0.2, 0.3)],
                 rotations: vec![Quat::IDENTITY, Quat::from_rotation_z(0.4)],
                 scales: vec![Vec3::ONE; 2],
-                animated: true,
-            }],
-        };
+                source: BoneTrackSource::Authored,
+            }]
+            .into(),
+        )
+        .unwrap();
         let offsets = state.get(&world).unwrap();
         for _ in 0..2 {
-            let source = clip.sample(0, 0.5);
-            let mut first = vec![source];
-            let mut second = vec![source];
-            apply_offsets(&mut first, &[Some(narrow)], &offsets);
-            apply_offsets(&mut second, &[Some(wide)], &offsets);
-            assert!((second[0].translation.x - first[0].translation.x - 0.1).abs() < 1e-6);
-            assert_eq!(second[0].translation.yz(), source.translation.yz());
-            assert_eq!(second[0].rotation, source.rotation);
-            assert_eq!(source, clip.sample(0, 0.5));
+            let source = clip.sample(
+                RigJointOrdinal::from(0usize),
+                ClipTime::from_seconds(0.5).unwrap(),
+            );
+            let mut first = RigJointTable::from(vec![source]);
+            let mut second = RigJointTable::from(vec![source]);
+            apply_offsets(
+                &mut first,
+                &RigJointTable::from(vec![Some(narrow)]),
+                &offsets,
+            );
+            apply_offsets(
+                &mut second,
+                &RigJointTable::from(vec![Some(wide)]),
+                &offsets,
+            );
+            assert!(
+                (second[RigJointOrdinal::from(0usize)].translation.x
+                    - first[RigJointOrdinal::from(0usize)].translation.x
+                    - 0.1)
+                    .abs()
+                    < OFFSET_COMPARISON_TOLERANCE_METRES
+            );
+            assert_eq!(
+                second[RigJointOrdinal::from(0usize)].translation.yz(),
+                source.translation.yz()
+            );
+            assert_eq!(
+                second[RigJointOrdinal::from(0usize)].rotation,
+                source.rotation
+            );
+            assert_eq!(
+                source,
+                clip.sample(
+                    RigJointOrdinal::from(0usize),
+                    ClipTime::from_seconds(0.5).unwrap()
+                )
+            );
         }
     }
 }

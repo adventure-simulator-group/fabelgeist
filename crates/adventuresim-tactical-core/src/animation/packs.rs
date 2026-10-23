@@ -4,21 +4,26 @@ use super::*;
 /// currently available to the runtime.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AnimationPack {
-    pub id: String,
-    pub skeleton_family: String,
-    pub fallback: Option<String>,
+    pub id: AnimationPackId,
+    pub skeleton_family: SkeletonFamily,
+    pub fallback: Option<AnimationPackId>,
     pub clips: BTreeSet<SemanticPose>,
+}
+
+#[derive(Debug, Default)]
+pub struct AnimationPackLibrary {
+    packs: BTreeMap<AnimationPackId, AnimationPack>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ResolvedPose<'a> {
     Clip {
-        pack_id: &'a str,
+        pack_id: &'a AnimationPackId,
         /// Semantic pose satisfied before any ordinary semantic fallback.
         semantic: SemanticPose,
         /// Authored clip sampled for that semantic pose.
         pose: SemanticPose,
-        mirrored: bool,
+        mirrored: ClipMirror,
     },
     /// Use the rig's authored bind transform. For the humanoid convention this
     /// is a T-pose and needs no animation clip.
@@ -27,18 +32,19 @@ pub enum ResolvedPose<'a> {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum PackValidationError {
-    Duplicate(String),
-    MissingFallback { pack: String, fallback: String },
-    FallbackCycle(String),
-    IncompatibleSkeleton { pack: String, fallback: String },
-    MissingRoot(String),
-    RootHasFallback(String),
+    Duplicate(AnimationPackId),
+    MissingFallback {
+        pack: AnimationPackId,
+        fallback: AnimationPackId,
+    },
+    FallbackCycle(AnimationPackId),
+    IncompatibleSkeleton {
+        pack: AnimationPackId,
+        fallback: AnimationPackId,
+    },
+    MissingRoot(AnimationPackId),
+    RootHasFallback(AnimationPackId),
     MissingRequiredPose(SemanticPose),
-}
-
-#[derive(Debug, Default)]
-pub struct AnimationPackLibrary {
-    packs: BTreeMap<String, AnimationPack>,
 }
 
 impl AnimationPackLibrary {
@@ -46,7 +52,7 @@ impl AnimationPackLibrary {
     /// semantics. A pack that owns any attack owns the complete attack choice;
     /// its missing attacks stay unavailable. Only a pack with no attacks at
     /// all inherits the nearest parent's attack set.
-    pub fn attack_animations(&self, root: &str) -> AttackAnimations {
+    pub fn attack_animations(&self, root: &AnimationPackId) -> AttackAnimations {
         let mut pack_id = Some(root);
         let mut seen = HashSet::new();
         let mut main = None;
@@ -77,7 +83,7 @@ impl AnimationPackLibrary {
             if main.is_some() && offhand {
                 break;
             }
-            pack_id = pack.fallback.as_deref();
+            pack_id = pack.fallback.as_ref();
         }
         let mut attacks = main.unwrap_or(AttackAnimations::NONE);
         attacks.offhand = offhand;
@@ -101,10 +107,10 @@ impl AnimationPackLibrary {
             let mut seen = HashSet::new();
             let mut current = pack;
             loop {
-                if !seen.insert(current.id.as_str()) {
+                if !seen.insert(&current.id) {
                     return Err(PackValidationError::FallbackCycle(pack.id.clone()));
                 }
-                let Some(fallback_id) = current.fallback.as_deref() else {
+                let Some(fallback_id) = current.fallback.as_ref() else {
                     break;
                 };
                 let Some(fallback) = self.packs.get(fallback_id) else {
@@ -125,7 +131,7 @@ impl AnimationPackLibrary {
         Ok(())
     }
 
-    pub fn validate_complete(&self, root: &str) -> Result<(), PackValidationError> {
+    pub fn validate_complete(&self, root: &AnimationPackId) -> Result<(), PackValidationError> {
         self.validate_structure()?;
         let root_pack = self
             .packs
@@ -145,7 +151,7 @@ impl AnimationPackLibrary {
 
     /// Resolves pack fallback first, then the deterministic semantic fallback
     /// chain. Missing packs and fully empty chains safely produce the T-pose.
-    pub fn resolve(&self, root: &str, requested: SemanticPose) -> ResolvedPose<'_> {
+    pub fn resolve(&self, root: &AnimationPackId, requested: SemanticPose) -> ResolvedPose<'_> {
         let mut semantic = Some(requested);
         let mut semantic_seen = HashSet::new();
         while let Some(pose) = semantic {
@@ -166,7 +172,7 @@ impl AnimationPackLibrary {
                         pack_id: &pack.id,
                         semantic: pose,
                         pose,
-                        mirrored: false,
+                        mirrored: ClipMirror::Original,
                     };
                 }
                 if let Some(source) = pose.mirrored_counterpart()
@@ -176,10 +182,10 @@ impl AnimationPackLibrary {
                         pack_id: &pack.id,
                         semantic: pose,
                         pose: source,
-                        mirrored: true,
+                        mirrored: ClipMirror::Mirrored,
                     };
                 }
-                pack_id = pack.fallback.as_deref();
+                pack_id = pack.fallback.as_ref();
             }
             semantic = pose.fallback();
         }

@@ -6,14 +6,19 @@
 //! finite difference of the two buffered samples plus the whole-body
 //! momentum, so a mid-swing limb carries its swing into physics.
 
-use adventuresim_tactical_core::prelude::*;
-use bevy::{math::Affine3A, prelude::*};
-
 use super::super::pose_buffer::PoseBufferRig;
+use super::geometry::RagdollGeometry;
 use super::{
     RAGDOLL_LAYER, RagdollBodyPart, RagdollPart,
     definition::{RagdollDefinition, RagdollJointKind},
 };
+use adventuresim_building_generator::spatial_geometry::GeometryResult;
+use adventuresim_tactical_core::prelude::*;
+use bevy::{math::Affine3A, prelude::*};
+use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
+
+/// Finite-difference denominator floor in seconds for a coincident sample pair.
+const MINIMUM_VELOCITY_INTERVAL_SECONDS: f32 = 0.00001;
 
 /// One body's entry state: world pose plus the velocities the animation was
 /// carrying.
@@ -32,6 +37,12 @@ pub(super) struct MuscleTarget {
     pub(super) parent: usize,
     pub(super) child: usize,
     pub(super) relative: Quat,
+}
+
+pub(super) struct SpawnedRagdoll {
+    pub(super) parts: Vec<Entity>,
+    pub(super) bodies: Vec<Option<Entity>>,
+    pub(super) muscles: Vec<MuscleTarget>,
 }
 
 /// World affine of `entity` from the live `Transform` chain. The cached
@@ -55,13 +66,13 @@ pub(super) fn live_world_affine(
 }
 
 /// Pose-buffer joints ordered parent before child.
-pub(super) fn topological_joint_order(rig: &PoseBufferRig) -> Vec<usize> {
+pub(super) fn topological_joint_order(rig: &PoseBufferRig) -> Vec<RigJointOrdinal> {
     let count = rig.joint_count();
     let mut order = Vec::with_capacity(count);
-    let mut placed = vec![false; count];
+    let mut placed = RigJointTable::from(vec![false; count]);
     while order.len() < count {
         let before = order.len();
-        for joint in 0..count {
+        for joint in (0..count).map(RigJointOrdinal::from) {
             if !placed[joint] && rig.joint_parent(joint).is_none_or(|parent| placed[parent]) {
                 placed[joint] = true;
                 order.push(joint);
@@ -80,7 +91,7 @@ pub(super) fn topological_joint_order(rig: &PoseBufferRig) -> Vec<usize> {
 /// the scene node they hang from.
 pub(super) fn joint_base_affine(
     rig: &PoseBufferRig,
-    joint: usize,
+    joint: RigJointOrdinal,
     chain: &Query<(&Transform, Option<&ChildOf>)>,
 ) -> Affine3A {
     rig.joint_entity(joint)
@@ -94,12 +105,12 @@ pub(super) fn joint_base_affine(
 /// samples, composed in `order`.
 pub(super) fn joint_world_affines(
     rig: &PoseBufferRig,
-    order: &[usize],
-    base: &dyn Fn(usize) -> Affine3A,
-) -> (Vec<Affine3A>, Vec<Affine3A>) {
+    order: &[RigJointOrdinal],
+    base: &dyn Fn(RigJointOrdinal) -> Affine3A,
+) -> (RigJointTable<Affine3A>, RigJointTable<Affine3A>) {
     let count = rig.joint_count();
-    let mut previous = vec![Affine3A::IDENTITY; count];
-    let mut next = vec![Affine3A::IDENTITY; count];
+    let mut previous = RigJointTable::from(vec![Affine3A::IDENTITY; count]);
+    let mut next = RigJointTable::from(vec![Affine3A::IDENTITY; count]);
     for &joint in order {
         let (parent_previous, parent_next) = match rig.joint_parent(joint) {
             Some(parent) => (previous[parent], next[parent]),
@@ -114,30 +125,20 @@ pub(super) fn joint_world_affines(
     (previous, next)
 }
 
-/// Angular velocity (rad/s) carrying `current` onto `next` over
-/// `delta_seconds`, along the short arc.
-fn angular_velocity_between(next: Quat, current: Quat, delta_seconds: f32) -> Vec3 {
-    let mut delta = next * current.inverse();
-    if delta.w < 0.0 {
-        delta = -delta;
-    }
-    delta.to_scaled_axis() / delta_seconds.max(1e-5)
-}
-
 /// Seed each body from the buffered joint that drives it. `momentum` is the
 /// whole-body velocity added on top of the per-bone animation velocities.
 pub(super) fn seed_bodies(
     definition: &RagdollDefinition,
     rig: &PoseBufferRig,
-    joint_bodies: &[Option<usize>],
-    world_previous: &[Affine3A],
-    world_next: &[Affine3A],
+    joint_bodies: &RigJointTable<Option<usize>>,
+    world_previous: &RigJointTable<Affine3A>,
+    world_next: &RigJointTable<Affine3A>,
     momentum: Vec3,
     config: &RagdollConfig,
 ) -> Vec<Option<BodySeed>> {
-    let sample_seconds = rig.sample_interval_seconds();
+    let sample_interval = rig.sample_interval();
     let mut seeds = vec![None; definition.bodies.len()];
-    for (joint, body) in joint_bodies.iter().enumerate() {
+    for (joint, body) in joint_bodies.indexed() {
         let Some(body) = *body else {
             continue;
         };
@@ -148,11 +149,18 @@ pub(super) fn seed_bodies(
         // `body = bone * bind_rotation⁻¹`: the body rests at identity where
         // the bone rests at its bind rotation.
         let rotation = (rotation_next * bind_rotation.inverse()).normalize();
-        let angular = angular_velocity_between(rotation_next, rotation_previous, sample_seconds)
-            .clamp_length_max(config.maximum_seed_spin_radians_per_second);
+        let angular = angular_velocity_between(rotation_next, rotation_previous, sample_interval)
+            .clamp_length_max(
+                config
+                    .maximum_seed_spin_radians_per_second
+                    .radians_per_second(),
+            );
         let linear = momentum
-            + ((position_next - position_previous) / sample_seconds)
-                .clamp_length_max(config.maximum_seed_speed_metres_per_second);
+            + ((position_next - position_previous) / sample_interval.seconds()).clamp_length_max(
+                config
+                    .maximum_seed_speed_metres_per_second
+                    .metres_per_second(),
+            );
         let kinematic = definition.bodies[body].kinematic;
         seeds[body] = Some(BodySeed {
             position: position_next,
@@ -164,12 +172,6 @@ pub(super) fn seed_bodies(
     seeds
 }
 
-pub(super) struct SpawnedRagdoll {
-    pub(super) parts: Vec<Entity>,
-    pub(super) bodies: Vec<Option<Entity>>,
-    pub(super) muscles: Vec<MuscleTarget>,
-}
-
 /// Spawn bodies at their seeds, colliders under them, and the joints between
 /// them. Muscle targets capture each joint's relative orientation at entry.
 pub(super) fn spawn_ragdoll(
@@ -179,19 +181,37 @@ pub(super) fn spawn_ragdoll(
     seeds: &[Option<BodySeed>],
     scale: f32,
     config: &RagdollConfig,
-) -> SpawnedRagdoll {
+) -> GeometryResult<SpawnedRagdoll> {
+    let geometry = RagdollGeometry::prepare(
+        definition,
+        seeds,
+        scale,
+        config.speculative_contact_margin_metres,
+    )?;
     let mut parts = Vec::new();
-    let bodies = spawn_bodies(
-        commands, owner, definition, seeds, scale, config, &mut parts,
-    );
+    let bodies = spawn_bodies(commands, owner, definition, seeds, &geometry, &mut parts);
     let muscles = spawn_joints(
         commands, owner, definition, seeds, scale, &bodies, &mut parts,
     );
-    SpawnedRagdoll {
+    Ok(SpawnedRagdoll {
         parts,
         bodies,
         muscles,
+    })
+}
+
+/// Angular velocity (rad/s) carrying `current` onto `next` over
+/// `delta_seconds`, along the short arc.
+fn angular_velocity_between(
+    next: Quat,
+    current: Quat,
+    interval: adventuresim_tactical_core::animation::PositiveAnimationDuration,
+) -> Vec3 {
+    let mut delta = next * current.inverse();
+    if delta.w < 0.0 {
+        delta = -delta;
     }
+    delta.to_scaled_axis() / interval.seconds().max(MINIMUM_VELOCITY_INTERVAL_SECONDS)
 }
 
 /// Spawn one rigid body per seeded definition body, each with a capsule
@@ -201,8 +221,7 @@ fn spawn_bodies(
     owner: Entity,
     definition: &RagdollDefinition,
     seeds: &[Option<BodySeed>],
-    scale: f32,
-    config: &RagdollConfig,
+    geometry: &RagdollGeometry,
     parts: &mut Vec<Entity>,
 ) -> Vec<Option<Entity>> {
     let mut bodies = vec![None; definition.bodies.len()];
@@ -215,7 +234,9 @@ fn spawn_bodies(
         } else {
             RigidBody::Dynamic
         };
-        let axis_local = body.collider_local.rotation * Vec3::Y;
+        let Some(capsule) = &geometry.capsules[index] else {
+            continue;
+        };
         let entity = commands
             .spawn((
                 Name::new(format!("Presentation ragdoll {:?}", body.role)),
@@ -231,23 +252,16 @@ fn spawn_bodies(
                 // A resting body cycling sleep/wake reads as floor shaking,
                 // and these bodies despawn on exit anyway.
                 SleepingDisabled,
-                SpeculativeMargin(config.speculative_contact_margin_metres),
+                SpeculativeMargin(geometry.margin.metres()),
                 RagdollPart { owner },
-                RagdollBodyPart {
-                    radius: body.shape.radius * scale,
-                    half_length: body.shape.length * scale * 0.5,
-                    center_local: body.collider_local.translation * scale,
-                    axis_local,
-                    kinematic: body.kinematic,
-                },
+                capsule.part,
             ))
             .remove::<RigidBodyDisabled>()
             .id();
         commands.spawn((
             ChildOf(entity),
-            Transform::from_translation(body.collider_local.translation * scale)
-                .with_rotation(body.collider_local.rotation),
-            Collider::capsule(body.shape.radius * scale, body.shape.length * scale),
+            capsule.collider_local,
+            Collider::capsule(capsule.part.radius.metres(), capsule.segment.metres()),
             // A client-only collision island: non-neighbouring parts collide
             // with one another and nothing else.
             CollisionLayers::new(RAGDOLL_LAYER, RAGDOLL_LAYER),
@@ -291,8 +305,8 @@ fn spawn_joints(
                         .with_local_anchor1(anchor1)
                         .with_local_anchor2(anchor2)
                         .with_twist_axis(twist_axis)
-                        .with_swing_limits(-swing, swing)
-                        .with_twist_limits(-twist, twist),
+                        .with_swing_limits(-swing.radians(), swing.radians())
+                        .with_twist_limits(-twist.radians(), twist.radians()),
                     JointCollisionDisabled,
                     RagdollPart { owner },
                 ))
@@ -303,7 +317,7 @@ fn spawn_joints(
                         .with_local_anchor1(anchor1)
                         .with_local_anchor2(anchor2)
                         .with_hinge_axis(axis)
-                        .with_angle_limits(limits.0, limits.1),
+                        .with_angle_limits(limits.minimum.radians(), limits.maximum.radians()),
                     JointCollisionDisabled,
                     RagdollPart { owner },
                 ))
@@ -327,9 +341,19 @@ mod tests {
     fn angular_velocity_takes_the_short_arc() {
         let current = Quat::from_rotation_y(0.3);
         let next = Quat::from_rotation_y(0.5);
-        let velocity = angular_velocity_between(next, current, 0.1);
+        let velocity = angular_velocity_between(
+            next,
+            current,
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(0.1)
+                .unwrap(),
+        );
         assert!((velocity.y - 2.0).abs() < 1e-4, "{velocity}");
-        let flipped = angular_velocity_between(-next, current, 0.1);
+        let flipped = angular_velocity_between(
+            -next,
+            current,
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(0.1)
+                .unwrap(),
+        );
         assert!(flipped.distance(velocity) < 1e-4);
     }
 }

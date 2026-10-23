@@ -36,7 +36,7 @@ impl DrapedGarment {
 }
 
 /// Cloth must not cross the wearer or an inner garment.
-pub(super) fn validate_surface(
+pub(crate) fn validate_surface(
     cloth: &fabelgeist_bvh::TriangleBvh,
     body: &fabelgeist_bvh::TriangleBvh,
 ) -> Result<()> {
@@ -165,7 +165,7 @@ mod tests {
             faces: vec![[0, 1, 2]],
             normals: vec![],
             texcoords: vec![],
-            indices: vec![],
+            indices: Default::default(),
             weights: vec![],
             stage: DrapeStage::Placed,
         };

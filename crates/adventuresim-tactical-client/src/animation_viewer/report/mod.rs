@@ -1,16 +1,24 @@
 //! Capture report assembly and artifact writing.
 
 use super::*;
-
-mod html;
-mod metrics;
-mod model;
-mod validation;
-
+use acceptance_limits::*;
+use body_response_validation::*;
+pub(super) use bones::{
+    CapturedBones, REPORT_BONES, parent_bone, report_bone_label, serialize_report_bone,
+};
 use html::*;
 use metrics::*;
 pub(super) use model::*;
 use validation::*;
+
+mod acceptance_limits;
+mod body_response_validation;
+mod bones;
+mod html;
+mod metrics;
+mod model;
+mod presentation_events;
+mod validation;
 
 pub(super) fn invalidate_previous_report(output: &std::path::Path) {
     for name in [
@@ -28,25 +36,18 @@ pub(super) fn invalidate_previous_report(output: &std::path::Path) {
     }
 }
 
-fn capture_artifacts_written(output: &std::path::Path, frames: &[FrameSample]) -> bool {
-    frames.iter().all(|frame| {
-        VIEWS.iter().all(|view| {
-            frame
-                .screenshots
-                .get(view.slug())
-                .and_then(|name| fs::metadata(output.join(name)).ok())
-                .is_some_and(|metadata| metadata.len() > 0)
-        })
-    })
-}
-
 pub(super) fn write_completed_capture(completed: CompletedCapture) -> AppExit {
     let CompletedReport {
         output,
         manifest,
         global_bone_frames,
-        acceptance_passed,
-    } = build_completed_report(completed);
+    } = match build_completed_report(completed) {
+        Ok(report) => report,
+        Err(error) => {
+            error!(%error, "capture report admission failed");
+            return AppExit::Error(std::num::NonZeroU8::MIN);
+        }
+    };
     let global_bone_trace_path = output.join("global-bone-transforms.jsonl");
     let trace_file = File::create(&global_bone_trace_path)
         .unwrap_or_else(|error| panic!("failed to create {global_bone_trace_path:?}: {error}"));
@@ -65,14 +66,27 @@ pub(super) fn write_completed_capture(completed: CompletedCapture) -> AppExit {
     let manifest_path = output.join("manifest.json");
     fs::write(
         &manifest_path,
-        serde_json::to_string_pretty(&manifest).expect("capture manifest must serialize"),
+        match serde_json::to_string_pretty(&manifest) {
+            Ok(json) => json,
+            Err(error) => {
+                error!(%error, "capture manifest serialization failed");
+                return AppExit::Error(std::num::NonZeroU8::MIN);
+            }
+        },
     )
     .unwrap_or_else(|error| panic!("failed to write {manifest_path:?}: {error}"));
     let index_path = output.join("index.html");
-    fs::write(&index_path, review_html(&manifest))
+    let html = match review_html(&manifest) {
+        Ok(html) => html,
+        Err(error) => {
+            error!(%error, "capture HTML serialization failed");
+            return AppExit::Error(std::num::NonZeroU8::MIN);
+        }
+    };
+    fs::write(&index_path, html)
         .unwrap_or_else(|error| panic!("failed to write {index_path:?}: {error}"));
     info!(path = ?index_path, "Animation review capture completed");
-    if acceptance_passed {
+    if validation_passed(&manifest.validation) {
         AppExit::Success
     } else {
         let failure_path = output.join("failure.txt");
@@ -83,6 +97,29 @@ pub(super) fn write_completed_capture(completed: CompletedCapture) -> AppExit {
         .unwrap_or_else(|error| panic!("failed to write {failure_path:?}: {error}"));
         AppExit::Error(1.try_into().expect("one is non-zero"))
     }
+}
+
+fn capture_scenarios_complete(frames: &[FrameSample], plan: &[PlannedFrame]) -> bool {
+    frames.len() == plan.len()
+        && frames.iter().zip(plan).all(|(frame, planned)| {
+            frame.scenario == planned.scenario
+                && frame.scenario_frame == planned.scenario_frame
+                && REPORT_BONES
+                    .iter()
+                    .all(|(role, _)| frame.bones.contains_key(*role))
+        })
+}
+
+fn capture_artifacts_written(output: &std::path::Path, frames: &[FrameSample]) -> bool {
+    frames.iter().all(|frame| {
+        VIEWS.iter().all(|view| {
+            frame
+                .screenshots
+                .get(view.slug())
+                .and_then(|name| fs::metadata(output.join(name)).ok())
+                .is_some_and(|metadata| metadata.len() > 0)
+        })
+    })
 }
 
 #[cfg(test)]
@@ -129,21 +166,21 @@ mod tests {
         let frame = FrameSample {
             scenario: "test".into(),
             scenario_frame: 0,
-            time_seconds: 0.0,
-            speed_metres_per_second: 0.0,
-            gait_phase: 0.0,
-            locomotion_sample_tick: 0,
+            time_seconds: AnimationElapsed::from_seconds(0.0).unwrap(),
+            speed_metres_per_second: SignedSpeed::from_metres_per_second(0.0).unwrap(),
+            gait_phase: CyclePhase::from_cycles(0.0).unwrap(),
+            locomotion_sample_tick: AnimationSampleTick::from(0u64),
             body_acceleration: Vec3::ZERO.to_array(),
             world_acceleration: Vec3::ZERO.to_array(),
             bouncy_active_springs: 0,
             bouncy_maximum_deflection_radians: 0.0,
-            contact_sequence: 0,
+            contact_sequence: ContactSequence::ZERO,
             contact_foot: LeadFoot::Left,
-            landing_sequence: 0,
-            landing_impact_speed: 0.0,
-            body_lean_pitch_degrees: 0.0,
-            body_lean_roll_degrees: 0.0,
-            landing_compression_metres: 0.0,
+            landing_sequence: adventuresim_tactical_core::animation::LandingSequence::ZERO,
+            landing_impact_speed: LandingImpactSpeed::ZERO,
+            body_lean_pitch_degrees: BodyAngle::ZERO,
+            body_lean_roll_degrees: BodyAngle::ZERO,
+            landing_compression_metres: HeightDistance::ZERO,
             root_distance_metres: 0.0,
             root_position_metres: Vec3::ZERO.to_array(),
             world_travel_direction: Vec3::Z.to_array(),
@@ -153,12 +190,12 @@ mod tests {
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
             action: SkeletonAction::None,
-            action_phase: 0.0,
+            action_phase: adventuresim_tactical_core::animation::UnitInterval::ZERO,
             attack_animation: None,
             strike_family: StrikeFamily::Thrust,
             guard_action: false,
-            left_support_weight: 1.0,
-            right_support_weight: 1.0,
+            left_support_weight: UnitInterval::from_fraction(1.0).unwrap(),
+            right_support_weight: UnitInterval::from_fraction(1.0).unwrap(),
             desired_left_foot_target: None,
             desired_right_foot_target: None,
             ik_left_authored_target: None,
@@ -168,8 +205,8 @@ mod tests {
             ik_settle_capture_point: None,
             ik_left_solve_target: None,
             ik_right_solve_target: None,
-            ik_left_support_weight: 0.0,
-            ik_right_support_weight: 0.0,
+            ik_left_support_weight: Some(UnitInterval::from_fraction(0.0).unwrap()),
+            ik_right_support_weight: Some(UnitInterval::from_fraction(0.0).unwrap()),
             ik_left_release_active: false,
             ik_right_release_active: false,
             ik_left_release_target: None,
@@ -181,7 +218,7 @@ mod tests {
             semantic_route_selected_path: SemanticRoutePath::GeneralPose,
             semantic_route_runtime_evaluated: false,
             screenshots,
-            bones: BTreeMap::new(),
+            bones: CapturedBones::default(),
         };
         for name in frame.screenshots.values() {
             fs::write(output.join(name), b"png").unwrap();

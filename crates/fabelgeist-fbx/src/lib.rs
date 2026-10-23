@@ -10,8 +10,7 @@
 //! how FBX's transform chain composes, what units the file is in — is left to
 //! callers, because rigs disagree about all three.
 //!
-//! Deliberately free of heavy dependencies (`anyhow` and a pure-Rust inflate),
-//! so an asset pipeline can read FBX without pulling in a tensor runtime.
+//! The reader and its shared rig labels stay independent of tensor runtimes.
 
 use std::collections::HashMap;
 use std::io::Read;
@@ -20,12 +19,15 @@ use anyhow::{Context, Result, anyhow, bail};
 use array_encoding::FbxArrayEncoding;
 use flate2::read::ZlibDecoder;
 
-pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
+pub use animation::{
+    Curve, FbxAnimationDuration, InvalidFbxAnimationDuration, NodeAnimation, Take, TransformChannel,
+};
 pub use array_encoding::UnsupportedFbxArrayEncoding;
+pub use object_name::{FbxObjectName, FbxQualifiedName};
 
 pub mod animation;
-
 mod array_encoding;
+mod object_name;
 
 /// One node record of the FBX tree.
 #[derive(Debug, Clone)]
@@ -46,12 +48,12 @@ struct Reader<'a> {
 pub struct Object {
     pub id: i64,
     /// Object name with the `\0\x01Class` suffix and any `namespace:` prefix removed.
-    pub name: String,
+    pub name: FbxObjectName,
     /// Object name with its namespace intact, e.g. `mixamorig:Hips`.
     ///
     /// Rig profiles are usually written against the namespaced name, so an
     /// importer wants this one even though momentum matches on the stripped one.
-    pub qualified: String,
+    pub qualified: FbxQualifiedName,
     /// The sub-class token, e.g. `LimbNode`, `Mesh`, `Cluster`, `BlendShapeChannel`.
     pub class: String,
     /// The record name, e.g. `Model`, `Geometry`, `Deformer`.
@@ -290,8 +292,11 @@ impl Scene {
                 let Some(id) = node.props.first().and_then(Prop::as_i64) else {
                     continue;
                 };
-                let name = node.str_prop(1).map(object_name).unwrap_or_default();
-                let qualified = node.str_prop(1).map(qualified_name).unwrap_or_default();
+                let qualified = node
+                    .str_prop(1)
+                    .map(FbxQualifiedName::from)
+                    .unwrap_or_default();
+                let name = FbxObjectName::from(&qualified);
                 let class = node
                     .str_prop(2)
                     .map(|c| String::from_utf8_lossy(c).into_owned())
@@ -538,28 +543,6 @@ fn read_node(reader: &mut Reader<'_>) -> Result<Option<Node>> {
         props,
         children,
     }))
-}
-
-fn object_name(raw: &[u8]) -> String {
-    let name = match raw.windows(2).position(|w| w == [0, 1]) {
-        Some(pos) => &raw[..pos],
-        None => raw,
-    };
-    let name = String::from_utf8_lossy(name).into_owned();
-    // momentum strips namespaces before matching joints against the .model file.
-    match name.rfind(':') {
-        Some(pos) => name[pos + 1..].to_string(),
-        None => name,
-    }
-}
-
-/// The object name with any namespace left on, e.g. `mixamorig:Hips`.
-fn qualified_name(raw: &[u8]) -> String {
-    let name = match raw.windows(2).position(|w| w == [0, 1]) {
-        Some(pos) => &raw[..pos],
-        None => raw,
-    };
-    String::from_utf8_lossy(name).into_owned()
 }
 #[cfg(test)]
 mod array_encoding_tests;

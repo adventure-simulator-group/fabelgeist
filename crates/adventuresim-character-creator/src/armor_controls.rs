@@ -2,10 +2,36 @@
 use adventuresim_character_creator::{armor_recipes::ParametricDesign, item_design::ItemDesign};
 use bevy_egui::egui;
 use std::ops::RangeInclusive;
+#[path = "bodice_controls.rs"]
+mod bodice;
+#[path = "cloth_closure_controls.rs"]
+mod cloth_closures;
+#[path = "cloth_lacing_controls.rs"]
+mod cloth_lacing;
+#[path = "cloth_tie_controls.rs"]
+mod cloth_ties;
+#[path = "gown_controls.rs"]
+mod gown;
+#[path = "gown_dressing_controls.rs"]
+mod gown_dressing;
 #[path = "helmet_controls.rs"]
 mod helmet;
 #[path = "limb_controls.rs"]
 mod limb;
+#[path = "needlework_controls.rs"]
+mod needlework;
+#[path = "partlet_controls.rs"]
+mod partlet;
+#[path = "puff_pattern_controls.rs"]
+mod puff_pattern;
+#[path = "skirt_controls.rs"]
+mod skirt;
+#[path = "textile_controls.rs"]
+mod textile;
+#[path = "waist_fastener_controls.rs"]
+mod waist_fasteners;
+#[path = "waist_support_controls.rs"]
+mod waist_support;
 
 /// The mail coif's shape controls, for the draped chainmail coif.
 pub(super) fn coif(ui: &mut egui::Ui, design: &mut fabelgeist_armor::CoifDesign) -> bool {
@@ -33,6 +59,12 @@ pub(super) fn design(ui: &mut egui::Ui, design: &mut ItemDesign) -> bool {
         ItemDesign::Recipe(ParametricDesign::Limb(d)) => limb::show(ui, d),
         ItemDesign::Recipe(ParametricDesign::Helmet(d)) => helmet::show(ui, d),
         ItemDesign::Recipe(ParametricDesign::PuffAndSlash(d)) => puff_and_slash(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Skirt(d)) => skirt::show(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Bodice(d)) => {
+            bodice::show(ui, d, fabelgeist_armor::BodiceDesign::HEM_RISE_RANGE)
+        }
+        ItemDesign::Recipe(ParametricDesign::Gown(d)) => gown::show(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Partlet(d)) => partlet::show(ui, d),
         ItemDesign::Recipe(ParametricDesign::TrunkHose(d)) => trunk_hose(ui, d),
         ItemDesign::Recipe(ParametricDesign::Garment(d)) => {
             super::garment_armor_controls::show(ui, d)
@@ -85,57 +117,16 @@ fn trunk_hose(ui: &mut egui::Ui, design: &mut fabelgeist_armor::TrunkHoseDesign)
 }
 
 fn puff_and_slash(ui: &mut egui::Ui, design: &mut fabelgeist_armor::PuffAndSlashDesign) -> bool {
-    let mut changed = ui
-        .add(egui::Slider::new(&mut design.puff_count, 1..=8).text("Puff courses"))
-        .changed();
+    let mut changed = puff_pattern::show(ui, &mut design.pattern);
+    changed |= number(ui, &mut design.length.0, 350..=1000, "Limb coverage");
     changed |= number(
         ui,
-        &mut design.puff_fullness.0,
-        5..=90,
-        "Puff fullness (mm)",
+        &mut design.proximal_position.0,
+        0..=1000,
+        "Proximal placement",
     );
-    changed |= number(
-        ui,
-        &mut design.puff_roundness.0,
-        400..=2500,
-        "Puff roundness",
-    );
-    changed |= ui
-        .add(egui::Slider::new(&mut design.slash_count, 3..=16).text("Slashes per course"))
-        .changed();
-    for (value, range, label) in [
-        (&mut design.distal_fullness.0, 250..=1500, "Distal fullness"),
-        (&mut design.slash_width.0, 50..=650, "Slash width"),
-        (&mut design.slash_length.0, 300..=900, "Slash length"),
-        (
-            &mut design.constriction_width.0,
-            40..=350,
-            "Constricted band width",
-        ),
-        (&mut design.length.0, 350..=1000, "Limb coverage"),
-        (
-            &mut design.proximal_position.0,
-            0..=1000,
-            "Proximal placement",
-        ),
-        (&mut design.rotation.0, 0..=1000, "Pattern rotation"),
-        (&mut design.clearance.0, 1..=15, "Body clearance (mm)"),
-        (&mut design.thickness.0, 1..=6, "Cloth thickness (mm)"),
-    ] {
-        changed |= number(ui, value, range, label);
-    }
-    ui.horizontal(|ui| {
-        ui.label("Outer fabric");
-        changed |= ui
-            .color_edit_button_srgb(&mut design.outer_color.0)
-            .changed();
-    });
-    ui.horizontal(|ui| {
-        ui.label("Undercloth");
-        changed |= ui
-            .color_edit_button_srgb(&mut design.undercloth_color.0)
-            .changed();
-    });
+    changed |= number(ui, &mut design.clearance.0, 1..=15, "Body clearance (mm)");
+    changed |= number(ui, &mut design.thickness.0, 1..=6, "Cloth thickness (mm)");
     changed
 }
 

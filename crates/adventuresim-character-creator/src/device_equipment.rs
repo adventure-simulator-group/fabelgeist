@@ -1,6 +1,7 @@
 //! The studio's body and morph samples as realizations for device fitting.
 
 use super::*;
+use adventuresim_character_creator::armor_frames::FittingPlacement;
 use adventuresim_character_creator::{
     armor_frames::FitRegion,
     armor_gpu,
@@ -67,7 +68,7 @@ pub(super) fn fitted(
     generated: &GeneratedCharacter,
     morphs: &[ForearmMorphSample],
     design: &ParametricDesign,
-    placement: &str,
+    placement: FittingPlacement,
     layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
     let texcoords = vertex_texcoords(model);

@@ -1,4 +1,49 @@
+//! Body, condition, skills and equipment snapshots used by pure battle resolution.
+
 use super::*;
+use adventuresim_world_schema::{BestiaryCategory, BestiaryHours};
+use serde::Serialize;
+
+#[derive(Clone, Debug, Serialize)]
+pub struct CombatBody {
+    pub health: [f32; 7],
+    pub weight_kg: f32,
+    pub primary_side: BodySide,
+}
+
+#[derive(Clone, Debug, Default)]
+pub struct CombatEssentials {
+    pub calories_used_today: f32,
+    pub focus_level: f32,
+}
+
+#[derive(Clone, Debug, Default)]
+pub struct CombatSkills {
+    pub polearm_hours: f32,
+    pub axe_hours: f32,
+    pub bludgeon_hours: f32,
+    pub sword_hours: f32,
+    pub knife_hours: f32,
+    pub dodge_hours: f32,
+    pub block_hours: f32,
+    pub bow_hours: f32,
+    pub crossbow_hours: f32,
+    pub firearm_hours: f32,
+    pub throw_hours: f32,
+    pub will_hours: f32,
+    pub insight_hours: f32,
+    pub charm_hours: f32,
+    pub command_hours: f32,
+    pub deception_hours: f32,
+    pub physiology_hours: f32,
+    pub religion_hours: f32,
+    pub stealth_hours: f32,
+    pub balance_hours: f32,
+    pub bestiary_hours: BestiaryHours,
+    pub surgery_hours: f32,
+    pub tailoring_hours: f32,
+    pub smithing_hours: f32,
+}
 
 #[derive(Clone, Copy, Debug, Default)]
 pub struct CombatArmor {
@@ -10,22 +55,6 @@ pub struct CombatArmor {
     pub range_of_motion: f32,
     pub coverage: f32,
     pub coverage_geometry: AuthoredArmorCoverage,
-}
-
-impl CombatArmor {
-    /// Full-body anatomical protection using the ordinary armor calculation.
-    pub fn innate(resistance: f32, padding: f32) -> Self {
-        Self {
-            inventory_item_id: None,
-            material: None,
-            resistance,
-            padding,
-            flexibility: 0.5,
-            range_of_motion: 1.0,
-            coverage: 1.0,
-            coverage_geometry: AuthoredArmorCoverage::from_span(ArmorCoverageSpan::centered(1.0)),
-        }
-    }
 }
 
 #[derive(Clone, Copy, Debug, Default)]
@@ -45,7 +74,7 @@ pub struct CombatWeapon {
     pub body_material: Option<crate::item_catalog_schema::EquipmentMaterial>,
     pub striking_material: Option<crate::item_catalog_schema::EquipmentMaterial>,
     pub ranged_range: f32,
-    pub attack_interval_seconds: f32,
+    pub attack_interval_seconds: crate::elapsed::AnimationElapsed,
     pub balance: f32,
     pub ranged_force_joules: f32,
 }
@@ -67,6 +96,127 @@ pub struct CombatEquipment {
     pub shield_side: Option<BodySide>,
     pub armor: [CombatArmor; 7],
     pub inventory_weight: f32,
+}
+
+impl Default for CombatBody {
+    fn default() -> Self {
+        Self {
+            health: [1.0; 7],
+            weight_kg: 70.0,
+            primary_side: BodySide::Right,
+        }
+    }
+}
+
+impl CombatBody {
+    pub fn health(&self, part: BodyPart) -> f32 {
+        self.health[body_part_index(part)]
+    }
+
+    pub fn apply_damage(&mut self, part: BodyPart, damage: f32) -> f32 {
+        let health = &mut self.health[body_part_index(part)];
+        apply_clamped_limb_damage(health, damage)
+    }
+
+    pub fn total_damage(&self) -> f32 {
+        self.health
+            .iter()
+            .map(|health| (1.0 - health).max(0.0))
+            .sum()
+    }
+}
+
+impl PlayerBody for CombatBody {
+    fn body_part_health(&self, part: BodyPart) -> f32 {
+        self.health(part)
+    }
+
+    fn body_weight(&self) -> f32 {
+        self.weight_kg
+    }
+
+    fn primary_side(&self) -> BodySide {
+        self.primary_side
+    }
+}
+
+impl PlayerEssentials for CombatEssentials {
+    // Fatigue and burden are already part of live combat incapacitation.
+    fn physical_skill_condition_by_parts(
+        &self,
+        _attr: &impl PlayerAttributes,
+        _body: &impl PlayerBody,
+        _equipment: &impl PlayerEquipment,
+    ) -> f32 {
+        1.0
+    }
+
+    fn calories_used_today(&self) -> f32 {
+        self.calories_used_today
+    }
+
+    fn focus_level(&self) -> f32 {
+        self.focus_level
+    }
+}
+
+impl PlayerSkills for CombatSkills {
+    fn skill_hours_trained(&self, skill: Skill) -> f32 {
+        match skill {
+            Skill::Polearm => self.polearm_hours,
+            Skill::Axe => self.axe_hours,
+            Skill::Bludgeon => self.bludgeon_hours,
+            Skill::Sword => self.sword_hours,
+            Skill::Knife => self.knife_hours,
+            Skill::Dodge => self.dodge_hours,
+            Skill::Block => self.block_hours,
+            Skill::Bow => self.bow_hours,
+            Skill::Crossbow => self.crossbow_hours,
+            Skill::Firearm => self.firearm_hours,
+            Skill::Throw => self.throw_hours,
+            Skill::Will => self.will_hours,
+            Skill::Insight => self.insight_hours,
+            Skill::Charm => self.charm_hours,
+            Skill::Command => self.command_hours,
+            Skill::Deception => self.deception_hours,
+            Skill::Physiology => self.physiology_hours,
+            Skill::Cooking => 0.0,
+            Skill::Herbalism => 0.0,
+            Skill::Religion => self.religion_hours,
+            Skill::Bestiary => self.bestiary_hours.aggregate_effective(),
+            Skill::Stealth => self.stealth_hours,
+            Skill::Balance => self.balance_hours,
+            Skill::TerrainPlains
+            | Skill::TerrainForest
+            | Skill::TerrainHills
+            | Skill::TerrainWetlands
+            | Skill::TerrainUrban
+            | Skill::TerrainSnow => 0.0,
+            Skill::Surgery => self.surgery_hours,
+            Skill::Tailoring => self.tailoring_hours,
+            Skill::Smithing => self.smithing_hours,
+        }
+    }
+
+    fn bestiary_hours_for(&self, category: BestiaryCategory) -> f32 {
+        self.bestiary_hours.effective(category)
+    }
+}
+
+impl CombatArmor {
+    /// Full-body anatomical protection using the ordinary armor calculation.
+    pub fn innate(resistance: f32, padding: f32) -> Self {
+        Self {
+            inventory_item_id: None,
+            material: None,
+            resistance,
+            padding,
+            flexibility: 0.5,
+            range_of_motion: 1.0,
+            coverage: 1.0,
+            coverage_geometry: AuthoredArmorCoverage::from_span(ArmorCoverageSpan::centered(1.0)),
+        }
+    }
 }
 
 impl Default for CombatEquipment {

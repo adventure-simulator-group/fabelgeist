@@ -74,7 +74,7 @@ use adventuresim_character_creator::{
     bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput},
     clothing::{GarmentSpecification, generate_clothing_shells},
     device_torso::TorsoSurfaceInput,
-    equipment_catalog::ItemCatalog,
+    equipment_catalog::{self, EquipmentItemSelection, ItemCatalog},
     export::{
         GlbOutput, MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedMorphTarget, RiggedShell,
         RiggedSocket, SurfaceUvLayout, export_rigged_glb, fitted_equipment_socket_from_uv,
@@ -170,10 +170,12 @@ impl Studio {
 struct CharacterMesh;
 
 struct GeneratedCharacter {
-    joint_proportions: Vec<adventuresim_core::character_proportions::JointProportionBasis>,
+    joint_proportions: fabelgeist_rig::RigJointTable<
+        adventuresim_core::character_proportions::JointProportionBasis,
+    >,
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
-    global_joint_states: Vec<[f32; 8]>,
+    global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
     /// This body on the armor device, once a piece has uploaded it.
     device: adventuresim_character_creator::device_body::DeviceBody,
 }
@@ -199,7 +201,7 @@ fn main() -> Result<()> {
             .items
             .iter()
             .filter_map(|item| {
-                let design = catalog.design(&item.id)?;
+                let design = catalog.design(catalog.item(&item.id)?)?;
                 Some((item.id.clone(), design.recipe()?.clone()))
             })
             .collect();
@@ -231,12 +233,13 @@ fn main() -> Result<()> {
     }
 
     if args.generate_equipment {
+        let selection = EquipmentItemSelection::admit(&catalog, &args.equipment_item)?;
         generate_equipment_assets(
             &args.equipment_output,
             &model,
             &recipe,
             &catalog,
-            &args.equipment_item,
+            &selection,
         )?;
         println!(
             "Generated equipment under {}",

@@ -70,11 +70,42 @@ impl Writer<'_> {
             if let Some(textures) = shell.textures.clone() {
                 self.textures.apply(textures, self.buffer, &mut material);
             }
+            if let Some(finish) = shell.textile_finish {
+                self.textures.apply_textile_finish(finish, &mut material);
+            }
             if let Some((_, textures)) = shell.surface {
                 self.textures
                     .apply_shell_textures(textures, self.buffer, &mut material);
             }
             self.materials.push(material);
         }
+    }
+}
+
+impl BufferBuilder {
+    pub(super) fn shell_views(&mut self, shells: &[RiggedShell<'_>]) -> Result<Vec<Views>> {
+        shells
+            .iter()
+            .map(|shell| {
+                let positions = self.push(
+                    &f32_bytes(shell.positions.iter().flatten().copied()),
+                    Some(34_962),
+                );
+                let normals = self.push(
+                    &f32_bytes(shell.normals.iter().flatten().copied()),
+                    Some(34_962),
+                );
+                let indices = self.push(
+                    &u32_bytes(shell.faces.iter().flatten().copied()),
+                    Some(34_963),
+                );
+                let skin = shell
+                    .joint_indices
+                    .zip(shell.joint_weights)
+                    .map(|(joints, weights)| skinning::append(self, joints, weights))
+                    .transpose()?;
+                Ok((positions, normals, indices, skin))
+            })
+            .collect::<Result<Vec<_>>>()
     }
 }

@@ -488,6 +488,131 @@ garments on the torso in the same layer displace each other.
 shirt, fitted shirt, tunic, doublet, gambeson, trousers, hose, braies, skirt,
 dress, kirtle, surcoat and houppelande. Everything stays editable afterwards.
 
+Sewn skirts and fitted mail or padded skirts share their skin-transfer policy.
+The waist follows the pelvis. Below the hips, vertices gradually gain motion
+from the two upper-leg joints over the hip-to-knee span. Their lateral blend
+follows the hip axis and covers the cloth's own width. This removes the abrupt
+nearest-leg ownership switch at the center and avoids narrow strips of extreme
+shear on wide hems. Surface-helper, knee and foot motion do not drive continuous
+cloth. The lower skirt uses at most three influences, so four-influence export
+retains the pelvis and both legs. Above the hips, the attachment fades to
+body-surface skin. Skinning alone does not establish clearance during movement
+or preserve a rigid skirt support's shape.
+
+The catalog's **Linen skirt** uses a fitted procedural surface, without a
+sewing or settling simulation. Its editor controls waist rise, hip-to-ankle
+reach (up to 120% for hems below the ankle), the fitted upper share, clearance
+and thickness. Choose a straight,
+flared or bell profile; flared and bell skirts have separate width and depth
+controls. The fit samples triangle bands around both legs and the actual worn
+inner garments. Its rings share connectivity across body morph realizations.
+Enable a joined upper section to turn the skirt into a dress. Upper height is
+relative to the waist-to-upper-chest span; the transition controls how much
+skirt length releases the fitted waist. The upper patch clones the reference
+body's triangles and keeps barycentric correspondence through morphs. An
+optional front waist point joins an added wedge of body surface to the upper patch;
+the skirt columns follow its cut boundary toward a level hem. A shared
+waist boundary joins it to the skirt before thickening, so it is one continuous
+surface. The catalog's **Linen dress** starts from this construction. Detailed
+necklines, sleeves and corsetry are outside this construction stage.
+
+Pleats have independent repeat count, depth, rotation and rounded or accordion
+folds. Front depth can be reduced to leave a quieter center front while keeping
+fuller side and rear folds. A quiet front panel reserves part of the
+circumference and distributes the folds over the remaining cloth. Fine waist
+gathers have their own count, depth and falloff distance, independent of the
+broader lower folds, with an adjustable share retained toward the hem.
+The fitted share and dress transition can be shortened to release these gathers
+just below the waist. A flared carrier opens continuously from the waist; its
+final surface still encloses the wearer.
+Folds repeat evenly and the hem stays level. This is the tailored construction;
+uneven settling and drape belong to future cloth simulation.
+Optional longitudinal stays (boning) and circumferential hoops sit under the
+fabric, with separate member
+counts, width, thickness and reach controls. Their exported component roles
+retain construction identity and rigid pelvis attachment. They express the
+reference construction; they do not simulate forces or constrain fabric yet.
+Enable puff-and-slash treatment to add puffed courses over a continuous lining.
+Skirts, dresses, sleeves and hose share the same pattern controls, panel
+construction and fullness profile. Edit course count, fullness and taper,
+roundness, constriction bands, slash count, opening dimensions, rotation and
+both textile appearances. Turn off open slashes for closed puffed cloth; turn
+off the treatment for plain cloth. Treatment can accompany either pleats or
+supports.
+On dresses it covers the hanging section; the fitted upper section and waist
+transition remain continuous lining. These controls describe construction, not
+forces, cloth dynamics or collision response. Skinning and movement clipping
+remain provisional until cloth physics is implemented.
+Large fullness with many courses on a short skirt can produce shelf-like
+forms. The controls permit this stylization; finite topology does not establish
+plausible fabric construction across every combination.
+
+The catalog's **Fitted linen bodice** uses a separate `BodiceDesign`. Choose a
+square or round neckline, front and back drop, and independent armhole width
+and depth. Front or back openings have separate waist and neckline widths.
+The upper width must fit within the neckline. A round neckline rejects an
+opening flare that would meet it below the requested upper endpoint.
+
+Face cloth, lining and interlining remain separate mesh components. The
+interlining can cover the whole bodice, as in a supportive underdress, or form
+opening-edge and neck facings. Each sheet has its own thickness and shared
+parametric fabric controls. Set body clearance to leave room for other garments.
+This fitted sleeveless primitive does not include sleeves, collars, lacing,
+sewn skirt attachment or cloth simulation.
+
+The **German wool gown** uses `GownDesign` to sew a fitted bodice to a hanging
+skirt. The joined face shares a physical waist boundary; material copies retain
+identical positions, skin and morph endpoints. Bodice and skirt fabrics have
+separate pattern charts. Optional lining and interlining are upper sheets behind
+the face cloth.
+
+The bodice hem and skirt waist must have the same rise and cloth thickness.
+The editor keeps those values together. An uncut waist band beneath a front or
+back opening keeps the sewn waist continuous. The skirt cannot also supply its
+minimal upper band or a puff-and-slash treatment. Lacing, waist supports and a
+dressing slit are separate controls.
+
+Optional fitted sleeves extend the same anatomical surface from the shoulders
+towards the wrists. They share the bodice fabric and clearance. Their reach is
+40 to 98 percent of the shoulder-to-wrist arm length. This mode requires a
+fitted torso and no lower equipment layers; loose bodies remain sleeveless.
+It does not offer a separate free-volume cap, expanded cuff or frill. The
+retained body chart is not an independent cylindrical sleeve pattern chart.
+
+The authored gown represents a restrained German design around 1544, rather
+than the earlier ornate reconstruction. See the
+[design and deferred-construction guide](../fabelgeist-armor/review/textiles/german1544.md)
+for sources, scope and advice on the benched experimental features. Cloth
+dynamics and refined posed skinning remain future work. Generated-pose clipping
+is a defect even though motion clipping is deferred.
+
+Fabric appearance is independent of construction. Skirts, joined dresses,
+fitted bodices, puffed sleeves and hose share a base color, linen/wool/silk/velvet roughness,
+and up to twelve ordered color layers. Velvet uses a diffuse approximation
+without the default white glossy lobe. Each layer covers the whole fabric, a
+band, or a bounded panel. Fill it with a solid color, stripes, or repeating
+lozenges, rosettes, palmettes, curved foliage or nested floral damask.
+Damask combines an upright nested flower, veined leaves and a curved stem;
+leaf count and spread control its structure. Repeat count, scale, rotation
+and repeat-tile offsets control the arrangement; botanical controls change
+the leaves or scrolling branches. Choose a repeat within each region or one
+continuous garment pattern clipped through several bands and panels. The latter
+keeps ornament scale and alignment across separate pieces of the same fabric.
+These are stylized parametric ornaments, not certified reconstructions of
+historical textiles.
+
+Across runs around the garment, with a rear seam; along runs from its proximal
+edge to the hem or cuff. A joined dress charts the bodice and hanging skirt separately.
+Fitted sleeves currently retain the bodice chart. Layer intervals are percentages of that chart, so a hem band can
+be reused at a cuff. The chart is frozen across body morphs and is independent
+of anatomical correspondence used for fitting and skinning. Shading vertices
+at its wrap seam retain the same positions, skin weights and morph endpoints.
+The creator and runtime share the same sRGB color-map baker; exported GLBs
+include those maps and repeat around the garment while clamping at its ends.
+The exported material retains the finish through `KHR_materials_specular`.
+This supplies flat color ornament and surface roughness, without simulated
+weave, embroidery relief, metallic thread or velvet's directional sheen.
+
 ## Draped chainmail
 
 Choose **Chainmail** as a garment's fabric to make it mail armor. A mail shirt
@@ -565,6 +690,37 @@ before capture:
 ```powershell
 cargo run --manifest-path crates/adventuresim-character-creator/Cargo.toml --example garment_preview -- outfit.glb outfit.png
 ```
+
+## Rig identity in fitting and export
+
+Runtime clothing admission retains the validated wearer and the canonical item,
+placement and material records. Armor dispatch remains separate and precedes
+clothing admission. Region support validates every packed skin slot, including
+zero-weight slots, against the rig-order membership table before filtering the
+eight weights; unknown joints remain errors.
+
+Runtime admission reuses core's single parsed catalogue and its source metadata
+rather than parsing another embedded document. General-item warmup retains the
+authored document order. A private catalogue handle admits the actual item,
+placement and material records; clothing classification uses the authored item
+identity and kind, independently of its address in memory. Clothing design-hash
+serialization propagates its existing error path.
+
+Fitting and export retain `fabelgeist_rig::RigJointName` through joint selection,
+landmark lookup, attachment construction, and saved body metadata. Joint labels
+and rig ordinals cannot be interchanged. Export retains global transform columns
+in `RigJointTable` through attachment construction; packed source words and glTF
+node/parent arrays remain explicit native adapters. A missing landmark retains
+its exact
+label in `RigJointLookupError`; clothing admission exposes `ClothingError`
+variants for invalid body correspondence, missing landmarks, and fitted mesh
+failures. Presentation callers format these errors at their existing boundary.
+
+Exported node labels remain scalar strings. Skin words and frame landmarks keep
+their existing native packing, including unused landmark padding. The
+[shared rig guide](../fabelgeist-rig/README.md) describes exact identity,
+duplicate lookup, and skin-selection policies. This typing change does not alter
+body or armor geometry.
 
 ## Animation integration
 

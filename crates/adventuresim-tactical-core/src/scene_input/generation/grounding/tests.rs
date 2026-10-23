@@ -1,5 +1,6 @@
 //! Producer/consumer regressions use the production city compiler and scene path.
 use super::*;
+use crate::scene_coordinates::ScenePlanPoint;
 use crate::{city_layout::CitySite, scene_input::tests::fixture};
 use adventuresim_world_schema::SettlementEconomyProfile;
 use bevy::math::{Vec2, Vec3};
@@ -115,11 +116,10 @@ fn production_support_handoff_preserves_source_identity_members_and_programmes()
         assert_eq!(building.placement.orientation, expected.orientation);
     }
     for point in [Vec2::new(900.0, 900.0), Vec2::new(-900.0, -900.0)] {
+        let point = ScenePlanPoint::from_metres(point).unwrap();
         assert_eq!(
             generated.terrain.height_at(point),
-            source
-                .elevation_at(crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap())
-                .map(|h| h.metres())
+            source.elevation_at(point)
         );
     }
 }

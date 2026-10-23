@@ -2,6 +2,6 @@
 
 mod melee_combat_iteration;
 
-fn main() -> Result<(), String> {
+fn main() -> melee_combat_iteration::IterationResult<()> {
     melee_combat_iteration::run()
 }

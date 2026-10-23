@@ -9,6 +9,21 @@ enum Probe {
     Wrapped,
 }
 
+const PROBES: [Probe; 12] = [
+    Probe::Catalog("vambrace", "left"),
+    Probe::Catalog("breastplate", "worn"),
+    Probe::Catalog("gorget", "worn"),
+    Probe::Catalog("sallet", "worn"),
+    Probe::Catalog("mail_standard", "worn"),
+    Probe::Catalog("linen_tunic", "worn"),
+    Probe::Catalog("leather_boot", "left"),
+    Probe::Catalog("puffed_sleeve", "left"),
+    Probe::Catalog("puffed_hose", "left"),
+    Probe::Catalog("pauldron", "left"),
+    Probe::Anime,
+    Probe::Wrapped,
+];
+
 #[cfg(target_family = "wasm")]
 #[wasm_bindgen::prelude::wasm_bindgen]
 pub async fn fit_probe(bytes: Vec<u8>) -> Result<String, String> {
@@ -57,20 +72,7 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
     let errors = capture_errors(gpu);
     let mut results = Vec::new();
     for round in 0..2 {
-        for probe in [
-            Probe::Catalog("vambrace", "left"),
-            Probe::Catalog("breastplate", "worn"),
-            Probe::Catalog("gorget", "worn"),
-            Probe::Catalog("sallet", "worn"),
-            Probe::Catalog("mail_standard", "worn"),
-            Probe::Catalog("linen_tunic", "worn"),
-            Probe::Catalog("leather_boot", "left"),
-            Probe::Catalog("puffed_sleeve", "left"),
-            Probe::Catalog("puffed_hose", "left"),
-            Probe::Catalog("pauldron", "left"),
-            Probe::Anime,
-            Probe::Wrapped,
-        ] {
+        for probe in PROBES {
             let (item, placement) = match probe {
                 Probe::Catalog(item, placement) => (item, placement),
                 Probe::Anime => ("anime", "worn"),
@@ -89,9 +91,20 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
                 } else {
                     item
                 };
-                runtime_equipment::generate(&body, recipe, placement, &bracer, &breastplate, &[])
-                    .await
-                    .with_context(|| format!("fitting {item}, round {round}"))
+                runtime_equipment::generate(
+                    &body,
+                    adventuresim_core::equipment_assets::CatalogPlacement::find(
+                        adventuresim_core::item_catalog::catalog(),
+                        recipe,
+                        placement,
+                    )
+                    .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+                    &bracer,
+                    &breastplate,
+                    &[],
+                )
+                .await
+                .with_context(|| format!("fitting {item}, round {round}"))
             };
             let failures = errors.lock().unwrap().clone();
             anyhow::ensure!(failures.is_empty(), "WebGPU validation: {failures:?}");
@@ -192,13 +205,21 @@ async fn wrapped(
         joints: &body.global_joint_states,
         device: &body.device,
     };
-    let part =
-        device_fit::fit_recipe_async(gpu, &topology, &wearer, &[], &design, "worn", &[]).await;
+    let part = device_fit::fit_recipe_async(
+        gpu,
+        &topology,
+        &wearer,
+        &[],
+        &design,
+        adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired,
+        &[],
+    )
+    .await;
     device_fit::assemble_recipe(
         &design,
         part?,
         &Fitted {
-            placement: "worn",
+            placement: adventuresim_character_creator::armor_frames::FittingPlacement::Unpaired,
             morphs: &[],
             domain: &body.domain,
             joint_names: &body.joint_names,

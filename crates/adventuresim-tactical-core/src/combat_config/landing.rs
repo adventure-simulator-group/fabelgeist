@@ -1,0 +1,33 @@
+//! Landing compression tuning shared by authority and presentation.
+
+use super::TacticalCombatConfigError;
+use crate::animation::{HeightDistance, ImpactCompressionCompliance, PositiveAnimationDuration};
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use serde::{Deserialize, Serialize};
+
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct AnimationLandingConfig {
+    pub minimum_impact_speed_metres_per_second: NonnegativeSpeed,
+    pub compression_per_metre_per_second: ImpactCompressionCompliance,
+    pub minimum_compression_metres: HeightDistance,
+    pub maximum_compression_metres: HeightDistance,
+    pub recovery_seconds: PositiveAnimationDuration,
+}
+
+impl Default for AnimationLandingConfig {
+    fn default() -> Self {
+        super::defaults::canonical().animation.locomotion.landing
+    }
+}
+
+impl AnimationLandingConfig {
+    pub(super) fn validate(&self) -> Result<(), TacticalCombatConfigError> {
+        if self.maximum_compression_metres < self.minimum_compression_metres {
+            return Err(TacticalCombatConfigError::Validation(
+                "invalid animation landing tuning",
+            ));
+        }
+        Ok(())
+    }
+}

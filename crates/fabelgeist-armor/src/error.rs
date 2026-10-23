@@ -7,6 +7,8 @@ use crate::DesignError;
 
 #[derive(Debug, Error)]
 pub enum GenerateError {
+    #[error("armor skin: {0}")]
+    Skin(#[from] fabelgeist_rig::RigSkinError),
     #[error("armor GPU readback: {0}")]
     Readback(#[from] ReadbackError),
     #[error("armor plate shell: {0}")]

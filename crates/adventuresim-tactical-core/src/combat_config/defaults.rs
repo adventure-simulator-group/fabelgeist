@@ -1,0 +1,26 @@
+//! One compiled-in YAML value for infallible configuration defaults.
+
+use super::TacticalCombatConfig;
+use std::sync::LazyLock;
+
+const EMBEDDED_COMBAT_YAML: &str = include_str!(concat!(
+    env!("CARGO_MANIFEST_DIR"),
+    "/../../content/tactical/combat.yaml"
+));
+
+static CANONICAL: LazyLock<TacticalCombatConfig> = LazyLock::new(|| {
+    let config: TacticalCombatConfig = match serde_saphyr::from_str(EMBEDDED_COMBAT_YAML) {
+        Ok(config) => config,
+        Err(error) => panic!("compiled-in tactical combat YAML is invalid: {error}"),
+    };
+    if let Err(error) = config.validate() {
+        panic!("compiled-in tactical combat configuration is invalid: {error}");
+    }
+    config
+});
+
+/// Deserialize does not invoke these Default projections. Validation does not
+/// read the runtime snapshot; initialization cannot recurse through that lock.
+pub(super) fn canonical() -> &'static TacticalCombatConfig {
+    &CANONICAL
+}

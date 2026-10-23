@@ -290,7 +290,7 @@ fn hair_renders() -> Result<()> {
         };
         // Drawn in the bind pose, skinned as the studio skins it but to one
         // joint left where it is.
-        let mesh = assets::mesh(&geometry, 0)?;
+        let mesh = assets::mesh(&geometry, fabelgeist_rig::RigJointOrdinal::from(0usize))?;
         let paths = VIEWS
             .iter()
             .map(|view| {

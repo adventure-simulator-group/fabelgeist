@@ -5,6 +5,18 @@
 //! shaped `[batch, count, channels]`, which is every shape MHR needs.
 
 use burn::tensor::Tensor;
+use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
+
+/// Pointer-jumping levels that turn local states into global ones.
+///
+/// Level `l` multiplies every joint whose depth has bit `l` set by the
+/// accumulated state of its ancestor at the depth prefix below that bit. This
+/// is pymomentum's `calc_fk_prefix_multiplication_indices`, and it replaces a
+/// 127-step serial walk with `ceil(log2(depth))` batched steps.
+pub struct PrefixMultiplicationLevel {
+    pub source: Vec<RigJointOrdinal>,
+    pub target: Vec<RigJointOrdinal>,
+}
 
 /// One channel of the last dimension, keeping the rank.
 fn channel(tensor: &Tensor<3>, index: usize) -> Tensor<3> {
@@ -108,19 +120,16 @@ pub fn transform_points(state: &Tensor<3>, points: Tensor<3>) -> Tensor<3> {
     translation + quaternion_rotate(&rotation, points * scale)
 }
 
-/// Pointer-jumping levels that turn local states into global ones.
-///
-/// Level `l` multiplies every joint whose depth has bit `l` set by the
-/// accumulated state of its ancestor at the depth prefix below that bit. This
-/// is pymomentum's `calc_fk_prefix_multiplication_indices`, and it replaces a
-/// 127-step serial walk with `ceil(log2(depth))` batched steps.
-pub fn prefix_multiplication_levels(parents: &[i32]) -> Vec<(Vec<i32>, Vec<i32>)> {
-    let chains: Vec<Vec<usize>> = (0..parents.len())
+pub fn prefix_multiplication_levels(
+    parents: &RigJointTable<Option<RigJointOrdinal>>,
+) -> Vec<PrefixMultiplicationLevel> {
+    let chains: Vec<Vec<RigJointOrdinal>> = parents
+        .ordinals()
         .map(|joint| {
             let mut chain = vec![joint];
             let mut current = joint;
-            while parents[current] >= 0 {
-                current = parents[current] as usize;
+            while let Some(parent) = parents[current] {
+                current = parent;
                 chain.push(current);
             }
             chain.reverse();
@@ -136,14 +145,14 @@ pub fn prefix_multiplication_levels(parents: &[i32]) -> Vec<(Vec<i32>, Vec<i32>)
         for chain in &chains {
             let depth = chain.len() - 1;
             if (depth >> level) & 1 == 1 {
-                source.push(chain[depth] as i32);
-                target.push(chain[((depth >> level) << level) - 1] as i32);
+                source.push(chain[depth]);
+                target.push(chain[((depth >> level) << level) - 1]);
             }
         }
         if source.is_empty() {
             break;
         }
-        levels.push((source, target));
+        levels.push(PrefixMultiplicationLevel { source, target });
     }
     levels
 }
@@ -234,11 +243,24 @@ mod tests {
     #[test]
     fn prefix_levels_cover_every_ancestor_product() {
         // A chain of eight joints plus a second branch off joint 1.
-        let parents = [-1, 0, 1, 2, 3, 4, 5, 6, 1];
+        let parents: RigJointTable<Option<RigJointOrdinal>> = [
+            None,
+            Some(0usize),
+            Some(1),
+            Some(2),
+            Some(3),
+            Some(4),
+            Some(5),
+            Some(6),
+            Some(1),
+        ]
+        .into_iter()
+        .map(|parent| parent.map(RigJointOrdinal::from))
+        .collect();
         let levels = prefix_multiplication_levels(&parents);
 
         // Replay the scan on plain transforms and compare with a serial walk.
-        let locals: Vec<math::Transform> = (0..parents.len())
+        let locals: RigJointTable<math::Transform> = (0..parents.len())
             .map(|i| math::Transform {
                 translation: [i as f64, 1.0, -0.5],
                 rotation: math::quat_from_euler([0.1 * i as f64, 0.2, -0.05], [0, 1, 2]),
@@ -246,25 +268,24 @@ mod tests {
             })
             .collect();
 
-        let mut serial: Vec<math::Transform> = Vec::new();
-        for (joint, local) in locals.iter().enumerate() {
+        let mut serial: RigJointTable<math::Transform> = RigJointTable::default();
+        for (joint, local) in locals.indexed() {
             let parent = parents[joint];
-            serial.push(if parent < 0 {
-                *local
-            } else {
-                serial[parent as usize].compose(local)
+            serial.push(match parent {
+                None => *local,
+                Some(parent) => serial[parent].compose(local),
             });
         }
 
         let mut scanned = locals.clone();
-        for (source, target) in &levels {
+        for PrefixMultiplicationLevel { source, target } in &levels {
             let updated: Vec<math::Transform> = source
                 .iter()
                 .zip(target)
-                .map(|(s, t)| scanned[*t as usize].compose(&scanned[*s as usize]))
+                .map(|(s, t)| scanned[*t].compose(&scanned[*s]))
                 .collect();
             for (slot, value) in source.iter().zip(updated) {
-                scanned[*slot as usize] = value;
+                scanned[*slot] = value;
             }
         }
 

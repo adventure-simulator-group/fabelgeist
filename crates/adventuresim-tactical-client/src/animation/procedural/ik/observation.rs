@@ -1,17 +1,85 @@
 //! Propagated-pose observation and support/contact truth reconciliation.
 
 use super::*;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use adventuresim_tactical_core::animation::{AnimationEventSpan, STATIONARY_ANIMATION_SPEED_LIMIT};
+
+impl LegIkMemory {
+    fn observe_rendered_endpoints(
+        &mut self,
+        rig: &HumanoidRig,
+        globals: &Query<&GlobalTransform>,
+    ) -> AnimationValueResult<()> {
+        let left_last_rendered_world = rig
+            .get(&BoneRole::FootLeft)
+            .and_then(|foot| globals.get(*foot).ok())
+            .map(GlobalTransform::translation);
+        let right_last_rendered_world = rig
+            .get(&BoneRole::FootRight)
+            .and_then(|foot| globals.get(*foot).ok())
+            .map(GlobalTransform::translation);
+        let left_last_rendered_toe_world = rig
+            .get(&BoneRole::ToeLeft)
+            .and_then(|toe| globals.get(*toe).ok())
+            .map(GlobalTransform::translation);
+        let right_last_rendered_toe_world = rig
+            .get(&BoneRole::ToeRight)
+            .and_then(|toe| globals.get(*toe).ok())
+            .map(GlobalTransform::translation);
+        let left_last_rendered_foot_rotation_world = rig
+            .get(&BoneRole::FootLeft)
+            .and_then(|foot| globals.get(*foot).ok())
+            .map(GlobalTransform::rotation);
+        let right_last_rendered_foot_rotation_world = rig
+            .get(&BoneRole::FootRight)
+            .and_then(|foot| globals.get(*foot).ok())
+            .map(GlobalTransform::rotation);
+        if [
+            left_last_rendered_world,
+            right_last_rendered_world,
+            left_last_rendered_toe_world,
+            right_last_rendered_toe_world,
+        ]
+        .into_iter()
+        .flatten()
+        .any(|point| !point.is_finite())
+        {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::WorldPosition,
+            });
+        }
+        if [
+            left_last_rendered_foot_rotation_world,
+            right_last_rendered_foot_rotation_world,
+        ]
+        .into_iter()
+        .flatten()
+        .any(|rotation| !rotation.is_finite())
+        {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::BodyOrientation,
+            });
+        }
+        self.left_last_rendered_world = left_last_rendered_world;
+        self.right_last_rendered_world = right_last_rendered_world;
+        self.left_last_rendered_toe_world = left_last_rendered_toe_world;
+        self.right_last_rendered_toe_world = right_last_rendered_toe_world;
+        self.left_last_rendered_foot_rotation_world = left_last_rendered_foot_rotation_world;
+        self.right_last_rendered_foot_rotation_world = right_last_rendered_foot_rotation_world;
+        Ok(())
+    }
+}
 
 pub(in crate::animation::procedural) fn retain_monotonic_contact_sequence(
-    current: u64,
-    observed: u64,
-) -> u64 {
+    current: ContactSequence,
+    observed: ContactSequence,
+) -> ContactSequence {
     // The replicated gait planner can return to its zero-valued idle plan
     // while authored locomotion still owns the crossfade. That is an owner
     // transition, not a landing, so retain the presentation sequence until
     // stationary raised footwork takes over. Genuine cadence increments (and
     // the u64 wrap) remain forward by exactly one.
-    if observed.wrapping_sub(current) <= 1 {
+    if observed.wrapping_distance_from(current) <= AnimationEventSpan::ONE {
         observed
     } else {
         current
@@ -25,7 +93,7 @@ pub(in crate::animation::procedural) fn release_raised_state_for_authored_locomo
     // The pose-buffer transition captures the visible raised pelvis offset.
     // Keeping the same correction dormant here would apply it a second time
     // when stationary procedural footwork takes ownership again.
-    memory.raised_pelvis_shift = 0.0;
+    memory.raised_pelvis_shift = SignedLength::ZERO;
     // Authored FK/contact weights own this interval. Do not expose the prior
     // procedural plant as a current terrain-contact claim while retaining the
     // propagated endpoints needed for the stop handoff.
@@ -55,76 +123,57 @@ pub(in crate::animation) fn refresh_raised_support_after_propagation(
         let Ok(mut state) = ik_states.get_mut(owner) else {
             continue;
         };
+        let propagated_owner_frame = match rig
+            .rig_scene()
+            .and_then(|scene| globals.get(scene).ok())
+            .map(ObservedRigFrame::from_global)
+            .transpose()
+        {
+            Ok(frame) => frame,
+            Err(error) => {
+                warn!(%error, ?owner, "Rejected propagated rig frame");
+                continue;
+            }
+        };
         // Snapshot propagated endpoints before any diagnostic filtering. These
         // are deliberately independent of analytic solve targets: a target can
         // be unreachable, while this position is the pose actually rendered.
-        state.0.left_last_rendered_world = rig
-            .get(&BoneRole::FootLeft)
-            .and_then(|foot| globals.get(*foot).ok())
-            .map(GlobalTransform::translation)
-            .filter(|ankle| ankle.is_finite());
-        state.0.right_last_rendered_world = rig
-            .get(&BoneRole::FootRight)
-            .and_then(|foot| globals.get(*foot).ok())
-            .map(GlobalTransform::translation)
-            .filter(|ankle| ankle.is_finite());
-        state.0.left_last_rendered_toe_world = rig
-            .get(&BoneRole::ToeLeft)
-            .and_then(|toe| globals.get(*toe).ok())
-            .map(GlobalTransform::translation)
-            .filter(|toe| toe.is_finite());
-        state.0.right_last_rendered_toe_world = rig
-            .get(&BoneRole::ToeRight)
-            .and_then(|toe| globals.get(*toe).ok())
-            .map(GlobalTransform::translation)
-            .filter(|toe| toe.is_finite());
-        state.0.left_last_rendered_foot_rotation_world = rig
-            .get(&BoneRole::FootLeft)
-            .and_then(|foot| globals.get(*foot).ok())
-            .map(GlobalTransform::rotation)
-            .filter(|rotation| rotation.is_finite());
-        state.0.right_last_rendered_foot_rotation_world = rig
-            .get(&BoneRole::FootRight)
-            .and_then(|foot| globals.get(*foot).ok())
-            .map(GlobalTransform::rotation)
-            .filter(|rotation| rotation.is_finite());
+        if let Err(error) = state.0.observe_rendered_endpoints(rig, &globals) {
+            warn!(%error, ?owner, "Rejected propagated leg endpoints");
+            continue;
+        }
         // IK deliberately does not modify the authored quickstep poses. It
         // still observes their propagated endpoints so the first post-action
         // solve begins from the last pose the player actually saw.
-        let propagated_owner_frame = rig
-            .rig_scene()
-            .and_then(|rig_scene| globals.get(rig_scene).ok())
-            .map(|global| (global.translation(), global.rotation()));
+
         let left_rendered_world = state.0.left_last_rendered_world;
         let right_rendered_world = state.0.right_last_rendered_world;
         if skeleton.is_quickstep()
-            && let (Some((origin, rotation)), Some(left), Some(right)) = (
+            && let (Some(frame), Some(left), Some(right)) = (
                 propagated_owner_frame,
                 left_rendered_world,
                 right_rendered_world,
             )
         {
-            seed_quickstep_contact_handoff(&mut state.0, origin, rotation, left, right);
+            seed_quickstep_contact_handoff(&mut state.0, frame, left, right);
         }
-        let owner_frame =
-            propagated_owner_frame.or_else(|| state.0.rig_origin.zip(state.0.rig_rotation));
-        state.0.left_last_rendered_owner = owner_frame.and_then(|(origin, rotation)| {
+        let owner_frame = propagated_owner_frame.or(state.0.owner_frame);
+        state.0.left_last_rendered_owner = owner_frame.and_then(|frame| {
             left_rendered_world
-                .map(|world| rotation.inverse() * (world - origin))
+                .map(|world| frame.rotation().inverse() * (world - frame.origin()))
                 .filter(|owner| owner.is_finite())
         });
-        state.0.right_last_rendered_owner = owner_frame.and_then(|(origin, rotation)| {
+        state.0.right_last_rendered_owner = owner_frame.and_then(|frame| {
             right_rendered_world
-                .map(|world| rotation.inverse() * (world - origin))
+                .map(|world| frame.rotation().inverse() * (world - frame.origin()))
                 .filter(|owner| owner.is_finite())
         });
-        if let Some((origin, rotation)) = propagated_owner_frame {
+        if let Some(frame) = propagated_owner_frame {
             // Keep discontinuity detection in the same owner frame as these
             // freshly observed endpoints. Otherwise a long authored segment
             // compares its terminal root against the stale quickstep origin
             // and discards the continuity snapshot during handoff.
-            state.0.rig_origin = Some(origin);
-            state.0.rig_rotation = Some(rotation);
+            state.0.owner_frame = Some(frame);
         }
         // Authored locomotion owns the leg pose, but its final propagated feet
         // are still the continuity boundary for the stationary follower that
@@ -132,55 +181,18 @@ pub(in crate::animation) fn refresh_raised_support_after_propagation(
         if locomotion::owns(skeleton) {
             continue;
         }
-        if locomotion_profile(skeleton).gait == LocomotionGait::Run
-            && skeleton.is_grounded()
-            && skeleton.action_kind() == SkeletonAction::None
-            && skeleton.weapon_guard() == WeaponGuardState::Lowered
-            && skeleton.animation_speed() > 0.05
-        {
-            let (left_nominal, right_nominal) = locomotion_support_weights(skeleton);
-            for (role, left, nominal, logical, target) in [
-                (
-                    BoneRole::FootLeft,
-                    true,
-                    left_nominal,
-                    state.0.left_transition_support_weight,
-                    state.0.left_foot_plant,
-                ),
-                (
-                    BoneRole::FootRight,
-                    false,
-                    right_nominal,
-                    state.0.right_transition_support_weight,
-                    state.0.right_foot_plant,
-                ),
-            ] {
-                let ankle = rig
-                    .get(&role)
-                    .and_then(|foot| globals.get(*foot).ok())
-                    .map(GlobalTransform::translation)
-                    .filter(|ankle| ankle.is_finite());
-                let terrain_height = ankle.and_then(|ankle| terrain.height_at(ankle.xz()));
-                let target_distance = ankle
-                    .zip(target)
-                    .map(|(ankle, target)| ankle.xz().distance(target.xz()));
-                let actual = target_distance.is_some_and(|distance| distance <= 0.02)
-                    && ankle
-                        .zip(terrain_height)
-                        .is_some_and(|(ankle, height)| sole_is_at_contact(ankle.y, height));
-                let reported = if actual {
-                    logical.unwrap_or(nominal).max(nominal)
-                } else {
-                    0.0
-                };
-                if left {
-                    state.0.left_support_weight = Some(reported);
-                    state.0.left_foot_plant_acquired |= actual;
-                } else {
-                    state.0.right_support_weight = Some(reported);
-                    state.0.right_foot_plant_acquired |= actual;
-                }
+        let speed = match skeleton.animation_speed() {
+            Ok(speed) => speed,
+            Err(error) => {
+                warn!(%error, ?owner, "Rejected propagated support animation speed");
+                continue;
             }
+        };
+        if let Err(error) =
+            refresh_run_support(skeleton, speed, rig, terrain, &globals, &mut state.0)
+        {
+            warn!(%error, ?owner, "Rejected propagated locomotion support");
+            continue;
         }
         let Ok(mut raised) = raised_states.get_mut(owner) else {
             continue;
@@ -204,21 +216,47 @@ pub(in crate::animation) fn refresh_raised_support_after_propagation(
                 continue;
             };
             let ankle = global.translation();
-            let support = terrain
-                .height_at(ankle.xz())
-                .is_some_and(|height| raised_support_is_actual(nominal_support, ankle.y, height));
+            let support = observed_support_weight(
+                nominal_support,
+                Some(ankle),
+                Some(terrain),
+                crate::animation::TerrainIkMode::Enabled,
+            );
             if left {
                 raised.left_solve_target = Some(ankle);
                 state.0.left_foot_world_target = Some(ankle);
-                state.0.left_support_weight = Some(support as u8 as f32);
+                state.0.left_support_weight = support;
             } else {
                 raised.right_solve_target = Some(ankle);
                 state.0.right_foot_world_target = Some(ankle);
-                state.0.right_support_weight = Some(support as u8 as f32);
+                state.0.right_support_weight = support;
             }
         }
     }
 }
+/// Terrain-enabled confidence requires an actual ankle and surface sample.
+/// Disabled terrain IK instead owns the flat semantic cadence observation.
+pub(super) fn observed_support_weight(
+    nominal_support: bool,
+    ankle: Option<Vec3>,
+    terrain: Option<&SceneTerrain>,
+    mode: crate::animation::TerrainIkMode,
+) -> Option<UnitInterval> {
+    let supported = if mode.is_enabled() {
+        let ankle = ankle?;
+        let point = ScenePlanPoint::from_metres(ankle.xz())?;
+        let height = terrain?.height_at(point)?;
+        raised_support_is_actual(nominal_support, ankle.y, height)
+    } else {
+        nominal_support
+    };
+    Some(if supported {
+        UnitInterval::ONE
+    } else {
+        UnitInterval::ZERO
+    })
+}
+
 pub(in crate::animation::procedural) fn raised_footwork_posture_is_valid(
     skeleton: &SkeletonState,
 ) -> bool {
@@ -237,14 +275,14 @@ pub(in crate::animation::procedural) fn terrain_ik_posture_is_valid(
         )
 }
 
-pub(in crate::animation::procedural) fn terrain_leg_has_support(weight: f32) -> bool {
-    weight > 0.05
+pub(in crate::animation::procedural) fn terrain_leg_has_support(weight: UnitInterval) -> bool {
+    weight.fraction() > 0.05
 }
 
 pub(in crate::animation::procedural) fn update_contact_orientation_blend(
     active: bool,
-    previous_support: Option<f32>,
-    reported_support: f32,
+    previous_support: Option<UnitInterval>,
+    reported_support: UnitInterval,
 ) -> bool {
     let supported = terrain_leg_has_support(reported_support);
     supported && (active || !previous_support.is_some_and(terrain_leg_has_support))
@@ -255,31 +293,33 @@ pub(in crate::animation::procedural) fn retained_plant_requires_release(
     reachable: Vec3,
 ) -> bool {
     retained.xz().distance(reachable.xz())
-        > ik_tuning().maximum_retained_plant_reach_correction_metres
+        > ik_tuning()
+            .maximum_retained_plant_reach_correction_metres
+            .metres()
 }
 
 pub(in crate::animation::procedural) fn ordinary_plant_requires_clear(
-    support_weight: f32,
+    support_weight: UnitInterval,
     acquired: bool,
     plant: Option<Vec3>,
     authored_foot: Vec3,
 ) -> bool {
-    support_weight <= 0.05
+    support_weight.fraction() <= 0.05
         || (!acquired
             && plant.is_some_and(|position| !plant_is_continuous(position, authored_foot)))
 }
 
 pub(in crate::animation::procedural) fn coordinated_support_weight(
     gait: LocomotionGait,
-    nominal_support: f32,
+    nominal_support: UnitInterval,
     acquired_plant: bool,
     opposite_acquired: bool,
-) -> f32 {
+) -> UnitInterval {
     if gait != LocomotionGait::Run && acquired_plant && !opposite_acquired {
         // Phase requests the next step; actual replacement contact completes
         // the handoff. Until then the only acquired world plant remains the
         // support owner, even beyond its nominal lobe.
-        1.0
+        UnitInterval::ONE
     } else {
         nominal_support
     }
@@ -287,12 +327,12 @@ pub(in crate::animation::procedural) fn coordinated_support_weight(
 
 pub(in crate::animation::procedural) fn run_toe_off_support_weight(
     gait: LocomotionGait,
-    nominal_support: f32,
+    nominal_support: UnitInterval,
     acquired_plant: bool,
     at_support_exit: bool,
-) -> (bool, f32) {
+) -> (bool, UnitInterval) {
     if gait == LocomotionGait::Run && acquired_plant && at_support_exit {
-        (true, 0.0)
+        (true, UnitInterval::ZERO)
     } else {
         (false, nominal_support)
     }
@@ -300,17 +340,17 @@ pub(in crate::animation::procedural) fn run_toe_off_support_weight(
 
 pub(in crate::animation::procedural) fn run_retained_support_through_lobe_edge(
     gait: LocomotionGait,
-    nominal_support: f32,
+    nominal_support: UnitInterval,
     acquired_plant: bool,
     at_support_exit: bool,
-) -> f32 {
+) -> UnitInterval {
     if gait == LocomotionGait::Run && acquired_plant && !at_support_exit {
         // Once a footprint has been truthfully acquired, it remains an exact
         // rendered contact throughout the held stance. Raw gait confidence is
         // an authored blend curve, not evidence that contact was lost; letting
         // it dip below the acquisition threshold emitted duplicate same-foot
         // touchdown events before the explicit signed-phase toe-off.
-        1.0
+        UnitInterval::ONE
     } else {
         nominal_support
     }
@@ -333,8 +373,8 @@ pub(in crate::animation::procedural) fn unplanned_terrain_solve_requires_release
 
 pub(in crate::animation::procedural) fn unplanned_support_release_is_owned(
     was_releasing: bool,
-    previous_transition_support: Option<f32>,
-    previous_reported_support: Option<f32>,
+    previous_transition_support: Option<UnitInterval>,
+    previous_reported_support: Option<UnitInterval>,
     planned_contact: Option<Vec3>,
     solved_target: Vec3,
     planted_target: Vec3,
@@ -345,4 +385,69 @@ pub(in crate::animation::procedural) fn unplanned_support_release_is_owned(
         || previous_reported_support.is_some_and(terrain_leg_has_support)
         || solved_target.distance_squared(planted_target) > 0.000001
         || unplanned_terrain_solve_requires_release(planned_contact, solved_target, authored_target)
+}
+
+fn refresh_run_support(
+    skeleton: &SkeletonState,
+    speed: NonnegativeSpeed,
+    rig: &HumanoidRig,
+    terrain: &SceneTerrain,
+    globals: &Query<&GlobalTransform>,
+    memory: &mut LegIkMemory,
+) -> AnimationValueResult<()> {
+    if locomotion_profile(skeleton, speed)?.gait == LocomotionGait::Run
+        && skeleton.is_grounded()
+        && skeleton.action_kind() == SkeletonAction::None
+        && skeleton.weapon_guard() == WeaponGuardState::Lowered
+        && speed > STATIONARY_ANIMATION_SPEED_LIMIT
+    {
+        let (left_nominal, right_nominal) = locomotion_support_weights(skeleton, speed)?;
+        for (role, left, nominal, logical, target) in [
+            (
+                BoneRole::FootLeft,
+                true,
+                left_nominal,
+                memory.left_transition_support_weight,
+                memory.left_foot_plant.target(),
+            ),
+            (
+                BoneRole::FootRight,
+                false,
+                right_nominal,
+                memory.right_transition_support_weight,
+                memory.right_foot_plant.target(),
+            ),
+        ] {
+            let ankle = rig
+                .get(&role)
+                .and_then(|foot| globals.get(*foot).ok())
+                .map(GlobalTransform::translation)
+                .filter(|ankle| ankle.is_finite());
+            let terrain_height = ankle
+                .and_then(|ankle| ScenePlanPoint::from_metres(ankle.xz()))
+                .and_then(|point| terrain.height_at(point));
+            let target_distance = ankle
+                .zip(target)
+                .map(|(ankle, target)| ankle.xz().distance(target.xz()));
+            let actual = target_distance.is_some_and(|distance| distance <= 0.02)
+                && ankle
+                    .zip(terrain_height)
+                    .is_some_and(|(ankle, height)| sole_is_at_contact(ankle.y, height));
+            let reported = ankle.zip(terrain_height).map(|_| {
+                if actual {
+                    logical.unwrap_or(nominal).max(nominal)
+                } else {
+                    UnitInterval::ZERO
+                }
+            });
+            if left {
+                memory.left_support_weight = reported;
+                memory.left_foot_plant.observe_contact(actual);
+            } else {
+                memory.right_support_weight = reported;
+                memory.right_foot_plant.observe_contact(actual);
+            }
+        }
+    }
+    Ok(())
 }

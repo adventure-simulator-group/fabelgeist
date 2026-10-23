@@ -1,13 +1,15 @@
 use super::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
-pub(super) fn obstacle_seed(position: Vec3) -> Seed {
+pub(super) fn obstacle_seed(point: ScenePlanPoint) -> Seed {
+    let position = point.metres();
     StreamId::new("visual.obstacle.position").seed(
         0.into(),
         &[
             u64::from(position.x.to_bits()),
-            u64::from(position.z.to_bits()),
+            u64::from(position.y.to_bits()),
         ],
     )
 }

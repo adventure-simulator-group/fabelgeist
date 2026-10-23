@@ -4,21 +4,25 @@
 //! piece is recorded and submitted against every one of them, and everything
 //! is read back together. The studio and the runtime client share this path.
 
+use crate::armor_frames::FittingPlacement;
 use anyhow::{Context, Result};
-use fabelgeist_armor::gpu::Staging;
 use fabelgeist_armor::gpu::body::{BodySurface, Correspondence, GpuBody, Skin};
 use fabelgeist_armor::{
     ArmorComponent, ArmorComponentRole, ArmorGpu, ArmorMorph, BuiltPart, GeneratedArmor,
     HelmetDesign, LimbArmorDesign, PartFrame, TASSET_SUSPENSION_GAP_M,
 };
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::{FitRegion, Wearer};
 use crate::armor_layer::ArmorLayerSurface;
 use crate::armor_recipes::{self, ParametricDesign};
 use crate::device_body::DeviceBody;
-use crate::device_frames::{DeviceFrame, DeviceWearer};
+use crate::device_frames::DeviceWearer;
 use crate::device_piece::DeviceRecording;
+
+#[path = "device_fit_readback.rs"]
+mod readback;
 
 /// What every realization of one body shares: its topology, surface
 /// coordinates and skin.
@@ -27,9 +31,9 @@ pub struct FitBody<'a> {
     pub faces: &'a [[u32; 3]],
     /// Each vertex's anatomical surface coordinate.
     pub texcoords: &'a [[f32; 2]],
-    pub joint_indices: &'a [[u32; 8]],
+    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [String],
+    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
 }
 
 /// One shape of the body: the wearer or a morph realization, with its device
@@ -38,13 +42,17 @@ pub struct FitBody<'a> {
 pub struct Realization<'a> {
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],
-    pub joints: &'a [[f32; 8]],
+    pub joints: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
     pub device: &'a DeviceBody,
 }
 
 impl<'a> Realization<'a> {
     /// The body on the device, uploaded once per shape.
     fn upload(&self, gpu: &ArmorGpu, body: &FitBody<'_>) -> Result<&'a GpuBody> {
+        anyhow::ensure!(
+            body.joint_indices.joint_count() == body.joint_names.joint_count(),
+            "fitting skin and joint names have different rig bounds"
+        );
         self.device.get_or_upload(|| {
             Ok(GpuBody::new(
                 gpu,
@@ -76,10 +84,13 @@ impl<'a> Realization<'a> {
 
 /// A piece fitted to the wearer and to each morph realization, with the
 /// wearer's skin carried onto it.
+#[derive(Clone)]
 pub struct DevicePiece {
     pub base: BuiltPart,
     pub skin: Skin,
     pub endpoints: Vec<BuiltPart>,
+    /// Native final-vertex aliases supplied by the authoritative shell topology.
+    pub skin_aliases: Vec<usize>,
 }
 
 /// The part frame of `region` fitted to `wearer` on the device.
@@ -143,7 +154,12 @@ pub async fn fit_piece_async(
             host,
         };
         let target = index.checked_sub(1).map(|i| morphs[i].0);
-        let mut recording = record(&wearer, &mut batch, target)?;
+        let mut recording = record(&wearer, &mut batch, target).with_context(|| {
+            target.map_or_else(
+                || "fitting base wearer".to_owned(),
+                |name| format!("fitting body target {name}"),
+            )
+        })?;
         recording.part.record_shells(gpu, &mut batch)?;
         if skin.is_none() {
             skin = Some(Correspondence::record(
@@ -158,67 +174,8 @@ pub async fn fit_piece_async(
         recordings.push(recording);
     }
     let names = morphs.iter().map(|(name, _)| *name).collect::<Vec<_>>();
-    read(
-        gpu,
-        &recordings,
-        &skin.expect("the wearer is always fitted"),
-        &names,
-    )
-    .await
-}
-
-async fn read(
-    gpu: &ArmorGpu,
-    recordings: &[DeviceRecording],
-    skin: &Correspondence,
-    names: &[&str],
-) -> Result<DevicePiece> {
-    let mut staging = Staging::new();
-    let slots = recordings
-        .iter()
-        .map(|recording| {
-            let frames = recording
-                .frames
-                .iter()
-                .map(|(frame, _)| frame.stage(&mut staging))
-                .collect::<Vec<_>>();
-            (frames, recording.part.stage(&mut staging))
-        })
-        .collect::<Vec<_>>();
-    let skin_slots = skin.stage(&mut staging);
-    let results = gpu.read_staged_async(staging).await?;
-    let mut parts = Vec::with_capacity(recordings.len());
-    for (index, (recording, (frames, part))) in recordings.iter().zip(slots).enumerate() {
-        for ((_, region), frame) in recording.frames.iter().zip(frames) {
-            DeviceFrame::check_status(results.status(frame), *region)?;
-        }
-        let context = || match index {
-            0 => "fitting armor".to_string(),
-            i => format!("fitting armor morph {}", names[i - 1]),
-        };
-        for check in &recording.checks {
-            if let crate::device_piece::DeviceCheck::Device(check) = check {
-                check(gpu).await.with_context(context)?;
-            }
-        }
-        let part = recording
-            .part
-            .finish(&results, part)
-            .with_context(context)?;
-        for check in &recording.checks {
-            if let crate::device_piece::DeviceCheck::Mesh(check) = check {
-                check(&part).with_context(context)?;
-            }
-        }
-        parts.push(part);
-    }
-    let mut parts = parts.into_iter();
-    let base = parts.next().expect("the wearer is always fitted");
-    Ok(DevicePiece {
-        base,
-        skin: skin.finish(&results, skin_slots),
-        endpoints: parts.collect(),
-    })
+    let skin = skin.context("wearer has no staged skin")?;
+    readback::read(gpu, &recordings, &skin, &names).await
 }
 
 /// Fit a recipe to `wearer` and each of `morphs` in `placement`.
@@ -229,7 +186,7 @@ pub fn fit_recipe(
     wearer: &Realization<'_>,
     morphs: &[(&str, Realization<'_>)],
     design: &ParametricDesign,
-    placement: &str,
+    placement: FittingPlacement,
     layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
     pollster::block_on(fit_recipe_async(
@@ -243,21 +200,34 @@ pub async fn fit_recipe_async(
     wearer: &Realization<'_>,
     morphs: &[(&str, Realization<'_>)],
     design: &ParametricDesign,
-    placement: &str,
+    placement: FittingPlacement,
     layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
+    // The fitted arm carrier currently admits anatomy, not arbitrary sleeve
+    // layers. Reject unsupported combinations rather than silently clipping.
+    anyhow::ensure!(
+        layers.is_empty()
+            || !matches!(design, ParametricDesign::Gown(gown) if gown.sleeves.is_some()),
+        "fitted-sleeve gowns currently require no lower equipment layers"
+    );
+    let plan = crate::device_recipe_plan::RecipePlan::prepare(gpu, body, wearer, design).await?;
     let fit = async |design: &ParametricDesign| {
         fit_piece_async(gpu, body, wearer, morphs, |device, batch, target| {
             let surfaces = layers
                 .iter()
                 .map(|armor| ArmorLayerSurface::from_generated(armor, target))
                 .collect::<Result<Vec<_>>>()?;
-            record_recipe(device, batch, design, placement, &surfaces)
+            record_recipe(device, batch, design, placement, &surfaces, &plan)
         })
         .await
     };
     let ParametricDesign::WaistAssembly(waist) = design else {
-        return fit(design).await;
+        let mut piece = fit(design).await?;
+        piece.bind_flexible_textile(body, wearer, design)?;
+        plan.finish(gpu, body, wearer, morphs, &mut piece, layers)
+            .await
+            .context("finishing sewn textile")?;
+        return Ok(piece);
     };
     let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone())).await?;
     let tassets = if matches!(
@@ -287,6 +257,8 @@ pub async fn fit_recipe_async(
             surfaces.push(ArmorLayerSurface {
                 positions: &lower.positions,
                 faces: lower.indices.as_chunks::<3>().0,
+                plate_faces: &lower.faces,
+                components: &lower.components,
                 joint_indices: &fauld.skin.joint_indices,
                 joint_weights: &fauld.skin.joint_weights,
             });
@@ -296,7 +268,7 @@ pub async fn fit_recipe_async(
     } else {
         fit(&ParametricDesign::Garment(waist.tassets.clone())).await?
     };
-    Ok(suspended_waist(fauld, tassets, &waist.tassets))
+    suspended_waist(fauld, tassets, &waist.tassets)
 }
 
 /// Hang the tassets below the fauld's hem on every realization, and join
@@ -305,7 +277,7 @@ fn suspended_waist(
     fauld: DevicePiece,
     tassets: DevicePiece,
     design: &fabelgeist_armor::GarmentArmorDesign,
-) -> DevicePiece {
+) -> Result<DevicePiece> {
     let join = |mut fauld: BuiltPart, mut tassets: BuiltPart| {
         let hem = fauld
             .positions
@@ -331,6 +303,7 @@ fn suspended_waist(
             point[1] += shift;
         }
         let whole = |part: &BuiltPart, role| ArmorComponent {
+            textile: None,
             role,
             vertices: 0..part.positions.len(),
             indices: 0..part.indices.len(),
@@ -347,17 +320,21 @@ fn suspended_waist(
         base,
         mut skin,
         endpoints,
+        mut skin_aliases,
     } = fauld;
-    skin.append(tassets.skin);
-    DevicePiece {
+    let first = skin_aliases.len();
+    skin_aliases.extend(tassets.skin_aliases.into_iter().map(|index| index + first));
+    skin.append(tassets.skin)?;
+    Ok(DevicePiece {
         base: join(base, tassets.base),
+        skin_aliases,
         skin,
         endpoints: endpoints
             .into_iter()
             .zip(tassets.endpoints)
             .map(|(fauld, tassets)| join(fauld, tassets))
             .collect(),
-    }
+    })
 }
 
 /// Record a recipe fitted to one realization of the wearer, short of
@@ -366,8 +343,9 @@ fn record_recipe(
     wearer: &DeviceWearer,
     batch: &mut KernelBatch,
     design: &ParametricDesign,
-    placement: &str,
+    placement: FittingPlacement,
     layers: &[ArmorLayerSurface<'_>],
+    plan: &crate::device_recipe_plan::RecipePlan,
 ) -> Result<DeviceRecording> {
     match design {
         ParametricDesign::Helmet(HelmetDesign::CloseHelmet(d)) => {
@@ -414,6 +392,33 @@ fn record_recipe(
             armor_recipes::fit_region(design, placement)?,
             layers,
         ),
+        ParametricDesign::Skirt(skirt) => wearer.record_fitted_skirt_textile(
+            batch,
+            skirt,
+            layers,
+            match plan {
+                crate::device_recipe_plan::RecipePlan::Skirt { join, .. } => Some(join),
+                _ => None,
+            },
+        ),
+        ParametricDesign::Bodice(_) => {
+            let crate::device_recipe_plan::RecipePlan::Bodice(plan) = plan else {
+                anyhow::bail!("bodice has no frozen construction plan");
+            };
+            wearer.record_body_cloth(batch, plan, layers)
+        }
+        ParametricDesign::Gown(gown) => {
+            let crate::device_recipe_plan::RecipePlan::Gown(plan) = plan else {
+                anyhow::bail!("gown has no frozen sewing plan");
+            };
+            wearer.record_fitted_skirt_textile(batch, &gown.skirt, layers, Some(&plan.join))
+        }
+        ParametricDesign::Partlet(partlet) => {
+            let crate::device_recipe_plan::RecipePlan::Partlet(plan) = plan else {
+                anyhow::bail!("partlet has no frozen construction plan")
+            };
+            wearer.record_partlet(batch, partlet, plan, layers)
+        }
         ParametricDesign::WaistAssembly(_) => {
             anyhow::bail!("a waist assembly is fitted as its fauld and tassets")
         }
@@ -423,13 +428,13 @@ fn record_recipe(
 /// The wearer a recipe was fitted to: where its surface coordinates are,
 /// and its skeleton.
 pub struct Fitted<'a> {
-    pub placement: &'a str,
+    pub placement: FittingPlacement,
     /// Each morph realization's name, in order.
     pub morphs: &'a [&'a str],
     pub domain: &'a str,
-    pub joint_names: &'a [String],
+    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
     /// The wearer's global joint states, one per name.
-    pub joints: &'a [[f32; 8]],
+    pub joints: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
 }
 
 /// The armor of a recipe fitted on the device, with a morph target per
@@ -443,6 +448,7 @@ pub fn assemble_recipe(
         base,
         skin,
         endpoints,
+        ..
     } = piece;
     let mut targets = Vec::with_capacity(endpoints.len());
     for (name, endpoint) in fitted.morphs.iter().zip(endpoints) {
@@ -474,7 +480,7 @@ pub fn assemble_recipe(
         surface_domain: fitted.domain.into(),
         positions: base.positions,
         normals: base.normals,
-        texcoords: skin.texcoords,
+        texcoords: base.texcoords.unwrap_or(skin.texcoords),
         joint_indices: skin.joint_indices,
         joint_weights: skin.joint_weights,
         indices: base.indices,
@@ -484,15 +490,7 @@ pub fn assemble_recipe(
         morphs: targets,
         components: base.components,
     };
-    if let ParametricDesign::PuffAndSlash(puff) = design {
-        for component in &mut armor.components {
-            component.material = match component.role {
-                ArmorComponentRole::Undercloth => Some(puff.undercloth_color.material()),
-                ArmorComponentRole::OuterFabric => Some(puff.outer_color.material()),
-                _ => component.material,
-            };
-        }
-    }
+    crate::device_textile_materials::apply(design, &mut armor)?;
     crate::skin_rules::attach(
         design,
         fitted.placement,

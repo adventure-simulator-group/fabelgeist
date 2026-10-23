@@ -84,7 +84,9 @@ fn run(
         output.positions = cloth.tuck_under(&output.positions, under);
     }
     output.normals = output.normals_for(&output.positions);
-    (output.indices, output.weights) = transfer_skin(input, &output.positions)?;
+    let skin = transfer_skin(input, &output.positions)?;
+    output.indices = skin.indices;
+    output.weights = skin.weights;
     warnings.extend(output.contact_issues(&collision));
     Ok(output)
 }

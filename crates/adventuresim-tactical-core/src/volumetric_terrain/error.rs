@@ -1,6 +1,13 @@
 //! Bounded terrain surface and landform contracts.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, thiserror::Error)]
+use crate::scene::TerrainSupportError;
+
+/// Terrain recipe validation and extraction retain the preventing stage.
+pub type TerrainRecipeResult<T> = Result<T, TerrainRecipeError>;
+
+#[derive(Clone, Copy, Debug, PartialEq, thiserror::Error)]
 pub enum TerrainRecipeError {
+    #[error(transparent)]
+    Support(#[from] TerrainSupportError),
     #[error("terrain mesh has invalid cardinality or triangle indices")]
     MeshTopology,
     #[error("erosional patch voxel grid exceeds its bound")]
@@ -31,6 +38,3 @@ pub enum TerrainRecipeError {
     #[error("fault patch voxel grid exceeds its bound")]
     VoxelGridBound,
 }
-
-/// Terrain recipe validation and extraction retain the preventing stage.
-pub type TerrainRecipeResult<T> = Result<T, TerrainRecipeError>;

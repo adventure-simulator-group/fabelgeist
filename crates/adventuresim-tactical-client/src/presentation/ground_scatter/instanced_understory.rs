@@ -13,7 +13,11 @@ use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 use std::sync::Arc;
 
-use adventuresim_tactical_core::prelude::{SceneGround, SceneTerrain};
+use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::{
+    prelude::{SceneGround, SceneTerrain},
+    scene_coordinates::Scene,
+};
 use bevy::{
     color::LinearRgba,
     prelude::*,
@@ -25,7 +29,7 @@ use bevy::{
 use bevy_eidolon::prelude::*;
 
 use super::{
-    WoodyUnderstoryPresentationCache,
+    PLACEMENT_SCALE, PLACEMENT_YAW, WoodyUnderstoryPresentationCache,
     instanced_grass::fitted_batch_aabb,
     understory::{self, ShrubPlacement, UnderstoryHabitat, UnderstorySpecies},
 };
@@ -180,23 +184,27 @@ pub(super) fn spawn(
     let mut per_species: [Vec<InstanceData>; 3] = Default::default();
     for ShrubPlacement {
         species,
-        world_x,
-        world_z,
+        point,
         hash,
     } in understory::placements(terrain, ground, base_seed, chance, habitat)
     {
-        // Mirrors `foliage_transform`'s yaw/scale hashes; the slope check and
-        // terrain height also match it, so both renderers agree on sites.
-        let sample = Vec2::new(world_x, world_z);
-        let (Some(height), Some(normal)) = (terrain.height_at(sample), terrain.normal_at(sample))
+        // Preserve the shared understory/litter placement purposes, terrain
+        // height and slope admission before projecting to the GPU instance.
+        let (Some(height), Some(normal)) = (terrain.height_at(point), terrain.normal_at(point))
         else {
             continue;
         };
         if normal.y < 0.72 {
             continue;
         }
-        per_species[species_index(species)]
-            .push(shrub_instance(hash, Vec3::new(world_x, height, world_z)));
+        let Ok(root) = Position::from_metres(Vec3::new(
+            point.metres().x,
+            height.metres(),
+            point.metres().y,
+        )) else {
+            continue;
+        };
+        per_species[species_index(species)].push(shrub_instance(hash, root));
     }
 
     for species in [
@@ -298,18 +306,11 @@ fn species_index(species: UnderstorySpecies) -> usize {
     }
 }
 
-fn shrub_instance(hash: Seed, position: Vec3) -> InstanceData {
-    let yaw = StreamId::new("visual.understory.yaw")
-        .rng(hash, &[])
-        .inclusive_unit_f32()
-        * core::f32::consts::TAU;
-    let scale = 0.72
-        + StreamId::new("visual.understory.scale")
-            .rng(hash, &[])
-            .inclusive_unit_f32()
-            * 0.58;
+fn shrub_instance(hash: Seed, root: Position<Scene>) -> InstanceData {
+    let yaw = PLACEMENT_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU;
+    let scale = 0.72 + PLACEMENT_SCALE.rng(hash, &[]).inclusive_unit_f32() * 0.58;
     InstanceData {
-        position,
+        position: root.metres(),
         scale,
         rotation: yaw,
         seed: (StreamId::new("visual.ground-scatter.instanced-understory.shader-seed")

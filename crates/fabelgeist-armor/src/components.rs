@@ -18,7 +18,20 @@ pub enum ArmorComponentRole {
     Besagew,
     JointExtension,
     OuterFabric,
+    BodiceFabric,
+    WaistSupportBand,
+    WaistFrontBand,
+    CollarFabric,
+    EdgeBinding,
+    Neckband,
+    CollarTrim,
+    ClothTies,
+    ClothFasteners,
     Undercloth,
+    Lining,
+    Interlining,
+    Boning,
+    Hoops,
 }
 
 impl ArmorComponentRole {
@@ -36,7 +49,20 @@ impl ArmorComponentRole {
             Self::Besagew => "besagew",
             Self::JointExtension => "joint_extension",
             Self::OuterFabric => "outer_fabric",
+            Self::BodiceFabric => "bodice_fabric",
+            Self::WaistSupportBand => "waist_support_band",
+            Self::WaistFrontBand => "waist_front_band",
+            Self::CollarFabric => "collar_fabric",
+            Self::EdgeBinding => "edge_binding",
+            Self::Neckband => "neckband",
+            Self::CollarTrim => "collar_trim",
+            Self::ClothTies => "cloth_ties",
+            Self::ClothFasteners => "cloth_fasteners",
             Self::Undercloth => "undercloth",
+            Self::Lining => "lining",
+            Self::Interlining => "interlining",
+            Self::Boning => "boning",
+            Self::Hoops => "hoops",
         }
     }
 
@@ -55,7 +81,20 @@ impl ArmorComponentRole {
             Self::Besagew => "besagew.trim",
             Self::JointExtension => "joint_extension.trim",
             Self::OuterFabric => "outer_fabric.trim",
+            Self::BodiceFabric => "bodice_fabric.trim",
+            Self::WaistSupportBand => "waist_support_band.trim",
+            Self::WaistFrontBand => "waist_front_band.trim",
+            Self::CollarFabric => "collar_fabric.trim",
+            Self::EdgeBinding => "edge_binding.trim",
+            Self::Neckband => "neckband.trim",
+            Self::CollarTrim => "collar_trim.trim",
+            Self::ClothTies => "cloth_ties.trim",
+            Self::ClothFasteners => "cloth_fasteners.trim",
             Self::Undercloth => "undercloth.trim",
+            Self::Lining => "lining.trim",
+            Self::Interlining => "interlining.trim",
+            Self::Boning => "boning.trim",
+            Self::Hoops => "hoops.trim",
         }
     }
 }
@@ -76,6 +115,8 @@ pub struct ArmorComponent {
     pub hinge: Option<ArmorHinge>,
     pub mount: Option<crate::PlateMount>,
     pub material: Option<ArmorComponentMaterial>,
+    /// Procedural cloth appearance; independent of folds and supporting members.
+    pub textile: Option<crate::TextileAppearance>,
 }
 
 /// Unlit surface parameters; generated textures supply normal and AO detail.

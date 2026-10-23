@@ -7,13 +7,15 @@ use std::sync::Arc;
 #[cfg(test)]
 use std::sync::Mutex;
 
-use super::PreparedStrategicScene;
+use super::{
+    PreparedStrategicScene,
+    preparation::{PreparationError, PreparationResult, ProductKind},
+};
 use crate::presentation::ownership::{PresentationOwner, PresentationOwners};
 use crate::presentation::terrain::PreparedTerrainLandform;
 use adventuresim_tactical_core::geometry_transport::binary as packed;
 pub(super) use building::PreparedFacade;
 pub(in crate::presentation) use city::PreparedCityProduct;
-use error::{PreparationError, PreparationResult, ProductKind};
 pub(super) use installation::{release_unused_facades, take_facade, take_venue_geometry};
 pub(crate) use ownership::PreparationTicket;
 pub(crate) use ownership::activate;
@@ -26,7 +28,6 @@ use worker_products::{generate, receive};
 
 mod building;
 mod city;
-mod error;
 mod installation;
 mod ownership;
 mod requests;

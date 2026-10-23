@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_tactical_core::scene_coordinates::GateDatum;
 
 #[test]
 fn property_gate_has_authoritative_collision_hinge_and_passage_control() {
@@ -21,13 +22,10 @@ fn assert_property_gate(boundary: GeneratedBoundary) {
         .door(boundary.scene().property_id())
         .unwrap();
     let elevation = Vec3::Y * boundary.elevation_metres().metres();
-    let spec = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
-        boundary.elevation_metres().metres(),
-    )
-    .unwrap()
-    .door(spec)
-    .unwrap()
-    .leaf();
+    let spec = GateDatum::new(boundary.elevation_metres())
+        .door(spec)
+        .unwrap()
+        .leaf();
     let mut app = App::new();
     app.add_plugins((MinimalPlugins, PhysicsPlugins::default(), TransformPlugin));
     app.add_observer(super::super::boundaries::on_scene_boundary_added);

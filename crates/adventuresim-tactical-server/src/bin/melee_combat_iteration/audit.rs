@@ -3,8 +3,8 @@ use super::*;
 pub(super) fn build_acceptance_audit(
     summaries: &[MatchupSummary],
     evidence: &adventuresim_core::autoresolve::MeleeIterationAcceptanceEvidence,
-) -> AcceptanceAudit {
-    AcceptanceAudit {
+) -> MeasurementResult<AcceptanceAudit> {
+    Ok(AcceptanceAudit {
         no_tactical_timeouts: summaries
             .iter()
             .all(|summary| summary.tactical_timeouts == 0),
@@ -30,11 +30,11 @@ pub(super) fn build_acceptance_audit(
         autoresolve_movement_elapsed_matches_distance_delta: movement_elapsed_matches_distance(
             summaries,
         ),
-        autoresolve_movement_respects_tick_and_speed_limits: movement_respects_limits(summaries),
+        autoresolve_movement_respects_tick_and_speed_limits: movement_respects_limits(summaries)?,
         polearm_contact_revalidation_holds: polearm_contact_revalidation_holds(evidence),
-        all_weapon_swept_contact_contract_holds: swept_contact_contract_holds(summaries, evidence),
+        all_weapon_swept_contact_contract_holds: swept_contact_contract_holds(summaries, evidence)?,
         matchups: matchup_audits(summaries),
-    }
+    })
 }
 
 fn movement_elapsed_matches_distance(summaries: &[MatchupSummary]) -> bool {
@@ -52,9 +52,9 @@ fn movement_elapsed_matches_distance(summaries: &[MatchupSummary]) -> bool {
     })
 }
 
-fn movement_respects_limits(summaries: &[MatchupSummary]) -> bool {
-    let tick_limit = f64::from(1.0_f32 / 64.0 + 1.0e-6);
-    summaries.iter().all(|summary| {
+fn movement_respects_limits(summaries: &[MatchupSummary]) -> MeasurementResult<bool> {
+    let tick_limit = Measurement::<AutoresolveSeconds>::from_native(1.0_f32 / 64.0 + 1.0e-6)?;
+    Ok(summaries.iter().all(|summary| {
         summary
             .autoresolve_causal
             .john
@@ -75,34 +75,44 @@ fn movement_respects_limits(summaries: &[MatchupSummary]) -> bool {
                 .opponent
                 .maximum_movement_segment_seconds
                 <= tick_limit
-    })
+    }))
 }
 
 fn swept_contact_contract_holds(
     summaries: &[MatchupSummary],
     evidence: &adventuresim_core::autoresolve::MeleeIterationAcceptanceEvidence,
-) -> bool {
+) -> MeasurementResult<bool> {
     let minimum = adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES;
-    evidence.all_weapon_contact_bands.iter().all(|contact| {
+    let report_minimum = Measurement::<CenterSeparationMetres>::from_native(minimum)?;
+    Ok(evidence.all_weapon_contact_bands.iter().all(|contact| {
         contact.center_separation_metres >= minimum
             && contact.transformed_energy_joules <= contact.incident_energy_joules + 1.0e-4
     }) && evidence.all_weapon_contact_bands.iter().any(|contact| {
         contact.weapon == "war_hammer"
             && contact.classification == MeleeContactClassification::Pommel
-    }) && summaries.iter().all(summary_contact_contract_holds)
+    }) && summaries
+        .iter()
+        .all(|summary| summary_contact_contract_holds(summary, report_minimum)))
 }
 
-fn summary_contact_contract_holds(summary: &MatchupSummary) -> bool {
-    let minimum =
-        f64::from(adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES);
+fn summary_contact_contract_holds(
+    summary: &MatchupSummary,
+    minimum: Measurement<CenterSeparationMetres>,
+) -> bool {
     let john = &summary.autoresolve_causal.john;
     let opponent = &summary.autoresolve_causal.opponent;
     john.full_energy_intended_contacts_inside_ten_centimetres == 0
         && opponent.full_energy_intended_contacts_inside_ten_centimetres == 0
-        && (john.contact_measure_samples == 0
-            || john.minimum_actual_center_separation_metres >= minimum)
-        && (opponent.contact_measure_samples == 0
-            || opponent.minimum_actual_center_separation_metres >= minimum)
+        && john
+            .minimum_actual_center_separation_metres
+            .map_or(john.contact_measure_samples == 0, |separation| {
+                separation >= minimum
+            })
+        && opponent
+            .minimum_actual_center_separation_metres
+            .map_or(opponent.contact_measure_samples == 0, |separation| {
+                separation >= minimum
+            })
 }
 
 pub(super) fn polearm_contact_revalidation_holds(

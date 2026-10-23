@@ -7,11 +7,14 @@ use std::{
     path::PathBuf,
 };
 
-use adventuresim_tactical_core::animation::dive_launch_root_rotation;
+use adventuresim_tactical_core::animation::{
+    AnimationValueResult, UnitInterval, dive_launch_root_rotation,
+};
 use adventuresim_tactical_core::physics::{
     AdventureSimulatorPhysicsPlugin, TACTICAL_DIVE_HORIZONTAL_SPEED_METRES_PER_SECOND,
     quickstep_force_curve, quickstep_motion_target, quickstep_peak_horizontal_force_newtons,
-    quickstep_push_seconds, quickstep_target_displacement_metres, quickstep_tracking_force_newtons,
+    quickstep_push_duration, quickstep_target_displacement_metres,
+    quickstep_tracking_force_newtons,
 };
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::client::WeaponGuardInputState;
@@ -27,11 +30,12 @@ use serde::Serialize;
 
 use crate::animation::jitter::{self, JitterBone, JitterFrame, JitterValidationSummary};
 use crate::animation::pose_buffer::PoseBufferMetrics;
+use crate::animation::review_scenarios::*;
 use crate::animation::{
-    AnimationPlayback, AnimationRuntime, ArmIkState, AuthoredBindTransform, BoneRole, HumanoidBone,
-    LegIkDiagnostics, LegIkState, LocomotionBodyResponseState, LocomotionHeightState,
-    LocomotionPresentationEvent, LocomotionPresentationEventKind, PresentedSkeleton,
-    ProceduralAnimationClock, RaisedFootworkState, TacticalAnimationPlugin, TerrainIkEnabled,
+    AnimationPlayback, AnimationRuntime, ArmIkState, AuthoredBindTransform, BodyAngle, BoneRole,
+    HumanoidBone, LegIkDiagnostics, LegIkState, LocomotionBodyResponseState, LocomotionHeightState,
+    LocomotionPresentationEvent, LocomotionPresentationPayload, PresentedSkeleton,
+    ProceduralAnimationClock, RaisedFootworkState, TacticalAnimationPlugin, TerrainIkMode,
     bouncy_bones::BouncyBonesTelemetry,
     capture_animation_target_id, capture_entity_id, locomotion_support_weights,
     measured_ankle_sole_offset_metres,
@@ -39,35 +43,36 @@ use crate::animation::{
     sole_contact_tolerance_metres,
 };
 use crate::{
-    camera::{
-        CameraMode, TacticalCameraPlugin, TacticalCameraSet, animation_capture_camera_offset,
-    },
+    camera::{CameraMode, TacticalCameraPlugin, animation_capture_camera_offset},
     player::{LocalCharacterId, PlayerPlugin},
     presentation::{TacticalGameplayCamera, TacticalPresentationPlugin},
 };
 
+pub(crate) use capture::frame_clock::capture_fixed_clock;
+use capture::*;
+pub(crate) use harness::ArmorHarness;
+pub(crate) use inspection::CaptureInspection;
+use report::*;
+use scenarios::terrain_policy::{
+    raised_scenario_requires_zero_flight, scenario_uses_terrain_ik, startup_terrain_ik_mode,
+    terrain_ik_mode_for_frame,
+};
+use scenarios::*;
+
 mod capture;
 mod harness;
-pub(crate) use harness::ArmorHarness;
+mod inspection;
+mod report;
+mod scenarios;
+mod setup;
+mod view;
 
 const CAPTURE_LOAD_FRAME_LIMIT: u32 = 1200;
-mod inspection;
-mod view;
-pub(crate) use inspection::CaptureInspection;
-use view::position_capture_camera;
-mod setup;
-use setup::setup_viewer;
 
 #[derive(Resource)]
 struct CaptureBodyProportions(
     Option<adventuresim_core::character_proportions::CharacterProportions>,
 );
-mod report;
-mod scenarios;
-
-use capture::*;
-use report::*;
-use scenarios::*;
 
 pub(crate) struct CaptureOptions {
     pub output: PathBuf,
@@ -81,7 +86,7 @@ pub(crate) struct CaptureOptions {
     pub inspection: CaptureInspection,
 }
 
-pub(crate) fn run(options: CaptureOptions) -> AppExit {
+pub(crate) fn run(options: CaptureOptions, fixed_clock: Time<Fixed>) -> AppExit {
     let CaptureOptions {
         output,
         asset_root,
@@ -94,14 +99,21 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         inspection,
     } = options;
     let scenario = scenario.as_deref();
+    let selected_scenario = scenario.map(ScenarioMetadata::from_label);
+    let initial_terrain_ik = startup_terrain_ik_mode(selected_scenario.as_ref());
+    let capture = match CaptureSequence::new(output.clone(), settle_frames, selected_scenario) {
+        Ok(capture) => capture,
+        Err(error) => {
+            error!(%error, "capture plan admission failed");
+            return AppExit::Error(std::num::NonZeroU8::MIN);
+        }
+    };
+    inspection.publish(&output);
     fs::create_dir_all(&output).unwrap_or_else(|error| {
         panic!("failed to create animation capture directory {output:?}: {error}")
     });
     invalidate_previous_report(&output);
     setup::write_body_proportions(&output, body_proportions);
-    let initial_terrain_ik = scenario.is_some_and(|name| {
-        scenario_metadata(name).kind == ScenarioKind::Terrain || name.contains("terrain")
-    });
     let default_character_id = default_tactical_character_id();
 
     let workspace_asset_source =
@@ -112,7 +124,10 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         .insert_resource(CaptureBodyProportions(body_proportions))
         .insert_resource(harness::ArmorCapture::new(armor_harness, output.clone()))
         .insert_resource(harness::equipment_cache(armor_harness))
-        .register_asset_source("workspace", workspace_asset_source)
+        .register_asset_source(
+            crate::animation::WORKSPACE_ASSET_SOURCE,
+            workspace_asset_source,
+        )
         // The live debug client registers the same default through
         // `DebugPlugin`. The fixture does not install that input/network
         // plugin, so mirror its presentation default explicitly.
@@ -153,35 +168,12 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         .insert_resource(LocalCharacterId(default_character_id))
         .insert_resource(CameraMode { third_person: true })
         .insert_resource(WeaponGuardInputState::default())
-        .insert_resource(Time::<Fixed>::from_hz(locomotion_sample_hz() as f64))
+        .insert_resource(fixed_clock)
         // Individual scenarios select terrain conformity explicitly so the
         // viewer can retain FK-only controls after the live default changed.
-        .insert_resource(TerrainIkEnabled(initial_terrain_ik))
+        .insert_resource(initial_terrain_ik)
         .insert_resource(ClearColor(Color::srgb(0.08, 0.1, 0.13)))
-        .insert_resource(CaptureSequence::new(output, settle_frames, scenario))
-        .add_systems(Startup, setup_viewer)
-        .add_systems(PreUpdate, (drive_sequence, freeze_capture_look).chain())
-        .add_systems(
-            PostUpdate,
-            position_capture_camera
-                .after(TacticalCameraSet::Offset)
-                .before(TransformSystems::Propagate),
-        )
-        .add_systems(
-            PostUpdate,
-            (draw_flat_ground_grid, draw_skeleton_overlay)
-                .chain()
-                .after(TransformSystems::Propagate),
-        )
-        .add_systems(
-            Last,
-            (
-                inspection::inspect_materials,
-                harness::update_readiness,
-                collect_locomotion_presentation_events,
-                capture_frame.run_if(harness::ready),
-            )
-                .chain(),
-        )
+        .insert_resource(capture)
+        .add_plugins(CapturePlugin)
         .run()
 }

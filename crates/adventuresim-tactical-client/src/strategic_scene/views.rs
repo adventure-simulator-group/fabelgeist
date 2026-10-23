@@ -4,6 +4,8 @@ use super::{
     buildings::ROOM_LAYER,
     protocol::{CanvasRect, StrategicView},
 };
+use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use bevy::{camera::visibility::RenderLayers, prelude::*};
 
 #[derive(Resource, Default)]
@@ -29,12 +31,12 @@ pub(super) struct ViewSpec {
 
 pub(super) fn person_view(
     rect: CanvasRect,
-    anchor: Vec3,
+    anchor: Position<Scene>,
     facing: Quat,
     portrait: bool,
     layers: RenderLayers,
 ) -> ViewSpec {
-    let target = anchor + Vec3::Y * if portrait { HEAD_HEIGHT_METRES } else { 1.2 };
+    let target = anchor.metres() + Vec3::Y * if portrait { HEAD_HEIGHT_METRES } else { 1.2 };
     let distance = if portrait {
         PORTRAIT_DISTANCE_METRES
     } else {
@@ -274,7 +276,7 @@ mod tests {
                 id,
                 RetainedPerson {
                     entity: Entity::PLACEHOLDER,
-                    anchor: Vec3::ZERO,
+                    anchor: Position::ORIGIN,
                     facing: Quat::IDENTITY,
                     layer: 2,
                 },
@@ -326,7 +328,10 @@ mod tests {
                 .collect(),
             width: 220.0,
             height: 40.0,
-            front: Vec3::ZERO,
+            front: adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                Vec3::ZERO,
+            )
+            .unwrap(),
         };
         let scene = RetainedScene {
             street: Some(street),
@@ -369,7 +374,7 @@ mod tests {
                     PortraitId(1),
                     RetainedPerson {
                         entity: Entity::PLACEHOLDER,
-                        anchor: Vec3::ZERO,
+                        anchor: Position::ORIGIN,
                         facing: Quat::IDENTITY,
                         layer: ROOM_LAYER + 1,
                     },
@@ -378,7 +383,7 @@ mod tests {
                     PortraitId(2),
                     RetainedPerson {
                         entity: Entity::PLACEHOLDER,
-                        anchor: Vec3::Z,
+                        anchor: Position::from_metres(Vec3::Z).unwrap(),
                         facing: Quat::IDENTITY,
                         layer: ROOM_LAYER + 2,
                     },

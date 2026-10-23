@@ -88,7 +88,7 @@ fn normalized_directions_reject_bad_decoding_and_preserve_normalization_arithmet
     assert!(matches!(
         PlanDirection::<Architectural>::from_normalized(Vec2::ZERO),
         Err(GeometryError::Direction {
-            source: bevy::math::InvalidDirectionError::Zero
+            source: DirectionError::Zero
         })
     ));
     assert!(serde_json::from_str::<PlanDirection<Architectural>>("[2,0]").is_err());
