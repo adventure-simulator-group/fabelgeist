@@ -6,6 +6,8 @@ use std::ops::RangeInclusive;
 mod helmet;
 #[path = "limb_controls.rs"]
 mod limb;
+#[path = "puff_pattern_controls.rs"]
+mod puff_pattern;
 #[path = "skirt_controls.rs"]
 mod skirt;
 
@@ -88,57 +90,16 @@ fn trunk_hose(ui: &mut egui::Ui, design: &mut fabelgeist_armor::TrunkHoseDesign)
 }
 
 fn puff_and_slash(ui: &mut egui::Ui, design: &mut fabelgeist_armor::PuffAndSlashDesign) -> bool {
-    let mut changed = ui
-        .add(egui::Slider::new(&mut design.puff_count, 1..=8).text("Puff courses"))
-        .changed();
+    let mut changed = puff_pattern::show(ui, &mut design.pattern);
+    changed |= number(ui, &mut design.length.0, 350..=1000, "Limb coverage");
     changed |= number(
         ui,
-        &mut design.puff_fullness.0,
-        5..=90,
-        "Puff fullness (mm)",
+        &mut design.proximal_position.0,
+        0..=1000,
+        "Proximal placement",
     );
-    changed |= number(
-        ui,
-        &mut design.puff_roundness.0,
-        400..=2500,
-        "Puff roundness",
-    );
-    changed |= ui
-        .add(egui::Slider::new(&mut design.slash_count, 3..=16).text("Slashes per course"))
-        .changed();
-    for (value, range, label) in [
-        (&mut design.distal_fullness.0, 250..=1500, "Distal fullness"),
-        (&mut design.slash_width.0, 50..=650, "Slash width"),
-        (&mut design.slash_length.0, 300..=900, "Slash length"),
-        (
-            &mut design.constriction_width.0,
-            40..=350,
-            "Constricted band width",
-        ),
-        (&mut design.length.0, 350..=1000, "Limb coverage"),
-        (
-            &mut design.proximal_position.0,
-            0..=1000,
-            "Proximal placement",
-        ),
-        (&mut design.rotation.0, 0..=1000, "Pattern rotation"),
-        (&mut design.clearance.0, 1..=15, "Body clearance (mm)"),
-        (&mut design.thickness.0, 1..=6, "Cloth thickness (mm)"),
-    ] {
-        changed |= number(ui, value, range, label);
-    }
-    ui.horizontal(|ui| {
-        ui.label("Outer fabric");
-        changed |= ui
-            .color_edit_button_srgb(&mut design.outer_color.0)
-            .changed();
-    });
-    ui.horizontal(|ui| {
-        ui.label("Undercloth");
-        changed |= ui
-            .color_edit_button_srgb(&mut design.undercloth_color.0)
-            .changed();
-    });
+    changed |= number(ui, &mut design.clearance.0, 1..=15, "Body clearance (mm)");
+    changed |= number(ui, &mut design.thickness.0, 1..=6, "Cloth thickness (mm)");
     changed
 }
 

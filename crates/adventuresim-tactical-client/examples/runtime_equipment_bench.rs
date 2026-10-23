@@ -355,8 +355,11 @@ fn puffed_garment_extremes_are_closed_finite_shells() -> Result<()> {
     };
     for (puff_count, slash_count) in [(1, 0), (8, 16)] {
         let design = ParametricDesign::PuffAndSlash(PuffAndSlashDesign {
-            puff_count,
-            slash_count,
+            pattern: fabelgeist_armor::PuffAndSlashPattern {
+                puff_count,
+                slash_count,
+                ..Default::default()
+            },
             length: Permille(1000),
             proximal_position: Permille(1000),
             ..Default::default()

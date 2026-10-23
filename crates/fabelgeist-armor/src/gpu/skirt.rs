@@ -34,6 +34,70 @@ pub fn record_skirt(
     if design.bodice.is_some() != attachment.is_some() {
         return Err(GenerateError::InvalidSurface);
     }
+    let first_row = design
+        .bodice
+        .as_ref()
+        .map_or(0, |bodice| bodice.first_skirt_row());
+    let kernel = coordinate_kernel(gpu, include_str!("skirt.wgsl"))?;
+    let mut recipe = PartRecipe::new();
+    recipe.push_coord(carrier(design, attachment)?, kernel.clone())?;
+    recipe.component(
+        if design.puff_and_slash.is_some() {
+            ArmorComponentRole::Undercloth
+        } else {
+            ArmorComponentRole::OuterFabric
+        },
+        None,
+    );
+    super::skirt_structure::append(&mut recipe, &kernel, design)?;
+    if let Some(pattern) = &design.puff_and_slash {
+        let puff_kernel = coordinate_kernel(gpu, include_str!("skirt_puff.wgsl"))?;
+        super::textile_pattern::append_outer(&mut recipe, &puff_kernel, pattern, design.thickness)?;
+    }
+    let mut words = design.profile.shader_words().to_vec();
+    words.push(design.fitted_fraction.unit());
+    words.push(first_row as f32);
+    words.extend(
+        design
+            .pleats
+            .as_ref()
+            .map_or([0.0; 4], |pleats| pleats.shader_words()),
+    );
+    words.extend(
+        design
+            .puff_and_slash
+            .as_ref()
+            .map_or([0.0; 5], |pattern| pattern.shader_words()),
+    );
+    words.push(design.thickness.metres());
+    words.push(
+        design
+            .pleats
+            .as_ref()
+            .map_or(1.0, |pleats| pleats.front_depth.unit()),
+    );
+    words.extend(design.pleats.as_ref().map_or([0.0; 2], |pleats| {
+        [pleats.waist_depth.metres(), pleats.front_panel.unit()]
+    }));
+    recipe.record(gpu, batch, &words, &[fit])
+}
+
+fn coordinate_kernel(gpu: &ArmorGpu, shape: &str) -> Result<CoordKernel, GenerateError> {
+    let source = format!(
+        "const COLUMNS: u32 = {SKIRT_RING_SEGMENTS}u;\nconst ROWS: u32 = {SKIRT_AXIAL_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst ATTACHMENT: u32 = {SKIRT_FIT_WORDS}u;\nconst POINT_WORDS: u32 = {SKIRT_ATTACHMENT_POINT_WORDS}u;\n{AUTHORED}{}{}{}{}",
+        include_str!("skirt_folds.wgsl"),
+        include_str!("skirt_surface.wgsl"),
+        include_str!("textile_fullness.wgsl"),
+        shape,
+    );
+    CoordKernel::new(gpu, &source)
+}
+
+/// Native topology adapter; all positions remain GPU evaluated.
+fn carrier(
+    design: &SkirtDesign,
+    attachment: Option<&SkirtAttachment>,
+) -> Result<CoordShell, GenerateError> {
     let mut coords = Vec::new();
     let mut indices = Vec::new();
     let first_row = design
@@ -58,37 +122,16 @@ pub fn record_skirt(
     if let Some(attachment) = attachment {
         attachment.append(&mut coords, &mut indices)?;
     }
-    let source = format!(
-        "const COLUMNS: u32 = {SKIRT_RING_SEGMENTS}u;\nconst ROWS: u32 = {SKIRT_AXIAL_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst ATTACHMENT: u32 = {SKIRT_FIT_WORDS}u;\nconst POINT_WORDS: u32 = {SKIRT_ATTACHMENT_POINT_WORDS}u;\n{AUTHORED}{}",
-        include_str!("skirt.wgsl"),
-    );
-    let kernel = CoordKernel::new(gpu, &source)?;
-    let mut recipe = PartRecipe::new();
-    recipe.push_coord(
-        CoordShell {
-            coords,
-            indices,
-            boundary_normals: BoundaryNormals::Smooth,
-            thickness: design.thickness.metres(),
-            extrusion: CoordExtrusion::Normal,
-            values: [0.0; 4],
-            mirrored: false,
-            frame: 0,
-            passes: 1,
-            hinge: None,
-        },
-        kernel.clone(),
-    )?;
-    recipe.component(ArmorComponentRole::OuterFabric, None);
-    super::skirt_structure::append(&mut recipe, &kernel, design)?;
-    let mut words = design.profile.shader_words().to_vec();
-    words.push(design.fitted_fraction.unit());
-    words.push(first_row as f32);
-    words.extend(
-        design
-            .pleats
-            .as_ref()
-            .map_or([0.0; 4], |pleats| pleats.shader_words()),
-    );
-    recipe.record(gpu, batch, &words, &[fit])
+    Ok(CoordShell {
+        coords,
+        indices,
+        boundary_normals: BoundaryNormals::Smooth,
+        thickness: design.thickness.metres(),
+        extrusion: CoordExtrusion::Normal,
+        values: [0.0; 4],
+        mirrored: false,
+        frame: 0,
+        passes: 1,
+        hinge: None,
+    })
 }

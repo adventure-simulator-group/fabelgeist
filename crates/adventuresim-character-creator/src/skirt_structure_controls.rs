@@ -26,6 +26,24 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
             .selectable_value(&mut pleats.style, PleatStyle::Accordion, "Accordion folds")
             .changed();
         changed |= proportion(ui, &mut pleats.rotation, 0..=1000, "Pleat rotation");
+        changed |= proportion(
+            ui,
+            &mut pleats.front_depth,
+            SkirtPleats::FRONT_DEPTH_RANGE,
+            "Front fold depth",
+        );
+        changed |= number(
+            ui,
+            &mut pleats.waist_depth.0,
+            SkirtPleats::WAIST_DEPTH_RANGE,
+            "Waist gather depth (mm)",
+        );
+        changed |= proportion(
+            ui,
+            &mut pleats.front_panel,
+            SkirtPleats::FRONT_PANEL_RANGE,
+            "Quiet front panel width",
+        );
     }
     changed |= toggle(ui, &mut design.support, "Structural support");
     if let Some(support) = &mut design.support {
