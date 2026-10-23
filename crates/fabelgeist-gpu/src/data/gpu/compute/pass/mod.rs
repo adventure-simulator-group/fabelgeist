@@ -44,6 +44,7 @@ impl ComputePass {
         encoder: &mut wgpu::CommandEncoder,
         groups: WorkgroupGrid,
     ) -> Result<()> {
+        let groups = groups.validate_device(&context.device)?;
         let pipeline = pipeline_def.compiled(context)?;
         let bind_groups =
             crate::data::gpu::bind_group::create_bind_groups(context, pipeline_def, parameters)?;
