@@ -20,7 +20,7 @@ fn generate(gpu: &ArmorGpu, design: &SkirtDesign) -> Result<BuiltPart> {
     }
     let frame = gpu.upload(BufferUpload::from_elements(&fit))?;
     let mut batch = gpu.batch("skirt carrier integration");
-    let mut part = record_skirt(gpu, &mut batch, design, &frame)?;
+    let mut part = record_skirt(gpu, &mut batch, design, &frame, None)?;
     part.record_shells(gpu, &mut batch)?;
     batch.submit();
     Ok(part.read(gpu)?)

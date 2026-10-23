@@ -28,7 +28,10 @@ pub struct SurfaceCut {
 }
 
 type Polygon = Vec<[f64; 3]>;
-const CORRESPONDENCE_PRECISION: f32 = 1_000_000.0;
+/// Native GPU words per source point: body indices, UV indices, barycentric
+/// f32 bits. Positions evaluated from them are in canonical body metres.
+pub const POINT_WORDS: usize = 9;
+pub(crate) const CORRESPONDENCE_PRECISION: f32 = 1_000_000.0;
 const MINIMUM_TRIANGLE_AREA_SQUARED: f32 = 1e-20;
 // Cutting within 0.15 mm of a source vertex uses that vertex exactly. This
 // prevents microscopic corner slivers and agrees on both sides of a body edge.
@@ -36,6 +39,16 @@ const CUT_VERTEX_SNAP_METRES: f32 = 0.00015;
 const CUT_PLANE_ROUNDOFF_METRES: f64 = 1e-6;
 
 impl SurfaceCut {
+    pub fn source_table(&self, faces: &[[u32; 3]], uv_faces: &[[u32; 3]]) -> Vec<u32> {
+        let mut table = Vec::with_capacity(self.points.len() * POINT_WORDS);
+        for point in &self.points {
+            table.extend(faces[point.triangle]);
+            table.extend(uv_faces[point.triangle]);
+            table.extend(point.weights.map(f32::to_bits));
+        }
+        table
+    }
+
     pub fn new(
         positions: &[[f32; 3]],
         faces: &[[u32; 3]],
