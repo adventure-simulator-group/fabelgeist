@@ -1,64 +1,30 @@
-use super::{CoordinateAxis, GeometryError, GeometryRole, error::finite};
+use super::{CoordinateAxis, CuboidDimensions, GeometryError, GeometryRole, error::finite};
 use bevy::{
     math::{Vec2, Vec3},
     reflect::Reflect,
 };
 use serde::{Deserialize, Serialize};
 
-fn dimensions(value: Vec3, role: GeometryRole, positive: bool) -> Result<(), GeometryError> {
-    finite(value, role)?;
-    for (axis, component) in [CoordinateAxis::X, CoordinateAxis::Y, CoordinateAxis::Z]
-        .into_iter()
-        .zip(value.to_array())
-    {
-        if component < 0.0 {
-            return Err(GeometryError::NegativeExtent { role, axis });
-        }
-        if positive && component == 0.0 {
-            return Err(GeometryError::ZeroExtent { role, axis });
-        }
-    }
-    Ok(())
-}
-
-/// Cuboid-axis extents in metres. Degenerate solids can contribute point or line contact.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
-#[repr(transparent)]
-#[serde(transparent)]
-#[reflect(opaque)]
-pub struct CuboidDimensions(Vec3);
-impl CuboidDimensions {
-    pub const ZERO: Self = Self(Vec3::ZERO);
-    pub fn from_metres(value: Vec3) -> Result<Self, GeometryError> {
-        dimensions(value, GeometryRole::CuboidDimensions, false)?;
-        Ok(Self(value))
-    }
-    pub fn metres(self) -> Vec3 {
-        self.0
-    }
-}
-impl<'de> Deserialize<'de> for CuboidDimensions {
-    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
-        Self::from_metres(Vec3::deserialize(d)?).map_err(serde::de::Error::custom)
-    }
-}
-
 /// Positive operable-leaf width, height and thickness in leaf-local axes.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
+#[derive(Clone, Copy, Debug, PartialEq, Reflect)]
 #[repr(transparent)]
-#[serde(transparent)]
 #[reflect(opaque)]
-pub struct LeafDimensions(Vec3);
+pub struct LeafDimensions(CuboidDimensions);
 impl LeafDimensions {
     pub fn from_metres(value: Vec3) -> Result<Self, GeometryError> {
         dimensions(value, GeometryRole::LeafDimensions, true)?;
-        Ok(Self(value))
+        CuboidDimensions::from_metres(value).map(Self)
     }
     pub fn metres(self) -> Vec3 {
-        self.0
+        self.cuboid().metres()
     }
     pub fn cuboid(self) -> CuboidDimensions {
-        CuboidDimensions(self.0)
+        self.0
+    }
+}
+impl Serialize for LeafDimensions {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        self.metres().serialize(serializer)
     }
 }
 impl<'de> Deserialize<'de> for LeafDimensions {
@@ -84,6 +50,11 @@ impl PlanDimensions {
     }
     pub fn metres(self) -> Vec2 {
         self.0
+    }
+
+    /// Plan half extents remain finite and nonnegative; subnormal halves may be zero.
+    pub fn half_extents(self) -> PlanExtents {
+        PlanExtents(self.0 * 0.5)
     }
 }
 impl<'de> Deserialize<'de> for PlanDimensions {
@@ -115,4 +86,20 @@ impl<'de> Deserialize<'de> for PlanExtents {
     fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
         Self::from_metres(Vec2::deserialize(d)?).map_err(serde::de::Error::custom)
     }
+}
+
+fn dimensions(value: Vec3, role: GeometryRole, positive: bool) -> Result<(), GeometryError> {
+    finite(value, role)?;
+    for (axis, component) in [CoordinateAxis::X, CoordinateAxis::Y, CoordinateAxis::Z]
+        .into_iter()
+        .zip(value.to_array())
+    {
+        if component < 0.0 {
+            return Err(GeometryError::NegativeExtent { role, axis });
+        }
+        if positive && component == 0.0 {
+            return Err(GeometryError::ZeroExtent { role, axis });
+        }
+    }
+    Ok(())
 }

@@ -84,6 +84,7 @@ pub struct TorsoBody<'a> {
 /// A breastplate recorded on the device, with its shell on each body
 /// realization.
 pub struct DeviceBreastplate {
+    rig_joints: fabelgeist_rig::RigJointCount,
     design: BreastplateDesign,
     shell: Shell,
     skin: Buffer,
@@ -159,6 +160,7 @@ impl DeviceBreastplate {
             }
         };
         Ok(Self {
+            rig_joints: torso.body.joint_count,
             design: design.clone(),
             shell,
             skin,
@@ -310,10 +312,12 @@ impl DeviceBreastplate {
                 .iter()
                 .map(|words| [f32::from_bits(words[0]), f32::from_bits(words[1])])
                 .collect(),
-            joint_indices: skin
-                .iter()
-                .map(|words| std::array::from_fn(|k| words[2 + k]))
-                .collect(),
+            joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
+                skin.iter()
+                    .map(|words| std::array::from_fn(|k| words[2 + k]))
+                    .collect(),
+                self.rig_joints,
+            )?,
             joint_weights: skin
                 .iter()
                 .map(|words| std::array::from_fn(|k| f32::from_bits(words[10 + k])))

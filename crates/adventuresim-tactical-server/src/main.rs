@@ -1,21 +1,6 @@
 //! Tactical Server - Replicon + Aeronet websocket game server.
 #[cfg(feature = "debug")]
-mod debug_dump;
-#[cfg(feature = "debug")]
 use debug_dump::on_debug_dump_world_request;
-
-mod bot;
-mod combat;
-mod equipment;
-mod furniture;
-mod mission;
-mod openings;
-mod player_projection;
-mod scene_obstacles;
-mod scene_setup;
-mod startup;
-mod stdb;
-mod terrain_collision;
 
 use std::{net::SocketAddr, num::NonZeroU32, path::PathBuf, time::Duration};
 
@@ -59,6 +44,22 @@ use crate::{
     startup::StartupInputs,
     stdb::{SpacetimeDb, SpacetimeDbReady},
 };
+
+mod bot;
+mod combat;
+#[cfg(feature = "debug")]
+mod debug_dump;
+mod equipment;
+mod furniture;
+mod mission;
+mod openings;
+mod player_projection;
+mod scene_obstacles;
+mod scene_setup;
+mod scene_spawn;
+mod startup;
+mod stdb;
+mod terrain_collision;
 
 const MISSION_TIMEOUT_SECS: f32 = 300.0;
 
@@ -687,7 +688,7 @@ fn on_server_started(
             generated.obstacles,
             &terrain,
             input.playable.spacing_metres,
-        );
+        )?;
         openings::spawn_generated_buildings(
             &mut commands,
             generated.buildings,

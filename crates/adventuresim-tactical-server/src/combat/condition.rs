@@ -31,6 +31,7 @@ pub(crate) fn update_tactical_combat_state(
     mut states: CombatStateQuery<'_, '_>,
     mut trends: Local<HashMap<Entity, forecast::ConditionTrend>>,
 ) {
+    let elapsed = AnimationElapsed::from(time.delta());
     trends.retain(|entity, _| states.contains(*entity));
     for (entity, mut state, mut input, mut movement_intent, pace, skeleton, wounds) in &mut states {
         let Ok(view) = viewer.get(entity) else {
@@ -42,13 +43,13 @@ pub(crate) fn update_tactical_combat_state(
             movement_intent.as_deref().and_then(|intent| intent.0),
             pace.copied().unwrap_or_default(),
             skeleton,
-            time.delta_secs(),
+            elapsed,
             config.resolution.fatigue,
         );
         state.blood_loss_fraction = advance_combat_bleeding(
             state.blood_loss_fraction,
             wounds.map_or(&[], |wounds| wounds.0.as_slice()),
-            time.delta_secs(),
+            elapsed,
         );
         if let Some(consequences) = consequences.as_deref_mut()
             && let Ok((TacticalCombatSide::Party, character_id)) = metadata.get(entity)
@@ -59,7 +60,7 @@ pub(crate) fn update_tactical_combat_state(
                 .or_default()
                 .blood_loss_fraction = state.blood_loss_fraction;
         }
-        state.imbalance = recover_combat_imbalance(state.imbalance, time.delta_secs());
+        state.imbalance = recover_combat_imbalance(state.imbalance, elapsed);
         let Ok(limbs) = limbs.get(entity) else {
             continue;
         };
@@ -78,7 +79,7 @@ pub(crate) fn update_tactical_combat_state(
         let sources = state.incapacitation_sources(limbs.total_damage(), will);
         state.projected_increase = trends.entry(entity).or_default().update(
             sources,
-            time.delta_secs(),
+            elapsed,
             config.presentation.incapacitation_forecast,
         );
         forecast::project_bleeding(
@@ -106,7 +107,7 @@ fn update_fatigue(
     movement: Option<Vec2>,
     pace: MovementPace,
     skeleton: Option<&SkeletonState>,
-    elapsed_seconds: f32,
+    elapsed_seconds: AnimationElapsed,
     parameters: CombatFatigueParameters,
 ) {
     let endurance = view.raw_single_body_part_attr(SimpleAttribute::Endurance);
@@ -118,21 +119,31 @@ fn update_fatigue(
     });
     let moving = movement.is_some_and(|movement| movement.length_squared() > 0.0);
     let burden = view.body_weight() + view.inventory_weight();
-    let sprint_speed = tactical_sprint_speed(
-        view.raw_limb_attr(LimbAttribute::Strength, BodyPart::LeftLeg),
-        view.raw_limb_attr(LimbAttribute::Strength, BodyPart::RightLeg),
-        view.body_part_health(BodyPart::LeftLeg),
-        view.body_part_health(BodyPart::RightLeg),
-        burden,
-    );
-    let jog_speed = tactical_jog_speed(endurance);
-    let effort_speed = tactical_movement_speed_for_pace(
-        movement,
-        pace,
-        skeleton.map_or(WeaponGuardState::Lowered, SkeletonState::weapon_guard),
-        jog_speed,
-        sprint_speed,
-    );
+    let speeds = || -> adventuresim_tactical_core::animation::AnimationValueResult<_> {
+        let sprint_speed = tactical_sprint_speed(
+            view.raw_limb_attr(LimbAttribute::Strength, BodyPart::LeftLeg),
+            view.raw_limb_attr(LimbAttribute::Strength, BodyPart::RightLeg),
+            view.body_part_health(BodyPart::LeftLeg),
+            view.body_part_health(BodyPart::RightLeg),
+            burden,
+        )?;
+        let jog_speed = tactical_jog_speed(endurance)?;
+        let effort_speed = tactical_movement_speed_for_pace(
+            movement,
+            pace,
+            skeleton.map_or(WeaponGuardState::Lowered, SkeletonState::weapon_guard),
+            jog_speed,
+            sprint_speed,
+        )?;
+        Ok((jog_speed, effort_speed))
+    };
+    let (jog_speed, effort_speed) = match speeds() {
+        Ok(speeds) => speeds,
+        Err(error) => {
+            warn!(%error, "Rejected movement exertion speed");
+            return;
+        }
+    };
     state.fatigue = (state.fatigue
         + combat_movement_fatigue_per_second(
             effort_speed,
@@ -140,8 +151,8 @@ fn update_fatigue(
             view.inventory_weight(),
             endurance,
             parameters,
-        ) * elapsed_seconds)
-        .clamp(0.0, 1.0);
+        ) * elapsed_seconds.seconds())
+    .clamp(0.0, 1.0);
     if !active_action && !moving {
         let state = &mut *state;
         recover_combat_fatigue(&mut state.fatigue, elapsed_seconds, endurance, parameters);

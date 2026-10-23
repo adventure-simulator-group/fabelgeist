@@ -15,6 +15,11 @@ tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep
 remote-types = ["debug"]
 
 [dependencies]
+fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
+fabelgeist-geometry.workspace = true
+derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "from", "into", "deref"] }
+strum = { version = "0.27.2", features = ["derive"] }
+fabelgeist-rig.workspace = true
 thiserror.workspace = true
 adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
 fabelgeist-armor = { path = "../fabelgeist-armor" }
@@ -122,6 +127,5 @@ required-features = ["debug"]
 
 [dev-dependencies]
 fabelgeist-bvh = { path = "../fabelgeist-bvh", default-features = false }
-fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
 gltf = { version = "1.4", default-features = false, features = ["utils", "names"] }
 pollster = "0.4"

@@ -592,7 +592,8 @@ mod tests {
             preferred_attack,
             moment_of_inertia_kg_m2,
             false,
-        );
+        )
+        .unwrap();
         CombatWeapon {
             skills: skills.into(),
             melee: true,
@@ -612,7 +613,10 @@ mod tests {
                 equipment.material,
                 equipment.striking_material,
             ),
-            attack_interval_seconds: timing.preparation_secs + timing.recovery_secs,
+            attack_interval_seconds: timing
+                .preparation_secs
+                .checked_add(timing.recovery_secs)
+                .unwrap(),
             balance: adventuresim_core::equipment::weapon_balance_from_moment(
                 moment_of_inertia_kg_m2,
                 definition.weight_kg,
@@ -774,7 +778,8 @@ mod tests {
                 vec![enemy.clone()],
                 seed,
                 BattleOpening::Normal,
-            );
+            )
+            .unwrap();
             assert!(
                 outcome.summary.melee_attacks > 0,
                 "seed {seed} resolved without combat contact"

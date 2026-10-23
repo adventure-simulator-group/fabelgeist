@@ -4,6 +4,7 @@ use crate::strategic_scene::{
     protocol::{Person, PersonPresentation, PlaceId, PortraitView},
     status::{SceneAssetsReady, SceneInstallationReady},
 };
+use adventuresim_building_generator::spatial_geometry::Position;
 
 #[test]
 fn requested_portraits_capture_on_first_visit_and_reuse_their_completed_images() {
@@ -25,7 +26,7 @@ fn requested_portraits_capture_on_first_visit_and_reuse_their_completed_images()
                 id,
                 RetainedPerson {
                     entity: Entity::PLACEHOLDER,
-                    anchor: Vec3::X * id.0 as f32,
+                    anchor: Position::from_metres(Vec3::X * id.0 as f32).unwrap(),
                     facing: Quat::IDENTITY,
                     layer: id.0 as usize + 1,
                 },

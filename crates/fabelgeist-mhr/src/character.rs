@@ -9,67 +9,22 @@ use std::collections::HashMap;
 
 use anyhow::{Context, Result, bail};
 
-use crate::math::{
-    Mat4, Quat, Transform, affine_inverse, mat4_from_column_major, quat_from_euler_degrees,
-    quat_mul, rotation_order,
-};
-use fabelgeist_fbx::{Object, Scene};
+use crate::math::{Mat4, Transform};
+use fabelgeist_fbx::{FbxObjectName, Object, Scene};
+use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
+pub use skeleton::Skeleton;
+use skeleton::{ParsedSkeleton, parse_skeleton};
+pub use skin::SkinWeights;
+use skin::parse_skin;
+
+mod skeleton;
+mod skin;
 
 /// Momentum allows at most eight joint influences per vertex.
 pub const MAX_SKIN_JOINTS: usize = 8;
+
 /// `tx, ty, tz, rx, ry, rz, sc`.
 pub const PARAMETERS_PER_JOINT: usize = 7;
-
-/// The joint hierarchy, in momentum order (parents always precede children).
-#[derive(Debug, Default, Clone)]
-pub struct Skeleton {
-    pub names: Vec<String>,
-    /// Parent index, or `-1` for a root.
-    pub parents: Vec<i32>,
-    pub translation_offsets: Vec<[f32; 3]>,
-    /// Rest rotation baked into the joint, `[x, y, z, w]`.
-    pub prerotations: Vec<[f32; 4]>,
-}
-
-impl Skeleton {
-    pub fn len(&self) -> usize {
-        self.names.len()
-    }
-
-    pub fn is_empty(&self) -> bool {
-        self.names.is_empty()
-    }
-
-    pub fn joint_index(&self, name: &str) -> Option<usize> {
-        self.names.iter().position(|n| n == name)
-    }
-
-    /// Bind-pose global transform per joint (all joint parameters zero).
-    pub fn bind_pose(&self) -> Vec<Transform> {
-        let mut global: Vec<Transform> = Vec::with_capacity(self.len());
-        for joint in 0..self.len() {
-            let offset = self.translation_offsets[joint];
-            let prerotation = self.prerotations[joint];
-            let local = Transform {
-                translation: [offset[0] as f64, offset[1] as f64, offset[2] as f64],
-                rotation: [
-                    prerotation[0] as f64,
-                    prerotation[1] as f64,
-                    prerotation[2] as f64,
-                    prerotation[3] as f64,
-                ],
-                scale: 1.0,
-            };
-            let parent = self.parents[joint];
-            global.push(if parent < 0 {
-                local
-            } else {
-                global[parent as usize].compose(&local)
-            });
-        }
-        global
-    }
-}
 
 /// Triangulated mesh with the original polygon topology dropped.
 #[derive(Debug, Default, Clone)]
@@ -80,19 +35,22 @@ pub struct Mesh {
     pub texcoord_faces: Vec<[u32; 3]>,
 }
 
-/// Fixed-width sparse skinning, eight influences per vertex.
-#[derive(Debug, Default, Clone)]
-pub struct SkinWeights {
-    pub index: Vec<[u32; MAX_SKIN_JOINTS]>,
-    pub weight: Vec<[f32; MAX_SKIN_JOINTS]>,
-}
-
 /// Dense blend-shape basis, `shape-major`: `vectors[shape * n_verts * 3 + ..]`.
 #[derive(Debug, Default, Clone)]
 pub struct BlendShapes {
-    pub names: Vec<String>,
+    pub names: Vec<FbxObjectName>,
     pub vectors: Vec<f32>,
     pub num_vertices: usize,
+}
+
+/// Everything the MHR forward pass needs from the rig file.
+pub struct Character {
+    pub skeleton: Skeleton,
+    pub mesh: Mesh,
+    pub skin_weights: SkinWeights,
+    /// Inverse bind pose per joint as a skeleton state `[t, q, s]`.
+    pub inverse_bind_pose: RigJointTable<[f32; 8]>,
+    pub blend_shapes: BlendShapes,
 }
 
 impl BlendShapes {
@@ -105,89 +63,104 @@ impl BlendShapes {
     }
 }
 
-/// Everything the MHR forward pass needs from the rig file.
-pub struct Character {
-    pub skeleton: Skeleton,
-    pub mesh: Mesh,
-    pub skin_weights: SkinWeights,
-    /// Inverse bind pose per joint as a skeleton state `[t, q, s]`.
-    pub inverse_bind_pose: Vec<[f32; 8]>,
-    pub blend_shapes: BlendShapes,
-}
-
-struct SkeletonBuilder<'a> {
-    scene: &'a Scene,
-    skeleton: Skeleton,
-    /// FBX object id per joint index, used to resolve skin clusters back to joints.
-    joint_ids: Vec<i64>,
-}
-
-impl<'a> SkeletonBuilder<'a> {
-    fn visit(&mut self, object: &Object, parent: Option<usize>) {
-        if !object.is_node() {
-            return;
+impl Character {
+    /// Loads a character from the bytes of a binary FBX rig.
+    pub fn from_fbx_bytes(data: &[u8], load_blend_shapes: bool) -> Result<Self> {
+        let scene = Scene::parse(data)?;
+        let ParsedSkeleton {
+            skeleton,
+            joint_ids,
+        } = parse_skeleton(&scene);
+        if skeleton.is_empty() {
+            bail!("no joints found in FBX rig");
         }
 
-        if object.is_null_node() {
-            // Nulls are collision primitives or locators; neither is a joint.
-            // A null at the top of the file is just a grouping node, so keep descending.
-            if parent.is_none() && object.node.property70("col_type").is_none() {
-                for child in self.scene.children(object.id).collect::<Vec<_>>() {
-                    self.visit(child, None);
+        let joint_of_object: HashMap<i64, RigJointOrdinal> = joint_ids
+            .indexed()
+            .map(|(joint, id)| (*id, joint))
+            .collect();
+
+        // Default to each joint's bind-pose global transform; clusters override
+        // the joints they actually bind, which for MHR is all of them.
+        let bind_pose = skeleton.bind_pose();
+        let mut inverse_bind_pose: RigJointTable<Mat4> = bind_pose
+            .iter()
+            .map(|transform| {
+                let inverse = transform.inverse();
+                let rotation = crate::math::quat_to_matrix(inverse.rotation);
+                let mut m = [[0.0; 4]; 4];
+                for row in 0..3 {
+                    for col in 0..3 {
+                        m[row][col] = rotation[row][col] * inverse.scale;
+                    }
+                    m[row][3] = inverse.translation[row];
                 }
-            }
-            return;
+                m[3][3] = 1.0;
+                m
+            })
+            .collect();
+
+        let mesh_model = scene
+            .objects_of_kind("Model", "Mesh")
+            .next()
+            .context("FBX rig has no mesh")?;
+        let geometry = scene
+            .child_of_kind(mesh_model.id, "Geometry", "Mesh")
+            .context("mesh model has no geometry")?;
+
+        let vertex_values = geometry
+            .node
+            .child("Vertices")
+            .and_then(|n| n.f64_array())
+            .context("mesh geometry has no vertices")?;
+        let (vertex_triples, remainder) = vertex_values.as_chunks::<3>();
+        if !remainder.is_empty() {
+            bail!("FBX vertex array contains an incomplete three-axis position");
         }
+        let vertices: Vec<[f32; 3]> = vertex_triples
+            .iter()
+            .map(|v| [v[0] as f32, v[1] as f32, v[2] as f32])
+            .collect();
+        let polygon_vertex_index = geometry
+            .node
+            .child("PolygonVertexIndex")
+            .and_then(|n| n.i64_array())
+            .context("mesh geometry has no polygons")?;
 
-        if !object.is_limb() {
-            return;
-        }
+        let faces = triangulate(&polygon_vertex_index)?;
+        let (texcoords, texcoord_indices) = parse_uvs(geometry, polygon_vertex_index.len())?;
+        let texcoord_faces = triangulate_texcoords(&polygon_vertex_index, &texcoord_indices);
 
-        let order = rotation_order(object.node.property70_i64("RotationOrder", 0));
-        let local_rotation =
-            quat_from_euler_degrees(object.node.property70_vec3("Lcl Rotation", [0.0; 3]), order);
-        let pre_rotation = quat_from_euler_degrees(
-            object.node.property70_vec3("PreRotation", [0.0; 3]),
-            [0, 1, 2],
-        );
-        // momentum bakes any rest rotation into the joint's pre-rotation.
-        let prerotation: Quat = quat_mul(pre_rotation, local_rotation);
-        let offset = object.node.property70_vec3("Lcl Translation", [0.0; 3]);
+        let blend_shapes = if load_blend_shapes {
+            parse_blend_shapes(&scene, geometry, vertices.len())
+        } else {
+            BlendShapes::default()
+        };
 
-        let index = self.skeleton.len();
-        self.skeleton.names.push(object.name.clone());
-        self.skeleton
-            .parents
-            .push(parent.map(|p| p as i32).unwrap_or(-1));
-        self.skeleton.translation_offsets.push([
-            offset[0] as f32,
-            offset[1] as f32,
-            offset[2] as f32,
-        ]);
-        self.skeleton.prerotations.push([
-            prerotation[0] as f32,
-            prerotation[1] as f32,
-            prerotation[2] as f32,
-            prerotation[3] as f32,
-        ]);
-        self.joint_ids.push(object.id);
+        let skin_weights = parse_skin(
+            &scene,
+            geometry,
+            &joint_of_object,
+            vertices.len(),
+            &mut inverse_bind_pose,
+        )?;
 
-        for child in self.scene.children(object.id).collect::<Vec<_>>() {
-            self.visit(child, Some(index));
-        }
+        Ok(Self {
+            skeleton,
+            mesh: Mesh {
+                vertices,
+                faces,
+                texcoords,
+                texcoord_faces,
+            },
+            skin_weights,
+            inverse_bind_pose: inverse_bind_pose
+                .iter()
+                .map(|m| Transform::from_matrix(m).to_skel_state())
+                .collect(),
+            blend_shapes,
+        })
     }
-}
-
-fn parse_skeleton(scene: &Scene) -> (Skeleton, Vec<i64>) {
-    let mut builder = SkeletonBuilder {
-        scene,
-        skeleton: Skeleton::default(),
-        joint_ids: Vec::new(),
-    };
-    for root in scene.children(0).collect::<Vec<_>>() {
-        builder.visit(root, None);
-    }
-    (builder.skeleton, builder.joint_ids)
 }
 
 /// Splits an FBX `PolygonVertexIndex` stream (negative index ends a polygon)
@@ -319,192 +292,6 @@ fn parse_blend_shapes(scene: &Scene, geometry: &Object, num_vertices: usize) -> 
         names,
         vectors,
         num_vertices,
-    }
-}
-
-fn parse_skin(
-    scene: &Scene,
-    geometry: &Object,
-    joint_of_object: &HashMap<i64, usize>,
-    num_vertices: usize,
-    inverse_bind_pose: &mut [Mat4],
-) -> Result<SkinWeights> {
-    let mut per_vertex: Vec<Vec<(usize, f64)>> = vec![Vec::new(); num_vertices];
-
-    let Some(skin) = scene
-        .children(geometry.id)
-        .find(|o| o.kind == "Deformer" && o.class == "Skin")
-    else {
-        bail!("geometry '{}' has no skin deformer", geometry.name);
-    };
-
-    for cluster in scene
-        .children(skin.id)
-        .filter(|o| o.kind == "Deformer" && o.class == "Cluster")
-        .collect::<Vec<_>>()
-    {
-        let Some(bone) = scene
-            .children(cluster.id)
-            .find(|o| joint_of_object.contains_key(&o.id))
-        else {
-            bail!("cluster '{}' references an unknown bone", cluster.name);
-        };
-        let joint = joint_of_object[&bone.id];
-
-        // The cluster's bind transform overrides the joint's own rest pose.
-        if let Some(link) = cluster
-            .node
-            .child("TransformLink")
-            .and_then(|n| n.f64_array())
-            && link.len() == 16
-        {
-            inverse_bind_pose[joint] = affine_inverse(&mat4_from_column_major(&link));
-        }
-
-        let (Some(indices), Some(weights)) = (
-            cluster.node.child("Indexes").and_then(|n| n.i64_array()),
-            cluster.node.child("Weights").and_then(|n| n.f64_array()),
-        ) else {
-            continue;
-        };
-        if indices.len() != weights.len() {
-            bail!(
-                "cluster '{}' has mismatched indices and weights",
-                cluster.name
-            );
-        }
-
-        for (vertex, weight) in indices.iter().zip(&weights) {
-            let vertex = *vertex as usize;
-            if vertex >= num_vertices {
-                bail!("cluster '{}' references vertex {vertex}", cluster.name);
-            }
-            if *weight <= 0.0 {
-                continue;
-            }
-            per_vertex[vertex].push((joint, weight.clamp(0.0, 1.0)));
-        }
-    }
-
-    let mut skin_weights = SkinWeights {
-        index: vec![[0; MAX_SKIN_JOINTS]; num_vertices],
-        weight: vec![[0.0; MAX_SKIN_JOINTS]; num_vertices],
-    };
-    for (vertex, influences) in per_vertex.iter_mut().enumerate() {
-        if influences.is_empty() {
-            bail!("no skinning weights for vertex {vertex}");
-        }
-        // Keep the strongest influences, then renormalize what survived.
-        influences.sort_by(|a, b| b.1.total_cmp(&a.1));
-        influences.truncate(MAX_SKIN_JOINTS);
-        let total: f64 = influences.iter().map(|(_, w)| *w).sum();
-        if total <= 0.0 {
-            bail!("empty weight sum for vertex {vertex}");
-        }
-        for (slot, (joint, weight)) in influences.iter().enumerate() {
-            skin_weights.index[vertex][slot] = *joint as u32;
-            skin_weights.weight[vertex][slot] = (*weight / total) as f32;
-        }
-    }
-
-    Ok(skin_weights)
-}
-
-impl Character {
-    /// Loads a character from the bytes of a binary FBX rig.
-    pub fn from_fbx_bytes(data: &[u8], load_blend_shapes: bool) -> Result<Self> {
-        let scene = Scene::parse(data)?;
-        let (skeleton, joint_ids) = parse_skeleton(&scene);
-        if skeleton.is_empty() {
-            bail!("no joints found in FBX rig");
-        }
-
-        let joint_of_object: HashMap<i64, usize> = joint_ids
-            .iter()
-            .enumerate()
-            .map(|(index, id)| (*id, index))
-            .collect();
-
-        // Default to each joint's bind-pose global transform; clusters override
-        // the joints they actually bind, which for MHR is all of them.
-        let bind_pose = skeleton.bind_pose();
-        let mut inverse_bind_pose: Vec<Mat4> = bind_pose
-            .iter()
-            .map(|transform| {
-                let inverse = transform.inverse();
-                let rotation = crate::math::quat_to_matrix(inverse.rotation);
-                let mut m = [[0.0; 4]; 4];
-                for row in 0..3 {
-                    for col in 0..3 {
-                        m[row][col] = rotation[row][col] * inverse.scale;
-                    }
-                    m[row][3] = inverse.translation[row];
-                }
-                m[3][3] = 1.0;
-                m
-            })
-            .collect();
-
-        let mesh_model = scene
-            .objects_of_kind("Model", "Mesh")
-            .next()
-            .context("FBX rig has no mesh")?;
-        let geometry = scene
-            .child_of_kind(mesh_model.id, "Geometry", "Mesh")
-            .context("mesh model has no geometry")?;
-
-        let vertex_values = geometry
-            .node
-            .child("Vertices")
-            .and_then(|n| n.f64_array())
-            .context("mesh geometry has no vertices")?;
-        let (vertex_triples, remainder) = vertex_values.as_chunks::<3>();
-        if !remainder.is_empty() {
-            bail!("FBX vertex array contains an incomplete three-axis position");
-        }
-        let vertices: Vec<[f32; 3]> = vertex_triples
-            .iter()
-            .map(|v| [v[0] as f32, v[1] as f32, v[2] as f32])
-            .collect();
-        let polygon_vertex_index = geometry
-            .node
-            .child("PolygonVertexIndex")
-            .and_then(|n| n.i64_array())
-            .context("mesh geometry has no polygons")?;
-
-        let faces = triangulate(&polygon_vertex_index)?;
-        let (texcoords, texcoord_indices) = parse_uvs(geometry, polygon_vertex_index.len())?;
-        let texcoord_faces = triangulate_texcoords(&polygon_vertex_index, &texcoord_indices);
-
-        let blend_shapes = if load_blend_shapes {
-            parse_blend_shapes(&scene, geometry, vertices.len())
-        } else {
-            BlendShapes::default()
-        };
-
-        let skin_weights = parse_skin(
-            &scene,
-            geometry,
-            &joint_of_object,
-            vertices.len(),
-            &mut inverse_bind_pose,
-        )?;
-
-        Ok(Self {
-            skeleton,
-            mesh: Mesh {
-                vertices,
-                faces,
-                texcoords,
-                texcoord_faces,
-            },
-            skin_weights,
-            inverse_bind_pose: inverse_bind_pose
-                .iter()
-                .map(|m| Transform::from_matrix(m).to_skel_state())
-                .collect(),
-            blend_shapes,
-        })
     }
 }
 

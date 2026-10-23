@@ -12,6 +12,8 @@ use crate::correctives::PoseCorrectives;
 use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
 use crate::skel_state;
 
+mod rig;
+
 /// Shape coefficients: 20 body, 20 head, 5 hands.
 pub const NUM_IDENTITY_BLEND_SHAPES: usize = 45;
 /// Facial expression coefficients.
@@ -77,7 +79,7 @@ pub struct Mhr {
     /// `[1, joints, 8]`.
     inverse_bind_pose: Tensor<3>,
     /// Levels of the forward-kinematics prefix scan.
-    fk_levels: Vec<(Tensor<1, Int>, Tensor<1, Int>)>,
+    fk_levels: Vec<rig::FkTensorLevel>,
 
     /// `[45, vertices * 3]` and `[72, vertices * 3]`.
     identity_basis: Tensor<2>,
@@ -255,14 +257,9 @@ impl Mhr {
         }
 
         // Transposed so a forward pass is `parameters @ transform`.
-        let columns = parameter_transform.num_parameters();
-        let mut transform = vec![0.0f32; num_model_parameters * joints * PARAMETERS_PER_JOINT];
-        for row in 0..joints * PARAMETERS_PER_JOINT {
-            for column in 0..num_model_parameters {
-                transform[column * joints * PARAMETERS_PER_JOINT + row] =
-                    parameter_transform.transform[row * columns + column];
-            }
-        }
+        let transform = parameter_transform
+            .transform
+            .tensor_transpose(num_model_parameters);
 
         let offsets = parameter_transform
             .offsets
@@ -271,23 +268,14 @@ impl Mhr {
             .then(|| {
                 Tensor::from_data(
                     TensorData::new(
-                        parameter_transform.offsets.clone(),
+                        parameter_transform.offsets.tensor_values(),
                         [1, joints * PARAMETERS_PER_JOINT],
                     ),
                     device,
                 )
             });
 
-        let fk_levels = skel_state::prefix_multiplication_levels(&character.skeleton.parents)
-            .into_iter()
-            .map(|(source, target)| {
-                let len = source.len();
-                (
-                    Tensor::from_data(TensorData::new(source, [len]), device),
-                    Tensor::from_data(TensorData::new(target, [len]), device),
-                )
-            })
-            .collect();
+        let fk_levels = rig::fk_level_tensors(&character, device)?;
 
         let basis = &character.blend_shapes.vectors;
         let identity_basis = Tensor::from_data(
@@ -316,10 +304,10 @@ impl Mhr {
             .zip(&character.skin_weights.weight)
             .enumerate()
         {
-            for (joint, weight) in indices.iter().zip(weights) {
+            for (joint, weight) in indices.into_iter().zip(weights) {
                 if *weight > 1e-5 {
-                    skin_joint_indices.push(*joint as i32);
-                    skin_vertex_indices.push(vertex as i32);
+                    skin_joint_indices.push(i32::try_from(usize::from(joint))?);
+                    skin_vertex_indices.push(i32::try_from(vertex)?);
                     skin_weights.push(*weight);
                 }
             }
@@ -331,8 +319,8 @@ impl Mhr {
             .faces
             .iter()
             .flatten()
-            .map(|corner| *corner as i32)
-            .collect();
+            .map(|corner| i32::try_from(*corner))
+            .collect::<Result<_, _>>()?;
         let num_corners = face_corners.len();
 
         Ok(Self {
@@ -348,17 +336,27 @@ impl Mhr {
             num_model_parameters,
             joint_translation_offsets: Tensor::from_data(
                 TensorData::new(
-                    character.skeleton.translation_offsets.concat(),
+                    character
+                        .skeleton
+                        .translation_offsets
+                        .as_native_slice()
+                        .concat(),
                     [1, joints, 3],
                 ),
                 device,
             ),
             joint_prerotations: Tensor::from_data(
-                TensorData::new(character.skeleton.prerotations.concat(), [1, joints, 4]),
+                TensorData::new(
+                    character.skeleton.prerotations.as_native_slice().concat(),
+                    [1, joints, 4],
+                ),
                 device,
             ),
             inverse_bind_pose: Tensor::from_data(
-                TensorData::new(character.inverse_bind_pose.concat(), [1, joints, 8]),
+                TensorData::new(
+                    character.inverse_bind_pose.as_native_slice().concat(),
+                    [1, joints, 8],
+                ),
                 device,
             ),
             fk_levels,

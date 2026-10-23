@@ -9,10 +9,14 @@ fn body() -> RuntimeBody {
         faces: vec![[0, 1, 2]],
         texcoords: vec![[0.0, 0.0]; 3],
         texcoord_faces: vec![[0, 1, 2]],
-        joint_indices: vec![[0; 8]; 3],
+        joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
+            vec![[0; 8]; 3],
+            fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+        )
+        .unwrap(),
         joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3],
-        joint_names: vec!["arm".into()],
-        global_joint_states: vec![[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]],
+        joint_names: vec!["arm".into()].into(),
+        global_joint_states: vec![[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]].into(),
         device: Default::default(),
     }
 }
@@ -28,7 +32,7 @@ fn leg_height_correction_moves_pelvis_descendants_but_not_body_world() {
     basis.translation_metres[BodyProportion::HipWidth.index()] = [0.0, -0.2, 0.0];
     let rig = FittingRig {
         reference: Default::default(),
-        joints: vec![0, 1, 2, 3],
+        joints: vec![0, 1, 2, 3].into_iter().map(GltfNodeOrdinal).collect(),
         nodes: vec![
             RigNode {
                 parent: None,
@@ -36,17 +40,17 @@ fn leg_height_correction_moves_pelvis_descendants_but_not_body_world() {
                 basis: None,
             },
             RigNode {
-                parent: Some(0),
+                parent: Some(GltfNodeOrdinal(0)),
                 local: Transform::IDENTITY,
                 basis: None,
             },
             RigNode {
-                parent: Some(1),
+                parent: Some(GltfNodeOrdinal(1)),
                 local: Transform::IDENTITY,
                 basis: Some(basis.clone()),
             },
             RigNode {
-                parent: Some(1),
+                parent: Some(GltfNodeOrdinal(1)),
                 local: Transform::IDENTITY,
                 basis: Some(basis),
             },
@@ -54,14 +58,30 @@ fn leg_height_correction_moves_pelvis_descendants_but_not_body_world() {
     };
     let mut body = body();
     body.joint_names = ["body_world", "root", "l_foot", "r_foot"]
-        .map(String::from)
-        .to_vec();
-    body.global_joint_states = vec![[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]; 4];
+        .map(fabelgeist_rig::RigJointName::from)
+        .into_iter()
+        .collect();
+    body.global_joint_states = vec![[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]; 4].into();
+    body.joint_indices = fabelgeist_rig::PackedRigSkin::from_native(
+        body.joint_indices.native_words().to_vec(),
+        body.joint_names.joint_count(),
+    )
+    .unwrap();
     rig.fit(&mut body, proportions).unwrap();
-    assert_eq!(body.global_joint_states[0][1], 0.0);
-    assert!((body.global_joint_states[1][1] - 0.1).abs() < 1e-6);
-    assert!(body.global_joint_states[2][1].abs() < 1e-6);
-    assert!(body.global_joint_states[3][1].abs() < 1e-6);
+    assert_eq!(
+        body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(0usize)][1],
+        0.0
+    );
+    assert!(
+        (body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(1usize)][1] - 0.1).abs()
+            < 1e-6
+    );
+    assert!(
+        body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(2usize)][1].abs() < 1e-6
+    );
+    assert!(
+        body.global_joint_states[fabelgeist_rig::RigJointOrdinal::from(3usize)][1].abs() < 1e-6
+    );
 }
 
 #[test]
@@ -80,7 +100,7 @@ fn coupled_proportions_match_morph_then_skin_and_do_not_deform_twice() {
     let parent = Transform::from_rotation(Quat::from_rotation_z(std::f32::consts::FRAC_PI_2));
     let rig = FittingRig {
         reference,
-        joints: vec![1],
+        joints: vec![1].into_iter().map(GltfNodeOrdinal).collect(),
         nodes: vec![
             RigNode {
                 parent: None,
@@ -88,7 +108,7 @@ fn coupled_proportions_match_morph_then_skin_and_do_not_deform_twice() {
                 basis: None,
             },
             RigNode {
-                parent: Some(0),
+                parent: Some(GltfNodeOrdinal(0)),
                 local: Transform::from_xyz(1.0, 0.0, 0.0),
                 basis: Some(basis),
             },

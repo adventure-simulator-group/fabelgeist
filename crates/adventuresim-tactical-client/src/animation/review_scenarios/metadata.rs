@@ -1,0 +1,115 @@
+//! One open scenario-label admission boundary and retained metadata.
+
+use super::*;
+use std::cmp::Ordering;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum Repeatability {
+    Repeating,
+    Transition,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum SolverUse {
+    Procedural,
+    Authored,
+}
+
+impl<'a> ScenarioMetadata<'a> {
+    pub(crate) fn from_label(label: &'a str) -> Self {
+        let identity = label.parse::<ScenarioId>().ok();
+        let features = match identity {
+            Some(identity) => identity.features(),
+            None => ScenarioFeature::from_open_label(label),
+        };
+        scenario_metadata(Cow::Borrowed(label), identity, features)
+    }
+    pub(crate) fn authored(identity: ScenarioId) -> ScenarioMetadata<'static> {
+        scenario_metadata(
+            Cow::Borrowed(identity.into()),
+            Some(identity),
+            identity.features(),
+        )
+    }
+    pub(crate) fn label(&self) -> &str {
+        &self.label
+    }
+    pub(crate) fn identity(&self) -> Option<ScenarioId> {
+        self.identity
+    }
+    pub(crate) fn terrain(&self) -> ScenarioTerrain {
+        self.terrain
+    }
+    pub(crate) fn body(&self) -> Option<BodyState> {
+        self.execution.body
+    }
+    pub(crate) fn required_motion(&self) -> Option<&MotionId> {
+        self.execution.motion.as_ref()
+    }
+    pub(crate) fn dive_direction(&self) -> Option<DiveDirection> {
+        match self.execution.transition {
+            Some((_, PostureTransitionKind::DiveToDowned { direction, .. })) => Some(direction),
+            _ => None,
+        }
+    }
+    pub(crate) fn transition(&self) -> Option<(BodyState, PostureTransitionKind)> {
+        self.execution.transition
+    }
+    pub(crate) fn kind(&self) -> ScenarioKind {
+        self.kind
+    }
+    pub(crate) fn repeatable(&self) -> bool {
+        matches!(self.repeatable, Repeatability::Repeating)
+    }
+    pub(crate) fn procedural_solver(&self) -> bool {
+        matches!(self.procedural_solver, SolverUse::Procedural)
+    }
+    pub(crate) fn has(&self, feature: ScenarioFeature) -> bool {
+        self.features.contains(&feature)
+    }
+    pub(crate) fn is(&self, identity: ScenarioId) -> bool {
+        self.identity == Some(identity)
+    }
+    pub(crate) fn into_owned(self) -> ScenarioMetadata<'static> {
+        ScenarioMetadata {
+            label: Cow::Owned(self.label.into_owned()),
+            identity: self.identity,
+            features: self.features,
+            terrain: self.terrain,
+            kind: self.kind,
+            repeatable: self.repeatable,
+            procedural_solver: self.procedural_solver,
+            execution: self.execution,
+        }
+    }
+}
+impl PartialEq for ScenarioMetadata<'_> {
+    fn eq(&self, other: &Self) -> bool {
+        self.label == other.label
+    }
+}
+impl PartialOrd for ScenarioMetadata<'_> {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+impl Ord for ScenarioMetadata<'_> {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.label.cmp(&other.label)
+    }
+}
+impl Serialize for ScenarioMetadata<'_> {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_str(self.label())
+    }
+}
+impl From<&str> for ScenarioMetadata<'static> {
+    fn from(label: &str) -> Self {
+        ScenarioMetadata::from_label(label).into_owned()
+    }
+}
+impl From<String> for ScenarioMetadata<'static> {
+    fn from(label: String) -> Self {
+        ScenarioMetadata::from_label(&label).into_owned()
+    }
+}

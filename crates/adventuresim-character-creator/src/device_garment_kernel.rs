@@ -5,12 +5,13 @@
 //! the shared WGSL -- fixed-order arithmetic, frame helpers, and point
 //! accessors for buffers of packed points -- and records the dispatch.
 
+use crate::device_frames::DeviceWearer;
+use crate::rig_parameters::{RigJointParameter, RigPassParameters};
 use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
-
-use crate::device_frames::DeviceWearer;
+use fabelgeist_rig::RigJointOrdinal;
 
 /// Vector arithmetic in a fixed order of operations, so kernels round the same
 /// way on every device, plus the fit's failure word.
@@ -62,6 +63,14 @@ fn rem_tau(x: f32) -> f32 {
 }
 "#;
 
+const PADS: [&str; 4] = ["pad0", "pad1", "pad2", "pad3"];
+
+/// The buffer a garment's fit is bound as; kernels read their frame from it.
+const FIT_BUFFER: &str = "fit";
+
+/// Buffers of packed points, which get `<name>_at` accessors.
+const POINT_BUFFERS: [&str; 5] = ["positions", "normals", "carriers", "points", "extra"];
+
 /// A storage buffer a garment kernel binds, by name.
 pub(crate) struct Bound<'a> {
     pub name: &'static str,
@@ -77,6 +86,23 @@ pub(crate) enum Access {
     Write,
     WriteU32,
     Atomic,
+}
+
+/// A uniform word a garment kernel reads as `params.<name>`.
+#[derive(Clone, Copy)]
+pub(crate) enum Word {
+    Joint(RigJointParameter, RigJointOrdinal),
+    U(&'static str, u32),
+    F(&'static str, f32),
+}
+
+/// How many invocations a garment kernel runs.
+#[derive(Clone, Copy)]
+pub(crate) enum Grid {
+    /// One per item, in workgroups of 64.
+    Items(u32),
+    /// One single-invocation workgroup per item.
+    Singles(u32),
 }
 
 impl Access {
@@ -98,6 +124,7 @@ pub(crate) fn read<'a>(name: &'static str, buffer: &'a Buffer) -> Bound<'a> {
         buffer,
     }
 }
+
 pub(crate) fn read_u32<'a>(name: &'static str, buffer: &'a Buffer) -> Bound<'a> {
     Bound {
         name,
@@ -105,6 +132,7 @@ pub(crate) fn read_u32<'a>(name: &'static str, buffer: &'a Buffer) -> Bound<'a> 
         buffer,
     }
 }
+
 pub(crate) fn write<'a>(name: &'static str, buffer: &'a Buffer) -> Bound<'a> {
     Bound {
         name,
@@ -112,28 +140,13 @@ pub(crate) fn write<'a>(name: &'static str, buffer: &'a Buffer) -> Bound<'a> {
         buffer,
     }
 }
+
 pub(crate) fn atomic<'a>(name: &'static str, buffer: &'a Buffer) -> Bound<'a> {
     Bound {
         name,
         kind: Access::Atomic,
         buffer,
     }
-}
-
-/// A uniform word a garment kernel reads as `params.<name>`.
-#[derive(Clone, Copy)]
-pub(crate) enum Word {
-    U(&'static str, u32),
-    F(&'static str, f32),
-}
-
-/// How many invocations a garment kernel runs.
-#[derive(Clone, Copy)]
-pub(crate) enum Grid {
-    /// One per item, in workgroups of 64.
-    Items(u32),
-    /// One single-invocation workgroup per item.
-    Singles(u32),
 }
 
 /// Compile and record one garment kernel: its bindings and uniform block
@@ -169,6 +182,10 @@ pub(crate) fn dispatch(
             Word::U(name, value) => {
                 source.push_str(&format!("    {name}: u32,\n"));
                 parameters.insert(name, value);
+            }
+            Word::Joint(name, joint) => {
+                source.push_str(&format!("    {name}: u32,\n"));
+                parameters.insert_joint(name, joint)?;
             }
             Word::F(name, value) => {
                 source.push_str(&format!("    {name}: f32,\n"));
@@ -211,13 +228,6 @@ pub(crate) fn dispatch(
     .map_err(device_error)?;
     Ok(())
 }
-
-const PADS: [&str; 4] = ["pad0", "pad1", "pad2", "pad3"];
-/// The buffer a garment's fit is bound as; kernels read their frame from it.
-const FIT_BUFFER: &str = "fit";
-/// Buffers of packed points, which get `<name>_at` accessors.
-const POINT_BUFFERS: [&str; 5] = ["positions", "normals", "carriers", "points", "extra"];
-
 #[cfg(test)]
 mod tests {
     use super::*;

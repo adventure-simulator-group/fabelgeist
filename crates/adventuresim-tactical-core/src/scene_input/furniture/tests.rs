@@ -1,4 +1,5 @@
 use super::*;
+use crate::scene_coordinates::ScenePlanPoint;
 use crate::{
     city_layout::{CityStreetPatch, CityStreetSurface},
     scene::{GroundCover, GroundSurface},
@@ -272,7 +273,10 @@ fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
                 .orientation
                 .local_to_world(Vec2::new(support.metres().x, support.metres().z));
             assert!(
-                (terrain.height_at(point).unwrap()
+                (terrain
+                    .height_at(ScenePlanPoint::from_metres(point).unwrap())
+                    .unwrap()
+                    .metres()
                     - instance.position_metres.metres().y
                     - support.metres().y)
                     .abs()
@@ -336,7 +340,9 @@ fn inserted_street_obstruction_removes_every_conflicting_group() {
 #[test]
 fn unsupported_or_submerged_candidates_are_rejected_without_moving_terrain() {
     let (input, buildings, mut terrain, ground) = fixture();
-    assert!(terrain.rewrite_heights(|point, _| point.x * 0.3));
+    assert!(terrain.rewrite_heights(|point, _| {
+        crate::city_layout::grounding::SupportElevation::from_metres(point.metres().x * 0.3)
+    }));
     assert!(
         generate(
             &input,

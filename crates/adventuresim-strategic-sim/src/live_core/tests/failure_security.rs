@@ -287,7 +287,7 @@ fn typed_failure_recorder_preserves_v9_wire_without_detail_prose() {
     let error =
         CoreLoopError::reducer_rejected(ReducerOperation::PerformInvestigationAction, coded);
     recorder.record(error.clone());
-    recorder.write(&error.to_string()).unwrap();
+    recorder.write(&error).unwrap();
 
     let artifact: CoreLoopFailureArtifact =
         serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();

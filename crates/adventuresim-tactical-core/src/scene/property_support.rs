@@ -66,8 +66,7 @@ impl SceneTerrain {
     ) -> SurfaceElevations {
         match &self.geometry {
             TerrainGeometry::Sampled => self
-                .height_at(point.metres())
-                .and_then(crate::city_layout::grounding::SupportElevation::from_metres)
+                .height_at(point)
                 .map(SurfaceElevations::from_elevation)
                 .unwrap_or_default(),
             TerrainGeometry::Owned(surface) => surface.elevations_at(point),
@@ -80,7 +79,7 @@ impl SceneTerrain {
     ) -> Option<crate::city_layout::grounding::SurfaceHit> {
         match &self.geometry {
             TerrainGeometry::Sampled => {
-                let sample = self.surface_at_stride(query.point.metres(), 1)?;
+                let sample = self.surface_at_stride(query.point, 1)?;
                 query.permits(sample.elevation, 0.0).then_some(sample)
             }
             TerrainGeometry::Owned(surface) => surface.surface_below(query),

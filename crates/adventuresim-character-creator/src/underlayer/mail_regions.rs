@@ -1,6 +1,8 @@
 //! Separate hip defense, rear-knee strips and standing neck mail.
 use super::*;
+use fabelgeist_rig::{RigJointName, RigJointPart};
 
+use crate::armor_frames::FittingPlacement;
 const BRAYETTE_WAIST_ABOVE_PELVIS_M: f32 = 0.10;
 const BRAYETTE_LEG_FRACTION: f32 = 0.30;
 const STANDARD_COLLAR_HEIGHT_M: f32 = 0.065;
@@ -11,11 +13,11 @@ const KNEE_STRIP_LENGTH_M: f32 = 0.12;
 pub(super) fn brayette(
     design: &UnderlayerDesign,
     frame: RegionFrame<'_>,
-    joint: &impl Fn(&str) -> Result<[f32; 3]>,
+    joint: &impl Fn(&RigJointName) -> Result<[f32; 3]>,
 ) -> Result<Vec<ConvexRegion>> {
-    let pelvis = joint("c_spine0")?;
-    let hip = joint("l_upleg")?;
-    let knee = joint("l_lowleg")?;
+    let pelvis = joint(&RigJointName::C_SPINE0)?;
+    let hip = joint(&RigJointName::L_UPLEG)?;
+    let knee = joint(&RigJointName::L_LOWLEG)?;
     let top = pelvis[1] + BRAYETTE_WAIST_ABOVE_PELVIS_M;
     let hem = hip[1] - (hip[1] - knee[1]) * BRAYETTE_LEG_FRACTION;
     let bottom = top - (top - hem) * design.length.unit();
@@ -34,13 +36,13 @@ pub(super) fn brayette(
 
 pub(super) fn knee(
     design: &UnderlayerDesign,
-    placement: &str,
+    placement: FittingPlacement,
     frame: RegionFrame<'_>,
-    joint: &impl Fn(&str) -> Result<[f32; 3]>,
+    joint: &impl Fn(&RigJointName) -> Result<[f32; 3]>,
 ) -> Result<Vec<ConvexRegion>> {
-    let side = Side::from_placement(placement)?;
-    let prefix = side.prefix();
-    let knee = joint(&format!("{prefix}_lowleg"))?;
+    let side = placement.side()?;
+
+    let knee = joint(&side.joint(RigJointPart::Lowleg))?;
     let knee_frame = frame(FitRegion::Knee(side))?;
     let half_height = KNEE_STRIP_LENGTH_M * design.length.unit() * 0.5;
     let half_width = design.patch_width.metres() * 0.5;
@@ -63,9 +65,9 @@ pub(super) fn knee(
 pub(super) fn standard(
     design: &UnderlayerDesign,
     frame: RegionFrame<'_>,
-    joint: &impl Fn(&str) -> Result<[f32; 3]>,
+    joint: &impl Fn(&RigJointName) -> Result<[f32; 3]>,
 ) -> Result<Vec<ConvexRegion>> {
-    let neck = joint("c_neck")?;
+    let neck = joint(&RigJointName::C_NECK)?;
     let neck_frame = frame(FitRegion::Neck)?;
     let half_width = neck_frame.half_extents[0] + design.patch_width.metres() * 0.5;
     let depth = neck_frame.half_extents[2] * 2.;

@@ -120,17 +120,17 @@ mod tests {
             normal_deltas: &deltas,
         }];
         let mesh = RiggedMesh {
-            joint_proportions: &[],
+            joint_proportions: &Default::default(),
             positions: &deltas,
             normals: &deltas,
             faces: &[],
             export_body: true,
             morph_targets: &body_targets,
-            joint_indices: &[],
+            joint_indices: &Default::default(),
             joint_weights: &[],
-            joint_names: &[],
-            joint_parents: &[],
-            global_joint_states: &[],
+            joint_names: &Default::default(),
+            joint_parents: &Default::default(),
+            global_joint_states: &Default::default(),
         };
         let mut shell = RiggedShell {
             surface: None,

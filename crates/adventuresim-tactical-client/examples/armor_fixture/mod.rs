@@ -27,11 +27,12 @@ pub fn load(bytes: &[u8]) -> Result<(RuntimeBody, Vec<ForearmMorphSample>)> {
         .collect::<Vec<_>>();
     let faces = indices.as_chunks::<3>().0.to_vec();
     let texcoords = surface_chart(&positions);
-    let joint_names = skin
+    let joint_names: fabelgeist_rig::RigJointTable<_> = skin
         .joints()
-        .map(|joint| joint.name().unwrap_or("joint").to_owned())
+        .map(|joint| fabelgeist_rig::RigJointName::from(joint.name().unwrap_or("joint")))
         .collect();
     let global_joint_states = joint_states(&skin, blob)?;
+    let rig_joints = joint_names.joint_count();
     let morphs = reader
         .read_morph_targets()
         .enumerate()
@@ -65,23 +66,26 @@ pub fn load(bytes: &[u8]) -> Result<(RuntimeBody, Vec<ForearmMorphSample>)> {
             faces,
             joint_names,
             global_joint_states,
-            joint_indices: reader
-                .read_joints(0)
-                .context("joints")?
-                .into_u16()
-                .map(|j| {
-                    [
-                        j[0] as u32,
-                        j[1] as u32,
-                        j[2] as u32,
-                        j[3] as u32,
-                        0,
-                        0,
-                        0,
-                        0,
-                    ]
-                })
-                .collect(),
+            joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
+                reader
+                    .read_joints(0)
+                    .context("joints")?
+                    .into_u16()
+                    .map(|j| {
+                        [
+                            u32::from(j[0]),
+                            u32::from(j[1]),
+                            u32::from(j[2]),
+                            u32::from(j[3]),
+                            0,
+                            0,
+                            0,
+                            0,
+                        ]
+                    })
+                    .collect(),
+                rig_joints,
+            )?,
             joint_weights: reader
                 .read_weights(0)
                 .context("weights")?
@@ -94,7 +98,10 @@ pub fn load(bytes: &[u8]) -> Result<(RuntimeBody, Vec<ForearmMorphSample>)> {
     ))
 }
 
-fn joint_states(skin: &gltf::Skin<'_>, blob: &[u8]) -> Result<Vec<[f32; 8]>> {
+fn joint_states(
+    skin: &gltf::Skin<'_>,
+    blob: &[u8],
+) -> Result<fabelgeist_rig::RigJointTable<[f32; 8]>> {
     Ok(skin
         .reader(|_| Some(blob))
         .read_inverse_bind_matrices()
@@ -107,7 +114,7 @@ fn joint_states(skin: &gltf::Skin<'_>, blob: &[u8]) -> Result<Vec<[f32; 8]>> {
                 p.x, p.y, p.z, rotation.x, rotation.y, rotation.z, rotation.w, scale.x,
             ]
         })
-        .collect::<Vec<_>>())
+        .collect())
 }
 
 fn surface_chart(positions: &[[f32; 3]]) -> Vec<[f32; 2]> {

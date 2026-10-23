@@ -17,7 +17,7 @@ impl Plugin for TacticalAnimationPlugin {
             .init_resource::<AuthoredLocomotionStrides>()
             .init_resource::<AnimationRuntime>()
             .init_resource::<semantic_route::SemanticRouteTelemetry>()
-            .init_resource::<TerrainIkEnabled>()
+            .init_resource::<TerrainIkMode>()
             .init_resource::<ProceduralAnimationClock>()
             .init_resource::<procedural::FixedTickPoseCache>()
             .init_resource::<bouncy_bones::BouncyBonesTelemetry>()
@@ -38,6 +38,7 @@ impl Plugin for TacticalAnimationPlugin {
             .add_systems(
                 Update,
                 (
+                    super::super::clip_revision::refresh_animation_revisions,
                     collect_loaded_packs,
                     attach_loaded_rig_scenes,
                     super::super::identity_morphs::sync_character_morphs,

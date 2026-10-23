@@ -1,9 +1,11 @@
 pub mod activity;
 pub mod alcohol;
+pub mod animation_pack_id;
 pub mod attribute;
 pub mod autopsy;
 pub mod autoresolve;
 pub mod battle_rewards;
+pub mod battle_time;
 pub mod bestiary;
 pub mod body;
 pub mod book;
@@ -20,8 +22,10 @@ pub mod developer_quest;
 pub mod dialogue_boundary;
 pub mod disease;
 pub mod durability;
+pub mod elapsed;
 pub mod encounter;
 pub mod equipment;
+pub mod equipment_assets;
 pub mod equipment_presentation;
 pub mod errantry;
 pub mod essential;
@@ -47,6 +51,7 @@ pub mod item_references;
 pub mod knowledge;
 pub mod leadership;
 pub mod life_simulation;
+pub mod linear_speed;
 pub mod local_problem;
 pub mod material;
 pub mod mission;
@@ -92,6 +97,7 @@ pub mod survival;
 pub mod tactical_fixture;
 pub mod threat_escalation;
 mod threat_escalation_limits;
+pub mod unit_interval;
 pub mod water_source;
 pub mod weather;
 pub mod world_event;
@@ -113,6 +119,9 @@ pub mod prelude {
     pub use crate::essential::*;
     pub use crate::investigation::*;
     pub use crate::investigation_action::*;
+    pub use crate::linear_speed::{
+        NonnegativeSpeed, PositiveSpeed, SignedSpeed, SpeedError, SpeedResult,
+    };
     pub use crate::mission::*;
     pub use crate::morale::*;
     pub use crate::organization::*;

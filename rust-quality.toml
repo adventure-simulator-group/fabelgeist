@@ -981,3 +981,9 @@ item = "Parameters::sample"
 fingerprint = "EPSILON"
 occurrences = 1
 reason = "Bounds coordinate subtraction, cross products, division and normalized-weight subtraction using cell-coordinate magnitude and the triangle determinant."
+
+[[scopes]]
+path = "crates/fabelgeist-mhr/src/model_def/layout.rs"
+item = "JointChannel::from_model_token"
+kind = "boundary_adapter"
+reason = "Decode the external Momentum model format's seven authored joint-channel tokens."

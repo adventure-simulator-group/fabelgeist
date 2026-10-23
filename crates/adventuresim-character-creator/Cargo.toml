@@ -3,7 +3,7 @@ name = "adventuresim-character-creator"
 version = "0.1.0"
 edition = "2024"
 repository = "https://github.com/adventure-simulator-group/fabelgeist"
-license = "GPL-3.0"
+license = "AGPL-3.0"
 
 [features]
 default = ["offline-creator"]
@@ -15,8 +15,12 @@ path = "src/main.rs"
 required-features = ["offline-creator"]
 
 [dependencies]
+fabelgeist-geometry = { path = "../fabelgeist-geometry" }
+fabelgeist-rig = { path = "../fabelgeist-rig" }
 adventuresim-core = { path = "../adventuresim-core" }
 anyhow = "1"
+thiserror = "2.0.18"
+derive_more = { version = "2.1.1", features = ["as_ref", "display", "from"] }
 bytemuck = { version = "1.16", features = ["derive"] }
 pollster = "0.4"
 async-lock = "3"
@@ -44,7 +48,6 @@ fabelgeist-garment-fit = { path = "../fabelgeist-garment-fit" }
 fabelgeist-cloth = { path = "../fabelgeist-cloth" }
 # Hair grown and cut into cards on the host; the GPU groomer and renderer stay off.
 fabelgeist-hair = { path = "../fabelgeist-hair", default-features = false, features = ["gpu"] }
-thiserror = "2"
 fabelgeist-shell = { path = "../fabelgeist-shell" }
 fabelgeist-math = { path = "../fabelgeist-math" }
 fabelgeist-bvh = { path = "../fabelgeist-bvh" }

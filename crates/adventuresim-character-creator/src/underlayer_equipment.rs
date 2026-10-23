@@ -10,12 +10,13 @@ use adventuresim_character_creator::{
 };
 use fabelgeist_armor::TrunkHoseDesign;
 
+use adventuresim_character_creator::armor_frames::FittingPlacement;
 /// Cut an underlayer from the wearer and fit it to every morph sample.
 pub(super) fn fitted(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     design: &UnderlayerDesign,
-    placement: &str,
+    placement: FittingPlacement,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
     let armor = with_body(model, generated, morphs, |body, shapes| {
@@ -37,7 +38,7 @@ pub(super) fn fitted_trunk_hose(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     design: &TrunkHoseDesign,
-    placement: &str,
+    placement: FittingPlacement,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
     let armor = with_body(model, generated, morphs, |body, shapes| {

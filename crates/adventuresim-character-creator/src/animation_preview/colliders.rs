@@ -6,7 +6,7 @@ pub struct ArmorSkin(pub BodySkin);
 pub(super) fn posed_colliders(
     body: &BodySkin,
     armor: &Query<&ArmorSkin>,
-    matrices: &[Mat4],
+    matrices: &fabelgeist_rig::RigJointTable<Mat4>,
 ) -> (Vec<Vec3>, Vec<Vec3>, Vec<[u32; 3]>) {
     let mut rest = Vec::new();
     let mut end = Vec::new();

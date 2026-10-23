@@ -41,12 +41,13 @@ pub(super) fn spawn_exhibit(
         decoration,
         construction,
     } = finish;
-    let design = catalog.design(&exhibit.item_id);
+    let item = exhibit.item();
+    let design = catalog.design(item);
     let material = scene
         .equipment_maps
         .material(
             &mut scene.images,
-            catalog.material(&exhibit.item_id)?,
+            equipment_catalog::material(item)?,
             design.as_ref().and_then(ItemDesign::recipe),
             decoration.engraving.as_ref(),
         )
@@ -79,7 +80,8 @@ pub(super) fn spawn_exhibit(
         );
         let name = format!(
             "armory {}--{}",
-            exhibit.item_id, exhibit.placements[placement]
+            item.id,
+            exhibit.placements[placement].selection().id
         );
         let constructed = armor.clone().constructed(construction)?;
         let (armor, trim) = match (&trim, &trim_material) {

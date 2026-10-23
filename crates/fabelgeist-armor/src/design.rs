@@ -5,6 +5,11 @@ use thiserror::Error;
 pub struct Millimeters(pub u16);
 
 impl Millimeters {
+    /// Continuous signed metres without erasing the admitted authored length.
+    pub fn signed_length(self) -> fabelgeist_geometry::SignedLength {
+        fabelgeist_geometry::SignedLength::from_millimetres(self.0)
+    }
+
     pub fn metres(self) -> f32 {
         f32::from(self.0) / 1_000.0
     }
@@ -122,7 +127,7 @@ pub struct GeneratedArmor {
     pub positions: Vec<[f32; 3]>,
     pub normals: Vec<[f32; 3]>,
     pub texcoords: Vec<[f32; 2]>,
-    pub joint_indices: Vec<[u32; 8]>,
+    pub joint_indices: fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: Vec<[f32; 8]>,
     pub indices: Vec<u32>,
     /// The plate face of each triangle; empty for a piece that is not a

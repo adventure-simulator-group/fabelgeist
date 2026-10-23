@@ -15,8 +15,7 @@ mod tests;
 #[derive(Component, Clone, Debug, PartialEq, Eq, Hash)]
 pub(in crate::equipment) struct FitKey {
     pub(super) shape: BodyShapeKey,
-    pub(super) item: String,
-    pub(super) placement: String,
+    pub(super) selection: layers::LayerSelection,
     pub(super) layers: Vec<layers::LayerSelection>,
 }
 
@@ -28,11 +27,13 @@ impl FitKey {
         owner: Option<&ItemOf>,
         fitted_to_owner: bool,
         characters: &Query<(&CharacterId, Option<&CharacterSkeletalProportions>)>,
-    ) -> Option<Self> {
+    ) -> anyhow::Result<Option<Self>> {
         let shape = if let Some(previous) = previous.filter(|_| !fitted_to_owner) {
             previous.shape.clone()
         } else if let Some(owner) = owner.filter(|_| fitted_to_owner) {
-            let (id, explicit) = characters.get(owner.0).ok()?;
+            let Ok((id, explicit)) = characters.get(owner.0) else {
+                return Ok(None);
+            };
             BodyShapeKey::new(
                 &canonical.names,
                 Some(id.0),
@@ -49,28 +50,48 @@ impl FitKey {
                 canonical.rig.reference,
             )
         };
-        let placement = if fitted_to_owner {
-            presentation.placement_id.clone()
-        } else if let Some(previous) = previous {
-            previous.placement.clone()
-        } else {
-            // A never-worn display item uses the first authored fit placement;
-            // hand slots and world placement are not anatomical fitting regions.
-            adventuresim_core::item_catalog::definition(&presentation.item_id)
-                .and_then(|item| item.equipment.as_ref())
-                .and_then(|equipment| equipment.placements.first())
-                .map(|placement| placement.id.clone())
-                .unwrap_or_else(|| presentation.placement_id.clone())
-        };
-        Some(Self {
+        let selection = Self::selection_for_presentation(presentation, previous, fitted_to_owner)?;
+        Ok(Some(Self {
             shape,
-            item: presentation.item_id.clone(),
-            placement,
+            selection,
             layers: previous
                 .filter(|_| !fitted_to_owner)
                 .map(|key| key.layers.clone())
                 .unwrap_or_default(),
-        })
+        }))
+    }
+
+    fn selection_for_presentation(
+        presentation: &RuntimeEquipmentPresentation,
+        previous: Option<&Self>,
+        fitted_to_owner: bool,
+    ) -> anyhow::Result<layers::LayerSelection> {
+        if !fitted_to_owner && let Some(previous) = previous {
+            return Ok(previous.selection);
+        }
+        if fitted_to_owner {
+            return layers::LayerSelection::admit(
+                &presentation.item_id,
+                &presentation.placement_id,
+            );
+        }
+        // An unworn display uses the first authored anatomical fit placement.
+        let item = adventuresim_core::equipment_assets::CatalogItem::find(
+            adventuresim_core::item_catalog::catalog(),
+            &presentation.item_id,
+        )
+        .with_context(|| format!("unknown equipment item {}", presentation.item_id))?;
+        let selection = item
+            .placements()
+            .next()
+            .or_else(|| item.placement(&presentation.placement_id))
+            .with_context(|| {
+                format!(
+                    "no equipment placement {} {}",
+                    presentation.item_id, presentation.placement_id
+                )
+            })?;
+        Ok(selection.into())
     }
 }
 
@@ -139,41 +160,50 @@ impl RuntimeEquipmentBodyCache {
         Ok(())
     }
 
-    fn start(&mut self, key: FitKey) {
-        let body = self.bodies[&key.shape].body.clone();
-        let bracer = self.bracer_design.clone().expect("prepared bracer");
+    fn start(&mut self, key: FitKey) -> anyhow::Result<()> {
+        let body = self
+            .bodies
+            .get(&key.shape)
+            .context("fitted body not prepared")?
+            .body
+            .clone();
+        let bracer = self
+            .bracer_design
+            .clone()
+            .context("bracer design not prepared")?;
         let breastplate = self
             .breastplate_design
             .clone()
-            .expect("prepared breastplate");
+            .context("breastplate design not prepared")?;
         let request = key.clone();
         let supports = key
-            .support_keys()
-            .expect("validated layer graph")
+            .support_keys()?
             .iter()
-            .map(|key| {
-                self.models[key]
+            .map(|key| -> anyhow::Result<_> {
+                Ok(self
+                    .models
+                    .get(key)
+                    .context("support fit not prepared")?
                     .as_ref()
-                    .expect("prepared support fit")
+                    .map_err(|error| anyhow::anyhow!("{error}"))?
                     .generated
-                    .clone()
+                    .clone())
             })
-            .collect::<Vec<_>>();
+            .collect::<anyhow::Result<Vec<_>>>()?;
         self.pending = Some(PendingFit {
             key,
             task: AsyncComputeTaskPool::get().spawn(async move {
                 let started = web_time::Instant::now();
                 let result = adventuresim_character_creator::runtime_equipment::generate(
                     &body,
-                    &request.item,
-                    &request.placement,
+                    request.selection.selection,
                     &bracer,
                     &breastplate,
                     &supports.iter().map(Arc::as_ref).collect::<Vec<_>>(),
                 )
                 .await;
                 info!(
-                    item = request.item,
+                    item = request.selection.selection.item().id,
                     elapsed_ms = started.elapsed().as_secs_f64() * 1000.0,
                     vertices = result.as_ref().map_or(0, |armor| armor.positions.len()),
                     "runtime wearer fit"
@@ -181,6 +211,7 @@ impl RuntimeEquipmentBodyCache {
                 result
             }),
         });
+        Ok(())
     }
 
     fn finish(&mut self, meshes: &mut Assets<Mesh>, materials: &mut Assets<StandardMaterial>) {
@@ -190,21 +221,33 @@ impl RuntimeEquipmentBodyCache {
         let Some(result) = block_on(future::poll_once(&mut pending.task)) else {
             return;
         };
-        let PendingFit { key, .. } = self.pending.take().expect("completed fit");
+        let Some(PendingFit { key, .. }) = self.pending.take() else {
+            return;
+        };
         let result = result
-            .map(|generated| CachedEquipment {
-                sockets: sockets::garment_sockets(
-                    &self.bodies[&key.shape].body,
-                    &generated,
-                    &key.item,
-                ),
-                parts: equipment_parts(&generated, &key.item, meshes, materials),
-                rigid_center: referenced_center(&generated),
-                generated: Arc::new(generated),
+            .and_then(|generated| {
+                Ok(CachedEquipment {
+                    sockets: sockets::garment_sockets(
+                        &self.bodies[&key.shape].body,
+                        &generated,
+                        key.selection.selection.item(),
+                    ),
+                    parts: equipment_parts(
+                        &generated,
+                        key.selection.selection.item(),
+                        meshes,
+                        materials,
+                    )?,
+                    rigid_center: referenced_center(&generated),
+                    generated: Arc::new(generated),
+                })
             })
             .map_err(|error| format!("{error:#}"));
         if let Err(error) = &result {
-            error!(item = key.item, "runtime wearer fit failed: {error}");
+            error!(
+                item = key.selection.selection.item().id,
+                "runtime wearer fit failed: {error}"
+            );
         }
         self.models.insert(key, result);
     }
@@ -275,7 +318,7 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
         let owner = owner.filter(|_| !scene && holding_side(slot).is_none())?;
         Some((
             owner.0,
-            layers::LayerSelection::new(&presentation.item_id, &presentation.placement_id),
+            layers::LayerSelection::admit(&presentation.item_id, &presentation.placement_id),
         ))
     }));
     for (entity, presentation, current, resolved, children) in &presentations {
@@ -296,32 +339,35 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
         };
         let fitted_to_owner = !scene && holding_side(slot).is_none() && owner.is_some();
         let previous = last_fit.map(|fit| &fit.0).or(current);
-        let Some(mut key) = FitKey::for_presentation(
+        let key = FitKey::for_presentation(
             canonical,
             presentation,
             previous,
             owner,
             fitted_to_owner,
             &characters,
-        ) else {
-            continue;
+        );
+        let mut key = match key {
+            Ok(Some(key)) => key,
+            Ok(None) => continue,
+            Err(error) => {
+                presentation.fail_fit(entity, resolved, &error, &mut commands);
+                continue;
+            }
         };
         if fitted_to_owner {
-            let outfit = &outfits[&owner.expect("fitted owner").0];
-            match outfit {
-                Ok(outfit) => {
-                    key.layers =
-                        outfit.ancestors(&layers::LayerSelection::new(&key.item, &key.placement))
-                }
+            let Some(owner) = owner else {
+                continue;
+            };
+            let outfit = &outfits[&owner.0];
+            match outfit
+                .as_ref()
+                .map_err(|error| anyhow::anyhow!("{error}"))
+                .and_then(|outfit| outfit.ancestors(&key.selection))
+            {
+                Ok(layers) => key.layers = layers,
                 Err(error) => {
-                    if !resolved {
-                        error!("invalid equipment fit order: {error}");
-                    }
-                    commands.entity(entity).remove::<FitKey>().insert((
-                        ProceduralEquipmentFailed,
-                        ProceduralEquipmentResolved,
-                        Visibility::Hidden,
-                    ));
+                    presentation.fail_fit(entity, resolved, &error, &mut commands);
                     continue;
                 }
             }
@@ -338,6 +384,26 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
         cache.resolve(key, entity, presentation, &mut commands, &mut bindposes);
     }
     cache.trim();
+}
+
+impl RuntimeEquipmentPresentation {
+    /// A rejected selection cannot retain a resolved mesh or a previous fit key.
+    fn fail_fit(
+        &self,
+        entity: Entity,
+        resolved: bool,
+        error: &anyhow::Error,
+        commands: &mut Commands,
+    ) {
+        if !resolved {
+            error!(item = self.item_id, "invalid equipment fit: {error:#}");
+        }
+        commands.entity(entity).remove::<FitKey>().insert((
+            ProceduralEquipmentFailed,
+            ProceduralEquipmentResolved,
+            Visibility::Hidden,
+        ));
+    }
 }
 
 impl RuntimeEquipmentBodyCache {
@@ -361,8 +427,7 @@ impl RuntimeEquipmentBodyCache {
         } else if !self.is_preparing() {
             let result = self.next_fit(&key).and_then(|next| {
                 self.prepare_shape(&next.shape, bindposes)?;
-                self.start(next);
-                Ok(())
+                self.start(next)
             });
             match result {
                 Ok(()) => {}

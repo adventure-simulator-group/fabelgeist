@@ -5,6 +5,46 @@ access planning. Live movement, damage and combat state belong to the transient
 server. Static preparation products do not acquire authority over tactical
 ticks.
 
+## Animation values and combat configuration
+
+`content/tactical/combat.yaml` is the single authored value source for
+`TacticalCombatConfig::default()` and the nested landing, ragdoll, offensive AI
+and incapacitation-forecast defaults. A private cached snapshot deserializes
+and validates the embedded committed YAML once; each default clones or copies
+its projection. Invalid compiled-in YAML is an internal invariant failure.
+External configuration loading remains fallible and does not use a numeric
+fallback or invoke these defaults during deserialization.
+
+`AnimationElapsed` carries finite nonnegative f32 seconds, including zero for
+an observation that does not advance. Checked addition rejects overflow, and
+serde admission applies the same invariant. Landing recovery reuses this type
+and additionally requires a positive interval in configuration validation.
+`LandingImpactSpeed` similarly admits only finite nonnegative metres per
+second. Core locomotion projection rejects invalid observations before its
+retained skeleton writes; finite upward velocity still projects to zero
+downward impact.
+
+Semantic evaluation shares checked `BlendWeight` and `CyclePhase` with the
+presentation client. Weights are finite and nonnegative, permit values above
+one, and reject arithmetic overflow. Cycles retain finite signed, unwrapped
+values until periodic sampling. `ClipMirror` is binary and keeps the Boolean
+wire encoding. These scalar quantities use checked serde admission.
+
+`SkeletonLocomotionInput::from_controller` admits native finite orientation and
+world-velocity observations with `GroundContact`, `AnimationElapsed` and
+`AnimationSampleTick`. Finite orientation retains the existing acceptance
+contract; it does not assert unit-quaternion normalization. Projection still
+checks retained inputs and overflow after transforms, norms and acceleration
+arithmetic, before its retained skeleton writes. Downed surface support remains
+distinct from controller ground contact.
+
+The playback configuration owns the initial, deactivation and activation
+locomotion speed thresholds in metres per second. Their authored values are
+0.05, 0.03 and 0.08, with deactivation <= initial <= activation validation.
+The drift measurement blend is a finite interpolation fraction in `[0, 1]`.
+Additional required pose-buffer and procedural tuning values live in the same
+embedded YAML and use the same validated default snapshot.
+
 ## Architectural geometry conversion
 
 The building generator owns building-local geometry in metres. Core's
@@ -98,3 +138,102 @@ or serialized products therefore receive a fresh owning cache identity. Cached
 products from a different executable are not decoded through a compatibility
 path. Native preparation retains bounded immutable recipes separately from
 renderer entities and tactical state.
+Shared animation measurements distinguish zero-permitting nonnegative length
+and speed from positive durations used as divisors. Scalar linear speeds live
+in `adventuresim_core::linear_speed`: measured norms allow zero, authored drive
+retains its finite sign, and configured gait references are strictly positive.
+Their Serde representation remains one numeric scalar. Physical control and
+autoresolve calculations return checked speed errors before publishing invalid
+results; strategic reducers propagate those errors through their transaction.
+The framework-free speed owner is not reflectively mutable, and locomotion and
+landing profile records use their typed construction and Serde APIs instead of
+Bevy reflection. IK displacement history distinguishes an unavailable auxiliary
+measurement from an observed zero speed; repeated samples hold the observation
+and discontinuities retire it. Presentation height roles
+retain those leaves without narrowing general movement speed. A finite unit
+interval can back bounded roles; additive `BlendWeight` still permits values
+above one. Signed phase, sample times and body deflections remain unwrapped and
+signed at admission. Sample spans retain scalar unsigned encodings separately
+from absolute sample ticks. Downed turning and guarded locomotion retain named
+states while their existing wire fields remain Boolean scalars.
+
+Action, posture and attack-preparation progress retain checked unit fractions;
+finite out-of-range decoded values keep their existing clamp, while nonfinite
+progress is rejected. Attack pose coordinates remain finite and signed so
+readable drawback and overshoot are retained. Presentation corrects action
+progress with a distinct nonwrapping signed offset; cyclic gait displacement
+and additive pose contributions keep their separate contracts.
+
+Animation sampling rates retain the authored hertz scalar and its checked
+positive reciprocal together. Calibration frequencies instead admit every finite
+positive multiplier, including tiny values whose products underflow to zero;
+they do not require a representable reciprocal. Pose baking, interpolation and
+ragdoll finite differences consume that interval; a repeated or zero-elapsed
+observation stays separate from a positive sampling interval. Animation
+coordinates use named checked, saturating or wrapping operations rather than
+ambiguous tick operators. Client input uses a distinct 32-bit `PlayerInputTick`.
+Before an input has been observed, the replicated motion snapshot carries no
+acknowledgement; an observed zero is a real coordinate, and unreliable-channel
+ordering stays wrap-aware.
+
+Facing keeps configured angular speeds or half-turn durations separate from
+live contact deadlines. A deadline retains its checked angle and interval until
+the planar turn computes the original quotient, frame product and half-turn cap;
+a transient unbounded quotient is never stored as an angular speed. Downed
+camera roll retains a signed, unwrapped half-turn coordinate and a separate
+bounded signed controller command. Their existing snapshot fields keep scalar
+encodings and their established wire normalization. Camera and local render
+facing histories begin with an actual observation rather than an identity pose.
+
+Configured gait bounce, flight apex and landing compression retain checked,
+zero-permitting metre amplitudes through profile selection and presentation
+history. Signed visual offsets remain distinct from these amplitudes. Authored
+body-response angle magnitudes and angular-speed caps retain their original
+finite, nonnegative degree scalars for serialization; response and quaternion
+operations convert them to radians without serializing a converted round trip.
+Signed body-local deflections, velocities and accelerations retain their frames.
+The response filter distinguishes its neutral initial condition from an absent
+previous velocity observation, and publishes checked target and spring results
+before replacing retained presentation state.
+
+Ragdoll capsule dimensions retain positive bind lengths and checked world
+lengths until collider construction and terrain geometry. Native collider radii
+must remain strictly positive after scaling; zero, underflowed and negative
+radii fail preparation before any entities are queued. Signed segment lengths
+retain their endpoint order. Muscle release is explicit: `limp_at_seconds` is a
+positive scalar age or `null` for never releasing; numeric zero is rejected.
+The committed positive release age remains unchanged. Muscle tone is an
+unbounded nonnegative gain, angular stiffness is acceleration per radian of pose
+error, and inverse-second response coefficients retain their exponential or
+linear per-step laws. These controllers apply angular-velocity kicks rather than
+physical torques. No shared scalar type imposes a new global angular bound.
+
+Combat scheduling retains shared checked seconds from
+`adventuresim_core::elapsed::AnimationElapsed`, with one direct animation
+re-export. Authored windup, recovery and work intervals remain distinct from
+absolute battle-clock coordinates. A lunge plan owns both assisted movement and
+its `NotNeeded`, `ArrivesIn` or `CannotArrive` timing. Client and server attacks
+that cannot arrive still make an ordinary unassisted swing; bots keep pursuing,
+guarding or abandoning the attempt under their existing policies.
+
+Recovery is `After` a checked interval or `CannotRecover` at the current
+performance snapshot. Genuine zero recovery remains immediate even at zero
+performance. Positive recovery at zero performance does not start an attack or
+a timer. Performance retains the canonical checked unit interval after the
+existing total-incapacitation clamp. Signed contact offsets instead retain
+own-contact minus incoming-contact seconds, without wrapping or normalization.
+
+The native timer boundary rejects an unrepresentable interval before publishing
+its scheduled action. It no longer truncates every interval to thirty seconds;
+all native-representable intervals, including zero, remain available. The bot's
+live reflection dump retains the checked recovery value through an opaque
+reflection adapter rather than a mutable raw seconds field. Reports preserve
+finite seconds as scalars and unavailable recovery as null.
+
+Melee correlation retains the original observed request word as `MeleeAttackKey`,
+separate from animation start/contact coordinates and action deadlines. Zero is
+an ordinary key; missing authority remains absent. Lunge diagnostics use that
+same key even when assisted movement delays the animation. Deterministic seed
+composition preserves its original little-endian bytes. Iteration outcomes
+retain final separation as an optional checked length: missing transforms are
+unavailable, while malformed measured geometry returns its owning error.

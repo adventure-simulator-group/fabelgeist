@@ -31,7 +31,9 @@ fn draped_chainmail_exports() -> Result<()> {
     );
     let positions: Vec<[f32; 3]> = serde_json::from_value(source["garment"].clone())?;
     let input = drape_preview::input(&model, &generated, selection);
-    let (indices, weights) = transfer_skin(&input, &positions)?;
+    let skin = transfer_skin(&input, &positions)?;
+    let indices = skin.indices;
+    let weights = skin.weights;
     let mut garment = DrapedGarment {
         form: input.selection.form(),
         name: "Chainmail shirt".into(),
@@ -67,7 +69,9 @@ fn draped_chainmail_exports() -> Result<()> {
             "normals": garment.normals, "uv": garment.texcoords,
         }))?,
     )?;
-    (garment.indices, garment.weights) = transfer_skin(&input, &garment.positions)?;
+    let skin = transfer_skin(&input, &garment.positions)?;
+    garment.indices = skin.indices;
+    garment.weights = skin.weights;
     export_character(&path, &model, &recipe, &catalog, Some(&[garment]))?;
     let bytes = std::fs::read(&path)?;
     let glb = gltf::Gltf::from_slice(&bytes)?;

@@ -1,5 +1,7 @@
 use super::*;
 use crate::presentation::grass_cover_mask_pixels;
+use adventuresim_building_generator::spatial_geometry::GeometryResult;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use fabelgeist_determinism::Seed;
 
 /// CPU-side sampler over the same feathered cover mask the legacy renderer
@@ -13,18 +15,19 @@ pub(super) struct CoverageMask {
 }
 
 impl CoverageMask {
-    pub(super) fn new(ground: &SceneGround, seed: Seed) -> Self {
-        let (width, height, pixels) = grass_cover_mask_pixels(ground, seed);
-        Self {
+    pub(super) fn new(ground: &SceneGround, seed: Seed) -> GeometryResult<Self> {
+        let (width, height, pixels) = grass_cover_mask_pixels(ground, seed)?;
+        Ok(Self {
             width: width as usize,
             height: height as usize,
             pixels,
             ground_width: ground.width(),
             ground_depth: ground.depth(),
-        }
+        })
     }
 
-    pub(super) fn coverage_byte(&self, world: Vec2) -> u8 {
+    pub(super) fn coverage_byte(&self, world: ScenePlanPoint) -> u8 {
+        let world = world.metres();
         let u = (world.x / self.ground_width + 0.5).clamp(0.0, 1.0);
         let v = (world.y / self.ground_depth + 0.5).clamp(0.0, 1.0);
         let x = ((u * self.width as f32) as usize).min(self.width - 1);

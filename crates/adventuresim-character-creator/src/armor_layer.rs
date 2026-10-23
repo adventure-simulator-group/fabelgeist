@@ -7,7 +7,7 @@ use fabelgeist_armor::GeneratedArmor;
 pub struct ArmorLayerSurface<'a> {
     pub positions: &'a [[f32; 3]],
     pub faces: &'a [[u32; 3]],
-    pub joint_indices: &'a [[u32; 8]],
+    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: &'a [[f32; 8]],
 }
 

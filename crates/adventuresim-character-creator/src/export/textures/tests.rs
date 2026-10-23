@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_rig::RigJointName;
 
 fn maps() -> SurfaceTextures {
     SurfaceTextures {
@@ -29,7 +30,10 @@ fn export_equipment_with_maps(
 ) -> Result<()> {
     let positions = [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
     let normals = [[0.0, 0.0, 1.0]; 3];
-    let joints = [[0; 8]; 3];
+    let joints = fabelgeist_rig::PackedRigSkin::from_native(
+        vec![[0; 8]; 3],
+        fabelgeist_rig::RigJointTable::from(vec![RigJointName::ROOT]).joint_count(),
+    )?;
     let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
     let shell = RiggedShell {
         surface: None,
@@ -60,10 +64,10 @@ fn export_equipment_with_maps(
             export_body: false,
             joint_indices: &joints,
             joint_weights: &weights,
-            joint_names: &["root".to_owned()],
-            joint_parents: &[-1],
-            global_joint_states: &[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]],
-            joint_proportions: &[],
+            joint_names: &vec![RigJointName::ROOT].into(),
+            joint_parents: &vec![None].into(),
+            global_joint_states: &vec![[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]].into(),
+            joint_proportions: &Default::default(),
             morph_targets: &[],
         },
         &[shell],

@@ -165,7 +165,7 @@ mod tests {
             faces: vec![[0, 1, 2]],
             normals: vec![],
             texcoords: vec![],
-            indices: vec![],
+            indices: Default::default(),
             weights: vec![],
             stage: DrapeStage::Placed,
         };

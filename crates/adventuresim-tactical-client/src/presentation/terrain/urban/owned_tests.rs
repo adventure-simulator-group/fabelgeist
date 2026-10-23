@@ -61,7 +61,8 @@ impl GroundFixture {
             &textures,
             &mut images,
             &TacticalGraphicsSettings::default().config.grass,
-        );
+        )
+        .unwrap();
         let mut app = App::new();
         app.init_resource::<ActiveVistaSurface>()
             .add_systems(Update, update_coverage);
@@ -99,7 +100,7 @@ impl GroundFixture {
             .spawn((
                 ScenePresentationOf(scene),
                 TerrainDetailPatch {
-                    centre: Vec2::ZERO,
+                    centre: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::ORIGIN,
                     vista_revision: 0,
                 },
                 Visibility::Inherited,
@@ -132,7 +133,7 @@ fn grounded_catalogues_without_streets_never_cover_foundations_with_sampled_deta
             &terrain,
             &environment,
             &ActiveVistaSurface::default(),
-            Vec2::ZERO,
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::ORIGIN,
             None,
         );
         assert_eq!(detail.count_vertices(), 0);

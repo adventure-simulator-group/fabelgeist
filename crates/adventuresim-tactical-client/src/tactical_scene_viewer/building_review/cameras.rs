@@ -69,9 +69,8 @@ impl ReviewView {
         };
         Ok(BuildingReviewCamera {
             position: world_target
-                .translated(datum.displacement(Displacement::from_metres(offset)?)?)?
-                .metres(),
-            target: world_target.metres(),
+                .translated(datum.displacement(Displacement::from_metres(offset)?)?)?,
+            target: world_target,
             plaster_raking_light: None,
         })
     }
@@ -219,7 +218,7 @@ mod tests {
             openings: default(),
         };
         let camera = view.camera(&[building], &BTreeMap::new()).unwrap();
-        assert!((camera.target.y - (-1.95)).abs() < 0.000_01);
-        assert!((camera.position.y - (-1.35)).abs() < 0.000_01);
+        assert!((camera.target.metres().y - (-1.95)).abs() < 0.000_01);
+        assert!((camera.position.metres().y - (-1.35)).abs() < 0.000_01);
     }
 }

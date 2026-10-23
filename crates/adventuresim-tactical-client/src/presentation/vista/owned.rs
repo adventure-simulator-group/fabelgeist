@@ -1,12 +1,18 @@
 //! Partition accepted support into existing material and culling regions.
 use super::*;
+use adventuresim_tactical_core::city_layout::grounding::BoundedSettlementTerrain;
 use bevy::math::{DVec3, Vec3Swizzles};
+use exterior::GroundPresentation;
+
 mod clip;
 mod exterior;
 mod ground_support;
-use exterior::GroundPresentation;
-#[cfg(test)]
-mod tests;
+
+struct RectangleMesh {
+    minimum: Vec2,
+    maximum: Vec2,
+    positions: Vec<[f32; 3]>,
+}
 
 /// The fine material covers its original rectangle. The complete accepted
 /// surface, including distant properties, is partitioned into vista chunks.
@@ -35,17 +41,14 @@ pub(in crate::presentation) fn playable_mesh(
 }
 
 pub(super) fn vista_meshes(
-    terrain: &SceneTerrain,
+    surface: &BoundedSettlementTerrain,
     lod: &VistaLod,
     inner: Vec2,
     coarser: Option<&VistaLod>,
     environment: Option<&SceneEnvironment>,
     weather: WeatherSnapshot,
     transition_collar: Option<TerrainTransitionCollar>,
-) -> Vec<Mesh> {
-    let surface = terrain
-        .property_surface()
-        .expect("accepted occupied surface");
+) -> VistaMeshResult<Vec<Mesh>> {
     let size = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1));
     let half = size * lod.spacing_metres * 0.5;
     let cells = VISTA_CHUNK_CELLS.min(
@@ -98,33 +101,24 @@ pub(super) fn vista_meshes(
         for rectangle in rectangles {
             positions.extend(rectangle.positions);
         }
-        let mut mesh = position_mesh(positions);
-        let positions = mesh
-            .attribute(Mesh::ATTRIBUTE_POSITION)
-            .unwrap()
-            .as_float3()
-            .unwrap();
         if positions.is_empty() {
             continue;
         }
         let colors = positions
             .iter()
             .map(|p| {
+                let local = PlanDisplacement::try_from(Vec2::new(p[0], p[2]))?;
+                let point = lod.scene_point(local)?;
                 colors
-                    .at(Vec2::new(p[0], p[2]), inner)
-                    .expect("accepted terrain partition remains inside its declared ring")
+                    .at(local, inner)
+                    .ok_or(VistaMeshError::MissingColor { point })
             })
-            .collect::<Vec<_>>();
+            .collect::<VistaMeshResult<Vec<_>>>()?;
+        let mut mesh = position_mesh(positions);
         mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, colors);
         meshes.push(mesh);
     }
-    meshes
-}
-
-struct RectangleMesh {
-    minimum: Vec2,
-    maximum: Vec2,
-    positions: Vec<[f32; 3]>,
+    Ok(meshes)
 }
 
 fn triangle_mesh(triangles: impl IntoIterator<Item = [Vec3; 3]>) -> Mesh {
@@ -150,3 +144,6 @@ fn position_mesh(positions: Vec<[f32; 3]>) -> Mesh {
 
 #[cfg(test)]
 mod landform_tests;
+
+#[cfg(test)]
+mod tests;

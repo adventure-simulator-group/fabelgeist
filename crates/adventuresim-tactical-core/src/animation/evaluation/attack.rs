@@ -1,7 +1,7 @@
 use super::*;
 
-pub(super) fn attack_samples(state: &SkeletonState) -> Vec<PoseSample> {
-    let phase = state.action_phase().clamp(0.0, 1.0);
+pub(super) fn attack_samples(state: &SkeletonState) -> AnimationValueResult<Vec<PoseSample>> {
+    let phase = state.action_phase();
     let animation = state.attack_animation().unwrap_or(AttackAnimation::Thrust);
     let start_guard =
         if animation == AttackAnimation::Offhand && !state.attack_animations.offhand_preparation {
@@ -16,40 +16,37 @@ pub(super) fn attack_samples(state: &SkeletonState) -> Vec<PoseSample> {
         } else {
             attack_pose(animation)
         };
-    if state.attack_is_continuation() {
-        let curve = state.attack_curve();
-        return vec![PoseSample {
+    if let Some(continuation) = state.attack_continuation() {
+        return Ok(vec![PoseSample {
             pose: start_guard,
             sampling: PoseSampling::ContinuationSpan {
                 contact,
                 end: recovery_pose(animation),
                 outgoing: continuation_pose(animation),
                 finish: end_guard,
-                start_coordinate: state
-                    .attack_continuation_start_coordinate()
-                    .unwrap_or(1.0 + curve.overshoot),
-                incoming_tangent: state.attack_continuation_incoming_tangent().unwrap_or(0.0),
-                ready_phase: continuation_ready_phase(),
+                start_coordinate: continuation.start_coordinate,
+                incoming_tangent: continuation.incoming_tangent,
+                ready_phase: ContinuationReadiness::FOLLOW_READY,
                 progress: phase,
             },
-            weight: 1.0,
-            mirror_lower_body: false,
-        }];
+            weight: BlendWeight::ONE,
+            mirror_lower_body: ClipMirror::Original,
+        }]);
     }
-    let coordinate = if phase < 0.5 || !state.attack_has_queued_continuation() {
-        state.attack_curve().coordinate(phase)
+    let coordinate = if phase.fraction() < 0.5 || !state.attack_has_queued_continuation() {
+        state.attack_curve().coordinate(phase)?
     } else {
-        state.attack_curve().queued_recovery_coordinate(phase)
+        state.attack_curve().queued_recovery_coordinate(phase)?
     };
-    vec![PoseSample {
+    Ok(vec![PoseSample {
         pose: start_guard,
         sampling: PoseSampling::CurveSpan {
             end: contact,
             coordinate,
         },
-        weight: 1.0,
-        mirror_lower_body: false,
-    }]
+        weight: BlendWeight::ONE,
+        mirror_lower_body: ClipMirror::Original,
+    }])
 }
 
 pub(super) fn guard_pose(animation: AttackAnimation) -> SemanticPose {

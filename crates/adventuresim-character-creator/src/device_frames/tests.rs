@@ -1,5 +1,6 @@
 //! Frames fitted on the device to synthetic rigs.
 
+use fabelgeist_rig::{RigJointName, RigJointPart};
 use std::sync::OnceLock;
 
 use fabelgeist_armor::PartFrame;
@@ -13,30 +14,35 @@ fn gpu() -> &'static ArmorGpu {
 
 struct Arms {
     positions: Vec<[f32; 3]>,
-    indices: Vec<[u32; 8]>,
+    indices: fabelgeist_rig::PackedRigSkin<8>,
     weights: Vec<[f32; 8]>,
-    names: Vec<String>,
-    joints: Vec<[f32; 8]>,
+    names: fabelgeist_rig::RigJointTable<RigJointName>,
+    joints: fabelgeist_rig::RigJointTable<[f32; 8]>,
 }
 
 impl Arms {
     fn bent() -> Self {
         let mut arms = Self {
             positions: Vec::new(),
-            indices: Vec::new(),
+            indices: fabelgeist_rig::PackedRigSkin::empty(
+                fabelgeist_rig::RigJointCount::from_native_joint_count(6),
+            ),
             weights: Vec::new(),
-            names: Vec::new(),
-            joints: Vec::new(),
+            names: Default::default(),
+            joints: Default::default(),
         };
-        for (prefix, x, width, depth) in [("l", 0.3, 0.04, 0.03), ("r", -0.3, 0.06, 0.05)] {
+        for (side, x, width, depth) in [
+            (Side::Left, 0.3, 0.04, 0.03),
+            (Side::Right, -0.3, 0.06, 0.05),
+        ] {
             let first_joint = arms.joints.len() as u32;
             // Unequal bone lengths must not skew the bend-plane bisector.
             for (name, y, z) in [
-                ("uparm", 1.5, 0.1),
-                ("lowarm", 1.2, 0.0),
-                ("wrist", 0.6, 0.2),
+                (RigJointPart::Uparm, 1.5, 0.1),
+                (RigJointPart::Lowarm, 1.2, 0.0),
+                (RigJointPart::Wrist, 0.6, 0.2),
             ] {
-                arms.names.push(format!("{prefix}_{name}"));
+                arms.names.push(side.joint(name));
                 arms.joints.push([x, y, z, 0.0, 0.0, 0.0, 1.0, 1.0]);
             }
             for (vertex, offset) in [
@@ -52,7 +58,12 @@ impl Arms {
             {
                 arms.positions
                     .push([x + offset[0], 1.2 + offset[1], offset[2]]);
-                arms.indices.push([first_joint + vertex as u32 % 2; 8]);
+                arms.indices
+                    .push(
+                        [first_joint + vertex as u32 % 2; 8]
+                            .map(fabelgeist_rig::RigJointOrdinal::from),
+                    )
+                    .unwrap();
                 arms.weights.push([0.125; 8]);
             }
         }
@@ -132,10 +143,14 @@ fn collinear_arm_landmarks_are_rejected_instead_of_inventing_a_bend_plane() {
     for side in [Side::Left, Side::Right] {
         for wrist_y in [0.6, 1.5] {
             let mut arms = Arms::bent();
-            let first = if matches!(side, Side::Left) { 0 } else { 3 };
-            arms.joints[first][2] = 0.0;
-            arms.joints[first + 2][1] = wrist_y;
-            arms.joints[first + 2][2] = 0.0;
+            let first = if matches!(side, Side::Left) {
+                0usize
+            } else {
+                3
+            };
+            arms.joints[fabelgeist_rig::RigJointOrdinal::from(first)][2] = 0.0;
+            arms.joints[fabelgeist_rig::RigJointOrdinal::from(first + 2)][1] = wrist_y;
+            arms.joints[fabelgeist_rig::RigJointOrdinal::from(first + 2)][2] = 0.0;
             assert!(arms.frame(side).is_err());
         }
     }

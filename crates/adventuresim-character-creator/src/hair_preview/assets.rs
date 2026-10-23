@@ -116,9 +116,13 @@ pub(super) fn hair_surface(design: HairDesign) -> StandardMaterial {
 /// The mesh `geometry` is drawn with, skinned wholly to `head_joint`: its
 /// triangles, and every vertex's skin. Its vertices are drawn from where
 /// they were built, so its positions only count them.
-pub(super) fn mesh(geometry: &GpuGeometry, head_joint: u32) -> Result<Mesh> {
+pub(super) fn mesh(
+    geometry: &GpuGeometry,
+    head_joint: fabelgeist_rig::RigJointOrdinal,
+) -> Result<Mesh> {
     let count = geometry.vertices();
-    let head = u16::try_from(head_joint).context("the head joint index exceeds a skin index")?;
+    let head = u16::try_from(usize::from(head_joint))
+        .context("the head joint index exceeds a skin index")?;
     Ok(Mesh::new(
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::RENDER_WORLD,
@@ -137,9 +141,13 @@ pub(super) fn mesh(geometry: &GpuGeometry, head_joint: u32) -> Result<Mesh> {
 
 /// The scalp `cap` as a mesh skinned wholly to `head_joint`, with its
 /// tangents along the texture and how much it shows as vertex alpha.
-pub(super) fn cap_mesh(cap: &ScalpCap, head_joint: u32) -> Result<Mesh> {
+pub(super) fn cap_mesh(
+    cap: &ScalpCap,
+    head_joint: fabelgeist_rig::RigJointOrdinal,
+) -> Result<Mesh> {
     let count = cap.positions.len();
-    let head = u16::try_from(head_joint).context("the head joint index exceeds a skin index")?;
+    let head = u16::try_from(usize::from(head_joint))
+        .context("the head joint index exceeds a skin index")?;
     Ok(Mesh::new(
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::default(),

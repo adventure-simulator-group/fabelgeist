@@ -1,10 +1,24 @@
 //! Data model for the standalone MHR character creator.
 
+use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
+pub use adventuresim_core::item_catalog_schema;
+pub use armor_gpu::{FittingSlot, armor_gpu, armor_gpu_async, fitting_slot};
+pub use clothing_material::pbr as equipment_pbr;
+pub use metal_gpu::metal_gpu;
+use serde::{Deserialize, Serialize};
+
 pub mod armor_design_input;
 pub mod armor_design_output;
 pub mod armor_frames;
 mod armor_gpu;
 pub mod armor_layer;
+pub mod armor_metal;
+pub mod armor_recipes;
+pub mod bracer;
+pub mod clothing;
+mod clothing_material;
+pub mod decoration;
+pub mod design_input;
 pub mod device_body;
 mod device_boot_layers;
 pub mod device_bracer;
@@ -41,46 +55,35 @@ pub mod device_torso;
 mod device_torso_wgsl;
 pub mod device_underlayer;
 mod device_wrapped_tasset;
-pub mod torso_domain;
-pub use armor_gpu::{FittingSlot, armor_gpu, armor_gpu_async, fitting_slot};
-mod metal_gpu;
-pub use metal_gpu::metal_gpu;
-pub mod armor_metal;
-pub mod armor_recipes;
-pub mod bracer;
-pub mod clothing;
-mod clothing_material;
-#[cfg(feature = "offline-creator")]
-pub mod lod;
-pub mod nearest_vertex;
-pub use clothing_material::pbr as equipment_pbr;
-pub mod decoration;
-pub mod design_input;
 pub mod equipment_catalog;
 pub mod equipment_layers;
 #[cfg(feature = "offline-creator")]
 pub mod export;
+pub mod garment;
+pub mod garment_material;
+pub mod hair;
 pub mod inventory;
 pub mod item_design;
 pub mod library_name;
+#[cfg(feature = "offline-creator")]
+pub mod lod;
+mod metal_gpu;
+pub mod nearest_vertex;
 pub mod profiling;
 #[cfg(feature = "offline-creator")]
 pub mod proportions;
+mod rig_parameters;
 pub mod runtime_equipment;
 pub mod skin_rules;
 pub mod studio_environment;
 pub mod surface_cut;
+pub mod torso_domain;
 pub mod underlayer;
 pub mod underlayer_armor;
+#[cfg(feature = "offline-creator")]
+pub mod underlayer_material;
 pub mod wardrobe;
-pub use adventuresim_core::item_catalog_schema;
-pub mod garment;
-pub mod garment_material;
-pub mod hair;
 
-use serde::{Deserialize, Serialize};
-
-use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 pub const EXPRESSION_COUNT: usize = 72;
 
 /// Character recipes use this schema version; older recipes are not read.
@@ -97,6 +100,13 @@ pub struct CharacterRecipe {
     /// The hairstyle grown on the head; `None` is bald.
     pub hair: Option<hair::HairDesign>,
     pub inventory: inventory::Inventory,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum IdentityGroup {
+    Body,
+    Head,
+    Hands,
 }
 
 impl Default for CharacterRecipe {
@@ -157,13 +167,6 @@ impl CharacterRecipe {
     pub fn reset_face(&mut self) {
         self.expression.fill(0.0);
     }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum IdentityGroup {
-    Body,
-    Head,
-    Hands,
 }
 
 impl IdentityGroup {
@@ -233,6 +236,3 @@ mod tests {
         assert!(parsed.validate().is_ok());
     }
 }
-
-#[cfg(feature = "offline-creator")]
-pub mod underlayer_material;

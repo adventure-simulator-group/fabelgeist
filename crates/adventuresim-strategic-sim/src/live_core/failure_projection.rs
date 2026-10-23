@@ -290,21 +290,21 @@ impl FailureRecorder {
         }
     }
 
-    fn write(&self, rendered_error: &str) -> Result<(), String> {
+    fn write(&self, error: &CoreLoopError) -> Result<(), FailureReportError> {
         let Some(path) = &self.output else {
             return Ok(());
         };
         let error = self
             .error
             .lock()
-            .map_err(|_| "failure error state was unavailable".to_string())?
+            .map_err(|_| FailureReportError::ErrorStateUnavailable)?
             .clone()
-            .unwrap_or_else(|| CoreLoopError::Other(rendered_error.to_owned()));
+            .unwrap_or_else(|| error.clone());
         let projection = project_core_loop_failure(&error);
         let draft = self
             .draft
             .lock()
-            .map_err(|_| "failure diagnostic state was unavailable".to_string())?
+            .map_err(|_| FailureReportError::DiagnosticStateUnavailable)?
             .clone();
         let artifact = CoreLoopFailureArtifact {
             schema_version: CORE_LOOP_FAILURE_SCHEMA_VERSION,
@@ -322,7 +322,7 @@ impl FailureRecorder {
             trace: draft.trace,
             final_agents: draft.final_agents,
         };
-        let bytes = serde_json::to_vec_pretty(&artifact).map_err(|error| error.to_string())?;
+        let bytes = serde_json::to_vec_pretty(&artifact)?;
         let mut options = std::fs::OpenOptions::new();
         options.write(true).create_new(true);
         use std::io::Write as _;
@@ -332,7 +332,7 @@ impl FailureRecorder {
                 file.write_all(&bytes)?;
                 file.write_all(b"\n")
             })
-            .map_err(|error| format!("could not write failure diagnostic: {error}"))
+            .map_err(FailureReportError::Write)
     }
 }
 

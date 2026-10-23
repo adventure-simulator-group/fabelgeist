@@ -1,0 +1,145 @@
+//! Observed raised-guard movement and held-request normalization.
+
+use super::SkeletonState;
+use crate::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use bevy::prelude::{Vec2, Vec3};
+use serde::{Deserialize, Serialize};
+
+const MINIMUM_REQUESTED_GUARD_SPEED: NonnegativeSpeed =
+    match NonnegativeSpeed::from_metres_per_second(0.051) {
+        Ok(speed) => speed,
+        Err(_) => panic!("invalid raised movement request threshold"),
+    };
+
+/// Compact authoritative input for client-side raised-guard foot placement.
+/// The authority replicates only observed motion. Exact visual plants, swing
+/// ownership, and progress are client presentation state, as in Overgrowth's
+/// velocity-driven foot stance.
+/// This invariant-bearing type intentionally does not implement Bevy reflection;
+/// reflected field mutation would bypass its validated constructors.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize)]
+pub struct RaisedLocomotionIntent(RaisedLocomotionKind);
+
+#[derive(Debug, Clone, Copy, PartialEq, Serialize)]
+#[serde(rename_all = "snake_case")]
+enum RaisedLocomotionKind {
+    Planted,
+    Moving {
+        local_direction: Vec2,
+        speed: NonnegativeSpeed,
+    },
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "snake_case")]
+enum RaisedLocomotionWire {
+    Planted,
+    Moving { local_direction: Vec2, speed: f32 },
+}
+
+impl<'de> Deserialize<'de> for RaisedLocomotionIntent {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = RaisedLocomotionWire::deserialize(deserializer)?;
+        Ok(match value {
+            RaisedLocomotionWire::Planted => Self::planted(),
+            RaisedLocomotionWire::Moving {
+                local_direction,
+                speed,
+            } => Self::from_native_movement(local_direction, speed),
+        })
+    }
+}
+
+impl Default for RaisedLocomotionIntent {
+    fn default() -> Self {
+        Self::planted()
+    }
+}
+
+impl RaisedLocomotionIntent {
+    pub fn planted() -> Self {
+        Self(RaisedLocomotionKind::Planted)
+    }
+
+    /// Creates validated moving intent. Invalid or effectively stationary
+    /// input becomes planted while retaining its handoff identity.
+    pub fn moving(local_direction: Vec2, speed: NonnegativeSpeed) -> Self {
+        let direction = local_direction.normalize_or_zero();
+        if !local_direction.is_finite()
+            || direction == Vec2::ZERO
+            || speed <= STATIONARY_ANIMATION_SPEED_LIMIT
+        {
+            return Self::planted();
+        }
+        Self(RaisedLocomotionKind::Moving {
+            local_direction: direction,
+            speed,
+        })
+    }
+
+    /// Decode native observed/wire speeds using the existing planted normalization policy.
+    pub(in crate::animation) fn from_native_movement(local_direction: Vec2, speed: f32) -> Self {
+        match NonnegativeSpeed::from_metres_per_second(speed) {
+            Ok(speed) => Self::moving(local_direction, speed),
+            Err(_) => Self::planted(),
+        }
+    }
+
+    pub fn is_moving(self) -> bool {
+        matches!(self.0, RaisedLocomotionKind::Moving { .. })
+    }
+
+    pub fn local_direction(self) -> Vec2 {
+        match self.0 {
+            RaisedLocomotionKind::Moving {
+                local_direction, ..
+            } => local_direction,
+            RaisedLocomotionKind::Planted => Vec2::ZERO,
+        }
+    }
+
+    pub fn speed(self) -> NonnegativeSpeed {
+        match self.0 {
+            RaisedLocomotionKind::Moving { speed, .. } => speed,
+            RaisedLocomotionKind::Planted => NonnegativeSpeed::ZERO,
+        }
+    }
+
+    pub fn local_velocity(self) -> Vec3 {
+        let direction = self.local_direction();
+        Vec3::new(direction.x, 0.0, direction.y) * self.speed().metres_per_second()
+    }
+}
+
+pub(super) fn advance_raised_locomotion_intent(
+    skeleton: &mut SkeletonState,
+    observed_local_velocity: Vec3,
+    observed_speed: NonnegativeSpeed,
+    requested_local_direction: Option<Vec2>,
+) {
+    let intent = skeleton.raised_locomotion();
+    let observed = (observed_speed > STATIONARY_ANIMATION_SPEED_LIMIT).then(|| {
+        RaisedLocomotionIntent::moving(
+            Vec2::new(observed_local_velocity.x, observed_local_velocity.z),
+            observed_speed,
+        )
+    });
+    let requested = requested_local_direction.and_then(|direction| direction.try_normalize());
+    let moving = observed.or_else(|| {
+        requested.map(|direction| {
+            RaisedLocomotionIntent::moving(
+                direction,
+                intent.speed().max(MINIMUM_REQUESTED_GUARD_SPEED),
+            )
+        })
+    });
+    skeleton.set_raised_locomotion(match moving {
+        Some(moving) => moving,
+        None if skeleton.raised_footwork.step().is_some() => intent,
+        None => RaisedLocomotionIntent::planted(),
+    });
+}

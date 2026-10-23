@@ -1,5 +1,6 @@
 //! The bracer fitted on the device to a synthetic forearm.
 
+use fabelgeist_rig::RigJointName;
 use std::collections::BTreeMap;
 use std::sync::OnceLock;
 
@@ -28,10 +29,10 @@ struct Forearm {
     normals: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
     texcoords: Vec<[f32; 2]>,
-    joint_indices: Vec<[u32; 8]>,
+    joint_indices: fabelgeist_rig::PackedRigSkin<8>,
     joint_weights: Vec<[f32; 8]>,
-    joint_names: Vec<String>,
-    joints: Vec<[f32; 8]>,
+    joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
+    joints: fabelgeist_rig::RigJointTable<[f32; 8]>,
     morphs: Vec<ForearmMorphSample>,
 }
 
@@ -42,18 +43,23 @@ impl Forearm {
             normals: Vec::new(),
             faces: Vec::new(),
             texcoords: Vec::new(),
-            joint_indices: Vec::new(),
+            joint_indices: fabelgeist_rig::PackedRigSkin::empty(
+                fabelgeist_rig::RigJointTable::from(vec!["l_lowarm", "l_wrist", "l_upperarm"])
+                    .joint_count(),
+            ),
             joint_weights: Vec::new(),
             joint_names: ["l_lowarm", "l_wrist", "l_upperarm"]
-                .map(String::from)
-                .to_vec(),
+                .map(RigJointName::from)
+                .into_iter()
+                .collect(),
             joints: [
                 [0.0, LENGTH_M, 0.0],
                 [0.0, 0.0, 0.0],
                 [0.0, 2.0 * LENGTH_M, 0.0],
             ]
             .map(|[x, y, z]| [x, y, z, 0.0, 0.0, 0.0, 1.0, 1.0])
-            .to_vec(),
+            .into_iter()
+            .collect(),
             morphs: Vec::new(),
         };
         for ring in 0..RINGS {
@@ -70,7 +76,10 @@ impl Forearm {
                 forearm
                     .texcoords
                     .push([segment as f32 / SEGMENTS as f32, axial]);
-                forearm.joint_indices.push([0, 1, 0, 0, 0, 0, 0, 0]);
+                forearm
+                    .joint_indices
+                    .push([0usize, 1, 0, 0, 0, 0, 0, 0].map(fabelgeist_rig::RigJointOrdinal::from))
+                    .unwrap();
                 let wrist = (axial - 0.8).max(0.0) * 2.0;
                 forearm
                     .joint_weights
@@ -231,7 +240,7 @@ fn inconsistent_inputs_and_missing_landmarks_are_rejected() {
     forearm.normals.pop();
     assert!(generate_bracer_on_device(gpu(), &BracerDesign::default(), forearm.input()).is_err());
     let mut forearm = Forearm::new();
-    forearm.joint_names[1] = "missing_wrist".into();
+    forearm.joint_names[fabelgeist_rig::RigJointOrdinal::from(1usize)] = "missing_wrist".into();
     let error =
         generate_bracer_on_device(gpu(), &BracerDesign::default(), forearm.input()).unwrap_err();
     assert!(format!("{error:#}").contains("l_wrist"), "{error:#}");

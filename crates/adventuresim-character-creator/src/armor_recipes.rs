@@ -1,11 +1,12 @@
 //! Catalog boundary for the authored armor recipes and anatomical fit regions.
 
+use adventuresim_core::equipment_assets::CatalogItem;
 use anyhow::Result;
 use fabelgeist_armor::*;
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, sync::LazyLock};
 
-use crate::armor_frames::{FitRegion, Side};
+use crate::armor_frames::{FitRegion, FittingPlacement};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum ParametricDesign {
@@ -56,8 +57,8 @@ static CATALOG: LazyLock<BTreeMap<String, ParametricDesign>> = LazyLock::new(|| 
 });
 
 /// Look up the authored item recipe in the embedded equipment catalog.
-pub fn recipe(id: &str) -> Option<ParametricDesign> {
-    CATALOG.get(id).cloned()
+pub fn recipe(item: CatalogItem<'_>) -> Option<ParametricDesign> {
+    CATALOG.get(&item.id).cloned()
 }
 
 /// Items built by their own generator instead of an embedded catalog recipe.
@@ -68,8 +69,8 @@ pub enum DedicatedGenerator {
 }
 
 impl DedicatedGenerator {
-    pub fn for_item(id: &str) -> Option<Self> {
-        match id {
+    pub fn for_item(item: CatalogItem<'_>) -> Option<Self> {
+        match item.id.as_str() {
             "vambrace" => Some(Self::Vambrace),
             "breastplate" | "cuirass" => Some(Self::Breastplate),
             _ => None,
@@ -77,14 +78,14 @@ impl DedicatedGenerator {
     }
 }
 
-pub fn is_parametric(id: &str) -> bool {
-    DedicatedGenerator::for_item(id).is_some() || recipe(id).is_some()
+pub fn is_parametric(item: CatalogItem<'_>) -> bool {
+    DedicatedGenerator::for_item(item).is_some() || recipe(item).is_some()
 }
 
-pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegion> {
+pub fn fit_region(design: &ParametricDesign, placement: FittingPlacement) -> Result<FitRegion> {
     use FitRegion as F;
     use GarmentArmorKind as G;
-    let side = || Side::from_placement(placement);
+    let side = || placement.side();
     Ok(match design {
         ParametricDesign::Underlayer(d) => match d.kind {
             crate::underlayer::UnderlayerKind::PaddedHose => F::WholeLeg(side()?),
@@ -192,7 +193,11 @@ mod tests {
                 item.kind,
                 crate::item_catalog_schema::ItemKind::Armor { .. }
             ) {
-                assert!(is_parametric(&item.id), "missing armor recipe {}", item.id);
+                assert!(
+                    is_parametric(CatalogItem::admit(&content.items, item).unwrap()),
+                    "missing armor recipe {}",
+                    item.id
+                );
             }
         }
         for id in catalog.keys() {
@@ -206,7 +211,10 @@ mod tests {
     #[test]
     fn recipe_lookup_returns_authored_shapes_without_unknown_item_fallback() {
         let authored: serde_json::Value = serde_json::from_str(CATALOG_SOURCE).unwrap();
-        let selected = recipe("barbute").unwrap();
+        let selected = recipe(
+            CatalogItem::find(adventuresim_core::item_catalog::catalog(), "barbute").unwrap(),
+        )
+        .unwrap();
         assert_eq!(
             serde_json::to_value(&selected).unwrap(),
             authored["barbute"]
@@ -218,10 +226,19 @@ mod tests {
             )))
             .unwrap()
         );
-        assert!(recipe("unknown_armor").is_none());
+        assert!(
+            CatalogItem::find(adventuresim_core::item_catalog::catalog(), "unknown_armor")
+                .and_then(recipe)
+                .is_none()
+        );
         for id in ["vambrace", "breastplate", "cuirass"] {
-            assert!(is_parametric(id));
-            assert!(recipe(id).is_none());
+            assert!(is_parametric(
+                CatalogItem::find(adventuresim_core::item_catalog::catalog(), id).unwrap()
+            ));
+            assert!(
+                recipe(CatalogItem::find(adventuresim_core::item_catalog::catalog(), id).unwrap())
+                    .is_none()
+            );
         }
     }
 

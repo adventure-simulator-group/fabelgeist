@@ -1,4 +1,5 @@
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_world_schema::UnitBasisPoints;
 use bevy::audio::{AudioSink, AudioSinkPlayback, PlaybackMode, Volume};
 use bevy::prelude::*;
@@ -6,13 +7,6 @@ use bevy::prelude::*;
 use crate::{audio_config::TacticalAudioConfig, player::ClientPlayer};
 
 pub struct WeatherAudioPlugin;
-
-impl Plugin for WeatherAudioPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(Startup, spawn_rain_layers)
-            .add_systems(Update, update_rain_layers);
-    }
-}
 
 #[derive(Component, Clone, Copy, Debug, Eq, PartialEq)]
 enum RainAudioLayer {
@@ -26,6 +20,13 @@ enum RainSurface {
     Foliage,
     HardGround,
     Water,
+}
+
+impl Plugin for WeatherAudioPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_systems(Startup, spawn_rain_layers)
+            .add_systems(Update, update_rain_layers);
+    }
 }
 
 impl RainSurface {
@@ -112,14 +113,17 @@ fn update_rain_layers(
         .map(|environment| environment.weather);
     let intensity = weather
         .filter(|weather| weather.precipitation == Precipitation::Rain)
-        .map(|weather| UnitBasisPoints::saturating(weather.intensity_bps).as_unit_f32())
+        .map(|weather| UnitBasisPoints::saturating(weather.intensity_bps))
         .unwrap_or_default();
-    let listener_position = listeners.iter().next().map(GlobalTransform::translation);
+    let listener_position = listeners
+        .iter()
+        .next()
+        .and_then(|transform| ScenePlanPoint::from_metres(transform.translation().xz()));
     let surface = RainSurface::at(listener_position.and_then(|position| {
         grounds
             .iter()
             .next()
-            .and_then(|ground| ground.ground_at(position.xz()))
+            .and_then(|ground| ground.ground_at(position))
     }));
     let (surface_volume, storm_volume) = rain_mix(intensity, &config);
     let response = 1.0 - (-config.weather.volume_response_per_second * time.delta_secs()).exp();
@@ -134,8 +138,9 @@ fn update_rain_layers(
     }
 }
 
-fn rain_mix(intensity: f32, config: &TacticalAudioConfig) -> (f32, f32) {
-    let intensity = intensity.clamp(0.0, 1.0);
+fn rain_mix(intensity: UnitBasisPoints, config: &TacticalAudioConfig) -> (f32, f32) {
+    // Native gain calculation uses the weather intensity as a unit fraction.
+    let intensity = intensity.as_unit_f32().clamp(0.0, 1.0);
     let weather = &config.weather;
     let storm = ((intensity - weather.heavy_rain_start_fraction)
         / (1.0 - weather.heavy_rain_start_fraction))
@@ -185,12 +190,19 @@ mod tests {
     #[test]
     fn heavy_storm_layer_enters_only_above_its_threshold() {
         let config = config();
-        assert_eq!(rain_mix(0.0, &config), (0.0, 0.0));
+        assert_eq!(rain_mix(UnitBasisPoints::ZERO, &config), (0.0, 0.0));
         assert_eq!(
-            rain_mix(config.weather.heavy_rain_start_fraction, &config).1,
+            rain_mix(
+                UnitBasisPoints::from_unit_f32(config.weather.heavy_rain_start_fraction).unwrap(),
+                &config,
+            )
+            .1,
             0.0
         );
-        assert!(rain_mix(1.0, &config).1 > rain_mix(0.8, &config).1);
-        assert!(rain_mix(1.0, &config).0 > 0.0);
+        assert!(
+            rain_mix(UnitBasisPoints::WHOLE, &config).1
+                > rain_mix(UnitBasisPoints::from_unit_f32(0.8).unwrap(), &config).1
+        );
+        assert!(rain_mix(UnitBasisPoints::WHOLE, &config).0 > 0.0);
     }
 }

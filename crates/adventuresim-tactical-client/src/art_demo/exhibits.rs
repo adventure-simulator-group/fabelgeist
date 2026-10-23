@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 use super::{
     DemoEntity, StudioEntity,
     camera::{CameraSpace, OrbitView},
+    preparation::{ArtDemoPreparationError, ArtDemoPreparationResult},
     scenery,
 };
 
@@ -127,13 +128,13 @@ impl Exhibit {
         )
     }
 
-    pub fn spawn(&self, world: &mut World) -> Result<Option<Handle<WorldAsset>>, String> {
+    pub fn spawn(&self, world: &mut World) -> ArtDemoPreparationResult<Option<Handle<WorldAsset>>> {
         match self.kind {
             ExhibitKind::Armor => {
                 let asset = self
                     .asset
                     .as_ref()
-                    .ok_or("armor exhibit requires an asset")?;
+                    .ok_or(ArtDemoPreparationError::MissingArmorAsset)?;
                 let handle = world
                     .resource::<AssetServer>()
                     .load(GltfAssetLabel::Scene(0).from_asset(format!("art-demo/armor/{asset}")));
@@ -149,7 +150,7 @@ impl Exhibit {
                 let catalog_id = self
                     .asset
                     .as_deref()
-                    .ok_or("weapon exhibit requires a chassis")?;
+                    .ok_or(ArtDemoPreparationError::MissingWeaponAsset)?;
                 weapon(world, self.id, catalog_id)?;
                 Ok(None)
             }
@@ -197,9 +198,13 @@ pub(super) fn studio(world: &mut World) {
     }
 }
 
-fn weapon(world: &mut World, id: ExhibitId, catalog_id: &str) -> Result<(), String> {
-    let design = default_design(catalog_id).ok_or("unknown weapon chassis")?;
-    let generated = generate(&design).map_err(|error| format!("weapon generation: {error:?}"))?;
+fn weapon(world: &mut World, id: ExhibitId, catalog_id: &str) -> ArtDemoPreparationResult<()> {
+    let design = default_design(catalog_id).ok_or_else(|| {
+        ArtDemoPreparationError::UnknownWeaponChassis {
+            chassis: catalog_id.into(),
+        }
+    })?;
+    let generated = generate(&design)?;
     let center =
         (Vec3::from_array(generated.bounds.min) + Vec3::from_array(generated.bounds.max)) * 0.5;
     let extent = Vec3::from_array(generated.bounds.max) - Vec3::from_array(generated.bounds.min);

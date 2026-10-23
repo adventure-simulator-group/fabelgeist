@@ -30,8 +30,8 @@ use crate::{
     settlement_population::{SettlementResidentProfile, settlement_resident_profile},
     social::{character_familiarity, current_affinity},
     strategic::{
-        StrategicEncounterStatus, settlement, strategic_encounter,
-        strategic_gateway_authority__view,
+        StrategicCombatError, StrategicCombatResult, StrategicEncounterStatus, settlement,
+        strategic_encounter, strategic_gateway_authority__view,
     },
     surgery::{limb_injury, retained_projectile},
     time::{advance_character_wait_time, character_time, character_time__view},
@@ -815,7 +815,7 @@ fn persist_autopsy_demo_body(
 /// Prepare the selected character and three deterministic bodies for a local
 /// visual demo. Every wound is produced by ordinary strategic autoresolve;
 /// only custody time and identity are staged by the fixture.
-pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(), String> {
+pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> StrategicCombatResult<()> {
     let actor = crate::character::require_living_character(ctx, actor_id)?;
     let settlement_id = actor
         .current_settlement_id
@@ -866,43 +866,19 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
     actor_time.minutes = minute;
     ctx.db.character_time().character_id().update(actor_time);
 
-    let build_outcome = |victim_id: u64, victim_kind: &str, attacker_kind: &str, seed: Seed| {
-        let attacker = crate::strategic::autoresolve_enemy(
-            victim_id.saturating_sub(100),
-            attacker_kind,
-            12,
-            u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
-        )?;
-        let victim = crate::strategic::autoresolve_enemy(
-            victim_id,
-            victim_kind,
-            1,
-            u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
-        )?;
-        adventuresim_core::autopsy::resolve_death_required_incident(
-            &[attacker],
-            &[victim],
-            victim_id,
-            seed,
-            128,
-        )
-        .ok_or_else(|| {
-            String::from("Autopsy demo autoresolve could not produce its required death")
-        })
-    };
-    let recent = build_outcome(
+    let recent = autopsy_demo_outcome(
         AUTOPSY_DEMO_RECENT_VICTIM_ID,
         "poacher",
         "bear",
         fabelgeist_determinism::Seed::from_u64(0x4155_544f_5053_5901),
     )?;
-    let buried = build_outcome(
+    let buried = autopsy_demo_outcome(
         AUTOPSY_DEMO_BURIED_VICTIM_ID,
         "smuggler",
         "bear",
         fabelgeist_determinism::Seed::from_u64(0x4155_544f_5053_5902),
     )?;
-    let enemy = build_outcome(
+    let enemy = autopsy_demo_outcome(
         AUTOPSY_DEMO_ENEMY_ID,
         "kobold",
         "armed_retainer",
@@ -1969,6 +1945,34 @@ pub(crate) fn permission_topics_for_npc(
             topics
         })
         .collect()
+}
+
+fn autopsy_demo_outcome(
+    victim_id: u64,
+    victim_kind: &str,
+    attacker_kind: &str,
+    seed: Seed,
+) -> StrategicCombatResult<BattleOutcome> {
+    let attacker = crate::strategic::autoresolve_enemy(
+        victim_id.saturating_sub(100),
+        attacker_kind,
+        12,
+        u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+    )?;
+    let victim = crate::strategic::autoresolve_enemy(
+        victim_id,
+        victim_kind,
+        1,
+        u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+    )?;
+    adventuresim_core::autopsy::resolve_death_required_incident(
+        &[attacker],
+        &[victim],
+        victim_id,
+        seed,
+        128,
+    )?
+    .ok_or(StrategicCombatError::RequiredDeathUnavailable)
 }
 
 #[cfg(test)]
