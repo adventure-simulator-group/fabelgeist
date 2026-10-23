@@ -588,18 +588,18 @@ impl Fit {
         Ok(())
     }
 
-    /// Step, then wait for the GPU to finish it.
+    /// Step, then observe the queue's completion point for backpressure.
     ///
-    /// What an interactive loop must call. A step is tens of milliseconds of
-    /// GPU work and nothing throttles submission, so a loop that steps on a
-    /// timer submits faster than the device drains and the queue grows without
-    /// bound -- for a minute or so, until the driver loses the device and
-    /// takes the window with it. Waiting also hands the compositor sharing
-    /// this device a clear gap between steps.
+    /// Completion follows [`WgpuContext::submitted_work_done`], including its
+    /// browser callback limit. Advance the frame counter only on success;
+    /// GPU work already accepted may have executed even if observation fails.
     #[cfg_attr(not(test), allow(dead_code))]
     pub async fn step_and_wait(&mut self, delta: f32) -> anyhow::Result<()> {
-        self.step(delta).await?;
-        self.context.submitted_work_done().await;
+        self.cloth
+            .step_interleaved(&self.context, &self.solver, &mut self.collisions, delta)
+            .await?;
+        self.context.submitted_work_done().await?;
+        self.frames += 1;
         Ok(())
     }
 

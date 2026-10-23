@@ -241,7 +241,7 @@ impl Shell {
     ) -> Result<()> {
         let mut batch = KernelBatch::labelled(context, "cloth step");
         self.record_step(&mut batch, solver, collisions, delta)?;
-        batch.submit();
+        batch.submit()?;
         Ok(())
     }
 
@@ -283,7 +283,7 @@ impl Shell {
                 &mut hook,
                 substep,
             )?;
-            batch.submit();
+            batch.submit()?;
             if interval > 0 && ((index + 1) % interval == 0 || index + 1 == count) {
                 self.project_host_contacts(context, schedule, interval_start.take().as_deref())
                     .await?;
@@ -291,7 +291,7 @@ impl Shell {
         }
         if interval == 0 {
             // Bound the queue: a caller stepping on a timer must not outrun the GPU.
-            context.submitted_work_done().await;
+            context.submitted_work_done().await?;
         }
         Ok(())
     }
@@ -366,7 +366,7 @@ impl Shell {
                     )
                     .await?;
             } else {
-                context.submitted_work_done().await;
+                context.submitted_work_done().await?;
             }
             let Some(layer) = &self.outer_layer else {
                 break;
