@@ -39,6 +39,11 @@ fn sphere(radius: f32, center: Vec3) -> (Vec<[f32; 3]>, Vec<[u32; 3]>) {
 
 fn wearer(positions: Vec<[f32; 3]>, faces: Vec<[u32; 3]>) -> DrapeInput {
     let count = positions.len();
+    // The synthetic wearer is rigidly attached to one identity root joint.
+    let joints = fabelgeist_rig::RigJointTable::from(vec![[0., 0., 0., 0., 0., 0., 1., 1.]]);
+    let indices =
+        fabelgeist_rig::PackedRigSkin::from_native(vec![[0; 8]; count], joints.joint_count())
+            .unwrap();
     DrapeInput {
         under_plate: None,
         selection: GarmentSelection::default(),
@@ -46,13 +51,9 @@ fn wearer(positions: Vec<[f32; 3]>, faces: Vec<[u32; 3]>) -> DrapeInput {
         obstacles: vec![],
         positions,
         faces,
-        names: Default::default(),
-        joints: Default::default(),
-        indices: fabelgeist_rig::PackedRigSkin::from_native(
-            vec![[0; 8]; count],
-            fabelgeist_rig::RigJointCount::from_native_joint_count(1),
-        )
-        .unwrap(),
+        names: vec![RigJointName::ROOT].into(),
+        joints,
+        indices,
         weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; count],
     }
 }
