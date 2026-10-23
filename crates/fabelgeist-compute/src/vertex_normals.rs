@@ -237,8 +237,10 @@ impl VertexNormalKernels {
         })
     }
 
-    /// Record the normals of `vertex_count` vertices of the triangles, `u32`
-    /// triples indexing `positions`. Clears the status first.
+    /// Record normals from tightly packed XYZ `f32` positions and `u32`
+    /// triangle-index triples. Every index must be less than `vertex_count`.
+    /// Input byte extents and output capacities are checked before clearing
+    /// status; this check does not certify index membership or topology.
     pub fn record(
         &self,
         batch: &mut KernelBatch,
@@ -248,15 +250,8 @@ impl VertexNormalKernels {
         triangle_count: MeshTriangleCount,
         output: &mut VertexNormals,
     ) -> Result<()> {
-        if vertex_count > output.vertex_capacity || triangle_count > output.triangle_capacity {
-            return Err(anyhow!(
-                "VertexNormals: {vertex_count} vertices and {triangle_count} triangles exceed {} and {}",
-                output.vertex_capacity,
-                output.triangle_capacity
-            ));
-        }
-        let corner_count = triangle_count.checked_corners()
-            .ok_or(NormalLayoutError::Corners { triangles: triangle_count })?;
+        let corner_count =
+            output.check_inputs(positions, triangles, vertex_count, triangle_count)?;
         batch.clear_buffer(&output.status);
         batch.clear_buffer(&output.starts);
         batch.clear_buffer(&output.ends);

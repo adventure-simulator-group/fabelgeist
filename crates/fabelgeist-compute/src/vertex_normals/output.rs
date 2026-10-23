@@ -6,9 +6,26 @@ use fabelgeist_gpu::prelude::{BufferByteLength, BufferUse};
 use fabelgeist_mesh::{MeshCornerCount, MeshTriangleCount, MeshVertexCount};
 use std::num::TryFromIntError;
 
-/// A mesh population whose native normal layout cannot be addressed.
+/// A normal layout that exceeds native addresses or its available buffers.
 #[derive(Debug, thiserror::Error)]
 pub enum NormalLayoutError {
+    #[error("VertexNormals: {vertices} vertices and {triangles} triangles exceed {vertex_capacity} and {triangle_capacity}")]
+    Capacity {
+        vertices: MeshVertexCount,
+        triangles: MeshTriangleCount,
+        vertex_capacity: MeshVertexCount,
+        triangle_capacity: MeshTriangleCount,
+    },
+    #[error("normal positions require {required} bytes, but only {available} are available")]
+    Positions {
+        required: BufferByteLength,
+        available: BufferByteLength,
+    },
+    #[error("normal triangle indices require {required} bytes, but only {available} are available")]
+    TriangleIndices {
+        required: BufferByteLength,
+        available: BufferByteLength,
+    },
     #[error("normal corners for {triangles} triangles exceed the native address space")]
     Corners { triangles: MeshTriangleCount },
     #[error("normal words for {vertices} vertices exceed native addresses")]
@@ -80,17 +97,51 @@ impl VertexNormals {
             )
         };
         Ok(Self {
-            normals: buffer((u64::from(vertex_capacity.native_elements()) * 12).into(), "vertex normals")?,
-            status: buffer(4u64.into(), "vertex normal status")?,
-            contributions: buffer((u64::from(corner_capacity.native_elements()) * 12).into(), "corner normals")?,
-            keys: buffer((u64::from(corner_capacity.native_elements()) * 4).into(), "corner vertices")?,
-            corners: buffer((u64::from(corner_capacity.native_elements()) * 4).into(), "corners by vertex")?,
-            starts: buffer((u64::from(vertex_capacity.native_elements()) * 4).into(), "vertex corner starts")?,
-            ends: buffer((u64::from(vertex_capacity.native_elements()) * 4).into(), "vertex corner ends")?,
+            normals: buffer(vertex_capacity.packed_vec3_bytes(), "vertex normals")?,
+            status: buffer((size_of::<u32>() as u64).into(), "vertex normal status")?,
+            contributions: buffer(corner_capacity.packed_vec3_bytes(), "corner normals")?,
+            keys: buffer(corner_capacity.word_bytes(), "corner vertices")?,
+            corners: buffer(corner_capacity.word_bytes(), "corners by vertex")?,
+            starts: buffer(vertex_capacity.word_bytes(), "vertex corner starts")?,
+            ends: buffer(vertex_capacity.word_bytes(), "vertex corner ends")?,
             sort: SortScratch::new(context, corner_capacity.into())?,
             vertex_capacity,
             triangle_capacity,
         })
+    }
+
+    pub(super) fn check_inputs(
+        &self,
+        positions: &Buffer,
+        triangles: &Buffer,
+        vertex_count: MeshVertexCount,
+        triangle_count: MeshTriangleCount,
+    ) -> Result<MeshCornerCount> {
+        if vertex_count > self.vertex_capacity || triangle_count > self.triangle_capacity {
+            return Err(NormalLayoutError::Capacity {
+                vertices: vertex_count,
+                triangles: triangle_count,
+                vertex_capacity: self.vertex_capacity,
+                triangle_capacity: self.triangle_capacity,
+            }
+            .into());
+        }
+        let corners = triangle_count
+            .checked_corners()
+            .ok_or(NormalLayoutError::Corners {
+                triangles: triangle_count,
+            })?;
+        let required = vertex_count.packed_vec3_bytes();
+        let available = positions.size.min(positions.buffer.size().into());
+        if available < required {
+            return Err(NormalLayoutError::Positions { required, available }.into());
+        }
+        let required = triangle_count.index_bytes();
+        let available = triangles.size.min(triangles.buffer.size().into());
+        if available < required {
+            return Err(NormalLayoutError::TriangleIndices { required, available }.into());
+        }
+        Ok(corners)
     }
 
     /// Read the normals of the first `count` vertices, and the status bits.
