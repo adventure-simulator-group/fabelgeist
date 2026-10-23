@@ -200,6 +200,19 @@ impl StrandLayout {
         BufferByteLength::from(u64::from(self.native_strands()) * size_of::<StrandInfo>() as u64)
     }
 
+    /// Storage binding extent, including one native record for an empty level.
+    /// The receiver checks the actual buffer and device binding limit.
+    pub fn positions_binding_bytes(self) -> BufferByteLength {
+        self.positions_bytes()
+            .max(BufferByteLength::from(size_of::<[f32; 4]>()))
+    }
+
+    /// Storage binding extent, separate from the empty level's zero data bytes.
+    pub fn info_binding_bytes(self) -> BufferByteLength {
+        self.info_bytes()
+            .max(BufferByteLength::from(size_of::<StrandInfo>()))
+    }
+
     pub fn attributes_bytes(self) -> BufferByteLength {
         BufferByteLength::from(u64::from(self.native_strands()) * size_of::<StrandGpu>() as u64)
     }
