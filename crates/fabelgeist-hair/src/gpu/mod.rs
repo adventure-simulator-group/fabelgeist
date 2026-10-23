@@ -77,6 +77,8 @@
 //! # }
 //! ```
 
+pub use layout::{StrandAttribute, StrandLayout, StrandLayoutError, StrandLayoutResult};
+
 mod buffers;
 pub mod error;
 use crate::identity::PartingGroup;
@@ -91,8 +93,6 @@ mod lods;
 mod scalp;
 mod sim;
 pub mod wgsl;
-
-pub use layout::{StrandAttribute, StrandLayout, StrandLayoutError, StrandLayoutResult};
 
 use std::sync::Arc;
 

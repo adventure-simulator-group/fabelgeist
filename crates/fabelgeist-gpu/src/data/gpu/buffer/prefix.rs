@@ -32,7 +32,7 @@ impl Buffer {
     /// actual allocation. Zero is valid. This operation shares the native
     /// handle without allocating, copying, mapping, submitting or waiting.
     /// Logical bytes need not be aligned; readback owns mapping alignment,
-    /// and a native storage binding still requires nonempty logical bytes.
+    /// and `Buffer::binding_resource` still requires nonempty logical bytes.
     pub fn prefix(&self, bytes: BufferByteLength) -> PrefixResult<Self> {
         let physical = BufferByteLength::from(self.buffer.size());
         if bytes > self.size || bytes > physical {

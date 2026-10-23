@@ -34,7 +34,7 @@ pub use levels::{LevelBufferRole, RenderLevelError};
 pub use readback::RenderReadbackError;
 
 use atlas::UploadedAtlas;
-use deformation::{DeformationState, DeformationViews};
+use deformation::{DeformationPipeline, DeformationState, DeformationViews};
 use draws::{DrawPlan, DrawRole};
 use frame_state::{History, RenderedView};
 use frame_uniforms::FrameProjection;
@@ -280,8 +280,7 @@ pub struct HairRenderer {
     levels: Vec<GpuLevel>,
     dynamics: Option<Dynamics>,
     head_matrix: Mat4,
-    deform_layout: wgpu::BindGroupLayout,
-    deform_pipeline: wgpu::ComputePipeline,
+    deformation: DeformationPipeline,
     cards: Vec<GpuMesh>,
     card_quads: Vec<usize>,
     /// The sizes of the groom's levels, to choose among them.
@@ -355,7 +354,7 @@ impl HairRenderer {
     /// Build pipelines on `device` and its paired `queue`.
     ///
     /// Supplied native resources must belong to this same logical device.
-    /// Host atlas admission and allocation failures are returned. Native
+    /// Host atlas allocation and shader admission failures are returned. Native
     /// pipeline, resource and queue failures follow the device's configured
     /// error handling; this constructor does not replace it.
     pub fn new(
@@ -770,45 +769,7 @@ impl HairRenderer {
             compare: Some(wgpu::CompareFunction::LessEqual),
             ..Default::default()
         });
-        let compute_entry = |binding: u32, read_only: bool| wgpu::BindGroupLayoutEntry {
-            binding,
-            visibility: S::COMPUTE,
-            ty: wgpu::BindingType::Buffer {
-                ty: wgpu::BufferBindingType::Storage { read_only },
-                has_dynamic_offset: false,
-                min_binding_size: None,
-            },
-            count: None,
-        };
-        let deform_layout = d.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
-            label: Some("hair deform"),
-            entries: &[
-                compute_entry(0, true),
-                compute_entry(1, false),
-                compute_entry(2, true),
-                compute_entry(3, true),
-                compute_entry(4, true),
-                compute_entry(5, true),
-                uniform_entry(6, S::COMPUTE),
-                compute_entry(7, true),
-            ],
-        });
-        let deform_shader = d.create_shader_module(wgpu::ShaderModuleDescriptor {
-            label: Some("hair deform"),
-            source: wgpu::ShaderSource::Wgsl(deform_source().into()),
-        });
-        let deform_pipeline = d.create_compute_pipeline(&wgpu::ComputePipelineDescriptor {
-            label: Some("hair deform"),
-            layout: Some(&d.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-                label: Some("hair deform"),
-                bind_group_layouts: &[Some(&deform_layout)],
-                immediate_size: 0,
-            })),
-            module: &deform_shader,
-            entry_point: Some("deform"),
-            compilation_options: Default::default(),
-            cache: None,
-        });
+        let deformation = DeformationPipeline::new(d)?;
         let atlas = UploadedAtlas::new(d, &queue, &CardAtlas::transparent()?)?;
         let shadows = Self::shadow_maps(d, ShadowMapSize::from_texels(16));
         let (lighting_group, opacity_group) =
@@ -831,8 +792,7 @@ impl HairRenderer {
             levels: Vec::new(),
             dynamics: None,
             head_matrix: IDENTITY,
-            deform_layout,
-            deform_pipeline,
+            deformation,
             cards: Vec::new(),
             card_quads: Vec::new(),
             counts: LodCounts::default(),
@@ -1230,7 +1190,7 @@ impl HairRenderer {
                 ];
                 let group = d.create_bind_group(&wgpu::BindGroupDescriptor {
                     label: Some("hair deform"),
-                    layout: &self.deform_layout,
+                    layout: &self.deformation.layout,
                     entries: &entries
                         .iter()
                         .enumerate()
@@ -1309,35 +1269,6 @@ impl HairRenderer {
     /// Whether physics is on.
     pub fn has_dynamics(&self) -> bool {
         self.dynamics.is_some()
-    }
-
-    /// Deform `level`'s strands from the simulated ones.
-    fn deform(&self, encoder: &mut wgpu::CommandEncoder, level: StrandLevelIndex) {
-        let (Some(dynamics), Some(gpu)) = (&self.dynamics, self.levels.get(level.index())) else {
-            return;
-        };
-        let deform = &dynamics.levels[level.index()];
-        let params = DeformGpu {
-            head: self.head_matrix,
-            points: gpu.layout.native_points(),
-            sim_points: deform.sim_points,
-            strands: gpu.layout.native_strands(),
-            body: u32::from(dynamics.body.is_some()),
-            offset: dynamics.body.unwrap_or(0.0),
-            pad: [0; 3],
-        };
-        self.queue
-            .write_buffer(&deform.params, 0, bytemuck::bytes_of(&params));
-        let groups = gpu.layout.native_samples().div_ceil(64);
-        let x = groups.clamp(1, 65535);
-        let y = groups.div_ceil(x);
-        let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
-            label: Some("hair deform"),
-            timestamp_writes: None,
-        });
-        pass.set_pipeline(&self.deform_pipeline);
-        pass.set_bind_group(0, &deform.group, &[]);
-        pass.dispatch_workgroups(x, y, 1);
     }
 
     /// The output texture at `width` by `height`; whether it was made anew
@@ -1611,7 +1542,7 @@ impl HairRenderer {
                 shadow: quality.shadows.enabled().then_some(shadow_draw),
                 blend: blend.map(|blend| blend.to),
             },
-        );
+        )?;
         let targets = self
             .targets
             .as_ref()
