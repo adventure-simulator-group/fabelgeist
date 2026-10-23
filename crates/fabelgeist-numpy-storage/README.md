@@ -84,9 +84,9 @@ checked element count.
 rank zero and one element. Native shape construction treats any zero axis as
 empty before other dimensions can overflow. File admission also requires the
 upstream header's strides to be representable, so it can reject an enormous
-empty shape whose native element count alone is zero. `NpyElementWidth` describes the supported one-, four-,
-and eight-byte storage words. `NpyPayloadLength` owns the checked serialized
-payload length separately from element cardinality.
+empty shape whose native element count alone is zero. `NpyElementWidth` describes
+the supported one-, four-, and eight-byte storage words. `NpyPayloadLength` owns
+the checked serialized payload length separately from element cardinality.
 
 `NpyLayoutError` retains the failed dimensions, element count and width,
 expected and available payload lengths, or expected/actual ranks and the native
@@ -122,9 +122,10 @@ or nonzero, independently of element width.
 Construct numeric collections with `TryFrom<&NpyArray>` and propagate
 `NpyDecodeError`; byte-state collection uses `From<&NpyArray>`. Inspect each
 typed slice, then convert explicitly to a native vector at a tensor-data or
-other external representation boundary. Decoding retains stored dtype semantics: float64-to-
-integer conversion occurs before any float32 projection, floating-to-integer
-casts saturate as Rust defines, float32 NaN bits and signed zero are preserved,
+other external representation boundary. Decoding retains stored dtype semantics:
+float64-to-integer conversion occurs before any float32 projection,
+floating-to-integer casts saturate as Rust defines, float32 NaN bits and signed
+zero are preserved,
 and numeric byte values are not normalized to booleans.
 
 Fixed-width words are decoded through `npyz` primitive readers. The adapter

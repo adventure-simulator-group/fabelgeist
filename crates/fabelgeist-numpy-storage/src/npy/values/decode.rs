@@ -31,7 +31,7 @@ pub(super) enum StoredValues<'a> {
 impl<'a> TryFrom<&'a NpyArray> for StoredValues<'a> {
     type Error = NpyDecodeError;
 
-    fn try_from(array: &'a NpyArray) -> Result<Self> {
+    fn try_from(array: &'a NpyArray) -> std::result::Result<Self, NpyDecodeError> {
         // Decode complete words from the current stored kind. The independent
         // byte-state view still classifies every byte, including bool magnitudes.
         Ok(match array.dtype {

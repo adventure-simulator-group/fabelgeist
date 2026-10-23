@@ -1,7 +1,7 @@
 //! Ordered decoded NumPy numbers and byte states, retained until SDK conversion.
 use derive_more::{Display, From, Into};
 
-use super::decode_error::{NpyDecodeError, Result};
+use super::decode_error::NpyDecodeError;
 use super::{Dtype, NpyArray};
 
 use decode::StoredValues;
@@ -74,7 +74,7 @@ impl From<u8> for NpyByteState {
 impl TryFrom<&NpyArray> for NpyFloatValues {
     type Error = NpyDecodeError;
 
-    fn try_from(array: &NpyArray) -> Result<Self> {
+    fn try_from(array: &NpyArray) -> std::result::Result<Self, NpyDecodeError> {
         Ok(Self(
             StoredValues::try_from(array)?
                 .map(|value| value.map(StoredValue::floating))
@@ -98,7 +98,7 @@ impl From<NpyFloatValues> for Vec<f32> {
 impl TryFrom<&NpyArray> for NpyIntegerValues {
     type Error = NpyDecodeError;
 
-    fn try_from(array: &NpyArray) -> Result<Self> {
+    fn try_from(array: &NpyArray) -> std::result::Result<Self, NpyDecodeError> {
         Ok(Self(
             StoredValues::try_from(array)?
                 .map(|value| value.map(StoredValue::integer))

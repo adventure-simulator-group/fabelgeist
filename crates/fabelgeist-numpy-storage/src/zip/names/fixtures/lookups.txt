@@ -53,6 +53,6 @@ query:"\0";zip=false,None,Err("archive has no member \"\\0\"");npz=true,Some(132
 query:"目录/β";zip=false,None,Err("archive has no member \"目录/β\"");npz=true,Some(132),Ok([1082130432])
 query:"�";zip=false,None,Err("archive has no member \"�\"");npz=true,Some(140),Ok([1086324736, 1086324736, 1086324736])
 query:"path/../raw";zip=false,None,Err("archive has no member \"path/../raw\"");npz=true,Some(140),Ok([1091567616, 1091567616, 1091567616])
-failure:decode;zip=Ok([110, 111, 116, 45, 110, 112, 121]);npz=Err("reading array \"bad\": not a .npy array")
+failure:decode;zip=Ok([110, 111, 116, 45, 110, 112, 121]);npz=Err("reading array \"bad\": magic not found for NPY file")
 failure:compression;zip=Err("unsupported zip compression method 99");npz=Err("unsupported zip compression method 99")
 failure:local-header;zip=Err("corrupt zip entry bad.npy");npz=Err("corrupt zip entry bad.npy")
