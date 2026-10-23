@@ -7,6 +7,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 
 [dependencies]
 fabelgeist-determinism = { path = "../fabelgeist-determinism" }
+fabelgeist-mesh = { path = "../fabelgeist-mesh", default-features = false }
 fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
 fabelgeist-bvh = { "default-features" = false, "path" = "../fabelgeist-bvh" }
 anyhow = { "version" = "1.0" }
@@ -31,7 +32,7 @@ naga = { "version" = "29.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
 
 [features]
 default = ["render"]
-gpu = ["dep:wgpu", "dep:pollster", "dep:fabelgeist-gpu", "dep:fabelgeist-compute", "dep:fabelgeist-spatial-hash"]
+gpu = ["fabelgeist-mesh/gpu", "dep:wgpu", "dep:pollster", "dep:fabelgeist-gpu", "dep:fabelgeist-compute", "dep:fabelgeist-spatial-hash"]
 render = ["gpu", "dep:image", "dep:futures-channel"]
 
 [lints]
