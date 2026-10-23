@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use crate::prelude::*;
 use crate::{Map, MapDefinition};
 use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
@@ -98,7 +100,9 @@ impl DistanceField {
                 depth_or_array_layers: io.extent().depth_or_array_layers,
             },
         );
-        context.queue.submit(Some(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
 
         let input_res = GpuResource::Texture3d(temp_tex);
         let io_res = GpuResource::Texture3d(io.clone());
@@ -189,7 +193,9 @@ impl DistanceField {
                 depth_or_array_layers: io.extent().depth_or_array_layers,
             },
         );
-        context.queue.submit(Some(encoder.finish()));
+        context
+            .submit(encoder)
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
 
         let input_res = GpuResource::Texture3d(temp_tex);
         let io_res = GpuResource::Texture3d(io.clone());

@@ -41,12 +41,8 @@ impl Reduce {
         }
 
         let buffers = scratchpad.prepare(context, plan.input_count, plan.first.stride)?;
-        let mut encoder = context
-            .device
-            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                label: Some("Reduce Batch Encoder"),
-            });
-        let reduced = plan.record(context, input, buffers, &mut encoder)?;
+        let mut batch = KernelBatch::labelled(context, "Reduce Batch Encoder");
+        let reduced = plan.record(context, input, buffers, batch.encoder())?;
         let bytes = plan.first.stride.byte_length();
         let result = Buffer::new(
             context,
@@ -56,8 +52,16 @@ impl Reduce {
                 .with_usage(BufferUse::CopySource)
                 .with_usage(BufferUse::CopyDestination),
         )?;
-        encoder.copy_buffer_to_buffer(&reduced.buffer, 0, &result.buffer, 0, u64::from(bytes));
-        context.queue.submit(std::iter::once(encoder.finish()));
+        batch.copy_buffer(
+            &reduced,
+            &result,
+            BufferCopy {
+                source_offset: BufferByteOffset::START,
+                destination_offset: BufferByteOffset::START,
+                bytes,
+            },
+        )?;
+        batch.submit()?;
         Ok(result)
     }
 }
