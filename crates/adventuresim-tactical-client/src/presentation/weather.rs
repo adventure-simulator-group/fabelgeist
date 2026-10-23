@@ -1,5 +1,6 @@
 use super::terrain::terrain_heightmap_image;
 use super::*;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 const WEATHER_SHADER: &str = "shaders/tactical_weather.wgsl";
@@ -82,7 +83,11 @@ impl Material for TacticalWeatherMaterial {
 )]
 pub(super) fn apply_active_scene_weather(
     active: Res<ActiveTacticalScene>,
-    scenes: Query<(&SceneEnvironment, &SceneTerrain)>,
+    scenes: Query<(
+        &SceneEnvironment,
+        Option<&SceneTerrain>,
+        Option<&StrategicBackdrop>,
+    )>,
     particles: Query<Entity, With<WeatherParticle>>,
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -99,8 +104,12 @@ pub(super) fn apply_active_scene_weather(
     occlusion.scene = active.entity;
     occlusion.tree_signature = None;
     occlusion.image = None;
-    let Some((environment, terrain)) = active.entity.and_then(|entity| scenes.get(entity).ok())
+    let Some((environment, terrain, backdrop)) =
+        active.entity.and_then(|entity| scenes.get(entity).ok())
     else {
+        return;
+    };
+    let Some(terrain) = weather_surface(terrain, backdrop) else {
         return;
     };
     if environment.weather.precipitation == Precipitation::Clear
@@ -171,6 +180,19 @@ pub(super) fn apply_active_scene_weather(
     }
 }
 
+// Exactly one scene source owns precipitation heights. A sampled strategic
+// backdrop is never admitted as a canonical terrain component.
+fn weather_surface<'a>(
+    terrain: Option<&'a SceneTerrain>,
+    backdrop: Option<&'a StrategicBackdrop>,
+) -> Option<&'a SceneTerrain> {
+    match (terrain, backdrop) {
+        (Some(terrain), None) => Some(terrain),
+        (None, Some(backdrop)) => Some(backdrop.weather_surface()),
+        _ => None,
+    }
+}
+
 fn weather_material(
     environment: &SceneEnvironment,
     terrain: &SceneTerrain,
@@ -186,12 +208,10 @@ fn weather_material(
         _ => 0.0,
     };
     let bearing = f32::from(environment.weather.atmosphere.wind_direction_degrees).to_radians();
-    let seed = StreamId::new("visual.weather.interval")
-        .seed(
-            stable_text_seed(&environment.scene_digest),
-            &[environment.weather.interval_start_minute.get()],
-        )
-        .to_u64();
+    let seed = StreamId::new("visual.weather.interval").seed(
+        stable_text_seed(&environment.scene_digest),
+        &[environment.weather.interval_start_minute.get()],
+    );
     let seed = StreamId::new("visual.weather.shader-seed")
         .rng(seed, &[])
         .index(65_521) as f32;
@@ -227,10 +247,10 @@ fn weather_particle_mesh(capacity: usize) -> Mesh {
     const QUAD_CORNERS: [[f32; 2]; 4] = [[-1.0, -1.0], [1.0, -1.0], [1.0, 1.0], [-1.0, 1.0]];
     for index in 0..capacity {
         let seed_a = StreamId::new("visual.weather.particle-primary")
-            .rng(0, &[index as u64])
+            .rng(0.into(), &[index as u64])
             .inclusive_unit_f32();
         let seed_b = StreamId::new("visual.weather.particle-secondary")
-            .rng(0, &[index as u64])
+            .rng(0.into(), &[index as u64])
             .inclusive_unit_f32();
         let rank = (index as f32 + 0.5) / capacity as f32;
         let base = positions.len() as u32;
@@ -289,7 +309,11 @@ fn weather_sheet_mesh(segments: usize, layers: usize) -> Mesh {
 
 pub(super) fn update_weather_occlusion_map(
     active: Res<ActiveTacticalScene>,
-    scenes: Query<(&SceneEnvironment, &SceneTerrain)>,
+    scenes: Query<(
+        &SceneEnvironment,
+        Option<&SceneTerrain>,
+        Option<&StrategicBackdrop>,
+    )>,
     trees: Query<(&GlobalTransform, &StreamedTreePresentation)>,
     tree_cache: Res<TreePresentationCache>,
     mut state: ResMut<WeatherOcclusionState>,
@@ -305,7 +329,10 @@ pub(super) fn update_weather_occlusion_map(
     else {
         return;
     };
-    let Ok((environment, terrain)) = scenes.get(scene) else {
+    let Ok((environment, terrain, backdrop)) = scenes.get(scene) else {
+        return;
+    };
+    let Some(terrain) = weather_surface(terrain, backdrop) else {
         return;
     };
     if environment.weather.precipitation == Precipitation::Clear {
@@ -489,6 +516,21 @@ mod tests {
         let last = u16::from_le_bytes([pixels[12], pixels[13]]);
         assert_eq!(first, 0);
         assert_eq!(last, u16::MAX);
+        let input: TacticalSceneInput = serde_json::from_str(include_str!(
+            "../../../../assets/tactical-scenes/flat-dry-grassland.json"
+        ))
+        .unwrap();
+        let backdrop = StrategicBackdrop::new(&input, input.vista.lods.len()).unwrap();
+        assert_eq!(
+            terrain_heightmap_image(weather_surface(None, Some(&backdrop)).unwrap()).data,
+            terrain_heightmap_image(backdrop.weather_surface()).data
+        );
+        assert!(std::ptr::eq(
+            weather_surface(Some(&terrain), None).unwrap(),
+            &terrain
+        ));
+        assert!(weather_surface(Some(&terrain), Some(&backdrop)).is_none());
+        assert!(weather_surface(None, None).is_none());
     }
 
     #[test]

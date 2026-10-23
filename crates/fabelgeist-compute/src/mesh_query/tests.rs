@@ -1,5 +1,6 @@
 use super::*;
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+use fabelgeist_mesh::{MeshTriangleCount, MeshVertexCount};
 
 /// Deterministic points in the unit cube, xorshift32 so that a failure is
 /// reproducible from the test name alone.
@@ -61,22 +62,21 @@ async fn nearest_points_match_a_host_search() -> Result<()> {
     // More targets than one tile, and a count that is not a multiple of one.
     let targets = points(1_300, 7);
     let queries = points(700, 11);
-    let hits = QueryHits::new(&context, queries.len() as u32)?;
+    let hits = QueryHits::new(&context, QueryCount::try_from(queries.len())?)?;
     let positions = buffer(&context, &targets)?;
     let mut batch = KernelBatch::new(&context);
     query.record_nearest_points(
         &mut batch,
         &buffer(&context, &queries)?,
-        queries.len() as u32,
+        QueryCount::try_from(queries.len())?,
         PointTargets {
             positions: &positions,
-            candidates: None,
-            count: targets.len() as u32,
+            selection: PointSelection::All(MeshVertexCount::try_from(targets.len())?),
         },
         &hits,
     )?;
     batch.submit();
-    let found = hits.read(&context, queries.len() as u32).await?;
+    let found = hits.read(&context, QueryCount::try_from(queries.len())?).await?;
     for (point, hit) in queries.iter().zip(found) {
         let expected = (0..targets.len())
             .min_by(|a, b| squared(*point, targets[*a]).total_cmp(&squared(*point, targets[*b])))
@@ -96,23 +96,25 @@ async fn candidates_narrow_a_point_search() -> Result<()> {
     let targets = points(600, 3);
     let queries = points(100, 5);
     let candidates: Vec<u32> = (0..600).filter(|i| i % 3 == 1).collect();
-    let hits = QueryHits::new(&context, queries.len() as u32)?;
+    let hits = QueryHits::new(&context, QueryCount::try_from(queries.len())?)?;
     let positions = buffer(&context, &targets)?;
     let candidate_buffer = buffer(&context, &candidates)?;
     let mut batch = KernelBatch::new(&context);
     query.record_nearest_points(
         &mut batch,
         &buffer(&context, &queries)?,
-        queries.len() as u32,
+        QueryCount::try_from(queries.len())?,
         PointTargets {
             positions: &positions,
-            candidates: Some(&candidate_buffer),
-            count: candidates.len() as u32,
+            selection: PointSelection::Candidates {
+                indices: &candidate_buffer,
+                count: CandidateCount::try_from(candidates.len())?,
+            },
         },
         &hits,
     )?;
     batch.submit();
-    for (point, hit) in queries.iter().zip(hits.read(&context, 100).await?) {
+    for (point, hit) in queries.iter().zip(hits.read(&context, 100.into()).await?) {
         let expected = candidates
             .iter()
             .min_by(|a, b| {
@@ -131,22 +133,21 @@ async fn ties_go_to_the_lowest_index() -> Result<()> {
     let query = MeshQuery::new(&context)?;
     // Four copies of the same point, the first at index 1.
     let targets: [[f32; 3]; 5] = [[5.0, 5.0, 5.0], [0.0; 3], [0.0; 3], [1.0; 3], [0.0; 3]];
-    let hits = QueryHits::new(&context, 1)?;
+    let hits = QueryHits::new(&context, 1.into())?;
     let positions = buffer(&context, &targets)?;
     let mut batch = KernelBatch::new(&context);
     query.record_nearest_points(
         &mut batch,
         &buffer(&context, &[[0.1f32, 0.0, 0.0]])?,
-        1,
+        1.into(),
         PointTargets {
             positions: &positions,
-            candidates: None,
-            count: targets.len() as u32,
+            selection: PointSelection::All(MeshVertexCount::try_from(targets.len())?),
         },
         &hits,
     )?;
     batch.submit();
-    assert_eq!(hits.read(&context, 1).await?[0].target, Some(1));
+    assert_eq!(hits.read(&context, 1.into()).await?[0].target, Some(1));
     Ok(())
 }
 
@@ -160,24 +161,23 @@ async fn closest_points_lie_on_the_surface() -> Result<()> {
         .into_iter()
         .map(|p| p.map(|x| 3.0 * x - 1.5))
         .collect();
-    let hits = QueryHits::new(&context, queries.len() as u32)?;
+    let hits = QueryHits::new(&context, QueryCount::try_from(queries.len())?)?;
     let position_buffer = buffer(&context, &positions)?;
     let triangle_buffer = buffer(&context, &triangles)?;
     let mut batch = KernelBatch::new(&context);
     query.record_closest_triangles(
         &mut batch,
         &buffer(&context, &queries)?,
-        queries.len() as u32,
+        QueryCount::try_from(queries.len())?,
         TriangleTargets {
             positions: &position_buffer,
             triangles: &triangle_buffer,
-            candidates: None,
-            count: triangles.len() as u32,
+            selection: TriangleSelection::All(MeshTriangleCount::try_from(triangles.len())?),
         },
         &hits,
     )?;
     batch.submit();
-    for (point, hit) in queries.iter().zip(hits.read(&context, 500).await?) {
+    for (point, hit) in queries.iter().zip(hits.read(&context, 500.into()).await?) {
         let triangle = triangles[hit.target.unwrap() as usize];
         let closest: [f32; 3] = std::array::from_fn(|axis| {
             (0..3)
@@ -206,14 +206,14 @@ async fn rays_find_the_first_and_last_crossing() -> Result<()> {
     let origin_buffer = buffer(&context, &origins)?;
     let direction_buffer = buffer(&context, &directions)?;
     for (crossing, expected) in [(Crossing::First, [2.0, 3.0]), (Crossing::Last, [4.0, 5.0])] {
-        let hits = QueryHits::new(&context, 3)?;
+        let hits = QueryHits::new(&context, 3.into())?;
         let mut batch = KernelBatch::new(&context);
         query.record_ray_triangles(
             &mut batch,
             Rays {
                 origins: &origin_buffer,
                 directions: &direction_buffer,
-                count: 3,
+                count: 3.into(),
                 span: [0.0, 100.0],
                 crossing,
                 parallel_epsilon: 1e-9,
@@ -221,13 +221,12 @@ async fn rays_find_the_first_and_last_crossing() -> Result<()> {
             TriangleTargets {
                 positions: &position_buffer,
                 triangles: &triangle_buffer,
-                candidates: None,
-                count: triangles.len() as u32,
+                selection: TriangleSelection::All(MeshTriangleCount::try_from(triangles.len())?),
             },
             &hits,
         )?;
         batch.submit();
-        let found = hits.read(&context, 3).await?;
+        let found = hits.read(&context, 3.into()).await?;
         for (hit, distance) in found.iter().zip(expected) {
             assert!(
                 (hit.distance - distance).abs() < 0.01,

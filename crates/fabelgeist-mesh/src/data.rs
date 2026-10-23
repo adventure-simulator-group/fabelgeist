@@ -1,6 +1,10 @@
-use crate::{FrontFace, GpuMesh, PrimitiveTopology};
+#[cfg(feature = "gpu")]
+use crate::GpuMesh;
+use crate::{FrontFace, PrimitiveTopology};
 use anyhow::{Result, ensure};
+#[cfg(feature = "gpu")]
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+#[cfg(feature = "gpu")]
 use fabelgeist_gpu::{
     data::gpu::buffer::{Buffer, BufferDefinition},
     globals::WgpuContext,
@@ -8,6 +12,7 @@ use fabelgeist_gpu::{
 
 // wgpu requires nonzero allocation sizes. Buffer::size remains the logical
 // attribute length, so an empty mesh draws no vertices and roundtrips as empty.
+#[cfg(feature = "gpu")]
 fn upload<T: bytemuck::NoUninit>(
     context: &WgpuContext,
     data: &[T],
@@ -21,6 +26,7 @@ fn upload<T: bytemuck::NoUninit>(
         Buffer::from_upload(context, BufferUpload::from_elements(data), definition)
     }
 }
+#[cfg(feature = "gpu")]
 async fn read<T: bytemuck::AnyBitPattern>(
     buffer: &Buffer,
     context: &WgpuContext,
@@ -150,6 +156,7 @@ impl MeshData {
         Ok(triangles)
     }
 
+    #[cfg(feature = "gpu")]
     pub fn upload(&self, context: &WgpuContext) -> Result<GpuMesh> {
         self.validate()?;
         let vertex = || {
@@ -193,6 +200,7 @@ impl MeshData {
     }
 }
 
+#[cfg(feature = "gpu")]
 impl GpuMesh {
     pub async fn readback(&self, context: &WgpuContext) -> Result<MeshData> {
         let mut mesh = MeshData {
@@ -231,6 +239,7 @@ impl GpuMesh {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(feature = "gpu")]
     #[tokio::test]
     async fn gpu_roundtrip_handles_empty_optional_and_skinned_attributes() -> Result<()> {
         let context = WgpuContext::new().await?;

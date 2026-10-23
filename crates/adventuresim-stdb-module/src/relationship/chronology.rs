@@ -1,3 +1,4 @@
+
 // Owns canonical personal-time policy and deterministic NPC clock advancement.
 pub(crate) fn character_alive_at(
     ctx: &ReducerContext,
@@ -108,7 +109,7 @@ pub fn initialize_npc_policy(
     ctx: &ReducerContext,
     character_id: u64,
     home_settlement_id: String,
-    policy_seed: u64,
+    policy_seed: Seed,
 ) -> Result<(), String> {
     if ctx.db.character().id().find(character_id).is_none() {
         return Err("NPC policy requires a full Character".into());
@@ -190,7 +191,7 @@ pub fn seed_npc_policy_for_development(
     ctx: &ReducerContext,
     character_id: u64,
     home_settlement_id: String,
-    policy_seed: u64,
+    policy_seed: Seed,
 ) -> Result<(), String> {
     if ctx.sender() != ctx.database_identity() {
         return Err("Only database administration can seed NPC policy".into());

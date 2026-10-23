@@ -30,9 +30,9 @@ impl PackingClearance {
 impl FrontageInterval {
     pub(super) fn with_half_plane(self, origin: f64, rate: f64) -> Option<Self> {
         let mut interval = self;
-        if rate > f64::EPSILON {
+        if rate > 0.0 {
             interval.minimum_metres = interval.minimum_metres.max(-origin / rate);
-        } else if rate < -f64::EPSILON {
+        } else if rate < 0.0 {
             interval.maximum_metres = interval.maximum_metres.min(-origin / rate);
         } else if origin < 0.0 {
             return None;
@@ -129,17 +129,17 @@ impl FrontageInterval {
     ) -> Option<Self> {
         let axes = |p: CityPlotBounds| {
             [
-                p.orientation.local_to_world(Vec2::X).as_dvec2(),
-                p.orientation.local_to_world(Vec2::Y).as_dvec2(),
+                p.orientation().local_to_world(Vec2::X).as_dvec2(),
+                p.orientation().local_to_world(Vec2::Y).as_dvec2(),
             ]
         };
         let a = axes(first);
         let b = axes(second);
         let radius = |p: CityPlotBounds, axes: [DVec2; 2], axis: DVec2| {
-            f64::from(p.dimensions_metres.x) * 0.5 * axis.dot(axes[0]).abs()
-                + f64::from(p.dimensions_metres.y) * 0.5 * axis.dot(axes[1]).abs()
+            f64::from(p.dimensions_metres().x) * 0.5 * axis.dot(axes[0]).abs()
+                + f64::from(p.dimensions_metres().y) * 0.5 * axis.dot(axes[1]).abs()
         };
-        let delta = second.centre_metres.as_dvec2() - first.centre_metres.as_dvec2()
+        let delta = second.centre_metres().as_dvec2() - first.centre_metres().as_dvec2()
             + second_translation_metres;
         let mut forbidden = Self {
             minimum_metres: f64::NEG_INFINITY,

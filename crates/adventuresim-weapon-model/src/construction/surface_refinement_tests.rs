@@ -2,11 +2,16 @@ use super::*;
 
 #[test]
 fn exact_surface_edge_limit_refines_conservatively_across_rounding_and_translation() {
-    let a = [0.02958039891549808, 0.095];
+    let a: [f64; 2] = [0.02958039891549808, 0.095];
     let b = [0.017748239349298846, 0.09300000000000001];
     for translation in [0.0, 1.0, 19.0] {
-        for shift in [-f64::EPSILON, 0.0, f64::EPSILON] {
-            let translated_a = [a[0] + translation + shift, a[1] + translation];
+        let translated_x = a[0] + translation;
+        for x in [
+            translated_x.next_down(),
+            translated_x,
+            translated_x.next_up(),
+        ] {
+            let translated_a = [x, a[1] + translation];
             let translated_b = b.map(|v| v + translation);
             assert!(!surface_refinement::within_surface_edge(
                 translated_a,

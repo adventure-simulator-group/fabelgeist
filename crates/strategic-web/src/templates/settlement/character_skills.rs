@@ -782,7 +782,7 @@ impl ActivityPreviewRates {
         &self,
         schedule: &ScheduleAllocation,
         location: Option<adventuresim_core::activity::ActivityLocation>,
-        seed: u64,
+        seed: fabelgeist_determinism::Seed,
     ) -> ScheduleAllocation {
         let mut eligible = schedule.clone();
         if !schedule
@@ -1198,7 +1198,7 @@ fn skills_table(
                         @let effective = preview.effective_schedule(
                             &schedule.downtime,
                             activity_location,
-                            skills.character_id,
+                            fabelgeist_determinism::Seed::from_u64(skills.character_id),
                         );
                         tr class="schedule-divider" { td colspan="9" {} }
                         tr class="schedule-section-heading" {
@@ -2103,7 +2103,7 @@ fn leisure_preview(schedule: &ScheduleAllocation, current_fatigue: f32) -> Leisu
 fn effective_preview_schedule(
     schedule: &ScheduleAllocation,
     location: Option<adventuresim_core::activity::ActivityLocation>,
-    redistribution_seed: u64,
+    redistribution_seed: fabelgeist_determinism::Seed,
 ) -> ScheduleAllocation {
     match location {
         Some(location) => crate::schedule::effective(schedule, location, redistribution_seed)
@@ -3443,7 +3443,7 @@ mod tests {
         let effective = effective_preview_schedule(
             &saved,
             Some(adventuresim_core::activity::ActivityLocation::Settlement { has_inn: false }),
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         assert_eq!(saved.carousing_minutes, 120);
         assert_eq!(saved.raiding_minutes, 180);
@@ -3493,7 +3493,7 @@ mod tests {
         let reading = preview
             .reading
             .expect("German primer is readable and useful");
-        assert!((reading.rate - 0.5).abs() < f32::EPSILON);
+        assert_eq!(reading.rate, 0.5);
         let selected_title = adventuresim_core::item_catalog::definition("primer_german_latin")
             .expect("German primer remains authored")
             .display_name
@@ -3779,12 +3779,10 @@ mod tests {
         let family_tooltip = bestiary_family_tooltip(&skills);
         let expected_direct =
             skills.bestiary_hours.total_direct() / BestiaryCategory::ALL.len() as f32;
-        assert!((family_tooltip.trained_hours - expected_direct).abs() < f32::EPSILON);
-        assert!(
-            (family_tooltip.trained_hours + family_tooltip.correlated_hours
-                - skills.bestiary_hours.aggregate_effective())
-            .abs()
-                < f32::EPSILON
+        assert_eq!(family_tooltip.trained_hours, expected_direct);
+        assert_eq!(
+            family_tooltip.trained_hours + family_tooltip.correlated_hours,
+            skills.bestiary_hours.aggregate_effective()
         );
         assert!(rendered.contains("data-skill-family=\"bestiary\""));
         assert!(rendered.contains("/static/icons/stats/bestiary/bestiary.png"));

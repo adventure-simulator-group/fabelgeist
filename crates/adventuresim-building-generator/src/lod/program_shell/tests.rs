@@ -9,7 +9,8 @@ fn recipe_shells_keep_roof_height_and_outward_winding_with_bounded_geometry() {
         BuildingArchetype::FachwerkMerchantHouse,
         BuildingArchetype::StorageRange,
     ] {
-        let program = BuildingProgram::fixture(archetype, 42);
+        let program =
+            BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(42));
         let shell = compile_program_shell(&program).unwrap();
         let plan = crate::generate(&program).unwrap();
         let roof_height = plan
@@ -60,18 +61,27 @@ fn specialized_architecture_keeps_its_semantic_compiler() {
         BuildingArchetype::Workplace,
         BuildingArchetype::CourtyardCastle,
     ] {
-        assert!(compile_program_shell(&BuildingProgram::fixture(archetype, 42)).is_none());
+        assert!(
+            compile_program_shell(&BuildingProgram::fixture(
+                archetype,
+                fabelgeist_determinism::Seed::from_u64(42)
+            ))
+            .is_none()
+        );
     }
 }
 
 #[test]
 #[ignore = "explicit generation-phase benchmark"]
 fn benchmark_program_shell() {
-    let program = BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 42);
+    let program = BuildingProgram::fixture(
+        BuildingArchetype::FachwerkMerchantHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let plan = crate::generate(&program).unwrap();
     let start = std::time::Instant::now();
     for _ in 0..100 {
-        std::hint::black_box(compile_building_lod(&plan, BuildingLodLevel::Shell));
+        std::hint::black_box(compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap());
     }
     let semantic = start.elapsed();
     let start = std::time::Instant::now();

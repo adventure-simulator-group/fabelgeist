@@ -7,6 +7,39 @@ pub(super) struct PreparedTriangle {
     high: Vec2,
 }
 
+/// Interior faces pass straight through without allocating a temporary vector.
+pub(super) enum ClippedTriangles {
+    Interior(Option<[Vec3; 3]>),
+    Boundary(std::vec::IntoIter<[Vec3; 3]>),
+}
+
+impl Iterator for ClippedTriangles {
+    type Item = [Vec3; 3];
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self {
+            Self::Interior(triangle) => triangle.take(),
+            Self::Boundary(triangles) => triangles.next(),
+        }
+    }
+
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        match self {
+            Self::Interior(triangle) => triangle.iter().size_hint(),
+            Self::Boundary(triangles) => triangles.size_hint(),
+        }
+    }
+}
+
+impl ExactSizeIterator for ClippedTriangles {}
+
+#[cfg(test)]
+impl ClippedTriangles {
+    fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+}
+
 impl PreparedTriangle {
     pub(super) fn new(triangle: [Vec3; 3]) -> Self {
         let low = triangle
@@ -24,23 +57,23 @@ impl PreparedTriangle {
         }
     }
 
-    pub(super) fn in_rectangle(&self, minimum: Vec2, maximum: Vec2) -> Vec<[Vec3; 3]> {
+    pub(super) fn in_rectangle(&self, minimum: Vec2, maximum: Vec2) -> ClippedTriangles {
         let Self {
             triangle,
             low,
             high,
         } = *self;
         if low.cmpge(maximum).any() || high.cmplt(minimum).any() {
-            return Vec::new();
+            return ClippedTriangles::Interior(None);
         }
         if low.cmpge(minimum).all() && high.cmple(maximum).all() {
-            return vec![triangle];
+            return ClippedTriangles::Interior(Some(triangle));
         }
         let [a, b, c] = triangle.map(Vec3::as_dvec3);
         let normal = (b - a).cross(c - a);
         let represented = |point: DVec3| {
             let mut point = point.as_vec3();
-            if normal.y.abs() > f64::EPSILON {
+            if normal.y.abs() > 0.0 {
                 // Height is evaluated at represented X/Z coordinates, avoiding a
                 // false steep normal in tiny pieces at large geographic coordinates.
                 point.y = (a.y
@@ -73,20 +106,21 @@ impl PreparedTriangle {
             }
             polygon = clipped;
             if polygon.is_empty() {
-                return Vec::new();
+                return ClippedTriangles::Interior(None);
             }
         }
         let polygon = polygon.into_iter().map(represented).collect::<Vec<_>>();
-        (1..polygon.len().saturating_sub(1))
+        let triangles = (1..polygon.len().saturating_sub(1))
             .filter_map(|i| {
                 let triangle = [polygon[0], polygon[i], polygon[i + 1]];
                 ((triangle[1] - triangle[0])
                     .cross(triangle[2] - triangle[0])
                     .length_squared()
-                    > f32::EPSILON)
+                    > 0.0)
                     .then_some(triangle)
             })
-            .collect()
+            .collect::<Vec<_>>();
+        ClippedTriangles::Boundary(triangles.into_iter())
     }
 }
 
@@ -134,11 +168,6 @@ mod tests {
         let pieces =
             PreparedTriangle::new(triangle).in_rectangle(Vec2::splat(-0.5), Vec2::splat(0.5));
         assert!(!pieces.is_empty());
-        assert!(
-            pieces
-                .into_iter()
-                .flatten()
-                .all(|p| p.x.abs() <= 0.5 && p.z == 0.0)
-        );
+        assert!(pieces.flatten().all(|p| p.x.abs() <= 0.5 && p.z == 0.0));
     }
 }

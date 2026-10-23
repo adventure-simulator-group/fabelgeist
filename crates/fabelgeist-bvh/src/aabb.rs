@@ -158,7 +158,7 @@ impl Aabb {
 #[derive(Clone, Copy, Debug)]
 pub struct Ray {
     pub origin: Vec3,
-    pub direction: Vec3,
+    direction: Vec3,
     inverse_direction: Vec3,
 }
 

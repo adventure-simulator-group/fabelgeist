@@ -1,7 +1,8 @@
 use super::*;
 use crate::*;
+use fabelgeist_determinism::Seed;
 
-fn principal(seed: u64) -> BuildingProgram {
+fn principal(seed: Seed) -> BuildingProgram {
     BuildingProgram::settlement(
         BuildingArchetype::ParishChurch,
         Some(BuildingUse::ParishChurch),
@@ -12,7 +13,7 @@ fn principal(seed: u64) -> BuildingProgram {
 
 #[test]
 fn principal_parish_has_a_distinct_supported_programme_in_every_representation() {
-    for seed in [42, 47, 101] {
+    for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
         let program = principal(seed);
         let validated = BuildingProgram::validated_settlement(
             program.archetype,
@@ -28,10 +29,10 @@ fn principal_parish_has_a_distinct_supported_programme_in_every_representation()
         let church = plan.church.as_ref().unwrap();
         assert_eq!(church.program, ChurchProgram::URBAN_BRICK_BASILICA);
         assert_eq!(program.frontage_direction(), Direction::West);
-        let collision = compile_building_collision(&plan);
-        let origin = collision.bounds.centre();
+        let collision = compile_building_collision(&plan).unwrap();
+        let origin = collision.bounds.centre().unwrap().metres();
         let half = program.plot_dimensions_metres() * 0.5;
-        let detail = compile_building_detail(&plan);
+        let detail = compile_building_detail(&plan).unwrap();
         for mesh in &detail.meshes {
             for vertex in &mesh.vertices {
                 let p = vertex.position - origin;
@@ -43,7 +44,7 @@ fn principal_parish_has_a_distinct_supported_programme_in_every_representation()
             }
         }
         for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
-            let lod = compile_building_lod(&plan, level);
+            let lod = compile_building_lod(&plan, level).unwrap();
             let highest = lod
                 .meshes
                 .iter()
@@ -78,7 +79,7 @@ fn principal_parish_has_a_distinct_supported_programme_in_every_representation()
 
 #[test]
 fn principal_programme_rejects_missing_or_corrupt_authority() {
-    let mut programme = principal(42);
+    let mut programme = principal(fabelgeist_determinism::Seed::from_u64(42));
     programme.footprint = Footprint::Rectangle {
         width: 20,
         depth: 14,
@@ -87,28 +88,29 @@ fn principal_programme_rejects_missing_or_corrupt_authority() {
         generate(&programme).unwrap_err(),
         GenerationError::InvalidChurchProgram
     );
-    let mut programme = principal(42);
+    let mut programme = principal(fabelgeist_determinism::Seed::from_u64(42));
     programme.church_program = None;
     assert_eq!(
         generate(&programme).unwrap_err(),
         GenerationError::InvalidChurchProgram
     );
-    let mut programme = principal(42);
+    let mut programme = principal(fabelgeist_determinism::Seed::from_u64(42));
     programme.church_program.as_mut().unwrap().nave_bays = 3;
     assert_eq!(
         generate(&programme).unwrap_err(),
         GenerationError::InvalidChurchProgram
     );
-    let mut programme = principal(42);
+    let mut programme = principal(fabelgeist_determinism::Seed::from_u64(42));
     programme.usage = Some(BuildingUse::Chapel);
     assert_eq!(
         generate(&programme).unwrap_err(),
         GenerationError::InvalidChurchProgram
     );
-    let mut plan = generate(&principal(42)).unwrap();
+    let mut plan = generate(&principal(fabelgeist_determinism::Seed::from_u64(42))).unwrap();
     plan.church = None;
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|i| i.code == "missing_church_program")
     );
@@ -116,7 +118,7 @@ fn principal_programme_rejects_missing_or_corrupt_authority() {
 
 #[test]
 fn principal_tower_rejects_missing_bearing_and_landing() {
-    let plan = generate(&principal(42)).unwrap();
+    let plan = generate(&principal(fabelgeist_determinism::Seed::from_u64(42))).unwrap();
     let tower = &plan.church.as_ref().unwrap().tower;
     let mut no_bearing = plan.clone();
     no_bearing
@@ -125,6 +127,7 @@ fn principal_tower_rejects_missing_bearing_and_landing() {
         .retain(|node| node.id != tower.stair_bearing_node);
     assert!(
         audit_plan(&no_bearing)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_church_circulation")
     );
@@ -135,6 +138,7 @@ fn principal_tower_rejects_missing_bearing_and_landing() {
         .retain(|solid| solid.id != tower.landing_solids[0]);
     assert!(
         audit_plan(&no_landing)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_church_circulation")
     );
@@ -151,10 +155,16 @@ fn principal_tower_rejects_missing_bearing_and_landing() {
         .iter_mut()
         .find(|v| v.id == portal_void)
         .unwrap();
-    aperture.bounds.min.z += 1.0;
-    aperture.bounds.max.z += 1.0;
+    {
+        let mut native_min = aperture.bounds.min().metres();
+        let mut native_max = aperture.bounds.max().metres();
+        native_min.z += 1.0;
+        native_max.z += 1.0;
+        aperture.bounds = crate::SpatialBounds::from_metres(native_min, native_max).unwrap();
+    };
     assert!(
         audit_plan(&shifted_portal)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_church_circulation")
     );

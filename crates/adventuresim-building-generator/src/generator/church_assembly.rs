@@ -4,10 +4,10 @@ fn resolve_church_assembly(
     openings: &mut Vec<crate::OpeningAssembly>,
     stairs: &mut Vec<Stair>,
     geometry: &mut ResolvedGeometry,
-) -> crate::ChurchAssembly {
+) -> Result<crate::ChurchAssembly, crate::GenerationError> {
     let church_program = program
         .church_program
-        .expect("urban basilica requires its physical programme");
+        .ok_or(GenerationError::InvalidChurchProgram)?;
     let owner = GeometryOwnerId(70_000);
     let datum = crate::ChurchDatum {
         floor_metres: 0.0,
@@ -41,15 +41,17 @@ fn resolve_church_assembly(
                 geometry: &mut ResolvedGeometry| {
         let id = StructuralNodeId(next_node.get());
         next_node.set(next_node.get() + 1);
-        geometry.structural_nodes.push(StructuralNode {
-            id,
-            owner,
-            kind,
-            position,
-            supported_by,
-            grounded,
-        });
-        id
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                id,
+                owner,
+                kind,
+                position,
+                supported_by,
+                grounded,
+            )?);
+        Ok::<_, crate::GenerationError>(id)
     };
     let solid = |centre: Vec3,
                  size: Vec3,
@@ -59,39 +61,36 @@ fn resolve_church_assembly(
         let slot = next_slot.get();
         next_slot.set(slot + 1);
         let id = ResolvedItemId((1_u64 << 60) | (u64::from(owner.0) << 32) | slot);
-        geometry.solids.push(ResolvedSolid {
-            id,
+        geometry.solids.push(ResolvedSolid::new(
+            CollisionCuboid::<Architectural>::from_metres(id, centre, size, 0.0, 0.0, 0.0)?,
             owner,
-            centre,
-            size,
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
             role,
-            shape: crate::bell::shape_for_role(role),
-            supported_by: supports.clone(),
-        });
+            crate::bell::shape_for_role(role),
+            supports.clone(),
+        ));
         for support in supports {
-            geometry.support_interfaces.push(SupportInterface {
-                id: ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | next_slot.get()),
-                owner,
-                node: support,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(
-                        centre.x - size.x * 0.5,
-                        centre.y - size.y * 0.5 - 0.015,
-                        centre.z - size.z * 0.5,
-                    ),
-                    max: Vec3::new(
-                        centre.x + size.x * 0.5,
-                        centre.y - size.y * 0.5 + 0.015,
-                        centre.z + size.z * 0.5,
-                    ),
-                },
-            });
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | next_slot.get()),
+                    owner,
+                    support,
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
+                            centre.x - size.x * 0.5,
+                            centre.y - size.y * 0.5 - 0.015,
+                            centre.z - size.z * 0.5,
+                        ),
+                        Vec3::new(
+                            centre.x + size.x * 0.5,
+                            centre.y - size.y * 0.5 + 0.015,
+                            centre.z + size.z * 0.5,
+                        ),
+                    )?,
+                ));
             next_slot.set(next_slot.get() + 1);
         }
-        id
+        Ok::<_, crate::GenerationError>(id)
     };
 
     // Three floor strips remain separate so aisle/nave route widths are
@@ -102,7 +101,7 @@ fn resolve_church_assembly(
         Vec::new(),
         true,
         geometry,
-    );
+    )?;
     let mut floor_solids = Vec::new();
     for (z, width) in [(6.0_f32, 2.10_f32), (10.5, 5.10), (15.0, 2.10)] {
         floor_solids.push(solid(
@@ -111,7 +110,7 @@ fn resolve_church_assembly(
             SolidRole::ChurchFloor,
             vec![floor_node],
             geometry,
-        ));
+        )?);
     }
     floor_solids.push(solid(
         Vec3::new(crossing_axis_metres, 0.10, 10.5),
@@ -119,7 +118,7 @@ fn resolve_church_assembly(
         SolidRole::ChurchFloor,
         vec![floor_node],
         geometry,
-    ));
+    )?);
 
     // The church envelope replaces the generic cell-wall vocabulary.  Each
     // bay-length host is authoritative for its masonry, later opening cuts,
@@ -253,14 +252,16 @@ fn resolve_church_assembly(
         };
         let wall_owner = owner;
         let wall_node = StructuralNodeId(7_100_000 + church_wall_serial);
-        geometry.structural_nodes.push(StructuralNode {
-            id: wall_node,
-            owner: wall_owner,
-            kind: StructuralNodeKind::WallBearing,
-            position: Vec3::new(origin.x, 0.0, origin.y),
-            supported_by: Vec::new(),
-            grounded: true,
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                wall_node,
+                wall_owner,
+                StructuralNodeKind::WallBearing,
+                Vec3::new(origin.x, 0.0, origin.y),
+                Vec::new(),
+                true,
+            )?);
         let host = wall_solid(
             geometry,
             wall_owner,
@@ -274,7 +275,7 @@ fn resolve_church_assembly(
             SolidRole::WallHost,
             crate::ResolvedSolidShape::Cuboid,
             wall_node,
-        );
+        )?;
         walls.push(crate::WallAssembly {
             id: crate::WallAssemblyId(7_200_000 + church_wall_serial),
             owner: wall_owner,
@@ -313,7 +314,7 @@ fn resolve_church_assembly(
         GeometryOwnerId(71_000),
         tower_centre,
         geometry,
-    );
+    )?;
     let west_portal = west_portal_opening.id;
     walls.push(west_tower_wall);
     openings.push(west_portal_opening);
@@ -324,7 +325,7 @@ fn resolve_church_assembly(
         GeometryOwnerId(71_001),
         tower_centre,
         geometry,
-    );
+    )?;
     let nave_passage = nave_passage_opening.id;
     walls.push(east_tower_wall);
     openings.push(nave_passage_opening);
@@ -333,14 +334,16 @@ fn resolve_church_assembly(
         let outward = direction_vector(face);
         let origin = tower_centre + outward * 2.70;
         let support = StructuralNodeId(7_600_000 + serial as u64);
-        geometry.structural_nodes.push(StructuralNode {
-            id: support,
-            owner: wall_owner,
-            kind: StructuralNodeKind::WallBearing,
-            position: Vec3::new(origin.x, 0.0, origin.y),
-            supported_by: Vec::new(),
-            grounded: true,
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                support,
+                wall_owner,
+                StructuralNodeKind::WallBearing,
+                Vec3::new(origin.x, 0.0, origin.y),
+                Vec::new(),
+                true,
+            )?);
         let host = wall_solid(
             geometry,
             wall_owner,
@@ -350,7 +353,7 @@ fn resolve_church_assembly(
             SolidRole::WallHost,
             crate::ResolvedSolidShape::Cuboid,
             support,
-        );
+        )?;
         walls.push(crate::WallAssembly {
             id: crate::WallAssemblyId(7_400_002 + serial as u64),
             owner: wall_owner,
@@ -405,14 +408,14 @@ fn resolve_church_assembly(
             Vec::new(),
             true,
             geometry,
-        );
+        )?;
         solid(
             Vec3::new(nave_bearing_west, 3.55, arcade_z),
             Vec3::new(0.72, 7.10, 0.72),
             SolidRole::ChurchPier,
             vec![pier_node],
             geometry,
-        );
+        )?;
         previous_pier_nodes[side_index] = pier_node;
         let outer_z = 10.5 + side_sign * 7.0;
         let buttress_node = node(
@@ -421,14 +424,14 @@ fn resolve_church_assembly(
             Vec::new(),
             true,
             geometry,
-        );
+        )?;
         solid(
             Vec3::new(nave_bearing_west, 3.2, outer_z),
             Vec3::new(0.85, 6.4, 1.10),
             SolidRole::WallButtress,
             vec![buttress_node],
             geometry,
-        );
+        )?;
         previous_buttress_nodes[side_index] = buttress_node;
     }
 
@@ -459,7 +462,7 @@ fn resolve_church_assembly(
                 Vec::new(),
                 true,
                 geometry,
-            );
+            )?;
             pier_nodes[side_index] = pier_node;
             pier_solids[side_index] = solid(
                 Vec3::new(axis, 3.55, arcade_z),
@@ -467,14 +470,14 @@ fn resolve_church_assembly(
                 SolidRole::ChurchPier,
                 vec![pier_node],
                 geometry,
-            );
+            )?;
             let spring_node = node(
                 StructuralNodeKind::ChurchArcadeSpringing,
                 Vec3::new((previous_axis + axis) * 0.5, 4.85, arcade_z),
                 vec![previous_pier_nodes[side_index], pier_node],
                 false,
                 geometry,
-            );
+            )?;
             arcade_bearing_nodes[side_index] = [previous_pier_nodes[side_index], pier_node];
             arcade_solids[side_index] = solid(
                 Vec3::new((previous_axis + axis) * 0.5, 6.0, arcade_z),
@@ -482,7 +485,7 @@ fn resolve_church_assembly(
                 SolidRole::ChurchArcade,
                 vec![spring_node],
                 geometry,
-            );
+            )?;
             if let Some(arcade) = geometry
                 .solids
                 .iter_mut()
@@ -503,15 +506,17 @@ fn resolve_church_assembly(
                         | (u64::from(owner.0) << 32)
                         | (800 + index as u64 * 20 + side_index as u64 * 4 + end_index as u64),
                 );
-                geometry.support_interfaces.push(SupportInterface {
-                    id: interface_id,
-                    owner,
-                    node: spring_node,
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(end_x - 0.30, 4.78, arcade_z - 0.27),
-                        max: Vec3::new(end_x + 0.30, 5.12, arcade_z + 0.27),
-                    },
-                });
+                geometry
+                    .support_interfaces
+                    .push(crate::SupportInterface::new(
+                        interface_id,
+                        owner,
+                        spring_node,
+                        SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(end_x - 0.30, 4.78, arcade_z - 0.27),
+                            Vec3::new(end_x + 0.30, 5.12, arcade_z + 0.27),
+                        )?,
+                    ));
                 arcade_bearing_interfaces[side_index][end_index] = interface_id;
             }
             let clerestory_owner = owner;
@@ -532,7 +537,7 @@ fn resolve_church_assembly(
                 SolidRole::WallHost,
                 crate::ResolvedSolidShape::Cuboid,
                 pier_node,
-            );
+            )?;
             walls.push(crate::WallAssembly {
                 id: clerestory_wall_id,
                 owner: clerestory_owner,
@@ -575,7 +580,7 @@ fn resolve_church_assembly(
                 Vec::new(),
                 true,
                 geometry,
-            );
+            )?;
             buttress_nodes[side_index] = buttress_node;
             buttress_solids[side_index] = solid(
                 Vec3::new(axis, 3.2, outer_z),
@@ -583,7 +588,7 @@ fn resolve_church_assembly(
                 SolidRole::WallButtress,
                 vec![buttress_node],
                 geometry,
-            );
+            )?;
         }
         let west = previous_axis;
         for (side_index, side_sign) in [-1.0_f32, 1.0].into_iter().enumerate() {
@@ -598,7 +603,7 @@ fn resolve_church_assembly(
                 ],
                 false,
                 geometry,
-            );
+            )?;
             vault_spring_nodes.push(spring);
             let vault = solid(
                 Vec3::new((west + axis) * 0.5, 9.05, 10.5 + side_sign * 1.5),
@@ -606,9 +611,9 @@ fn resolve_church_assembly(
                 SolidRole::ChurchVaultShell,
                 vec![spring],
                 geometry,
-            );
+            )?;
             if let Some(resolved) = geometry.solids.iter_mut().find(|item| item.id == vault) {
-                resolved.crossfall_radians = side_sign * 0.50;
+                resolved.crossfall_radians = Radians::new(side_sign * 0.50)?;
             }
             vault_solids.push(vault);
             for bearing_x in [west, axis] {
@@ -618,7 +623,7 @@ fn resolve_church_assembly(
                     SolidRole::ChurchVaultThrust,
                     vec![spring],
                     geometry,
-                ));
+                )?);
             }
             for (bearing_index, (bearing_x, bearing_z)) in [
                 (west, 10.5 + side_sign * 3.0),
@@ -634,25 +639,27 @@ fn resolve_church_assembly(
                         | (u64::from(owner.0) << 32)
                         | (900 + index as u64 * 20 + side_index as u64 * 6 + bearing_index as u64),
                 );
-                geometry.support_interfaces.push(SupportInterface {
-                    id: interface_id,
-                    owner,
-                    node: spring,
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(bearing_x - 0.22, 6.95, bearing_z - 0.22),
-                        max: Vec3::new(bearing_x + 0.22, 7.22, bearing_z + 0.22),
-                    },
-                });
+                geometry
+                    .support_interfaces
+                    .push(crate::SupportInterface::new(
+                        interface_id,
+                        owner,
+                        spring,
+                        SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(bearing_x - 0.22, 6.95, bearing_z - 0.22),
+                            Vec3::new(bearing_x + 0.22, 7.22, bearing_z + 0.22),
+                        )?,
+                    ));
                 vault_bearing_interfaces.push(interface_id);
             }
             let surface_id = wall_surface(
                 geometry,
                 owner,
                 next_slot.get(),
-                ResolvedBounds {
-                    min: Vec3::new(west, 7.0, 7.5),
-                    max: Vec3::new(axis, datum.vault_crown_metres, 13.5),
-                },
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(west, 7.0, 7.5),
+                    Vec3::new(axis, datum.vault_crown_metres, 13.5),
+                )?,
                 SurfaceRole::ChurchVaultLoad,
             );
             next_slot.set(next_slot.get() + 1);
@@ -695,7 +702,7 @@ fn resolve_church_assembly(
             Vec::new(),
             true,
             geometry,
-        );
+        )?;
         crossing_nodes[index] = support;
         crossing_piers[index] = solid(
             Vec3::new(position.x, 5.1, position.y),
@@ -703,7 +710,7 @@ fn resolve_church_assembly(
             SolidRole::ChurchPier,
             vec![support],
             geometry,
-        );
+        )?;
     }
     let mut crossing_arches = [ResolvedItemId(0); 4];
     let mut crossing_arch_bearing_nodes = [[StructuralNodeId(0); 2]; 4];
@@ -739,7 +746,7 @@ fn resolve_church_assembly(
             supports.clone(),
             false,
             geometry,
-        );
+        )?;
         let arch_height = 3.0;
         crossing_arches[index] = solid(
             Vec3::new(centre.x, 7.25, centre.z),
@@ -747,7 +754,7 @@ fn resolve_church_assembly(
             SolidRole::ChurchCrossingArch,
             vec![arch_spring],
             geometry,
-        );
+        )?;
         let span = size.x.max(size.z);
         if let Some(arch) = geometry
             .solids
@@ -776,15 +783,17 @@ fn resolve_church_assembly(
                     | (u64::from(owner.0) << 32)
                     | (1_200 + index as u64 * 2 + end_index as u64),
             );
-            geometry.support_interfaces.push(SupportInterface {
-                id: interface,
-                owner,
-                node: arch_spring,
-                bounds: ResolvedBounds {
-                    min: contact - Vec3::new(0.28, 0.25, 0.28),
-                    max: contact + Vec3::new(0.28, 0.25, 0.28),
-                },
-            });
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    interface,
+                    owner,
+                    arch_spring,
+                    SpatialBounds::<Architectural>::from_metres(
+                        contact - Vec3::new(0.28, 0.25, 0.28),
+                        contact + Vec3::new(0.28, 0.25, 0.28),
+                    )?,
+                ));
             crossing_arch_bearing_interfaces[index][end_index] = interface;
         }
     }
@@ -801,7 +810,7 @@ fn resolve_church_assembly(
             Vec::new(),
             true,
             geometry,
-        );
+        )?;
         crossing_buttress_nodes[index] = buttress;
         crossing_buttress_solids[index] = solid(
             Vec3::new(buttress_position.x, 4.2, buttress_position.y),
@@ -809,7 +818,7 @@ fn resolve_church_assembly(
             SolidRole::WallButtress,
             vec![buttress],
             geometry,
-        );
+        )?;
     }
     let crossing_vault_node = node(
         StructuralNodeKind::ChurchVaultSpringing,
@@ -821,7 +830,7 @@ fn resolve_church_assembly(
             .collect(),
         false,
         geometry,
-    );
+    )?;
     for (index, pier_position) in crossing_positions.into_iter().enumerate() {
         let outward_z = if pier_position.y < 10.5 { -1.0 } else { 1.0 };
         crossing_thrust_solids.push(solid(
@@ -830,7 +839,7 @@ fn resolve_church_assembly(
             SolidRole::ChurchVaultThrust,
             vec![crossing_vault_node],
             geometry,
-        ));
+        )?);
         for (end, position) in [
             pier_position,
             Vec2::new(pier_position.x, pier_position.y + outward_z * 2.0),
@@ -843,15 +852,17 @@ fn resolve_church_assembly(
                     | (u64::from(owner.0) << 32)
                     | (1_240 + index as u64 * 2 + end as u64),
             );
-            geometry.support_interfaces.push(SupportInterface {
-                id: interface,
-                owner,
-                node: crossing_vault_node,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(position.x - 0.24, 6.92, position.y - 0.24),
-                    max: Vec3::new(position.x + 0.24, 7.28, position.y + 0.24),
-                },
-            });
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    interface,
+                    owner,
+                    crossing_vault_node,
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(position.x - 0.24, 6.92, position.y - 0.24),
+                        Vec3::new(position.x + 0.24, 7.28, position.y + 0.24),
+                    )?,
+                ));
             crossing_vault_bearings.push(interface);
         }
     }
@@ -861,23 +872,23 @@ fn resolve_church_assembly(
         SolidRole::ChurchVaultShell,
         vec![crossing_vault_node],
         geometry,
-    )];
+    )?];
     let crossing_load_surface = wall_surface(
         geometry,
         owner,
         next_slot.get(),
-        ResolvedBounds {
-            min: Vec3::new(crossing_west, 7.0, 7.5),
-            max: Vec3::new(crossing_east, datum.vault_crown_metres, 13.5),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(crossing_west, 7.0, 7.5),
+            Vec3::new(crossing_east, datum.vault_crown_metres, 13.5),
+        )?,
         SurfaceRole::ChurchVaultLoad,
     );
     next_slot.set(next_slot.get() + 1);
     let crossing = crate::ChurchCrossingAssembly {
-        bounds: ResolvedBounds {
-            min: Vec3::new(crossing_west, 0.0, 7.5),
-            max: Vec3::new(crossing_east, datum.vault_crown_metres, 13.5),
-        },
+        bounds: SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(crossing_west, 0.0, 7.5),
+            Vec3::new(crossing_east, datum.vault_crown_metres, 13.5),
+        )?,
         pier_nodes: crossing_nodes,
         pier_solids: crossing_piers,
         arch_solids: crossing_arches,
@@ -919,7 +930,7 @@ fn resolve_church_assembly(
                 Vec::new(),
                 true,
                 geometry,
-            );
+            )?;
             current_piers[side_index] = pier_node;
             choir_pier_nodes.push(pier_node);
             choir_pier_solids.push(solid(
@@ -928,14 +939,14 @@ fn resolve_church_assembly(
                 SolidRole::ChurchPier,
                 vec![pier_node],
                 geometry,
-            ));
+            )?);
             let buttress_node = node(
                 StructuralNodeKind::ChurchButtress,
                 Vec3::new(east, 0.0, 10.5 + side * 4.0),
                 Vec::new(),
                 true,
                 geometry,
-            );
+            )?;
             current_buttresses[side_index] = buttress_node;
             choir_buttress_nodes.push(buttress_node);
             choir_buttress_solids.push(solid(
@@ -944,7 +955,7 @@ fn resolve_church_assembly(
                 SolidRole::WallButtress,
                 vec![buttress_node],
                 geometry,
-            ));
+            )?);
         }
         for (side_index, side) in [-1.0_f32, 1.0].into_iter().enumerate() {
             let arcade_z = 10.5 + side * 3.0;
@@ -954,14 +965,14 @@ fn resolve_church_assembly(
                 vec![previous_choir_piers[side_index], current_piers[side_index]],
                 false,
                 geometry,
-            );
+            )?;
             let arch = solid(
                 Vec3::new((west + east) * 0.5, 6.2, arcade_z),
                 Vec3::new(east - west, 2.60, 0.62),
                 SolidRole::ChurchArcade,
                 vec![arch_spring],
                 geometry,
-            );
+            )?;
             if let Some(item) = geometry.solids.iter_mut().find(|item| item.id == arch) {
                 let rise = 1.75;
                 item.shape = crate::ResolvedSolidShape::PointedArchRing {
@@ -985,15 +996,17 @@ fn resolve_church_assembly(
                             + side_index as u64 * 4
                             + end_index as u64),
                 );
-                geometry.support_interfaces.push(SupportInterface {
-                    id: interface,
-                    owner,
-                    node: arch_spring,
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(end_x - 0.28, 5.0, arcade_z - 0.28),
-                        max: Vec3::new(end_x + 0.28, 5.4, arcade_z + 0.28),
-                    },
-                });
+                geometry
+                    .support_interfaces
+                    .push(crate::SupportInterface::new(
+                        interface,
+                        owner,
+                        arch_spring,
+                        SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(end_x - 0.28, 5.0, arcade_z - 0.28),
+                            Vec3::new(end_x + 0.28, 5.4, arcade_z + 0.28),
+                        )?,
+                    ));
                 arch_interfaces[end_index] = interface;
             }
             choir_arch_bearing_interfaces.push(arch_interfaces);
@@ -1008,7 +1021,7 @@ fn resolve_church_assembly(
                 ],
                 false,
                 geometry,
-            );
+            )?;
             choir_vault_spring_nodes.push(spring);
             let vault = solid(
                 Vec3::new((west + east) * 0.5, 9.25, 10.5 + side * 1.5),
@@ -1016,9 +1029,9 @@ fn resolve_church_assembly(
                 SolidRole::ChurchVaultShell,
                 vec![spring],
                 geometry,
-            );
+            )?;
             if let Some(item) = geometry.solids.iter_mut().find(|item| item.id == vault) {
-                item.crossfall_radians = side * 0.50;
+                item.crossfall_radians = Radians::new(side * 0.50)?;
             }
             choir_vault_solids.push(vault);
             for bearing_x in [west, east] {
@@ -1028,7 +1041,7 @@ fn resolve_church_assembly(
                     SolidRole::ChurchVaultThrust,
                     vec![spring],
                     geometry,
-                ));
+                )?);
             }
             for (bearing_index, (bearing_x, bearing_z)) in [
                 (west, 10.5 + side * 3.0),
@@ -1047,15 +1060,17 @@ fn resolve_church_assembly(
                             + side_index as u64 * 8
                             + bearing_index as u64),
                 );
-                geometry.support_interfaces.push(SupportInterface {
-                    id: interface,
-                    owner,
-                    node: spring,
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(bearing_x - 0.23, 7.15, bearing_z - 0.23),
-                        max: Vec3::new(bearing_x + 0.23, 7.52, bearing_z + 0.23),
-                    },
-                });
+                geometry
+                    .support_interfaces
+                    .push(crate::SupportInterface::new(
+                        interface,
+                        owner,
+                        spring,
+                        SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(bearing_x - 0.23, 7.15, bearing_z - 0.23),
+                            Vec3::new(bearing_x + 0.23, 7.52, bearing_z + 0.23),
+                        )?,
+                    ));
                 choir_vault_bearing_interfaces.push(interface);
             }
         }
@@ -1063,10 +1078,10 @@ fn resolve_church_assembly(
             geometry,
             owner,
             next_slot.get(),
-            ResolvedBounds {
-                min: Vec3::new(west, 7.0, 7.5),
-                max: Vec3::new(east, datum.vault_crown_metres, 13.5),
-            },
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(west, 7.0, 7.5),
+                Vec3::new(east, datum.vault_crown_metres, 13.5),
+            )?,
             SurfaceRole::ChurchVaultLoad,
         );
         next_slot.set(next_slot.get() + 1);
@@ -1097,14 +1112,16 @@ fn resolve_church_assembly(
         let wall_owner = owner;
         let support = StructuralNodeId(next_node.get());
         next_node.set(next_node.get() + 1);
-        geometry.structural_nodes.push(StructuralNode {
-            id: support,
-            owner: wall_owner,
-            kind: StructuralNodeKind::WallBearing,
-            position: Vec3::new(origin.x, 0.0, origin.y),
-            supported_by: Vec::new(),
-            grounded: true,
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                support,
+                wall_owner,
+                StructuralNodeKind::WallBearing,
+                Vec3::new(origin.x, 0.0, origin.y),
+                Vec::new(),
+                true,
+            )?);
         let id = crate::WallAssemblyId(7_100_000 + u64::from(facet));
         let host = wall_solid(
             geometry,
@@ -1115,9 +1132,9 @@ fn resolve_church_assembly(
             SolidRole::WallHost,
             crate::ResolvedSolidShape::Cuboid,
             support,
-        );
+        )?;
         if let Some(item) = geometry.solids.iter_mut().find(|item| item.id == host) {
-            item.yaw_radians = -angle;
+            item.yaw_radians = Radians::new(-angle)?;
         }
         apse_facets.push(id);
         let buttress_node = node(
@@ -1126,7 +1143,7 @@ fn resolve_church_assembly(
             Vec::new(),
             true,
             geometry,
-        );
+        )?;
         radial_nodes.push(buttress_node);
         let buttress = solid(
             Vec3::new(
@@ -1138,9 +1155,9 @@ fn resolve_church_assembly(
             SolidRole::WallButtress,
             vec![buttress_node],
             geometry,
-        );
+        )?;
         if let Some(item) = geometry.solids.iter_mut().find(|item| item.id == buttress) {
-            item.yaw_radians = outward.x.atan2(outward.y);
+            item.yaw_radians = Radians::new(outward.x.atan2(outward.y))?;
         }
         radial_solids.push(buttress);
         walls.push(crate::WallAssembly {
@@ -1169,89 +1186,16 @@ fn resolve_church_assembly(
         });
     }
 
-    // One centered light per structural bay keeps the opening hierarchy tied
-    // to the buttress/pier rhythm.  Transept end windows are deliberately
-    // larger; the apse uses narrower radial lights.  Rich tracery is outside
-    // the MVP, but every opening is already a real two-light stone assembly.
-    let mut window_targets = Vec::new();
-    for bay_index in 0..church_program.nave_bays {
-        for side in [Direction::South, Direction::North] {
-            window_targets.push((
-                crate::WallSourceId::ChurchExterior {
-                    range: crate::ChurchRange::Nave,
-                    side,
-                    bay: bay_index,
-                },
-                ChurchWindowProfile {
-                    sill_metres: 1.70,
-                    width_metres: 1.45,
-                    spring_height_metres: 2.45,
-                    apex_height_metres: 4.35,
-                },
-            ));
-            window_targets.push((
-                crate::WallSourceId::ChurchArcade {
-                    side,
-                    bay: bay_index,
-                },
-                ChurchWindowProfile {
-                    // Clear the 8.635 m aisle-roof abutment and its upstand.
-                    sill_metres: 9.10,
-                    width_metres: 1.35,
-                    spring_height_metres: 1.05,
-                    apex_height_metres: 2.30,
-                },
-            ));
-        }
-    }
-    for bay_index in 0..church_program.choir_bays {
-        for side in [Direction::South, Direction::North] {
-            window_targets.push((
-                crate::WallSourceId::ChurchExterior {
-                    range: crate::ChurchRange::Choir,
-                    side,
-                    bay: bay_index,
-                },
-                ChurchWindowProfile {
-                    sill_metres: 2.15,
-                    width_metres: 1.60,
-                    spring_height_metres: 3.55,
-                    apex_height_metres: 6.15,
-                },
-            ));
-        }
-    }
-    for side in [Direction::South, Direction::North] {
-        window_targets.push((
-            crate::WallSourceId::ChurchExterior {
-                range: crate::ChurchRange::Transept,
-                side,
-                bay: 0,
+    for (serial, church_window_schedule::ChurchWindowTarget { source, profile }) in
+        church_window_schedule::schedule(church_program)
+            .into_iter()
+            .enumerate()
+    {
+        let wall = walls.iter_mut().find(|wall| wall.source == source).ok_or(
+            GenerationError::MissingWallSource {
+                wall_source: source,
             },
-            ChurchWindowProfile {
-                sill_metres: 1.75,
-                width_metres: 2.35,
-                spring_height_metres: 4.35,
-                apex_height_metres: 7.65,
-            },
-        ));
-    }
-    for facet in [0_u8, 1, 3, 4] {
-        window_targets.push((
-            crate::WallSourceId::ChurchApse { facet },
-            ChurchWindowProfile {
-                sill_metres: 2.20,
-                width_metres: 1.30,
-                spring_height_metres: 3.55,
-                apex_height_metres: 5.95,
-            },
-        ));
-    }
-    for (serial, (source, profile)) in window_targets.into_iter().enumerate() {
-        let wall = walls
-            .iter_mut()
-            .find(|wall| wall.source == source)
-            .expect("church window host");
+        )?;
         let opening_id = crate::OpeningAssemblyId(7_500_000 + serial as u64);
         openings.push(resolve_church_pointed_window(
             wall,
@@ -1259,7 +1203,7 @@ fn resolve_church_assembly(
             serial as u64,
             profile,
             geometry,
-        ));
+        )?);
     }
     for bay in &mut bay_assemblies {
         for (side_index, side) in [Direction::South, Direction::North].into_iter().enumerate() {
@@ -1272,7 +1216,12 @@ fn resolve_church_assembly(
                             bay: bay.axis_index,
                         }
                 })
-                .expect("resolved clerestory light")
+                .ok_or(GenerationError::MissingSourceOpening {
+                    wall_source: crate::WallSourceId::ChurchArcade {
+                        side,
+                        bay: bay.axis_index,
+                    },
+                })?
                 .id;
         }
     }
@@ -1315,7 +1264,7 @@ fn resolve_church_assembly(
         tower_wall_supports.clone(),
         false,
         geometry,
-    );
+    )?;
     // The bell floor is a bearing ring, not a slab silently intersected by the
     // spiral.  A frozen 2.80 m square stairwell clears the 1.35 m outer tread
     // radius while the four surrounding slabs retain positive tower bearing.
@@ -1340,7 +1289,7 @@ fn resolve_church_assembly(
             SolidRole::ChurchBellFloor,
             vec![bell_floor_node],
             geometry,
-        ));
+        )?);
     }
     let frame_node = node(
         StructuralNodeKind::ChurchBellFrame,
@@ -1352,7 +1301,7 @@ fn resolve_church_assembly(
         tower_wall_supports.clone(),
         false,
         geometry,
-    );
+    )?;
     let bell_frame_solids = bell_hanging::BellHanging {
         bell_top: Vec3::new(
             tower_centre.x,
@@ -1376,7 +1325,7 @@ fn resolve_church_assembly(
             geometry,
         )
     })
-    .collect();
+    .collect::<Result<Vec<_>, _>>()?;
     let bell_solid = solid(
         Vec3::new(
             tower_centre.x,
@@ -1387,7 +1336,7 @@ fn resolve_church_assembly(
         SolidRole::ChurchBell,
         vec![frame_node],
         geometry,
-    );
+    )?;
     let stair_index = stairs.len();
     stairs.push(Stair::Spiral {
         centre: tower_centre,
@@ -1405,7 +1354,7 @@ fn resolve_church_assembly(
         tower_wall_supports.clone(),
         false,
         geometry,
-    );
+    )?;
     let stair_newel_solid = solid(
         Vec3::new(
             tower_centre.x,
@@ -1416,7 +1365,7 @@ fn resolve_church_assembly(
         SolidRole::ChurchStairNewel,
         vec![stair_bearing_node],
         geometry,
-    );
+    )?;
     let mut stair_tread_solids = Vec::new();
     let mut stair_tread_interfaces = Vec::new();
     for tread in 0..72_u16 {
@@ -1436,30 +1385,32 @@ fn resolve_church_assembly(
             SolidRole::ChurchStairTread,
             vec![stair_bearing_node],
             geometry,
-        );
+        )?;
         if let Some(tread_solid) = geometry.solids.iter_mut().find(|item| item.id == tread_id) {
-            tread_solid.yaw_radians = -angle;
+            tread_solid.yaw_radians = Radians::new(-angle)?;
         }
         let inner = tower_centre + Vec2::new(angle.cos(), angle.sin()) * 0.10;
         let interface_id =
             ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | (1_600 + u64::from(tread)));
-        geometry.support_interfaces.push(SupportInterface {
-            id: interface_id,
-            owner,
-            node: stair_bearing_node,
-            bounds: ResolvedBounds {
-                min: Vec3::new(
-                    inner.x - 0.11,
-                    progress * datum.bell_floor_metres - 0.07,
-                    inner.y - 0.11,
-                ),
-                max: Vec3::new(
-                    inner.x + 0.11,
-                    progress * datum.bell_floor_metres + 0.07,
-                    inner.y + 0.11,
-                ),
-            },
-        });
+        geometry
+            .support_interfaces
+            .push(crate::SupportInterface::new(
+                interface_id,
+                owner,
+                stair_bearing_node,
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
+                        inner.x - 0.11,
+                        progress * datum.bell_floor_metres - 0.07,
+                        inner.y - 0.11,
+                    ),
+                    Vec3::new(
+                        inner.x + 0.11,
+                        progress * datum.bell_floor_metres + 0.07,
+                        inner.y + 0.11,
+                    ),
+                )?,
+            ));
         stair_tread_solids.push(tread_id);
         stair_tread_interfaces.push(interface_id);
     }
@@ -1482,7 +1433,7 @@ fn resolve_church_assembly(
                 tower_wall_supports.clone()
             },
             geometry,
-        ));
+        )?);
         if (height - datum.bell_floor_metres).abs() > 0.05 {
             let guard_plan = tower_centre + radial * 2.05;
             let guard = solid(
@@ -1491,9 +1442,9 @@ fn resolve_church_assembly(
                 SolidRole::ChurchGuard,
                 tower_wall_supports.clone(),
                 geometry,
-            );
+            )?;
             if let Some(guard_solid) = geometry.solids.iter_mut().find(|solid| solid.id == guard) {
-                guard_solid.yaw_radians = -landing_angle;
+                guard_solid.yaw_radians = Radians::new(-landing_angle)?;
             }
             guard_solids.push(guard);
         }
@@ -1517,7 +1468,7 @@ fn resolve_church_assembly(
             SolidRole::ChurchGuard,
             vec![bell_floor_node],
             geometry,
-        ));
+        )?);
     }
     // A compact fixed ladder supplies the roof stage without forcing the bell
     // floor stair through the bell envelope. It is deliberately coarse MVP
@@ -1534,7 +1485,7 @@ fn resolve_church_assembly(
             SolidRole::ChurchServiceLadder,
             vec![bell_floor_node],
             geometry,
-        ));
+        )?);
     }
     let rung_count = 13_u8;
     for rung in 0..rung_count {
@@ -1549,7 +1500,7 @@ fn resolve_church_assembly(
             SolidRole::ChurchServiceLadder,
             vec![bell_floor_node],
             geometry,
-        ));
+        )?);
     }
     let bell_openings = openings
         .iter()
@@ -1560,10 +1511,10 @@ fn resolve_church_assembly(
         geometry,
         owner,
         next_slot.get(),
-        ResolvedBounds {
-            min: Vec3::new(tower_centre.x - 1.5, 21.3, tower_centre.y - 1.5),
-            max: Vec3::new(tower_centre.x + 1.5, 21.32, tower_centre.y + 1.5),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(tower_centre.x - 1.5, 21.3, tower_centre.y - 1.5),
+            Vec3::new(tower_centre.x + 1.5, 21.32, tower_centre.y + 1.5),
+        )?,
         SurfaceRole::ChurchServiceRoute,
     );
 
@@ -1576,43 +1527,43 @@ fn resolve_church_assembly(
         geometry,
         owner,
         next_slot.get() + 1,
-        ResolvedBounds {
-            min: Vec3::new(tower_centre.x - 4.95, 0.20, tower_centre.y - 0.90),
-            max: Vec3::new(tower_centre.x - 3.15, 0.22, tower_centre.y + 0.90),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(tower_centre.x - 4.95, 0.20, tower_centre.y - 0.90),
+            Vec3::new(tower_centre.x - 3.15, 0.22, tower_centre.y + 0.90),
+        )?,
         SurfaceRole::ChurchPublicRoute,
     );
     let vestibule_surface = wall_surface(
         geometry,
         owner,
         next_slot.get() + 2,
-        ResolvedBounds {
-            // The authoritative shared node is the clear east side of the
-            // vestibule, beside (not through) the spiral newel.  Public
-            // procession crosses it on axis while BellService turns here.
-            min: Vec3::new(tower_centre.x + 0.20, 0.20, tower_centre.y - 0.48),
-            max: Vec3::new(tower_centre.x + 1.10, 0.22, tower_centre.y + 0.48),
-        },
+        // The authoritative shared node is the clear east side of the
+        // vestibule, beside (not through) the spiral newel.  Public
+        // procession crosses it on axis while BellService turns here.
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(tower_centre.x + 0.20, 0.20, tower_centre.y - 0.48),
+            Vec3::new(tower_centre.x + 1.10, 0.22, tower_centre.y + 0.48),
+        )?,
         SurfaceRole::ChurchPublicRoute,
     );
     let nave_entry_surface = wall_surface(
         geometry,
         owner,
         next_slot.get() + 3,
-        ResolvedBounds {
-            min: Vec3::new(tower_centre.x + 3.15, 0.20, tower_centre.y - 0.90),
-            max: Vec3::new(tower_centre.x + 4.50, 0.22, tower_centre.y + 0.90),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(tower_centre.x + 3.15, 0.20, tower_centre.y - 0.90),
+            Vec3::new(tower_centre.x + 4.50, 0.22, tower_centre.y + 0.90),
+        )?,
         SurfaceRole::ChurchPublicRoute,
     );
     let public_surface = wall_surface(
         geometry,
         owner,
         next_slot.get() + 4,
-        ResolvedBounds {
-            min: Vec3::new(tower_centre.x + 3.15, 0.20, tower_centre.y - 0.90),
-            max: Vec3::new(choir_east + radius - 0.4, 0.22, tower_centre.y + 0.90),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(tower_centre.x + 3.15, 0.20, tower_centre.y - 0.90),
+            Vec3::new(choir_east + radius - 0.4, 0.22, tower_centre.y + 0.90),
+        )?,
         SurfaceRole::ChurchPublicRoute,
     );
     let ring_offset = 1.675_f32;
@@ -1625,26 +1576,26 @@ fn resolve_church_assembly(
     .into_iter()
     .enumerate()
     .map(|(index, (dx, dz))| {
-        wall_surface(
+        Ok(wall_surface(
             geometry,
             owner,
             next_slot.get() + 10 + index as u64,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     tower_centre.x + dx - 0.45,
                     datum.bell_floor_metres + 0.14,
                     tower_centre.y + dz - 0.45,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     tower_centre.x + dx + 0.45,
                     datum.bell_floor_metres + 0.16,
                     tower_centre.y + dz + 0.45,
                 ),
-            },
+            )?,
             SurfaceRole::ChurchServiceRoute,
-        )
+        ))
     })
-    .collect::<Vec<_>>();
+    .collect::<Result<Vec<_>, crate::GenerationError>>()?;
     let route_edge = |from, to, through_opening| crate::ChurchRouteEdge {
         from,
         to,
@@ -1672,7 +1623,9 @@ fn resolve_church_assembly(
         ));
     }
     bell_route_edges.push(route_edge(
-        *stair_tread_solids.last().expect("church stair tread"),
+        *stair_tread_solids
+            .last()
+            .ok_or(GenerationError::InvalidChurchProgram)?,
         landing_solids[2],
         None,
     ));
@@ -1725,12 +1678,20 @@ fn resolve_church_assembly(
         .copied()
         .skip(2)
         .collect::<Vec<_>>();
-    bell_route_edges.push(route_edge(bell_floor_solids[2], ladder_rungs[0], None));
+    bell_route_edges.push(route_edge(
+        bell_floor_solids[2],
+        *ladder_rungs
+            .first()
+            .ok_or(GenerationError::InvalidChurchProgram)?,
+        None,
+    ));
     for pair in ladder_rungs.windows(2) {
         bell_route_edges.push(route_edge(pair[0], pair[1], None));
     }
     bell_route_edges.push(route_edge(
-        *ladder_rungs.last().expect("church roof ladder rung"),
+        *ladder_rungs
+            .last()
+            .ok_or(GenerationError::InvalidChurchProgram)?,
         roof_service_surface,
         None,
     ));
@@ -1773,7 +1734,7 @@ fn resolve_church_assembly(
         roof_ladder_solids,
         roof_service_surface,
     };
-    crate::ChurchAssembly {
+    Ok(crate::ChurchAssembly {
         id: crate::ChurchAssemblyId(1),
         program: church_program,
         datum,
@@ -1847,5 +1808,5 @@ fn resolve_church_assembly(
         ],
         floor_solids,
         roof_assemblies: Vec::new(),
-    }
+    })
 }

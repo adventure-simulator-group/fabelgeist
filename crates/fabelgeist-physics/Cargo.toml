@@ -9,6 +9,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 fabelgeist-gpu = { "default-features" = false, "path" = "../fabelgeist-gpu" }
 fabelgeist-compute = { "path" = "../fabelgeist-compute" }
 fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
+fabelgeist-mesh = { "default-features" = false, "features" = ["gpu"], "path" = "../fabelgeist-mesh" }
 fabelgeist-xpbd = { "path" = "../fabelgeist-xpbd" }
 fabelgeist-bvh = { "path" = "../fabelgeist-bvh" }
 anyhow = { "version" = "1.0" }

@@ -21,6 +21,7 @@ pub struct ParticleVelocityRecord {
 }
 
 /// Positions stay paired with their mass words through upload and readback.
+#[derive(derive_more::From)]
 pub struct ParticlePositions(Vec<ParticlePositionRecord>);
 impl ParticlePositions {
     pub fn new(positions: &[Vec3], inverse_masses: &[ParticleInverseMass]) -> Result<Self> {
@@ -53,11 +54,6 @@ impl ParticlePositions {
         self.0.iter().map(|p| p.inverse_mass)
     }
 }
-impl From<Vec<ParticlePositionRecord>> for ParticlePositions {
-    fn from(records: Vec<ParticlePositionRecord>) -> Self {
-        Self(records)
-    }
-}
 
 /// Velocity records cannot be used as position/mass records.
 ///
@@ -66,6 +62,7 @@ impl From<Vec<ParticlePositionRecord>> for ParticlePositions {
 /// fn positions(_: ParticlePositions) {}
 /// positions(ParticleVelocities::from(&[][..]));
 /// ```
+#[derive(derive_more::From)]
 pub struct ParticleVelocities(Vec<ParticleVelocityRecord>);
 impl ParticleVelocities {
     pub fn at_rest(positions: &ParticlePositions) -> Self {
@@ -91,10 +88,5 @@ impl From<&[Vec3]> for ParticleVelocities {
                 })
                 .collect(),
         )
-    }
-}
-impl From<Vec<ParticleVelocityRecord>> for ParticleVelocities {
-    fn from(records: Vec<ParticleVelocityRecord>) -> Self {
-        Self(records)
     }
 }

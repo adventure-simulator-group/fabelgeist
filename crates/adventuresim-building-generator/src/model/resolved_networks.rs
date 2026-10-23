@@ -1,13 +1,77 @@
 use super::*;
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct StructuralNode {
     pub id: StructuralNodeId,
     pub owner: GeometryOwnerId,
     pub kind: StructuralNodeKind,
-    pub position: Vec3,
+    pub position: crate::spatial_geometry::Position<Architectural>,
     pub supported_by: Vec<StructuralNodeId>,
     pub grounded: bool,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, thiserror::Error)]
+#[error("structural node {node:?}: {cause}")]
+pub struct StructuralNodeError {
+    pub node: StructuralNodeId,
+    #[source]
+    pub cause: crate::spatial_geometry::GeometryError,
+}
+impl StructuralNode {
+    /// Admit a node emitted by an architectural set-out kernel, preserving its
+    /// identity if the computed position is nonfinite.
+    pub fn from_metres(
+        id: StructuralNodeId,
+        owner: GeometryOwnerId,
+        kind: StructuralNodeKind,
+        position: Vec3,
+        supported_by: Vec<StructuralNodeId>,
+        grounded: bool,
+    ) -> Result<Self, StructuralNodeError> {
+        let position = crate::spatial_geometry::Position::from_metres(position)
+            .map_err(|cause| StructuralNodeError { node: id, cause })?;
+        Ok(Self::new(id, owner, kind, position, supported_by, grounded))
+    }
+    pub fn new(
+        id: StructuralNodeId,
+        owner: GeometryOwnerId,
+        kind: StructuralNodeKind,
+        position: crate::spatial_geometry::Position<Architectural>,
+        supported_by: Vec<StructuralNodeId>,
+        grounded: bool,
+    ) -> Self {
+        Self {
+            id,
+            owner,
+            kind,
+            position,
+            supported_by,
+            grounded,
+        }
+    }
+}
+impl<'de> Deserialize<'de> for StructuralNode {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        #[derive(Deserialize)]
+        struct SerializedNode {
+            id: StructuralNodeId,
+            owner: GeometryOwnerId,
+            kind: StructuralNodeKind,
+            position: Vec3,
+            supported_by: Vec<StructuralNodeId>,
+            grounded: bool,
+        }
+        let value = SerializedNode::deserialize(deserializer)?;
+        Self::from_metres(
+            value.id,
+            value.owner,
+            value.kind,
+            value.position,
+            value.supported_by,
+            value.grounded,
+        )
+        .map_err(serde::de::Error::custom)
+    }
 }
 
 #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
@@ -15,7 +79,24 @@ pub struct SupportInterface {
     pub id: ResolvedItemId,
     pub owner: GeometryOwnerId,
     pub node: StructuralNodeId,
-    pub bounds: ResolvedBounds,
+    pub bounds: SpatialBounds<Architectural>,
+}
+impl SupportInterface {
+    /// A bearing retains its physical owner and node; admitted bounds may have
+    /// zero height. Positive contact is established by the bearing audit.
+    pub fn new(
+        id: ResolvedItemId,
+        owner: GeometryOwnerId,
+        node: StructuralNodeId,
+        bounds: crate::SpatialBounds<crate::Architectural>,
+    ) -> Self {
+        Self {
+            id,
+            owner,
+            node,
+            bounds,
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
@@ -122,7 +203,7 @@ pub struct DefenderSample {
 pub struct JunctionBond {
     pub id: ResolvedItemId,
     pub owners: [GeometryOwnerId; 2],
-    pub bounds: ResolvedBounds,
+    pub bounds: SpatialBounds<Architectural>,
     pub minimum_interface_area_square_metres: f32,
     pub maximum_penetration_metres: f32,
 }
@@ -295,4 +376,88 @@ pub struct ResolvedGeometry {
     pub junction_bonds: Vec<JunctionBond>,
     pub projected_defense_rays: Vec<ProjectedDefenseRay>,
     pub projected_defense_working_points: Vec<ProjectedDefenseWorkingPoint>,
+}
+
+impl ResolvedGeometry {
+    pub fn solid_mut(
+        &mut self,
+        id: ResolvedItemId,
+    ) -> Result<&mut ResolvedSolid, crate::GenerationError> {
+        self.solids
+            .iter_mut()
+            .find(|solid| solid.id == id)
+            .ok_or(crate::GenerationError::MissingSolid { solid: id })
+    }
+}
+
+impl ResolvedGeometry {
+    pub fn solid(&self, id: ResolvedItemId) -> Result<&ResolvedSolid, crate::GenerationError> {
+        self.solids
+            .iter()
+            .find(|item| item.id == id)
+            .ok_or(crate::GenerationError::MissingSolid { solid: id })
+    }
+    pub fn surface(&self, id: ResolvedItemId) -> Result<&ResolvedSurface, crate::GenerationError> {
+        self.surfaces
+            .iter()
+            .find(|item| item.id == id)
+            .ok_or(crate::GenerationError::MissingSurface { surface: id })
+    }
+    pub fn surface_mut(
+        &mut self,
+        id: ResolvedItemId,
+    ) -> Result<&mut ResolvedSurface, crate::GenerationError> {
+        self.surfaces
+            .iter_mut()
+            .find(|item| item.id == id)
+            .ok_or(crate::GenerationError::MissingSurface { surface: id })
+    }
+    pub fn void(&self, id: ResolvedItemId) -> Result<&ResolvedVoid, crate::GenerationError> {
+        self.voids
+            .iter()
+            .find(|item| item.id == id)
+            .ok_or(crate::GenerationError::MissingVoid { void: id })
+    }
+    pub fn void_mut(
+        &mut self,
+        id: ResolvedItemId,
+    ) -> Result<&mut ResolvedVoid, crate::GenerationError> {
+        self.voids
+            .iter_mut()
+            .find(|item| item.id == id)
+            .ok_or(crate::GenerationError::MissingVoid { void: id })
+    }
+    pub fn node(&self, id: StructuralNodeId) -> Result<&StructuralNode, crate::GenerationError> {
+        self.structural_nodes
+            .iter()
+            .find(|item| item.id == id)
+            .ok_or(crate::GenerationError::MissingNode { node: id })
+    }
+    pub fn node_mut(
+        &mut self,
+        id: StructuralNodeId,
+    ) -> Result<&mut StructuralNode, crate::GenerationError> {
+        self.structural_nodes
+            .iter_mut()
+            .find(|item| item.id == id)
+            .ok_or(crate::GenerationError::MissingNode { node: id })
+    }
+    pub fn interface(
+        &self,
+        id: ResolvedItemId,
+    ) -> Result<&SupportInterface, crate::GenerationError> {
+        self.support_interfaces
+            .iter()
+            .find(|item| item.id == id)
+            .ok_or(crate::GenerationError::MissingInterface { interface: id })
+    }
+    pub fn interface_mut(
+        &mut self,
+        id: ResolvedItemId,
+    ) -> Result<&mut SupportInterface, crate::GenerationError> {
+        self.support_interfaces
+            .iter_mut()
+            .find(|item| item.id == id)
+            .ok_or(crate::GenerationError::MissingInterface { interface: id })
+    }
 }

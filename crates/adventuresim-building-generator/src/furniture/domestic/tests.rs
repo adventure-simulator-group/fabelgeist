@@ -28,25 +28,26 @@ fn lectern_support_post_does_not_pierce_the_writing_leaf() {
         assemble(
             &mut builder,
             FurnitureKey::natural(FurnitureKind::Lectern, variant),
-        );
-        let recipe = builder.finish();
+        )
+        .unwrap();
+        let recipe = builder.finish().unwrap();
         let leaf = recipe
             .colliders
             .iter()
-            .find(|c| c.crossfall_radians.abs() > 0.1)
+            .find(|c| c.crossfall_radians.radians().abs() > 0.1)
             .unwrap();
         let post = recipe
             .colliders
             .iter()
-            .find(|c| c.size.y > 0.5 && c.size.x < 0.2 && c.size.z < 0.2)
+            .find(|c| c.size.metres().y > 0.5 && c.size.metres().x < 0.2 && c.size.metres().z < 0.2)
             .unwrap();
-        let leaf_inverse = Quat::from_rotation_x(leaf.crossfall_radians).inverse();
+        let leaf_inverse = Quat::from_rotation_x(leaf.crossfall_radians.radians()).inverse();
         for x in [-1.0, 1.0] {
             for z in [-1.0, 1.0] {
-                let top = post.centre + post.size * Vec3::new(x, 1.0, z) * 0.5;
-                let in_leaf = leaf_inverse * (top - leaf.centre);
+                let top = post.centre.metres() + post.size.metres() * Vec3::new(x, 1.0, z) * 0.5;
+                let in_leaf = leaf_inverse * (top - leaf.centre.metres());
                 assert!(
-                    in_leaf.y < leaf.size.y * 0.5 - 0.001,
+                    in_leaf.y < leaf.size.metres().y * 0.5 - 0.001,
                     "{variant:?} post penetrates writing surface"
                 );
             }
@@ -59,11 +60,11 @@ fn domestic_models_fit_independent_envelopes_with_ground_contacts() {
     for kind in DOMESTIC {
         for variant in FurnitureVariant::ALL {
             let key = FurnitureKey::natural(kind, variant);
-            let size = key.interior_spec().unwrap().size_metres;
+            let size = key.interior_spec().unwrap().size_metres.metres();
             let mut builder = Builder::default();
-            assemble(&mut builder, key);
-            let recipe = builder.finish();
-            assert!(recipe.bounds.min.y.abs() < 0.001, "{key:?}");
+            assemble(&mut builder, key).unwrap();
+            let recipe = builder.finish().unwrap();
+            assert!(recipe.bounds.min().metres().y.abs() < 0.001, "{key:?}");
             for mesh in &recipe.meshes {
                 for vertex in &mesh.vertices {
                     let p = vertex.position;
@@ -79,17 +80,18 @@ fn domestic_models_fit_independent_envelopes_with_ground_contacts() {
             }
             assert!(recipe.support_points_metres.len() >= 4, "{key:?}");
             for collider in &recipe.colliders {
-                assert!(collider.size.min_element() > 0.0);
-                let rotation = Quat::from_rotation_y(collider.yaw_radians)
-                    * Quat::from_rotation_x(collider.crossfall_radians)
-                    * Quat::from_rotation_z(collider.longfall_radians);
+                assert!(collider.size.metres().min_element() > 0.0);
+                let rotation = Quat::from_rotation_y(collider.yaw_radians.radians())
+                    * Quat::from_rotation_x(collider.crossfall_radians.radians())
+                    * Quat::from_rotation_z(collider.longfall_radians.radians());
                 for corner in 0..8 {
                     let sign = Vec3::new(
                         if corner & 1 == 0 { -1.0 } else { 1.0 },
                         if corner & 2 == 0 { -1.0 } else { 1.0 },
                         if corner & 4 == 0 { -1.0 } else { 1.0 },
                     );
-                    let p = collider.centre + rotation * (collider.size * 0.5 * sign);
+                    let p =
+                        collider.centre.metres() + rotation * (collider.size.metres() * 0.5 * sign);
                     assert!(
                         p.x.abs() <= size.x * 0.5 + 0.001
                             && p.z.abs() <= size.z * 0.5 + 0.001
@@ -109,15 +111,15 @@ fn bath_and_shelving_leave_their_usable_interiors_empty() {
         for variant in FurnitureVariant::ALL {
             let key = FurnitureKey::natural(kind, variant);
             let mut builder = Builder::default();
-            assemble(&mut builder, key);
-            let recipe = builder.finish();
+            assemble(&mut builder, key).unwrap();
+            let recipe = builder.finish().unwrap();
             let point = Vec3::Y * 0.3;
             assert!(
                 !recipe.colliders.iter().any(|collider| {
-                    let rotation = Quat::from_rotation_y(collider.yaw_radians)
-                        * Quat::from_rotation_x(collider.crossfall_radians);
-                    let local = rotation.inverse() * (point - collider.centre);
-                    (collider.size * 0.5 - local.abs()).min_element() > 0.0
+                    let rotation = Quat::from_rotation_y(collider.yaw_radians.radians())
+                        * Quat::from_rotation_x(collider.crossfall_radians.radians());
+                    let local = rotation.inverse() * (point - collider.centre.metres());
+                    (collider.size.metres() * 0.5 - local.abs()).min_element() > 0.0
                 }),
                 "{key:?} has a solid fill collider"
             );

@@ -1,8 +1,9 @@
 use super::*;
 use RoomKind::*;
+use fabelgeist_determinism::Seed;
 
 impl BuildingProgram {
-    pub(super) fn renaissance_town_hall(seed: u64) -> Self {
+    pub(super) fn renaissance_town_hall(seed: Seed) -> Self {
         let archetype = BuildingArchetype::RenaissanceTownHall;
         Self {
             archetype,
@@ -49,7 +50,7 @@ impl BuildingProgram {
         }
     }
 
-    pub(super) fn cathedral(seed: u64) -> Self {
+    pub(super) fn cathedral(seed: Seed) -> Self {
         Self::urban_basilica(BuildingArchetype::Cathedral, None, None, seed)
     }
 
@@ -58,7 +59,7 @@ impl BuildingProgram {
         archetype: BuildingArchetype,
         usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
         service_size: Option<crate::ServiceBuildingSize>,
-        seed: u64,
+        seed: Seed,
     ) -> Self {
         Self {
             archetype,

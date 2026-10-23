@@ -90,7 +90,7 @@ pub struct ArtilleryFireStation {
     pub opening: OpeningAssemblyId,
     pub stance_surface: ResolvedItemId,
     pub mount_solid: ResolvedItemId,
-    pub recoil_envelope: ResolvedBounds,
+    pub recoil_envelope: SpatialBounds<Architectural>,
     pub smoke_vent: Option<ResolvedItemId>,
     pub rays: Vec<ArtilleryFireRay>,
 }

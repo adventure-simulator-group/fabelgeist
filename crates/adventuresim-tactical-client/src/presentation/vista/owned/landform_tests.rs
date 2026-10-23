@@ -35,37 +35,46 @@ fn landform_cutout_crossing_playable_boundary_retains_distant_foundation_bearing
         .generate_unfurnished(Default::default())
         .unwrap()
         .terrain;
-    let recipe = TerrainLandformRecipe {
-        kind: TerrainLandformKind::FaultScarp,
-        surface: TerrainSurfaceRecipe::new(
-            SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
-            TerrainSurfaceSource::AuthoredFixture,
-            17,
-            [10_000, 0],
-        ),
-        seed: 17,
-        origin_cm: [0, 0],
-        tangent_permyriad: [10_000, 0],
-        relief_cm: 600,
-        half_length_cm: 1_200,
-        half_width_cm: 1_000,
-        collar_cm: 250,
-        lod: TerrainLandformLod::Detail,
-    };
+    let recipe = TerrainLandformRecipe::from_quantized(
+        adventuresim_tactical_core::volumetric_terrain::QuantizedLandformRecipe {
+            kind: TerrainLandformKind::FaultScarp,
+            surface: TerrainSurfaceRecipe::new(
+                SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
+                TerrainSurfaceSource::AuthoredFixture,
+                17.into(),
+                [10_000, 0],
+            )
+            .unwrap(),
+            seed: 17.into(),
+            origin_cm: [0, 0],
+            tangent_permyriad: [10_000, 0],
+            relief_cm: 600,
+            half_length_cm: 1_200,
+            half_width_cm: 1_000,
+            collar_cm: 250,
+            lod: TerrainLandformLod::Detail,
+        },
+    )
+    .unwrap();
     let collar = recipe.transition_collar();
     let source = terrain.property_surface().unwrap();
     let removed: BTreeSet<_> = source
-        .natural_triangles
+        .natural_triangles()
         .iter()
-        .filter(|triangle| collar.cuts_out((triangle.iter().copied().sum::<Vec3>() / 3.0).xz()))
+        .filter(|triangle| {
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                (triangle.iter().copied().sum::<Vec3>() / 3.0).xz(),
+            )
+            .is_ok_and(|point| collar.cuts_out(point))
+        })
         .map(|[a, b, c]| triangle_bits([*a, *c, *b]))
         .collect();
     let bearings: BTreeSet<_> = source
-        .foundations
+        .foundations()
         .iter()
         .flat_map(|foundation| {
-            foundation.support_triangles.iter().map(|indices| {
-                triangle_bits(indices.map(|index| foundation.positions[index as usize]))
+            foundation.support_triangles().iter().map(|indices| {
+                triangle_bits(indices.map(|index| foundation.positions()[index as usize]))
             })
         })
         .collect();

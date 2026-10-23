@@ -8,7 +8,8 @@ use crate::{Aabb, morton};
 async fn build(bounds: &[Aabb]) -> Result<(WgpuContext, GpuBvh)> {
     let context = WgpuContext::new().await?;
     let kernels = BvhKernels::new(&context)?;
-    let mut bvh = GpuBvh::new(&context, kernels, bounds.len().max(1) as u32)?;
+    let count = BvhPrimitiveCount::try_from(bounds.len())?;
+    let mut bvh = GpuBvh::new(&context, kernels, BvhLayout::try_from(count)?)?;
 
     let packed = pack_bounds(bounds);
     let buffer = Buffer::from_upload(
@@ -16,7 +17,7 @@ async fn build(bounds: &[Aabb]) -> Result<(WgpuContext, GpuBvh)> {
         BufferUpload::from_elements(&packed),
         BufferDefinition::storage().with_usage(BufferUse::CopySource),
     )?;
-    bvh.build(&context, &buffer, bounds.len() as u32)?;
+    bvh.build(&context, &buffer, count)?;
     Ok((context, bvh))
 }
 
@@ -325,14 +326,14 @@ async fn agrees_with_the_host_tree_on_a_mesh() -> Result<()> {
 async fn rejects_more_primitives_than_it_was_built_for() -> Result<()> {
     let context = WgpuContext::new().await?;
     let kernels = BvhKernels::new(&context)?;
-    let mut bvh = GpuBvh::new(&context, kernels, 10)?;
+    let mut bvh = GpuBvh::new(&context, kernels, BvhLayout::try_from(BvhPrimitiveCount::from(10))?)?;
     let buffer = Buffer::from_upload(
         &context,
         BufferUpload::from_elements(&[0.0f32; 8]),
         BufferDefinition::storage(),
     )?;
     let mut batch = KernelBatch::new(&context);
-    assert!(bvh.record_build(&mut batch, &buffer, 100).is_err());
+    assert!(bvh.record_build(&mut batch, &buffer, 100.into()).is_err());
     Ok(())
 }
 

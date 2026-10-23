@@ -188,25 +188,18 @@ impl UrbanGroundSurfaces {
         streets: &[CityStreetPatch],
         yards: &[CityYardPatch],
         buildings: &[GeneratedBuilding],
-    ) -> Self {
+    ) -> Result<Self, adventuresim_building_generator::spatial_geometry::GeometryError> {
         let buildings = buildings
             .iter()
-            .map(|building| CityPlotBounds {
-                centre_metres: building.placement.centre_metres,
-                dimensions_metres: building.collision.bounds.plan_half_extents() * 2.0,
-                orientation: building.placement.orientation,
-            })
-            .collect::<Vec<_>>();
-        let lookup = OnceLock::new();
-        lookup
-            .set(UrbanGroundLookup::new(streets, yards, &buildings))
-            .expect("new urban ground lookup is empty");
-        Self {
+            .map(|building| CityPlotBounds::new(crate::scene_coordinates::ScenePlanPoint::try_from(building.placement.centre_metres.metres())?,adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(building.collision.bounds.plan_half_extents()?.metres() * 2.0)?,building.placement.orientation))
+            .collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
+        let lookup = OnceLock::from(UrbanGroundLookup::new(streets, yards, &buildings));
+        Ok(Self {
             streets: streets.to_vec(),
             yards: yards.to_vec(),
             buildings,
             lookup,
-        }
+        })
     }
 
     pub fn surface_at(&self, position: Vec2) -> Option<GroundSurface> {
@@ -264,8 +257,12 @@ fn corners_bounds(corners: [Vec2; 4]) -> (Vec2, Vec2) {
 
 fn segment_distance(point: Vec2, start: Vec2, end: Vec2) -> f32 {
     let edge = end - start;
-    let fraction =
-        ((point - start).dot(edge) / edge.length_squared().max(f32::EPSILON)).clamp(0.0, 1.0);
+    let length_squared = edge.length_squared();
+    let fraction = if length_squared > 0.0 {
+        ((point - start).dot(edge) / length_squared).clamp(0.0, 1.0)
+    } else {
+        0.0
+    };
     point.distance(start + edge * fraction)
 }
 fn touches_edges(centre: Vec2, radius: f32, corners: [Vec2; 4]) -> bool {
@@ -334,7 +331,7 @@ mod tests {
 
     #[test]
     fn subcell_garden_ownership_survives_transport_without_clearing_neighbouring_grass() {
-        let terrain = SceneTerrain::new(4, 4, 2.0, |_| 0.0);
+        let terrain = SceneTerrain::new(4, 4, 2.0, |_| 0.0).unwrap();
         let mut ground = SceneGround::uniform_for_terrain(
             &terrain,
             GroundSurface {

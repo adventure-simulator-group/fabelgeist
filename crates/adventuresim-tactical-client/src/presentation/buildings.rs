@@ -6,28 +6,39 @@ use adventuresim_tactical_core::scene_input::{GeneratedBuildingRecipe, Generated
 use bevy::ecs::hierarchy::ChildSpawnerCommands;
 use std::sync::Arc;
 
+use super::ownership::PresentationOwner;
 use super::recipe_mesh::recipe_mesh;
 use super::*;
+pub(in crate::presentation) use focused::queue_focused_city;
+pub(in crate::presentation) use gpu::CityFrame;
+pub(in crate::presentation) use gpu::set_visible as set_city_visible;
+pub(in crate::presentation) use gpu::{CityAssemblyFailure, CityAssemblyPublished};
 
 mod boundaries;
+mod focused;
 mod gpu;
 mod kit;
 mod materials;
 #[cfg(any(target_family = "wasm", test))]
 mod prepared;
 pub(in crate::presentation) mod signs;
+mod strategic;
 mod streaming;
 pub(crate) use materials::TacticalBuildingMaterials;
 pub(in crate::presentation) use materials::setup_tactical_building_materials;
 pub(in crate::presentation) use signs::BuildingPresentationPlugin;
 pub(crate) use signs::PresentedSign;
+pub(crate) use strategic::queue_strategic_city;
 pub(crate) use streaming::PendingCityBuildings;
 
-pub(crate) fn city_gpu_ready() -> bool {
-    gpu::is_ready()
+pub(crate) fn city_gpu_ready(owner: crate::presentation::ownership::PresentationOwner) -> bool {
+    gpu::is_ready(owner)
 }
-pub(super) fn reset_gpu(world: &mut World) {
-    gpu::reset(world);
+pub(super) fn reset_gpu(
+    world: &mut World,
+    owner: crate::presentation::ownership::PresentationOwner,
+) {
+    gpu::reset(world, owner);
 }
 
 pub(super) const DETAIL_LOD_END_START_METRES: f32 = 55.0;
@@ -97,7 +108,9 @@ struct CompiledBuildingLevels {
     program: BuildingProgram,
     detail: BuildingDetail,
 
-    local_origin: Vec3,
+    local_origin: adventuresim_building_generator::spatial_geometry::Position<
+        adventuresim_building_generator::spatial_geometry::Architectural,
+    >,
     sign_sites: Vec<(
         adventuresim_building_generator::signs::SignMount,
         adventuresim_building_generator::signs::SignSite,
@@ -146,7 +159,7 @@ fn on_scene_building_added(
         establishment.and_then(|establishment| {
             establishment.shop_name.clone().and_then(|name| {
                 adventuresim_building_generator::signs::ShopSign::for_establishment(
-                    adventuresim_building_generator::signs::EstablishmentId(building.id),
+                    adventuresim_building_generator::signs::EstablishmentId(building.id.0),
                     establishment.business_id.key.usage,
                     name,
                 )
@@ -154,6 +167,7 @@ fn on_scene_building_added(
         })
     });
     let compiled = cached_building_levels(
+        PresentationOwner::Scene,
         &mut cache,
         &building.program,
         BuildingDetail::Dynamic,
@@ -172,7 +186,7 @@ fn on_scene_building_added(
                 .ok_or("playable building needs interior lighting")?,
         ))
         .with_children(|parent| {
-            spawn_building_levels(parent, building.id, &compiled, &materials);
+            spawn_building_levels(parent, building.id.0, &compiled, &materials);
             signs.spawn(parent, resolved_sign.as_ref(), &compiled, &mut meshes);
         });
     Ok(())
@@ -181,13 +195,15 @@ fn on_scene_building_added(
 fn on_scene_vista_buildings(
     bundle: On<SceneVistaBundle>,
     mut commands: Commands,
-    existing: Query<Entity, With<DistantCityBuildingPresentation>>,
+    existing: Query<(Entity, &PresentationOwner), With<DistantCityBuildingPresentation>>,
     streaming: Option<Res<StreamCityTraffic>>,
     mut assets: streaming::CityBuildingAssets,
 ) -> Result {
-    assets.gpu.clear();
-    for entity in &existing {
-        commands.entity(entity).despawn();
+    assets.gpu.owners.get_mut(PresentationOwner::Scene).clear();
+    for (entity, owner) in &existing {
+        if *owner == PresentationOwner::Scene {
+            commands.entity(entity).despawn();
+        }
     }
     if streaming.is_some() {
         commands.insert_resource(PendingCityBuildings::new(
@@ -212,6 +228,7 @@ fn on_scene_vista_buildings(
 }
 
 fn cached_building_levels(
+    _owner: PresentationOwner,
     cache: &mut TacticalBuildingMeshCache,
     program: &BuildingProgram,
     detail: BuildingDetail,
@@ -228,8 +245,8 @@ fn cached_building_levels(
 
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Facade {
-        let prepared = super::generation::take_facade(program)?;
-        return Ok(kit::install_facade(cache, prepared, meshes));
+        let prepared = super::generation::take_facade(_owner, program)?;
+        return kit::install_facade(cache, prepared, meshes);
     }
 
     let generated;
@@ -245,46 +262,40 @@ fn cached_building_levels(
     let plan = &geometry.plan;
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Dynamic && prepared.is_some() {
-        let meshes_ready = super::generation::take_venue_geometry(program)?;
-        return Ok(self::prepared::install(
-            cache,
-            program,
-            meshes_ready,
-            geometry,
-            meshes,
-        ));
+        let meshes_ready = super::generation::take_venue_geometry(_owner, program)?;
+        return self::prepared::install(cache, program, meshes_ready, geometry, meshes);
     }
     let collision = &geometry.collision;
-    let local_origin = collision.bounds.centre();
-    let kit = (detail != BuildingDetail::Dynamic)
-        .then(|| adventuresim_building_generator::BuildingKit::new(plan));
-    let detail_meshes = match detail {
-        BuildingDetail::Dynamic => Some(compile_static_building_detail(plan)),
-        BuildingDetail::Static => Some(kit.as_ref().expect("static kit").detail()),
-        BuildingDetail::Facade => None,
-    };
-    let facade = match detail {
-        BuildingDetail::Dynamic => compile_static_building_lod(plan, BuildingLodLevel::Facade),
-        _ => kit.as_ref().expect("static kit").facade(),
-    };
-    let shell = (detail == BuildingDetail::Facade)
+    let local_origin = collision.bounds.centre()?;
+    let RecipeMeshes {
+        kit,
+        detail_meshes,
+        facade,
+    } = RecipeMeshes::compile(plan, detail)?;
+    let shell = match (detail == BuildingDetail::Facade)
         .then(|| adventuresim_building_generator::compile_program_shell(program))
         .flatten()
-        .unwrap_or_else(|| compile_building_lod(plan, BuildingLodLevel::Shell));
+    {
+        Some(shell) => shell,
+        None => compile_building_lod(plan, BuildingLodLevel::Shell)?,
+    };
     let compile_batches = |source: &[LodMesh], meshes: &mut Assets<Mesh>| {
         source
             .iter()
-            .map(|batch| CompiledBuildingBatch::from_recipe(batch, local_origin, detail, meshes))
+            .map(|batch| {
+                CompiledBuildingBatch::from_recipe(batch, local_origin.metres(), detail, meshes)
+            })
             .collect()
     };
     let mut compiled = CompiledBuildingLevels {
         facade_openings: if detail == BuildingDetail::Dynamic {
-            plan.facade_dynamic_openings()
+            plan.facade_dynamic_openings()?
         } else {
             Default::default()
         },
-        interior: (detail == BuildingDetail::Dynamic)
-            .then(|| super::interior_lighting::InteriorField::from_plan(plan, local_origin)),
+        interior: (detail == BuildingDetail::Dynamic).then(|| {
+            super::interior_lighting::InteriorField::from_plan(plan, local_origin.metres())
+        }),
         program: program.clone(),
         detail,
         local_origin,
@@ -373,6 +384,40 @@ pub(super) fn building_lod_visibility(level: BuildingRenderLevel) -> VisibilityR
     }
 }
 
+struct RecipeMeshes<'a> {
+    kit: Option<adventuresim_building_generator::BuildingKit<'a>>,
+    detail_meshes: Option<adventuresim_building_generator::BuildingDetail>,
+    facade: adventuresim_building_generator::BuildingLod,
+}
+impl<'a> RecipeMeshes<'a> {
+    fn compile(
+        plan: &'a adventuresim_building_generator::BuildingPlan,
+        detail: BuildingDetail,
+    ) -> Result<Self> {
+        Ok(match detail {
+            BuildingDetail::Dynamic => Self {
+                kit: None,
+                detail_meshes: Some(compile_static_building_detail(plan)?),
+                facade: compile_static_building_lod(plan, BuildingLodLevel::Facade)?,
+            },
+            BuildingDetail::Static | BuildingDetail::Facade => {
+                let kit = adventuresim_building_generator::BuildingKit::new(plan)?;
+                let meshes = if detail == BuildingDetail::Static {
+                    Some(kit.detail()?)
+                } else {
+                    None
+                };
+                let facade = kit.facade()?;
+                Self {
+                    kit: Some(kit),
+                    detail_meshes: meshes,
+                    facade,
+                }
+            }
+        })
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use adventuresim_building_generator::{LodVertex, compile_building_collision, generate};
@@ -384,10 +429,10 @@ mod tests {
     fn prepared_geometry_and_replicated_recipes_produce_the_same_meshes() {
         let program = BuildingProgram::fixture(
             adventuresim_building_generator::BuildingArchetype::TownHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         let plan = generate(&program).unwrap();
-        let collision = compile_building_collision(&plan);
+        let collision = compile_building_collision(&plan).unwrap();
         let prepared = GeneratedBuildingRecipe {
             program: program.clone(),
             plan,
@@ -396,6 +441,7 @@ mod tests {
         let mut meshes = Assets::default();
         let mut cache = TacticalBuildingMeshCache::default();
         let local = cached_building_levels(
+            PresentationOwner::Scene,
             &mut cache,
             &program,
             BuildingDetail::Dynamic,
@@ -405,6 +451,7 @@ mod tests {
         .unwrap();
         cache.levels.clear();
         let remote = cached_building_levels(
+            PresentationOwner::Scene,
             &mut cache,
             &program,
             BuildingDetail::Dynamic,
@@ -444,6 +491,7 @@ mod tests {
             }
         }
         let facade = cached_building_levels(
+            PresentationOwner::Scene,
             &mut cache,
             &program,
             BuildingDetail::Facade,
@@ -467,12 +515,13 @@ mod tests {
     fn city_consumes_prepared_recipes_and_reuses_resident_meshes() {
         let program = BuildingProgram::fixture(
             adventuresim_building_generator::BuildingArchetype::TownHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         let mut meshes = Assets::default();
         let mut cache = TacticalBuildingMeshCache::default();
         cache.recipes.get_or_generate(&program).unwrap();
         let first = cached_building_levels(
+            PresentationOwner::Scene,
             &mut cache,
             &program,
             BuildingDetail::Facade,
@@ -486,6 +535,7 @@ mod tests {
         );
         let resident_count = meshes.len();
         let second = cached_building_levels(
+            PresentationOwner::Scene,
             &mut cache,
             &program,
             BuildingDetail::Facade,

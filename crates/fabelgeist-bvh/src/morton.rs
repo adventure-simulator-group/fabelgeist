@@ -11,6 +11,12 @@ pub const BITS_PER_AXIS: u32 = 10;
 /// Total significant bits in a code.
 pub const BITS: u32 = BITS_PER_AXIS * 3;
 
+/// Key width of this encoding, admitted by the sorting owner.
+#[cfg(feature = "gpu")]
+pub fn sort_key_width() -> fabelgeist_compute::SortKeyWidth {
+    fabelgeist_compute::SortKeyWidth::from(BITS)
+}
+
 /// Spread the low 10 bits of `value` out to every third bit.
 pub fn expand_bits(value: u32) -> u32 {
     let mut v = value & 0x3FF;

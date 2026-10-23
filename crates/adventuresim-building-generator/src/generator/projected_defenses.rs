@@ -4,7 +4,7 @@ fn resolve_projected_defenses(
     battlements: &[BattlementRun],
     bartizans: &[Bartizan],
     geometry: &mut ResolvedGeometry,
-) -> Vec<ProjectedDefenseAssembly> {
+) -> Result<Vec<ProjectedDefenseAssembly>, crate::GenerationError> {
     let mut assemblies = Vec::new();
     for (source_index, run) in battlements.iter().copied().enumerate() {
         let (kind, material, phase, deployment, tactical_target, roofed) = match run.kind {
@@ -56,25 +56,25 @@ fn resolve_projected_defenses(
             run,
             socket_count,
             deployment != ProjectedDefenseDeployment::SocketsOnly,
-        );
+        )?;
         let wall_node = host.bearing;
         let bond_id = ResolvedItemId((6_u64 << 60) | source_index as u64);
         let midpoint = (run.start + run.end) * 0.5;
         geometry.junction_bonds.push(JunctionBond {
             id: bond_id,
             owners: [host.owner, owner],
-            bounds: ResolvedBounds {
-                min: Vec3::new(
+            bounds: SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     midpoint.x - tangent.x.abs() * (length * 0.5 + 0.12) - outward.x.abs() * 0.65,
                     run.base_height_metres - 0.65,
                     midpoint.y - tangent.y.abs() * (length * 0.5 + 0.12) - outward.y.abs() * 0.65,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     midpoint.x + tangent.x.abs() * (length * 0.5 + 0.12) + outward.x.abs() * 0.65,
                     run.base_height_metres + 2.6,
                     midpoint.y + tangent.y.abs() * (length * 0.5 + 0.12) + outward.y.abs() * 0.65,
                 ),
-            },
+            )?,
             minimum_interface_area_square_metres: 0.08,
             maximum_penetration_metres: 0.18,
         });
@@ -144,22 +144,24 @@ fn resolve_projected_defenses(
             }
             let node = StructuralNodeId(wall_node.0 + 1 + index as u64);
             support_nodes.push(node);
-            geometry.structural_nodes.push(StructuralNode {
-                id: node,
-                owner,
-                kind: if material == ProjectedDefenseMaterial::Timber {
-                    StructuralNodeKind::GalleryFrame
-                } else {
-                    StructuralNodeKind::ProjectionCorbel
-                },
-                position: Vec3::new(
-                    anchor.x + outward.x * projection * 0.5,
-                    run.base_height_metres - 0.42,
-                    anchor.y + outward.y * projection * 0.5,
-                ),
-                supported_by: vec![wall_node],
-                grounded: false,
-            });
+            geometry
+                .structural_nodes
+                .push(crate::StructuralNode::from_metres(
+                    node,
+                    owner,
+                    if material == ProjectedDefenseMaterial::Timber {
+                        StructuralNodeKind::GalleryFrame
+                    } else {
+                        StructuralNodeKind::ProjectionCorbel
+                    },
+                    Vec3::new(
+                        anchor.x + outward.x * projection * 0.5,
+                        run.base_height_metres - 0.42,
+                        anchor.y + outward.y * projection * 0.5,
+                    ),
+                    vec![wall_node],
+                    false,
+                )?);
             projected_solid(
                 geometry,
                 owner,
@@ -176,54 +178,48 @@ fn resolve_projected_defenses(
                     SolidRole::ProjectionSupport
                 },
                 vec![wall_node],
-            );
+            )?;
         }
-        geometry.structural_nodes.push(StructuralNode {
-            id: floor_node,
-            owner,
-            kind: StructuralNodeKind::GalleryFrame,
-            position: Vec3::new(midpoint.x, run.base_height_metres, midpoint.y),
-            supported_by: support_nodes.clone(),
-            grounded: false,
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                floor_node,
+                owner,
+                StructuralNodeKind::GalleryFrame,
+                Vec3::new(midpoint.x, run.base_height_metres, midpoint.y),
+                support_nodes.clone(),
+                false,
+            )?);
         for node in &support_nodes {
-            let position = geometry
-                .structural_nodes
-                .iter()
-                .find(|candidate| candidate.id == *node)
-                .expect("projected support node")
-                .position;
+            let position = geometry.node(*node)?.position;
             let tangent_extent = tangent.abs() * 0.08;
             let outward_extent = outward.abs() * (projection * 0.5);
             let extent = tangent_extent + outward_extent;
-            geometry.support_interfaces.push(SupportInterface {
-                id: ResolvedItemId((4_u64 << 60) | geometry.support_interfaces.len() as u64),
-                owner,
-                node: *node,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(
-                        position.x - extent.x,
-                        run.base_height_metres - 0.09,
-                        position.z - extent.y,
-                    ),
-                    max: Vec3::new(
-                        position.x + extent.x,
-                        run.base_height_metres - 0.06,
-                        position.z + extent.y,
-                    ),
-                },
-            });
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    ResolvedItemId((4_u64 << 60) | geometry.support_interfaces.len() as u64),
+                    owner,
+                    *node,
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
+                            position.metres().x - extent.x,
+                            run.base_height_metres - 0.09,
+                            position.metres().z - extent.y,
+                        ),
+                        Vec3::new(
+                            position.metres().x + extent.x,
+                            run.base_height_metres - 0.06,
+                            position.metres().z + extent.y,
+                        ),
+                    )?,
+                ));
         }
         let mut socket_joists = Vec::new();
         if material == ProjectedDefenseMaterial::Timber {
             for socket in &host.sockets {
-                let bounds = geometry
-                    .voids
-                    .iter()
-                    .find(|void| void.id == *socket)
-                    .expect("host beam socket")
-                    .bounds;
-                let socket_centre = (bounds.min + bounds.max) * 0.5;
+                let bounds = geometry.void(*socket)?.bounds;
+                let socket_centre = (bounds.min().metres() + bounds.max().metres()) * 0.5;
                 let centre = Vec2::new(socket_centre.x, socket_centre.z) + outward * (0.52 - 0.17);
                 let joist = projected_solid(
                     geometry,
@@ -233,7 +229,7 @@ fn resolve_projected_defenses(
                     yaw,
                     SolidRole::BeamJoist,
                     vec![wall_node],
-                );
+                )?;
                 socket_joists.push((*socket, joist));
             }
         }
@@ -254,7 +250,7 @@ fn resolve_projected_defenses(
                 yaw,
                 SolidRole::GalleryFloor,
                 vec![floor_node],
-            ),
+            )?,
             projected_solid(
                 geometry,
                 owner,
@@ -267,24 +263,15 @@ fn resolve_projected_defenses(
                 yaw,
                 SolidRole::GalleryFloor,
                 vec![floor_node],
-            ),
+            )?,
         ];
         let outer_breastwork_bearing = floor_solids.pop().expect("outer gallery bearing");
-        geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == outer_breastwork_bearing)
-            .expect("outer gallery bearing solid")
-            .role = SolidRole::ProjectionSupport;
+        geometry.solid_mut(outer_breastwork_bearing)?.role = SolidRole::ProjectionSupport;
         let local_positive_z = Vec2::new(yaw.sin(), yaw.cos());
         let floor_crossfall = 0.025 * (-outward).dot(local_positive_z).signum();
-        let floor = geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == floor_solids[0])
-            .expect("new projected gallery floor");
-        floor.crossfall_radians = floor_crossfall;
-        floor.longfall_radians = 0.003;
+        let floor = geometry.solid_mut(floor_solids[0])?;
+        floor.crossfall_radians = Radians::new(floor_crossfall)?;
+        floor.longfall_radians = Radians::new(0.003)?;
         let channel_length = length - 0.11;
         let channel_centre = midpoint - tangent * 0.055 + outward * 0.06;
         let drainage_floor = projected_solid(
@@ -299,13 +286,8 @@ fn resolve_projected_defenses(
             yaw,
             SolidRole::DrainageFloor,
             vec![floor_node],
-        );
-        geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == drainage_floor)
-            .expect("new projected channel floor")
-            .longfall_radians = -0.018;
+        )?;
+        geometry.solid_mut(drainage_floor)?.longfall_radians = Radians::new(-0.018)?;
         let bay_length = length / bay_count as f32;
         let mut throat_voids = Vec::new();
         for index in 0..bay_count {
@@ -315,8 +297,8 @@ fn resolve_projected_defenses(
             let throat = projected_void(
                 geometry,
                 owner,
-                ResolvedBounds {
-                    min: Vec3::new(
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
                         throat_centre.x
                             - tangent.x.abs() * (bay_length - 0.18) * 0.5
                             - outward.x.abs() * throat_depth * 0.5,
@@ -325,7 +307,7 @@ fn resolve_projected_defenses(
                             - tangent.y.abs() * (bay_length - 0.18) * 0.5
                             - outward.y.abs() * throat_depth * 0.5,
                     ),
-                    max: Vec3::new(
+                    Vec3::new(
                         throat_centre.x
                             + tangent.x.abs() * (bay_length - 0.18) * 0.5
                             + outward.x.abs() * throat_depth * 0.5,
@@ -334,7 +316,7 @@ fn resolve_projected_defenses(
                             + tangent.y.abs() * (bay_length - 0.18) * 0.5
                             + outward.y.abs() * throat_depth * 0.5,
                     ),
-                },
+                )?,
                 VoidRole::DefenseThroat,
             );
             throat_voids.push(throat);
@@ -413,7 +395,7 @@ fn resolve_projected_defenses(
                 yaw,
                 wall_role,
                 vec![floor_node],
-            ));
+            )?);
         }
         if material == ProjectedDefenseMaterial::Timber {
             for index in 0..=bay_count {
@@ -427,7 +409,7 @@ fn resolve_projected_defenses(
                     yaw,
                     SolidRole::FrameMember,
                     vec![floor_node],
-                );
+                )?;
             }
         }
         let access_portal = host.portal.expect("operational defense host portal");
@@ -444,25 +426,25 @@ fn resolve_projected_defenses(
             yaw,
             SolidRole::Landing,
             vec![floor_node],
-        );
+        )?;
         let mut firing_apertures = Vec::new();
         for side in [-1.0_f32, 1.0] {
             let aperture = outer_wall_centre + tangent * aperture_along * side;
             let aperture_id = projected_void(
                 geometry,
                 owner,
-                ResolvedBounds {
-                    min: Vec3::new(
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
                         aperture.x - 0.09,
                         run.base_height_metres + 0.55,
                         aperture.y - 0.09,
                     ),
-                    max: Vec3::new(
+                    Vec3::new(
                         aperture.x + 0.09,
                         run.base_height_metres + 1.02,
                         aperture.y + 0.09,
                     ),
-                },
+                )?,
                 VoidRole::FiringAperture,
             );
             firing_apertures.push(aperture_id);
@@ -510,27 +492,31 @@ fn resolve_projected_defenses(
                     (inner_bearing, midpoint),
                     (outer_bearing, outer_wall_centre),
                 ] {
-                    geometry.structural_nodes.push(StructuralNode {
-                        id,
-                        owner,
-                        kind: StructuralNodeKind::GalleryFrame,
-                        position: Vec3::new(position.x, run.base_height_metres, position.y),
-                        supported_by: vec![floor_node],
-                        grounded: false,
-                    });
+                    geometry
+                        .structural_nodes
+                        .push(crate::StructuralNode::from_metres(
+                            id,
+                            owner,
+                            StructuralNodeKind::GalleryFrame,
+                            Vec3::new(position.x, run.base_height_metres, position.y),
+                            vec![floor_node],
+                            false,
+                        )?);
                 }
-                geometry.structural_nodes.push(StructuralNode {
-                    id: roof_bearing,
-                    owner,
-                    kind: StructuralNodeKind::GalleryFrame,
-                    position: Vec3::new(
-                        midpoint.x + outward.x * projection * 0.55,
-                        run.base_height_metres + 2.18,
-                        midpoint.y + outward.y * projection * 0.55,
-                    ),
-                    supported_by: vec![inner_bearing, outer_bearing],
-                    grounded: false,
-                });
+                geometry
+                    .structural_nodes
+                    .push(crate::StructuralNode::from_metres(
+                        roof_bearing,
+                        owner,
+                        StructuralNodeKind::GalleryFrame,
+                        Vec3::new(
+                            midpoint.x + outward.x * projection * 0.55,
+                            run.base_height_metres + 2.18,
+                            midpoint.y + outward.y * projection * 0.55,
+                        ),
+                        vec![inner_bearing, outer_bearing],
+                        false,
+                    )?);
                 roof_bearing_node = Some(roof_bearing);
                 roof_bearing
             } else {
@@ -548,7 +534,7 @@ fn resolve_projected_defenses(
                 yaw,
                 SolidRole::DefenseRoof,
                 vec![roof_support],
-            );
+            )?;
             let (catchment, solids) = resolve_linear_roof_weathering(
                 geometry,
                 owner,
@@ -560,20 +546,17 @@ fn resolve_projected_defenses(
                 roof_depth,
                 yaw,
                 roof_support,
-            );
+            )?;
             weather_catchments.push(catchment);
             weathering_solids.extend(solids);
             if kind == ProjectedDefenseKind::Breteche {
-                let roof = geometry
-                    .solids
-                    .iter()
-                    .find(|solid| solid.id == roof_id)
-                    .expect("resolved bretèche roof")
-                    .clone();
-                let roof_midpoint = Vec2::new(roof.centre.x, roof.centre.z);
+                let roof = geometry.solid(roof_id)?.clone();
+                let roof_midpoint = Vec2::new(roof.centre.metres().x, roof.centre.metres().z);
                 let underside_at = |point: Vec2| {
                     let offset = (point - roof_midpoint).dot(outward);
-                    roof.centre.y - offset * roof.crossfall_radians.abs().tan() - roof.size.y * 0.5
+                    roof.centre.metres().y
+                        - offset * roof.crossfall_radians.radians().abs().tan()
+                        - roof.size.metres().y * 0.5
                 };
                 let inner_plate_plan = midpoint + outward * 0.02;
                 let outer_plate_plan = outer_wall_centre;
@@ -592,13 +575,28 @@ fn resolve_projected_defenses(
                     .expect("bretèche upper enclosure wall");
                 let upper_wall_bottom = run.base_height_metres + 1.02;
                 let upper_wall_top = outer_underside - plate_height;
-                let wall = geometry
-                    .solids
-                    .iter_mut()
-                    .find(|solid| solid.id == upper_wall)
-                    .expect("bretèche upper enclosure wall solid");
-                wall.centre.y = (upper_wall_bottom + upper_wall_top) * 0.5;
-                wall.size.y = upper_wall_top - upper_wall_bottom;
+                let wall = geometry.solid_mut(upper_wall)?;
+                {
+                    let mut native_geometry = wall.centre.metres();
+                    native_geometry.y = (upper_wall_bottom + upper_wall_top) * 0.5;
+                    wall.centre = Position::<Architectural>::from_metres(native_geometry).map_err(
+                        |cause| crate::CollisionError {
+                            source_id: wall.id,
+                            cause,
+                        },
+                    )?;
+                };
+                {
+                    let mut native_geometry = wall.size.metres();
+                    native_geometry.y = upper_wall_top - upper_wall_bottom;
+                    wall.size =
+                        CuboidDimensions::from_metres(native_geometry).map_err(|cause| {
+                            crate::CollisionError {
+                                source_id: wall.id,
+                                cause,
+                            }
+                        })?;
+                };
 
                 for side in [-1.0_f32, 1.0] {
                     let post_plan = inner_plate_plan + tangent * side * (length * 0.5 - 0.38);
@@ -615,7 +613,7 @@ fn resolve_projected_defenses(
                         yaw,
                         SolidRole::FrameMember,
                         vec![floor_node],
-                    ));
+                    )?);
                 }
                 for (plan, underside, bearing) in [
                     (inner_plate_plan, inner_underside, inner_bearing),
@@ -629,13 +627,8 @@ fn resolve_projected_defenses(
                         yaw,
                         SolidRole::RoofPlate,
                         vec![bearing],
-                    );
-                    geometry
-                        .solids
-                        .iter_mut()
-                        .find(|solid| solid.id == plate)
-                        .expect("bretèche roof plate")
-                        .crossfall_radians = roof.crossfall_radians;
+                    )?;
+                    geometry.solid_mut(plate)?.crossfall_radians = roof.crossfall_radians;
                     roof_support_solids.push(plate);
                 }
                 roof_support_solids.push(upper_wall);
@@ -651,25 +644,25 @@ fn resolve_projected_defenses(
                 run.base_height_metres + 1.22,
                 yaw,
                 floor_node,
-            );
+            )?;
             weather_catchments.push(catchment);
             weathering_solids.extend(solids);
         }
         let drainage_surface = projected_surface(
             geometry,
             owner,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     midpoint.x - tangent.x.abs() * length * 0.5,
                     run.base_height_metres,
                     midpoint.y - tangent.y.abs() * length * 0.5,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     midpoint.x + tangent.x.abs() * length * 0.5 + outward.x.abs() * projection,
                     run.base_height_metres + 0.02,
                     midpoint.y + tangent.y.abs() * length * 0.5 + outward.y.abs() * projection,
                 ),
-            },
+            )?,
             SurfaceRole::Drainage,
         );
         let drain_inlet = Vec3::new(
@@ -677,7 +670,7 @@ fn resolve_projected_defenses(
             run.base_height_metres - 0.03,
             midpoint.y + tangent.y * (length * 0.5 - 0.11) + outward.y * 0.06,
         );
-        let drain_route = projected_edge_drain(geometry, owner, drain_inlet, tangent);
+        let drain_route = projected_edge_drain(geometry, owner, drain_inlet, tangent)?;
         let catchment_id =
             ResolvedItemId((7_u64 << 60) | geometry.drainage_catchments.len() as u64);
         geometry.drainage_catchments.push(DrainageCatchment {
@@ -780,7 +773,7 @@ fn resolve_projected_defenses(
             },
             None,
             true,
-        );
+        )?;
         let buttress_depth = bartizan.radius_metres * 0.92;
         let buttress_centre = host_midpoint + outward * buttress_depth * 0.5;
         let buttress_top = bartizan.base_height_metres - 0.14;
@@ -792,7 +785,7 @@ fn resolve_projected_defenses(
             yaw,
             SolidRole::DefenseHostButtress,
             vec![host.bearing],
-        );
+        )?;
         host.buttresses.push(buttress);
         host.topology = ProjectedDefenseHostTopology::Buttress;
         let wall_node = host.bearing;
@@ -801,8 +794,8 @@ fn resolve_projected_defenses(
         geometry.junction_bonds.push(JunctionBond {
             id: host_bond,
             owners: [host.owner, owner],
-            bounds: ResolvedBounds {
-                min: Vec3::new(
+            bounds: SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     host_midpoint.x
                         - tangent.x.abs() * bartizan.radius_metres
                         - outward.x.abs() * 0.75,
@@ -811,7 +804,7 @@ fn resolve_projected_defenses(
                         - tangent.y.abs() * bartizan.radius_metres
                         - outward.y.abs() * 0.75,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     host_midpoint.x
                         + tangent.x.abs() * bartizan.radius_metres
                         + outward.x.abs() * 0.75,
@@ -820,7 +813,7 @@ fn resolve_projected_defenses(
                         + tangent.y.abs() * bartizan.radius_metres
                         + outward.y.abs() * 0.75,
                 ),
-            },
+            )?,
             minimum_interface_area_square_metres: 0.08,
             maximum_penetration_metres: 0.18,
         });
@@ -830,14 +823,16 @@ fn resolve_projected_defenses(
             corbel_nodes.push(corbel_node);
             let centre =
                 bartizan.centre - outward * bartizan.radius_metres * 0.35 + tangent * offset;
-            geometry.structural_nodes.push(StructuralNode {
-                id: corbel_node,
-                owner,
-                kind: StructuralNodeKind::ProjectionCorbel,
-                position: Vec3::new(centre.x, bartizan.base_height_metres - 0.35, centre.y),
-                supported_by: vec![wall_node],
-                grounded: false,
-            });
+            geometry
+                .structural_nodes
+                .push(crate::StructuralNode::from_metres(
+                    corbel_node,
+                    owner,
+                    StructuralNodeKind::ProjectionCorbel,
+                    Vec3::new(centre.x, bartizan.base_height_metres - 0.35, centre.y),
+                    vec![wall_node],
+                    false,
+                )?);
             projected_solid(
                 geometry,
                 owner,
@@ -846,47 +841,46 @@ fn resolve_projected_defenses(
                 yaw,
                 SolidRole::ProjectionSupport,
                 vec![wall_node],
-            );
+            )?;
         }
-        geometry.structural_nodes.push(StructuralNode {
-            id: floor_node,
-            owner,
-            kind: StructuralNodeKind::GalleryFrame,
-            position: Vec3::new(
-                bartizan.centre.x,
-                bartizan.base_height_metres,
-                bartizan.centre.y,
-            ),
-            supported_by: corbel_nodes.clone(),
-            grounded: false,
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                floor_node,
+                owner,
+                StructuralNodeKind::GalleryFrame,
+                Vec3::new(
+                    bartizan.centre.x,
+                    bartizan.base_height_metres,
+                    bartizan.centre.y,
+                ),
+                corbel_nodes.clone(),
+                false,
+            )?);
         for node in &corbel_nodes {
-            let position = geometry
-                .structural_nodes
-                .iter()
-                .find(|candidate| candidate.id == *node)
-                .expect("bartizan support node")
-                .position;
+            let position = geometry.node(*node)?.position;
             let tangent_extent = tangent.abs() * 0.11;
             let outward_extent = outward.abs() * (bartizan.radius_metres * 0.55);
             let extent = tangent_extent + outward_extent;
-            geometry.support_interfaces.push(SupportInterface {
-                id: ResolvedItemId((4_u64 << 60) | geometry.support_interfaces.len() as u64),
-                owner,
-                node: *node,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(
-                        position.x - extent.x,
-                        bartizan.base_height_metres - 0.09,
-                        position.z - extent.y,
-                    ),
-                    max: Vec3::new(
-                        position.x + extent.x,
-                        bartizan.base_height_metres - 0.06,
-                        position.z + extent.y,
-                    ),
-                },
-            });
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    ResolvedItemId((4_u64 << 60) | geometry.support_interfaces.len() as u64),
+                    owner,
+                    *node,
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
+                            position.metres().x - extent.x,
+                            bartizan.base_height_metres - 0.09,
+                            position.metres().z - extent.y,
+                        ),
+                        Vec3::new(
+                            position.metres().x + extent.x,
+                            bartizan.base_height_metres - 0.06,
+                            position.metres().z + extent.y,
+                        ),
+                    )?,
+                ));
         }
         let segments = 16;
         let half_span = bartizan.radius_metres * 0.82;
@@ -911,7 +905,7 @@ fn resolve_projected_defenses(
             yaw,
             SolidRole::GalleryFloor,
             vec![floor_node],
-        )];
+        )?];
         let side_width = half_span - throat_clear_half;
         for side in [-1.0_f32, 1.0] {
             let centre = bartizan.centre
@@ -925,24 +919,24 @@ fn resolve_projected_defenses(
                 yaw,
                 SolidRole::GalleryFloor,
                 vec![floor_node],
-            ));
+            )?);
         }
         let throat_centre = bartizan.centre + outward * bartizan.radius_metres * 0.55;
         let throat = projected_void(
             geometry,
             owner,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     throat_centre.x - throat_void_half,
                     bartizan.base_height_metres - 0.18,
                     throat_centre.y - throat_void_half,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     throat_centre.x + throat_void_half,
                     bartizan.base_height_metres + 0.03,
                     throat_centre.y + throat_void_half,
                 ),
-            },
+            )?,
             VoidRole::DefenseThroat,
         );
         let bartizan_stance = Vec3::new(
@@ -993,7 +987,7 @@ fn resolve_projected_defenses(
             yaw,
             SolidRole::Landing,
             vec![floor_node],
-        );
+        )?;
         let mut firing_apertures = Vec::new();
         for side in [-2_i32, 0, 2] {
             let side = side as f32 * std::f32::consts::TAU / segments as f32;
@@ -1006,18 +1000,18 @@ fn resolve_projected_defenses(
             let aperture = projected_void(
                 geometry,
                 owner,
-                ResolvedBounds {
-                    min: Vec3::new(
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
                         wall_centre.x - aperture_half.x,
                         bartizan.base_height_metres + 0.75,
                         wall_centre.y - aperture_half.y,
                     ),
-                    max: Vec3::new(
+                    Vec3::new(
                         wall_centre.x + aperture_half.x,
                         bartizan.base_height_metres + 1.22,
                         wall_centre.y + aperture_half.y,
                     ),
-                },
+                )?,
                 VoidRole::FiringAperture,
             );
             firing_apertures.push(aperture);
@@ -1089,7 +1083,8 @@ fn resolve_projected_defenses(
                         .iter()
                         .find(|void| void.id == *id)
                         .and_then(|void| {
-                            let aperture_centre = (void.bounds.min + void.bounds.max) * 0.5;
+                            let aperture_centre =
+                                (void.bounds.min().metres() + void.bounds.max().metres()) * 0.5;
                             let distance =
                                 Vec2::new(aperture_centre.x, aperture_centre.z).distance(centre);
                             (distance < 0.55).then_some((distance, *id, *void))
@@ -1099,15 +1094,18 @@ fn resolve_projected_defenses(
                 .map(|(_, id, void)| (id, void));
             let shell_yaw = -angle - std::f32::consts::FRAC_PI_2;
             if let Some((_id, aperture)) = aperture {
-                let lower_height = aperture.bounds.min.y - bartizan.base_height_metres;
-                let upper_height =
-                    bartizan.base_height_metres + bartizan.height_metres - aperture.bounds.max.y;
+                let lower_height = aperture.bounds.min().metres().y - bartizan.base_height_metres;
+                let upper_height = bartizan.base_height_metres + bartizan.height_metres
+                    - aperture.bounds.max().metres().y;
                 for (height, vertical_centre) in [
                     (
                         lower_height,
                         bartizan.base_height_metres + lower_height * 0.5,
                     ),
-                    (upper_height, aperture.bounds.max.y + upper_height * 0.5),
+                    (
+                        upper_height,
+                        aperture.bounds.max().metres().y + upper_height * 0.5,
+                    ),
                 ] {
                     if height > 0.02 {
                         projected_solid(
@@ -1118,12 +1116,14 @@ fn resolve_projected_defenses(
                             shell_yaw,
                             SolidRole::BartizanShell,
                             vec![floor_node],
-                        );
+                        )?;
                     }
                 }
                 let facet_tangent = Vec2::new(-radial.y, radial.x);
-                let aperture_centre = (aperture.bounds.min + aperture.bounds.max) * 0.5;
-                let aperture_half_bounds = (aperture.bounds.max - aperture.bounds.min) * 0.5;
+                let aperture_centre =
+                    (aperture.bounds.min().metres() + aperture.bounds.max().metres()) * 0.5;
+                let aperture_half_bounds =
+                    (aperture.bounds.max().metres() - aperture.bounds.min().metres()) * 0.5;
                 let aperture_offset =
                     (Vec2::new(aperture_centre.x, aperture_centre.z) - centre).dot(facet_tangent);
                 let splayed_half_width = facet_tangent.x.abs() * aperture_half_bounds.x
@@ -1150,18 +1150,19 @@ fn resolve_projected_defenses(
                         owner,
                         Vec3::new(
                             side_centre.x,
-                            (aperture.bounds.min.y + aperture.bounds.max.y) * 0.5,
+                            (aperture.bounds.min().metres().y + aperture.bounds.max().metres().y)
+                                * 0.5,
                             side_centre.y,
                         ),
                         Vec3::new(
                             side_width,
-                            aperture.bounds.max.y - aperture.bounds.min.y,
+                            aperture.bounds.max().metres().y - aperture.bounds.min().metres().y,
                             0.18,
                         ),
                         shell_yaw,
                         SolidRole::BartizanShell,
                         vec![floor_node],
-                    );
+                    )?;
                 }
             } else {
                 projected_solid(
@@ -1176,16 +1177,11 @@ fn resolve_projected_defenses(
                     shell_yaw,
                     SolidRole::BartizanShell,
                     vec![floor_node],
-                );
+                )?;
             }
         }
         for floor_id in &floor_solids {
-            geometry
-                .solids
-                .iter_mut()
-                .find(|solid| solid.id == *floor_id)
-                .expect("bartizan floor")
-                .longfall_radians = -0.022;
+            geometry.solid_mut(*floor_id)?.longfall_radians = Radians::new(-0.022)?;
         }
         let channel_yaw = -outward.y.atan2(outward.x);
         let bartizan_channel_centre =
@@ -1202,13 +1198,8 @@ fn resolve_projected_defenses(
             channel_yaw,
             SolidRole::DrainageFloor,
             vec![floor_node],
-        );
-        geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == bartizan_channel)
-            .expect("bartizan drainage channel")
-            .longfall_radians = -0.018;
+        )?;
+        geometry.solid_mut(bartizan_channel)?.longfall_radians = Radians::new(-0.018)?;
         let mut weather_catchments = Vec::new();
         let mut weathering_solids = Vec::new();
         if bartizan.roofed {
@@ -1225,7 +1216,7 @@ fn resolve_projected_defenses(
                 yaw,
                 SolidRole::DefenseRoof,
                 vec![floor_node],
-            );
+            )?;
             let (catchment, solids) = resolve_linear_roof_weathering(
                 geometry,
                 owner,
@@ -1237,7 +1228,7 @@ fn resolve_projected_defenses(
                 roof_extent,
                 yaw,
                 floor_node,
-            );
+            )?;
             weather_catchments.push(catchment);
             weathering_solids.extend(solids);
         } else {
@@ -1263,7 +1254,7 @@ fn resolve_projected_defenses(
                     bartizan.base_height_metres + bartizan.height_metres + 0.08,
                     facet_yaw,
                     floor_node,
-                );
+                )?;
                 weather_catchments.push(catchment);
                 weathering_solids.extend(solids);
             }
@@ -1271,18 +1262,18 @@ fn resolve_projected_defenses(
         let drainage_surface = projected_surface(
             geometry,
             owner,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     bartizan.centre.x - bartizan.radius_metres,
                     bartizan.base_height_metres,
                     bartizan.centre.y - bartizan.radius_metres,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     bartizan.centre.x + bartizan.radius_metres,
                     bartizan.base_height_metres + 0.02,
                     bartizan.centre.y + bartizan.radius_metres,
                 ),
-            },
+            )?,
             SurfaceRole::Drainage,
         );
         let drain_route = projected_edge_drain(
@@ -1294,7 +1285,7 @@ fn resolve_projected_defenses(
                 bartizan.centre.y + tangent.y * (half_span + 0.06) + outward.y * (half_span - 0.11),
             ),
             outward,
-        );
+        )?;
         let catchment_id =
             ResolvedItemId((7_u64 << 60) | geometry.drainage_catchments.len() as u64);
         geometry.drainage_catchments.push(DrainageCatchment {
@@ -1360,5 +1351,5 @@ fn resolve_projected_defenses(
             roof_bearing_node: None,
         });
     }
-    assemblies
+    Ok(assemblies)
 }

@@ -4,12 +4,14 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::seed_type::Seed;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct ActivityIncidentEntropy {
     pub id: String,
     pub character_id: u64,
-    pub seed: u64,
+    pub seed: Seed,
 }
 
 impl __sdk::InModule for ActivityIncidentEntropy {
@@ -22,7 +24,7 @@ impl __sdk::InModule for ActivityIncidentEntropy {
 pub struct ActivityIncidentEntropyCols {
     pub id: __sdk::__query_builder::Col<ActivityIncidentEntropy, String>,
     pub character_id: __sdk::__query_builder::Col<ActivityIncidentEntropy, u64>,
-    pub seed: __sdk::__query_builder::Col<ActivityIncidentEntropy, u64>,
+    pub seed: __sdk::__query_builder::Col<ActivityIncidentEntropy, Seed>,
 }
 
 impl __sdk::__query_builder::HasCols for ActivityIncidentEntropy {

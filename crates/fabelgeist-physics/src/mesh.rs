@@ -6,11 +6,13 @@
 //! passes instead of a sort.
 
 use anyhow::anyhow;
-use fabelgeist_bvh::gpu::{BvhKernels, GpuBvh, TraversalConfig, traversal_source};
+use fabelgeist_bvh::gpu::{BvhKernels, BvhLayout, BvhPrimitiveCount, GpuBvh, TraversalConfig, traversal_source};
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
+use fabelgeist_mesh::{MeshTriangleCount, MeshVertexCount};
+use std::fmt;
 
 use crate::wgsl;
 
@@ -33,20 +35,26 @@ impl Default for MeshSurface {
     }
 }
 
+/// A collider layout whose native triangle indices cannot be addressed.
+#[derive(Debug)]
+pub struct MeshColliderLayoutError {
+    triangles: MeshTriangleCount,
+}
+
 pub struct MeshCollider {
     /// xyz = vertex position. `vec4` because that is what the kernels index.
-    pub positions: Buffer,
+    positions: Buffer,
     /// Three vertex indices per triangle.
-    pub triangles: Buffer,
+    triangles: Buffer,
     /// Two `vec4` per triangle: the lower then the upper corner.
-    pub bounds: Buffer,
+    bounds: Buffer,
 
-    pub bvh: GpuBvh,
-    pub surface: MeshSurface,
+    bvh: GpuBvh,
+    surface: MeshSurface,
 
     triangle_bounds: std::sync::Arc<Kernel>,
-    vertex_count: u32,
-    triangle_count: u32,
+    vertex_count: MeshVertexCount,
+    triangle_count: MeshTriangleCount,
 }
 
 impl MeshCollider {
@@ -70,11 +78,17 @@ impl MeshCollider {
             }
         }
 
-        let triangle_count = triangles.len() as u32;
+        let vertex_count = MeshVertexCount::try_from(positions.len())?;
+        let triangle_count = MeshTriangleCount::try_from(triangles.len())?;
+        let corner_count = triangle_count.checked_corners()
+            .ok_or(MeshColliderLayoutError { triangles: triangle_count })?;
+        let primitives = BvhPrimitiveCount::from(triangle_count);
+        let bvh_layout = BvhLayout::try_from(primitives)?;
         let storage = BufferDefinition::storage();
 
         let packed_positions = pack_positions(positions);
-        let flat_triangles: Vec<u32> = triangles.iter().flatten().copied().collect();
+        let mut flat_triangles = Vec::with_capacity(usize::from(corner_count));
+        flat_triangles.extend(triangles.iter().flatten().copied());
 
         let mut collider = Self {
             positions: Buffer::from_upload(
@@ -93,13 +107,13 @@ impl MeshCollider {
             )?,
             bounds: Buffer::new(
                 context,
-                (triangle_count as u64 * 32).into(),
+                primitives.bounds_bytes(),
                 storage.with_label(("mesh collider triangle bounds").into()),
             )?,
-            bvh: GpuBvh::new(context, bvh_kernels, triangle_count)?,
+            bvh: GpuBvh::new(context, bvh_kernels, bvh_layout)?,
             surface,
             triangle_bounds: cache.get(context, wgsl::TRIANGLE_BOUNDS)?,
-            vertex_count: positions.len() as u32,
+            vertex_count,
             triangle_count,
         };
 
@@ -107,18 +121,23 @@ impl MeshCollider {
         Ok(collider)
     }
 
-    pub fn triangle_count(&self) -> u32 {
+    /// Fixed material configuration used to expand the cached primitive bounds.
+    pub fn surface(&self) -> MeshSurface {
+        self.surface
+    }
+
+    pub fn triangle_count(&self) -> MeshTriangleCount {
         self.triangle_count
     }
 
-    pub fn vertex_count(&self) -> u32 {
+    pub fn vertex_count(&self) -> MeshVertexCount {
         self.vertex_count
     }
 
     /// Replace the vertex positions. The topology is unchanged, so the caller
     /// then wants [`MeshCollider::record_refit`] rather than a rebuild.
     pub fn write_positions(&mut self, context: &WgpuContext, positions: &[Vec3]) -> Result<()> {
-        if positions.len() as u32 != self.vertex_count {
+        if MeshVertexCount::try_from(positions.len())? != self.vertex_count {
             return Err(anyhow!(
                 "MeshCollider: holds {} vertices, given {}",
                 self.vertex_count,
@@ -143,7 +162,7 @@ impl MeshCollider {
         parameters.insert("margin", self.surface.thickness);
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.triangle_bounds, &parameters, self.triangle_count)?;
+        batch.dispatch_items(&self.triangle_bounds, &parameters, self.triangle_count.into())?;
         Ok(())
     }
 
@@ -153,7 +172,7 @@ impl MeshCollider {
     pub fn record_rebuild(&mut self, batch: &mut KernelBatch) -> Result<()> {
         self.record_bounds(batch)?;
         let bounds = self.bounds.clone();
-        self.bvh.record_build(batch, &bounds, self.triangle_count)?;
+        self.bvh.record_build(batch, &bounds, self.triangle_count.into())?;
         Ok(())
     }
 
@@ -203,3 +222,11 @@ pub fn pack_positions(positions: &[Vec3]) -> Vec<f32> {
     }
     packed
 }
+
+impl fmt::Display for MeshColliderLayoutError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(formatter, "mesh collider corners for {} triangles exceed native addresses", self.triangles)
+    }
+}
+
+impl std::error::Error for MeshColliderLayoutError {}

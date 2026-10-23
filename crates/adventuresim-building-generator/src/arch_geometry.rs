@@ -51,7 +51,7 @@ impl ArchGeometry {
         let tangent = wall
             .map_or_else(
                 || {
-                    if solid.size.z > solid.size.x {
+                    if solid.size.metres().z > solid.size.metres().x {
                         Vec3::Z
                     } else {
                         Vec3::X
@@ -62,12 +62,12 @@ impl ArchGeometry {
             .normalize();
         let outward = tangent.cross(Vec3::Y);
         Some(Self {
-            centre: solid.centre,
+            centre: solid.centre.metres(),
             tangent,
             outward,
-            width: solid.size.dot(tangent.abs()),
-            height: solid.size.y,
-            depth: solid.size.dot(outward.abs()),
+            width: solid.size.metres().dot(tangent.abs()),
+            height: solid.size.metres().y,
+            depth: solid.size.metres().dot(outward.abs()),
             clear_span,
             spring,
             rise,
@@ -99,12 +99,13 @@ impl ArchGeometry {
         let half = self.width * 0.5;
         let mouth = (self.clear_span * 0.5).min(half);
         let mut coordinates = vec![-half];
-        coordinates.extend(
-            (0..=ARCH_SEGMENTS)
-                .map(|index| -mouth + 2.0 * mouth * index as f32 / ARCH_SEGMENTS as f32),
-        );
+        coordinates.extend((0..=ARCH_SEGMENTS).map(|index| match index {
+            0 => -mouth,
+            ARCH_SEGMENTS => mouth,
+            _ => -mouth + 2.0 * mouth * index as f32 / ARCH_SEGMENTS as f32,
+        }));
         coordinates.push(half);
-        coordinates.dedup_by(|a, b| (*a - *b).abs() < f32::EPSILON);
+        coordinates.dedup_by(|a, b| *a == *b);
         coordinates
             .windows(2)
             .map(|pair| {

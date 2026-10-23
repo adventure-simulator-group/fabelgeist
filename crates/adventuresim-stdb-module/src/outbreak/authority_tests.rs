@@ -33,7 +33,7 @@ pub fn authority_test_outbreak_patient_lifecycle(
     let actor = 732004;
     let now = crate::time::refresh_clock(ctx)?.saturating_add_minutes(1_000);
     let mut generated = generate(&GenerationContext {
-        seed: 0,
+        seed: fabelgeist_determinism::Seed::from_u64(0),
         observer_entropy_hi: 732,
         observer_entropy_lo: 87,
         settlement_id: "riverdale".into(),

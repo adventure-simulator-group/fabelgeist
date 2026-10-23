@@ -12,9 +12,28 @@ use std::sync::Arc;
 use anyhow::anyhow;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
-use fabelgeist_xpbd::{Particles, SubstepHook};
+use fabelgeist_xpbd::{ParticleCount, Particles, SubstepHook};
 
 use crate::wgsl;
+use layout::{CollisionAdjacency, CollisionBuckets};
+pub use layout::CollisionLayoutError;
+
+mod layout;
+
+/// Whether to rebuild cell membership or reuse a previously recorded grid.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum GridUpdate {
+    Rebuild,
+    /// Valid only while all particles remain in their previously hashed cells.
+    /// A missing grid or changed population still requires a rebuild.
+    Reuse,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum GridState {
+    Unbuilt,
+    Recorded(ParticleCount),
+}
 
 /// The hash grid, its buffers, and the passes over them.
 pub struct SelfCollision {
@@ -34,17 +53,14 @@ pub struct SelfCollision {
     neighbours: Buffer,
     scratch: SortScratch,
 
-    table_size: u32,
-    capacity: u32,
+    table_size: CollisionBuckets,
+    capacity: ParticleCount,
     /// Particles closer than twice this are pushed apart. Half the fabric
     /// thickness, so two layers rest one thickness apart.
-    pub radius: f32,
-    /// Grid spacing. Equal to the interaction diameter, so that the 27
-    /// neighbouring buckets are guaranteed to hold every particle in range.
-    spacing: f32,
+    radius: f32,
     pub enabled: bool,
-    /// Whether a grid has been built at least once.
-    built: bool,
+    /// Whether a grid has been recorded since the last radius change.
+    grid_state: GridState,
 }
 
 impl SelfCollision {
@@ -55,33 +71,22 @@ impl SelfCollision {
     pub fn new(
         context: &WgpuContext,
         cache: &KernelCache,
-        particle_count: u32,
+        particle_count: ParticleCount,
         adjacency: &[Vec<u32>],
         radius: f32,
     ) -> Result<Self> {
-        if adjacency.len() as u32 != particle_count {
+        if adjacency.len() != usize::from(particle_count) {
             return Err(anyhow!(
                 "SelfCollision: {particle_count} particles but {} adjacency lists",
                 adjacency.len()
             ));
         }
-        let capacity = particle_count.max(1);
+        let capacity = particle_count.max(ParticleCount::from(1));
         // Roughly two buckets per particle keeps the occupancy low enough that
         // a bucket is a handful of entries, and the memory is trivial.
-        let table_size = (capacity * 2).next_power_of_two().max(64);
+        let table_size = CollisionBuckets::for_particles(capacity)?;
 
-        let mut starts_data = Vec::with_capacity(capacity as usize + 1);
-        let mut flat = Vec::new();
-        for list in adjacency {
-            starts_data.push(flat.len() as u32);
-            flat.extend_from_slice(list);
-        }
-        starts_data.push(flat.len() as u32);
-        if flat.is_empty() {
-            // A zero-length buffer cannot be allocated; the ranges are all
-            // empty so nothing reads it.
-            flat.push(0);
-        }
+        let adjacency = CollisionAdjacency::new(adjacency)?;
 
         let storage = BufferDefinition::storage();
         Ok(Self {
@@ -94,40 +99,40 @@ impl SelfCollision {
 
             cells: Buffer::new(
                 context,
-                (capacity as u64 * 4).into(),
+                (u64::from(capacity.native_elements()) * 4).into(),
                 storage.clone().with_label(("self-collision cells").into()),
             )?,
             indices: Buffer::new(
                 context,
-                (capacity as u64 * 4).into(),
+                (u64::from(capacity.native_elements()) * 4).into(),
                 storage
                     .clone()
                     .with_label(("self-collision indices").into()),
             )?,
             starts: Buffer::new(
                 context,
-                ((table_size as u64 + 1) * 4).into(),
+                table_size.range_bytes(),
                 storage
                     .clone()
                     .with_label(("self-collision buckets").into()),
             )?,
             corrections: Buffer::new(
                 context,
-                (capacity as u64 * 16).into(),
+                (u64::from(capacity.native_elements()) * 16).into(),
                 storage
                     .clone()
                     .with_label(("self-collision corrections").into()),
             )?,
             neighbour_starts: Buffer::from_upload(
                 context,
-                BufferUpload::from_elements(&starts_data),
+                BufferUpload::from_elements(adjacency.starts()),
                 storage
                     .clone()
                     .with_label(("self-collision adjacency starts").into()),
             )?,
             neighbours: Buffer::from_upload(
                 context,
-                BufferUpload::from_elements(&flat),
+                BufferUpload::from_elements(adjacency.neighbours()),
                 storage.with_label(("self-collision adjacency").into()),
             )?,
             scratch: SortScratch::new(context, capacity.into())?,
@@ -135,9 +140,8 @@ impl SelfCollision {
             table_size,
             capacity,
             radius,
-            spacing: radius * 2.0,
             enabled: true,
-            built: false,
+            grid_state: GridState::Unbuilt,
         })
     }
 
@@ -153,27 +157,27 @@ impl SelfCollision {
 
     pub fn set_radius(&mut self, radius: f32) {
         self.radius = radius;
-        self.spacing = radius * 2.0;
-        self.built = false;
+        self.grid_state = GridState::Unbuilt;
     }
 
     /// Record one self-collision pass.
     ///
     /// Rebuild after integration or constraint corrections: even a small
     /// displacement can cross a hash cell boundary. Reuse is valid only when
-    /// every particle remains in its previously hashed cell. Cloth rebuilds
-    /// before and after its structural solve to satisfy that requirement.
+    /// every particle remains in its previously hashed cell. A changed live
+    /// population always rebuilds. Cloth rebuilds before and after its
+    /// structural solve to satisfy the spatial requirement.
     pub fn record(
         &mut self,
         batch: &mut KernelBatch,
         particles: &Particles,
-        rebuild: bool,
+        update: GridUpdate,
     ) -> Result<()> {
         if !self.enabled {
             return Ok(());
         }
         let count = particles.count();
-        if count < 2 {
+        if count < ParticleCount::from(2) {
             return Ok(());
         }
         if count > self.capacity {
@@ -183,27 +187,28 @@ impl SelfCollision {
             ));
         }
 
-        let inverse_spacing = 1.0 / self.spacing;
+        // Cell spacing is the interaction diameter, so the 27 neighboring
+        // cells cover every candidate within range.
+        let inverse_spacing = 1.0 / (self.radius * 2.0);
 
-        if !rebuild && !self.built {
-            // Nothing to collide against yet: the first substep after a
-            // rebuild-less start still has to build one.
-            return self.record(batch, particles, true);
+        if update == GridUpdate::Reuse {
+            if self.grid_state == GridState::Recorded(count) {
+                return self.record_collide(batch, particles, inverse_spacing);
+            }
+            // No grid, or another population: old sorted slots cannot be reused.
+            return self.record(batch, particles, GridUpdate::Rebuild);
         }
-        if !rebuild {
-            return self.record_collide(batch, particles, inverse_spacing);
-        }
-        self.built = true;
+        self.grid_state = GridState::Recorded(count);
 
         let mut hash_parameters = PassParameters::new();
-        hash_parameters.insert("positions", particles.positions.clone());
+        hash_parameters.insert("positions", particles.positions().clone());
         hash_parameters.insert("cells", self.cells.clone());
         hash_parameters.insert("indices", self.indices.clone());
         hash_parameters.insert("count", count);
         hash_parameters.insert("table_size", self.table_size);
         hash_parameters.insert("inverse_spacing", inverse_spacing);
         hash_parameters.insert("pad", 0u32);
-        batch.dispatch_items(&self.hash, &hash_parameters, count)?;
+        batch.dispatch_items(&self.hash, &hash_parameters, count.into())?;
 
         // Sorting the indices by bucket is what makes a bucket contiguous.
         self.sort.record(
@@ -221,7 +226,7 @@ impl SelfCollision {
         clear_parameters.insert("count", count);
         clear_parameters.insert("pad0", 0u32);
         clear_parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.clear_ranges, &clear_parameters, self.table_size + 1)?;
+        batch.dispatch_items(&self.clear_ranges, &clear_parameters, self.table_size.boundary_invocations())?;
 
         let mut range_parameters = PassParameters::new();
         range_parameters.insert("cells", self.cells.clone());
@@ -230,7 +235,7 @@ impl SelfCollision {
         range_parameters.insert("table_size", self.table_size);
         range_parameters.insert("pad0", 0u32);
         range_parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.cell_ranges, &range_parameters, count)?;
+        batch.dispatch_items(&self.cell_ranges, &range_parameters, count.into())?;
 
         self.record_collide(batch, particles, inverse_spacing)
     }
@@ -244,7 +249,7 @@ impl SelfCollision {
     ) -> Result<()> {
         let count = particles.count();
         let mut collide_parameters = PassParameters::new();
-        collide_parameters.insert("positions", particles.positions.clone());
+        collide_parameters.insert("positions", particles.positions().clone());
         collide_parameters.insert("cells", self.cells.clone());
         collide_parameters.insert("sorted", self.indices.clone());
         collide_parameters.insert("starts", self.starts.clone());
@@ -255,16 +260,16 @@ impl SelfCollision {
         collide_parameters.insert("table_size", self.table_size);
         collide_parameters.insert("inverse_spacing", inverse_spacing);
         collide_parameters.insert("radius", self.radius);
-        batch.dispatch_items(&self.collide, &collide_parameters, count)?;
+        batch.dispatch_items(&self.collide, &collide_parameters, count.into())?;
 
         let mut apply_parameters = PassParameters::new();
-        apply_parameters.insert("positions", particles.positions.clone());
+        apply_parameters.insert("positions", particles.positions().clone());
         apply_parameters.insert("corrections", self.corrections.clone());
         apply_parameters.insert("count", count);
         apply_parameters.insert("pad0", 0u32);
         apply_parameters.insert("pad1", 0u32);
         apply_parameters.insert("pad2", 0u32);
-        batch.dispatch_items(&self.apply, &apply_parameters, count)?;
+        batch.dispatch_items(&self.apply, &apply_parameters, count.into())?;
 
         Ok(())
     }
@@ -278,6 +283,6 @@ impl SubstepHook for SelfCollision {
         _substep: f32,
     ) -> Result<()> {
         // Integration can move particles across cell boundaries.
-        SelfCollision::record(self, batch, particles, true)
+        SelfCollision::record(self, batch, particles, GridUpdate::Rebuild)
     }
 }

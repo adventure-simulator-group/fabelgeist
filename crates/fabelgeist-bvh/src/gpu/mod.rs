@@ -1,13 +1,12 @@
-//! A linear BVH built on the GPU.
+//! A linear bounding volume hierarchy (BVH), built on the GPU.
 //!
 //! Morton-code order, Karras hierarchy, atomic bottom-up refit -- the whole
 //! build records into a [`KernelBatch`] and never reads anything back, so a
 //! deforming mesh can be rebuilt inside the frame that deforms it.
 //!
-//! The tree it produces is worse than the surface-area-heuristic one in
-//! [`crate::cpu`]: Morton order splits on a fixed grid rather than on where
-//! the primitives actually are. It is built in milliseconds on the device the
-//! primitives already live on, which is the trade being made.
+//! Morton order splits on a fixed grid. The surface-area heuristic in
+//! [`crate::cpu`] instead chooses splits from the primitives' bounds. This
+//! build keeps the data and the work on the device.
 //!
 //! When only the vertices move and the topology does not -- a posed body, a
 //! simulated cloth -- [`GpuBvh::record_refit`] skips straight to the refit and
@@ -15,19 +14,17 @@
 //! geometry as the mesh deforms, so a full [`GpuBvh::record_build`] is still
 //! worth doing periodically.
 
-pub mod shaders;
-
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 
 pub use shaders::{TraversalConfig, traversal_source};
+pub use layout::{BvhLayout, BvhLayoutError, BvhNodeCount, BvhPrimitiveCount};
+
+mod layout;
+mod storage;
+pub mod shaders;
 
 use crate::morton;
-
-/// Bytes per node: two `vec4<f32>`.
-const NODE_BYTES: u64 = 32;
-/// Words per node in the atomic scratch: lower xyz then upper xyz.
-const BOUNDS_WORDS: u64 = 6;
 
 /// The compiled build passes, shared by every hierarchy on a device.
 #[derive(Clone, Debug)]
@@ -69,100 +66,31 @@ pub struct GpuBvh {
     kernels: BvhKernels,
 
     /// Two `vec4<f32>` per node. See [`shaders`] for the layout.
-    pub nodes: Buffer,
+    nodes: Buffer,
     /// Right child of each internal node.
-    pub right_children: Buffer,
+    right_children: Buffer,
     /// Primitives in Morton order.
-    pub indices: Buffer,
+    indices: Buffer,
     /// Parent of each node. The root's entry is never read.
-    pub parents: Buffer,
+    parents: Buffer,
 
     codes: Buffer,
     scene_bounds: Buffer,
     node_bounds: Buffer,
     sort_scratch: SortScratch,
 
-    capacity: u32,
-    count: u32,
+    capacity_layout: BvhLayout,
+    recorded_layout: BvhLayout,
+}
+
+/// Result of ensuring an allocated hierarchy's primitive capacity.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum BvhGrowth {
+    Unchanged,
+    Grown,
 }
 
 impl GpuBvh {
-    /// Allocate for up to `capacity` primitives.
-    pub fn new(context: &WgpuContext, kernels: BvhKernels, capacity: u32) -> Result<Self> {
-        let capacity = capacity.max(1);
-        let nodes = 2 * capacity as u64 - 1;
-        let storage = BufferDefinition::storage();
-
-        Ok(Self {
-            kernels,
-            nodes: Buffer::new(
-                context,
-                (nodes * NODE_BYTES).into(),
-                storage.clone().with_label(("bvh nodes").into()),
-            )?,
-            right_children: Buffer::new(
-                context,
-                ((capacity as u64).max(1) * 4).into(),
-                storage.clone().with_label(("bvh right children").into()),
-            )?,
-            indices: Buffer::new(
-                context,
-                (capacity as u64 * 4).into(),
-                storage.clone().with_label(("bvh indices").into()),
-            )?,
-            parents: Buffer::new(
-                context,
-                (nodes * 4).into(),
-                storage.clone().with_label(("bvh parents").into()),
-            )?,
-            codes: Buffer::new(
-                context,
-                (capacity as u64 * 4).into(),
-                storage.clone().with_label(("bvh morton codes").into()),
-            )?,
-            scene_bounds: Buffer::new(
-                context,
-                (BOUNDS_WORDS * 4).into(),
-                storage.clone().with_label(("bvh scene bounds").into()),
-            )?,
-            node_bounds: Buffer::new(
-                context,
-                (nodes * BOUNDS_WORDS * 4).into(),
-                storage.with_label(("bvh node bounds").into()),
-            )?,
-            sort_scratch: SortScratch::new(context, capacity.into())?,
-            capacity,
-            count: 0,
-        })
-    }
-
-    pub fn capacity(&self) -> u32 {
-        self.capacity
-    }
-
-    /// Primitive count as of the last recorded build.
-    pub fn count(&self) -> u32 {
-        self.count
-    }
-
-    /// Node count for the current primitive count.
-    pub fn node_count(&self) -> u32 {
-        if self.count == 0 {
-            0
-        } else {
-            2 * self.count - 1
-        }
-    }
-
-    /// Reallocate if `capacity` no longer fits.
-    pub fn ensure_capacity(&mut self, context: &WgpuContext, capacity: u32) -> Result<bool> {
-        if capacity <= self.capacity {
-            return Ok(false);
-        }
-        *self = Self::new(context, self.kernels.clone(), capacity)?;
-        Ok(true)
-    }
-
     /// The buffers a traversal generated by [`traversal_source`] expects,
     /// under the default [`TraversalConfig`] names.
     pub fn parameters(&self) -> PassParameters {
@@ -178,7 +106,7 @@ impl GpuBvh {
         parameters.insert(config.indices.clone(), self.indices.clone());
     }
 
-    fn params(&self, count: u32) -> PassParameters {
+    fn params(&self, count: BvhPrimitiveCount) -> PassParameters {
         let mut parameters = PassParameters::new();
         parameters.insert("count", count);
         parameters.insert("pad0", 0u32);
@@ -198,16 +126,17 @@ impl GpuBvh {
         &mut self,
         batch: &mut KernelBatch,
         primitive_bounds: &Buffer,
-        count: u32,
+        count: BvhPrimitiveCount,
     ) -> Result<()> {
-        if count > self.capacity {
+        if count > self.capacity() {
             return Err(anyhow::anyhow!(
                 "GpuBvh: built for {} primitives, asked for {count}",
-                self.capacity
+                self.capacity()
             ));
         }
-        self.count = count;
-        if count == 0 {
+        let layout = BvhLayout::try_from(count)?;
+        self.recorded_layout = layout;
+        if count.is_empty() {
             return Ok(());
         }
 
@@ -217,21 +146,21 @@ impl GpuBvh {
         // kernel writes the sentinels rather than `clear_buffer` zeroing. One
         // "node" of six words is exactly the scene-bounds layout, so the same
         // kernel does this job with a count of one.
-        let mut clear_scene = self.params(1);
+        let mut clear_scene = self.params(BvhPrimitiveCount::from(1));
         clear_scene.insert("node_bounds", self.scene_bounds.clone());
-        batch.dispatch(&self.kernels.clear_bounds, &clear_scene, [1, 1, 1])?;
+        batch.dispatch(&self.kernels.clear_bounds, &clear_scene, WorkgroupGrid::from([1, 1, 1]))?;
 
         let mut bounds = params.clone();
         bounds.insert("primitive_bounds", primitive_bounds.clone());
         bounds.insert("scene_bounds", self.scene_bounds.clone());
-        batch.dispatch_items(&self.kernels.bounds, &bounds, count)?;
+        batch.dispatch_items(&self.kernels.bounds, &bounds, count.into())?;
 
         let mut codes = params.clone();
         codes.insert("primitive_bounds", primitive_bounds.clone());
         codes.insert("scene_bounds", self.scene_bounds.clone());
         codes.insert("codes", self.codes.clone());
         codes.insert("indices", self.indices.clone());
-        batch.dispatch_items(&self.kernels.codes, &codes, count)?;
+        batch.dispatch_items(&self.kernels.codes, &codes, count.into())?;
 
         self.kernels.sort.record(
             batch,
@@ -239,7 +168,7 @@ impl GpuBvh {
             &self.indices,
             &mut self.sort_scratch,
             count.into(),
-            morton::BITS.into(),
+            morton::sort_key_width(),
         )?;
 
         let mut hierarchy = params.clone();
@@ -247,54 +176,54 @@ impl GpuBvh {
         hierarchy.insert("nodes", self.nodes.clone());
         hierarchy.insert("parents", self.parents.clone());
         hierarchy.insert("right_children", self.right_children.clone());
-        batch.dispatch_items(&self.kernels.hierarchy, &hierarchy, count.saturating_sub(1))?;
+        batch.dispatch_items(&self.kernels.hierarchy, &hierarchy, count.internal_nodes().into())?;
 
-        self.record_refit_passes(batch, primitive_bounds, count)?;
+        self.record_refit_passes(batch, primitive_bounds, layout)?;
         Ok(())
     }
 
     /// Record a refit only: keep the ordering and the topology, recompute
     /// every box.
     ///
-    /// Valid only after a [`GpuBvh::record_build`] with the same primitive
-    /// count, and only while the primitives are still roughly where the
-    /// Morton order put them.
+    /// Requires a [`GpuBvh::record_build`] with the same primitive count.
+    /// Large deformations can make the retained Morton ordering less useful
+    /// for traversal; a rebuild restores that spatial ordering.
     pub fn record_refit(
         &mut self,
         batch: &mut KernelBatch,
         primitive_bounds: &Buffer,
     ) -> Result<()> {
-        if self.count == 0 {
+        if self.count().is_empty() {
             return Ok(());
         }
-        let count = self.count;
-        self.record_refit_passes(batch, primitive_bounds, count)
+        self.record_refit_passes(batch, primitive_bounds, self.recorded_layout)
     }
 
     fn record_refit_passes(
         &mut self,
         batch: &mut KernelBatch,
         primitive_bounds: &Buffer,
-        count: u32,
+        layout: BvhLayout,
     ) -> Result<()> {
-        let nodes = 2 * count - 1;
+        let count = layout.primitive_count();
+        let nodes = layout.node_count();
         let params = self.params(count);
 
         let mut clear = params.clone();
         clear.insert("node_bounds", self.node_bounds.clone());
-        batch.dispatch_items(&self.kernels.clear_bounds, &clear, nodes)?;
+        batch.dispatch_items(&self.kernels.clear_bounds, &clear, nodes.into())?;
 
         let mut refit = params.clone();
         refit.insert("primitive_bounds", primitive_bounds.clone());
         refit.insert("indices", self.indices.clone());
         refit.insert("parents", self.parents.clone());
         refit.insert("node_bounds", self.node_bounds.clone());
-        batch.dispatch_items(&self.kernels.refit, &refit, count)?;
+        batch.dispatch_items(&self.kernels.refit, &refit, count.into())?;
 
         let mut gather = params;
         gather.insert("node_bounds", self.node_bounds.clone());
         gather.insert("nodes", self.nodes.clone());
-        batch.dispatch_items(&self.kernels.gather_bounds, &gather, nodes)?;
+        batch.dispatch_items(&self.kernels.gather_bounds, &gather, nodes.into())?;
 
         Ok(())
     }
@@ -305,7 +234,7 @@ impl GpuBvh {
         &mut self,
         context: &WgpuContext,
         primitive_bounds: &Buffer,
-        count: u32,
+        count: BvhPrimitiveCount,
     ) -> Result<()> {
         let mut batch = KernelBatch::labelled(context, "GpuBvh build");
         self.record_build(&mut batch, primitive_bounds, count)?;
@@ -313,36 +242,6 @@ impl GpuBvh {
         Ok(())
     }
 
-    /// Read the hierarchy back as host-side nodes. For tests and debugging --
-    /// it stalls on the device.
-    pub async fn read_nodes(&self, context: &WgpuContext) -> Result<Vec<HostNode>> {
-        let raw: Vec<f32> = self.nodes.read(context).await?;
-        let count = self.node_count() as usize;
-        Ok((0..count)
-            .map(|i| {
-                let lower = &raw[i * 8..i * 8 + 4];
-                let upper = &raw[i * 8 + 4..i * 8 + 8];
-                HostNode {
-                    bounds: crate::Aabb::new(
-                        fabelgeist_math::Vec3::new(lower[0], lower[1], lower[2]),
-                        fabelgeist_math::Vec3::new(upper[0], upper[1], upper[2]),
-                    ),
-                    left_or_first: lower[3].to_bits(),
-                    count: upper[3].to_bits(),
-                }
-            })
-            .collect())
-    }
-
-    pub async fn read_indices(&self, context: &WgpuContext) -> Result<Vec<u32>> {
-        let all: Vec<u32> = self.indices.read(context).await?;
-        Ok(all[..self.count as usize].to_vec())
-    }
-
-    pub async fn read_right_children(&self, context: &WgpuContext) -> Result<Vec<u32>> {
-        let all: Vec<u32> = self.right_children.read(context).await?;
-        Ok(all[..self.count.saturating_sub(1) as usize].to_vec())
-    }
 }
 
 /// A node read back to the host, for tests and debugging.

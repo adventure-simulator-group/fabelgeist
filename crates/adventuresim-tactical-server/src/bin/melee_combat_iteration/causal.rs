@@ -99,7 +99,7 @@ fn record_movement_event(
         .zip(event.engagement_distance_after_metres)
         .map_or(0.0, |(before, after)| (after - before).abs());
     combatant.movement_nonzero_delta_zero_elapsed +=
-        u64::from(distance_delta > f32::EPSILON && elapsed <= 0.0);
+        u64::from(distance_delta > 0.0 && elapsed <= 0.0);
 }
 
 fn record_response_event(

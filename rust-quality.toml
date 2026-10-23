@@ -8,6 +8,18 @@ excluded_paths = [
 ]
 
 [[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-tactical-client/build.rs"
+item = "CargoPackageRole::from"
+reason = "Classifies Cargo lockfile package names in the derived Serde String conversion without admitting non-string values."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-world-schema/src/regional_connection.rs"
+item = "RegionalConnectionKind::from_str"
+reason = "Admits the closed Viabundus CSV connection categories into the shared presentation classification."
+
+[[scopes]]
 kind = "authored_catalog"
 path = "crates/adventuresim-tactical-client/src/animation_viewer/inspection.rs"
 item = "inspect_materials"
@@ -149,6 +161,29 @@ reason = "Authored weapon recipes are cohesive catalog data."
 kind = "boundary_adapter"
 path = "crates/fabelgeist-gpu/src/data/gpu/**"
 reason = "This subsystem parses and emits an external shader language."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/fabelgeist-hair/src/export/**"
+reason = "Hair exporters read and write NumPy and PLY files, whose headers name their own fields and types."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/fabelgeist-hair/src/difflocks.rs"
+item = "load_sample"
+reason = "Reader of the DiffLocks dataset's sample archives, keyed by the dataset's array names."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/fabelgeist-hair/src/surface.rs"
+item = "Surface::from_ply"
+reason = "The PLY scalp reader matches the file's vertex property names."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/fabelgeist-hair/src/material.rs"
+item = "HairMaterial::named"
+reason = "Lookup of Blender's named hair colours by the names its tools and datasets use."
 
 [[scopes]]
 kind = "boundary_adapter"
@@ -778,3 +813,171 @@ reason = "Feature-gated bootstrap-capability-guarded social request and executio
 kind = "fixture"
 path = "crates/adventuresim-stdb-module/src/investigation/authority_tests.rs"
 reason = "Feature-gated bootstrap-capability-guarded investigation storage, snapshot, and prerequisite acceptance fixtures."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-tactical-core/src/city_layout/grounding/boundaries.rs"
+item = "predicate_error"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Bounds eight scalar operations in a planar orientation predicate using edge length and scene-coordinate magnitude; the result has area units."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs"
+item = "GroundTriangle::new"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Bounds coordinate differences, products and determinant subtraction in the canonical stored order; the bound has area units and rejects unmeasurable affine planes independently of physical scale."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs"
+item = "surface"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Bounds interpolation, coordinate differences and cross-product roundoff by scene-coordinate and edge magnitudes, in area units; an unresolved upward normal cannot make a retaining wall into a ground-height comparison face."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-tactical-core/src/scene/grade.rs"
+item = "constrain"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Bounds conversion and iteration roundoff at the actual heightmap magnitude when checking a physical grade limit."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs"
+item = "tests::imported_scene_samples_a_known_final_pack_coordinate"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Accounts for f32 rounding at the imported absolute elevation when comparing the sampled pack height in metres."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/construction/mod.rs"
+item = "FLOAT32_STRIP_SEPARATION"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Derives a representable strip separation from the declared model-frame extent before f32 mesh export."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/construction/partition.rs"
+item = "Region::partition"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Bounds plane-coordinate classification roundoff using the actual partition coordinate scale."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/construction/partitioned_curve.rs"
+item = "partitioned_cubic"
+fingerprint = "EPSILON"
+occurrences = 2
+reason = "Bounds cubic-coordinate evaluation by control-point magnitude and root-parameter rounding on the normalized [0, 1] interval."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/construction/partitioned_curve.rs"
+item = "roots"
+fingerprint = "EPSILON"
+occurrences = 2
+reason = "Bounds Bernstein polynomial evaluation by coefficient magnitude and deduplicates root parameters on the normalized [0, 1] interval."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/construction/partitioned_curve_tests.rs"
+item = "conditioned_cut_equations_keep_one_physical_junction"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Checks the root solver rounding budget scaled to the physical junction coordinate."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/construction/partitioned_curve_tests.rs"
+item = "near_terminal_cut_retains_exact_authored_endpoint"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Constructs a scale-relative near-terminal cut to exercise endpoint coalescing across model sizes."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/construction/planar_cells.rs"
+item = "collinear"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Bounds the cross-product cancellation error using the products of the actual planar components."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/construction/surface_refinement.rs"
+item = "within_surface_edge"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Bounds edge-length arithmetic using endpoint coordinate magnitude before conservative surface refinement."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/construction/truncate.rs"
+item = "Solid::truncate_y"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Bounds plane-classification roundoff at the solid coordinate scale."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/model/spear_socket.rs"
+item = "angles"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Derives the minimum angular separation whose quadratic circular displacement survives f32 export."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/model/spear_socket.rs"
+item = "refine_angles"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Uses the same f32 representability limit for adaptive socket-angle subdivision."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs"
+item = "Clearance<'_,'_>::inside"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Applies a dimensionless relative rounding budget multiplicatively to computed groove widths and depths."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/fabelgeist-armor/src/tiling/surface.rs"
+item = "Frame::step"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Checks a Gram determinant relative to its diagonal product, expressing numerical conditioning rather than a physical area cutoff."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/fabelgeist-garment-code/src/math.rs"
+item = "r_to_euler::ROTATION_MATRIX_ROUNDOFF"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Bounds ten scalar operations on normalized rotation-matrix entries at the gimbal-lock singularity."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/fabelgeist-garment-code/src/optimize.rs"
+item = "FTOL"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Implements the documented L-BFGS-B relative function-reduction criterion, factr times machine precision; it is part of the optimizer algorithm."
+
+[[exceptions]]
+rule = "machine-epsilon"
+path = "crates/adventuresim-procedural-textures/src/fracture_planes.rs"
+item = "Parameters::sample"
+fingerprint = "EPSILON"
+occurrences = 1
+reason = "Bounds coordinate subtraction, cross products, division and normalized-weight subtraction using cell-coordinate magnitude and the triangle determinant."

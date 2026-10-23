@@ -100,12 +100,12 @@ impl OuterLayer {
             faces,
         );
         if changed {
-            particles.positions.write(
+            particles.positions().write(
                 context,
                 fabelgeist_xpbd::ParticlePositions::new(&positions, particles.inverse_masses())?
                     .upload(),
             )?;
-            particles.velocities.write(
+            particles.velocities().write(
                 context,
                 fabelgeist_xpbd::ParticleVelocities::from(velocities.as_slice()).upload(),
             )?;

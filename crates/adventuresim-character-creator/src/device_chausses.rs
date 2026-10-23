@@ -136,14 +136,16 @@ const SECTION_HALF_WIDTH_M: f32 = 0.018;
 const MINIMUM_SECTION_SAMPLES: u32 = 12u;
 const MINIMUM_SECTION_RADIUS_M: f32 = 0.005;
 const QUILT_RELIEF_M: f32 = 0.0015;
-const EPSILON: f32 = 1.1920929e-7;
 
 fn host_dot(a: vec3<f32>, b: vec3<f32>) -> f32 {
     return (a.x * b.x + a.y * b.y) + a.z * b.z;
 }
 
 fn normalized(a: vec3<f32>) -> vec3<f32> {
-    return a * (1.0 / max(sqrt(host_dot(a, a)), EPSILON));
+    let scale = max(max(abs(a.x), abs(a.y)), abs(a.z));
+    if (scale == 0.0) { return vec3<f32>(0.0); }
+    let scaled = a / scale;
+    return scaled / sqrt(host_dot(scaled, scaled));
 }
 
 fn host_cross(a: vec3<f32>, b: vec3<f32>) -> vec3<f32> {

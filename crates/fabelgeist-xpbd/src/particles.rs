@@ -5,6 +5,9 @@ use anyhow::anyhow;
 use fabelgeist_gpu::prelude::BufferUse;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
+pub use count::ParticleCount;
+
+mod count;
 mod packed;
 pub use packed::{
     ParticlePositionRecord, ParticlePositions, ParticleVelocities, ParticleVelocityRecord,
@@ -20,23 +23,23 @@ pub use packed::{
 /// [`Particles::write`] with both.
 pub struct Particles {
     /// xyz = position, w = inverse mass. Also usable as a vertex buffer.
-    pub positions: Buffer,
+    positions: Buffer,
     /// xyz = position at the start of the substep.
-    pub previous: Buffer,
+    previous: Buffer,
     /// xyz = velocity.
-    pub velocities: Buffer,
+    velocities: Buffer,
     /// Kept on the host because the inverse masses share their words with the
     /// positions: re-uploading positions alone would otherwise have to read
     /// the buffer back first.
     inverse_masses: Vec<ParticleInverseMass>,
-    count: u32,
-    capacity: u32,
+    count: ParticleCount,
+    capacity: ParticleCount,
 }
 
 impl Particles {
-    pub fn new(context: &WgpuContext, capacity: u32) -> Result<Self> {
-        let capacity = capacity.max(1);
-        let bytes = capacity as u64 * 16;
+    pub fn new(context: &WgpuContext, capacity: ParticleCount) -> Result<Self> {
+        let capacity = capacity.with_sentinel();
+        let bytes = capacity.packed_bytes();
         // `vertex` so that the renderer can draw straight out of the solver's
         // own buffer, with no copy between simulating and showing.
         let definition = BufferDefinition::storage()
@@ -45,21 +48,21 @@ impl Particles {
         Ok(Self {
             positions: Buffer::new(
                 context,
-                (bytes).into(),
+                bytes,
                 definition.clone().with_label(("particle positions").into()),
             )?,
             previous: Buffer::new(
                 context,
-                (bytes).into(),
+                bytes,
                 definition.clone().with_label(("particle previous").into()),
             )?,
             velocities: Buffer::new(
                 context,
-                (bytes).into(),
+                bytes,
                 definition.with_label(("particle velocities").into()),
             )?,
             inverse_masses: Vec::new(),
-            count: 0,
+            count: ParticleCount::default(),
             capacity,
         })
     }
@@ -70,16 +73,31 @@ impl Particles {
         positions: &[Vec3],
         inverse_masses: &[ParticleInverseMass],
     ) -> Result<Self> {
-        let mut particles = Self::new(context, positions.len() as u32)?;
+        let mut particles = Self::new(context, ParticleCount::try_from(positions.len())?)?;
         particles.write(context, positions, inverse_masses)?;
         Ok(particles)
     }
 
-    pub fn count(&self) -> u32 {
+    /// Native position/mass records; the held allocation cannot be replaced.
+    pub fn positions(&self) -> &Buffer {
+        &self.positions
+    }
+
+    /// Native previous-position records for the current substep.
+    pub fn previous(&self) -> &Buffer {
+        &self.previous
+    }
+
+    /// Native velocity records for the held population.
+    pub fn velocities(&self) -> &Buffer {
+        &self.velocities
+    }
+
+    pub fn count(&self) -> ParticleCount {
         self.count
     }
 
-    pub fn capacity(&self) -> u32 {
+    pub fn capacity(&self) -> ParticleCount {
         self.capacity
     }
 
@@ -97,7 +115,8 @@ impl Particles {
                 inverse_masses.len()
             ));
         }
-        if positions.len() as u32 > self.capacity {
+        let count = ParticleCount::try_from(positions.len())?;
+        if count > self.capacity {
             return Err(anyhow!(
                 "Particles::write: capacity is {}, given {}",
                 self.capacity,
@@ -110,7 +129,7 @@ impl Particles {
         self.previous.write(context, packed.upload())?;
         self.velocities
             .write(context, ParticleVelocities::at_rest(&packed).upload())?;
-        self.count = positions.len() as u32;
+        self.count = count;
         self.inverse_masses = inverse_masses.to_vec();
         Ok(())
     }
@@ -123,7 +142,7 @@ impl Particles {
     /// Overwrite positions, keeping the inverse masses. Used to re-drape a
     /// garment from a fresh layout without rebuilding the constraints.
     pub fn write_positions(&mut self, context: &WgpuContext, positions: &[Vec3]) -> Result<()> {
-        if positions.len() as u32 != self.count {
+        if ParticleCount::try_from(positions.len())? != self.count {
             return Err(anyhow!(
                 "Particles::write_positions: holds {} particles, given {}",
                 self.count,
@@ -142,7 +161,7 @@ impl Particles {
                 .read::<ParticlePositionRecord>(context)
                 .await?,
         );
-        Ok(records.positions().take(self.count as usize).collect())
+        Ok(records.positions().take(usize::from(self.count)).collect())
     }
 
     pub async fn read_velocities(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
@@ -151,7 +170,7 @@ impl Particles {
                 .read::<ParticleVelocityRecord>(context)
                 .await?,
         );
-        Ok(records.velocities().take(self.count as usize).collect())
+        Ok(records.velocities().take(usize::from(self.count)).collect())
     }
 
     pub async fn read_inverse_masses(
@@ -163,7 +182,7 @@ impl Particles {
                 .read::<ParticlePositionRecord>(context)
                 .await?,
         );
-        Ok(records.inverse_masses().take(self.count as usize).collect())
+        Ok(records.inverse_masses().take(usize::from(self.count)).collect())
     }
 }
 

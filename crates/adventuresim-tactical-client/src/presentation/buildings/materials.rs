@@ -69,7 +69,7 @@ impl BuildingAppearance {
 
     fn for_building(building_id: u64) -> Self {
         match RNG_VISUAL_BUILDING_APPEARANCE
-            .rng(building_id, &[])
+            .rng(building_id.into(), &[])
             .index(100)
         {
             0..=22 => Self::NaturalOak,

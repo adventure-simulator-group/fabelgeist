@@ -8,6 +8,7 @@ use super::{
 };
 use crate::presentation::SceneEnvironment;
 use bevy::prelude::*;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -59,8 +60,7 @@ pub(crate) fn tree_species_for_site(
     let community_z = (position.z / 30.0).floor() as i32;
     let community = ((community_x as u32 as u64) << 32) | community_z as u32 as u64;
     let hash = StreamId::new("visual.obstacles.tree.source.community")
-        .seed(oak_site_key(environment), &[community])
-        .to_u64();
+        .seed(oak_site_key(environment).into(), &[community]);
     if RNG_VISUAL_OBSTACLES_TREE_SOURCE_SPECIES
         .rng(hash, &[])
         .inclusive_unit_f32()
@@ -80,15 +80,15 @@ pub(in crate::presentation) fn canopy_competition(canopy_bps: u16) -> f32 {
 pub(super) fn oak_site_key(environment: &SceneEnvironment) -> u64 {
     StreamId::new("visual.tree.site")
         .seed(
-            0,
+            0.into(),
             &[
-                environment.latitude_microdegrees as u32 as u64,
-                environment.longitude_microdegrees as u32 as u64,
+                environment.latitude_microdegrees.get() as u32 as u64,
+                environment.longitude_microdegrees.get() as u32 as u64,
                 u64::from(environment.hilly_bps),
                 u64::from(environment.wetland_bps),
                 u64::from(environment.cultivation_bps),
                 u64::from(environment.canopy_bps),
-                environment.absolute_elevation_metres as i64 as u64,
+                environment.absolute_elevation_metres.get() as i64 as u64,
             ],
         )
         .to_u64()
@@ -97,7 +97,7 @@ pub(super) fn oak_site_key(environment: &SceneEnvironment) -> u64 {
 pub(super) fn oak_gnarling_for_site(
     mut recipe: OakGnarlingParameters,
     environment: &SceneEnvironment,
-    tree_seed: u64,
+    tree_seed: Seed,
 ) -> OakGnarlingParameters {
     let canopy = crate::presentation::procedural::bps(environment.canopy_bps);
     let open_exposure = 1.0 - canopy;
@@ -105,7 +105,7 @@ pub(super) fn oak_gnarling_for_site(
     let wetland = crate::presentation::procedural::bps(environment.wetland_bps);
     let cultivation = crate::presentation::procedural::bps(environment.cultivation_bps);
     let elevation =
-        ((f32::from(environment.absolute_elevation_metres) - 40.0) / 900.0).clamp(0.0, 1.0);
+        ((f32::from(environment.absolute_elevation_metres.get()) - 40.0) / 900.0).clamp(0.0, 1.0);
     let susceptibility = 0.72
         + StreamId::new("visual.obstacles.tree.source.susceptibility")
             .rng(tree_seed, &[])
@@ -116,10 +116,10 @@ pub(super) fn oak_gnarling_for_site(
     let age_and_wounds = StreamId::new("visual.obstacles.tree.source.age-wounds")
         .rng(tree_seed, &[])
         .inclusive_unit_f32();
-    let location = u64::from(environment.latitude_microdegrees as u32) << 32
-        | u64::from(environment.longitude_microdegrees as u32);
+    let location = u64::from(environment.latitude_microdegrees.get() as u32) << 32
+        | u64::from(environment.longitude_microdegrees.get() as u32);
     recipe.stress_azimuth_radians = StreamId::new("visual.obstacles.tree.source.wind-azimuth")
-        .rng(location, &[])
+        .rng(location.into(), &[])
         .inclusive_unit_f32()
         * core::f32::consts::TAU;
     let add = |value: f32, stress: f32| (value + stress).clamp(0.0, 1.0);
@@ -164,7 +164,7 @@ pub(super) fn oak_gnarling_for_site(
 }
 
 pub(super) fn vista_tree_source(
-    variant_seed: u64,
+    variant_seed: Seed,
     competition: f32,
     species: TreePresentationSpecies,
 ) -> (Vec<TreeBranchSegment>, Vec<TreeLeaf>) {
@@ -190,7 +190,7 @@ pub(super) fn vista_tree_source(
 
 pub(super) fn playable_tree_source(
     species: TreePresentationSpecies,
-    variant_seed: u64,
+    variant_seed: Seed,
     variant_index: usize,
     competition: f32,
     environment: &SceneEnvironment,

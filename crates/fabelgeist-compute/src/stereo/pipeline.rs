@@ -2,7 +2,7 @@
 
 use super::rig::{Grid, Matrix3, Rectified};
 use crate::kernel::{Kernel, KernelBatch};
-use anyhow::{Result, anyhow, ensure};
+use anyhow::{Context, Result, ensure};
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
 use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
 use fabelgeist_gpu::data::matrix::Mat4;
@@ -96,8 +96,7 @@ impl Kernels {
     fn new(context: &WgpuContext) -> Result<Self> {
         let with_rays = |source: &str| format!("{COMMON}\n{source}");
         let compile = |name: &str, code: String| {
-            Kernel::new(context, code)
-                .map_err(|error| anyhow!("compiling the {name} kernel: {error:#}"))
+            Kernel::new(context, code).with_context(|| format!("compiling the {name} kernel"))
         };
         Ok(Self {
             depth: compile("depth", with_rays(include_str!("depth.wgsl")))?,

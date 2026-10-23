@@ -21,22 +21,27 @@
 //! Nothing here knows what a garment is. `fabelgeist-cloth` builds the fabric on
 //! top, and `fabelgeist-physics` supplies the collision hook.
 
-pub mod coloring;
-pub mod constraint;
-pub mod particles;
-pub mod solver;
-pub mod wgsl;
-
-pub use coloring::{Coloring, color, color_fixed};
-pub use constraint::ConstraintSet;
+pub use coloring::{ColorCount, ColorRange, Coloring, ConstraintColor, ConstraintSlot};
+pub use constraint::{ConstraintCount, ConstraintIndex, ConstraintSet};
+pub use dynamics::*;
+pub use incidence::{
+    ConstraintArity, ConstraintEdges, ConstraintIncidence, ConstraintLayoutError,
+    ConstraintParticleCount, ParticleIndex,
+};
 pub use particles::{
+    ParticleCount,
     ParticlePositionRecord, ParticlePositions, ParticleVelocities, ParticleVelocityRecord,
     Particles,
 };
 pub use solver::{Solver, SolverSettings, SubstepHook};
 
+pub mod coloring;
+pub mod constraint;
 pub mod dynamics;
-pub use dynamics::*;
+pub mod incidence;
+pub mod particles;
+pub mod solver;
+pub mod wgsl;
 
 #[cfg(test)]
 mod tests;

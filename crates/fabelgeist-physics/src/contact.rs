@@ -13,9 +13,12 @@ use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_xpbd::{Particles, SubstepHook};
 
-use crate::collider::{COLLIDER_BYTES, Collider, pack_colliders};
+use crate::collider::{Collider, pack_colliders};
 use crate::mesh::MeshCollider;
 use crate::wgsl;
+use count::{ColliderCapacity, ColliderCapacityFit, ColliderCount};
+
+mod count;
 
 /// Analytic shapes plus at most one triangle mesh.
 ///
@@ -28,7 +31,7 @@ pub struct Collisions {
 
     colliders: Vec<Collider>,
     collider_buffer: Buffer,
-    collider_capacity: u32,
+    collider_capacity: ColliderCapacity,
 
     pub mesh: Option<MeshCollider>,
 
@@ -41,17 +44,16 @@ pub struct Collisions {
 
 impl Collisions {
     pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
-        const INITIAL_CAPACITY: u32 = 16;
         Ok(Self {
             analytic_kernel: cache.get(context, &wgsl::analytic_source())?,
             mesh_kernel: cache.get(context, &MeshCollider::kernel_source())?,
             colliders: Vec::new(),
             collider_buffer: Buffer::new(
                 context,
-                (INITIAL_CAPACITY as u64 * COLLIDER_BYTES as u64).into(),
+                ColliderCapacity::INITIAL.byte_length(),
                 BufferDefinition::storage().with_label(("colliders").into()),
             )?,
-            collider_capacity: INITIAL_CAPACITY,
+            collider_capacity: ColliderCapacity::INITIAL,
             mesh: None,
             particle_radius: 0.0,
             enabled: true,
@@ -62,13 +64,18 @@ impl Collisions {
         &self.colliders
     }
 
+    fn collider_count(&self) -> ColliderCount {
+        ColliderCount::from(self.colliders.len())
+    }
+
     /// Replace the analytic collider list and upload it.
     pub fn set_colliders(&mut self, context: &WgpuContext, colliders: Vec<Collider>) -> Result<()> {
-        if colliders.len() as u32 > self.collider_capacity {
-            self.collider_capacity = colliders.len().next_power_of_two() as u32;
+        let count = ColliderCount::from(colliders.len());
+        if self.collider_capacity.fit(count) == ColliderCapacityFit::GrowthRequired {
+            self.collider_capacity = ColliderCapacity::for_count(count);
             self.collider_buffer = Buffer::new(
                 context,
-                (self.collider_capacity as u64 * COLLIDER_BYTES as u64).into(),
+                self.collider_capacity.byte_length(),
                 BufferDefinition::storage().with_label(("colliders").into()),
             )?;
         }
@@ -89,11 +96,13 @@ impl Collisions {
         context: &WgpuContext,
         colliders: &[Collider],
     ) -> Result<()> {
-        if colliders.len() != self.colliders.len() {
+        let held = self.collider_count();
+        let provided = ColliderCount::from(colliders.len());
+        if provided != held {
             return Err(anyhow!(
                 "Collisions::update_colliders: holds {} colliders, given {}; use `set_colliders` to change the count",
-                self.colliders.len(),
-                colliders.len()
+                held,
+                provided
             ));
         }
         if !colliders.is_empty() {
@@ -116,20 +125,20 @@ impl Collisions {
             return Ok(());
         }
         let count = particles.count();
-        if count == 0 {
+        if count.is_empty() {
             return Ok(());
         }
 
-        if !self.colliders.is_empty() {
+        if self.collider_count() != ColliderCount::EMPTY {
             let mut parameters = PassParameters::new();
-            parameters.insert("positions", particles.positions.clone());
-            parameters.insert("previous", particles.previous.clone());
+            parameters.insert("positions", particles.positions().clone());
+            parameters.insert("previous", particles.previous().clone());
             parameters.insert("colliders", self.collider_buffer.clone());
             parameters.insert("count", count);
-            parameters.insert("collider_count", self.colliders.len() as u32);
+            self.collider_count().bind(&mut parameters);
             parameters.insert("particle_radius", self.particle_radius);
             parameters.insert("pad", 0u32);
-            batch.dispatch_items(&self.analytic_kernel, &parameters, count)?;
+            batch.dispatch_items(&self.analytic_kernel, &parameters, count.into())?;
         }
 
         if self.mesh.is_some() {
@@ -149,14 +158,14 @@ impl Collisions {
             return Ok(());
         };
         let mut parameters = PassParameters::new();
-        parameters.insert("positions", particles.positions.clone());
-        parameters.insert("previous", particles.previous.clone());
+        parameters.insert("positions", particles.positions().clone());
+        parameters.insert("previous", particles.previous().clone());
         mesh.bind(&mut parameters);
         parameters.insert("count", particles.count());
-        parameters.insert("thickness", mesh.surface.thickness + self.particle_radius);
-        parameters.insert("friction", mesh.surface.friction);
+        parameters.insert("thickness", mesh.surface().thickness + self.particle_radius);
+        parameters.insert("friction", mesh.surface().friction);
         parameters.insert("search_radius", search_radius);
-        batch.dispatch_items(&self.mesh_kernel, &parameters, particles.count())?;
+        batch.dispatch_items(&self.mesh_kernel, &parameters, particles.count().into())?;
         Ok(())
     }
 
@@ -178,7 +187,7 @@ impl Collisions {
         particles: &Particles,
         search_radius: f32,
     ) -> Result<()> {
-        if particles.count() == 0 {
+        if particles.count().is_empty() {
             return Ok(());
         }
         // The pass reads `previous` for friction and for the swept box. Making
@@ -186,9 +195,9 @@ impl Collisions {
         // a box centred on the particle, which is what a static recovery
         // wants.
         batch.copy_buffer(
-            &particles.positions,
-            &particles.previous,
-            particles.count() as u64 * 16,
+            particles.positions(),
+            particles.previous(),
+            particles.count().packed_bytes(),
         )?;
         self.record_mesh(batch, particles, search_radius)?;
         Ok(())
@@ -247,3 +256,6 @@ impl SubstepHook for HookChain<'_> {
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod tests;

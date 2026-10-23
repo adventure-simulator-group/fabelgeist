@@ -3,21 +3,23 @@ fn resolve_round_tower_wall_assemblies(
     crowns: &[CrownAssembly],
     walls: &mut Vec<crate::WallAssembly>,
     geometry: &mut ResolvedGeometry,
-) {
-    for (tower_index, tower) in towers.iter().copied().enumerate() {
+) -> Result<(), crate::GenerationError> {
+    let _: () = for (tower_index, tower) in towers.iter().copied().enumerate() {
         let serial = walls.len() as u64 + 1;
         let id = crate::WallAssemblyId(serial);
         let owner = GeometryOwnerId(60_000 + tower_index as u32);
         let support_node = StructuralNodeId(3_000_000 + tower_index as u64);
         let centre = tower.centre_metres();
-        geometry.structural_nodes.push(StructuralNode {
-            id: support_node,
-            owner,
-            kind: StructuralNodeKind::WallBearing,
-            position: Vec3::new(centre.x, 0.0, centre.y),
-            supported_by: Vec::new(),
-            grounded: true,
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                support_node,
+                owner,
+                StructuralNodeKind::WallBearing,
+                Vec3::new(centre.x, 0.0, centre.y),
+                Vec::new(),
+                true,
+            )?);
         let host = wall_solid(
             geometry,
             owner,
@@ -35,7 +37,7 @@ fn resolve_round_tower_wall_assemblies(
                 chord_interfaces: [tower.chord_interface, tower.secondary_chord_interface],
             },
             support_node,
-        );
+        )?;
         walls.push(crate::WallAssembly {
             id,
             owner,
@@ -72,18 +74,18 @@ fn resolve_round_tower_wall_assemblies(
             geometry.junction_bonds.push(JunctionBond {
                 id: ResolvedItemId((7_u64 << 60) | (u64::from(owner.0) << 24) | tower_index as u64),
                 owners: [owner, crown.owner],
-                bounds: ResolvedBounds {
-                    min: Vec3::new(
+                bounds: SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
                         centre.x - tower.radius_metres() - 0.05,
                         tower.wall_height_metres - 0.08,
                         centre.y - tower.radius_metres() - 0.05,
                     ),
-                    max: Vec3::new(
+                    Vec3::new(
                         centre.x + tower.radius_metres() + 0.05,
                         tower.wall_height_metres + 0.18,
                         centre.y + tower.radius_metres() + 0.05,
                     ),
-                },
+                )?,
                 minimum_interface_area_square_metres: 0.01,
                 // The resolved annular shell's conservative AABB overlaps the
                 // full radial depth of its segmented deck. The physical
@@ -91,5 +93,6 @@ fn resolve_round_tower_wall_assemblies(
                 maximum_penetration_metres: 1.10,
             });
         }
-    }
+    };
+    Ok(())
 }

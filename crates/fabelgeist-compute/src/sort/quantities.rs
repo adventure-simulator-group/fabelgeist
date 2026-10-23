@@ -1,6 +1,8 @@
 //! Sorting cardinality, tile layout, and digit schedule own their operations.
 use super::{BITS_PER_PASS, RADIX, TILE};
-use fabelgeist_gpu::prelude::{BufferByteLength, PassParameters};
+use fabelgeist_gpu::prelude::{BufferByteLength, PassParameters, WorkgroupGrid};
+use crate::ScanElementCount;
+use fabelgeist_mesh::{MeshCornerCount, MeshVertexCount};
 
 /// Number of key/payload pairs; zero and one are valid no-op requests.
 ///
@@ -14,6 +16,16 @@ pub struct SortItemCount(u32);
 impl From<u32> for SortItemCount {
     fn from(items: u32) -> Self {
         Self(items)
+    }
+}
+impl From<MeshCornerCount> for SortItemCount {
+    fn from(corners: MeshCornerCount) -> Self {
+        Self(corners.native_elements())
+    }
+}
+impl From<MeshVertexCount> for SortItemCount {
+    fn from(vertices: MeshVertexCount) -> Self {
+        Self(vertices.native_elements())
     }
 }
 impl std::fmt::Display for SortItemCount {
@@ -50,6 +62,14 @@ impl SortItemCount {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) struct SortTileCount(u32);
 impl SortTileCount {
+    pub(super) fn workgroups(self) -> WorkgroupGrid {
+        WorkgroupGrid::from([self.0, 1, 1])
+    }
+    pub(super) fn scan_elements(self) -> Result<ScanElementCount, SortLayoutError> {
+        self.0.checked_mul(RADIX)
+            .map(ScanElementCount::from_elements)
+            .ok_or(SortLayoutError::UnrepresentableHistogram)
+    }
     pub(super) fn histogram_bytes(self) -> BufferByteLength {
         (RADIX as u64 * self.0 as u64 * size_of::<u32>() as u64).into()
     }
@@ -58,11 +78,11 @@ impl SortTileCount {
     }
 }
 
-// The existing compute provider admits a native grid at recording.
-impl From<SortTileCount> for [u32; 3] {
-    fn from(tiles: SortTileCount) -> Self {
-        [tiles.0, 1, 1]
-    }
+/// A histogram layout that the native scan cannot address.
+#[derive(Debug, thiserror::Error)]
+pub enum SortLayoutError {
+    #[error("sort histogram does not fit the native scan element count")]
+    UnrepresentableHistogram,
 }
 
 /// Declared low-bit width, retaining the original clamp to one through 32.
@@ -74,6 +94,12 @@ impl From<u32> for SortKeyWidth {
     }
 }
 impl SortKeyWidth {
+    /// Significant bits needed for the largest index in this vertex population.
+    pub fn for_vertices(vertices: MeshVertexCount) -> Self {
+        let bits = u32::BITS - vertices.native_elements().saturating_sub(1).leading_zeros();
+        Self::from(bits)
+    }
+
     pub fn pass_count(self) -> SortPassCount {
         SortPassCount(self.0.div_ceil(BITS_PER_PASS))
     }

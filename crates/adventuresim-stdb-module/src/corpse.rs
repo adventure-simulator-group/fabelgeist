@@ -16,6 +16,7 @@ use adventuresim_core::{
 };
 use adventuresim_world_schema::calendar::StrategicMinute;
 use autopsy_context::autopsy_evidence_context;
+use fabelgeist_determinism::Seed;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::{
@@ -865,7 +866,7 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
     actor_time.minutes = minute;
     ctx.db.character_time().character_id().update(actor_time);
 
-    let build_outcome = |victim_id: u64, victim_kind: &str, attacker_kind: &str, seed: u64| {
+    let build_outcome = |victim_id: u64, victim_kind: &str, attacker_kind: &str, seed: Seed| {
         let attacker = crate::strategic::autoresolve_enemy(
             victim_id.saturating_sub(100),
             attacker_kind,
@@ -893,19 +894,19 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
         AUTOPSY_DEMO_RECENT_VICTIM_ID,
         "poacher",
         "bear",
-        0x4155_544f_5053_5901,
+        fabelgeist_determinism::Seed::from_u64(0x4155_544f_5053_5901),
     )?;
     let buried = build_outcome(
         AUTOPSY_DEMO_BURIED_VICTIM_ID,
         "smuggler",
         "bear",
-        0x4155_544f_5053_5902,
+        fabelgeist_determinism::Seed::from_u64(0x4155_544f_5053_5902),
     )?;
     let enemy = build_outcome(
         AUTOPSY_DEMO_ENEMY_ID,
         "kobold",
         "armed_retainer",
-        0x4155_544f_5053_5903,
+        fabelgeist_determinism::Seed::from_u64(0x4155_544f_5053_5903),
     )?;
     let recent_id = persist_autopsy_demo_body(
         ctx,

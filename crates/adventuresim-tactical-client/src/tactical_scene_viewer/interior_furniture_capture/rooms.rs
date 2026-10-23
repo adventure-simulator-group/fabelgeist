@@ -1,8 +1,8 @@
 //! Semantic room views selected from proven walking routes and unobstructed sightlines.
 use super::*;
 use adventuresim_building_generator::{
-    BuildingPlan, CollisionCuboid, OpeningUse, Room, RoomKind, SolidRole, StoreyPlan,
-    interior::{InteriorLayout, InteriorPlacement, furniture_floor_height},
+    OpeningUse, Room, RoomKind, SolidRole, StoreyPlan,
+    interior::{InteriorLayout, InteriorPlacement},
 };
 use sightlines::{Blocker, Owner, Subject};
 
@@ -20,7 +20,7 @@ pub(super) fn camera(
     building: &GeneratedBuilding,
     furniture: &FurnitureLayout,
     selection: RoomSelection,
-) -> BuildingReviewCamera {
+) -> Result<BuildingReviewCamera> {
     let layout = &furniture
         .interiors
         .iter()
@@ -47,25 +47,36 @@ pub(super) fn camera(
             let placement = layout
                 .placements
                 .iter()
-                .find(|placement| placement.storey == storey.level && placement.room_id == room.id)
+                .find(|placement| {
+                    placement.storey
+                        == adventuresim_building_generator::StoreyIndex::from_serialized(
+                            storey.level,
+                        )
+                        && placement.room_id
+                            == adventuresim_building_generator::RoomIndex::from_serialized(room.id)
+                })
                 .expect("selected room has furniture");
             (
                 storey.level,
-                furniture_floor_height(&building.plan, placement),
+                placement.floor_height(&building.plan)?.metres(),
                 Some(room),
             )
         }
     };
-    let blockers = blockers(building, layout);
+    let blockers = blockers(building, layout)?;
     let mut subjects: Vec<_> = layout
         .placements
         .iter()
         .enumerate()
         .filter(|(_, placement)| {
-            placement.storey == level && room.is_none_or(|room| placement.room_id == room.id)
+            placement.storey == adventuresim_building_generator::StoreyIndex::from_serialized(level)
+                && room.is_none_or(|room| {
+                    placement.room_id
+                        == adventuresim_building_generator::RoomIndex::from_serialized(room.id)
+                })
         })
         .map(|(index, placement)| furniture_subject(building, placement, index, selection))
-        .collect();
+        .collect::<Result<Vec<_>>>()?;
     if matches!(selection, RoomSelection::UpperKeep) {
         add_stair_subjects(building, floor, &mut subjects);
     }
@@ -74,14 +85,14 @@ pub(super) fn camera(
         .iter()
         .flat_map(|path| &path.points)
         .filter(|point| {
-            point.storey == level
-                && room.is_none_or(|room| room_contains(room, point.position_metres))
+            point.storey == adventuresim_building_generator::StoreyIndex::from_serialized(level)
+                && room.is_none_or(|room| room_contains(room, point.position_metres.metres()))
         })
         .map(|point| {
             Vec3::new(
-                point.position_metres.x,
+                point.position_metres.metres().x,
                 floor + CAMERA_EYE_HEIGHT_METRES,
-                point.position_metres.y,
+                point.position_metres.metres().y,
             )
         })
         .collect();
@@ -93,13 +104,13 @@ pub(super) fn camera(
             building.placement.id, building.placement.program.usage
         )
     });
-    let transform = building.transform();
-    let origin = building.collision.bounds.centre();
-    BuildingReviewCamera {
+    let transform = building.transform()?;
+    let origin = building.collision.bounds.centre()?.metres();
+    Ok(BuildingReviewCamera {
         position: transform.transform_point(eye - origin),
         target: transform.transform_point(target - origin),
         plaster_raking_light: None,
-    }
+    })
 }
 
 fn select_room<'a>(
@@ -114,17 +125,25 @@ fn select_room<'a>(
             RoomSelection::Role(kind) => room.kind == kind,
             RoomSelection::Bedroom => storey.level > 0 && room.kind == RoomKind::Bedchamber,
             RoomSelection::UpperKeep => false,
-            RoomSelection::Operating(kind) => layout
-                .placements
-                .iter()
-                .any(|p| p.storey == storey.level && p.room_id == room.id && p.key.kind() == kind),
+            RoomSelection::Operating(kind) => layout.placements.iter().any(|p| {
+                p.storey
+                    == adventuresim_building_generator::StoreyIndex::from_serialized(storey.level)
+                    && p.room_id
+                        == adventuresim_building_generator::RoomIndex::from_serialized(room.id)
+                    && p.key.kind() == kind
+            }),
         })
         .filter_map(|(storey, room)| {
             let population = layout
                 .placements
                 .iter()
                 .filter(|placement| {
-                    placement.storey == storey.level && placement.room_id == room.id
+                    placement.storey
+                        == adventuresim_building_generator::StoreyIndex::from_serialized(
+                            storey.level,
+                        )
+                        && placement.room_id
+                            == adventuresim_building_generator::RoomIndex::from_serialized(room.id)
                 })
                 .count();
             (population > 0).then_some((population, storey, room))
@@ -134,62 +153,61 @@ fn select_room<'a>(
         .expect("review fixture must provide furniture in the requested semantic room")
 }
 
-fn blockers(building: &GeneratedBuilding, layout: &InteriorLayout) -> Vec<Blocker> {
+fn blockers(building: &GeneratedBuilding, layout: &InteriorLayout) -> Result<Vec<Blocker>> {
     let mut result: Vec<_> = building
         .collision
         .cuboids
         .iter()
-        .map(|solid| Blocker {
+        .map(|&solid| Blocker {
             owner: Owner::Architecture(solid.source),
-            solid: *solid,
+            solid,
         })
         .collect();
-    result.extend(closed_door_blockers(&building.plan));
+    result.extend(closed_door_blockers(&building.plan)?);
     for (index, placement) in layout.placements.iter().enumerate() {
-        let rotation = Quat::from_rotation_y(placement.yaw_radians());
         let translation = Vec3::new(
-            placement.centre_metres.x,
-            furniture_floor_height(&building.plan, placement),
-            placement.centre_metres.y,
+            placement.centre_metres.metres().x,
+            placement.floor_height(&building.plan)?.metres(),
+            placement.centre_metres.metres().y,
         );
-        result.extend(placement.key.recipe().colliders.iter().map(|solid| {
-            let mut solid = *solid;
-            solid.centre = translation + rotation * solid.centre;
-            solid.yaw_radians += placement.yaw_radians();
-            Blocker {
+        let pose = adventuresim_building_generator::furniture::ArchitecturalFurniturePose {
+            centre: adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                translation,
+            )?,
+            yaw: placement.yaw_radians(),
+        };
+        for &solid in &placement.key.recipe()?.colliders {
+            result.push(Blocker {
                 owner: Owner::Furniture(index),
-                solid,
-            }
-        }));
+                solid: pose.cuboid(solid)?,
+            });
+        }
     }
-    result
+    Ok(result)
 }
 
-/// Interior capture fixtures keep authored leaves closed, including internal
-/// doors omitted from static physics so navigation can pass through openings.
-fn closed_door_blockers(plan: &BuildingPlan) -> Vec<Blocker> {
-    let door_solids = plan
+fn closed_door_blockers(
+    plan: &adventuresim_building_generator::BuildingPlan,
+) -> Result<Vec<Blocker>> {
+    let mut result = Vec::new();
+    let doors = plan
         .opening_assemblies
         .iter()
         .filter(|opening| opening.use_kind == OpeningUse::Door)
         .flat_map(|opening| opening.closure_solids.iter().copied())
         .collect::<std::collections::BTreeSet<_>>();
-    plan.resolved_geometry
+    for solid in plan
+        .resolved_geometry
         .solids
         .iter()
-        .filter(|solid| door_solids.contains(&solid.id))
-        .map(|solid| Blocker {
+        .filter(|solid| doors.contains(&solid.id))
+    {
+        result.push(Blocker {
             owner: Owner::Architecture(solid.id),
-            solid: CollisionCuboid {
-                source: solid.id,
-                centre: solid.centre,
-                size: solid.size,
-                yaw_radians: solid.yaw_radians,
-                crossfall_radians: solid.crossfall_radians,
-                longfall_radians: solid.longfall_radians,
-            },
-        })
-        .collect()
+            solid: solid.cuboid_envelope(),
+        });
+    }
+    Ok(result)
 }
 
 fn furniture_subject(
@@ -197,20 +215,20 @@ fn furniture_subject(
     placement: &InteriorPlacement,
     index: usize,
     selection: RoomSelection,
-) -> Subject {
-    let size = placement.key.interior_spec().unwrap().size_metres;
-    let rotation = Quat::from_rotation_y(placement.yaw_radians());
+) -> Result<Subject> {
+    let size = placement.key.interior_spec().unwrap().size_metres.metres();
+    let rotation = Quat::from_rotation_y(placement.yaw_radians().radians());
     let translation = Vec3::new(
-        placement.centre_metres.x,
-        furniture_floor_height(&building.plan, placement),
-        placement.centre_metres.y,
+        placement.centre_metres.metres().x,
+        placement.floor_height(&building.plan)?.metres(),
+        placement.centre_metres.metres().y,
     );
     let points = std::iter::once(Vec3::Y * size.y * 0.5)
         .chain(super::envelope_corners(size))
         .map(|point| translation + rotation * point)
         .collect();
     let signature = signature_kind(selection, placement.key.kind());
-    Subject {
+    Ok(Subject {
         owner: Owner::Furniture(index),
         points,
         importance: if signature { 4.0 } else { 1.0 },
@@ -232,7 +250,7 @@ fn furniture_subject(
         },
         front_view: matches!(selection, RoomSelection::Operating(_))
             .then_some((translation, rotation * -Vec3::Z)),
-    }
+    })
 }
 
 fn signature_kind(selection: RoomSelection, kind: FurnitureKind) -> bool {
@@ -267,7 +285,7 @@ fn add_stair_subjects(building: &GeneratedBuilding, floor: f32, subjects: &mut V
         .iter()
         .filter(|solid| solid.role == SolidRole::StairTread)
         .filter(|solid| {
-            let top = solid.centre.y + solid.size.y * 0.5;
+            let top = solid.centre.metres().y + solid.size.metres().y * 0.5;
             top <= floor + 0.02 && top >= floor - 0.8
         })
         .collect();
@@ -276,14 +294,14 @@ fn add_stair_subjects(building: &GeneratedBuilding, floor: f32, subjects: &mut V
         "upper keep review requires actual stair treads beside its landing"
     );
     for tread in treads {
-        let rotation = Quat::from_rotation_y(tread.yaw_radians);
-        let top = tread.centre + Vec3::Y * (tread.size.y * 0.5 + 0.02);
+        let rotation = Quat::from_rotation_y(tread.yaw_radians.radians());
+        let top = tread.centre.metres() + Vec3::Y * (tread.size.metres().y * 0.5 + 0.02);
         subjects.push(Subject {
             owner: Owner::Architecture(tread.id),
             points: vec![
                 top,
-                top + rotation * Vec3::X * tread.size.x * 0.25,
-                top - rotation * Vec3::X * tread.size.x * 0.25,
+                top + rotation * Vec3::X * tread.size.metres().x * 0.25,
+                top - rotation * Vec3::X * tread.size.metres().x * 0.25,
             ],
             importance: 6.0,
             signature: true,
@@ -311,10 +329,10 @@ mod tests {
         let program = BuildingProgram::settlement(
             BuildingArchetype::WalledKeep,
             Some(BuildingUse::Castle),
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         let plan = generate(&program).unwrap();
-        let collision = compile_building_collision(&plan);
+        let collision = compile_building_collision(&plan).unwrap();
         let mut blockers: Vec<_> = collision
             .cuboids
             .iter()
@@ -335,7 +353,7 @@ mod tests {
             working_points: Vec::new(),
         }];
         assert!(sightlines::choose(&[eye], &subjects, &blockers).is_some());
-        let doors = closed_door_blockers(&plan);
+        let doors = closed_door_blockers(&plan).unwrap();
         assert!(
             doors
                 .iter()
@@ -376,9 +394,9 @@ mod tests {
         for storey in [0, 0, 0, 1] {
             layout.placements.push(InteriorPlacement {
                 key: FurnitureKey::natural(FurnitureKind::DiningTable, FurnitureVariant::Compact),
-                room_id: 0,
-                storey,
-                centre_metres: Vec2::ZERO,
+                room_id: adventuresim_building_generator::RoomIndex::from_serialized(0),
+                storey: adventuresim_building_generator::StoreyIndex::from_serialized(storey),
+                centre_metres: adventuresim_building_generator::plan_geometry::ArchitecturalPlanPoint::try_from(Vec2::ZERO).unwrap(),
                 facing: adventuresim_building_generator::Direction::South,
             });
         }

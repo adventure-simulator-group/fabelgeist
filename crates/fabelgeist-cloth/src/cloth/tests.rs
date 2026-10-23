@@ -621,12 +621,12 @@ async fn coincident_non_neighbours_separate_and_pinned_particles_stay_fixed() ->
     let mut collision = crate::SelfCollision::new(
         &harness.context,
         &harness.cache,
-        2,
+        2.into(),
         &[vec![], vec![]],
         0.005,
     )?;
     let mut batch = KernelBatch::labelled(&harness.context, "coincident contact");
-    collision.record(&mut batch, &particles, true)?;
+    collision.record(&mut batch, &particles, fabelgeist_shell::GridUpdate::Rebuild)?;
     batch.submit();
     let p = particles.read_positions(&harness.context).await?;
     assert!(p[0].length() < 1e-6);

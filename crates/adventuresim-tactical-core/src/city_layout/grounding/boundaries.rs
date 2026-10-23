@@ -27,7 +27,7 @@ pub(super) fn exterior(regions: &[Vec<DVec2>]) -> Vec<[DVec2; 2]> {
                         }
                     }
                     let divisor = direction.perp_dot(edge);
-                    if divisor.abs() > f64::EPSILON {
+                    if divisor.abs() > 0.0 {
                         let t = (origin - a).perp_dot(edge) / divisor;
                         let u = (origin - a).perp_dot(direction) / divisor;
                         if (0.0..=1.0).contains(&t) && (0.0..=1.0).contains(&u) {
@@ -89,7 +89,7 @@ pub(super) fn segment_interval(
         let edge = polygon[(i + 1) % polygon.len()] - polygon[i];
         let origin = edge.perp_dot(a - polygon[i]) + tolerance_metres * edge.length();
         let rate = edge.perp_dot(direction);
-        if rate.abs() <= f64::EPSILON {
+        if rate == 0.0 {
             if origin < 0.0 {
                 return None;
             }

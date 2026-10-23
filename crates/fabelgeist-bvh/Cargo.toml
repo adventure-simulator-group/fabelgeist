@@ -11,13 +11,14 @@ fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
 anyhow = { "version" = "1.0" }
 bytemuck = { "version" = "1.16", "features" = ["derive"] }
 fabelgeist-compute = { "optional" = true, "path" = "../fabelgeist-compute" }
+fabelgeist-mesh = { "default-features" = false, "optional" = true, "path" = "../fabelgeist-mesh" }
 
 [dev-dependencies]
 tokio = { "version" = "1", "features" = ["full"] }
 
 [features]
 default = ["gpu"]
-gpu = ["dep:fabelgeist-compute"]
+gpu = ["dep:fabelgeist-compute", "dep:fabelgeist-mesh"]
 
 [lints]
 workspace = true

@@ -56,6 +56,7 @@ impl GpuBuilding {
 struct GpuField {
     daylight: Vec4,
     outdoor_irradiance: Vec4,
+    // x counts buildings; y stays zero for runtime-bound shader interpolation.
     counts: UVec4,
     buildings: [GpuBuilding; MAX_LIT_BUILDINGS],
     #[shader(size(runtime))]

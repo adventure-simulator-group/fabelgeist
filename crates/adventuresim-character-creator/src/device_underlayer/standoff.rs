@@ -101,7 +101,6 @@ fn convergence_source() -> String {
 @group(0) @binding(5) var<uniform> params: Params;
 {vector}
 {fraction}
-const EPSILON: f32 = {epsilon:?}f;
 
 @compute @workgroup_size(256)
 fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
@@ -121,7 +120,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
             let edge = point(b) - point(a);
             let normal_change = direction(b) - direction(a);
             let convergence = -dot3(edge, normal_change);
-            if (convergence > EPSILON) {{
+            if (convergence > 0.0) {{
                 room = min(room, dot3(edge, edge) / convergence * FOCAL_DISTANCE_FRACTION);
             }}
         }}
@@ -132,7 +131,6 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         bindings = BINDINGS,
         vector = wgsl::VECTOR,
         fraction = wgsl::constant("FOCAL_DISTANCE_FRACTION", FOCAL_DISTANCE_FRACTION),
-        epsilon = f32::EPSILON,
     )
 }
 

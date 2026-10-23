@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 pub(super) mod rock;
 pub(super) mod tree;

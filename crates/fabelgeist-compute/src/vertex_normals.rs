@@ -2,7 +2,7 @@
 //!
 //! A scatter of face normals into their vertices with atomics would sum them
 //! in whatever order the device happens to run, and floating-point addition
-//! does not commute: two runs could disagree in the last bit. Instead every
+//! is not associative: two runs could disagree in the last bit. Instead every
 //! triangle corner writes its contribution to its own slot, a stable
 //! [`RadixSort`] groups the corners by vertex -- keeping triangle order within
 //! each vertex -- and one invocation per vertex sums its corners in that
@@ -15,8 +15,11 @@
 use crate::prelude::*;
 #[cfg(test)]
 use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_gpu::prelude::BufferUse;
 use std::sync::Arc;
+use fabelgeist_mesh::{MeshTriangleCount, MeshVertexCount};
+pub use output::{NormalLayoutError, VertexNormals};
+
+mod output;
 
 /// How a triangle's normal counts toward the normal of each of its vertices.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -198,74 +201,13 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 }
 
 /// Parameters for a pass over `count` items; the pads fill out the uniform.
-fn counted(count: u32) -> PassParameters {
+fn counted(count: PassParameter) -> PassParameters {
     let mut parameters = PassParameters::new();
     parameters.insert("count", count);
     for pad in ["pad0", "pad1", "pad2"] {
         parameters.insert(pad, 0u32);
     }
     parameters
-}
-
-/// Buffers for the normals of meshes up to a vertex and triangle capacity.
-#[derive(Clone, Debug)]
-pub struct VertexNormals {
-    /// Unit normals as `f32` triples. A vanished normal is written as zero.
-    pub normals: Buffer,
-    /// [`DEGENERATE_TRIANGLE`] and [`VANISHED_NORMAL`] bits, accumulated
-    /// until cleared.
-    pub status: Buffer,
-    contributions: Buffer,
-    keys: Buffer,
-    corners: Buffer,
-    starts: Buffer,
-    ends: Buffer,
-    sort: SortScratch,
-    vertex_capacity: u32,
-    triangle_capacity: u32,
-}
-
-impl VertexNormals {
-    pub fn new(
-        context: &WgpuContext,
-        vertex_capacity: u32,
-        triangle_capacity: u32,
-    ) -> Result<Self> {
-        let vertex_capacity = vertex_capacity.max(1);
-        let triangle_capacity = triangle_capacity.max(1);
-        let corner_capacity = triangle_capacity * 3;
-        let storage = BufferDefinition::storage().with_usage(BufferUse::CopySource);
-        let buffer = |bytes: u64, label: &str| {
-            Buffer::new(
-                context,
-                (bytes).into(),
-                storage.clone().with_label((label).into()),
-            )
-        };
-        Ok(Self {
-            normals: buffer(vertex_capacity as u64 * 12, "vertex normals")?,
-            status: buffer(4, "vertex normal status")?,
-            contributions: buffer(corner_capacity as u64 * 12, "corner normals")?,
-            keys: buffer(corner_capacity as u64 * 4, "corner vertices")?,
-            corners: buffer(corner_capacity as u64 * 4, "corners by vertex")?,
-            starts: buffer(vertex_capacity as u64 * 4, "vertex corner starts")?,
-            ends: buffer(vertex_capacity as u64 * 4, "vertex corner ends")?,
-            sort: SortScratch::new(context, corner_capacity.into())?,
-            vertex_capacity,
-            triangle_capacity,
-        })
-    }
-
-    /// Read the normals of the first `count` vertices, and the status bits.
-    /// Stalls on the device.
-    pub async fn read(&self, context: &WgpuContext, count: u32) -> Result<(Vec<[f32; 3]>, u32)> {
-        let normals: Vec<[f32; 3]> = self.normals.read(context).await?;
-        let status: Vec<u32> = self.status.read(context).await?;
-        Ok((
-            normals[..count.min(self.vertex_capacity) as usize].to_vec(),
-            status[0],
-        ))
-    }
 }
 
 /// The compiled passes, for one weighting.
@@ -302,8 +244,8 @@ impl VertexNormalKernels {
         batch: &mut KernelBatch,
         positions: &Buffer,
         triangles: &Buffer,
-        vertex_count: u32,
-        triangle_count: u32,
+        vertex_count: MeshVertexCount,
+        triangle_count: MeshTriangleCount,
         output: &mut VertexNormals,
     ) -> Result<()> {
         if vertex_count > output.vertex_capacity || triangle_count > output.triangle_capacity {
@@ -313,44 +255,44 @@ impl VertexNormalKernels {
                 output.triangle_capacity
             ));
         }
-        let corner_count = triangle_count * 3;
+        let corner_count = triangle_count.checked_corners()
+            .ok_or(NormalLayoutError::Corners { triangles: triangle_count })?;
         batch.clear_buffer(&output.status);
         batch.clear_buffer(&output.starts);
         batch.clear_buffer(&output.ends);
 
-        let mut corners = counted(triangle_count);
+        let mut corners = counted(triangle_count.into());
         corners.insert("positions", positions.clone());
         corners.insert("triangles", triangles.clone());
         corners.insert("contributions", output.contributions.clone());
         corners.insert("keys", output.keys.clone());
         corners.insert("corners", output.corners.clone());
         corners.insert("status", output.status.clone());
-        batch.dispatch_items(&self.corners, &corners, triangle_count)?;
+        batch.dispatch_items(&self.corners, &corners, triangle_count.into())?;
 
-        let bits = u32::BITS - vertex_count.saturating_sub(1).leading_zeros();
         self.sort.record(
             batch,
             &output.keys,
             &output.corners,
             &mut output.sort,
             corner_count.into(),
-            bits.max(1).into(),
+            SortKeyWidth::for_vertices(vertex_count),
         )?;
 
-        let mut ranges = counted(corner_count);
+        let mut ranges = counted(corner_count.into());
         ranges.insert("keys", output.keys.clone());
         ranges.insert("starts", output.starts.clone());
         ranges.insert("ends", output.ends.clone());
-        batch.dispatch_items(&self.ranges, &ranges, corner_count)?;
+        batch.dispatch_items(&self.ranges, &ranges, corner_count.into())?;
 
-        let mut gather = counted(vertex_count);
+        let mut gather = counted(vertex_count.into());
         gather.insert("contributions", output.contributions.clone());
         gather.insert("corners", output.corners.clone());
         gather.insert("starts", output.starts.clone());
         gather.insert("ends", output.ends.clone());
         gather.insert("normals", output.normals.clone());
         gather.insert("status", output.status.clone());
-        batch.dispatch_items(&self.gather, &gather, vertex_count)?;
+        batch.dispatch_items(&self.gather, &gather, vertex_count.into())?;
         Ok(())
     }
 }
@@ -420,19 +362,20 @@ mod tests {
         )?;
         let triangle_buffer =
             Buffer::from_upload(&context, BufferUpload::from_elements(triangles), definition)?;
-        let mut output =
-            VertexNormals::new(&context, positions.len() as u32, triangles.len() as u32)?;
+        let vertex_count = MeshVertexCount::try_from(positions.len())?;
+        let triangle_count = MeshTriangleCount::try_from(triangles.len())?;
+        let mut output = VertexNormals::new(&context, vertex_count, triangle_count)?;
         let mut batch = KernelBatch::new(&context);
         kernels.record(
             &mut batch,
             &position_buffer,
             &triangle_buffer,
-            positions.len() as u32,
-            triangles.len() as u32,
+            vertex_count,
+            triangle_count,
             &mut output,
         )?;
         batch.submit();
-        output.read(&context, positions.len() as u32).await
+        output.read(&context, vertex_count).await
     }
 
     #[tokio::test]

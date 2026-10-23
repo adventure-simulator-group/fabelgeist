@@ -11,7 +11,7 @@ pub mod wgsl;
 pub use fabelgeist_physics::Collisions;
 pub use fabelgeist_xpbd::{Solver, SolverSettings};
 pub use mesh::ShellMesh;
-pub use selfcollision::SelfCollision;
+pub use selfcollision::{GridUpdate, SelfCollision};
 pub use shell::{HostContactSchedule, Shell};
 pub use topology::{BendQuad, Topology};
 

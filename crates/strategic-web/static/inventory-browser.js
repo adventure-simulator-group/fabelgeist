@@ -455,7 +455,16 @@
       if (actionsFirst) cell.parentElement.prepend(cell);
       else cell.parentElement.append(cell);
     });
-    body.querySelectorAll(":scope > tr.trade-inventory-row").forEach(ensureRowActionRail);
+    if (actionsFirst) {
+      browser.querySelectorAll(".inventory-repair-header, col.inventory-column-repair").forEach((cell) => {
+        const actionCell = cell.parentElement.querySelector(":scope > .inventory-actions-header, :scope > col.inventory-column-actions");
+        actionCell?.after(cell);
+      });
+    }
+    body.querySelectorAll(":scope > tr.trade-inventory-row").forEach((row) => {
+      const { cell, actions } = ensureRowActionRail(row);
+      if (browser.dataset.repairActions === "true") ensureRepairActionCell(row, cell, actions, actionsFirst);
+    });
     const rows = [...body.querySelectorAll(":scope > tr.trade-inventory-row:not(.inventory-detail-row):not(.currency-component-row):not(.alcohol-component-row):not(.food-component-row)")];
     rows.forEach((row) => normalizeDestinationRow(row, browser));
     body.querySelectorAll(":scope > tr.alcohol-component-row, :scope > tr.food-component-row")
@@ -592,6 +601,22 @@
     if (row.closest(".right-sidebar")) row.prepend(cell);
     else row.append(cell);
     return { cell, actions };
+  }
+
+  function ensureRepairActionCell(row, actionCell, actions, actionsFirst) {
+    let cell = row.querySelector(":scope > .inventory-repair-cell");
+    if (!cell) {
+      cell = document.createElement("td");
+      cell.className = "inventory-repair-cell";
+      cell.setAttribute("aria-label", "Repair item");
+    }
+    if (actionsFirst) actionCell.after(cell);
+    else row.insertBefore(cell, actionCell);
+    const repair = actions.querySelector(":scope > .row-repair-form");
+    if (repair) {
+      cell.append(repair);
+      actions.classList.remove("smith-player-actions");
+    }
   }
 
   function bindContainerRowDragDrop(browser, row, open) {

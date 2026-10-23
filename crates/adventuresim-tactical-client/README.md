@@ -1,5 +1,17 @@
 # Fabelgeist tactical client
 
+[Immutable scene preparation](generation.md) describes shared worker products,
+readiness, residency and typed preparation failures.
+
+[Regional environment presentation](regional-map.md) describes the retained
+geographic camera, terrain surface and browser command boundary.
+
+The atmosphere extraction backport is required by the selected Bevy 0.19 engine.
+The build script reads the resolved version from the workspace lockfile and
+requires removing that backport and its guard when the project selects Bevy 0.20
+or later. Releasing a new upstream engine does not change the selected engine or
+make an otherwise unchanged build fail. This check does not access the network.
+
 ## Runtime equipment fitting
 
 Armor and clothing are generated locally from each wearer's evaluated, unposed
@@ -15,13 +27,11 @@ Offline exporters retain their reusable morph-equipped asset workflow.
 Compute and rendering dependencies must use the same `wgpu` release: linking
 two releases into the browser client duplicates their vendored WebGPU bindings.
 
-Initial loading exercises every authored armor placement on the canonical body,
-plus layered shoulders and alternate cuirass and tasset constructions. These
-temporary meshes are discarded; the device and compiled compute kernels stay
-alive across city travel. Strategic scene readiness waits for this preparation,
-even when the initial city has no equipped NPCs. Preparation failures surface as
-loading errors. Newly encountered wearers still receive their own fitted meshes;
-initial preparation does not cache canonical fits as substitutes for them.
+Strategic loading fits the equipment actually requested by the scene. The device
+and compiled compute kernels stay alive across city travel; loading does not fit
+and discard the entire authored catalog first. Strategic scene readiness waits
+for its requested fits, and preparation failures surface as loading errors.
+Newly encountered wearers receive their own fitted meshes.
 
 Fits are cached by item design, anatomical placement, and evaluated body shape.
 The last 128 variants remain available across travel; live entities retain their
@@ -509,6 +519,9 @@ complete main-hand set, and an absent family stays unavailable; only a pack
 with neither motion inherits its parent's main-hand attacks. `offhand` resolves
 independently through the parent chain. Missing, unloaded, zero-animation,
 multiple-animation, or short motion files are unavailable.
+Absent optional motion files are logged at info level while pose lookup uses
+the available fallbacks, including mirrored poses. Other loading failures
+remain errors, and invalid motion contents retain their validation warnings.
 Every local or remote character also gets a generated T-pose safety net until
 the base scene is available. Bind locals are reset before every animation
 evaluation so partial clips cannot accumulate stale or procedural transforms.
@@ -552,6 +565,24 @@ each face's rectangle bounds once. Per-rectangle buffers retain source triangle
 order; complete chunks retain clipping, normals, pigments and mesh indices.
 These buffers contain only current mesh output and are released after
 preparation. They do not retain another terrain or collision representation.
+
+Operable windows retain checked scene positions/directions and positive leaf
+dimensions through installation and presentation. The closure mesh cache accepts
+`LeafDimensions` and converts to the cuboid mesh contract at its explicit native
+cache/mesh adapter. Fixed glazing still admits thin or degenerate cuboid geometry.
+Cache keys, shared handles and material selection keep their native layouts.
+Core's paired `SceneWindowPose` supplies the converted leaf and native rotation.
+Building closure visibility and shutter lighting carry `SceneBuildingId` and
+`OpeningAssemblyId` through their joins. Material palette selection extracts the
+native building number only at the existing deterministic seed/hash adapter.
+Fixed bar presence uses the named `WindowBarPresence` enum in both scene APIs
+and the serialized `bars` field.
+
+Window animation and catch decisions remain transient server state. The mutable
+controller's current angle and ordinary toggle `bool` are a documented #770
+handoff under #765; distinguishing controller missing/blocked outcomes is outside
+the selected #794 geometry change. Generator admission belongs to #766 and the
+shared architectural-to-scene conversion belongs to #767.
 
 Outdoor furniture arrives as compact immutable recipe references and normal
 entity transforms. Shared mesh handles and the building material palette

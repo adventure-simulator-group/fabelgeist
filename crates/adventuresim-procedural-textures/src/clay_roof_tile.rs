@@ -8,6 +8,7 @@
 
 mod streams;
 use bevy::{asset::Assets, image::Image, math::Vec3};
+use fabelgeist_determinism::Seed;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -22,16 +23,16 @@ const TAIL_START: f32 = 0.66;
 #[derive(Clone, Copy)]
 struct TileSample {
     height: f32,
-    tile_id: u64,
-    upper_id: u64,
-    lower_id: u64,
+    tile_id: Seed,
+    upper_id: Seed,
+    lower_id: Seed,
     coverage: f32,
     contact: f32,
     firing: f32,
     edge_wear: f32,
 }
 
-fn tile_id(params: &crate::TextureParameters, row: i32, column: i32) -> u64 {
+fn tile_id(params: &crate::TextureParameters, row: i32, column: i32) -> Seed {
     params.field_seed(
         streams::TILE,
         &[
@@ -51,17 +52,17 @@ fn tile_coordinates(params: &crate::TextureParameters, u: f32, row: i32) -> (i32
 fn tail_side_width(
     params: &crate::TextureParameters,
     course_phase: f32,
-    id: u64,
-    field_seed: u64,
+    id: Seed,
+    field_seed: Seed,
 ) -> f32 {
     let hand_width = params.clay_roof_tile.tail_side_width_hand_width_1
         + params
-            .rng(streams::TAIL_WIDTH, &[id, field_seed])
+            .rng(streams::TAIL_WIDTH, &[id.to_u64(), field_seed.to_u64()])
             .inclusive_unit_f32()
             * params.clay_roof_tile.tail_side_width_hand_width_2;
     let tail_start = params.clay_roof_tile.tail_start
         + (params
-            .rng(streams::TAIL_HEIGHT, &[id, field_seed])
+            .rng(streams::TAIL_HEIGHT, &[id.to_u64(), field_seed.to_u64()])
             .inclusive_unit_f32()
             - 0.5)
             * params.clay_roof_tile.tail_side_width_tail_start;
@@ -71,7 +72,7 @@ fn tail_side_width(
     let tail = ((course_phase - tail_start) / (1.0 - tail_start)).clamp(0.0, 1.0);
     let roundness = params.clay_roof_tile.tail_side_width_roundness_1
         + params
-            .rng(streams::TAIL_CHIPPING, &[id, field_seed])
+            .rng(streams::TAIL_CHIPPING, &[id.to_u64(), field_seed.to_u64()])
             .inclusive_unit_f32()
             * params.clay_roof_tile.tail_side_width_roundness_2;
     let rounded = (1.0 - tail.powf(roundness)).max(0.0).sqrt();
@@ -82,10 +83,10 @@ fn face_variation(
     params: &crate::TextureParameters,
     local_x: f32,
     course_phase: f32,
-    id: u64,
+    id: Seed,
 ) -> f32 {
     let phase = params
-        .rng(streams::SURFACE_PHASE, &[id])
+        .element_rng(streams::SURFACE_PHASE, id)
         .inclusive_unit_f32()
         * std::f32::consts::TAU;
     let broad = (local_x * params.clay_roof_tile.face_variation_broad_1
@@ -100,7 +101,7 @@ fn face_variation(
 
 fn contact_and_wear(
     params: &crate::TextureParameters,
-    id: u64,
+    id: Seed,
     course_phase: f32,
     coverage: f32,
     edge_proximity: f32,
@@ -123,7 +124,7 @@ fn contact_and_wear(
     let edge_wear = edge_proximity
         * coverage
         * ((params
-            .rng(streams::WEAR, &[id, wear_segment])
+            .rng(streams::WEAR, &[id.to_u64(), wear_segment])
             .inclusive_unit_f32()
             - params.clay_roof_tile.sample_tiles_edge_wear_1)
             / params.clay_roof_tile.sample_tiles_edge_wear_2)
@@ -139,14 +140,15 @@ fn sample_tiles(params: &crate::TextureParameters, u: f32, v: f32) -> TileSample
     let raw_course_phase = scaled_v - row as f32;
     let (column, mut local_x) = tile_coordinates(params, u, row);
     let id = tile_id(params, row, column);
-    let unit_draw =
-        |purpose: fabelgeist_determinism::StreamId| params.rng(purpose, &[id]).inclusive_unit_f32();
+    let unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+        params.element_rng(purpose, id).inclusive_unit_f32()
+    };
     let vertical_offset = (unit_draw(streams::VERTICAL_OFFSET) - 0.5)
         * params.clay_roof_tile.sample_tiles_vertical_offset;
     let course_phase = (raw_course_phase - vertical_offset).clamp(0.0, 1.0);
     local_x = warped_tile_x(params, id, course_phase, local_x);
-    let left_width = tail_side_width(params, course_phase, id, 0);
-    let right_width = tail_side_width(params, course_phase, id, 1);
+    let left_width = tail_side_width(params, course_phase, id, Seed::from_u64(0));
+    let right_width = tail_side_width(params, course_phase, id, Seed::from_u64(1));
     let edge_distance = (local_x + left_width).min(right_width - local_x);
     let antialias = params.clay_roof_tile.sample_tiles_antialias
         * params.clay_roof_tile.tiles_per_course as f32
@@ -217,19 +219,19 @@ fn sample_tiles(params: &crate::TextureParameters, u: f32, v: f32) -> TileSample
 
 fn color_and_roughness(params: &crate::TextureParameters, sample: TileSample) -> ([u8; 3], u8) {
     let mineral = params
-        .rng(streams::MINERAL, &[sample.tile_id])
+        .rng(streams::MINERAL, &[sample.tile_id.to_u64()])
         .inclusive_unit_f32()
         - 0.5;
     let palette = &params.clay_roof_tile.palette;
     let color = crate::SrgbColor(
         palette[params
-            .rng(streams::PALETTE, &[sample.lower_id])
+            .rng(streams::PALETTE, &[sample.lower_id.to_u64()])
             .index(palette.len())],
     )
     .covered_by(
         crate::SrgbColor(
             palette[params
-                .rng(streams::PALETTE, &[sample.upper_id])
+                .rng(streams::PALETTE, &[sample.upper_id.to_u64()])
                 .index(palette.len())],
         ),
         sample.coverage,
@@ -313,12 +315,13 @@ pub fn generate_clay_roof_tile_textures(
 
 fn warped_tile_x(
     params: &crate::TextureParameters,
-    id: u64,
+    id: Seed,
     course_phase: f32,
     local_x: f32,
 ) -> f32 {
-    let unit_draw =
-        |purpose: fabelgeist_determinism::StreamId| params.rng(purpose, &[id]).inclusive_unit_f32();
+    let unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+        params.element_rng(purpose, id).inclusive_unit_f32()
+    };
     let yaw = (unit_draw(streams::YAW) - 0.5) * params.clay_roof_tile.sample_tiles_yaw;
     let tail_asymmetry = (unit_draw(streams::TAIL_ASYMMETRY) - 0.5)
         * params.clay_roof_tile.sample_tiles_tail_asymmetry;
@@ -678,7 +681,7 @@ mod tests {
 mod controls;
 pub use controls::Parameters;
 
-fn under_course(params: &crate::TextureParameters, u: f32, row: i32, local_x: f32) -> (u64, f32) {
+fn under_course(params: &crate::TextureParameters, u: f32, row: i32, local_x: f32) -> (Seed, f32) {
     let under_id = tile_id(params, row + 1, tile_coordinates(params, u, row + 1).0);
     let under_variation = face_variation(
         params,

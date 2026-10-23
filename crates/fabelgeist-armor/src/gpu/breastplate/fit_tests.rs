@@ -20,13 +20,9 @@ fn body_support_uses_the_outer_envelope_and_preserves_the_chart_ray() {
             count
         ]))
         .unwrap();
-    // Height-dependent section centres must not steer the chart's ray.
-    let centers = gpu
-        .upload(BufferUpload::from_elements(
-            &(0..count)
-                .map(|i| [0.05_f32, 0.08 + i as f32 * 0.001, 1.0, 2.0])
-                .collect::<Vec<_>>(),
-        ))
+    // The support query follows the authored chart's ray.
+    let sections = gpu
+        .upload(BufferUpload::from_elements(&vec![[1.0_f32, 2.0]; count]))
         .unwrap();
     let mut words = shape_wgsl::design_words(&BreastplateDesign {
         front_clearance: Millimeters(18),
@@ -80,7 +76,7 @@ fn body_support_uses_the_outer_envelope_and_preserves_the_chart_ray() {
         &[
             ("plate", &plate),
             ("positions", &positions),
-            ("centers", &centers),
+            ("sections", &sections),
             ("torso_faces", &faces),
             ("body_local", &body),
             ("support_radii", &support),
@@ -109,7 +105,7 @@ fn body_support_uses_the_outer_envelope_and_preserves_the_chart_ray() {
         &[
             ("plate", &plate),
             ("positions", &positions),
-            ("centers", &centers),
+            ("sections", &sections),
             ("envelope", &envelope),
             ("support_radii", &support),
             ("status", &status),
@@ -141,11 +137,8 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
     let mut input = vec![[0.0_f32, 1.0, 0.4]; count];
     input[spike] = [0.0, 1.1, 0.28];
     let positions = gpu.upload(BufferUpload::from_elements(&input)).unwrap();
-    let centers = gpu
-        .upload(BufferUpload::from_elements(&vec![
-            [0.0_f32, 0.0, 1.0, 2.0];
-            count
-        ]))
+    let sections = gpu
+        .upload(BufferUpload::from_elements(&vec![[1.0_f32, 2.0]; count]))
         .unwrap();
     let mut words = shape_wgsl::design_words(&BreastplateDesign {
         skirt_flare: Millimeters(0),
@@ -191,7 +184,7 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
         &[
             ("plate", &plate),
             ("positions", &positions),
-            ("centers", &centers),
+            ("sections", &sections),
             ("torso_faces", &faces),
             ("body_local", &body),
             ("support_radii", &support_radii),
@@ -228,7 +221,7 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
         &[
             ("plate", &plate),
             ("positions", &positions),
-            ("centers", &centers),
+            ("sections", &sections),
             ("envelope", &envelope),
             ("support_radii", &support_radii),
             (
@@ -288,11 +281,8 @@ fn apply_support(
 ) -> (Vec<[f32; 3]>, u32) {
     let count = points.len();
     let positions = gpu.upload(BufferUpload::from_elements(points)).unwrap();
-    let centers = gpu
-        .upload(BufferUpload::from_elements(&vec![
-            [0.0_f32, 0.0, 1.0, 2.0];
-            count
-        ]))
+    let sections = gpu
+        .upload(BufferUpload::from_elements(&vec![[1.0_f32, 2.0]; count]))
         .unwrap();
     let support = gpu.upload(BufferUpload::from_elements(support)).unwrap();
     let envelope = gpu.upload(BufferUpload::from_elements(envelope)).unwrap();
@@ -312,7 +302,7 @@ fn apply_support(
         &[
             ("plate", plate),
             ("positions", &positions),
-            ("centers", &centers),
+            ("sections", &sections),
             ("support_radii", &support),
             ("envelope", &envelope),
             ("status", &status),
@@ -430,11 +420,8 @@ fn body_seating_retains_authored_skirt_flare_without_moving_the_waist() {
             count
         ]))
         .unwrap();
-    let centers = gpu
-        .upload(BufferUpload::from_elements(&vec![
-            [0.0_f32, 0.0, 1.0, 2.0];
-            count
-        ]))
+    let sections = gpu
+        .upload(BufferUpload::from_elements(&vec![[1.0_f32, 2.0]; count]))
         .unwrap();
     let body = gpu
         .upload(BufferUpload::from_elements(&[
@@ -475,7 +462,7 @@ fn body_seating_retains_authored_skirt_flare_without_moving_the_waist() {
             &[
                 ("plate", &plate),
                 ("positions", &points),
-                ("centers", &centers),
+                ("sections", &sections),
                 ("body_local", &body),
                 ("torso_faces", &faces),
                 ("support_radii", &support),

@@ -1,5 +1,5 @@
 use super::*;
-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse, WorkgroupGrid};
 use serde::Deserialize;
 
 // Native fixtures pin the original sorter's serialized words and metadata.
@@ -51,7 +51,7 @@ fn preserves_native_layout_width_and_shader_fixtures() {
     for row in fixture.layout {
         let count = SortItemCount::from(row.count);
         assert_eq!(u64::from(count.word_bytes()), row.bytes);
-        assert_eq!(<[u32; 3]>::from(count.tiles()), [row.tiles, 1, 1]);
+        assert_eq!(count.tiles().workgroups(), WorkgroupGrid::from([row.tiles, 1, 1]));
         let capacity = count.with_sentinel();
         assert_eq!(capacity, row.capacity.into());
         assert_eq!(
@@ -64,7 +64,7 @@ fn preserves_native_layout_width_and_shader_fixtures() {
         assert_eq!(width.pass_count().to_string(), row.passes.to_string());
     }
     assert_eq!(
-        vec![histogram_code(), scan_code(), scatter_code()],
+        vec![histogram_code(), scatter_code()],
         fixture.shaders
     );
 }
@@ -153,6 +153,6 @@ async fn preserves_scratch_growth_admission_order_and_noops() -> Result<()> {
             32.into(),
         )?;
     }
-    assert_eq!(batch.dispatch_count(), fixture.dispatches);
+    assert_eq!(batch.dispatch_count().to_string(), fixture.dispatches.to_string());
     Ok(())
 }

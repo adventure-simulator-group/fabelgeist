@@ -1,6 +1,27 @@
 use super::*;
 
 #[test]
+fn canonical_planes_reject_cancellation_without_an_absolute_area_floor() {
+    for scale in [1.0e-8, 1.0, 1.0e8] {
+        let sliver = [
+            Vec3::new(-0.0015077116, -0.19810131, 63.47342),
+            Vec3::new(0.0, -0.19810131, 63.892),
+            Vec3::new(-3.110013e-20, -0.19810131, 63.892),
+        ]
+        .map(|point| point * scale);
+        for order in [[0, 1, 2], [1, 2, 0], [2, 0, 1], [0, 2, 1]] {
+            assert!(GroundTriangle::new(order.map(|i| sliver[i])).is_none());
+        }
+        let triangle = GroundTriangle::new(
+            [Vec3::ZERO, Vec3::X, Vec3::Z].map(|point| (point + Vec3::Y * 2.0) * scale),
+        )
+        .unwrap();
+        assert_eq!(triangle.height_at(Vec2::splat(scale * 0.25)), 2.0 * scale);
+        assert!(triangle.area() > 0.0);
+    }
+}
+
+#[test]
 fn goslar_1036_clipped_source_preserves_the_represented_geographic_plane() {
     let fixture: serde_json::Value = serde_json::from_str(include_str!(concat!(
         env!("CARGO_MANIFEST_DIR"),
@@ -19,6 +40,7 @@ fn goslar_1036_clipped_source_preserves_the_represented_geographic_plane() {
             .map(|region| serde_json::from_value(region["outline_metres"].clone()).unwrap())
             .collect(),
     );
+    let cuts = cuts.unwrap();
     let pieces = source.outside_regions(&cuts);
     assert!(pieces.len() > 1);
     for triangle in &pieces {

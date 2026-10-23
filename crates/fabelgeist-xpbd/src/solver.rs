@@ -143,7 +143,7 @@ impl Solver {
         delta: f32,
     ) -> Result<()> {
         let count = particles.count();
-        if count == 0 || delta <= 0.0 || self.settings.substeps == 0 {
+        if count.is_empty() || delta <= 0.0 || self.settings.substeps == 0 {
             return Ok(());
         }
         let substep = delta / self.settings.substeps as f32;
@@ -205,7 +205,7 @@ impl Solver {
         delta: f32,
     ) -> Result<()> {
         let count = particles.count();
-        if count == 0 || delta <= 0.0 || self.settings.substeps == 0 {
+        if count.is_empty() || delta <= 0.0 || self.settings.substeps == 0 {
             return Ok(());
         }
         let substep = delta / self.settings.substeps as f32;
@@ -240,9 +240,9 @@ impl Solver {
         substep: f32,
     ) -> Result<()> {
         let mut parameters = PassParameters::new();
-        parameters.insert("positions", particles.positions.clone());
-        parameters.insert("previous", particles.previous.clone());
-        parameters.insert("velocities", particles.velocities.clone());
+        parameters.insert("positions", particles.positions().clone());
+        parameters.insert("previous", particles.previous().clone());
+        parameters.insert("velocities", particles.velocities().clone());
         parameters.insert(
             "gravity",
             fabelgeist_math::Vec4::new(
@@ -256,7 +256,7 @@ impl Solver {
         parameters.insert("damping", self.settings.damping);
         parameters.insert("count", particles.count());
         parameters.insert("max_speed", self.settings.max_speed);
-        batch.dispatch_items(&self.predict, &parameters, particles.count())?;
+        batch.dispatch_items(&self.predict, &parameters, particles.count().into())?;
         Ok(())
     }
 
@@ -267,14 +267,14 @@ impl Solver {
         substep: f32,
     ) -> Result<()> {
         let mut parameters = PassParameters::new();
-        parameters.insert("positions", particles.positions.clone());
-        parameters.insert("previous", particles.previous.clone());
-        parameters.insert("velocities", particles.velocities.clone());
+        parameters.insert("positions", particles.positions().clone());
+        parameters.insert("previous", particles.previous().clone());
+        parameters.insert("velocities", particles.velocities().clone());
         parameters.insert("substep", substep);
         parameters.insert("count", particles.count());
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.finalize, &parameters, particles.count())?;
+        batch.dispatch_items(&self.finalize, &parameters, particles.count().into())?;
         Ok(())
     }
 }

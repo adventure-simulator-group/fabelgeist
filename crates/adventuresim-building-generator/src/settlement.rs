@@ -1,6 +1,7 @@
 //! Occupied building uses reuse structural families, with purpose-specific room programmes.
 use crate::{BuildingArchetype, BuildingProgram, RoomKind};
 use adventuresim_world_schema::settlement_buildings::BuildingUse;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 const ROOF_VARIATION_DEGREES: f32 = 4.0;
@@ -39,41 +40,41 @@ impl BuildingProgram {
     pub fn validated_settlement(
         archetype: BuildingArchetype,
         usage: BuildingUse,
-        initial_seed: u64,
+        initial_seed: Seed,
         size: Option<crate::ServiceBuildingSize>,
     ) -> Result<Self, crate::GenerationError> {
-        let mut first_error = None;
-        for attempt in 0..VALID_RECIPE_ATTEMPTS {
-            let seed = if attempt == 0 {
-                initial_seed
-            } else {
-                RECIPE_ATTEMPT
-                    .seed(initial_seed, &[u64::from(attempt)])
-                    .to_u64()
-            };
+        let admit = |seed| {
             let mut program = Self::settlement(archetype, Some(usage), seed);
             if let Some(size) = size {
                 program = program.with_service_size(size);
             }
-            let generated = crate::generate(&program).and_then(|plan| {
+            crate::generate(&program).and_then(|plan| {
                 if plan.domestic_heating.is_some() {
                     crate::interior::validate_circulation(&plan)
                         .map_err(crate::GenerationError::BlockedDomesticCirculation)?;
                 }
-                Ok(plan)
-            });
-            match generated {
-                Ok(_) => return Ok(program),
-                Err(error) => {
-                    first_error.get_or_insert(error);
-                }
+                Ok(program)
+            })
+        };
+        let first_error = match admit(initial_seed) {
+            Ok(program) => return Ok(program),
+            Err(error) => error,
+        };
+        for attempt in 1..VALID_RECIPE_ATTEMPTS {
+            let seed = RECIPE_ATTEMPT.seed(initial_seed, &[u64::from(attempt)]);
+            if let Ok(program) = admit(seed) {
+                return Ok(program);
             }
         }
-        Err(first_error.expect("the bounded recipe search always attempts the initial seed"))
+        Err(first_error)
     }
 
     /// The same compact recipe is used for playable buildings and distant shells.
-    pub fn settlement(archetype: BuildingArchetype, usage: Option<BuildingUse>, seed: u64) -> Self {
+    pub fn settlement(
+        archetype: BuildingArchetype,
+        usage: Option<BuildingUse>,
+        seed: Seed,
+    ) -> Self {
         let mut program = Self::fixture(archetype, seed);
         program.usage = usage.or_else(|| {
             (archetype == BuildingArchetype::ParishChurch).then_some(BuildingUse::ParishChurch)
@@ -123,7 +124,7 @@ impl BuildingProgram {
         program
     }
 
-    pub(crate) fn parish_church(seed: u64) -> Self {
+    pub(crate) fn parish_church(seed: Seed) -> Self {
         let mut program = Self::fixture(BuildingArchetype::TownHouse, seed);
         program.archetype = BuildingArchetype::ParishChurch;
         program.usage = Some(BuildingUse::ParishChurch);
@@ -188,7 +189,7 @@ mod tests {
         let program = BuildingProgram::settlement(
             BuildingArchetype::HallHouse,
             Some(BuildingUse::MarketHall),
-            232_833_052_103_632_759,
+            fabelgeist_determinism::Seed::from_u64(232_833_052_103_632_759),
         );
         generate(&program).unwrap();
     }
@@ -209,9 +210,9 @@ mod tests {
             let mut failures = Vec::new();
             let found = (0..64).find_map(|attempt| {
                 let seed = if attempt == 0 {
-                    42
+                    Seed::from_u64(42)
                 } else {
-                    RECIPE_ATTEMPT.seed(42, &[attempt]).to_u64()
+                    RECIPE_ATTEMPT.seed(Seed::from_u64(42), &[attempt])
                 };
                 let program = BuildingProgram::settlement(archetype, Some(usage), seed);
                 match generate(&program) {
@@ -232,8 +233,8 @@ mod tests {
                 program,
                 BuildingProgram::settlement(archetype, Some(usage), program.seed)
             );
-            let collision = compile_building_collision(&plan);
-            assert!(collision.bounds.max.x > collision.bounds.min.x);
+            let collision = compile_building_collision(&plan).unwrap();
+            assert!(collision.bounds.max().metres().x > collision.bounds.min().metres().x);
         }
     }
 
@@ -242,12 +243,12 @@ mod tests {
         let first = BuildingProgram::settlement(
             BuildingArchetype::TownHouse,
             Some(BuildingUse::Dwelling),
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         let second = BuildingProgram::settlement(
             BuildingArchetype::TownHouse,
             Some(BuildingUse::Dwelling),
-            43,
+            fabelgeist_determinism::Seed::from_u64(43),
         );
         assert_ne!(first.roof_pitch_degrees, second.roof_pitch_degrees);
         assert_ne!(first.storey_height_metres, second.storey_height_metres);

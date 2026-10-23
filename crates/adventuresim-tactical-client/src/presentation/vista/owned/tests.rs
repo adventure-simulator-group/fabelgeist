@@ -20,16 +20,48 @@ fn surface(meshes: &[Mesh]) -> GeographicSurface {
             .0
             .iter()
             .map(|t| t.map(|i| Vec3::from_array(positions[i])))
-            .filter(|[a, b, c]| {
-                (*b - *a).cross(*c - *a).y > 0.0
-                    && (b.xz().as_dvec2() - a.xz().as_dvec2())
-                        .perp_dot(c.xz().as_dvec2() - a.xz().as_dvec2())
-                        .abs()
-                        > f64::EPSILON
+            .filter(|triangle| {
+                let [a, b, c] = triangle.map(Vec3::as_dvec3);
+                let ab = b - a;
+                let ac = c - a;
+                // Bound interpolation, coordinate differences and the cross
+                // product at the scene-coordinate scale, in area units. Using
+                // only edge products misses a short edge created by rounding
+                // two copies of the same clipped endpoint differently.
+                let projection_roundoff = 8.0
+                    * f64::EPSILON
+                    * (a.length() + b.length() + c.length())
+                    * (ab.length() + ac.length());
+                // Retaining walls and unmeasurable graphics slivers cannot
+                // supply an affine ground height. Use geographic admission;
+                // the assertions below still require complete plot coverage.
+                ab.cross(ac).y > projection_roundoff
+                    && GeographicSurface::from_triangles([*triangle]).is_some()
             })
             .collect::<Vec<_>>()
     }))
     .unwrap()
+}
+
+#[test]
+fn ground_projection_excludes_vertical_roundoff_at_each_mesh_scale() {
+    for scale in [1.0e-8, 1.0, 1.0e8] {
+        let ground = [Vec3::ZERO, Vec3::Z, Vec3::X].map(|point| point * scale);
+        let wall = [
+            Vec3::new(-2.7755576e-17, -0.19810131, 63.133064),
+            Vec3::new(0.31322417, -0.19810131, 63.018383),
+            Vec3::new(3.081488e-33, 0.0018986965, 63.133064),
+        ]
+        .map(|point| point * scale);
+        let sliver = [
+            Vec3::new(-2.7755576e-17, 0.0018986965, 63.133064),
+            Vec3::new(0.31322417, -0.19810131, 63.018383),
+            Vec3::new(3.081488e-33, 0.0018986965, 63.133064),
+        ]
+        .map(|point| point * scale);
+        let mesh = triangle_mesh([ground, wall, sliver]);
+        assert_eq!(surface(&[mesh]).triangles().count(), 1);
+    }
 }
 
 #[test]
@@ -101,10 +133,12 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
     let canonical = terrain.physical_geographic_surface().unwrap();
     for garden in &input.gardens {
         let comparison = presented
-            .compare_in_outline(&canonical, &garden.plot.corners())
+            .compare_in_outline(&canonical, &adventuresim_tactical_core::scene_coordinates::ScenePlanPolygon::from_ordered_vertices((garden.plot.corners()).iter().copied().map(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from).collect::<Result<Vec<_>, _>>().unwrap()).unwrap())
             .unwrap();
         assert!(
-            (comparison.covered_area_square_metres - comparison.required_area_square_metres).abs()
+            (comparison.covered_area_square_metres.square_metres()
+                - comparison.required_area_square_metres.square_metres())
+            .abs()
                 < 0.01,
             "property {:?}: {comparison:?}",
             garden.owner
@@ -113,10 +147,11 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
         // presented face against all canonical candidates below; a pairwise
         // single-valued comparison across that edge invents a height error.
         for route in &garden.access {
-            for p in [route.start_metres, route.end_metres] {
+            for p in [route.start_metres(), route.end_metres()] {
                 assert!(
-                    (presented.elevation_at(p).unwrap().metres() - terrain.height_at(p).unwrap())
-                        .abs()
+                    (presented.elevation_at(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(p).unwrap()).unwrap().metres()
+                        - terrain.height_at(p).unwrap())
+                    .abs()
                         < 0.001
                 );
             }
@@ -139,7 +174,7 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
                     )
                     .iter()
                     .any(|h| (h.metres() - point.y).abs() < 0.001),
-                "presented {point:?}, canonical {:?}",
+                "presented {point:?}, triangle {triangle:?}, canonical {:?}",
                 terrain.support_elevations_at(
                     adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
                         point.xz()
@@ -155,8 +190,15 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
         Vec2::new(1.01, 0.37),
     ] {
         assert!(
-            (presented.elevation_at(point).unwrap().metres() - terrain.height_at(point).unwrap())
-                .abs()
+            (presented
+                .elevation_at(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point)
+                        .unwrap()
+                )
+                .unwrap()
+                .metres()
+                - terrain.height_at(point).unwrap())
+            .abs()
                 < 0.001
         );
     }

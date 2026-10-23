@@ -3,6 +3,12 @@ use crate::globals::WgpuContext;
 use anyhow::{Result, anyhow};
 use wgpu::util::DeviceExt;
 
+pub use grid::{DispatchOccupancy, WorkgroupGrid};
+pub use shape::{InvocationCount, WorkgroupShape, WorkgroupShapeError};
+
+mod grid;
+mod shape;
+
 pub struct ComputePass;
 
 impl ComputePass {

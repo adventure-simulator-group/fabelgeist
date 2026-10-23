@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 use crate::shuffle;
@@ -94,7 +95,7 @@ pub struct LogicGridAssignment {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct LogicGridPuzzle {
     pub rules_version: u16,
-    pub seed: u64,
+    pub seed: Seed,
     pub spec: LogicGridSpec,
     solution: Vec<LogicGridAssignment>,
     pub clues: Vec<LogicGridClue>,
@@ -110,12 +111,12 @@ pub struct LogicGridProjection {
 }
 
 impl LogicGridPuzzle {
-    pub fn generate(seed: u64) -> Self {
+    pub fn generate(seed: Seed) -> Self {
         Self::generate_with_spec(seed, LogicGridSpec::default())
             .expect("standard logic-grid specification is valid")
     }
 
-    pub fn generate_with_spec(seed: u64, spec: LogicGridSpec) -> Result<Self, &'static str> {
+    pub fn generate_with_spec(seed: Seed, spec: LogicGridSpec) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
         let size = usize::from(spec.size);
         let mut rng = LOGIC_GRID_GENERATION_DOMAIN.rng(seed, &[]);
@@ -387,7 +388,7 @@ mod tests {
     #[test]
     fn generated_grids_are_unique_irredundant_and_observer_safe() {
         for size in 3..=4 {
-            for seed in 0..250 {
+            for seed in (0..250).map(fabelgeist_determinism::Seed::from_u64) {
                 let puzzle = LogicGridPuzzle::generate_with_spec(
                     seed,
                     LogicGridSpec {

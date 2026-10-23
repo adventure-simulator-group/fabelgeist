@@ -58,7 +58,9 @@ impl Composition {
                 let height = hit.elevation.metres();
                 checksum += f64::from(height);
                 query_count += 1;
-                if plans.iter().all(|plan| !plan.contains(query)) {
+                let scene_query =
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(query)?;
+                if plans.iter().all(|plan| !plan.contains(scene_query)) {
                     let error = (height - point.y).abs();
                     let permitted = policy.limits.contact_tolerance_metres();
                     if error > permitted {
@@ -91,9 +93,9 @@ impl Composition {
                     "compact_round_trip":projection_check,
                     "seated_playable_buildings":grounded.layout().playable.len(),
                     "seated_distant_buildings":grounded.layout().distant.len(),
-                    "foundation_owners":surface.foundations.len(),
-                    "foundation_solid_triangles":surface.foundations.iter().map(|f| f.solid_triangles.len()).sum::<usize>(),
-                    "source_triangles_after_clipping":surface.natural_triangles.len(),
+                    "foundation_owners":surface.foundations().len(),
+                    "foundation_solid_triangles":surface.foundations().iter().map(|f| f.solid_triangles().len()).sum::<usize>(),
+                    "source_triangles_after_clipping":surface.natural_triangles().len(),
                     "query_seconds":query_seconds,"queries":query_count,
                     "unchanged_unowned_vertex_queries":unchanged_samples,"query_height_checksum":checksum
                 }

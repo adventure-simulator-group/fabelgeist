@@ -611,7 +611,7 @@ impl Fit {
     /// Both are cheap handles. The read is asynchronous, and holding a
     /// blocking lock across it would stall every other handler on the thread.
     pub fn readback_handles(&self) -> (WgpuContext, fabelgeist_gpu::prelude::Buffer) {
-        (self.context.clone(), self.cloth.particles.positions.clone())
+        (self.context.clone(), self.cloth.particles.positions().clone())
     }
 
     #[cfg_attr(not(test), allow(dead_code))]

@@ -67,7 +67,7 @@ fn committed_oak_bake_matches_the_recipe_and_shader_channel_layout() {
 fn oak_controls_and_seed_change_the_rendered_height_and_still_tile() {
     let original = TextureParameters::default();
     let mut edited = original.clone();
-    edited.seed = 73;
+    edited.seed = fabelgeist_determinism::Seed::from_u64(73);
     edited.surface.columns = 12;
     edited.surface.rows = 8;
     edited.surface.valley_width_min *= 1.25;

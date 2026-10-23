@@ -77,7 +77,7 @@ fn main(
     }}
     var best = 0xffffffffu;
     var best_distance = 3.4e38;
-    let tiles = (params.target_count + {TILE}u - 1u) / {TILE}u;
+    let tiles = params.target_count / {TILE}u + select(0u, 1u, params.target_count % {TILE}u != 0u);
     for (var tile = 0u; tile < tiles; tile = tile + 1u) {{
         let slot = tile * {TILE}u + local_id.x;
         if (slot < params.target_count) {{
@@ -201,7 +201,7 @@ fn main(
     var best = 0xffffffffu;
     var best_distance = 3.4e38;
     var best_weights = vec3<f32>(0.0);
-    let tiles = (params.target_count + {TILE}u - 1u) / {TILE}u;
+    let tiles = params.target_count / {TILE}u + select(0u, 1u, params.target_count % {TILE}u != 0u);
     for (var tile = 0u; tile < tiles; tile = tile + 1u) {{
         let slot = tile * {TILE}u + local_id.x;
         if (slot < params.target_count) {{
@@ -315,7 +315,7 @@ fn main(
     var best = 0xffffffffu;
     var best_t = select(3.4e38, -3.4e38, farthest);
     var best_uv = vec2<f32>(0.0);
-    let tiles = (params.target_count + {TILE}u - 1u) / {TILE}u;
+    let tiles = params.target_count / {TILE}u + select(0u, 1u, params.target_count % {TILE}u != 0u);
     for (var tile = 0u; tile < tiles; tile = tile + 1u) {{
         let slot = tile * {TILE}u + local_id.x;
         if (slot < params.target_count) {{

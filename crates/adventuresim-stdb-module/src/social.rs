@@ -917,7 +917,7 @@ fn persist_claim_assessments(
     claims: Vec<crate::strategic::ReferredTestimonyClaim>,
 ) -> Result<(), String> {
     let insight = crate::condition::mental_check(ctx, observer_character_id, Skill::Insight)?;
-    let assessment_seed: u64 = ctx.random();
+    let assessment_seed: fabelgeist_determinism::Seed = ctx.random();
     for (claim_order, claim) in claims.into_iter().enumerate() {
         if ctx
             .db

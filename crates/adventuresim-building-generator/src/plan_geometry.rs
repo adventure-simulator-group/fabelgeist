@@ -6,14 +6,40 @@ pub trait PlanVertex: Copy + PartialEq {
     fn plan_metres(self) -> Vec2;
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, serde::Serialize, bevy::reflect::Reflect)]
+#[serde(transparent)]
+#[reflect(opaque)]
+#[repr(transparent)]
 pub struct ArchitecturalPlanPoint(Vec2);
 impl ArchitecturalPlanPoint {
-    pub fn from_metres(metres: Vec2) -> Option<Self> {
-        metres.is_finite().then_some(Self(metres))
+    pub fn from_metres(metres: Vec2) -> Result<Self, crate::spatial_geometry::GeometryError> {
+        use crate::spatial_geometry::{CoordinateAxis, GeometryError, GeometryRole};
+        if !metres.is_finite() {
+            return Err(GeometryError::NonFinite {
+                role: GeometryRole::Position,
+                axis: if !metres.x.is_finite() {
+                    CoordinateAxis::X
+                } else {
+                    CoordinateAxis::Z
+                },
+            });
+        }
+        Ok(Self(metres))
     }
     pub fn metres(self) -> Vec2 {
         self.0
+    }
+}
+impl TryFrom<Vec2> for ArchitecturalPlanPoint {
+    type Error = crate::spatial_geometry::GeometryError;
+    fn try_from(metres: Vec2) -> Result<Self, Self::Error> {
+        Self::from_metres(metres)
+    }
+}
+impl<'de> serde::Deserialize<'de> for ArchitecturalPlanPoint {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        Self::from_metres(<Vec2 as serde::Deserialize>::deserialize(d)?)
+            .map_err(serde::de::Error::custom)
     }
 }
 impl PlanVertex for ArchitecturalPlanPoint {
@@ -22,19 +48,30 @@ impl PlanVertex for ArchitecturalPlanPoint {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum PlanGeometryError {
+    Geometry(crate::spatial_geometry::GeometryError),
+    SolidConstruction {
+        solid: crate::ResolvedItemId,
+        cause: crate::spatial_geometry::GeometryError,
+    },
     NonFinite,
     InvalidProjection,
     NegativeSolidDimension,
     DegeneratePolygon,
-    DuplicateVertex { vertex: usize },
-    NonConvexOrClockwise { vertex: usize },
+    DuplicateVertex {
+        vertex: usize,
+    },
+    NonConvexOrClockwise {
+        vertex: usize,
+    },
 }
 impl std::fmt::Display for PlanGeometryError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
+            Self::Geometry(cause) => cause.fmt(f),
+            Self::SolidConstruction { solid, cause } => write!(f, "solid {solid:?}: {cause}"),
             Self::InvalidProjection => f.write_str("invalid rigid plan projection"),
             Self::NonFinite => f.write_str("nonfinite plan geometry"),
             Self::NegativeSolidDimension => f.write_str("negative solid dimension"),
@@ -47,7 +84,20 @@ impl std::fmt::Display for PlanGeometryError {
         }
     }
 }
-impl std::error::Error for PlanGeometryError {}
+impl std::error::Error for PlanGeometryError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::Geometry(cause) => Some(cause),
+            Self::SolidConstruction { cause, .. } => Some(cause),
+            _ => None,
+        }
+    }
+}
+impl From<crate::spatial_geometry::GeometryError> for PlanGeometryError {
+    fn from(cause: crate::spatial_geometry::GeometryError) -> Self {
+        Self::Geometry(cause)
+    }
+}
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct PlanSegment<P: PlanVertex> {
@@ -99,15 +149,14 @@ impl<P: PlanVertex> PlanPolygon<P> {
     }
     pub fn try_map<Q: PlanVertex>(
         &self,
-        mut map: impl FnMut(P) -> Option<Q>,
+        mut map: impl FnMut(P) -> Result<Q, PlanGeometryError>,
     ) -> Result<PlanPolygon<Q>, PlanGeometryError> {
         let vertices = self
             .vertices
             .iter()
             .copied()
             .map(&mut map)
-            .collect::<Option<Vec<_>>>()
-            .ok_or(PlanGeometryError::NonFinite)?;
+            .collect::<Result<Vec<_>, _>>()?;
         PlanPolygon::from_ordered_vertices(vertices)
     }
 }
@@ -271,10 +320,13 @@ mod tests {
         .unwrap();
         assert!(
             polygon
-                .try_map(|p| ArchitecturalPlanPoint::from_metres(p.metres() * f32::INFINITY))
+                .try_map(
+                    |p| ArchitecturalPlanPoint::from_metres(p.metres() * f32::INFINITY)
+                        .map_err(Into::into)
+                )
                 .is_err()
         );
-        assert!(polygon.try_map(|_| Some(point(0.0, 0.0))).is_err());
+        assert!(polygon.try_map(|_| Ok(point(0.0, 0.0))).is_err());
         let offset = Vec2::splat(16_777_216.0);
         let shifted = PlanPolygon::from_ordered_vertices(vec![
             point(0.0, 0.0),
@@ -282,7 +334,7 @@ mod tests {
             point(0.0, 4.0),
         ])
         .unwrap()
-        .try_map(|p| ArchitecturalPlanPoint::from_metres(p.metres() + offset))
+        .try_map(|p| ArchitecturalPlanPoint::from_metres(p.metres() + offset).map_err(Into::into))
         .unwrap();
         assert_eq!(shifted.vertices().len(), 3);
     }

@@ -1,5 +1,6 @@
 //! Open deck boards only where the complete masonry fits between retained members.
 use super::{assembly::Assembly, placement::Placement};
+use crate::GenerationResult as Result;
 use crate::*;
 use bevy::math::Vec3;
 
@@ -7,116 +8,148 @@ pub(super) const MASONRY_BEARING_METRES: f32 = 0.04;
 pub(super) const CLOSURE_LAP_METRES: f32 = 0.05;
 pub(super) const CLOSURE_THICKNESS_METRES: f32 = 0.02;
 const CUT_TOLERANCE_METRES: f32 = 0.001;
+pub(super) const PENETRATION_DEPTH_METRES: f32 = 0.16;
 
-pub(super) fn openings(plan: &BuildingPlan, placement: Placement) -> Vec<HeatingFloorPenetration> {
+pub(super) fn openings(
+    plan: &BuildingPlan,
+    placement: Placement,
+) -> Result<Vec<HeatingFloorPenetration>> {
     plan.storeys
         .iter()
         .filter(|s| s.level > 0)
         .map(|storey| {
             let elevation = f32::from(storey.level) * plan.storey_height_metres;
-            let mut core = if storey.level <= placement.storey_level {
-                placement.body()
+            let body = if StoreyIndex::from_serialized(storey.level) <= placement.site.storey_level
+            {
+                placement.site.body()?
             } else {
-                placement.shaft(elevation)
+                placement
+                    .site
+                    .shaft(crate::spatial_geometry::Elevation::from_metres(elevation)?)?
             };
-            core.min.y = elevation - 0.16;
-            core.max.y = elevation;
+            let mut min = body.min().metres();
+            let mut max = body.max().metres();
+            min.y = elevation - PENETRATION_DEPTH_METRES;
+            max.y = elevation;
+            let core = SpatialBounds::from_metres(min, max)?;
             let margin = Vec3::new(
                 super::placement::TIMBER_CLEARANCE_METRES + MASONRY_BEARING_METRES,
                 0.0,
                 super::placement::TIMBER_CLEARANCE_METRES + MASONRY_BEARING_METRES,
             );
-            HeatingFloorPenetration {
-                storey_level: storey.level,
+            Ok(HeatingFloorPenetration {
+                storey_level: StoreyIndex::from_serialized(storey.level),
                 core,
-                cut: ResolvedBounds {
-                    min: core.min - margin,
-                    max: core.max + margin,
-                },
+                cut: SpatialBounds::from_metres(
+                    core.min().metres() - margin,
+                    core.max().metres() + margin,
+                )?,
                 closures: vec![],
-            }
+            })
         })
         .collect()
 }
 
 /// Horizontal strips retain their full thickness; no hidden subtractive voids.
-pub(super) fn pieces(source: ResolvedBounds, cut: ResolvedBounds) -> Vec<ResolvedBounds> {
-    let min = source.min.max(cut.min);
-    let max = source.max.min(cut.max);
+pub(super) fn pieces(
+    source: SpatialBounds<Architectural>,
+    cut: SpatialBounds<Architectural>,
+) -> Result<Vec<SpatialBounds<Architectural>>> {
+    let min = source.min().metres().max(cut.min().metres());
+    let max = source.max().metres().min(cut.max().metres());
     if (max - min).min_element() <= CUT_TOLERANCE_METRES {
-        return vec![source];
+        return Ok(vec![source]);
     }
     let mut result = vec![];
-    let mut middle = source;
+    let mut middle_min = source.min().metres();
+    let mut middle_max = source.max().metres();
     for axis in [2, 0] {
-        if min[axis] > middle.min[axis] + CUT_TOLERANCE_METRES {
-            let mut piece = middle;
-            piece.max[axis] = min[axis];
-            result.push(piece);
+        if min[axis] > middle_min[axis] + CUT_TOLERANCE_METRES {
+            let mut piece_max = middle_max;
+            piece_max[axis] = min[axis];
+            result.push(SpatialBounds::from_metres(middle_min, piece_max)?);
         }
-        if max[axis] < middle.max[axis] - CUT_TOLERANCE_METRES {
-            let mut piece = middle;
-            piece.min[axis] = max[axis];
-            result.push(piece);
+        if max[axis] < middle_max[axis] - CUT_TOLERANCE_METRES {
+            let mut piece_min = middle_min;
+            piece_min[axis] = max[axis];
+            result.push(SpatialBounds::from_metres(piece_min, middle_max)?);
         }
-        middle.min[axis] = min[axis];
-        middle.max[axis] = max[axis];
+        middle_min[axis] = min[axis];
+        middle_max[axis] = max[axis];
     }
-    result
+    Ok(result)
 }
 
-pub(super) fn supported(plan: &BuildingPlan, placement: Placement) -> bool {
+pub(super) fn supported(plan: &BuildingPlan, placement: Placement) -> Result<bool> {
     let Some(frame) = &plan.timber_frame else {
-        return placement.storey_level == 0;
+        return Ok(placement.site.storey_level == StoreyIndex::GROUND);
     };
-    openings(plan, placement).iter().all(|opening| {
+    for opening in openings(plan, placement)? {
         let Some(floor) = frame
             .floors
             .iter()
-            .find(|f| f.level == opening.storey_level)
+            .find(|f| StoreyIndex::from_serialized(f.level) == opening.storey_level)
         else {
-            return false;
+            return Ok(false);
         };
-        let remaining = floor
-            .floor_solids
-            .iter()
-            .filter_map(|id| plan.resolved_geometry.solids.iter().find(|s| s.id == *id))
-            .flat_map(|s| pieces(s.cuboid_bounds(), opening.cut))
-            .collect::<Vec<_>>();
-        let contacts = floor
-            .floor_joist_interfaces
-            .iter()
-            .filter_map(|id| {
-                plan.resolved_geometry
-                    .support_interfaces
-                    .iter()
-                    .find(|i| i.id == *id)
-            })
-            .collect::<Vec<_>>();
-        let touches = |b: ResolvedBounds, i: &&SupportInterface| {
-            (b.max.min(i.bounds.max) - b.min.max(i.bounds.min)).min_element() > CUT_TOLERANCE_METRES
-        };
-        remaining.iter().all(|b| {
-            !super::floor_bearings::contacts(&plan.resolved_geometry, &frame.members, floor, *b)
-                .is_empty()
-        }) && contacts
-            .iter()
-            .all(|i| remaining.iter().any(|b| touches(*b, i)))
-    })
+        let mut remaining = Vec::new();
+        for id in &floor.floor_solids {
+            let Some(solid) = plan.resolved_geometry.solids.iter().find(|s| s.id == *id) else {
+                continue;
+            };
+            remaining.extend(pieces(solid.cuboid_bounds()?, opening.cut)?);
+        }
+        for &bounds in &remaining {
+            if super::floor_bearings::contacts(
+                &plan.resolved_geometry,
+                &frame.members,
+                floor,
+                bounds,
+            )?
+            .is_empty()
+            {
+                return Ok(false);
+            }
+        }
+        for id in &floor.floor_joist_interfaces {
+            let Some(interface) = plan
+                .resolved_geometry
+                .support_interfaces
+                .iter()
+                .find(|i| i.id == *id)
+            else {
+                continue;
+            };
+            if !remaining.iter().any(|b| {
+                (b.max().metres().min(interface.bounds.max().metres())
+                    - b.min().metres().max(interface.bounds.min().metres()))
+                .min_element()
+                    > CUT_TOLERANCE_METRES
+            }) {
+                return Ok(false);
+            }
+        }
+    }
+    Ok(true)
 }
 
-pub(super) fn cut(plan: &mut BuildingPlan, placement: Placement) -> Vec<HeatingFloorPenetration> {
-    let openings = openings(plan, placement);
+pub(super) fn cut(
+    plan: &mut BuildingPlan,
+    placement: Placement,
+) -> Result<Vec<HeatingFloorPenetration>> {
+    let openings = openings(plan, placement)?;
     let Some(frame) = &mut plan.timber_frame else {
-        return openings;
+        return Ok(openings);
     };
     let mut slot = 0_u64;
     for opening in &openings {
         let floor = frame
             .floors
             .iter_mut()
-            .find(|f| f.level == opening.storey_level)
-            .unwrap();
+            .find(|f| StoreyIndex::from_serialized(f.level) == opening.storey_level)
+            .ok_or(HeatingConstructionError::MissingFloor {
+                storey: opening.storey_level,
+            })?;
         let mut retained = vec![];
         for id in floor.floor_solids.clone() {
             let index = plan
@@ -124,9 +157,9 @@ pub(super) fn cut(plan: &mut BuildingPlan, placement: Placement) -> Vec<HeatingF
                 .solids
                 .iter()
                 .position(|s| s.id == id)
-                .unwrap();
+                .ok_or(HeatingConstructionError::MissingSolid { solid: id })?;
             let source = plan.resolved_geometry.solids.remove(index);
-            for (index, bounds) in pieces(source.cuboid_bounds(), opening.cut)
+            for (index, bounds) in pieces(source.cuboid_bounds()?, opening.cut)?
                 .into_iter()
                 .enumerate()
             {
@@ -137,46 +170,70 @@ pub(super) fn cut(plan: &mut BuildingPlan, placement: Placement) -> Vec<HeatingF
                         (1_u64 << 60) | (u64::from(source.owner.0) << 32) | 0x0950_0000 | slot,
                     );
                 }
-                piece.centre = (bounds.min + bounds.max) * 0.5;
-                piece.size = bounds.max - bounds.min;
+                piece.centre =
+                    crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+                        (bounds.min().metres() + bounds.max().metres()) * 0.5,
+                    )?;
+                piece.size = crate::spatial_geometry::CuboidDimensions::from_metres(
+                    bounds.max().metres() - bounds.min().metres(),
+                )?;
                 super::floor_bearings::attach(
                     &mut plan.resolved_geometry,
                     &frame.members,
                     floor,
                     &mut piece,
                     &mut slot,
-                );
+                )?;
                 retained.push(piece.id);
                 plan.resolved_geometry.solids.push(piece);
             }
         }
         floor.floor_solids = retained;
-        floor.floor_solid = floor.floor_solids[0];
+        floor.floor_solid =
+            floor
+                .floor_solids
+                .first()
+                .copied()
+                .ok_or(HeatingConstructionError::MissingDeck {
+                    storey: opening.storey_level,
+                })?;
     }
-    openings
+    Ok(openings)
 }
 
 /// Mineral cover slabs bridge the clearance band and bear on the retained deck.
-pub(super) fn close(a: &mut Assembly<'_>, mut openings: Vec<HeatingFloorPenetration>) {
+pub(super) fn close(
+    assembly: &mut Assembly<'_>,
+    mut openings: Vec<HeatingFloorPenetration>,
+) -> Result<()> {
     for opening in &mut openings {
         let margin = Vec3::new(CLOSURE_LAP_METRES, 0.0, CLOSURE_LAP_METRES);
-        let mut outer = ResolvedBounds {
-            min: opening.cut.min - margin,
-            max: opening.cut.max + margin,
-        };
-        outer.min.y = opening.core.max.y;
-        outer.max.y = outer.min.y + CLOSURE_THICKNESS_METRES;
-        let inner = ResolvedBounds {
-            min: Vec3::new(opening.core.min.x, outer.min.y, opening.core.min.z),
-            max: Vec3::new(opening.core.max.x, outer.max.y, opening.core.max.z),
-        };
-        for bounds in pieces(outer, inner) {
-            opening.closures.push(a.absolute_part(
+        let mut min = opening.cut.min().metres() - margin;
+        let mut max = opening.cut.max().metres() + margin;
+        min.y = opening.core.max().metres().y;
+        max.y = min.y + CLOSURE_THICKNESS_METRES;
+        let outer = SpatialBounds::<Architectural>::from_metres(min, max)?;
+        let inner = SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
+                opening.core.min().metres().x,
+                outer.min().metres().y,
+                opening.core.min().metres().z,
+            ),
+            Vec3::new(
+                opening.core.max().metres().x,
+                outer.max().metres().y,
+                opening.core.max().metres().z,
+            ),
+        )?;
+        for bounds in pieces(outer, inner)? {
+            opening.closures.push(assembly.absolute_part(
                 HeatingPartKind::FloorClosure,
                 BuildingLodMaterial::Earthenware,
                 bounds,
-            ));
+            )?);
         }
     }
-    a.plan.floors = openings;
+    assembly.plan.floors = openings;
+
+    Ok(())
 }

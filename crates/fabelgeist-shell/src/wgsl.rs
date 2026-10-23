@@ -200,7 +200,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
 /// positions directly: a particle has many neighbours, they are spread across
 /// workgroups, and letting them all read-modify-write one position would lose
 /// most of the corrections. Accumulating and then applying costs one extra
-/// pass and is exact.
+/// pass. Integer atomics retain each quantized contribution; conversion to
+/// fixed point discards fractional fixed-point units.
 pub const SELF_COLLIDE: &str = r#"
 @group(0) @binding(0) var<storage, read> positions: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> cells: array<u32>;
