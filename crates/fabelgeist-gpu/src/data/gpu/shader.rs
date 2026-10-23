@@ -45,13 +45,6 @@ pub struct BindGroupReflection {
     pub buffer_bindings: Vec<BufferBinding>,
 }
 
-#[derive(Debug, Clone)]
-pub struct ReflectionData {
-    pub bind_groups: Vec<BindGroupReflection>,
-    pub fragment_entry_point: String,
-    pub vertex_entry_point: String,
-}
-
 /// The language selected at the shader source boundary.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ShaderLanguage {

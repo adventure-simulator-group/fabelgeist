@@ -4,11 +4,7 @@ use crate::globals::WgpuContext;
 
 use super::{BufferByteLength, BufferByteOffset};
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum BufferUploadOccupancy {
-    Empty,
-    Populated,
-}
+const EMPTY_BINDING_WORD: [u8; std::mem::size_of::<u32>()] = [0; std::mem::size_of::<u32>()];
 
 /// Exact `NoUninit` element representation, borrowed through the queue write.
 /// The queue copies these bytes before the write returns; their GPU transfer
@@ -22,7 +18,11 @@ pub enum BufferUploadOccupancy {
 #[derive(Clone, Copy, Debug)]
 pub struct BufferUpload<'a>(&'a [u8]);
 
-const EMPTY_BINDING_WORD: [u8; std::mem::size_of::<u32>()] = [0; std::mem::size_of::<u32>()];
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum BufferUploadOccupancy {
+    Empty,
+    Populated,
+}
 
 impl<'a> BufferUpload<'a> {
     pub fn from_elements<T: bytemuck::NoUninit>(elements: &'a [T]) -> Self {

@@ -7,8 +7,15 @@ mod images;
 mod uniforms;
 
 pub(super) struct ReflectedInterface {
-    pub reflection: Arc<ReflectionData>,
+    pub reflection: Arc<ComputeReflection>,
     pub layouts: Vec<Option<Arc<wgpu::BindGroupLayout>>>,
+}
+
+/// The admitted selected compute entry and the shared resource interface.
+#[derive(Clone, Debug)]
+pub struct ComputeReflection {
+    pub bind_groups: Vec<BindGroupReflection>,
+    pub entry_point: String,
 }
 
 struct GroupBuilder {
@@ -17,14 +24,14 @@ struct GroupBuilder {
 }
 
 impl ReflectedInterface {
-    pub(super) fn new(context: &WgpuContext, code: &str) -> ComputePipelineResult<Self> {
+    pub(super) fn new(
+        context: &WgpuContext,
+        code: &str,
+        entry: ComputeEntryPoint<'_>,
+    ) -> ComputePipelineResult<Self> {
         let module = parse_naga(code, wgpu::naga::ShaderStage::Compute)?;
         let info = validate_naga(&module, code)?;
-        let entry = module
-            .entry_points
-            .iter()
-            .find(|entry| entry.stage == wgpu::naga::ShaderStage::Compute)
-            .ok_or(ComputePipelineError::MissingEntryPoint)?;
+        let entry = entry.resolve(&module)?;
         let mut groups = BTreeMap::new();
         for (handle, variable) in module.global_variables.iter() {
             let used = module
@@ -98,10 +105,9 @@ impl ReflectedInterface {
             }
         }
         Ok(Self {
-            reflection: Arc::new(ReflectionData {
+            reflection: Arc::new(ComputeReflection {
                 bind_groups: reflected,
-                fragment_entry_point: String::new(),
-                vertex_entry_point: entry.name.clone(),
+                entry_point: entry.name.clone(),
             }),
             layouts,
         })
