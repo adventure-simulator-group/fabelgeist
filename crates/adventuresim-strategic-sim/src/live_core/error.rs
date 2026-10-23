@@ -1,5 +1,7 @@
+pub type CoreLoopResult<T> = Result<T, CoreLoopError>;
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-enum ReducerOperation {
+pub enum ReducerOperation {
     AbandonDefeatedQuest,
     AbandonUnsafeActiveContract,
     AbandonUnsafeQuest,
@@ -212,7 +214,7 @@ enum ReducerCallFailureKind {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
-struct ReducerCallFailure {
+pub struct ReducerCallFailure {
     operation: ReducerOperation,
     kind: ReducerCallFailureKind,
 }
@@ -252,13 +254,14 @@ impl ReducerCallFailure {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
-enum CoreLoopError {
+pub enum CoreLoopError {
     Reducer(ReducerCallFailure),
     Operation {
         operation: ReducerOperation,
         detail: String,
     },
     Other(String),
+    AuthoredThreat(AuthoredThreatError),
 }
 
 impl CoreLoopError {
@@ -277,7 +280,7 @@ impl CoreLoopError {
     const fn reducer_failure(&self) -> Option<&ReducerCallFailure> {
         match self {
             Self::Reducer(failure) => Some(failure),
-            Self::Operation { .. } | Self::Other(_) => None,
+            Self::Operation { .. } | Self::Other(_) | Self::AuthoredThreat(_) => None,
         }
     }
 
@@ -292,7 +295,7 @@ impl CoreLoopError {
         match self {
             Self::Reducer(failure) => Some(failure.operation),
             Self::Operation { operation, .. } => Some(*operation),
-            Self::Other(_) => None,
+            Self::Other(_) | Self::AuthoredThreat(_) => None,
         }
     }
 
@@ -326,8 +329,34 @@ impl std::fmt::Display for CoreLoopError {
                 write!(formatter, "{} failed: {detail}", operation.as_str())
             }
             Self::Other(detail) => formatter.write_str(detail),
+            Self::AuthoredThreat(error) => std::fmt::Display::fmt(error, formatter),
         }
     }
 }
 
-impl std::error::Error for CoreLoopError {}
+impl std::error::Error for CoreLoopError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::AuthoredThreat(error) => Some(error),
+            Self::Reducer(_) | Self::Operation { .. } | Self::Other(_) => None,
+        }
+    }
+}
+
+impl From<AuthoredThreatError> for CoreLoopError {
+    fn from(error: AuthoredThreatError) -> Self {
+        Self::AuthoredThreat(error)
+    }
+}
+
+impl From<String> for CoreLoopError {
+    fn from(message: String) -> Self {
+        Self::Other(message)
+    }
+}
+
+impl From<&str> for CoreLoopError {
+    fn from(message: &str) -> Self {
+        Self::Other(message.to_owned())
+    }
+}

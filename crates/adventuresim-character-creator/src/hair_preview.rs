@@ -13,6 +13,7 @@ use adventuresim_character_creator::hair::{
 };
 use bevy::camera::visibility::NoFrustumCulling;
 use fabelgeist_hair::lod::Form;
+use fabelgeist_rig::RigJointName;
 use std::sync::Arc;
 use std::thread::JoinHandle;
 
@@ -77,10 +78,10 @@ struct Prepared {
 pub(super) struct BodyHead {
     positions: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
-    joint_indices: Vec<[u32; 8]>,
+    joint_indices: fabelgeist_rig::PackedRigSkin<8>,
     joint_weights: Vec<[f32; 8]>,
-    joint_names: Vec<String>,
-    global_joint_states: Vec<[f32; 8]>,
+    joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
+    global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
 }
 
 impl BodyHead {

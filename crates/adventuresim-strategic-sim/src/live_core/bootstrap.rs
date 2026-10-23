@@ -144,24 +144,25 @@ fn wait_for_new_public_direct_contract(
     }
 }
 
-pub fn run_core_loop(config: CoreLoopConfig) -> Result<CoreLoopReport, String> {
+pub fn run_core_loop(config: CoreLoopConfig) -> CoreLoopRunResult<CoreLoopReport> {
     let failure_recorder = FailureRecorder::new(
         config.failure_output.clone(),
         config.fixture_disease.clone(),
     );
-    let result = run_core_loop_inner(config, failure_recorder.clone());
-    if let Err(error) = &result
-        && let Err(diagnostic_error) = failure_recorder.write(error)
-    {
-        return Err(format!("{error}; {diagnostic_error}"));
+    let error = match run_core_loop_inner(config, failure_recorder.clone()) {
+        Ok(report) => return Ok(report),
+        Err(error) => error,
+    };
+    if let Err(report) = failure_recorder.write(&error) {
+        return Err(CoreLoopRunError::FailureReport { error, report });
     }
-    result
+    Err(error.into())
 }
 
 fn run_core_loop_inner(
     config: CoreLoopConfig,
     failure_recorder: FailureRecorder,
-) -> Result<CoreLoopReport, String> {
+) -> CoreLoopResult<CoreLoopReport> {
     config.validate()?;
     let bootstrap_token =
         bootstrap_token_from_environment(std::env::var(BOOTSTRAP_TOKEN_ENV).ok())?;

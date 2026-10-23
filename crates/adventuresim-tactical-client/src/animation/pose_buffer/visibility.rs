@@ -17,6 +17,19 @@ pub(super) type AnimationViews<'w, 's> = Query<
     With<Camera3d>,
 >;
 
+impl PoseBufferRig {
+    /// Resume sampling after culling without changing authored display history.
+    pub(super) fn resume_visible_sampling(&mut self) {
+        if self.visibility == PoseVisibility::Frozen {
+            self.sample_accumulator = AnimationElapsed::ZERO;
+            self.interpolation_alpha = PoseInterpolation::ZERO;
+            self.target_linear_velocities.fill(Vec3::ZERO);
+            self.target_angular_velocities.fill(Vec3::ZERO);
+        }
+        self.visibility = PoseVisibility::Visible;
+    }
+}
+
 pub(super) fn outside_views(
     position: Vec3,
     layers: Option<&RenderLayers>,
@@ -25,7 +38,7 @@ pub(super) fn outside_views(
     let layers = layers.cloned().unwrap_or_default();
     let sphere = Sphere {
         center: position.into(),
-        radius: pose_tuning().cull_radius_metres,
+        radius: pose_tuning().cull_radius_metres.metres(),
     };
     let mut has_view = false;
     for (camera, transform, frustum, camera_layers) in views {
@@ -35,20 +48,13 @@ pub(super) fn outside_views(
         has_view = true;
         if layers.intersects(&camera_layers.cloned().unwrap_or_default())
             && position.distance_squared(transform.translation())
-                <= pose_tuning().cull_distance_metres.powi(2)
+                <= pose_tuning().cull_distance_metres.metres().powi(2)
             && frustum.intersects_sphere(&sphere, false)
         {
             return false;
         }
     }
     has_view
-}
-
-impl PoseBufferRig {
-    #[cfg(any(target_family = "wasm", test))]
-    pub(crate) fn has_presented_pose(&self) -> bool {
-        self.active
-    }
 }
 
 #[cfg(test)]

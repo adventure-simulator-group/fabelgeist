@@ -5,9 +5,9 @@ use bevy::math::Vec3Swizzles;
 pub(super) fn inspect(
     compound: &CityCompound,
     route: &CityAccessSegment,
-    street_height: f32,
-    gate_height: f32,
-    court_height: f32,
+    street_height: SupportElevation,
+    gate_height: SupportElevation,
+    court_height: SupportElevation,
     maximum_grade: f32,
 ) -> Result<Value, adventuresim_building_generator::DoorError> {
     let delta = route.end_metres() - route.start_metres();
@@ -21,7 +21,7 @@ pub(super) fn inspect(
     let platform_end = hinge_distance + radius + route.half_width_metres();
     let court_begin = length - route.half_width_metres();
     let run = court_begin - platform_end;
-    let rise = (gate_height - court_height).abs();
+    let rise = (gate_height.metres() - court_height.metres()).abs();
     let permitted = run.max(0.0) * maximum_grade;
     let points = [
         (0.0, street_height),

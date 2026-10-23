@@ -20,8 +20,8 @@ pub(super) fn melee_exchange_at_contact(
     response: DefenderResponse,
     defense_alignment_sample: f32,
     contact_at_time: MeleeContactAtTime,
-) -> MeleeExchangeOutcome {
-    let performance = attacker.incapacitation_performance();
+) -> FractionResult<MeleeExchangeOutcome> {
+    let performance = attacker.incapacitation_performance()?;
     let attacker_equipment = attacker.equipment.for_melee();
     let attacker_view = attacker.view_with_equipment(&attacker_equipment);
     let defender_view = defender.view_with_equipment(&defender.equipment);
@@ -29,7 +29,7 @@ pub(super) fn melee_exchange_at_contact(
         attacker.equipment.melee_holding_side,
         attacker_equipment.weapon_preferred_melee_style(),
         &defender_view,
-        precision * performance,
+        precision * performance.fraction(),
         contact_sample,
         crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
     );
@@ -42,7 +42,7 @@ pub(super) fn melee_exchange_at_contact(
             &attacker_view,
             attacker.equipment.melee_holding_side,
             attacker_equipment.weapon_preferred_melee_style(),
-            melee_measure_adjusted_precision(precision * performance, contact_at_time),
+            melee_measure_adjusted_precision(precision * performance.fraction(), contact_at_time),
             flanking,
             response,
             &defender.skills,
@@ -61,17 +61,17 @@ pub(super) fn melee_exchange_at_contact(
         attacker_equipment.weapon_preferred_melee_style(),
         &defender_view,
         effective_response,
-        precision * performance,
+        precision * performance.fraction(),
         flanking,
         contact,
         contact_at_time,
     );
-    MeleeExchangeOutcome {
-        result: result * performance,
+    Ok(MeleeExchangeOutcome {
+        result: result * performance.fraction(),
         contact,
         defense_alignment,
         effective_response,
-    }
+    })
 }
 
 #[cfg(test)]
@@ -89,7 +89,7 @@ pub(super) fn melee_exchange(
     flanking: f32,
     response: DefenderResponse,
     samples: MeleeExchangeSamples,
-) -> MeleeExchangeOutcome {
+) -> FractionResult<MeleeExchangeOutcome> {
     let measure = melee_effective_reach(attacker);
     melee_exchange_at_contact(
         attacker,
@@ -108,19 +108,19 @@ pub(super) fn autoresolve_melee_contact_location(
     defender: &Combatant,
     precision: f32,
     contact_sample: f32,
-) -> MeleeContactLocation {
-    let performance = attacker.incapacitation_performance();
+) -> FractionResult<MeleeContactLocation> {
+    let performance = attacker.incapacitation_performance()?;
     let attacker_equipment = attacker.equipment.for_melee();
-    attacker
+    Ok(attacker
         .view_with_equipment(&attacker_equipment)
         .melee_contact_location(
             attacker.equipment.melee_holding_side,
             attacker_equipment.weapon_preferred_melee_style(),
             &defender.view_with_equipment(&defender.equipment),
-            precision * performance,
+            precision * performance.fraction(),
             contact_sample,
             crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
-        )
+        ))
 }
 
 #[cfg(test)]
@@ -194,7 +194,7 @@ mod tests {
                 set_style(&mut attacker, style);
                 for fatigue in [0.0, 0.55] {
                     attacker.fatigue = fatigue;
-                    let performance = attacker.incapacitation_performance();
+                    let performance = attacker.incapacitation_performance().unwrap();
                     for dodge_hours in [0.0, 2_000.0] {
                         for inventory_weight in [5.0, 45.0] {
                             let mut defender = opponents[0].combatant.clone();
@@ -212,14 +212,15 @@ mod tests {
                                     let exchange = melee_exchange_at_contact(
                                         &attacker, &defender, precision, flanking, 0.43, response,
                                         0.5, contact,
-                                    );
+                                    )
+                                    .unwrap();
                                     let attacker_equipment = attacker.equipment.for_melee();
                                     let attacker_view =
                                         attacker.view_with_equipment(&attacker_equipment);
                                     let defender_view =
                                         defender.view_with_equipment(&defender.equipment);
                                     let adjusted = melee_measure_adjusted_precision(
-                                        precision * performance,
+                                        precision * performance.fraction(),
                                         contact,
                                     );
                                     let margin = melee_attack_value_by_parts(
@@ -246,7 +247,7 @@ mod tests {
                                         style,
                                         &defender_view,
                                         response,
-                                        precision * performance,
+                                        precision * performance.fraction(),
                                         flanking,
                                         exchange.contact,
                                         contact,
@@ -278,7 +279,8 @@ mod tests {
             DefenderResponse::None,
             0.5,
             contact,
-        );
+        )
+        .unwrap();
         assert!(matches!(
             exchange.result,
             AttackResult::ToAttacker {

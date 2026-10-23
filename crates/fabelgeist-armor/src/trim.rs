@@ -57,6 +57,8 @@ pub struct ArmorSurface {
 
 #[derive(Clone, Copy, Debug, Error, Eq, PartialEq)]
 pub enum TrimError {
+    #[error("trim skin: {0}")]
+    Skin(#[from] fabelgeist_rig::RigSkinError),
     #[error("trim width and ornament period must be positive lengths")]
     InvalidBand,
     #[error("the piece does not record which face of the plate each triangle lies on")]
@@ -90,7 +92,7 @@ impl GeneratedArmor {
             return Err(TrimError::NoPlateFaces);
         }
         let rims = edges::Rims::new(&self.positions, &self.indices, &self.faces, band);
-        Ok(split::Split::new(self, &rims, band).finish())
+        Ok(split::Split::new(self, &rims, band)?.finish())
     }
 
     /// The piece's surfaces, each with its plate and band triangles.

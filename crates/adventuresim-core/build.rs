@@ -3,6 +3,12 @@
     reason = "shared catalog types enable runtime-only derives outside the build script"
 )]
 
+use sha2::{Digest, Sha256};
+use std::{
+    env, fs,
+    path::{Path, PathBuf},
+};
+
 // Compile authored checks against the same framework-neutral vocabulary used
 // by runtime mechanics, without pulling runtime calculation modules into build.
 #[path = "src/attribute/simple.rs"]
@@ -16,11 +22,14 @@ mod personality;
 )]
 mod strategic_presence;
 
-use sha2::{Digest, Sha256};
-use std::{
-    env, fs,
-    path::{Path, PathBuf},
-};
+#[path = "src/animation_pack_id.rs"]
+pub mod animation_pack_id;
+
+#[path = "src/elapsed.rs"]
+pub mod elapsed;
+#[path = "src/linear_speed.rs"]
+pub mod linear_speed;
+
 #[path = "build/combat_resolution.rs"]
 mod combat_resolution;
 #[path = "src/combat_style.rs"]

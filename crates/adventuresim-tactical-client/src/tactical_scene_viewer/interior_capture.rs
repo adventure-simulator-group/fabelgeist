@@ -1,3 +1,4 @@
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_building_generator::{BuildingArchetype, Direction, WALL_THICKNESS_METRES};
 use adventuresim_tactical_core::prelude::GeneratedBuilding;
 use bevy::prelude::*;
@@ -66,9 +67,13 @@ fn partition_review_camera(building: &GeneratedBuilding) -> Result<BuildingRevie
     let local_origin = building.collision.bounds.centre()?.metres();
     let transform = building.transform()?;
     Ok(BuildingReviewCamera {
-        position: transform.transform_point(Vec3::new(centroid.x, 1.48, centroid.y) - local_origin),
-        target: transform
-            .transform_point(Vec3::new(wall.centre().x, 1.38, wall.centre().y) - local_origin),
+        position: Position::from_metres(
+            transform.transform_point(Vec3::new(centroid.x, 1.48, centroid.y) - local_origin),
+        )?,
+        target: Position::from_metres(
+            transform
+                .transform_point(Vec3::new(wall.centre().x, 1.38, wall.centre().y) - local_origin),
+        )?,
         plaster_raking_light: None,
     })
 }
@@ -117,8 +122,10 @@ fn plaster_raking_camera(building: &GeneratedBuilding) -> Result<BuildingReviewC
     let light_position =
         wall_point + light_direction * PLASTER_REVIEW_LIGHT_TANGENT_DISTANCE_METRES;
     Ok(BuildingReviewCamera {
-        position: wall_point + inward_normal * PLASTER_REVIEW_CAMERA_DISTANCE_METRES,
-        target: wall_point,
+        position: Position::from_metres(
+            wall_point + inward_normal * PLASTER_REVIEW_CAMERA_DISTANCE_METRES,
+        )?,
+        target: Position::from_metres(wall_point)?,
         plaster_raking_light: Some(PlasterRakingLight {
             wall_point,
             inward_normal,
@@ -162,8 +169,8 @@ fn camera_for_storey(
     let target = transform
         .transform_point(Vec3::new(centroid.x, eye_height + 0.08, centroid.y) - local_origin);
     Ok(BuildingReviewCamera {
-        position,
-        target,
+        position: Position::from_metres(position)?,
+        target: Position::from_metres(target)?,
         plaster_raking_light: None,
     })
 }
@@ -215,20 +222,20 @@ mod tests {
 
         assert_eq!(cameras.len(), REVIEW_ARCHETYPES.len() * 2 + 2);
         assert!(cameras.iter().all(|camera| {
-            camera.position.is_finite()
-                && camera.target.is_finite()
-                && camera.position.distance(camera.target) > 0.5
+            camera.position.metres().is_finite()
+                && camera.target.metres().is_finite()
+                && camera.position.metres().distance(camera.target.metres()) > 0.5
         }));
         let proof = &cameras[REVIEW_ARCHETYPES.len() * 2];
         let light = proof.plaster_raking_light.unwrap();
         let light_direction = (light.position - light.wall_point).normalize();
         let incidence_degrees = light_direction.dot(light.inward_normal).asin().to_degrees();
         assert!((5.0..=15.0).contains(&incidence_degrees));
-        let view_direction = (proof.position - light.wall_point).normalize();
+        let view_direction = (proof.position.metres() - light.wall_point).normalize();
         assert!(
             view_direction.dot(light.inward_normal) >= 0.99,
             "proof camera must see the lit room side"
         );
-        assert!(proof.position.distance(proof.target) < 1.0);
+        assert!(proof.position.metres().distance(proof.target.metres()) < 1.0);
     }
 }

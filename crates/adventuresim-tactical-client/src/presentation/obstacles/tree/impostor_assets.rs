@@ -13,6 +13,8 @@ use super::source::{
 };
 #[cfg(test)]
 use super::specimen::oak_variant_for_site;
+#[cfg(test)]
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::{
     asset::{AssetLoader, LoadContext, RenderAssetUsages, io::Reader},
     ecs::system::SystemParam,
@@ -95,12 +97,12 @@ impl PreparedTreeImpostorAsset {
     #[cfg(test)]
     pub(crate) fn matches_art_demo(
         &self,
-        position: Vec3,
+        point: ScenePlanPoint,
         environment: &crate::presentation::SceneEnvironment,
     ) -> bool {
         let competition = canopy_competition(environment.canopy_bps);
-        let species = tree_species_for_site(position, environment);
-        let (variant_index, variant_seed) = oak_variant_for_site(position);
+        let species = tree_species_for_site(point, environment);
+        let (variant_index, variant_seed) = oak_variant_for_site(point);
         let (branches, leaves) = playable_tree_source(
             species,
             variant_seed,
@@ -144,12 +146,12 @@ impl PreparedTreeImpostorAsset {
 
 #[cfg(test)]
 pub(crate) fn prepare_art_demo_tree_impostor_asset(
-    position: Vec3,
+    point: ScenePlanPoint,
     environment: &crate::presentation::SceneEnvironment,
 ) -> PreparedTreeImpostorAsset {
     let competition = canopy_competition(environment.canopy_bps);
-    let species = tree_species_for_site(position, environment);
-    let (variant_index, variant_seed) = oak_variant_for_site(position);
+    let species = tree_species_for_site(point, environment);
+    let (variant_index, variant_seed) = oak_variant_for_site(point);
     let (branches, leaves) = playable_tree_source(
         species,
         variant_seed,

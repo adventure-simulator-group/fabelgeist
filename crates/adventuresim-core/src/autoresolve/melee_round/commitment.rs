@@ -5,21 +5,23 @@ pub(super) fn phase_adaptation_delay(
     incoming: ScheduledMeleeTiming,
     defender: &Combatant,
     parameters: crate::combat::AutoresolveParameters,
-) -> f32 {
+) -> BattleResolutionResult<AnimationElapsed> {
     let gap = match phase {
-        MeleeDefenderPhase::CommittedAttack(timing) => {
-            (timing.contact_at_seconds - incoming.contact_at_seconds).max(0.0)
+        MeleeDefenderPhase::CommittedAttack(timing) => timing
+            .contact_at_seconds
+            .saturating_elapsed_since(incoming.contact_at_seconds)?,
+        MeleeDefenderPhase::NeutralGuard | MeleeDefenderPhase::OccupiedRecovery { .. } => {
+            AnimationElapsed::ZERO
         }
-        MeleeDefenderPhase::NeutralGuard | MeleeDefenderPhase::OccupiedRecovery { .. } => 0.0,
     };
-    gap.min(
+    Ok(gap.min(
         defender
             .equipment
             .melee_weapon
             .map_or(parameters.melee_windup_seconds, |weapon| {
                 weapon.attack_interval_seconds
             }),
-    )
+    ))
 }
 
 pub(super) fn timeline_phase(phase: MeleeDefenderPhase) -> MeleeTimelinePhase {
@@ -137,16 +139,21 @@ pub(super) fn autoresolve_armor_layer_chain(
     }]
 }
 
-pub(super) fn charge_defensive_work(defender: &mut Combatant, response: DefenderResponse) {
+pub(super) fn charge_defensive_work(
+    defender: &mut Combatant,
+    response: DefenderResponse,
+) -> ElapsedResult<()> {
+    let duration = AnimationElapsed::from_seconds(0.5)?;
     match response {
         DefenderResponse::None => {}
         DefenderResponse::Block { .. } | DefenderResponse::Parry { .. } => {
-            defender.charge_action_work(CombatActionWork::WeaponDefense, 0.5)
+            defender.charge_action_work(CombatActionWork::WeaponDefense, duration)
         }
         DefenderResponse::Dodge { .. } => {
-            defender.charge_action_work(CombatActionWork::ExplosiveDodge, 0.5)
+            defender.charge_action_work(CombatActionWork::ExplosiveDodge, duration)
         }
     }
+    Ok(())
 }
 
 pub(in crate::autoresolve) fn commit_defensive_action(
@@ -154,12 +161,12 @@ pub(in crate::autoresolve) fn commit_defensive_action(
     attempted: DefenderResponse,
     effective: DefenderResponse,
     phase: MeleeDefenderPhase,
-) -> DefenseCommitment {
+) -> BattleResolutionResult<DefenseCommitment> {
     let defense_seconds = match attempted {
-        DefenderResponse::None => return DefenseCommitment::NONE,
+        DefenderResponse::None => return Ok(DefenseCommitment::NONE),
         DefenderResponse::Block { .. }
         | DefenderResponse::Parry { .. }
-        | DefenderResponse::Dodge { .. } => 0.5,
+        | DefenderResponse::Dodge { .. } => AnimationElapsed::from_seconds(0.5)?,
     };
     if let DefenderResponse::Block { effectiveness } = effective
         && defender.equipment.shield_block_bonus > 0.0
@@ -167,26 +174,26 @@ pub(in crate::autoresolve) fn commit_defensive_action(
     {
         defender.melee_attack_power_multiplier *=
             (1.0 - 0.4 * effectiveness.clamp(0.0, 1.0)).clamp(0.2, 1.0);
-        return DefenseCommitment {
+        return Ok(DefenseCommitment {
             kind: MeleeDefenseCommitmentKind::TransformedOffhand,
             retained_power: Some(defender.melee_attack_power_multiplier),
-            recovery_seconds_after_contact: 0.0,
-        };
+            recovery_seconds_after_contact: AnimationElapsed::ZERO,
+        });
     }
     if matches!(phase, MeleeDefenderPhase::NeutralGuard) {
-        return DefenseCommitment {
+        return Ok(DefenseCommitment {
             kind: MeleeDefenseCommitmentKind::NeutralGuardRecovery,
             retained_power: None,
             recovery_seconds_after_contact: if matches!(attempted, DefenderResponse::Dodge { .. }) {
                 defense_seconds
             } else {
-                0.0
+                AnimationElapsed::ZERO
             },
-        };
+        });
     }
     let canceled =
         attempted.is_weapon_contact() && matches!(phase, MeleeDefenderPhase::CommittedAttack(_));
-    DefenseCommitment {
+    Ok(DefenseCommitment {
         kind: if canceled {
             MeleeDefenseCommitmentKind::CanceledSameWeapon
         } else {
@@ -194,20 +201,20 @@ pub(in crate::autoresolve) fn commit_defensive_action(
         },
         retained_power: None,
         recovery_seconds_after_contact: defense_seconds,
-    }
+    })
 }
 
 #[derive(Clone, Copy)]
 pub(in crate::autoresolve) struct DefenseCommitment {
     pub kind: MeleeDefenseCommitmentKind,
     pub retained_power: Option<f32>,
-    pub recovery_seconds_after_contact: f32,
+    pub recovery_seconds_after_contact: AnimationElapsed,
 }
 impl DefenseCommitment {
     const NONE: Self = Self {
         kind: MeleeDefenseCommitmentKind::None,
         retained_power: None,
-        recovery_seconds_after_contact: 0.0,
+        recovery_seconds_after_contact: AnimationElapsed::ZERO,
     };
 }
 

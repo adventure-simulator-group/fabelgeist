@@ -1,0 +1,74 @@
+fn sample_at(at: u32) -> vec2<f32> { return vec2<f32>(samples[at * 2u], samples[at * 2u + 1u]); }
+fn sample_set(at: u32, p: vec2<f32>) { samples[at * 2u] = p.x; samples[at * 2u + 1u] = p.y; }
+
+// Both disconnected legs and worn garments contribute to one enclosure.
+@compute @workgroup_size(1)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let section = id.x;
+    let f = frame_at(0u);
+    let y = f.half_extents.y * (1.0 - 2.0 * f32(section) / f32(SECTIONS - 1u));
+    let bounds = vec2<f32>(y - HALF_WIDTH, y + HALF_WIDTH);
+    let first = section * params.capacity;
+    var count = 0u;
+    var lowest = 3.402823e38;
+    for (var face = 0u; face < params.face_count; face++) {
+        for (var corner = 0u; corner < 3u; corner++) {
+            let a = host_local(f, positions_at(faces[face * 3u + corner]));
+            let b = host_local(f, positions_at(faces[face * 3u + (corner + 1u) % 3u]));
+            lowest = min(lowest, a.y);
+            if (a.y >= bounds.x && a.y <= bounds.y) {
+                sample_set(first + count, a.xz); count++;
+            }
+            for (var plane = 0u; plane < 2u; plane++) {
+                let height = bounds[plane];
+                if ((a.y < height && b.y > height) || (b.y < height && a.y > height)) {
+                    sample_set(first + count, mix(a.xz, b.xz, (height - a.y) / (b.y - a.y))); count++;
+                }
+            }
+        }
+    }
+    if (count < 3u) {
+        // A floor-length hem may hang below the entire wearer. There is no
+        // anatomical enclosure there; the authored carrier supplies its shape.
+        if (bounds.y < lowest) {
+            let output = FIRST_SECTION + section * SECTION_WORDS;
+            for (var column = 0u; column < RADII; column++) {
+                fit[output + column] = params.allowance+params.ease;
+            }
+            return;
+        }
+        atomicOr(&status[0], 1u); return;
+    }
+    // A skirt encloses its suspension axis too. This keeps forward/backward
+    // displaced ankle sections representable around the common waist axis.
+    sample_set(first + count, vec2<f32>(0.0)); count++;
+    // A plain carrier must not inherit every facet of a triangulated body.
+    // Use an axis-aligned ellipse, expanded to enclose every section sample.
+    // Coordinate extrema and the maximum convex ellipse norm occur on the
+    // convex hull, so scanning all samples gives the same enclosure without
+    // sorting. Layered full skirts otherwise make the insertion sort exceed
+    // the device's execution budget.
+    // Inflate both axes by the same factor so the minimum normal separation
+    // is at least the requested allowance, including at shallow directions.
+    var axes = vec2<f32>(0.0);
+    var direction = vec2<f32>(0.0);
+    var has_area = false;
+    for (var vertex = 0u; vertex < count; vertex++) {
+        let p = sample_at(first + vertex);
+        axes = max(axes, abs(p));
+        if (all(direction == vec2<f32>(0.0))) { direction = p; }
+        has_area = has_area || direction.x * p.y - direction.y * p.x != 0.0;
+    }
+    if (!has_area || any(axes <= vec2<f32>(0.0))) { atomicOr(&status[0], 1u); return; }
+    var enclosure = 1.0;
+    for (var vertex = 0u; vertex < count; vertex++) {
+        enclosure = max(enclosure, length(sample_at(first + vertex) / axes));
+    }
+    axes *= enclosure + params.allowance / min(axes.x, axes.y);
+    let output = FIRST_SECTION + section * SECTION_WORDS;
+    for (var column = 0u; column < RADII; column++) {
+        let angle = TAU * f32(column) / f32(RADII);
+        let direction = vec2<f32>(sin(angle), cos(angle));
+        fit[output + column] = 1.0 / length(direction / axes)+params.ease;
+    }
+}

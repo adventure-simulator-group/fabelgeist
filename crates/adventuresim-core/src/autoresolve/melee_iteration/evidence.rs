@@ -1,9 +1,11 @@
 use super::*;
-
-mod timeline;
-use timeline::autoresolve_timeline_evidence;
-mod armor;
+use crate::combat::RecoveryTime;
+use crate::elapsed::AnimationElapsed;
 use armor::{forced_armor_contacts, mirrored_vambrace_contacts};
+use timeline::autoresolve_timeline_evidence;
+
+mod armor;
+mod timeline;
 
 #[derive(Clone, Debug, serde::Serialize)]
 pub struct MeleeIterationAcceptanceEvidence {
@@ -107,17 +109,18 @@ pub struct FatigueCadenceEvidence {
     pub completed_weapon_defenses: u32,
     pub completed_explosive_dodges: u32,
     pub fatigue: f32,
-    pub fresh_recovery_seconds: f32,
-    pub fatigued_recovery_seconds: f32,
+    pub fresh_recovery_seconds: RecoveryTime,
+    pub fatigued_recovery_seconds: RecoveryTime,
 }
 
-pub fn melee_iteration_acceptance_evidence() -> Result<MeleeIterationAcceptanceEvidence, String> {
+pub fn melee_iteration_acceptance_evidence()
+-> MeleeIterationResult<MeleeIterationAcceptanceEvidence> {
     let (john, opponents) = melee_iteration_roster()?;
     let opponent = |key| {
         opponents
             .iter()
             .find(|build| build.key == key)
-            .ok_or_else(|| format!("missing {key}"))
+            .ok_or(MeleeIterationError::MissingOpponent { key })
     };
     let hammer = opponent("hammer_brute")?;
     let novice = opponent("knife_novice")?;
@@ -300,7 +303,9 @@ fn disabled_weapon_arm_evidence(build: &MeleeIterationBuild) -> DisabledWeaponAr
     }
 }
 
-fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenceEvidence, String> {
+fn fatigue_cadence_evidence(
+    build: &MeleeIterationBuild,
+) -> MeleeIterationResult<FatigueCadenceEvidence> {
     const ATTACKS: u32 = 15;
     const WEAPON_DEFENSES: u32 = 15;
     const DODGES: u32 = 1;
@@ -308,7 +313,7 @@ fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenc
         .combatant
         .equipment
         .melee_weapon
-        .ok_or("John has no melee weapon")?;
+        .ok_or(MeleeIterationError::MissingEvidenceMeleeWeapon)?;
     let endurance = build.combatant.attributes.endurance;
     let workload = |work, seconds, mass, inertia| {
         combat_action_workload(
@@ -323,17 +328,22 @@ fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenc
     };
     let attack = workload(
         CombatActionWork::Attack,
-        0.75,
+        AnimationElapsed::from_seconds(0.75)?,
         weapon.weight,
         weapon.moment_of_inertia_kg_m2,
     );
     let defense = workload(
         CombatActionWork::WeaponDefense,
-        0.5,
+        AnimationElapsed::from_seconds(0.5)?,
         weapon.weight,
         weapon.moment_of_inertia_kg_m2,
     );
-    let dodge = workload(CombatActionWork::ExplosiveDodge, 0.5, 0.0, 0.0);
+    let dodge = workload(
+        CombatActionWork::ExplosiveDodge,
+        AnimationElapsed::from_seconds(0.5)?,
+        0.0,
+        0.0,
+    );
     let mut fatigue = 0.0;
     for workload in std::iter::repeat_n(attack, ATTACKS as usize)
         .chain(std::iter::repeat_n(defense, WEAPON_DEFENSES as usize))
@@ -348,11 +358,11 @@ fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenc
     }
     let mut worked = build.combatant.clone();
     worked.fatigue = fatigue;
-    let performance = worked.incapacitation_performance();
+    let performance = worked.incapacitation_performance()?;
     let fresh_recovery_seconds = incapacitation_adjusted_recovery_seconds(
         weapon.attack_interval_seconds,
-        build.combatant.incapacitation_performance(),
-    );
+        build.combatant.incapacitation_performance()?,
+    )?;
     Ok(FatigueCadenceEvidence {
         combatant: build.name.clone(),
         completed_attacks: ATTACKS,
@@ -363,7 +373,7 @@ fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenc
         fatigued_recovery_seconds: incapacitation_adjusted_recovery_seconds(
             weapon.attack_interval_seconds,
             performance,
-        ),
+        )?,
     })
 }
 

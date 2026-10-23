@@ -9,7 +9,10 @@ fn catalog_item(inventory: &mut Inventory, item: &str, placement: &str) -> Inven
 }
 
 fn ids<'a>(pieces: &[CatalogPiece<'a>]) -> Vec<&'a str> {
-    pieces.iter().map(|p| p.item.id.as_str()).collect()
+    pieces
+        .iter()
+        .map(|p| p.selection.item().definition().id.as_str())
+        .collect()
 }
 
 fn worn(inventory: &Inventory) -> Vec<InventoryItemId> {
@@ -134,12 +137,12 @@ fn own_designs_must_keep_the_catalog_construction() {
     let Article::Catalog(article) = &mut inventory.get_mut(morion).unwrap().article else {
         unreachable!()
     };
-    article.design = catalog.design("barbute");
+    article.design = catalog.design(catalog.item("barbute").unwrap());
     assert!(inventory.loadout(&catalog).is_err());
     let Article::Catalog(article) = &mut inventory.get_mut(morion).unwrap().article else {
         unreachable!()
     };
-    article.design = catalog.design("morion");
+    article.design = catalog.design(catalog.item("morion").unwrap());
     assert!(inventory.loadout(&catalog).is_ok());
 }
 

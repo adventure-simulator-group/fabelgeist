@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_building_generator::spatial_geometry::GeometryResult;
 
 pub(super) type PendingScenes<'w, 's> = Query<
     'w,
@@ -35,9 +36,9 @@ pub(super) fn refresh_presentation(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<TacticalTerrainMaterial>,
     images: &mut Assets<Image>,
-) -> bool {
+) -> GeometryResult<bool> {
     if materials.get(&handle.0).is_none() || materials.get(&detail_handle.0).is_none() {
-        return false;
+        return Ok(false);
     }
     let material = terrain_material(
         terrain,
@@ -46,16 +47,22 @@ pub(super) fn refresh_presentation(
         procedural_assets,
         images,
         &graphics.config.grass,
-    );
-    *materials
-        .get_mut(&handle.0)
-        .expect("checked terrain material") = material.clone();
+    )?;
+    {
+        let Some(mut target) = materials.get_mut(&handle.0) else {
+            return Ok(false);
+        };
+        *target = material.clone();
+    }
     let mut detail_material = material;
     detail_material.base.depth_bias = DETAIL_PATCH_DEPTH_BIAS;
     detail_material.extension.detail_patch.x = 0.0;
-    *materials
-        .get_mut(&detail_handle.0)
-        .expect("checked detail terrain material") = detail_material;
+    {
+        let Some(mut target) = materials.get_mut(&detail_handle.0) else {
+            return Ok(false);
+        };
+        *target = detail_material;
+    }
     if let Some(mut mesh) = meshes.get_mut(&mesh_handle.0) {
         let replacement =
             terrain_detail_patch_mesh(terrain, environment, vista, patch.centre, transition_collar);
@@ -63,7 +70,70 @@ pub(super) fn refresh_presentation(
         *mesh = replacement;
         patch.vista_revision = vista.revision();
     }
-    true
+    Ok(true)
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "the complete terrain presentation borrows its scene, textures and asset stores"
+)]
+pub(super) fn spawn_presentation(
+    commands: &mut Commands,
+    meshes: &mut Assets<Mesh>,
+    materials: &mut Assets<TacticalTerrainMaterial>,
+    images: &mut Assets<Image>,
+    procedural_assets: &ProceduralTextureAssets,
+    graphics: &TacticalGraphicsSettings,
+    vista: &ActiveVistaSurface,
+    entity: Entity,
+    id: &SceneId,
+    terrain: &SceneTerrain,
+    environment: &SceneEnvironment,
+    ground: Option<&SceneGround>,
+    landform: Option<&TerrainLandformRecipe>,
+    prepared: Option<&SceneTerrainPatch>,
+) -> GeometryResult<()> {
+    let transition_collar = landform.map(|recipe| recipe.transition_collar());
+    let material = terrain_material(
+        terrain,
+        environment,
+        ground,
+        procedural_assets,
+        images,
+        &graphics.config.grass,
+    )?;
+    let mut detail_material = material.clone();
+    detail_material.base.depth_bias = DETAIL_PATCH_DEPTH_BIAS;
+    detail_material.extension.detail_patch.x = 0.0;
+    let detail_material = materials.add(detail_material);
+    spawn_base_and_fault(
+        commands,
+        meshes,
+        materials,
+        entity,
+        id,
+        terrain,
+        material,
+        landform,
+        prepared,
+        urban::GroundCoverage::new(terrain, environment, vista),
+    );
+    let centre = ScenePlanPoint::ORIGIN;
+    let detail_mesh =
+        terrain_detail_patch_mesh(terrain, environment, vista, centre, transition_collar);
+    commands.spawn((
+        Name::new(format!("{} camera-local terrain detail patch", id.0)),
+        ScenePresentationOf(entity),
+        TerrainDetailPatch {
+            centre,
+            vista_revision: vista.revision(),
+        },
+        TerrainTriangleCount(mesh_triangle_count(&detail_mesh)),
+        NotShadowCaster,
+        Mesh3d(meshes.add(detail_mesh)),
+        MeshMaterial3d(detail_material),
+    ));
+    Ok(())
 }
 
 #[expect(
@@ -223,7 +293,8 @@ mod tests {
             &procedural_assets,
             &mut images,
             &graphics.config.grass,
-        );
+        )
+        .unwrap();
         let mut world = World::new();
         let scene = world.spawn_empty().id();
         let mut queue = CommandQueue::default();

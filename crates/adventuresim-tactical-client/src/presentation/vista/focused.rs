@@ -68,7 +68,7 @@ impl FocusedGround {
             &textures,
             &mut images,
             &settings.config.grass,
-        );
+        )?;
         material.extension.set_geographic_frame(frame);
         let mut terrain_handles = Vec::new();
         if let Some(landform) = ground.landform {
@@ -93,19 +93,17 @@ impl FocusedGround {
         for chunk in ground.vista {
             chunk.spawn(&mut commands, root, &mut meshes, vista_material.clone());
         }
-        let paving_materials = paving
-            .spawn_focused(
-                &mut commands,
-                &product.ground,
-                streets::FocusedPavingPlacement {
-                    root,
-                    frame,
-                    weather: environment.weather,
-                },
-                &mut meshes,
-                &mut images,
-            )
-            .map_err(|error| error.to_string())?;
+        let paving_materials = paving.spawn_focused(
+            &mut commands,
+            &product.ground,
+            streets::FocusedPavingPlacement {
+                root,
+                frame,
+                weather: environment.weather,
+            },
+            &mut meshes,
+            &mut images,
+        )?;
         state.apply(world);
         Ok(Self {
             support: ground.support,

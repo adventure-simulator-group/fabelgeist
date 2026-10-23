@@ -1,13 +1,15 @@
 //! Local presentation of the same scene document consumed by the tactical server.
 //! These entities carry asset descriptors only; authority arrives through replication.
+use super::preparation::{PreparationError, PreparationResult, SharedPreparationResult};
 use super::{RetainedScene, SceneRoot, buildings, protocol::StrategicView};
-use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::{prelude::*, scene_input::SceneInputError};
 use bevy::prelude::*;
+use std::sync::Arc;
 
 #[derive(Resource)]
 pub(crate) struct SceneDocument {
     location: String,
-    input: Result<TacticalSceneInput, String>,
+    input: SharedPreparationResult<TacticalSceneInput>,
     #[cfg(target_family = "wasm")]
     preparation: crate::presentation::generation::PreparationTicket,
 }
@@ -19,13 +21,13 @@ impl SceneDocument {
         preparation: crate::presentation::generation::PreparationTicket,
     ) -> Self {
         let input = serde_json::from_str::<TacticalSceneInput>(json)
-            .map_err(|error| error.to_string())
+            .map_err(SceneInputError::from)
             .and_then(|input| {
-                input
-                    .validate()
-                    .map(|()| input)
-                    .map_err(|error| error.to_string())
-            });
+                input.validate()?;
+                Ok(input)
+            })
+            .map_err(PreparationError::from)
+            .map_err(Arc::new);
         Self {
             location,
             input,
@@ -34,13 +36,15 @@ impl SceneDocument {
         }
     }
 
-    fn generated_scene(&self) -> Result<crate::presentation::PreparedStrategicScene, String> {
-        let input = self.input.as_ref().map_err(Clone::clone)?;
+    fn generated_scene(
+        &self,
+    ) -> SharedPreparationResult<crate::presentation::PreparedStrategicScene> {
+        let input = self.input.as_ref().map_err(Arc::clone)?;
         #[cfg(target_family = "wasm")]
         let generated = crate::presentation::generation::activate(self.preparation, input);
         #[cfg(not(target_family = "wasm"))]
         let generated = crate::presentation::PreparedStrategicScene::generate(input);
-        generated.map_err(|error| error.to_string())
+        generated.map_err(PreparationError::from).map_err(Arc::new)
     }
 }
 
@@ -94,7 +98,7 @@ pub(super) fn retain_scene(
                     generated,
                     settings.config.rendering.vista.maximum_lods,
                 ) {
-                    scene.error = Some(error);
+                    scene.error = Some(Arc::new(error));
                 }
             }
             Err(error) => scene.error = Some(error.clone()),
@@ -110,7 +114,7 @@ pub(super) fn retain_scene(
             root,
             document.input.as_ref().ok(),
         ) {
-            scene.error = Some(error.to_string());
+            scene.error = Some(Arc::new(PreparationError::Presentation(error)));
         }
     }
 }
@@ -122,11 +126,19 @@ fn prepare(
     retained: &mut RetainedScene,
     mut generated: crate::presentation::PreparedStrategicScene,
     maximum_lods: usize,
-) -> Result<(), String> {
-    let backdrop = crate::presentation::StrategicBackdrop::new(input, maximum_lods)
-        .map_err(|error| error.to_string())?;
-    retained.venues =
-        buildings::prepare_venues(input, view, &mut generated, &mut retained.street, &backdrop)?;
+) -> PreparationResult<()> {
+    let backdrop = crate::presentation::StrategicBackdrop::new(input, maximum_lods)?;
+    let backdrop = crate::presentation::PreparedBackdrop::new(
+        backdrop,
+        input.environment_snapshot(generated.digest.clone()),
+    )?;
+    retained.venues = buildings::prepare_venues(
+        input,
+        view,
+        &mut generated,
+        &mut retained.street,
+        backdrop.backdrop(),
+    )?;
     retained.digest = generated.digest.clone();
     let root = commands
         .spawn((SceneRoot, Transform::default(), Visibility::Inherited))
@@ -136,12 +148,7 @@ fn prepare(
         street.spawn_ground(commands, root);
     }
     super::instances::spawn_props(commands, &mut generated, root);
-    crate::presentation::spawn_strategic_backdrop(
-        commands,
-        backdrop,
-        input.environment_snapshot(generated.digest.clone()),
-        root,
-    );
+    backdrop.spawn(commands, root);
     crate::presentation::queue_strategic_city(commands, input, &generated.buildings);
     let recipes = std::mem::take(&mut generated.building_recipes);
     commands.queue(move |world: &mut World| {

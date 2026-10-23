@@ -113,9 +113,11 @@ pub(crate) fn constrain(
             ..
         } = worst(&values, width, depth, Some(&dirty));
         if residual <= target + roundoff * 0.5 {
-            for (height, value) in heights.iter_mut().zip(values) {
-                *height = value as f32;
+            let replacement: Vec<_> = values.into_iter().map(|value| value as f32).collect();
+            if replacement.iter().any(|height| !height.is_finite()) {
+                return Err(TerrainGradeError::InvalidInput);
             }
+            heights.copy_from_slice(&replacement);
             return Ok(());
         }
     }

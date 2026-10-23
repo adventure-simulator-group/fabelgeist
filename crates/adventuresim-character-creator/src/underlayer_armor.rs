@@ -1,6 +1,7 @@
 //! Underlayers cut from the body and fitted on the device, assembled into
 //! armor with their own surface attributes and morph targets.
 
+use crate::armor_frames::FittingPlacement;
 use anyhow::Result;
 use fabelgeist_armor::{
     ArmorComponent, ArmorComponentRole, ArmorGpu, ArmorMorph, GeneratedArmor, Millimeters,
@@ -27,7 +28,7 @@ pub struct UnderlayerBody<'a> {
 pub fn fit_underlayer(
     gpu: &ArmorGpu,
     design: &UnderlayerDesign,
-    placement: &str,
+    placement: FittingPlacement,
     body: &UnderlayerBody<'_>,
     morphs: &[(&str, BodyShape<'_>)],
 ) -> Result<GeneratedArmor> {
@@ -37,7 +38,7 @@ pub fn fit_underlayer(
 pub async fn fit_underlayer_async(
     gpu: &ArmorGpu,
     design: &UnderlayerDesign,
-    placement: &str,
+    placement: FittingPlacement,
     body: &UnderlayerBody<'_>,
     morphs: &[(&str, BodyShape<'_>)],
 ) -> Result<GeneratedArmor> {
@@ -92,6 +93,7 @@ fn fabric_component(
         return Vec::new();
     }
     vec![ArmorComponent {
+        textile: None,
         role: ArmorComponentRole::OuterFabric,
         vertices: 0..vertex_count,
         indices: 0..index_count,
@@ -106,7 +108,7 @@ fn fabric_component(
 pub fn fit_trunk_hose(
     gpu: &ArmorGpu,
     design: &TrunkHoseDesign,
-    placement: &str,
+    placement: FittingPlacement,
     body: &UnderlayerBody<'_>,
     morphs: &[(&str, BodyShape<'_>)],
 ) -> Result<GeneratedArmor> {
@@ -116,7 +118,7 @@ pub fn fit_trunk_hose(
 pub async fn fit_trunk_hose_async(
     gpu: &ArmorGpu,
     design: &TrunkHoseDesign,
-    placement: &str,
+    placement: FittingPlacement,
     body: &UnderlayerBody<'_>,
     morphs: &[(&str, BodyShape<'_>)],
 ) -> Result<GeneratedArmor> {
@@ -174,6 +176,7 @@ fn apply_trunk_hose_panes(armor: &mut GeneratedArmor, design: &TrunkHoseDesign) 
     ]
     .into_iter()
     .map(|(indices, color)| ArmorComponent {
+        textile: None,
         role: ArmorComponentRole::OuterFabric,
         vertices: 0..armor.positions.len(),
         indices,

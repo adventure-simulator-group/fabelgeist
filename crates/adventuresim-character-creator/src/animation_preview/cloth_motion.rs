@@ -7,6 +7,14 @@ struct OutfitContacts {
     masses: Vec<fabelgeist_shell::ParticleInverseMass>,
     contacts: Option<fabelgeist_cloth::surface_contact::SurfaceContacts>,
 }
+
+/// Which evaluator last established the cloth's velocity history.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub(super) enum ClothMotion {
+    Skinned,
+    Simulated,
+}
+
 impl OutfitContacts {
     fn new(
         cloth: &mut Query<(&Mesh3d, &mut ClothSkin)>,
@@ -16,9 +24,9 @@ impl OutfitContacts {
         let mut faces = Vec::new();
         let mut cloth_count = 0;
         for (_, mut skin) in cloth {
-            if !skin.simulating {
+            if skin.motion == ClothMotion::Skinned {
                 skin.previous = skin.current.clone();
-                skin.simulating = true;
+                skin.motion = ClothMotion::Simulated;
             }
             faces.extend(skin.faces.iter().map(|f| f.map(|v| v + cloth_count as u32)));
             cloth_count += skin.current.len();

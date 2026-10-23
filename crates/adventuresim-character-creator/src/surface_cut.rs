@@ -3,7 +3,16 @@
 //! Cuts are evaluated once. Barycentric source points subsequently follow every
 //! body morph; neither a UV seam nor a changing body can reroute a cut vertex.
 use std::collections::BTreeMap;
+mod apertures;
+mod assembly;
+mod cloth_boundary_sampling;
+mod cloth_sampling;
+mod connected;
+mod edge_splits;
 mod triangulation;
+pub(crate) use apertures::ClothAperture;
+pub(crate) use cloth_sampling::{ClothSampling, SamplingAncestry};
+pub(crate) use connected::{connected_patch, weld_patch};
 
 /// Interior is the nonpositive half-space, in reference-body metres.
 #[derive(Clone, Copy, Debug)]
@@ -21,21 +30,65 @@ pub struct SourcePoint {
     pub weights: [f32; 3],
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct SurfaceCut {
     pub points: Vec<SourcePoint>,
     pub faces: Vec<[u32; 3]>,
+    pub(crate) apertures: Vec<ClothAperture>,
+}
+
+/// Both sides of an inserted seam remain in the same physical cloth surface.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum PanelRegion {
+    Surrounding,
+    /// Native ordinal of the construction panel supplied to the partition.
+    Panel(usize),
+}
+
+/// Native original face ordinal and construction ownership after subdivision.
+pub(crate) struct PanelTriangle {
+    pub region: PanelRegion,
+}
+
+pub(crate) struct SurfacePartition {
+    pub surface: SurfaceCut,
+    pub triangles: Vec<PanelTriangle>,
+}
+
+struct Fragment {
+    polygon: Polygon,
+    region: PanelRegion,
+}
+
+#[derive(Clone, Copy)]
+enum CutPrecision {
+    SurfaceOpening,
+    SewnPanel,
 }
 
 type Polygon = Vec<[f64; 3]>;
-const CORRESPONDENCE_PRECISION: f32 = 1_000_000.0;
-const MINIMUM_TRIANGLE_AREA_SQUARED: f32 = 1e-20;
+/// Native GPU words per source point: body indices, UV indices, barycentric
+/// f32 bits. Positions evaluated from them are in canonical body metres.
+pub const POINT_WORDS: usize = 9;
+pub(crate) const CORRESPONDENCE_PRECISION: f32 = 1_000_000.0;
+/// Accepted Boolean triangle area squared, in canonical metres to the fourth.
+pub(crate) const MINIMUM_TRIANGLE_AREA_SQUARED: f32 = 1e-20;
 // Cutting within 0.15 mm of a source vertex uses that vertex exactly. This
 // prevents microscopic corner slivers and agrees on both sides of a body edge.
-const CUT_VERTEX_SNAP_METRES: f32 = 0.00015;
+pub(crate) const CUT_VERTEX_SNAP_METRES: f32 = 0.00015;
 const CUT_PLANE_ROUNDOFF_METRES: f64 = 1e-6;
 
 impl SurfaceCut {
+    pub fn source_table(&self, faces: &[[u32; 3]], uv_faces: &[[u32; 3]]) -> Vec<u32> {
+        let mut table = Vec::with_capacity(self.points.len() * POINT_WORDS);
+        for point in &self.points {
+            table.extend(faces[point.triangle]);
+            table.extend(uv_faces[point.triangle]);
+            table.extend(point.weights.map(f32::to_bits));
+        }
+        table
+    }
+
     pub fn new(
         positions: &[[f32; 3]],
         faces: &[[u32; 3]],
@@ -43,59 +96,68 @@ impl SurfaceCut {
         include: &[ConvexRegion],
         subtract: &[ConvexRegion],
     ) -> Self {
-        let mut result = Self {
-            points: Vec::new(),
-            faces: Vec::new(),
-        };
-        let mut vertices = BTreeMap::new();
-        for (triangle, face) in faces.iter().enumerate() {
-            let source = face.map(|v| positions[v as usize]);
-            let mut remaining = vec![vec![[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]];
-            let mut kept = Vec::new();
-            for volume in include {
-                let mut outside = Vec::new();
-                for polygon in remaining {
-                    let (inside, rest) = partition(polygon, volume, source);
-                    if inside.len() >= 3 {
-                        kept.push(inside);
-                    }
-                    outside.extend(rest);
-                }
-                remaining = outside;
-            }
-            for volume in subtract {
-                kept = kept
+        let fragments = faces
+            .iter()
+            .map(|face| {
+                retained_polygons(face.map(|v| positions[v as usize]), include, subtract)
                     .into_iter()
-                    .flat_map(|p| partition(p, volume, source).1)
-                    .collect();
-            }
-            for corners in triangulation::conforming(kept) {
-                let corners = corners.map(|w| w.map(|v| v as f32));
-                let p = corners.map(|w| interpolate(source, w));
-                if area_squared(p) <= MINIMUM_TRIANGLE_AREA_SQUARED {
-                    continue;
-                }
-                let indices = corners.map(|weights| {
-                    let mut key = (0..3)
-                        .filter_map(|i| {
-                            let weight = (weights[i] * CORRESPONDENCE_PRECISION).round() as i32;
-                            (weight > 0).then_some((face[i], uv_faces[triangle][i], weight))
-                        })
-                        .collect::<Vec<_>>();
-                    key.sort_unstable();
-                    *vertices.entry(key).or_insert_with(|| {
-                        let index = result.points.len() as u32;
-                        result.points.push(SourcePoint { triangle, weights });
-                        index
+                    .map(|polygon| Fragment {
+                        polygon,
+                        region: PanelRegion::Surrounding,
                     })
-                });
-                if indices[0] != indices[1] && indices[1] != indices[2] && indices[2] != indices[0]
-                {
-                    result.faces.push(indices);
+                    .collect()
+            })
+            .collect::<Vec<_>>();
+        assembly::assemble(positions, faces, uv_faces, fragments).surface
+    }
+
+    /// Insert a closed panel boundary without removing either fabric. Source
+    /// The chart and physical source positions are separate metre coordinates.
+    /// A chart can collapse outside its panel without erasing real cloth.
+    /// Neighboring
+    /// fragments share subdivisions before triangulation and material splitting.
+    pub(crate) fn partition_panels(
+        chart: &[[f32; 3]],
+        surface_positions: &[[f32; 3]],
+        faces: &[[u32; 3]],
+        uv_faces: &[[u32; 3]],
+        panels: &[ConvexRegion],
+    ) -> SurfacePartition {
+        let fragments = faces
+            .iter()
+            .map(|face| {
+                let source = face.map(|v| chart[v as usize]);
+                let mut kept = vec![Fragment {
+                    polygon: vec![[1., 0., 0.], [0., 1., 0.], [0., 0., 1.]],
+                    region: PanelRegion::Surrounding,
+                }];
+                for (ordinal, panel) in panels.iter().enumerate() {
+                    kept = kept
+                        .into_iter()
+                        .flat_map(|fragment| {
+                            if fragment.region != PanelRegion::Surrounding {
+                                return vec![fragment];
+                            }
+                            let (inside, outside) =
+                                partition(fragment.polygon, panel, source, CutPrecision::SewnPanel);
+                            outside
+                                .into_iter()
+                                .map(|polygon| Fragment {
+                                    polygon,
+                                    region: PanelRegion::Surrounding,
+                                })
+                                .chain((inside.len() >= 3).then_some(Fragment {
+                                    polygon: inside,
+                                    region: PanelRegion::Panel(ordinal),
+                                }))
+                                .collect()
+                        })
+                        .collect();
                 }
-            }
-        }
-        result
+                kept
+            })
+            .collect();
+        assembly::assemble(surface_positions, faces, uv_faces, fragments)
     }
 
     /// Only physical border edges; UV seams are identified by body position.
@@ -125,24 +187,76 @@ impl SurfaceCut {
     }
 }
 
+fn retained_polygons(
+    source: [[f32; 3]; 3],
+    include: &[ConvexRegion],
+    subtract: &[ConvexRegion],
+) -> Vec<Polygon> {
+    let mut remaining = vec![vec![[1., 0., 0.], [0., 1., 0.], [0., 0., 1.]]];
+    let mut kept = Vec::new();
+    for volume in include {
+        let mut outside = Vec::new();
+        for polygon in remaining {
+            let (inside, rest) = partition(polygon, volume, source, CutPrecision::SurfaceOpening);
+            if inside.len() >= 3 {
+                kept.push(inside);
+            }
+            outside.extend(rest);
+        }
+        remaining = outside;
+    }
+    for volume in subtract {
+        kept = kept
+            .into_iter()
+            .flat_map(|p| partition(p, volume, source, CutPrecision::SurfaceOpening).1)
+            .collect();
+    }
+    kept
+}
+
 fn partition(
     mut polygon: Polygon,
     volume: &[Plane],
     source: [[f32; 3]; 3],
+    precision: CutPrecision,
 ) -> (Polygon, Vec<Polygon>) {
+    // Openings avoid tiny slivers in cloned body triangles. An inserted
+    // tailor-rest panel must retain its authored corners at correspondence
+    // precision; its two fabrics remain present on both sides of the seam.
+    let vertex_snap = match precision {
+        CutPrecision::SurfaceOpening => f64::from(CUT_VERTEX_SNAP_METRES),
+        CutPrecision::SewnPanel => CUT_PLANE_ROUNDOFF_METRES,
+    };
+    let planes = volume
+        .iter()
+        .map(|plane| {
+            source.map(|p| {
+                let distance = (0..3)
+                    .map(|i| f64::from(p[i]) * f64::from(plane.normal[i]))
+                    .sum::<f64>()
+                    - f64::from(plane.offset);
+                if distance.abs() < vertex_snap {
+                    0.0
+                } else {
+                    distance
+                }
+            })
+        })
+        .collect::<Vec<_>>();
+    // A polygon wholly outside any one half-space cannot meet this convex
+    // cutter. Keep it intact instead of splitting it along unrelated planes.
+    if planes.iter().any(|&distances| {
+        let mut positive = false;
+        polygon.iter().all(|&p| {
+            let d = clipped_distance(p, distances);
+            positive |= d > 0.;
+            d >= 0.
+        }) && positive
+    }) {
+        return (Vec::new(), vec![polygon]);
+    }
     let mut outside = Vec::new();
-    for plane in volume {
-        let distances = source.map(|p| {
-            let distance = (0..3)
-                .map(|i| f64::from(p[i]) * f64::from(plane.normal[i]))
-                .sum::<f64>()
-                - f64::from(plane.offset);
-            if distance.abs() < f64::from(CUT_VERTEX_SNAP_METRES) {
-                0.0
-            } else {
-                distance
-            }
-        });
+    for distances in planes {
         let rejected = clip(&polygon, distances, false);
         if rejected.len() >= 3 {
             outside.push(rejected);
@@ -165,16 +279,8 @@ fn clip(polygon: &Polygon, distances: [f64; 3], inside: bool) -> Polygon {
         let b = polygon[(i + 1) % polygon.len()];
         // Successive planes can meet on a previously cut edge. Preserve that
         // shared corner instead of inserting a second point a few nm away.
-        let distance = |point: [f64; 3]| {
-            let value: f64 = (0..3).map(|j| point[j] * distances[j]).sum();
-            if value.abs() < CUT_PLANE_ROUNDOFF_METRES {
-                0.0
-            } else {
-                value
-            }
-        };
-        let da = distance(a);
-        let db = distance(b);
+        let da = clipped_distance(a, distances);
+        let db = clipped_distance(b, distances);
         let keep_a = if inside { da <= 0.0 } else { da > 0.0 };
         let keep_b = if inside { db <= 0.0 } else { db > 0.0 };
         if keep_a {
@@ -186,6 +292,16 @@ fn clip(polygon: &Polygon, distances: [f64; 3], inside: bool) -> Polygon {
         }
     }
     result
+}
+
+/// Native barycentric interpolation of signed source-plane metre distances.
+fn clipped_distance(point: [f64; 3], distances: [f64; 3]) -> f64 {
+    let value: f64 = (0..3).map(|j| point[j] * distances[j]).sum();
+    if value.abs() < CUT_PLANE_ROUNDOFF_METRES {
+        0.
+    } else {
+        value
+    }
 }
 
 pub fn interpolate<const N: usize>(values: [[f32; N]; 3], weights: [f32; 3]) -> [f32; N] {
@@ -220,9 +336,9 @@ mod tests {
         let polygon = vec![[1., 0., 0.], [0., 1., 0.], [0., 0., 1.]];
         let result = clip(&polygon, [5e-8, -1., 1.], true);
         assert!(result.contains(&polygon[0]));
-        let triangles = triangulation::conforming(vec![result]);
+        let triangles = triangulation::conforming(vec![result], &[]);
         assert_eq!(triangles.len(), 1);
-        assert!(triangles[0].contains(&polygon[0]));
+        assert!(triangles[0].corners.contains(&polygon[0]));
     }
 
     #[test]

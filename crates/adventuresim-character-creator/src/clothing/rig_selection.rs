@@ -1,0 +1,41 @@
+//! Authored clothing skin-family policy. Exact labels retain their own identity.
+
+use fabelgeist_rig::{RigJointMembership, RigJointName};
+
+/// The owner and every `_twist` prefix spelling, including unfamiliar suffixes.
+pub(crate) fn skin_family(name: &RigJointName, owner: &RigJointName) -> RigJointMembership {
+    RigJointMembership::from(name == owner || name.as_ref().starts_with(&format!("{owner}_twist")))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn skin_family_retains_exact_and_unconstrained_twist_prefix_policy() {
+        let owner = RigJointName::L_UPARM;
+        for label in [
+            "l_uparm",
+            "l_uparm_twist",
+            "l_uparm_twist3_proc",
+            "l_uparm_twisted",
+        ] {
+            assert_eq!(
+                skin_family(&RigJointName::from(label), &owner),
+                RigJointMembership::Included
+            );
+        }
+        for label in [
+            "r_uparm",
+            "l_upperarm",
+            "l_uparm_extra",
+            "l_uparm_Twist0",
+            "l_uparm ",
+        ] {
+            assert_eq!(
+                skin_family(&RigJointName::from(label), &owner),
+                RigJointMembership::Excluded
+            );
+        }
+    }
+}

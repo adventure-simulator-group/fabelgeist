@@ -12,22 +12,23 @@ impl ConditionTrend {
     pub(super) fn update(
         &mut self,
         current: TacticalIncapacitationSources,
-        elapsed: f32,
+        elapsed: AnimationElapsed,
         config: IncapacitationForecastConfig,
     ) -> TacticalIncapacitationSources {
-        if elapsed <= 0.0 {
+        if elapsed.is_zero() {
             return TacticalIncapacitationSources::default();
         }
         let Some(previous) = self.previous.replace(current) else {
             return TacticalIncapacitationSources::default();
         };
-        let blend = -(-elapsed / config.trend_response_seconds).exp_m1();
+        let blend = -(-elapsed.seconds() / config.trend_response_seconds.seconds()).exp_m1();
         let mut forecast = TacticalIncapacitationSources::default();
         macro_rules! source {
             ($field:ident) => {
-                self.rates.$field +=
-                    ((current.$field - previous.$field) / elapsed - self.rates.$field) * blend;
-                forecast.$field = (self.rates.$field * config.horizon_seconds).max(0.0);
+                self.rates.$field += ((current.$field - previous.$field) / elapsed.seconds()
+                    - self.rates.$field)
+                    * blend;
+                forecast.$field = (self.rates.$field * config.horizon_seconds.seconds()).max(0.0);
             };
         }
         source!(pain);
@@ -55,7 +56,7 @@ pub(super) fn project_bleeding(
     let future_loss = advance_combat_bleeding(
         state.blood_loss_fraction,
         wounds.map_or(&[], |wounds| wounds.0.as_slice()),
-        config.horizon_seconds,
+        config.horizon_seconds.elapsed(),
     );
     let remaining = (state.starting_blood_fraction - future_loss).clamp(0.0, 1.0);
     state.projected_increase.blood_loss =
@@ -71,7 +72,16 @@ mod tests {
         let mut trend = ConditionTrend::default();
         let config = IncapacitationForecastConfig::default();
         let initial = TacticalIncapacitationSources::default();
-        assert_eq!(trend.update(initial, 0.1, config).total(), 0.0);
+        assert_eq!(
+            trend
+                .update(
+                    initial,
+                    AnimationElapsed::from_seconds(0.1).unwrap(),
+                    config
+                )
+                .total(),
+            0.0
+        );
         let increased = TacticalIncapacitationSources {
             pain: 0.01,
             acute_trauma: 0.01,
@@ -84,10 +94,23 @@ mod tests {
             imbalance: 0.01,
             encumbrance: 0.01,
         };
-        let predicted = trend.update(increased, 0.1, config);
+        let predicted = trend.update(
+            increased,
+            AnimationElapsed::from_seconds(0.1).unwrap(),
+            config,
+        );
         assert!(predicted.pain > 0.0 && predicted.encumbrance > 0.0);
         assert!((predicted.total() - predicted.pain * 10.0).abs() < 0.0001);
-        assert_eq!(trend.update(initial, 0.1, config).total(), 0.0);
+        assert_eq!(
+            trend
+                .update(
+                    initial,
+                    AnimationElapsed::from_seconds(0.1).unwrap(),
+                    config
+                )
+                .total(),
+            0.0
+        );
     }
 
     #[test]
@@ -112,7 +135,7 @@ mod tests {
 
     #[test]
     fn steady_rates_use_simulation_time_and_the_authored_horizon() {
-        let simulate = |step: f32, ticks: usize| {
+        let simulate = |step: AnimationElapsed, ticks: usize| {
             let mut trend = ConditionTrend::default();
             let config = IncapacitationForecastConfig::default();
             trend.update(default(), step, config);
@@ -120,7 +143,7 @@ mod tests {
             for tick in 1..=ticks {
                 forecast = trend.update(
                     TacticalIncapacitationSources {
-                        fatigue: tick as f32 * step * 0.01,
+                        fatigue: tick as f32 * step.seconds() * 0.01,
                         ..default()
                     },
                     step,
@@ -129,16 +152,15 @@ mod tests {
             }
             forecast.fatigue
         };
-        let coarse = simulate(0.1, 100);
-        let fine = simulate(0.01, 1000);
+        let coarse = simulate(AnimationElapsed::from_seconds(0.1).unwrap(), 100);
+        let fine = simulate(AnimationElapsed::from_seconds(0.01).unwrap(), 1000);
         assert!((coarse - fine).abs() < 0.00001);
         assert!((fine - 0.02).abs() < 0.00001);
-        let mut invalid = IncapacitationForecastConfig {
-            horizon_seconds: 0.0,
-            ..default()
-        };
-        assert!(invalid.validate().is_err());
-        invalid.horizon_seconds = f32::NAN;
-        assert!(invalid.validate().is_err());
+        let invalid =
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(0.0);
+        assert!(invalid.is_err());
+        let invalid =
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(f32::NAN);
+        assert!(invalid.is_err());
     }
 }

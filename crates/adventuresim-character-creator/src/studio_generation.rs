@@ -84,9 +84,16 @@ pub(super) fn regenerate_mesh(
         ..
     } = &mut scene;
     let mesh = visible_body_mesh(&generated, &clothed.visible_body_faces);
-    preview::spawn_body(commands, meshes, materials, &walk, &model, &generated, mesh);
-    preview::spawn_clothing(commands, meshes, materials, &walk, &model, clothed.shells);
-    let spawned = scene.spawn_equipment(&catalog, &armor);
+    if let Err(error) = preview::spawn_body(
+        commands, meshes, materials, &walk, &model, &generated, mesh,
+    )
+    .and_then(|()| {
+        preview::spawn_clothing(commands, meshes, materials, &walk, &model, clothed.shells)
+    }) {
+        studio.status = format!("{error:#}");
+        return;
+    }
+    let spawned = scene.spawn_equipment(&armor);
     studio.status = match spawned {
         Ok(()) => format!(
             "Generated {} body vertices · {} clothing shells · {} armor pieces in {:.2} s",
@@ -108,14 +115,10 @@ pub(super) fn dragging(contexts: &mut EguiContexts) -> bool {
 }
 
 impl PreviewScene<'_, '_> {
-    fn spawn_equipment(
-        &mut self,
-        catalog: &EquipmentCatalog,
-        armor: &[parametric_equipment::SelectedArmor<'_>],
-    ) -> Result<()> {
+    fn spawn_equipment(&mut self, armor: &[parametric_equipment::SelectedArmor<'_>]) -> Result<()> {
         self.equipment_maps.begin_generation();
         for piece in armor {
-            let material = catalog.material(&piece.piece.piece.item.id)?;
+            let material = equipment_catalog::material(piece.piece.piece.selection.item())?;
             let material = self
                 .equipment_maps
                 .material(
@@ -144,6 +147,7 @@ impl PreviewScene<'_, '_> {
                 &mut self.commands,
                 &mut self.meshes,
                 &mut self.materials,
+                &mut self.images,
                 &piece.generated,
                 piece.name.clone(),
                 preview::ArmorShading {
@@ -158,6 +162,7 @@ impl PreviewScene<'_, '_> {
                     &mut self.commands,
                     &mut self.meshes,
                     &mut self.materials,
+                    &mut self.images,
                     &lacing.generated,
                     lacing.name.clone(),
                     preview::ArmorShading {

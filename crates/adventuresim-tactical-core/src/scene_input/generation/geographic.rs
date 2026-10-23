@@ -1,5 +1,6 @@
 //! Complete scene context prepares geographic relief before property grading.
 use super::*;
+use crate::scene_input::refinement::refine_authoritative_terrain;
 
 /// Geographic preparation retains the scene's complete asset reservations.
 /// Floors and owned support are installed only after this surface is prepared.
@@ -31,12 +32,9 @@ impl TacticalSceneInput {
         )?;
         let mut obstacles = generated_obstacles(self);
         remove_reserved_obstacles(self, &mut obstacles, &mut repairs);
-        let reservations = reservation_pads(self, &buildings)?;
-        remove_building_obstacles(self, &coarse, &reservations, &mut obstacles, &mut repairs);
+        let reservations = obstacle_reservations(self, &buildings)?;
+        remove_building_obstacles(self, &coarse, &reservations, &mut obstacles, &mut repairs)?;
         let ground = build_scene_ground(
-            width,
-            depth,
-            spacing,
             &environment,
             &coarse,
             &obstacles,
@@ -54,7 +52,6 @@ impl TacticalSceneInput {
             &obstacles,
             self.playable.spacing_metres,
             self.weather.ground_moisture_bps,
-            &[],
         )?;
         Ok(UngradedSceneTerrain {
             terrain,
@@ -66,17 +63,16 @@ impl TacticalSceneInput {
     }
 }
 
-fn reservation_pads(
+fn obstacle_reservations(
     input: &TacticalSceneInput,
     buildings: &[GeneratedBuilding],
-) -> Result<Vec<buildings::BuildingPad>, SceneInputError> {
+) -> Result<Vec<buildings::ObstacleReservation>, SceneInputError> {
     let mut pads: Vec<_> = buildings
         .iter()
-        .map(|building| Ok(buildings::BuildingPad {
-            centre: building.placement.centre_metres.metres(),
-            half_extents: building.collision.bounds.plan_half_extents()?.metres(),
+        .map(|building| Ok(buildings::ObstacleReservation {
+            centre: building.placement.centre_metres,
+            half_extents: building.collision.bounds.plan_half_extents()?,
             orientation: building.placement.orientation,
-            elevation_metres: building.placement.base_elevation_metres,
         }))
         .collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
     // Only horizontal occupancy removes obstacles. Compound members may have
@@ -87,11 +83,10 @@ fn reservation_pads(
             .iter()
             .map(|property| property.plot)
             .chain(input.gardens.iter().map(|garden| garden.plot))
-            .map(|plot| buildings::BuildingPad {
-                centre: plot.centre_metres(),
-                half_extents: plot.dimensions_metres() * 0.5,
+            .map(|plot| buildings::ObstacleReservation {
+                centre: plot.centre(),
+                half_extents: plot.dimensions().half_extents(),
                 orientation: plot.orientation(),
-                elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
             }),
     );
     Ok(pads)

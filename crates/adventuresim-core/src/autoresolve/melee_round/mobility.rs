@@ -5,11 +5,11 @@ pub(in crate::autoresolve) fn melee_effective_reach(combatant: &Combatant) -> f3
 }
 
 pub(in crate::autoresolve) fn available_attack_start(
-    window_start: f32,
-    window_end: f32,
-    measure_at: f32,
-    recovery: f32,
-) -> Option<f32> {
+    window_start: BattleTime,
+    window_end: BattleTime,
+    measure_at: BattleTime,
+    recovery: BattleTime,
+) -> Option<BattleTime> {
     let start = window_start.max(measure_at).max(recovery);
     (start <= window_end).then_some(start)
 }
@@ -55,23 +55,24 @@ pub(super) fn maximum_melee_pair_surface_separation(
 pub(in crate::autoresolve) fn preview_melee_pair_movement(
     first: &Combatant,
     second: &Combatant,
-    elapsed: f32,
+    elapsed: AnimationElapsed,
     parameters: crate::combat::AutoresolveParameters,
-) -> (OpposedMovement, MeleeMovementAction, MeleeMovementAction) {
+) -> SpeedResult<(OpposedMovement, MeleeMovementAction, MeleeMovementAction)> {
     let surface = first
         .melee_engagement_distance_metres
         .min(second.melee_engagement_distance_metres)
         .max(0.0);
     let first_intent = movement_intent(first, surface, parameters);
     let second_intent = movement_intent(second, surface, parameters);
-    let speed = |combatant: &Combatant| {
-        combatant
-            .movement_speed_meters_per_second(parameters.minimum_movement_speed_metres_per_second)
+    let speed = |combatant: &Combatant| -> SpeedResult<NonnegativeSpeed> {
+        Ok(combatant
+            .movement_speed_meters_per_second(parameters.minimum_movement_speed_metres_per_second)?
             .min(if combatant.melee_attack_started_at_seconds.is_some() {
                 parameters.melee_lunge_speed_metres_per_second
             } else {
                 parameters.guarded_movement_speed_metres_per_second
             })
+            .nonnegative())
     };
     let acceleration = |combatant: &Combatant| {
         ground_drive_acceleration(
@@ -94,22 +95,22 @@ pub(in crate::autoresolve) fn preview_melee_pair_movement(
         surface + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
         first.melee_separation_velocity_metres_per_second,
         first_intent,
-        speed(first),
+        speed(first)?,
         second.melee_separation_velocity_metres_per_second,
         second_intent,
-        speed(second),
+        speed(second)?,
         acceleration(first),
         acceleration(second),
         elapsed,
         HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
         maximum_surface_separation + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
-    );
+    )?;
     movement.distance_before_metres = (movement.distance_before_metres
         - HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)
         .max(0.0);
     movement.distance_after_metres =
         (movement.distance_after_metres - HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES).max(0.0);
-    (movement, first_intent, second_intent)
+    Ok((movement, first_intent, second_intent))
 }
 
 pub(in crate::autoresolve) fn preferred_melee_measure(
@@ -131,55 +132,18 @@ pub(in crate::autoresolve) fn preferred_melee_measure(
     )
 }
 
-fn movement_phase(combatant: &Combatant, time: f32) -> MeleeTimelinePhase {
-    if combatant.melee_attack_started_at_seconds.is_some() {
-        MeleeTimelinePhase::Windup
-    } else if combatant.melee_recovery_until_seconds > time {
-        MeleeTimelinePhase::Recovery
-    } else {
-        MeleeTimelinePhase::NeutralGuard
-    }
-}
-
-fn record_movement(
-    recorder: &mut BattleRecorder,
-    combatant: &Combatant,
-    target_id: u64,
-    movement: OpposedMovement,
-    axis: AxisMotion,
-    intent: MeleeMovementAction,
-    time: f32,
-) {
-    let phase = movement_phase(combatant, time);
-    let mut event = MeleeTimelineEvent::at(MeleeTimelineKind::Movement, time);
-    event.combatant_id = Some(combatant.id);
-    event.target_id = Some(target_id);
-    event.engagement_distance_before_metres = Some(movement.distance_before_metres);
-    event.engagement_distance_after_metres = Some(movement.distance_after_metres);
-    event.movement_action = Some(intent);
-    event.movement_elapsed_seconds = Some(movement.elapsed_seconds);
-    event.movement_displacement_metres = Some(axis.displacement_metres);
-    event.movement_velocity_before_metres_per_second = Some(axis.velocity_before_metres_per_second);
-    event.movement_velocity_after_metres_per_second = Some(axis.velocity_after_metres_per_second);
-    event.movement_speed_limit_metres_per_second = Some(axis.speed_limit_metres_per_second);
-    event.readiness_before_seconds = Some(combatant.melee_recovery_until_seconds);
-    event.readiness_after_seconds = event.readiness_before_seconds;
-    event.phase_before = Some(phase);
-    event.phase_after = Some(phase);
-    recorder.record_timeline(event);
-}
-
 pub(in crate::autoresolve) fn advance_melee_pair_movement(
     first: &mut Combatant,
     second: &mut Combatant,
-    interval_start: f32,
-    elapsed: f32,
+    interval_start: BattleTime,
+    elapsed: AnimationElapsed,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
-    if elapsed <= 0.0 || first.is_defeated() || second.is_defeated() {
-        return;
+) -> BattleResolutionResult<()> {
+    if elapsed.is_zero() || first.is_defeated() || second.is_defeated() {
+        return Ok(());
     }
+    let time = interval_start.checked_add(elapsed)?;
     if first.melee_engagement_target != Some(second.id)
         || second.melee_engagement_target != Some(first.id)
     {
@@ -188,18 +152,17 @@ pub(in crate::autoresolve) fn advance_melee_pair_movement(
         second.melee_engagement_target = Some(first.id);
         first.melee_engagement_distance_metres = initial_separation;
         second.melee_engagement_distance_metres = initial_separation;
-        first.melee_separation_velocity_metres_per_second = 0.0;
-        second.melee_separation_velocity_metres_per_second = 0.0;
+        first.melee_separation_velocity_metres_per_second = SignedSpeed::ZERO;
+        second.melee_separation_velocity_metres_per_second = SignedSpeed::ZERO;
     }
     let (movement, first_intent, second_intent) =
-        preview_melee_pair_movement(first, second, elapsed, parameters);
+        preview_melee_pair_movement(first, second, elapsed, parameters)?;
     first.melee_engagement_distance_metres = movement.distance_after_metres;
     second.melee_engagement_distance_metres = movement.distance_after_metres;
     first.melee_separation_velocity_metres_per_second =
         movement.first.velocity_after_metres_per_second;
     second.melee_separation_velocity_metres_per_second =
         movement.second.velocity_after_metres_per_second;
-    let time = interval_start + elapsed;
     let (a, a_axis, a_intent, b, b_axis, b_intent) = if first.id <= second.id {
         (
             &*first,
@@ -221,4 +184,43 @@ pub(in crate::autoresolve) fn advance_melee_pair_movement(
     };
     record_movement(recorder, a, b.id, movement, a_axis, a_intent, time);
     record_movement(recorder, b, a.id, movement, b_axis, b_intent, time);
+    Ok(())
+}
+
+fn movement_phase(combatant: &Combatant, time: BattleTime) -> MeleeTimelinePhase {
+    if combatant.melee_attack_started_at_seconds.is_some() {
+        MeleeTimelinePhase::Windup
+    } else if combatant.melee_recovery_until_seconds > time {
+        MeleeTimelinePhase::Recovery
+    } else {
+        MeleeTimelinePhase::NeutralGuard
+    }
+}
+
+fn record_movement(
+    recorder: &mut BattleRecorder,
+    combatant: &Combatant,
+    target_id: u64,
+    movement: OpposedMovement,
+    axis: AxisMotion,
+    intent: MeleeMovementAction,
+    time: BattleTime,
+) {
+    let phase = movement_phase(combatant, time);
+    let mut event = MeleeTimelineEvent::at(MeleeTimelineKind::Movement, time);
+    event.combatant_id = Some(combatant.id);
+    event.target_id = Some(target_id);
+    event.engagement_distance_before_metres = Some(movement.distance_before_metres);
+    event.engagement_distance_after_metres = Some(movement.distance_after_metres);
+    event.movement_action = Some(intent);
+    event.movement_elapsed_seconds = Some(movement.elapsed_seconds);
+    event.movement_displacement_metres = Some(axis.displacement_metres);
+    event.movement_velocity_before_metres_per_second = Some(axis.velocity_before_metres_per_second);
+    event.movement_velocity_after_metres_per_second = Some(axis.velocity_after_metres_per_second);
+    event.movement_speed_limit_metres_per_second = Some(axis.speed_limit_metres_per_second);
+    event.readiness_before_seconds = Some(combatant.melee_recovery_until_seconds);
+    event.readiness_after_seconds = event.readiness_before_seconds;
+    event.phase_before = Some(phase);
+    event.phase_after = Some(phase);
+    recorder.record_timeline(event);
 }

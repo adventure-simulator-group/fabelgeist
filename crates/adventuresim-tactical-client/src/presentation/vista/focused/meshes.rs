@@ -4,6 +4,8 @@ use crate::presentation::terrain::{
     PreparedTerrainLandform, terrain_patch_mesh, urban_playable_mesh,
 };
 
+type GroundPreparationResult<T> = std::result::Result<T, GroundPreparationError>;
+
 pub(super) struct GroundMeshes {
     pub fine: GroundChunk,
     pub landform: Option<LandformChunk>,
@@ -30,6 +32,8 @@ pub(super) enum GroundPreparationError {
     LandformRecipe,
     #[error(transparent)]
     Reflection(#[from] geographic_ground::GeographicGroundError),
+    #[error(transparent)]
+    VistaMesh(#[from] VistaMeshError),
 }
 
 impl GroundMeshes {
@@ -37,7 +41,7 @@ impl GroundMeshes {
         product: &PreparedCityProduct,
         environment: &SceneEnvironment,
         maximum_lods: usize,
-    ) -> std::result::Result<Self, GroundPreparationError> {
+    ) -> GroundPreparationResult<Self> {
         let started = web_time::Instant::now();
         let input = product.document.input();
         let fine = GroundChunk {
@@ -57,7 +61,7 @@ impl GroundMeshes {
                     .surface(),
             }),
         };
-        let vista = VistaChunks::new(product, environment, maximum_lods);
+        let vista = VistaChunks::new(product, environment, maximum_lods)?;
         let geometry_time = started.elapsed();
         let mut support = streets::GroundSupport::default();
         for chunk in std::iter::once(&fine)
@@ -99,7 +103,7 @@ impl VistaChunks {
         product: &PreparedCityProduct,
         environment: &SceneEnvironment,
         maximum_lods: usize,
-    ) -> Self {
+    ) -> GroundPreparationResult<Self> {
         let input = product.document.input();
         let lods = input
             .vista
@@ -124,7 +128,7 @@ impl VistaChunks {
                     (index == 0).then_some(environment),
                     environment.weather,
                     input.landform.map(|recipe| recipe.transition_collar()),
-                )
+                )?
                 .into_iter()
                 .map(|mesh| GroundChunk { mesh, origin }),
             );
@@ -132,9 +136,9 @@ impl VistaChunks {
                 * lod.spacing_metres
                 * 0.5;
         }
-        Self {
+        Ok(Self {
             chunks,
             half_extent: inner,
-        }
+        })
     }
 }

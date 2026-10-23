@@ -6,7 +6,11 @@ use bevy::math::{FloatExt, Vec2, Vec3, Vec3Swizzles};
 use crate::{
     marching_tetrahedra::marching_tetrahedra,
     scene::SceneTerrain,
-    volumetric_terrain::{SceneTerrainPatch, TerrainLandformKind, TerrainLandformRecipe},
+    scene_coordinates::ScenePlanPoint,
+    volumetric_terrain::{
+        SceneTerrainPatch, TerrainLandformKind, TerrainLandformRecipe, TerrainRecipeError,
+        TerrainRecipeResult, support::height_at_extended_edge,
+    },
 };
 
 mod basalt;
@@ -27,7 +31,7 @@ const CARBONATE_RESIDUAL_RELIEF_FRACTION: f32 = 0.05;
 pub(crate) fn patch(
     terrain: &SceneTerrain,
     recipe: TerrainLandformRecipe,
-) -> crate::volumetric_terrain::TerrainRecipeResult<SceneTerrainPatch> {
+) -> TerrainRecipeResult<SceneTerrainPatch> {
     let spacing = f32::from(recipe.lod().voxel_cm()) / 100.0;
     let origin = Vec2::new(recipe.origin_cm()[0] as f32, recipe.origin_cm()[1] as f32) / 100.0;
     let radius = f32::from(recipe.half_length_cm().max(recipe.half_width_cm())) / 100.0 + 2.0;
@@ -37,8 +41,11 @@ pub(crate) fn patch(
     let mut maximum = f32::NEG_INFINITY;
     for z in 0..side {
         for x in 0..side {
-            let point = origin + Vec2::new(x as f32, z as f32) * spacing - Vec2::splat(radius);
-            let height = terrain_height(terrain, point);
+            let point = ScenePlanPoint::from_metres(
+                origin + Vec2::new(x as f32, z as f32) * spacing - Vec2::splat(radius),
+            )
+            .ok_or(TerrainRecipeError::NonFiniteField)?;
+            let height = height_at_extended_edge(terrain, point)?.metres();
             minimum = minimum.min(height);
             maximum = maximum.max(height);
         }
@@ -49,7 +56,7 @@ pub(crate) fn patch(
     let top = maximum + spacing * SAMPLE_MARGIN_CELLS;
     let vertical = ((top - bottom) / spacing).ceil() as usize + 1;
     if side > MAX_GRID_SIDE || vertical > MAX_GRID_HEIGHT {
-        return Err(crate::volumetric_terrain::TerrainRecipeError::ErosionVoxelGridBound);
+        return Err(TerrainRecipeError::ErosionVoxelGridBound);
     }
     marching_tetrahedra(
         [side, vertical, side],
@@ -65,20 +72,19 @@ pub(crate) fn patch(
     )
 }
 
-fn terrain_height(terrain: &SceneTerrain, point: Vec2) -> f32 {
-    let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
-    terrain
-        .height_at(point.clamp(-half, half))
-        .expect("bounded terrain sample")
-}
-
-fn field(terrain: &SceneTerrain, recipe: TerrainLandformRecipe, point: Vec3) -> f32 {
+fn field(
+    terrain: &SceneTerrain,
+    recipe: TerrainLandformRecipe,
+    point: Vec3,
+) -> TerrainRecipeResult<f32> {
     let collar = recipe.transition_collar();
     let weight = collar.blend_weight(point.xz());
-    let height = terrain_height(terrain, point.xz());
-    let base = point.y - height;
+    let query =
+        ScenePlanPoint::from_metres(point.xz()).ok_or(TerrainRecipeError::NonFiniteField)?;
+    let height = height_at_extended_edge(terrain, query)?;
+    let base = point.y - height.metres();
     if weight <= 0.0 {
-        return base;
+        return Ok(base);
     }
     let local = collar.local_coordinates(point.xz());
     let tangent = Vec2::new(
@@ -90,11 +96,13 @@ fn field(terrain: &SceneTerrain, recipe: TerrainLandformRecipe, point: Vec3) -> 
     let foot_distance = f32::from(recipe.half_width_cm() - recipe.collar_cm()) / 100.0;
     // Grade to the existing downhill foot. Subtracting relief from every local
     // height would create a closed trench when the collar returned uphill.
-    let foot = terrain_height(terrain, point.xz() + downhill * (foot_distance - local.y));
-    let relief = (height - foot)
+    let foot_point = ScenePlanPoint::from_metres(point.xz() + downhill * (foot_distance - local.y))
+        .ok_or(TerrainRecipeError::NonFiniteField)?;
+    let foot = height_at_extended_edge(terrain, foot_point)?;
+    let relief = (height.metres() - foot.metres())
         .max(0.001)
         .min(f32::from(recipe.relief_cm()) / 100.0);
-    let depth_fraction = ((height - point.y) / relief).clamp(0.0, 1.0);
+    let depth_fraction = ((height.metres() - point.y) / relief).clamp(0.0, 1.0);
     // A thick upper ledge remains above a shallow weathering alcove. This is
     // variation within sandstone, not an invented sandstone/shale contact.
     let recess = ((depth_fraction - SANDSTONE_ROOF_FRACTION) / (1.0 - SANDSTONE_ROOF_FRACTION)
@@ -130,9 +138,9 @@ fn field(terrain: &SceneTerrain, recipe: TerrainLandformRecipe, point: Vec3) -> 
         TerrainLandformKind::CohesiveSlumpHeadscarp => slump::bench(local.x, local.y),
         _ => 0.0,
     };
-    let floor = foot + talus + retained_material;
+    let floor = foot.metres() + talus + retained_material;
     let cut = (local.y - front).min(point.y - floor);
-    base.lerp(base.max(cut), weight)
+    Ok(base.lerp(base.max(cut), weight))
 }
 
 #[cfg(test)]
@@ -184,12 +192,17 @@ mod tests {
                     &terrain,
                     recipe,
                     Vec3::new(0.0, -7.0 + step as f32 * 0.08, centre),
-                ) > 0.0
+                )
+                .unwrap()
+                    > 0.0
             })
             .collect();
         assert!(signs.windows(2).filter(|pair| pair[0] != pair[1]).count() >= 3);
-        assert!(field(&terrain, recipe, Vec3::new(0.0, -0.5, centre)) < 0.0);
-        assert_eq!(field(&terrain, recipe, Vec3::new(20.0, 1.0, 0.0)), 1.0);
+        assert!(field(&terrain, recipe, Vec3::new(0.0, -0.5, centre)).unwrap() < 0.0);
+        assert_eq!(
+            field(&terrain, recipe, Vec3::new(20.0, 1.0, 0.0)).unwrap(),
+            1.0
+        );
     }
 
     #[test]
@@ -201,7 +214,7 @@ mod tests {
             (0..2000)
                 .rev()
                 .map(|step| -8.0 + step as f32 * 0.005)
-                .find(|&y| field(&terrain, recipe, Vec3::new(0.0, y, z)) <= 0.0)
+                .find(|&y| field(&terrain, recipe, Vec3::new(0.0, y, z)).unwrap() <= 0.0)
                 .unwrap()
         };
         let heights: Vec<_> = (0..61)
@@ -251,7 +264,9 @@ mod tests {
                                 &terrain,
                                 recipe,
                                 Vec3::new(x, -6.0 + layer as f32 * 0.05, z),
-                            ) > 0.0
+                            )
+                            .unwrap()
+                                > 0.0
                         })
                         .collect();
                     signs.windows(2).filter(|pair| pair[0] != pair[1]).count()

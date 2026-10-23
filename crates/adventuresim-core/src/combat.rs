@@ -1,21 +1,8 @@
+use crate::elapsed::AnimationElapsed;
+pub use contact_timing::ContactTimingOffset;
 use std::{f32, ops::Mul};
 
 use serde::{Deserialize, Serialize};
-
-mod armor;
-mod capability;
-mod config;
-mod contact_geometry;
-mod coverage;
-mod defense;
-mod fatigue;
-mod fatigue_config;
-mod incapacitation;
-mod melee_resolution;
-pub(crate) mod targeting;
-mod weapon_contact;
-mod weapon_contact_config;
-mod wounds;
 
 pub use armor::{ArmorImpact, ArmorImpactOutcome};
 pub use capability::{MeleeAttackCapability, melee_attack_capability};
@@ -54,6 +41,22 @@ use crate::{
     skill::{PlayerSkills, Skill},
 };
 
+mod armor;
+mod capability;
+mod config;
+mod contact_geometry;
+mod contact_timing;
+mod coverage;
+mod defense;
+mod fatigue;
+mod fatigue_config;
+mod incapacitation;
+mod melee_resolution;
+pub(crate) mod targeting;
+mod weapon_contact;
+mod weapon_contact_config;
+mod wounds;
+
 /// Fraction of maximum balance recovered per second while combat continues.
 pub const IMBALANCE_RECOVERY_PER_SECOND: f32 = 0.25;
 
@@ -65,8 +68,8 @@ pub fn apply_clamped_limb_damage(health: &mut f32, damage: f32) -> f32 {
 }
 
 #[must_use]
-pub fn recover_combat_imbalance(imbalance: f32, seconds: f32) -> f32 {
-    (imbalance - IMBALANCE_RECOVERY_PER_SECOND * seconds.max(0.0)).max(0.0)
+pub fn recover_combat_imbalance(imbalance: f32, seconds: AnimationElapsed) -> f32 {
+    (imbalance - IMBALANCE_RECOVERY_PER_SECOND * seconds.seconds().max(0.0)).max(0.0)
 }
 
 #[must_use]
@@ -812,7 +815,11 @@ mod tests {
             };
             let wounds =
                 wounds_from_applied_health_damage(matchup.target, cut, blunt, blunt_energy);
-            let blood_loss = advance_combat_bleeding(0.0, &wounds, 60.0);
+            let blood_loss = advance_combat_bleeding(
+                0.0,
+                &wounds,
+                crate::elapsed::AnimationElapsed::from_seconds(60.0).unwrap(),
+            );
             let total_incapacitation = combat_incapacitation(
                 0.0,
                 1.0,

@@ -1,5 +1,6 @@
 use super::*;
 use bevy::math::Vec3;
+use fabelgeist_rig::RigJointName;
 
 #[test]
 fn pauldron_shared_saddle_fits_body_and_completed_cuirass() -> Result<()> {
@@ -27,8 +28,12 @@ fn pauldron_shared_saddle_fits_body_and_completed_cuirass() -> Result<()> {
         let fit = |item, side, layers| {
             pollster::block_on(runtime_equipment::generate(
                 &body,
-                item,
-                side,
+                adventuresim_core::equipment_assets::CatalogPlacement::find(
+                    adventuresim_core::item_catalog::catalog(),
+                    item,
+                    side,
+                )
+                .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
                 &bracer,
                 &breastplate,
                 layers,
@@ -43,7 +48,14 @@ fn pauldron_shared_saddle_fits_body_and_completed_cuirass() -> Result<()> {
             assert_eq!(bare.indices, dressed.indices);
             let adventuresim_character_creator::armor_recipes::ParametricDesign::Limb(
                 fabelgeist_armor::LimbArmorDesign::Pauldron(recipe),
-            ) = adventuresim_character_creator::armor_recipes::recipe("pauldron").unwrap()
+            ) = adventuresim_character_creator::armor_recipes::recipe(
+                adventuresim_core::equipment_assets::CatalogItem::find(
+                    adventuresim_core::item_catalog::catalog(),
+                    "pauldron",
+                )
+                .unwrap(),
+            )
+            .unwrap()
             else {
                 panic!("pauldron catalog recipe");
             };
@@ -64,12 +76,18 @@ fn pauldron_shared_saddle_fits_body_and_completed_cuirass() -> Result<()> {
             let owner = body
                 .joint_names
                 .iter()
-                .position(|name| name == if side == "left" { "l_uparm" } else { "r_uparm" })
+                .position(|name| {
+                    name == if side == "left" {
+                        &RigJointName::L_UPARM
+                    } else {
+                        &RigJointName::R_UPARM
+                    }
+                })
                 .unwrap() as u32;
             for armor in [&bare, &dressed] {
                 for component in &armor.components {
                     assert!(
-                        armor.joint_indices[component.vertices.clone()]
+                        armor.joint_indices.native_words()[component.vertices.clone()]
                             .iter()
                             .all(|j| *j == [owner; 8])
                     );

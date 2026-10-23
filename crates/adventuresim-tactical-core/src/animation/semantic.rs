@@ -72,12 +72,15 @@ mod contract_tests {
         library
             .insert(AnimationPack {
                 id: "root".into(),
-                skeleton_family: "humanoid".into(),
+                skeleton_family: SkeletonFamily::HUMANOID,
                 fallback: None,
                 clips: authored,
             })
             .unwrap();
-        assert_eq!(library.validate_complete("root"), Ok(()));
+        assert_eq!(
+            library.validate_complete(&AnimationPackId::from("root")),
+            Ok(())
+        );
     }
 
     #[test]
@@ -86,7 +89,7 @@ mod contract_tests {
         library
             .insert(AnimationPack {
                 id: "root".into(),
-                skeleton_family: "humanoid".into(),
+                skeleton_family: SkeletonFamily::HUMANOID,
                 fallback: Some("parent".into()),
                 clips: BTreeSet::new(),
             })
@@ -94,13 +97,13 @@ mod contract_tests {
         library
             .insert(AnimationPack {
                 id: "parent".into(),
-                skeleton_family: "humanoid".into(),
+                skeleton_family: SkeletonFamily::HUMANOID,
                 fallback: None,
                 clips: BTreeSet::new(),
             })
             .unwrap();
         assert_eq!(
-            library.validate_complete("root"),
+            library.validate_complete(&AnimationPackId::from("root")),
             Err(PackValidationError::RootHasFallback("root".into()))
         );
     }
@@ -112,9 +115,21 @@ mod contract_tests {
         assert!(state.is_grounded());
         assert_eq!(state.action(), ActionState::default());
 
-        state.begin_attack(AttackSpec::default(), 10, 20).unwrap();
+        state
+            .begin_attack(
+                AttackSpec::default(),
+                crate::animation::AnimationSampleTick::from(10u64),
+                crate::animation::AnimationSampleTick::from(20u64),
+            )
+            .unwrap();
         assert_eq!(state.action_kind(), SkeletonAction::Attack);
-        state.begin_dodge(DodgeSpec::default(), 12, 13).unwrap();
+        state
+            .begin_dodge(
+                DodgeSpec::default(),
+                crate::animation::AnimationSampleTick::from(12u64),
+                crate::animation::AnimationSampleTick::from(13u64),
+            )
+            .unwrap();
         assert_eq!(state.action_kind(), SkeletonAction::Dodge);
         assert!(!state.is_quickstep());
     }
@@ -123,7 +138,11 @@ mod contract_tests {
     fn lowered_stance_cannot_retain_raised_motion_and_inputs_are_normalized() {
         let raised = SkeletonState::default()
             .with_weapon_guard(WeaponGuardState::Raised)
-            .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::new(10.0, 0.0), 2.0));
+            .with_raised_locomotion(RaisedLocomotionIntent::moving(
+                Vec2::new(10.0, 0.0),
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+                    .unwrap(),
+            ));
         assert_eq!(raised.raised_locomotion().local_direction(), Vec2::X);
         let lowered = raised.with_weapon_guard(WeaponGuardState::Lowered);
         assert_eq!(lowered.stance(), StanceState::Lowered);
@@ -137,78 +156,107 @@ mod contract_tests {
     fn action_timeline_uses_saturating_arithmetic_at_u64_max() {
         let mut state = SkeletonState::default();
         state
-            .begin_block(BlockSpec::default(), u64::MAX, u64::MAX)
+            .begin_block(
+                BlockSpec::default(),
+                AnimationSampleTick::MAX,
+                AnimationSampleTick::MAX,
+            )
             .unwrap();
-        state.advance_action(u64::MAX);
+        state.advance_action(AnimationSampleTick::MAX).unwrap();
         assert_eq!(state.action(), ActionState::default());
-        assert_eq!(state.action_phase(), 0.0);
+        assert_eq!(state.action_phase().fraction(), 0.0);
     }
 
     #[test]
-    fn projection_owns_grounded_body_transitions_and_sanitizes_motion() {
+    fn projection_rejects_nonfinite_elapsed_before_mutating_body() {
         let mut state = SkeletonState::default();
-        project_skeleton_locomotion(
-            &mut state,
-            SkeletonLocomotionInput {
-                orientation: Quat::IDENTITY,
-                linear_velocity: Vec3::splat(f32::NAN),
-                grounded: false,
-                delta_seconds: f32::NAN,
-                tick: 1,
-            },
+        let admission = AnimationElapsed::from_seconds(f32::NAN)
+            .map_err(AnimationValueError::from)
+            .and_then(|delta_seconds| {
+                project_skeleton_locomotion(
+                    &mut state,
+                    SkeletonLocomotionInput::from_controller(
+                        Quat::IDENTITY,
+                        Vec3::splat(f32::NAN),
+                        GroundContact::Airborne,
+                        delta_seconds,
+                        AnimationSampleTick::from(1u64),
+                    )
+                    .unwrap(),
+                )
+            });
+        assert_eq!(
+            admission,
+            Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::Elapsed
+            })
         );
-        assert_eq!(state.body(), BodyState::Airborne);
-        assert!(!state.is_grounded());
+        assert!(state.is_grounded());
         assert_eq!(state.world_velocity, Vec3::ZERO);
     }
 
     #[test]
     fn sparse_attack_evaluation_uses_guard_contact_guard() {
         let mut state = SkeletonState::default();
-        state.begin_attack(AttackSpec::default(), 0, 10).unwrap();
-        state.advance_action(5);
-        let early = AnimationEvaluation::from_skeleton(&state);
+        state
+            .begin_attack(
+                AttackSpec::default(),
+                crate::animation::AnimationSampleTick::from(0u64),
+                crate::animation::AnimationSampleTick::from(10u64),
+            )
+            .unwrap();
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(5u64))
+            .unwrap();
+        let early = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(early.action[0].pose, SemanticPose::GuardThrust);
         let PoseSampling::CurveSpan { end, coordinate } = early.action[0].sampling else {
             panic!("ordinary attacks should use the extrapolating pose curve");
         };
+        let coordinate = coordinate.coordinate();
         assert_eq!(end, SemanticPose::AttackThrust);
         assert!(
             coordinate < 0.0,
             "the early readable tell draws behind guard"
         );
-        state.advance_action(11);
-        let recovery = AnimationEvaluation::from_skeleton(&state);
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(11u64))
+            .unwrap();
+        let recovery = AnimationEvaluation::from_skeleton(&state).unwrap();
         let PoseSampling::CurveSpan { coordinate, .. } = recovery.action[0].sampling else {
             panic!("ordinary recovery should use the extrapolating pose curve");
         };
+        let coordinate = coordinate.coordinate();
         assert!(coordinate > 1.0, "recovery begins beyond contact");
     }
 
     #[test]
     fn repeated_guard_writes_preserve_live_raised_footwork() {
-        let intent = RaisedLocomotionIntent::moving(Vec2::X, 2.0);
+        let intent = RaisedLocomotionIntent::moving(
+            Vec2::X,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0).unwrap(),
+        );
         let mut server_like = SkeletonState::default()
             .with_weapon_guard(WeaponGuardState::Raised)
             .with_raised_locomotion(intent);
-        server_like.gait_phase = 0.37;
+        server_like.gait_phase = CyclePhase::from_cycles(0.37).unwrap();
         set_weapon_guard(&mut server_like, WeaponGuardState::Raised);
         assert_eq!(server_like.raised_locomotion(), intent);
-        assert_eq!(server_like.gait_phase, 0.37);
+        assert_eq!(server_like.gait_phase.cycles(), 0.37);
 
         let mut viewer_like = server_like.clone();
         for _ in 0..8 {
             set_weapon_guard(&mut viewer_like, WeaponGuardState::Raised);
         }
         assert_eq!(viewer_like.raised_locomotion(), intent);
-        assert_eq!(viewer_like.gait_phase, 0.37);
+        assert_eq!(viewer_like.gait_phase.cycles(), 0.37);
 
         set_weapon_guard(&mut viewer_like, WeaponGuardState::Lowered);
         let lowered_phase = viewer_like.gait_phase;
         set_weapon_guard(&mut viewer_like, WeaponGuardState::Lowered);
         assert_eq!(viewer_like.gait_phase, lowered_phase);
         set_weapon_guard(&mut viewer_like, WeaponGuardState::Raised);
-        assert_eq!(viewer_like.gait_phase, 0.0);
+        assert_eq!(viewer_like.gait_phase.cycles(), 0.0);
         assert_eq!(
             viewer_like.raised_locomotion(),
             RaisedLocomotionIntent::default()
@@ -218,14 +266,24 @@ mod contract_tests {
     #[test]
     fn downed_body_transition_clears_action_and_raised_stance() {
         let mut state = SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
-        state.begin_attack(AttackSpec::default(), 1, 2).unwrap();
+        state
+            .begin_attack(
+                AttackSpec::default(),
+                crate::animation::AnimationSampleTick::from(1u64),
+                crate::animation::AnimationSampleTick::from(2u64),
+            )
+            .unwrap();
         state.transition_body(BodyState::Prone);
         assert_eq!(state.stance(), StanceState::Lowered);
         assert_eq!(state.action(), ActionState::default());
         set_weapon_guard(&mut state, WeaponGuardState::Raised);
         assert_eq!(state.stance(), StanceState::Lowered);
         assert_eq!(
-            state.begin_attack(AttackSpec::default(), 3, 4),
+            state.begin_attack(
+                AttackSpec::default(),
+                crate::animation::AnimationSampleTick::from(3u64),
+                crate::animation::AnimationSampleTick::from(4u64)
+            ),
             Err(ActionTransitionError::Downed)
         );
         assert_eq!(state.action(), ActionState::default());
@@ -238,11 +296,13 @@ mod contract_tests {
             PostureTransitionKind::ProneToSupine {
                 direction: RollDirection::Right,
             },
-            10,
-            20,
+            crate::animation::AnimationSampleTick::from(10u64),
+            crate::animation::AnimationSampleSpan::from(20u64),
         ));
-        state.advance_posture_transition(20);
-        let evaluation = AnimationEvaluation::from_skeleton(&state);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(20u64))
+            .unwrap();
+        let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(evaluation.action.len(), 1);
         assert_eq!(
             evaluation.action[0].pose,
@@ -252,10 +312,12 @@ mod contract_tests {
             evaluation.action[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::SupineIdle,
-                progress: 0.0,
+                progress: UnitInterval::from_fraction(0.0).unwrap(),
             }
         );
-        state.advance_posture_transition(30);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(30u64))
+            .unwrap();
         assert_eq!(state.body(), BodyState::Supine);
         assert!(state.posture_transition().is_none());
     }
@@ -263,20 +325,55 @@ mod contract_tests {
     #[test]
     fn aimed_downed_facing_holds_half_roll_and_reaches_supine() {
         let mut state = SkeletonState::default().with_body_state(BodyState::Prone);
-        assert!(state.advance_downed_facing(0.5, true, 1.0));
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.5);
-        assert_eq!(state.downed_lateral_motion(), 1.0);
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.5).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.5
+        );
+        assert_eq!(state.downed_lateral_motion().fraction(), 1.0);
         assert_eq!(state.body(), BodyState::Prone);
-        let evaluation = AnimationEvaluation::from_skeleton(&state);
+        let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(
             evaluation.action[0].pose,
             SemanticPose::ProneSupineRollRight
         );
 
-        assert!(state.advance_downed_facing(1.0, true, 1.0));
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(1.0).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(state.body(), BodyState::Supine);
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 1.0);
-        assert!(AnimationEvaluation::from_skeleton(&state).action.is_empty());
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            1.0
+        );
+        assert!(
+            AnimationEvaluation::from_skeleton(&state)
+                .unwrap()
+                .action
+                .is_empty()
+        );
     }
 
     #[test]
@@ -285,76 +382,181 @@ mod contract_tests {
 
         // The prone sector nominally ends at 0.25 half-turns (45 degrees),
         // but remains committed through the ten-degree sticky margin.
-        assert!(state.advance_downed_facing(0.30, true, 1.0));
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.30).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(
             state.downed_facing().unwrap().target(),
             DownedFacingPose::Prone
         );
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.0);
-        assert!(AnimationEvaluation::from_skeleton(&state).action.is_empty());
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.0
+        );
+        assert!(
+            AnimationEvaluation::from_skeleton(&state)
+                .unwrap()
+                .action
+                .is_empty()
+        );
 
-        assert!(state.advance_downed_facing(0.31, true, 1.0));
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.31).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(
             state.downed_facing().unwrap().target(),
             DownedFacingPose::RollRight
         );
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.5);
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.5
+        );
 
         // Reversing across the nominal boundary does not chatter back. It
         // must clear the opposite side of the hysteresis deadband first.
-        assert!(state.advance_downed_facing(0.24, true, 1.0));
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.24).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(
             state.downed_facing().unwrap().target(),
             DownedFacingPose::RollRight
         );
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.5);
-        assert!(state.advance_downed_facing(0.19, true, 1.0));
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.5
+        );
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.19).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(
             state.downed_facing().unwrap().target(),
             DownedFacingPose::Prone
         );
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.0);
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.0
+        );
     }
 
     #[test]
     fn aimed_downed_facing_interpolates_only_after_sector_commit() {
         let mut state = SkeletonState::default().with_body_state(BodyState::Prone);
-        assert!(state.advance_downed_facing(0.5, true, 0.125));
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.5).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(0.125).unwrap()
+                )
+                .unwrap()
+        );
         let transition = state.downed_facing().unwrap();
         assert_eq!(transition.target(), DownedFacingPose::RollRight);
-        assert_eq!(transition.half_turns(), 0.125);
-        assert_eq!(transition.lateral_motion(), 1.0);
-        assert!(!AnimationEvaluation::from_skeleton(&state).action.is_empty());
+        assert_eq!(transition.roll_coordinate().half_turns(), 0.125);
+        assert_eq!(transition.lateral_motion().fraction(), 1.0);
+        assert!(
+            !AnimationEvaluation::from_skeleton(&state)
+                .unwrap()
+                .action
+                .is_empty()
+        );
 
         for _ in 0..3 {
-            state.advance_downed_facing(0.5, true, 0.125);
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.5).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(0.125).unwrap(),
+                )
+                .unwrap();
         }
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.5);
-        state.advance_downed_facing(0.55, true, 0.125);
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.5
+        );
+        state
+            .advance_downed_facing(
+                SignedHalfTurns::from_half_turns(0.55).unwrap(),
+                DownedFacingAim::Held,
+                DownedFacingStep::from_half_turns(0.125).unwrap(),
+            )
+            .unwrap();
         let settled = state.downed_facing().unwrap();
         assert_eq!(settled.target(), DownedFacingPose::RollRight);
-        assert_eq!(settled.half_turns(), 0.5);
-        assert_eq!(settled.lateral_motion(), 0.0);
+        assert_eq!(settled.roll_coordinate().half_turns(), 0.5);
+        assert_eq!(settled.lateral_motion().fraction(), 0.0);
     }
 
     #[test]
     fn downed_turning_advances_contact_gait_without_planar_velocity() {
         let mut state = SkeletonState::default().with_body_state(BodyState::Supine);
-        state.set_downed_turning(true);
-        assert_eq!(state.animation_speed(), 0.8);
+        state.set_downed_motion(DownedMotion::Turning);
+        assert_eq!(state.animation_speed().unwrap().metres_per_second(), 0.8);
         project_skeleton_locomotion(
             &mut state,
-            SkeletonLocomotionInput {
-                orientation: Quat::IDENTITY,
-                linear_velocity: Vec3::ZERO,
-                grounded: true,
-                delta_seconds: 0.25,
-                tick: 1,
-            },
-        );
-        let expected = gait_cycle_phase_delta(supine_locomotion_profile(), 1.6, 0.25);
-        assert!((state.gait_phase - expected).abs() < 0.000_01);
-        let evaluation = AnimationEvaluation::from_skeleton(&state);
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                Vec3::ZERO,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(0.25).unwrap(),
+                AnimationSampleTick::from(1u64),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+        let expected = gait_cycle_phase_delta(
+            supine_locomotion_profile(),
+            NonnegativeSpeed::from_metres_per_second(1.6).unwrap(),
+            AnimationElapsed::from_seconds(0.25).unwrap(),
+        )
+        .unwrap()
+        .cycles();
+        assert!((state.gait_phase.cycles() - expected).abs() < 0.000_01);
+        let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert!(
             evaluation
                 .base
@@ -369,16 +571,18 @@ mod contract_tests {
             let mut state = SkeletonState::default().with_body_state(body);
             project_skeleton_locomotion(
                 &mut state,
-                SkeletonLocomotionInput {
-                    orientation: Quat::IDENTITY,
-                    linear_velocity: Vec3::NEG_Z * 2.0,
-                    grounded: true,
-                    delta_seconds: 0.25,
-                    tick: 1,
-                },
-            );
-            assert_eq!(state.gait_phase, 0.0);
-            let evaluation = AnimationEvaluation::from_skeleton(&state);
+                SkeletonLocomotionInput::from_controller(
+                    Quat::IDENTITY,
+                    Vec3::NEG_Z * 2.0,
+                    GroundContact::Grounded,
+                    AnimationElapsed::from_seconds(0.25).unwrap(),
+                    AnimationSampleTick::from(1u64),
+                )
+                .unwrap(),
+            )
+            .unwrap();
+            assert_eq!(state.gait_phase.cycles(), 0.0);
+            let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
             assert_eq!(evaluation.base.len(), 1);
             assert_eq!(
                 evaluation.base[0].pose,
@@ -394,20 +598,60 @@ mod contract_tests {
     #[test]
     fn releasing_aim_settles_downed_roll_to_nearest_contact() {
         let mut toward_prone = SkeletonState::default().with_body_state(BodyState::Prone);
-        toward_prone.advance_downed_facing(0.4, true, 1.0);
-        assert!(!toward_prone.advance_downed_facing(0.4, false, 1.0));
+        toward_prone
+            .advance_downed_facing(
+                SignedHalfTurns::from_half_turns(0.4).unwrap(),
+                DownedFacingAim::Held,
+                DownedFacingStep::from_half_turns(1.0).unwrap(),
+            )
+            .unwrap();
+        assert!(
+            !toward_prone
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.4).unwrap(),
+                    DownedFacingAim::Released,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(toward_prone.body(), BodyState::Prone);
         assert!(toward_prone.downed_facing().is_none());
 
         let mut toward_supine = SkeletonState::default().with_body_state(BodyState::Prone);
-        toward_supine.advance_downed_facing(1.0, true, 0.6);
-        assert!(!toward_supine.advance_downed_facing(0.0, false, 1.0));
+        toward_supine
+            .advance_downed_facing(
+                SignedHalfTurns::from_half_turns(1.0).unwrap(),
+                DownedFacingAim::Held,
+                DownedFacingStep::from_half_turns(0.6).unwrap(),
+            )
+            .unwrap();
+        assert!(
+            !toward_supine
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.0).unwrap(),
+                    DownedFacingAim::Released,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(toward_supine.body(), BodyState::Supine);
         assert!(toward_supine.downed_facing().is_none());
 
         let mut exact_half_roll = SkeletonState::default().with_body_state(BodyState::Prone);
-        exact_half_roll.advance_downed_facing(0.5, true, 1.0);
-        exact_half_roll.advance_downed_facing(0.5, false, 1.0);
+        exact_half_roll
+            .advance_downed_facing(
+                SignedHalfTurns::from_half_turns(0.5).unwrap(),
+                DownedFacingAim::Held,
+                DownedFacingStep::from_half_turns(1.0).unwrap(),
+            )
+            .unwrap();
+        exact_half_roll
+            .advance_downed_facing(
+                SignedHalfTurns::from_half_turns(0.5).unwrap(),
+                DownedFacingAim::Released,
+                DownedFacingStep::from_half_turns(1.0).unwrap(),
+            )
+            .unwrap();
         assert_eq!(exact_half_roll.body(), BodyState::Prone);
     }
 
@@ -419,24 +663,36 @@ mod contract_tests {
                 direction: DiveDirection::Forward,
                 trajectory: DiveTrajectory::Airborne,
             },
-            0,
-            11,
+            crate::animation::AnimationSampleTick::from(0u64),
+            crate::animation::AnimationSampleSpan::from(11u64),
         ));
-        state.advance_posture_transition(5);
-        assert!(state.posture_transition().unwrap().phase() < 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(5u64))
+            .unwrap();
+        assert!(state.posture_transition().unwrap().phase().fraction() < 0.5);
 
         state.transition_body(BodyState::Airborne);
-        state.advance_posture_transition(6);
-        assert_eq!(state.posture_transition().unwrap().phase(), 0.5);
-        state.advance_posture_transition(100);
-        assert_eq!(state.posture_transition().unwrap().phase(), 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(6u64))
+            .unwrap();
+        assert_eq!(state.posture_transition().unwrap().phase().fraction(), 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(100u64))
+            .unwrap();
+        assert_eq!(state.posture_transition().unwrap().phase().fraction(), 0.5);
 
         state.transition_body(BodyState::Grounded(GroundedPosture::Upright));
-        state.advance_posture_transition(101);
-        assert_eq!(state.posture_transition().unwrap().phase(), 0.5);
-        state.advance_posture_transition(106);
-        assert!(state.posture_transition().unwrap().phase() > 0.5);
-        state.advance_posture_transition(112);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(101u64))
+            .unwrap();
+        assert_eq!(state.posture_transition().unwrap().phase().fraction(), 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(106u64))
+            .unwrap();
+        assert!(state.posture_transition().unwrap().phase().fraction() > 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(112u64))
+            .unwrap();
         assert_eq!(state.body(), BodyState::Prone);
         assert!(state.posture_transition().is_none());
     }
@@ -449,14 +705,20 @@ mod contract_tests {
                 direction: DiveDirection::Backward,
                 trajectory: DiveTrajectory::Airborne,
             },
-            0,
-            11,
+            crate::animation::AnimationSampleTick::from(0u64),
+            crate::animation::AnimationSampleSpan::from(11u64),
         ));
         state.transition_body(BodyState::Airborne);
-        state.advance_posture_transition(6);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(6u64))
+            .unwrap();
         state.transition_body(BodyState::Grounded(GroundedPosture::Upright));
-        state.advance_posture_transition(7);
-        state.advance_posture_transition(18);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(7u64))
+            .unwrap();
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(18u64))
+            .unwrap();
         assert_eq!(state.body(), BodyState::Supine);
         assert!(state.posture_transition().is_none());
     }
@@ -469,36 +731,46 @@ mod contract_tests {
                 direction: DiveDirection::Backward,
                 trajectory: DiveTrajectory::Airborne,
             },
-            0,
-            8,
+            crate::animation::AnimationSampleTick::from(0u64),
+            crate::animation::AnimationSampleSpan::from(8u64),
         ));
 
-        state.advance_posture_transition(7);
-        assert!(state.posture_transition().unwrap().phase() < 0.5);
-        state.advance_posture_transition(8);
-        assert_eq!(state.posture_transition().unwrap().phase(), 0.5);
-        state.advance_posture_transition(12);
-        assert_eq!(state.posture_transition().unwrap().phase(), 0.75);
-        state.advance_posture_transition(16);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(7u64))
+            .unwrap();
+        assert!(state.posture_transition().unwrap().phase().fraction() < 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(8u64))
+            .unwrap();
+        assert_eq!(state.posture_transition().unwrap().phase().fraction(), 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(12u64))
+            .unwrap();
+        assert_eq!(state.posture_transition().unwrap().phase().fraction(), 0.75);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(16u64))
+            .unwrap();
         assert_eq!(state.body(), BodyState::Supine);
     }
 
     #[test]
     fn supported_prone_projection_does_not_repeat_landing_or_restore_upright() {
         let mut state = SkeletonState::default().with_body_state(BodyState::Prone);
-        state.landing_sequence = 7;
+        state.landing_sequence = LandingSequence::from(7u64);
         project_skeleton_locomotion(
             &mut state,
-            SkeletonLocomotionInput {
-                orientation: Quat::IDENTITY,
-                linear_velocity: Vec3::ZERO,
-                grounded: true,
-                delta_seconds: 1.0 / locomotion_sample_hz(),
-                tick: 1,
-            },
-        );
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                Vec3::ZERO,
+                GroundContact::Grounded,
+                locomotion_sample_rate().interval().elapsed(),
+                AnimationSampleTick::from(1u64),
+            )
+            .unwrap(),
+        )
+        .unwrap();
         assert_eq!(state.body(), BodyState::Prone);
-        assert_eq!(state.landing_sequence, 7);
+        assert_eq!(state.landing_sequence, LandingSequence::from(7u64));
     }
 
     #[test]
@@ -506,36 +778,54 @@ mod contract_tests {
         let mut state = SkeletonState::default()
             .with_body_state(BodyState::Prone)
             .with_local_velocity(Vec3::NEG_Z)
-            .with_gait_phase(0.25);
-        state.set_downed_turning(true);
-        let evaluation = AnimationEvaluation::from_skeleton(&state);
+            .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap());
+        state.set_downed_motion(DownedMotion::Turning);
+        let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(evaluation.base.len(), 2);
         assert!(evaluation.base.iter().all(|sample| {
             sample.pose == SemanticPose::ProneCrawlContact
                 && sample.sampling == PoseSampling::Anchor
         }));
-        assert!(!evaluation.base[0].mirror_lower_body);
-        assert!(evaluation.base[1].mirror_lower_body);
-        assert!((evaluation.base[0].weight - 0.5).abs() < 0.0001);
-        assert!((evaluation.base[1].weight - 0.5).abs() < 0.0001);
+        assert!(evaluation.base[0].mirror_lower_body == ClipMirror::Original);
+        assert!(evaluation.base[1].mirror_lower_body == ClipMirror::Mirrored);
+        assert!((evaluation.base[0].weight.factor() - 0.5).abs() < 0.0001);
+        assert!((evaluation.base[1].weight.factor() - 0.5).abs() < 0.0001);
     }
 
     #[test]
     fn evasion_explicitly_preempts_attack_while_other_actions_are_rejected() {
         let mut state = SkeletonState::default();
-        state.begin_attack(AttackSpec::default(), 10, 20).unwrap();
+        state
+            .begin_attack(
+                AttackSpec::default(),
+                crate::animation::AnimationSampleTick::from(10u64),
+                crate::animation::AnimationSampleTick::from(20u64),
+            )
+            .unwrap();
         assert_eq!(
-            state.begin_block(BlockSpec::default(), 11, 12),
+            state.begin_block(
+                BlockSpec::default(),
+                crate::animation::AnimationSampleTick::from(11u64),
+                crate::animation::AnimationSampleTick::from(12u64)
+            ),
             Err(ActionTransitionError::ActionBusy)
         );
         state
-            .begin_dodge(DodgeSpec::quickstep(Vec2::X).unwrap(), 11, 12)
+            .begin_dodge(
+                DodgeSpec::quickstep(Vec2::X).unwrap(),
+                crate::animation::AnimationSampleTick::from(11u64),
+                crate::animation::AnimationSampleTick::from(12u64),
+            )
             .unwrap();
         assert_eq!(state.action_kind(), SkeletonAction::Dodge);
         assert!(state.is_quickstep());
         assert_eq!(state.action_direction(), Vec2::X);
         assert_eq!(
-            state.begin_dodge(DodgeSpec::default(), 12, 13),
+            state.begin_dodge(
+                DodgeSpec::default(),
+                crate::animation::AnimationSampleTick::from(12u64),
+                crate::animation::AnimationSampleTick::from(13u64)
+            ),
             Err(ActionTransitionError::ActionBusy)
         );
         assert!(DodgeSpec::quickstep(Vec2::ZERO).is_none());
@@ -544,30 +834,47 @@ mod contract_tests {
     #[test]
     fn dive_transition_cancels_actions_and_rejects_new_action_payloads() {
         let mut state = SkeletonState::default();
-        state.begin_attack(AttackSpec::default(), 10, 20).unwrap();
+        state
+            .begin_attack(
+                AttackSpec::default(),
+                crate::animation::AnimationSampleTick::from(10u64),
+                crate::animation::AnimationSampleTick::from(20u64),
+            )
+            .unwrap();
 
         assert!(state.begin_posture_transition(
             PostureTransitionKind::DiveToDowned {
                 direction: DiveDirection::Forward,
                 trajectory: DiveTrajectory::Airborne,
             },
-            11,
-            20,
+            crate::animation::AnimationSampleTick::from(11u64),
+            crate::animation::AnimationSampleSpan::from(20u64),
         ));
         assert_eq!(state.action_kind(), SkeletonAction::None);
         assert_eq!(
-            state.begin_dodge(DodgeSpec::default(), 12, 13),
+            state.begin_dodge(
+                DodgeSpec::default(),
+                crate::animation::AnimationSampleTick::from(12u64),
+                crate::animation::AnimationSampleTick::from(13u64)
+            ),
             Err(ActionTransitionError::PostureTransitionActive)
         );
         assert_eq!(
-            state.begin_attack(AttackSpec::default(), 12, 13),
+            state.begin_attack(
+                AttackSpec::default(),
+                crate::animation::AnimationSampleTick::from(12u64),
+                crate::animation::AnimationSampleTick::from(13u64)
+            ),
             Err(ActionTransitionError::PostureTransitionActive)
         );
     }
 
     #[test]
     fn raised_intent_round_trip_preserves_valid_variants_and_normalizes_wire_input() {
-        let moving = RaisedLocomotionIntent::moving(Vec2::new(3.0, 0.0), 2.0);
+        let moving = RaisedLocomotionIntent::moving(
+            Vec2::new(3.0, 0.0),
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0).unwrap(),
+        );
         let json = serde_json::to_string(&moving).unwrap();
         assert_eq!(
             serde_json::from_str::<RaisedLocomotionIntent>(&json).unwrap(),
@@ -577,19 +884,25 @@ mod contract_tests {
         let invalid = r#"{"moving":{"local_direction":[null,0.0],"speed":2.0}}"#;
         assert!(serde_json::from_str::<RaisedLocomotionIntent>(invalid).is_err());
         assert_eq!(
-            RaisedLocomotionIntent::moving(Vec2::ZERO, f32::NAN),
+            RaisedLocomotionIntent::from_native_movement(Vec2::ZERO, f32::NAN),
             RaisedLocomotionIntent::planted()
         );
 
         let mut state = SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
-        state.begin_attack(AttackSpec::default(), 10, 20).unwrap();
+        state
+            .begin_attack(
+                AttackSpec::default(),
+                crate::animation::AnimationSampleTick::from(10u64),
+                crate::animation::AnimationSampleTick::from(20u64),
+            )
+            .unwrap();
         let mut wire = serde_json::to_value(&state).unwrap();
         wire["body"] = serde_json::json!("Prone");
         wire["action"]["Attack"]["timeline"]["preparation_ticks"] = serde_json::json!(0);
         wire["action"]["Attack"]["timeline"]["phase"] = serde_json::json!(2.0);
         let normalized_action: ActionState =
             serde_json::from_value(wire["action"].clone()).unwrap();
-        assert_eq!(normalized_action.phase(), 1.0);
+        assert_eq!(normalized_action.phase().fraction(), 1.0);
         let normalized: SkeletonState = serde_json::from_value(wire).unwrap();
         assert_eq!(normalized.body(), BodyState::Prone);
         assert_eq!(normalized.stance(), StanceState::Lowered);
@@ -600,7 +913,11 @@ mod contract_tests {
     fn raised_stance_round_trips_through_replication_codec() {
         for locomotion in [
             RaisedLocomotionIntent::planted(),
-            RaisedLocomotionIntent::moving(Vec2::Y, 2.0),
+            RaisedLocomotionIntent::moving(
+                Vec2::Y,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+                    .unwrap(),
+            ),
         ] {
             let state = SkeletonState::default()
                 .with_weapon_guard(WeaponGuardState::Raised)

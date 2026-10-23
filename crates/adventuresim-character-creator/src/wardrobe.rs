@@ -101,12 +101,16 @@ mod tests {
             selection: GarmentSelection::default(),
             settled: None,
             obstacles: vec![],
-            indices: vec![[0; 8]; positions.len()],
+            indices: fabelgeist_rig::PackedRigSkin::from_native(
+                vec![[0; 8]; positions.len()],
+                fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+            )
+            .unwrap(),
             weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; positions.len()],
             positions,
             faces: vec![[0, 2, 1], [0, 1, 3], [1, 2, 3], [2, 0, 3]],
-            names: vec![],
-            joints: vec![],
+            names: Default::default(),
+            joints: Default::default(),
         };
         let cloth = DrapedGarment {
             form: GarmentForm::Upper,
@@ -116,7 +120,7 @@ mod tests {
             positions: vec![[0.1, 0.1, 0.1], [0.5, 0.1, 0.1], [0.1, 0.1, 0.5]],
             normals: vec![],
             faces: vec![[0, 2, 1]],
-            indices: vec![],
+            indices: Default::default(),
             weights: vec![],
             stage: DrapeStage::Settling { step: 1, of: 1 },
         };

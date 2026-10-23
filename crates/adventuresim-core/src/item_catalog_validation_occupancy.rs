@@ -115,10 +115,8 @@ pub(super) fn validate_occupancy(
             .get("order")
             .and_then(Value::as_u64)
             .unwrap_or(0);
-        if matches!(
-            channel,
-            "held" | "base_clothing" | "padding" | "flexible_armor" | "rigid_armor" | "outerwear"
-        ) && order != 0
+        if typed.is_some_and(|requirement| requirement.channel.singleton_per_location())
+            && order != 0
         {
             errors.push(
                 format!("{placement_path}.occupancy.{occupancy_index}.order"),

@@ -61,7 +61,7 @@ fn trimmed_height_extraction_preserves_ordered_mesh_buffers() {
             |point| {
                 let x = ((point.x + 2.0) * 2.0) as usize;
                 let z = ((point.z + 2.0) * 2.0) as usize;
-                point.y - heights[z * dimensions[0] + x]
+                Ok(point.y - heights[z * dimensions[0] + x])
             },
             collar(),
         )

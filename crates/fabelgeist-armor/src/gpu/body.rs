@@ -18,11 +18,11 @@ pub struct BodySurface<'a> {
     pub faces: &'a [[u32; 3]],
     /// Each vertex's anatomical surface coordinate.
     pub texcoords: &'a [[f32; 2]],
-    pub joint_indices: &'a [[u32; 8]],
+    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: &'a [[f32; 8]],
     /// Global joint states: position, then rotation as a quaternion, then
     /// scale.
-    pub joints: &'a [[f32; 8]],
+    pub joints: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
 }
 
 /// A wearer's body uploaded for fitting.
@@ -37,7 +37,7 @@ pub struct GpuBody {
     pub joints: Buffer,
     pub vertex_count: u32,
     pub face_count: u32,
-    pub joint_count: u32,
+    pub joint_count: fabelgeist_rig::RigJointCount,
 }
 
 impl GpuBody {
@@ -48,6 +48,7 @@ impl GpuBody {
             || surface.texcoords.len() != vertices
             || surface.joint_indices.len() != vertices
             || surface.joint_weights.len() != vertices
+            || surface.joint_indices.joint_count() != surface.joints.joint_count()
             || surface
                 .faces
                 .iter()
@@ -61,12 +62,17 @@ impl GpuBody {
             normals: gpu.upload(BufferUpload::from_elements(surface.normals))?,
             faces: gpu.upload(BufferUpload::from_elements(surface.faces))?,
             texcoords: gpu.upload(BufferUpload::from_elements(surface.texcoords))?,
-            joint_indices: gpu.upload(BufferUpload::from_elements(surface.joint_indices))?,
+            joint_indices: gpu.upload(BufferUpload::from_elements(
+                surface.joint_indices.native_words(),
+            ))?,
             joint_weights: gpu.upload(BufferUpload::from_elements(surface.joint_weights))?,
-            joints: gpu.upload(BufferUpload::from_elements(surface.joints))?,
-            vertex_count: vertices as u32,
-            face_count: surface.faces.len() as u32,
-            joint_count: surface.joints.len() as u32,
+            joints: gpu.upload(BufferUpload::from_elements(
+                surface.joints.as_native_slice(),
+            ))?,
+            vertex_count: u32::try_from(vertices).map_err(|_| GenerateError::InvalidSurface)?,
+            face_count: u32::try_from(surface.faces.len())
+                .map_err(|_| GenerateError::InvalidSurface)?,
+            joint_count: surface.joints.joint_count(),
         })
     }
 }
@@ -79,22 +85,24 @@ pub struct Correspondence {
     pub joint_indices: Buffer,
     pub joint_weights: Buffer,
     count: u32,
+    joints: fabelgeist_rig::RigJointCount,
 }
 
 /// Correspondence read back to the host.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Skin {
     pub texcoords: Vec<[f32; 2]>,
-    pub joint_indices: Vec<[u32; 8]>,
+    pub joint_indices: fabelgeist_rig::PackedRigSkin<8>,
     pub joint_weights: Vec<[f32; 8]>,
 }
 
 impl Skin {
     /// Add `other`'s points after this skin's, matching an appended part.
-    pub fn append(&mut self, other: Skin) {
+    pub fn append(&mut self, other: Skin) -> Result<(), GenerateError> {
+        self.joint_indices.append(other.joint_indices)?;
         self.texcoords.extend(other.texcoords);
-        self.joint_indices.extend(other.joint_indices);
         self.joint_weights.extend(other.joint_weights);
+        Ok(())
     }
 }
 
@@ -128,6 +136,7 @@ impl Correspondence {
             joint_weights: gpu.scratch(count as u64 * 32, "armor joint weights")?,
             hits,
             count,
+            joints: body.joint_count,
         };
         let mut gather = PassParameters::new();
         gather.insert("count", count);
@@ -151,7 +160,7 @@ impl Correspondence {
     pub fn read(&self, gpu: &ArmorGpu) -> Result<Skin, GenerateError> {
         let mut staging = Staging::new();
         let slots = self.stage(&mut staging);
-        Ok(self.finish(&gpu.read_staged(staging)?, slots))
+        self.finish(&gpu.read_staged(staging)?, slots)
     }
 
     /// Stage the skin for a shared readback.
@@ -164,7 +173,11 @@ impl Correspondence {
     }
 
     /// The skin, from a shared readback.
-    pub fn finish(&self, results: &StagedResults, slots: [Staged; 3]) -> Skin {
+    pub fn finish(
+        &self,
+        results: &StagedResults,
+        slots: [Staged; 3],
+    ) -> Result<Skin, GenerateError> {
         let count = self.count as usize;
         let mut texcoords: Vec<[f32; 2]> = results.get(slots[0]);
         let mut joint_indices: Vec<[u32; 8]> = results.get(slots[1]);
@@ -172,11 +185,11 @@ impl Correspondence {
         texcoords.truncate(count);
         joint_indices.truncate(count);
         joint_weights.truncate(count);
-        Skin {
+        Ok(Skin {
             texcoords,
-            joint_indices,
+            joint_indices: fabelgeist_rig::PackedRigSkin::from_native(joint_indices, self.joints)?,
             joint_weights,
-        }
+        })
     }
 }
 

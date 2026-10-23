@@ -1,10 +1,14 @@
 //! Tactical grab input, QWERTY slot HUD, and placeholder item presentation.
 
-use std::{
-    collections::{BTreeMap, HashMap},
-    sync::LazyLock,
+use crate::{
+    animation::{
+        AuthoredBindTransform, BoneRole, HandSide, HeldWeaponConstraint, HumanoidRig, MhrBone,
+        authored_bind_global,
+    },
+    player::ClientPlayer,
+    presentation::GrabTargetOutline,
 };
-
+use adventuresim_core::equipment_assets::EquipmentAssets;
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::ClientTriggerExt,
@@ -26,45 +30,49 @@ use bevy::{
 };
 use bevy_egui::{EguiContexts, EguiPrimaryContextPass, EguiTextureHandle, egui};
 use bevy_mod_outline::{OutlineMode, OutlinePlugin, OutlineVolume};
-use serde::Deserialize;
-
-mod grab_world;
-mod icons;
-#[cfg(any(target_family = "wasm", test))]
-pub(crate) mod readiness;
+use grab_world::*;
 use icons::*;
-pub(crate) mod runtime_equipment;
+use placeholder_update::update_item_placeholders;
+use preview::{
+    HeldPreviewItem, eligible_slot_depth, hud_layers, ordered_preview_at_location,
+    outermost_occupied_depth,
+};
+pub(crate) use render_binding::ProceduralEquipmentPart;
 pub(crate) use runtime_equipment::RuntimeEquipmentBodyCache;
 #[cfg(test)]
 use runtime_equipment::RuntimeEquipmentPresentation;
 use runtime_equipment::generate_runtime_equipment_models;
+use skin::sync_procedural_equipment_skins;
+use std::{
+    collections::{BTreeMap, HashMap},
+    sync::LazyLock,
+};
+pub(crate) use visuals::EquipmentVisualPlugin;
+
+mod grab_world;
+mod icons;
 mod placeholder_update;
 mod placeholder_visual;
-use placeholder_update::update_item_placeholders;
-
+mod preview;
+#[cfg(any(target_family = "wasm", test))]
+pub(crate) mod readiness;
 mod render_binding;
+pub(crate) mod runtime_equipment;
 mod skin;
 mod slot_selection;
 pub(crate) mod visuals;
-pub(crate) use render_binding::ProceduralEquipmentPart;
-use skin::sync_procedural_equipment_skins;
-pub(crate) use visuals::EquipmentVisualPlugin;
-
-use grab_world::*;
-
-use crate::{
-    animation::{
-        AuthoredBindTransform, BoneRole, HandSide, HeldWeaponConstraint, HumanoidRig, MhrBone,
-        authored_bind_global,
-    },
-    player::ClientPlayer,
-    presentation::GrabTargetOutline,
-};
 
 const PICKUP_RANGE_M: f32 = 2.0;
+
 const INVALID_FLASH_SECS: f32 = 0.18;
+
 const TACTICAL_WEAPON_ICON_SIZE: u16 = 64;
+
 const TACTICAL_WEAPON_ICON_SUPERSAMPLING: u8 = 4;
+
+const EQUIPMENT_ICON_COLUMNS: usize = 8;
+const EQUIPMENT_ICON_ROWS: usize = 7;
+
 const EQUIPMENT_ICON_SLUGS: [&str; 56] = [
     "ancient-sword",
     "arm-bandage",
@@ -124,46 +132,18 @@ const EQUIPMENT_ICON_SLUGS: [&str; 56] = [
     "wood-club",
 ];
 
-fn icon_uv(slug: &str) -> egui::Rect {
-    let index = EQUIPMENT_ICON_SLUGS
-        .iter()
-        .position(|candidate| *candidate == slug)
-        .unwrap_or(0);
-    let column = (index % 8) as f32;
-    let row = (index / 8) as f32;
-    egui::Rect::from_min_max(
-        egui::pos2(column / 8.0, row / 7.0),
-        egui::pos2((column + 1.0) / 8.0, (row + 1.0) / 7.0),
-    )
-}
+static PROCEDURAL_EQUIPMENT_ASSETS: LazyLock<EquipmentAssets> = LazyLock::new(|| {
+    // This is a committed build input, not gameplay admission. Invalid embedded data is an invariant failure.
+    match EquipmentAssets::from_json(include_str!(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../../assets/equipment/procedural/manifest.json"
+    ))) {
+        Ok(assets) => assets,
+        Err(error) => panic!("committed procedural equipment manifest must be valid: {error}"),
+    }
+});
 
 pub(crate) struct TacticalEquipmentPlugin;
-
-impl Plugin for TacticalEquipmentPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_plugins(EquipmentVisualPlugin)
-            .init_resource::<GrabSession>()
-            .init_resource::<WeaponIconCache>()
-            .add_systems(
-                PreUpdate,
-                update_grab_input.after(bevy::input::InputSystems),
-            )
-            .add_systems(Update, update_pickup_outlines)
-            .add_systems(EguiPrimaryContextPass, draw_slot_hud);
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum GrabSelection {
-    Slot {
-        location: EquipmentLocation,
-        depth: u16,
-    },
-    Hand(EquipmentHand),
-    SceneItem(Entity),
-    Door(Entity),
-    Window(Entity),
-}
 
 #[derive(Resource, Default)]
 struct GrabSession {
@@ -171,7 +151,7 @@ struct GrabSession {
     selection: Option<GrabSelection>,
     repeated_input: Option<(&'static str, usize)>,
     invalid_flash_remaining: f32,
-    next_sequence: u32,
+    next_sequence: EquipmentSequence,
 }
 
 #[derive(Clone)]
@@ -200,12 +180,6 @@ struct WeaponIconCache {
 }
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
-enum IconSource {
-    Weapon,
-    Holder,
-}
-
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 struct WeaponMeshCacheKey {
     generator_version: u16,
     design_hash: [u8; 32],
@@ -224,60 +198,6 @@ struct WeaponIconCacheKey {
 #[derive(Component)]
 pub(crate) struct ItemPlaceholder(pub(crate) Entity);
 
-#[derive(Component, Deserialize)]
-struct ProceduralEquipmentManifest {
-    assets: Vec<ProceduralEquipmentManifestAsset>,
-}
-
-#[derive(Deserialize)]
-struct ProceduralEquipmentManifestAsset {
-    item_id: String,
-    placement_id: String,
-    file: String,
-}
-
-static PROCEDURAL_EQUIPMENT_ASSETS: LazyLock<BTreeMap<String, BTreeMap<String, String>>> =
-    LazyLock::new(|| {
-        let manifest: ProceduralEquipmentManifest = serde_json::from_str(include_str!(concat!(
-            env!("CARGO_MANIFEST_DIR"),
-            "/../../assets/equipment/procedural/manifest.json"
-        )))
-        .expect("committed procedural equipment manifest must be valid");
-        let mut assets = BTreeMap::<String, BTreeMap<String, String>>::new();
-        for asset in manifest.assets {
-            let replaced = assets
-                .entry(asset.item_id)
-                .or_default()
-                .insert(asset.placement_id, asset.file);
-            assert!(
-                replaced.is_none(),
-                "procedural equipment manifest keys must be unique"
-            );
-        }
-        assets
-    });
-
-fn procedural_equipment_file(item_id: &str, placement_id: Option<&str>) -> Option<&'static str> {
-    let placements = PROCEDURAL_EQUIPMENT_ASSETS.get(item_id)?;
-    match placement_id {
-        Some(placement_id) => placements.get(placement_id),
-        None => placements.values().next(),
-    }
-    .map(String::as_str)
-}
-
-fn procedural_equipment_asset_path(file: &str) -> String {
-    let path = format!("equipment/procedural/{file}");
-    #[cfg(not(target_family = "wasm"))]
-    {
-        format!("workspace://{path}")
-    }
-    #[cfg(target_family = "wasm")]
-    {
-        path
-    }
-}
-
 #[derive(Component)]
 pub(crate) struct ProceduralEquipmentResolved;
 
@@ -290,14 +210,77 @@ struct ItemFallback;
 #[derive(Component, Default)]
 struct EquipmentAttachmentSockets(BTreeMap<String, Transform>);
 
-fn held_item(
-    actor: Entity,
-    hand: EquipmentHand,
-    items: &Query<(Entity, &ItemOf, Option<&EquipSlot>)>,
-) -> Option<Entity> {
-    items.iter().find_map(|(entity, owner, slot)| {
-        (owner.0 == actor && slot.is_some_and(|slot| *slot == hand.slot())).then_some(entity)
-    })
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum GrabSelection {
+    Slot {
+        location: EquipmentLocation,
+        depth: u16,
+    },
+    Hand(EquipmentHand),
+    SceneItem(Entity),
+    Door(Entity),
+    Window(Entity),
+}
+
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+enum IconSource {
+    Weapon,
+    Holder,
+}
+
+impl Plugin for TacticalEquipmentPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_plugins(EquipmentVisualPlugin)
+            .init_resource::<GrabSession>()
+            .init_resource::<WeaponIconCache>()
+            .add_systems(
+                PreUpdate,
+                update_grab_input.after(bevy::input::InputSystems),
+            )
+            .add_systems(Update, update_pickup_outlines)
+            .add_systems(EguiPrimaryContextPass, draw_slot_hud);
+    }
+}
+
+fn icon_uv(slug: &str) -> egui::Rect {
+    let index = EQUIPMENT_ICON_SLUGS
+        .iter()
+        .position(|candidate| *candidate == slug)
+        .unwrap_or(0);
+    let column = (index % EQUIPMENT_ICON_COLUMNS) as f32;
+    let row = (index / EQUIPMENT_ICON_COLUMNS) as f32;
+    egui::Rect::from_min_max(
+        egui::pos2(
+            column / EQUIPMENT_ICON_COLUMNS as f32,
+            row / EQUIPMENT_ICON_ROWS as f32,
+        ),
+        egui::pos2(
+            (column + 1.0) / EQUIPMENT_ICON_COLUMNS as f32,
+            (row + 1.0) / EQUIPMENT_ICON_ROWS as f32,
+        ),
+    )
+}
+
+fn procedural_equipment_file(item_id: &str, placement_id: Option<&str>) -> Option<&'static str> {
+    // ItemProperties and replicated placement text enter the canonical catalogue here.
+    let item =
+        adventuresim_core::equipment_assets::CatalogItem::find(item_catalog::catalog(), item_id)?;
+    match placement_id {
+        Some(id) => PROCEDURAL_EQUIPMENT_ASSETS.file_for(item.placement(id)?),
+        None => PROCEDURAL_EQUIPMENT_ASSETS.default_file_for(item),
+    }
+}
+
+fn procedural_equipment_asset_path(file: &str) -> String {
+    let path = format!("equipment/procedural/{file}");
+    #[cfg(not(target_family = "wasm"))]
+    {
+        format!("workspace://{path}")
+    }
+    #[cfg(target_family = "wasm")]
+    {
+        path
+    }
 }
 
 fn key_code(input: &str) -> Option<KeyCode> {
@@ -359,10 +342,8 @@ fn update_grab_input(
         held.is_some(),
         world_targets.pointed(actor_transform),
     );
-    let held_item_id = held
-        .and_then(|entity| properties.get(entity).ok())
-        .map(|properties| properties.id.as_str());
-    slot_selection::keyboard_slots(&mut session, &keys, held_item_id, |location| {
+    let held_preview = HeldPreviewItem::from(held.and_then(|entity| properties.get(entity).ok()));
+    slot_selection::keyboard_slots(&mut session, &keys, held_preview, |location| {
         ordered_preview_at_location(actor, location, &topologies)
     });
     let released = match hand {
@@ -372,13 +353,21 @@ fn update_grab_input(
     if !released {
         return;
     }
+    let Ok(action_state) = action_states.get(actor) else {
+        warn!(
+            ?actor,
+            "Equipment action not sent: authoritative revision is unavailable"
+        );
+        (session.active, session.selection, session.repeated_input) = (None, None, None);
+        return;
+    };
     let action = match session.selection {
         Some(GrabSelection::Slot { location, depth }) => EquipmentAction::Slot {
             location,
             depth,
             expected_destination: ordered_preview_at_location(actor, location, &topologies)
                 .get(depth as usize)
-                .map(|target| target.entity),
+                .map(|target| target.addressed_entity()),
         },
         Some(GrabSelection::Hand(destination)) => EquipmentAction::Hand {
             destination,
@@ -394,250 +383,17 @@ fn update_grab_input(
             return;
         }
     };
-    session.next_sequence = session.next_sequence.wrapping_add(1);
+    let sequence = session.next_sequence;
+    session.next_sequence = sequence.next();
     commands.client_trigger(EquipmentActionRequest {
         actor,
-        sequence: session.next_sequence,
-        expected_revision: action_states.get(actor).map_or(0, |state| state.revision),
+        sequence,
+        expected_revision: action_state.revision,
         hand,
         expected_hand_item: held,
         action,
     });
     (session.active, session.selection, session.repeated_input) = (None, None, None);
-}
-
-#[derive(Clone, Copy)]
-struct PreviewTarget {
-    entity: Entity,
-    occupied: bool,
-    attached: bool,
-}
-
-fn outermost_occupied_depth(layers: &[PreviewTarget]) -> Option<usize> {
-    layers.iter().position(|target| target.occupied)
-}
-
-fn eligible_slot_depth(
-    held_item_id: &str,
-    location: EquipmentLocation,
-    layers: &[PreviewTarget],
-) -> Option<usize> {
-    let equipment = item_catalog::definition(held_item_id)?.equipment.as_ref()?;
-    if equipment.placements.iter().any(|placement| {
-        placement
-            .occupancy
-            .iter()
-            .any(|occupancy| occupancy.location == location)
-    }) {
-        return Some(0);
-    }
-    equipment
-        .placements
-        .iter()
-        .any(|placement| !placement.parents.is_empty())
-        .then(|| layers.iter().position(|target| target.attached))?
-}
-
-fn ordered_preview_at_location(
-    actor: Entity,
-    location: EquipmentLocation,
-    topologies: &Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>,
-) -> Vec<PreviewTarget> {
-    let mut found: Vec<_> = topologies
-        .iter()
-        .filter(|(_, owner, _, _)| owner.0 == actor)
-        .filter_map(|(entity, _, topology, properties)| {
-            topology
-                .root_order(location, &properties.id)
-                .map(|key| (key, entity))
-        })
-        .collect();
-    found.sort_by_key(|(key, _)| *key);
-    let mut output = Vec::new();
-    let mut visited = std::collections::HashSet::new();
-    for (_, entity) in found {
-        append_preview(entity, location, topologies, &mut visited, &mut output);
-    }
-    output
-}
-
-fn append_preview(
-    entity: Entity,
-    location: EquipmentLocation,
-    items: &Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>,
-    visited: &mut std::collections::HashSet<Entity>,
-    output: &mut Vec<PreviewTarget>,
-) {
-    if !visited.insert(entity) {
-        return;
-    }
-    let Ok((_, _, _, properties)) = items.get(entity) else {
-        output.push(PreviewTarget {
-            entity,
-            occupied: true,
-            attached: false,
-        });
-        return;
-    };
-    let Some(equipment) = item_catalog::definition(&properties.id)
-        .and_then(|definition| definition.equipment.as_ref())
-    else {
-        output.push(PreviewTarget {
-            entity,
-            occupied: true,
-            attached: false,
-        });
-        return;
-    };
-    let mut points: Vec<_> = equipment.attachment_points.iter().collect();
-    points.sort_by_key(|point| (point.order, point.id.as_str()));
-    for point in points
-        .into_iter()
-        .filter(|point| point.locations.is_empty() || point.locations.contains(&location))
-    {
-        for capacity_index in 0..point.capacity {
-            let child =
-                items.iter().find_map(|(child, _, topology, _)| {
-                    topology.occupancies.iter().any(|occupancy| {
-                    matches!(
-                        &occupancy.anchor,
-                        TacticalEquipmentAnchor::ItemAttachment { parent, attachment_point_id }
-                            if *parent == entity
-                                && attachment_point_id == &point.id
-                                && occupancy.capacity_index == capacity_index
-                    )
-                }).then_some(child)
-                });
-            if let Some(child) = child {
-                append_preview(child, location, items, visited, output);
-            } else {
-                // Empty attachment points address their mapped parent. Depth
-                // disambiguates the exact authored point/capacity on server.
-                output.push(PreviewTarget {
-                    entity,
-                    occupied: false,
-                    attached: true,
-                });
-            }
-        }
-    }
-    output.push(PreviewTarget {
-        entity,
-        occupied: true,
-        attached: items.get(entity).is_ok_and(|(_, _, topology, _)| {
-            topology.occupancies.iter().any(|occupancy| {
-                matches!(
-                    occupancy.anchor,
-                    TacticalEquipmentAnchor::ItemAttachment { .. }
-                )
-            })
-        }),
-    });
-}
-
-fn hud_layers(
-    actor: Entity,
-    location: EquipmentLocation,
-    items: &Query<(
-        Entity,
-        &ItemOf,
-        Option<&EquipSlot>,
-        &ItemProperties,
-        &EquipmentTopology,
-    )>,
-) -> Vec<PreviewTarget> {
-    let mut roots: Vec<_> = items
-        .iter()
-        .filter(|(_, owner, _, _, _)| owner.0 == actor)
-        .filter_map(|(entity, _, _, properties, topology)| {
-            topology
-                .root_order(location, &properties.id)
-                .map(|key| (key, entity))
-        })
-        .collect();
-    roots.sort_by_key(|(key, _)| *key);
-    let mut output = Vec::new();
-    let mut visited = std::collections::HashSet::new();
-    fn append(
-        entity: Entity,
-        location: EquipmentLocation,
-        items: &Query<(
-            Entity,
-            &ItemOf,
-            Option<&EquipSlot>,
-            &ItemProperties,
-            &EquipmentTopology,
-        )>,
-        visited: &mut std::collections::HashSet<Entity>,
-        output: &mut Vec<PreviewTarget>,
-    ) {
-        if !visited.insert(entity) {
-            return;
-        }
-        let Ok((_, _, _, properties, _)) = items.get(entity) else {
-            output.push(PreviewTarget {
-                entity,
-                occupied: true,
-                attached: false,
-            });
-            return;
-        };
-        let Some(equipment) = item_catalog::definition(&properties.id)
-            .and_then(|definition| definition.equipment.as_ref())
-        else {
-            output.push(PreviewTarget {
-                entity,
-                occupied: true,
-                attached: false,
-            });
-            return;
-        };
-        let mut points: Vec<_> = equipment.attachment_points.iter().collect();
-        points.sort_by_key(|point| (point.order, point.id.as_str()));
-        for point in points
-            .into_iter()
-            .filter(|point| point.locations.is_empty() || point.locations.contains(&location))
-        {
-            for capacity_index in 0..point.capacity {
-                let child = items.iter().find_map(|(child, _, _, _, topology)| {
-                    topology.occupancies.iter().any(|occupancy| {
-                        matches!(
-                            &occupancy.anchor,
-                            TacticalEquipmentAnchor::ItemAttachment { parent, attachment_point_id }
-                                if *parent == entity
-                                    && attachment_point_id == &point.id
-                                    && occupancy.capacity_index == capacity_index
-                        )
-                    }).then_some(child)
-                });
-                if let Some(child) = child {
-                    append(child, location, items, visited, output);
-                } else {
-                    output.push(PreviewTarget {
-                        entity,
-                        occupied: false,
-                        attached: true,
-                    });
-                }
-            }
-        }
-        output.push(PreviewTarget {
-            entity,
-            occupied: true,
-            attached: items.get(entity).is_ok_and(|(_, _, _, _, topology)| {
-                topology.occupancies.iter().any(|occupancy| {
-                    matches!(
-                        occupancy.anchor,
-                        TacticalEquipmentAnchor::ItemAttachment { .. }
-                    )
-                })
-            }),
-        });
-    }
-    for (_, root) in roots {
-        append(root, location, items, &mut visited, &mut output);
-    }
-    output
 }
 
 #[expect(
@@ -707,7 +463,7 @@ fn draw_slot_hud(
                         if let Some(mapping) = INPUT_ADDRESS_MAPPINGS.iter().find(|mapping| {
                             mapping.keyboard_row == row && mapping.keyboard_column == column
                         }) {
-                            let slot = slot_selection::hud_slot(&session, mapping, held.map(|(_, _, _, properties, _)| properties.id.as_str()), |location| hud_layers(actor, location, &items));
+                            let slot = slot_selection::hud_slot(&session, mapping, HeldPreviewItem::from(held.map(|(_, _, _, properties, _)| properties)), |location| hud_layers(actor, location, &items));
                             let location = slot.map_or(mapping.locations[0], |slot| slot.location);
                             let layers = hud_layers(actor, location, &items);
                             let outermost = outermost_occupied_depth(&layers)
@@ -757,7 +513,7 @@ fn draw_slot_hud(
                                     let Some((_, layer)) = outermost else {
                                         return;
                                     };
-                                    let Ok((_, _, _, item, topology)) = items.get(layer.entity)
+                                    let Ok((_, _, _, item, topology)) = items.get(layer.addressed_entity())
                                     else {
                                         return;
                                     };
@@ -766,7 +522,7 @@ fn draw_slot_hud(
                                         .unwrap_or("help");
                                     let response = ui.add(
                                         equipment_icon_image(
-                                            Some(layer.entity),
+                                            Some(layer.addressed_entity()),
                                             icon,
                                             egui::vec2(27.0, 27.0),
                                             &procedural_textures,
@@ -790,7 +546,7 @@ fn draw_slot_hud(
                                         .count()
                                         > 1;
                                     if multi {
-                                        joined_cells.push((response.rect, layer.entity));
+                                        joined_cells.push((response.rect, layer.addressed_entity()));
                                     }
                                 });
                             let tooltip = if let Some((_, _, _, held, _)) = held {
@@ -808,7 +564,7 @@ fn draw_slot_hud(
                                     )
                                 }
                             } else if let Some((_, layer)) = outermost {
-                                if let Ok((_, _, _, item, _)) = items.get(layer.entity) {
+                                if let Ok((_, _, _, item, _)) = items.get(layer.addressed_entity()) {
                                     format!(
                                         "{}: draw {}",
                                         mapping.input.to_uppercase(),
@@ -1345,12 +1101,12 @@ mod tests {
             None
         );
         assert_eq!(
-            procedural_equipment_file("leather_belt", Some("worn")),
-            Some("leather_belt--worn.glb")
+            procedural_equipment_file("belt", Some("worn")),
+            Some("belt--worn.glb")
         );
         assert_eq!(
-            procedural_equipment_file("leather_belt", None),
-            Some("leather_belt--worn.glb")
+            procedural_equipment_file("belt", None),
+            Some("belt--worn.glb")
         );
         assert_eq!(
             procedural_equipment_file("linen_breeches", Some("worn")),
@@ -1367,17 +1123,16 @@ mod tests {
         assert_eq!(procedural_equipment_file("arming_sword", None), None);
 
         let asset_root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../assets");
-        for placements in PROCEDURAL_EQUIPMENT_ASSETS.values() {
-            for file in placements.values() {
-                let portrait = format!("icons/{}.png", file.strip_suffix(".glb").unwrap());
-                assert!(
-                    asset_root
-                        .join("equipment/procedural")
-                        .join(portrait)
-                        .is_file(),
-                    "manifest asset {file} must ship its portrait"
-                );
-            }
+        for entry in PROCEDURAL_EQUIPMENT_ASSETS.entries() {
+            let file = &entry.file;
+            let portrait = format!("icons/{}.png", file.strip_suffix(".glb").unwrap());
+            assert!(
+                asset_root
+                    .join("equipment/procedural")
+                    .join(portrait)
+                    .is_file(),
+                "manifest asset {file} must ship its portrait"
+            );
         }
     }
 
@@ -1385,14 +1140,26 @@ mod tests {
     fn procedural_equipment_uses_live_rig_while_worn_and_rest_pose_when_dropped() {
         let mut world = World::new();
         let owner = world.spawn_empty().id();
-        let root = world.spawn((MhrBone { owner }, Name::new("root"))).id();
-        let spine = world.spawn((MhrBone { owner }, Name::new("c_spine0"))).id();
+        let root = world
+            .spawn((
+                MhrBone { owner },
+                Name::new("root"),
+                crate::animation::AuthoredRigJoint::new("root".into()),
+            ))
+            .id();
+        let spine = world
+            .spawn((
+                MhrBone { owner },
+                Name::new("c_spine0"),
+                crate::animation::AuthoredRigJoint::new("c_spine0".into()),
+            ))
+            .id();
         let item = world.spawn(ItemOf(owner)).id();
         let part = world
             .spawn(ProceduralEquipmentPart {
                 item,
                 inverse_bindposes: Handle::default(),
-                joint_names: vec!["root".into(), "c_spine0".into()],
+                joint_names: vec!["root".into(), "c_spine0".into()].into(),
                 rigid_center: Vec3::ZERO,
             })
             .id();
@@ -1776,30 +1543,6 @@ mod tests {
     }
 
     #[test]
-    fn outermost_display_skips_empty_attachment_capacity() {
-        let parent = Entity::from_bits(1);
-        let child = Entity::from_bits(2);
-        let layers = [
-            PreviewTarget {
-                entity: parent,
-                occupied: false,
-                attached: true,
-            },
-            PreviewTarget {
-                entity: child,
-                occupied: true,
-                attached: true,
-            },
-            PreviewTarget {
-                entity: parent,
-                occupied: true,
-                attached: false,
-            },
-        ];
-        assert_eq!(outermost_occupied_depth(&layers), Some(1));
-    }
-
-    #[test]
     fn empty_hand_tracks_the_pointed_scene_item_for_release() {
         let first = Entity::from_bits(21);
         let second = Entity::from_bits(22);
@@ -1851,115 +1594,6 @@ mod tests {
                 Some(GrabSelection::SceneItem(Entity::from_bits(23))),
             ),
             selection
-        );
-    }
-
-    #[test]
-    fn preview_traversal_keeps_belt_attachment_points_in_their_slots() {
-        let mut world = World::new();
-        let actor = world.spawn_empty().id();
-        let belt = world
-            .spawn((
-                ItemOf(actor),
-                ItemProperties {
-                    id: "leather_belt".into(),
-                    weight: 0.35,
-                },
-                EquipmentTopology {
-                    placement_id: Some("worn".into()),
-                    occupancies: [
-                        EquipmentLocation::LeftBelt,
-                        EquipmentLocation::RightBelt,
-                        EquipmentLocation::FrontBelt,
-                        EquipmentLocation::BackBelt,
-                    ]
-                    .into_iter()
-                    .enumerate()
-                    .map(|(index, location)| EquipmentTopologyOccupancy {
-                        occupancy_id: format!("belt-{index}"),
-                        anchor: TacticalEquipmentAnchor::CharacterLocation(location),
-                        channel: EquipmentChannel::Accessory,
-                        order: 0,
-                        requirement_index: index as u16,
-                        capacity_index: 0,
-                    })
-                    .collect(),
-                },
-            ))
-            .id();
-        let right_sheath = world
-            .spawn((
-                ItemOf(actor),
-                ItemProperties {
-                    id: "scabbard".into(),
-                    weight: 0.3,
-                },
-                EquipmentTopology {
-                    placement_id: Some("right".into()),
-                    occupancies: vec![EquipmentTopologyOccupancy {
-                        occupancy_id: "right-sheath".into(),
-                        anchor: TacticalEquipmentAnchor::ItemAttachment {
-                            parent: belt,
-                            attachment_point_id: "right".into(),
-                        },
-                        channel: EquipmentChannel::Mount,
-                        order: 1,
-                        requirement_index: 0,
-                        capacity_index: 0,
-                    }],
-                },
-            ))
-            .id();
-        let sheath = world
-            .spawn((
-                ItemOf(actor),
-                ItemProperties {
-                    id: "sword_sheath".into(),
-                    weight: 0.3,
-                },
-                EquipmentTopology {
-                    placement_id: Some("attached".into()),
-                    occupancies: vec![EquipmentTopologyOccupancy {
-                        occupancy_id: "sheath".into(),
-                        anchor: TacticalEquipmentAnchor::ItemAttachment {
-                            parent: belt,
-                            attachment_point_id: "left".into(),
-                        },
-                        channel: EquipmentChannel::Mount,
-                        order: 0,
-                        requirement_index: 0,
-                        capacity_index: 0,
-                    }],
-                },
-            ))
-            .id();
-        let preview = world
-            .run_system_once(
-                move |items: Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>| {
-                    ordered_preview_at_location(actor, EquipmentLocation::LeftBelt, &items)
-                },
-            )
-            .unwrap();
-        assert_eq!(preview.first().map(|target| target.entity), Some(sheath));
-        assert!(
-            !preview.first().unwrap().occupied,
-            "deepest empty blade is first"
-        );
-        assert_eq!(preview.last().map(|target| target.entity), Some(belt));
-        let right_preview = world
-            .run_system_once(
-                move |items: Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>| {
-                    ordered_preview_at_location(actor, EquipmentLocation::RightBelt, &items)
-                },
-            )
-            .unwrap();
-        assert_eq!(
-            right_preview.first().map(|target| target.entity),
-            Some(right_sheath)
-        );
-        assert!(
-            right_preview.iter().all(|target| target.entity != sheath),
-            "the left sheath must not appear in the right belt slot"
         );
     }
 

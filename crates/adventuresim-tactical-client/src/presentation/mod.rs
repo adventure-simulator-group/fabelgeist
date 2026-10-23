@@ -38,6 +38,7 @@ pub(crate) mod interior_lighting;
 mod materials;
 mod obstacles;
 pub(crate) mod ownership;
+pub(crate) mod preparation;
 mod procedural;
 pub(crate) mod procedural_texture_setup;
 pub(crate) mod recipe_mesh;
@@ -48,7 +49,7 @@ pub(crate) use strategic_scene_assets::PreparedStrategicScene;
 pub(crate) mod venues;
 mod vista;
 pub(crate) use buildings::queue_strategic_city;
-pub(crate) use vista::{StrategicBackdrop, spawn_strategic_backdrop};
+pub(crate) use vista::{BackdropError, PreparedBackdrop, StrategicBackdrop};
 mod volumetric;
 mod weather;
 mod windows;
@@ -130,8 +131,8 @@ pub(crate) use obstacles::tree::{
 pub(crate) use sky::AtmosphereIblStatus;
 pub(crate) use sky::{TacticalMoon, TacticalMoonlight, TacticalStars, TacticalSunlight};
 pub(crate) use terrain::{
-    DETAIL_PATCH_SPACING_METRES, TerrainDetailPatch, TerrainMaterialPresentation,
-    terrain_heightmap_image,
+    DETAIL_PATCH_SPACING_METRES, TerrainContactHeightmap, TerrainDetailPatch,
+    TerrainMaterialPresentation,
 };
 pub(crate) use vista::{CityGroundMaterial, VistaTerrain, VistaTerrainMesh, VistaTreePresentation};
 pub(crate) use weather::WeatherParticle;

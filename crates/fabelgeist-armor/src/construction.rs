@@ -287,6 +287,8 @@ impl Lacing {
 
 #[derive(Clone, Copy, Debug, Error, Eq, PartialEq)]
 pub enum ConstructionError {
+    #[error("constructed skin: {0}")]
+    Skin(#[from] fabelgeist_rig::RigSkinError),
     #[error("plate dimensions are outside their supported ranges")]
     PlateDimensions,
     #[error("lacing holes do not fit on the plate")]

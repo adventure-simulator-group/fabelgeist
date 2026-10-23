@@ -1,5 +1,6 @@
 //! Classifications shared by combat scheduling and immutable replay records.
 
+use crate::linear_speed::{NonnegativeSpeed, SignedSpeed};
 use serde::Serialize;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
@@ -28,11 +29,14 @@ pub enum MeleeMovementAction {
 }
 
 impl MeleeMovementAction {
-    pub(super) fn target_velocity(self, maximum_speed_metres_per_second: f32) -> f32 {
+    pub(super) fn target_velocity(
+        self,
+        maximum_speed_metres_per_second: NonnegativeSpeed,
+    ) -> SignedSpeed {
         match self {
-            Self::Close => -maximum_speed_metres_per_second,
-            Self::Hold => 0.0,
-            Self::Retreat => maximum_speed_metres_per_second,
+            Self::Close => SignedSpeed::from(maximum_speed_metres_per_second).negated(),
+            Self::Hold => SignedSpeed::ZERO,
+            Self::Retreat => SignedSpeed::from(maximum_speed_metres_per_second),
         }
     }
 }

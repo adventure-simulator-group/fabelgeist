@@ -26,6 +26,16 @@ pub const MEDICATION_IDS: [&str; 14] = [
     "honey_wound_dressing",
 ];
 
+/// Authored carry kit identities shared by loadout and runtime equipment admission.
+pub const BELT_ID: &str = "belt";
+pub const BLADE_SHEATH_ID: &str = "scabbard";
+pub const HAFT_LOOP_ID: &str = "weapon_loop";
+pub const WORN_PLACEMENT_ID: &str = "worn";
+pub const RIGHT_HIP_PLACEMENT_ID: &str = "right";
+pub const LEFT_HIP_PLACEMENT_ID: &str = "left";
+pub const BLADE_ATTACHMENT_POINT_ID: &str = "blade";
+pub const WEAPON_CARRY_HIP_PLACEMENTS: [&str; 2] = [RIGHT_HIP_PLACEMENT_ID, LEFT_HIP_PLACEMENT_ID];
+
 pub const STANDARD_TRAVEL_RATION_ID: &str = "travel_ration";
 pub const STANDARD_WATERSKIN_ID: &str = "waterskin";
 pub const ARROW_ID: &str = "arrow";
