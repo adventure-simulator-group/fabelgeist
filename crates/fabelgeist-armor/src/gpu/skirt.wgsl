@@ -5,17 +5,28 @@ const HEM_DEPTH: u32 = 2u;
 const ROUNDNESS: u32 = 3u;
 const FITTED_FRACTION: u32 = 4u;
 const FIRST_SKIRT_ROW: u32 = 5u;
+const PLEAT_COUNT: u32 = 6u;
+const PLEAT_DEPTH: u32 = 7u;
+const PLEAT_STYLE: u32 = 8u;
+const PLEAT_ROTATION: u32 = 9u;
 const MINIMUM_JOIN_RADIAL_NORMAL: f32 = 0.2;
 
 fn section(row: u32) -> u32 {
     return FIRST_SECTION + row * SECTION_WORDS;
 }
 
-fn radius(row: u32, column: u32) -> f32 {
-    return frames[section(row) + column];
+// Continuous lattice sampling also seats arbitrary support strip counts.
+fn angular_radius(row: u32, column: f32) -> f32 {
+    let wrapped = column - floor(column / f32(COLUMNS)) * f32(COLUMNS);
+    let first = u32(floor(wrapped));
+    return mix(frames[section(row) + first], frames[section(row) + (first + 1u) % COLUMNS], fract(wrapped));
+}
+fn radius(row: f32, column: f32) -> f32 {
+    let bounded = clamp(row, 0.0, f32(ROWS));
+    return mix(angular_radius(u32(floor(bounded)), column), angular_radius(min(u32(floor(bounded)) + 1u, ROWS), column), fract(bounded));
 }
 
-fn skirt_point(column: u32, row: u32) -> vec3<f32> {
+fn skirt_surface(column: f32, row: f32, fold_share: f32) -> vec3<f32> {
     let descent = f32(row) / f32(ROWS);
     let angle = TAU * f32(column) / f32(COLUMNS);
     let direction = vec2<f32>(sin(angle), cos(angle));
@@ -23,7 +34,7 @@ fn skirt_point(column: u32, row: u32) -> vec3<f32> {
     let required = radius(row, column);
     var hanging = 0.0;
     for (var sample = 0u; sample <= ROWS; sample++) {
-        hanging = max(hanging, radius(sample, column));
+        hanging = max(hanging, radius(f32(sample), column));
     }
     let t = clamp((descent - design[FITTED_FRACTION]) / (1.0 - design[FITTED_FRACTION]), 0.0, 1.0);
     var progress = t;
@@ -38,9 +49,17 @@ fn skirt_point(column: u32, row: u32) -> vec3<f32> {
     let gain = width * depth / length(vec2<f32>(depth * direction.x, width * direction.y));
     let shaped = mix(required, hanging * gain, release);
     // The fitted hull already includes the normal clearance and wall gauge.
-    let r = max(required, shaped);
+    let phase = fract(column / f32(COLUMNS) * design[PLEAT_COUNT] + design[PLEAT_ROTATION]);
+    let rounded = 0.5 - 0.5 * cos(TAU * phase);
+    let accordion = 1.0 - abs(2.0 * phase - 1.0);
+    let pleat = mix(rounded, accordion, design[PLEAT_STYLE]) * design[PLEAT_DEPTH] * release;
+    let r = max(required, shaped) + pleat * fold_share;
     let point = direction * r;
     return vec3<f32>(point.x, fit.half_extents.y * (1.0 - 2.0 * descent), point.y);
+}
+
+fn skirt_point(column: f32, row: f32) -> vec3<f32> {
+    return skirt_surface(column, row, 1.0);
 }
 
 fn attachment_vector(point: u32, offset: u32) -> vec3<f32> {
@@ -49,11 +68,31 @@ fn attachment_vector(point: u32, offset: u32) -> vec3<f32> {
 }
 
 fn shell_vertex(index: u32, coord: vec4<f32>) -> ShellVertex {
-    if (coord.w < 0.5) { return ShellVertex(skirt_point(u32(coord.x), u32(coord.y)), 0.0); }
+    if (coord.w > 2.5) {
+        var column = coord.x;
+        var row = coord.y;
+        if (coord.w < 3.5) {
+            let center = skirt_surface(column, row, 0.0);
+            column += coord.z * params.value0 * 0.5 / length(center.xz) * f32(COLUMNS) / TAU;
+        } else {
+            // Reserve the complete band inside the ordinary skirt span. For a
+            // span narrower than the nominal member, the band fills that span.
+            let available = f32(ROWS) - design[FIRST_SKIRT_ROW];
+            let half_rows = min(params.value0 * 0.5 / (2.0 * fit.half_extents.y) * f32(ROWS),
+                available / (2.0 * params.value2));
+            let descent = (row - design[FIRST_SKIRT_ROW]) / available;
+            let center = design[FIRST_SKIRT_ROW] + half_rows + descent * (available - 2.0 * half_rows);
+            row = center + coord.z * half_rows;
+        }
+        var point = skirt_surface(column, row, 0.0);
+        point -= vec3<f32>(normalize(point.xz).x, 0.0, normalize(point.xz).y) * params.value1;
+        return ShellVertex(point, 0.0);
+    }
+    if (coord.w < 0.5) { return ShellVertex(skirt_point(coord.x, coord.y), 0.0); }
     let body = attachment_vector(u32(coord.x), 0u);
     if (coord.w < 1.5) { return ShellVertex(body, 0.0); }
-    let column = u32(coord.y);
-    let row = u32(design[FIRST_SKIRT_ROW]);
+    let column = coord.y;
+    let row = design[FIRST_SKIRT_ROW];
     let lower = skirt_point(column, row);
     let normal = attachment_vector(u32(coord.x), 3u);
     let angle = TAU * f32(column) / f32(COLUMNS);
@@ -61,7 +100,7 @@ fn shell_vertex(index: u32, coord: vec4<f32>) -> ShellVertex {
     let height = body.y - lower.y;
     let slope = normal.y / max(dot(normal.xz, radial), MINIMUM_JOIN_RADIAL_NORMAL);
     let top_tangent = vec3<f32>(radial.x * slope * height, -height, radial.y * slope * height);
-    let bottom_tangent = (skirt_point(column, row + 1u) - lower)
+    let bottom_tangent = (skirt_point(column, row + 1.0) - lower)
         * (height / (2.0 * fit.half_extents.y / f32(ROWS)));
     let t = coord.z;
     let t2 = t * t;

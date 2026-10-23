@@ -86,6 +86,8 @@ pub struct DevicePiece {
     pub base: BuiltPart,
     pub skin: Skin,
     pub endpoints: Vec<BuiltPart>,
+    /// Native final-vertex aliases supplied by the authoritative shell topology.
+    pub skin_aliases: Vec<usize>,
 }
 
 /// The part frame of `region` fitted to `wearer` on the device.
@@ -221,6 +223,7 @@ async fn read(
     let mut parts = parts.into_iter();
     let base = parts.next().expect("the wearer is always fitted");
     Ok(DevicePiece {
+        skin_aliases: recordings[0].part.outer_aliases(),
         base,
         skin: skin.finish(&results, skin_slots)?,
         endpoints: parts.collect(),
@@ -378,10 +381,14 @@ fn suspended_waist(
         base,
         mut skin,
         endpoints,
+        mut skin_aliases,
     } = fauld;
+    let first = skin_aliases.len();
+    skin_aliases.extend(tassets.skin_aliases.into_iter().map(|index| index + first));
     skin.append(tassets.skin)?;
     Ok(DevicePiece {
         base: join(base, tassets.base),
+        skin_aliases,
         skin,
         endpoints: endpoints
             .into_iter()
@@ -478,6 +485,7 @@ pub fn assemble_recipe(
         base,
         skin,
         endpoints,
+        ..
     } = piece;
     let mut targets = Vec::with_capacity(endpoints.len());
     for (name, endpoint) in fitted.morphs.iter().zip(endpoints) {
@@ -519,20 +527,7 @@ pub fn assemble_recipe(
         morphs: targets,
         components: base.components,
     };
-    if let ParametricDesign::PuffAndSlash(puff) = design {
-        for component in &mut armor.components {
-            component.material = match component.role {
-                ArmorComponentRole::Undercloth => Some(puff.undercloth_color.material()),
-                ArmorComponentRole::OuterFabric => Some(puff.outer_color.material()),
-                _ => component.material,
-            };
-        }
-    }
-    if let ParametricDesign::Skirt(skirt) = design {
-        for component in &mut armor.components {
-            component.material = Some(skirt.color.material());
-        }
-    }
+    crate::device_textile_materials::apply(design, &mut armor)?;
     crate::skin_rules::attach(
         design,
         fitted.placement,

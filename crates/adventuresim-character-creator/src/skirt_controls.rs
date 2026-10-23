@@ -5,9 +5,12 @@ use fabelgeist_armor::{Permille, SkirtDesign, SkirtProfile};
 use std::ops::RangeInclusive;
 
 use super::number;
+#[path = "skirt_structure_controls.rs"]
+mod structure;
 
 pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
     let mut changed = bodice(ui, &mut design.bodice);
+    changed |= structure::show(ui, design);
     changed |= number(
         ui,
         &mut design.waist_rise.0,
@@ -123,7 +126,7 @@ fn bodice(ui: &mut egui::Ui, bodice: &mut Option<fabelgeist_armor::DressBodice>)
 }
 
 /// Convert once at the editor boundary; stored design values retain their unit.
-fn proportion(
+pub(super) fn proportion(
     ui: &mut egui::Ui,
     value: &mut Permille,
     range: RangeInclusive<u16>,

@@ -34,6 +34,10 @@ pub fn attach(
         "rigid armor skin and wearer have different joint bounds"
     );
     let (joint, roles): (_, &[_]) = match design {
+        ParametricDesign::Skirt(_) => (
+            RigJointName::ROOT,
+            &[ArmorComponentRole::Boning, ArmorComponentRole::Hoops],
+        ),
         ParametricDesign::WaistAssembly(_) => return waist(joint_names, joints, armor),
         ParametricDesign::Garment(garment)
             if matches!(
