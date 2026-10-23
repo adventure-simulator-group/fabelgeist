@@ -18,6 +18,12 @@ readers. Its optional NPZ adapter is disabled; ZIP ownership stays in
   this package; NumPy storage selects it through a path dependency with default
   features disabled.
 
+The local `rustfmt.toml` preserves published formatting inside this directory.
+`cargo fmt --all` also traverses local path dependencies, so workspace exclusion
+alone does not prevent rewriting this third-party source. First-party format
+checks remain unchanged. The pinned nightly formatter supports this local
+ignore configuration.
+
 ## Header arithmetic
 
 The original header constructor multiplied dimensions and strides without
