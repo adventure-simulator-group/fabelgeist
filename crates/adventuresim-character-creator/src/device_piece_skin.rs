@@ -19,19 +19,6 @@ impl DevicePiece {
                     | fabelgeist_armor::GarmentArmorKind::PaddedSkirt
             ))
         {
-            // A plain skirt is one smooth shell: its outer carrier vertices
-            // precede their inner-wall copies. Both walls represent the same
-            // material points and must receive identical animation ownership.
-            let carrier_count = if matches!(design, ParametricDesign::Skirt(_)) {
-                let count = self.base.positions.len() / 2;
-                anyhow::ensure!(
-                    self.base.positions.len() == 2 * count,
-                    "invalid skirt shell layout"
-                );
-                count
-            } else {
-                self.base.positions.len()
-            };
             let skin = crate::skin_transfer::SkinSource {
                 positions: wearer.positions,
                 faces: body.faces,
@@ -40,14 +27,22 @@ impl DevicePiece {
                 names: body.joint_names,
                 joints: wearer.joints,
             }
-            .skirt(&self.base.positions[..carrier_count])?;
+            .skirt(&self.base.positions)?;
             self.skin.joint_indices = skin.indices;
             self.skin.joint_weights = skin.weights;
             if matches!(design, ParametricDesign::Skirt(_)) {
-                self.skin
-                    .joint_indices
-                    .append(self.skin.joint_indices.clone())?;
-                self.skin.joint_weights.extend_from_within(..);
+                anyhow::ensure!(
+                    self.skin_aliases.len() == self.base.positions.len()
+                        && self
+                            .skin_aliases
+                            .iter()
+                            .all(|&i| i < self.base.positions.len()),
+                    "invalid shell skin aliases"
+                );
+                let indices = self.skin.joint_indices.clone();
+                let weights = self.skin.joint_weights.clone();
+                self.skin.joint_indices = indices.select(self.skin_aliases.iter().copied());
+                self.skin.joint_weights = self.skin_aliases.iter().map(|&i| weights[i]).collect();
             }
         }
         Ok(())

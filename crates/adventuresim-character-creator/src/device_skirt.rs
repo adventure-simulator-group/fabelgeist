@@ -106,7 +106,8 @@ impl DeviceWearer<'_> {
         )?;
         self.record_fit_status(batch, &fit, &part)?;
         let clearance = design.clearance.metres();
-        let checks = if attachment.is_none() {
+        let checks = if attachment.is_none() && design.support.is_none() && design.pleats.is_none()
+        {
             vec![DeviceCheck::Mesh(Box::new(move |part| {
                 crate::skirt_clearance::validate(part, &support, clearance)
             }))]

@@ -17,6 +17,8 @@ pub const SKIRT_AXIAL_SEGMENTS: usize = 32;
 pub struct SkirtDesign {
     /// A body-conforming upper section joined to the hanging cloth.
     pub bodice: Option<DressBodice>,
+    pub pleats: Option<crate::SkirtPleats>,
+    pub support: Option<crate::SkirtSupport>,
     /// Height above the pelvis landmark in the canonical fitting frame.
     pub waist_rise: Millimeters,
     /// Hip-to-ankle reach: 1000 ends at the ankle landmark.
@@ -89,6 +91,8 @@ impl Default for SkirtDesign {
     fn default() -> Self {
         Self {
             bodice: None,
+            pleats: None,
+            support: None,
             waist_rise: Millimeters(100),
             length: Permille(850),
             fitted_fraction: Permille(220),
@@ -111,6 +115,12 @@ impl SkirtDesign {
     pub const THICKNESS_RANGE: RangeInclusive<u16> = 1..=6;
 
     pub fn validate(&self) -> Result<(), GenerateError> {
+        if let Some(pleats) = &self.pleats {
+            pleats.validate()?;
+        }
+        if let Some(support) = &self.support {
+            support.validate()?;
+        }
         if let Some(bodice) = &self.bodice {
             bodice.validate()?;
         }
