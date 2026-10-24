@@ -78,12 +78,9 @@ impl Prepared {
 impl FastPath {
     /// Build a fast path for this kernel, or `None` if its shape does not
     /// suit one.
-    pub(super) fn new(
-        context: &WgpuContext,
-        module: &wgpu::ShaderModule,
-        entry_point: &str,
-        reflection: &fabelgeist_gpu::data::gpu::shader::ReflectionData,
-    ) -> Result<Option<Self>> {
+    pub(super) fn new(context: &WgpuContext, pipeline: &ComputePipeline) -> Result<Option<Self>> {
+        pipeline.ensure_device(context)?;
+        let reflection = pipeline.reflection();
         // One bind group only. Everything the solver writes uses group 0, and
         // supporting more would mean a dynamic offset per group.
         if reflection.bind_groups.len() != 1 {
@@ -136,7 +133,12 @@ impl FastPath {
         }
         entries.sort_by_key(|entry| entry.binding);
 
-        let compiled = CompiledLayout::new(context, &entries, module, entry_point)?;
+        let compiled = CompiledLayout::new(
+            context,
+            &entries,
+            pipeline.shader().module(),
+            &reflection.entry_point,
+        )?;
 
         let alignment = context.device.limits().min_uniform_buffer_offset_alignment as u64;
         let stride = native_uniform_size.div_ceil(alignment.max(1)) * alignment.max(1);
@@ -218,11 +220,7 @@ impl FastPath {
         entries.sort_by_key(|entry| entry.binding);
 
         #[cfg(not(target_arch = "wasm32"))]
-        let scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let scope = ValidationScope::new(context);
         let bind_group = context
             .device
             .create_bind_group(&wgpu::BindGroupDescriptor {
@@ -239,10 +237,7 @@ impl FastPath {
         });
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(scope) = scope {
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(cause) = pollster::block_on(scope.pop()) {
-                return Err(ComputePassError::Native(Arc::new(cause)).into());
-            }
+            scope.finish().map_err(ComputePassError::from)?;
         }
 
         Ok(Prepared {

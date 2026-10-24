@@ -3,10 +3,10 @@
 use super::{KernelBatch, KernelBatchError};
 use anyhow::Result;
 #[cfg(not(target_arch = "wasm32"))]
+use fabelgeist_gpu::globals::ValidationScope;
+#[cfg(not(target_arch = "wasm32"))]
 use fabelgeist_gpu::prelude::ComputePassError;
 use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, BufferByteOffset};
-#[cfg(not(target_arch = "wasm32"))]
-use std::sync::Arc;
 
 /// Requested source and destination byte ranges for one buffer copy.
 /// Bounds are admitted against the supplied buffers when the copy is recorded.
@@ -46,11 +46,7 @@ impl KernelBatch<'_> {
             .into());
         }
         #[cfg(not(target_arch = "wasm32"))]
-        let scope = self.context.blocking_validation.then(|| {
-            self.context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let scope = ValidationScope::new(self.context);
         self.encoder.copy_buffer_to_buffer(
             &source.buffer,
             u64::from(copy.source_offset),
@@ -60,13 +56,7 @@ impl KernelBatch<'_> {
         );
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(scope) = scope {
-            let _ = self
-                .context
-                .device
-                .poll(wgpu::PollType::wait_indefinitely());
-            if let Some(cause) = pollster::block_on(scope.pop()) {
-                return Err(ComputePassError::Native(Arc::new(cause)).into());
-            }
+            scope.finish().map_err(ComputePassError::from)?;
         }
         Ok(())
     }

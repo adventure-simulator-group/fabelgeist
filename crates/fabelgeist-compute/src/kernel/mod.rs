@@ -21,16 +21,15 @@ use std::sync::Arc;
 pub use batch_error::KernelBatchError;
 pub use copy::BufferCopy;
 pub use dispatch_count::RecordedDispatchCount;
+pub use workgroup::WorkgroupDeclarationError;
 
 mod batch_error;
 mod copy;
 mod dispatch_count;
 mod fast;
+mod workgroup;
 
 static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
-
-/// The most workgroups one dispatch dimension may hold.
-pub const MAX_GROUPS: u32 = 65_535;
 
 /// The flat item index of an invocation dispatched by
 /// [`KernelBatch::dispatch_folded`], given its `global_invocation_id`, its
@@ -53,10 +52,16 @@ fn folded_index(id: vec3<u32>, groups: vec3<u32>, width: u32) -> u32 {
 /// A compiled compute kernel: the pipeline plus the workgroup size declared in
 /// its own source, so that a dispatch can be sized in *items* rather than in
 /// workgroups.
+///
+/// ```compile_fail
+/// use fabelgeist_compute::kernel::Kernel;
+/// fn change_declaration(kernel: &mut Kernel) {
+///     kernel.workgroup_size = [0, 1, 1];
+/// }
+/// ```
 pub struct Kernel {
     pipeline: ComputePipeline,
-    pub workgroup_size: [u32; 3],
-    pub entry_point: String,
+    workgroup_size: WorkgroupShape,
     /// The cached dispatch path, when this kernel's shape allows one.
     ///
     /// Without it every dispatch builds a uniform buffer and a bind group,
@@ -68,7 +73,7 @@ pub struct Kernel {
 impl std::fmt::Debug for Kernel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Kernel")
-            .field("entry_point", &self.entry_point)
+            .field("entry_point", &self.pipeline.reflection().entry_point)
             .field("workgroup_size", &self.workgroup_size)
             .field("cached", &self.fast.is_some())
             .finish()
@@ -93,29 +98,15 @@ impl Kernel {
 
         let module =
             fabelgeist_gpu::data::gpu::shader::parse_naga(&code, wgpu::naga::ShaderStage::Compute)?;
-        let entry = module
-            .entry_points
-            .iter()
-            .find(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
-            .ok_or_else(|| anyhow!("Kernel: no compute entry point"))?;
-        let workgroup_size = entry.workgroup_size;
-        let entry_point = entry.name.clone();
-
-        if workgroup_size.contains(&0) {
-            return Err(anyhow!(
-                "Kernel `{entry_point}`: workgroup size {workgroup_size:?} has a zero dimension"
-            ));
-        }
+        let selection = ComputeEntryPoint::First;
+        let entry = selection.resolve(&module)?;
+        let workgroup_size = WorkgroupShape::try_from(entry.workgroup_size)
+            .map_err(|source| WorkgroupDeclarationError::at_entry_point(&entry.name, source))?;
 
         let shader = ComputeShader::new(context, code.clone())?;
-        let mut pipeline = ComputePipeline::prepare(context, shader)?;
+        let mut pipeline = ComputePipeline::prepare(context, shader, selection)?;
 
-        let fast = fast::FastPath::new(
-            context,
-            pipeline.shader().module(),
-            &entry_point,
-            pipeline.reflection(),
-        )?;
+        let fast = fast::FastPath::new(context, &pipeline)?;
 
         // The batched layout owns its pipeline. Compile the static layout only
         // for kernels requiring it, or when a caller uses a one-off dispatch.
@@ -126,7 +117,6 @@ impl Kernel {
         Ok(Self {
             pipeline,
             workgroup_size,
-            entry_point,
             fast,
         })
     }
@@ -142,18 +132,24 @@ impl Kernel {
     }
 
     /// Workgroup count that covers `items` invocations along x.
-    pub fn groups_for(&self, items: u32) -> WorkgroupGrid {
-        WorkgroupGrid::from([items.div_ceil(self.workgroup_size[0]), 1, 1])
+    pub fn groups_for(&self, items: InvocationCount) -> WorkgroupGrid {
+        self.workgroup_size.covering_x(items)
     }
 
-    /// Workgroup count that covers `items` invocations, folded into y past
-    /// the 65535 groups one dimension may hold. The kernel recovers its item
-    /// with [`FOLDED_INDEX_WGSL`]'s `folded_index`, and must bounds-check it:
-    /// the last row of groups overshoots.
-    pub fn groups_folded(&self, items: u32) -> WorkgroupGrid {
-        let groups = items.div_ceil(self.workgroup_size[0]);
-        let x = groups.clamp(1, MAX_GROUPS);
-        WorkgroupGrid::from([x, groups.div_ceil(x), 1])
+    /// The nonzero shape admitted from this kernel's native declaration.
+    pub fn workgroup_shape(&self) -> WorkgroupShape {
+        self.workgroup_size
+    }
+
+    /// Cover `items` with the canonical folded-X geometry and lane admission.
+    /// The kernel uses [`FOLDED_INDEX_WGSL`] and bounds-checks its live count:
+    /// the final row may overshoot. Unsupported declarations or padded u32
+    /// addresses fail here; actual device limits are checked by the receiver.
+    pub fn groups_folded(
+        &self,
+        items: InvocationCount,
+    ) -> std::result::Result<WorkgroupGrid, FoldedDispatchError> {
+        self.workgroup_size.covering_folded_x(items)
     }
 
     /// Run this kernel on its own -- one encoder, one submit. Convenient for a
@@ -256,16 +252,13 @@ impl<'a> KernelBatch<'a> {
             return Ok(self);
         }
 
+        let groups = groups.validate_device(&self.context.device)?;
         kernel.pipeline.ensure_device(self.context)?;
         match &kernel.fast {
             Some(fast) => {
                 let prepared = fast.prepare(self.context, parameters, &mut self.uniforms)?;
                 #[cfg(not(target_arch = "wasm32"))]
-                let scope = self.context.blocking_validation.then(|| {
-                    self.context
-                        .device
-                        .push_error_scope(wgpu::ErrorFilter::Validation)
-                });
+                let scope = ValidationScope::new(self.context);
                 let outcome = {
                     let mut pass = self
                         .encoder
@@ -276,18 +269,14 @@ impl<'a> KernelBatch<'a> {
                     prepared.record(&mut pass, groups)
                 };
                 #[cfg(not(target_arch = "wasm32"))]
-                let native_error = scope.and_then(|scope| {
-                    let _ = self
-                        .context
-                        .device
-                        .poll(wgpu::PollType::wait_indefinitely());
-                    pollster::block_on(scope.pop())
-                });
+                let outcome = ComputePassError::resolve_observation(
+                    outcome,
+                    match scope {
+                        Some(scope) => scope.finish(),
+                        None => Ok(()),
+                    },
+                );
                 outcome?;
-                #[cfg(not(target_arch = "wasm32"))]
-                if let Some(cause) = native_error {
-                    return Err(ComputePassError::Native(Arc::new(cause)).into());
-                }
             }
             None => ComputePass::record(
                 self.context,
@@ -308,12 +297,9 @@ impl<'a> KernelBatch<'a> {
         &mut self,
         kernel: &Kernel,
         parameters: &PassParameters,
-        items: u32,
+        items: InvocationCount,
     ) -> Result<&mut Self> {
-        if items == 0 {
-            return Ok(self);
-        }
-        self.dispatch(kernel, parameters, kernel.groups_folded(items))
+        self.dispatch(kernel, parameters, kernel.groups_folded(items)?)
     }
 
     /// Record one dispatch sized to cover `items` invocations along x.
@@ -321,7 +307,7 @@ impl<'a> KernelBatch<'a> {
         &mut self,
         kernel: &Kernel,
         parameters: &PassParameters,
-        items: u32,
+        items: InvocationCount,
     ) -> Result<&mut Self> {
         self.dispatch(kernel, parameters, kernel.groups_for(items))
     }
@@ -399,7 +385,13 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 }
 "#,
         )?;
-        assert_eq!(kernel.workgroup_size, [64, 1, 1]);
+        assert_eq!(
+            kernel.workgroup_shape(),
+            WorkgroupShape::try_from([64, 1, 1]).unwrap()
+        );
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod dispatch_tests;

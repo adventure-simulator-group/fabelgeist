@@ -13,11 +13,7 @@ impl CompiledLayout {
         entry_point: &str,
     ) -> Result<Self> {
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let error_scope = ValidationScope::new(context);
         let layout = context
             .device
             .create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
@@ -44,13 +40,9 @@ impl CompiledLayout {
             });
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(error_scope) = error_scope {
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(error) = pollster::block_on(error_scope.pop()) {
-                return Err(fabelgeist_gpu::data::ComputePipelineError::Native(
-                    std::sync::Arc::new(error),
-                )
-                .into());
-            }
+            error_scope
+                .finish()
+                .map_err(fabelgeist_gpu::data::ComputePipelineError::from)?;
         }
         Ok(Self { layout, pipeline })
     }

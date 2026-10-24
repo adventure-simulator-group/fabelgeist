@@ -51,11 +51,7 @@ impl UniformArena {
             .ok_or(UniformArenaError::AddressOverflow)?;
         if self.chunks.is_empty() || u64::from(end) > CHUNK_BYTES {
             #[cfg(not(target_arch = "wasm32"))]
-            let scope = context.blocking_validation.then(|| {
-                context
-                    .device
-                    .push_error_scope(wgpu::ErrorFilter::Validation)
-            });
+            let scope = ValidationScope::new(context);
             let chunk = context.device.create_buffer(&wgpu::BufferDescriptor {
                 label: Some("Kernel Uniform Arena"),
                 size: CHUNK_BYTES,
@@ -65,10 +61,7 @@ impl UniformArena {
             chunk.unmap();
             #[cfg(not(target_arch = "wasm32"))]
             if let Some(scope) = scope {
-                let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-                if let Some(cause) = pollster::block_on(scope.pop()) {
-                    return Err(ComputePassError::Native(std::sync::Arc::new(cause)).into());
-                }
+                scope.finish().map_err(ComputePassError::from)?;
             }
             self.chunks.push(chunk);
             self.used = BufferByteOffset::START;
