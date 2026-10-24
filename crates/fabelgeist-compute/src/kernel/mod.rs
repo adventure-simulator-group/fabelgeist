@@ -9,11 +9,9 @@
 //! using the same reflection [`ComputePipeline`] already does for every other
 //! primitive.
 //!
-//! The second half matters more than the first. Every other primitive here
-//! calls [`ComputePass::dispatch`], which finishes an encoder and submits it. A
-//! cloth step is hundreds of dispatches (substeps x constraint colours), and
-//! hundreds of submits per frame is a lost frame. [`KernelBatch`] records into
-//! a single encoder and submits once.
+//! Standalone [`ComputePass::dispatch`] finishes an encoder and submits it.
+//! [`KernelBatch`] records dependent dispatches in one encoder for a single
+//! submit, so a solver can group a frame's constraint passes.
 
 use crate::prelude::*;
 use std::sync::Arc;
@@ -64,10 +62,32 @@ pub struct Kernel {
     workgroup_size: WorkgroupShape,
     /// The cached dispatch path, when this kernel's shape allows one.
     ///
-    /// Without it every dispatch builds a uniform buffer and a bind group,
-    /// which a solver making hundreds of dispatches a frame cannot afford --
-    /// in CPU time or, run at speed, in allocations. See [`fast`].
+    /// Eligible interfaces use per-batch uniform slots and a fresh bind group
+    /// for each dispatch. Interfaces without a uniform block need no uniform slot.
+    /// See [`fast`].
     fast: Option<fast::FastPath>,
+}
+
+/// Shares successful kernel builds for the same source, native device and
+/// validation policy.
+#[derive(Clone, Debug, Default)]
+pub struct KernelCache {
+    kernels: ComputeSourceCache<(), Arc<Kernel>>,
+}
+
+/// A command encoder that many kernel dispatches record into before a single
+/// submit.
+///
+/// Dispatches recorded into one encoder run in order and wgpu inserts the
+/// barriers between them, so a solver can read what the previous dispatch
+/// wrote without any explicit synchronisation.
+pub struct KernelBatch<'a> {
+    context: &'a WgpuContext,
+    encoder: wgpu::CommandEncoder,
+    dispatches: RecordedDispatchCount,
+    uniforms: fast::UniformArena,
+    /// Run in order only after the context's submission helper returns `Ok`.
+    after_submit: Vec<Box<dyn FnOnce() + Send + 'a>>,
 }
 
 impl std::fmt::Debug for Kernel {
@@ -172,13 +192,6 @@ impl Kernel {
     }
 }
 
-/// Shares successful kernel builds for the same source, native device and
-/// validation policy.
-#[derive(Clone, Debug, Default)]
-pub struct KernelCache {
-    kernels: ComputeSourceCache<(), Arc<Kernel>>,
-}
-
 impl KernelCache {
     pub fn new() -> Self {
         Self::default()
@@ -197,21 +210,6 @@ impl KernelCache {
     pub fn is_empty(&self) -> bool {
         self.kernels.is_empty()
     }
-}
-
-/// A command encoder that many kernel dispatches record into before a single
-/// submit.
-///
-/// Dispatches recorded into one encoder run in order and wgpu inserts the
-/// barriers between them, so a solver can read what the previous dispatch
-/// wrote without any explicit synchronisation.
-pub struct KernelBatch<'a> {
-    context: &'a WgpuContext,
-    encoder: wgpu::CommandEncoder,
-    dispatches: RecordedDispatchCount,
-    uniforms: fast::UniformArena,
-    /// Run in order only after the context's submission helper returns `Ok`.
-    after_submit: Vec<Box<dyn FnOnce() + Send + 'a>>,
 }
 
 impl<'a> KernelBatch<'a> {
