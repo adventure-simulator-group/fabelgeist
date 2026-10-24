@@ -77,14 +77,37 @@
 //! # }
 //! ```
 
-mod buffers;
-mod bounds;
-pub mod error;
+use crate::cards::CardAtlas;
+use crate::gpu::error::{HairGpuError, Result};
+use crate::head::Head;
 use buffers::{Scratch, storage, upload};
-use fabelgeist_compute::{ScanElementCount, SortItemCount};
+pub use collide::FieldHeader;
+use fabelgeist_compute::{
+    Kernel, KernelBatch, KernelCache, PrefixSum, PrefixSumScratch, RadixSort, ScanElementCount,
+    SortItemCount, SortScratch,
+};
+use fabelgeist_gpu::data::gpu::buffer::Buffer;
+use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_math::Vec3;
+use fabelgeist_spatial_hash::gpu::{GpuHashGrid, HashKernels};
+use fabelgeist_spatial_hash::{HashLayout, HashPointCount};
+use groom::read_strands;
+pub use groom::{GpuGroom, GpuGroomTarget};
+pub use guides::{GpuGuides, Guides};
+pub use head::GpuHeadCover;
+use head::HeadMesh;
+pub use layout::{StrandLayout, StrandLayoutError, StrandLayoutResult};
+pub use lods::{GpuCards, GpuLevel, GpuLods};
+pub use scalp::GpuScalp;
+pub use sim::GpuSim;
+use std::sync::Arc;
+
+mod bounds;
+mod buffers;
 mod collide;
-mod grow;
+pub mod error;
 mod groom;
+mod grow;
 mod guides;
 mod head;
 mod layout;
@@ -93,32 +116,6 @@ mod readback;
 mod scalp;
 mod sim;
 pub mod wgsl;
-
-use std::sync::Arc;
-
-use crate::gpu::error::{HairGpuError, Result};
-use fabelgeist_compute::{
-    Kernel, KernelBatch, KernelCache, PrefixSum, PrefixSumScratch, RadixSort, SortScratch,
-};
-use fabelgeist_gpu::data::gpu::buffer::Buffer;
-use fabelgeist_gpu::globals::WgpuContext;
-use fabelgeist_math::Vec3;
-use fabelgeist_spatial_hash::gpu::{GpuHashGrid, HashKernels};
-use fabelgeist_spatial_hash::{HashLayout, HashPointCount};
-
-use crate::cards::CardAtlas;
-use crate::head::Head;
-
-pub use collide::FieldHeader;
-pub use guides::{GpuGuides, Guides};
-pub use groom::{GpuGroom, GpuGroomTarget};
-use groom::read_strands;
-pub use head::GpuHeadCover;
-pub use layout::{StrandLayout, StrandLayoutError, StrandLayoutResult};
-use head::HeadMesh;
-pub use lods::{GpuCards, GpuLevel, GpuLods};
-pub use scalp::GpuScalp;
-pub use sim::GpuSim;
 
 /// Initial element capacity; each scratch grows independently when needed.
 const INITIAL_SCRATCH_CAPACITY: u32 = 1024;
@@ -132,35 +129,6 @@ pub struct StrandGpu {
     pub uv: [f32; 2],
     pub group: i32,
     pub radius: f32,
-}
-
-/// The mannequin's shapes, as the kernels' `head_shape` reads them.
-pub fn head_shape(head: &Head) -> Vec<[f32; 4]> {
-    let e = |c: Vec3| [c.x, c.y, c.z, 0.0];
-    vec![
-        e(head.cranium.center),
-        e(head.cranium.radii),
-        e(head.jaw.center),
-        e(head.jaw.radii),
-        e(head.nose.center),
-        e(head.nose.radii),
-        e(head.ears[0].center),
-        e(head.ears[0].radii),
-        e(head.ears[1].center),
-        e(head.ears[1].radii),
-        [
-            head.neck.a.x,
-            head.neck.a.y,
-            head.neck.a.z,
-            head.neck.radius,
-        ],
-        e(head.neck.b),
-        e(head.shoulders.center),
-        e(head.shoulders.radii),
-        e(head.chest.center),
-        e(head.chest.radii),
-        [head.base, 0.0, 0.0, 0.0],
-    ]
 }
 
 struct Kernels {
@@ -229,6 +197,68 @@ struct Kernels {
     sim_shape: Arc<Kernel>,
     sim_orient: Arc<Kernel>,
     sim_step: Arc<Kernel>,
+}
+
+#[derive(Default)]
+struct Scratches {
+    positions: Scratch,
+    moves: Scratch,
+    candidates: Scratch,
+    normals: Scratch,
+    keep: Scratch,
+    neighbors: Scratch,
+    weights: Scratch,
+    guide_of: Scratch,
+    leaders: Scratch,
+    card_guides: Scratch,
+    locks: Scratch,
+    flags: Scratch,
+    keys: Scratch,
+    deposits: Scratch,
+    density: Scratch,
+    root_counts: Scratch,
+    totals: Scratch,
+    cover: Scratch,
+    word: Scratch,
+    box_words: Scratch,
+    scalp_extra: Scratch,
+    guide_candidates: Scratch,
+    guide_edges: Scratch,
+    guide_paths: Scratch,
+    guide_positions: Scratch,
+    guide_map: Scratch,
+    guide_points: Scratch,
+    guide_info: Scratch,
+    settle_moments: Scratch,
+    settle_dirs: Scratch,
+    settle_under: Scratch,
+    settle_standard: Scratch,
+    nets_values: Scratch,
+    nets_cells: Scratch,
+    nets_counts: Scratch,
+    nets_triangles: Scratch,
+    nets_first: Scratch,
+    nets_flags: Scratch,
+    nets_cell_at: Scratch,
+    nets_vertex_of: Scratch,
+    nets_areas: Scratch,
+    nets_keys: Scratch,
+    nets_ids: Scratch,
+    nets_steps: Scratch,
+    nets_fine: Scratch,
+}
+
+pub struct GpuGroomer {
+    context: WgpuContext,
+    kernels: Kernels,
+    scan: PrefixSum,
+    scan_scratch: PrefixSumScratch,
+    sort: RadixSort,
+    sort_scratch: SortScratch,
+    grid: GpuHashGrid,
+    scratch: Scratches,
+    head_mesh: Option<HeadMesh>,
+    atlas: Option<Arc<CardAtlas>>,
 }
 
 impl Kernels {
@@ -305,68 +335,6 @@ impl Kernels {
     }
 }
 
-#[derive(Default)]
-struct Scratches {
-    positions: Scratch,
-    moves: Scratch,
-    candidates: Scratch,
-    normals: Scratch,
-    keep: Scratch,
-    neighbors: Scratch,
-    weights: Scratch,
-    guide_of: Scratch,
-    leaders: Scratch,
-    card_guides: Scratch,
-    locks: Scratch,
-    flags: Scratch,
-    keys: Scratch,
-    deposits: Scratch,
-    density: Scratch,
-    root_counts: Scratch,
-    totals: Scratch,
-    cover: Scratch,
-    word: Scratch,
-    box_words: Scratch,
-    scalp_extra: Scratch,
-    guide_candidates: Scratch,
-    guide_edges: Scratch,
-    guide_paths: Scratch,
-    guide_positions: Scratch,
-    guide_map: Scratch,
-    guide_points: Scratch,
-    guide_info: Scratch,
-    settle_moments: Scratch,
-    settle_dirs: Scratch,
-    settle_under: Scratch,
-    settle_standard: Scratch,
-    nets_values: Scratch,
-    nets_cells: Scratch,
-    nets_counts: Scratch,
-    nets_triangles: Scratch,
-    nets_first: Scratch,
-    nets_flags: Scratch,
-    nets_cell_at: Scratch,
-    nets_vertex_of: Scratch,
-    nets_areas: Scratch,
-    nets_keys: Scratch,
-    nets_ids: Scratch,
-    nets_steps: Scratch,
-    nets_fine: Scratch,
-}
-
-pub struct GpuGroomer {
-    context: WgpuContext,
-    kernels: Kernels,
-    scan: PrefixSum,
-    scan_scratch: PrefixSumScratch,
-    sort: RadixSort,
-    sort_scratch: SortScratch,
-    grid: GpuHashGrid,
-    scratch: Scratches,
-    head_mesh: Option<HeadMesh>,
-    atlas: Option<Arc<CardAtlas>>,
-}
-
 impl GpuGroomer {
     pub fn new(context: WgpuContext) -> Result<Self> {
         let cache = KernelCache::new();
@@ -405,19 +373,40 @@ impl GpuGroomer {
         &self.context
     }
 
-    /// Wait for everything submitted to finish.
-    pub fn finish(&self) {
-        let _ = self
-            .context
-            .device
-            .poll(wgpu::PollType::wait_indefinitely());
-    }
-
     fn ensure_scan(&mut self, count: u32) -> Result<()> {
         self.scan_scratch
             .ensure(&self.context, ScanElementCount::from_elements(count))?;
         Ok(())
     }
+}
+
+/// The mannequin's shapes, as the kernels' `head_shape` reads them.
+pub fn head_shape(head: &Head) -> Vec<[f32; 4]> {
+    let e = |c: Vec3| [c.x, c.y, c.z, 0.0];
+    vec![
+        e(head.cranium.center),
+        e(head.cranium.radii),
+        e(head.jaw.center),
+        e(head.jaw.radii),
+        e(head.nose.center),
+        e(head.nose.radii),
+        e(head.ears[0].center),
+        e(head.ears[0].radii),
+        e(head.ears[1].center),
+        e(head.ears[1].radii),
+        [
+            head.neck.a.x,
+            head.neck.a.y,
+            head.neck.a.z,
+            head.neck.radius,
+        ],
+        e(head.neck.b),
+        e(head.shoulders.center),
+        e(head.shoulders.radii),
+        e(head.chest.center),
+        e(head.chest.radii),
+        [head.base, 0.0, 0.0, 0.0],
+    ]
 }
 
 /// A device of its own, for grooming and drawing without a window.

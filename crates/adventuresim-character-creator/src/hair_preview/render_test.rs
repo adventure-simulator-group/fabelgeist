@@ -276,7 +276,7 @@ fn hair_renders() -> Result<()> {
         let Some(geometry) = placed.gpu_geometry(&gpu, form)? else {
             continue;
         };
-        gpu.finish();
+        pollster::block_on(gpu.finish())?;
         let built = started.elapsed();
         let buried = buried_share(&geometry.read(&gpu)?, &skin);
         println!(
@@ -324,7 +324,7 @@ fn hair_renders() -> Result<()> {
         .add_systems(Startup, spawn)
         .add_systems(Update, capture);
     app.run();
-    gpu.finish();
+    pollster::block_on(gpu.finish())?;
     println!("wrote {}", out.display());
     Ok(())
 }
