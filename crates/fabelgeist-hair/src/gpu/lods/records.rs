@@ -3,7 +3,7 @@
 use super::super::error::{HairGpuError, Result};
 use super::super::head::GpuHeadCover;
 use super::super::StrandLayout;
-use crate::cards::CardAtlas;
+use crate::cards::{CardAtlas, CardLayout, CardStripLayout};
 use crate::lod::{CardLevelCount, LodCounts, StrandLevelCount};
 use crate::parameters::StrandCount;
 use fabelgeist_gpu::prelude::{Buffer, WgpuContext};
@@ -22,10 +22,10 @@ pub struct GpuLevel {
 
 /// One cut of cards: [`crate::cards::CardVertex`] vertices and a triangle list.
 pub struct GpuCards {
-    pub cards: u32,
-    pub segments: u32,
-    pub vertices: Buffer,
-    pub indices: Buffer,
+    pub(in crate::gpu) strips: CardStripLayout,
+    pub(in crate::gpu) device: wgpu::Device,
+    pub(in crate::gpu) vertices: Buffer,
+    pub(in crate::gpu) indices: Buffer,
 }
 
 /// A groom prepared on one device, with at least its original strand level.
@@ -64,12 +64,24 @@ impl GpuLevel {
 }
 
 impl GpuCards {
-    pub fn quads(&self) -> u32 {
-        self.cards * self.segments
+    pub fn layout(&self) -> CardLayout {
+        self.strips.layout()
     }
 
-    pub fn index_count(&self) -> u32 {
-        self.quads() * 6
+    pub fn strips(&self) -> CardStripLayout {
+        self.strips
+    }
+
+    pub fn device(&self) -> &wgpu::Device {
+        &self.device
+    }
+
+    pub fn vertices(&self) -> &Buffer {
+        &self.vertices
+    }
+
+    pub fn indices(&self) -> &Buffer {
+        &self.indices
     }
 }
 

@@ -138,7 +138,7 @@
 //! let scalp = head.scalp(0.004);
 //! let hair = look.grow(&head, &scalp);
 //! let lods = HairLods::build(&hair, head.cranium.center, Some(&head), &LodSettings::default())?;
-//! # Ok::<(), fabelgeist_hair::cards::AtlasError>(())
+//! # Ok::<(), fabelgeist_hair::lod::LodError>(())
 //! ```
 
 pub mod cards;
@@ -180,7 +180,7 @@ pub use haircut::{Cut, Fringe, Haircut};
 pub use hairdo::Hairdo;
 pub use hairstyle::{Arrangement, Hairstyle};
 pub use head::Head;
-pub use lod::{Blend, HairLods, LodCounts, LodPolicy, LodSettings, Representation};
+pub use lod::{Blend, HairLods, LodCounts, LodError, LodPolicy, LodResult, LodSettings, Representation};
 pub use look::Look;
 pub use material::{HairMaterial, Taper};
 pub use presets::Preset;

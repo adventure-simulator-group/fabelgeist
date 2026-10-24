@@ -44,12 +44,12 @@ use fabelgeist_math::Vec3;
 use fabelgeist_determinism::Seed;
 use rayon::prelude::*;
 
-use crate::cards::{AtlasResult, AtlasSettings, CardAtlas, CardMesh, CardSettings};
+use crate::cards::{AtlasError, AtlasSettings, CardAtlas, CardError, CardMesh, CardResult, CardSegments, CardSettings};
 use crate::collider::{Collider, keep_clear};
 use crate::cover::ScalpCover;
 use crate::occlusion::{Occlusion, OcclusionSettings};
 use crate::rng;
-use crate::parameters::PointsPerStrand;
+use crate::parameters::{PointsPerStrand, StrandCount};
 use crate::strands::{Strands, resample_into};
 
 mod counts;
@@ -63,6 +63,8 @@ const STRAND_CLEARANCE: f32 = 0.0012;
 
 /// The shared authored atlas stream for host and native level builders.
 pub(crate) const ATLAS_SEED: Seed = Seed::from_u64(0xA71A5);
+
+pub type LodResult<T> = Result<T, LodError>;
 
 /// A strand's per-strand data as the strand shader reads it.
 #[repr(C)]
@@ -104,6 +106,14 @@ pub struct HairLods {
     pub cover: ScalpCover,
 }
 
+#[derive(Debug, thiserror::Error)]
+pub enum LodError {
+    #[error("hair level atlas creation failed")]
+    Atlas(#[from] AtlasError),
+    #[error("hair card generation failed")]
+    Cards(#[from] CardError),
+}
+
 impl StrandLevel {
     pub fn len(&self) -> usize {
         self.strands.len()
@@ -126,9 +136,9 @@ impl Default for LodSettings {
                 CardSettings::default(),
                 CardSettings {
                     size: 0.016,
-                    segments: 6,
+                    segments: CardSegments::from_count(6),
                     width_scale: 1.5,
-                    min_strands: 4,
+                    min_strands: StrandCount::from_count(4),
                 },
             ],
             occlusion: OcclusionSettings::default(),
@@ -143,7 +153,7 @@ impl HairLods {
         center: Vec3,
         body: Option<&dyn Collider>,
         settings: &LodSettings,
-    ) -> AtlasResult<Self> {
+    ) -> LodResult<Self> {
         let atlas = CardAtlas::paint(settings.atlas, ATLAS_SEED)?;
         let occlusion = Occlusion::bake(strands, body, &settings.occlusion);
         let mut order: Vec<usize> = (0..strands.len()).collect();
@@ -205,7 +215,7 @@ impl HairLods {
                     atlas.variants(),
                 )
             })
-            .collect();
+            .collect::<CardResult<Vec<_>>>()?;
         Ok(Self {
             levels,
             cards,

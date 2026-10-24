@@ -627,7 +627,7 @@ mod tests {
                 .lods(&grown, head.cranium.center, &crate::LodSettings::default())
                 .expect("levels");
             assert_eq!(lods.strand_count().count(), gpu.len());
-            assert!(lods.cards.iter().all(|c| c.cards > 0), "{name}: no cards");
+            assert!(lods.cards.iter().all(|c| c.strips().cards().count() > 0), "{name}: no cards");
             let cover: Vec<[f32; 2]> =
                 pollster::block_on(lods.cover.as_ref().expect("cover").buffer().read(groomer.context()))
                     .expect("cover read back");

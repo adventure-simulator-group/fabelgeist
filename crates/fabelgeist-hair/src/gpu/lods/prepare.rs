@@ -2,6 +2,7 @@
 use super::*;
 use fabelgeist_gpu::prelude::{BufferDefinition, BufferUse};
 use fabelgeist_compute::SortKeyWidth;
+use crate::cards::CardStripLayout;
 pub(super) struct CoverDensity {
     pub(super) grid: Grid,
     pub(super) density: Buffer,
@@ -13,20 +14,19 @@ pub(super) struct CardBuffers {
 impl CardBuffers {
     pub(super) fn new(
         context: &fabelgeist_gpu::globals::WgpuContext,
-        cards: u32,
-        rows: u32,
-        segments: u32,
+        strips: CardStripLayout,
     ) -> Result<Self> {
+        let layout = strips.layout();
         let vertices = Buffer::new(
             context,
-            ((cards.max(1) as u64) * rows as u64 * 2 * 64).into(),
+            layout.vertices_binding_bytes(),
             BufferDefinition::storage()
                 .with_usage(BufferUse::Vertex)
                 .with_label("hair card vertices".into()),
         )?;
         let indices = Buffer::new(
             context,
-            ((cards.max(1) as u64) * segments as u64 * 6 * 4).into(),
+            layout.indices_binding_bytes(),
             BufferDefinition::storage()
                 .with_usage(BufferUse::Index)
                 .with_label("hair card indices".into()),

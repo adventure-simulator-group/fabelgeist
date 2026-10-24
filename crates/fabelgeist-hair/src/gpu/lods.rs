@@ -1,7 +1,6 @@
 //! [`GpuGroomer::lods`]: a groom grown on the GPU made ready to draw there.
 
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_compute::ScanElementCount;
 
 use crate::gpu::error::Result;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
@@ -12,15 +11,16 @@ use fabelgeist_spatial_hash::{CellScale, HashLayout};
 use super::grow::params;
 use super::head::GpuHeadCover;
 use super::{GpuGroom, GpuGroomer, storage, upload};
-use crate::cards::{AtlasVariantCount, CardSettings};
 use crate::lod::LodSettings;
 
 mod atlas;
+mod cards;
 mod levels;
 mod records;
 
 pub use records::{GpuCards, GpuLevel, GpuLods};
 use levels::LevelBake;
+use cards::CardPass;
 
 /// A grid over a box: its origin, cell and size in cells.
 #[derive(Clone, Copy)]
@@ -57,7 +57,7 @@ impl Grid {
 }
 
 mod prepare;
-use prepare::{CardBuffers, CoverDensity};
+use prepare::CoverDensity;
 
 impl GpuGroomer {
     /// [`GpuGroomer::lods`], the coarse levels and cards kept off `body`
@@ -140,14 +140,16 @@ impl GpuGroomer {
             let (built, next) = self.record_cards(
                 &context,
                 batch,
-                groom,
-                card,
-                center,
-                occlusion,
-                &visibility,
-                &head,
-                has_body,
-                atlas.variants(),
+                CardPass {
+                    groom,
+                    settings: card,
+                    center,
+                    grid: occlusion,
+                    visibility: &visibility,
+                    head: &head,
+                    body: has_body,
+                    variants: atlas.variants(),
+                },
             )?;
             cards.push(built);
             batch = next;
@@ -216,140 +218,6 @@ impl GpuGroomer {
         Ok(())
     }
 
-    /// One cut of cards. Records the locks' statistics, reads back how many
-    /// cards there are, and records building them into a new batch, which
-    /// it hands back.
-    #[allow(clippy::too_many_arguments)]
-    fn record_cards<'a>(
-        &mut self,
-        context: &'a fabelgeist_gpu::globals::WgpuContext,
-        mut batch: KernelBatch<'a>,
-        groom: &GpuGroom,
-        card: &CardSettings,
-        center: Vec3,
-        grid: Grid,
-        visibility: &Buffer,
-        head: &Buffer,
-        body: u32,
-        variants: AtlasVariantCount,
-    ) -> Result<(GpuCards, KernelBatch<'a>)> {
-        let count = groom.layout.native_strands();
-        let segments = card.segments.clamp(1, 31) as u32;
-        let rows = segments + 1;
-        let guide_of = self.scratch.card_guides.fit(
-            context,
-            (count as u64 * 4).into(),
-            "hair card locks".into(),
-        )?;
-        self.record_map(
-            &mut batch,
-            &groom.roots,
-            &groom.attributes,
-            &guide_of,
-            groom.layout,
-            groom.root_bounds,
-            card.size,
-            1.0,
-            0xCA4D,
-        )?;
-        let stride = 4 + rows as u64 * 4;
-        let locks = self.scratch.locks.fit(
-            context,
-            (count as u64 * stride * 4).into(),
-            "hair card lock stats".into(),
-        )?;
-        batch.clear_buffer(&locks);
-        let card_params = |mut p: PassParameters| {
-            p.insert("count", count);
-            p.insert("points", groom.layout.native_points());
-            p.insert("segments", segments);
-            p.insert("min_strands", card.min_strands as u32);
-            p
-        };
-        batch.dispatch_folded(
-            &self.kernels.card_accumulate,
-            &card_params(params! {
-                "positions" => groom.positions.clone(),
-                "guide_of" => guide_of.clone(),
-                "locks" => locks.clone(),
-            }),
-            count,
-        )?;
-        let flags = self.scratch.flags.fit(
-            context,
-            ((count as u64 + 1) * 4).into(),
-            "hair card flags".into(),
-        )?;
-        batch.clear_buffer(&flags);
-        batch.dispatch_folded(
-            &self.kernels.card_flags,
-            &card_params(params! {
-                "locks" => locks.clone(),
-                "flags" => flags.clone(),
-            }),
-            count,
-        )?;
-        self.ensure_scan(count + 1)?;
-        self.scan.record(
-            &mut batch,
-            &flags,
-            &self.scan_scratch,
-            ScanElementCount::from_elements(count + 1),
-        )?;
-        let cards = self.read_word(batch, &flags, count)?;
-
-        let mut batch = KernelBatch::labelled(context, "hair cards");
-        batch.dispatch_folded(
-            &self.kernels.card_spread,
-            &card_params(params! {
-                "positions" => groom.positions.clone(),
-                "guide_of" => guide_of,
-                "locks" => locks.clone(),
-                "strands" => groom.attributes.clone(),
-                "center_x" => center.x,
-                "center_y" => center.y,
-                "center_z" => center.z,
-                "pad0" => 0u32,
-            }),
-            count,
-        )?;
-        let CardBuffers { vertices, indices } = CardBuffers::new(context, cards, rows, segments)?;
-        let mut p = params! {
-            "locks" => locks,
-            "slots" => flags,
-            "strands" => groom.attributes.clone(),
-            "grid_values" => visibility.clone(),
-            "head_shape" => head.clone(),
-            "card_vertices" => vertices.clone(),
-            "card_indices" => indices.clone(),
-            "count" => count,
-            "points" => groom.layout.native_points(),
-            "segments" => segments,
-            "min_strands" => card.min_strands as u32,
-            "body" => body,
-            "center_x" => center.x,
-            "center_y" => center.y,
-            "center_z" => center.z,
-            "size" => card.size,
-            "width_scale" => card.width_scale,
-            "variants" => variants.count(),
-            "pad0" => 0u32,
-            "pad1" => 0u32,
-        };
-        grid.insert(&mut p, count);
-        // The grid's `count` is the cards kernel's too: the strands.
-        p.insert("count", count);
-        batch.dispatch_folded(&self.kernels.card_build, &p, count)?;
-        Ok((
-            GpuCards {
-                cards,
-                segments,
-                vertices,
-                indices,
-            },
-            batch,
-        ))
-    }
 
     /// How much hair covers each vertex of the head: the roots around it
     /// (on the spatial hash grid over the roots), the hair over it (a
