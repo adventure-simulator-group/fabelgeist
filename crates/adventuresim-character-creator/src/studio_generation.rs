@@ -14,6 +14,68 @@ pub(super) struct PreviewScene<'w, 's> {
     inverse_bindposes: ResMut<'w, Assets<SkinnedMeshInverseBindposes>>,
 }
 
+impl PreviewScene<'_, '_> {
+    fn spawn_equipment(&mut self, armor: &[parametric_equipment::SelectedArmor<'_>]) -> Result<()> {
+        self.equipment_maps.begin_generation();
+        for piece in armor {
+            let material = equipment_catalog::material(piece.piece.piece.selection.item())?;
+            let material = self
+                .equipment_maps
+                .material(
+                    &mut self.images,
+                    material,
+                    piece.piece.design.recipe(),
+                    piece.piece.decoration.engraving.as_ref(),
+                )
+                .with_context(|| format!("{} material failed", piece.name))?;
+            let trim = piece
+                .trim
+                .as_ref()
+                .map(|trim| {
+                    Ok::<_, anyhow::Error>(preview::TrimPreview {
+                        texcoords: &trim.texcoords,
+                        material: self
+                            .equipment_maps
+                            .metal(&mut self.images, &trim.metal, 1.0)
+                            .with_context(|| format!("{} trim material failed", piece.name))?,
+                    })
+                })
+                .transpose()?;
+            preview::spawn_armor(
+                &mut self.commands,
+                &mut self.meshes,
+                &mut self.materials,
+                &mut self.images,
+                &piece.generated,
+                piece.name.clone(),
+                preview::ArmorShading {
+                    plate: material,
+                    trim,
+                },
+                CharacterMesh,
+            )
+            .context("Armor preview failed")?;
+            if let Some(lacing) = &piece.lacing {
+                preview::spawn_armor(
+                    &mut self.commands,
+                    &mut self.meshes,
+                    &mut self.materials,
+                    &mut self.images,
+                    &lacing.generated,
+                    lacing.name.clone(),
+                    preview::ArmorShading {
+                        plate: preview::lacing_material(&lacing.cord),
+                        trim: None,
+                    },
+                    CharacterMesh,
+                )
+                .context("Lacing preview failed")?;
+            }
+        }
+        Ok(())
+    }
+}
+
 #[expect(
     clippy::too_many_arguments,
     reason = "Bevy injects the scene, caches and drape job this system rebuilds from"
@@ -112,70 +174,6 @@ pub(super) fn dragging(contexts: &mut EguiContexts) -> bool {
     contexts
         .ctx_mut()
         .is_ok_and(|ctx| ctx.egui_is_using_pointer())
-}
-
-impl PreviewScene<'_, '_> {
-    fn spawn_equipment(&mut self, armor: &[parametric_equipment::SelectedArmor<'_>]) -> Result<()> {
-        self.equipment_maps.begin_generation();
-        for piece in armor {
-            let material = equipment_catalog::material(piece.piece.piece.selection.item())?;
-            let material = self
-                .equipment_maps
-                .material(
-                    &mut self.images,
-                    material,
-                    piece.piece.design.recipe(),
-                    piece.piece.decoration.engraving.as_ref(),
-                )
-                .map_err(anyhow::Error::msg)
-                .with_context(|| format!("{} material failed", piece.name))?;
-            let trim = piece
-                .trim
-                .as_ref()
-                .map(|trim| {
-                    Ok::<_, anyhow::Error>(preview::TrimPreview {
-                        texcoords: &trim.texcoords,
-                        material: self
-                            .equipment_maps
-                            .metal(&mut self.images, &trim.metal, 1.0)
-                            .map_err(anyhow::Error::msg)
-                            .with_context(|| format!("{} trim material failed", piece.name))?,
-                    })
-                })
-                .transpose()?;
-            preview::spawn_armor(
-                &mut self.commands,
-                &mut self.meshes,
-                &mut self.materials,
-                &mut self.images,
-                &piece.generated,
-                piece.name.clone(),
-                preview::ArmorShading {
-                    plate: material,
-                    trim,
-                },
-                CharacterMesh,
-            )
-            .context("Armor preview failed")?;
-            if let Some(lacing) = &piece.lacing {
-                preview::spawn_armor(
-                    &mut self.commands,
-                    &mut self.meshes,
-                    &mut self.materials,
-                    &mut self.images,
-                    &lacing.generated,
-                    lacing.name.clone(),
-                    preview::ArmorShading {
-                        plate: preview::lacing_material(&lacing.cord),
-                        trim: None,
-                    },
-                    CharacterMesh,
-                )
-                .context("Lacing preview failed")?;
-            }
-        }
-        Ok(())
-    }
 }
 
 pub(super) fn visible_body_mesh(generated: &GeneratedCharacter, faces: &[[u32; 3]]) -> Mesh {

@@ -147,8 +147,7 @@ impl EquipmentExporter<'_> {
             &character.skin_weights.weight,
             &character.skeleton.names,
             &generated.global_joint_states,
-        )
-        .map_err(anyhow::Error::msg)?;
+        )?;
         let targets = morphs.clothing(&clothed.shells)?;
         let targets = targets[0]
             .iter()

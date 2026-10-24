@@ -50,8 +50,7 @@ pub(super) fn spawn_exhibit(
             equipment_catalog::material(item)?,
             design.as_ref().and_then(ItemDesign::recipe),
             decoration.engraving.as_ref(),
-        )
-        .map_err(anyhow::Error::msg)?;
+        )?;
     let trim = decoration
         .trim
         .as_ref()
@@ -63,8 +62,7 @@ pub(super) fn spawn_exhibit(
                 .equipment_maps
                 .metal(&mut scene.images, &trim.metal, 1.0)
         })
-        .transpose()
-        .map_err(anyhow::Error::msg)?;
+        .transpose()?;
     let cord = construction
         .tiling()
         .and_then(|tiling| tiling.lacing.as_ref());
