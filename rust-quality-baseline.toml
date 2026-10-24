@@ -695,14 +695,6 @@ path = "crates/fabelgeist-garment-code/src/programs/skirt_paneled.rs"
 ceiling = 624
 
 [[files]]
-path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs"
-ceiling = 538
-
-[[files]]
-path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
-ceiling = 899
-
-[[files]]
 path = "crates/fabelgeist-hair/src/gpu/grow.rs"
 ceiling = 810
 
@@ -2750,31 +2742,6 @@ ceiling = 103
 path = "crates/fabelgeist-garment-code/src/programs/sleeves.rs"
 item = "sleeve"
 ceiling = 122
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs"
-item = "create_bind_groups"
-ceiling = 278
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs"
-item = "ComputePass::record"
-ceiling = 410
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
-item = "TextureCube::blit_texture_to_face"
-ceiling = 161
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
-item = "TextureCube::render_face_shader_raw"
-ceiling = 149
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
-item = "TextureCube::render_shader_raw"
-ceiling = 142
 
 [[functions]]
 path = "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs"
