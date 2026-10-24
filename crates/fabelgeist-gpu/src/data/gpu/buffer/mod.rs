@@ -7,9 +7,11 @@ pub use binding::BufferBindingError;
 pub use definition::{BufferDefinition, BufferUse};
 pub use extent::{BufferByteLength, BufferByteOffset};
 pub use label::BufferLabel;
+pub(in crate::data::gpu) use mapping::{MappingExtent, MappingRequest};
 pub use prefix::{BufferPrefixError, PrefixResult};
 pub use read_error::BufferReadError;
 use read_error::ReadResult;
+pub(in crate::data::gpu) use readback::Readback;
 pub use upload::{BufferUpload, BufferUploadOccupancy};
 
 mod binding;

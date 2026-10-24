@@ -90,6 +90,28 @@ observation error. The sRGB converter retains its creating device, checks
 both cached texture devices and preserves available native causes. Its fixed
 layout still accepts unfilterable float inputs for `textureLoad`.
 
+Texture and cube-face readback share checked tight and padded transfer layouts.
+Row and volume arithmetic stays in checked wide byte quantities; native row
+widths and host addresses are narrowed explicitly. Typed output rejects partial
+or zero-sized elements before GPU work and copies bytes into aligned host
+storage. Raw reads preserve native bits and omit every row's copy padding.
+`TextureView` retains its empty-first behavior; other reads still require the
+native allocation and its creating device before host-layout admission.
+
+Private staging mappings reuse the buffer request owner. Actual native, mapping,
+polling and callback cancellation causes remain available, and cleanup does not
+replace the first failure. Texture progress retains nonblocking native polls
+and the existing one-millisecond async interval; buffer readback keeps its
+explicit native wait. Browser progress yields to its event loop. Successful
+readback does not certify a producing operation whose error was ignored.
+
+Queue texture uploads observe immediate validation under the existing context
+policy after conversion and tight-row admission. They add no completion wait
+and accept native-supported trailing input bytes. Cube face uploads can fail
+after earlier faces have been queued. Existing image and cube conversion rules
+remain distinct; float image decoding reads native-endian byte chunks without
+requiring byte-vector alignment.
+
 `ComputeShader` admits source, module and device together. `ShaderError` keeps
 concrete Naga parse, validation and translation causes, source diagnostics and
 available native shader failures. `ComputePipeline` keeps the immutable shader

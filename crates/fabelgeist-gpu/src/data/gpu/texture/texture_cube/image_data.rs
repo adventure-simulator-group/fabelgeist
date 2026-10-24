@@ -41,7 +41,9 @@ pub(super) fn convert_face_pixels(image: &Image, format: TextureFormat) -> Resul
             }
         }
         TextureFormat::Rgba32Float => {
-            let mut floats = Vec::with_capacity((image.width * image.height * 4) as usize);
+            // Each complete input RGBA byte group produces four float channels.
+            let mut floats = Vec::new();
+            floats.try_reserve_exact(raw_data.len())?;
             for rgba in raw_data.as_chunks::<4>().0 {
                 for channel in &rgba[..3] {
                     let f = *channel as f32 / 255.0;

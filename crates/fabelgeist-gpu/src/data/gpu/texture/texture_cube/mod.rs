@@ -175,37 +175,30 @@ impl TextureCube {
         }
 
         let tex = TextureCube::new(context, size as f32, format)?;
-        let pixel_size = format.pixel_size();
 
         for (i, image) in images.into_iter().enumerate() {
             let converted_data = image.packed_for(format)?;
 
-            context.queue.write_texture(
-                wgpu::TexelCopyTextureInfo {
-                    texture: tex
-                        .texture
-                        .as_ref()
-                        .ok_or(TextureViewError::Uninitialized)?,
-                    mip_level: 0,
-                    origin: wgpu::Origin3d {
-                        x: 0,
-                        y: 0,
-                        z: i as u32,
-                    },
-                    aspect: wgpu::TextureAspect::All,
-                },
-                &converted_data,
-                wgpu::TexelCopyBufferLayout {
-                    offset: 0,
-                    bytes_per_row: Some(size * pixel_size),
-                    rows_per_image: Some(size),
-                },
+            super::transfer::TextureTransferLayout::new(
                 wgpu::Extent3d {
                     width: size,
                     height: size,
                     depth_or_array_layers: 1,
                 },
-            );
+                format,
+            )?
+            .write(
+                context,
+                tex.texture
+                    .as_ref()
+                    .ok_or(TextureViewError::Uninitialized)?,
+                wgpu::Origin3d {
+                    x: 0,
+                    y: 0,
+                    z: i as u32,
+                },
+                &converted_data,
+            )?;
         }
 
         Ok(tex)
@@ -292,32 +285,26 @@ impl TextureCube {
             ));
         }
 
-        let pixel_size = self.format.pixel_size();
         let converted_data = image_data::convert_face_pixels(image, self.format)?;
 
-        context.queue.write_texture(
-            wgpu::TexelCopyTextureInfo {
-                texture,
-                mip_level: 0,
-                origin: wgpu::Origin3d {
-                    x: 0,
-                    y: 0,
-                    z: face.index(),
-                },
-                aspect: wgpu::TextureAspect::All,
-            },
-            &converted_data,
-            wgpu::TexelCopyBufferLayout {
-                offset: 0,
-                bytes_per_row: Some(self.size * pixel_size),
-                rows_per_image: Some(self.size),
-            },
+        super::transfer::TextureTransferLayout::new(
             wgpu::Extent3d {
                 width: self.size,
                 height: self.size,
                 depth_or_array_layers: 1,
             },
-        );
+            self.format,
+        )?
+        .write(
+            context,
+            texture,
+            wgpu::Origin3d {
+                x: 0,
+                y: 0,
+                z: face.index(),
+            },
+            &converted_data,
+        )?;
 
         Ok(())
     }

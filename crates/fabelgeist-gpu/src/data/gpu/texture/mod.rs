@@ -5,18 +5,21 @@ pub use texture_2d::*;
 pub use texture_3d::*;
 pub use texture_cube::*;
 pub use texture_view::*;
+pub use transfer::TextureTransferError;
 pub use view_error::*;
 
 pub(crate) use selection::{SelectedTextureView, SelectedTextureViewResult};
 
 mod cube_face;
 mod format;
+mod readback;
 mod selection;
 mod srgb_converter;
 mod texture_2d;
 mod texture_3d;
 mod texture_cube;
 mod texture_view;
+mod transfer;
 mod view_error;
 
 /// Default edge length, in pixels, for an unspecified texture size.

@@ -183,114 +183,26 @@ impl TextureView {
         Ok(())
     }
     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
-        let (width, height) = self.size;
-        if width == 0 || height == 0 {
+        if self.size.0 == 0 || self.size.1 == 0 {
             return Ok(Vec::new());
         }
-
         let texture = self
             .texture
             .as_ref()
             .ok_or(TextureViewError::Uninitialized)?;
         self.ensure_device(context)?;
-
-        let pixel_size = self.format.pixel_size();
-        let bytes_per_row = width * pixel_size;
-        let padded_bytes_per_row = (bytes_per_row + 255) & !255;
-        let buffer_size = (padded_bytes_per_row * height) as u64;
-
-        let staging_buffer = context.device.create_buffer(&wgpu::BufferDescriptor {
-            label: Some("TextureView Staging Buffer"),
-            size: buffer_size,
-            usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
-            mapped_at_creation: false,
-        });
-
-        let mut encoder = context
-            .device
-            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                label: Some("TextureView Read Encoder"),
-            });
-
-        encoder.copy_texture_to_buffer(
-            wgpu::TexelCopyTextureInfo {
-                texture,
-                mip_level: 0,
-                origin: wgpu::Origin3d {
-                    x: 0,
-                    y: 0,
-                    z: self.layer.unwrap_or(0),
-                },
-                aspect: wgpu::TextureAspect::All,
+        super::readback::TextureReadSource {
+            texture,
+            origin: wgpu::Origin3d {
+                x: 0,
+                y: 0,
+                z: self.layer.unwrap_or(0),
             },
-            wgpu::TexelCopyBufferInfo {
-                buffer: &staging_buffer,
-                layout: wgpu::TexelCopyBufferLayout {
-                    offset: 0,
-                    bytes_per_row: Some(padded_bytes_per_row),
-                    rows_per_image: Some(height),
-                },
-            },
-            wgpu::Extent3d {
-                width,
-                height,
-                depth_or_array_layers: 1,
-            },
-        );
-
-        context
-            .submit(encoder)
-            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
-
-        #[allow(unused_mut)]
-        let (tx, mut rx) = futures_channel::oneshot::channel();
-        {
-            let slice = staging_buffer.slice(..);
-            slice.map_async(wgpu::MapMode::Read, move |res| {
-                let _ = tx.send(res);
-            });
+            layout: super::transfer::TextureTransferLayout::new(self.extent(), self.format)?,
+            kind: super::readback::TextureReadKind::View,
         }
-
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            loop {
-                match rx.try_recv() {
-                    Ok(Some(res)) => {
-                        res.map_err(|e| anyhow!("GPU Mapping error: {:?}", e))?;
-                        break;
-                    }
-                    Ok(None) => {
-                        let _ = context.device.poll(wgpu::PollType::Poll);
-                        fabelgeist_timer::sleep(std::time::Duration::from_millis(1)).await;
-                    }
-                    Err(_) => return Err(anyhow!("Mapping channel closed")),
-                }
-            }
-        }
-
-        #[cfg(target_arch = "wasm32")]
-        rx.await
-            .map_err(|_| anyhow!("Mapping channel closed"))?
-            .map_err(|_| anyhow!("GPU Mapping error"))?;
-
-        let slice = staging_buffer.slice(..);
-        let data = slice.get_mapped_range();
-
-        let mut result = Vec::with_capacity((width * height) as usize * pixel_size as usize);
-        if padded_bytes_per_row == bytes_per_row {
-            result.extend_from_slice(&data);
-        } else {
-            for row in 0..height {
-                let start = (row * padded_bytes_per_row) as usize;
-                let end = start + bytes_per_row as usize;
-                result.extend_from_slice(&data[start..end]);
-            }
-        }
-
-        drop(data);
-        staging_buffer.unmap();
-
-        Ok(bytemuck::cast_slice::<u8, T>(&result).to_vec())
+        .read(context)
+        .await
     }
     pub async fn read_to_rgba8(&self, context: &WgpuContext) -> Result<Vec<u8>> {
         let (width, height) = self.size;

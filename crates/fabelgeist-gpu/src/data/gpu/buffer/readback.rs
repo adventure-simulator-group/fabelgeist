@@ -2,13 +2,13 @@
 use super::{BufferByteLength, BufferReadError, ReadResult};
 use bytemuck::AnyBitPattern;
 
-pub(super) struct Readback<T> {
+pub(in crate::data::gpu) struct Readback<T> {
     values: Vec<T>,
     byte_len: usize,
 }
 
 impl<T: AnyBitPattern> Readback<T> {
-    pub(super) fn new(bytes: BufferByteLength) -> ReadResult<Self> {
+    pub(in crate::data::gpu) fn new(bytes: BufferByteLength) -> ReadResult<Self> {
         let byte_len = usize::try_from(u64::from(bytes)).map_err(BufferReadError::HostAddress)?;
         let element_size = std::mem::size_of::<T>();
         if element_size == 0 {
@@ -27,7 +27,7 @@ impl<T: AnyBitPattern> Readback<T> {
         Ok(Self { values, byte_len })
     }
 
-    pub(super) fn copy_from(mut self, bytes: &[u8]) -> ReadResult<Vec<T>> {
+    pub(in crate::data::gpu) fn copy_from(mut self, bytes: &[u8]) -> ReadResult<Vec<T>> {
         // GPU allocations may include trailing alignment padding.
         if bytes.len() < self.byte_len {
             return Err(BufferReadError::Truncated {

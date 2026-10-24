@@ -77,8 +77,18 @@ impl Image {
                 bytemuck::cast_slice(&widened).to_vec()
             }
             _ => {
-                let expected = (self.width * self.height * format.pixel_size()) as usize;
-                if pixels.len() == expected || format.pixel_size() == 4 {
+                let expected = super::super::transfer::TextureTransferLayout::new(
+                    wgpu::Extent3d {
+                        width: self.width,
+                        height: self.height,
+                        depth_or_array_layers: 1,
+                    },
+                    format,
+                )?
+                .bytes();
+                if crate::data::BufferByteLength::from(pixels.len()) == expected
+                    || format.pixel_size() == 4
+                {
                     pixels.clone()
                 } else {
                     anyhow::bail!(
@@ -118,13 +128,19 @@ impl super::Texture2d {
                 .iter()
                 .flat_map(|bgra| [bgra[2], bgra[1], bgra[0], bgra[3]])
                 .collect(),
-            TextureFormat::Rgba32Float => bytemuck::cast_slice::<u8, f32>(&raw_data)
+            TextureFormat::Rgba32Float => raw_data
+                .as_chunks::<{ size_of::<f32>() }>()
+                .0
                 .iter()
-                .map(|&channel| narrow(channel))
+                .map(|bytes| f32::from_ne_bytes(*bytes))
+                .map(narrow)
                 .collect(),
-            TextureFormat::R32Float => bytemuck::cast_slice::<u8, f32>(&raw_data)
+            TextureFormat::R32Float => raw_data
+                .as_chunks::<{ size_of::<f32>() }>()
+                .0
                 .iter()
-                .flat_map(|&value| {
+                .map(|bytes| f32::from_ne_bytes(*bytes))
+                .flat_map(|value| {
                     let grey = narrow(value);
                     [grey, grey, grey, 255]
                 })

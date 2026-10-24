@@ -7,7 +7,7 @@ use std::num::TryFromIntError;
 
 pub(super) type ReadResult<T> = Result<T, BufferReadError>;
 
-/// Why a logical buffer prefix could not be read into host elements.
+/// Why a GPU byte range could not be read into host elements.
 #[derive(Debug)]
 pub enum BufferReadError {
     MappingExtentOverflow {

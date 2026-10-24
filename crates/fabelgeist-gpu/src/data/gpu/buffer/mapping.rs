@@ -8,7 +8,7 @@ use futures_channel::oneshot;
 use std::sync::Arc;
 
 /// Owns this operation's mapping request, including callback failure/cancel.
-pub(super) struct MappingRequest {
+pub(in crate::data::gpu) struct MappingRequest {
     target: Arc<wgpu::Buffer>,
     extent: MappingExtent,
     #[cfg(not(target_arch = "wasm32"))]
@@ -19,7 +19,7 @@ pub(super) struct MappingRequest {
 
 /// Nonzero, SDK-aligned range covering a logical prefix within its allocation.
 #[derive(Clone, Copy)]
-pub(super) struct MappingExtent(BufferByteLength);
+pub(in crate::data::gpu) struct MappingExtent(BufferByteLength);
 
 enum ReleaseObligation {
     Required,
@@ -27,7 +27,7 @@ enum ReleaseObligation {
 }
 
 impl MappingExtent {
-    pub(super) fn for_prefix(
+    pub(in crate::data::gpu) fn for_prefix(
         logical: BufferByteLength,
         allocated: BufferByteLength,
     ) -> ReadResult<Option<Self>> {
@@ -51,13 +51,13 @@ impl MappingExtent {
         Ok(Some(Self(aligned)))
     }
 
-    pub(super) fn bytes(self) -> BufferByteLength {
+    pub(in crate::data::gpu) fn bytes(self) -> BufferByteLength {
         self.0
     }
 }
 
 impl MappingRequest {
-    pub(super) fn request(
+    pub(in crate::data::gpu) fn request(
         context: &WgpuContext,
         target: Arc<wgpu::Buffer>,
         extent: MappingExtent,
@@ -86,13 +86,13 @@ impl MappingRequest {
         Ok(request)
     }
 
-    pub(super) fn mapped_range(&self) -> wgpu::BufferView {
+    pub(in crate::data::gpu) fn mapped_range(&self) -> wgpu::BufferView {
         self.target
             .slice(..u64::from(self.extent.bytes()))
             .get_mapped_range()
     }
 
-    pub(super) async fn complete(&mut self, context: &WgpuContext) -> ReadResult<()> {
+    pub(in crate::data::gpu) async fn complete(&mut self, context: &WgpuContext) -> ReadResult<()> {
         #[cfg(not(target_arch = "wasm32"))]
         {
             context
@@ -117,8 +117,19 @@ impl MappingRequest {
         }
     }
 
+    /// Observe a delivered map outcome before driving one nonblocking poll.
+    #[cfg(not(target_arch = "wasm32"))]
+    pub(in crate::data::gpu) fn poll_complete(
+        &mut self,
+        context: &WgpuContext,
+    ) -> ReadResult<Option<()>> {
+        poll_callback(&context.device, &mut self.completion)?
+            .transpose()
+            .map_err(BufferReadError::Mapping)
+    }
+
     /// Consume the request after its mapped view has been dropped.
-    pub(super) fn release(mut self, context: &WgpuContext) -> ReadResult<()> {
+    pub(in crate::data::gpu) fn release(mut self, context: &WgpuContext) -> ReadResult<()> {
         self.release = ReleaseObligation::Complete;
         context
             .observe_validation(|| self.target.unmap())

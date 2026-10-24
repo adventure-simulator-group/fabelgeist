@@ -208,31 +208,24 @@ impl Texture2d {
 
         let tex = Texture2d::create(context, Vec2::new(width as f32, height as f32), format)?;
 
-        let pixel_size = format.pixel_size();
         let converted_data = image.packed_for(format)?;
 
-        context.queue.write_texture(
-            wgpu::TexelCopyTextureInfo {
-                texture: tex
-                    .texture
-                    .as_ref()
-                    .ok_or(TextureViewError::Uninitialized)?,
-                mip_level: 0,
-                origin: wgpu::Origin3d::ZERO,
-                aspect: wgpu::TextureAspect::All,
-            },
-            &converted_data,
-            wgpu::TexelCopyBufferLayout {
-                offset: 0,
-                bytes_per_row: Some(width * pixel_size),
-                rows_per_image: Some(height),
-            },
+        super::transfer::TextureTransferLayout::new(
             wgpu::Extent3d {
                 width,
                 height,
                 depth_or_array_layers: 1,
             },
-        );
+            format,
+        )?
+        .write(
+            context,
+            tex.texture
+                .as_ref()
+                .ok_or(TextureViewError::Uninitialized)?,
+            wgpu::Origin3d::ZERO,
+            &converted_data,
+        )?;
 
         Ok(tex)
     }
@@ -266,108 +259,19 @@ impl Texture2d {
         Ok(tex)
     }
     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
-        let (width, height) = self.size;
         let texture = self
             .texture
             .as_ref()
             .ok_or(TextureViewError::Uninitialized)?;
         self.ensure_device(context)?;
-        let pixel_size = self.format.pixel_size();
-        let bytes_per_row = width * pixel_size;
-        let align = wgpu::COPY_BYTES_PER_ROW_ALIGNMENT;
-        let padded_bytes_per_row = (bytes_per_row + align - 1) & !(align - 1);
-        let staging_buffer_size = (padded_bytes_per_row * height) as u64;
-
-        let staging_buffer = context.device.create_buffer(&wgpu::BufferDescriptor {
-            label: Some("Texture2d Staging Buffer"),
-            size: staging_buffer_size,
-            usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
-            mapped_at_creation: false,
-        });
-
-        let mut encoder = context
-            .device
-            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                label: Some("Texture2d Read Encoder"),
-            });
-
-        encoder.copy_texture_to_buffer(
-            wgpu::TexelCopyTextureInfo {
-                texture,
-                mip_level: 0,
-                origin: wgpu::Origin3d::ZERO,
-                aspect: wgpu::TextureAspect::All,
-            },
-            wgpu::TexelCopyBufferInfo {
-                buffer: &staging_buffer,
-                layout: wgpu::TexelCopyBufferLayout {
-                    offset: 0,
-                    bytes_per_row: Some(padded_bytes_per_row),
-                    rows_per_image: Some(height),
-                },
-            },
-            wgpu::Extent3d {
-                width,
-                height,
-                depth_or_array_layers: 1,
-            },
-        );
-
-        context
-            .submit(encoder)
-            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
-
-        #[allow(unused_mut)]
-        let (tx, mut rx) = futures_channel::oneshot::channel();
-        {
-            let slice = staging_buffer.slice(..);
-            slice.map_async(wgpu::MapMode::Read, move |res| {
-                let _ = tx.send(res);
-            });
+        super::readback::TextureReadSource {
+            texture,
+            origin: wgpu::Origin3d::ZERO,
+            layout: super::transfer::TextureTransferLayout::new(self.extent(), self.format)?,
+            kind: super::readback::TextureReadKind::Plane,
         }
-
-        // 2. Poll if on native
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            loop {
-                match rx.try_recv() {
-                    Ok(Some(res)) => {
-                        res.map_err(|e| anyhow::anyhow!("GPU Mapping error: {:?}", e))?;
-                        break;
-                    }
-                    Ok(None) => {
-                        let _ = context.device.poll(wgpu::PollType::Poll);
-                        fabelgeist_timer::sleep(std::time::Duration::from_millis(1)).await;
-                    }
-                    Err(_) => return Err(anyhow::anyhow!("Mapping channel closed")),
-                }
-            }
-        }
-
-        // 3. Await result (only on wasm, since native loop already consumed rx)
-        #[cfg(target_arch = "wasm32")]
-        rx.await
-            .map_err(|_| anyhow::anyhow!("Mapping channel closed"))?
-            .map_err(|_| anyhow::anyhow!("GPU Mapping error"))?;
-
-        let slice = staging_buffer.slice(..);
-        let data = slice.get_mapped_range();
-
-        let mut result = Vec::with_capacity((width * height) as usize * pixel_size as usize);
-        if padded_bytes_per_row == bytes_per_row {
-            result.extend_from_slice(&data);
-        } else {
-            for row in 0..height {
-                let start = (row * padded_bytes_per_row) as usize;
-                let end = start + bytes_per_row as usize;
-                result.extend_from_slice(&data[start..end]);
-            }
-        }
-
-        drop(data);
-        staging_buffer.unmap();
-
-        Ok(bytemuck::cast_slice::<u8, T>(&result).to_vec())
+        .read(context)
+        .await
     }
     pub async fn read_to_rgba8(&self, context: &WgpuContext) -> Result<Vec<u8>> {
         // For now, we assume it's already in a readable format or we should convert it.
@@ -379,34 +283,19 @@ impl Texture2d {
     }
 
     pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
-        let (width, height) = self.size;
         let texture = self
             .texture
             .as_ref()
             .ok_or(TextureViewError::Uninitialized)?;
         self.ensure_device(context)?;
         let bytes = bytemuck::cast_slice(data);
-        let pixel_size = self.format.pixel_size();
 
-        context.queue.write_texture(
-            wgpu::TexelCopyTextureInfo {
-                texture,
-                mip_level: 0,
-                origin: wgpu::Origin3d::ZERO,
-                aspect: wgpu::TextureAspect::All,
-            },
+        super::transfer::TextureTransferLayout::new(self.extent(), self.format)?.write(
+            context,
+            texture,
+            wgpu::Origin3d::ZERO,
             bytes,
-            wgpu::TexelCopyBufferLayout {
-                offset: 0,
-                bytes_per_row: Some(width * pixel_size),
-                rows_per_image: Some(height),
-            },
-            wgpu::Extent3d {
-                width,
-                height,
-                depth_or_array_layers: 1,
-            },
-        );
+        )?;
 
         Ok(())
     }
