@@ -1,13 +1,13 @@
 //! Build strips along source locks without narrowing their indexed layout.
 
 use super::mesh::CardTopology;
-use super::{AtlasVariantCount, CardCount, CardMesh, CardResult, CardSegments, CardSettings,
+use super::{AtlasVariantCount, CardCount, CardError, CardMesh, CardResult, CardSegments, CardSettings,
     CardStripLayout, CardVertex};
 use crate::collider::{Collider, keep_clear, push_out};
 use crate::occlusion::Occlusion;
 use crate::ops::GuideMap;
 use crate::rng;
-use crate::strands::{Strands, safe_normalize};
+use crate::strands::{StrandShape, Strands, safe_normalize};
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 
@@ -45,6 +45,11 @@ impl CardMesh {
         settings: &CardSettings,
         variants: AtlasVariantCount,
     ) -> CardResult<Self> {
+        let source = StrandShape::try_from(strands)?;
+        // GuideMap uses native u32 strand indices and an exclusive u32 range.
+        u32::try_from(source.strands().count()).map_err(|source_error| CardError::SourceCount {
+            requested: source.strands(), source: source_error,
+        })?;
         let segments = settings.segments.max(CardSegments::from_count(1));
         // Validate a complete strip before its row allocations or native indices.
         CardStripLayout::new(CardCount::from_count(1), segments)?;

@@ -43,6 +43,7 @@ pub use quality::{
 use fabelgeist_math::Vec3;
 use fabelgeist_determinism::Seed;
 use rayon::prelude::*;
+use std::sync::Arc;
 
 use crate::cards::{AtlasError, AtlasSettings, CardAtlas, CardError, CardMesh, CardResult, CardSegments, CardSettings};
 use crate::collider::{Collider, keep_clear};
@@ -50,7 +51,7 @@ use crate::cover::ScalpCover;
 use crate::occlusion::{Occlusion, OcclusionSettings};
 use crate::rng;
 use crate::parameters::{PointsPerStrand, StrandCount};
-use crate::strands::{Strands, resample_into};
+use crate::strands::{StrandShape, StrandShapeError, StrandShapeResult, Strands, resample_into};
 
 mod counts;
 mod policy;
@@ -79,10 +80,10 @@ pub struct StrandInfo {
 
 /// Every strand at one point count, in the shared shuffled order.
 pub struct StrandLevel {
-    pub points: usize,
+    layout: StrandShape,
     /// Position and baked sky visibility, strand-major.
-    pub positions: Vec<[f32; 4]>,
-    pub strands: Vec<StrandInfo>,
+    positions: Vec<[f32; 4]>,
+    strands: Vec<StrandInfo>,
 }
 
 pub struct LodSettings {
@@ -96,18 +97,20 @@ pub struct LodSettings {
 
 /// A groom ready to draw at any distance.
 pub struct HairLods {
-    pub levels: Vec<StrandLevel>,
-    pub cards: Vec<CardMesh>,
-    pub atlas: CardAtlas,
-    pub bounds: [Vec3; 2],
+    levels: Vec<Arc<StrandLevel>>,
+    cards: Vec<CardMesh>,
+    atlas: CardAtlas,
+    bounds: [Vec3; 2],
     /// The head's centre, for card orientation and framing.
-    pub center: Vec3,
+    center: Vec3,
     /// How much hair covers the skin, for shading the head under it.
-    pub cover: ScalpCover,
+    cover: ScalpCover,
 }
 
 #[derive(Debug, thiserror::Error)]
 pub enum LodError {
+    #[error("invalid hair level source shape")]
+    Shape(#[from] StrandShapeError),
     #[error("hair level atlas creation failed")]
     Atlas(#[from] AtlasError),
     #[error("hair card generation failed")]
@@ -115,16 +118,40 @@ pub enum LodError {
 }
 
 impl StrandLevel {
+    /// Admit complete strand-major positions and one info per strand.
+    pub fn new(
+        points: PointsPerStrand,
+        positions: Vec<[f32; 4]>,
+        strands: Vec<StrandInfo>,
+    ) -> StrandShapeResult<Self> {
+        let layout = StrandShape::new(StrandCount::from_count(strands.len()), points)?
+            .check_positions(positions.len())?;
+        Ok(Self { layout, positions, strands })
+    }
+
+    pub fn layout(&self) -> StrandShape {
+        self.layout
+    }
+
+    pub fn positions(&self) -> &[[f32; 4]] {
+        &self.positions
+    }
+
+    pub fn infos(&self) -> &[StrandInfo] {
+        &self.strands
+    }
+
     pub fn len(&self) -> usize {
-        self.strands.len()
+        self.layout.strands().count()
     }
 
     pub fn is_empty(&self) -> bool {
-        self.strands.is_empty()
+        self.len() == 0
     }
 
     pub fn bytes(&self) -> usize {
-        self.positions.len() * 16 + self.strands.len() * 16
+        // Each allocated slice fits isize::MAX, so their combined bytes fit usize.
+        size_of_val(self.positions()) + size_of_val(self.infos())
     }
 }
 
@@ -154,12 +181,13 @@ impl HairLods {
         body: Option<&dyn Collider>,
         settings: &LodSettings,
     ) -> LodResult<Self> {
+        let source = StrandShape::try_from(strands)?;
         let atlas = CardAtlas::paint(settings.atlas, ATLAS_SEED)?;
         let occlusion = Occlusion::bake(strands, body, &settings.occlusion);
         let mut order: Vec<usize> = (0..strands.len()).collect();
         order.sort_by_key(|&s| rng::hash(strands.id[s].word(), 0x0D3E));
 
-        let mut counts = vec![PointsPerStrand::from_count(strands.points)];
+        let mut counts = vec![source.points()];
         for &points in &settings.strand_points {
             if points >= PointsPerStrand::from_count(2) && points < counts[counts.len() - 1] {
                 counts.push(points);
@@ -176,7 +204,8 @@ impl HairLods {
         let levels = counts
             .iter()
             .map(|&points| {
-                let points = points.count();
+                let layout = StrandShape::new(source.strands(), points)?;
+                let points = layout.points().count();
                 let positions: Vec<[f32; 4]> = order
                     .par_iter()
                     .flat_map_iter(|&s| {
@@ -195,13 +224,9 @@ impl HairLods {
                         })
                     })
                     .collect();
-                StrandLevel {
-                    points,
-                    positions,
-                    strands: info.clone(),
-                }
+                StrandLevel::new(layout.points(), positions, info.clone()).map(Arc::new)
             })
-            .collect();
+            .collect::<StrandShapeResult<Vec<_>>>()?;
         let cards = settings
             .cards
             .iter()
@@ -226,15 +251,40 @@ impl HairLods {
         })
     }
 
-    pub fn strand_count(&self) -> usize {
-        self.levels.first().map_or(0, |l| l.len())
+    pub fn levels(&self) -> &[Arc<StrandLevel>] {
+        &self.levels
+    }
+
+    pub fn cards(&self) -> &[CardMesh] {
+        &self.cards
+    }
+
+    pub fn atlas(&self) -> &CardAtlas {
+        &self.atlas
+    }
+
+    pub fn bounds(&self) -> [Vec3; 2] {
+        self.bounds
+    }
+
+    pub fn center(&self) -> Vec3 {
+        self.center
+    }
+
+    pub fn cover(&self) -> &ScalpCover {
+        &self.cover
+    }
+
+    pub fn strand_count(&self) -> StrandCount {
+        // The only builder always creates the original point-count level first.
+        self.levels[0].layout().strands()
     }
 
     /// How many strands, levels and card levels there are: all a
     /// [`LodPolicy`] needs to choose among them.
     pub fn counts(&self) -> LodCounts {
         LodCounts {
-            strands: crate::parameters::StrandCount::from_count(self.strand_count()),
+            strands: self.strand_count(),
             levels: StrandLevelCount::from_count(self.levels.len()),
             cards: CardLevelCount::from_count(self.cards.len()),
         }

@@ -345,14 +345,14 @@ impl HairSim {
     /// level whose point count is nearest `settings.points`; the binding
     /// ties every drawn strand to the four simulated ones nearest its root.
     pub fn new(lods: &HairLods, settings: SimSettings) -> (Self, SimBinding) {
-        let points = Self::level_points(lods.levels.iter().map(|l| l.points), settings.points)
+        let points = Self::level_points(lods.levels().iter().map(|l| l.layout().points().count()), settings.points)
             .expect("a groom has a level");
         let level = lods
-            .levels
+            .levels()
             .iter()
-            .find(|l| l.points == points)
+            .find(|l| l.layout().points().count() == points)
             .expect("chosen above");
-        Self::from_level(points, &level.positions, settings)
+        Self::from_level(points, level.positions(), settings)
     }
 
     /// Simulate the first `settings.guides` strands of a level of `points`
@@ -597,7 +597,7 @@ mod tests {
                 ..Default::default()
             },
         );
-        assert_eq!(binding.guides.len(), lods.strand_count());
+        assert_eq!(binding.guides.len(), lods.strand_count().count());
         for _ in 0..120 {
             sim.step(1.0 / 60.0, Rigid::default(), Some(&head));
         }

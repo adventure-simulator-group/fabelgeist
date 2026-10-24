@@ -21,9 +21,13 @@
 //! [`id`]: Strands::id
 //! [`group`]: Strands::group
 
+pub use shape::{StrandAttribute, StrandSampleCount, StrandShape, StrandShapeError, StrandShapeResult};
+
 use crate::identity::PartingGroup;
 use crate::identity::StrandId;
 use fabelgeist_math::Vec3;
+
+mod shape;
 
 /// A set of strands with the same number of points each.
 #[derive(Clone, Debug, Default)]

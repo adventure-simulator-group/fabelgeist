@@ -3,7 +3,7 @@
 use super::StrandGpu;
 use crate::lod::{StrandInfo, StrandLevel};
 use crate::parameters::{PointsPerStrand, StrandCount};
-use crate::strands::Strands;
+use crate::strands::{StrandShape, StrandShapeError, Strands};
 use fabelgeist_compute::SortItemCount;
 use fabelgeist_gpu::prelude::{BufferByteLength, InvocationCount};
 use fabelgeist_spatial_hash::HashPointCount;
@@ -17,21 +17,13 @@ pub type StrandLayoutResult<T> = Result<T, StrandLayoutError>;
 /// geometric values, or a simulation kernel's additional work arrays.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct StrandLayout {
-    strands: StrandCount,
-    points: PointsPerStrand,
-}
-
-/// A per-strand collection paired with the root UV population.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum StrandAttribute {
-    RootNormal,
-    Id,
-    Group,
-    Radius,
+    shape: StrandShape,
 }
 
 #[derive(Debug, thiserror::Error)]
 pub enum StrandLayoutError {
+    #[error("invalid host strand shape")]
+    Shape(#[from] StrandShapeError),
     #[error("strand population {requested:?} exceeds native addresses")]
     StrandCount {
         requested: StrandCount,
@@ -44,8 +36,6 @@ pub enum StrandLayoutError {
         #[source]
         source: TryFromIntError,
     },
-    #[error("nonempty strands need a root and tip, received {points:?} points")]
-    MissingRootOrTip { points: PointsPerStrand },
     #[error("{strands:?} strands of {points:?} points exceed native sample addresses")]
     SampleCount {
         strands: StrandCount,
@@ -53,52 +43,12 @@ pub enum StrandLayoutError {
     },
     #[error("{points:?} points exceed native ribbon vertex addresses")]
     DrawVertices { points: PointsPerStrand },
-    #[error("{strands:?} strands of {points:?} points exceed host collection addresses")]
-    HostSampleCount {
-        strands: StrandCount,
-        points: PointsPerStrand,
-    },
-    #[error("{strands:?} strands of {points:?} points have {actual} position records")]
-    PositionCount {
-        strands: StrandCount,
-        points: PointsPerStrand,
-        actual: usize,
-    },
-    #[error("{attribute:?} has {actual} records for {strands:?} strands")]
-    AttributeCount {
-        attribute: StrandAttribute,
-        strands: StrandCount,
-        actual: usize,
-    },
-    #[error("strand prefix {requested:?} exceeds source population {available:?}")]
-    Prefix {
-        requested: StrandCount,
-        available: StrandCount,
-    },
+
 }
 
 impl StrandLayout {
     pub fn new(strands: StrandCount, points: PointsPerStrand) -> StrandLayoutResult<Self> {
-        let count = u32::try_from(strands.count()).map_err(|source| StrandLayoutError::StrandCount {
-            requested: strands,
-            source,
-        })?;
-        let samples = u32::try_from(points.count()).map_err(|source| StrandLayoutError::PointCount {
-            requested: points,
-            source,
-        })?;
-        if count != 0 && samples < 2 {
-            return Err(StrandLayoutError::MissingRootOrTip { points });
-        }
-        count
-            .checked_mul(samples)
-            .ok_or(StrandLayoutError::SampleCount { strands, points })?;
-        if count != 0 {
-            samples
-                .checked_mul(2)
-                .ok_or(StrandLayoutError::DrawVertices { points })?;
-        }
-        Ok(Self { strands, points })
+        Self::try_from(StrandShape::new(strands, points)?)
     }
 
     /// Admit a host level's complete shape, then choose its resident prefix.
@@ -107,49 +57,36 @@ impl StrandLayout {
         level: &StrandLevel,
         maximum: BufferByteLength,
     ) -> StrandLayoutResult<Self> {
-        let strands = StrandCount::from_count(level.len());
-        let points = PointsPerStrand::from_count(level.points);
-        let expected = strands
-            .count()
-            .checked_mul(points.count())
-            .ok_or(StrandLayoutError::HostSampleCount { strands, points })?;
-        if level.positions.len() != expected {
-            return Err(StrandLayoutError::PositionCount {
-                strands,
-                points,
-                actual: level.positions.len(),
-            });
-        }
+        let shape = level.layout();
+        let strands = shape.strands();
+        let points = shape.points();
         if strands.count() == 0 {
-            return Self::new(strands, points);
-        }
-        if points.count() < 2 {
-            return Err(StrandLayoutError::MissingRootOrTip { points });
+            return Self::try_from(shape);
         }
         // Divide before multiplying: the full host stride need not fit u64.
         // Supported GPU hosts have 32-bit or 64-bit collection addresses.
         let count = (strands.count() as u64)
             .min(u64::from(maximum) / size_of::<[f32; 4]>() as u64 / points.count() as u64)
             .min(u64::from(maximum) / size_of::<StrandInfo>() as u64);
-        Self::new(StrandCount::from_count(count as usize), points)
+        Self::try_from(shape.limited_to(StrandCount::from_count(count as usize)))
     }
 
     pub fn strands(self) -> StrandCount {
-        self.strands
+        self.shape.strands()
     }
 
     pub fn points(self) -> PointsPerStrand {
-        self.points
+        self.shape.points()
     }
 
     /// Native uniform or numerical-kernel population, admitted by `new`.
     pub fn native_strands(self) -> u32 {
-        self.strands.count() as u32
+        self.shape.strands().count() as u32
     }
 
     /// Native uniform or numerical-kernel point count, admitted by `new`.
     pub fn native_points(self) -> u32 {
-        self.points.count() as u32
+        self.shape.points().count() as u32
     }
 
     pub fn native_samples(self) -> u32 {
@@ -224,13 +161,7 @@ impl StrandLayout {
 
     /// Count prefix only; the caller retains the actual source buffers.
     pub fn prefix(self, strands: StrandCount) -> StrandLayoutResult<Self> {
-        if strands > self.strands {
-            return Err(StrandLayoutError::Prefix {
-                requested: strands,
-                available: self.strands,
-            });
-        }
-        Ok(Self { strands, ..self })
+        Ok(Self { shape: self.shape.prefix(strands)? })
     }
 
     /// Resident level population fitting both position and info bindings.
@@ -244,21 +175,27 @@ impl StrandLayout {
         let count = u64::from(self.native_strands())
             .min(u64::from(maximum) / position_stride)
             .min(u64::from(maximum) / size_of::<StrandInfo>() as u64);
-        Self {
-            strands: StrandCount::from_count(count as usize),
-            ..self
-        }
+        Self { shape: self.shape.limited_to(StrandCount::from_count(count as usize)) }
     }
+}
 
-    fn check_positions(self, actual: usize) -> StrandLayoutResult<Self> {
-        if actual != self.native_samples() as usize {
-            return Err(StrandLayoutError::PositionCount {
-                strands: self.strands,
-                points: self.points,
-                actual,
-            });
+impl TryFrom<StrandShape> for StrandLayout {
+    type Error = StrandLayoutError;
+
+    fn try_from(shape: StrandShape) -> StrandLayoutResult<Self> {
+        let strands = shape.strands();
+        let points = shape.points();
+        let count = u32::try_from(strands.count()).map_err(|source| StrandLayoutError::StrandCount {
+            requested: strands, source,
+        })?;
+        let samples = u32::try_from(points.count()).map_err(|source| StrandLayoutError::PointCount {
+            requested: points, source,
+        })?;
+        count.checked_mul(samples).ok_or(StrandLayoutError::SampleCount { strands, points })?;
+        if count != 0 {
+            samples.checked_mul(2).ok_or(StrandLayoutError::DrawVertices { points })?;
         }
-        Ok(self)
+        Ok(Self { shape })
     }
 }
 
@@ -266,32 +203,7 @@ impl TryFrom<&Strands> for StrandLayout {
     type Error = StrandLayoutError;
 
     fn try_from(strands: &Strands) -> StrandLayoutResult<Self> {
-        let layout = Self::new(
-            StrandCount::from_count(strands.len()),
-            PointsPerStrand::from_count(strands.points),
-        )?
-        .check_positions(strands.positions.len())?;
-        for attribute in [
-            StrandAttribute::RootNormal,
-            StrandAttribute::Id,
-            StrandAttribute::Group,
-            StrandAttribute::Radius,
-        ] {
-            let actual = match attribute {
-                StrandAttribute::RootNormal => strands.root_normal.len(),
-                StrandAttribute::Id => strands.id.len(),
-                StrandAttribute::Group => strands.group.len(),
-                StrandAttribute::Radius => strands.radius.len(),
-            };
-            if actual != layout.strands.count() {
-                return Err(StrandLayoutError::AttributeCount {
-                    attribute,
-                    strands: layout.strands,
-                    actual,
-                });
-            }
-        }
-        Ok(layout)
+        Self::try_from(StrandShape::try_from(strands)?)
     }
 }
 
@@ -299,10 +211,6 @@ impl TryFrom<&StrandLevel> for StrandLayout {
     type Error = StrandLayoutError;
 
     fn try_from(level: &StrandLevel) -> StrandLayoutResult<Self> {
-        Self::new(
-            StrandCount::from_count(level.len()),
-            PointsPerStrand::from_count(level.points),
-        )?
-        .check_positions(level.positions.len())
+        Self::try_from(level.layout())
     }
 }

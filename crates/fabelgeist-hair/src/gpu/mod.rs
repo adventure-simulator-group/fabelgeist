@@ -114,7 +114,7 @@ pub use guides::{GpuGuides, Guides};
 pub use groom::{GpuGroom, GpuGroomTarget};
 use groom::read_strands;
 pub use head::GpuHeadCover;
-pub use layout::{StrandAttribute, StrandLayout, StrandLayoutError, StrandLayoutResult};
+pub use layout::{StrandLayout, StrandLayoutError, StrandLayoutResult};
 use head::HeadMesh;
 pub use lods::{GpuCards, GpuLevel, GpuLods};
 pub use scalp::GpuScalp;

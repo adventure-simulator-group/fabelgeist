@@ -33,6 +33,10 @@ pub struct CardStripLayout {
 
 #[derive(Debug, thiserror::Error)]
 pub enum CardError {
+    #[error("invalid card source shape")]
+    Source(#[from] crate::strands::StrandShapeError),
+    #[error("card source {requested:?} exceeds guide map addresses")]
+    SourceCount { requested: crate::parameters::StrandCount, #[source] source: TryFromIntError },
     #[error("card vertex population {requested} exceeds native addresses")]
     Vertices { requested: usize, #[source] source: TryFromIntError },
     #[error("card triangle population {requested} exceeds native addresses")]
