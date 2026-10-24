@@ -1,6 +1,8 @@
 use crate::data::gpu::shader::{
     ShaderError, ShaderLanguage, ShaderResult, detect_from_code, parse_naga, validate_naga,
 };
+#[cfg(not(target_arch = "wasm32"))]
+use crate::globals::ValidationScope;
 use crate::globals::WgpuContext;
 use std::sync::Arc;
 
@@ -26,11 +28,7 @@ impl ComputeShader {
             ShaderLanguage::Wgsl => code.clone(),
         };
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let error_scope = ValidationScope::new(context);
         let module = context
             .device
             .create_shader_module(wgpu::ShaderModuleDescriptor {
@@ -39,10 +37,7 @@ impl ComputeShader {
             });
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(scope) = error_scope {
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(cause) = pollster::block_on(scope.pop()) {
-                return Err(ShaderError::Native(Arc::new(cause)));
-            }
+            scope.finish().map_err(ShaderError::from)?;
         }
         Ok(Self {
             code,

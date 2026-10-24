@@ -1,6 +1,9 @@
 //! Texture resource admission and whole-texture format-view failures.
 
 use super::TextureFormat;
+use crate::globals::ValidationProgressError;
+#[cfg(not(target_arch = "wasm32"))]
+use crate::globals::ValidationScopeError;
 
 /// The concrete result of selecting a whole-texture format view.
 ///
@@ -21,6 +24,15 @@ use super::TextureFormat;
 /// ```
 pub type TextureViewResult<T> = std::result::Result<T, TextureViewError>;
 
+/// The view operation whose validation observation could not finish.
+#[derive(Clone, Copy, Debug)]
+pub enum TextureViewOperation {
+    Texture2d,
+    Texture3d,
+    TextureCube,
+    CubeArray,
+}
+
 /// Missing texture resources and native whole-texture format-view failures.
 ///
 /// Native variants retain the original request, even when storage binding
@@ -40,6 +52,12 @@ pub enum TextureViewError {
     DimensionMismatch {
         expected: wgpu::TextureViewDimension,
         actual: wgpu::TextureViewDimension,
+    },
+    /// Failed progress retains the request and any captured native rejection.
+    Progress {
+        requested: TextureFormat,
+        operation: TextureViewOperation,
+        cause: Box<ValidationProgressError>,
     },
     /// Native rejection of a two-dimensional texture view.
     Texture2d {
@@ -63,28 +81,29 @@ pub enum TextureViewError {
     },
 }
 
-// Native validation admission keeps operation selection and cause ownership
-// together; view methods retain the descriptor and polling policy.
+// Native-only admission preserves the original operation-specific SDK cause.
 #[cfg(not(target_arch = "wasm32"))]
 impl TextureViewError {
-    pub(super) fn from_texture_2d_view(requested: TextureFormat, cause: wgpu::Error) -> Self {
-        Self::Texture2d {
-            requested,
-            cause: Box::new(cause),
-        }
-    }
-
-    pub(super) fn from_texture_3d_view(requested: TextureFormat, cause: wgpu::Error) -> Self {
-        Self::Texture3d {
-            requested,
-            cause: Box::new(cause),
-        }
-    }
-
-    pub(super) fn from_texture_cube_view(requested: TextureFormat, cause: wgpu::Error) -> Self {
-        Self::TextureCube {
-            requested,
-            cause: Box::new(cause),
+    pub(super) fn from_observation(
+        requested: TextureFormat,
+        operation: TextureViewOperation,
+        cause: ValidationScopeError,
+    ) -> Self {
+        match cause {
+            ValidationScopeError::Progress(cause) => Self::Progress {
+                requested,
+                operation,
+                cause: Box::new(cause),
+            },
+            ValidationScopeError::Native(cause) => {
+                let cause = Box::new(cause);
+                match operation {
+                    TextureViewOperation::Texture2d => Self::Texture2d { requested, cause },
+                    TextureViewOperation::Texture3d => Self::Texture3d { requested, cause },
+                    TextureViewOperation::TextureCube => Self::TextureCube { requested, cause },
+                    TextureViewOperation::CubeArray => Self::CubeArray { requested, cause },
+                }
+            }
         }
     }
 }
@@ -103,6 +122,14 @@ impl std::fmt::Display for TextureViewError {
             Self::DimensionMismatch { expected, actual } => write!(
                 formatter,
                 "Texture dimension mismatch. Expected {expected:?}, got {actual:?}"
+            ),
+            Self::Progress {
+                requested,
+                operation,
+                cause,
+            } => write!(
+                formatter,
+                "WGPU {operation:?} view validation observation Error (requested {requested:?}): {cause}"
             ),
             Self::Texture2d { requested, cause } => write!(
                 formatter,
@@ -131,6 +158,7 @@ impl std::error::Error for TextureViewError {
             | Self::Texture3d { cause, .. }
             | Self::TextureCube { cause, .. }
             | Self::CubeArray { cause, .. } => Some(cause.as_ref()),
+            Self::Progress { cause, .. } => Some(cause.as_ref()),
             _ => None,
         }
     }

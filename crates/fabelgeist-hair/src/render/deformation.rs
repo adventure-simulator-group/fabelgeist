@@ -152,7 +152,7 @@ impl DeformLevel {
                     buffer,
                     offset: 0,
                     // Only rest and output are per-level resident prefixes.
-                    // The remaining resources belong to the simulation source.
+                    // Other bindings retain their own allocation ranges.
                     size: match binding {
                         0 | 1 => NonZeroU64::new(binding_bytes),
                         _ => None,

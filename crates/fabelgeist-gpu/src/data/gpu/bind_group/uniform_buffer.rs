@@ -5,10 +5,10 @@ use crate::data::{
     BindGroupReflection, Buffer, BufferByteLength, BufferDefinition, BufferLabel, BufferUpload,
     BufferUse, ComputePassError, PassParameters,
 };
+#[cfg(not(target_arch = "wasm32"))]
+use crate::globals::ValidationScope;
 use crate::globals::WgpuContext;
 use anyhow::Result;
-#[cfg(not(target_arch = "wasm32"))]
-use std::sync::Arc;
 
 pub(super) fn create(
     context: &WgpuContext,
@@ -40,11 +40,7 @@ pub(super) fn create(
         0,
     );
     #[cfg(not(target_arch = "wasm32"))]
-    let scope = context.blocking_validation.then(|| {
-        context
-            .device
-            .push_error_scope(wgpu::ErrorFilter::Validation)
-    });
+    let scope = ValidationScope::new(context);
     let buffer = Buffer::new(
         context,
         requested,
@@ -53,27 +49,25 @@ pub(super) fn create(
             .with_label(BufferLabel::from("ComputePass Uniforms")),
     );
     #[cfg(not(target_arch = "wasm32"))]
-    if let Some(scope) = scope {
-        let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-        if let Some(cause) = pollster::block_on(scope.pop()) {
-            return Err(ComputePassError::Native(Arc::new(cause)).into());
-        }
-    }
+    let buffer = ComputePassError::resolve_observation(
+        buffer,
+        match scope {
+            Some(scope) => scope.finish(),
+            None => Ok(()),
+        },
+    );
     let buffer = buffer?;
     #[cfg(not(target_arch = "wasm32"))]
-    let scope = context.blocking_validation.then(|| {
-        context
-            .device
-            .push_error_scope(wgpu::ErrorFilter::Validation)
-    });
+    let scope = ValidationScope::new(context);
     let written = buffer.write(context, BufferUpload::from_elements(&data));
     #[cfg(not(target_arch = "wasm32"))]
-    if let Some(scope) = scope {
-        let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-        if let Some(cause) = pollster::block_on(scope.pop()) {
-            return Err(ComputePassError::Native(Arc::new(cause)).into());
-        }
-    }
+    let written = ComputePassError::resolve_observation(
+        written,
+        match scope {
+            Some(scope) => scope.finish(),
+            None => Ok(()),
+        },
+    );
     written?;
     Ok(Some(buffer))
 }

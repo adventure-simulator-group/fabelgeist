@@ -1,3 +1,5 @@
+#[cfg(not(target_arch = "wasm32"))]
+use crate::globals::ValidationScope;
 pub use error::*;
 pub use grid::*;
 pub use shape::*;
@@ -50,11 +52,7 @@ impl ComputePass {
             crate::data::gpu::bind_group::create_bind_groups(context, pipeline_def, parameters)?;
 
         #[cfg(not(target_arch = "wasm32"))]
-        let scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let scope = ValidationScope::new(context);
         // Frame: Compute Pass
         {
             let mut compute_pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
@@ -70,10 +68,7 @@ impl ComputePass {
 
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(scope) = scope {
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(cause) = pollster::block_on(scope.pop()) {
-                return Err(ComputePassError::Native(std::sync::Arc::new(cause)).into());
-            }
+            scope.finish().map_err(ComputePassError::from)?;
         }
 
         Ok(())

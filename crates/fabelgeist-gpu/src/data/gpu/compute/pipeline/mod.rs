@@ -1,3 +1,5 @@
+#[cfg(not(target_arch = "wasm32"))]
+use crate::globals::ValidationScope;
 pub use compute_shader::*;
 pub use entry_point::ComputeEntryPoint;
 pub use error::*;
@@ -128,7 +130,13 @@ impl ComputePipeline {
                 return cached.outcome();
             }
         }
-        let cached = self.create_native(context, entry_point);
+        let cached = match self.create_native(context, entry_point) {
+            Ok(cached) => cached,
+            Err(cause) => {
+                cache.remove(entry_point);
+                return Err(cause);
+            }
+        };
         let outcome = cached.outcome();
         cache.insert(entry_point.to_owned(), cached);
         outcome
@@ -149,13 +157,13 @@ impl ComputePipeline {
         Ok(())
     }
 
-    fn create_native(&self, context: &WgpuContext, entry_point: &str) -> CachedPipeline {
+    fn create_native(
+        &self,
+        context: &WgpuContext,
+        entry_point: &str,
+    ) -> ComputePipelineResult<CachedPipeline> {
         #[cfg(not(target_arch = "wasm32"))]
-        let scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let scope = ValidationScope::new(context);
         let layouts: Vec<_> = self
             .bind_group_layouts
             .iter()
@@ -180,18 +188,19 @@ impl ComputePipeline {
             });
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(scope) = scope {
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(cause) = pollster::block_on(scope.pop()) {
-                return CachedPipeline::Observed(Err(ComputePipelineError::Native(Arc::new(
-                    cause,
-                ))));
+            if let Err(cause) = scope.finish() {
+                let cause = ComputePipelineError::from(cause);
+                if matches!(cause, ComputePipelineError::Progress(_)) {
+                    return Err(cause);
+                }
+                return Ok(CachedPipeline::Observed(Err(cause)));
             }
         }
         let pipeline = Arc::new(pipeline);
         if observes_validation(context) {
-            CachedPipeline::Observed(Ok(pipeline))
+            Ok(CachedPipeline::Observed(Ok(pipeline)))
         } else {
-            CachedPipeline::DeviceHandled(pipeline)
+            Ok(CachedPipeline::DeviceHandled(pipeline))
         }
     }
 }

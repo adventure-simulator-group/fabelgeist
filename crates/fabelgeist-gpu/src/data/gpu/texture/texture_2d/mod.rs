@@ -1,3 +1,5 @@
+#[cfg(not(target_arch = "wasm32"))]
+use crate::globals::ValidationScope;
 use std::sync::Arc;
 
 use anyhow::Result;
@@ -141,11 +143,7 @@ impl Texture2d {
         // Borrowed contexts avoid synchronous validation readback; see
         // WgpuContext::blocking_validation.
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let error_scope = ValidationScope::new(context);
 
         let texture = context.device.create_texture(&texture_desc);
 
@@ -156,10 +154,10 @@ impl Texture2d {
 
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(error_scope) = error_scope {
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(err) = pollster::block_on(error_scope.pop()) {
-                let message = format!("WGPU Texture2d Creation Error: {err}");
-                return Err(anyhow::Error::new(err).context(message));
+            if let Err(cause) = error_scope.finish() {
+                let cause = cause.into_anyhow();
+                let message = format!("WGPU Texture2d Creation Error: {cause}");
+                return Err(cause.context(message));
             }
         }
 

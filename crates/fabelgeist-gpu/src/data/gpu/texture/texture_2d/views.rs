@@ -1,3 +1,5 @@
+#[cfg(not(target_arch = "wasm32"))]
+use crate::{data::gpu::texture::TextureViewOperation, globals::ValidationScope};
 use std::sync::Arc;
 
 use super::Texture2d;
@@ -43,11 +45,7 @@ impl Texture2d {
         }
 
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let error_scope = ValidationScope::new(context);
 
         let view = texture.create_view(&wgpu::TextureViewDescriptor {
             format: Some(requested_format.into()),
@@ -56,10 +54,9 @@ impl Texture2d {
 
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(error_scope) = error_scope {
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(cause) = pollster::block_on(error_scope.pop()) {
-                return Err(TextureViewError::from_texture_2d_view(format, cause));
-            }
+            error_scope.finish().map_err(|cause| {
+                TextureViewError::from_observation(format, TextureViewOperation::Texture2d, cause)
+            })?;
         }
 
         Ok(super::super::SelectedTextureView::new(
