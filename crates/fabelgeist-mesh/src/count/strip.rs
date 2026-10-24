@@ -22,8 +22,12 @@ pub struct MeshStripLayout {
 
 #[derive(Debug, thiserror::Error)]
 pub enum MeshStripError {
-    #[error("strip row population {requested} must fit native addresses and contain two rows")]
-    Rows { requested: usize },
+    #[error("strip row population {requested} must contain at least two rows")]
+    MinimumRows { requested: usize },
+    #[error("strip row population {requested} exceeds native addresses")]
+    RowAddresses { requested: usize, #[source] source: TryFromIntError },
+    #[error("strip segment population {segments} overflows its row population")]
+    SegmentRows { segments: usize },
     #[error("strip population {requested} exceeds native addresses")]
     Count { requested: usize, #[source] source: TryFromIntError },
     #[error("subdividing {rows:?} into {pieces} pieces per segment exceeds native rows")]
@@ -58,10 +62,12 @@ impl TryFrom<usize> for MeshStripRows {
     type Error = MeshStripError;
 
     fn try_from(rows: usize) -> MeshStripResult<Self> {
-        match u32::try_from(rows) {
-            Ok(rows) if rows >= 2 => Ok(Self(rows)),
-            _ => Err(MeshStripError::Rows { requested: rows }),
+        let native = u32::try_from(rows)
+            .map_err(|source| MeshStripError::RowAddresses { requested: rows, source })?;
+        if native < 2 {
+            return Err(MeshStripError::MinimumRows { requested: rows });
         }
+        Ok(Self(native))
     }
 }
 
@@ -69,7 +75,7 @@ impl MeshStripRows {
     /// Admit a segment policy at the owning topology conversion boundary.
     pub fn from_segments(segments: usize) -> MeshStripResult<Self> {
         let rows = segments.checked_add(1)
-            .ok_or(MeshStripError::Rows { requested: segments })?;
+            .ok_or(MeshStripError::SegmentRows { segments })?;
         Self::try_from(rows)
     }
 
