@@ -5,7 +5,6 @@ pub use entry_point::ComputeEntryPoint;
 pub use error::*;
 pub use reflection::ComputeReflection;
 
-use crate::data::TextureFormat;
 use crate::data::gpu::shader::parse_naga;
 use crate::globals::WgpuContext;
 use std::collections::HashMap;

@@ -1,6 +1,8 @@
 use super::Buffer;
 use std::{error::Error, fmt};
 
+type Result<T> = std::result::Result<T, BufferBindingError>;
+
 /// A logical extent is admitted separately from WebGPU's nonempty binding.
 #[derive(Clone, Debug)]
 pub enum BufferBindingError {
@@ -25,10 +27,7 @@ impl Error for BufferBindingError {}
 impl Buffer {
     /// Bind precisely the logical prefix. Zero remains a valid buffer extent,
     /// but WebGPU requires a nonempty storage/uniform binding.
-    pub fn binding_resource(
-        &self,
-        name: &str,
-    ) -> Result<wgpu::BindingResource<'_>, BufferBindingError> {
+    pub fn binding_resource(&self, name: &str) -> Result<wgpu::BindingResource<'_>> {
         let size = std::num::NonZeroU64::new(u64::from(self.size)).ok_or_else(|| {
             BufferBindingError::EmptyBufferBinding {
                 name: name.to_owned(),

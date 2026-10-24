@@ -1,13 +1,12 @@
-mod address_mode;
-mod filter_mode;
-
 pub use address_mode::*;
 pub use filter_mode::*;
 
 use crate::globals::WgpuContext;
-
 use anyhow::Result;
 use std::sync::Arc;
+
+mod address_mode;
+mod filter_mode;
 
 #[derive(Clone, Debug, Default)]
 pub struct Sampler {
@@ -29,16 +28,18 @@ impl Sampler {
         let mag_filter = mag_filter.unwrap_or_default();
         let min_filter = min_filter.unwrap_or_default();
 
-        let sampler = context.device.create_sampler(&wgpu::SamplerDescriptor {
-            label: Some("Sampler"),
-            address_mode_u: address_mode_u.into(),
-            address_mode_v: address_mode_v.into(),
-            address_mode_w: address_mode_w.into(),
-            mag_filter: mag_filter.into(),
-            min_filter: min_filter.into(),
-            mipmap_filter: wgpu::MipmapFilterMode::Nearest,
-            ..Default::default()
-        });
+        let sampler = context.observe_validation(|| {
+            context.device.create_sampler(&wgpu::SamplerDescriptor {
+                label: Some("Sampler"),
+                address_mode_u: address_mode_u.into(),
+                address_mode_v: address_mode_v.into(),
+                address_mode_w: address_mode_w.into(),
+                mag_filter: mag_filter.into(),
+                min_filter: min_filter.into(),
+                mipmap_filter: wgpu::MipmapFilterMode::Nearest,
+                ..Default::default()
+            })
+        })?;
 
         let sampler_value = Sampler {
             sampler: Some(Arc::new(sampler)),
