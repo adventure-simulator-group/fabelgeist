@@ -84,11 +84,11 @@ Static uniform assembly checks the padded native buffer extent against both
 allocation and uniform-binding limits before packing. It allocates an unmapped
 buffer and observes available native validation before uploading the bytes. This
 avoids mapping a rejected allocation. If an operation and its later observation
-both fail, `ComputePassError::OperationAndObservation` keeps the operation as the
-primary cause and exposes the additional observation error. The sRGB converter
+both fail, `ComputePassError::OperationAndObservation` keeps the operation as
+the primary cause and exposes the additional observation error. The sRGB converter
 retains its creating device, checks both cached texture devices and preserves
-available native causes. Its fixed layout still accepts unfilterable float inputs for
-`textureLoad`.
+available native causes. Its fixed layout still accepts unfilterable float inputs
+for `textureLoad`.
 
 `ComputeShader` admits source, module and device together. `ShaderError` keeps
 concrete Naga parse, validation and translation causes, source diagnostics and

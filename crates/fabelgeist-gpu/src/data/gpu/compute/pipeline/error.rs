@@ -13,7 +13,8 @@ pub enum UnsupportedBindingKind {
     AddressSpace,
 }
 
-/// A pipeline's rejection remains available to every clone and cache lookup.
+/// Pipeline failures retain their causes; completed native rejections are cached.
+/// Progress failures remain uncached and available to the requesting caller.
 #[derive(Clone, Debug)]
 pub enum ComputePipelineError {
     Shader(ShaderError),

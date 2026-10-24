@@ -112,7 +112,8 @@ impl ComputePipeline {
     }
 
     /// Native validation follows the supplied context's existing blocking policy.
-    /// A rejected creation is cached as an error, never as a usable pipeline.
+    /// Completed native validation outcomes are cached, including rejection.
+    /// Failed progress remains uncached and can be retried.
     pub fn get_or_create_pipeline(
         &self,
         context: &WgpuContext,
@@ -143,7 +144,8 @@ impl ComputePipeline {
     }
 
     /// Compile this definition's static uniform layout on first use. Clones
-    /// share the complete entry-point outcome, including native rejection.
+    /// share completed entry-point outcomes, including native rejection.
+    /// Failed progress does not complete compilation and remains retryable.
     pub fn compile(&mut self, context: &WgpuContext) -> ComputePipelineResult<()> {
         self.ensure_device(context)?;
         self.get_or_create_pipeline(context, &self.reflection.entry_point)?;
