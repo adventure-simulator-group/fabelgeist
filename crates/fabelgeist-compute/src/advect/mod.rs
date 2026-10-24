@@ -59,19 +59,6 @@ impl AdvectDefinition {
             _ => return Err(anyhow!("Advect only supports Texture2d or Texture3d")),
         };
 
-        let is_quantity_srgb = if let ResourceDescriptor::Texture2d(f) = quantity_res {
-            f.is_srgb()
-        } else if let ResourceDescriptor::Texture3d(f) = quantity_res {
-            f.is_srgb()
-        } else {
-            false
-        };
-
-        full_code.push_str(&format!(
-            "const IS_QUANTITY_SRGB: bool = {};\n",
-            is_quantity_srgb
-        ));
-
         full_code.push_str(&velocity_res.to_wgsl_input_binding(0, 0, "velocity"));
         full_code.push_str(&quantity_res.to_wgsl_input_binding(0, 1, "quantity"));
         full_code.push_str(&output_res.to_wgsl_output_binding(0, 2, "output")?);
@@ -130,17 +117,6 @@ fn sample_bilinear(tex: texture_2d<f32>, pos: vec2<f32>) -> vec4<f32> {{
     let r1 = mix(c01, c11, frac.x);
     let res = mix(r0, r1, frac.y);
 
-    // Manual sRGB to Linear conversion if needed
-    // (textureLoad does not perform automatic conversion for sRGB formats)
-    if IS_QUANTITY_SRGB {
-        let linear_rgb = select(
-            pow((res.rgb + 0.055) / 1.055, vec3<f32>(2.4)),
-            res.rgb / 12.92,
-            res.rgb <= vec3<f32>(0.04045)
-        );
-        return vec4<f32>(linear_rgb, res.a);
-    }
-
     return res;
 }
 "#,
@@ -179,7 +155,9 @@ fn sample_bilinear(tex: texture_2d<f32>, pos: vec2<f32>) -> vec4<f32> {{
                 full_code.push_str("    let wrapped_pos = ((pos % 1.0) + 1.0) % 1.0;\n");
                 full_code.push_str("    let val = textureLoad(quantity, vec3<u32>(wrapped_pos * vec3<f32>(textureDimensions(quantity))), 0);\n");
             } else {
-                full_code.push_str("    let val = textureLoad(quantity, vec3<u32>(clamp(pos, vec3<f32>(0.0), vec3<f32>(1.0)) * vec3<f32>(textureDimensions(quantity))), 0);\n");
+                full_code.push_str("    let quantity_dimensions = textureDimensions(quantity);\n");
+                full_code.push_str("    let quantity_coords = min(vec3<u32>(clamp(pos, vec3<f32>(0.0), vec3<f32>(1.0)) * vec3<f32>(quantity_dimensions)), quantity_dimensions - vec3<u32>(1));\n");
+                full_code.push_str("    let val = textureLoad(quantity, quantity_coords, 0);\n");
             }
             full_code.push_str("    textureStore(output, global_id, val);\n");
             full_code.push_str("}\n");
