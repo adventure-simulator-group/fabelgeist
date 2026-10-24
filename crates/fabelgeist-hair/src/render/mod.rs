@@ -33,10 +33,11 @@ pub use head::RenderSourceError;
 pub use levels::{LevelBufferRole, RenderLevelError};
 pub use meshes::{MeshBufferRole, RenderMeshError};
 pub use readback::RenderReadbackError;
+pub use simulation::{RenderSimulationError, SimulationBufferRole, SimulationMode};
 
 use crate::parameters::{PointsPerStrand, StrandCount};
 use atlas::UploadedAtlas;
-use deformation::{DeformationBuffers, DeformationPipeline, DeformationState, DeformationViews};
+use deformation::{DeformationPipeline, DeformationViews};
 use draws::{DrawPlan, DrawRole};
 use fabelgeist_mesh::MeshTriangleCount;
 use frame_state::{History, RenderedView};
@@ -44,6 +45,7 @@ use frame_uniforms::FrameProjection;
 use head::HeadDraw;
 use levels::GpuLevel;
 use meshes::{CardDrawMesh, GpuMesh};
+use simulation::{Dynamics, GroomSource};
 use std::sync::Arc;
 
 use crate::gpu::error::{HairGpuError, Result};
@@ -55,10 +57,9 @@ pub use math::{Mat4, halton, look_at, multiply, orthographic, perspective};
 use crate::cards::{CardAtlas, CardVertex};
 use crate::lod::{
     AccumulationFrames, HairLods, HairShading, LodCounts, LodPolicy, PixelSpan, Representation,
-    Selection, ShadowMapSize, StrandLevel, StrandLevelIndex,
+    Selection, ShadowMapSize,
 };
 use crate::material::HairMaterial;
-use crate::sim::{Rigid, SimBinding};
 
 mod atlas;
 mod deformation;
@@ -70,6 +71,7 @@ mod levels;
 mod math;
 mod meshes;
 mod readback;
+mod simulation;
 
 const SAMPLES: u32 = 4;
 const HDR: wgpu::TextureFormat = wgpu::TextureFormat::Rgba16Float;
@@ -181,29 +183,6 @@ struct CardDrawGpu {
     keep: [f32; 4],
 }
 
-/// Real-time physics on the GPU: the binding, the simulated strands, and
-/// for each level its rest pose and the pass that deforms it.
-struct Dynamics {
-    _ids: Arc<wgpu::Buffer>,
-    _weights: Arc<wgpu::Buffer>,
-    _guide_rest: Arc<wgpu::Buffer>,
-    /// Written from the host, or the GPU simulation's own.
-    guide_now: Arc<wgpu::Buffer>,
-    /// The body the drawn strands are kept off ([`crate::gpu::head_shape`]),
-    /// if any, and how far.
-    _body: Arc<wgpu::Buffer>,
-    body: Option<f32>,
-    levels: Vec<DeformLevel>,
-}
-
-struct DeformLevel {
-    rest: wgpu::Buffer,
-    params: wgpu::Buffer,
-    group: wgpu::BindGroup,
-    sim_points: u32,
-    state: DeformationState,
-}
-
 #[repr(C)]
 #[derive(Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
 struct DeformGpu {
@@ -276,6 +255,7 @@ pub struct HairRenderer {
     linear: wgpu::Sampler,
     comparison: wgpu::Sampler,
     levels: Vec<GpuLevel>,
+    groom_source: Option<GroomSource>,
     dynamics: Option<Dynamics>,
     head_matrix: Mat4,
     deformation: DeformationPipeline,
@@ -802,6 +782,7 @@ impl HairRenderer {
             linear,
             comparison,
             levels: Vec::new(),
+            groom_source: None,
             dynamics: None,
             head_matrix: IDENTITY,
             deformation,
@@ -916,14 +897,15 @@ impl HairRenderer {
     /// level larger than one storage binding may hold keeps the prefix of
     /// its strands that fits -- an even sample of the rest.
     pub fn set_groom(&mut self, lods: &HairLods) -> Result<()> {
-        let atlas = UploadedAtlas::new(&self.device, &self.queue, &lods.atlas)?;
+        let source = GroomSource::Host(lods.levels()[0].clone());
+        let atlas = UploadedAtlas::new(&self.device, &self.queue, lods.atlas())?;
         let levels = lods
-            .levels
+            .levels()
             .iter()
             .map(|level| self.upload_level(level))
             .collect::<Result<Vec<_>>>()?;
         let cards = lods
-            .cards
+            .cards()
             .iter()
             .map(|cards| self.upload_cards(cards))
             .collect::<Result<Vec<_>>>()?;
@@ -940,13 +922,14 @@ impl HairRenderer {
             &self.linear,
             &self.comparison,
         );
-        let [lo, hi] = lods.bounds;
+        let [lo, hi] = lods.bounds();
         // The head is in the light's frustum too, however short the hair.
         let bounds = [
             lo.min(Vec3::new(-0.12, -0.3, -0.13)).to_array(),
             hi.max(Vec3::new(0.12, 0.13, 0.13)).to_array(),
         ];
         self.dynamics = None;
+        self.groom_source = Some(source);
         self.head_matrix = IDENTITY;
         self.levels = levels;
         self.cards = cards;
@@ -956,7 +939,7 @@ impl HairRenderer {
         self.opacity_group = opacity_group;
         self.head = head;
         self.bounds = bounds;
-        self.center = lods.center.to_array();
+        self.center = lods.center().to_array();
         self.invalidate_view();
         Ok(())
     }
@@ -974,6 +957,7 @@ impl HairRenderer {
         if lods.device() != self.device.as_ref() {
             return Err(RenderSourceError::ForeignGroomDevice.into());
         }
+        let source = GroomSource::Native(lods.levels()[0].clone());
         let head = match (&self.head, lods.cover()) {
             (Some(head), cover) => Some(head.with_gpu_cover(&self.device, cover)?),
             (None, Some(_)) => return Err(RenderSourceError::MissingHead.into()),
@@ -1007,6 +991,7 @@ impl HairRenderer {
         // Fallible source admission and native candidate construction precede
         // this publication; provider-handled errors retain that native policy.
         self.dynamics = None;
+        self.groom_source = Some(source);
         self.head_matrix = IDENTITY;
         self.levels = levels;
         self.cards = cards;
@@ -1019,174 +1004,6 @@ impl HairRenderer {
         self.center = lods.center().to_array();
         self.invalidate_view();
         Ok(())
-    }
-
-    /// Turn real-time physics on for the uploaded groom: every drawn strand
-    /// will follow the simulated strands `binding` ties it to, whose groomed
-    /// points (in the head's frame) are `guide_rest`. Each level keeps a
-    /// copy of its rest pose to deform from.
-    pub fn set_dynamics(&mut self, binding: &SimBinding, guide_rest: &[[f32; 4]]) {
-        use wgpu::BufferUsages as U;
-        let d = &*self.device;
-        let init = |label: &str, bytes: &[u8], usage: U| {
-            Arc::new(d.create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                label: Some(label),
-                contents: bytes,
-                usage,
-            }))
-        };
-        let ids = init(
-            "hair bind ids",
-            bytemuck::cast_slice(&binding.guides),
-            U::STORAGE,
-        );
-        let weights = init(
-            "hair bind weights",
-            bytemuck::cast_slice(&binding.weights),
-            U::STORAGE,
-        );
-        let guide_rest_buffer = init(
-            "hair guide rest",
-            bytemuck::cast_slice(guide_rest),
-            U::STORAGE,
-        );
-        let guide_now = init(
-            "hair guide now",
-            bytemuck::cast_slice(guide_rest),
-            U::STORAGE | U::COPY_DST,
-        );
-        self.bind_dynamics(
-            ids,
-            weights,
-            guide_rest_buffer,
-            guide_now,
-            binding.points as u32,
-            None,
-        );
-    }
-
-    /// Turn real-time physics on for a groom made on the GPU, simulated
-    /// there ([`crate::gpu::GpuSim`]): the levels deform straight from the
-    /// simulation's buffers, which never leave the GPU. Each frame's step is
-    /// [`HairRenderer::set_moved`].
-    pub fn set_gpu_dynamics(&mut self, sim: &crate::gpu::GpuSim) {
-        let (ids, weights) = sim.binding();
-        self.bind_dynamics(
-            ids.buffer.clone(),
-            weights.buffer.clone(),
-            sim.rest().buffer.clone(),
-            sim.positions().buffer.clone(),
-            sim.points() as u32,
-            sim.body()
-                .map(|body| (body.buffer.clone(), sim.settings.collision_offset)),
-        );
-    }
-
-    /// Each level's rest pose, and the pass deforming it from the simulated
-    /// strands in `guide_now`.
-    fn bind_dynamics(
-        &mut self,
-        ids: Arc<wgpu::Buffer>,
-        weights: Arc<wgpu::Buffer>,
-        guide_rest_buffer: Arc<wgpu::Buffer>,
-        guide_now: Arc<wgpu::Buffer>,
-        sim_points: u32,
-        body: Option<(Arc<wgpu::Buffer>, f32)>,
-    ) {
-        use wgpu::BufferUsages as U;
-        let (body_buffer, body) = match body {
-            Some((buffer, offset)) => (buffer, Some(offset)),
-            None => (
-                Arc::new(self.device.create_buffer(&wgpu::BufferDescriptor {
-                    label: Some("hair no body"),
-                    size: 17 * 16,
-                    usage: U::STORAGE,
-                    mapped_at_creation: false,
-                })),
-                None,
-            ),
-        };
-        // Physics already on (a simulation moved to another level): the
-        // levels are deformed, and their rest poses are the copies made
-        // when it started.
-        let inputs = DeformationBuffers {
-            ids: &ids,
-            weights: &weights,
-            guide_rest: &guide_rest_buffer,
-            guide_now: &guide_now,
-            body: &body_buffer,
-            sim_points,
-        };
-        let d = &*self.device;
-        let mut encoder = d.create_command_encoder(&wgpu::CommandEncoderDescriptor {
-            label: Some("hair rest poses"),
-        });
-        let levels = self
-            .levels
-            .iter()
-            .enumerate()
-            .map(|(at, level)| {
-                let old_rest = self
-                    .dynamics
-                    .as_ref()
-                    .and_then(|dynamics| dynamics.levels.get(at))
-                    .map(|level| &level.rest);
-                DeformLevel::new(self, &mut encoder, level, old_rest, &inputs)
-            })
-            .collect();
-        self.queue.submit([encoder.finish()]);
-        self.dynamics = Some(Dynamics {
-            _ids: ids,
-            _weights: weights,
-            _guide_rest: guide_rest_buffer,
-            guide_now,
-            _body: body_buffer,
-            body,
-            levels,
-        });
-        self.invalidate_view();
-    }
-
-    /// The simulated strands' points this frame (world space), and where
-    /// the head is.
-    pub fn set_simulated(&mut self, guides: &[[f32; 4]], head: &Rigid) {
-        let Some(dynamics) = &self.dynamics else {
-            return;
-        };
-        self.queue
-            .write_buffer(&dynamics.guide_now, 0, bytemuck::cast_slice(guides));
-        self.set_moved(head);
-    }
-
-    /// The simulated strands moved -- on the GPU, where the renderer reads
-    /// them -- and the head is at `head`.
-    pub fn set_moved(&mut self, head: &Rigid) {
-        let Some(dynamics) = &mut self.dynamics else {
-            return;
-        };
-        for level in &mut dynamics.levels {
-            level.state = DeformationState::Pending;
-        }
-        self.head_matrix = head.matrix();
-        self.moving = true;
-    }
-
-    /// Physics off: every level back to its rest pose, the head home.
-    pub fn clear_dynamics(&mut self) {
-        let Some(dynamics) = &self.dynamics else {
-            return;
-        };
-        let mut encoder = self.device.create_command_encoder(&Default::default());
-        for (level, deform) in self.levels.iter().zip(&dynamics.levels) {
-            let bytes = u64::from(level.layout.positions_bytes());
-            if bytes > 0 {
-                encoder.copy_buffer_to_buffer(&deform.rest, 0, &level.positions, 0, bytes);
-            }
-        }
-        self.queue.submit([encoder.finish()]);
-        self.dynamics = None;
-        self.head_matrix = IDENTITY;
-        self.invalidate_view();
     }
 
     /// Whether physics is on.

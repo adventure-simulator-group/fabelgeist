@@ -130,7 +130,9 @@ impl HeadDraw {
 
     /// Measure this exact paired surface and smooth over adjacent vertices.
     pub(super) fn with_cpu_cover(&self, device: &wgpu::Device, lods: &HairLods) -> Self {
-        let mut cover = lods.cover.at(&self.source.positions, &self.source.normals);
+        let mut cover = lods
+            .cover()
+            .at(&self.source.positions, &self.source.normals);
         let n = cover.len();
         let mut sum = vec![[0.0f32; 2]; n];
         let mut count = vec![0.0f32; n];

@@ -1,7 +1,8 @@
 //! Native deformation and each level's simulation-update obligation.
 
 use super::levels::GpuLevel;
-use super::{DeformGpu, DeformLevel, HairRenderer, deform_source, uniform_entry};
+use super::simulation::buffers::SimulationBuffer;
+use super::{DeformGpu, HairRenderer, deform_source, uniform_entry};
 use crate::gpu::error::Result;
 use crate::lod::{Representation, StrandLevelIndex};
 use fabelgeist_gpu::data::gpu::shader::parse_naga;
@@ -23,12 +24,18 @@ pub(super) struct DeformationViews {
 
 /// Native inputs to a per-level deformation bind group.
 pub(super) struct DeformationBuffers<'a> {
-    pub ids: &'a wgpu::Buffer,
-    pub weights: &'a wgpu::Buffer,
-    pub guide_rest: &'a wgpu::Buffer,
-    pub guide_now: &'a wgpu::Buffer,
-    pub body: &'a wgpu::Buffer,
-    pub sim_points: u32,
+    pub ids: &'a SimulationBuffer,
+    pub weights: &'a SimulationBuffer,
+    pub guide_rest: &'a SimulationBuffer,
+    pub guide_now: &'a SimulationBuffer,
+    pub body: &'a SimulationBuffer,
+}
+
+pub(super) struct DeformLevel {
+    pub rest: wgpu::Buffer,
+    params: wgpu::Buffer,
+    group: wgpu::BindGroup,
+    pub state: DeformationState,
 }
 
 /// Levels whose deformation update was recorded or required no work.
@@ -101,6 +108,67 @@ impl DeformationPipeline {
     }
 }
 
+impl DeformationBuffers<'_> {
+    fn bind(
+        &self,
+        renderer: &HairRenderer,
+        level: &GpuLevel,
+        rest: &wgpu::Buffer,
+        params: &wgpu::Buffer,
+    ) -> wgpu::BindGroup {
+        let binding_bytes = u64::from(level.layout.positions_binding_bytes());
+        let entries = [
+            wgpu::BindGroupEntry {
+                binding: 0,
+                resource: wgpu::BindingResource::Buffer(wgpu::BufferBinding {
+                    buffer: rest,
+                    offset: 0,
+                    size: NonZeroU64::new(binding_bytes),
+                }),
+            },
+            wgpu::BindGroupEntry {
+                binding: 1,
+                resource: wgpu::BindingResource::Buffer(wgpu::BufferBinding {
+                    buffer: &level.positions,
+                    offset: 0,
+                    size: NonZeroU64::new(binding_bytes),
+                }),
+            },
+            wgpu::BindGroupEntry {
+                binding: 2,
+                resource: self.guide_rest.resource(),
+            },
+            wgpu::BindGroupEntry {
+                binding: 3,
+                resource: self.guide_now.resource(),
+            },
+            wgpu::BindGroupEntry {
+                binding: 4,
+                resource: self.ids.resource(),
+            },
+            wgpu::BindGroupEntry {
+                binding: 5,
+                resource: self.weights.resource(),
+            },
+            wgpu::BindGroupEntry {
+                binding: 6,
+                resource: params.as_entire_binding(),
+            },
+            wgpu::BindGroupEntry {
+                binding: 7,
+                resource: self.body.resource(),
+            },
+        ];
+        renderer
+            .device
+            .create_bind_group(&wgpu::BindGroupDescriptor {
+                label: Some("hair deform"),
+                layout: &renderer.deformation.layout,
+                entries: &entries,
+            })
+    }
+}
+
 impl DeformLevel {
     pub(super) fn new(
         renderer: &HairRenderer,
@@ -133,45 +201,11 @@ impl DeformLevel {
             usage: U::UNIFORM | U::COPY_DST,
             mapped_at_creation: false,
         });
-        let buffers: [&wgpu::Buffer; 8] = [
-            &rest,
-            &level.positions,
-            inputs.guide_rest,
-            inputs.guide_now,
-            inputs.ids,
-            inputs.weights,
-            &params,
-            inputs.body,
-        ];
-        let entries: Vec<_> = buffers
-            .into_iter()
-            .enumerate()
-            .map(|(binding, buffer)| wgpu::BindGroupEntry {
-                binding: binding as u32,
-                resource: wgpu::BindingResource::Buffer(wgpu::BufferBinding {
-                    buffer,
-                    offset: 0,
-                    // Only rest and output are per-level resident prefixes.
-                    // Other bindings retain their own allocation ranges.
-                    size: match binding {
-                        0 | 1 => NonZeroU64::new(binding_bytes),
-                        _ => None,
-                    },
-                }),
-            })
-            .collect();
-        let group = renderer
-            .device
-            .create_bind_group(&wgpu::BindGroupDescriptor {
-                label: Some("hair deform"),
-                layout: &renderer.deformation.layout,
-                entries: &entries,
-            });
+        let group = inputs.bind(renderer, level, &rest, &params);
         Self {
             rest,
             params,
             group,
-            sim_points: inputs.sim_points,
             state: DeformationState::Pending,
         }
     }
@@ -241,10 +275,14 @@ impl HairRenderer {
         let params = DeformGpu {
             head: self.head_matrix,
             points: gpu.layout.native_points(),
-            sim_points: deform.sim_points,
+            sim_points: dynamics.layout.native_points(),
             strands: gpu.layout.native_strands(),
-            body: u32::from(dynamics.body.is_some()),
-            offset: dynamics.body.unwrap_or(0.0),
+            body: u32::from(dynamics.inputs.body.offset().is_some()),
+            offset: dynamics
+                .inputs
+                .body
+                .offset()
+                .map_or(0.0, |offset| offset.metres()),
             pad: [0; 3],
         };
         self.queue

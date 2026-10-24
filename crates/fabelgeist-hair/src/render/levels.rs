@@ -117,13 +117,13 @@ impl HairRenderer {
         let positions = if layout.native_strands() == 0 {
             bytemuck::cast_slice(&empty_positions)
         } else {
-            bytemuck::cast_slice(&level.positions[..layout.native_samples() as usize])
+            bytemuck::cast_slice(&level.positions()[..layout.native_samples() as usize])
         };
         let empty_info = [StrandInfo::default()];
         let infos = if layout.native_strands() == 0 {
             bytemuck::cast_slice(&empty_info)
         } else {
-            bytemuck::cast_slice(&level.strands[..layout.native_strands() as usize])
+            bytemuck::cast_slice(&level.infos()[..layout.native_strands() as usize])
         };
         let upload = |label, contents, usage| {
             Arc::new(
