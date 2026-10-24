@@ -25,8 +25,6 @@ use bevy::{
 };
 use std::collections::BTreeMap;
 
-#[cfg(test)]
-use crate::presentation::generate_procedural_textures;
 use crate::presentation::{ProceduralTextureAssets, bps, leaf_material};
 
 use super::{
@@ -869,8 +867,8 @@ mod tests {
         app.add_plugins(TaskPoolPlugin::default());
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<Image>();
-        let assets = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters::default(),
+        let assets = ProceduralTextureAssets::reserve(
+            &mut Default::default(),
             &mut app
                 .world_mut()
                 .resource_mut::<bevy::prelude::Assets<Image>>(),

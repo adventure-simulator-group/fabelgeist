@@ -151,29 +151,31 @@ pub(in crate::presentation) fn enable_cliff_surface(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use adventuresim_procedural_textures::{BakedRecipe, MapChannel, TextureRecipeId};
     use adventuresim_world_schema::{IgneousRock, SedimentaryRock, SurfaceLithology};
 
     #[test]
     fn ordinary_terrain_disables_cliff_and_patch_recipe_enables_it() {
         let mut images = Assets::<Image>::default();
-        let procedural_assets = generate_procedural_textures(
-            &adventuresim_procedural_textures::TextureParameters::default(),
-            &mut images,
-        );
-        // Sharing these samplers keeps the full terrain pipeline within WebGPU's
-        // sixteen-sampler limit without changing filtering or wrap behavior.
-        for (sampled, shared) in [
-            (
-                &procedural_assets.forest_soil.litter_normal,
-                &procedural_assets.forest_soil.litter_surface,
-            ),
-            (&procedural_assets.rock.arm, &procedural_assets.rock.height),
-        ] {
+        let procedural_assets =
+            ProceduralTextureAssets::reserve(&mut Default::default(), &mut images);
+        // Inspect the committed runtime maps without rebaking the catalogue.
+        // Shared samplers keep terrain within WebGPU's sixteen-sampler limit.
+        let assert_shared_sampler = |recipe: TextureRecipeId, sampled, shared| {
+            let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../assets");
+            let bytes = std::fs::read(root.join(recipe.runtime_asset_path())).unwrap();
+            let bake = BakedRecipe::from_compressed_bytes(&bytes).unwrap();
             assert_eq!(
-                images.get(sampled).unwrap().sampler,
-                images.get(shared).unwrap().sampler
+                bake.map(sampled).unwrap().sampler,
+                bake.map(shared).unwrap().sampler
             );
-        }
+        };
+        assert_shared_sampler(
+            TextureRecipeId::ForestLitter,
+            MapChannel::Normal,
+            MapChannel::LitterSurface,
+        );
+        assert_shared_sampler(TextureRecipeId::Rock, MapChannel::Arm, MapChannel::Height);
         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0).unwrap();
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("cliff-material");
         let graphics = TacticalGraphicsSettings::default();

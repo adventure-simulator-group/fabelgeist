@@ -285,6 +285,7 @@ jobs:
           cargo test --locked --package adventuresim-tactical-core --features meshgen --lib marching_tetrahedra:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-extraction.log
           cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server doors::gate_tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-server-gates.log
       - name: Test terrain presentation and retained scene consumers
+        timeout-minutes: 20
         env:
           EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
