@@ -116,67 +116,76 @@ impl TextureView {
     pub fn clear_raw(&self, context: &WgpuContext, color: Vec4) -> Result<()> {
         let view = self.view.as_ref().ok_or(TextureViewError::MissingView)?;
         self.ensure_device(context)?;
-        let mut encoder = context
-            .device
-            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                label: Some("TextureView Clear Encoder"),
-            });
-        {
-            if self.format.is_depth() {
-                let depth_clear_value = if color.x == 0.0 && color.y == 0.0 && color.z == 0.0 {
-                    1.0
-                } else {
-                    color.x
-                };
-                let _rp = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
-                    label: Some("TextureView Depth Clear Pass"),
-                    color_attachments: &[],
-                    depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
-                        view,
-                        depth_ops: Some(wgpu::Operations {
-                            load: wgpu::LoadOp::Clear(depth_clear_value),
-                            store: wgpu::StoreOp::Store,
-                        }),
-                        stencil_ops: None,
-                    }),
-                    timestamp_writes: None,
-                    occlusion_query_set: None,
-                    multiview_mask: None,
-                });
-            } else {
-                let mut clear_color = color;
-                if self.format.is_uint() || self.format.is_sint() {
-                    clear_color = Vec4::new(
-                        color.x * 255.0,
-                        color.y * 255.0,
-                        color.z * 255.0,
-                        color.w * 255.0,
-                    );
-                }
+        let encoder = context
+            .observe_validation(|| {
+                let mut encoder =
+                    context
+                        .device
+                        .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                            label: Some("TextureView Clear Encoder"),
+                        });
+                {
+                    if self.format.is_depth() {
+                        let depth_clear_value =
+                            if color.x == 0.0 && color.y == 0.0 && color.z == 0.0 {
+                                1.0
+                            } else {
+                                color.x
+                            };
+                        let _rp = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+                            label: Some("TextureView Depth Clear Pass"),
+                            color_attachments: &[],
+                            depth_stencil_attachment: Some(
+                                wgpu::RenderPassDepthStencilAttachment {
+                                    view,
+                                    depth_ops: Some(wgpu::Operations {
+                                        load: wgpu::LoadOp::Clear(depth_clear_value),
+                                        store: wgpu::StoreOp::Store,
+                                    }),
+                                    stencil_ops: None,
+                                },
+                            ),
+                            timestamp_writes: None,
+                            occlusion_query_set: None,
+                            multiview_mask: None,
+                        });
+                    } else {
+                        let mut clear_color = color;
+                        if self.format.is_uint() || self.format.is_sint() {
+                            clear_color = Vec4::new(
+                                color.x * 255.0,
+                                color.y * 255.0,
+                                color.z * 255.0,
+                                color.w * 255.0,
+                            );
+                        }
 
-                let _rp = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
-                    label: Some("TextureView Clear Pass"),
-                    color_attachments: &[Some(wgpu::RenderPassColorAttachment {
-                        view,
-                        depth_slice: None,
-                        resolve_target: None,
-                        ops: wgpu::Operations {
-                            load: wgpu::LoadOp::Clear(wgpu::Color {
-                                r: clear_color.x as f64,
-                                g: clear_color.y as f64,
-                                b: clear_color.z as f64,
-                                a: clear_color.w as f64,
-                            }),
-                            store: wgpu::StoreOp::Store,
-                        },
-                    })],
-                    depth_stencil_attachment: None,
-                    timestamp_writes: None,
-                    occlusion_query_set: None,
-                    multiview_mask: None,
-                });
-            }
-        }
+                        let _rp = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+                            label: Some("TextureView Clear Pass"),
+                            color_attachments: &[Some(wgpu::RenderPassColorAttachment {
+                                view,
+                                depth_slice: None,
+                                resolve_target: None,
+                                ops: wgpu::Operations {
+                                    load: wgpu::LoadOp::Clear(wgpu::Color {
+                                        r: clear_color.x as f64,
+                                        g: clear_color.y as f64,
+                                        b: clear_color.z as f64,
+                                        a: clear_color.w as f64,
+                                    }),
+                                    store: wgpu::StoreOp::Store,
+                                },
+                            })],
+                            depth_stencil_attachment: None,
+                            timestamp_writes: None,
+                            occlusion_query_set: None,
+                            multiview_mask: None,
+                        });
+                    }
+                }
+                encoder
+            })
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
         context
             .submit(encoder)
             .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;

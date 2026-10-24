@@ -375,16 +375,22 @@ impl Texture2d {
         let target_view = target.view.as_ref().ok_or(TextureViewError::MissingView)?;
         self.ensure_device(context)?;
         target.ensure_device(context)?;
-        let blitter = crate::globals::Blitter::new(
-            &context.device,
-            target.effective_format(target.format).into(),
-        );
-        let mut encoder = context
-            .device
-            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                label: Some("Texture2d Blit Encoder"),
-            });
-        blitter.blit(&context.device, &mut encoder, source_view, target_view);
+        let encoder = context
+            .observe_validation(|| {
+                let blitter = crate::globals::Blitter::new(
+                    &context.device,
+                    target.effective_format(target.format).into(),
+                );
+                let mut encoder =
+                    context
+                        .device
+                        .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                            label: Some("Texture2d Blit Encoder"),
+                        });
+                blitter.blit(&context.device, &mut encoder, source_view, target_view);
+                encoder
+            })
+            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
         context
             .submit(encoder)
             .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
@@ -402,82 +408,7 @@ impl Texture2d {
         Ok(target)
     }
     pub fn clear_raw(&self, context: &WgpuContext, color: crate::data::vector::Vec4) -> Result<()> {
-        let view = self.view.as_ref().ok_or(TextureViewError::MissingView)?;
-        self.ensure_device(context)?;
-        let mut encoder = context
-            .device
-            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                label: Some("Texture2d Clear Encoder"),
-            });
-        {
-            if self.format.is_depth() {
-                let depth_clear_value = if color.x == 0.0 && color.y == 0.0 && color.z == 0.0 {
-                    1.0
-                } else {
-                    color.x
-                };
-                let _rp = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
-                    label: Some("Texture2d Clear Depth Pass"),
-                    color_attachments: &[],
-                    depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
-                        view,
-                        depth_ops: Some(wgpu::Operations {
-                            load: wgpu::LoadOp::Clear(depth_clear_value),
-                            store: wgpu::StoreOp::Store,
-                        }),
-                        stencil_ops: None,
-                    }),
-                    timestamp_writes: None,
-                    occlusion_query_set: None,
-                    multiview_mask: None,
-                });
-            } else {
-                let mut clear_color = color;
-                if self.format.is_uint() || self.format.is_sint() {
-                    let max_val = match self.format {
-                        TextureFormat::R8Uint
-                        | TextureFormat::R8Sint
-                        | TextureFormat::Rg8Uint
-                        | TextureFormat::Rg8Sint
-                        | TextureFormat::Rgba8Uint
-                        | TextureFormat::Rgba8Sint => 255.0,
-                        _ => 255.0,
-                    };
-                    clear_color = crate::data::vector::Vec4::new(
-                        color.x * max_val,
-                        color.y * max_val,
-                        color.z * max_val,
-                        color.w * max_val,
-                    );
-                }
-
-                let _rp = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
-                    label: Some("Texture2d Clear Pass"),
-                    color_attachments: &[Some(wgpu::RenderPassColorAttachment {
-                        view,
-                        depth_slice: None,
-                        resolve_target: None,
-                        ops: wgpu::Operations {
-                            load: wgpu::LoadOp::Clear(wgpu::Color {
-                                r: clear_color.x as f64,
-                                g: clear_color.y as f64,
-                                b: clear_color.z as f64,
-                                a: clear_color.w as f64,
-                            }),
-                            store: wgpu::StoreOp::Store,
-                        },
-                    })],
-                    depth_stencil_attachment: None,
-                    timestamp_writes: None,
-                    occlusion_query_set: None,
-                    multiview_mask: None,
-                });
-            }
-        }
-        context
-            .submit(encoder)
-            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
-        Ok(())
+        self.as_view().clear_raw(context, color)
     }
 }
 
