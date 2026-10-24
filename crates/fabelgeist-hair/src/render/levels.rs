@@ -1,0 +1,224 @@
+//! Resident strand layouts and the native ranges bound for drawing them.
+
+use super::{DrawRole, HairGpuError, HairRenderer, Result};
+use crate::gpu::{StrandLayout, StrandLayoutError};
+use crate::lod::{StrandInfo, StrandLevel};
+use fabelgeist_gpu::prelude::{BufferByteLength, BufferPrefixError};
+use std::{num::NonZeroU64, sync::Arc};
+use wgpu::util::DeviceExt;
+
+pub(super) struct GpuLevel {
+    pub layout: StrandLayout,
+    pub groups: [wgpu::BindGroup; 3],
+    pub positions: Arc<wgpu::Buffer>,
+    _infos: Arc<wgpu::Buffer>,
+}
+
+/// The native storage input that failed level admission.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum LevelBufferRole {
+    Positions,
+    Information,
+}
+
+/// A level cannot be represented by the renderer's storage bindings.
+#[derive(Debug, thiserror::Error)]
+pub enum RenderLevelError {
+    #[error("invalid native strand layout")]
+    Layout(#[from] StrandLayoutError),
+    #[error("strand buffer does not contain its resident data prefix")]
+    Prefix(#[from] BufferPrefixError),
+    #[error("{role:?} needs {required} binding bytes, physical size {physical}")]
+    BindingExtent {
+        role: LevelBufferRole,
+        required: BufferByteLength,
+        physical: BufferByteLength,
+    },
+    #[error("{role:?} needs {required} binding bytes, device limit {limit}")]
+    BindingLimit {
+        role: LevelBufferRole,
+        required: BufferByteLength,
+        limit: BufferByteLength,
+    },
+    #[error("{role:?} requires {required:?}, native usage is {actual:?}")]
+    MissingUsage {
+        role: LevelBufferRole,
+        required: wgpu::BufferUsages,
+        actual: wgpu::BufferUsages,
+    },
+}
+
+impl HairRenderer {
+    /// Bind only the resident prefix, even when the native allocation is larger.
+    pub(super) fn level_groups(
+        &self,
+        layout: StrandLayout,
+        positions: Arc<wgpu::Buffer>,
+        infos: Arc<wgpu::Buffer>,
+    ) -> Result<GpuLevel> {
+        self.validate_level_buffer(
+            LevelBufferRole::Positions,
+            &positions,
+            layout.positions_binding_bytes(),
+        )?;
+        self.validate_level_buffer(
+            LevelBufferRole::Information,
+            &infos,
+            layout.info_binding_bytes(),
+        )?;
+        let group = |draw: &wgpu::Buffer| {
+            self.device.create_bind_group(&wgpu::BindGroupDescriptor {
+                label: Some("hair strands"),
+                layout: &self.layouts.strands,
+                entries: &[
+                    wgpu::BindGroupEntry {
+                        binding: 0,
+                        resource: wgpu::BindingResource::Buffer(wgpu::BufferBinding {
+                            buffer: &positions,
+                            offset: 0,
+                            // The canonical projection includes one positive
+                            // native record even when the data population is zero.
+                            size: NonZeroU64::new(u64::from(layout.positions_binding_bytes())),
+                        }),
+                    },
+                    wgpu::BindGroupEntry {
+                        binding: 1,
+                        resource: wgpu::BindingResource::Buffer(wgpu::BufferBinding {
+                            buffer: &infos,
+                            offset: 0,
+                            size: NonZeroU64::new(u64::from(layout.info_binding_bytes())),
+                        }),
+                    },
+                    wgpu::BindGroupEntry {
+                        binding: 2,
+                        resource: draw.as_entire_binding(),
+                    },
+                ],
+            })
+        };
+        Ok(GpuLevel {
+            layout,
+            groups: [
+                group(&self.draws[DrawRole::Main.index()]),
+                group(&self.draws[DrawRole::Shadow.index()]),
+                group(&self.draws[DrawRole::Blend.index()]),
+            ],
+            positions,
+            _infos: infos,
+        })
+    }
+
+    pub(super) fn upload_level(&self, level: &StrandLevel) -> Result<GpuLevel> {
+        let layout = StrandLayout::for_host_level(level, self.level_binding_limit())
+            .map_err(RenderLevelError::from)?;
+        self.validate_level_limit(LevelBufferRole::Positions, layout.positions_binding_bytes())?;
+        self.validate_level_limit(LevelBufferRole::Information, layout.info_binding_bytes())?;
+        let empty_positions = [[0.0f32; 4]];
+        let positions = if layout.native_strands() == 0 {
+            bytemuck::cast_slice(&empty_positions)
+        } else {
+            bytemuck::cast_slice(&level.positions()[..layout.native_samples() as usize])
+        };
+        let empty_info = [StrandInfo::default()];
+        let infos = if layout.native_strands() == 0 {
+            bytemuck::cast_slice(&empty_info)
+        } else {
+            bytemuck::cast_slice(&level.infos()[..layout.native_strands() as usize])
+        };
+        let upload = |label, contents, usage| {
+            Arc::new(
+                self.device
+                    .create_buffer_init(&wgpu::util::BufferInitDescriptor {
+                        label: Some(label),
+                        contents,
+                        usage,
+                    }),
+            )
+        };
+        self.level_groups(
+            layout,
+            upload(
+                "hair positions",
+                positions,
+                wgpu::BufferUsages::STORAGE
+                    | wgpu::BufferUsages::COPY_SRC
+                    | wgpu::BufferUsages::COPY_DST,
+            ),
+            upload("hair strand info", infos, wgpu::BufferUsages::STORAGE),
+        )
+    }
+
+    pub(super) fn upload_gpu_level(&self, level: &crate::gpu::GpuLevel) -> Result<GpuLevel> {
+        let layout = level.layout().fit_level_binding(self.level_binding_limit());
+        // The producer's sealed device association is checked by set_gpu_groom.
+        // Prefix admission checks logical data independently of the padded
+        // native binding needed for an empty population.
+        let positions = level
+            .positions()
+            .prefix(layout.positions_bytes())
+            .map_err(RenderLevelError::from)?;
+        let infos = level
+            .infos()
+            .prefix(layout.info_bytes())
+            .map_err(RenderLevelError::from)?;
+        self.level_groups(layout, positions.buffer, infos.buffer)
+    }
+
+    fn level_binding_limit(&self) -> BufferByteLength {
+        let limits = self.device.limits();
+        BufferByteLength::from(
+            u64::from(limits.max_storage_buffer_binding_size).min(limits.max_buffer_size),
+        )
+    }
+
+    fn validate_level_buffer(
+        &self,
+        role: LevelBufferRole,
+        buffer: &wgpu::Buffer,
+        required: BufferByteLength,
+    ) -> Result<()> {
+        let physical = BufferByteLength::from(buffer.size());
+        self.validate_level_limit(role, required)?;
+        if required > physical {
+            return Err(RenderLevelError::BindingExtent {
+                role,
+                required,
+                physical,
+            }
+            .into());
+        }
+        let usage = wgpu::BufferUsages::STORAGE;
+        if !buffer.usage().contains(usage) {
+            return Err(RenderLevelError::MissingUsage {
+                role,
+                required: usage,
+                actual: buffer.usage(),
+            }
+            .into());
+        }
+        Ok(())
+    }
+
+    fn validate_level_limit(
+        &self,
+        role: LevelBufferRole,
+        required: BufferByteLength,
+    ) -> Result<()> {
+        let limit = self.level_binding_limit();
+        if required > limit {
+            return Err(RenderLevelError::BindingLimit {
+                role,
+                required,
+                limit,
+            }
+            .into());
+        }
+        Ok(())
+    }
+}
+
+impl From<RenderLevelError> for HairGpuError {
+    fn from(cause: RenderLevelError) -> Self {
+        Self::Backend(cause.into())
+    }
+}
