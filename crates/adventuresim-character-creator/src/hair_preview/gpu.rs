@@ -3,7 +3,9 @@
 //! kernels takes a moment, so the first worker that grows hair compiles
 //! them, and every later one reuses them.
 use super::*;
+use adventuresim_character_creator::GpuInitializationError;
 use adventuresim_character_creator::hair::HairGpu;
+use anyhow::Context;
 use bevy::render::RenderApp;
 use bevy::render::renderer::{RenderAdapter, RenderDevice, RenderInstance, RenderQueue};
 use fabelgeist_gpu::globals::WgpuContext;
@@ -15,25 +17,26 @@ pub(crate) struct StudioHairGpu(Arc<DeviceKernels>);
 
 struct DeviceKernels {
     context: WgpuContext,
-    kernels: OnceLock<Result<HairGpu, String>>,
-}
-
-impl StudioHairGpu {
-    /// The hair kernels, compiled on the first call.
-    pub(crate) fn kernels(&self) -> Result<&HairGpu> {
-        self.0
-            .kernels
-            .get_or_init(|| {
-                HairGpu::new(self.0.context.clone()).map_err(|error| format!("{error:#}"))
-            })
-            .as_ref()
-            .map_err(|error| anyhow::anyhow!("compiling the hair kernels: {error}"))
-    }
+    kernels: OnceLock<Result<HairGpu, GpuInitializationError>>,
 }
 
 /// Hands the hair preview the studio's render device once the renderer has
 /// one.
 pub(crate) struct HairGpuPlugin;
+
+impl StudioHairGpu {
+    /// The first kernel initialization outcome on this device, including failure.
+    pub(crate) fn kernels(&self) -> Result<&HairGpu> {
+        self.0
+            .kernels
+            .get_or_init(|| {
+                HairGpu::new(self.0.context.clone()).map_err(GpuInitializationError::new)
+            })
+            .as_ref()
+            .map_err(Clone::clone)
+            .context("compiling the hair kernels")
+    }
+}
 
 impl Plugin for HairGpuPlugin {
     fn build(&self, _app: &mut App) {}

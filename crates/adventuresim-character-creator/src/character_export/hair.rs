@@ -3,12 +3,14 @@
 //! by its coverage.
 use super::*;
 use crate::hair_preview;
+use adventuresim_character_creator::GpuInitializationError;
 use adventuresim_character_creator::export::{
     SurfaceAlpha, SurfaceSampling, SurfaceSides, SurfaceTextures,
 };
 use adventuresim_character_creator::hair::{
     GroomedHair, HAIR_ROUGHNESS, HairDesign, HairGeometry, HairGpu, PlacedHair,
 };
+use anyhow::Context;
 use fabelgeist_hair::lod::Form;
 use image::ImageEncoder;
 use std::sync::OnceLock;
@@ -18,7 +20,9 @@ const SHELL_NAME: &str = "hair";
 /// A tangent-space normal map that leaves every normal as it is.
 const FLAT_NORMAL: [u8; 4] = [128, 128, 255, 255];
 /// Games draw hair as its finest cut of cards.
-const EXPORTED_FORM: Form = Form::Cards { level: fabelgeist_hair::lod::CardLevelIndex::from_index(0) };
+const EXPORTED_FORM: Form = Form::Cards {
+    level: fabelgeist_hair::lod::CardLevelIndex::from_index(0),
+};
 
 /// Hair grown and placed for export, owning what its shell borrows.
 pub(super) struct ExportedHair {
@@ -27,15 +31,6 @@ pub(super) struct ExportedHair {
     joint_weights: Vec<[f32; 8]>,
     textures: SurfaceTextures,
     morphs: Vec<MorphDelta>,
-}
-
-/// The hair kernels exports grow on: a device of their own, opened and
-/// compiled once for the process, as an export may run without a window.
-fn export_gpu() -> Result<&'static HairGpu> {
-    static GPU: OnceLock<Result<HairGpu, String>> = OnceLock::new();
-    GPU.get_or_init(|| HairGpu::headless().map_err(|error| format!("{error:#}")))
-        .as_ref()
-        .map_err(|error| anyhow::anyhow!("opening the hair GPU: {error}"))
 }
 
 impl ExportedHair {
@@ -98,6 +93,17 @@ impl ExportedHair {
             roughness: HAIR_ROUGHNESS,
         }
     }
+}
+
+/// The hair kernels exports grow on: a device of their own, opened and
+/// compiled once for the process, as an export may run without a window.
+/// The process retains the first initialization outcome, including failure.
+fn export_gpu() -> Result<&'static HairGpu> {
+    static GPU: OnceLock<Result<HairGpu, GpuInitializationError>> = OnceLock::new();
+    GPU.get_or_init(|| HairGpu::headless().map_err(GpuInitializationError::new))
+        .as_ref()
+        .map_err(Clone::clone)
+        .context("opening the hair GPU")
 }
 
 /// The atlas's largest level in the hair's colour, sRGB, its coverage as
