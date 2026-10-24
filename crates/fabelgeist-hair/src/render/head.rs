@@ -6,6 +6,7 @@ use crate::gpu::error::{HairGpuError, Result};
 use crate::lod::HairLods;
 use crate::surface::{Surface, SurfaceRenderError, SurfaceRenderLayout};
 use fabelgeist_gpu::prelude::BufferByteLength;
+use fabelgeist_mesh::MeshCornerCount;
 use std::sync::Arc;
 use wgpu::util::DeviceExt;
 
@@ -76,7 +77,6 @@ impl HeadDraw {
                     usage: wgpu::BufferUsages::INDEX,
                 }),
             ),
-            count: layout.corners().native_elements(),
         };
         let bare = vec![[0.0; 2]; usize::from(layout.vertices()).max(1)];
         Ok(Self {
@@ -85,6 +85,10 @@ impl HeadDraw {
             mesh,
             cover: Self::coverage_buffer(device, &bare),
         })
+    }
+
+    pub(super) fn corners(&self) -> MeshCornerCount {
+        self.layout.corners()
     }
 
     pub(super) fn with_gpu_cover(

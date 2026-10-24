@@ -31,15 +31,19 @@
 pub use frame_state::{RenderInputError, RenderInputPart};
 pub use head::RenderSourceError;
 pub use levels::{LevelBufferRole, RenderLevelError};
+pub use meshes::{MeshBufferRole, RenderMeshError};
 pub use readback::RenderReadbackError;
 
+use crate::parameters::{PointsPerStrand, StrandCount};
 use atlas::UploadedAtlas;
 use deformation::{DeformationBuffers, DeformationPipeline, DeformationState, DeformationViews};
 use draws::{DrawPlan, DrawRole};
+use fabelgeist_mesh::MeshTriangleCount;
 use frame_state::{History, RenderedView};
 use frame_uniforms::FrameProjection;
 use head::HeadDraw;
 use levels::GpuLevel;
+use meshes::{CardDrawMesh, GpuMesh};
 use std::sync::Arc;
 
 use crate::gpu::error::{HairGpuError, Result};
@@ -48,7 +52,7 @@ use wgpu::util::DeviceExt;
 
 pub use math::{Mat4, halton, look_at, multiply, orthographic, perspective};
 
-use crate::cards::{CardAtlas, CardMesh, CardVertex};
+use crate::cards::CardAtlas;
 use crate::lod::{
     AccumulationFrames, HairLods, HairShading, LodCounts, LodPolicy, PixelSpan, Representation,
     Selection, ShadowMapSize, StrandLevel, StrandLevelIndex,
@@ -64,6 +68,7 @@ mod frame_uniforms;
 mod head;
 mod levels;
 mod math;
+mod meshes;
 mod readback;
 
 const SAMPLES: u32 = 4;
@@ -118,9 +123,24 @@ pub struct FrameInfo {
     pub pixels: PixelSpan,
     /// Frames in the running mean.
     pub frames: AccumulationFrames,
-    /// Population of the primary representation, excluding transition and
-    /// shadow draws. Card populations currently count quads.
-    pub primitives: usize,
+    /// Admitted resident population of the primary representation.
+    /// Transition and shadow draws can use different portions.
+    pub population: FramePopulation,
+}
+
+/// Geometry available to the selected primary representation.
+///
+/// Strand populations retain their point count. Cards report indexed triangles,
+/// including directly supplied meshes that have no generated strip metadata.
+/// These populations precede stochastic coverage and transition cuts.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum FramePopulation {
+    Empty,
+    Strands {
+        strands: StrandCount,
+        points: PointsPerStrand,
+    },
+    CardTriangles(MeshTriangleCount),
 }
 
 #[repr(C)]
@@ -211,13 +231,6 @@ struct DeformGpu {
     pad: [u32; 3],
 }
 
-#[derive(Clone)]
-struct GpuMesh {
-    vertices: Arc<wgpu::Buffer>,
-    indices: Arc<wgpu::Buffer>,
-    count: u32,
-}
-
 struct Targets {
     width: u32,
     height: u32,
@@ -281,8 +294,7 @@ pub struct HairRenderer {
     dynamics: Option<Dynamics>,
     head_matrix: Mat4,
     deformation: DeformationPipeline,
-    cards: Vec<GpuMesh>,
-    card_quads: Vec<usize>,
+    cards: Vec<CardDrawMesh>,
     /// The sizes of the groom's levels, to choose among them.
     counts: LodCounts,
     atlas: UploadedAtlas,
@@ -794,7 +806,6 @@ impl HairRenderer {
             head_matrix: IDENTITY,
             deformation,
             cards: Vec::new(),
-            card_quads: Vec::new(),
             counts: LodCounts::default(),
             atlas,
             head: None,
@@ -915,12 +926,7 @@ impl HairRenderer {
             .cards
             .iter()
             .map(|cards| self.upload_cards(cards))
-            .collect();
-        let card_quads = lods
-            .cards
-            .iter()
-            .map(|cards| cards.indices.len() / 6)
-            .collect();
+            .collect::<Result<Vec<_>>>()?;
         let counts = lods.counts();
         let head = self
             .head
@@ -944,7 +950,6 @@ impl HairRenderer {
         self.head_matrix = IDENTITY;
         self.levels = levels;
         self.cards = cards;
-        self.card_quads = card_quads;
         self.counts = counts;
         self.atlas = atlas;
         self.lighting_group = lighting_group;
@@ -969,32 +974,23 @@ impl HairRenderer {
         if lods.device() != self.device.as_ref() {
             return Err(RenderSourceError::ForeignGroomDevice.into());
         }
-        let head = match (&self.head, &lods.cover) {
-            (Some(head), cover) => Some(head.with_gpu_cover(&self.device, cover.as_ref())?),
+        let head = match (&self.head, lods.cover()) {
+            (Some(head), cover) => Some(head.with_gpu_cover(&self.device, cover)?),
             (None, Some(_)) => return Err(RenderSourceError::MissingHead.into()),
             (None, None) => None,
         };
         let levels = lods
-            .levels
+            .levels()
             .iter()
             .map(|level| self.upload_gpu_level(level))
             .collect::<Result<Vec<_>>>()?;
         let cards = lods
-            .cards
+            .cards()
             .iter()
-            .map(|cards| GpuMesh {
-                vertices: cards.vertices.buffer.clone(),
-                indices: cards.indices.buffer.clone(),
-                count: cards.index_count(),
-            })
-            .collect();
-        let card_quads = lods
-            .cards
-            .iter()
-            .map(|cards| cards.quads() as usize)
-            .collect();
+            .map(|cards| self.receive_gpu_cards(cards))
+            .collect::<Result<Vec<_>>>()?;
         let counts = lods.counts();
-        let atlas = UploadedAtlas::new(&self.device, &self.queue, &lods.atlas)?;
+        let atlas = UploadedAtlas::new(&self.device, &self.queue, lods.atlas())?;
         let (lighting_group, opacity_group) = Self::lighting_groups(
             &self.device,
             &self.layouts,
@@ -1003,7 +999,7 @@ impl HairRenderer {
             &self.linear,
             &self.comparison,
         );
-        let [lo, hi] = lods.bounds;
+        let [lo, hi] = lods.bounds();
         let bounds = [
             lo.min(Vec3::new(-0.12, -0.3, -0.13)).to_array(),
             hi.max(Vec3::new(0.12, 0.13, 0.13)).to_array(),
@@ -1014,47 +1010,15 @@ impl HairRenderer {
         self.head_matrix = IDENTITY;
         self.levels = levels;
         self.cards = cards;
-        self.card_quads = card_quads;
         self.counts = counts;
         self.atlas = atlas;
         self.lighting_group = lighting_group;
         self.opacity_group = opacity_group;
         self.head = head;
         self.bounds = bounds;
-        self.center = lods.center.to_array();
+        self.center = lods.center().to_array();
         self.invalidate_view();
         Ok(())
-    }
-
-    fn upload_cards(&self, mesh: &CardMesh) -> GpuMesh {
-        let vertices = if mesh.vertices.is_empty() {
-            vec![CardVertex::default(); 3]
-        } else {
-            mesh.vertices.clone()
-        };
-        GpuMesh {
-            vertices: Arc::new(
-                self.device
-                    .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                        label: Some("hair cards"),
-                        contents: bytemuck::cast_slice(&vertices),
-                        usage: wgpu::BufferUsages::VERTEX,
-                    }),
-            ),
-            indices: Arc::new(
-                self.device
-                    .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                        label: Some("hair card indices"),
-                        contents: bytemuck::cast_slice(if mesh.indices.is_empty() {
-                            &[0u32, 1, 2][..]
-                        } else {
-                            &mesh.indices
-                        }),
-                        usage: wgpu::BufferUsages::INDEX,
-                    }),
-            ),
-            count: mesh.indices.len() as u32,
-        }
     }
 
     /// Turn real-time physics on for the uploaded groom: every drawn strand
@@ -1431,7 +1395,7 @@ impl HairRenderer {
                 representation,
                 pixels,
                 frames: frame.frames,
-                primitives: self.primitives(representation),
+                population: self.population(representation),
             });
         }
         if frame.frames.count() > 0 {
@@ -1529,7 +1493,7 @@ impl HairRenderer {
                     pass.set_bind_group(0, &self.globals_group, &[]);
                     pass.set_vertex_buffer(0, head.mesh.vertices.slice(..));
                     pass.set_index_buffer(head.mesh.indices.slice(..), wgpu::IndexFormat::Uint32);
-                    pass.draw_indexed(0..head.mesh.count, 0, 0..1);
+                    pass.draw_indexed(0..head.corners().native_elements(), 0, 0..1);
                 }
             }
             // The hair's nearest depth.
@@ -1639,7 +1603,7 @@ impl HairRenderer {
                 pass.set_vertex_buffer(0, head.mesh.vertices.slice(..));
                 pass.set_vertex_buffer(1, head.cover.slice(..));
                 pass.set_index_buffer(head.mesh.indices.slice(..), wgpu::IndexFormat::Uint32);
-                pass.draw_indexed(0..head.mesh.count, 0, 0..1);
+                pass.draw_indexed(0..head.corners().native_elements(), 0, 0..1);
             }
             for draw in &plan.strands {
                 let Some(l) = self.levels.get(draw.level.index()) else {
@@ -1656,13 +1620,11 @@ impl HairRenderer {
             }
             for (i, draw) in plan.cards.iter().enumerate() {
                 if let Some(cards) = self.cards.get(draw.level.index())
-                    && cards.count > 0
+                    && cards.layout().corners().native_elements() > 0
                 {
                     pass.set_pipeline(&self.pipelines.cards);
                     pass.set_bind_group(1, &self.card_groups[i], &[]);
-                    pass.set_vertex_buffer(0, cards.vertices.slice(..));
-                    pass.set_index_buffer(cards.indices.slice(..), wgpu::IndexFormat::Uint32);
-                    pass.draw_indexed(0..cards.count, 0, 0..1);
+                    cards.record(&mut pass);
                 }
             }
         }
@@ -1756,21 +1718,29 @@ impl HairRenderer {
             representation,
             pixels,
             frames: self.frames,
-            primitives: self.primitives(representation),
+            population: self.population(representation),
         })
     }
 
-    fn primitives(&self, representation: Representation) -> usize {
+    fn population(&self, representation: Representation) -> FramePopulation {
         match representation {
-            Representation::Strands { level, count, .. } => count.count().min(
+            Representation::Strands { level, count, .. } => {
                 self.levels
                     .get(level.index())
-                    .map_or(0, |level| level.layout.strands().count()),
-            ),
-            Representation::Cards { level } => {
-                self.card_quads.get(level.index()).copied().unwrap_or(0)
+                    .map_or(FramePopulation::Empty, |resident| {
+                        FramePopulation::Strands {
+                            strands: count.min(resident.layout.strands()),
+                            points: resident.layout.points(),
+                        }
+                    })
             }
-            Representation::Empty => 0,
+            Representation::Cards { level } => self
+                .cards
+                .get(level.index())
+                .map_or(FramePopulation::Empty, |cards| {
+                    FramePopulation::CardTriangles(cards.layout().triangles())
+                }),
+            Representation::Empty => FramePopulation::Empty,
         }
     }
 
