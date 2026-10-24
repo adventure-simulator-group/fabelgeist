@@ -18,7 +18,7 @@ const SHELL_NAME: &str = "hair";
 /// A tangent-space normal map that leaves every normal as it is.
 const FLAT_NORMAL: [u8; 4] = [128, 128, 255, 255];
 /// Games draw hair as its finest cut of cards.
-const EXPORTED_FORM: Form = Form::Cards { level: 0 };
+const EXPORTED_FORM: Form = Form::Cards { level: fabelgeist_hair::lod::CardLevelIndex::from_index(0) };
 
 /// Hair grown and placed for export, owning what its shell borrows.
 pub(super) struct ExportedHair {

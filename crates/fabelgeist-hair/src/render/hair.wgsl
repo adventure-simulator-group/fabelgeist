@@ -5,7 +5,7 @@
 // and each becomes a pair of vertices of a triangle strip, pushed apart
 // across the strand, facing the eye. A strand thinner than `min_pixels` is
 // drawn that wide and faded by the share of it that is really there, which
-// alpha to coverage turns into multisample coverage: sub-pixel hair
+// a stochastic sample mask turns into multisample coverage: sub-pixel hair
 // integrates to the right density instead of aliasing.
 //
 // Shading is Marschner's three lobes in Karis' real-time fit (R, TT, TRT),

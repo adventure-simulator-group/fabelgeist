@@ -1,9 +1,14 @@
 //! Native GPU words and invocation requests for mesh populations.
 
-use super::{MeshCornerCount, MeshTriangleCount, MeshVertexCount};
+use super::{MeshCornerCount, MeshStripCount, MeshStripRows, MeshTriangleCount, MeshVertexCount};
 use fabelgeist_gpu::prelude::{BufferByteLength, InvocationCount, PassParameter};
 
 impl MeshVertexCount {
+    /// One native four-float attribute record per vertex.
+    pub fn vec4_bytes(self) -> BufferByteLength {
+        (u64::from(self.0) * size_of::<[f32; 4]>() as u64).into()
+    }
+
     /// Tightly packed XYZ `f32` triples, without native `vec3` array padding.
     pub fn packed_vec3_bytes(self) -> BufferByteLength {
         (u64::from(self.0) * size_of::<[f32; 3]>() as u64).into()
@@ -67,5 +72,24 @@ impl From<MeshTriangleCount> for PassParameter {
 impl From<MeshCornerCount> for PassParameter {
     fn from(corners: MeshCornerCount) -> Self {
         Self::Unsigned(corners.0)
+    }
+}
+
+/// A strip kernel assigns one invocation to each complete strip.
+impl From<MeshStripCount> for InvocationCount {
+    fn from(strips: MeshStripCount) -> Self {
+        Self::from(strips.native_strips())
+    }
+}
+
+impl From<MeshStripCount> for PassParameter {
+    fn from(strips: MeshStripCount) -> Self {
+        Self::Unsigned(strips.native_strips())
+    }
+}
+
+impl From<MeshStripRows> for PassParameter {
+    fn from(rows: MeshStripRows) -> Self {
+        Self::Unsigned(rows.native_rows())
     }
 }

@@ -285,8 +285,8 @@ fn hair_renders() -> Result<()> {
             buried * 100.0
         );
         let form_name = match form {
-            Form::Strands { level, .. } => format!("strands{level}"),
-            Form::Cards { level } => format!("cards{level}"),
+            Form::Strands { level, .. } => format!("strands{}", level.index()),
+            Form::Cards { level } => format!("cards{}", level.index()),
         };
         // Drawn in the bind pose, skinned as the studio skins it but to one
         // joint left where it is.

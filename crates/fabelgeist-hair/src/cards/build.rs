@@ -67,19 +67,9 @@ impl CardMesh {
         vertices.try_reserve_exact(usize::from(strips.layout().vertices()))?;
         indices.try_reserve_exact(usize::from(strips.layout().corners()))?;
         for card in cards {
-            // The complete indexed population was admitted before concatenation.
-            let base = vertices.len() as u32;
-            for segment in 0..segments.count() as u32 {
-                let (a, b, c, d) = (
-                    base + 2 * segment,
-                    base + 2 * segment + 1,
-                    base + 2 * segment + 2,
-                    base + 2 * segment + 3,
-                );
-                indices.extend_from_slice(&[a, c, b, b, c, d]);
-            }
             vertices.extend(card);
         }
+        indices.extend(strips.topology().faces().flatten());
         Ok(Self { vertices, indices, topology: CardTopology::Strips(strips) })
     }
 }

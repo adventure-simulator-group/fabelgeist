@@ -3,7 +3,7 @@
 use super::{AccumulationFrames, Band, CardLevelIndex, Form, HairShading, LodPolicy};
 use super::{PixelSpan, Quality, ShadowMapSize, ShadowQuality, SimBand, StrandLevelIndex};
 use crate::sim::SimLevel;
-use fabelgeist_math::Ratio;
+use fabelgeist_math::units::Ratio;
 
 impl LodPolicy {
     /// Every strand at every point, always.

@@ -28,8 +28,9 @@ pub(crate) struct HairAssets<'w> {
 
 impl HairAssets<'_> {
     /// `form` of the placed hair, built on the GPU and drawn from there:
-    /// its mesh, skinned wholly to the head joint, and its material. None
-    /// for a form the hair has not.
+    /// its mesh, skinned wholly to the head joint, and its material. Card
+    /// ordinals select at most the coarsest cut; missing strand levels or a
+    /// missing card family return none.
     pub(super) fn hair(
         &mut self,
         placed: &PlacedStyle,
@@ -120,7 +121,7 @@ pub(super) fn mesh(
     geometry: &GpuGeometry,
     head_joint: fabelgeist_rig::RigJointOrdinal,
 ) -> Result<Mesh> {
-    let count = geometry.vertices();
+    let count = usize::from(geometry.vertices());
     let head = u16::try_from(usize::from(head_joint))
         .context("the head joint index exceeds a skin index")?;
     Ok(Mesh::new(
@@ -136,7 +137,7 @@ pub(super) fn mesh(
         Mesh::ATTRIBUTE_JOINT_WEIGHT,
         vec![[1.0f32, 0.0, 0.0, 0.0]; count],
     )
-    .with_inserted_indices(Indices::U32(geometry.faces().into_flattened())))
+    .with_inserted_indices(Indices::U32(geometry.faces()?.into_flattened())))
 }
 
 /// The scalp `cap` as a mesh skinned wholly to `head_joint`, with its

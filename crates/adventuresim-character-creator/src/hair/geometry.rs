@@ -4,6 +4,8 @@
 
 use anyhow::Result;
 use fabelgeist_hair::lod::Form;
+use fabelgeist_hair::parameters::StrandCount;
+use fabelgeist_math::units::Ratio;
 
 use super::gpu::{GpuGeometry, StripSource};
 use super::{HairGpu, HeadPlacement, PlacedHair};
@@ -46,28 +48,28 @@ impl PlacedHair {
     }
 
     /// The triangles of `form`, built on `gpu` and left there, to draw from
-    /// where they lie; none for a form this hair has not.
+    /// where they lie. Card ordinals past the prepared range select the
+    /// coarsest cut; an absent strand level or card family returns none.
     pub fn gpu_geometry(&self, gpu: &HairGpu, form: Form) -> Result<Option<GpuGeometry>> {
         let source = self.strip_source();
         let built = match form {
             Form::Cards { level } => {
-                let Some(cards) = self
-                    .lods
-                    .cards
-                    .get(level)
-                    .or_else(|| self.lods.cards.last())
-                else {
+                let Some(level) = self.lods.counts().cards.select(level) else {
                     return Ok(None);
                 };
-                source.cards(gpu, cards, self.lods.atlas.variants)?
+                // The count and collection belong to the same immutable groom.
+                let cards = &self.lods.cards()[level.index()];
+                source.cards(gpu, cards, self.lods.atlas().variants())?
             }
             Form::Strands { level, .. } => {
-                let Some(strands) = self.lods.levels.get(level) else {
+                let Some(strands) = self.lods.levels().get(level.index()) else {
                     return Ok(None);
                 };
-                let drawn = self.strands_drawn(form);
-                let widen = strands.count as f32 / drawn.max(1) as f32;
-                source.ribbons(gpu, strands, drawn as u32, widen, self.lods.center)?
+                let drawn = self.strands_drawn(form)?;
+                let widen = Ratio::from_ratio(
+                    strands.layout().strands().count() as f32 / drawn.count().max(1) as f32,
+                );
+                source.ribbons(gpu, strands, drawn, widen, self.lods.center())?
             }
         };
         Ok(Some(built))
@@ -77,46 +79,38 @@ impl PlacedHair {
     fn strip_source(&self) -> StripSource<'_> {
         StripSource {
             body: &self.body,
+            device: self.lods.device(),
             longest: self.longest,
         }
     }
 
     /// How many strands `form` draws: its share of the level's strands,
     /// within the ribbon budget. Cards draw none.
-    pub fn strands_drawn(&self, form: Form) -> usize {
+    pub fn strands_drawn(&self, form: Form) -> Result<StrandCount> {
         let Form::Strands { level, share } = form else {
-            return 0;
+            return Ok(StrandCount::default());
         };
-        let Some(level) = self.lods.levels.get(level) else {
-            return 0;
+        let Some(level) = self.lods.levels().get(level.index()) else {
+            return Ok(StrandCount::default());
         };
-        let strands = level.count as usize;
-        let wanted = (strands as f32 * share.clamp(0.0, 1.0)).round() as usize;
-        let rows = self.strip_source().ribbon_rows(level.points) as usize;
-        let affordable = RIBBON_VERTEX_BUDGET / (2 * rows).max(1);
-        wanted.clamp(1, strands.max(1)).min(affordable)
+        let strands = level.layout().strands().count();
+        if strands == 0 {
+            return Ok(StrandCount::default());
+        }
+        // The preview budget is counted in native two-edge row vertices.
+        let wanted = (strands as f32 * share.ratio().clamp(0.0, 1.0)).round() as usize;
+        let rows = self.strip_source().ribbon_rows(level)?;
+        let affordable = RIBBON_VERTEX_BUDGET as u64 / (u64::from(rows.native_rows()) * 2);
+        Ok(StrandCount::from_count(wanted.clamp(1, strands).min(affordable as usize)))
     }
 
     /// The card atlas's mip chain, largest first.
     pub fn atlas_levels(&self) -> Vec<AtlasLevel> {
-        let atlas = &self.lods.atlas;
-        // The atlas's width already spans every variant.
-        let mut width = atlas.width;
-        let mut height = atlas.height;
-        atlas
-            .levels
-            .iter()
-            .map(|texels| {
-                let level = AtlasLevel {
-                    width,
-                    height,
-                    rgba: shade_and_coverage(texels),
-                };
-                width = (width / 2).max(1);
-                height = (height / 2).max(1);
-                level
-            })
-            .collect()
+        self.lods.atlas().levels().map(|mip| AtlasLevel {
+            width: mip.width_texels(),
+            height: mip.height_texels(),
+            rgba: shade_and_coverage(mip.pixel_bytes()),
+        }).collect()
     }
 }
 

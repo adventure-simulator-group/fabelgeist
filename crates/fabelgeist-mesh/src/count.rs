@@ -6,8 +6,11 @@
 use std::fmt;
 use std::num::TryFromIntError;
 
+pub use strip::{MeshStripCount, MeshStripError, MeshStripLayout, MeshStripResult, MeshStripRows};
+
 #[cfg(feature = "gpu")]
 mod gpu;
+mod strip;
 
 /// Vertices in a mesh or in one contiguous mesh arena.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]

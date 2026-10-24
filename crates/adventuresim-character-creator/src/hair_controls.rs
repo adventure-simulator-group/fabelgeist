@@ -11,6 +11,7 @@ use adventuresim_character_creator::hair::{
     variant_label,
 };
 use fabelgeist_hair::lod::Form;
+use fabelgeist_math::units::Ratio;
 use fabelgeist_hair::{Arrangement, Cut, Growth, Preset};
 use hair_preview::HairPreview;
 use std::ops::RangeInclusive;
@@ -24,9 +25,9 @@ const PRESETS_OWN: &str = "Preset's own";
 const CENTIMETRES: f32 = 100.0;
 const MILLIMETRES: f32 = 1000.0;
 /// The share of strands a strand level starts out drawing.
-const START_SHARE: f32 = 0.25;
+const START_SHARE: Ratio = Ratio::from_ratio(0.25);
 /// The fewest of a level's strands the share slider draws.
-const MIN_SHARE: f32 = 0.01;
+const MIN_SHARE: Ratio = Ratio::from_ratio(0.01);
 
 pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, preview: &HairPreview) {
     let hair = &mut studio.recipe.hair;
@@ -59,7 +60,9 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, preview: &HairPreview
     ui.add_space(6.0);
     shape(ui, design);
     ui.add_space(6.0);
-    level_of_detail(ui, &mut studio.hair_form, preview);
+    if let Err(error) = level_of_detail(ui, &mut studio.hair_form, preview) {
+        studio.status = format!("{error:#}");
+    }
     ui.add_space(6.0);
     layers(ui, &mut studio.hair_layers);
 }
@@ -205,11 +208,11 @@ fn variant<T: Copy + PartialEq + std::fmt::Debug>(
 
 /// Pick a strand level or a cut of cards, and how many of a level's strands
 /// to draw.
-fn level_of_detail(ui: &mut egui::Ui, form: &mut Form, preview: &HairPreview) {
+fn level_of_detail(ui: &mut egui::Ui, form: &mut Form, preview: &HairPreview) -> Result<()> {
     let choices = preview.form_choices();
     if preview.preparing() || choices.is_empty() {
         ui.label(egui::RichText::new("Growing the hair…").color(studio_theme::MUTED));
-        return;
+        return Ok(());
     }
     let current = choices
         .iter()
@@ -231,36 +234,38 @@ fn level_of_detail(ui: &mut egui::Ui, form: &mut Form, preview: &HairPreview) {
                 }
             }
         });
-    let Form::Strands { level, mut share } = *form else {
-        return;
+    let Form::Strands { level, share } = *form else {
+        return Ok(());
     };
+    let mut share = share.ratio();
     let resized = stat_slider(
         ui,
         "Strands drawn",
         &mut share,
-        MIN_SHARE..=1.0,
-        START_SHARE,
+        MIN_SHARE.ratio()..=1.0,
+        START_SHARE.ratio(),
     )
     .changed();
     if resized {
-        *form = Form::Strands { level, share };
+        *form = Form::Strands { level, share: Ratio::from_ratio(share) };
     }
-    if let Some(count) = preview.strands_drawn(*form) {
+    if let Some(count) = preview.strands_drawn(*form)? {
         ui.label(
             egui::RichText::new(format!(
                 "{} of {} strands, widened to keep the head covered",
-                count.drawn, count.all
+                count.drawn.count(), count.all.count()
             ))
             .color(studio_theme::MUTED),
         );
     }
+    Ok(())
 }
 
 /// Whether two forms draw the same level, whatever share of its strands.
 fn same_level(a: Form, b: Form) -> bool {
     match (a, b) {
-        (Form::Strands { level: a, .. }, Form::Strands { level: b, .. })
-        | (Form::Cards { level: a }, Form::Cards { level: b }) => a == b,
+        (Form::Strands { level: a, .. }, Form::Strands { level: b, .. }) => a == b,
+        (Form::Cards { level: a }, Form::Cards { level: b }) => a == b,
         _ => false,
     }
 }

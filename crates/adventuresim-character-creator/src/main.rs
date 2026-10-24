@@ -160,7 +160,7 @@ impl Studio {
             },
             tab: studio_ui::StudioTab::Character,
             inventory: inventory_ui::InventoryView::default(),
-            hair_form: fabelgeist_hair::lod::Form::Cards { level: 0 },
+            hair_form: fabelgeist_hair::lod::Form::Cards { level: fabelgeist_hair::lod::CardLevelIndex::from_index(0) },
             hair_layers: hair_preview::ShownLayers::default(),
         }
     }

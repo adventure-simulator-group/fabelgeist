@@ -4,7 +4,10 @@
 use anyhow::Result;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_hair::gpu::{GpuGroom, GpuLods, head_shape};
-use fabelgeist_hair::lod::Form;
+use fabelgeist_hair::cards::CardCount;
+use fabelgeist_hair::lod::{CardLevelIndex, Form, StrandLevelIndex};
+use fabelgeist_hair::parameters::{PointsPerStrand, StrandCount};
+use fabelgeist_math::units::{Metres, Ratio};
 use fabelgeist_hair::{Head, LodSettings, MeshCollider, Surface};
 use fabelgeist_math::Vec3;
 use std::sync::Arc;
@@ -32,7 +35,7 @@ pub struct GroomedHair {
     /// The box the strands are in.
     bounds: [Vec3; 2],
     /// The longest strand, metres.
-    longest: f32,
+    longest: Metres,
     /// Whether the hair hangs free, and so is draped on a character.
     drapes: bool,
     head: Head,
@@ -58,7 +61,7 @@ pub struct PlacedHair {
     /// the character's body as a field, or the bust's shapes.
     pub(super) body: Buffer,
     /// The longest strand, metres.
-    pub(super) longest: f32,
+    pub(super) longest: Metres,
     placement: HeadPlacement,
     cap: ScalpCap,
     scalp_texture: Arc<GpuScalpTexture>,
@@ -205,29 +208,27 @@ impl PlacedHair {
     /// Every form this hair can be drawn in, finest first: each strand
     /// level with all its strands, then each cut of cards.
     pub fn forms(&self) -> Vec<Form> {
-        let strands = (0..self.lods.levels.len()).map(|level| Form::Strands { level, share: 1.0 });
-        let cards = (0..self.lods.cards.len()).map(|level| Form::Cards { level });
+        let strands = self.lods.levels().iter().enumerate().map(|(level, _)| Form::Strands {
+            level: StrandLevelIndex::from_index(level),
+            share: Ratio::from_ratio(1.0),
+        });
+        let cards = self.lods.cards().iter().enumerate().map(|(level, _)| Form::Cards {
+            level: CardLevelIndex::from_index(level),
+        });
         strands.chain(cards).collect()
     }
 
-    /// Points along each strand at strand `level`.
-    pub fn strand_points(&self, level: usize) -> usize {
-        self.lods
-            .levels
-            .get(level)
-            .map_or(0, |level| level.points as usize)
+    /// Points along each strand at strand `level`, when it exists.
+    pub fn strand_points(&self, level: StrandLevelIndex) -> Option<PointsPerStrand> {
+        self.lods.levels().get(level.index()).map(|level| level.layout().points())
     }
 
-    /// Strands in the groom.
-    pub fn strand_count(&self) -> usize {
+    pub fn strand_count(&self) -> StrandCount {
         self.lods.strand_count()
     }
 
-    /// The cards in cut `level`.
-    pub fn card_count(&self, level: usize) -> usize {
-        self.lods
-            .cards
-            .get(level)
-            .map_or(0, |cut| cut.cards as usize)
+    /// The cards in cut `level`, when it exists.
+    pub fn card_count(&self, level: CardLevelIndex) -> Option<CardCount> {
+        self.lods.cards().get(level.index()).map(|cut| cut.strips().cards())
     }
 }

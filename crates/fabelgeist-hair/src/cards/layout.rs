@@ -1,7 +1,10 @@
 //! Checked triangle populations and generated card-strip relationships.
 
 use super::CardVertex;
-use fabelgeist_mesh::{MeshCornerCount, MeshTriangleCount, MeshVertexCount};
+use fabelgeist_mesh::{
+    MeshCornerCount, MeshStripCount, MeshStripError, MeshStripLayout, MeshStripRows,
+    MeshTriangleCount, MeshVertexCount,
+};
 use std::num::TryFromIntError;
 
 #[cfg(feature = "gpu")]
@@ -27,8 +30,7 @@ pub struct CardLayout {
 /// An admitted uniform strip topology with at least one segment per card.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct CardStripLayout {
-    layout: CardLayout,
-    segments: CardSegments,
+    topology: MeshStripLayout,
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -47,10 +49,8 @@ pub enum CardError {
     PartialTriangle { indices: usize },
     #[error("card corner {corner} addresses vertex {index}, outside {vertices:?}")]
     Index { corner: usize, index: u32, vertices: MeshVertexCount },
-    #[error("{cards:?} cards of {segments:?} segments exceed indexed strip addresses")]
-    Strips { cards: CardCount, segments: CardSegments },
-    #[error("card strips need at least one segment")]
-    MissingSegment,
+    #[error("invalid card strip topology")]
+    Strip(#[from] MeshStripError),
     #[error("card geometry allocation failed")]
     Allocation(#[from] std::collections::TryReserveError),
     #[cfg(feature = "gpu")]
@@ -125,31 +125,26 @@ impl CardLayout {
 
 impl CardStripLayout {
     pub fn new(cards: CardCount, segments: CardSegments) -> CardResult<Self> {
-        if segments.count() == 0 {
-            return Err(CardError::MissingSegment);
-        }
-        let invalid = || CardError::Strips { cards, segments };
-        let rows = segments.count().checked_add(1).ok_or_else(invalid)?;
-        let per_card = rows.checked_mul(2).ok_or_else(invalid)?;
-        let vertices = cards.count().checked_mul(per_card).ok_or_else(invalid)?;
-        let triangles = cards.count().checked_mul(segments.count())
-            .and_then(|quads| quads.checked_mul(2)).ok_or_else(invalid)?;
-        let vertices = MeshVertexCount::try_from(vertices)
-            .map_err(|source| CardError::Vertices { requested: vertices, source })?;
-        let triangles = MeshTriangleCount::try_from(triangles)
-            .map_err(|source| CardError::Triangles { requested: triangles, source })?;
-        Ok(Self { layout: CardLayout::new(vertices, triangles)?, segments })
+        let topology = MeshStripLayout::new(
+            MeshStripCount::try_from(cards.count())?,
+            MeshStripRows::from_segments(segments.count())?,
+        )?;
+        Ok(Self { topology })
+    }
+
+    pub fn topology(self) -> MeshStripLayout {
+        self.topology
     }
 
     pub fn layout(self) -> CardLayout {
-        self.layout
+        CardLayout { vertices: self.topology.vertices(), corners: self.topology.corners() }
     }
 
     pub fn cards(self) -> CardCount {
-        CardCount::from_count(usize::from(self.layout.vertices()) / ((self.segments.count() + 1) * 2))
+        CardCount::from_count(self.topology.strips().native_strips() as usize)
     }
 
     pub fn segments(self) -> CardSegments {
-        self.segments
+        CardSegments::from_count((self.topology.rows().native_rows() - 1) as usize)
     }
 }

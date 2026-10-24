@@ -36,6 +36,7 @@ use anyhow::Result;
 use fabelgeist_compute::{Kernel, KernelBatch};
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_hair::Head;
+use fabelgeist_math::units::Metres;
 use fabelgeist_hair::gpu::wgsl::common::{HEAD, MATH};
 use fabelgeist_hair::gpu::{GpuGroom, head_shape};
 
@@ -425,7 +426,7 @@ impl GpuScalpTexture {
 }
 
 /// The longest of `groom`'s strands, metres.
-pub(crate) fn longest(gpu: &HairGpu, groom: &GpuGroom) -> Result<f32> {
+pub(crate) fn longest(gpu: &HairGpu, groom: &GpuGroom) -> Result<Metres> {
     let context = gpu.context();
     let out = storage(context, 16, "hair longest strand")?;
     let mut batch = KernelBatch::labelled(context, "hair longest strand");
@@ -444,5 +445,5 @@ pub(crate) fn longest(gpu: &HairGpu, groom: &GpuGroom) -> Result<f32> {
     )?;
     batch.submit()?;
     let words: Vec<u32> = pollster::block_on(out.read(context))?;
-    Ok(f32::from_bits(words.first().copied().unwrap_or(0)))
+    Ok(Metres::from_metres(f32::from_bits(words.first().copied().unwrap_or(0))))
 }

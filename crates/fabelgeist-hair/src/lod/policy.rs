@@ -3,7 +3,7 @@
 use super::{CardLevelIndex, LodCounts, PixelSpan, Quality, StrandLevelIndex};
 use crate::parameters::StrandCount;
 use crate::sim::SimLevel;
-use fabelgeist_math::Ratio;
+use fabelgeist_math::units::Ratio;
 
 pub type PolicyResult<T> = std::result::Result<T, LodPolicyError>;
 

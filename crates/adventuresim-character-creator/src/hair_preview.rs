@@ -13,24 +13,24 @@ use adventuresim_character_creator::hair::{
 };
 use bevy::camera::visibility::NoFrustumCulling;
 use fabelgeist_hair::lod::Form;
+use fabelgeist_hair::parameters::StrandCount;
 use fabelgeist_rig::RigJointName;
 use std::sync::Arc;
 use std::thread::JoinHandle;
-
-mod assets;
-mod gpu;
-mod layers;
-#[cfg(test)]
-mod render_test;
-mod scalp_shade;
-mod scalp_upload;
-mod strand_shading;
 
 use assets::HairAssets;
 pub(super) use gpu::HairGpuPlugin;
 use layers::HairLayer;
 pub(super) use layers::{ShownLayers, show as show_layers};
 pub(super) use strand_shading::HairShadingPlugin;
+
+mod assets;
+mod gpu;
+mod layers;
+mod scalp_shade;
+mod scalp_upload;
+mod strand_shading;
+
 
 /// The hair mesh shown on the character: the design and the form it draws.
 #[derive(Component)]
@@ -82,6 +82,18 @@ pub(super) struct BodyHead {
     joint_weights: Vec<[f32; 8]>,
     joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
     global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
+}
+
+/// A level of detail the Hair page offers, and its name there.
+pub(super) struct FormChoice {
+    pub(super) form: Form,
+    pub(super) label: String,
+}
+
+/// Strands drawn out of a groom's.
+pub(super) struct StrandsDrawn {
+    pub(super) drawn: StrandCount,
+    pub(super) all: StrandCount,
 }
 
 impl BodyHead {
@@ -193,11 +205,6 @@ impl HairPreview {
     }
 }
 
-/// A level of detail the Hair page offers, and its name there.
-pub(super) struct FormChoice {
-    pub(super) form: Form,
-    pub(super) label: String,
-}
 
 impl HairPreview {
     /// The levels of detail of the placed hair, finest first; none until
@@ -213,21 +220,23 @@ impl HairPreview {
                 form,
                 label: match form {
                     Form::Strands { level, .. } => {
-                        format!("Strands, {} points each", hair.strand_points(level))
+                        format!("Strands, {} points each", hair.strand_points(level).map_or(0, |points| points.count()))
                     }
-                    Form::Cards { level } => format!("Cards, {} strips", hair.card_count(level)),
+                    Form::Cards { level } => format!("Cards, {} strips", hair.card_count(level).map_or(0, |cards| cards.count())),
                 },
             })
             .collect()
     }
 
     /// How many strands `form` draws of the placed hair's, and of how many.
-    pub(super) fn strands_drawn(&self, form: Form) -> Option<StrandsDrawn> {
-        let hair = &self.placed.as_ref()?.hair;
-        Some(StrandsDrawn {
-            drawn: hair.strands_drawn(form),
-            all: hair.strand_count(),
-        })
+    pub(super) fn strands_drawn(&self, form: Form) -> Result<Option<StrandsDrawn>> {
+        let Some(placed) = &self.placed else {
+            return Ok(None);
+        };
+        Ok(Some(StrandsDrawn {
+            drawn: placed.hair.strands_drawn(form)?,
+            all: placed.hair.strand_count(),
+        }))
     }
 
     /// Whether hair is still being grown or placed.
@@ -236,11 +245,6 @@ impl HairPreview {
     }
 }
 
-/// Strands drawn out of a groom's.
-pub(super) struct StrandsDrawn {
-    pub(super) drawn: usize,
-    pub(super) all: usize,
-}
 
 /// Keep the shown hair in step with the recipe and the Hair page: grow and
 /// place a new style, place it again on every body the studio regenerates
@@ -341,3 +345,6 @@ pub(super) fn refresh(
         MeshMaterial3d(cap_material),
     ));
 }
+
+#[cfg(test)]
+mod render_test;

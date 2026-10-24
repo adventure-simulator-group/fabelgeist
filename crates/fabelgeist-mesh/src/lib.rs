@@ -2,7 +2,19 @@
 //!
 //! The GPU half (`GpuMesh`, upload, readback, neighborhood and wireframe
 //! buffers) is the `gpu` feature, on by default.
-pub use count::{MeshCornerCount, MeshTriangleCount, MeshVertexCount};
+pub use count::{
+    MeshCornerCount, MeshStripCount, MeshStripError, MeshStripLayout, MeshStripResult, MeshStripRows,
+    MeshTriangleCount, MeshVertexCount,
+};
+pub use data::MeshData;
+pub use front_face::FrontFace;
+#[cfg(feature = "gpu")]
+pub use gpu::GpuMesh;
+#[cfg(feature = "gpu")]
+pub use neighborhood::MeshNeighborhood;
+pub use topology::PrimitiveTopology;
+#[cfg(feature = "gpu")]
+pub use wireframe::MeshWireframe;
 
 mod count;
 mod data;
@@ -14,12 +26,3 @@ pub mod neighborhood;
 mod topology;
 #[cfg(feature = "gpu")]
 pub mod wireframe;
-pub use data::MeshData;
-pub use front_face::FrontFace;
-#[cfg(feature = "gpu")]
-pub use gpu::GpuMesh;
-#[cfg(feature = "gpu")]
-pub use neighborhood::MeshNeighborhood;
-pub use topology::PrimitiveTopology;
-#[cfg(feature = "gpu")]
-pub use wireframe::MeshWireframe;
