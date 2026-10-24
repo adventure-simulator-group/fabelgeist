@@ -130,12 +130,20 @@ impl ArmorGpu {
 
     /// Read a logical buffer prefix after its producing submission succeeded.
     ///
+    /// `buffer` must belong to this facade's device, and its context queue
+    /// must be paired with that device. External aliases must respect the
+    /// mapping ownership required by [`Buffer::read`].
+    ///
     /// Native progress blocks; browser callers use `read_async` to yield to
-    /// mapping callbacks. External mapping ownership follows `Buffer::read`.
+    /// mapping callbacks.
     pub fn read<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>> {
         pollster::block_on(self.read_async(buffer))
     }
 
+    /// Read a logical prefix using this facade's device and paired queue.
+    ///
+    /// `buffer` must belong to that device. Handle its producing submission's
+    /// result first and respect the mapping ownership in [`Buffer::read`].
     pub async fn read_async<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>> {
         buffer.read(&self.context).await.map_err(device_error)
     }

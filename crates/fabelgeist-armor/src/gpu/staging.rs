@@ -115,10 +115,21 @@ impl StagedResults {
 
 impl ArmorGpu {
     /// Read all staged sources with one grouped mapping on their device.
+    ///
+    /// Every source must belong to this facade's device, and the context queue
+    /// must be paired with that device. Sources must be available for the GPU
+    /// copies under their existing mapping ownership. Handle producing
+    /// submission results before calling this method.
     pub fn read_staged(&self, staging: Staging) -> Result<StagedResults, GenerateError> {
         pollster::block_on(self.read_staged_async(staging))
     }
 
+    /// Read staged sources using this facade's device and paired queue.
+    ///
+    /// Every source must belong to that device and be available for the GPU
+    /// copies under its existing mapping ownership. Handle producing
+    /// submission results first; the grouped staging allocation is mapped
+    /// using native progress or browser callbacks.
     pub async fn read_staged_async(
         &self,
         staging: Staging<'_>,
