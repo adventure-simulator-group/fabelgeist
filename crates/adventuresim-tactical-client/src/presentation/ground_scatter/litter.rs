@@ -564,12 +564,11 @@ mod tests {
         let base_seed = (0..100)
             .map(fabelgeist_determinism::Seed::from_u64)
             .find(|base_seed| {
-                (0..9).any(|index| {
-                    streams::PRESENCE
-                        .rng(streams::PLANT_PATCH.seed(*base_seed, &[index, 0]), &[])
-                        .inclusive_unit_f32()
-                        < 0.055
-                })
+                // The centre cell keeps seeded jitter inside this tiny terrain.
+                streams::PRESENCE
+                    .rng(streams::PLANT_PATCH.seed(*base_seed, &[4, 0]), &[])
+                    .inclusive_unit_f32()
+                    < 0.055
             })
             .expect("a deterministic seed with a woodland-floor plant");
         let mut world = World::new();
@@ -924,7 +923,7 @@ mod tests {
             let mut expected_boundaries = 0;
             for twig in 0..TWIGS_PER_PATCH {
                 let hash = streams::TWIG.seed(variant.into(), &[twig]);
-                let sides = 5 + (hash.to_u64() % 2) as usize;
+                let sides = 5 + streams::TWIG_SIDES.rng(hash, &[]).index(2);
                 expected_vertices += sides * 4 + 2;
                 expected_triangles += sides * 8;
                 if twig < 2 && streams::TWIG_FORK.rng(hash, &[]).inclusive_unit_f32() > 0.46 {

@@ -302,14 +302,12 @@ mod tests {
         BEECH_TREE_BAKE_STYLE, fit_tree_bake_card, tree_bake_cards, tree_bake_cards_with_style,
     };
     use super::*;
-    use crate::presentation::obstacle_seed;
     use crate::presentation::obstacles::tree::presentation::oak_gnarling_for_test_site;
     use crate::presentation::obstacles::tree::{
         COMMON_BEECH_PARAMETERS, OAK_GNARLING_SHOWCASE, procedural_oak_leaves,
         procedural_oak_skeleton_with_gnarling, procedural_tree_skeleton,
         procedural_woody_plant_leaves, procedural_woody_plant_skeleton,
     };
-    use adventuresim_tactical_core::prelude::{Precipitation, SceneEnvironment, WeatherSnapshot};
 
     #[derive(Clone, Copy, Debug)]
     struct ProjectedCrownCoverage {
@@ -817,77 +815,32 @@ mod tests {
     }
 
     #[test]
-    fn sparse_fixture_oak_lod1_preserves_45_degree_upper_right_silhouette() {
-        const SCENE_SEED: u64 = 47_104;
-        const FOCUSED_TREE_RECIPE_SEED: fabelgeist_determinism::Seed =
-            fabelgeist_determinism::Seed::from_u64(15_240_619_980_244_641_867);
-        const VISTA_CACHE_RECIPE_SEED: fabelgeist_determinism::Seed =
-            fabelgeist_determinism::Seed::from_u64(16_311_644_104_379_926_507);
-        const FIXTURE_COMPETITION: f32 = 0.281_75;
-        // Seed 47104 deterministically places the reviewed playable tree at
-        // (12.5, 37.5). Production hashes that placement, selects showcase
-        // variant 1, and applies the sparse-woodland site history. The much
-        // more frequent variant-0 seed in the manifest belongs to vista/cache
-        // bakes and is not the tree framed by the forced-LOD views.
-        let fixture_position = Vec3::new(12.5, 0.0, 37.5);
-        let obstacle_seed = obstacle_seed(
-            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(Vec2::new(
-                fixture_position.x,
-                fixture_position.z,
-            ))
-            .unwrap(),
-        );
-        let variant_index = (obstacle_seed.to_u64() & 3) as usize;
-        let variant_seed =
-            crate::presentation::obstacles::tree::specimen::oak_variant_seed(variant_index);
-        assert_eq!(SCENE_SEED, 47_104);
-        assert_eq!(variant_index, 1);
-        assert_eq!(variant_seed, FOCUSED_TREE_RECIPE_SEED);
-        assert_ne!(variant_seed, VISTA_CACHE_RECIPE_SEED);
-        let environment = SceneEnvironment {
-            scene_digest: "4926dcc166599287c1966fd23ced047bd918de9f6b80ed1b8f9280159f094a6b".into(),
-            generation_version: 8,
-            latitude_microdegrees:
-                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000)
-                    .unwrap(),
-            longitude_microdegrees:
-                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000)
-                    .unwrap(),
-            absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
-            lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
-            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(42).unwrap(),
-            weather: WeatherSnapshot {
-                rules_version: adventuresim_tactical_core::prelude::WEATHER_RULES_VERSION,
-                interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(
-                    340_440,
-                ),
-                cell_latitude: 214,
-                cell_longitude: 40,
-                temperature_deci_c: 120,
-                wind_speed_bps: 1_200,
-                precipitation: Precipitation::Clear,
-                intensity_bps: 0,
-                ground_moisture_bps: 100,
-                snow_cover_bps: 0,
-                atmosphere: Default::default(),
-            },
-            canopy_bps: 3_500,
-            wetland_bps: 300,
-            cultivation_bps: 0,
-            water_bps: 0,
-            hilly_bps: 0,
-        };
+    fn woodland_oak_site_lod1_preserves_45_degree_upper_right_silhouette() {
+        let input = adventuresim_tactical_core::scene_input::TacticalSceneInput::load(
+            std::path::Path::new(concat!(
+                env!("CARGO_MANIFEST_DIR"),
+                "/../../assets/tactical-scenes/sparse-woodland.json"
+            )),
+        )
+        .unwrap();
+        let environment = input.environment_snapshot(input.digest().unwrap());
+        let point = adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+            Vec2::new(12.5, 37.5),
+        )
+        .unwrap();
+        let (variant_index, variant_seed) =
+            crate::presentation::obstacles::tree::specimen::oak_variant_for_site(point);
+        let competition =
+            crate::presentation::obstacles::tree::canopy_competition(environment.canopy_bps);
         let gnarling = oak_gnarling_for_test_site(
             OAK_GNARLING_SHOWCASE[variant_index],
             &environment,
             variant_seed,
         );
-        let branches =
-            procedural_oak_skeleton_with_gnarling(variant_seed, FIXTURE_COMPETITION, gnarling);
-        let leaves = procedural_oak_leaves(variant_seed, &branches, FIXTURE_COMPETITION);
-        // The viewer places the camera in +X/+Z at review azimuth 45 degrees.
-        // Use its manifested twig-LOD camera-up vector so this regression
-        // evaluates the rejected fixture rather than a convenient atlas axis.
+        let branches = procedural_oak_skeleton_with_gnarling(variant_seed, competition, gnarling);
+        let leaves = procedural_oak_leaves(variant_seed, &branches, competition);
+        // Review the current woodland site from +X/+Z at 45 degrees, with
+        // the near-horizontal elevation used by the tree inspection camera.
         let camera_right = Vec3::new(
             core::f32::consts::FRAC_1_SQRT_2,
             0.0,

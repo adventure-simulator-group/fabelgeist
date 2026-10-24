@@ -11,7 +11,7 @@ use raster::*;
 use super::super::super::*;
 use super::geometry::*;
 
-pub(in crate::presentation) const TREE_IMPOSTOR_BAKE_VERSION: u32 = 16;
+pub(in crate::presentation) const TREE_IMPOSTOR_BAKE_VERSION: u32 = 17;
 pub(in crate::presentation) const TREE_IMPOSTOR_RENDER_METHOD: &str =
     "deterministic software triangle render with species-calibrated crown coverage";
 /// Per-LOD atlas tiles, from near aggregate cards through the whole-tree
@@ -117,7 +117,8 @@ pub(in crate::presentation) const BEECH_TREE_BAKE_STYLE: TreeBakeStyle = TreeBak
     // small retained sample into a dark solid mass at the 6-8 m handoff.
     aggregate_leaf_scales: [0.82, 1.32, 1.62, 1.84],
     lod1_world_vertical: false,
-    lod1_runtime_width_scale: 1.0,
+    // Keep the flattened near crown within the source occupancy budget.
+    lod1_runtime_width_scale: 0.98,
 };
 
 pub(in crate::presentation) fn validate_tree_bake_provenance(provenance: &TreeImpostorProvenance) {
