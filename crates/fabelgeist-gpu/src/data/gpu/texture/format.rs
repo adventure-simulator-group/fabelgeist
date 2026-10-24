@@ -1,5 +1,9 @@
 use serde::{Deserialize, Serialize};
 
+pub use storage::{StorageFormatError, StorageFormatResult};
+
+mod storage;
+
 #[derive(
     Debug,
     Clone,
@@ -282,39 +286,6 @@ impl TextureFormat {
             | TextureFormat::R32Sint
             | TextureFormat::R32Uint
             | TextureFormat::R16Float => 1,
-        }
-    }
-
-    pub fn to_wgsl_storage_format(&self) -> &str {
-        match self {
-            TextureFormat::Rgba8Unorm => "rgba8unorm",
-            TextureFormat::Rgba8UnormSrgb => "rgba8unorm", // Note: WGSL storage doesn't support -srgb, fallback to unorm if forced
-            TextureFormat::Bgra8Unorm => "bgra8unorm",
-            TextureFormat::Bgra8UnormSrgb => "bgra8unorm", // Note: WGSL storage doesn't support -srgb, fallback to unorm if forced
-            TextureFormat::R32Float => "r32float",
-            TextureFormat::Rg32Float => "rg32float",
-            TextureFormat::Rgba32Float => "rgba32float",
-            TextureFormat::Rgba16Float => "rgba16float",
-            TextureFormat::Rgba8Uint => "rgba8uint",
-            TextureFormat::R8Uint => "r8uint",
-            TextureFormat::R8Sint => "r8sint",
-            TextureFormat::R8Snorm => "r8snorm",
-            TextureFormat::R8Unorm => "r8unorm",
-            TextureFormat::Rg8Uint => "rg8uint",
-            TextureFormat::Rg8Sint => "rg8sint",
-            TextureFormat::Rg8Snorm => "rg8snorm",
-            TextureFormat::Rg8Unorm => "rg8unorm",
-            TextureFormat::Rgba8Sint => "rgba8sint",
-            TextureFormat::Rgba8Snorm => "rgba8snorm",
-            TextureFormat::R32Sint => "r32sint",
-            TextureFormat::Rg32Sint => "rg32sint",
-            TextureFormat::Rgba32Sint => "rgba32sint",
-            TextureFormat::R32Uint => "r32uint",
-            TextureFormat::Rg32Uint => "rg32uint",
-            TextureFormat::Rgba32Uint => "rgba32uint",
-            TextureFormat::Rg16Float => "rg16float",
-            TextureFormat::R16Float => "r16float",
-            _ => "rgba32float", // Fallback for safety, though some formats might not be storage-compatible
         }
     }
 
