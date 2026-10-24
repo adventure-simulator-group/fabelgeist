@@ -1,7 +1,6 @@
 //! Native upload of an admitted card atlas, retaining its variant population.
 
 use crate::cards::{AtlasError, AtlasMip, AtlasResult, AtlasVariantCount, CardAtlas};
-use crate::gpu::error::HairGpuError;
 
 pub(super) struct UploadedAtlas {
     pub view: wgpu::TextureView,
@@ -73,11 +72,5 @@ impl AtlasMip {
             height: self.height_texels(),
             depth_or_array_layers: 1,
         }
-    }
-}
-
-impl From<AtlasError> for HairGpuError {
-    fn from(cause: AtlasError) -> Self {
-        Self::Backend(cause.into())
     }
 }
