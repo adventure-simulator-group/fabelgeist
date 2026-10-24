@@ -50,7 +50,6 @@ use std::sync::Arc;
 
 use crate::gpu::error::{HairGpuError, Result};
 use fabelgeist_math::Vec3;
-use wgpu::util::DeviceExt;
 
 pub use math::{Mat4, halton, look_at, multiply, orthographic, perspective};
 
