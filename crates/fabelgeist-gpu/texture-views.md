@@ -38,11 +38,12 @@ Storage binding requires an sRGB request to select its linear counterpart at the
 descriptor boundary. The original request remains in a rejection. The methods
 preserve descriptor inference, cube layers, labels and validation filtering.
 Cached returns do not poll. Native contexts that own their device read back the
-validation scope before returning; borrowed contexts skip that blocking
-readback, as do browser builds. Those contexts report native failures through
-the device's uncaptured-error handler rather than a synchronous
-`TextureViewError`. Initial texture and cube-face view construction follow the
-same context policy when given a context, retaining native causes on readback.
+validation scope before returning by default. Borrowed contexts disable this
+blocking readback by default, and browser builds omit it. On these paths, native
+failures follow the device's configured error handling, including
+caller-installed scopes, rather than a synchronous `TextureViewError`. Initial
+texture and cube-face view construction follow the same context policy when
+given a context, retaining native causes on readback.
 
 Native observation attempts the existing wait once and always reads the scope,
 even when polling fails. `ValidationProgressError` retains the actual
