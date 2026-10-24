@@ -257,11 +257,7 @@ impl<'a> KernelBatch<'a> {
             Some(fast) => {
                 let prepared = fast.prepare(self.context, parameters, &mut self.uniforms)?;
                 #[cfg(not(target_arch = "wasm32"))]
-                let scope = self.context.blocking_validation.then(|| {
-                    self.context
-                        .device
-                        .push_error_scope(wgpu::ErrorFilter::Validation)
-                });
+                let scope = ValidationScope::new(self.context);
                 let outcome = {
                     let mut pass = self
                         .encoder
@@ -272,18 +268,14 @@ impl<'a> KernelBatch<'a> {
                     prepared.record(&mut pass, groups)
                 };
                 #[cfg(not(target_arch = "wasm32"))]
-                let native_error = scope.and_then(|scope| {
-                    let _ = self
-                        .context
-                        .device
-                        .poll(wgpu::PollType::wait_indefinitely());
-                    pollster::block_on(scope.pop())
-                });
+                let outcome = ComputePassError::resolve_observation(
+                    outcome,
+                    match scope {
+                        Some(scope) => scope.finish(),
+                        None => Ok(()),
+                    },
+                );
                 outcome?;
-                #[cfg(not(target_arch = "wasm32"))]
-                if let Some(cause) = native_error {
-                    return Err(ComputePassError::Native(Arc::new(cause)).into());
-                }
             }
             None => ComputePass::record(
                 self.context,

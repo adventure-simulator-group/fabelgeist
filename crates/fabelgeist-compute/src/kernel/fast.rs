@@ -223,11 +223,7 @@ impl FastPath {
         entries.sort_by_key(|entry| entry.binding);
 
         #[cfg(not(target_arch = "wasm32"))]
-        let scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let scope = ValidationScope::new(context);
         let bind_group = context
             .device
             .create_bind_group(&wgpu::BindGroupDescriptor {
@@ -244,10 +240,7 @@ impl FastPath {
         });
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(scope) = scope {
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(cause) = pollster::block_on(scope.pop()) {
-                return Err(ComputePassError::Native(Arc::new(cause)).into());
-            }
+            scope.finish().map_err(ComputePassError::from)?;
         }
 
         Ok(Prepared {

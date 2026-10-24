@@ -1,4 +1,5 @@
 use crate::data::gpu::shader::ShaderError;
+use crate::globals::{ValidationProgressError, ValidationScopeError};
 use std::{error::Error, fmt, sync::Arc};
 
 pub type ComputePipelineResult<T> = Result<T, ComputePipelineError>;
@@ -22,6 +23,7 @@ pub enum ComputePipelineError {
     },
     NotCompiled,
     Native(Arc<wgpu::Error>),
+    Progress(Arc<ValidationProgressError>),
     CachePoisoned,
     BindGroupLimit {
         index: u32,
@@ -40,6 +42,15 @@ pub enum ComputePipelineError {
     UnsupportedImmediate {
         name: String,
     },
+}
+
+impl From<ValidationScopeError> for ComputePipelineError {
+    fn from(cause: ValidationScopeError) -> Self {
+        match cause {
+            ValidationScopeError::Native(cause) => Self::Native(Arc::new(cause)),
+            ValidationScopeError::Progress(cause) => Self::Progress(Arc::new(cause)),
+        }
+    }
 }
 
 impl From<ShaderError> for ComputePipelineError {
@@ -66,6 +77,7 @@ impl fmt::Display for ComputePipelineError {
             Self::NotCompiled => {
                 formatter.write_str("ComputePass: ComputePipeline missing actual WGPU pipeline")
             }
+            Self::Progress(cause) => write!(formatter, "ComputePipeline Creation Error: {cause}"),
             Self::Native(cause) => write!(formatter, "ComputePipeline Creation Error: {cause}"),
             Self::BindGroupLimit { index, limit } => write!(
                 formatter,
@@ -101,6 +113,7 @@ impl Error for ComputePipelineError {
         match self {
             Self::Shader(cause) => Some(cause),
             Self::Native(cause) => Some(cause.as_ref()),
+            Self::Progress(cause) => Some(cause.as_ref()),
             _ => None,
         }
     }
