@@ -1,11 +1,12 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::shader::UniformMember;
 
-/// Pack the uniform block from named parameters, by reflected offsets.
+/// Pack supported provided variants at the reflected member offsets.
 ///
-/// Covers the scalar, vector and matrix kinds a solver passes. Anything else
-/// is reported rather than silently skipped -- a uniform quietly left at zero
-/// is a wrong simulation, not an error, and those are the expensive ones.
+/// Missing parameters and unsupported variants return typed errors. Like the
+/// static packer, this skips an entire provided value if it does not fit in the
+/// block, leaving that destination unchanged. The supplied variant determines
+/// the representation; this does not check the reflected member's type or span.
 pub(super) fn write_uniform(
     members: &[UniformMember],
     parameters: &PassParameters,
