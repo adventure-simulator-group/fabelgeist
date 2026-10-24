@@ -52,7 +52,7 @@ use wgpu::util::DeviceExt;
 
 pub use math::{Mat4, halton, look_at, multiply, orthographic, perspective};
 
-use crate::cards::CardAtlas;
+use crate::cards::{CardAtlas, CardVertex};
 use crate::lod::{
     AccumulationFrames, HairLods, HairShading, LodCounts, LodPolicy, PixelSpan, Representation,
     Selection, ShadowMapSize, StrandLevel, StrandLevelIndex,
@@ -126,21 +126,6 @@ pub struct FrameInfo {
     /// Admitted resident population of the primary representation.
     /// Transition and shadow draws can use different portions.
     pub population: FramePopulation,
-}
-
-/// Geometry available to the selected primary representation.
-///
-/// Strand populations retain their point count. Cards report indexed triangles,
-/// including directly supplied meshes that have no generated strip metadata.
-/// These populations precede stochastic coverage and transition cuts.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FramePopulation {
-    Empty,
-    Strands {
-        strands: StrandCount,
-        points: PointsPerStrand,
-    },
-    CardTriangles(MeshTriangleCount),
 }
 
 #[repr(C)]
@@ -314,6 +299,21 @@ pub struct HairRenderer {
     /// The simulated strands moved since the last frame: keep blending
     /// frames (a temporal filter) rather than starting the mean again.
     moving: bool,
+}
+
+/// Geometry available to the selected primary representation.
+///
+/// Strand populations retain their point count. Cards report indexed triangles,
+/// including directly supplied meshes that have no generated strip metadata.
+/// These populations precede stochastic coverage and transition cuts.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum FramePopulation {
+    Empty,
+    Strands {
+        strands: StrandCount,
+        points: PointsPerStrand,
+    },
+    CardTriangles(MeshTriangleCount),
 }
 
 impl Camera {
