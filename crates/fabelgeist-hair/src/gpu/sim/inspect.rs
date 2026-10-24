@@ -22,8 +22,8 @@ impl GpuSim {
     /// The level simulated.
     pub fn level(&self) -> SimLevel {
         SimLevel {
-            strands: self.layout.strands().count(),
-            points: self.layout.points().count(),
+            strands: self.layout.strands(),
+            points: self.layout.points(),
         }
     }
 

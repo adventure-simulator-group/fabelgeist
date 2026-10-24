@@ -88,13 +88,14 @@ impl CollisionBuffers {
         longest: f32,
     ) -> Result<Self> {
         // A populated groom keeps at least one collider; an empty one has none.
-        let count = simulated.strands().count();
-        let colliders = settings.collision_strands.min(count).max(1.min(count));
-        let strands = simulated.prefix(StrandCount::from_count(colliders))?;
+        let count = simulated.strands();
+        let minimum = if count.count() == 0 { 0 } else { 1 };
+        let colliders = settings.collision_strands.min(count).max(StrandCount::from_count(minimum));
+        let strands = simulated.prefix(colliders)?;
         let radius = if settings.collision_radius > 0.0 {
             settings.collision_radius
         } else {
-            (0.6 * (0.06 / colliders as f32).sqrt()).clamp(0.002, 0.008)
+            (0.6 * (0.06 / colliders.count() as f32).sqrt()).clamp(0.002, 0.008)
         };
         let per_segment = ((longest / (2.0 * radius)).ceil() as u32).clamp(1, 16);
         let layout = CollisionLayout::new(strands, per_segment)?;

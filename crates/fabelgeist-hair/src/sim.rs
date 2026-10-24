@@ -44,277 +44,29 @@
 //! the head is on screen ([`crate::LodPolicy::sim_level`]); switching levels
 //! carries the motion across.
 
-use crate::identity::PartingGroup;
+pub use build::{SimError, SimResult};
+pub use frame::{SimBinding, SimFrame};
+pub use pose::Rigid;
+pub(crate) use pose::blend;
+pub use settings::{SimLevel, SimSettings};
+
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
+use std::sync::Arc;
 
 use crate::collider::Collider;
-use crate::grid::PointGrid;
 use crate::head::Head;
-use crate::lod::HairLods;
 use crate::rod::{Rod, Substep, frames_along, rest_shape};
-use crate::strands::safe_normalize;
+use crate::strands::StrandShape;
 
-/// A rotation and a translation: where the head is.
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct Rigid {
-    /// Columns of the rotation.
-    pub axes: [Vec3; 3],
-    pub translation: Vec3,
-}
-
-impl Default for Rigid {
-    fn default() -> Self {
-        Self {
-            axes: [Vec3::right(), Vec3::up(), Vec3::new(0.0, 0.0, 1.0)],
-            translation: Vec3::default(),
-        }
-    }
-}
-
-impl Rigid {
-    /// Turned by `yaw` about the vertical, then `pitch` about the side axis
-    /// and `roll` about the front, about `pivot` (the neck), and moved by
-    /// `offset`.
-    pub fn from_angles(yaw: f32, pitch: f32, roll: f32, pivot: Vec3, offset: Vec3) -> Self {
-        let (sy, cy) = yaw.sin_cos();
-        let (sp, cp) = pitch.sin_cos();
-        let (sr, cr) = roll.sin_cos();
-        // R = Ry * Rx * Rz, as columns.
-        let ry = [Vec3::new(cy, 0.0, -sy), Vec3::up(), Vec3::new(sy, 0.0, cy)];
-        let rx = [
-            Vec3::right(),
-            Vec3::new(0.0, cp, sp),
-            Vec3::new(0.0, -sp, cp),
-        ];
-        let rz = [
-            Vec3::new(cr, sr, 0.0),
-            Vec3::new(-sr, cr, 0.0),
-            Vec3::new(0.0, 0.0, 1.0),
-        ];
-        let apply = |m: &[Vec3; 3], v: Vec3| m[0] * v.x + m[1] * v.y + m[2] * v.z;
-        let axes = [0, 1, 2].map(|k| apply(&ry, apply(&rx, rz[k])));
-        let rotated_pivot = apply(&axes, pivot);
-        Self {
-            axes,
-            translation: pivot - rotated_pivot + offset,
-        }
-    }
-
-    pub fn rotate(&self, v: Vec3) -> Vec3 {
-        self.axes[0] * v.x + self.axes[1] * v.y + self.axes[2] * v.z
-    }
-
-    pub fn apply(&self, p: Vec3) -> Vec3 {
-        self.rotate(p) + self.translation
-    }
-
-    /// From the world into the head's frame.
-    pub fn unapply(&self, p: Vec3) -> Vec3 {
-        let q = p - self.translation;
-        Vec3::new(
-            self.axes[0].dot(q),
-            self.axes[1].dot(q),
-            self.axes[2].dot(q),
-        )
-    }
-
-    /// Column-major, as WGSL's `mat4x4<f32>` reads it.
-    pub fn matrix(&self) -> [[f32; 4]; 4] {
-        let [a, b, c] = self.axes;
-        let t = self.translation;
-        [
-            [a.x, a.y, a.z, 0.0],
-            [b.x, b.y, b.z, 0.0],
-            [c.x, c.y, c.z, 0.0],
-            [t.x, t.y, t.z, 1.0],
-        ]
-    }
-}
-
-#[derive(Clone, Copy, Debug)]
-pub struct SimSettings {
-    /// Strands simulated.
-    pub guides: usize,
-    /// Points a simulated strand, resampled from the groom.
-    pub points: usize,
-    /// The hair fibre's Young's modulus, pascals: about 3.5 GPa dry.
-    pub youngs_modulus: f32,
-    /// The fibre's radius, metres: 20 to 50 micrometres.
-    pub fibre_radius: f32,
-    /// The fibre's density, kilograms a cubic metre.
-    pub density: f32,
-    /// How many fibres a simulated strand's clump holds together as one
-    /// rod. Friction, oils and cohesion bind a lock's fibres, so it bends
-    /// stiffer than the fibres would apart -- a bound bundle's stiffness
-    /// grows as the square of its fibres, theirs apart as the count -- each
-    /// fibre this many times a lone fibre's; and the air drags on the clump
-    /// as one cylinder.
-    pub clump: f32,
-    /// The bending's viscous loss, seconds: its force per unit of the
-    /// elastic force's rate.
-    pub internal_damping: f32,
-    /// The air's drag, as a share of a smooth cylinder's the clump's width:
-    /// 0 in a vacuum.
-    pub air_drag: f32,
-    /// Metres a second squared.
-    pub gravity: f32,
-    /// The air's velocity, metres a second.
-    pub wind: [f32; 3],
-    /// How much the wind gusts, relative to its mean.
-    pub turbulence: f32,
-    /// Substeps a frame; on the GPU the strands meet each other at each.
-    pub substeps: usize,
-    /// The rods' implicit steps a substep.
-    pub solver_substeps: usize,
-    /// Metres kept off the head.
-    pub collision_offset: f32,
-    /// Coulomb friction against the head and body.
-    pub head_friction: f32,
-    /// The groom is the rods' equilibrium under gravity, so it holds as
-    /// groomed until moved; otherwise the rods rest as groomed, unloaded,
-    /// and the hair sags under its weight when the simulation starts.
-    pub sag_free: bool,
-    /// How strongly hair denser than at rest is pushed apart, 0 to 1 a
-    /// substep (GPU only).
-    pub volume: f32,
-    /// How much denser than at rest hair may get before it is, a share.
-    pub volume_tolerance: f32,
-    /// How far each point's velocity is drawn to the hair's around it, 0
-    /// to 1 a substep (GPU only).
-    pub friction: f32,
-    /// Strands stop where they close on each other (GPU only).
-    pub strand_collision: bool,
-    /// The distance strands keep, metres: a simulated strand stands for a
-    /// wisp this wide. 0 sizes it to the strands' spacing.
-    pub collision_radius: f32,
-    /// Coulomb friction where strands meet.
-    pub collision_friction: f32,
-    /// At most how many strands collide -- the first, an even sample of
-    /// the head -- the rest meeting through the volume and friction alone:
-    /// collisions cost more than the strands' count grows.
-    pub collision_strands: usize,
-    /// Collide every this many substeps: hair swinging moves a good share
-    /// of a wisp's width in a frame, and would pass through between checks
-    /// a frame apart.
-    pub collision_interval: usize,
-    /// The density grid's cell, metres.
-    pub grid_cell: f32,
-}
-
-impl SimSettings {
-    /// These settings at `level`'s strands and points.
-    pub fn at(self, level: SimLevel) -> Self {
-        Self {
-            guides: level.strands,
-            points: level.points,
-            ..self
-        }
-    }
-
-    /// A fibre's mass a metre, kilograms.
-    pub fn linear_density(&self) -> f32 {
-        self.density * std::f32::consts::PI * self.fibre_radius * self.fibre_radius
-    }
-
-    /// A simulated strand's bending stiffness per fibre, newton square
-    /// metres: a lone fibre's, `E π r⁴ / 4`, times the clump.
-    pub fn bending_stiffness(&self) -> f32 {
-        self.clump.max(1.0) * self.youngs_modulus * std::f32::consts::PI * self.fibre_radius.powi(4)
-            / 4.0
-    }
-
-    /// Without the strands meeting each other: the solver alone, as the
-    /// host's [`HairSim`] runs it.
-    pub fn alone(self) -> Self {
-        Self {
-            volume: 0.0,
-            friction: 0.0,
-            strand_collision: false,
-            ..self
-        }
-    }
-}
-
-/// How finely hair is simulated: how many strands, of how many points.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct SimLevel {
-    pub strands: usize,
-    pub points: usize,
-}
-
-impl SimLevel {
-    pub const HIGH: Self = Self {
-        strands: 8192,
-        points: 32,
-    };
-    pub const MEDIUM: Self = Self {
-        strands: 2048,
-        points: 24,
-    };
-    pub const LOW: Self = Self {
-        strands: 512,
-        points: 12,
-    };
-    /// Finest first.
-    pub const ALL: [Self; 3] = [Self::HIGH, Self::MEDIUM, Self::LOW];
-
-    pub fn name(&self) -> &'static str {
-        match *self {
-            Self::HIGH => "high",
-            Self::MEDIUM => "medium",
-            Self::LOW => "low",
-            _ => "custom",
-        }
-    }
-}
-
-impl Default for SimSettings {
-    fn default() -> Self {
-        Self {
-            guides: 2048,
-            points: 24,
-            youngs_modulus: 3.5e9,
-            fibre_radius: 40e-6,
-            density: 1300.0,
-            clump: 50.0,
-            internal_damping: 0.01,
-            air_drag: 1.0,
-            gravity: 9.81,
-            wind: [0.0; 3],
-            turbulence: 0.5,
-            substeps: 4,
-            solver_substeps: 4,
-            collision_offset: 0.002,
-            head_friction: 0.3,
-            sag_free: true,
-            volume: 0.35,
-            volume_tolerance: 0.15,
-            friction: 0.08,
-            strand_collision: true,
-            collision_radius: 0.0,
-            collision_friction: 0.3,
-            collision_strands: 1024,
-            collision_interval: 1,
-            grid_cell: 0.01,
-        }
-    }
-}
-
-/// Which simulated strands each drawn strand follows, and how much.
-pub struct SimBinding {
-    /// Per drawn strand (in the groom's shuffled order): four simulated
-    /// strands and their weights, summing to one.
-    pub guides: Vec<[u32; 4]>,
-    pub weights: Vec<[f32; 4]>,
-    /// Simulated strands, and points each.
-    pub count: usize,
-    pub points: usize,
-}
+mod build;
+mod frame;
+mod pose;
+mod settings;
 
 pub struct HairSim {
     pub settings: SimSettings,
-    points: usize,
+    binding: Arc<SimBinding>,
     /// Groomed positions, in the head's frame.
     rest: Vec<Vec3>,
     /// Each strand's rod's rest ([`rest_shape`]), two slots a point, and
@@ -333,107 +85,12 @@ pub struct HairSim {
 }
 
 impl HairSim {
-    /// The point count of the level a simulation is made from: the one of
-    /// `levels` nearest `wanted`.
-    pub fn level_points(levels: impl IntoIterator<Item = usize>, wanted: usize) -> Option<usize> {
-        levels
-            .into_iter()
-            .min_by_key(|&p| (p as i64 - wanted as i64).abs())
+    pub fn layout(&self) -> StrandShape {
+        self.binding.layout()
     }
 
-    /// Simulate the first `settings.guides` strands of `lods`, at the
-    /// level whose point count is nearest `settings.points`; the binding
-    /// ties every drawn strand to the four simulated ones nearest its root.
-    pub fn new(lods: &HairLods, settings: SimSettings) -> (Self, SimBinding) {
-        let points = Self::level_points(lods.levels().iter().map(|l| l.layout().points().count()), settings.points)
-            .expect("a groom has a level");
-        let level = lods
-            .levels()
-            .iter()
-            .find(|l| l.layout().points().count() == points)
-            .expect("chosen above");
-        Self::from_level(points, level.positions(), settings)
-    }
-
-    /// Simulate the first `settings.guides` strands of a level of `points`
-    /// points a strand (`positions` as [`crate::lod::StrandLevel`] holds
-    /// them, in the groom's shuffled order) -- a level read back from the
-    /// GPU as well as one built on the host. A level's strands start at
-    /// their roots whatever its point count, so it binds every strand.
-    pub fn from_level(
-        points: usize,
-        positions: &[[f32; 4]],
-        settings: SimSettings,
-    ) -> (Self, SimBinding) {
-        let total = positions.len() / points.max(1);
-        let count = settings.guides.min(total).max(1.min(total));
-        let rest: Vec<Vec3> = positions[..count * points]
-            .iter()
-            .map(|p| Vec3::new(p[0], p[1], p[2]))
-            .collect();
-
-        // Bind every drawn strand to the simulated roots nearest its own.
-        let root = |s: usize| {
-            let p = positions[s * points];
-            Vec3::new(p[0], p[1], p[2])
-        };
-        let roots: Vec<(Vec3, PartingGroup)> = (0..count)
-            .map(|g| (rest[g * points], PartingGroup::Unassigned))
-            .collect();
-        let spacing = 0.2 / (count as f32).sqrt().max(1.0);
-        let grid = PointGrid::build(&roots, spacing.max(0.003));
-        let (guides, weights): (Vec<[u32; 4]>, Vec<[f32; 4]>) = (0..total)
-            .into_par_iter()
-            .map(|s| {
-                if s < count {
-                    return ([s as u32, 0, 0, 0], [1.0, 0.0, 0.0, 0.0]);
-                }
-                let nearest = grid.nearest_k(root(s), 4, f32::INFINITY, |_| true);
-                let mut ids = [0u32; 4];
-                let mut w = [0.0f32; 4];
-                let mut total = 0.0;
-                for (k, &(g, d)) in nearest.iter().enumerate() {
-                    ids[k] = g;
-                    w[k] = 1.0 / (d * d + 1e-8);
-                    total += w[k];
-                }
-                for v in w.iter_mut() {
-                    *v /= total.max(1e-12);
-                }
-                (ids, w)
-            })
-            .unzip();
-
-        let sim = Self {
-            settings,
-            points,
-            position: rest.clone(),
-            previous: rest.clone(),
-            shape: vec![[0.0; 4]; 2 * rest.len()],
-            shaped: None,
-            frames: vec![[0.0; 4]; 2 * rest.len()],
-            rest,
-            h_last: 1.0 / 240.0,
-            head: Rigid::default(),
-            time: 0.0,
-        };
-        let binding = SimBinding {
-            guides,
-            weights,
-            count,
-            points,
-        };
-        (sim, binding)
-    }
-
-    /// Strands simulated.
-    pub fn strands(&self) -> usize {
-        self.rest.len() / self.points
-    }
-
-    /// Points per simulated strand.
-    pub fn points(&self) -> usize {
-        self.points
+    pub fn frame(&self) -> SimFrame<'_> {
+        SimFrame::new(self)
     }
 
     pub fn head(&self) -> Rigid {
@@ -456,9 +113,10 @@ impl HairSim {
         let s = self.settings;
         let rod = Rod::new(&s);
         if self.shaped != Some((rod, s.sag_free)) {
+            let points = self.layout().points().count();
             self.rest
-                .par_chunks(self.points)
-                .zip(self.shape.par_chunks_mut(2 * self.points))
+                .par_chunks(points)
+                .zip(self.shape.par_chunks_mut(2 * points))
                 .for_each(|(rest, shape)| rest_shape(&rod, rest, s.sag_free, shape));
             self.shaped = Some((rod, s.sag_free));
         }
@@ -466,7 +124,7 @@ impl HairSim {
 
     /// Each segment's frame onto where its strand now is, not spinning.
     pub(crate) fn align_frames(&mut self) {
-        let points = self.points;
+        let points = self.layout().points().count();
         let head = self.head;
         self.rest
             .par_chunks(points)
@@ -507,11 +165,11 @@ impl HairSim {
                     from: blend(&a, &b, m as f32 / inner as f32),
                     to: blend(&a, &b, (m + 1) as f32 / inner as f32),
                     collider,
-                    offset: s.collision_offset,
+                    offset: s.collision_offset.metres(),
                     friction: s.head_friction,
                 };
                 let time = self.time;
-                let points = self.points;
+                let points = self.layout().points().count();
                 self.position
                     .par_chunks_mut(points)
                     .zip(self.previous.par_chunks_mut(points))
@@ -552,23 +210,12 @@ fn air(s: &SimSettings, root: Vec3, time: f32) -> Vec3 {
     Vec3::from_array(s.wind) * gust
 }
 
-/// Part of the way from one pose to another (rotation by normalised lerp
-/// of the axes, which is close enough within a frame).
-pub(crate) fn blend(a: &Rigid, b: &Rigid, t: f32) -> Rigid {
-    let x = safe_normalize(a.axes[0].lerp(b.axes[0], t), b.axes[0]);
-    let y0 = a.axes[1].lerp(b.axes[1], t);
-    let y = safe_normalize(y0 - x * y0.dot(x), b.axes[1]);
-    Rigid {
-        axes: [x, y, x.cross(y)],
-        translation: a.translation.lerp(b.translation, t),
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::lod::LodSettings;
-    use crate::parameters::{Draping, StrandCount};
+    use crate::HairLods;
+    use crate::parameters::{Draping, PointsPerStrand, StrandCount};
     use crate::{Look, Preset};
 
     fn groom() -> (Head, HairLods) {
@@ -590,22 +237,23 @@ mod tests {
     #[test]
     fn a_still_head_keeps_the_groom_as_it_is() {
         let (head, lods) = groom();
-        let (mut sim, binding) = HairSim::new(
+        let mut sim = HairSim::new(
             &lods,
             SimSettings {
-                guides: 300,
+                guides: StrandCount::from_count(300),
                 ..Default::default()
             },
-        );
-        assert_eq!(binding.guides.len(), lods.strand_count().count());
+        ).expect("simulation");
+        let binding = sim.frame().binding().clone();
+        assert_eq!(binding.guides().len(), lods.strand_count().count());
         for _ in 0..120 {
             sim.step(1.0 / 60.0, Rigid::default(), Some(&head));
         }
         let rest = sim.rest();
         let now = sim.positions();
-        let p = sim.points;
+        let p = sim.layout().points().count();
         let mut worst: f32 = 0.0;
-        for g in 0..binding.count {
+        for g in 0..binding.layout().strands().count() {
             for i in 1..p {
                 let a = Vec3::new(now[g * p + i][0], now[g * p + i][1], now[g * p + i][2]);
                 let b = Vec3::new(
@@ -641,19 +289,20 @@ mod tests {
     #[test]
     fn turning_the_head_carries_the_roots_and_the_tips_lag() {
         let (head, lods) = groom();
-        let (mut sim, binding) = HairSim::new(
+        let mut sim = HairSim::new(
             &lods,
             SimSettings {
-                guides: 200,
+                guides: StrandCount::from_count(200),
                 ..Default::default()
             },
-        );
+        ).expect("simulation");
+        let binding = sim.frame().binding().clone();
         let turned = Rigid::from_angles(0.6, 0.0, 0.0, Vec3::new(0.0, -0.1, 0.0), Vec3::default());
         sim.step(1.0 / 60.0, turned, Some(&head));
-        let p = sim.points;
+        let p = sim.layout().points().count();
         let now = sim.positions();
         let rest = sim.rest();
-        for g in 0..binding.count {
+        for g in 0..binding.layout().strands().count() {
             let root = Vec3::new(now[g * p][0], now[g * p][1], now[g * p][2]);
             let want = turned.apply(Vec3::new(rest[g * p][0], rest[g * p][1], rest[g * p][2]));
             assert!((root - want).length() < 1e-5);
@@ -668,15 +317,17 @@ mod tests {
     /// One strand of `points`, simulated alone.
     fn strand(points: &[Vec3], settings: SimSettings) -> HairSim {
         let positions: Vec<[f32; 4]> = points.iter().map(|p| [p.x, p.y, p.z, 1.0]).collect();
+        let level = crate::lod::StrandLevel::new(
+            PointsPerStrand::from_count(points.len()), positions,
+            vec![crate::lod::StrandInfo::default()],
+        ).expect("source level");
         HairSim::from_level(
-            points.len(),
-            &positions,
+            Arc::new(level),
             SimSettings {
-                guides: 1,
+                guides: StrandCount::from_count(1),
                 ..settings
             },
-        )
-        .0
+        ).expect("simulation")
     }
 
     /// `n` points evenly along `length` from `from` in direction `d`.

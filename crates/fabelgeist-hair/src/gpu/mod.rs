@@ -471,7 +471,7 @@ pub fn required_limits(adapter: &wgpu::Adapter) -> wgpu::Limits {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::parameters::StrandCount;
+    use crate::parameters::{PointsPerStrand, StrandCount};
     use crate::{Look, Preset, Strands};
     use crate::identity::StrandId;
     use fabelgeist_math::units::AccelerationVector;
@@ -727,7 +727,7 @@ mod tests {
             .expect("levels");
         // The solver alone: the host has no strands meeting each other.
         let settings = SimSettings {
-            guides: 512,
+            guides: StrandCount::from_count(512),
             wind: [0.4, 0.0, 0.8],
             ..Default::default()
         }
@@ -736,18 +736,27 @@ mod tests {
         // The host's simulation of the GPU's rest; its binding of every
         // drawn strand, by their roots, from the finest level.
         let positions = gpu.read_rest(&groomer).expect("read");
-        let (mut host, _) = HairSim::from_level(gpu.layout().points().count(), &positions, settings);
-        assert_eq!(host.strands(), gpu.layout().strands().count());
+        let source = crate::lod::StrandLevel::new(
+            gpu.layout().points(), positions,
+            vec![crate::lod::StrandInfo::default(); gpu.layout().strands().count()],
+        ).expect("host source");
+        let mut host = HairSim::from_level(Arc::new(source), settings).expect("host simulation");
+        assert_eq!(host.layout().strands().count(), gpu.layout().strands().count());
         let first = &lods.levels[0];
         let finest: Vec<[f32; 4]> =
             pollster::block_on(first.positions.read(groomer.context())).expect("read");
-        let (_, binding) = HairSim::from_level(first.layout().points().count(), &finest, settings);
+        let source = crate::lod::StrandLevel::new(
+            first.layout().points(), finest,
+            vec![crate::lod::StrandInfo::default(); first.layout().strands().count()],
+        ).expect("binding source");
+        let bound = HairSim::from_level(Arc::new(source), settings).expect("host binding");
+        let binding = bound.frame().binding();
 
         let context = groomer.context();
         let ids: Vec<[u32; 4]> = pollster::block_on(gpu.binding_ids().read(context)).expect("read");
         let same = ids
             .iter()
-            .zip(&binding.guides)
+            .zip(binding.guides())
             .filter(|(a, b)| a[0] == b[0])
             .count();
         assert!(
@@ -1110,8 +1119,8 @@ mod tests {
         let mut crossing = |collide: bool| {
             // Hair's own bending and damping, nothing pulling it back.
             let settings = crate::sim::SimSettings {
-                guides: 2,
-                points,
+                guides: StrandCount::from_count(2),
+                points: PointsPerStrand::from_count(points),
                 strand_collision: collide,
                 collision_radius: 0.006,
                 clump: crate::sim::SimSettings::default().clump,
@@ -1207,8 +1216,8 @@ mod tests {
         }
         let mut spread = |volume: f32| {
             let settings = crate::sim::SimSettings {
-                guides: 64,
-                points,
+                guides: StrandCount::from_count(64),
+                points: PointsPerStrand::from_count(points),
                 volume,
                 grid_cell: 0.008,
                 ..quiet()

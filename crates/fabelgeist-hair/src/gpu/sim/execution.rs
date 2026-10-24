@@ -144,7 +144,7 @@ impl GpuSim {
                 "wind_y" => wind.y,
                 "wind_z" => wind.z,
                 "turbulence" => s.turbulence,
-                "collision_offset" => s.collision_offset,
+                "collision_offset" => s.collision_offset.metres(),
                 "head_friction" => s.head_friction,
                 "stretch" => rod.stretch,
                 "bend" => rod.bend,

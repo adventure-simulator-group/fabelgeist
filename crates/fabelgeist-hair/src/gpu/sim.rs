@@ -181,11 +181,12 @@ impl GpuGroomer {
         let first = &lods.levels[0];
         first.ensure_device(&context)?;
         let source_layout = first.layout();
-        let available = source_layout.strands().count();
-        let count = settings.guides.min(available).max(1.min(available));
+        let available = source_layout.strands();
+        let minimum = if available.count() == 0 { 0 } else { 1 };
+        let count = settings.guides.min(available).max(StrandCount::from_count(minimum));
         let layout = StrandLayout::new(
-            StrandCount::from_count(count),
-            PointsPerStrand::from_count(settings.points.max(2)),
+            count,
+            settings.points.max(PointsPerStrand::from_count(2)),
         )?;
         let RodBuffers {
             rest,
