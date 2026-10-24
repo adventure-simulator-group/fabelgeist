@@ -2,7 +2,7 @@
 
 use super::{DrawGpu, HairRenderer};
 use crate::lod::{CardLevelIndex, PixelSpan, Representation, Selection, StrandLevelIndex};
-use fabelgeist_math::Ratio;
+use fabelgeist_math::units::Ratio;
 use std::ops::Range;
 
 pub(super) struct DrawPlan {

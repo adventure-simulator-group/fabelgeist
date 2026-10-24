@@ -6,7 +6,7 @@ use super::{
 use crate::gpu::error::Result;
 use crate::lod::{HairShading, PixelSpan, Quality};
 use crate::material::HairMaterial;
-use fabelgeist_math::Metres;
+use fabelgeist_math::units::Metres;
 
 pub(super) struct FrameProjection {
     pub pixels: PixelSpan,
