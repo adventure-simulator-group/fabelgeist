@@ -11,7 +11,8 @@ impl WgpuContext {
     /// separately. Preserve the SDK cause without waiting for GPU completion.
     /// Other error classes follow the device's configured error handling.
     ///
-    /// Borrowed contexts and browser builds use device error handling instead
+    /// When native synchronous validation is disabled, or on browser builds,
+    /// these operations use the device's configured error handling instead
     /// of observing these scopes. On those paths, `Ok` provides no synchronous
     /// validation verdict. No path promises GPU completion or later device
     /// health; use a separate completion operation when results are needed.

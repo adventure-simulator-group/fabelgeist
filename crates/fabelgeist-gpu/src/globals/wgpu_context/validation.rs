@@ -5,7 +5,8 @@ impl WgpuContext {
     ///
     /// The closure and its scope stay on the current thread. Reading the
     /// native scope does not poll the device or wait for submitted work.
-    /// Browser and borrowed contexts retain their device's error handling.
+    /// Browser builds and native contexts with `blocking_validation` disabled
+    /// retain their device's configured error handling.
     pub(crate) fn observe_validation<T>(
         &self,
         operation: impl FnOnce() -> T,

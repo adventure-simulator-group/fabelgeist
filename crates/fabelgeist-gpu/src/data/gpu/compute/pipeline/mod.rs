@@ -125,7 +125,7 @@ impl ComputePipeline {
             .map_err(|_| ComputePipelineError::CachePoisoned)?;
         if let Some(cached) = cache.get(entry_point) {
             // A native context requesting readback must not inherit an earlier
-            // borrowed context's unchecked creation merely because devices match.
+            // context's unchecked creation merely because devices match.
             if matches!(cached, CachedPipeline::Observed(_)) || !observes_validation(context) {
                 return cached.outcome();
             }

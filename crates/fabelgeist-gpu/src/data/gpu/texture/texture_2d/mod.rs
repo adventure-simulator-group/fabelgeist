@@ -140,8 +140,7 @@ impl Texture2d {
             view_formats: &view_formats,
         };
 
-        // Borrowed contexts avoid synchronous validation readback; see
-        // WgpuContext::blocking_validation.
+        // Native validation follows WgpuContext::blocking_validation.
         #[cfg(not(target_arch = "wasm32"))]
         let error_scope = ValidationScope::new(context);
 

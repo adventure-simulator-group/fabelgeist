@@ -29,11 +29,12 @@ pub struct WgpuContext {
     /// Whether native construction, encoder finalization and submission
     /// observe Validation errors synchronously.
     ///
-    /// Native contexts created here enable this; borrowed contexts disable it
-    /// to avoid blocking their caller on GPU work. A blocking poll waits for
-    /// the latest submission observed when polling begins, requesting no explicit
-    /// timeout. A backend can still fail that wait; observing construction
-    /// propagates the actual polling error and any captured validation error.
+    /// Native contexts created here enable this by default. `from_parts`
+    /// disables it by default to avoid blocking its caller on GPU work.
+    /// A blocking poll waits for the latest submission observed when polling
+    /// begins, requesting no explicit timeout. A backend can still fail that
+    /// wait; observing construction propagates the actual polling error and
+    /// any captured validation error.
     /// Finalization and submission read their scopes without a completion wait.
     /// When disabled, these operations install no verdict scope, so
     /// native errors follow the device's configured error handling. Browser

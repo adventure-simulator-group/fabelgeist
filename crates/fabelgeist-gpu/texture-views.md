@@ -186,9 +186,9 @@ GPU completion. A pending readback obtained before submission must be discarded
 when submission fails; callback removal does not supply a mapping outcome.
 Separate readback or completion operations remain necessary to obtain results.
 This boundary captures the Validation filter, not every possible device error.
-Borrowed contexts and browser builds still provide no synchronous
-native validation verdict; typed errors cannot recover a cause the device never
-reported through a read-back scope.
+Native contexts with synchronous validation disabled, and browser builds,
+provide no synchronous native validation verdict. Typed errors cannot recover a
+cause the device never reported through a read-back scope.
 
 Public tests cover cache absence, branch priority, native rejection and retained
 causes. Earlier software Vulkan observations covered view sharing, readback bits

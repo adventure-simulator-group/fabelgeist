@@ -55,7 +55,7 @@ impl Error for ValidationProgressError {
 
 #[cfg(not(target_arch = "wasm32"))]
 impl ValidationScope {
-    /// Borrowed contexts install no scope and request no blocking wait.
+    /// Return no guard when `context.blocking_validation` is disabled.
     pub fn new(context: &WgpuContext) -> Option<Self> {
         context.blocking_validation.then(|| Self {
             device: context.device.clone(),
