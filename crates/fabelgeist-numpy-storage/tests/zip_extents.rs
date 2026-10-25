@@ -1,4 +1,4 @@
-use std::borrow::Cow;
+use std::{borrow::Cow, mem::size_of_val};
 
 use fabelgeist_numpy_storage::{
     ArchiveMemberName, DeclaredUncompressedByteLength, Npz, NpzArrayName, ZipArchive,
@@ -53,7 +53,7 @@ fn zip(case: WireCase) -> Vec<u8> {
 
 fn extra(values: &[u64]) -> Vec<u8> {
     let mut bytes = ZIP64_EXTRA_TAG.to_vec();
-    bytes.extend_from_slice(&((values.len() * size_of::<u64>()) as u16).to_le_bytes());
+    bytes.extend_from_slice(&(size_of_val(values) as u16).to_le_bytes());
     for value in values {
         bytes.extend_from_slice(&value.to_le_bytes());
     }
