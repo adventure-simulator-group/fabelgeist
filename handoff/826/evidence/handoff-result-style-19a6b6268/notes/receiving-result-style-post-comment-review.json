@@ -1,0 +1,155 @@
+{
+  "review": "Independent successor Comment Review of two-source Result style repair",
+  "base_revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "snapshot_is_commit": false,
+  "manifest": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/receiving-result-style-working-snapshot/manifest.json",
+  "manifest_sha256": "747f51fb7b5901c2668a1b20e98faf2e51dd3f25eb682cda32d6d68561f1505c",
+  "source_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "before_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "sha256": "d840e177522b7d59f70ae3373c25707b3cc0d1ac06c93939da1ca6cb126b261f",
+      "exact_after_inverse_explicit_style_and_rustfmt_edits": true,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/receiving-result-style-working-snapshot/crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "lines": 94,
+      "manifest_matches": true,
+      "coverage": "Fresh full frozen source and complete actual base diff read",
+      "independent_inverse_signature_alias_and_exact_rustfmt_only_changes": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "before_sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "sha256": "5630af2ffd526d8dcc22aff829309aa31fb634de49ec9b795e03021a468bdcaf",
+      "exact_after_inverse_explicit_style_and_rustfmt_edits": true,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/receiving-result-style-working-snapshot/crates/fabelgeist-armor/src/gpu/staging.rs",
+      "lines": 144,
+      "manifest_matches": true,
+      "coverage": "Fresh full frozen source and complete actual base diff read",
+      "independent_inverse_signature_alias_and_exact_rustfmt_only_changes": true
+    }
+  ],
+  "unchanged_error_reexport_facade_receiver_accounting": [
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Fresh complete file/source/docs read including existing inline fixtures where present"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Fresh complete file/source/docs read including existing inline fixtures where present"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Fresh complete file/source/docs read including existing inline fixtures where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Fresh complete file/source/docs read including existing inline fixtures where present"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Fresh complete file/source/docs read including existing inline fixtures where present"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Direct TextureValue/Error/Result re-export lookup only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Direct re-export lookup only; no whole source read in this wave"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Direct GenerateError and GPU public re-export lookup only"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Fresh affected finish consumer245-292 plus status/prefix lookup; other source not wholly reread"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Fresh staged read/status/prefix consumer408-452 plus lookup; other source not wholly reread"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "matches_pre_review_bytes": true,
+      "coverage": "Exact prior evidence carried with original full/bounded limit; not freshly reread",
+      "prior_coverage": "Fresh staged read/status/prefix consumer252-294 plus lookup; other source not wholly reread"
+    }
+  ],
+  "previous_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/receiving-result-style-pre-comment-review.json",
+  "coverage_totals": {
+    "fresh_full_owner_files": 2,
+    "unchanged_relying_files": 11,
+    "all_snapshot_hashes_verified": true,
+    "all_relying_hashes_match_pre_review": true
+  },
+  "actionable_comment_findings": [],
+  "contracts": [
+    {
+      "area": "TextureValue trait spelling",
+      "evidence": "TryFrom now explicitly Result<Self,Self::Error>; typeError remains TextureValueError and ordinary TextureValueResult alias remains exported by unchanged owner. Only the signature and rustfmt Ok(Self) representation change. Value admission, load lanes, typed zero padding, Error/Display/source and comments unchanged.",
+      "disposition": "No documentation or native error-policy change."
+    },
+    {
+      "area": "Cohesive StagingResult",
+      "evidence": "Public StagingResult<T> is exactly Result<T,StagingError>. Only prefix/status use it; facade read_staged/async keep explicit Result<StagedResults,GenerateError>. Session, checked exact prefix, valid zero count, allocation, byte copying, BufferReadError conversion, grouped read/submit calls and docs unchanged.",
+      "disposition": "Accurate alias preserves local family and distinct facade/native/readback causes."
+    },
+    {
+      "area": "Actual current receivers",
+      "evidence": "All prior direct error/facade/re-export/consumer identities match. GenerateError remains distinct Staging, Readback and Gpu(anyhow) paths. Canonical Readback and old part/bracer/breastplate call interfaces remain pending exactly as documented in pre-review.",
+      "disposition": "No error converted to prose or fabricated native cause. No integration dependency is resolved by style repair."
+    }
+  ],
+  "independent_preservation": "Fresh full source/diffs plus inverse exact signature/alias edits and exact rustfmt-only trailing-comma/whitespace changes reproduce previous source. This source bookkeeping is not syntax/build/runtime validation.",
+  "fixture_accounting": "No tests/cases/helpers/assertions or operation body changes in these frozen files. Existing fixtures outside scope not executed.",
+  "required_dependencies": [
+    {
+      "area": "Known canonical Readback receiving API",
+      "evidence": "Current staging calls agreed Readback::record(&mut batch,sources) and read(). Current Root compute/readback.rs still defines old explicit context arguments. The awaited canonical device-retaining successor is required before combined compilation.",
+      "status": "Required peer integration dependency, not a new result-style repair or resolved path."
+    },
+    {
+      "area": "Retained status/prefix consumers",
+      "evidence": "Current part/bracer/breastplate consumers still use old by-value/infallible status/prefix/get interfaces; new staging accepts borrowed Staged and fallible results. Exact inspected receiving functions are recorded with bounded source coverage.",
+      "status": "Required canonical caller migration; no partial compatibility aliases/shims authorized, no compile/family clearance from style repair."
+    }
+  ],
+  "limits": [
+    "Read-only source/hash/diff inspection and ignored report bookkeeping only. No source edits, tests/checks/build/lint/scanner/generator/runtime/project execution, new cases/helpers/assertions/doctests, push/CI/publication.",
+    "Only frozen2 owners freshly fully read; other source evidence carried only after exact current hash verification with original full/bounded coverage. No inflated body-read claim.",
+    "Complete canonical APIs/callers/producers/locks and final all13/all3reviews/hosted gates on same final pushed SHA remain required. No compilation/family/global/final clearance."
+  ],
+  "verdict": "No actionable Comment finding for exact two-source style successor. Public error contracts and documented behavior preserved; required integration remains open."
+}

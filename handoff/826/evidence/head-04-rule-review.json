@@ -1,0 +1,1246 @@
+{
+  "kind": "Independent source-only receiving Rule Review; not combined/fullPR/final clearance",
+  "head": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+  "tree": "a3084113b320d4452229aee325c5f057c20e9f4b",
+  "comparison": "d9c3521f30f52d3437cfef2850203c9df3192b0e",
+  "actual_parent": "abcdb2d906f2bf8138f733fb01c48a46da8cf076",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "full_changed_paths": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+      "lines": 109,
+      "coverage": "Complete current body and full exact diff read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "lines": 197,
+      "coverage": "Complete current body and full exact diff read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "2bda8e84908f751c80409eefcca90f33632c6024052a544c09f4c66622b1a307",
+      "lines": 152,
+      "coverage": "Complete current body and full exact diff read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "4106be41a10a356378665afee7bb76927ebb313e0a8069aa363ffe5b3f511fa2",
+      "lines": 189,
+      "coverage": "Complete current body and full exact diff read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "874cf26eaa4190f64c397e9390d4570412ba064ed083ef9c50582fec78f8c67d",
+      "lines": 2135,
+      "coverage": "Whole current responsibility reconstructed from prior complete D9 body read plus complete exact04diff; current fullset_groom/set_gpu_groom/headpass/frame/convergence/post/native consumers re-read; equal prior regions are preserved reads, not new unread whole-body credit"
+    }
+  ],
+  "unchanged_source_receipts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+      "lines": 50,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+      "lines": 265,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "lines": 228,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+      "lines": 259,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "7bc2f7621b735c87bd9ecf1077a89158453a8c01aab0b0f17c88f4098f3a92d9",
+      "lines": 143,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "503d2fbd7648483a96ada49bccd5247e7cdfc4227ee8ce697e72726bbded413d",
+      "lines": 39,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "lines": 84,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+      "lines": 162,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+      "lines": 105,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "f523a641bd99ff3aa3f29ea82062643213212d2f258da56c918fff2333a8f105",
+      "lines": 49,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "57bfcc948df176ba35f9da2138223650f4ee8c70f36e9c98341a8d93f1e7db88",
+      "lines": 165,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "lines": 184,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "lines": 142,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "fd6c4991e13b343c21b396b8aada2480b03508500184761d217c1237bb1c52cb",
+      "lines": 101,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "lines": 70,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "f7dde4c1be8af88bdf0bfc2a3e9d2fe3828767fd5be8ac3ed5abcf88e6affc4a",
+      "lines": 7,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "lines": 86,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "lines": 40,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "lines": 60,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "2bda8179b7fad1936a5d5c2b742497a0c66da546de1cee15a732d63918bdd832",
+      "lines": 107,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "lines": 201,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "lines": 206,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "lines": 103,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "lines": 179,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+      "lines": 36,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "lines": 140,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "lines": 101,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "lines": 124,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "dde02c3c137d5ac3722f28e2eab7db9eb82506ef0b64d182dd52a42b4876bbb5",
+      "lines": 185,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "lines": 28,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "lines": 42,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "lines": 147,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "lines": 185,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "lines": 135,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "lines": 30,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "lines": 24,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "lines": 399,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "lines": 229,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "lines": 332,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "lines": 486,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "bf81803801df60f8387489c31ab851af7f62c1df5cee4611a055d628c5bec616",
+      "lines": 221,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/plates.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "626dd0cc8823b5542b30fd320294e8109b996c5e4117ec73e513b82b8f909a84",
+      "lines": 428,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "lines": 62,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "lines": 246,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "lines": 64,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "lines": 18,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "lines": 236,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "lines": 68,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "lines": 293,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "lines": 102,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "lines": 48,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "lines": 28,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "lines": 43,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "lines": 13104,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+      "lines": 12842,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "lines": 201,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "lines": 19,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "12b74ba27f4c750bc807ba7c39553fe6f130179bb71ae3679d296cbaab947cd8",
+      "lines": 410,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "lines": 408,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "lines": 715,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "lines": 69,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "lines": 79,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "lines": 55,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "0cec16cc3e11d085d3a2b3902b4cd810b7d8413eef744b421c03468b5c2dcd57",
+      "lines": 52,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "lines": 18,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "955f5bb0e7dc346933dab81076091f23ba15158a268849dcc0121858fc648658",
+      "lines": 172,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24",
+      "lines": 80,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "lines": 57,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "lines": 254,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "lines": 405,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/gpu.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "ad19b002ebc0d537cde1159638577fb53c250193bbb5f78e1bd7109058bbdb5f",
+      "lines": 528,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "lines": 120,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "lines": 140,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "lines": 597,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "lines": 233,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_controls.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "lines": 266,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "lines": 25,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "lines": 33,
+      "coverage": "Exact declared previous source granularity retained; source connection reconsidered without automatic prior-verdict clearance",
+      "matches_prior_receipt": true
+    }
+  ],
+  "renderer_current_equal_regions_to_full_D9_read": [
+    {
+      "prior_lines": [
+        1,
+        31
+      ],
+      "current_lines": [
+        1,
+        31
+      ],
+      "sha256": "08147066d67a89f86ee07680247e373eb93ca1dd5a6a12b632f7ddeb6cfc3c0b"
+    },
+    {
+      "prior_lines": [
+        32,
+        37
+      ],
+      "current_lines": [
+        33,
+        38
+      ],
+      "sha256": "406a0b8eedce1eb44765f43ebd7e10112762efc1f8024fbd14b7696c0f87c38b"
+    },
+    {
+      "prior_lines": [
+        38,
+        52
+      ],
+      "current_lines": [
+        40,
+        54
+      ],
+      "sha256": "21d8443e4ed38fe3675bc1432e3e45deb636bda8cdd6852aca1b7f05b0f97f71"
+    },
+    {
+      "prior_lines": [
+        54,
+        58
+      ],
+      "current_lines": [
+        55,
+        59
+      ],
+      "sha256": "b579d70c6fdc2da680b47839c9e9a840ca565f79d4876f170c770fb0c3612a57"
+    },
+    {
+      "prior_lines": [
+        59,
+        214
+      ],
+      "current_lines": [
+        61,
+        216
+      ],
+      "sha256": "c19e4b776799f5c8ddd812aef840706600f657b34e030c117a4706e7c6cc65f5"
+    },
+    {
+      "prior_lines": [
+        222,
+        297
+      ],
+      "current_lines": [
+        218,
+        293
+      ],
+      "sha256": "58e16c618878d43aa1f6dc544a752f471fc669599dbf4b39f865826389a6631f"
+    },
+    {
+      "prior_lines": [
+        303,
+        852
+      ],
+      "current_lines": [
+        295,
+        844
+      ],
+      "sha256": "6eb7b2207b10b030c833a483c22b9bdd54124c320e594cda70d27ebd0a4f57c5"
+    },
+    {
+      "prior_lines": [
+        855,
+        1037
+      ],
+      "current_lines": [
+        845,
+        1027
+      ],
+      "sha256": "128ce92f5caf39842340b9f61443b94be6d2b405215d36181ae940d4ddf63ecd"
+    },
+    {
+      "prior_lines": [
+        1039,
+        1044
+      ],
+      "current_lines": [
+        1032,
+        1037
+      ],
+      "sha256": "480360152ef0a6b5e77c3b45848d265ab8b2aabc54bafd525f2db65d2b0a4292"
+    },
+    {
+      "prior_lines": [
+        1049,
+        1050
+      ],
+      "current_lines": [
+        1048,
+        1049
+      ],
+      "sha256": "2a41137478beb6b5cf7e0d12c81dfcdd7e6f70c1c068a3aa5d9afcb58300aaae"
+    },
+    {
+      "prior_lines": [
+        1052,
+        1052
+      ],
+      "current_lines": [
+        1051,
+        1051
+      ],
+      "sha256": "48ec99424c12ecdc82cc20ab705d2438fcffef9c4a0d762479b07e7c4410f792"
+    },
+    {
+      "prior_lines": [
+        1057,
+        1059
+      ],
+      "current_lines": [
+        1056,
+        1058
+      ],
+      "sha256": "bcab5d44491c18f640fa7d3a5ed2598cc512c314568dec811458169b8c9685a0"
+    },
+    {
+      "prior_lines": [
+        1061,
+        1062
+      ],
+      "current_lines": [
+        1060,
+        1061
+      ],
+      "sha256": "9936971fb23616477661f5f0a6f8b8473f5914813faff53c3fe2eeec00d00b14"
+    },
+    {
+      "prior_lines": [
+        1067,
+        1068
+      ],
+      "current_lines": [
+        1066,
+        1067
+      ],
+      "sha256": "cca8c1120b498456e6712cd1c59778d16d995601bd27a1eae83e0f1d007ae2ab"
+    },
+    {
+      "prior_lines": [
+        1073,
+        1074
+      ],
+      "current_lines": [
+        1075,
+        1076
+      ],
+      "sha256": "b543e3f6e5995fec60d32183b6b6ff631db46d09ae91902c14e64bb1ec410149"
+    },
+    {
+      "prior_lines": [
+        1078,
+        1078
+      ],
+      "current_lines": [
+        1080,
+        1080
+      ],
+      "sha256": "6eaff87a20b8f2f16d5d702e151c249a7b4bf5cf09763db5c80f29d0f1efacf9"
+    },
+    {
+      "prior_lines": [
+        1084,
+        1084
+      ],
+      "current_lines": [
+        1089,
+        1089
+      ],
+      "sha256": "197d0755ec3c00d064f452bf62d20fcec7c6286ebedf3e67717f9d091d6c1a46"
+    },
+    {
+      "prior_lines": [
+        1086,
+        1088
+      ],
+      "current_lines": [
+        1091,
+        1093
+      ],
+      "sha256": "9948ce63107ae6d84bf487389b63ba574a001f8beddcb7e17d3a8a4ccdeb855d"
+    },
+    {
+      "prior_lines": [
+        1089,
+        1090
+      ],
+      "current_lines": [
+        1108,
+        1109
+      ],
+      "sha256": "c626f7d14aa7b993da8ca9b1c531f066942c62ec4d8cce61c14d4b2da2ca2edc"
+    },
+    {
+      "prior_lines": [
+        1091,
+        1434
+      ],
+      "current_lines": [
+        1111,
+        1454
+      ],
+      "sha256": "5aba5949d1eef83133db573fe1300ba09858280b5cb24c65b26b6aaf2816deb9"
+    },
+    {
+      "prior_lines": [
+        1526,
+        1825
+      ],
+      "current_lines": [
+        1455,
+        1754
+      ],
+      "sha256": "a533d460d1a8af68310b742f6165624b78423c39d73914603d7f3bb0d510eff2"
+    },
+    {
+      "prior_lines": [
+        1829,
+        1926
+      ],
+      "current_lines": [
+        1758,
+        1855
+      ],
+      "sha256": "abe231620cfed6b58b087ba510735622020285ac321970ecdda663e268f8a1c6"
+    },
+    {
+      "prior_lines": [
+        1928,
+        1928
+      ],
+      "current_lines": [
+        1857,
+        1857
+      ],
+      "sha256": "17376ad784e34b241a478b1ed4e0164521f7e12317a55c98d6d0933e2696d5cc"
+    },
+    {
+      "prior_lines": [
+        1933,
+        2206
+      ],
+      "current_lines": [
+        1862,
+        2135
+      ],
+      "sha256": "b86fcecec3a5d60f46387fea68d41df244a95e63517562c3291f8c5fb4a20354"
+    }
+  ],
+  "canonical_peer_source": [
+    {
+      "path": "crates/fabelgeist-hair/src/surface/render_layout.rs",
+      "revision": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "sha256": "a494654990087180a401c2f0f80b258d3c01ae652d66d6f12017a657c04c969c",
+      "lines": 89,
+      "coverage": "Whole canonical SurfaceRenderLayout/Error owner source read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/head.rs",
+      "revision": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "sha256": "8007a20dddb728fae9bce4f80cbfab46ba06795e047cf0a49cbd50b4a7b1bdf5",
+      "lines": 110,
+      "coverage": "Whole source/cover constructor/device/native buffer owner read; allGpuHeadCover construction sites source-searched"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "revision": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "sha256": "210d69c52c956bf08c4741ae6524ee7b5c185fae123cfd4e4297ea3c92ae0e67",
+      "lines": 132,
+      "coverage": "Whole canonical count/native width/checked-corners definitions read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "revision": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "sha256": "0c54c21fb94e4b1df748a29cdbef562802d717acfc810211072be30d236a3298",
+      "lines": 287,
+      "coverage": "Surface fields/constructor/mutation/numerical roles1-125 read; not whole sampling implementation"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "revision": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "sha256": "0a3ef27ab38d9fefbc257e8d9de378a1473e3c65a939eaf21ced5b094a31395e",
+      "lines": 594,
+      "coverage": "Types/counts1-130 and absence of device accessor; restnotclaimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "revision": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "sha256": "5d5d894480ad37204931b182245ab96a361cd77ac8d39fa7ba1b1057f8e62f61",
+      "lines": 211,
+      "coverage": "Descriptor typed owner API absence/current legacy signatures source-confirmed,1-140"
+    }
+  ],
+  "affected_current_sources": [
+    {
+      "path": "crates/fabelgeist-hair/src/cover.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "50287b76df57d36dd9afcab6aa2a578f96e49b421b73e26b536d23c1bc65345f",
+      "lines": 173,
+      "coverage": "ScalpCover::at paired zip output1-106 and density kernel107-135"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "7ab3a1fe9e5c19e58ba3f9b6e6494ded69096cc71579c3b5c2f8f3b2f28be1ac",
+      "lines": 222,
+      "coverage": "ResourceBaseType1-115; base_type semantic recursion confirmed"
+    },
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "503d2fbd7648483a96ada49bccd5247e7cdfc4227ee8ce697e72726bbded413d",
+      "lines": 39,
+      "coverage": "Whole feature/dependency source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+      "lines": 211,
+      "coverage": "Current1-140Descriptor owner; pendingagreedtypedAPI confirmed"
+    }
+  ],
+  "findings": [],
+  "prior_findings_resolved": [
+    {
+      "id": "D9-PREFIX-WRITE-01",
+      "proof": "buffer/mod.rs53-54 uses canonicalwrite_at START; same logicalend/overflow guard before native upload; no duplicate backend. Prefix/read/map/binding bytes unchanged."
+    },
+    {
+      "id": "D9-DRAW-DOC-01",
+      "proof": "draws.rs16-17 nowaccurately logicalu32 interval with recordingresidentclamp."
+    },
+    {
+      "id": "197-BOUNDS-01 receiving half",
+      "proof": "head.rs47-49 canonical pairedlayout admission before upload; retainsimmutableArc/sourcewitness; CPUat exactpaired source impliessamecoverlen, canonicalalltriangleindices guarantee smoothing indices. Full producer integration notpresent, so no wholefamilyclearance."
+    }
+  ],
+  "inherited_required_rule_gaps": [
+    {
+      "id": "73B-ORDER-01",
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "lines": [
+        81,
+        95,
+        105,
+        126
+      ],
+      "rule": "crates/AGENTS.md:90-94",
+      "classification": "Existing affected #780 producer ordering, still required",
+      "proof": "StrandLevel impl precedes LodSettings/HairLods structs; Default impl precedes HairLods."
+    },
+    {
+      "id": "73B-PEER-RULE-01",
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "line": 150,
+      "rule": "crates/AGENTS.md:126-127",
+      "classification": "Existing connected #780 production unwrap, still required",
+      "proof": "counts.last().unwrap remains; construction nonempty proof does not waive explicit ban."
+    }
+  ],
+  "contract_traces": [
+    {
+      "family": "Head layout/native topology",
+      "trace": "peer SurfaceRenderLayout TryFrom source requiresnormalcount==vertices andeverytriangleindex<vertices, checkedMeshVertex/Triangle u32andchecked3cornercount -> root HeadDraw::new ->nativeposition+normal interleave/indexupload ->sameHeadDrawmesh draws. ArcSurface retainedwithlayout; noUV/cdf/BVH/physicalgeometryvalidationclaim. Empty haslogicalcorner0 andnonemptyminimumvertex/index/cover nativebuffers."
+    },
+    {
+      "family": "Immutable source/CPU cover",
+      "trace": "HeadDraw owns actualArcSurface/layout/mesh/cover, replacingthreeindependentOptions andclonedgeometry. set_head validates/candidatebuilds beforeassignment/invalidate; oldheadremains ontypedlayoutfailure. SourceArc hasnointeriormutation; externalArc mutableaccess requiresuniqueownership. with_cpu_cover at exactlypairedcolumns andsamesource triangles preserves existing3smoothing passes; emptycoverphysicalonezero pair."
+    },
+    {
+      "family": "GPU cover/device admission",
+      "trace": "set_gpu_groom requires actualagreedGpuLodsdevice, then head.with_gpu_cover comparescoveractualnativeDevice and Arc::ptr_eqexactcapture, expectedvertexcount*8 logicalbytes equality and physical>=max(expected,8); privatepeer constructor createsVertexusage/actualcontextdevice. Error containsnamedcanonicalbytequantities. Nonecover installsnewbarecoverage, endingstaleSome->None retention."
+    },
+    {
+      "family": "Publication/error source",
+      "trace": "set_gpu_groom1038-1111 rejectsforeigndevice/missinghead/foreigncover/source/extents before scene writes; nativecandidatelevels/cards/atlas/groups constructedbeforepublication. RenderSourceError::Layout derivesfrom/sourceactualSurfaceRenderError, whichretainsTryFromIntError; HairGpuErrorBackend anyhow retainscause. Nativecreationerrors deliberatelydevicehandled, nofalse synchronoushealthclaim. Physicalproducer/capacity/layout andCPUset_groom atomicfamily remainrequired."
+    },
+    {
+      "family": "Logical writes",
+      "trace": "canonicalBufferByteLength prefixadmission ->write ->write_at START ->checkedOffset.checked_after+logicalcapacity ->BufferUpload actualQueueobservevalidation. Nativeactualcapacity/usage/alignment errors retainSDKcause. No allocation/read/wait/secondalignmentpolicy introduced."
+    },
+    {
+      "family": "Texture builder boundary",
+      "trace": "TextureBinaryOpDefinitionbuilder nowbranches actual ResourceBaseType variants and propagatesfalliblestoragebinding ownerResult before shader/pipeline/cachepublication. ResourceDescriptor typedbase/falliblestorageAPI explicitlyagreedbut absentatroot04andpeerbcbc; no duplicaterootenum/mappingadded; exactsourceintegration required."
+    },
+    {
+      "family": "Unaffected fullrenderer/policy",
+      "trace": "FullD9currentpolicy/native/history/role/readback/body coverage retainedwhereexactbytes/equalregions match; currenttarget/view/convergence/draw/post/submit receivers source-revalidated. Priorfiniteadmission, logicalprefix split/residentclamp, HistoryEmpty/Current anddefaultdevicehandledproviderpolicy preserved. No nominalordinal-as-membership proof or globalprovider-successclaim."
+    }
+  ],
+  "all_thirteen_scope_accounting": {
+    "producer-propagation": "Rootconsumes canonicallayout/count/cause/source getters; pendingGpuLodsdevice/caller/native/API sources not silentlyclear.",
+    "existing-type-owners": "MeshVertex/Triangle/Cornercount, SurfaceRenderLayout/Error, BufferByteLength/Offset, actualwgpuDevice reused.",
+    "admission-contracts": "Headpairednormal/index/nativecounts, exactArc/device/bytecover relations; logicalzero valid; Bufferwritehonorsprefix.",
+    "invariant-operations": "PrivateimmutableArc+layoutwitness securesCPUcoverindices; countu32times8 fitsu64; nextcandidateconstructedbeforepublish.",
+    "aggregate-states": "OneOptionalHeadDraw ownsdependentpayloads; NoneGPUcover resetsbare; rendereroldscene retainedontypedfailure.",
+    "type-ownership": "HeadDraw receiveronlyaggregate inrender/head; canonicalSurface/GpuHeadCover/Descriptor owner remains780.",
+    "redundant-authority": "DeletedclonedHeadSurfacevectors andindependentcover;layoutisimmutableproof, notcompetingmutablegeometry; scene/cardnativecountsremainpending.",
+    "behavior-preservation": "Validsmoothingloop/order3/nativePOD/shaders unchanged; explicitrejectionreplacesinvalidassociation; emptylogicalmesh draws0.",
+    "enum-shapes": "RenderSourceErrorclosedvariants/namedextentcontext; oneOptionHeadDraw, existingHistorypayload/DrawRole preserved.",
+    "derivability": "CloneonArcaggregate/mesh safe; ErrorfromactualLayoutsource, nofakeSDKcause/stringification.",
+    "type-granularity": "Actualdeviceidentity vsArcsourceidentity vsnativecounts vsbytesdistinct; noequalcountsourceproxy/brandduplicate.",
+    "magic-strings": "BuilderclassifiesResourceBaseTypeinstead ofas_str output; WGSL/native labels remainactualgrammar/debugtext; noerrorprosebranch.",
+    "magic-numbers": "Nativef32position+normal6/cover2/indexu32 andphysicalmin1intrinsic; coverbytes via sizeof+canonicalcount; smoothing3existingnumericalkernel."
+  },
+  "ledger_checked_after_source": {
+    "key": "renderer_head_pre_repair",
+    "head": "d9c3521f30f52d3437cfef2850203c9df3192b0e",
+    "all_thirteen_lenses": 13,
+    "ownership": "RootwholeHairRenderer explicitlytransferred;780canonicalSurface/headproducers/API accepted andsourcebcbc1129b read, prepareimport897f64acf required",
+    "receipt_scope": "Rootfullheadset/cover/GPUreceivers; canonicalproducer graph remains780open; discovery recordisnotindependentreviewproof"
+  },
+  "new_function_source_spans": {
+    "HeadDraw::new": "47-88 (42 lines)",
+    "HeadDraw::with_gpu_cover": "90-125 (36 lines)",
+    "HeadDraw::with_cpu_cover": "128-159 (32 lines)",
+    "HeadDraw::coverage_buffer": "161-169 (9 lines)",
+    "HairRenderer::set_head": "177-182 (6 lines)",
+    "HairRenderer::set_gpu_groom": "1038-1111 (74 lines)",
+    "TextureBinaryOpDefinition::build_pipeline": "42-105 (64 lines)"
+  },
+  "native_pod": [
+    {
+      "name": "Globals",
+      "identical": true,
+      "sha256": "e0003c6f88ffdbc3d27a45fe06e0b88b50de9a095ff2e466faeeee967a5a2215"
+    },
+    {
+      "name": "DrawGpu",
+      "identical": true,
+      "sha256": "7e57128d063a7d19d367616d291cb283ae1e038a991524e265e77e6fdd6ae1ed"
+    },
+    {
+      "name": "PostGpu",
+      "identical": true,
+      "sha256": "d5b47327cf39b5a88545e9bb5d5c46f7a5cf6ab7ee28a1a113e81c206d07f10a"
+    },
+    {
+      "name": "CardDrawGpu",
+      "identical": true,
+      "sha256": "f3bdd58c806c14dc0b5750aa354aa2d68e92cbda64bd9e942f60e4fa149466f7"
+    },
+    {
+      "name": "DeformGpu",
+      "identical": true,
+      "sha256": "190035f5eecdfe124e69065c072c80b1864e596d20480e315122de2b6ea9208d"
+    }
+  ],
+  "shaders": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "lines": 651,
+      "coverage": "Exact source preservation only, no fresh whole-shader audit credit",
+      "identical": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "lines": 54,
+      "coverage": "Exact source preservation only, no fresh whole-shader audit credit",
+      "identical": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "revision": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "lines": 66,
+      "coverage": "Exact source preservation only, no fresh whole-shader audit credit",
+      "identical": true
+    }
+  ],
+  "existing_population": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "identical": true,
+      "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "identical": true,
+      "sha256": "a02817105e57ea1733fbce5f446c1ec4ced8fe43246b1815a29f89f994d2e142"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "identical": true,
+      "sha256": "ed6a6ed2629a5e28fec619c5e7f030309b98af77d33e77afa1fd47782e131c5f"
+    }
+  ],
+  "rule_receipts": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71",
+      "matches_prior_receipt": true
+    }
+  ],
+  "required_dependencies": [
+    "Import exactcanonical SurfaceRenderLayout/GpuHeadCover/Meshcount source andlayoutfeature APIs; currentrootreferences notdefinedyet.",
+    "Implement/import agreed GpuLodsdevice actualnativecapture withcomplete ownedphysicalgraph admission; a newmethodnamealonemustnotcertifypublicmixedforeignresources.",
+    "Consumeagreed ResourceDescriptor typedbase/falliblestorage APIs; both root04andpeerbcbc stilloldinfallibleStringowner.",
+    "780physicalHairstrand/card/atlascount/layout/source/nativebounds,simulation/headsource/coverproducer/caller/creator/fixture/completionpublication/lock paths required; root CPUset_groom atomicfalliblepublication stillrequired.",
+    "Inheritedlodordering/productionunwrap still780required, notindependentlyrepaired.",
+    "Requiredhostedbaseline reductions/fmt/lint/existingtests andfinalsamepushedSHAall13+threeindependentreviews/CI stillpending."
+  ],
+  "limits": [
+    "No sourceedits/projectchecks/scanners/build/tests/runtime/generators/newtests/cases/helpers/assertions/doctests/push/CI. OnlyreadonlyGit/source/hash/reportaccounting.",
+    "Full5pathdiffs/receiving responsibilities assessed; renderunchangedbodycredit explicitlycarriedfromcompleteD9readbyequalregion sourceidentity ratherthanpretendedfreshbodyread.",
+    "Sourceonly: no compile/nativeexecution claim; actualGpuLodsdevice+Descriptorimplementation cannotbevalidatedbeforecanonicalsourceavailable.",
+    "Nativeproviderconfigurederrorhandling intentionallypreserved; no requirementinventedtosynchronizeallBevy/bareDevice rendercalls.",
+    "No newproductionunwrap/expect/unsafe/suppression/testpopulation; existingBufferunsafeimpls unchanged. Renderer2206->2135lines; newfocusedhead189, set_gpu74 andeverynewmethod<100; existingresize103notgrown. Baselinegeneration/hostedreductionsnotrun.",
+    "Reportnofindingappliesonlyownedimplementedreceivingincrement, not producercomplete/family/fullPR/finalclearance."
+  ],
+  "correctness_verdict": "No new actionable owned receiving RuleReview finding; D9P2/P3 fixed. Canonicalproducer contract obligations remain required before correctness of combinedfamily canbeestablished.",
+  "completeness_verdict": "Incomplete; canonicaltypes/API/GpuLodsdevice/physicalgraph/callers/lock/hostedchecks unresolved, nofullPRclearance.",
+  "head_at_report": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+  "status_at_report": []
+}

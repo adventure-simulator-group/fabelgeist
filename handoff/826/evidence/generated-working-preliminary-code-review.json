@@ -1,0 +1,347 @@
+{
+  "title": "Independent preliminary Code review of generated working stages",
+  "base_head": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+  "base_tree": "0dc7e004af324c2faa953fb0e5fe087f01fd1b54",
+  "immutable_review_snapshot": "target/pr826-audit/generated-working-preliminary-snapshot/manifest.json",
+  "snapshot_manifest_sha256": "6c24dbbf3b0686d0d6c3e2854cae67675576a384fd9cbb014f25e94c3cdddaaf",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "2adb5bdbf1a5c51d2ce03beb053adf32ec04ab9dff66cb7f53c71478daed1250",
+      "lines": 171,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "01092c3bb1a65371abcac81f02a760383cd6d7c2e3f4ebc034acbd2e1b14a597",
+      "lines": 134,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "b1dc0a1ba64595020dbf99cde90c4c4ad7fb5416fdd7a4ad3f3fd8301ec53ae5",
+      "lines": 119,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "bf653378a5813637849cfb784d057ce2acb80a77d161c30b158d4f95a94d8576",
+      "lines": 106,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "lines": 138,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "c056f476e4d33b188c54ed645b850b4afc0a5bf0487745a1d214544491150482",
+      "lines": 118,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "lines": 7,
+      "same_c665_transfer": true,
+      "coverage": "Explicit exact full-source carry from generated-current-code-review; hash independently compared, no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "e0a0dd570601e4c7f120010ac9c296d41c931a5470d383771d385b856829cd7a",
+      "lines": 106,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "lines": 47,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "e9cd69ca457db66b05a6e2361f3aad04ef4fa5297f58a30f9aa1e30b124257ec",
+      "lines": 148,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "7a70603a06d077d90434afd382e0ed7faef6f249637671ba588a19c3af2237d1",
+      "lines": 119,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "lines": 114,
+      "same_c665_transfer": false,
+      "coverage": "Prior full incoming Map body plus complete current formatting/item/query API diff; underlying semantic source unchanged. Existing helper source carried by exact hash where equal."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228,
+      "same_c665_transfer": false,
+      "coverage": "Prior full incoming Map body plus complete current formatting/item/query API diff; underlying semantic source unchanged. Existing helper source carried by exact hash where equal."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "50e80d915551dd5295f328d6c5e6fe640e9faea59a017d9ba2af69e8d11dd7f6",
+      "lines": 108,
+      "same_c665_transfer": false,
+      "coverage": "Prior full incoming Map body plus complete current formatting/item/query API diff; underlying semantic source unchanged. Existing helper source carried by exact hash where equal."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "lines": 9,
+      "same_c665_transfer": true,
+      "coverage": "Explicit exact full-source carry from generated-current-code-review; hash independently compared, no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "0e15fa901648d8badde1d065e92696fd7e71004da5b5d4dc9baf78a77f941f01",
+      "lines": 122,
+      "same_c665_transfer": false,
+      "coverage": "Prior full incoming Map body plus complete current formatting/item/query API diff; underlying semantic source unchanged. Existing helper source carried by exact hash where equal."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42,
+      "same_c665_transfer": true,
+      "coverage": "Explicit exact full-source carry from generated-current-code-review; hash independently compared, no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296,
+      "same_c665_transfer": true,
+      "coverage": "Explicit exact full-source carry from generated-current-code-review; hash independently compared, no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "lines": 170,
+      "same_c665_transfer": true,
+      "coverage": "Explicit exact full-source carry from generated-current-code-review; hash independently compared, no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "lines": 27,
+      "same_c665_transfer": true,
+      "coverage": "Explicit exact full-source carry from generated-current-code-review; hash independently compared, no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "lines": 123,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "392d7c8dda64c3c2c32bda1278186ef38a07c5decb29ba39116fab51aee890ea",
+      "lines": 107,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "545195e4d259a62c699b8387e799dacffe18c8a3bc9d67b0e85c7b3a08f042b8",
+      "lines": 121,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "255e7a7c4a80fc287b6875abf597b88db8c35f300f0a089e0ccaac481c5f2bd9",
+      "lines": 113,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "lines": 1082,
+      "same_c665_transfer": true,
+      "coverage": "Full exact-source carry from generated-current-code-review, unchanged old live owner; still incomplete, known GC-C3 Stencil slice and GC-C4 physical/coordinate paths remain."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "b2e2ba463e723bb8b407cd742d2d65af48ae0bc8f65a2a20308386d2d796cf55",
+      "lines": 70,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11,
+      "same_c665_transfer": true,
+      "coverage": "Explicit exact full-source carry from generated-current-code-review; hash independently compared, no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "f299cc60f805ad792f0300fc302f4f70169226b6f97070e6cc574459a604a6ae",
+      "lines": 175,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "65c821db83cd3035a1991c9380fdc597b40d45b83cf3814b72dcfd41cb68a157",
+      "lines": 37,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "lines": 110,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "c83884bd5e3824084db9bf526a124d291bce253e7c273323fe046ddb9c307e00",
+      "lines": 110,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "lines": 69,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete current source read for this preliminary stage, including listed existing fixture bodies."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "b6b96c0ab4c31b52e195e84bcee0c9a02da03a9cc6815ac6e919552d8a466727",
+      "lines": 216,
+      "same_c665_transfer": false,
+      "coverage": "Prior complete source plus complete current result-alias/export/formatting diff; native descriptor/address behavior unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "lines": 109,
+      "same_c665_transfer": false,
+      "coverage": "Prior complete source plus complete current result-alias/export/formatting diff; native descriptor/address behavior unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "0bc0ab81d3dbc848835fc577e2cf7cba11d2d9a00c3456b31805fbc7b564a903",
+      "lines": 252,
+      "same_c665_transfer": false,
+      "coverage": "Fresh complete changed safe-envelope function and exports; prior full unchanged native leaf/cleaning/binary/compare/split functions carried by inspected delta."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "lines": 87,
+      "same_c665_transfer": false,
+      "coverage": "Prior complete source plus complete current result-alias/export/formatting diff; native descriptor/address behavior unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97,
+      "same_c665_transfer": true,
+      "coverage": "Explicit exact full-source carry from generated-current-code-review; hash independently compared, no fresh whole-body reread."
+    }
+  ],
+  "source_count": 38,
+  "verdict": "No new actionable Code defect identified in the reviewed Map/Gather/Scatter/Stream/shared-envelope/fluid stages. This preliminary snapshot is not a wired Stencil or whole-family/source-compilation/final clearance.",
+  "stage_contracts": [
+    {
+      "stage": "Shared native projection/lexer",
+      "proof": "Complete suffix plus split_once envelope avoids GC-C3 generic inverted/UTF8 slices; malformed ordinary text remains Custom/native admission. Existing outer clean_type_name guarded ranges remain valid. Resource detection now inspects actual outer Resource/ptr/texture forms before payload projection, preserving native declaration text and open unrelated Custom names. Duplicate native parameter names fail before semantic roles."
+    },
+    {
+      "stage": "Map received",
+      "proof": "Reviewed prior complete semantic source plus exact current formatting changes. Actual input presence selects first ordinary primary; remaining resources/uniforms keep authored order; cache recipe sorting remains identity only. Original native declarations/names remain available to DistanceField. Source/raw shader math and fetch/result metadata contracts remain as before."
+    },
+    {
+      "stage": "Gather",
+      "proof": "Private ordered Index/Resource/Other roles derive selected coordinate and last-resource/F32 input projection; actual output declaration remains private. Native source strips resource metadata, retains original ordinary declarations, and calls only selected coordinate. This does not add unsupported ordinary extra-argument functionality. Direct constructor no longer accepts unused context; existing helper only drops its unused initialization and consumes final signature API."
+    },
+    {
+      "stage": "Scatter GC-C1",
+      "proof": "Explicit supported unsigned index selected before alias fallback, so remaining unsigned parameters become Value roles. Last value/resource projections, original declaration/call order and shared in_val semantics derive from same sequence. Float-only parameter named index remains an ordinary Value. Program load, guard, texture suffix and output writer metadata behavior remain coherent."
+    },
+    {
+      "stage": "Stream GC-C2",
+      "proof": "Offset exact-u32 role is excluded from unsigned index fallback; explicit supported index selected first. Displaced earlier unsigned parameter remains Value and has_input_value derives load presence, closing missing in_val. Metadata-only MC/DC pointer writers still need no input load and keep global output/prefix/count/offset protocol. Buffer control remains inclusive_offsets reflected stride, texture control remains actual input axes. counts/output-bound caller preconditions remain explicit."
+    },
+    {
+      "stage": "Fluid emission/layout",
+      "proof": "Fresh complete three program modules/builders/executors. Plane/volume and Clamp/Wrap source control flow preserves previous numerical literals and evaluation order. Source-specific helper hashes match Root reported literal accounts46/51/48. Builders retain Named(main) and ResourcePipeline reflected controlling output layout and actual selected workgroup shape; execute uses that pipeline for grids. Recipe keys include all resource descriptors and mutable boundary mode; unused sampler removed directly from Advect API."
+    },
+    {
+      "stage": "Unwired Stencil drafts",
+      "proof": "New private ordered signature and exact Neighborhood1..4 owner read in full. Optional explicit center/val then fallback and derived input/value queries fit discovery design; new checked outer envelope removes draft extraction panic. However no mod wiring/emitter/layout/admission closure exists in captured old stencil.rs, so draft source cannot close the live GC-C3/GC-C4 findings. No behavior verdict is granted to unused drafts."
+    }
+  ],
+  "new_findings": [],
+  "required_open_dependencies": [
+    "Stencil live native neighborhood source remains old/unwired: GC-C3 local malformed Neighbors range, GC-C4 Buffer row/plane coordinates, declared/default64 grid, physical prefix and i32 conversion/wrap/flatten bounds remain required before source-family acceptance. Preserve intentional old neighbor+secondaryBuffer unsupported limit, optional center and texture projection policies.",
+    "Direct canonical caller migration remains required: DistanceField lexical API, MC/DC Gather/Stream constructors/signature methods and extraction/Scan/Reduce ResourcePipeline consumers; same old call sites are known incomplete stage dependencies, not new compensating compatibility APIs.",
+    "Root lib/prelude/export composition, canonical BufferElementCount/Stride/BoundaryMode/Workgroup/ResourcePipeline actual owner definitions and immutable peer receipts must be integrated coherently; no duplicate quantity types or independent peer function repair.",
+    "Actual Root native validation-scope/progress/native errors/cache retry, Buffer mapping/transfer/view behavior and typed admission commit remain authoritative; dirty generated GPU files do not re-clear native83.",
+    "All connected families, complete post waves and independent final Code/Rule/Comment plus hosted gates still required on the same pushed final revision; no merge."
+  ],
+  "source_preservation": {
+    "fluid_literal_source_identity": [
+      {
+        "family": "advect",
+        "review_snapshot_sha256": "01092c3bb1a65371abcac81f02a760383cd6d7c2e3f4ebc034acbd2e1b14a597",
+        "matches_root_literal_comparison_source": true,
+        "source_literal_tokens_reported_exact": true,
+        "reported_token_count": 46
+      },
+      {
+        "family": "gradient",
+        "review_snapshot_sha256": "7a70603a06d077d90434afd382e0ed7faef6f249637671ba588a19c3af2237d1",
+        "matches_root_literal_comparison_source": true,
+        "source_literal_tokens_reported_exact": true,
+        "reported_token_count": 51
+      },
+      {
+        "family": "divergence",
+        "review_snapshot_sha256": "bf653378a5813637849cfb784d057ce2acb80a77d161c30b158d4f95a94d8576",
+        "matches_root_literal_comparison_source": true,
+        "source_literal_tokens_reported_exact": true,
+        "reported_token_count": 48
+      }
+    ],
+    "fixture_limit": "Map test population is exact previous snapshot; Gather/Stream existing helper bodies only direct constructor/query/context API adapters, same generic bounds/fixtures/expected values/assertions. Captured old Stencil inline fixtures exact previous snapshot. No authored tests/cases/helpers/assertions/doctests or generator execution.",
+    "shared_native_core": "ResourcePipeline/resource_recipe/MapRecipe/GatherRecipe/TextureValue remain independently exact prior transferred source where accounts say true; other diff-only sources have explicitly labelled carried coverage."
+  },
+  "limits": [
+    "Captured38 immutable source identities/5341lines at base919ba9b9415c06981ff5dc01d21666f49407eb3e. Root may continue Stencil; this report is valid only for snapshot hashes, not moving working tree or a pushed commit.",
+    "Fresh current source reads and complete previous-body/diff carries are labelled per file. The earlier27+38 snapshot remains reference/caller context; this stage did not freshly reread all38 references or grant them clearance.",
+    "No project execution/check/build/lint/test/scanner/generator/runtime/probe, source edits, new fixtures/helpers/assertions/doctests, push or CI request. Snapshot/report copying is ignored source-evidence bookkeeping only."
+  ]
+}

@@ -1,0 +1,483 @@
+crates/fabelgeist-gpu/src/data/gpu/resource.rs:65:            GpuResource::Buffer(b) => b.read(context).await,
+crates/fabelgeist-gpu/src/data/gpu/resource.rs:66:            GpuResource::Texture2d(t) => t.read(context).await,
+crates/fabelgeist-gpu/src/data/gpu/resource.rs:67:            GpuResource::Texture3d(t) => t.read(context).await,
+crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:9:    assert_eq!(buffer.read::<u32>(&context).await.unwrap(), words);
+crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:18:        buffer.read::<u32>(&context).await.unwrap(),
+crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:36:        buffer.read::<u32>(&context).await.unwrap(),
+crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:53:    assert_eq!(binding.read::<u32>(&context).await.unwrap(), [0]);
+crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:61:    assert_eq!(binding.read::<u32>(&context).await.unwrap(), [42]);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:377:        self.read::<u8>(context).await
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs:110:        let raw_data = self.read::<u8>(context).await?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:301:        let raw_data = self.read::<u8>(context).await?;
+crates/fabelgeist-compute/src/stencil.rs:1106:        let result = output_texture.read::<f32>(&context).await?;
+crates/fabelgeist-compute/src/stencil.rs:1151:        let result = output_buf.read::<f32>(&context).await?;
+crates/fabelgeist-compute/src/stereo/tests.rs:315:        let distance: Vec<f32> = depth.distance().read(&context).await.unwrap();
+crates/fabelgeist-compute/src/stereo/tests.rs:340:                .read(&context)
+crates/fabelgeist-compute/src/stereo/tests.rs:385:    let raw: Vec<f32> = depth.distance().read(&context).await.unwrap();
+crates/fabelgeist-compute/src/stereo/tests.rs:386:    let filtered: Vec<f32> = depth.filtered_distance().read(&context).await.unwrap();
+crates/fabelgeist-compute/src/reduce/max.rs:51:                let data: Vec<f32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/reduce/max.rs:55:                let data: Vec<u32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/reduce/max.rs:59:                let data: Vec<i32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/readback.rs:249:        let results = readback.read(&context).await?;
+crates/fabelgeist-compute/src/reduce/tests/mod.rs:26:    let result: Vec<T> = result_buf.read(&context).await?;
+crates/fabelgeist-compute/src/reduce/tests/mod.rs:56:    let result: Vec<f32> = result_buf.read(&context).await?;
+crates/fabelgeist-compute/src/reduce/tests/mod.rs:74:    let result: Vec<f32> = result_buf.read(&context).await?;
+crates/fabelgeist-compute/src/reduce/tests/mod.rs:117:    let result: Vec<Item> = result_buf.read(&context).await?;
+crates/fabelgeist-compute/src/reduce/tests/mod.rs:143:    let result: Vec<f32> = result_buf.read(&context).await?;
+crates/fabelgeist-compute/src/reduce/min.rs:51:                let data: Vec<f32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/reduce/min.rs:55:                let data: Vec<u32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/reduce/min.rs:59:                let data: Vec<i32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/map/tests/mod.rs:217:    let result = output_buffer.read::<u32>(&context).await?;
+crates/fabelgeist-compute/src/map/tests/mod.rs:259:    let result = output_buffer.read::<f32>(&context).await?;
+crates/fabelgeist-compute/src/map/tests/mod.rs:293:    let result = output_buffer.read::<f32>(&context).await?;
+crates/fabelgeist-compute/src/prefix_sum.rs:361:            let scanned: Vec<u32> = buffer.read(&context).await?;
+crates/fabelgeist-compute/src/prefix_sum.rs:385:        let scanned: Vec<u32> = buffer.read(&context).await?;
+crates/fabelgeist-compute/src/mesh_query/mod.rs:121:        let nearest: Vec<u32> = self.nearest.read(context).await?;
+crates/fabelgeist-compute/src/mesh_query/mod.rs:122:        let weights: Vec<f32> = self.weights.read(context).await?;
+crates/fabelgeist-compute/src/mesh_query/mod.rs:123:        let distances: Vec<f32> = self.distances.read(context).await?;
+crates/fabelgeist-compute/src/stream/tests/mod.rs:52:    let result: Vec<OUT> = out_buf.read(&context).await?;
+crates/fabelgeist-compute/src/mesh_query/tests.rs:79:    let found = hits.read(&context, queries.len() as u32).await?;
+crates/fabelgeist-compute/src/mesh_query/tests.rs:115:    for (point, hit) in queries.iter().zip(hits.read(&context, 100).await?) {
+crates/fabelgeist-compute/src/mesh_query/tests.rs:149:    assert_eq!(hits.read(&context, 1).await?[0].target, Some(1));
+crates/fabelgeist-compute/src/mesh_query/tests.rs:180:    for (point, hit) in queries.iter().zip(hits.read(&context, 500).await?) {
+crates/fabelgeist-compute/src/mesh_query/tests.rs:230:        let found = hits.read(&context, 3).await?;
+crates/fabelgeist-compute/src/vertex_normals.rs:262:        let normals: Vec<[f32; 3]> = self.normals.read(context).await?;
+crates/fabelgeist-compute/src/vertex_normals.rs:263:        let status: Vec<u32> = self.status.read(context).await?;
+crates/fabelgeist-compute/src/vertex_normals.rs:435:        output.read(&context, positions.len() as u32).await
+crates/fabelgeist-compute/src/distance_field_jfa.rs:266:        let result = output_tex.read::<f32>(&context).await?;
+crates/fabelgeist-compute/src/distance_field_jfa.rs:297:        let result = output_tex.read::<f32>(&context).await?;
+crates/fabelgeist-compute/tests/concurrent_kernels.rs:74:                    let read: Vec<u32> = pollster::block_on(output.read(context)).unwrap();
+crates/fabelgeist-compute/tests/concurrent_kernels.rs:127:    let read: Vec<u32> = pollster::block_on(held.read(&context))?;
+crates/fabelgeist-compute/src/sort/tests.rs:48:        key_buffer.read(&context).await?,
+crates/fabelgeist-compute/src/sort/tests.rs:49:        value_buffer.read(&context).await?,
+crates/fabelgeist-compute/src/test_utils.rs:185:            let result_flat: Vec<S> = out_res.read(&context).await?;
+crates/fabelgeist-compute/src/host_float/tests.rs:95:    outputs.read(&context).await
+crates/fabelgeist-armor/src/gpu/pauldron.rs:5:use super::{ArmorGpu, DevicePart, device_error, wgsl};
+crates/fabelgeist-armor/src/gpu/pauldron.rs:74:            frame_points: gpu.scratch(
+crates/fabelgeist-armor/src/gpu/pauldron.rs:78:            status: gpu.scratch(4, "shoulder status")?,
+crates/fabelgeist-armor/src/gpu/pauldron.rs:92:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/pauldron.rs:103:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/textile_chart.rs:2:use super::{ArmorGpu, device_error, wgsl};
+crates/fabelgeist-armor/src/gpu/textile_chart.rs:51:    let bounds = gpu.scratch(8, "textile chart bounds")?;
+crates/fabelgeist-armor/src/gpu/textile_chart.rs:52:    let coordinates = gpu.scratch(u64::from(count) * 8, "textile chart coordinates")?;
+crates/fabelgeist-armor/src/gpu/textile_chart.rs:63:        .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/textile_chart.rs:66:        .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/textile_chart.rs:71:        .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/textile_chart.rs:74:        .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/textile_chart.rs:104:        .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/textile_chart.rs:118:        .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/mod.rs:214:            query: MeshQuery::with_cache(&context, &cache).map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/mod.rs:216:                .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/mod.rs:222:            .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/mod.rs:235:        Self::new(WgpuContext::new_compute().await.map_err(device_error)?)
+crates/fabelgeist-armor/src/gpu/mod.rs:291:        .map_err(device_error)
+crates/fabelgeist-armor/src/gpu/mod.rs:303:        .map_err(device_error)
+crates/fabelgeist-armor/src/gpu/mod.rs:311:        pollster::block_on(self.read_async(buffer))
+crates/fabelgeist-armor/src/gpu/mod.rs:318:        buffer.read(&self.context).await.map_err(device_error)
+crates/fabelgeist-armor/src/gpu/mod.rs:334:        let hits = QueryHits::new(&self.context, count).map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/mod.rs:350:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/mod.rs:359:pub fn device_error(error: impl std::fmt::Display) -> GenerateError {
+crates/fabelgeist-armor/src/gpu/mod.rs:360:    GenerateError::Gpu(Arc::from(error.to_string()))
+crates/fabelgeist-armor/src/gpu/breastplate/anime.rs:70:        let positions = gpu.scratch(base.count() as u64 * 12, "anime morph")?;
+crates/fabelgeist-shell/src/surface_contact.rs:115:                        .read::<fabelgeist_xpbd::ParticlePositionRecord>(context)
+crates/fabelgeist-armor/src/gpu/breastplate/mod.rs:53:use super::{ArmorGpu, device_error};
+crates/fabelgeist-armor/src/gpu/breastplate/mod.rs:189:        let positions = gpu.scratch(count as u64 * 12, "breastplate morph positions")?;
+crates/fabelgeist-armor/src/gpu/breastplate/mod.rs:219:            VertexNormals::new(gpu.context(), count, shell.triangles()).map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/breastplate/mod.rs:229:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/breastplate/mod.rs:242:        pollster::block_on(self.read_async(gpu, domain, morphs))
+crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:9:use crate::gpu::{ArmorGpu, device_error};
+crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:39:        let bounds = gpu.scratch(32, "anime course bounds")?;
+crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:175:            positions: gpu.scratch(count as u64 * 12, "anime positions")?,
+crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:176:            normals: VertexNormals::new(gpu.context(), count, triangles).map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:179:        let links = gpu.scratch(count as u64 * LINK_WORDS * 4, "anime correspondence")?;
+crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:180:        let skin = gpu.scratch(count as u64 * SKIN_WORDS as u64 * 4, "anime skin")?;
+crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:207:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/breastplate/miter.rs:41:        let normals = gpu.scratch(faces.len() as u64 * 12, "clipped facet normals")?;
+crates/fabelgeist-armor/src/gpu/breastplate/miter.rs:56:        let offsets = gpu.scratch(self.count() as u64 * 12, "clipped rim offsets")?;
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:54:        .scratch(count as u64 * 4, "outer envelope support")
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:57:        .scratch(count as u64 * 4, "outer envelope smooth")
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:117:    assert_eq!(gpu.read::<u32>(&status).unwrap()[0], 0);
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:118:    for point in gpu.read::<[f32; 3]>(&positions).unwrap() {
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:165:        .scratch(count as u64 * 4, "local support test support_radii")
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:168:        .scratch(count as u64 * 4, "local support test envelope")
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:242:    assert_eq!(gpu.read::<u32>(&status).unwrap()[0], 0);
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:243:    let required = gpu.read::<f32>(&support_radii).unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:244:    let actual = gpu.read::<[f32; 3]>(&positions).unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:316:        gpu.read::<u32>(&status).unwrap()[0],
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:367:    let lapped = gpu.read::<[f32; 3]>(&back).unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:446:            .scratch(count as u64 * 4, "skirt flare target radii")
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:484:        assert_eq!(gpu.read::<u32>(&status).unwrap()[0], 0);
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:485:        let support = gpu.read::<f32>(&support).unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:488:            .scratch(count as u64 * 4, "measured skirt envelope")
+crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:506:        let envelope = gpu.read::<f32>(&envelope).unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:53:    let body_local = gpu.scratch(torso.body.vertex_count as u64 * 12, "body in wearer frame")?;
+crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:198:            .scratch(plate.count() as u64 * 4, "trim body support")?;
+crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:257:        let coarse = gpu.scratch(samples as u64 * COARSE_WORDS as u64 * 4, "regular chart")?;
+crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:294:        let sections = gpu.scratch(
+crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:360:        let support_radii = self.gpu.scratch(count as u64 * 4, "local torso support")?;
+crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:363:            .scratch(count as u64 * 4, "torso support envelope")?;
+crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:65:        let bounds = gpu.scratch(32, "test course bounds").unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:88:            .scratch(count as u64 * 12, "test deep lap points")
+crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:91:            .scratch(count as u64 * 12, "test deep lap correspondence")
+crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:146:            gpu.read::<u32>(&status).unwrap()[0] == 0,
+crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:151:            let points = gpu.read::<[f32; 3]>(&positions).unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:161:            let correspondence = gpu.read::<u32>(&links).unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:19:            let points = gpu.scratch(5 * 12, "armscye boundary samples").unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:35:            cases.push(gpu.read::<[f32; 3]>(&points).unwrap());
+crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:68:            let points = gpu.scratch(3 * 12, "retained carrier sections").unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:84:            cases.push(gpu.read::<[f32; 3]>(&points).unwrap());
+crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:122:                let points = gpu.scratch(5 * 12, "flank boundary samples").unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:138:                cases.push(gpu.read::<[f32; 3]>(&points).unwrap());
+crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:198:            let points = gpu.scratch(49 * 33 * 12, "coupled chart ordering").unwrap();
+crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:214:            let points = gpu.read::<[f32; 3]>(&points).unwrap();
+crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs:9:use super::{ArmorGpu, DevicePart, device_error, wgsl};
+crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs:117:        .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs:134:                .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/chart.rs:26:use super::{ArmorGpu, device_error};
+crates/fabelgeist-armor/src/gpu/chart.rs:254:                .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/chart.rs:350:        .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/breastplate/kernels.rs:22:use crate::gpu::{ArmorGpu, device_error, wgsl};
+crates/fabelgeist-armor/src/gpu/breastplate/kernels.rs:140:        .map_err(device_error)
+crates/fabelgeist-armor/src/gpu/breastplate/kernels.rs:164:    .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/staging.rs:74:        let bytes = readback.read(self.context()).await?;
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:13:use crate::gpu::{ArmorGpu, device_error};
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:28:            positions: gpu.scratch(topology.vertex_count() as u64 * 12, label)?,
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:29:            arm_distances: gpu.scratch(topology.vertex_count() as u64 * 4, "arm trim domain")?,
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:52:        let normals = gpu.scratch(self.count() as u64 * 12, "plate normals")?;
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:225:            front: gpu.scratch(front.count() as u64 * 12, "front extrusion")?,
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:227:            carrier: gpu.scratch(
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:285:            positions: gpu.scratch(count as u64 * 12, "breastplate positions")?,
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:286:            normals: VertexNormals::new(gpu.context(), count, triangles).map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:326:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:345:        let samples = gpu.scratch(
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:383:            skin: gpu.scratch(
+crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:387:            morph_samples: gpu.scratch(
+crates/fabelgeist-armor/src/gpu/coord.rs:26:use super::{ArmorGpu, device_error, wgsl};
+crates/fabelgeist-armor/src/gpu/coord.rs:134:                .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/coord.rs:221:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/part/shell_kernels.rs:10:use super::super::{ArmorGpu, device_error, wgsl};
+crates/fabelgeist-armor/src/gpu/part/shell_kernels.rs:26:                .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/part/shell_kernels.rs:30:                .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/part/shell_kernels.rs:34:                .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/metal/mod.rs:54:        let kernel = |source: String| cache.get(context, &source).map_err(device_error);
+crates/fabelgeist-armor/src/gpu/metal/mod.rs:68:        let context = pollster::block_on(WgpuContext::new()).map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/metal/mod.rs:88:        .map_err(device_error)
+crates/fabelgeist-armor/src/gpu/metal/mod.rs:100:        .map_err(device_error)
+crates/fabelgeist-armor/src/gpu/metal/mod.rs:105:        pollster::block_on(buffer.read(&self.context)).map_err(device_error)
+crates/fabelgeist-armor/src/gpu/metal/mod.rs:119:            .map_err(device_error)
+crates/fabelgeist-armor/src/gpu/metal/mod.rs:124:fn device_error(error: impl std::fmt::Display) -> String {
+crates/fabelgeist-armor/src/gpu/metal/bake.rs:38:    let height = gpu.scratch(texels.into(), "metal scratch height")?;
+crates/fabelgeist-armor/src/gpu/metal/bake.rs:39:    let recess = gpu.scratch(texels.into(), "metal recess")?;
+crates/fabelgeist-armor/src/gpu/metal/bake.rs:40:    let slopes = gpu.scratch(u64::from(texels) * 2, "metal slopes")?;
+crates/fabelgeist-armor/src/gpu/metal/bake.rs:41:    let normal = gpu.scratch(texels.into(), "metal normal")?;
+crates/fabelgeist-armor/src/gpu/metal/bake.rs:42:    let metal_roughness = gpu.scratch(texels.into(), "metal roughness")?;
+crates/fabelgeist-armor/src/gpu/metal/bake.rs:43:    let depth = gpu.scratch(texels.into(), "metal depth")?;
+crates/fabelgeist-armor/src/gpu/metal/bake.rs:44:    let finish = gpu.scratch(u64::from(texels) * u64::from(FINISH_WORDS), "metal finish")?;
+crates/fabelgeist-armor/src/gpu/metal/bake.rs:162:        .map_err(super::device_error)
+crates/fabelgeist-armor/src/gpu/limb_build.rs:39:        if gpu.read::<u32>(&carrier.status)?[0] != 0 {
+crates/fabelgeist-armor/src/gpu/bracer.rs:20:use super::{ArmorGpu, device_error};
+crates/fabelgeist-armor/src/gpu/bracer.rs:103:        let positions = gpu.scratch(vertices as u64 * 12, "bracer positions")?;
+crates/fabelgeist-armor/src/gpu/bracer.rs:114:            None => gpu.scratch(4, "unused body normals")?,
+crates/fabelgeist-armor/src/gpu/bracer.rs:124:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/bracer.rs:128:                .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/bracer.rs:147:            .map_err(device_error)
+crates/fabelgeist-armor/src/gpu/bracer.rs:196:        .map_err(device_error)
+crates/fabelgeist-armor/src/gpu/bracer.rs:227:        let axis = gpu.scratch(AXIS_WORDS as u64 * 4, "bracer axis")?;
+crates/fabelgeist-armor/src/gpu/bracer.rs:242:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/bracer.rs:252:            gpu.scratch(
+crates/fabelgeist-armor/src/gpu/bracer.rs:262:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/bracer.rs:287:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/bracer.rs:310:            samples: gpu.scratch(
+crates/fabelgeist-armor/src/gpu/bracer.rs:316:            indices: gpu.scratch(triangle_count as u64 * 12, "bracer indices")?,
+crates/fabelgeist-armor/src/gpu/bracer.rs:320:        let body_normals = gpu.scratch(sample_count as u64 * 12, "bracer body normals")?;
+crates/fabelgeist-armor/src/gpu/bracer.rs:333:            texcoords: gpu.scratch(vertex_count * 8, "bracer texcoords")?,
+crates/fabelgeist-armor/src/gpu/bracer.rs:334:            joint_indices: gpu.scratch(vertex_count * 32, "bracer joint indices")?,
+crates/fabelgeist-armor/src/gpu/bracer.rs:335:            joint_weights: gpu.scratch(vertex_count * 32, "bracer joint weights")?,
+crates/fabelgeist-armor/src/gpu/bracer.rs:368:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/bracer.rs:393:        pollster::block_on(self.read_async(gpu, domain, morphs))
+crates/fabelgeist-armor/src/gpu/body.rs:10:use super::{ArmorGpu, device_error, wgsl};
+crates/fabelgeist-armor/src/gpu/body.rs:119:        let hits = QueryHits::new(gpu.context(), count).map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/body.rs:132:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/body.rs:134:            texcoords: gpu.scratch(count as u64 * 8, "armor texcoords")?,
+crates/fabelgeist-armor/src/gpu/body.rs:135:            joint_indices: gpu.scratch(count as u64 * 32, "armor joint indices")?,
+crates/fabelgeist-armor/src/gpu/body.rs:136:            joint_weights: gpu.scratch(count as u64 * 32, "armor joint weights")?,
+crates/fabelgeist-armor/src/gpu/body.rs:155:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/body.rs:228:        .map_err(device_error)
+crates/fabelgeist-armor/src/gpu/placement.rs:19:use super::{ArmorGpu, device_error, wgsl};
+crates/fabelgeist-armor/src/gpu/placement.rs:58:        .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/placement.rs:140:        .map_err(device_error)
+crates/fabelgeist-hair/src/gpu/scalp.rs:65:            let mut all: Vec<[f32; 4]> = pollster::block_on(buffer.read(context))?;
+crates/fabelgeist-hair/src/gpu/scalp.rs:72:        let mut triangles: Vec<[u32; 4]> = pollster::block_on(self.tri_index.read(context))?;
+crates/fabelgeist-armor/src/gpu/part.rs:20:use super::{ArmorGpu, device_error};
+crates/fabelgeist-armor/src/gpu/part.rs:78:            carriers: gpu.scratch(carriers as u64 * 12, "part carriers")?,
+crates/fabelgeist-armor/src/gpu/part.rs:79:            heights: gpu.scratch(
+crates/fabelgeist-armor/src/gpu/part.rs:84:            hinges: gpu.scratch(hinges.max(1) as u64 * HINGE_WORDS as u64 * 4, "part hinges")?,
+crates/fabelgeist-armor/src/gpu/part.rs:85:            status: gpu.scratch(4, "part status")?,
+crates/fabelgeist-armor/src/gpu/part.rs:91:                .scratch(carrier_indices.len() as u64 * 4, "part carrier triangles")?,
+crates/fabelgeist-armor/src/gpu/part.rs:95:            final_indices: gpu.scratch(final_indices.len() as u64 * 4, "part triangles")?,
+crates/fabelgeist-armor/src/gpu/part.rs:96:            walls: gpu.scratch(carriers as u64 * 24, "part walls")?,
+crates/fabelgeist-armor/src/gpu/part.rs:97:            positions: gpu.scratch(finals as u64 * 12, "part positions")?,
+crates/fabelgeist-armor/src/gpu/part.rs:99:                .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/part.rs:101:                .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/part.rs:103:                .map_err(device_error)?,
+crates/fabelgeist-armor/src/gpu/part.rs:148:                .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/part.rs:163:                .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/part.rs:178:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/part.rs:191:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/part.rs:216:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/anatomy.rs:23:use super::{ArmorGpu, device_error, wgsl};
+crates/fabelgeist-armor/src/gpu/anatomy.rs:129:            words: gpu.scratch(
+crates/fabelgeist-armor/src/gpu/anatomy.rs:137:        let selection = gpu.scratch(
+crates/fabelgeist-armor/src/gpu/anatomy.rs:141:        let first = gpu.scratch(seams.pair_count as u64 * 4, "first pair corners")?;
+crates/fabelgeist-armor/src/gpu/anatomy.rs:158:                .map_err(device_error)
+crates/fabelgeist-armor/src/gpu/anatomy.rs:162:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/anatomy.rs:165:            .map_err(device_error)?;
+crates/fabelgeist-armor/src/gpu/anatomy.rs:168:            .map_err(device_error)?;
+crates/fabelgeist-xpbd/src/particles/tests.rs:7:        let positions: Vec<f32> = particles.positions.read(context).await.unwrap();
+crates/fabelgeist-xpbd/src/particles/tests.rs:8:        let previous: Vec<f32> = particles.previous.read(context).await.unwrap();
+crates/fabelgeist-xpbd/src/particles/tests.rs:9:        let velocities: Vec<f32> = particles.velocities.read(context).await.unwrap();
+crates/fabelgeist-hair/src/gpu/mod.rs:541:        let values: Vec<u32> = pollster::block_on(out.read(&self.context))?;
+crates/fabelgeist-hair/src/gpu/mod.rs:579:    let positions: Vec<[f32; 4]> = pollster::block_on(positions.read(context))?;
+crates/fabelgeist-hair/src/gpu/mod.rs:580:    let attributes: Vec<StrandGpu> = pollster::block_on(attributes.read(context))?;
+crates/fabelgeist-hair/src/gpu/mod.rs:774:            let gpu = grown.read(groomer.context()).expect("read back");
+crates/fabelgeist-hair/src/gpu/mod.rs:812:                pollster::block_on(lods.cover.as_ref().expect("cover").read(groomer.context()))
+crates/fabelgeist-hair/src/gpu/mod.rs:848:                    .map(|l| pollster::block_on(l.positions.read(context)).expect("read"))
+crates/fabelgeist-hair/src/gpu/mod.rs:853:                    .map(|c| pollster::block_on(c.vertices.read(context)).expect("read"))
+crates/fabelgeist-hair/src/gpu/mod.rs:923:            pollster::block_on(first.positions.read(groomer.context())).expect("read");
+crates/fabelgeist-hair/src/gpu/mod.rs:927:        let ids: Vec<[u32; 4]> = pollster::block_on(gpu.binding().0.read(context)).expect("read");
+crates/fabelgeist-hair/src/gpu/mod.rs:1036:                .read(groomer.context())
+crates/fabelgeist-xpbd/src/particles.rs:142:                .read::<ParticlePositionRecord>(context)
+crates/fabelgeist-xpbd/src/particles.rs:151:                .read::<ParticleVelocityRecord>(context)
+crates/fabelgeist-xpbd/src/particles.rs:163:                .read::<ParticlePositionRecord>(context)
+crates/fabelgeist-hair/src/gpu/sim.rs:767:        Ok(pollster::block_on(self.position.read(groomer.context()))?)
+crates/fabelgeist-hair/src/gpu/sim.rs:772:        Ok(pollster::block_on(self.rest.read(groomer.context()))?)
+crates/fabelgeist-xpbd/src/constraint/tests.rs:52:    let particle_words = set.particles.read::<u32>(&context).await?;
+crates/fabelgeist-xpbd/src/constraint/tests.rs:53:    let rest_words = set.attachments[0].1.read::<u32>(&context).await?;
+crates/fabelgeist-xpbd/src/constraint/tests.rs:71:    let empty_words = empty.particles.read::<u32>(&context).await?;
+crates/fabelgeist-xpbd/src/constraint/tests.rs:72:    let empty_attachment_words = empty.attachments[0].1.read::<u32>(&context).await?;
+crates/fabelgeist-xpbd/src/constraint/tests.rs:83:        empty.attachments[0].1.read::<u32>(&context).await?,
+crates/fabelgeist-xpbd/src/constraint/tests.rs:95:        set.attachments[0].1.read::<u32>(&context).await?,
+crates/fabelgeist-xpbd/src/constraint/tests.rs:109:    assert_eq!(empty.attachments[1].1.read::<u32>(&context).await?, [7, 8]);
+crates/fabelgeist-bvh/src/gpu/mod.rs:319:        let raw: Vec<f32> = self.nodes.read(context).await?;
+crates/fabelgeist-bvh/src/gpu/mod.rs:338:        let all: Vec<u32> = self.indices.read(context).await?;
+crates/fabelgeist-bvh/src/gpu/mod.rs:343:        let all: Vec<u32> = self.right_children.read(context).await?;
+crates/fabelgeist-bvh/src/gpu/tests.rs:383:    let from_gpu: Vec<u32> = output.read(&context).await?;
+crates/fabelgeist-xpbd/src/incidence/tests.rs:41:        buffer.read::<u32>(&context).await.unwrap(),
+crates/fabelgeist-xpbd/src/incidence/tests.rs:48:    assert_eq!(buffer.read::<u32>(&context).await.unwrap(), [0]);
+crates/fabelgeist-mesh/src/neighborhood.rs:22:            Some(buf) => buf.read::<u32>(context).await?,
+crates/fabelgeist-mesh/src/wireframe.rs:18:            Some(buf) => buf.read::<u32>(context).await?,
+crates/fabelgeist-mesh/src/wireframe.rs:86:            Some(buf) => buf.read::<u32>(context).await?,
+crates/fabelgeist-mesh/src/wireframe.rs:152:        let neighbors_data = neighbors_buf.read::<u32>(context).await?;
+crates/fabelgeist-mesh/src/data.rs:37:        buffer.read(context).await
+crates/fabelgeist-spatial-hash/src/gpu.rs:390:        let gpu: Vec<u32> = counts.read(&context).await?;
+crates/fabelgeist-physics/src/contact/tests.rs:5:    collision.collider_buffer.read(context).await.unwrap()
+crates/adventuresim-character-creator/src/device_puff.rs:45:        let samples = gpu.scratch(
+crates/adventuresim-character-creator/src/device_puff.rs:49:        let hulls = gpu.scratch(
+crates/adventuresim-character-creator/src/device_puff.rs:53:        let sections = gpu.scratch(
+crates/adventuresim-character-creator/src/device_underlayer.rs:35:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_underlayer.rs:174:        let links = gpu.scratch(vertex_count as u64 * 8, "underlayer weld links")?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:180:        let neutral = gpu.scratch(vector_bytes, "underlayer directions")?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:193:            let constrained = gpu.scratch(vector_bytes, "underlayer directions")?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:217:            let directions = gpu.scratch(vector_bytes, "underlayer directions")?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:247:        let shell = gpu.scratch(shell_bytes, "underlayer shell")?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:249:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:251:        let all_positions = gpu.scratch(shell_bytes * total, "underlayer shell positions")?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:252:        let all_normals = gpu.scratch(shell_bytes * total, "underlayer shell normals")?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:253:        let all_status = gpu.scratch(4 * total, "underlayer normal status")?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:272:                .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:302:        check_status(gpu.read_async::<u32>(&ws.status).await?[0])?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:303:        let status: Vec<u32> = gpu.read_async(&all_status).await?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:304:        let positions: Vec<[f32; 3]> = gpu.read_async(&all_positions).await?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:305:        let vectors: Vec<[f32; 3]> = gpu.read_async(&all_normals).await?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:342:        let joints = gpu.scratch(count * INFLUENCES as u64 * 4, "underlayer joints")?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:343:        let floats = gpu.scratch(count * SKIN_FLOATS as u64 * 4, "underlayer skin")?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:389:    let mut joint_indices: Vec<[u32; 8]> = gpu.read_async(joints).await?;
+crates/adventuresim-character-creator/src/device_underlayer.rs:391:    let floats: Vec<[f32; SKIN_FLOATS]> = gpu.read_async(floats).await?;
+crates/adventuresim-character-creator/src/device_garment_kernel.rs:11:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_garment_kernel.rs:223:        .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_garment_kernel.rs:228:    .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_garment_kernel.rs:248:            .scratch(size_of_val(&vectors) as u64, "normalized directions")
+crates/adventuresim-character-creator/src/device_garment_kernel.rs:274:        let directions = gpu.read::<[f32; 4]>(&output).unwrap();
+crates/adventuresim-character-creator/src/device_skirt.rs:146:        let samples = gpu.scratch(bytes, "skirt section samples")?;
+crates/adventuresim-character-creator/src/device_cloth_seating.rs:166:            shifts: device.gpu.scratch(
+crates/adventuresim-character-creator/src/device_chausses.rs:14:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_chausses.rs:276:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_chausses.rs:279:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:246:        let status = gpu.scratch(4, "tasset support status")?;
+crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:254:        let samples = gpu.scratch(bytes, "tasset section samples")?;
+crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:255:        let hulls = gpu.scratch(bytes, "tasset section hulls")?;
+crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:256:        let measured = gpu.scratch(
+crates/adventuresim-character-creator/src/device_pauldron.rs:49:        let reserve = gpu.scratch(4, "shoulder sampling reserve")?;
+crates/adventuresim-character-creator/src/device_pauldron.rs:50:        let delta = gpu.scratch(CARRIER_COUNT as u64 * 12, "shoulder clearance")?;
+crates/adventuresim-character-creator/src/device_pauldron.rs:51:        let next = gpu.scratch(CARRIER_COUNT as u64 * 12, "shoulder clearance smoothing")?;
+crates/adventuresim-character-creator/src/device_gorget_projection.rs:123:            .scratch(
+crates/adventuresim-character-creator/src/device_gorget_projection.rs:151:        let results = gpu.read::<[f32; 4]>(&output).unwrap();
+crates/adventuresim-character-creator/src/device_coif.rs:16:use fabelgeist_armor::gpu::{COIF_DRAPE_WORDS, FIT_PROFILE_WORD, device_error, record_coif, wgsl};
+crates/adventuresim-character-creator/src/device_coif.rs:225:            gpu.read::<u32>(part.status())?[0] == 0,
+crates/adventuresim-character-creator/src/device_coif.rs:284:        let fit = gpu.scratch(
+crates/adventuresim-character-creator/src/device_coif.rs:333:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_coif.rs:336:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_coif.rs:339:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_coif.rs:342:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_coif.rs:345:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_coif.rs:375:            .map_err(device_error)
+crates/adventuresim-character-creator/src/device_sabaton.rs:17:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_sabaton.rs:68:        let status = gpu.scratch(4, "sabaton status")?;
+crates/adventuresim-character-creator/src/device_sabaton.rs:114:                .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_sabaton.rs:117:                .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_sabaton.rs:124:                if gpu.read_async::<u32>(&status).await?[0] & TRIM_EXCEEDS_FOOT == 0 {
+crates/adventuresim-character-creator/src/device_sabaton.rs:127:                let length = frame.read_async(gpu).await?.half_extents[2];
+crates/adventuresim-character-creator/src/device_foot_frame.rs:17:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_foot_frame.rs:170:            frame: gpu.scratch(FRAME_WORDS * 4, "foot frame")?,
+crates/adventuresim-character-creator/src/device_foot_frame.rs:171:            status: gpu.scratch(4, "foot frame status")?,
+crates/adventuresim-character-creator/src/device_foot_frame.rs:215:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_frame.rs:218:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_frame.rs:221:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_frame.rs:224:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_frame.rs:233:            .map_err(device_error)
+crates/adventuresim-character-creator/src/device_clearance.rs:10:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_clearance.rs:151:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_clearance.rs:154:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_clearance.rs:168:        let support = gpu.scratch(self.body.vertex_count as u64 * 4, "clearance support")?;
+crates/adventuresim-character-creator/src/device_clearance.rs:176:        let sections = gpu.scratch(
+crates/adventuresim-character-creator/src/device_clearance.rs:180:        let scratch = gpu.scratch(
+crates/adventuresim-character-creator/src/device_clearance.rs:210:                .map_err(device_error)
+crates/adventuresim-character-creator/src/device_clearance.rs:214:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_clearance.rs:217:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_gorget_bib.rs:256:                    .scratch(36 * 12, "seated collar and bib samples")
+crates/adventuresim-character-creator/src/device_gorget_bib.rs:275:                fitted.push(gpu.read::<[f32; 3]>(&output).unwrap());
+crates/adventuresim-character-creator/src/device_garment_tube.rs:368:            .scratch(u64::from(RING_FIT_WORDS) * 4, "tube fit")?;
+crates/adventuresim-character-creator/src/device_gorget.rs:239:        let fit = gpu.scratch(u64::from(GORGET_FIT_WORDS) * 4, "gorget fit")?;
+crates/adventuresim-character-creator/src/device_gorget.rs:315:        let samples = gpu.scratch(u64::from(self.body.vertex_count) * 12, "gorget samples")?;
+crates/adventuresim-character-creator/src/device_boot_layers.rs:12:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_boot_layers.rs:39:        let points = gpu.scratch(count as u64 * 16, "boot layer slices")?;
+crates/adventuresim-character-creator/src/device_boot_layers.rs:43:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_boot_layers.rs:59:                .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_footwear_fit.rs:7:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_footwear_fit.rs:57:    parameters.insert("radii", gpu.scratch(4, "unused fairing radii")?);
+crates/adventuresim-character-creator/src/device_footwear_fit.rs:61:        .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_footwear_fit.rs:64:        .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_footwear_fit.rs:97:        gpu.scratch(count as u64 * 8, "ankle fairing radii")?,
+crates/adventuresim-character-creator/src/device_footwear_fit.rs:102:        .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_footwear_fit.rs:105:        .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_close_helmet.rs:13:    CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, device_error, record_close_helmet, wgsl,
+crates/adventuresim-character-creator/src/device_close_helmet.rs:69:        let fit = gpu.scratch(
+crates/adventuresim-character-creator/src/device_close_helmet.rs:108:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_close_helmet.rs:111:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_close_helmet.rs:120:            .map_err(device_error)
+crates/adventuresim-character-creator/src/device_limb.rs:4:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_limb.rs:120:                .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_limb.rs:123:                .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_bracer.rs:17:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_bracer.rs:83:    let status = gpu.scratch(4, "bracer status")?;
+crates/adventuresim-character-creator/src/device_bracer.rs:86:    let support = gpu.scratch(vertex_count as u64 * 4, "forearm support")?;
+crates/adventuresim-character-creator/src/device_bracer.rs:87:    let axial = gpu.scratch(vertex_count as u64 * 4, "forearm axial")?;
+crates/adventuresim-character-creator/src/device_bracer.rs:129:    let bits = gpu.read_async::<u32>(&status).await?[0];
+crates/adventuresim-character-creator/src/device_bracer.rs:141:    Ok(bracer.read_async(gpu, input.domain, &names).await?)
+crates/adventuresim-character-creator/src/device_bracer.rs:177:        .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_bracer.rs:180:        .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_garment.rs:178:        let support = gpu.scratch(self.body.vertex_count as u64 * 4, "garment support")?;
+crates/adventuresim-character-creator/src/device_garment.rs:213:        let fit = self.gpu.scratch(u64::from(words) * 4, "garment fit")?;
+crates/adventuresim-character-creator/src/device_cloth_ribbon.rs:32:            .scratch(u64::from(ribbon.carrier_points) * 12, "bound cloth surface")?;
+crates/adventuresim-character-creator/src/device_cloth_ribbon.rs:35:            .scratch(u64::from(count) * 12, "tape seating queries")?;
+crates/adventuresim-character-creator/src/device_garment_skirt.rs:95:        let empty = gpu.scratch(4, "no legs")?;
+crates/adventuresim-character-creator/src/device_garment_skirt.rs:108:        let candidate_status = gpu.scratch(4, "skirt candidate status")?;
+crates/adventuresim-character-creator/src/device_foot_sections.rs:11:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_foot_sections.rs:56:        let support = gpu.scratch(self.body.vertex_count as u64 * 4, "footwear support")?;
+crates/adventuresim-character-creator/src/device_foot_sections.rs:73:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_sections.rs:76:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_sections.rs:88:        let points = gpu.scratch(self.body.vertex_count as u64 * 16, "footwear body points")?;
+crates/adventuresim-character-creator/src/device_foot_sections.rs:97:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_sections.rs:100:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_sections.rs:142:        .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_sections.rs:145:        .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_sections.rs:180:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_foot_sections.rs:183:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_gorget_collar.rs:178:        let result = gpu.scratch(6 * 12, "collar regression samples").unwrap();
+crates/adventuresim-character-creator/src/device_gorget_collar.rs:194:        let support = gpu.read::<f32>(&fit).unwrap();
+crates/adventuresim-character-creator/src/device_gorget_collar.rs:196:        let points = gpu.read::<[f32; 3]>(&result).unwrap();
+crates/adventuresim-character-creator/src/device_gorget_collar.rs:274:        let result = gpu.scratch(6 * 12, "collar regression samples").unwrap();
+crates/adventuresim-character-creator/src/device_gorget_collar.rs:313:        let support = gpu.read::<f32>(&fit).unwrap();
+crates/adventuresim-character-creator/src/device_gorget_collar.rs:315:        let points = gpu.read::<[f32; 3]>(&result).unwrap();
+crates/adventuresim-character-creator/src/device_gorget_collar.rs:352:        assert_eq!(gpu.read::<f32>(&unresolved).unwrap()[15], 1.0);
+crates/adventuresim-character-creator/src/device_torso.rs:22:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_torso.rs:209:    let status = gpu.scratch(4, "breastplate status")?;
+crates/adventuresim-character-creator/src/device_torso.rs:212:    let rig = gpu.scratch(TORSO_RIG_WORDS as u64 * 4, "torso rig")?;
+crates/adventuresim-character-creator/src/device_torso.rs:213:    let semantic = gpu.scratch(vertex_count as u64 * 8, "torso coordinates")?;
+crates/adventuresim-character-creator/src/device_torso.rs:214:    let support = gpu.scratch(vertex_count as u64 * 4, "front torso support")?;
+crates/adventuresim-character-creator/src/device_torso.rs:255:    torso_failure(gpu.read_async::<u32>(&status).await?[0])?;
+crates/adventuresim-character-creator/src/device_torso.rs:261:    let mut armor = breastplate.read_async(gpu, input.domain, &names).await?;
+crates/adventuresim-character-creator/src/device_torso.rs:291:    let frame = gpu.scratch(TORSO_FRAME_WORDS * 4, "torso frame")?;
+crates/adventuresim-character-creator/src/device_torso.rs:292:    let widths = gpu.scratch(body.vertex_count as u64 * 4, "front widths")?;
+crates/adventuresim-character-creator/src/device_torso.rs:293:    let counter = gpu.scratch(4, "front width count")?;
+crates/adventuresim-character-creator/src/device_torso.rs:328:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_torso.rs:339:        .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/sweep.rs:15:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_underlayer/sweep.rs:46:                .map_err(device_error)
+crates/adventuresim-character-creator/src/device_underlayer/sweep.rs:73:                .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/sweep.rs:79:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_head_frame.rs:15:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_head_frame.rs:168:            frame: gpu.scratch(FRAME_WORDS * 4, "head frame")?,
+crates/adventuresim-character-creator/src/device_head_frame.rs:169:            status: gpu.scratch(4, "head frame status")?,
+crates/adventuresim-character-creator/src/device_head_frame.rs:217:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_head_frame.rs:220:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_head_frame.rs:223:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_head_frame.rs:226:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_head_frame.rs:235:            .map_err(device_error)
+crates/adventuresim-character-creator/src/device_frames/passes.rs:6:use fabelgeist_armor::gpu::{device_error, wgsl};
+crates/adventuresim-character-creator/src/device_frames/passes.rs:16:            .map_err(device_error)
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:5:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:70:            status: gpu.scratch(4, "underlayer status")?,
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:71:            sort: RadixSort::with_cache(gpu.context(), gpu.cache()).map_err(device_error)?,
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:72:            sort_scratch: SortScratch::new(gpu.context(), capacity).map_err(device_error)?,
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:73:            keys: gpu.scratch(capacity as u64 * 4, "underlayer sort keys")?,
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:74:            values: gpu.scratch(capacity as u64 * 4, "underlayer sort values")?,
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:75:            quantized: gpu.scratch(vertices * 12, "underlayer weld keys")?,
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:76:            ranges: gpu.scratch(BUCKETS as u64 * 8, "underlayer grid buckets")?,
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:77:            overflow: gpu.scratch((face_count as u64 + 1) * 4, "underlayer large faces")?,
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:78:            rooms: gpu.scratch(vertices * 8, "underlayer rooms")?,
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:79:            worklist: gpu.scratch(
+crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:83:            constraints: gpu.scratch(
+crates/adventuresim-character-creator/src/device_underlayer/gap.rs:11:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_underlayer/gap.rs:44:                .map_err(device_error)
+crates/adventuresim-character-creator/src/device_underlayer/gap.rs:61:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/gap.rs:71:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/gap.rs:81:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/gap.rs:97:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/weld.rs:10:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_underlayer/weld.rs:45:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/weld.rs:48:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/weld.rs:58:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/weld.rs:72:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/weld.rs:75:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_extremities.rs:240:                        gpu.read_async::<u32>(&status).await?[0] == 0,
+crates/adventuresim-character-creator/src/device_underlayer/direction.rs:12:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_underlayer/direction.rs:49:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/direction.rs:52:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/direction.rs:82:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/direction.rs:85:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_garment_torso.rs:343:        let candidate_status = self.gpu.scratch(4, "torso candidate status")?;
+crates/adventuresim-character-creator/src/device_underlayer/standoff.rs:10:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_underlayer/standoff.rs:41:                .map_err(device_error)
+crates/adventuresim-character-creator/src/device_underlayer/standoff.rs:59:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/standoff.rs:70:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_frames.rs:14:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_frames.rs:57:        Self::check_status(gpu.read::<u32>(&self.status)?[0], region)
+crates/adventuresim-character-creator/src/device_frames.rs:81:        pollster::block_on(self.read_async(gpu))
+crates/adventuresim-character-creator/src/device_frames.rs:85:        let words: Vec<f32> = gpu.read_async(&self.frame).await?;
+crates/adventuresim-character-creator/src/device_frames.rs:143:        DeviceFrame::check_status(self.gpu.read_async::<u32>(&frame.status).await?[0], region)?;
+crates/adventuresim-character-creator/src/device_frames.rs:144:        frame.read_async(self.gpu).await
+crates/adventuresim-character-creator/src/device_frames.rs:179:            frame: gpu.scratch(FRAME_WORDS * 4, "armor frame")?,
+crates/adventuresim-character-creator/src/device_frames.rs:180:            status: gpu.scratch(4, "armor frame status")?,
+crates/adventuresim-character-creator/src/device_frames.rs:217:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_frames.rs:220:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_frames.rs:223:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_frames.rs:226:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/shell.rs:5:use fabelgeist_armor::gpu::device_error;
+crates/adventuresim-character-creator/src/device_underlayer/shell.rs:52:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/shell.rs:55:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/shell.rs:86:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/device_underlayer/shell.rs:89:            .map_err(device_error)?;
+crates/adventuresim-character-creator/src/hair/gpu/strips.rs:245:            let mut all: Vec<[f32; 4]> = pollster::block_on(buffer.read(context))?;
+crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:231:            let texels: Vec<u32> = pollster::block_on(buffer.read(context))?;
+crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:446:    let words: Vec<u32> = pollster::block_on(out.read(context))?;

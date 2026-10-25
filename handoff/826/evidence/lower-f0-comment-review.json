@@ -1,0 +1,223 @@
+{
+  "review": "Independent frozen lower f0 Comment Review",
+  "head": "f0a98e58d54b673e017cf5ae633e9b6c46b5b609",
+  "tree": "8620087c910f213069bf8b257b2d0af6d2e5ad78",
+  "parent": "d4491e9de215ba1b607fd2989cbfd5e3cbbdd21d",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "tracked_worktree": "clean",
+  "checkpoint_only": true,
+  "final_clearance": false,
+  "coverage": {
+    "changed": [
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+        "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/README.md",
+        "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+        "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+        "sha256": "6bf063f459f8ea3c1944e15f02cd400ab871758cca56932bf524942c74fc4bcc",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "sha256": "430f00e3fea4ee0874aebd8e0e6636409939155c6276b36f14251a4a8e51de34",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+        "sha256": "cca61ee4d5350156906388314a6a5b8820b9289c6fc03f4513bc33a592ce5637",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+        "sha256": "d02f984a15784102744f40c632cf64656798d7bbcb83f9e8a68d819cbe0c50bf",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "sha256": "d352b3543f1e82b33aeeb5d01e43df13fc1469af76c38ed2215b02bd2fca260a",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+        "sha256": "d120392d88da0c15cf1db7f0439245c6a4a3afb8fa0830e96531497fb8e2494f",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+        "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "sha256": "dde02c3c137d5ac3722f28e2eab7db9eb82506ef0b64d182dd52a42b4876bbb5",
+        "coverage": "Fresh complete current file read and complete parent delta reviewed, including existing inline fixtures/examples"
+      }
+    ],
+    "affected_unchanged": [
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+        "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+        "coverage": "Fresh complete file read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+        "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+        "coverage": "Fresh complete file read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+        "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+        "coverage": "Fresh complete file read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/texture-views.md",
+        "sha256": "610d980a0657a3f089b0178979f77f22ce6cb529e46f37ca9c3ecd495709e206",
+        "coverage": "Fresh complete file read"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+        "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+        "coverage": "Fresh complete file read; peer Readback contract required, current root old API remains incompatible"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+        "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+        "coverage": "Fresh complete file read"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/error.rs",
+        "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+        "coverage": "Fresh complete file read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/readback.rs",
+        "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+        "coverage": "Fresh lines1-205 owning docs/record/map/pending responsibilities; existing tests retained prior review, not freshly full read"
+      },
+      {
+        "path": "crates/fabelgeist-shell/src/shell.rs",
+        "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+        "coverage": "Fresh completion call sites and surrounding comments only"
+      },
+      {
+        "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+        "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+        "coverage": "Fresh step_and_wait and surrounding comments only"
+      }
+    ],
+    "carried_unchanged": [
+      {
+        "path": "crates/fabelgeist-armor/Cargo.toml",
+        "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+        "coverage": "Byte-identical to d449 source evidence; no fresh full body read"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+        "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+        "coverage": "Byte-identical to d449 source evidence; no fresh full body read"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+        "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+        "coverage": "Byte-identical to d449 source evidence; no fresh full body read"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+        "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+        "coverage": "Byte-identical to d449 source evidence; no fresh full body read"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+        "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+        "coverage": "Byte-identical to d449 source evidence; no fresh full body read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+        "sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+        "coverage": "Byte-identical to d449 source evidence; no fresh full body read"
+      }
+    ],
+    "sdk_fresh": [
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/webgpu.rs",
+        "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+        "coverage": "Fresh2721-2733 callback on both resolved/rejected promise"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/queue.rs",
+        "sha256": "b3811f0df3ccad53d990bfd66c650759abb67654779b08e160a437b51abd7c71",
+        "coverage": "Fresh120-157 immediate host copy/later GPU execution; fresh286-305 callback contract"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/buffer.rs",
+        "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+        "coverage": "Fresh540-610 mapping/view alignment and exclusive mapped-range ownership"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/global.rs",
+        "sha256": "8d8554b2400b46b595af68b0d2fab472da06b8c11fa1823299728b5bc2cf2caa",
+        "coverage": "Fresh1855-1897 poll forwards actual result/fires closures"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+        "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+        "coverage": "Fresh825-880 explicit index wait/error/snapshot selection"
+      }
+    ],
+    "sdk_carried": "Prior exact29.0.4 thread-local std scopes, immediate native pop, Validation filter, deferred finish/queue sinks, map/unmap reset/cleanup and Wasm feature evidence carried only where unchanged. No fresh whole SDK or incoming210 review."
+  },
+  "findings": [],
+  "prior_findings": [
+    {
+      "id": "D449-C1",
+      "disposition": "Resolved: new owns device; writes/from_upload/from_parts state logical Device/Queue/destination preconditions; no runtime brand invented."
+    },
+    {
+      "id": "D449-C2",
+      "disposition": "Resolved: unsupported Texture3d presentation rationale removed."
+    },
+    {
+      "id": "D449-C3",
+      "disposition": "Resolved: upload type and README distinguish immediate host copy from later GPU transfer."
+    }
+  ],
+  "verified_contracts": [
+    "Completion errors retain actual marker wgpu::Error, native PollError and callback Canceled causes. Native marker scope follows context policy, then explicit-index Wait; later work/global health not certified.",
+    "WebGPU backend invokes callback even after underlying promise rejection and logs rejection; documented browser Ok means delivery only. No invented JS promise error exposed.",
+    "MappingExtent admits a nonzero aligned covering prefix within native allocation. That single extent is reused at staging allocation/copy, map and mapped view. Zero avoids mapping after host-layout admission. Host copy returns logical prefix only.",
+    "No SDK error-scope guard crosses await. Cleanup native Validation scope resets wrapper state even for borrowed context without polling or substituting cleanup NotMapped for primary failure. Successful view dropped before unmap.",
+    "Host Vec fallible allocation precedes mapped view and initialization precedes set_len; unchanged AnyBitPattern safety claim matches copy.",
+    "Public buffer/context ports stay externally constructible: logical device and paired queue are documented caller preconditions, not runtime proof. Native observed Validation differs from browser/borrowed device handling.",
+    "Armor scratch bytes min4 versus Metal native words min1, source-preserving device context, session-bound staging exact prefix/status and provider ownership docs remain accurate under agreed receiving contracts.",
+    "Existing three readback tests retain input values, cases and assertion oracles; changes are BufferByteLength operands and formatting only. Existing README example and BufferUpload compile_fail block unchanged."
+  ],
+  "required_dependencies": [
+    "#780 producer/count/layout/query/material/Engraving/error/cache/caller/lock integration remains required; no compiled or whole-family source-complete claim.",
+    "Current root grouped Readback still exposes old context-argument API while staging consumes agreed retained-device peer API. Root Readback module prose still incorrectly generalizes Buffer::read as unconditional staging and pending readback as never stalling CPU; owner canonical replacement remains required.",
+    "Shell completion sites shell.rs294,369 and garment-fit lib.rs602 ignore newly fallible completion Result. garment-fit step_and_wait prose claims GPU completion/backpressure without handling new result and without browser callback rejection qualification; owner callers/docs must consume canonical result and retain backend limits.",
+    "Old metal bake/body/part staged ticket callers and application caches retain known migration/source-chain gaps. No lower-facade local wording verdict waives them.",
+    "Complete all13 integrated inventory, independent final three reviews and required hosted checks on same final pushed revision remain outstanding."
+  ],
+  "limits": [
+    "Source-only review: no source edits, project execution/check/build/test/scanner/generator/runtime, new tests/cases/helpers/assertions/doctests, push/CI/external posts.",
+    "No compiled native/Wasm/browser/runtime/hardware-wide/performance/global-health/rollback verdict.",
+    "Complete12-file checkpoint review plus named affected coverage, not fullPR or all13 clearance; earlier recorder-scope native acceptance assurance remains withdrawn."
+  ]
+}

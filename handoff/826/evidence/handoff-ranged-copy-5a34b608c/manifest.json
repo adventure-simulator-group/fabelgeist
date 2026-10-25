@@ -1,0 +1,45 @@
+{
+  "revision": "5a34b608ccacc1950313b501d30b036f0a4f8b5b",
+  "base": "7dee3d5a69fa6e5132efa740d8b0f23a42cb435f",
+  "at": "2026-10-23T17:48:07.611161+00:00",
+  "status": "UNACCEPTED SOURCE: all3independentreviews identifyR1 deferrednativevalidationafterrecorderscope; completeconnectedfinish/submission/callback/callerrepairandnewall13/3reviews requiredbeforehandoffacceptance",
+  "files": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "08fc1088252b1f0337d747aa8288f930b222fa3905bfcb0e8f1c9447cc815fa5",
+      "base_sha256": "7464f1edfefdb57ce25bf7ef014baedde10b58ddbe71e3c2cf76ea9687499aeb",
+      "integration": "Only exact receiver removal/module+requestexport or updatederror payload/Display hunks. Never overwrite newer780Kernel producer/cache/folded methods."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "sha256": "470fe0d4dbb1a0862d2683915413eab3c297accec32a95464f3323b7ef30d15f",
+      "base_sha256": null,
+      "integration": "Newcanonicalreceiver/requestmodule exactsource"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/batch_error.rs",
+      "sha256": "17d100ac7cc26a65191ed6c6fb7aaa7756f48cda00d2fc59cff3d831089bc6d9",
+      "base_sha256": "cb3793527b44a96ae64c16459e0e0f656c6e662600002ceb678b1e01573bdac8",
+      "integration": "Only exact receiver removal/module+requestexport or updatederror payload/Display hunks. Never overwrite newer780Kernel producer/cache/folded methods."
+    }
+  ],
+  "patch_sha256": "8a32830361df76c160298a3482a1d4e95d80efe668b3e74f574b9f14707e13fe",
+  "signature": "KernelBatch::copy_buffer(&mut self, source:&Buffer, destination:&Buffer, copy:BufferCopy)->anyhow::Result<()>",
+  "request": "BufferCopy { source_offset:BufferByteOffset, destination_offset:BufferByteOffset, bytes:BufferByteLength }, public reexport kernel/crate/prelude",
+  "error": "KernelBatchError::CopyOutOfBounds { copy:BufferCopy, source:BufferByteLength, destination:BufferByteLength }; no fabricated underlyingcause",
+  "contract": [
+    "checked_after forbothlogicalends; overfloworoverrun beforeSDKcall",
+    "NativeSDKalignment/usage/device/samebuffer/physicalbounds andzerosizevalidation underexistingcontextpolicy, actualNativecause retained",
+    "One copyimplementation focusedmodule, oldsignature removed, no rawoverload/compatibilityadapter/secondcopybackend",
+    "Newrecordisrequestnotvalidatedrange untilbuffercontextknown; no nativeacceptance/encoderrollback claim"
+  ],
+  "ownership": "Explicit780agreement rootreceiver/type/error/exportonly,780allcaller/producers/fixtures withretained774claimsrespected. Do notoverwrite newer780producer/count/field source.",
+  "required_dependencies": [
+    "Alloldcopycaller sort/contact/StrandSet andexistingpublishedfixture API adaptations",
+    "Readback staging controlledBuffer originalMAP_READ|COPY_DST/label/extent/padding/mappingcallbackorder andcanonicalcopycause context",
+    "Hairread_words typedoffset/count/bounds/nativecause family andretained774handoffwhereclaimed",
+    "Remaining780families/774/F19 plusfinalintegratedall13/independent3reviews/requiredhostedchecks samefinalpushedSHA"
+  ],
+  "validation": "No localprojectchecks/build/tests/scanner/generator, no newtests/cases/helpers/assertions/doctests; no push orhostedCI",
+  "finding": "ledger.json.deferred_validation_finding"
+}

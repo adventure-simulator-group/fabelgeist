@@ -1,0 +1,315 @@
+{
+  "review": "Independent bounded Comment Review",
+  "pin": "48e5995839d008ef3373343919d17915357544bc",
+  "tree": "532b456ee225747cbaa22ed05da8643147df82fd",
+  "parent": "2e2cda74b681620d3162f30ce26dd8d946b059de",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "canonical_peer": "03ad4103f2e9a892e1682be580cb9d3c9a52669f",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "sha256": "ce8d9e4f67af04002edcb5f6bf9663adc038d652f47bc2ef21dbad8b9f47122f",
+      "bytes": 2376,
+      "blob": "91550d7a7c4c2fa681cdcb1df0468857d21e36b7",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+      "sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+      "bytes": 3509,
+      "blob": "f23779d3847159b752eb137267223aff090a217d",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "6571917ae7c9729230bb8483bc94f56e47b5a83b027c0a5c845ab5064ef24e0a",
+      "bytes": 9257,
+      "blob": "de3259f55b4594fb62454452572514b45f207356",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "sha256": "85c7d90117d3d5bc30b5239f0863256038074ebfcc4a820a4d8c8e96e3a3c666",
+      "bytes": 2650,
+      "blob": "b917fbfe0253fd28ba23d94bf6c7b5188e7d72f9",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "sha256": "27eac828acc971124b7d84558344bf34813821e999bb23d16e4d283ce282894b",
+      "bytes": 1701,
+      "blob": "77e6eee6e31eedd272b7530ea1b2f8ccccfb2b1b",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "366f3ef2f25bfc6a76712808635ddda592b31ce2485446b4adf80655f2c15b73",
+      "bytes": 14265,
+      "blob": "a2959e21f274c3d7861f4ecd82bd0f926594dc09",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/workgroup.rs",
+      "sha256": "99e5f516fd8606aa8350015dfad9eb5ffbdddfc7a055bea489d714e3ddc73723",
+      "bytes": 620,
+      "blob": "731c103aeed928f7446a3b7b0081f18fb178bbc0",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "bytes": 3615,
+      "blob": "24a5ea1e0349615d342a475a764347d7870162a6",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "bytes": 1911,
+      "blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "bytes": 2403,
+      "blob": "85fb926edfa847c942479d7aca00bc3ba46da988",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "bytes": 5235,
+      "blob": "f34c5730daeac1577440c03c76310b203576ce9a",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "bytes": 3504,
+      "blob": "67157c88e19ad022429436075bcc52d2e29671e4",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "bytes": 5069,
+      "blob": "ef08a970b02ec606113d7c3302e0b5ef5f774e30",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "bytes": 7319,
+      "blob": "501981744498df2ead4adea27bf1fe6353f4f630",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "bytes": 4106,
+      "blob": "7b1154410a11aa7c80565a60dc2ae4a829439a73",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "bytes": 1447,
+      "blob": "dfdeee7b98378573789940940cb980d9ff8a8631",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "bytes": 2652,
+      "blob": "5ffbc0c6b0dcaa45d1b74e9fc36f0cb14480f75f",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "bytes": 411,
+      "blob": "277e2530407fdc4216dc79bdad4f1285dad6afd2",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "bytes": 5377,
+      "blob": "0eac254b821e75e05ef833ad6cc522b208deceb3",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "bytes": 2511,
+      "blob": "8cfd4abad2635672f3d9f06b0f1d65266324d846",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_count.rs",
+      "sha256": "095ae805ef6999f6256a8a49b7c75739ae421028abdeddd1b5a3cbb7a6d1535c",
+      "bytes": 494,
+      "blob": "2f494a4c2a53c74ac232920c25e027a8f1eddff9",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+      "sha256": "0d9175592d18179ab5b8ae11985ce9ca7623d800be55ba9a1db8c08b3c65cd76",
+      "bytes": 2299,
+      "blob": "fe3bae36e78e46d29e5bcf7715963d9550c31cd0",
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "d974254605f81879bed0add0bcba13bb61170b84f345185be75216e99dcb02c8",
+      "bytes": 21342,
+      "blob": "25d8b28264650450ca078dae5de3b7c47b3e71ec",
+      "coverage": "fresh execute tail520-580"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "ae37884158e7bdd3c45b6821ff2d127a5e3fdbd7e8be8b30c4d273480d5b6d71",
+      "bytes": 49381,
+      "blob": "df15dec4645e666d9c6b1aa4cd2632de1d41cfaf",
+      "coverage": "fresh execute tail965-1015"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "sha256": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9",
+      "bytes": 11668,
+      "blob": "b4ec53d726b8c05e65281923f17b1fa7ffabe97f",
+      "coverage": "fresh iterative recording/submission body205-350"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "ad6e3def79c9310934148627ecad10bb08ca71baaa585897559999d7a1d169b6",
+      "bytes": 10421,
+      "blob": "ac57865149ca748fb186db307f0e9a26c4d7a725",
+      "coverage": "fresh iterative standalone-dispatch body180-325"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "bytes": 10873,
+      "blob": "1c3d208bb839f18ce7a742861f365443e786f203",
+      "coverage": "fresh owning docs+production body1-233; fixtures beyond excluded"
+    }
+  ],
+  "canonical_provenance": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "current_sha256": "ce8d9e4f67af04002edcb5f6bf9663adc038d652f47bc2ef21dbad8b9f47122f",
+      "peer_sha256": "daef21f6ff3e71ca32792eccae8f20274a691fe0f14f5641683a8f35710e7285",
+      "exact_peer_bytes": false,
+      "delta_disposition": "Full Git diff manually read: import ordering, line wrapping/closure formatting or final blank line only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+      "current_sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+      "peer_sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+      "exact_peer_bytes": true,
+      "delta_disposition": "exact peer bytes"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "current_sha256": "6571917ae7c9729230bb8483bc94f56e47b5a83b027c0a5c845ab5064ef24e0a",
+      "peer_sha256": "085502d120e5ba4f365bd8015990a4347e758f698a00b1bb530c93ae3066ca9a",
+      "exact_peer_bytes": false,
+      "delta_disposition": "Full Git diff manually read: import ordering, line wrapping/closure formatting or final blank line only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "current_sha256": "85c7d90117d3d5bc30b5239f0863256038074ebfcc4a820a4d8c8e96e3a3c666",
+      "peer_sha256": "85c7d90117d3d5bc30b5239f0863256038074ebfcc4a820a4d8c8e96e3a3c666",
+      "exact_peer_bytes": true,
+      "delta_disposition": "exact peer bytes"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "current_sha256": "27eac828acc971124b7d84558344bf34813821e999bb23d16e4d283ce282894b",
+      "peer_sha256": "27eac828acc971124b7d84558344bf34813821e999bb23d16e4d283ce282894b",
+      "exact_peer_bytes": true,
+      "delta_disposition": "exact peer bytes"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "current_sha256": "366f3ef2f25bfc6a76712808635ddda592b31ce2485446b4adf80655f2c15b73",
+      "peer_sha256": "b230362ffd1eaa842d73ad52c75b7f563e9a4b8001f4b1d4861c17e7ceb2278e",
+      "exact_peer_bytes": false,
+      "delta_disposition": "Full Git diff manually read: import ordering, line wrapping/closure formatting or final blank line only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/workgroup.rs",
+      "current_sha256": "99e5f516fd8606aa8350015dfad9eb5ffbdddfc7a055bea489d714e3ddc73723",
+      "peer_sha256": "ffa8f8f0beb9bf408f7a259919960bdd22329afd9c20141b151e9c4b16c9c0ee",
+      "exact_peer_bytes": false,
+      "delta_disposition": "Full Git diff manually read: import ordering, line wrapping/closure formatting or final blank line only"
+    }
+  ],
+  "findings": [
+    {
+      "id": "SCOPE48-C1",
+      "priority": "P3",
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "lines": [
+        12,
+        16
+      ],
+      "title": "Batch introduction makes a false universal submission claim",
+      "evidence": "Reduce records all reduction passes into one encoder using ComputePass::record and submits once (reduce/mod.rs266-343). Every other primitive here calls dispatch is false. Hundreds of submits is a lost frame is an unmeasured universal performance claim.",
+      "replacement": "A standalone ComputePass::dispatch finishes and submits its encoder. A solver can instead record many dependent dispatches into KernelBatch and submit them together."
+    },
+    {
+      "id": "SCOPE48-C2",
+      "priority": "P3",
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "lines": [
+        65,
+        69
+      ],
+      "title": "Cached-path rationale overstates static uniform allocations",
+      "evidence": "Static uniform_buffer::create returns None for zero uniform extent (GPU bind_group/uniform_buffer.rs18-20). The existing buffer-only DOUBLE fixture has no uniform. Every dispatch builds a uniform buffer and cannot afford it overstate code and evidence.",
+      "replacement": "The cached path uses per-batch uniform slots for eligible interfaces and creates a fresh bind group per dispatch. See fast."
+    }
+  ],
+  "ownership": "Both focused wording findings in received Kernel docs; root coordinates canonical peer fixes. Reviewer made no source edit.",
+  "contracts_checked": [
+    "ValidationScope waits once then always pops, retains actual PollError plus optional native cause; existing Native messages/direct sources preserved. No across-await guard or global-health/rollback claim.",
+    "Fast dispatch drains observation before resolving earlier operation; OperationAndObservation preserves primary operation and exposes secondary. Counter increments only after both Ok, empty batch grids skip device/parameters/counter. Count does not establish finish/native acceptance.",
+    "Fast preparation may consume arena slot before later error; encoder mutations cannot rollback. Arena publishes native chunk only after observation Ok. Fresh bind groups remain recording policy, not proven barrier cause.",
+    "Fast constructor consumes immutable pipeline shader/entry/reflection. First resolver precedes checked shape. Folded shape/padded addresses and receiving actual Device axes remain distinct; empty first preserves multidimensional declarations without work.",
+    "KernelCache successful constructor Result, source/device/policy key, racing build semantics checked. Browser/borrowed ResultOk not observed native success; no exactly-once claim. Static cache separately retains completed native rejection and excludes Progress; alreadyCompiled state not reset on retry failure.",
+    "Submission finalization and queue scopes are separate and helper adds no completion wait. Host callbacks run after helperOk only; device-handled routes supply no synchronous validation verdict. Recorder/copy checks may be deferred until finish."
+  ],
+  "fixture_provenance": {
+    "published_existing_revision": "71f9cab8a5f97760e2e61ca4c74876b715f8aebc",
+    "dispatch_file_sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+    "exact_after_three_API_adapters": true,
+    "adapters": [
+      "compile pipeline after forcing General",
+      "same12byte zero-offset BufferCopy",
+      "propagate submitResult"
+    ],
+    "compile_fail_sha256": "811a087bc52a767dab277e0f011863f63ab1a5d76f1b8a973ac38492d1ca55cf",
+    "compile_fail_exact_published": true,
+    "tests_cases": 2,
+    "new_cases_helpers_assertions": false
+  },
+  "sdk_source": {
+    "path": "wgpu-29.0.4/src/api/device.rs",
+    "fresh_coverage": "835-883 ErrorScopeGuard immediate pop/Drop discard,!Send/Sync",
+    "carried_limits": "Core delayed-finalization/ready scope outcome evidence from prior scope reviews, not claimed fresh complete SDK read or runtime check."
+  },
+  "required_dependencies": [
+    "C1/C2 wording fixes and exact successor re-review.",
+    "Known current grouped Readback CPU-never-stalls/old context API docs, full #780 producer/caller/cache/lock/native integration remain required.",
+    "Renderer RS1/2/3/6 and missing exact host SimFrame/source receipt, retained #774 families, #895 ownership remain open/unchanged.",
+    "Final complete thirteen-lens waves, Code/Rule/Comment reviews and hosted gates on same final pushed SHA."
+  ],
+  "limits": [
+    "All seven changed files read completely; affected complete/bounded sources accounted. Does not replace parent all13 inventory.",
+    "No source edits/project execution/check/build/lint/tests/scanners/generators/runtime/push/CI. No tests/cases/helpers/assertions/doctests authored or executed.",
+    "No full producer/caller/integration, compilation/native-runtime/performance/global-health/rollback/final clearance."
+  ]
+}

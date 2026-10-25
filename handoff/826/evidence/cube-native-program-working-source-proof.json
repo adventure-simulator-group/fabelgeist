@@ -1,0 +1,37 @@
+{
+  "base": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+  "native_programs": [
+    {
+      "program": "sampled blit",
+      "sha256": "3868ce90f3715d5892338fcbda342a593c7b9b47ce1564974aa9968b9035652d",
+      "exact_previous": true
+    },
+    {
+      "program": "face compute",
+      "sha256": "98054195e43ffc709dfac604e490c31654d652810938a21a4ab08474c1bab220",
+      "exact_previous": true
+    },
+    {
+      "program": "all face compute",
+      "sha256": "5b2209ba6881852f19dfdc694f77dfd50e3e0dce205df9642fb3dd8116e82a15",
+      "exact_previous": true
+    }
+  ],
+  "files": {
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs": "4f45dd45651aac781e71120454d88879e337bd5e1180fc622198cf296ad35326"
+  },
+  "limits": "Source comparison/bookkeeping only; no project execution, no new test code. Wider integration remains uncompiled/incomplete. Individual rustfmt skip_children and diffcheck only.",
+  "native_preservation": [
+    "Face uniforms16bytes native timef32 +faceu32+twozero float; allface fourf32 native bytes",
+    "8x8x1WGSL, workgroups divceil8, all depth6 via existing CubeFace::ALL; face depth1",
+    "Blit sampler/clamp/linear/filterablef32/REPLACE/Load/Store/triangle draw unchanged",
+    "Copy eligibility/selectedview error precedence/origins/extents unchanged",
+    "Storage spelling/native layout both effective_format; unsupported exactformat typederror",
+    "Native creation/record immediate observer drains before submit; no new poll or completion guarantee"
+  ]
+}

@@ -1,0 +1,707 @@
+{
+  "review": "Independent hosted acceptance coverage Code discovery before workflow edits",
+  "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "tree": "4cc54cebccefd4eb249900fb22d160cdaba53485",
+  "status": "Source-backed acceptance inventory; no workflow edit or project execution. Final canonical names/source integration remains required.",
+  "findings": [
+    {
+      "id": "HAC-C1",
+      "severity": "P2",
+      "path": ".github/workflows/rust-quality.yml",
+      "lines": [
+        103,
+        115
+      ],
+      "title": "Execute existing tests for the connected native migration families",
+      "evidence": "The complete workflow explicitly runs GPU readback unit filter, texture_views and GPU docs, filtered Creator consumers and shared XPBD/Shell/rig suites. Its broad Clippy invocation compiles targets but does not execute dependency-crate unit tests. No invocation executes existing Compute generated/sort/native/counter/readback/normal tests, concurrent_kernels, BVH native tests, Hair GPU/render tests, Armor native bake/generation tests, Mesh native tests or cloth self-collision tests. The exact Creator underlayer design filter does not reach the real device_underlayer tests.",
+      "connected_repair": "After all connected source/caller/manifest/lock families finish, add the actual existing package/target/feature/module cells below and their evidence to hosted acceptance. Retain all current gates and validation limits. Canonical peer final target names must be reconciled before final workflow selection.",
+      "acceptance": [
+        "Each selected real test filter/target emits nonempty successful results on the same final pushed head, retaining actual exit status and cause.",
+        "Retain formatting, lint, semantic/growth check and hosted baseline export, current texture integration/docs, Creator/rig/XPBD/Shell and existing unrelated gates.",
+        "No new tests/cases/helpers/assertions/probes, skip attributes, --skip, continue-on-error, allow-failure or weakened oracle. Focused relevant module filters are legitimate bounded scope, not full-package proof.",
+        "Preserve historical three Compute software-provider numerical failures and Creator SIGSEGV as unverified current limits. A new selected failure cannot be masked or relabeled historical without exact current evidence and an explicit disposition.",
+        "No push/request CI before connected migration families and dependencies finish; all final audits/reviews/checks must agree on the same pushed revision."
+      ]
+    }
+  ],
+  "source_accounts": [
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "12b74ba27f4c750bc807ba7c39553fe6f130179bb71ae3679d296cbaab947cd8",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-bvh/Cargo.toml",
+      "sha256": "fc9b1f379eeea4867b58375107863be9dc93fead720fa2598f2a3a9f319fd73b",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-cloth/Cargo.toml",
+      "sha256": "4d25ce0c957fc08ea17964e695728d4c47251e88e98ad2eace19233a20128a2d",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "63d6c669c0beb22c2df485aaccff7a09dc0a7d623e09191c7b0322a8689d3c72",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-bvh/src/lib.rs",
+      "sha256": "d97a213f340f3c53ba001361d269390800705eb05431b18343583bf20e4db3d2",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-hair/src/lib.rs",
+      "sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-cloth/src/lib.rs",
+      "sha256": "73854d3247aafeacaca9882c0d9666e5b83e482dd9924374ff0dec2b6a77cef9",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/underlayer.rs",
+      "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/underlayer_armor.rs",
+      "sha256": "0aeea0b47034016130f42d75d0cc2f050d6ab6447c71d05accff1c34e517cc32",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/device_underlayer/tests.rs",
+      "sha256": "fd8179b3a282dda66fc89a706bc4941a3153e9d96fa03dbe3519734534090a31",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+      "sha256": "4fd6d01a795959004f9193d79f5502469c35aa84961dacb49dc6f6d20594727a",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/sort/tests.rs",
+      "sha256": "f9a854933d115f0a5931eca96b4afa0f482f6b9c4b25846a814c390f37170243",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+      "sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-bvh/src/tests/mod.rs",
+      "sha256": "383c26ff0b8ce1717075a34e16b12e10012660e050889bbd9139bfae18a1d597",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "sha256": "6ec6867195a91d26c804bd15de978e0e438e243c269705945f553f1f41f0113d",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/tests/gpu_concurrency.rs",
+      "sha256": "32eacb59babbd46f3f97684dd0b4b27b1a0b3b60345789ea91f273df360d1b8a",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "coverage": "Fresh whole source read for acceptance workflow/target/registration reasoning; no implementation acceptance implied."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "coverage": "Actual module/feature registrations for device_underlayer, underlayer, underlayer_armor, armor_metal, garment_material and offline export; scoped source and complete declaration searches, not whole body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+      "coverage": "Fresh lines1-65 plus declaration search: underlayer_equipment belongs to binary. Not whole main body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+      "sha256": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced",
+      "coverage": "Fresh complete existing cfg(test) module358-end, including four real GPU cases and helpers; production body not reread here."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/host_float/mod.rs",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "coverage": "Fresh documentation/registration1-90; historical numerical limits and cfg(test) path, not fresh whole module body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/host_float/tests.rs",
+      "sha256": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+      "coverage": "Existing test attribute/name inventory and fresh actual quotients/arithmetic test body excerpts115-160; not full fixture/numerical audit."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-bvh/src/gpu/tests.rs",
+      "sha256": "85811b6011b987ade76feadef1481d898b159d429f5ac443f2e3a3cb3c0111ea",
+      "coverage": "Fresh helpers and first three actual native cases1-160 plus complete test attribute registration search; not full body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-cloth/src/cloth/tests.rs",
+      "sha256": "5262ec58f985121e0e11d2db11221b795d41268242028aed3eee900623d90fe1",
+      "coverage": "Full attribute inventory plus fresh actual body470-end, including active self-collision/native submission cases and explicitly ignored calibration; not whole body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "4e02030b72fe4ebc1a4af8b52dbf0910d7ce7a2f7135ed10c17c4805bf163b16",
+      "coverage": "Fresh complete existing cfg(test) module1671-end: shader and POD/layout checks, no image/readback render oracle. Production renderer not reread here."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a9ce6fef1d2cdf2d11c06e762e32430e9406445c17aa8aae43cd0fdf2f2ca92c",
+      "coverage": "Fresh cfg(test) registration and validator fixture653-685 plus complete test attribute/name inventory; not full GPU/numerical body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/device_underlayer/plan.rs",
+      "sha256": "8e64f415a0c5a000cc2fdda6b37eabfd39a81f2a2f2ca8a7126fa2ca019cb7f9",
+      "coverage": "Fresh existing incidence fixture128-end and registration; not whole production body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+      "coverage": "Complete existing test attribute/module inventory: three existing tests. No new body proof beyond prior canonical reviews."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "39b44062b3a3fb8db93c869721bcd0ede9f01f588cbde35ea6cdf4b9a26377e3",
+      "coverage": "Complete existing test attribute/module inventory: six existing tests. No new numerical audit."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/src/engraving.rs",
+      "sha256": "678b5940a6ed8ab768eee0cefbe366694b743df49a22e6cb75f8d5e55234a005",
+      "coverage": "Existing tests module/attributes/names registration read; not whole source body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 137
+        },
+        {
+          "text": "mod tests;",
+          "line": 138
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 227
+        },
+        {
+          "text": "mod tests;",
+          "line": 228
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 177
+        },
+        {
+          "text": "mod tests;",
+          "line": 178
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 109
+        },
+        {
+          "text": "mod tests;",
+          "line": 110
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "mod context_tests {",
+          "line": 356
+        },
+        {
+          "text": "mod dispatch_tests;",
+          "line": 395
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "sha256": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 350
+        },
+        {
+          "text": "mod tests;",
+          "line": 351
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 225
+        },
+        {
+          "text": "mod tests {",
+          "line": 226
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 321
+        },
+        {
+          "text": "mod tests {",
+          "line": 322
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+      "sha256": "32201338d839719acd4a4637a5b0f672f8b2cadb4871e9947f122d4c2c211bfa",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 255
+        },
+        {
+          "text": "mod tests;",
+          "line": 256
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "sha256": "591b2acc0e91118d14df8eb16d27966145ecdd661c8917dc58352ddec320ec9d",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 375
+        },
+        {
+          "text": "mod tests;",
+          "line": 376
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 461
+        },
+        {
+          "text": "mod tests;",
+          "line": 462
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "coverage": "Actual complete module declaration/attribute search only; not whole body.",
+      "registration_lines": [
+        {
+          "text": "#[cfg(test)]",
+          "line": 146
+        },
+        {
+          "text": "mod tests;",
+          "line": 147
+        }
+      ]
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/tests/breastplate.rs",
+      "sha256": "0013f131c972449c1a6a424b5562bbb9640ff39c696eb84b310f93ab7ebf7d8a",
+      "coverage": "Actual top-level integration target path registration from pinned Git and default Cargo auto-discovery. Full body read only for gpu_concurrency; other bodies not audited in this workflow review."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/tests/close_helmet.rs",
+      "sha256": "f29654314db6299fa4589df60ebaf5f9fb9ae67af04f3a91030f1d52c114eb0d",
+      "coverage": "Actual top-level integration target path registration from pinned Git and default Cargo auto-discovery. Full body read only for gpu_concurrency; other bodies not audited in this workflow review."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/tests/garment_armor.rs",
+      "sha256": "82c80b000c0ec0926356bd5dfdb2ea3880b2e0294eb7b9cf771a8d4f215fe963",
+      "coverage": "Actual top-level integration target path registration from pinned Git and default Cargo auto-discovery. Full body read only for gpu_concurrency; other bodies not audited in this workflow review."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/tests/generation.rs",
+      "sha256": "e8162e36b4d9ecf39a916da848f9740bebf7bba001658f07681fee905acdce67",
+      "coverage": "Actual top-level integration target path registration from pinned Git and default Cargo auto-discovery. Full body read only for gpu_concurrency; other bodies not audited in this workflow review."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/tests/gpu_concurrency.rs",
+      "sha256": "32eacb59babbd46f3f97684dd0b4b27b1a0b3b60345789ea91f273df360d1b8a",
+      "coverage": "Actual top-level integration target path registration from pinned Git and default Cargo auto-discovery. Full body read only for gpu_concurrency; other bodies not audited in this workflow review."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/tests/helmets.rs",
+      "sha256": "706bbb472a5aa8b703cbe3a5c78ab017c90ede8ee2a993244f61040f651f801e",
+      "coverage": "Actual top-level integration target path registration from pinned Git and default Cargo auto-discovery. Full body read only for gpu_concurrency; other bodies not audited in this workflow review."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/tests/limb_armor.rs",
+      "sha256": "c21bc8d1f52433f795f20921784a2404432a7798f883c0ed7398448f286895d6",
+      "coverage": "Actual top-level integration target path registration from pinned Git and default Cargo auto-discovery. Full body read only for gpu_concurrency; other bodies not audited in this workflow review."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/tests/plate_relief.rs",
+      "sha256": "6367bc7a463bab9b95215a2873817c70805ac65af07b168d8a5fd232fde9e754",
+      "coverage": "Actual top-level integration target path registration from pinned Git and default Cargo auto-discovery. Full body read only for gpu_concurrency; other bodies not audited in this workflow review."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "coverage": "Fresh existing complete test module240-end and cfg(gpu) roundtrip gate; not fresh production body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/underlayer_equipment.rs",
+      "sha256": "91acbb6c6ec41a6642c3ef9ab51d184ef615cb1cf631662d719f12a9b8f8b35d",
+      "coverage": "Fresh module registration and receiving call1-35: proportions child belongs to actual binary owner; not full body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/underlayer_equipment/proportions.rs",
+      "sha256": "b70d923027be5cb02b9771a3f8932728114177bc62c8b3b128a21c869cfeb651",
+      "coverage": "Fresh complete existing test module115-end; production body not reread in acceptance review."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/underlayer_equipment/proportions/probe_bounds.rs",
+      "sha256": "721a06c6ea10f1a278dacc94ffe003927da1662e139783ce5ac1f023d89ba7a7",
+      "coverage": "Fresh complete existing test module98-end; name reflects existing source calculations, no new runtime probe requested."
+    }
+  ],
+  "targeted_existing_cells": [
+    {
+      "family": "Generated/resource and native compute",
+      "package": "fabelgeist-compute",
+      "target": "library",
+      "existing_filters": [
+        "map::",
+        "gather::",
+        "stencil::",
+        "stream::",
+        "kernel::dispatch_tests::",
+        "kernel::context_tests::",
+        "readback::tests::",
+        "reduce::tests::",
+        "prefix_sum::tests::",
+        "sort::tests::",
+        "mesh_query::tests::",
+        "vertex_normals::tests::"
+      ],
+      "purpose": "Existing generated numerical/resource oracles, dispatch/copy/counters/native cause contract, grouped readback, actual count/stride consumers and retained sort/BVH/normal graph.",
+      "command_boundary": "Existing test runner only; no new code/case/helper/assertion. Use --test-threads=1 for native suites and retain actual exit status.",
+      "limits": "These focused cells are not a full Compute package pass. No direct existing Scatter or fluid numerical fixture exists in these module registrations; source evidence remains explicit for those paths. The host_float group is separate below, never silently skipped because it fails."
+    },
+    {
+      "family": "Host floating-point contract",
+      "package": "fabelgeist-compute",
+      "target": "library",
+      "existing_filters": [
+        "host_float::"
+      ],
+      "purpose": "Existing provider/host arithmetic acceptance, including actual quotients/roots and ordered arithmetic tests.",
+      "command_boundary": "Existing test runner only; no new code/case/helper/assertion. Use --test-threads=1 for native suites and retain actual exit status.",
+      "limits": "Historical three software-provider numerical failures are unverified at this revision. A selected failure remains a failure, with exact cause/provider/evidence reported. No filter chosen solely to turn a failing run green."
+    },
+    {
+      "family": "Bounding-volume hierarchy",
+      "package": "fabelgeist-bvh",
+      "target": "library",
+      "existing_filters": [
+        "gpu::tests::",
+        "cpu::tests::"
+      ],
+      "purpose": "Existing real native hierarchy/readback, traversal, prefix and host oracle tests.",
+      "command_boundary": "Existing test runner only; no new code/case/helper/assertion. Use --test-threads=1 for native suites and retain actual exit status.",
+      "features": "gpu"
+    },
+    {
+      "family": "Hair native and renderer contracts",
+      "package": "fabelgeist-hair",
+      "target": "library",
+      "existing_filters": [
+        "gpu::tests::",
+        "render::tests::"
+      ],
+      "purpose": "GPU/host scalp/groom/guides/simulation comparisons and shader/layout renderer validation.",
+      "command_boundary": "Existing test runner only; no new code/case/helper/assertion. Use --test-threads=1 for native suites and retain actual exit status.",
+      "features": "render",
+      "limits": "render implies gpu; disabling defaults without re-enabling render omits renderer tests. Existing render cases validate shaders and POD/layout, not rendered pixels or browser progress. Host/LOD policy and export tests are covered by optional full existing package suite, not claimed from these two filters."
+    },
+    {
+      "family": "Armor material/native receiver",
+      "package": "fabelgeist-armor",
+      "target": "library",
+      "existing_filters": [
+        "engraving::tests::",
+        "gpu::metal::tests::"
+      ],
+      "purpose": "Existing relief decode and actual native material bake/readback oracles, before/after API adapters received.",
+      "command_boundary": "Existing test runner only; no new code/case/helper/assertion. Use --test-threads=1 for native suites and retain actual exit status.",
+      "limits": "Native fixtures at ccb still use old canonical API operands; peer receipt/adaptation must finish before execution. Other native fit/generation integration targets are listed separately; these two filters do not clear all Armor production."
+    },
+    {
+      "family": "Shared mesh native boundary",
+      "package": "fabelgeist-mesh",
+      "target": "library",
+      "existing_filters": [
+        "data::tests::"
+      ],
+      "purpose": "Existing GPU roundtrip and mesh data/topology fixture boundary.",
+      "command_boundary": "Existing test runner only; no new code/case/helper/assertion. Use --test-threads=1 for native suites and retain actual exit status.",
+      "features": "gpu"
+    },
+    {
+      "family": "Cloth and self collision",
+      "package": "fabelgeist-cloth",
+      "target": "library",
+      "existing_filters": [
+        "cloth::tests::"
+      ],
+      "purpose": "Active native solver/submit/copy/readback plus coincident self-contact and triangle-crossing consumers.",
+      "command_boundary": "Existing test runner only; no new code/case/helper/assertion. Use --test-threads=1 for native suites and retain actual exit status.",
+      "limits": "coincident_non_neighbours_separate_and_pinned_particles_stay_fixed and interactive_step_blocks_a_triangle_interior_crossing are active. bend_scaling_grid is an existing explicitly ignored calibration sweep, not silently counted as run or required by the native migration. Shared XPBD/Shell workflow remains separately required."
+    },
+    {
+      "family": "Creator underlayer and material consumers",
+      "package": "adventuresim-character-creator",
+      "target": "library",
+      "existing_filters": [
+        "device_underlayer::",
+        "armor_metal::tests::",
+        "garment_material::tests::"
+      ],
+      "purpose": "Two actual underlayer GPU cases plus incidence plan fixture; metal density/trim and mail surface producer consumers.",
+      "command_boundary": "Existing test runner only; no new code/case/helper/assertion. Use --test-threads=1 for native suites and retain actual exit status.",
+      "features": "offline-creator (default retained)",
+      "manifest_path": "crates/adventuresim-character-creator/Cargo.toml",
+      "limits": "Existing exact underlayer design rejection cell remains. device_underlayer:: is library scope and adds real GPU coverage; selecting underlayer:: alone does not reach it. Existing export::/garment:: workflow cells remain. No new fixture."
+    },
+    {
+      "family": "Creator binary underlayer retained state",
+      "package": "adventuresim-character-creator",
+      "manifest_path": "crates/adventuresim-character-creator/Cargo.toml",
+      "target": "--bin adventuresim-character-creator",
+      "existing_filters": [
+        "underlayer_equipment::"
+      ],
+      "purpose": "Actual proportions/probe-bounds existing tests belong to binary main.rs module, not the library.",
+      "features": "offline-creator/default",
+      "limits": "Do not use --lib for this filter or accept zero tests. Existing binary character_morphs/animation workflow cells remain; final peer native count/caller registration confirmation is pending."
+    }
+  ],
+  "integration_targets": {
+    "compute": [
+      "concurrent_kernels"
+    ],
+    "armor": [
+      "breastplate",
+      "close_helmet",
+      "garment_armor",
+      "generation",
+      "gpu_concurrency",
+      "helmets",
+      "limb_armor",
+      "plate_relief"
+    ],
+    "armor_shared_module_not_target": "tests/common/mod.rs",
+    "creator_existing_connected_targets": [
+      "device_bracer",
+      "device_breastplate",
+      "body_cloth_layers",
+      "textile_appearance",
+      "textile_export",
+      "textile_treatment",
+      "skirt_construction",
+      "skirt_skin",
+      "skirt_surface"
+    ],
+    "creator_qualification": "Device bracer/breastplate already hosted; additional listed existing target registrations are options for canonical affected caller closure, not all declared newly mandatory without peer scope agreement. Creator is excluded from root workspace and requires its own manifest."
+  },
+  "broad_existing_package_options": {
+    "commands": [
+      "cargo test --locked --package fabelgeist-gpu --lib -- --test-threads=1",
+      "cargo test --locked --package fabelgeist-compute -- --test-threads=1",
+      "cargo test --locked --package fabelgeist-bvh --features gpu -- --test-threads=1",
+      "cargo test --locked --package fabelgeist-hair --features render -- --test-threads=1",
+      "cargo test --locked --package fabelgeist-armor -- --test-threads=1",
+      "cargo test --locked --package fabelgeist-mesh --features gpu -- --test-threads=1",
+      "cargo test --locked --package fabelgeist-cloth -- --test-threads=1"
+    ],
+    "qualification": "Useful broader existing coverage after integration, not commands run here or automatic substitute for bounded targeted evidence. Full Compute includes host_float and can expose historical numerical limits anew. Full Creator --lib historically SIGSEGV; no full Creator success implied or failure masked. Doctest and ordinary test target selections must remain distinct where --doc is used."
+  },
+  "native_execution_environment": [
+    "Existing Linux workflow installs libvulkan1 and Mesa Vulkan drivers, sets XDG_RUNTIME_DIR for native cells and serializes relevant test harness threads. Reuse source-backed native provider setup, log actual selected adapter/backend and retain native causes; no hardware-wide/browser certification.",
+    "Use --locked after final canonical manifest/lock composition; no blind peer whole-lock overwrite. Final hosted lock cleanliness and baseline evidence remain required.",
+    "Same expected PR head equality, actual command, feature/target/filter, result counts and provider/failure logs should accompany each new required evidence cell. Reject empty selected test results; do not infer all cases from one aggregate package count."
+  ],
+  "limits_and_dependencies": [
+    "Exact peer #780 canonical final test/module/filter names and full producer/caller/API adaptations are pending. Current old native test operands show incomplete composition, not authorization for duplicate test/producer repairs.",
+    "No direct existing Scatter/Advect/Divergence/Gradient numerical case was found in current registered modules. Existing test-only constraint forbids inventing such fixtures; document that source-only coverage limit rather than claim those programs ran.",
+    "Hair renderer existing tests are shader/POD validation; no image comparison, calibrated appearance, browser mapping or device-wide numerical verdict.",
+    "Historical broad Compute software-provider three numerical failures and Creator SIGSEGV remain unverified at ccb/current main. Existing ignored calibration/asset tests stay visibly ignored; no new skip policy proposed.",
+    "No project command, Cargo metadata/list/build/check/lint/test/scanner/generator/runtime/probe or hosted CI request ran. Only pinned Git/source/registration/text/hash inspection; reports written ignored.",
+    "This review does not claim entire fixture body/numerical correctness coverage. Every source account explicitly labels full source read versus registration/specific body reads. Broad material/native/physical/generated ownership and final same-head gates remain open."
+  ]
+}

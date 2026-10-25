@@ -1,0 +1,2124 @@
+{
+  "kind": "read-only successor thirteen-lens Root Armor/Metal receiving inventory",
+  "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "tree": "868959fcaec6f7b624c0c462c6bea4a6a70528d4",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "peer_pins": {
+    "b11": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+    "3ee": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+    "fff": "fff01705f4eaae22f98242ce64e538e02ac76e86"
+  },
+  "discovery_status": "complete for bounded Root six-file owner inventory and distinct direct/staged receiving bodies; broad unreceived numerical producer acceptance explicitly incomplete",
+  "repair_status": "AM-DOC-1 inventoried before Root documentation edit; no implementation edit proposed",
+  "validation_status": "source-only; canonical integration, hosted gates and final same-revision reviews required",
+  "owned_files": [
+    "crates/fabelgeist-armor/src/gpu/facade.rs",
+    "crates/fabelgeist-armor/src/gpu/staging.rs",
+    "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+    "crates/fabelgeist-armor/src/gpu/mod.rs",
+    "crates/fabelgeist-armor/src/error.rs",
+    "crates/fabelgeist-armor/Cargo.toml"
+  ],
+  "owner_source_identity": [
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "same_as_f0": true,
+      "same_as_3ee_receiving_context": true,
+      "same_as_b11_receiving_context": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "same_as_f0": true,
+      "same_as_3ee_receiving_context": true,
+      "same_as_b11_receiving_context": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "same_as_f0": true,
+      "same_as_3ee_receiving_context": true,
+      "same_as_b11_receiving_context": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "same_as_f0": true,
+      "same_as_3ee_receiving_context": false,
+      "same_as_b11_receiving_context": false
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "same_as_f0": true,
+      "same_as_3ee_receiving_context": true,
+      "same_as_b11_receiving_context": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "same_as_f0": true,
+      "same_as_3ee_receiving_context": true,
+      "same_as_b11_receiving_context": true
+    }
+  ],
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "git_blob": "541957d70b2f9989b99bd84fcefe06e3b3b3039a",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_body_cloth.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "0860e2ba7922026cc0cb51dd6b106f6b43b3d72465fcafb0e54f638212ecc97b",
+      "git_blob": "3f914f887abc742712e9c26cea944ed4feafff91",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 2,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_boot_layers.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "1c9d5ce243e3f4ae2c44c34461e7ae7d5f59ee2464651bac81c4e90ae18b0e6c",
+      "git_blob": "d6146869a5bbe30802090b6abebb634e984543ce",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_bracer.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "git_blob": "9ce6b11588f7f367b6764f3074d2fa65503af1da",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "generate_bracer_on_device_async",
+          "source_read_range": [
+            53,
+            143
+          ],
+          "return_contract": "async anyhow::Result<GeneratedArmor>",
+          "consequence": "Base then morph submissions; local bracer accumulates morph buffers, but complete product published only after status/readback.",
+          "connected_acceptance": "Propagate submit Result before downstream reads/publication. Preserve original completion waits and partial-progress semantics; resolve noted retained metadata separately."
+        }
+      ],
+      "caller_edge_count": 9,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_clearance.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "c281c89fa8c8f954309b110c0b7a90899e2c948ee8021b52732a4ba76c25192a",
+      "git_blob": "e9cf4568fee263bf8d1c65b72e53c5ac7e6d6837",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 5,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_close_helmet.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "10baf11ddce9d828fc75b6a8971ee6baeee9a09bbdf9d9aab2f3f053b57f67df",
+      "git_blob": "4b0cec21b2ea06e50ccaccf03757ce0339b233fb",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 4,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_cloth_collar.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "3e4a0390fc05b8d8fb98b1e1d25f63f739e2be6b4ab608808ee738da9d6d69ca",
+      "git_blob": "6d9fe24c72cec2408355b8c3a7c6305ba6f8c764",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 2,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_cloth_seating.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "f73836244a90809c21590ec46ea9e964f4d1e7a69599d1ff6c180427c65b6217",
+      "git_blob": "219f35ac81dd4987efd38300f63d42337494dc48",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 2,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_cloth_ties.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "12ee1e304a350676e0e940ef24e9958215fce17e37a36fb8c4ecd9cbab87c1ed",
+      "git_blob": "4a0bbd72ab02e064a444a35bc095c86dc58b45ca",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_coif.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+      "git_blob": "9d15cc8b5e3dc40bda8572f6e8f97fa4ed55f2a1",
+      "coverage": "complete CoifCarrier::read and fitted_coif_carrier; native recording source excerpts, not full module",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "fitted_coif_carrier",
+          "source_read_range": [
+            352,
+            369
+          ],
+          "return_contract": "anyhow::Result<(PartFrame,CoifCarrier)>",
+          "consequence": "After submit checks frame/status and reads carrier; no local result should escape on finish failure.",
+          "connected_acceptance": "Propagate submit Result before downstream reads/publication. Preserve original completion waits and partial-progress semantics; resolve noted retained metadata separately."
+        }
+      ],
+      "caller_edge_count": 6,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc",
+      "git_blob": "716b1d173280248c05e9592d1ff1ebddbb96a1ad",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "fit_piece_async",
+          "source_read_range": [
+            127,
+            179
+          ],
+          "return_contract": "async anyhow::Result<DevicePiece>",
+          "consequence": "Uploaded GpuBody is cached separately before dispatch; local skin assigned before submit and recording pushed after; Result Err abandons all local output.",
+          "connected_acceptance": "Propagate submit Result before downstream reads/publication. Preserve original completion waits and partial-progress semantics; resolve noted retained metadata separately."
+        }
+      ],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "git_blob": "262675509d6db14307a8eb7bb6f5b024b0a40964",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_foot_frame.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "646358891b65b2efa4bb01c0c6ee805b0c111adc1eff16949499a91436d131a5",
+      "git_blob": "f89acdd5414584778a0a35b5f0d59c67238a6687",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 4,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_foot_sections.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "43e6ef537032e0b98f260630a6d174d8d9b13226c31ee172162a50b37e8fd131",
+      "git_blob": "cc0bab9e14455ff2affc6e2482044defc55e44b2",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 5,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "a5ff6c930746498007808fb52e47a2ef6971347270a35ce8e0eeec3c03c77b1e",
+      "git_blob": "233b25e8553739f74e94b3ec0faa52803dc985a8",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 2,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "git_blob": "7c29f4cba7d709ed534d6cae7503e6571b680d63",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "DeviceWearer::read_frame_async",
+          "source_read_range": [
+            139,
+            145
+          ],
+          "return_contract": "async anyhow::Result<PartFrame>",
+          "consequence": "Must stop before checking status or reading frame on failed submit.",
+          "connected_acceptance": "Propagate submit Result before downstream reads/publication. Preserve original completion waits and partial-progress semantics; resolve noted retained metadata separately."
+        }
+      ],
+      "caller_edge_count": 6,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "895213b60ba9bc4762eeefb0a1b73958013e271dd9a8818448ffbb3caaf62973",
+      "git_blob": "4ee2f0471ba7f6f7b29556655520d94a5394c5ef",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 3,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_kernel.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "7484d47aa4568e2fc5b3fed2daba4888a9f0d637e6af199bca5e4f85f218d60f",
+      "git_blob": "d208518c6ca0e9e5f29a0667161b9c917d72bcaf",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "tests::shader_normalization_preserves_direction_across_finite_scales",
+          "source_read_range": [
+            228,
+            289
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        }
+      ],
+      "caller_edge_count": 2,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "3acbc3c2ff55ab00d9db818a502874cedb6878b2e93d4a880cfbb864332affa0",
+      "git_blob": "21cd6e8f34b3aeb90d8a07cac2c278c8c1f5d238",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 4,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_torso.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "1e18fa755a6820a35e6fbd3ac25599f1f43e0b80f583d1dbe944f8584c8187c8",
+      "git_blob": "f1ff886b53b49b1552d4e97c4463971a82797eec",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_tube.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "f3a62a48644dc5a0e6e24709857dc95742ba1eaafa24535bb77ca0aa61bd3106",
+      "git_blob": "c9225d4afbe655869d4aa41c1781be516560e4cb",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "ba644b18ad4daf9cdbfa3caf009737c018ee220b98b321e5338bad8e38539e95",
+      "git_blob": "1990efd54b6addaf58b6eaa103bec337531fefac",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 3,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "efabd4be63cf20343ef960668d702d3525aa9ac0b5b0e591efcc54efa38a1a92",
+      "git_blob": "3ad078d8fba77b6beaf39249188456942abafb60",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "tests::bib_seats_on_lower_equipment_in_the_canonical_wearer_frame",
+          "source_read_range": [
+            168,
+            313
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        }
+      ],
+      "caller_edge_count": 3,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "a16e662e70c17cde92374f377722bfe4e19440f3673a91b97f86d2e69960b099",
+      "git_blob": "cbed9168d2d430451faae08fd7a8d977ccff7808",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "tests::intermediate_neck_bulge_and_shared_bib_seam_clear_the_measured_body",
+          "source_read_range": [
+            132,
+            208
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        },
+        {
+          "function": "tests::bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge",
+          "source_read_range": [
+            211,
+            354
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        }
+      ],
+      "caller_edge_count": 9,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_projection.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "9e52d00ac15a857a4516fef35e94758bc61262edf250f23a42f2d249f1713ef3",
+      "git_blob": "ae19094523680af5274db2fb26cd3c08bc0d2ae7",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "tests::near_edge_on_projections_reject_exterior_queries_without_depth_extrapolation",
+          "source_read_range": [
+            55,
+            171
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        }
+      ],
+      "caller_edge_count": 2,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gown_enclosure.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "c9a6ffa1dd49fe499505b9e2b123da6f4249122c809965dc15b60987f12981de",
+      "git_blob": "c41a4a84ccdcf2648a4de695d66942c566b0adae",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_head_frame.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "0ba82a07830e04fce84a96018b01826029ddf86029936f1a328c91e41330406c",
+      "git_blob": "0727fc4cfb672c37f58af2f2d8b7e181a20952c9",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 4,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_limb.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "e0d892a94ac4639bcb6d76efd6ffe7b88eaab221e530f54832fba6daafd8355d",
+      "git_blob": "52ffdac8fbb4a91f01ae072f71f3c69106960b71",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 2,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_pauldron.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "1658ee585c660bba599df7864f5d6e8fad945fa6050ff005d5245a2822da4d27",
+      "git_blob": "f5a847dc97ab31c497635d0f3f9f93e08d66fa27",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 5,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_puff.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "332c9cecb9f25766df08df7e219829fc9aeb94172123f124cb5e57ae64c94f15",
+      "git_blob": "51b4b67cb8b3322ecf84d9d0f73e424da9ca50ab",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 5,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_sabaton.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "8fcb742478e7290f631ddf10606731015b79c3c2495b9a04a540a34f173724f6",
+      "git_blob": "584c4cc62c9716b7ba61ea3838363dcffbf1f529",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 3,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_skirt.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "d0346804abe6333c4a55a61184d7011400677f0eb4912db5ed411968fbed86e8",
+      "git_blob": "687d64c905f02b515dbabfd2855dd296686f2241",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 4,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_skirt_join.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "64a9be41bc342854b19912b45b9705724b877afdd224b1b1b807a95e087d43c6",
+      "git_blob": "dca8960b6d114716813efdd6ca8e93bbd917a4b5",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_torso.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+      "git_blob": "15ec98043e3a8db4ca337c248d6d8bcde72e3fe2",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "generate_breastplate_on_device_async",
+          "source_read_range": [
+            165,
+            264
+          ],
+          "return_contract": "async anyhow::Result<GeneratedArmor>",
+          "consequence": "DeviceBreastplate::record itself submits phases; local morph additions then readback; no product returned before finish success.",
+          "connected_acceptance": "Propagate submit Result before downstream reads/publication. Preserve original completion waits and partial-progress semantics; resolve noted retained metadata separately."
+        }
+      ],
+      "caller_edge_count": 13,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "git_blob": "060fd7e8a20f512f9472881b9608220698b38b3e",
+      "coverage": "complete production through fit/run/shells/read_skin/check_status, not unrelated fixture suffix",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "Fit::run",
+          "source_read_range": [
+            158,
+            230
+          ],
+          "return_contract": "async anyhow::Result<FittedUnderlayer>",
+          "consequence": "Multiple sequential submissions feed workspace constraints/standoff and realization list; all workspace/result local on Err; earlier successful GPU phases persist.",
+          "connected_acceptance": "Propagate submit Result before downstream reads/publication. Preserve original completion waits and partial-progress semantics; resolve noted retained metadata separately."
+        },
+        {
+          "function": "Fit::shells",
+          "source_read_range": [
+            233,
+            330
+          ],
+          "return_contract": "async anyhow::Result<FittedUnderlayer>",
+          "consequence": "Per-realization native copies into aggregate local buffers; only after all submissions reads statuses/positions/skin.",
+          "connected_acceptance": "Propagate submit Result before downstream reads/publication. Preserve original completion waits and partial-progress semantics; resolve noted retained metadata separately."
+        },
+        {
+          "function": "Fit::record_skin",
+          "source_read_range": [
+            332,
+            349
+          ],
+          "return_contract": "anyhow::Result<(Buffer,Buffer)>",
+          "consequence": "Returns newly produced buffers; must not publish on failed finish.",
+          "connected_acceptance": "Propagate submit Result before downstream reads/publication. Preserve original completion waits and partial-progress semantics; resolve noted retained metadata separately."
+        }
+      ],
+      "caller_edge_count": 29,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer/workspace.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "7e94d4b4a91f817e93d5b64d77f218425609896af1cada1ab2ef7aa2b1f6160a",
+      "git_blob": "eb3a8ce07e7e9396a75ab642d98f05efba41b348",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 14,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_wrapped_tasset.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "dc575790bf67f066d6c4dfd64c61f158383fc04efb95bc5dfd3633fe2ce17033",
+      "git_blob": "2aa42e3d89f7ab7608cbd97f9ddc47056e718dbb",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 7,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "git_blob": "871cd5530d33eff964ae581abaaeb62c01afa56d",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+      "git_blob": "7cfe99eb130fe5854ed3cc07bfb8827b2d0e3528",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "tests::coif_mesh",
+          "source_read_range": [
+            519,
+            535
+          ],
+          "return_contract": "GarmentMesh fixture",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        }
+      ],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "git_blob": "661820cfe05dec9f05b7f5dcd5df6a56da329d84",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "git_blob": "6a1435f4d9234db5c9a328f78c62644aeec4d90a",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "git_blob": "70dc9ac93fea841026d9fe3d2d1120b5baa21944",
+      "coverage": "fresh complete owned file",
+      "root_owned": true,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "Root contract revalidated; doc repair required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "git_blob": "0fc8b8b7b88eb452da7f81aa28d0a9fa51fe1553",
+      "coverage": "fresh complete owned file",
+      "root_owned": true,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "Root contract revalidated; doc repair required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/anatomy.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "5f35b514cf75ef2240d775a8fba069e0812fb7ba59b3aeab3b60e77e30918290",
+      "git_blob": "010dd2563214ce83665006bad6a9725504b4fc92",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 5,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "git_blob": "bf1148835970611e568556a83c32fc236898d3b8",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 11,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "git_blob": "b1dd9c17025280eaca8053c10a3ddafbb3d4243c",
+      "coverage": "source ownership records and full read/read_async/deltas bodies, not all native recording functions",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 12,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "a41d7583511916f837e5a9402fe4658589c54e4cfe15fa29cb04dd6a585ca000",
+      "git_blob": "64aced32538e81c8b3eb10f4bf1ccf5a172def3a",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "Articulation::record",
+          "source_read_range": [
+            37,
+            60
+          ],
+          "return_contract": "async Result<Articulated,GenerateError>",
+          "consequence": "First submit feeds sampler.layout read; second feeds returned sampled shell/correspondence. Locals unpublished on Err.",
+          "connected_acceptance": "Agree error-owner bridge retaining anyhow/native source; GenerateError currently has no From<anyhow> and device_error stringifies. Then propagate before reads/publication."
+        }
+      ],
+      "caller_edge_count": 2,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "bf81803801df60f8387489c31ab851af7f62c1df5cee4611a055d628c5bec616",
+      "git_blob": "6f6f565c42f85effc33ff3479ad294c1b13339fc",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 12,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "05f22ce898989bd0fd60a8820b40ebb7c2d7edfa5a3cf81b0bc2c12b59490965",
+      "git_blob": "0025da7c03273d3b7dcb9ee7b82163cf0431c73f",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem",
+          "source_read_range": [
+            12,
+            169
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        }
+      ],
+      "caller_edge_count": 5,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/arm_trim.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "3f546b9455c4e9fb7c1d6eb7e4cb6fb236b80c9cf23dc1d13731431df2409684",
+      "git_blob": "56032e385eb3041c57e221c2320b0ef7e096358c",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "0fb7bb9002fdfcc18544f819f58724d08ba4db0d2b830c82227fd4f00f078219",
+      "git_blob": "9a030fd3eb43d84ecd91c299bd0719666a904a05",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 8,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "1e8220ba0622d5c485c9397aec607d945e9aac92e8e7c26b6a5b5de0365f5026",
+      "git_blob": "aec5eedfc1c7fd35dbd1fe600ecc2d5f7fcff63d",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "body_support_uses_the_outer_envelope_and_preserves_the_chart_ray",
+          "source_read_range": [
+            13,
+            128
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        },
+        {
+          "function": "local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck",
+          "source_read_range": [
+            131,
+            270
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        },
+        {
+          "function": "apply_support",
+          "source_read_range": [
+            273,
+            318
+          ],
+          "return_contract": "(Vec<[f32;3]>,u32) fixture",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        },
+        {
+          "function": "rear_enclosure_preserves_the_actual_preceding_lap",
+          "source_read_range": [
+            332,
+            386
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        },
+        {
+          "function": "body_seating_retains_authored_skirt_flare_without_moving_the_waist",
+          "source_read_range": [
+            412,
+            532
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        }
+      ],
+      "caller_edge_count": 24,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/miter.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "1a78232fff2d53e2638825cba1c1ac15f83a29ad511bcedd9cb479d8350a5f15",
+      "git_blob": "451ff8c8ca74eaa4e753d5f0ae54847d3961d504",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 5,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "git_blob": "1819fbcbfd8cbed48e02581d7da7db0298fca60f",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "DeviceBreastplate::record",
+          "source_read_range": [
+            102,
+            190
+          ],
+          "return_contract": "async Result<Self,GenerateError>",
+          "consequence": "First submit must precede remesh read; second Solid submit precedes returned DeviceBreastplate. Anime branch delegates submissions.",
+          "connected_acceptance": "Agree error-owner bridge retaining anyhow/native source; GenerateError currently has no From<anyhow> and device_error stringifies. Then propagate before reads/publication."
+        }
+      ],
+      "caller_edge_count": 3,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/plates.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "626dd0cc8823b5542b30fd320294e8109b996c5e4117ec73e513b82b8f909a84",
+      "git_blob": "29b182f818177511cfbabbf91792ea14b5c6be26",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 21,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "961d47635ad3f0bea6e01267b36a4d5574ea7204876f1fedccbbdc427ef3a921",
+      "git_blob": "5861ed58011a10f3737fefa45efd85fc0bb37c1c",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "armscye_width_moves_its_boundary_without_moving_the_neck_or_waist",
+          "source_read_range": [
+            7,
+            53
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        },
+        {
+          "function": "armscye_trim_preserves_the_retained_carrier_sections",
+          "source_read_range": [
+            56,
+            89
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        },
+        {
+          "function": "flank_return_preserves_the_neckline_at_coupled_neck_depths",
+          "source_read_range": [
+            108,
+            147
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        },
+        {
+          "function": "coupled_flank_and_armscye_controls_cannot_reverse_chart_columns",
+          "source_read_range": [
+            170,
+            227
+          ],
+          "return_contract": "() test",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        }
+      ],
+      "caller_edge_count": 8,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/chart.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "c8a582694544c0d94a6e1c77a7ffc592e381c7645cc6139db94b43b188298f7a",
+      "git_blob": "3c384c3c57a3eb93d609fbe3105a39e7b71eb4e6",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 2,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "git_blob": "781689c4abe4bff0fbf4d912f597c8fc38a2fa5e",
+      "coverage": "fresh complete owned file",
+      "root_owned": true,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "Root contract revalidated; doc repair required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "git_blob": "451fd84cd523cc23ee16f2e4b31d09f37b4dc969",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "generate_limb_armor_on",
+          "source_read_range": [
+            24,
+            45
+          ],
+          "return_contract": "Result<BuiltPart,GenerateError>",
+          "consequence": "Pauldron branch submission before carrier status/read; other branch calls recipe build.",
+          "connected_acceptance": "Agree error-owner bridge retaining anyhow/native source; GenerateError currently has no From<anyhow> and device_error stringifies. Then propagate before reads/publication."
+        }
+      ],
+      "caller_edge_count": 2,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "git_blob": "b6c484fab4abad5079d8c80f727e4cffb87c1d88",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "bake",
+          "source_read_range": [
+            31,
+            101
+          ],
+          "return_contract": "Result<MetalTextures,String>",
+          "consequence": "Reads generated normal/metal/depth after submit and constructs host textures. String API cannot carry Error::source.",
+          "connected_acceptance": "Coordinate canonical metal error family rather than tostring as native-cause repair; propagate before closure reads."
+        }
+      ],
+      "caller_edge_count": 11,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+      "git_blob": "12f8f4fc1c27c050033594a1e948f37e816bb959",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "git_blob": "e5ca2213dd2a00375b4ff6da803954928e127f42",
+      "coverage": "fresh complete owned file",
+      "root_owned": true,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "Root contract revalidated; doc repair required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/ornament.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "6a9f887c5c746b8b70fc8a3c9741ffa1a68dd3580a61483ca88fbc244dcb4152",
+      "git_blob": "09ff21b6c3e78070ee87ef002ca0b0ba0fa9f148",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "6ec6867195a91d26c804bd15de978e0e438e243c269705945f553f1f41f0113d",
+      "git_blob": "1e4cfa81e6e3749607ef078669495681ae0e2f2e",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "b7eedf258c742117f1e6dbcb5abfeb71614f57e3001a6bd335b88c160ffca0ee",
+      "git_blob": "bbcb5a1191d3a11d78673cdedd259cc191457ca6",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/wgsl.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "90083b6c258f47bcf6e52babf50abc2cda917c32ea982b0404edcd75b8157f83",
+      "git_blob": "90b9922194f0d53900c22ad8eee1c8657a5fc030",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "git_blob": "40e54f92de7570432654f20ef603e3480a8a8631",
+      "coverage": "fresh complete owned file",
+      "root_owned": true,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "Root contract revalidated; doc repair required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "git_blob": "c25d6c84f410e31676bdd1bfe2a5c9ee06b1e5ab",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 13,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/pauldron.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "941b424f604c4fec00e1b408cfc88a31540522830f0e5936078674a541c3a78b",
+      "git_blob": "3a83532792106b444968dd7833c9ce5476b936b8",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 3,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee",
+      "git_blob": "5b7a171ce6c0d3a54251b18bb7f0c2f55a006b54",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "Recipe::build",
+          "source_read_range": [
+            150,
+            163
+          ],
+          "return_contract": "Result<BuiltPart,GenerateError>",
+          "consequence": "Local part shell then submit/read.",
+          "connected_acceptance": "Agree error-owner bridge retaining anyhow/native source; GenerateError currently has no From<anyhow> and device_error stringifies. Then propagate before reads/publication."
+        }
+      ],
+      "caller_edge_count": 4,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "git_blob": "3096cc6ea5488396fee3894fad6453b5a8e2fb94",
+      "coverage": "fresh complete owned file",
+      "root_owned": true,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "Root contract revalidated; doc repair required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/textile_chart.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "1c65de848c323eb0fbf7847f59bbe93f8b0405c191d70d37ca081b9c67eedde6",
+      "git_blob": "ba9353b82ae05dcce90fdb5bd82eac6c0feab47e",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 3,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+      "git_blob": "dd076150f50c59218912878309bfe091c7654250",
+      "coverage": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+      "git_blob": "3b4806c2451a2351e4dbc0360d1f836506ae1ee4",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-armor/tests/gpu_concurrency.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "32eacb59babbd46f3f97684dd0b4b27b1a0b3b60345789ea91f273df360d1b8a",
+      "git_blob": "37651e9f16e10e4fb9047798ae5c1f68be3e9da5",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 1,
+      "acceptance": "source context only; canonical integration acceptance incomplete"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "ce8d9e4f67af04002edcb5f6bf9663adc038d652f47bc2ef21dbad8b9f47122f",
+      "git_blob": "91550d7a7c4c2fa681cdcb1df0468857d21e36b7",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+      "git_blob": "10bcf187fa0e6e673069d1772b05d86a44b8d2eb",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "32201338d839719acd4a4637a5b0f672f8b2cadb4871e9947f122d4c2c211bfa",
+      "git_blob": "d5560e229bd2c22447ce56f78b689a5147920075",
+      "coverage": "query records, with_cache, parameters and complete nearest-point receiver, other native record prefix; not whole numerical kernel source",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "git_blob": "1c3d208bb839f18ce7a742861f365443e786f203",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "tests::every_buffer_comes_back_in_order",
+          "source_read_range": [
+            228,
+            254
+          ],
+          "return_contract": "async Result<()>",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        },
+        {
+          "function": "tests::a_pending_readback_arrives_without_waiting",
+          "source_read_range": [
+            257,
+            294
+          ],
+          "return_contract": "async Result<()>",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        }
+      ],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced",
+      "git_blob": "92dc8a9e18a1e5340ccabf01117be8f78d60414b",
+      "coverage": "NormalWeighting, complete shared-kernel constructor and record method; not full shader/test module",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [
+        {
+          "function": "tests::normals",
+          "source_read_range": [
+            407,
+            436
+          ],
+          "return_contract": "async Result<(Vec<[f32;3]>,u32)>",
+          "consequence": "Existing fixture records work, submits, then reads/oracle compares. Concurrent worker closures are unit-returning and use existing unwrap failure style. Pending readback fixture requires successful submit before polling; callback remains unrun on failed submission.",
+          "connected_acceptance": "Adapt existing call expression to ? where Result-bearing, otherwise unwrap within existing fixture style. Add no cases, helpers, assertions, doctests or changed oracles."
+        }
+      ],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "git_blob": "58d988813cefd13442b07f2551b840f7d5cd6fa5",
+      "coverage": "complete package/dependencies/target features/lint source",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "git_blob": "5529d7804de9cb3235d2fcdf1e82030922385127",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "git_blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "git_blob": "a2062c768f4aed9e06b6deae1ffd268056ca6bc1",
+      "coverage": "complete production prefix through constructors/write/from_upload/traits; test module declaration only",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "git_blob": "260c12d12fc0ca89d801a97f42d5ab4427cc0107",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "git_blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "git_blob": "80be3838b6f0d44d83caba2b085f4ecb1dcfad21",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "git_blob": "ea288ba56153fa4bb97fd996348980e46a685c70",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "git_blob": "17b17a3ef59db21e0ef6922e2d1ce9bb4795fd5a",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "git_blob": "5ffbc0c6b0dcaa45d1b74e9fc36f0cb14480f75f",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": true,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "git_blob": "24a5ea1e0349615d342a475a764347d7870162a6",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "git_blob": "f4d3ceca542fbcce8114bea1cb6995dc48934fb3",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "git_blob": "f2869f6884e496c858c78187d77d140159a7da1b",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "git_blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "git_blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "coverage": "fresh complete file",
+      "root_owned": false,
+      "prior_f2_exact_file_hash_match": false,
+      "historical_function_accounts": [],
+      "caller_edge_count": 0,
+      "acceptance": "supporting source contracts revalidated within stated read boundary"
+    }
+  ],
+  "peer_context_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "b8ddcee5609c637aab7a5bd5964eb26649e97d3e0bd3906401344db0851d3701",
+      "coverage": "fresh complete file",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/quantities.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "9527dace22a827c16ef4d1c8ad1fab21f692f58a7ea7ac89347f63cc4de793d2",
+      "coverage": "fresh complete file",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/output.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "f1a09a4e792855ad311f29c4b6921ebcde7f18136038d1a0301049450608d83c",
+      "coverage": "fresh complete file",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/selection.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "0a76b1bcb0e0afa465c2f48fff6b21ec5aba0cf1c5bbddd7ad01947e01d4b248",
+      "coverage": "fresh complete file",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material/tile.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "a094fe52ceba98b71a00ae2fa974ba24cf769131e3c265373727f353f3885869",
+      "coverage": "fresh complete file",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material/textures.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "89a5b76b6d0a2783ce6dbacb7329e7a2cda93ddceaf4fc12c060e7ff2c96036e",
+      "coverage": "fresh complete file",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "bf177dcb1b678b06f9174b3aa283e4aa7634638681ce88c8722a900052734d72",
+      "coverage": "fresh complete file",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "1f04c47be73adda0a4c4a415677aac0951c7bab9e24a5ad1b8f99058ae342afe",
+      "coverage": "fresh complete file",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "ab105e5b85115fa0da95e814b31ade3f19e55fc58158ac1c78d01db29a999b7d",
+      "coverage": "complete stage/finish canonical SkinSlots contract, not whole producer",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "def762808a49aeb39b51f92cbc23450db6811d6f0eef2db8c97c963625114f73",
+      "coverage": "complete canonical stage/finish/PartSlots owning-ticket contract, not whole producer",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "revision": "3ee2c830508e2e34398943fd4cb139033e4a2e4c",
+      "sha256": "cb2e40ae34578f120b979f8be49427c8b364d695883af4fede324ae24cdfa6c2",
+      "coverage": "complete production path and existing fixture excerpts, not full fixture suffix",
+      "authority": "receiving context only; no overwrite permission or whole-family clearance"
+    }
+  ],
+  "findings": [
+    {
+      "id": "AM-DOC-1",
+      "kind": "Root-owned documentation/admission clarification, existing contract",
+      "severity": "P3",
+      "sources": [
+        "crates/fabelgeist-armor/src/gpu/facade.rs:131\u2013141",
+        "crates/fabelgeist-armor/src/gpu/staging.rs:117\u2013135",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs:9\u201320"
+      ],
+      "scenario": "Public facade reads always use ArmorGpu.context while accepting supplied Buffer(s). Lower Buffer::read requires exact creating device, paired queue and mapping ownership. Current facade direct-read docs mention submission/progress/external mapping but do not state the complete provenance precondition; async/grouped methods do not state it explicitly. SDK Buffer has no public device/map-state query.",
+      "agreed_disposition": "Root explicitly agreed to document existing device/paired-queue preconditions on direct read/read_async and grouped read/read_staged_async. Direct reads reference Buffer::read mapping contract; grouped sources must be available for actual GPU copies under existing mapping ownership. No invented exclusive-read or alias guarantee.",
+      "repair": "Documentation only in facade.rs and staging.rs; no new validator, metadata owner, compatibility API, type or implementation change. Preserve producing-submit result handling, all current progress policies and actual cause retention.",
+      "acceptance": "All four public methods clearly state the relevant native provenance contract; direct methods link Buffer::read mapping requirements; grouped methods describe copy availability without granting stronger alias exclusion. Every body, signature, native command, fixture and shader remains byte-identical.",
+      "status": "inventoried before edit; repair pending Root"
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "unfinished producers",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "Carry native source/cache/device identity and typed counts from constructors through retained fields, batch operations, successful submit, then readback.",
+      "source_locations": [
+        "facade.rs::new/build_in/nearest_points",
+        "staging.rs::read_staged_async",
+        "metal/mod.rs::new/textures",
+        "all caller census edges"
+      ],
+      "disposition": "Root receiving fields and fallible paths preserve contracts; pending owners still emit raw counts/String errors and ignore submit.",
+      "connected_repair": "Document receiver preconditions; consume exact complete owner migrations, never repair shared producers independently.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "No dependent read/publication after failed producing submit; canonical typed counts/errors reach all326 edges and actual boundaries before global clearance.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "existing owners",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "Reuse BufferByteLength, BufferLabel, BufferUpload, BufferElementCount/Stride, InvocationCount, QueryCount and MeshVertexCount; staged host element sizes/counts are actual host-layout metadata.",
+      "source_locations": [
+        "facade.rs signatures",
+        "metal/mod.rs::scratch/dispatch",
+        "staging.rs::prefix",
+        "canonical material/tile.rs and query/quantities.rs"
+      ],
+      "disposition": "Existing owners fit; no duplicate producer types or new fake buffer-provenance metadata.",
+      "connected_repair": "AM-DOC-1 only; owner-defined leaves/exports must be integrated.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "No aliases/shims/raw overloads; typed receiver/producer signatures compose on final source.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "admission",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "All ArmorGpu new/open/open_async and MetalGpu new/open paths retain one actual context. Readback requires same device/paired queue; direct mapping follows Buffer::read and grouped sources allow copies.",
+      "source_locations": [
+        "facade.rs::new/open/open_async/read/read_async",
+        "staging.rs::read_staged/read_staged_async",
+        "Buffer::read docs",
+        "MetalTextureSize::try_from"
+      ],
+      "disposition": "AM-DOC-1 is source-backed clarification; do not invent unavailable SDK device/map-state query or new alias guarantee.",
+      "connected_repair": "Explicit documentation on four public reads.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "Provenance/copy/mapping preconditions explicit while every implementation/signature stays exact; canonical side admission32\u20131024 and zero/query policies retained.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "invariant operations",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "Prefix count multiplication checked before slicing/allocation; foreign tickets/ZST/short bytes reject. Batch failure stops Root build_in/nearest/group publication; mapping guard closes on error/cancel.",
+      "source_locations": [
+        "staging.rs::prefix/status",
+        "facade.rs::build_in/nearest_points",
+        "Buffer mapping/read/readback",
+        "KernelBatch::submit/copy_buffer"
+      ],
+      "disposition": "Root operations do not synthesize missing bytes or publish successful results after an observed submission error. Peer ignored submits remain required gaps.",
+      "connected_repair": "AM-DOC-1 and canonical producer/caller migrations only.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "Original error cause preserved, no partial typed result/padding fabrication, no callback on failed submit, logical/physical bounds respected.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "aggregate states",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "Staged ticket carries shared session+private index; results own that session and byte vector in original stage order. Context+kernel handles remain one device family; MetalTextures maps need size coherence.",
+      "source_locations": [
+        "staging.rs all records/default/stage/prefix",
+        "facade.rs fields/new",
+        "metal/mod.rs fields/new",
+        "canonical material/textures.rs"
+      ],
+      "disposition": "Arc identity rejects foreign sessions before indexing. Tickets certify session membership, not arbitrary same-session part branding. Canonical sealed map/part families remain required.",
+      "connected_repair": "No new session owner; document source context and integrate sealed owners.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "Foreign ticket rejected; missing range/ZST/short prefix error; valid zero prefix succeeds; positive sentinel allocation not exposed as geometry.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "type ownership",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "Root owns facade/staging/error/session/Buffer/context; #780 owns producer/material/fitting/cache/caller implementations and canonical counts.",
+      "source_locations": [
+        "six owned files",
+        "peer immutable b11/3ee/fff pins",
+        "AM-D1\u2013AM-D6"
+      ],
+      "disposition": "No duplicate owner discovered in Root receiver source; all six files byte-identical to f0 and peer3ee/b11.",
+      "connected_repair": "Root doc-only edit; no peer source/function copying until exact coordinated receipt.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "One canonical type per concept, no get/raw compatibility routes or independent shared-function patch.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "redundant authority",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "ArmorGpu has context and device-scoped cache, not parallel device flags; MetalGpu retains actual kernel handles. Session association is independent of buffer order, not duplicate authority.",
+      "source_locations": [
+        "facade.rs::new/cache/context",
+        "metal/mod.rs::new",
+        "source_cache.rs::ComputeSourceKey",
+        "staging.rs::StagingSession"
+      ],
+      "disposition": "Kernel source/device/validation-policy key and success-only insertion are authoritative. Caller initialization String caches require canonical repair; no replay of prior pass verdict.",
+      "connected_repair": "Preserve core cache/handles/session; consume owner cache-cause repair.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "No stale cross-device cache outcome, no failed build published as successful, no Root redundant state added.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "behavior preservation",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "Preserve native blocking reads, browser async callback paths, empty word floor, typed zero-prefix handling, first status classification, RGBA packing and WGSL numerical order.",
+      "source_locations": [
+        "BufferRead mapping complete/release",
+        "ArmorGpu scratch/upload/nearest_points",
+        "staging prefix/status",
+        "Metal WGSL and canonical material/bake"
+      ],
+      "disposition": "Direct native Buffer read keeps explicit wait; ready-first callback helper does not eliminate that existing wait. Synchronous convenience reads are not new browser async guarantees.",
+      "connected_repair": "AM-DOC-1 changes wording only; peer API adapters must preserve existing fixtures/numerics.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "Native instruction/body/fixture bytes unchanged by doc repair; no new completion waits or retry policy, accepted32\u20131024 sides unchanged.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "enum/state shapes",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "Keep semantic normal weighting enum, staged membership via payload records, GenerateError variants and MappingRequest release obligation. Primitive predicates remain local.",
+      "source_locations": [
+        "facade.rs::normals",
+        "error.rs::GenerateError",
+        "staging.rs::StagingError",
+        "mapping.rs::ReleaseObligation",
+        "canonical PointSelection"
+      ],
+      "disposition": "Existing shape fits actual state responsibilities. No boolean/classification migration required in Root receivers.",
+      "connected_repair": "Retain shapes; peer target selection and map/engraving enums compose canonically.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "No detached ticket/session flags or syntheticinitialized state; no error kind mislabeled as device loss.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "derivability",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "Error derives preserve source ownership; Staging Default creates session+empty buffers; Debug for ArmorGpu/MetalGpu intentionally hides native handles and reports selected fields.",
+      "source_locations": [
+        "error.rs derives",
+        "staging.rs derives",
+        "metal/mod.rs::MetalDeviceError and Debug",
+        "facade.rs Debug"
+      ],
+      "disposition": "No equivalent derive would preserve selected Debug output without changing contract. Staged deliberately Clone, not Copy. No new source/serde derive needed.",
+      "connected_repair": "No trait/serialization repair; peer PartSlots must stop deriving Copy and consume borrowed tickets.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "Actual concrete causes remain reachable; no public error Clone requirement or lossy String conversion introduced.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "type granularity",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "Byte extent differs from element population, dispatch invocation, query population, target vertex count and host decoded element count. Session ticket differs from raw position.",
+      "source_locations": [
+        "typed facade/metal signatures",
+        "staging::prefix count/size_of",
+        "canonical query and metal layouts"
+      ],
+      "disposition": "Distinctions prevent concrete unit/type mixups; host usize+size_of at decode boundary should not be narrowed to GPU u32. Generic source context cannot be inferred from native Buffer handle.",
+      "connected_repair": "Document preconditions; no extra wrapper/validator added merely to replace usize or String native labels.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "Canonical roles remain distinct; no arbitrary stronger numeric/alias/provenance guarantee.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "raw strings",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "Labels flow to native batch/allocation labels; error prose is presentation with typed causes; shader binding names are generated-program ABI strings, owned by canonical source and native parameter ports.",
+      "source_locations": [
+        "facade.rs labels/device_error",
+        "metal/mod.rs labels/device_error",
+        "staging::Error Display",
+        "all six metal sources",
+        "Creator initialization caches"
+      ],
+      "disposition": "No Root logic branches on error text. Creator String caches are known owner repairs, not legitimate early presentation. Native shader/parameter string families remain actual boundary source, not an excuse to clear pending producers.",
+      "connected_repair": "AM-DOC-1 and consume four canonical cache repairs.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "Typed causes survive to actual UI/export presentation; static labels/ABI spelling unchanged, no string-based status classifier.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    },
+    {
+      "lens": "raw primitives",
+      "discovery_status": "complete for six Root-owned facade/staging/error files and inventoried distinct receiving contracts",
+      "connected_producer_acceptance": "incomplete; dependencies and per-file read boundaries remain explicit",
+      "contract": "One u32 storage word is native floor; alignment/copy/map constants belong to SDK; host element size/count bounds are checked. Native metal size and words use canonical checked owners.",
+      "source_locations": [
+        "facade.rs::scratch/upload",
+        "metal/mod.rs::scratch",
+        "staging::prefix/status",
+        "mapping::MappingExtent",
+        "canonical material tile/texture maps"
+      ],
+      "disposition": "Floor preserves established native binding behavior; it does not certify logical geometry or arbitrary element layouts. Literal labels/indices/word sizes are actual native/host boundaries.",
+      "connected_repair": "No arithmetic/native-body change; owner count/stride/layout migrations remain required.",
+      "dependencies": [
+        "AM-D1",
+        "AM-D2",
+        "AM-D3",
+        "AM-D4",
+        "AM-D5",
+        "AM-D6"
+      ],
+      "acceptance": "No fabricated padding/truncation, no unchecked multiplication in Root prefix, no raised resource limits or native kernel numerical changes.",
+      "repair_status": "AM-DOC-1 pending; no implementation edit proposed",
+      "validation_status": "source-only; hosted integration and final reviews pending"
+    }
+  ],
+  "required_dependencies": [
+    {
+      "id": "AM-D1",
+      "owner": "#780 grouped readback",
+      "status": "required incomplete integration",
+      "source": "Root compute/readback.rs vs immutable3ee counterpart",
+      "detail": "Root Readback::record still requires context and read(context), whereas Root Staging intentionally consumes canonical batch-derived record(batch,buffers)/read(). Canonical source retains actual poll/channel/map/copy/allocation causes, own device and checked total host extent. Complete owner receipt and all callers/fixtures remain required."
+    },
+    {
+      "id": "AM-D2",
+      "owner": "#780 armor/fitting producers and callers",
+      "status": "required incomplete integration",
+      "source": "Root PartBuild/Correspondence/bracer/breastplate/anime/plates/Creator fitting bodies",
+      "detail": "Old infallible get/by-value status/prefix and Copy-bearing PartSlots conflict with session-bearing non-Copy tickets and fallible borrowed prefix/status. Canonical PartBuild/Correspondence stage/finish read as receiving context; no duplicate get or compatibility forwarder allowed. Every actual status/prefix result must propagate before geometry publication."
+    },
+    {
+      "id": "AM-D3",
+      "owner": "#780 metal material/engraving/bake/callers",
+      "status": "required incomplete integration",
+      "source": "Root metal/bake.rs/material.rs/Creator texture export/preview vs3ee typed counterparts",
+      "detail": "Root facade consumes canonical MetalTextureSize, BufferElementCount/Stride, InvocationCount and fallible map owner, while Root material/bake still uses raw sides/counts/String errors/public maps and ignores submit. Canonical typed material/size/maps and bake source read; complete recipe/admission/engraving/consumer integration remains required. Preserve32\u20131024 accepted sides, nonfinite rejection, packing order and original WGSL numerics."
+    },
+    {
+      "id": "AM-D4",
+      "owner": "#780 count/layout/query/normals/mesh/Grid producers",
+      "status": "required incomplete integration",
+      "source": "MeshQuery quantities/output/selection canonical3ee and current native receiver edges",
+      "detail": "ArmorGpu nearest_points consumes QueryCount/MeshVertexCount/PointSelection::All/QueryHits::nearest canonical API absent current Root. Canonical query layout checks triple-word addressing and capacity before allocation; nonempty target selection checks its triple words. Normals/count/layout/storage/dispatch producers remain owner work. No new parallel type definitions or independently edited shared functions."
+    },
+    {
+      "id": "AM-D5",
+      "owner": "#780 Creator caches and publication callers",
+      "status": "required owner repair in progress",
+      "source": "Creator armor_gpu/metal_gpu plus earlier two hair initialization caches",
+      "detail": "Both current armor and metal initialization caches store String; peer explicitly owns all four cache cause repairs. Current body/limb/recipe/fit/coif/underlayer producers also ignore fallible submit before dependent reads/publication. Enumerated actual bodies and historical source accounts retain these required migration gaps; later readback does not certify a failed producing submit."
+    },
+    {
+      "id": "AM-D6",
+      "owner": "#780 complete numerical producer graph and final composition",
+      "status": "acceptance explicitly incomplete",
+      "source": "armor-metal-d7da-call-source-inventory.txt",
+      "detail": "326 allocation/batch/read edges across60 files are exhaustively enumerated for this pattern census; broad unreceived numerical producer bodies are not semantically cleared by this receiving audit. Per-file read boundaries and historical identity receipts are explicit. Full canonical composition, public exports/manifests/locks, required hosted gates and final same-SHA reviews remain required."
+    }
+  ],
+  "caller_inventory": {
+    "path": "target/pr826-audit/armor-metal-d7da-call-source-inventory.txt",
+    "sha256": "2ebecf6205b77d1a3ffa2a3ce7c1b08c703fef93f78b4732b27e267f649f9e21",
+    "edges": 326,
+    "paths": 60,
+    "scope": "all matching scoped armor and Creator gpu scratch/upload/batch/read edges; historical and fresh whole-body read coverage distinguished per file; not proof of complete peer numerical semantics"
+  },
+  "direct_staged_traces": [
+    {
+      "family": "Root build/query",
+      "functions": [
+        "ArmorGpu::build_in",
+        "ArmorGpu::nearest_points"
+      ],
+      "contract": "Frames/query/target uploads and typed admission precede record; Root handles submit before read. Empty queries return empty first, nonempty queries with empty targets InvalidSurface; nearest truncate bounded by canonical private QueryHits capacity."
+    },
+    {
+      "family": "Grouped static/morph statuses",
+      "functions": [
+        "PartBuild::stage/finish",
+        "Correspondence::stage/finish",
+        "DeviceBracer::read_async",
+        "DeviceBreastplate::read_async",
+        "CourseSampler::layout",
+        "Plates::remesh",
+        "Creator device_fit_readback::read"
+      ],
+      "contract": "Full distinct receiving bodies read; all same-session tickets staged in source order. Current by-value/infallible/removed-get consumers are concrete required #780 migrations; status failure must precede successful geometry publication and exact prefixes exclude dummy bytes."
+    },
+    {
+      "family": "Direct fitted reads",
+      "functions": [
+        "DeviceFrame::check/read/read_async",
+        "DeviceWearer::read_frame_async",
+        "CoifCarrier::read",
+        "fitted_coif_carrier",
+        "Fit::run/shells/record_skin",
+        "read_skin",
+        "PartRecipe::build",
+        "generate_limb_armor_on"
+      ],
+      "contract": "Actual full direct read/publish bodies read within source boundaries recorded. Current ignored producer submit results and assumed status/count prefixes remain required peer migrations. Buffer.read layout errors remain typed; lower completion cannot retroactively certify producing submit."
+    },
+    {
+      "family": "Metal texture flow",
+      "functions": [
+        "MetalGpu::new/textures/read/dispatch",
+        "metal bake::textures/bake and all record_* methods",
+        "Creator metal_gpu",
+        "MetalImages::new",
+        "ShellTextures::armor"
+      ],
+      "contract": "Root keeps six native kernel handles and actual causes. Canonical typed side/word/map record+bake source inspected; current local raw String/public-map caller family cannot compose until peer integration. No wholeImage/ZIP/NumPy edits."
+    }
+  ],
+  "sdk_contracts": [
+    {
+      "path": "wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "lines": [
+        1771,
+        1797,
+        2453,
+        2480
+      ],
+      "proof": "Encoder construction reports DeviceError under device configured handling. Copy operations report only immediate encoder state error; normal new encoder has deferred copy validation."
+    },
+    {
+      "path": "wgpu-core-29.0.4/src/command/transfer.rs",
+      "lines": [
+        827,
+        856
+      ],
+      "proof": "copy records ArcCommand through push_with. Resource/usage/extent errors are consumed by finalization under context submit scope."
+    },
+    {
+      "path": "wgpu-core-29.0.4/src/command/mod.rs",
+      "lines": [
+        215,
+        247
+      ],
+      "proof": "New Recording state stores commands or invalidates deferred error, returnsOk. Already-finished/consumed only immediate state failures; Buffer.read owns fresh local encoder."
+    },
+    {
+      "path": "wgpu-core-29.0.4/src/device/resource.rs",
+      "lines": [
+        2485,
+        2505
+      ],
+      "proof": "create_command_encoder checks device validity/acquires native encoder; error class DeviceError, not an omitted Validation-scope constructor contract."
+    },
+    {
+      "proof": "Mapping lifecycle and exact creating-device/paired-queue preconditions are explicit in current Buffer read/mapping source. Existing SDK lower-review evidence is historical support, not a fresh whole-SDK read or runtime claim."
+    }
+  ],
+  "limits": [
+    "Only ignored reports written. No source/manifest/test edits, no project checker/build/lint/test/scanner/generator/runtime/push/CI.",
+    "Six Root files and all named distinct direct/staged receiving bodies read; per-file partial read and exact historical carry scopes are explicit. Broad326-edge numerical producer graph is not semantically cleared.",
+    "All six Root owner files are independently identical to f0 and immutable b11/3ee receiving context. No earlier no-finding verdict substituted for current source read.",
+    "No new tests, cases, helpers, assertions or doctests. Existing fixture source was read only; API fixture adaptations remain canonical owner work.",
+    "No complete compilation, full producer-family, all thirteen global lenses, hosted CI or final PR clearance."
+  ]
+}

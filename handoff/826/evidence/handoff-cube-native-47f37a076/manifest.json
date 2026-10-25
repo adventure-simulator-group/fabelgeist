@@ -1,0 +1,34 @@
+{
+  "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+  "tree": "87974137ac3b0a67af59b9474f25d92218daa422",
+  "files": {
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs": "4f45dd45651aac781e71120454d88879e337bd5e1180fc622198cf296ad35326"
+  },
+  "authority": [
+    "Whole TextureFormat format.rs+format/storage.rs exactpeer e216canonical definitions receivedunchanged",
+    "Whole Root TextureCube mod.rs +newblit.rs/shader.rs/shader/source.rs; exact Root successor including existingconstructor/uploads preserved. Addall3newmodules andremovemovedmethodbodies viawholemod receipt; preserve unrelatedpeer functions ifany namednewclaims beforecopy."
+  ],
+  "contracts": [
+    "View/device/missing state precedence retained before exact storage spelling",
+    "Shader WGSLspelling+native storagelayout derive effectiveviewformat",
+    "Native creation+record immediate Validation scope before existing separate finish/submit, no addedpoll/wait",
+    "Borrowed/browser/nativepolicy limits unchanged; no GPUcompletion/rollbackpromise",
+    "Three authoredWGSLblocks byteexact9b9; nativeuniform/math/dispatch/blit/copy unchanged"
+  ],
+  "reviews": [
+    "cube-47f-code-review.json",
+    "cube-native-47f37-rule-review.json",
+    "cube-native-47f37-comment-review.json"
+  ],
+  "all13_successor": "target/pr826-audit/cube-native-program-47f-all13-successor.json",
+  "limits": [
+    "Boundedsourceonly, no projectexecution/newfixture",
+    "ResourceDescriptor exactcanonicalcaller receiving remainsincomplete locally; do notclaimcompiled/globalclearance",
+    "Fullintegration/global13/final3/hostedCI samefinalpushedSHA required; no push or CIyet"
+  ]
+}

@@ -1,0 +1,286 @@
+{
+  "review": "Independent exact ten-file Creator cause receipt Code Review",
+  "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "tree": "690295efbe39d8e52655dbf37e90316c5657ea15",
+  "canonical_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+  "root_before_receipt": "bfcecec05c1e5cd9d55af31419d605420a4d08c5",
+  "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-creator-causes-complete-99d70e7c3/manifest.json",
+  "manifest_sha256": "ce6aaebbebb15eee9a8900c8789626c99747ec2ec3bd9bd0e5d79cb90ea0e4dd",
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+      "git_blob": "dbda65178a479d6ad3c4b83a703568b2389767dc",
+      "lines": 68,
+      "canonical_sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+      "matches_canonical": true,
+      "matches_manifest": true,
+      "matches_root_receipt": true,
+      "export_present": true,
+      "export_matches": true,
+      "coverage": "fresh complete current immutable source read; prior full four-file source/behavior receipts independently reconciled by exact identity"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "git_blob": "d34a08bd66701061b4233d6ca9f6b30d15c9678a",
+      "lines": 20,
+      "canonical_sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "matches_canonical": true,
+      "matches_manifest": true,
+      "matches_root_receipt": true,
+      "export_present": true,
+      "export_matches": true,
+      "coverage": "fresh complete current immutable source read; prior full four-file source/behavior receipts independently reconciled by exact identity"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "git_blob": "ce1c5be604c0b070a767130eeed4f4dbe65285ce",
+      "lines": 76,
+      "canonical_sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "matches_canonical": true,
+      "matches_manifest": true,
+      "matches_root_receipt": true,
+      "export_present": true,
+      "export_matches": true,
+      "coverage": "fresh complete current immutable source read; prior full four-file source/behavior receipts independently reconciled by exact identity"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "git_blob": "d49f85196d1643b29dbb4b239bac5da8c5e50caf",
+      "lines": 144,
+      "canonical_sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "matches_canonical": true,
+      "matches_manifest": true,
+      "matches_root_receipt": true,
+      "export_present": true,
+      "export_matches": true,
+      "coverage": "fresh complete current immutable source read; prior full four-file source/behavior receipts independently reconciled by exact identity"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "git_blob": "dca5cc787e224d638d22b1dbd0df2917af8bc3b8",
+      "lines": 301,
+      "canonical_sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "matches_canonical": true,
+      "matches_manifest": true,
+      "matches_root_receipt": true,
+      "export_present": true,
+      "export_matches": true,
+      "coverage": "fresh complete current immutable source read; prior full four-file source/behavior receipts independently reconciled by exact identity"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "git_blob": "7a4ae72c9805ecd61ea54d61cad5cd40fbd1b017",
+      "lines": 27,
+      "canonical_sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "matches_canonical": true,
+      "matches_manifest": true,
+      "matches_root_receipt": true,
+      "export_present": true,
+      "export_matches": true,
+      "coverage": "fresh complete current immutable source read; prior full four-file source/behavior receipts independently reconciled by exact identity"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "git_blob": "c9063f5308cde8e23d8804c2c527b9a4bd560f1a",
+      "lines": 187,
+      "canonical_sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "matches_canonical": true,
+      "matches_manifest": true,
+      "matches_root_receipt": true,
+      "export_present": true,
+      "export_matches": true,
+      "coverage": "fresh complete current immutable source read; prior full four-file source/behavior receipts independently reconciled by exact identity"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "git_blob": "cf049757e77439cd2f64d108a93543cff39c5115",
+      "lines": 288,
+      "canonical_sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "matches_canonical": true,
+      "matches_manifest": true,
+      "matches_root_receipt": true,
+      "export_present": true,
+      "export_matches": true,
+      "coverage": "fresh complete current immutable source read; prior full four-file source/behavior receipts independently reconciled by exact identity"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "git_blob": "d72ee69624b0ae7659c1d8744d3db0e461169fe4",
+      "lines": 342,
+      "canonical_sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "matches_canonical": true,
+      "matches_manifest": true,
+      "matches_root_receipt": true,
+      "export_present": true,
+      "export_matches": true,
+      "coverage": "fresh complete current immutable source read; prior full four-file source/behavior receipts independently reconciled by exact identity"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "git_blob": "542df0373ae4e03e230358143e6d7ec8b6c614bc",
+      "lines": 142,
+      "canonical_sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "matches_canonical": true,
+      "matches_manifest": true,
+      "matches_root_receipt": true,
+      "export_present": true,
+      "export_matches": true,
+      "coverage": "fresh complete current immutable source read; prior full four-file source/behavior receipts independently reconciled by exact identity"
+    }
+  ],
+  "complete_scope_identity": {
+    "count": 10,
+    "all_canonical_manifest_receipt_and_export_equal": true,
+    "only_ten_creator_paths_changed": true,
+    "fixture_suffixes_exact_before_receipt": {
+      "crates/adventuresim-character-creator/src/lib.rs": true,
+      "crates/adventuresim-character-creator/src/armory_scene.rs": true
+    }
+  },
+  "findings": [],
+  "verdict": "The ten files match canonical source and preserve the intended causes/cache/publication contracts. No new defect in the received ten-file implementation. Actual Root material closure still has required CCR-D1 API conflict and cannot be called source-integrated or compile-clear.",
+  "contracts": [
+    "All four initialization caches retain the first success/failure, now with shared GpuInitializationError Arc<anyhow>. Cache hits clone the same retained cause; ordinary anyhow Context remains outer diagnostic, not string admission.",
+    "The derived source field works through Arc/anyhow autoderef to actual Error; manual Display passes the same formatter through, preserving alternate error-chain formatting. New error owner is public through library reexport and its module is declared once.",
+    "Armor async OnceCell remains asynchronous; synchronous wrappers/OnceLocks retain prior policy. FittingSlot count/drop token has unchanged bodies and no new retry/concurrency policy.",
+    "StudioHairGpu retains exact render device/queue context; its kernel failure reaches worker Result and join double-? before HairPreview publication. Borrowed context defaults remain existing native policy.",
+    "ExportedHair uses current const CardLevelIndex::from_index(0) and Form::Cards contract. Public typed constructor and exports exist at current Root.",
+    "Four material/clothing correction files are exact immutable99d source from prior full review; five former string Error::msg adapters removed. Complete ten current files reread here.",
+    "MailImages decodes required color, normal and optional occlusion before Assets.add; failed decode publishes neither asset nor mail cache. Successful handle order/sRGB/channel roles/alpha/cull unchanged. This does not promise whole-scene or output-file rollback.",
+    "Existing lib and armory fixture suffixes exactly retain pre-receipt bytes. No fixture case/helper/assertion added."
+  ],
+  "closure_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "63d6c669c0beb22c2df485aaccff7a09dc0a7d623e09191c7b0322a8689d3c72",
+      "git_blob": "1eceb552f0d16c2389d9c48dd3ad6a9b1b276971",
+      "coverage": "targeted dependency/feature/export closure: anyhow, thiserror, async-lock, wgpu/Bevy and offline binary gates"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+      "git_blob": "e29f2c7292e67cb7c3d542bb601dcdb9ed3a64b8",
+      "coverage": "module declarations and anyhow Context/Result imports only; entire main source retained previous four-file review exact identity"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "git_blob": "87a035e57fa2762ffcd462abd2cb8269bdad4e9e",
+      "coverage": "complete native initialization/cache owner and constructors through finish, lines1-111; unrelated remainder not reread"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+      "git_blob": "c23fc963b37a52a0f91c4ac82bc08b83fa687c76",
+      "coverage": "complete request/collect bodies118-195 and worker/cache ports; unrelated UI source not fully reread"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "git_blob": "6a1435f4d9234db5c9a328f78c62644aeec4d90a",
+      "coverage": "fresh complete Root and canonical99d source; required native material API receiving gap"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "git_blob": "9eed3d16b220bc1a02d65242d40fb12eab9d8e6c",
+      "coverage": "public error export and complete generate_clothing_shells signature; actual body/cause carried from prior four-file receipt, no fresh whole file"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "git_blob": "626622edf5a1f98619b80792dccf6ddbea00986d",
+      "coverage": "full new/open/open_async/context/cache/batch admission bodies1-90, retained lower full-body source proofs"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "git_blob": "e5ca2213dd2a00375b4ff6da803954928e127f42",
+      "coverage": "typed device error and complete native constructor/open plus textures signatures40-89; prior full receiving source proofs retained"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "git_blob": "688e2eff39375bea5ece98a2f37c448297942690",
+      "coverage": "CardLevelIndex const constructor65-85 and public record identity"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "16109d7ba1a21b99e1aaebad3835ed0dcd18d540dcd3e2961d9d05f706c857dd",
+      "git_blob": "8cd21278081604a6457be6caf3f56f32209b02de",
+      "coverage": "Form::Cards named payload and canonical type identity carried from full renderer source review"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "git_blob": "90c9f9321b5e0d5afc185aa67a5ab4303fc1c346",
+      "coverage": "public count/policy reexports carried from full renderer source review"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "89e313508ced73bcd3f9dfe8e60ba2026dbb11d0d19fb178654e60423afd26b0",
+      "coverage": "fresh complete canonical source; actual new Result/MetalTextureSize/readonly textures API closure"
+    }
+  ],
+  "sdk_accounts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anyhow-1.0.104/src/error.rs",
+      "sha256": "2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "coverage": "674-694: From requires actual StdError and Deref exposes retained dyn Error"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.20/src/aserror.rs",
+      "sha256": "c4504c7db4639c5700882fd8133bf257d6755a9dad28b55b6daf02e1fb64be56",
+      "coverage": "complete AsDynError implementations: autoderef from Arc<anyhow> preserves underlying dyn Error"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.20/src/expand.rs",
+      "sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "coverage": "35-65: source-field derive emits as_dyn_error, not string conversion"
+    }
+  ],
+  "required_dependencies": [
+    {
+      "id": "CCR-D1",
+      "kind": "required known canonical material dependency, not a duplicate peer repair",
+      "source": "Root metal_preview.rs:18-22 versus received underlayer_preview.rs:94",
+      "proof": "Current Root MetalImages::new remains Result<Self,String> and formats metal_gpu cause, while received EquipmentMaps::metal returns anyhow::Result and directly applies ?. Anyhow From requires StdError; String does not satisfy that bound. Canonical99d MetalImages::new returns anyhow::Result, uses MetalTextureSize::PREVIEW and sealed texture maps/read accessors.",
+      "acceptance": "Receive the complete agreed canonical Metal preview/material/producer closure and exact native readonly APIs under owner agreement before compilation/source clearance. Do not add Error::msg/string adapters or independent competing repair."
+    },
+    {
+      "id": "CCR-D2",
+      "kind": "required complete native/producer/caller graph",
+      "proof": "ArmorGpu receiving references still require canonical QueryCount/MeshVertexCount/PointSelection and readback/count/cache callers; HairGpu complete producer/layout/completion/scalp graph is separate. This ten-file receipt intentionally excludes those files and both locks.",
+      "acceptance": "Full source composition, complete all13 waves, final independent reviews and required hosted checks on one final pushed SHA."
+    }
+  ],
+  "prior_full_four_file_report": "material-cause-receivers-99d-code-review.json",
+  "limits": [
+    "Source/Git/hash/JSON bookkeeping only; no source edits, project execution, compilation/check/build/test/scanner/generator/runtime or hosted CI.",
+    "No tests/cases/helpers/assertions/doctests authored.",
+    "No receipt or clearance of unreceived native material, cache/count/layout/completion/scalp/generated producer families or lockfiles; exact CCR-D1 conflict remains required.",
+    "Not whole-PR, final all13 or final independent review/CI clearance."
+  ]
+}

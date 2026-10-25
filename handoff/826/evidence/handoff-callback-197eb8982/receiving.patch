@@ -1,0 +1,245 @@
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs
+index 4588a1ff2..b9f5cf804 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs
+@@ -1,5 +1,9 @@
+ use super::{BufferByteLength, BufferReadError, ReadResult};
+ use crate::globals::WgpuContext;
++#[cfg(target_arch = "wasm32")]
++use crate::globals::await_browser_callback;
++#[cfg(not(target_arch = "wasm32"))]
++use crate::globals::poll_callback;
+ use futures_channel::oneshot;
+ use std::sync::Arc;
+ 
+@@ -96,19 +100,9 @@ impl MappingRequest {
+                 .poll(wgpu::PollType::wait_indefinitely())
+                 .map_err(BufferReadError::Poll)?;
+             loop {
+-                match self
+-                    .completion
+-                    .try_recv()
+-                    .map_err(BufferReadError::Channel)?
+-                {
++                match poll_callback(&context.device, &mut self.completion)? {
+                     Some(result) => return result.map_err(BufferReadError::Mapping),
+                     None => {
+-                        // Drive progress until delivery. Callback absence
+-                        // does not identify the kind of source buffer.
+-                        context
+-                            .device
+-                            .poll(wgpu::PollType::Poll)
+-                            .map_err(BufferReadError::Poll)?;
+                         std::thread::yield_now();
+                     }
+                 }
+@@ -116,10 +110,9 @@ impl MappingRequest {
+         }
+         #[cfg(target_arch = "wasm32")]
+         {
+-            let _ = context;
+-            (&mut self.completion)
++            await_browser_callback(&context.device, &mut self.completion)
+                 .await
+-                .map_err(BufferReadError::Channel)?
++                .map_err(BufferReadError::from)?
+                 .map_err(BufferReadError::Mapping)
+         }
+     }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs
+index 87bc0d6e1..757455825 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs
+@@ -41,8 +41,8 @@ impl Buffer {
+         let mut mapping = MappingRequest::request(context, target, extent)?;
+         mapping.complete(context).await?;
+ 
+-        // The typed destination was allocated before obtaining this view:
+-        // WASM memory growth must not detach it during the copy.
++        // Reserve the typed destination before taking a mapped view, so host
++        // allocation failure returns without holding a view that needs cleanup.
+         let data = mapping.mapped_range();
+         let values = readback.copy_from(&data);
+         drop(data);
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs
+index 45e14c774..ea122dd2d 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs
+@@ -1,4 +1,5 @@
+ use super::BufferByteLength;
++use crate::globals::CallbackProgressError;
+ use std::collections::TryReserveError;
+ use std::error::Error;
+ use std::fmt;
+@@ -33,6 +34,15 @@ pub enum BufferReadError {
+     Channel(futures_channel::oneshot::Canceled),
+ }
+ 
++impl From<CallbackProgressError> for BufferReadError {
++    fn from(cause: CallbackProgressError) -> Self {
++        match cause {
++            CallbackProgressError::Poll(cause) => Self::Poll(cause),
++            CallbackProgressError::Canceled(cause) => Self::Channel(cause),
++        }
++    }
++}
++
+ impl fmt::Display for BufferReadError {
+     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+         match self {
+diff --git a/crates/fabelgeist-gpu/src/globals/callback_progress.rs b/crates/fabelgeist-gpu/src/globals/callback_progress.rs
+new file mode 100644
+index 000000000..88c783151
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/globals/callback_progress.rs
+@@ -0,0 +1,70 @@
++//! Callback progress without turning an already delivered result into a poll.
++
++use futures_channel::oneshot;
++use std::{error::Error, fmt};
++
++pub type CallbackResult<T> = Result<T, CallbackProgressError>;
++
++/// Progress failed before a callback value could be received.
++#[derive(Debug)]
++pub enum CallbackProgressError {
++    Poll(wgpu::PollError),
++    Canceled(oneshot::Canceled),
++}
++
++impl fmt::Display for CallbackProgressError {
++    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self {
++            Self::Poll(cause) => write!(formatter, "GPU callback progress: {cause}"),
++            Self::Canceled(cause) => write!(formatter, "GPU callback delivery: {cause}"),
++        }
++    }
++}
++
++impl Error for CallbackProgressError {
++    fn source(&self) -> Option<&(dyn Error + 'static)> {
++        match self {
++            Self::Poll(cause) => Some(cause),
++            Self::Canceled(cause) => Some(cause),
++        }
++    }
++}
++
++/// Take a delivered callback, or drive its device once without a GPU wait.
++///
++/// The receiver must belong to an operation on this device. Values are taken
++/// once, following the receiver's contract. A ready value or closed channel
++/// is observed before polling; neither becomes a test of later device health.
++pub fn poll_callback<T>(
++    device: &wgpu::Device,
++    receiver: &mut oneshot::Receiver<T>,
++) -> CallbackResult<Option<T>> {
++    if let Some(value) = receiver
++        .try_recv()
++        .map_err(CallbackProgressError::Canceled)?
++    {
++        return Ok(Some(value));
++    }
++    device
++        .poll(wgpu::PollType::Poll)
++        .map_err(CallbackProgressError::Poll)?;
++    receiver.try_recv().map_err(CallbackProgressError::Canceled)
++}
++
++/// Await a browser callback while yielding to its event loop between polls.
++///
++/// WebGPU progresses automatically; other enabled providers may require a
++/// nonblocking device poll. A zero-duration timer yields a browser task turn
++/// without imposing a polling interval. No native completion wait is issued.
++#[cfg(target_arch = "wasm32")]
++pub async fn await_browser_callback<T>(
++    device: &wgpu::Device,
++    receiver: &mut oneshot::Receiver<T>,
++) -> CallbackResult<T> {
++    loop {
++        if let Some(value) = poll_callback(device, receiver)? {
++            return Ok(value);
++        }
++        fabelgeist_timer::sleep(std::time::Duration::ZERO).await;
++    }
++}
+diff --git a/crates/fabelgeist-gpu/src/globals/mod.rs b/crates/fabelgeist-gpu/src/globals/mod.rs
+index bd89d8d2c..7d424b046 100644
+--- a/crates/fabelgeist-gpu/src/globals/mod.rs
++++ b/crates/fabelgeist-gpu/src/globals/mod.rs
+@@ -1,2 +1,7 @@
+-mod wgpu_context;
++#[cfg(target_arch = "wasm32")]
++pub use callback_progress::await_browser_callback;
++pub use callback_progress::{CallbackProgressError, CallbackResult, poll_callback};
+ pub use wgpu_context::*;
++
++mod callback_progress;
++mod wgpu_context;
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs
+index 6a624bf50..3e3f54217 100644
+--- a/crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs
+@@ -1,6 +1,9 @@
+ //! Explicit queue completion, separate from command acceptance and readback.
+ 
+ use super::WgpuContext;
++use crate::globals::CallbackProgressError;
++#[cfg(target_arch = "wasm32")]
++use crate::globals::await_browser_callback;
+ use std::{error::Error, fmt};
+ 
+ type Result<T> = std::result::Result<T, WorkCompletionError>;
+@@ -13,6 +16,15 @@ pub enum WorkCompletionError {
+     Callback(futures_channel::oneshot::Canceled),
+ }
+ 
++impl From<CallbackProgressError> for WorkCompletionError {
++    fn from(cause: CallbackProgressError) -> Self {
++        match cause {
++            CallbackProgressError::Poll(cause) => Self::Poll(cause),
++            CallbackProgressError::Canceled(cause) => Self::Callback(cause),
++        }
++    }
++}
++
+ impl fmt::Display for WorkCompletionError {
+     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+         match self {
+@@ -62,11 +74,13 @@ impl WgpuContext {
+         }
+         #[cfg(target_arch = "wasm32")]
+         {
+-            let (sender, receiver) = futures_channel::oneshot::channel();
++            let (sender, mut receiver) = futures_channel::oneshot::channel();
+             self.queue.on_submitted_work_done(move || {
+                 let _ = sender.send(());
+             });
+-            receiver.await.map_err(WorkCompletionError::Callback)
++            await_browser_callback(&self.device, &mut receiver)
++                .await
++                .map_err(WorkCompletionError::from)
+         }
+     }
+ }
+diff --git a/crates/fabelgeist-hair/Cargo.toml b/crates/fabelgeist-hair/Cargo.toml
+index 392f79457..f28b3e1c5 100644
+--- a/crates/fabelgeist-hair/Cargo.toml
++++ b/crates/fabelgeist-hair/Cargo.toml
+@@ -18,6 +18,7 @@ serde = { "version" = "1", "features" = ["derive"] }
+ serde_json = { "version" = "1.0", "features" = ["preserve_order"] }
+ crc32fast = { "version" = "1" }
+ miniz_oxide = { "version" = "0.8" }
++futures-channel = { version = "0.3", optional = true }
+ wgpu = { "version" = "29.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"], "optional" = true }
+ fabelgeist-gpu = { "default-features" = false, "optional" = true, "path" = "../fabelgeist-gpu" }
+ fabelgeist-compute = { "optional" = true, "path" = "../fabelgeist-compute" }
+@@ -31,7 +32,7 @@ naga = { "version" = "29.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
+ [features]
+ default = ["render"]
+ gpu = ["dep:wgpu", "dep:pollster", "dep:fabelgeist-gpu", "dep:fabelgeist-compute", "dep:fabelgeist-spatial-hash"]
+-render = ["gpu", "dep:image"]
++render = ["gpu", "dep:image", "dep:futures-channel"]
+ 
+ [lints]
+ workspace = true

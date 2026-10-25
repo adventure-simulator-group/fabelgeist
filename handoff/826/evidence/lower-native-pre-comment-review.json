@@ -1,0 +1,191 @@
+{
+  "review": "Independent lower native family PRE-REPAIR Comment discovery",
+  "status": "Discovery input only; root all-thirteen lower inventory incomplete and not delegated",
+  "root": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "tree": "e74f98d27ae13e4907f0052b38b752a981373aef",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "tracked_worktree": "clean",
+  "source_accounting": {
+    "sha256": {
+      "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02",
+      "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "crates/fabelgeist-armor/src/gpu/mod.rs": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f",
+      "crates/fabelgeist-armor/src/gpu/staging.rs": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+      "crates/fabelgeist-armor/src/error.rs": "1e14c8d0441364e441ccc57365bdddfe9c895a633be80ce0bdf91c0f45b95b1a",
+      "crates/fabelgeist-armor/src/gpu/metal/mod.rs": "8dee677fcdf79dbea5c29ec06b65413435faef45bb0d8d0da7a35516f25e4a2c",
+      "crates/fabelgeist-armor/src/gpu/metal/bake.rs": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "crates/fabelgeist-armor/tests/gpu_concurrency.rs": "32eacb59babbd46f3f97684dd0b4b27b1a0b3b60345789ea91f273df360d1b8a",
+      "crates/fabelgeist-armor/AGENTS.md": "52390164bf3eb74a0160ee3ac19527fd43856aa998920d16824f2f41058cf47f",
+      "crates/fabelgeist-armor/README.md": "f452f5f7bbae66a90968f96d346fa2f02b6bf948047948906d79d0ee8c9eeb93",
+      "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "crates/adventuresim-character-creator/src/armor_gpu.rs": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "crates/adventuresim-character-creator/src/metal_gpu.rs": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "crates/fabelgeist-armor/src/gpu/body.rs": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "crates/fabelgeist-armor/src/gpu/part.rs": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "crates/fabelgeist-armor/src/lib.rs": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+      "crates/fabelgeist-compute/src/kernel/mod.rs": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27"
+    },
+    "full_reads": [
+      "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "crates/fabelgeist-armor/src/error.rs",
+      "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "crates/fabelgeist-armor/tests/gpu_concurrency.rs",
+      "crates/fabelgeist-armor/AGENTS.md",
+      "crates/fabelgeist-armor/README.md",
+      "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "crates/adventuresim-character-creator/src/metal_gpu.rs"
+    ],
+    "targeted_reads": [
+      "crates/fabelgeist-armor/src/gpu/body.rs:1-200",
+      "crates/fabelgeist-armor/src/gpu/part.rs:1-182",
+      "crates/fabelgeist-armor/src/lib.rs:1-190",
+      "KernelCache::get, KernelBatch callback/submit contracts; current shared SDK/helper evidence from root review"
+    ],
+    "peer_readback": {
+      "revision": "eb45808e14ef5710be2d7f3d9db5e45904af423f",
+      "tree": "f170ac8564e747e39e5ece975327602206f0879f",
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "046df19dc9c3aef3625ad107b895954592d0b80e560a7290ee1825eff029d3a3",
+      "coverage": "Production module and beginning of existing tests read from exact eb458 Git object. Parent then supplied peer pin 42d781f3dd02934894f090ca7710c5397522b2c1 (tree 6d230f034b68dceff75567555df20b29795b9ce7); independent Git path diff and SHA-256 confirm its readback.rs is byte-identical. Device-retaining new API is source-verified at that exact peer pin."
+    },
+    "sdk": {
+      "version": "wgpu/wgpu-core/wgpu-types 29.0.4 pinned by Cargo.lock",
+      "root": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/",
+      "fresh_sha256": {
+        "wgpu-29.0.4/src/api/buffer.rs": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+        "wgpu-types-29.0.4/src/lib.rs": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+        "wgpu-core-29.0.4/src/device/mod.rs": "35abefc2b7a2f1f6224f797385f7c77d3edce74c7fa664c1c13bea597eb98c9f",
+        "wgpu-core-29.0.4/src/device/resource.rs": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+        "wgpu-core-29.0.4/src/device/global.rs": "8d8554b2400b46b595af68b0d2fab472da06b8c11fa1823299728b5bc2cf2caa"
+      },
+      "coverage": "Targeted mapping, cleanup, poll snapshot/error, callback dispatch and scope policy source reads; other native helper/queue/finish evidence carried from exact root review."
+    }
+  },
+  "findings": [
+    {
+      "id": "L-C1",
+      "priority": "P2",
+      "kind": "new lower location of retained cache-contract issue",
+      "locations": [
+        "crates/fabelgeist-armor/src/gpu/mod.rs:3-5"
+      ],
+      "mismatch": "Compiled once and arbitrary concurrent use overstates cache/concurrency contract. Cache misses build outside map lock and may race; module compilation mutex does not recheck the cache after waiting.",
+      "remedy": "Say instances share compiled successful kernel outcomes through their cache. Concurrent misses can compile more than once. Independent operations may share the device; resource/mapping ownership remains caller-controlled.",
+      "acceptance": "No exactly-once or arbitrary shared-resource safety promise; native policy/device keys and possible races described consistently with canonical cache."
+    },
+    {
+      "id": "L-C2",
+      "priority": "P2",
+      "kind": "new lower location of retained std scope rationale issue",
+      "locations": [
+        "crates/fabelgeist-armor/src/gpu/metal/mod.rs:48-52"
+      ],
+      "mismatch": "Cross-thread error-scope interleaving rationale is false under explicit native std. Constructor obtains all six kernels, but thread-local scopes do not prove later compilation must be prohibited.",
+      "remedy": "State the constructor obtains all six compiled handles from the shared cache and later bakes use them; remove the cross-thread scope explanation.",
+      "acceptance": "Native std thread-local SDK contract retained without exactly-once or unsupported performance claims."
+    },
+    {
+      "id": "L-C3",
+      "priority": "P2",
+      "kind": "new lower documentation mismatch",
+      "locations": [
+        "crates/fabelgeist-armor/src/gpu/mod.rs:294-303",
+        "crates/fabelgeist-armor/src/gpu/metal/mod.rs:91-100"
+      ],
+      "mismatch": "Armor scratch says bytes bytes but rounds to at least four. Metal scratch currently takes native u32 words and rounds to at least one word; those input units are not interchangeable.",
+      "remedy": "Document the retained minimum four-byte scalar allocation and explicit byte-vs-word boundary. Consume canonical byte length through repaired internal APIs; convert authored word layouts exactly once.",
+      "acceptance": "One shared BufferByteLength owner; no duplicate quantity/compatibility overload. Every connected producer migrated with min-four behavior explicit."
+    },
+    {
+      "id": "L-C4",
+      "priority": "P2",
+      "kind": "missing public precondition/failure contract",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:44-129",
+        "crates/fabelgeist-armor/src/gpu/mod.rs:171",
+        "crates/fabelgeist-armor/src/gpu/mod.rs:306-318",
+        "crates/fabelgeist-armor/src/gpu/metal/mod.rs:103-105"
+      ],
+      "mismatch": "Buffer read has no API docs and facade wording implies unconditional finished writing. Correct readback requires same logical device/queue, producing submissions handled before mapping, and exclusive ownership of any externally mappable source during map/unmap.",
+      "remedy": "Document logical byte-prefix result, typed host-layout admission, staging vs direct mapping, native blocking progress vs browser callback await, context provenance and external unmapped/exclusive mapping preconditions. Describe completion of this readback, not future concurrent submissions or all GPU work.",
+      "acceptance": "Docs match repaired success/error cleanup; no promise of universal runtime safety, rollback or capturing device-handled native errors."
+    },
+    {
+      "id": "L-C5",
+      "priority": "P2",
+      "kind": "retained native progress/comment issue",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:83-102"
+      ],
+      "mismatch": "Only-already-mappable explanation for missing callback is stronger than established native callback contract. Poll results are discarded. Core extracts closures under synchronization and fires them afterwards, so thread-shared progress needs no exclusive causal claim.",
+      "remedy": "Describe driving device progress until mapping result delivery; propagate actual polling errors. Remove portable Windows timing attribution unless a bounded measurement is documented separately.",
+      "acceptance": "Wait snapshot at poll start, callback delivery and typed poll/map/channel causes remain distinct; no inevitable watchdog or latency claim."
+    },
+    {
+      "id": "L-C6",
+      "priority": "P2",
+      "kind": "new lower staged completion contract",
+      "locations": [
+        "crates/fabelgeist-armor/src/gpu/staging.rs:3-7",
+        "crates/fabelgeist-armor/src/gpu/staging.rs:61-75"
+      ],
+      "mismatch": "Every read waits for the queue and after everything submitted so far are unqualified across native/browser/direct-mappable paths. Current staging ignores submit Result and retains old peer Readback arity.",
+      "remedy": "Document one grouped staging mapping in recorded source order, successful producing-batch helper result prerequisite and separate native wait/browser callback completion. Adopt peer record(batch,sources)/read() API and propagate submit before mapping.",
+      "acceptance": "Retained actual device supplies allocation/polling; helper Ok policy-relative, no final global queue/GPU verdict."
+    },
+    {
+      "id": "L-C7",
+      "priority": "P2",
+      "kind": "new lower error classification mismatch; implementation source-loss already retained",
+      "locations": [
+        "crates/fabelgeist-armor/src/gpu/mod.rs:358-360",
+        "crates/fabelgeist-armor/src/gpu/metal/mod.rs:123-125",
+        "crates/fabelgeist-armor/src/error.rs:31-32"
+      ],
+      "mismatch": "Device failure cannot recover classification is too broad for parser/admission/host-layout/map/allocation errors. Current helpers stringify concrete errors, so API carriers lose source.",
+      "remedy": "Describe converting a failed GPU-backed operation with its underlying cause. Implement agreed GenerateError::Gpu(anyhow source), Metal anyhow with focused operation context, Buffer read anyhow; retain existing distinct Skin/Readback/PlateShell causes.",
+      "acceptance": "Real native, map, poll, channel, address/allocation causes remain discoverable; display prefixes remain contextual, not claimed runtime device-loss diagnosis."
+    },
+    {
+      "id": "L-C8",
+      "priority": "P2",
+      "kind": "new lower caller-owned token and decoding contract",
+      "locations": [
+        "crates/fabelgeist-armor/src/gpu/staging.rs:21-56"
+      ],
+      "mismatch": "Staged ordinal and generic get/status docs omit that token must come from corresponding staging result, bytes must encode complete T records, and status needs a word. Prefix truncates at most count and cannot prove logical length/type.",
+      "remedy": "If those APIs remain caller-owned, document token/result correspondence, typed decoding and nonempty status requirements explicitly; describe prefix as at most count. Reconcile any source invariant repair in root inventory rather than merely claiming checked admission.",
+      "acceptance": "No documentation claim that naked ordinal/Pod admits cross-result identity or a guaranteed exact prefix."
+    }
+  ],
+  "implementation_contracts_requiring_connected_repairs": [
+    "Allocate host destination before mapped view, retain AnyBitPattern and initialize before set_len; add checked/fallible host allocation per actual source contract without new tests.",
+    "Observe native staging creation/finish/submit under context policy and preserve actual cause; do not rely on recording scope alone.",
+    "Propagate submit before read/metadata publication in lower facades, including metal bake and armor staged/build/nearest paths.",
+    "Ensure all owned successful and failing direct mapping paths clean up acquired mapping state and drop views before unmap; never unmap caller-owned overlapping external views.",
+    "Preserve min-four scratch behavior while converting every connected producer to canonical byte quantities.",
+    "Consume peer retained-device Readback API rather than add old-arity compatibility.",
+    "Native std per-thread scopes do not serialize concurrent mutable buffer access or prove broad application thread safety."
+  ],
+  "dependencies": [
+    "#780 owns other producers/body/fitting/material/Engraving/application error caches. Lower source-preserving carriers cannot yield end-to-end source preservation while those caches stringify failures; coordinate canonical migration before final clearance.",
+    "Existing generic string validation/decode errors at material/Engraving boundaries may be admitted as messages by their owner; never fabricate an SDK cause for them.",
+    "Context same-device/queue identity and caller-exclusive external mapping remain preconditions where provenance cannot be proven.",
+    "No geometry/artistic change is requested. Armor AGENTS explicitly exempts unrelated maintenance/documentation from modeling review.",
+    "Root all-thirteen lower inventory and post-repair independent reviews remain required; existing tests only, final same-pushed-SHA hosted gates still future."
+  ],
+  "limits": [
+    "No source edits, formerly claimed function edits, project checks/builds/tests/scanners/generators/runtime, new tests/helpers/assertions, push/CI/external posts.",
+    "Complete lower facade/read implementation read; affected body/part/lib consumer reads were targeted and not geometry review.",
+    "Actual root source remains pre-repair; proposed contracts are acceptance criteria, not implemented or passing claims.",
+    "No whole-family/PR clearance, global GPU completion, rollback, hardware/browser/performance or calibrated rendering verdict."
+  ]
+}

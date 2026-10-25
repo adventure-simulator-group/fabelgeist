@@ -1,0 +1,1490 @@
+{
+  "snapshot": "target/pr826-audit/generated-working-stencil-layout-snapshot/manifest.json",
+  "snapshot_manifest_sha256": "fcdac606eb126ad4bca6407958373d671e8d1f10e3fe1831764f509affa6fcf0",
+  "base_head": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+  "scope": "Exact frozen working bytes, not a committed or received complete graph",
+  "owned_source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "lines": 130,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S1",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/advect/mod.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-130",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning advect responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "lines": 147,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S2",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/advect/program.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-147",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning advect responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "lines": 115,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S3",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/divergence/mod.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-115",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning divergence responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "lines": 119,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S4",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/divergence/program.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-119",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning divergence responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "lines": 138,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S5",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gather/mod.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-138",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning gather responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "lines": 131,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S6",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gather/program.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-131",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning gather responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "lines": 7,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S7",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gather/recipe.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-7",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning gather responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "24f641fad466c750cf9e2099a9dd6f22dc2c0ea2f97a055f82ac54439aa059d2",
+      "lines": 109,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S8",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gather/signature.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-109",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning gather responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "lines": 47,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S9",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-47",
+      "contract": "Existing fixture/helper population; API adaptations only, no execution or authored cases."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "lines": 139,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S10",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gradient/mod.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-139",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning gradient responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "lines": 132,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S11",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gradient/program.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-132",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning gradient responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "lines": 114,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S12",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/bindings.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-114",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning map responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S13",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/mod.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-228",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning map responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "lines": 121,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S14",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/program.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-121",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning map responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "lines": 9,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S15",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/recipe.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-9",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning map responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "lines": 125,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S16",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/signature.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-125",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning map responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S17",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-42",
+      "contract": "Existing fixture/helper population; API adaptations only, no execution or authored cases."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S18",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-296",
+      "contract": "Existing fixture/helper population; API adaptations only, no execution or authored cases."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_parameters.rs",
+      "sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "lines": 85,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S19",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/resource_parameters.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-85",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning resource_parameters responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "lines": 191,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S20",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-191",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning resource_pipeline responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "lines": 27,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S21",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/resource_recipe.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-27",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning resource_recipe responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "lines": 123,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S22",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/scatter.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-123",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning scatter responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "lines": 120,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S23",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/scatter/program.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-120",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning scatter responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "lines": 122,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S24",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/scatter/signature.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-122",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning scatter responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_error.rs",
+      "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "lines": 209,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S25",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/source_error.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-209",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning source_error responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "lines": 122,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S26",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/source_parameter.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-122",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning source_parameter responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "lines": 178,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S27",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-178",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "sha256": "df2fabc3d80bed4da87a5597db8a33561fe5f56eb33af11188eec6f08d3f6eb1",
+      "lines": 183,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S28",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-183",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "lines": 148,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S29",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-148",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "lines": 35,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S30",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-35",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "lines": 56,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S31",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-56",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "lines": 48,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S32",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-48",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "lines": 131,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S33",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-131",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "sha256": "327245967671b5bd0b0a986e3cf6af66196096fd7919e60a9212a36b0764ee83",
+      "lines": 352,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S34",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-352",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "lines": 146,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S35",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-146",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "lines": 135,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S36",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/program.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-135",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S37",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-11",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "74fa7308c6373eeb3bf3266020f790705378f0c97c14925cf3607132b020edbe",
+      "lines": 182,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S38",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/signature.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-182",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stencil responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/tests.rs",
+      "sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "lines": 147,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S39",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/tests.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-147",
+      "contract": "Existing fixture/helper population; API adaptations only, no execution or authored cases."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "fd95c53e8c2f3f939ab42216191ae0755bd9bece424f04d8ad15e7d16ba0d225",
+      "lines": 50,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S40",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stream/call.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-50",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stream responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "lines": 110,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S41",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stream/mod.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-110",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stream responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S42",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stream/program.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-123",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stream responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "54ace491777db472ea1c66dff8a22b6dcf5cdccb9c54de526d93e6c6971b1bf1",
+      "lines": 116,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S43",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stream/signature.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-116",
+      "contract": "Native declaration/roles, recipe/cache, generated program, or runtime resource/grid admission for owning stream responsibility."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "lines": 69,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S44",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-69",
+      "contract": "Existing fixture/helper population; API adaptations only, no execution or authored cases."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "lines": 225,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S45",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-225",
+      "contract": "Canonical GPU resource/signature/address projection and typed native operator admission."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "lines": 109,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S46",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-109",
+      "contract": "Canonical GPU resource/signature/address projection and typed native operator admission."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "lines": 250,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S47",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-250",
+      "contract": "Canonical GPU resource/signature/address projection and typed native operator admission."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "lines": 87,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S48",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-87",
+      "contract": "Canonical GPU resource/signature/address projection and typed native operator admission."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "lines": 26,
+      "hash_matches": true,
+      "same_919": false,
+      "id": "S49",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-26",
+      "contract": "Canonical GPU resource/signature/address projection and typed native operator admission."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97,
+      "hash_matches": true,
+      "same_919": true,
+      "id": "S50",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "coverage": "fresh full body, every line; re-read even when same919",
+      "read_range": "1-97",
+      "contract": "Canonical GPU resource/signature/address projection and typed native operator admission."
+    }
+  ],
+  "supplementary_source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "coverage": "fresh full current Root body/source; supplementary to immutable50",
+      "lines": 76
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "coverage": "fresh full current Root body/source; supplementary to immutable50",
+      "lines": 82
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "coverage": "fresh full current Root body/source; supplementary to immutable50",
+      "lines": 113
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "coverage": "fresh full current Root body/source; supplementary to immutable50",
+      "lines": 44
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "coverage": "fresh full current Root body/source; supplementary to immutable50",
+      "lines": 47
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "coverage": "fresh full current Root body/source; supplementary to immutable50",
+      "lines": 18
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "coverage": "fresh full current Root body/source; supplementary to immutable50",
+      "lines": 33
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+      "coverage": "fresh full current Root body/source; supplementary to immutable50",
+      "lines": 87
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "coverage": "fresh full current Root body/source; supplementary to immutable50",
+      "lines": 16
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "coverage": "fresh full peer canonical production definition, not received Root",
+      "lines": 117
+    }
+  ],
+  "reference_accounts": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full TOML package/dependency bookkeeping, not source or implementation clearance",
+      "carried_contract": "Reference-only complete TOML package/dependency bookkeeping; both lock compositions remain peer-owned and required. Hash/source identity is not lock-generation or resolution acceptance.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full TOML package/dependency bookkeeping, not source or implementation clearance",
+      "carried_contract": "Reference-only complete TOML package/dependency bookkeeping; both lock compositions remain peer-owned and required. Hash/source identity is not lock-generation or resolution acceptance.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete canonical Clamp/Wrap enum/default; exact current mathematical policy, not a bool.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "sha256": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete actual Map wrappers and native copy orchestration. Dirty accessors preserve verbatim declarations/names for wrapper parameters; generation/min/smooth-min source parameters/call arguments remain authored. #780 retains whole functions and caller integration. No proven immediate record-time native copy error counterexample asserted.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete 2D/3D init/step/distance orchestration and existing tests: Map reserved coordinates/size, ordinary step, ping-pong and sentinels preserved. Not a fresh proof of all distance-field numerical policies.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete canonical counts/capacity/Scan/Buffer copies/Stream execution; exact constructor/call adapters remain peer-owned. Full geometric/QEF policy outside this receipt.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete DC types/constructors, Gather counts, Stream metadata-only output pointer; parse signatures use authored globals.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+      "sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete native count source; existing global/input/table protocol and source math frozen, no added generated fn argument.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+      "sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete native index writer source; offset/index/resource-pointer metadata-only Stream call, authored global output preserved.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+      "sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete native module composition/count/index/vertex exports; source identifiers native ABI.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+      "sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete native vertex/QEF source as parameter-protocol receiver; actual reflected custom record stride, never Custom4 guess. No general QEF correctness clearance.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+      "sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete shared checked extraction grid/counts/protocol plus visible fixtures. Positive native texture volume and canonical mesh/scan quantities; table/output/all broader geometry files not included or cleared.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+      "sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete source grid/scalar projection ownership: typed extraction axis/grid/count and conversion errors. Does not make shared Map/Stencil signed grid admission complete.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete existing native source composition/indirect Map with already-authored globals. Do not synthesize captured globals as function parameters.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole compositional exports, new source_parameter module and remaining interleaved item-order debt. #780 retains whole lib composition; coordinate final direct exports.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete MC constructor/cache/execution +counts and native Stream writer orchestration. No implicit primary value for metadata-only writers. Tables/output excluded from full geometry correctness.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+      "sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete MC native source strings, existing pointer/index/offset protocols and authored globals. Native math/instructions frozen.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/perlin_noise.rs",
+      "sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete Map generator definition/execution; no primary input, ordinary unsigned octaves remains uniform, not a selected coordinate.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete caller-facing canonical exports; #780 retains composition, no duplicate/replacement aliases.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete canonical Scan quantities/recursive auxiliary allocation/copies/native grid and public execution plus tests. Peer-owned source. Submitted auxiliary is not completed GPU work; known inaccurate completion comment remains peer correction.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete native guarded Scan program,256 native workgroup geometry, lane barriers/zero behavior; preserve canonical algorithm.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/simplex_noise.rs",
+      "sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete Map generator definition/execution and native source; no primary input, actual uniforms/results retained.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete existing shared fixture helper/native POD expansion/readback/format populations; byte-identical c665, no test authoring or execution.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete GPU manifest: explicit native wgpu std and target-qualified browser feature policy. No direct thiserror dependency in candidate; manual native error derives require an explicit manifest/lock decision.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole canonical pass error ownership and nested native/progress causes; no new shared owner. Exact Root native integration required.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole peer reference: typed dispatch entry and native scope boundaries; differs actual Root scope implementation (ignored poll in old reference), NOT replacement authority.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole peer reference source parse/native creation; differs Root progress/ValidationScope implementation. Preserve Root source/native cause and policy.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole First/Named source identity resolution; reuse canonical selected Naga entry before shape admission, no duplicate finder.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole old peer cache/native pipeline reference; differs Root progress/scopes/docs/imports. Canonical source/device/policy success-only cache contract does not authorize overwriting Root completed native body.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole actual used-resource/reflection/static packing protocol reference; native Root scope body differs. Preserve existing provided-variant packing and canonical byte metadata.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole native image comparison/multisampled/storage access mapping and unsupported used handle rejection. Interface role distinctions retained.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole existing uniform member metadata/span/typed-byte owner; native ordinals and supported old variant policy remain same contract.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole exact device+validation-policy+source+complete recipe identity; builds outside mutex, publishes success only, CachePoisoned canonical cause. Mechanical generic Default intentionally avoids generic Default bounds.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole native GpuResource kind, binding/readback/cause facade; actual receiving texture default-view/format/device admission belongs Root completed native graph.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole native/browser combined validation/progress policy; reference docs differ Root current-flag wording. Preserve Root actual progress failure and policy controls; no new wait.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole canonical submitted work callback/wait marker: native wait is completion, browser callback has documented weaker policy. This is not implicit dispatch completion.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole actual finish + queue submission helper source/error split; reference docs differ Root configured-policy wording. Source copy finalization error belongs here; no speculative immediate error counterexample.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole immediate observe_validation, no polling/wait; reference docs differ Root current-flag routing. Keep pub(crate) API ownership; no external shim.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only"
+    }
+  ],
+  "prior_reference_receipt": "generated-current-pre-repair-all13.json/source_accounting: same38 immutable hashes verified;36 source bodies+2 lock bookkeeping; only root_equal accounts identify current Root",
+  "governing_rules": [
+    "Root/crates/Armor/Creator applicable AGENTS",
+    "rule-review/SKILL.md + bespoke reference",
+    "bespoke-audit and all13 focused lens contracts, including audit-derivability"
+  ],
+  "limits": [
+    "All50 frozen owned sources freshly and fully read,6162 lines, including existing test/helper bodies.17 same919 identities were re-read rather than granted coverage solely by hash.",
+    "Thirty-eight exact own prior reference receipts revalidated by hash; only13 match current Root. Ten supplementary current Root/peer sources freshly fully read. Old reference source is not automatically current-native validation or provider evidence.",
+    "Root and peer actual native policy preserved: actual Device/source/cache validation flag identity, configured native scope + progress causes, finish/submit capture, browser/disabled device-handler routing. Ok dispatch/submission is not GPU completion.",
+    "No source edits/copy, project checks/scanner/checker clone/build/lint/test/generator/runtime/native source generation/push/CI. No new fixtures/cases/helpers/assertions/doctests.",
+    "Existing fixtures were moved/adapted only. Extracted Stencil entire fixture diff is formatting and signature/method API adaptations; original WGSL literals, cases and assertions unchanged. Other fixture identities use exact frozen/919 own receipts.",
+    "Native source comparisons45/50/47 fluid literal tokens and neighborhood old token/projection proofs are supplementary source preservation only; no program generation/validation occurred.",
+    "Unregistered/unreceived canonical imports and callers deliberately prevent a compile/whole-family claim. Required dependencies are incomplete work, not accepted silent deferrals."
+  ],
+  "discovery": "complete bounded all13 inventory persisted before requested successor repair",
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "source": "S1-S50; current Root/peer supplementary and38 reference accounts",
+      "contract": "Every signature now retains one private ordered SourceParameter role population. Algorithms derive declarations, element types, calls, loads and native bindings from it. ResourcePipeline retains actual pipeline/layout/entry shape; runtime Stencil decodes actual Buffer byte extent through reflected native stride. Fluid adapters use actual texture variants.",
+      "disposition": "Owned source discovery complete; canonical lib/stride/callers/Reduce graph remains explicitly incomplete.",
+      "connected_repairs": "SG1,SG2,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "existing-type-owners",
+      "source": "ResourcePipeline, neighborhood/layout, source_error, GPU signature/errors; canonical stride supplementary",
+      "contract": "Reuse canonical BufferElementCount/Stride, WorkgroupShape/Grid, CoordinateParameter/Shape, ResourceDescriptor/Type, TextureValue/Addressing and BoundaryMode. GeneratedProgramError owns algorithm protocol; GPU NativeOperatorSignatureError owns fixed-arity native helpers without a reverse Compute dependency.",
+      "disposition": "No duplicate count/device/error owner. Actual canonical types must be received, not emulated.",
+      "connected_repairs": "SG1,SG2,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "admission-contracts",
+      "source": "All signature parse/new/default/build/execute routes; layout.rs; current native binding",
+      "contract": "Constructors parse source; public mutable definition code is parsed again at execution/build and keyed by current source. NativeParameter rejects malformed colon fields/duplicates; exact reserved neighborhoods admit1..4, dimension-shaped unsupported names reject; arbitrary nonreserved Custom remains native. Validated roles have no public mutators. Runtime layout checks actual current resources.",
+      "disposition": "Safe slicing/GW-R1 repaired. Provider/Naga still owns full native identifier/type syntax; no claim regex is a whole WGSL parser.",
+      "connected_repairs": "SG1,SG2",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "invariant-operations",
+      "source": "layout.rs, coordinates/fetch/neighbors/boundary; addressing; source cache",
+      "contract": "Axes are positive, checked u64 products; signed Clamp/Wrap bounds match emitted neighbor expressions, Buffer signed flattening/population and unsigned divisors are bounded. OutputBuffer2d/3d indices unflatten against the same grid. Empty output bypasses only sample arithmetic, not native pipeline/binding errors.",
+      "disposition": "GSL-C1 still rejects a valid texture projection. No family operational clearance until repaired.",
+      "connected_repairs": "SG2,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "aggregate-states",
+      "source": "Private SourceParameter/signatures/MapBindings/StencilBindings/ResourcePipeline/NeighborhoodLayout/recipes",
+      "contract": "Authored declaration and classified role cannot mutate independently. Reflection/entry/shape/layout are tied to the same pipeline source. NeighborhoodLayout privately stores checked axes/population for one operation. Cache recipe includes actual descriptors, mode and sorted named secondary bindings; source/device/policy are canonical cache keys.",
+      "disposition": "No invalid public checked aggregate introduced; GS-STATE1 dead role metadata remains to remove.",
+      "connected_repairs": "SG1,SG2,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "enum-shapes",
+      "source": "All private algorithm roles; NeighborhoodDimension/Axis/LayoutError; source errors; native ResourceType",
+      "contract": "Payloads now own active index/size/value/resource/neighborhood roles. Missing function/return, parameter errors, offsets, source coordinate/resource policy are typed and carry actual roles. Neighborhood axes and dimensions are meaningful roles rather than number enums.",
+      "disposition": "Three private cases retain unused ShaderParameter payloads (GS-STATE1); make only these unit cases.",
+      "connected_repairs": "SG1,SG2",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "redundant-authority",
+      "source": "Signature/source roles, pipeline shape/layout, caches, layout, source_error",
+      "contract": "No public parallel argument/name/type/flag vectors remain. Shape/layout is reflected rather than guessed element_size; ResourceFetch keeps code/address requirement paired. Private derived axes/population are immutable computation state, not independently editable authorities.",
+      "disposition": "GS-STATE1 metadata duplicates declarations without a consumer. Existing cache/default semantics preserved.",
+      "connected_repairs": "SG1,SG2,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "behavior-preservation",
+      "source": "All50 vs own27 source baseline/current919, native fixture comparisons",
+      "contract": "Scatter unsigned values and Stream earlier alias/later explicit index now retain their real value role. Safe malformed UTF8/inverted envelope input cannot slice panic. Exact1..4 protocol and typed restrictions replace substring/fallback behavior. Buffer2d/3d coordinates now decompose flat invocation indices. Native neighborhood loads/aliases and fluid numeric operations retained.",
+      "disposition": "GSL-C1 is an unintended previously-working behavior rejection. Native/provider rejection for invalid WGSL is distinguished from supported projected loads.",
+      "connected_repairs": "SG1,SG2,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "derivability",
+      "source": "All manual PartialEq/From/Display/Error/TryFrom implementations",
+      "contract": "Definition equality deliberately ignores caches and compares source/mode, so broad derive is not equivalent. SecondaryResources From sorts named entries. TextureValue/Coordinate checks and layout classification are semantic. Compute error Display retains conditional old diagnostics; GPU manual Error/Display has no direct thiserror dependency.",
+      "disposition": "Necessary semantic/manual implementations retained; no serialization/admission-weakening derive prescribed. Optional derive refactoring is not a correctness gate.",
+      "connected_repairs": "SG1,SG2,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "magic-strings",
+      "source": "source_parameter, role signatures/programs, source_error, GPU helpers/addressing/resource descriptor",
+      "contract": "Source text, native function/type/binding names and authored identifiers are explicit native/protocol ports. Exact outer Resource/ptr/known texture forms are classified before base cleaning. All invented generated policy roots from GW-R1 are typed; Regex/Naga/coordinate/value/storage/device causes remain actual errors.",
+      "disposition": "No mutable display/prose branch introduced. Native source generation tokens are not application state strings.",
+      "connected_repairs": "SG1,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "magic-numbers",
+      "source": "Neighborhood layout/grid, actual native adapters, all fluid kernels, tests",
+      "contract": "Shared fallback64 has one owner used by runtime and emission. i32/u32 bounds and4-axis word shapes are actual native address contracts; resource counts/bytes use canonical owners. Native workgroup literals are read back into WorkgroupShape; dt and half_inverse_cell_size remain documented arbitrary numerical kernel-frame coefficients, not falsely physical units.",
+      "disposition": "GSL-C1 must preserve projected axes while proving actual coordinate range. Existing fixture authored numbers and WGSL literals stay native; no arbitrary epsilon/cap added.",
+      "connected_repairs": "SG2,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "type-ownership",
+      "source": "Focused native-program/signature/bindings/neighborhood modules and GPU lower owners",
+      "contract": "Each split owns real emission/admission responsibility, not pass-through scaffolding. Lowest shared Compute source error/lexer owner is separate from GPU signature helpers. New and changed production files are under500 raw lines; inspected active functions are below100 raw lines.",
+      "disposition": "No50-file ceiling growth; required final relevant hosted baseline reductions remain pending. Root lib/prelude/native reference composition not clear.",
+      "connected_repairs": "SG1,SG2,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    },
+    {
+      "lens": "type-granularity",
+      "source": "All source role payloads and NeighborhoodLayoutError/axes/context types",
+      "contract": "NeighborhoodDimension is a closed1..4 sample role; positive signed native axes are local to Stencil and not duplicate generic ExtractionGrid/Scan quantities. BufferElementCount is storage records, not workgroups. Source and native error owners remain distinct actual boundaries.",
+      "disposition": "GS-STATE1 unnecessary private payloads and GSL-C1 overly broad source-Z coverage need minimal coherent correction.",
+      "connected_repairs": "SG1,SG2,SG3",
+      "dependencies": [
+        "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+        "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+        "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+        "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+        "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+        "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+      ],
+      "acceptance": [
+        "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output.",
+        "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic.",
+        "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+      ],
+      "discovery_status": "complete for declared frozen50; reference/current closure qualified in accounts",
+      "repair_status": "review-only; findings/dependencies remain",
+      "validation_status": "source only; no project execution"
+    }
+  ],
+  "repair_groups": [
+    {
+      "id": "SG1",
+      "repair": "Keep one ordered private source-role schema for Map/Gather/Scatter/Stream/Stencil and one canonical Compute GeneratedProgramError; lower GPU NativeOperatorSignatureError remains its native-owner concept.",
+      "acceptance": "Actual old native declaration/order/default/error display and valid scalar/vector/custom/resource behavior preserved, unsafe slicing eliminated, unsigned Scatter/Stream roles correctly passed/loaded, no duplicate shared error or compatibility APIs. Reduce dead private role payloads without changing source declarations or native output."
+    },
+    {
+      "id": "SG2",
+      "repair": "Complete neighborhood1..4 grid/source/native/host aggregate admission, with shared named64 default, exact projected texture coverage and actual signed coordinate safety.",
+      "acceptance": "Positive extents, checked population/divisors/signed wrap and clamp math, canonical stride/count capacity and full flat Buffer row/plane/fourth decomposition agree with emitted source. Texture2d source may repeat across outputTexture3d Z; require physical input coverage only of sampled XY while independently proving full generated coordinate arithmetic."
+    },
+    {
+      "id": "SG3",
+      "repair": "Consume canonical recipes/layout/callers/exports/native providers coherently, preserving Root native helpers and existing numerical fluid kernels.",
+      "acceptance": "Same admitted shader/entry/shape/actual storage stride/resource kind drives dispatch; complete success-only cache identity includes actual Device/source/policy/full recipes. Resolve all canonical integrations before source/compile/final checks; no new cases/helpers/assertions or baseline growth."
+    }
+  ],
+  "findings": [
+    {
+      "id": "GSL-C1",
+      "severity": "P2",
+      "kind": "new overrestriction in physical aggregate admission; independently confirmed and deduplicated Code finding",
+      "location": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs:NeighborhoodLayout::cover_output; NeighborhoodParameter::admit_resources; neighborhood/fetch.rs Texture2d Three projection",
+      "rule": "crates/AGENTS.md:28-57,80-86; behavior-preservation and type-granularity operation contracts",
+      "counterexample": "Neighbors3D<T>, actual Texture2d input W x H, Texture3d output W x H x D with D>1. Old native fetch intentionally projects all loads and center to .xy, so every output layer uses the same input plane. Current layout truncates input axes to Z=1 then cover_output compares output Z=D against1 and rejects before dispatch.",
+      "repair": "Coverage must follow the actual sampled source axes; separately admit actual emitted signed coordinates and neighbor arithmetic, including output Z, rather than suppressing those proofs when dropping projected storage coverage. Preserve canonical count/stride, buffer population rules and supported texture projections.",
+      "acceptance": "Same accepted repeated-plane operation retained, no arbitrary new bounds, typed failure for actual signed address overflow; revalidate all Buffer/2d/3d and1..4 dimension combinations plus Clamp/Wrap/size/default/empty routes by source."
+    },
+    {
+      "id": "GS-STATE1",
+      "severity": "P3",
+      "kind": "new/current private role granularity and redundant retained metadata; no runtime corruption claim",
+      "location": "crates/fabelgeist-compute/src/stream/signature.rs StreamParameterRole::Offset; stencil/signature.rs StencilParameterRole::Center; gather/signature.rs GatherParameterRole::Other",
+      "rule": "crates/AGENTS.md:31-35,58-71,95-104; audit type-granularity/redundant-authority",
+      "evidence": "Offset(ShaderParameter) is only matched Offset(_) in call_arguments; name offset and typeu32 are fixed by admission. Center(ShaderParameter) is only matched Center(_) and actual center load type comes from the neighborhood. Other(ShaderParameter) is only ignored; its declaration is preserved by SourceParameter. Eq/Hash derives do not add an independent consumer: SourceParameter already hashes the actual declaration.",
+      "repair": "Make these three private cases unit roles, retaining original SourceParameter declarations and every ShaderParameter payload with a real consumer elsewhere. Do not create alternate canonical leaves or redesign public APIs.",
+      "acceptance": "Same role selection/native argument/declaration/error behavior and fixture source; remove only dead metadata constructions/matches."
+    }
+  ],
+  "dependencies": [
+    "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+    "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+    "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+    "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+    "GSL-C1 projected texture coverage and GS-STATE1 role payload simplification, plus accepted comment wording correction, require repair and a full successor source wave before bounded clearance.",
+    "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+  ],
+  "correctness": "Not clear: GSL-C1 operational overrestriction; GS-STATE1 rule granularity finding. Prior concrete Scatter/Stream/slicing/flat Buffer and GW-R1 source fixes verified in exact50.",
+  "completeness": "Partial. Canonical exports/stride/producers/callers/native physical/Reduce graph and global hosted acceptance remain required."
+}

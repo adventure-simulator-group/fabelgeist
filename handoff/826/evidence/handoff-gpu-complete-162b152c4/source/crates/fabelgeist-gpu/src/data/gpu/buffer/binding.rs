@@ -1,0 +1,48 @@
+use super::Buffer;
+use std::{error::Error, fmt};
+
+/// A logical extent is admitted separately from WebGPU's nonempty binding.
+#[derive(Clone, Debug)]
+pub enum BufferBindingError {
+    EmptyBufferBinding { name: String },
+    BufferExtentExceedsAllocation { name: String },
+}
+
+impl fmt::Display for BufferBindingError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::EmptyBufferBinding { name } => {
+                write!(formatter, "Compute binding '{name}' has no logical bytes")
+            }
+            Self::BufferExtentExceedsAllocation { name } => {
+                write!(formatter, "Compute binding '{name}' exceeds its allocation")
+            }
+        }
+    }
+}
+impl Error for BufferBindingError {}
+
+impl Buffer {
+    /// Bind precisely the logical prefix. Zero remains a valid buffer extent,
+    /// but WebGPU requires a nonempty storage/uniform binding.
+    pub fn binding_resource(
+        &self,
+        name: &str,
+    ) -> Result<wgpu::BindingResource<'_>, BufferBindingError> {
+        let size = std::num::NonZeroU64::new(u64::from(self.size)).ok_or_else(|| {
+            BufferBindingError::EmptyBufferBinding {
+                name: name.to_owned(),
+            }
+        })?;
+        if size.get() > self.buffer.size() {
+            return Err(BufferBindingError::BufferExtentExceedsAllocation {
+                name: name.to_owned(),
+            });
+        }
+        Ok(wgpu::BindingResource::Buffer(wgpu::BufferBinding {
+            buffer: &self.buffer,
+            offset: 0,
+            size: Some(size),
+        }))
+    }
+}

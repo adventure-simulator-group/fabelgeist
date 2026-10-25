@@ -1,0 +1,187 @@
+{
+  "title": "Independent density/Armory59bb Code source receipt review",
+  "head": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "tree": "4cd32ada6fcfa89ff977cd836ee2b0649df73d28",
+  "base": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+  "manifest_sha256": "f3f5e2910d4143b6f20a25537a34647cd62b025c654ddc050331a103e2e688e5",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/material/density.rs",
+      "sha256": "94db413bd0eeefd9fc860abb8eee368ee1d11a55cb48cbb4cd7ba2113fd0d665",
+      "lines": 122,
+      "manifest_matches": true,
+      "export_equals_git": true,
+      "coverage": "Fresh complete immutable source read, including existing fixture suffixes, plus full source diffs.",
+      "base_test_attributes": 0,
+      "current_test_attributes": 0,
+      "base_assertion_macros": 0,
+      "current_assertion_macros": 0
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "12debec1a00cb2ff34e5ef09978a4a3c523bde4bfb1926a1dbef86b7decaf6ea",
+      "lines": 119,
+      "manifest_matches": true,
+      "export_equals_git": true,
+      "coverage": "Fresh complete immutable source read, including existing fixture suffixes, plus full source diffs.",
+      "base_test_attributes": 0,
+      "current_test_attributes": 0,
+      "base_assertion_macros": 0,
+      "current_assertion_macros": 0
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "00f657217f6dc1b7b5677176fad2153836a7aabc133a1c7b518bba391a607c16",
+      "lines": 171,
+      "manifest_matches": true,
+      "export_equals_git": true,
+      "coverage": "Fresh complete immutable source read, including existing fixture suffixes, plus full source diffs.",
+      "base_test_attributes": 3,
+      "current_test_attributes": 3,
+      "base_assertion_macros": 10,
+      "current_assertion_macros": 10
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "d71953e80a22f666f64d7733ae41279fe18700e1f6b0531ee1cfd404f4c95559",
+      "lines": 478,
+      "manifest_matches": true,
+      "export_equals_git": true,
+      "coverage": "Fresh complete immutable source read, including existing fixture suffixes, plus full source diffs.",
+      "base_test_attributes": 1,
+      "current_test_attributes": 1,
+      "base_assertion_macros": 0,
+      "current_assertion_macros": 0
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory/exhibit.rs",
+      "sha256": "b2f4f006cf78814970012ab94d85d178176813c53cd2fbd9768ff2b17349c221",
+      "lines": 95,
+      "manifest_matches": true,
+      "export_equals_git": true,
+      "coverage": "Fresh complete immutable source read, including existing fixture suffixes, plus full source diffs.",
+      "base_test_attributes": 0,
+      "current_test_attributes": 0,
+      "base_assertion_macros": 0,
+      "current_assertion_macros": 0
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory.rs",
+      "sha256": "74f95648715bc2456ec986093c649779f02d3c773607d24af7ff0ccfc4ca18ef",
+      "lines": 427,
+      "manifest_matches": true,
+      "export_equals_git": true,
+      "coverage": "Fresh complete immutable source read, including existing fixture suffixes, plus full source diffs.",
+      "base_test_attributes": 0,
+      "current_test_attributes": 0,
+      "base_assertion_macros": 0,
+      "current_assertion_macros": 0
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "ff67d80dde117a3e4dd23e394d0a5bc6efe5049ca032c0e5fc0a30eaaeec3429",
+      "lines": 288,
+      "manifest_matches": true,
+      "export_equals_git": true,
+      "coverage": "Fresh complete immutable source read, including existing fixture suffixes, plus full source diffs.",
+      "base_test_attributes": 1,
+      "current_test_attributes": 1,
+      "base_assertion_macros": 2,
+      "current_assertion_macros": 2
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_ui.rs",
+      "sha256": "dea23f6efe94e9b5439739548675be1b0cfd109a3e153e2a083d7a816db43aeb",
+      "lines": 332,
+      "manifest_matches": true,
+      "export_equals_git": true,
+      "coverage": "Fresh complete immutable source read, including existing fixture suffixes, plus full source diffs.",
+      "base_test_attributes": 0,
+      "current_test_attributes": 0,
+      "base_assertion_macros": 0,
+      "current_assertion_macros": 0
+    }
+  ],
+  "dependency_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/design.rs",
+      "sha256": "86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+      "coverage": "Actual GeneratedArmor/ArmorMorph complete record declarations130-159; no full unrelated design-family credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+      "coverage": "Actual public material/design module exports only."
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "coverage": "Current dependencies and workspace lint contract."
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "coverage": "Ratio declaration/from_ratio/ratio exact unit kernel1-70."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "coverage": "Complete actual ItemCatalog admission/wearable/material producer1-121."
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "coverage": "Actual borrowed/retained placement owner/admission0-105; no broad schema clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_cache.rs",
+      "sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "coverage": "Fresh complete cache owner/publication/caller chain."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_scene.rs",
+      "sha256": "e486c21e58ee4c7f689bceed15e636afc2b11d12fc0989b02ca4a5e128c85fcf",
+      "coverage": "Complete actual OrbitCamera/OrbitGoal Copy declarations and transition payload context."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "566a69fc6cd50bd7d7ea5c0347567c39f2bdc37e9f8004675dc5328e3751e12e",
+      "coverage": "Actual imports/modules and system call wiring only."
+    }
+  ],
+  "verdict": "No actionable Code defect identified in the exact8-file tranche. MAT-C1 tiny-chart/nonfinite-coordinate publication gap is closed in reviewed source, including all candidate coordinate writes and actual fitted callers. No full material/PBR/native/physical/compiled/final clearance.",
+  "findings": [],
+  "closed_finding": {
+    "id": "MAT-C1",
+    "owner": "GeneratedArmor::scale_to_metal_density",
+    "admission": "Complete triangle triples, equal position/UV rows, all finite coordinates including unused rows, usize representability and bounds for every native index are checked before indexing.",
+    "numerical_contract": "Original order remains: all3 ordered edges per triangle, f32 subtraction then f64 square/sum/sqrt and f64 accumulation; ratio in f64, f32 narrowing, then unchanged4tiles/metre multiplication. Ratio is an unchecked unit wrapper with exact getter, not a0..1 clamp. No epsilon, normalization, alternate sum order or new texture-density policy.",
+    "candidate_atomicity": "Zero accumulated chart length returns unchanged only after admission and finite sums. Positive chart/zero surface retains finite zero scaling. Both nonfinite narrowed scale and each candidate coordinate*scale are rejected before mutation, including unused rows and zero-coordinate*Inf routes. The exclusive &mut self holds exact admitted source columns stable between read-only product validation and final replacement; no fallible operation remains in the write loop.",
+    "source_causes": "VertexAddress retains actual TryFromIntError; other local validation categories own their precise logical failure without fabricated cause. Existing anyhow ? carries the actual typed error.",
+    "actual_receivers": "Old Creator free function removed. fitted_catalog_item calls the inherent method with ? inside unchanged plate-steel gate; fit/selected, StudioCache and Armory worker preserve failures before publishing a fitted GeneratedArmor. Existing fixture calls the new method directly and unwraps at its original fixture boundary."
+  },
+  "armory_contracts": [
+    "ExhibitFit owns Pending/Fitted(GeneratedArmor)/Failed(anyhow::Error). Source results stay real owning errors; synthetic initial failure text is removed. bounds/triangles/mesh paths observe only successful payloads, while errors iterator returns real failed fits plus independent preview error.",
+    "fit_exhibits records placement context through anyhow::Context and preserves actual thread/chunk/placement output order. From<Result> retains each completed outcome. Anyhow Error meets existing Send+Sync worker/Bevy resource requirements; no Clone requirement is added.",
+    "Each respawn replaces preview_error with its current .err(): failure retains separate actual cause and successful fit geometry; later success clears old preview error. finished records the last attempted finish, including failure, preserving explicit retry trigger semantics. Partial scene-spawn publication is unchanged and not claimed atomic.",
+    "UI formats real causal errors only at terminal hover/editor/status boundaries. Scene consumes fitted.mesh() without replacing successful data with diagnostics; same iterator drives error colors and problem counts.",
+    "Source-backed nonempty proof: ItemCatalog::wearable uses is_wearable requiring at least one nonempty surface placement; Exhibit retains/filter those actual immutable placements. Initial Pending count and worker replacement count equal placement count. Thus normal producer paths support item()[0], shown/bounds slicing; this is not a universal certificate for arbitrary internal mutation.",
+    "Saved-camera transition now matches actual Copy Option<OrbitCamera> payload and restores/clears it; OrbitCamera and OrbitGoal derive Copy. Missing generated body while stale returns UI status before fitting instead of expect panic. Module visibility/reexport and actual main.rs imports fit current owner boundaries."
+  ],
+  "source_proof": {
+    "all8_export_manifest_git_exact": true,
+    "existing_case_assertion_population_unchanged": true,
+    "fixture_reasoning": "Fresh full armor_metal/parametric/scene fixture reads and source diffs show sole existing density method API adapter; existing scene fixture and fitting fixture bodies/oracles unchanged. No new fixtures/helpers/assertions/doctests authored.",
+    "native_root_protection": "No native GPU source in these8 changes; exact protected Root helper composition remains separate authoritative obligation. No source copy performed."
+  },
+  "required_open": [
+    "MAT-R1..R5 complete material/schema/PBR/color/other-cause ownership groups remain required; density Scale error and Armory state do not clear them.",
+    "GeneratedArmor broader normals/skin/components/morph/trim validity is intentionally not certified by density operation, which reads only positions/texcoords/indices. Existing owning physical families must finish their own admission paths.",
+    "Canonical material22+6 +async/native23 prerequisites, errors/exports/lock composition and native Grid/source/body/root/guide/physical/count caller receipts remain required.",
+    "Root dirty generated changes are independent and untouched. Final complete13 waves, three independent reviews and required hosted gates on one final pushed SHA remain required; no merge."
+  ],
+  "limits": [
+    "All8 source files freshly read completely and independently fingerprinted against immutable Git and manifest.9 actual dependency files read only to the precise scope stated per record; no broader owner-family clearance by locator or hash.",
+    "No numerical native/browser runtime, compilation, GPU performance or hosted project evidence. No source changes/copy, build/check/lint/test/scanner/generator/runtime/probe, new tests/cases/helpers/assertions/doctests, push or CI request. Python was source/Git/hash/JSON bookkeeping only."
+  ]
+}

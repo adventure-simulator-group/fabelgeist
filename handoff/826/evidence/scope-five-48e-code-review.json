@@ -1,0 +1,486 @@
+{
+  "review": "Independent bounded source-only Code Review",
+  "head": "48e5995839d008ef3373343919d17915357544bc",
+  "tree": "532b456ee225747cbaa22ed05da8643147df82fd",
+  "actual_parent": "2e2cda74b681620d3162f30ce26dd8d946b059de",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "peer": "03ad4103f2e9a892e1682be580cb9d3c9a52669f",
+  "findings": [],
+  "verdict": "No new actionable correctness finding in the seven received files and reviewed affected contracts. This is a bounded source-only checkpoint, not compilation, whole-PR, global thirteen-lens, native-runtime or final clearance.",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "sha256": "ce8d9e4f67af04002edcb5f6bf9663adc038d652f47bc2ef21dbad8b9f47122f",
+      "git_blob": "91550d7a7c4c2fa681cdcb1df0468857d21e36b7",
+      "lines": 63,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": true,
+      "parent_byte_identical": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+      "sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+      "git_blob": "f23779d3847159b752eb137267223aff090a217d",
+      "lines": 92,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": true,
+      "parent_byte_identical": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "6571917ae7c9729230bb8483bc94f56e47b5a83b027c0a5c845ab5064ef24e0a",
+      "git_blob": "de3259f55b4594fb62454452572514b45f207356",
+      "lines": 249,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": true,
+      "parent_byte_identical": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "sha256": "85c7d90117d3d5bc30b5239f0863256038074ebfcc4a820a4d8c8e96e3a3c666",
+      "git_blob": "b917fbfe0253fd28ba23d94bf6c7b5188e7d72f9",
+      "lines": 83,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": true,
+      "parent_byte_identical": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "sha256": "27eac828acc971124b7d84558344bf34813821e999bb23d16e4d283ce282894b",
+      "git_blob": "77e6eee6e31eedd272b7530ea1b2f8ccccfb2b1b",
+      "lines": 49,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": true,
+      "parent_byte_identical": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "366f3ef2f25bfc6a76712808635ddda592b31ce2485446b4adf80655f2c15b73",
+      "git_blob": "a2959e21f274c3d7861f4ecd82bd0f926594dc09",
+      "lines": 397,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": true,
+      "parent_byte_identical": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/workgroup.rs",
+      "sha256": "99e5f516fd8606aa8350015dfad9eb5ffbdddfc7a055bea489d714e3ddc73723",
+      "git_blob": "731c103aeed928f7446a3b7b0081f18fb178bbc0",
+      "lines": 20,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": true,
+      "parent_byte_identical": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "git_blob": "24a5ea1e0349615d342a475a764347d7870162a6",
+      "lines": 113,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "git_blob": "f34c5730daeac1577440c03c76310b203576ce9a",
+      "lines": 150,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "git_blob": "85fb926edfa847c942479d7aca00bc3ba46da988",
+      "lines": 76,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "git_blob": "67157c88e19ad022429436075bcc52d2e29671e4",
+      "lines": 109,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "git_blob": "ef08a970b02ec606113d7c3302e0b5ef5f774e30",
+      "lines": 141,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "git_blob": "501981744498df2ead4adea27bf1fe6353f4f630",
+      "lines": 212,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "git_blob": "7b1154410a11aa7c80565a60dc2ae4a829439a73",
+      "lines": 121,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "git_blob": "dfdeee7b98378573789940940cb980d9ff8a8631",
+      "lines": 40,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "git_blob": "17d1fe9e74bdb8ce9c5d7f25f4525ecc0816f6cf",
+      "lines": 202,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "git_blob": "4bb0857acc92e05d6bfa9e9ae47258f4ad2fe25b",
+      "lines": 55,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "git_blob": "5ffbc0c6b0dcaa45d1b74e9fc36f0cb14480f75f",
+      "lines": 82,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+      "sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "git_blob": "328d1ab3cc1962c327b57788215da795cf886077",
+      "lines": 120,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "git_blob": "86c84be288bee51ebd29284ac6de3859157fd748",
+      "lines": 48,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "git_blob": "c7ea9cdb3014f1fc5c29fcdad844115c9c2dfd2f",
+      "lines": 53,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "git_blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "lines": 43,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "git_blob": "6424213db5ebbbf06041bdaf2b364ca223cb312f",
+      "lines": 11,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+      "sha256": "0d9175592d18179ab5b8ae11985ce9ca7623d800be55ba9a1db8c08b3c65cd76",
+      "git_blob": "fe3bae36e78e46d29e5bcf7715963d9550c31cd0",
+      "lines": 63,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_count.rs",
+      "sha256": "095ae805ef6999f6256a8a49b7c75739ae421028abdeddd1b5a3cbb7a6d1535c",
+      "git_blob": "2f494a4c2a53c74ac232920c25e027a8f1eddff9",
+      "lines": 15,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/batch_error.rs",
+      "sha256": "17d100ac7cc26a65191ed6c6fb7aaa7756f48cda00d2fc59cff3d831089bc6d9",
+      "git_blob": "75a702a9a12a68dc89b4a0d4bcba1f6bb473a5cd",
+      "lines": 29,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "git_blob": "e2a307cc9cb615953ae49f446b5272282e0cb3a0",
+      "lines": 16,
+      "coverage": "Fresh complete pinned file read",
+      "changed_from_parent": false,
+      "parent_byte_identical": true
+    }
+  ],
+  "peer_provenance": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "root_sha256": "ce8d9e4f67af04002edcb5f6bf9663adc038d652f47bc2ef21dbad8b9f47122f",
+      "peer_sha256": "daef21f6ff3e71ca32792eccae8f20274a691fe0f14f5641683a8f35710e7285",
+      "root_blob": "91550d7a7c4c2fa681cdcb1df0468857d21e36b7",
+      "peer_blob": "4fbdba70f41f2470aae4966c57ef1565decb605b",
+      "byte_identical": false,
+      "difference": "cfg import order"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+      "root_sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+      "peer_sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+      "root_blob": "f23779d3847159b752eb137267223aff090a217d",
+      "peer_blob": "f23779d3847159b752eb137267223aff090a217d",
+      "byte_identical": true,
+      "difference": "none"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "root_sha256": "6571917ae7c9729230bb8483bc94f56e47b5a83b027c0a5c845ab5064ef24e0a",
+      "peer_sha256": "085502d120e5ba4f365bd8015990a4347e758f698a00b1bb530c93ae3066ca9a",
+      "root_blob": "de3259f55b4594fb62454452572514b45f207356",
+      "peer_blob": "0b374dcd6a2d7886b0a7115e7540328b1d59ae53",
+      "byte_identical": false,
+      "difference": "signature wrap"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "root_sha256": "85c7d90117d3d5bc30b5239f0863256038074ebfcc4a820a4d8c8e96e3a3c666",
+      "peer_sha256": "85c7d90117d3d5bc30b5239f0863256038074ebfcc4a820a4d8c8e96e3a3c666",
+      "root_blob": "b917fbfe0253fd28ba23d94bf6c7b5188e7d72f9",
+      "peer_blob": "b917fbfe0253fd28ba23d94bf6c7b5188e7d72f9",
+      "byte_identical": true,
+      "difference": "none"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "root_sha256": "27eac828acc971124b7d84558344bf34813821e999bb23d16e4d283ce282894b",
+      "peer_sha256": "27eac828acc971124b7d84558344bf34813821e999bb23d16e4d283ce282894b",
+      "root_blob": "77e6eee6e31eedd272b7530ea1b2f8ccccfb2b1b",
+      "peer_blob": "77e6eee6e31eedd272b7530ea1b2f8ccccfb2b1b",
+      "byte_identical": true,
+      "difference": "none"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "root_sha256": "366f3ef2f25bfc6a76712808635ddda592b31ce2485446b4adf80655f2c15b73",
+      "peer_sha256": "b230362ffd1eaa842d73ad52c75b7f563e9a4b8001f4b1d4861c17e7ceb2278e",
+      "root_blob": "a2959e21f274c3d7861f4ecd82bd0f926594dc09",
+      "peer_blob": "ea0812638f004b3ce7b31529ff6a621cab0eea0e",
+      "byte_identical": false,
+      "difference": "closure wrap"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/workgroup.rs",
+      "root_sha256": "99e5f516fd8606aa8350015dfad9eb5ffbdddfc7a055bea489d714e3ddc73723",
+      "peer_sha256": "ffa8f8f0beb9bf408f7a259919960bdd22329afd9c20141b151e9c4b16c9c0ee",
+      "root_blob": "731c103aeed928f7446a3b7b0081f18fb178bbc0",
+      "peer_blob": "e1b2d14c1e659e5c8b08c5a9dc82eb44bf2d957e",
+      "byte_identical": false,
+      "difference": "trailing newline"
+    }
+  ],
+  "fixture_provenance": {
+    "published_revision": "71f9cab8a5f97760e2e61ca4c74876b715f8aebc",
+    "path": "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+    "original_sha256": "9785ef3683a11871d14a9a3eba523aa975c755c8f0820ffbe783a09f8e7a2f60",
+    "current_sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+    "normalized_sha256": "9785ef3683a11871d14a9a3eba523aa975c755c8f0820ffbe783a09f8e7a2f60",
+    "whole_file_exact_after_three_api_adapters": true,
+    "adapters": [
+      "Explicit compile in existing forced-static path",
+      "Same zero-offset 12-byte BufferCopy",
+      "submit result propagation"
+    ],
+    "compile_fail_exact": true,
+    "compile_fail_sha256": "811a087bc52a767dab277e0f011863f63ab1a5d76f1b8a973ac38492d1ca55cf",
+    "context_test_block_exact": true,
+    "context_test_sha256": "69cb41f0e851589984932477a399e3e42ed9c80f9acb3170e00510bb43007cb0",
+    "new_tests_cases_helpers_assertions": false
+  },
+  "sdk_accounts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "fresh_complete_ranges": [
+        [
+          839,
+          879
+        ]
+      ],
+      "coverage": "Complete guard/pop functions; no fresh wholefile claim"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "fresh_complete_ranges": [
+        [
+          1847,
+          1891
+        ]
+      ],
+      "coverage": "Complete guard/pop functions; no fresh wholefile claim"
+    }
+  ],
+  "all13_bounded_reconciliation": [
+    {
+      "lens": "producer-propagation",
+      "source_contract": "Kernel::new Firstentry/shader->immutableComputePipeline->FastPath::new(pipeline); Shape/InvocationCount->Grid->dispatch->nativecontext; canonicalfive wait sites",
+      "acceptance": "no primitivegrid/entryforwarding path, no hidden missingmodule inreceivedKernel",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contract": "Root8cdc ValidationScope/errors, Rootfc23 Grid/Shape, canonical InvocationCount/RecordedDispatchCount/BufferCopy/WorkgroupShapeError",
+      "acceptance": "samecanonicalhelper/typedcauses; no parallelPoll/Shadererror/type aliases",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contract": "Kernel.parse_naga/First.resolve andShape.TryFrom; actualDevice validation afteremptybeforeFastPath.prepare; NativeScope.new policy",
+      "acceptance": "nozero/unsupportedfold/nativeoverlimit unchecked; borrowed/browser no newwait",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contract": "Fast.prepare arena.allocate ->nativebind/write->scopefinish; dispatchrecord->scopefinish->resolver->counter; copybytes checkedbound",
+      "acceptance": "no Progress success/counter/cachepublished; no rollbackpromise",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contract": "Kernel pairs immutablepipeline+parsedShape; FastPath nativepipeline/layout/device; Scope actualDevice+guard; Both error ownsprimary+secondary",
+      "acceptance": "sameDevice/source/shape throughpipeline construction; error bothpayloads accessible",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "type-ownership",
+      "source_contract": "peerowns wholeKernel/FastPath/prepare/arena/compile/copy; rootownsGPUhelper/errors/Shape/Grid",
+      "acceptance": "ownershipsplit preserved; exactsource receipthashes andpendinggraph declared",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contract": "oldentry_point separateString andpubworkgroup_size fields vsretainedpipeline/reflection/declaration",
+      "acceptance": "no duplicate MAX_GROUPS/copy ofnativeentry metadata",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contract": "original71f kerneldoctest +two dispatchcases; currentcontexttest oldexpected[64,1,1]; nativeWGSL/scope/copy/descriptors",
+      "acceptance": "all originalassertions and2cases preserved, no newtests/helpers/assertions; no nativehealthclaims",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contract": "existingPrepared/Fast Option, KernelBatchError/ComputePassError/ScopeError, typedDynamicOffsetOption",
+      "acceptance": "ready/no-work/failure notconflated; no emptyfallbackcompatpath",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "derivability",
+      "source_contract": "originalWorkgroupDeclarationError manualDisplay/source ->thiserror derive; actualSDKPollError notClone; immutableShapeCopy",
+      "acceptance": "no fakeClone/unsafe/errorflattening toderive",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "type-granularity",
+      "source_contract": "Shape vsGrid vsInvocationCount vsRecordedDispatchCount vsBufferByteOffset/Length; NativeEntryString diagnostics",
+      "acceptance": "no rawscalar grids/count forwardingaliases; nativeextractonlyreceiver",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "magic-strings",
+      "source_contract": "First nativeentry.resolve, WorkgroupDeclarationError parsedname, native diagnosticlabels/FOLDED_INDEX_WGSL source",
+      "acceptance": "same labels/WGSL, no branchingonDisplay",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contract": "oldMAX_GROUPS65535 removed; Shape comesactualshader; CHUNK_BYTES/MAX_UNIFORM_BYTES existingowners; BufferCopy same12bytes fixture",
+      "acceptance": "no new tuning/range/retry/timeout policy; exactempty behavior andcountincrements",
+      "disposition": "No new correctness finding in bounded received seven/helper/Grid relationships; explicit preservation and dependency limits apply."
+    }
+  ],
+  "source_reasoning": [
+    "The five observation sites drain the correct context-owned native scope before returning their candidate or recording success. Cached dispatch drops the native pass, resolves the original body result against observation and increments its count only after both succeed. The resolver retains the earlier body error as source and simultaneous typed secondary observation. CompiledLayout observes native layout/pipeline creation before publication. FastPath prepares and packs before its scope, then observes bind-group creation and writes before returning Prepared.",
+    "UniformArena publishes a new chunk and resets its used cursor only after successful observation. Already-consumed existing slots and encoded commands are not rolled back after later failure. Copy checks both typed logical ends, retains zero-extent native admission and does not increment the dispatch count. Actual Device-axis admission precedes preparation and writes. Borrowed/browser policy gains no blocking wait. after_submit callbacks run in registration order only after context.submit returns Ok; this is not GPU completion.",
+    "Transient Progress retains actual poll and optional native causes, is not published as a successful Kernel or native pipeline cache admission, and removes an older same-entry DeviceHandled entry. Native-only rejection caching is unchanged. Progress creates no new Compiled transition; a previous Compiled marker may remain, with compiled() re-entering absent cache admission before returning a handle. Native-only conversions retain ordinary direct native identity. No recovery of prior device-handled errors is claimed.",
+    "The F05/F23 ledger explicitly accepts provided-variant whole-block skip behavior. A used 16-byte vec4 block supplied a 64-byte Mat4 skips that write and may successfully remain zero, in both baseline and current packers. Earlier overlapping writes remain intact. This is settled preservation, not a pending repair or fast/static mismatch. Missing/unsupported fast variants still fail; static inner Mat3 ranges can fail after their outer span fits. Fast offsets remain bounded by sealed Naga metadata and the 256-byte fast cap. Broad prose must not imply all oversized supported writes fail.",
+    "Peer provenance has three byte-exact files and four source-equivalent formatting differences: cfg import order, one signature wrap, one closure wrap and a trailing newline. Both peer and committed Root hashes are recorded. All seven committed files are not described as byte-exact peer source."
+  ],
+  "partial_accounts": [
+    {
+      "path": "crates/fabelgeist-bvh/src/gpu/tests.rs",
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "range": [
+        340,
+        390
+      ],
+      "sha256": "85811b6011b987ade76feadef1481d898b159d429f5ac443f2e3a3cb3c0111ea",
+      "disposition": "Existing groups_for(points.len() as u32) requires peer-owned caller migration, not independently patched or claimed clear."
+    }
+  ],
+  "baseline_comparisons": [
+    {
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "complete_function_range": [
+        317,
+        379
+      ],
+      "contract": "Original whole-block soft skip"
+    },
+    {
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "coverage": "Relevant scalar/vector/matrix match arms and surrounding context, not complete old file",
+      "contract": "Original outer-span skip; inner Mat3 failing range distinct"
+    }
+  ],
+  "required_dependencies": [
+    "Canonical producer/caller/count/stride/layout/source/cache/creator/lock integration and remaining renderer simulation/source/host/body paths remain required. Separate Rule and Comment Review work, full thirteen-lens audit and all three reviews plus required hosted gates on the same final pushed revision remain open. No source edits, project execution, push or CI occurred."
+  ],
+  "validation_limits": [
+    "Source/Git/hash/provenance and ignored report writes only; no source edits, project build/check/lint/test/scanner/generator/runtime or push/CI.",
+    "No new tests/cases/helpers/assertions/doctests. Fixture normalization is textual provenance, not compilation or execution.",
+    "Earlier scope-pre-repair-code and scope-8cdc-code-review own SDK poll/GL timeout/maintain/transfer evidence. This receipt freshly reads SDK guard/pop ranges and current listed source; no fresh whole SDK or whole producer graph claim."
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "review": "Independent Comment Review: Root Armor/Metal facade, staging, errors and sessions",
+  "head": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "tree": "868959fcaec6f7b624c0c462c6bea4a6a70528d4",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "owning_source_accounting": [
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "git_blob": "781689c4abe4bff0fbf4d912f597c8fc38a2fa5e",
+      "lines": 179,
+      "coverage": "Fresh full owning source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "git_blob": "3096cc6ea5488396fee3894fad6453b5a8e2fb94",
+      "lines": 135,
+      "coverage": "Fresh full owning source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "git_blob": "e5ca2213dd2a00375b4ff6da803954928e127f42",
+      "lines": 147,
+      "coverage": "Fresh full owning source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "git_blob": "40e54f92de7570432654f20ef603e3480a8a8631",
+      "lines": 185,
+      "coverage": "Fresh full owning source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "git_blob": "0fc8b8b7b88eb452da7f81aa28d0a9fa51fe1553",
+      "lines": 42,
+      "coverage": "Fresh full owning source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "git_blob": "70dc9ac93fea841026d9fe3d2d1120b5baa21944",
+      "lines": 28,
+      "coverage": "Fresh full owning source read"
+    }
+  ],
+  "full_dependency_source_accounting": [
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "git_blob": "1c3d208bb839f18ce7a742861f365443e786f203",
+      "lines": 294,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "git_blob": "b6c484fab4abad5079d8c80f727e4cffb87c1d88",
+      "lines": 262,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "git_blob": "c25d6c84f410e31676bdd1bfe2a5c9ee06b1e5ab",
+      "lines": 399,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "git_blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "lines": 76,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "git_blob": "a2062c768f4aed9e06b6deae1ffd268056ca6bc1",
+      "lines": 111,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "git_blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+      "lines": 153,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "git_blob": "ea288ba56153fa4bb97fd996348980e46a685c70",
+      "lines": 101,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "git_blob": "80be3838b6f0d44d83caba2b085f4ecb1dcfad21",
+      "lines": 101,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "git_blob": "17b17a3ef59db21e0ef6922e2d1ce9bb4795fd5a",
+      "lines": 60,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "git_blob": "f4d3ceca542fbcce8114bea1cb6995dc48934fb3",
+      "lines": 124,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "lines": 70,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "git_blob": "5ffbc0c6b0dcaa45d1b74e9fc36f0cb14480f75f",
+      "lines": 82,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "git_blob": "b7452d2bb695dee092394922384c1379aab2dcd3",
+      "lines": 86,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+      "git_blob": "3b4806c2451a2351e4dbc0360d1f836506ae1ee4",
+      "lines": 103,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "git_blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "lines": 43,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "git_blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "lines": 24,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "git_blob": "541957d70b2f9989b99bd84fcefe06e3b3b3039a",
+      "lines": 64,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "git_blob": "661820cfe05dec9f05b7f5dcd5df6a56da329d84",
+      "lines": 18,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "git_blob": "4b54866595d257194a8ddb5dbfe4e2b71cd1154d",
+      "lines": 73,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "24e54d50839ce627acfcb1d42d14a2ec5d964d90e4e4c90a1cb28b8e1fd32d80",
+      "git_blob": "707cff67d267bdeffc0a7afe479862031165b969",
+      "lines": 138,
+      "coverage": "Fresh full dependency/caller source read"
+    }
+  ],
+  "bounded_dependency_source_accounting": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+      "git_blob": "10bcf187fa0e6e673069d1772b05d86a44b8d2eb",
+      "lines": 395,
+      "coverage": "Fresh lines1-235 and290-352: cache, Kernel construction, batch submit/callback; not whole file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "32201338d839719acd4a4637a5b0f672f8b2cadb4871e9947f122d4c2c211bfa",
+      "git_blob": "d5560e229bd2c22447ce56f78b689a5147920075",
+      "lines": 256,
+      "coverage": "Fresh lines1-240: current producer/query API and docs; not entire module"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/wgsl.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "3447a8e6c61a925d5915f7f3f7a5bb147a225a03aa10f630951755825a9088a5",
+      "git_blob": "3eb4dda9d78c3dd0b8d09c1de4d4c9763a612205",
+      "lines": 355,
+      "coverage": "Fresh lines1-125: nearest-point tie/order policy; not all shader programs"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "git_blob": "178d76c5e0efcca7eee0cbbfbc32208a6d5830d8",
+      "lines": 187,
+      "coverage": "Fresh lines18-100: policy/from_parts/device preconditions; remaining context source prior exact identity"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "6ec6867195a91d26c804bd15de978e0e438e243c269705945f553f1f41f0113d",
+      "git_blob": "1e4cfa81e6e3749607ef078669495681ae0e2f2e",
+      "lines": 259,
+      "coverage": "Fresh existing fixture context lines1-105 only; no full fixture-provenance review claimed"
+    }
+  ],
+  "confirmed_local_contracts": [
+    {
+      "area": "Local cause carriers",
+      "evidence": "Armor device_error admits Into<anyhow::Error> into GenerateError::Gpu with #[source]. MetalDeviceError owns anyhow::Error with #[source] and adds focused context, avoiding a blanket device-loss classification. Initialization preserves adapter/device errors through context and typed opaque browser causes. These adapters retain a concrete cause when supplied one.",
+      "limit": "They cannot restore causes already stringified by old producers/application caches. Whole graph cause preservation remains pending."
+    },
+    {
+      "area": "Staged session/prefix admission",
+      "evidence": "Every new Staging owns one Arc session. Stage tickets retain session/index; decode rejects foreign session or missing index before reading. Prefix checks nonzero host element size, checked count multiplication and exact byte window, reserves typed output and copies into aligned zero-initialized Pod storage. Zero count is valid; short bytes are not padded/truncated. Status delegates to checked one-word prefix before fixedindex0.",
+      "limit": "Current lower grouped-readback API and all PartSlots/caller adapters are not integrated, so this local source invariant is not an executed end-to-end readback verdict."
+    },
+    {
+      "area": "Read progress and native policy",
+      "evidence": "Armor read/read_async and Metal read delegate to canonical Buffer::read. Exact Device/pairedQueue and external unmapped/exclusive-mapping preconditions remain on that public native boundary. Logical zero returns after host-layout admission. Native progress waits explicitly; browser callbacks yield via timer/event loop. Mapping cleanup owns its resource and preserves first errors. Submission checks Validation separately from completion.",
+      "limit": "Successful producer Result must be handled before reading; native/browser/device-handled Ok does not certify global device health or later writes. Sync wrappers block and browser callers must use async entry points."
+    },
+    {
+      "area": "Upload/scratch quantities",
+      "evidence": "Armor upload borrows BufferUpload through immediate queue copy and retains one word for empty inputs. Armor scratch takes BufferByteLength and floors allocation to4bytes. Metal scratch takes checked word count, uses one u32/f32 stride and floors empty allocation to1word. Logical requested population remains producer responsibility; sentinel allocations are not evidence of populated geometry.",
+      "limit": "Current old producer scalar operands and decode truncation paths require canonical typed migration; no independent unit owner or arithmetic repair performed."
+    },
+    {
+      "area": "Kernel/cache/device association",
+      "evidence": "Armor owns one context, KernelCache, query and two normal-kernel sets. Metal obtains six handles on its retained context and shared cache. ComputeSourceCache keys include actual native Device, source, parameters and observation policy; construction occurs outside lock and racing success shares first published value. No exactly-once/global observed-success promise is made by the facade docs.",
+      "limit": "Broader producer source/session/layout proofs are pending. A facade parameter typed as Buffer does not itself prove arbitrary external resource Device lineage."
+    },
+    {
+      "area": "Producing operations and callers",
+      "evidence": "build_in validates/uploads host frames, records supplied part operation and shells, handles batch.submit Result and then reads. nearest_points handles empty input and empty targets, records query, handles submit and trims to logical request. Their documented operation order matches local bodies.",
+      "limit": "Actual QueryCount/PointSelection/QueryHits and PartBuild producers at this Root pin are older than the receiving APIs. No full connected-family behavior or compilation claim is made."
+    },
+    {
+      "area": "Numeric/material claims",
+      "evidence": "Metal docs continue to point to host_float for arithmetic behavior. That module explicitly documents subnormal/transcendental/range limits. This review does not alter any numeric source, geometry policy, texel math, stencil, shader or existing fixture.",
+      "limit": "No universal correctly-rounded-device, determinism, rendering-quality, performance or art acceptance is inferred from source commentary or historical fixtures."
+    }
+  ],
+  "findings": [],
+  "known_retained_comment_issues": [
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "lines": "3-14",
+      "owner": "#780",
+      "status": "required unresolved at exactRootd7",
+      "claim": "Buffer::read always stages; grouped pending readback lets CPU never stall",
+      "remedy": "Replace with actual native optional-staging and pending progress/submission/callback costs; do not promise CPU never stalls. Consume canonical device-retaining Readback source before source-complete claim."
+    }
+  ],
+  "required_dependencies": [
+    {
+      "id": "D-Readback-current",
+      "owner": "#780 canonical grouped readback",
+      "status": "Required incomplete at Rootd7",
+      "evidence": "Root staging calls Readback::record(batch,sources) and read() while Root compute/readback.rs still takes context arguments and retains no creating Device. Its lines3-14 also retain old always-copy/CPU-never-stall prose, despite native allocation/record/map/progress/copy costs.",
+      "acceptance": "Receive exact agreed device-retaining grouped-readback API/error policy and all callers; re-review actual source. Describe pending/readiness without a never-stalls claim and distinguish submit callback from completion.",
+      "classification": "Known retained owner dependency, not newly repaired or waived"
+    },
+    {
+      "id": "D-Part-consumers",
+      "owner": "#780 armor producer/fitting/caller family",
+      "status": "Required incomplete",
+      "evidence": "Root PartBuild/PartSlots still uses Copy/by-value Staged, status withoutResult and get+truncate rather than new borrowed exact-prefix decoder. Native count/layout types and staging caller propagation remain unreceived.",
+      "acceptance": "Consume canonical session tickets/checked status/exact prefixes through actual producers and callers, preserving shapes and concrete causes."
+    },
+    {
+      "id": "D-Metal-producers",
+      "owner": "#780 Metal/material/engraving producers",
+      "status": "Required incomplete",
+      "evidence": "Root material.rs has no MetalTextureSize while receiving Metal facade requires it; bake.rs still exposes u32/String, scalar scratch operands and unhandled submit. These are actual Root current bytes, not assumed b11/3ee/fff source.",
+      "acceptance": "Receive canonical checked size/word/count/error/submit-result source and all bake/test/caller adapters without new cases/oracles; preserve numeric policy and causes."
+    },
+    {
+      "id": "D-Query-Normals",
+      "owner": "#780 mesh/normal/query canonical family",
+      "status": "Required incomplete",
+      "evidence": "Root facade imports typed QueryCount/PointSelection and QueryHits getter while current query producer retains primitive counts/public fields. Producer/layout and all callers remain pending.",
+      "acceptance": "Complete canonical receiving/API propagation before compile/family clearance."
+    },
+    {
+      "id": "D-Creator-caches",
+      "owner": "#780 four initialize-once caches",
+      "status": "Required incomplete at this exact pin; peer is closing",
+      "evidence": "Armor asyncOnceCell, MetalOnceLock, exportHairOnceLock and studioHairOnceLock store Result<_,String> or format actual causes into String. Facade local error carriers cannot recover those chains.",
+      "acceptance": "Receive owner-agreed source-preserving cached failure representation and concrete error-context chain for all four caches and consumers; independently re-review exact final source."
+    },
+    {
+      "id": "D-Final-graph",
+      "owner": "Root coordinator",
+      "status": "Required incomplete",
+      "evidence": "Canonical b11/3ee/fff context is not assumed integrated or cleared by this report; this receipt accounts exact Rootd7 source only.",
+      "acceptance": "Complete actual native/producer/cache/caller/lock graph, all13 receiving waves and independent final Code/Rule/Comment plus required hosted checks at one final pushed SHA."
+    }
+  ],
+  "limits": [
+    "No new actionable comment mismatch found in the six Root-owned facade/staging/error/session files. Their local source contracts are bounded by the required actual integration gaps listed separately; no whole Armor/Metal family clearance.",
+    "Six owning files and20 dependency/caller files fully read; five additional dependency/fixture areas read at exact bounded ranges. Governing Root/crates/Armor instructions applied. No geometry or art workflow change is involved.",
+    "CurrentRoot stale grouped-readback prose is a known required owner dependency. It is not silently deferred or described as corrected by canonical work not yet received.",
+    "No source edits, tests/cases/helpers/assertions/doctests authored, project checks/build/lint/test/scanner/generator/runtime, push, hostedCI or external post performed. Git/Python used only source identity and report bookkeeping.",
+    "Existing fixture contexts were inspected only as stated; this wave does not claim complete fixture-provenance accounting or new executed tests. Broader canonical fixture migration remains required.",
+    "Native scope/SDK semantics are reconciled with previously reviewed pinned29 source and current helper bodies; this wave did not execute GPU work or freshly audit all SDK internals.",
+    "No final global, compiled, source-complete, hosted acceptance or merge clearance. Independent final reviews and required checks remain on the final pushed revision."
+  ],
+  "verdict": "No new Root-owned source-comment finding; actual connected producer/readback/cache families remain incomplete and require receiving/review before clearance."
+}

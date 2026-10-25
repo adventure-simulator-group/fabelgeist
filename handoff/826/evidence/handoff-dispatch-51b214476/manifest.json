@@ -1,0 +1,34 @@
+{
+  "head": "51b21447649f0aa53be19a20cdfc066863617deb",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "27cbe3c532fe09bb5bf7cedff8be79e2a92d701d42fb8e8187582765bf92926f"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3"
+    }
+  ],
+  "api": [
+    "Grid.validate_device(&Device)->WorkgroupGridResult<Self>, WorkgroupGridError{requested:Grid,limit:WorkgroupCount}",
+    "Shape.covering_folded_x(InvocationCount)->Result<Grid,FoldedDispatchError>, variants NonLinearShape{shape}/AddressOverflow{shape,groups}"
+  ],
+  "composition": "Wholegrid/shape exactsources; lowerComputePass::record adds let groups=groups.validate_device(&context.device)? beforepipeline/bind. Owningpass globexports alreadyexposeerrors/alias. Existingcanonicalfixtures unchanged. No unused publicgroupinput API.",
+  "contract": "Emptyfirst no-work; populatedoneDimshape; checkedu64 fullpaddedlaunchedlane cardinality<=u32MAX+1; actualDeviceaxischeckseparate. Existingfolding65535/ordinarycoveringsemantics retained.",
+  "dependencies": "PeerKernel::groups_folded anddispatch_folded nowfallible; KernelBatch::dispatch actualDeviceguard afterexistingemptyguard beforeFastPath.prepare. PeerPrefixguardedscan remainsintentionaltypednativegeometry, exactsourceproofledger. RootRenderer consumescanonicalprojectionforthcoming.",
+  "limits": "Independent65efindings fixed here, successor51b all3reviews running. No projectexecution/build/tests/sourcepush/CI/finalclearance.",
+  "fixture_provenance": "Pre-existing779Oct5 fixtures+compilefail exact unchanged, not newauthoredcases/tests/helpers/assertions."
+}

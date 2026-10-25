@@ -1,0 +1,203 @@
+{
+  "revision": "c29beb94291b3d73662f556cca755ab301a2b40e",
+  "discovery": "Complete for three Root-native/source Rule repairs and all distinct admission/consumer edges before editing. Full canonical graph remains incomplete.",
+  "repair": "Not started.",
+  "validation": "Source-only; no project execution.",
+  "findings": [
+    {
+      "id": "GPU-NATIVE-SAMPLER",
+      "contract": "Sampler::new Result must preserve immediate available Validation failure before handle publication.",
+      "repair": "Use existing context.observe_validation around create_sampler; preserve descriptor, defaults and provider policy."
+    },
+    {
+      "id": "GPU-RULE-BINDING-RESULT",
+      "contract": "crates/AGENTS.md118-122 cohesive fallible module uses owning Result alias.",
+      "repair": "Private type Result<T> with same BufferBindingError; public signature remains transparent."
+    },
+    {
+      "id": "GPU-RULE-PIPELINE-IMPORT",
+      "contract": "Required hosted -D warnings gate rejects unused parent TextureFormat after extraction.",
+      "repair": "Remove stale import; reflected images keeps its own explicit import."
+    }
+  ],
+  "sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs",
+      "sha256": "acfa2a3f08dd06fa8ddef5f8b981f0f706632cc3619c6914db1b0ce36f13e8f4",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs",
+      "sha256": "604de4f2bb1105ea0d729780e93ce8af38aa16343cf8a7021d4315391e98d5fa",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/filter_mode.rs",
+      "sha256": "ac95b5629dc262b432ed5b277ac88a70f861a93828c0744041994035d9a80d77",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/gpu.rs",
+      "sha256": "ad19b002ebc0d537cde1159638577fb53c250193bbb5f78e1bd7109058bbdb5f",
+      "coverage": "Full sampler/leaf/binding/pipeline/observer sources; exact relevant Mesh/assembly/context/reflection receiver bodies and exhaustive matching API census; prior full native/reflection reads carried by exact3e74 identity."
+    }
+  ],
+  "sdk": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+      "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "lines": "2150-2163"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "lines": "642-687,1717-1752"
+    }
+  ],
+  "cells": [
+    {
+      "lens": "producer-propagation",
+      "source_contract": "Sampler::new is the sole native sampler factory; the only application call is GpuMesh displacement with all five None mode inputs. PassParameter carries the resulting Sampler; assembly add_samplers checks presence and binds native handle.",
+      "disposition_connected_repair_acceptance": "Observe the actual native creation before publishing Some(Arc); preserve downstream API and all default modes. Peer owns whole Mesh caller migration; do not edit it.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contract": "Existing SamplerAddressMode/FilterMode own admitted modes; WgpuContext::observe_validation owns immediate native Validation policy. BufferBindingError already owns binding failures, and images.rs imports its own TextureFormat.",
+      "disposition_connected_repair_acceptance": "Reuse existing observer and errors. Add only a private Result alias in binding.rs; remove the unused parent TextureFormat import.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contract": "ClampToBorder is admitted by enum/serde/strum/f64 conversion, but optional_features includes only float filtering/blending and timestamps. SDK requires ADDRESS_MODE_CLAMP_TO_BORDER and rejects immediately.",
+      "disposition_connected_repair_acceptance": "Owned contexts must return actual wgpu error through existing anyhow Result. Borrowed/browser handling remains configured SDK policy; no feature negotiation or fallback.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contract": "create_sampler returns a handle after SDK immediate error routing; old code can publish it or panic. Observer returns native failure before Arc publication. Buffer binding continues rejecting zero/oversized logical extent before native resource.",
+      "disposition_connected_repair_acceptance": "Wrap unchanged descriptor in observer with ?; keep allocation/default/mipmap fields unchanged and no poll/submit added.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contract": "Sampler contains optional native Arc; Default(None) and external native-port construction remain supported. No selected texture/device metadata is invented for sampler.",
+      "disposition_connected_repair_acceptance": "Publish present handle only after configured available observation succeeds; preserve default/missing handling and native later device compatibility validation.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "type-ownership",
+      "source_contract": "Root owns native sampler construction, Buffer binding and pipeline/reflection. Peer780 owns canonical Mesh and generated algorithms.",
+      "disposition_connected_repair_acceptance": "Modify only sampler/mod.rs, buffer/binding.rs, compute/pipeline/mod.rs. Reorder sampler imports/reexports/mod declarations while touched. No peer function repair.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contract": "One existing context policy determines observation; adding a separate capability registry/check would duplicate SDK authority. Private Result aliases are transparent and do not duplicate errors.",
+      "disposition_connected_repair_acceptance": "Use SDK native rejection and existing observer, with no feature cache or alternative path.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contract": "All successful sampler descriptor fields, address/filter defaults, native label and mipmap policy stay exact; missing sampler behavior stays exact. Error handling improves only when the context observes Validation.",
+      "disposition_connected_repair_acceptance": "All existing tests/cases/helpers/assertions remain unchanged. Import/alias/order edits have no runtime effect. No synchronous browser verdict or global health guarantee.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contract": "Existing mode enums already distinguish roles; optional API modes express choosing owner defaults. Sampler absent/present state already used by assembly.",
+      "disposition_connected_repair_acceptance": "No semantic flag, new enum, variant, state or optional payload change; preserve public API.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "derivability",
+      "source_contract": "Existing Sampler derives and manual native-handle Send/Sync policy are unchanged. BufferBindingError manual Display retains current name-bearing diagnostics.",
+      "disposition_connected_repair_acceptance": "No new unsafe, traits, derive, serialization or manual error implementation; preserve existing supported provider/thread policy, not a browser threading validation claim.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "type-granularity",
+      "source_contract": "Existing checked logical buffer byte length, native binding resource and mode roles retain exact meaning. A module Result alias only abbreviates its existing error boundary.",
+      "disposition_connected_repair_acceptance": "Private alias avoids export collisions; keep public function semantic result identical. No redundant wrapper or user-facing primitive conversion.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "magic-strings",
+      "source_contract": "Sampler native label and name-bearing binding diagnostics are native/presentation text, not classifiers. No new shader/name/key strings.",
+      "disposition_connected_repair_acceptance": "Preserve all existing labels and diagnostics; do not branch on error prose.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contract": "Mipmap Nearest, native defaults and optional-feature policy stay exact. No geometry, buffer arithmetic, dispatch counts or shader instructions change.",
+      "disposition_connected_repair_acceptance": "No numeric policy changes, no no-growth ceiling increase; every edited source below500 and methods below100. Final hosted baseline export remains required for broader graph.",
+      "discovery": "Complete for bounded three-file repair.",
+      "repair": "Pending.",
+      "validation": "Source evidence only, no execution."
+    }
+  ],
+  "dependencies": [
+    "Return exact whole successor Root files to780; preserve all canonical generated/Mesh functions.",
+    "Complete connected scalp/generated/physical/body/armor/readback/caller/lock families before push and hosted checks.",
+    "Repeat bounded all13 and independent Code/Rule/Comment, then whole final waves/gates same pushed SHA."
+  ]
+}

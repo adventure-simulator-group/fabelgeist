@@ -1,0 +1,1853 @@
+diff --git a/crates/fabelgeist-armor/Cargo.toml b/crates/fabelgeist-armor/Cargo.toml
+index 286c9b2ab..70dc9ac93 100644
+--- a/crates/fabelgeist-armor/Cargo.toml
++++ b/crates/fabelgeist-armor/Cargo.toml
+@@ -6,6 +6,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
+ license = "AGPL-3.0"
+ 
+ [dependencies]
++anyhow = "1.0"
+ blake3 = { workspace = true }
+ bytemuck = { version = "1.16", features = ["derive"] }
+ fabelgeist-compute = { path = "../fabelgeist-compute" }
+@@ -13,6 +14,7 @@ fabelgeist-garment-code = { path = "../fabelgeist-garment-code" }
+ fabelgeist-geometry = { path = "../fabelgeist-geometry" }
+ fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
+ fabelgeist-math = { path = "../fabelgeist-math" }
++fabelgeist-mesh = { path = "../fabelgeist-mesh" }
+ fabelgeist-rig = { path = "../fabelgeist-rig" }
+ image = { version = "0.25.10", default-features = false, features = ["png"] }
+ pollster = "0.4"
+diff --git a/crates/fabelgeist-armor/src/error.rs b/crates/fabelgeist-armor/src/error.rs
+index 4f83352df..0fc8b8b7b 100644
+--- a/crates/fabelgeist-armor/src/error.rs
++++ b/crates/fabelgeist-armor/src/error.rs
+@@ -11,6 +11,8 @@ pub enum GenerateError {
+     Skin(#[from] fabelgeist_rig::RigSkinError),
+     #[error("armor GPU readback: {0}")]
+     Readback(#[from] ReadbackError),
++    #[error("armor staged readback: {0}")]
++    Staging(#[from] crate::gpu::staging::StagingError),
+     #[error("armor plate shell: {0}")]
+     PlateShell(#[from] PlateShellFailure),
+     #[error(
+@@ -29,7 +31,7 @@ pub enum GenerateError {
+     #[error("generated armor geometry is degenerate")]
+     Degenerate,
+     #[error("armor GPU: {0}")]
+-    Gpu(std::sync::Arc<str>),
++    Gpu(#[source] anyhow::Error),
+ }
+ 
+ /// An evaluated metal wall has unusable facets.
+diff --git a/crates/fabelgeist-armor/src/gpu/facade.rs b/crates/fabelgeist-armor/src/gpu/facade.rs
+new file mode 100644
+index 000000000..ca7b5f181
+--- /dev/null
++++ b/crates/fabelgeist-armor/src/gpu/facade.rs
+@@ -0,0 +1,191 @@
++//! Shared armor kernels and native operations on their producing context.
++
++use super::{BuiltPart, DevicePart, frame_words};
++use crate::{GenerateError, PartFrame};
++use fabelgeist_compute::{
++    KernelBatch, KernelCache, MeshQuery, NormalWeighting, PointSelection, PointTargets, QueryCount,
++    QueryHits, VertexNormalKernels,
++};
++use fabelgeist_gpu::prelude::{
++    Buffer, BufferByteLength, BufferDefinition, BufferLabel, BufferUpload, BufferUse, WgpuContext,
++};
++use fabelgeist_mesh::MeshVertexCount;
++
++/// A compute device and the armor kernels compiled for it.
++pub struct ArmorGpu {
++    context: WgpuContext,
++    cache: KernelCache,
++    query: MeshQuery,
++    area_normals: VertexNormalKernels,
++    angle_normals: VertexNormalKernels,
++}
++
++impl std::fmt::Debug for ArmorGpu {
++    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
++        f.debug_struct("ArmorGpu")
++            .field("kernels", &self.cache.len())
++            .finish()
++    }
++}
++
++impl ArmorGpu {
++    /// Compile the shared kernels on `context`.
++    pub fn new(context: WgpuContext) -> Result<Self, GenerateError> {
++        let cache = KernelCache::new();
++        Ok(Self {
++            query: MeshQuery::with_cache(&context, &cache).map_err(device_error)?,
++            area_normals: VertexNormalKernels::with_cache(&context, &cache, NormalWeighting::Area)
++                .map_err(device_error)?,
++            angle_normals: VertexNormalKernels::with_cache(
++                &context,
++                &cache,
++                NormalWeighting::Angle,
++            )
++            .map_err(device_error)?,
++            context,
++            cache,
++        })
++    }
++
++    /// Open the default adapter's device.
++    pub fn open() -> Result<Self, GenerateError> {
++        pollster::block_on(Self::open_async())
++    }
++
++    /// Open a device without blocking the browser event loop.
++    pub async fn open_async() -> Result<Self, GenerateError> {
++        Self::new(WgpuContext::new_compute().await.map_err(device_error)?)
++    }
++
++    pub fn context(&self) -> &WgpuContext {
++        &self.context
++    }
++
++    pub fn cache(&self) -> &KernelCache {
++        &self.cache
++    }
++
++    pub fn query(&self) -> &MeshQuery {
++        &self.query
++    }
++
++    pub fn normals(&self, weighting: NormalWeighting) -> &VertexNormalKernels {
++        match weighting {
++            NormalWeighting::Area => &self.area_normals,
++            NormalWeighting::Angle => &self.angle_normals,
++        }
++    }
++
++    pub fn batch(&self, label: &str) -> KernelBatch<'_> {
++        KernelBatch::labelled(&self.context, label)
++    }
++
++    /// Build a part placed by host frames, as previews and tests place one:
++    /// `record` records it against each of `frames` on the device, then its
++    /// shells are thickened and it is read back.
++    pub fn build_in(
++        &self,
++        frames: &[PartFrame],
++        record: impl FnOnce(&mut KernelBatch, &[&Buffer]) -> Result<DevicePart, GenerateError>,
++    ) -> Result<BuiltPart, GenerateError> {
++        let buffers = frames
++            .iter()
++            .map(|frame| {
++                frame.validate()?;
++                self.upload(BufferUpload::from_elements(&frame_words(frame)))
++            })
++            .collect::<Result<Vec<_>, _>>()?;
++        let buffers = buffers.iter().collect::<Vec<_>>();
++        let mut batch = self.batch("armor in host frames");
++        let mut part = record(&mut batch, &buffers)?;
++        part.record_shells(self, &mut batch)?;
++        batch.submit().map_err(device_error)?;
++        part.read(self)
++    }
++
++    /// Upload plain data into a new storage buffer.
++    pub fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer, GenerateError> {
++        Buffer::from_upload(
++            &self.context,
++            data.with_empty_word(),
++            BufferDefinition::storage().with_usage(BufferUse::CopySource),
++        )
++        .map_err(device_error)
++    }
++
++    /// Zeroed storage with at least one native u32 word, even for no logical bytes.
++    pub fn scratch(
++        &self,
++        bytes: BufferByteLength,
++        label: BufferLabel,
++    ) -> Result<Buffer, GenerateError> {
++        let minimum = BufferByteLength::from(std::mem::size_of::<u32>());
++        Buffer::new(
++            &self.context,
++            bytes.max(minimum),
++            BufferDefinition::storage()
++                .with_usage(BufferUse::CopySource)
++                .with_label(label),
++        )
++        .map_err(device_error)
++    }
++
++    /// Read a logical buffer prefix after its producing submission succeeded.
++    ///
++    /// Native progress blocks; browser callers use `read_async` to yield to
++    /// mapping callbacks. External mapping ownership follows `Buffer::read`.
++    pub fn read<T: bytemuck::AnyBitPattern>(
++        &self,
++        buffer: &Buffer,
++    ) -> Result<Vec<T>, GenerateError> {
++        pollster::block_on(self.read_async(buffer))
++    }
++
++    pub async fn read_async<T: bytemuck::AnyBitPattern>(
++        &self,
++        buffer: &Buffer,
++    ) -> Result<Vec<T>, GenerateError> {
++        buffer.read(&self.context).await.map_err(device_error)
++    }
++
++    /// The nearest of `targets` to each query, ties going to the lowest index.
++    pub fn nearest_points(
++        &self,
++        queries: &[[f32; 3]],
++        targets: &[[f32; 3]],
++    ) -> Result<Vec<u32>, GenerateError> {
++        if queries.is_empty() {
++            return Ok(Vec::new());
++        }
++        if targets.is_empty() {
++            return Err(GenerateError::InvalidSurface);
++        }
++        let count = QueryCount::try_from(queries.len()).map_err(device_error)?;
++        let targets_count = MeshVertexCount::try_from(targets.len()).map_err(device_error)?;
++        let hits = QueryHits::new(&self.context, count).map_err(device_error)?;
++        let query_buffer = self.upload(BufferUpload::from_elements(queries))?;
++        let target_buffer = self.upload(BufferUpload::from_elements(targets))?;
++        let mut batch = self.batch("armor nearest points");
++        self.query
++            .record_nearest_points(
++                &mut batch,
++                &query_buffer,
++                count,
++                PointTargets {
++                    positions: &target_buffer,
++                    selection: PointSelection::All(targets_count),
++                },
++                &hits,
++            )
++            .map_err(device_error)?;
++        batch.submit().map_err(device_error)?;
++        let mut nearest: Vec<u32> = self.read(hits.nearest())?;
++        nearest.truncate(usize::from(count));
++        Ok(nearest)
++    }
++}
++
++/// Preserve the cause of a failed GPU-backed armor operation.
++pub fn device_error(error: impl Into<anyhow::Error>) -> GenerateError {
++    GenerateError::Gpu(error.into())
++}
+diff --git a/crates/fabelgeist-armor/src/gpu/metal/mod.rs b/crates/fabelgeist-armor/src/gpu/metal/mod.rs
+index 824584b65..e5ca2213d 100644
+--- a/crates/fabelgeist-armor/src/gpu/metal/mod.rs
++++ b/crates/fabelgeist-armor/src/gpu/metal/mod.rs
+@@ -10,23 +10,21 @@
+ //! [`WgpuContext`], so an application that already generates armor on a
+ //! device shares it; [`MetalGpu::open`] opens one of its own.
+ 
+-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
++use crate::material::{Metal, MetalTextureSize, MetalTextures};
++use anyhow::Result;
++use fabelgeist_compute::{Kernel, KernelBatch, KernelCache};
++use fabelgeist_gpu::prelude::{
++    Buffer, BufferDefinition, BufferElementCount, BufferElementStride, BufferLabel, BufferUpload,
++    BufferUse, InvocationCount, PassParameters, WgpuContext,
++};
++use std::sync::Arc;
++
+ mod bake;
+ mod finish;
+ mod ornament;
+ mod textures;
+ mod wgsl;
+ 
+-#[cfg(test)]
+-mod tests;
+-
+-use std::sync::Arc;
+-
+-use fabelgeist_compute::{Kernel, KernelBatch, KernelCache};
+-use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, PassParameters, WgpuContext};
+-
+-use crate::material::{Metal, MetalTextures};
+-
+ /// The metal kernels, compiled for one device.
+ pub struct MetalGpu {
+     context: WgpuContext,
+@@ -38,6 +36,14 @@ pub struct MetalGpu {
+     bake: Arc<Kernel>,
+ }
+ 
++/// Context for a failed GPU-backed metal operation, retaining its cause.
++#[derive(Debug, thiserror::Error)]
++#[error("armor metal device: {source}")]
++pub struct MetalDeviceError {
++    #[source]
++    source: anyhow::Error,
++}
++
+ impl std::fmt::Debug for MetalGpu {
+     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+         f.debug_struct("MetalGpu").finish_non_exhaustive()
+@@ -47,10 +53,9 @@ impl std::fmt::Debug for MetalGpu {
+ impl MetalGpu {
+     /// Compile the kernels on `context`, sharing `cache`.
+     ///
+-    /// Everything compiles here: compiling pushes and pops the device's error
+-    /// scopes, which must not interleave with another thread's, so no bake
+-    /// compiles anything later.
+-    pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self, String> {
++    /// Obtain all six kernel handles here. Bakes reuse those handles rather
++    /// than compiling their kernels on demand.
++    pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
+         let kernel = |source: String| cache.get(context, &source).map_err(device_error);
+         Ok(Self {
+             scratches: kernel(textures::scratches_source())?,
+@@ -63,15 +68,15 @@ impl MetalGpu {
+         })
+     }
+ 
+-    /// Open the default adapter's device.
+-    pub fn open() -> Result<Self, String> {
+-        let context = pollster::block_on(WgpuContext::new()).map_err(device_error)?;
++    /// Open the default adapter's compute-only device.
++    pub fn open() -> Result<Self> {
++        let context = pollster::block_on(WgpuContext::new_compute()).map_err(device_error)?;
+         Self::new(&context, &KernelCache::new())
+     }
+ 
+     /// Bake the metal's maps onto a `size` square tile, reading the engraving
+-    /// image if there is one. `size` must be 32–1024.
+-    pub fn textures(&self, metal: &Metal, size: u32) -> Result<MetalTextures, String> {
++    /// image if there is one. `size` has already admitted the supported range.
++    pub fn textures(&self, metal: &Metal, size: MetalTextureSize) -> Result<MetalTextures> {
+         bake::textures(self, metal, size)
+     }
+ 
+@@ -79,7 +84,7 @@ impl MetalGpu {
+         KernelBatch::labelled(&self.context, label)
+     }
+ 
+-    fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer, String> {
++    fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer> {
+         Buffer::from_upload(
+             &self.context,
+             data.with_empty_word(),
+@@ -88,20 +93,30 @@ impl MetalGpu {
+         .map_err(device_error)
+     }
+ 
+-    fn scratch(&self, words: u64, label: &str) -> Result<Buffer, String> {
++    fn scratch(&self, words: BufferElementCount, label: BufferLabel) -> Result<Buffer> {
++        // Every native storage word is one u32/f32 lane; retain a word for
++        // an empty allocation, independently of the logical population.
++        let stride = BufferElementStride::try_from(std::mem::size_of::<u32>() as u32)
++            .map_err(device_error)?;
++        let words = if words.is_empty() {
++            BufferElementCount::from(1)
++        } else {
++            words
++        };
+         Buffer::new(
+             &self.context,
+-            (words.max(1) * 4).into(),
++            words.byte_length(stride),
+             BufferDefinition::storage()
+                 .with_usage(BufferUse::CopySource)
+                 .with_usage(BufferUse::CopyDestination)
+-                .with_label((label).into()),
++                .with_label(label),
+         )
+         .map_err(device_error)
+     }
+ 
+-    /// Read a buffer back. Stalls until the device has finished writing it.
+-    fn read<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>, String> {
++    /// Read a logical prefix after its producing submission succeeded.
++    /// Mapping ownership and native/browser progress follow `Buffer::read`.
++    fn read<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>> {
+         pollster::block_on(buffer.read(&self.context)).map_err(device_error)
+     }
+ 
+@@ -111,8 +126,8 @@ impl MetalGpu {
+         batch: &mut KernelBatch,
+         kernel: &Kernel,
+         parameters: &PassParameters,
+-        items: u32,
+-    ) -> Result<(), String> {
++        items: InvocationCount,
++    ) -> Result<()> {
+         batch
+             .dispatch_items(kernel, parameters, items)
+             .map(|_| ())
+@@ -120,7 +135,13 @@ impl MetalGpu {
+     }
+ }
+ 
+-/// A device failure, which a bake cannot recover from.
+-fn device_error(error: impl std::fmt::Display) -> String {
+-    format!("armor metal device: {error}")
++/// Preserve native context without classifying every failure as device loss.
++fn device_error(error: impl Into<anyhow::Error>) -> anyhow::Error {
++    MetalDeviceError {
++        source: error.into(),
++    }
++    .into()
+ }
++
++#[cfg(test)]
++mod tests;
+diff --git a/crates/fabelgeist-armor/src/gpu/mod.rs b/crates/fabelgeist-armor/src/gpu/mod.rs
+index 17b46652c..40e54f92d 100644
+--- a/crates/fabelgeist-armor/src/gpu/mod.rs
++++ b/crates/fabelgeist-armor/src/gpu/mod.rs
+@@ -1,26 +1,47 @@
+ //! The device armor is generated on.
+ //!
+-//! [`ArmorGpu`] owns a compute context and the compiled kernels every armor
+-//! family shares. One is enough for a whole process: its kernels are compiled
+-//! once, and it may be used from any number of threads at once.
++//! [`ArmorGpu`] shares compiled kernels through its cache. Resource mapping
++//! and mutation follow each operation's ownership contract.
+ 
+-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+-use std::sync::Arc;
++use crate::GenerateError;
++use fabelgeist_compute::KernelBatch;
++use fabelgeist_gpu::prelude::Buffer;
+ 
+-use fabelgeist_compute::{
+-    KernelBatch, KernelCache, MeshQuery, NormalWeighting, PointTargets, QueryHits,
+-    VertexNormalKernels,
++pub use body_cloth::{
++    BODY_CLOTH_FIRST_POINT, BODY_CLOTH_POINT_WORDS, BodyClothLayer, record_body_cloth,
+ };
+-use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, WgpuContext};
+-
+-use crate::{GenerateError, PartFrame};
++pub use close_helmet::{CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, record_close_helmet};
++pub use close_helmet_profile::CloseHelmetProfile;
++pub use coif::record_coif;
++pub use coif_drape::{
++    COIF_DRAPE_SECTIONS, COIF_DRAPE_WORDS, CoifDrapeProfile, CoifDrapeSection, CoifFlapDrape,
++    CoifNeckDrape,
++};
++pub use extremities::record_extremity_armor;
++pub use facade::{ArmorGpu, device_error};
++pub use garment::{record_fauld, record_garment_tube, record_tassets};
++pub use garment_torso::record_garment_torso;
++pub use gorget::record_gorget_plates;
++pub use helmet::{generate_helmet_on, record_helmet};
++pub use limb_build::{generate_limb_armor_on, record_limb_armor};
++pub use part::{BuiltPart, PartSlots};
++pub use puff_and_slash::record_puff_and_slash;
++pub use recipe::frame_words;
++pub use skirt::{SKIRT_FIT_WORDS, SKIRT_PROFILE_FIRST_WORD, SKIRT_SECTION_WORDS, record_skirt};
++pub use skirt_attachment::{
++    AttachedClothLayer, ClothRingVertex, SKIRT_ATTACHMENT_POINT_WORDS, SkirtAttachment,
++    SkirtSeamLayout,
++};
++pub use skirt_opening::{
++    OpeningChartPoint, OpeningEdgeSource, SkirtDressingOpening, SkirtOpeningError,
++    SkirtOpeningSource,
++};
++pub use skirt_sampling::SkirtHangingRows;
++pub use staging::{Staged, StagedResults, Staging};
+ 
+ pub mod anatomy;
+ pub mod body;
+ mod body_cloth;
+-pub use body_cloth::{
+-    BODY_CLOTH_FIRST_POINT, BODY_CLOTH_POINT_WORDS, BodyClothLayer, record_body_cloth,
+-};
+ pub mod bracer;
+ mod bracer_contour_wgsl;
+ mod bracer_wgsl;
+@@ -36,6 +57,7 @@ pub(crate) mod coif_shape;
+ pub(crate) mod coord;
+ pub(crate) mod coord_topology;
+ pub(crate) mod extremities;
++mod facade;
+ pub(crate) mod footwear;
+ pub(crate) mod garment;
+ pub(crate) mod garment_torso;
+@@ -52,46 +74,19 @@ mod puff_and_slash;
+ pub(crate) mod recipe;
+ pub(crate) mod shell_plan;
+ mod skirt;
++mod skirt_attachment;
++mod skirt_attachment_layers;
+ mod skirt_opening;
+ mod skirt_opening_cut;
+ mod skirt_opening_path;
+ mod skirt_opening_split;
+-pub use skirt_opening::{
+-    OpeningChartPoint, OpeningEdgeSource, SkirtDressingOpening, SkirtOpeningError,
+-    SkirtOpeningSource,
+-};
+ mod skirt_sampling;
+-pub use skirt_sampling::SkirtHangingRows;
+-mod skirt_attachment;
+-mod skirt_attachment_layers;
+ mod skirt_structure;
+ pub mod staging;
+ mod textile_chart;
+ mod textile_pattern;
+ pub mod wgsl;
+ pub mod wrapped_tassets;
+-pub use close_helmet::{CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, record_close_helmet};
+-pub use close_helmet_profile::CloseHelmetProfile;
+-pub use coif::record_coif;
+-pub use coif_drape::{
+-    COIF_DRAPE_SECTIONS, COIF_DRAPE_WORDS, CoifDrapeProfile, CoifDrapeSection, CoifFlapDrape,
+-    CoifNeckDrape,
+-};
+-pub use extremities::record_extremity_armor;
+-pub use garment::{record_fauld, record_garment_tube, record_tassets};
+-pub use garment_torso::record_garment_torso;
+-pub use gorget::record_gorget_plates;
+-pub use helmet::{generate_helmet_on, record_helmet};
+-pub use limb_build::{generate_limb_armor_on, record_limb_armor};
+-pub use part::{BuiltPart, PartSlots};
+-pub use puff_and_slash::record_puff_and_slash;
+-pub use recipe::frame_words;
+-pub use skirt::{SKIRT_FIT_WORDS, SKIRT_PROFILE_FIRST_WORD, SKIRT_SECTION_WORDS, record_skirt};
+-pub use skirt_attachment::{
+-    AttachedClothLayer, ClothRingVertex, SKIRT_ATTACHMENT_POINT_WORDS, SkirtAttachment,
+-    SkirtSeamLayout,
+-};
+-pub use staging::{Staged, StagedResults, Staging};
+ 
+ /// A part under construction on the device: its carriers, until
+ /// [`DevicePart::record_shells`] thickens them, then its final mesh.
+@@ -188,174 +183,3 @@ impl DevicePart {
+         self.0.finish(results, slots)
+     }
+ }
+-
+-/// A compute device and the armor kernels compiled for it.
+-pub struct ArmorGpu {
+-    context: WgpuContext,
+-    cache: KernelCache,
+-    query: MeshQuery,
+-    area_normals: VertexNormalKernels,
+-    angle_normals: VertexNormalKernels,
+-}
+-
+-impl std::fmt::Debug for ArmorGpu {
+-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+-        f.debug_struct("ArmorGpu")
+-            .field("kernels", &self.cache.len())
+-            .finish()
+-    }
+-}
+-
+-impl ArmorGpu {
+-    /// Compile the shared kernels on `context`.
+-    pub fn new(context: WgpuContext) -> Result<Self, GenerateError> {
+-        let cache = KernelCache::new();
+-        Ok(Self {
+-            query: MeshQuery::with_cache(&context, &cache).map_err(device_error)?,
+-            area_normals: VertexNormalKernels::with_cache(&context, &cache, NormalWeighting::Area)
+-                .map_err(device_error)?,
+-            angle_normals: VertexNormalKernels::with_cache(
+-                &context,
+-                &cache,
+-                NormalWeighting::Angle,
+-            )
+-            .map_err(device_error)?,
+-            context,
+-            cache,
+-        })
+-    }
+-
+-    /// Open the default adapter's device.
+-    pub fn open() -> Result<Self, GenerateError> {
+-        pollster::block_on(Self::open_async())
+-    }
+-
+-    /// Open a device without blocking the browser event loop.
+-    pub async fn open_async() -> Result<Self, GenerateError> {
+-        Self::new(WgpuContext::new_compute().await.map_err(device_error)?)
+-    }
+-
+-    pub fn context(&self) -> &WgpuContext {
+-        &self.context
+-    }
+-
+-    pub fn cache(&self) -> &KernelCache {
+-        &self.cache
+-    }
+-
+-    pub fn query(&self) -> &MeshQuery {
+-        &self.query
+-    }
+-
+-    pub fn normals(&self, weighting: NormalWeighting) -> &VertexNormalKernels {
+-        match weighting {
+-            NormalWeighting::Area => &self.area_normals,
+-            NormalWeighting::Angle => &self.angle_normals,
+-        }
+-    }
+-
+-    pub fn batch(&self, label: &str) -> KernelBatch<'_> {
+-        KernelBatch::labelled(&self.context, label)
+-    }
+-
+-    /// Build a part placed by host frames, as previews and tests place one:
+-    /// `record` records it against each of `frames` on the device, then its
+-    /// shells are thickened and it is read back.
+-    pub fn build_in(
+-        &self,
+-        frames: &[PartFrame],
+-        record: impl FnOnce(&mut KernelBatch, &[&Buffer]) -> Result<DevicePart, GenerateError>,
+-    ) -> Result<BuiltPart, GenerateError> {
+-        let buffers = frames
+-            .iter()
+-            .map(|frame| {
+-                frame.validate()?;
+-                self.upload(BufferUpload::from_elements(&frame_words(frame)))
+-            })
+-            .collect::<Result<Vec<_>, _>>()?;
+-        let buffers = buffers.iter().collect::<Vec<_>>();
+-        let mut batch = self.batch("armor in host frames");
+-        let mut part = record(&mut batch, &buffers)?;
+-        part.record_shells(self, &mut batch)?;
+-        batch.submit();
+-        part.read(self)
+-    }
+-
+-    /// Upload plain data into a new storage buffer.
+-    pub fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer, GenerateError> {
+-        Buffer::from_upload(
+-            &self.context,
+-            data.with_empty_word(),
+-            BufferDefinition::storage().with_usage(BufferUse::CopySource),
+-        )
+-        .map_err(device_error)
+-    }
+-
+-    /// A zeroed storage buffer of `bytes` bytes.
+-    pub fn scratch(&self, bytes: u64, label: &str) -> Result<Buffer, GenerateError> {
+-        Buffer::new(
+-            &self.context,
+-            (bytes.max(4)).into(),
+-            BufferDefinition::storage()
+-                .with_usage(BufferUse::CopySource)
+-                .with_label((label).into()),
+-        )
+-        .map_err(device_error)
+-    }
+-
+-    /// Read a buffer back. Stalls until the device has finished writing it.
+-    pub fn read<T: bytemuck::AnyBitPattern>(
+-        &self,
+-        buffer: &Buffer,
+-    ) -> Result<Vec<T>, GenerateError> {
+-        pollster::block_on(self.read_async(buffer))
+-    }
+-
+-    pub async fn read_async<T: bytemuck::AnyBitPattern>(
+-        &self,
+-        buffer: &Buffer,
+-    ) -> Result<Vec<T>, GenerateError> {
+-        buffer.read(&self.context).await.map_err(device_error)
+-    }
+-
+-    /// The nearest of `targets` to each query, ties going to the lowest index.
+-    pub fn nearest_points(
+-        &self,
+-        queries: &[[f32; 3]],
+-        targets: &[[f32; 3]],
+-    ) -> Result<Vec<u32>, GenerateError> {
+-        if queries.is_empty() {
+-            return Ok(Vec::new());
+-        }
+-        if targets.is_empty() {
+-            return Err(GenerateError::InvalidSurface);
+-        }
+-        let count = queries.len() as u32;
+-        let hits = QueryHits::new(&self.context, count).map_err(device_error)?;
+-        let query_buffer = self.upload(BufferUpload::from_elements(queries))?;
+-        let target_buffer = self.upload(BufferUpload::from_elements(targets))?;
+-        let mut batch = self.batch("armor nearest points");
+-        self.query
+-            .record_nearest_points(
+-                &mut batch,
+-                &query_buffer,
+-                count,
+-                PointTargets {
+-                    positions: &target_buffer,
+-                    candidates: None,
+-                    count: targets.len() as u32,
+-                },
+-                &hits,
+-            )
+-            .map_err(device_error)?;
+-        batch.submit();
+-        let mut nearest: Vec<u32> = self.read(&hits.nearest)?;
+-        nearest.truncate(queries.len());
+-        Ok(nearest)
+-    }
+-}
+-
+-/// A device failure, which armor generation cannot recover from.
+-pub fn device_error(error: impl std::fmt::Display) -> GenerateError {
+-    GenerateError::Gpu(Arc::from(error.to_string()))
+-}
+diff --git a/crates/fabelgeist-armor/src/gpu/staging.rs b/crates/fabelgeist-armor/src/gpu/staging.rs
+index 44b1f6a75..3096cc6ea 100644
+--- a/crates/fabelgeist-armor/src/gpu/staging.rs
++++ b/crates/fabelgeist-armor/src/gpu/staging.rs
+@@ -1,65 +1,120 @@
+-//! Results of many stages brought back in one readback.
++//! Read many staged buffer prefixes through one grouped mapping.
+ //!
+-//! Every read of a device buffer waits for the queue, and the queue is shared
+-//! by every thread fitting armor: a piece that read its positions, normals,
+-//! indices and statuses one by one waited for everyone else's work a dozen
+-//! times over. Instead each result stages the buffers it needs, one
+-//! [`Readback`] brings them all back, and each result parses its own slice.
++//! Sources retain their staging order. Handle producing submission results
++//! before reading; the readback then waits for its copies and mapping, using
++//! native blocking progress or browser callbacks on the producing device.
+ 
+-use fabelgeist_compute::Readback;
+-use fabelgeist_gpu::prelude::Buffer;
+-
+-use super::ArmorGpu;
++use super::{ArmorGpu, device_error};
+ use crate::GenerateError;
++use fabelgeist_compute::Readback;
++use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, BufferReadError};
++use std::sync::Arc;
+ 
+ /// Buffers waiting to be read back together.
+ #[derive(Default)]
+ pub struct Staging<'a> {
++    session: Arc<StagingSession>,
+     buffers: Vec<&'a Buffer>,
+ }
+ 
+-/// Where one staged buffer's bytes will be.
+-#[derive(Clone, Copy, Debug)]
+-pub struct Staged(usize);
++/// A buffer's position in one particular staged readback.
++#[derive(Clone, Debug)]
++pub struct Staged {
++    session: Arc<StagingSession>,
++    index: usize,
++}
+ 
+-/// The bytes of every staged buffer.
++/// The bytes of every staged buffer, associated with their issued tickets.
+ pub struct StagedResults {
++    session: Arc<StagingSession>,
+     bytes: Vec<Vec<u8>>,
+ }
+ 
++#[derive(Debug, Default)]
++struct StagingSession;
++
++/// A ticket or requested host prefix does not fit its staged bytes.
++#[derive(Debug, thiserror::Error)]
++pub enum StagingError {
++    #[error("the staged ticket does not belong to these results")]
++    InvalidTicket,
++    #[error("staged prefix of {elements} {element_bytes}-byte elements exceeds host addresses")]
++    PrefixSizeOverflow {
++        elements: usize,
++        element_bytes: usize,
++    },
++    #[error("armor staged bytes: {0}")]
++    Decode(#[from] BufferReadError),
++}
++
+ impl<'a> Staging<'a> {
+     pub fn new() -> Self {
+         Self::default()
+     }
+ 
+     pub fn stage(&mut self, buffer: &'a Buffer) -> Staged {
++        let index = self.buffers.len();
+         self.buffers.push(buffer);
+-        Staged(self.buffers.len() - 1)
++        Staged {
++            session: self.session.clone(),
++            index,
++        }
+     }
+ }
+ 
+ impl StagedResults {
+-    /// A staged buffer's contents as plain values.
+-    pub fn get<T: bytemuck::Pod>(&self, staged: Staged) -> Vec<T> {
+-        bytemuck::pod_collect_to_vec(&self.bytes[staged.0])
+-    }
+-
+-    /// Typed prefix, excluding storage allocation padding.
+-    pub fn prefix<T: bytemuck::Pod>(&self, staged: Staged, count: usize) -> Vec<T> {
+-        let mut values = self.get(staged);
+-        values.truncate(count);
++    /// Decode exactly `count` whole elements, excluding allocation padding.
++    ///
++    /// Zero elements are valid even when the allocation contains a sentinel
++    /// word. Foreign tickets, zero-sized elements and short prefixes fail;
++    /// missing bytes are never synthesized by padding or truncation.
++    pub fn prefix<T: bytemuck::Pod>(
++        &self,
++        staged: &Staged,
++        count: usize,
++    ) -> Result<Vec<T>, StagingError> {
++        if !Arc::ptr_eq(&self.session, &staged.session) {
++            return Err(StagingError::InvalidTicket);
++        }
++        let bytes = self
++            .bytes
++            .get(staged.index)
++            .ok_or(StagingError::InvalidTicket)?;
++        let element_bytes = std::mem::size_of::<T>();
++        if element_bytes == 0 {
++            return Err(BufferReadError::ZeroSizedElement.into());
++        }
++        let requested =
++            count
++                .checked_mul(element_bytes)
++                .ok_or(StagingError::PrefixSizeOverflow {
++                    elements: count,
++                    element_bytes,
++                })?;
++        let bytes = bytes
++            .get(..requested)
++            .ok_or_else(|| BufferReadError::Truncated {
++                requested: BufferByteLength::from(requested),
++                available: BufferByteLength::from(bytes.len()),
++            })?;
++        let mut values = Vec::new();
+         values
++            .try_reserve_exact(count)
++            .map_err(BufferReadError::HostAllocation)?;
++        values.resize(count, T::zeroed());
++        bytemuck::cast_slice_mut(&mut values).copy_from_slice(bytes);
++        Ok(values)
+     }
+ 
+-    /// The first word of a staged status buffer.
+-    pub fn status(&self, staged: Staged) -> u32 {
+-        self.get::<u32>(staged)[0]
++    /// Decode the first complete native u32 status word.
++    pub fn status(&self, staged: &Staged) -> Result<u32, StagingError> {
++        // prefix proves this fixed one-element index before it is used.
++        Ok(self.prefix::<u32>(staged, 1)?[0])
+     }
+ }
+ 
+ impl ArmorGpu {
+-    /// Read every staged buffer back with one mapping, after everything
+-    /// submitted so far.
++    /// Read all staged sources with one grouped mapping on their device.
+     pub fn read_staged(&self, staging: Staging) -> Result<StagedResults, GenerateError> {
+         pollster::block_on(self.read_staged_async(staging))
+     }
+@@ -69,9 +124,12 @@ impl ArmorGpu {
+         staging: Staging<'_>,
+     ) -> Result<StagedResults, GenerateError> {
+         let mut batch = self.batch("armor readback");
+-        let readback = Readback::record(self.context(), &mut batch, &staging.buffers)?;
+-        batch.submit();
+-        let bytes = readback.read(self.context()).await?;
+-        Ok(StagedResults { bytes })
++        let readback = Readback::record(&mut batch, &staging.buffers)?;
++        batch.submit().map_err(device_error)?;
++        let bytes = readback.read().await?;
++        Ok(StagedResults {
++            session: staging.session,
++            bytes,
++        })
+     }
+ }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs
+index cfcb7405a..97c3ec882 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs
+@@ -120,16 +120,18 @@ impl BufferDefinition {
+         &self,
+         context: &WgpuContext,
+         length: BufferByteLength,
+-    ) -> wgpu::Buffer {
++    ) -> Result<wgpu::Buffer, wgpu::Error> {
+         let usage = match self.usage {
+             UsageSelection::Unspecified => GENERAL_USAGE,
+             UsageSelection::Explicit(flags) => flags,
+         };
+-        context.device.create_buffer(&wgpu::BufferDescriptor {
+-            label: self.label.as_ref().map(<&str>::from),
+-            size: u64::from(length),
+-            usage,
+-            mapped_at_creation: false,
++        context.observe_validation(|| {
++            context.device.create_buffer(&wgpu::BufferDescriptor {
++                label: self.label.as_ref().map(<&str>::from),
++                size: u64::from(length),
++                usage,
++                mapped_at_creation: false,
++            })
+         })
+     }
+ }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs
+new file mode 100644
+index 000000000..829b9aff7
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs
+@@ -0,0 +1,109 @@
++use super::BufferReadError;
++use crate::globals::WgpuContext;
++use futures_channel::oneshot;
++use std::sync::Arc;
++
++/// Owns this operation's mapping request, including callback failure/cancel.
++pub(super) struct MappingRequest {
++    target: Arc<wgpu::Buffer>,
++    #[cfg(not(target_arch = "wasm32"))]
++    device: Arc<wgpu::Device>,
++    completion: oneshot::Receiver<Result<(), wgpu::BufferAsyncError>>,
++    release: ReleaseObligation,
++}
++
++enum ReleaseObligation {
++    Required,
++    Complete,
++}
++
++impl MappingRequest {
++    pub(super) fn request(
++        context: &WgpuContext,
++        target: Arc<wgpu::Buffer>,
++    ) -> Result<Self, BufferReadError> {
++        let (sender, receiver) = oneshot::channel();
++        let request = context
++            .observe_validation(|| {
++                target
++                    .slice(..)
++                    .map_async(wgpu::MapMode::Read, move |result| {
++                        let _ = sender.send(result);
++                    });
++                // A callback may already have run. Own cleanup before the
++                // native scope is inspected or any result can return early.
++                Self {
++                    target,
++                    #[cfg(not(target_arch = "wasm32"))]
++                    device: context.device.clone(),
++                    completion: receiver,
++                    release: ReleaseObligation::Required,
++                }
++            })
++            .map_err(BufferReadError::Native)?;
++        Ok(request)
++    }
++
++    pub(super) fn buffer(&self) -> &wgpu::Buffer {
++        &self.target
++    }
++
++    pub(super) async fn complete(&mut self, context: &WgpuContext) -> Result<(), BufferReadError> {
++        #[cfg(not(target_arch = "wasm32"))]
++        {
++            context
++                .device
++                .poll(wgpu::PollType::wait_indefinitely())
++                .map_err(BufferReadError::Poll)?;
++            loop {
++                match self
++                    .completion
++                    .try_recv()
++                    .map_err(BufferReadError::Channel)?
++                {
++                    Some(result) => return result.map_err(BufferReadError::Mapping),
++                    None => {
++                        // Drive progress until delivery. Callback absence
++                        // does not identify the kind of source buffer.
++                        context
++                            .device
++                            .poll(wgpu::PollType::Poll)
++                            .map_err(BufferReadError::Poll)?;
++                        std::thread::yield_now();
++                    }
++                }
++            }
++        }
++        #[cfg(target_arch = "wasm32")]
++        {
++            let _ = context;
++            (&mut self.completion)
++                .await
++                .map_err(BufferReadError::Channel)?
++                .map_err(BufferReadError::Mapping)
++        }
++    }
++
++    /// Consume the request after its mapped view has been dropped.
++    pub(super) fn release(mut self, context: &WgpuContext) -> Result<(), BufferReadError> {
++        self.release = ReleaseObligation::Complete;
++        context
++            .observe_validation(|| self.target.unmap())
++            .map_err(BufferReadError::Native)
++    }
++}
++
++impl Drop for MappingRequest {
++    fn drop(&mut self) {
++        if matches!(self.release, ReleaseObligation::Required) {
++            // A failed map can leave the SDK wrapper marked requested while
++            // native state is Idle. Reset it without replacing the primary
++            // failure with the resulting NotMapped validation error. This
++            // cleanup-only scope also applies to borrowed native contexts;
++            // dropping it pops immediately, without polling or waiting.
++            #[cfg(not(target_arch = "wasm32"))]
++            let _cleanup = self.device.push_error_scope(wgpu::ErrorFilter::Validation);
++            self.target.unmap();
++        }
++    }
++}
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs
+index 7c133780b..63073c6c3 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs
+@@ -7,12 +7,16 @@ pub use binding::BufferBindingError;
+ pub use definition::{BufferDefinition, BufferUse};
+ pub use extent::{BufferByteLength, BufferByteOffset};
+ pub use label::BufferLabel;
++pub use read_error::BufferReadError;
+ pub use upload::{BufferUpload, BufferUploadOccupancy};
+ 
+ mod binding;
+ mod definition;
+ mod extent;
+ mod label;
++mod mapping;
++mod read;
++mod read_error;
+ mod readback;
+ mod upload;
+ 
+@@ -20,7 +24,6 @@ mod upload;
+ pub struct Buffer {
+     pub buffer: Arc<wgpu::Buffer>,
+     pub size: BufferByteLength,
+-    pub usage: wgpu::BufferUsages,
+ }
+ 
+ impl Buffer {
+@@ -32,104 +35,15 @@ impl Buffer {
+         if u64::from(bytes) == 0 {
+             return Err(anyhow!("Buffer size must be greater than 0"));
+         }
+-        let buffer = definition.allocate_native(context, bytes);
+-        let usage = buffer.usage();
++        let buffer = definition.allocate_native(context, bytes)?;
+         Ok(Buffer {
+             buffer: Arc::new(buffer),
+             size: bytes,
+-            usage,
+         })
+     }
+ 
+-    pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
+-        let size = u64::from(self.size);
+-        let readback = readback::Readback::<T>::new(size)?;
+-        let is_mappable = self.usage.contains(wgpu::BufferUsages::MAP_READ);
+-
+-        let (target_buffer, needs_unmap) = if is_mappable {
+-            (self.buffer.clone(), false)
+-        } else {
+-            // 1. Create staging buffer
+-            let staging_buffer = context.device.create_buffer(&wgpu::BufferDescriptor {
+-                label: Some("Staging Buffer"),
+-                size,
+-                usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
+-                mapped_at_creation: false,
+-            });
+-
+-            // 2. Copy data to staging buffer
+-            let mut encoder = context
+-                .device
+-                .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
+-            encoder.copy_buffer_to_buffer(&self.buffer, 0, &staging_buffer, 0, size);
+-            context.queue.submit(Some(encoder.finish()));
+-            (Arc::new(staging_buffer), true)
+-        };
+-
+-        #[allow(unused_mut)]
+-        let (tx, mut rx) = futures_channel::oneshot::channel();
+-
+-        // 1. Start mapping
+-        {
+-            let slice = target_buffer.slice(..);
+-            slice.map_async(wgpu::MapMode::Read, move |res| {
+-                let _ = tx.send(res);
+-            });
+-        }
+-
+-        // 2. Poll if on native
+-        #[cfg(not(target_arch = "wasm32"))]
+-        {
+-            // Waiting on the queue is what a readback actually costs. Asking
+-            // whether it is done and then sleeping a millisecond between asks
+-            // adds the sleep's granularity to every one -- and on Windows that
+-            // is not a millisecond, it is whatever the system timer is set to,
+-            // which turned a four-megabyte read into four milliseconds and
+-            // sometimes eight. `Wait` returns when the work is done.
+-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+-            loop {
+-                match rx.try_recv() {
+-                    Ok(Some(res)) => {
+-                        res.map_err(|e| anyhow!("GPU Mapping error: {:?}", e))?;
+-                        break;
+-                    }
+-                    // `Wait` covers submitted work, so this is reached only for
+-                    // a buffer that was already mappable and had nothing
+-                    // submitted for it. Yielding keeps that case from spinning
+-                    // a core without putting a sleep back in the common one.
+-                    Ok(None) => {
+-                        let _ = context.device.poll(wgpu::PollType::Poll);
+-                        std::thread::yield_now();
+-                    }
+-                    Err(_) => return Err(anyhow!("Mapping channel closed")),
+-                }
+-            }
+-        }
+-
+-        // 3. Await result (only on wasm, since native loop already consumed rx)
+-        #[cfg(target_arch = "wasm32")]
+-        rx.await
+-            .map_err(|_| anyhow!("Mapping channel closed"))?
+-            .map_err(|_| anyhow!("GPU Mapping error"))?;
+-
+-        // Allocate before obtaining the mapped view so WASM memory growth
+-        // cannot detach it; initialize typed values only after copying bytes.
+-        let slice = target_buffer.slice(..);
+-        let data = slice.get_mapped_range();
+-        let result = readback.copy_from(&data);
+-        drop(data);
+-
+-        if needs_unmap {
+-            target_buffer.unmap();
+-        } else {
+-            // If it's the original buffer, we still need to unmap it so it can be used by the GPU again
+-            target_buffer.unmap();
+-        }
+-
+-        result
+-    }
+     pub fn write(&self, context: &WgpuContext, data: BufferUpload<'_>) -> Result<()> {
+-        data.write_to(context, &self.buffer, BufferByteOffset::START);
++        data.write_to(context, &self.buffer, BufferByteOffset::START)?;
+         Ok(())
+     }
+ 
+@@ -150,7 +64,7 @@ impl Buffer {
+                 self.size
+             ));
+         }
+-        data.write_to(context, &self.buffer, at);
++        data.write_to(context, &self.buffer, at)?;
+         Ok(())
+     }
+ 
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs
+new file mode 100644
+index 000000000..bd626df38
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs
+@@ -0,0 +1,71 @@
++use super::mapping::MappingRequest;
++use super::readback::Readback;
++use super::{Buffer, BufferByteLength, BufferReadError};
++use crate::globals::WgpuContext;
++use anyhow::Result;
++use std::sync::Arc;
++
++impl Buffer {
++    /// Read the logical byte prefix as complete, nonzero-sized host elements.
++    ///
++    /// The context must contain the exact creating device and its paired
++    /// queue. External aliases must leave the source unmapped and grant this
++    /// operation exclusive mapping access. Handle the producing submission's
++    /// result before reading; successful readback does not certify later GPU
++    /// writes or global device health.
++    ///
++    /// Native progress waits explicitly; browser callbacks use the event loop.
++    /// Sources without MAP_READ use a staging copy, subject to native copy
++    /// capabilities and alignment. Logical zero returns an empty vector after
++    /// host-layout admission. Physical allocation padding is never returned.
++    pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
++        let size = u64::from(self.size);
++        let allocated = self.buffer.size();
++        if size > allocated {
++            return Err(BufferReadError::ExtentExceedsAllocation {
++                requested: self.size,
++                available: BufferByteLength::from(allocated),
++            }
++            .into());
++        }
++        let readback = Readback::<T>::new(size)?;
++        if size == 0 {
++            return Ok(readback.copy_from(&[])?);
++        }
++        let target = if self.buffer.usage().contains(wgpu::BufferUsages::MAP_READ) {
++            self.buffer.clone()
++        } else {
++            self.readback_target(context)?
++        };
++        let mut mapping = MappingRequest::request(context, target)?;
++        mapping.complete(context).await?;
++
++        // The typed destination was allocated before obtaining this view:
++        // WASM memory growth must not detach it during the copy.
++        let data = mapping.buffer().slice(..).get_mapped_range();
++        let values = readback.copy_from(&data);
++        drop(data);
++        let values = values?;
++        mapping.release(context)?;
++        Ok(values)
++    }
++
++    fn readback_target(&self, context: &WgpuContext) -> Result<Arc<wgpu::Buffer>, BufferReadError> {
++        let target = context
++            .observe_validation(|| {
++                context.device.create_buffer(&wgpu::BufferDescriptor {
++                    label: Some("Staging Buffer"),
++                    size: u64::from(self.size),
++                    usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
++                    mapped_at_creation: false,
++                })
++            })
++            .map_err(BufferReadError::Native)?;
++        let mut encoder = context
++            .device
++            .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
++        encoder.copy_buffer_to_buffer(&self.buffer, 0, &target, 0, u64::from(self.size));
++        context.submit(encoder).map_err(BufferReadError::Native)?;
++        Ok(Arc::new(target))
++    }
++}
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs
+new file mode 100644
+index 000000000..26a4325bd
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs
+@@ -0,0 +1,82 @@
++use super::BufferByteLength;
++use std::collections::TryReserveError;
++use std::error::Error;
++use std::fmt;
++use std::num::TryFromIntError;
++
++/// Why a logical buffer prefix could not be read into host elements.
++#[derive(Debug)]
++pub enum BufferReadError {
++    ExtentExceedsAllocation {
++        requested: BufferByteLength,
++        available: BufferByteLength,
++    },
++    ZeroSizedElement,
++    PartialElement {
++        bytes: BufferByteLength,
++        element_bytes: usize,
++    },
++    Truncated {
++        requested: BufferByteLength,
++        available: BufferByteLength,
++    },
++    HostAddress(TryFromIntError),
++    HostAllocation(TryReserveError),
++    Native(wgpu::Error),
++    Mapping(wgpu::BufferAsyncError),
++    Poll(wgpu::PollError),
++    Channel(futures_channel::oneshot::Canceled),
++}
++
++impl fmt::Display for BufferReadError {
++    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self {
++            Self::ExtentExceedsAllocation {
++                requested,
++                available,
++            } => write!(
++                formatter,
++                "GPU readback requests {requested} bytes from a {available}-byte allocation"
++            ),
++            Self::ZeroSizedElement => {
++                formatter.write_str("GPU readback requires nonzero-sized elements")
++            }
++            Self::PartialElement {
++                bytes,
++                element_bytes,
++            } => write!(
++                formatter,
++                "GPU readback's {bytes} bytes do not contain whole {element_bytes}-byte elements"
++            ),
++            Self::Truncated {
++                requested,
++                available,
++            } => write!(
++                formatter,
++                "GPU readback received {available} of {requested} bytes"
++            ),
++            Self::HostAddress(cause) => write!(formatter, "GPU readback host extent: {cause}"),
++            Self::HostAllocation(cause) => {
++                write!(formatter, "GPU readback host allocation: {cause}")
++            }
++            Self::Native(cause) => write!(formatter, "GPU readback validation: {cause}"),
++            Self::Mapping(cause) => write!(formatter, "GPU mapping: {cause}"),
++            Self::Poll(cause) => write!(formatter, "GPU readback progress: {cause}"),
++            Self::Channel(cause) => write!(formatter, "GPU mapping callback: {cause}"),
++        }
++    }
++}
++
++impl Error for BufferReadError {
++    fn source(&self) -> Option<&(dyn Error + 'static)> {
++        match self {
++            Self::HostAddress(cause) => Some(cause),
++            Self::HostAllocation(cause) => Some(cause),
++            Self::Native(cause) => Some(cause),
++            Self::Mapping(cause) => Some(cause),
++            Self::Poll(cause) => Some(cause),
++            Self::Channel(cause) => Some(cause),
++            _ => None,
++        }
++    }
++}
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs
+index aaa1c0645..bdea9b821 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs
+@@ -1,5 +1,5 @@
+ //! Allocate before taking a mapped view; initialize before exposing typed data.
+-use anyhow::{Result, ensure};
++use super::{BufferByteLength, BufferReadError};
+ use bytemuck::AnyBitPattern;
+ 
+ pub(super) struct Readback<T> {
+@@ -8,26 +8,33 @@ pub(super) struct Readback<T> {
+ }
+ 
+ impl<T: AnyBitPattern> Readback<T> {
+-    pub(super) fn new(byte_len: u64) -> Result<Self> {
+-        let byte_len = usize::try_from(byte_len)?;
++    pub(super) fn new(byte_len: u64) -> Result<Self, BufferReadError> {
++        let byte_len = usize::try_from(byte_len).map_err(BufferReadError::HostAddress)?;
+         let element_size = std::mem::size_of::<T>();
+-        ensure!(
+-            element_size != 0,
+-            "GPU readback requires nonzero-sized elements"
+-        );
+-        ensure!(
+-            byte_len.is_multiple_of(element_size),
+-            "GPU readback byte length is not a whole number of elements"
+-        );
+-        Ok(Self {
+-            values: Vec::with_capacity(byte_len / element_size),
+-            byte_len,
+-        })
++        if element_size == 0 {
++            return Err(BufferReadError::ZeroSizedElement);
++        }
++        if !byte_len.is_multiple_of(element_size) {
++            return Err(BufferReadError::PartialElement {
++                bytes: BufferByteLength::from(byte_len),
++                element_bytes: element_size,
++            });
++        }
++        let mut values = Vec::new();
++        values
++            .try_reserve_exact(byte_len / element_size)
++            .map_err(BufferReadError::HostAllocation)?;
++        Ok(Self { values, byte_len })
+     }
+ 
+-    pub(super) fn copy_from(mut self, bytes: &[u8]) -> Result<Vec<T>> {
++    pub(super) fn copy_from(mut self, bytes: &[u8]) -> Result<Vec<T>, BufferReadError> {
+         // GPU allocations may include trailing alignment padding.
+-        ensure!(bytes.len() >= self.byte_len, "GPU readback is truncated");
++        if bytes.len() < self.byte_len {
++            return Err(BufferReadError::Truncated {
++                requested: BufferByteLength::from(self.byte_len),
++                available: BufferByteLength::from(bytes.len()),
++            });
++        }
+         // SAFETY: the allocation fits every byte and is aligned for T. The
+         // buffers do not overlap, and AnyBitPattern permits all copied values.
+         // Set the length only after every element has been initialized.
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs
+index d01b5ec7a..b4c7a29d2 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs
+@@ -52,7 +52,7 @@ impl<'a> BufferUpload<'a> {
+         context: &WgpuContext,
+         buffer: &wgpu::Buffer,
+         at: BufferByteOffset,
+-    ) {
+-        context.queue.write_buffer(buffer, u64::from(at), self.0);
++    ) -> Result<(), wgpu::Error> {
++        context.observe_validation(|| context.queue.write_buffer(buffer, u64::from(at), self.0))
+     }
+ }
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs
+new file mode 100644
+index 000000000..c0260c850
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs
+@@ -0,0 +1,125 @@
++#[cfg(target_arch = "wasm32")]
++use super::BrowserContextError;
++use super::{Blitter, WgpuContext, report_adapter};
++use anyhow::{Context, Result};
++use std::sync::Arc;
++use wgpu::Instance;
++
++struct PresentationTarget {
++    instance: Instance,
++    surface: Option<Arc<wgpu::Surface<'static>>>,
++    #[cfg(target_arch = "wasm32")]
++    canvas: Option<web_sys::OffscreenCanvas>,
++}
++
++#[derive(Clone, Copy)]
++enum ContextMode {
++    Presentation,
++    Compute,
++}
++
++impl WgpuContext {
++    pub async fn new() -> Result<Self> {
++        Self::open(ContextMode::Presentation).await
++    }
++
++    /// Compute-only device: no canvas, surface, or presentation pipeline.
++    pub async fn new_compute() -> Result<Self> {
++        Self::open(ContextMode::Compute).await
++    }
++
++    async fn open(mode: ContextMode) -> Result<Self> {
++        #[cfg(not(target_arch = "wasm32"))]
++        let target = PresentationTarget::new();
++        #[cfg(target_arch = "wasm32")]
++        let target = PresentationTarget::new(mode)?;
++        let adapter = target
++            .instance
++            .request_adapter(&wgpu::RequestAdapterOptions {
++                power_preference: wgpu::PowerPreference::HighPerformance,
++                compatible_surface: target.surface.as_deref(),
++                force_fallback_adapter: false,
++            })
++            .await
++            .context("Failed to find an appropriate adapter")?;
++        report_adapter(&adapter);
++        let (device, queue) = adapter
++            .request_device(&Self::device_descriptor(&adapter))
++            .await
++            .context("Failed to create device")?;
++
++        #[cfg(target_arch = "wasm32")]
++        if let (Some(canvas), Some(surface)) = (&target.canvas, &target.surface) {
++            let config = surface
++                .get_default_config(&adapter, canvas.width(), canvas.height())
++                .ok_or(BrowserContextError::SurfaceConfigurationUnavailable)?;
++            surface.configure(&device, &config);
++        }
++
++        let mut context = Self {
++            instance: Arc::new(target.instance),
++            adapter: Arc::new(adapter),
++            device: Arc::new(device),
++            queue: Arc::new(queue),
++            #[cfg(target_arch = "wasm32")]
++            canvas: target.canvas,
++            surface: target.surface,
++            blitter: None,
++            blit_lock: Arc::new(async_lock::Mutex::new(())),
++            blocking_validation: !cfg!(target_arch = "wasm32"),
++        };
++        if matches!(mode, ContextMode::Presentation) {
++            // Texture3d presentation renders into this sRGB target format.
++            context.blitter = Some(Arc::new(
++                context
++                    .observe_validation(|| {
++                        Blitter::new(&context.device, wgpu::TextureFormat::Rgba8UnormSrgb)
++                    })
++                    .context("Failed to create presentation pipelines")?,
++            ));
++        }
++        Ok(context)
++    }
++}
++
++#[cfg(not(target_arch = "wasm32"))]
++impl PresentationTarget {
++    fn new() -> Self {
++        #[cfg(windows)]
++        let instance = Instance::new(wgpu::InstanceDescriptor {
++            backends: wgpu::Backends::all(),
++            ..wgpu::InstanceDescriptor::new_without_display_handle()
++        });
++        #[cfg(not(windows))]
++        let instance = Instance::default();
++        Self {
++            instance,
++            surface: None,
++        }
++    }
++}
++
++#[cfg(target_arch = "wasm32")]
++impl PresentationTarget {
++    fn new(mode: ContextMode) -> Result<Self> {
++        let instance = Instance::new(wgpu::InstanceDescriptor {
++            backends: wgpu::Backends::BROWSER_WEBGPU,
++            ..wgpu::InstanceDescriptor::new_without_display_handle()
++        });
++        let (canvas, surface) = if matches!(mode, ContextMode::Presentation) {
++            let canvas = web_sys::OffscreenCanvas::new(1, 1)
++                .map_err(|cause| BrowserContextError::Canvas { cause })?;
++            let surface = instance
++                .create_surface(wgpu::SurfaceTarget::OffscreenCanvas(canvas.clone()))
++                .context("Failed to create surface")?;
++            (Some(canvas), Some(Arc::new(surface)))
++        } else {
++            (None, None)
++        };
++        Ok(Self {
++            instance,
++            surface,
++            canvas,
++        })
++    }
++}
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs
+new file mode 100644
+index 000000000..f2869f688
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs
+@@ -0,0 +1,30 @@
++use std::error::Error;
++use std::fmt;
++use web_sys::wasm_bindgen::JsValue;
++
++/// Browser presentation setup failures not represented by a native SDK error.
++#[derive(Debug)]
++pub enum BrowserContextError {
++    /// The original JavaScript failure remains available for inspection.
++    Canvas {
++        cause: JsValue,
++    },
++    SurfaceConfigurationUnavailable,
++}
++
++impl fmt::Display for BrowserContextError {
++    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self {
++            Self::Canvas { cause } => {
++                write!(formatter, "Failed to create OffscreenCanvas: {cause:?}")
++            }
++            Self::SurfaceConfigurationUnavailable => {
++                formatter.write_str("No compatible presentation surface configuration")
++            }
++        }
++    }
++}
++
++// JsValue is an opaque provider value, rather than a standard Error source.
++// Keep the value in Canvas instead of replacing it with its Display text.
++impl Error for BrowserContextError {}
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
+index 53fd3750c..c1b2caa05 100644
+--- a/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
+@@ -1,10 +1,17 @@
+-use anyhow::{Result, anyhow};
++#[cfg(test)]
++use anyhow::Result;
+ pub use blitter::Blitter;
++#[cfg(target_arch = "wasm32")]
++pub use initialization_error::BrowserContextError;
+ use std::sync::Arc;
+ use wgpu::{Adapter, Device, Instance, Queue};
+ 
+ pub mod blitter;
++mod initialization;
++#[cfg(target_arch = "wasm32")]
++mod initialization_error;
+ mod submission;
++mod validation;
+ 
+ #[derive(Clone)]
+ pub struct WgpuContext {
+@@ -24,69 +31,16 @@ pub struct WgpuContext {
+     /// to avoid blocking their caller on GPU work. A blocking poll waits for
+     /// the latest submission observed when polling begins and has no timeout.
+     /// Finalization and submission read their scopes without a completion wait.
+-    /// When disabled, these operations install no validation scope, so
++    /// When disabled, these operations install no verdict scope, so
+     /// native errors follow the device's configured error handling. Browser
+     /// builds skip synchronous readback. Shader source is separately checked
+-    /// by Naga.
++    /// by Naga. Failed or cancelled buffer mapping uses a native cleanup-only
++    /// scope, including on borrowed contexts, to reset SDK mapping state
++    /// without replacing the primary error with a cleanup error. It does not
++    /// wait for GPU work or establish an operation verdict.
+     pub blocking_validation: bool,
+ }
+ 
+-/// Reports which GPU the adapter request actually landed on. `device_type: Cpu`
+-/// means a software fallback (SwiftShader); `backend: Vulkan` with
+-/// `device_type: DiscreteGpu` is the intended discrete card.
+-fn report_adapter(adapter: &Adapter) {
+-    let info = adapter.get_info();
+-    let message = format!(
+-        "[fabelgeist-gpu] adapter: {} | type: {:?} | backend: {:?} | driver: {} {}",
+-        info.name, info.device_type, info.backend, info.driver, info.driver_info
+-    );
+-    #[cfg(target_arch = "wasm32")]
+-    web_sys::console::log_1(&message.as_str().into());
+-    #[cfg(not(target_arch = "wasm32"))]
+-    eprintln!("{message}");
+-}
+-
+-/// The optional features we use where the adapter offers them. Each is a
+-/// graceful degradation, not a requirement, so requesting one the adapter
+-/// lacks would fail device creation outright.
+-fn optional_features(adapter: &Adapter) -> wgpu::Features {
+-    const OPTIONAL: [wgpu::Features; 3] = [
+-        wgpu::Features::FLOAT32_FILTERABLE,
+-        wgpu::Features::FLOAT32_BLENDABLE,
+-        wgpu::Features::TIMESTAMP_QUERY,
+-    ];
+-    OPTIONAL
+-        .into_iter()
+-        .filter(|feature| adapter.features().contains(*feature))
+-        .fold(wgpu::Features::empty(), |features, feature| {
+-            features | feature
+-        })
+-}
+-
+-/// Raises the baseline limits to what the adapter actually supports. The
+-/// downlevel/WebGL2 baseline caps compute invocations at 256, but our kernels
+-/// dispatch workgroups of up to 1024 invocations.
+-fn required_limits(adapter: &Adapter) -> wgpu::Limits {
+-    let adapter_limits = adapter.limits();
+-    let mut limits = if cfg!(target_arch = "wasm32") {
+-        wgpu::Limits::default().using_resolution(adapter.limits())
+-    } else {
+-        wgpu::Limits::default()
+-    };
+-    limits.max_storage_buffers_per_shader_stage =
+-        adapter_limits.max_storage_buffers_per_shader_stage;
+-    limits.max_buffer_size = adapter_limits.max_buffer_size;
+-    limits.max_storage_buffer_binding_size = adapter_limits.max_storage_buffer_binding_size;
+-    limits.max_compute_invocations_per_workgroup =
+-        adapter_limits.max_compute_invocations_per_workgroup;
+-    limits.max_compute_workgroup_size_x = adapter_limits.max_compute_workgroup_size_x;
+-    limits.max_compute_workgroup_size_y = adapter_limits.max_compute_workgroup_size_y;
+-    limits.max_compute_workgroup_size_z = adapter_limits.max_compute_workgroup_size_z;
+-    limits.max_compute_workgroups_per_dimension =
+-        adapter_limits.max_compute_workgroups_per_dimension;
+-    limits
+-}
+-
+ impl WgpuContext {
+     /// Wrap a device that already exists.
+     ///
+@@ -172,98 +126,6 @@ impl WgpuContext {
+             trace: Default::default(),
+         }
+     }
+-
+-    pub async fn new() -> Result<Self> {
+-        Self::open(true).await
+-    }
+-
+-    /// Compute-only device: no canvas, surface, or presentation pipeline.
+-    pub async fn new_compute() -> Result<Self> {
+-        Self::open(false).await
+-    }
+-
+-    async fn open(presentation: bool) -> Result<Self> {
+-        // Platform specific initialization
+-        #[cfg(target_arch = "wasm32")]
+-        let (canvas, surface, instance) = {
+-            let desc = wgpu::InstanceDescriptor {
+-                backends: wgpu::Backends::BROWSER_WEBGPU,
+-                ..wgpu::InstanceDescriptor::new_without_display_handle()
+-            };
+-            let instance = Instance::new(desc);
+-            if presentation {
+-                let canvas = web_sys::OffscreenCanvas::new(1, 1)
+-                    .map_err(|_| anyhow!("Failed to create OffscreenCanvas"))?;
+-                let surface = instance
+-                    .create_surface(wgpu::SurfaceTarget::OffscreenCanvas(canvas.clone()))
+-                    .map_err(|_| anyhow!("Failed to create surface"))?;
+-                (Some(canvas), Some(Arc::new(surface)), instance)
+-            } else {
+-                (None, None, instance)
+-            }
+-        };
+-
+-        #[cfg(not(target_arch = "wasm32"))]
+-        let (surface, instance): (Option<Arc<wgpu::Surface<'static>>>, Instance) = {
+-            // For native headless, we don't have a surface or canvas (unless we create a window, but we want headless)
+-            #[cfg(windows)]
+-            let instance = Instance::new(wgpu::InstanceDescriptor {
+-                backends: wgpu::Backends::all(),
+-                ..wgpu::InstanceDescriptor::new_without_display_handle()
+-            });
+-
+-            #[cfg(not(windows))]
+-            let instance = Instance::default();
+-
+-            (None, instance)
+-        };
+-
+-        let compatible_surface = surface
+-            .as_ref()
+-            .map(|s: &Arc<wgpu::Surface<'static>>| s.as_ref());
+-
+-        let adapter = instance
+-            .request_adapter(&wgpu::RequestAdapterOptions {
+-                power_preference: wgpu::PowerPreference::HighPerformance,
+-                compatible_surface,
+-                force_fallback_adapter: false,
+-            })
+-            .await
+-            .map_err(|_| anyhow!("Failed to find an appropriate adapter"))?;
+-
+-        report_adapter(&adapter);
+-
+-        let (device, queue) = adapter
+-            .request_device(&Self::device_descriptor(&adapter))
+-            .await
+-            .map_err(|_| anyhow!("Failed to create device"))?;
+-
+-        #[cfg(target_arch = "wasm32")]
+-        if let (Some(canvas), Some(surface)) = (&canvas, &surface) {
+-            let width = canvas.width();
+-            let height = canvas.height();
+-            let config = surface.get_default_config(&adapter, width, height).unwrap();
+-            surface.configure(&device, &config);
+-        }
+-
+-        // Blit pipeline (used by Texture3d widget)
+-        // We use Rgba8UnormSrgb because DisplayTexture3dWidget creates its temporary 2D texture in this format
+-        let blitter = presentation
+-            .then(|| Arc::new(Blitter::new(&device, wgpu::TextureFormat::Rgba8UnormSrgb)));
+-
+-        Ok(WgpuContext {
+-            instance: Arc::new(instance),
+-            adapter: Arc::new(adapter),
+-            device: Arc::new(device),
+-            queue: Arc::new(queue),
+-            #[cfg(target_arch = "wasm32")]
+-            canvas,
+-            surface,
+-            blitter,
+-            blit_lock: Arc::new(async_lock::Mutex::new(())),
+-            blocking_validation: !cfg!(target_arch = "wasm32"),
+-        })
+-    }
+ }
+ 
+ #[cfg(target_arch = "wasm32")]
+@@ -271,6 +133,61 @@ unsafe impl Send for WgpuContext {}
+ #[cfg(target_arch = "wasm32")]
+ unsafe impl Sync for WgpuContext {}
+ 
++/// Reports the selected adapter, device type, backend and driver. A CPU
++/// adapter reports software rendering; its driver identifies the implementation.
++fn report_adapter(adapter: &Adapter) {
++    let info = adapter.get_info();
++    let message = format!(
++        "[fabelgeist-gpu] adapter: {} | type: {:?} | backend: {:?} | driver: {} {}",
++        info.name, info.device_type, info.backend, info.driver, info.driver_info
++    );
++    #[cfg(target_arch = "wasm32")]
++    web_sys::console::log_1(&message.as_str().into());
++    #[cfg(not(target_arch = "wasm32"))]
++    eprintln!("{message}");
++}
++
++/// The optional features we use where the adapter offers them. Each is a
++/// graceful degradation, not a requirement, so requesting one the adapter
++/// lacks would fail device creation outright.
++fn optional_features(adapter: &Adapter) -> wgpu::Features {
++    const OPTIONAL: [wgpu::Features; 3] = [
++        wgpu::Features::FLOAT32_FILTERABLE,
++        wgpu::Features::FLOAT32_BLENDABLE,
++        wgpu::Features::TIMESTAMP_QUERY,
++    ];
++    OPTIONAL
++        .into_iter()
++        .filter(|feature| adapter.features().contains(*feature))
++        .fold(wgpu::Features::empty(), |features, feature| {
++            features | feature
++        })
++}
++
++/// Raises the baseline limits to what the adapter actually supports. The
++/// downlevel/WebGL2 baseline caps compute invocations at 256, but our kernels
++/// dispatch workgroups of up to 1024 invocations.
++fn required_limits(adapter: &Adapter) -> wgpu::Limits {
++    let adapter_limits = adapter.limits();
++    let mut limits = if cfg!(target_arch = "wasm32") {
++        wgpu::Limits::default().using_resolution(adapter.limits())
++    } else {
++        wgpu::Limits::default()
++    };
++    limits.max_storage_buffers_per_shader_stage =
++        adapter_limits.max_storage_buffers_per_shader_stage;
++    limits.max_buffer_size = adapter_limits.max_buffer_size;
++    limits.max_storage_buffer_binding_size = adapter_limits.max_storage_buffer_binding_size;
++    limits.max_compute_invocations_per_workgroup =
++        adapter_limits.max_compute_invocations_per_workgroup;
++    limits.max_compute_workgroup_size_x = adapter_limits.max_compute_workgroup_size_x;
++    limits.max_compute_workgroup_size_y = adapter_limits.max_compute_workgroup_size_y;
++    limits.max_compute_workgroup_size_z = adapter_limits.max_compute_workgroup_size_z;
++    limits.max_compute_workgroups_per_dimension =
++        adapter_limits.max_compute_workgroups_per_dimension;
++    limits
++}
++
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs
+new file mode 100644
+index 000000000..409769c37
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs
+@@ -0,0 +1,24 @@
++use super::WgpuContext;
++
++impl WgpuContext {
++    /// Observe immediate Validation errors under this context's native policy.
++    ///
++    /// The closure and its scope stay on the current thread. Reading the
++    /// native scope does not poll the device or wait for submitted work.
++    /// Browser and borrowed contexts retain their device's error handling.
++    pub(crate) fn observe_validation<T>(
++        &self,
++        operation: impl FnOnce() -> T,
++    ) -> Result<T, wgpu::Error> {
++        #[cfg(not(target_arch = "wasm32"))]
++        let scope = self
++            .blocking_validation
++            .then(|| self.device.push_error_scope(wgpu::ErrorFilter::Validation));
++        let value = operation();
++        #[cfg(not(target_arch = "wasm32"))]
++        if let Some(cause) = scope.and_then(|scope| pollster::block_on(scope.pop())) {
++            return Err(cause);
++        }
++        Ok(value)
++    }
++}

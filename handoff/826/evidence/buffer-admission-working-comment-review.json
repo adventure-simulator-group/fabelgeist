@@ -1,0 +1,337 @@
+{
+  "review": "Independent Comment Review: working Buffer admission repair",
+  "base_revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+  "base_tree": "202fc9f4e0e0721003da587b4a68ffd7e603bf72",
+  "snapshot": "Working two-file repair over6e56; exact fingerprints below, not one clean/final committed SHA",
+  "fresh_source_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "abac05c4f4b49a90348a933fb2655b9417c4e52edd52aad390e111d831118e02",
+      "lines": 117,
+      "coverage": "Fresh complete current working source and full tracked mod.rs delta read; no execution"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/admission_error.rs",
+      "sha256": "a5a41a86f6c2a1e31715329fe4a234d8d9c30dd4c972660c405e4cbeade13a40",
+      "lines": 41,
+      "coverage": "Fresh complete current working source and full tracked mod.rs delta read; no execution"
+    }
+  ],
+  "carried_source_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "lines": 47,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "lines": 49,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "lines": 140,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "lines": 28,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "lines": 153,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "lines": 50,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "lines": 101,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "lines": 101,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "lines": 62,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "lines": 60,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "lines": 102,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "lines": 73,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "lines": 150,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "lines": 25,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "lines": 5,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "lines": 187,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "lines": 147,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "lines": 146,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "lines": 42,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+      "lines": 80,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "lines": 47,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "lines": 293,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+      "sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+      "lines": 584,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh complete StereoDepth::upload and documentation lines303-327; context120-165 also read, no full module credit",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "lines": 797,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh complete read_positions/read_rest/test-only set_state and docs lines764-797; no full simulation module credit",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "lines": 17,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "lines": 13,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "lines": 14,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh full source read including all source comments/docs and existing fixtures",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+      "sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "lines": 93,
+      "identity_matches_prior": true,
+      "coverage": "Carry exact prior source account: Fresh complete trimmed function87-93 plus nearby80-86; no full layout module credit",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-comment-review.json",
+      "prior_sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036"
+    }
+  ],
+  "all30_carried_identities_match": true,
+  "source_proofs": {
+    "mod_existing_docs_comment_lines_identical": true,
+    "native_allocate_call_preserved": true,
+    "native_write_call_preserved": true,
+    "fixtures": "Existing Buffer fixtures and all other accounted sources exact prior hashes; no new fixtures/cases/helpers/assertions/doctests."
+  },
+  "contracts": [
+    {
+      "area": "Local classification",
+      "evidence": "EmptyAllocation, WriteOffsetOverflow{at,bytes} and WriteOutOfBounds{at,bytes,capacity} replace only the three anyhow prose roots. The enum accurately documents local request admission before native allocation/queue writing, and uses existing canonical BufferByteLength/BufferByteOffset. Error default source is None, with no fabricated SDK/std child cause."
+    },
+    {
+      "area": "Native causes and exact preconditions",
+      "evidence": "Existing public anyhow carriers, allocate_native/write_to calls and native scopes unchanged. Higher receivers carry the typed error through existing anyhow/GenerateError/Metal/Hair/operation-observation wrappers. Exact logicalDevice/pairedQueue/mapping preconditions and actual provider observation limits retain their old documentation, not expanded by this enum."
+    },
+    {
+      "area": "Diagnostics and boundaries",
+      "evidence": "Display preserves all three existing diagnostic texts; bounds guard order and equality behavior remain exact. Zero allocation rejected before native call; checked offset addition then logical end rejected before queue write. No new alignment/usage/native health policy or completion/rollback guarantee. Zero ByteLength, prefix, host-layout-admitted empty read and distinct nonempty binding remain unchanged."
+    }
+  ],
+  "actionable_comment_findings": [],
+  "prior_findings": [
+    {
+      "id": "BA-R1",
+      "disposition": "Three root producers now carry owning structured variants and typed request context; docs accurately describe local/native distinction. This source verdict does not replace independent Code/Rule acceptance."
+    },
+    {
+      "id": "BUFFER-ADMISSION-C1",
+      "disposition": "Mesh comment still unchanged and peer-owned repair pending; NOT resolved by Buffer error repair. Prior exact SDK evidence and finding retained.",
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "line": 13
+    }
+  ],
+  "required_dependencies": [
+    "Canonical handoff is bounded to these exact two working files; final exports preserved by existing buffer->gpu->data->prelude chain. Do not include unrelated dirty generatedGPUfiles in this native verdict.",
+    "Mesh C1 awaits owner source/preinventory repair. Wider count/stride/physical/caller/lock/source graph remains required.",
+    "Root must obtain complete all13/repeated three independent reviews and required hosted checks on one final pushed SHA. No merge/final clearance."
+  ],
+  "limits": [
+    "Two fresh full source reads plus30independently verified exact prior accounts; carry27prior full files and3prior bounded complete-function accounts, no claim of fresh reread of all32.",
+    "No source edits/project execution/check/build/lint/test/scanner/generator/runtime/probe, new tests/cases/helpers/assertions/doctests, pushCI/externalpost. Source/Git/hash/ignored report bookkeeping only.",
+    "No complete native83/generatedfamily/global/compiled/browser/runtime/hosted/finalPR clearance."
+  ],
+  "verdict": "No actionable comment mismatch in exact two-file working admission repair; local error/no-SDK-cause/zero-prefix/read contracts accurately separated. Mesh wording dependency remains open."
+}

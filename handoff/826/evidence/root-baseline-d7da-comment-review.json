@@ -1,0 +1,183 @@
+{
+  "review": "Independent Comment Review: native baseline reduction",
+  "head": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "tree": "868959fcaec6f7b624c0c462c6bea4a6a70528d4",
+  "parent": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "changed_paths": [
+    "rust-quality-baseline.toml"
+  ],
+  "baseline_before_sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+  "baseline_after_sha256": "fa4fcada546c6e5f6350d0de7cd7d03e88cd5f4b3ec92034e12432f60c6df8dc",
+  "removed_records": [
+    {
+      "table": "files",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "ceiling": 538
+    },
+    {
+      "table": "files",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "ceiling": 899
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "item": "create_bind_groups",
+      "ceiling": 278
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "item": "ComputePass::record",
+      "ceiling": 410
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::blit_texture_to_face",
+      "ceiling": 161
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_face_shader_raw",
+      "ceiling": 149
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_shader_raw",
+      "ceiling": 142
+    }
+  ],
+  "added_records": [],
+  "counts_before": {
+    "files": 209,
+    "functions": 484,
+    "findings": 1369
+  },
+  "counts_after": {
+    "files": 207,
+    "functions": 479,
+    "findings": 1369
+  },
+  "all_remaining_record_bytes_exact": true,
+  "all_remaining_records_semantically_exact": true,
+  "working_proof_matches": {
+    "before": true,
+    "after": true,
+    "removed": true
+  },
+  "configured_limits": {
+    "file": 500,
+    "function": 100
+  },
+  "source_accounting": [
+    {
+      "path": "rust-quality.toml",
+      "sha256": "9a3738a7916a3edb8ebf501345d9815aef9f5fe18458f6ac5231c20a7e7e5030",
+      "git_blob": "8e424f99850cf6ce22c08bcf52ce1581fa0e1342",
+      "raw_lines": 1018,
+      "coverage": "Fresh configured limits1-2 and nearby scopes1-100; remaining config exact identity only",
+      "byte_identical_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/config.rs",
+      "sha256": "39c47caab802ebfd7fac9e7fe4431c95f850b82fe4aed4ad144fc623b474aa83",
+      "git_blob": "c65c79cc21c9947e3a9fbcf7fe47c916fe11439d",
+      "raw_lines": 166,
+      "coverage": "Fresh complete schema/load/validation source",
+      "byte_identical_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/analyze.rs",
+      "sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "git_blob": "77afa49dc19ca67c89c66ab6bc97e772dd521dc9",
+      "raw_lines": 978,
+      "coverage": "Fresh relevant validate_debt and snapshot lines220-350 only; no execution",
+      "byte_identical_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+      "sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "git_blob": "a3bab8c0ee970d5393621dd8890cdc3d06e02ad1",
+      "raw_lines": 537,
+      "coverage": "Fresh count_lines/count_range/meaningful lines425-458 only; no execution",
+      "byte_identical_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "git_blob": "85fb926edfa847c942479d7aca00bc3ba46da988",
+      "raw_lines": 76,
+      "coverage": "Fresh complete source read; whole raw module76lines bounds current record",
+      "byte_identical_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "git_blob": "277e2530407fdc4216dc79bdad4f1285dad6afd2",
+      "raw_lines": 18,
+      "coverage": "Fresh complete source read; reexport is not a create_bind_groups body",
+      "byte_identical_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "git_blob": "0eac254b821e75e05ef833ad6cc522b208deceb3",
+      "raw_lines": 167,
+      "coverage": "Fresh lines1-110, including whole actual create_bind_groups17-42",
+      "byte_identical_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "60b53619b5d5590c6ebbeb15ca547b2ee4c026c092bc4ac7e9938dec6f674077",
+      "git_blob": "6572ff41844dd8429e04f51968c75f94ec9ece06",
+      "raw_lines": 461,
+      "coverage": "Exact carried prior complete native Cube47f/cached-view8c600 source read; no fresh whole-body read in this baseline wave",
+      "byte_identical_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+      "git_blob": "f91c8772f7fe6d1a4581f8d39cfa8eb026f5c2bc",
+      "raw_lines": 315,
+      "coverage": "Exact carried prior complete native Cube47f/cached-view8c600 source read; no fresh whole-body read in this baseline wave",
+      "byte_identical_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "sha256": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+      "git_blob": "c0eef53ba913e83db7a958511a86024f363d6a0b",
+      "raw_lines": 266,
+      "coverage": "Exact carried prior complete native Cube47f/cached-view8c600 source read; no fresh whole-body read in this baseline wave",
+      "byte_identical_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "sha256": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+      "git_blob": "c9733401ec5a2de9d1403c672f5b3e5f8beba7e8",
+      "raw_lines": 213,
+      "coverage": "Exact carried prior complete native Cube47f/cached-view8c600 source read; no fresh whole-body read in this baseline wave",
+      "byte_identical_parent": true
+    }
+  ],
+  "confirmed_claims": [
+    "The only changed tracked path is rust-quality-baseline.toml; two file-debt and five function-debt records are deleted. No source, documentation, fixture, shader, quality configuration or quality-validator implementation changed.",
+    "All retained baseline record bytes and semantic values remain identical and in the same order. No baseline record was added, retargeted or increased. Findings table remains unchanged.",
+    "Configured limits remain500 file lines and100 function lines. The source validator diagnoses missing/below-limit debt records and exposes new/grown debt independently; removal does not disable or weaken those checks.",
+    "Current Texture2d and Cube owning modules have461/315 total raw lines respectively, so meaningful production counts cannot exceed500. The old create_bind_groups module has only a reexport and18rawlines; actual assembly function17-42 is shorter than100rawlines. ComputePass whole module76rawlines proves its record is shorter than100. Three Cube methods moved to blit/shader owners and are individually shorter than100rawlines.",
+    "Raw-line upper bounds and absent old-body identities justify these exact removals. They are not a reproduced project metric, a whole-baseline audit, or evidence that surviving/new integration debt is clear."
+  ],
+  "findings": [],
+  "limits": [
+    "Independent Comment Review of exact configuration delta and its relevant source/documentation claims; no actionable misleading comment or clearance claim was found.",
+    "Parent all13 pre-repair ledger was consulted as scoped discovery evidence, not adopted as a delegated exhaustive review or an independently executed quality scan.",
+    "No fresh full read of12809-line retained baseline or unrelated source is claimed. Exact record/TOML/Git bookkeeping proves preservation; relevant owning native source reads are fresh or carried by exact identity with coverage stated.",
+    "No source edits, local project checks/scanners/baseline generator/build/lint/tests/runtime, new tests/cases/helpers/assertions/doctests, push or hostedCI/external post performed. Python was only TOML/Git/report bookkeeping.",
+    "Complete canonical producer/caller/native/error/cache/lock receiving remains unfinished. Hosted final quality checks and baseline export must assess the actual final combined source; relevant reductions only, no larger ceilings or newly hidden debt.",
+    "Required final all13 wave, independent Code/Rule/Comment reviews and hosted project checks must pass on one final pushed revision. No global/compiled/quality-gate/final clearance."
+  ],
+  "verdict": "No actionable Comment Review finding in bounded baseline-only delta; combined-source and hosted acceptance remain required."
+}

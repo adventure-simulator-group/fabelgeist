@@ -1,0 +1,220 @@
+{
+  "review": "Independent policy73b Comment Review and full renderer receiving discovery",
+  "head": "73b6e3a2ddf319dec749e3b1ff4a25e99b9c6612",
+  "tree": "c8f7763247eff6ae47b79973ef3be2051289b248",
+  "parent": "197eb8982c554203ac8652178cabe611d3652896",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "initial_tracked_worktree": "clean at pinned73b entry",
+  "current_head_at_report": "73b6e3a2ddf319dec749e3b1ff4a25e99b9c6612",
+  "source_mode": "All reviewed objects read via immutable git show73b; later working-tree advancement would not change this evidence.",
+  "checkpoint_only": true,
+  "final_clearance": false,
+  "coverage": {
+    "changed": [
+      {
+        "path": "crates/fabelgeist-hair/Cargo.toml",
+        "sha256": "503d2fbd7648483a96ada49bccd5247e7cdfc4227ee8ce697e72726bbded413d",
+        "lines": 39,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/dataset.rs",
+        "sha256": "9247453d3663cb3a1be622133a7e9246df7d07ef46de6cabc2763b176c30fec0",
+        "lines": 265,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod.rs",
+        "sha256": "497f4f3034cc1b9ec3d29319cf8f83ae8650a8e315e4d1902c7a8a9ec233031a",
+        "lines": 226,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+        "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+        "lines": 84,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+        "sha256": "fc38d908be6be1c94313213b0e6ceba2044000830ad556b1149b1a53c88482bb",
+        "lines": 259,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+        "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+        "lines": 162,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+        "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+        "lines": 105,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+        "sha256": "f523a641bd99ff3aa3f29ea82062643213212d2f258da56c918fff2333a8f105",
+        "lines": 49,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/draws.rs",
+        "sha256": "fbb5778112ab2b01410355c79b089d0ef4f16bb6503d41fd3815ef4f13db189e",
+        "lines": 147,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+        "sha256": "48018bf76f888e585b06342fa9ec81323dab503e61a2eadf2ed2e845f8a18856",
+        "lines": 122,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+        "sha256": "57bfcc948df176ba35f9da2138223650f4ee8c70f36e9c98341a8d93f1e7db88",
+        "lines": 165,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/mod.rs",
+        "sha256": "9d965e07f084299117c19862949de72abde482281dc80cba85c0ee62d423fd9e",
+        "lines": 2210,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/readback.rs",
+        "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+        "lines": 184,
+        "coverage": "Fresh complete pinned file read; render/mod.rs contiguous1-700/701-1400/1401-2200/2201-end"
+      }
+    ],
+    "affected_unchanged": [
+      {
+        "path": "crates/fabelgeist-hair/src/render/math.rs",
+        "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+        "coverage": "Fresh complete pinned source read"
+      },
+      {
+        "path": "crates/fabelgeist-math/src/units.rs",
+        "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+        "coverage": "Fresh1-95 Ratio/units owner source; not a whole new math-family audit"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/rng.rs",
+        "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+        "coverage": "Fresh1-145 random generator contracts and unit [0,1) formula"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/cards.rs",
+        "sha256": "94362357c99bfe3788518e391eeb66986b7ab8f5bf85608c6e2ffb09b916c2a0",
+        "coverage": "Fresh1-130 public CardVertex/producer source; public random scalar remains unconstrained"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+        "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+        "coverage": "Exact197 error carrier evidence retained; not fresh complete read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+        "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+        "coverage": "Exact197 callback policy source retained; not fresh complete read"
+      }
+    ],
+    "shaders": [
+      {
+        "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+        "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+        "coverage": "Byte-identical parent shader; card_fs500-570 fresh read; previous post/deform complete read and other hair stages targeted coverage carried"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+        "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+        "coverage": "Byte-identical parent shader; card_fs500-570 fresh read; previous post/deform complete read and other hair stages targeted coverage carried"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+        "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+        "coverage": "Byte-identical parent shader; card_fs500-570 fresh read; previous post/deform complete read and other hair stages targeted coverage carried"
+      }
+    ],
+    "fixtures": {
+      "renderer_sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+      "renderer_same_as197": true,
+      "renderer_test_functions": 2,
+      "renderer_existing_helper": "validate",
+      "renderer_assertion_sites": 5,
+      "dataset_tests_sha256": "a02817105e57ea1733fbce5f446c1ec4ced8fe43246b1815a29f89f994d2e142",
+      "dataset_tests_same_as197": true
+    },
+    "limits": "Full13 changedfiles (including policy/quality/presets/counts/full2210renderer) and named affected source. Not fresh full incoming210/fullPR/native SDK source reading or exhaustive producer/layout/caller integration."
+  },
+  "findings": [
+    {
+      "id": "73B-C1",
+      "priority": "P3",
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "line": 60,
+      "issue": "Representation::Empty is documented as no groom geometry prepared, but shadow returns Empty for a card-only groom that does contain geometry. Empty describes selection for a draw, not global asset absence.",
+      "remedy": "Use: No geometry is selected for this draw. Also make select_blended absence prose explicitly say no strand or card levels if clarifying levels terminology.",
+      "acceptance": "Enum variant contract covers card-only empty shadow and entirely empty groom without conflation."
+    },
+    {
+      "id": "73B-C2",
+      "priority": "P3",
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "line": 111,
+      "issue": "Coverage prose documents random in [0,1] and promises complete incoming/outgoing transition endpoints. Half-open shader rejects random==1 for Incoming(amount1), retains it for Outgoing(amount1). Generated RNG values are [0,1), but public CardVertex can contain1.",
+      "remedy": "Document exact keep.x <= random < keep.y cuts, outgoing[amount,2) and incoming[-1,amount), retaining actual endpoint semantics. Qualify complete-coverage statements to generated [0,1) inputs rather than all documented [0,1] values.",
+      "acceptance": "Docs match unchanged half-open shader, including externally supplied random1; no shader or fixture change required."
+    },
+    {
+      "id": "73B-C3",
+      "priority": "P3",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "line": 114,
+      "issue": "FrameInfo.primitives says number drawn, but primitives(representation) reports nominal primary population; outgoing blend may use shorter instance prefix and incoming/shadow draws are excluded.",
+      "remedy": "Use: Population of the primary representation, excluding transition and shadow draws. Keep actual population/error contract synchronized with pending canonical count migration.",
+      "acceptance": "Consumer is not told this field is actual total submitted draw count."
+    }
+  ],
+  "resolved197": [
+    {
+      "id": "197-C1",
+      "status": "Resolved: only other formats accepted by native render pipeline claimed usable."
+    },
+    {
+      "id": "197-C2",
+      "status": "Resolved: geometry/cover reuse distinguished from host atlas upload."
+    },
+    {
+      "id": "197-C3",
+      "status": "Resolved: adapter buffer/storage-size requests distinguished from admitted input fit."
+    }
+  ],
+  "verified_contracts": [
+    "Public constructor now states exact logical device/paired queue resource preconditions and provider device-handled failures. headless requests actual max_buffer_size/max_storage_buffer_binding_size while other limits remain defaults; no arbitrary fullgroom or observed validation guarantee.",
+    "PixelSpan retains signed/nonfinite numerical inputs; frame Globals validates effective finite uniform upload (including actual pose) and RenderedView checks effective pixel/minwidth/representation widths/blend before frame identity publication. No policy-wide constructor finiteness/bounds admission implied.",
+    "AccumulationFrames target clamps request0 to1; next saturates; next_weight widens u32 before1addition. ShadowMapSize retains16 minimum and native upper-bound admission. Index leaves do not prove collection membership; count.select clamps ordinal tolast only for nonempty family.",
+    "Nonempty bands required first. Nonempty strands without strand level error precedes overall empty selection. Entirely absent strand/card families yield Empty; absent selected family when another exists returns typed error, including incoming blend target. shadow uses Empty when no strand levels.",
+    "PixelSpan NaN comparisons cause band selection fallback tolast for nonempty bands; sim_level similarly falls back tolast sim band/default. This does not imply NaN can publish a frame: effective frame finite checks remain separate.",
+    "Authored cinematic/desktop/mobile numeric catalog and shading semantics retained while named quantities/enums carry quality, level and simulation selection. Dataset policy retains target minimum1 through AccumulationFrames.",
+    "Converged reselects using recorded pixel observation and compares main/blend/minpixels/shading/enabledshadow/resolution, no pending movement and frame target. Explicit invalidate_view clears last/count/history on scene/target replacement. Actual pose is validated before cache identity drops pose; moving keeps temporal mean by design.",
+    "History toggles First/Second through native array indices, current mean reads from old history writes opposite then tonemaps new history. First/current view starts frame count0 and weight1; moving uses minimum0.35 weight. No GPU completion/performance claim follows.",
+    "Per-level pending deformation across main/shadow/blend remains, with typed indices at collection boundaries. Native prefix clamp in draw_gpu narrows only after residentu32 bound. Full producer/layout admission and old raw fields are not complete.",
+    "Existing readback semantics, actual causes, ready-first progress and SDK temporary-copy limitation unchanged from197, with typed frame count check only."
+  ],
+  "required_dependencies": [
+    "Whole producer/count/head/native layout family is still unfinished: current HairLods::counts still constructs typed LodCounts from raw scalar values without adapters; peer GpuLods/other policy callers and canonical head/count/layout relationships require coordinated receiving migration. No compile/source-family-complete claim.",
+    "Root all13 inventory and owned renderer source/state/admission repairs remain separate; mathematical finiteness does not prove physical geometry validity, resource/device lifetime or native limits.",
+    "#780 caller/constructor/FastPath/ResourcePipeline/groupedReadback/completion/error/cache/lock and producer integration remains required; #895 ZIP/NumPy ownership and required774 retained families unchanged.",
+    "All three final independent reviews and required hosted checks must pass on same final pushed revision after complete family integration."
+  ],
+  "errata_carried": "Earlier detached-Wasm-readonly rationale and recorder-scope native acceptance assurances remain withdrawn as documented in197/frozen deferred-submission reports.",
+  "limits": [
+    "No source edits, project execution/checks/builds/tests/scanners/generators/runtime, new tests/cases/helpers/assertions/doctests, push/CI/external posts.",
+    "Source-only, no native/Wasm compilation, browser/hardware/artistic calibrated rendering, performance/globalhealth/rollback or universal recoverable-allocation verdict.",
+    "Three P3 wording findings and required families open. No integrated/fullPR/all13/final clearance."
+  ]
+}

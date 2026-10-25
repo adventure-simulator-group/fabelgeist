@@ -1,0 +1,360 @@
+{
+  "review": "Independent full renderer197 Comment Review and source discovery",
+  "head": "197eb8982c554203ac8652178cabe611d3652896",
+  "tree": "dd6cb29d3b60bc9b5053c19bfe72340f7b84434b",
+  "parent": "8d65dd9e24c506f485cec31a30ad998351038c5b",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "tracked_worktree": "clean",
+  "checkpoint_only": true,
+  "final_clearance": false,
+  "coverage": {
+    "changed": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+        "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+        "coverage": "Fresh complete file read at pinned197; full 2306-line renderer covered in contiguous1-450/451-950/951-1450/1451-1950/1951-2306 reads; complete changed hunks or new-file content read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+        "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+        "coverage": "Fresh complete file read at pinned197; full 2306-line renderer covered in contiguous1-450/451-950/951-1450/1451-1950/1951-2306 reads; complete changed hunks or new-file content read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+        "sha256": "fd6c4991e13b343c21b396b8aada2480b03508500184761d217c1237bb1c52cb",
+        "coverage": "Fresh complete file read at pinned197; full 2306-line renderer covered in contiguous1-450/451-950/951-1450/1451-1950/1951-2306 reads; complete changed hunks or new-file content read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+        "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+        "coverage": "Fresh complete file read at pinned197; full 2306-line renderer covered in contiguous1-450/451-950/951-1450/1451-1950/1951-2306 reads; complete changed hunks or new-file content read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+        "sha256": "f7dde4c1be8af88bdf0bfc2a3e9d2fe3828767fd5be8ac3ed5abcf88e6affc4a",
+        "coverage": "Fresh complete file read at pinned197; full 2306-line renderer covered in contiguous1-450/451-950/951-1450/1451-1950/1951-2306 reads; complete changed hunks or new-file content read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+        "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+        "coverage": "Fresh complete file read at pinned197; full 2306-line renderer covered in contiguous1-450/451-950/951-1450/1451-1950/1951-2306 reads; complete changed hunks or new-file content read"
+      },
+      {
+        "path": "crates/fabelgeist-hair/Cargo.toml",
+        "sha256": "fbffd8ec6d44c6f3889ecf4a8267e2ec885fd0f966b5c4b07517e808809a1579",
+        "coverage": "Fresh complete file read at pinned197; full 2306-line renderer covered in contiguous1-450/451-950/951-1450/1451-1950/1951-2306 reads; complete changed hunks or new-file content read"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+        "sha256": "4c96e9864c8220e1710cf0ff6a138ac897f0099fbf06cefb87ed514f7705cd12",
+        "coverage": "Fresh complete file read at pinned197; full 2306-line renderer covered in contiguous1-450/451-950/951-1450/1451-1950/1951-2306 reads; complete changed hunks or new-file content read"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/mod.rs",
+        "sha256": "b75f40cc55cbf486cab3a6ce146d8e73373aa3ab82e96cab8f662b0eee7efd17",
+        "coverage": "Fresh complete file read at pinned197; full 2306-line renderer covered in contiguous1-450/451-950/951-1450/1451-1950/1951-2306 reads; complete changed hunks or new-file content read"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/readback.rs",
+        "sha256": "bdd1bb89b4dc24ba0ddfda0c3e051d8c80db02cc26c12cea906a530a94040fb5",
+        "coverage": "Fresh complete file read at pinned197; full 2306-line renderer covered in contiguous1-450/451-950/951-1450/1451-1950/1951-2306 reads; complete changed hunks or new-file content read"
+      }
+    ],
+    "affected_unchanged": [
+      {
+        "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+        "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+        "coverage": "Fresh complete error responsibility; CallbackProgressError retains Poll or typed callback cause through HairGpuError"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod.rs",
+        "sha256": "858dfb6b573d078ef1ecec3d6a2d8a0f16e80b1780e213259d8fe27946a6acc6",
+        "coverage": "Fresh complete policy/representation/groom source read, including unvalidated public policy limits"
+      },
+      {
+        "path": "crates/fabelgeist-timer/src/lib.rs",
+        "sha256": "55f4368a1ca7ff76eda3f7ce0f35bce347a1eac6ebb0a3aae2ef5471e182d606",
+        "coverage": "Fresh complete canonical timer source read"
+      },
+      {
+        "path": "crates/fabelgeist-timer/Cargo.toml",
+        "sha256": "33cebad8c429f5d694041bac3e8b3e61049ddc1fc9f1bf695d072196ee007065",
+        "coverage": "Fresh complete browser/native timer feature manifest"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "sha256": "dde02c3c137d5ac3722f28e2eab7db9eb82506ef0b64d182dd52a42b4876bbb5",
+        "coverage": "Prior byte-identity carried, native context policy not renderer-specific runtime proof"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+        "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+        "coverage": "Prior source boundary retained; HairRenderer uses direct native methods instead"
+      }
+    ],
+    "shaders": [
+      {
+        "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+        "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+        "coverage": "Parent byte-identical shader; post/deform full source freshly read; hair shader targeted stage/head/coverage source lookup, not fresh whole file"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+        "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+        "coverage": "Parent byte-identical shader; post/deform full source freshly read; hair shader targeted stage/head/coverage source lookup, not fresh whole file"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+        "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+        "coverage": "Parent byte-identical shader; post/deform full source freshly read; hair shader targeted stage/head/coverage source lookup, not fresh whole file"
+      }
+    ],
+    "sdk_fresh": [
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/webgpu.rs",
+        "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+        "coverage": "Fresh1420-1475 WebBufferMappedRange owns lazy Rust temporary Vec;3945-3995 read_slice calls get_temporary_mapping.to_vec; other scope/callback evidence carried from previous exact SDK source"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gloo-timers-0.3.0/src/future.rs",
+        "sha256": "08143bd3b980ca40031e5ebf2008a50593880c483a71ab899e029cfe8f0071b0",
+        "coverage": "Fresh55-102 zero Duration converts to zero-millisecond TimeoutFuture"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gloo-timers-0.3.0/src/callback.rs",
+        "sha256": "96c4f95a7e6b962dbfbeb5ccf3b78db7e7e7497e4b236c903b7543eeab54609a",
+        "coverage": "Fresh52-79 callback timer schedules JS set_timeout; browser task turn does not establish zero actual elapsed time"
+      }
+    ],
+    "prior_receiver": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+        "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+        "sha256": "e108018175277b49b433da794fa6702ca07210a729103bd07a69d904d0b85bbb",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+        "sha256": "2bda8179b7fad1936a5d5c2b742497a0c66da546de1cee15a732d63918bdd832",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+        "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+        "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+        "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+        "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+        "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "sha256": "430f00e3fea4ee0874aebd8e0e6636409939155c6276b36f14251a4a8e51de34",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "sha256": "dde02c3c137d5ac3722f28e2eab7db9eb82506ef0b64d182dd52a42b4876bbb5",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/texture-views.md",
+        "sha256": "610d980a0657a3f089b0178979f77f22ce6cb529e46f37ca9c3ecd495709e206",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+        "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+        "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+        "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/README.md",
+        "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+        "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+        "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+        "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+        "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+        "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+        "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+        "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/error.rs",
+        "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/readback.rs",
+        "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-shell/src/shell.rs",
+        "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+        "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/Cargo.toml",
+        "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+        "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+        "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+        "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+        "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+        "sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+        "coverage": "Exact unchanged8d/a3/2f/f0 source identity; prior bounded coverage carried without fresh full-body claim"
+      }
+    ],
+    "fixture_identity": "Original renderer tests module byte-identical to8d: two tests, original validate helper, five assert_eq sites. All three shader blobs byte-identical. No new tests/cases/helpers/assertions/doctests.",
+    "coverage_limits": "No whole incoming210/full-project call graph claim. Repository source lookup found no external read_rgba/HairRenderer::new/render_converged calls, but source lookup is not compilation evidence."
+  },
+  "findings": [
+    {
+      "id": "197-C1",
+      "priority": "P2",
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "line": 104,
+      "issue": "Other output formats are said to remain usable for rendering. The unrestricted TextureFormat input includes formats native tonemap/color attachment creation cannot accept; the readback format match establishes no render capability.",
+      "remedy": "Say: Other formats accepted by the native render pipeline are not decoded by this operation. Preserve the explicit four RGBA/BGRA supported formats and device-handled validation limits.",
+      "acceptance": "Do not promise rendering support for arbitrary formats that fail native pipeline/attachment admission."
+    },
+    {
+      "id": "197-C2",
+      "priority": "P3",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "line": 1047,
+      "issue": "set_gpu_groom says nothing is copied, but it uploads every CPU atlas mip with queue.write_texture. Only level/card geometry and optional head-cover buffers are reused directly.",
+      "remedy": "Describe reuse of geometry/cover buffers explicitly and state the card atlas is uploaded from host mip bytes.",
+      "acceptance": "No blanket zero-copy claim for the entire method."
+    },
+    {
+      "id": "197-C3",
+      "priority": "P3",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "line": 2182,
+      "issue": "headless_device promises a full groom fits in one binding from requesting adapter storage limits. Finite adapter limits do not admit arbitrary groom sizes, and upload_level retains only a fitting prefix for oversized input.",
+      "remedy": "Say the helper requests adapter buffer/storage-binding limits; inputs still must fit those limits. Do not promise full-population admission.",
+      "acceptance": "Provider limit request is distinguished from resource/count/shape admission."
+    }
+  ],
+  "verified_contracts": [
+    "New read_rgba is async and returns canonical image::RgbaImage. It rejects missing output/resize-only targets using last/frame evidence before mapping, supports RGBA8/BGRA8 unorm/sRGB, strips row padding and swaps BGRA channels.",
+    "Readback host dimensions/row/padded arithmetic and host reservation are checked. Image allocation occurs before mapped view. SDK may separately infallibly allocate a temporary mapping Vec; no universal recoverable-allocation-failure promise is made.",
+    "Native readback uses explicit Wait and retains actual Poll/Mapping/callback causes. Browser readback uses canonical ready-first helper and zero-duration browser timer. Creation/copy/finish/submit native errors are device-handled, not claimed observed by the returned Result.",
+    "poll_callback checks delivered value/closed receiver before device.poll(Poll), then checks again; no GPU Wait, later health check for ready value, or completion guarantee. await_browser_callback yields only when not ready; zero timer requests task progress without chosen polling interval or actual-zero-delay guarantee.",
+    "CallbackProgressError conversions preserve actual PollError/Canceled in BufferReadError, WorkCompletionError and HairGpuError boundaries; browser queue callback rejection limitation remains explicit.",
+    "Deformation pending state is per level, initialized on binding and marked pending for all levels after simulation movement. Main, enabled shadow and blend representation levels are considered; duplicate level is recorded once after state becomes Current. Unused levels retain obligations.",
+    "RenderedView retains globals excluding head pose/temporal jitter plus main/blend/enabled shadow/min_pixels; changed effective view resets accumulation. Resize resets last/frame/history; frames saturate and mean denominator widens first. Moving policy still deliberately keeps temporal blend.",
+    "Original renderer fixture/shader bytes preserved; Cargo adds existing futures-channel optional render dependency without new fixture inputs."
+  ],
+  "errata": [
+    {
+      "prior": "Earlier f0/d449 source reports accepted a WASM detached-view rationale for generic Buffer read allocation order.",
+      "current": "That rationale is withdrawn for pinned wgpu WebGPU read-only mapped access: get_temporary_mapping copies JS data into Rust Vec before read_slice. Current Buffer comment correctly states fallible host preallocation and cleanup ordering. This does not assert that SDK temporary allocations are fallible or produce typed errors."
+    }
+  ],
+  "required_dependencies": [
+    "Root renderer policy/provenance inventory remains active: public new takes arbitrary Device/Queue and presently does not document exact logical pair plus externally supplied resources same-device lineage or native device-handled creation/finish/submit policy globally. read_rgba documents its local policy only; no renderer Result-wide observed validation assertion.",
+    "Root retained layout/head/count/canonical policy/source/state admission family remains unfinished. Public raw groom/policy/binding fields and pending state are not admitted by these docs; no all-input renderer robustness or native validation clearance.",
+    "Owner780 producer/count/query/layout/error/cache/constructor/ResourcePipeline/FastPath/caller/lock integration, grouped Readback API/prose and completion Result/garment prose migrations remain required.",
+    "Root all13 inventory is separate and not delegated to this Comment Review. Complete integrated final three reviews and required hosted checks on same final pushed revision remain outstanding."
+  ],
+  "limits": [
+    "No source edits, project execution/checks/builds/tests/scanners/generators/runtime, new cases/helpers/assertions/doctests, push/CI/external posts.",
+    "Source/SDK-only review; no compiled native/Wasm, browser/hardware, calibrated rendering/artistic correctness, performance/global-health/rollback or recoverable-allocation-wide verdict.",
+    "Three wording findings and active family dependencies remain open. No whole-renderer, combined/fullPR/all13/final clearance; prior recorder-scope validation assurances remain withdrawn."
+  ]
+}

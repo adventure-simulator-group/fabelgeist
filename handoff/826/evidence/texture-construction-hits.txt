@@ -1,0 +1,49 @@
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:16:    Texture2d {
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:21:    Texture3d {
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:26:    TextureCube {
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:37:        Self::Texture2d {
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:44:        Self::Texture3d {
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:51:        Self::TextureCube {
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:63:            Self::Texture2d { requested, cause } => write!(
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:67:            Self::Texture3d { requested, cause } => write!(
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:71:            Self::TextureCube { requested, cause } => write!(
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:82:            Self::Texture2d { cause, .. }
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:83:            | Self::Texture3d { cause, .. }
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:84:            | Self::TextureCube { cause, .. } => Some(cause.as_ref()),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:9:pub struct Texture3d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:17:impl PartialEq for Texture3d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:33:impl Default for Texture3d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:44:impl Texture3d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:115:        let texture_value = Texture3d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:308:unsafe impl Send for Texture3d {}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:309:unsafe impl Sync for Texture3d {}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:15:pub struct TextureCube {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:23:impl PartialEq for TextureCube {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:39:impl Default for TextureCube {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:50:impl TextureCube {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:143:        let texture_value = TextureCube {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:313:        Ok(TextureView {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:1000:unsafe impl Send for TextureCube {}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:1001:unsafe impl Sync for TextureCube {}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:15:pub struct Texture2d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:23:impl PartialEq for Texture2d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:39:impl Default for Texture2d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:50:impl Texture2d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:163:        let texture_value = Texture2d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:449:    pub fn to_view(self_tex: Texture2d) -> super::texture_view::TextureView {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:452:    pub fn as_view(&self) -> super::texture_view::TextureView {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:626:unsafe impl Send for Texture2d {}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:627:unsafe impl Sync for Texture2d {}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs:96:impl super::Texture2d {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:10:pub struct TextureView {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:19:impl PartialEq for TextureView {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:36:impl Default for TextureView {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:48:impl TextureView {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:296:impl From<&crate::data::gpu::texture::Texture2d> for TextureView {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:298:        TextureView {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:309:impl From<crate::data::gpu::texture::Texture2d> for TextureView {
+crates/fabelgeist-gpu/tests/texture_views.rs:156:            (Method::Plane, TextureViewError::Texture2d { requested, cause })
+crates/fabelgeist-gpu/tests/texture_views.rs:157:            | (Method::Volume, TextureViewError::Texture3d { requested, cause })
+crates/fabelgeist-gpu/tests/texture_views.rs:158:            | (Method::Cube, TextureViewError::TextureCube { requested, cause }) => {
+crates/fabelgeist-compute/src/scatter.rs:248:                if input_res != ResourceType::Texture3d {
+crates/fabelgeist-hair/src/render/mod.rs:923:    ) -> wgpu::TextureView {

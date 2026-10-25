@@ -1,0 +1,1016 @@
+{
+  "review": "Independent bounded scope implementation Code Review",
+  "head": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+  "tree": "934eb5dd2adbbbd85faa7a1cdb9b3679db71ace6",
+  "compare": "6bf03a8d04bf246c996bbbfa17c1925ebd150c38",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "changed_paths": [
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+    "crates/fabelgeist-gpu/src/globals/mod.rs",
+    "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+    "crates/fabelgeist-gpu/texture-views.md",
+    "crates/fabelgeist-hair/src/render/deformation.rs"
+  ],
+  "sources": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "sha256": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9",
+      "git_blob": "e13b3b8e45b5bade388dcee0a15679ba9cb7370b",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "git_blob": "fad9e5b6efd305aaa9a781f2156f58ea134dbf7c",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "fresh complete materially distinct scoped functions; unrelated remainder not claimed fresh full"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "sha256": "c9488a11c8a8c9c481f6b948041544dea9ec19a9405405ec969f51c4e2d2db2d",
+      "git_blob": "8c84254fb8997f2658d4e115bbf0df15d99e08fc",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "git_blob": "1328e6a5087392d0f507a5a87d3152a017ecf1a3",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "git_blob": "081f961b1dce8faed1f81e4f619d3b6d51714a34",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "fresh complete materially distinct scoped functions; unrelated remainder not claimed fresh full"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "git_blob": "1c3d208bb839f18ce7a742861f365443e786f203",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "explicit mapping wait/read body138-174; peer successor required separately"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "git_blob": "58d988813cefd13442b07f2551b840f7d5cd6fa5",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "full native std/wasm cfg/dependency source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "git_blob": "0eac254b821e75e05ef833ad6cc522b208deceb3",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete create_bind_groups/create_group bodies1-82; unchanged helper remainder carried frompre6bf by exact diff/source contract.",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "git_blob": "8cfd4abad2635672f3d9f06b0f1d65266324d846",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "git_blob": "5529d7804de9cb3235d2fcdf1e82030922385127",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "complete allocate_native and all descriptor policy production source1-153; fixtures excluded"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "git_blob": "b9f5cf8040c0200cc774f92d5e4f2b5018e61132",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "complete native complete/release/Drop functions70-149; prior mapped-start source carried"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+      "git_blob": "2904d89894518acc7fdccf7736241db9747014b7",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "complete Buffer::new/write/write_at/from_upload production source1-125"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "git_blob": "17b17a3ef59db21e0ef6922e2d1ce9bb4795fd5a",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "full immediate observed native upload owner"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "git_blob": "f34c5730daeac1577440c03c76310b203576ce9a",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "full current error/source/Display owner"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "git_blob": "85fb926edfa847c942479d7aca00bc3ba46da988",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "git_blob": "25f4c17425f99c090bec3dc71920d26fc9522b91",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "9ad9d82531693820aff5a33f0b7ee8afdefa9ef4fb790fc87b77977cb9e3fb04",
+      "git_blob": "7f6d13fbc965d4a8971d7db4ce9214dd589c765a",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "full current error/source/Display owner"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "febc4863e0972c69efdffea504d3bdc2e11ca9df928c6d03e365c9cd88014d7a",
+      "git_blob": "e77a164a66dd36cd560ac6ccf41f3af33ab52f06",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "git_blob": "17d1fe9e74bdb8ce9c5d7f25f4525ecc0816f6cf",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete ReflectedInterface::new and records1-113; unchanged reflection-builder body scope carried, not fresh whole-file read.",
+      "prior_coverage": "fresh complete materially distinct scoped functions; unrelated remainder not claimed fresh full"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "git_blob": "5ffbc0c6b0dcaa45d1b74e9fc36f0cb14480f75f",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "full success-only source/device/validation-policy cache owner"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "git_blob": "38c52ef4b78ef2f1bc48830bdaa51c8d7c9efdf6",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "complete build/get-or-create pipeline bodies1-123; execute remainder not fresh full"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc",
+      "git_blob": "f6d30e81ffc826bbe631e8436aaa95f0cbf58c21",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "exact unchanged full source identity carried from10cc independent review"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "af62bc5f779bdd68942676c201137eec786b0c405216c1626b4b414cab2fe98f",
+      "git_blob": "33bbee3baacefb3d00ae839d378f2ac580a378d7",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": null
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "git_blob": "404a765e9377d7b74ca267ae1be9c3ce03b17190",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "full generic selected-view admission and effective-format/device consumer"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "git_blob": "607407e57148a21d145f00320434b4409707d1d6",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "a77ff3b04d06f2e44f8fa68c52fb5f6f75364646b1a33af6789955b0f6c6c058",
+      "git_blob": "6c397088ef329ef378eee8fcc317fdcc104e0a84",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete create/new/default/metadata source1-179; unchanged image/readback/write consumers carried frompre6bf exact body identity.",
+      "prior_coverage": "fresh complete materially distinct scoped functions; unrelated remainder not claimed fresh full"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "git_blob": "cc33b13da290260740b8622fdd4362c5fd45e59e",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d8e5f582e90cb905a5451d798eb86e4b43ff9687b58466bd5d0146fc1dac56ab",
+      "git_blob": "c1a4ececc468996acfab1a2753e4d43f8a90d823",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete new/default/metadata source1-129; unchanged read/write consumers carried frompre6bf.",
+      "prior_coverage": "fresh complete materially distinct scoped functions; unrelated remainder not claimed fresh full"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "git_blob": "4c3dcbbfcc0600c16a801b2029e7348b518a8a43",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "aa6e5dff4b2578cdcd992e69425955b885373bb8172bce6bba1e784c367df692",
+      "git_blob": "649b5ac19540ab354fac90df9829ea41180605fa",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete new/default/metadata source1-155; unchanged image/read/write/kernel consumers carried frompre6bf.",
+      "prior_coverage": "fresh complete materially distinct scoped functions; unrelated remainder not claimed fresh full"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "git_blob": "7cc31a110891b2f9e86b257cb8fcb8e642f3feed",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "fresh full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "git_blob": "869996dde8ec479ce068ef764b95671d5a656a77",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "full current error/source/Display owner"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "full ready-first callback Poll/browser yielding owner"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "git_blob": "6424213db5ebbbf06041bdaf2b364ca223cb312f",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "full current export owner; future ValidationScope owner absent at pin"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "git_blob": "24a5ea1e0349615d342a475a764347d7870162a6",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": null
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "git_blob": "3e3f5421736c5c8604c994b4cd4342ee85e0bf6d",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "full explicit completion owner and errors, excluded from helper family"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "git_blob": "f4d3ceca542fbcce8114bea1cb6995dc48934fb3",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "policy construction57-76; owned native vs browser policy"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "git_blob": "178d76c5e0efcca7eee0cbbfbc32208a6d5830d8",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete affected WgpuContext field policy/type and from_parts1-81; unaffected descriptor/fixture remainder carried exact.",
+      "prior_coverage": "policy/from_parts source1-88; fixture and unrelated descriptor remainder excluded"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "git_blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "full no-wait finish/submit owner"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "git_blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "changed_from6bf": false,
+      "same_as_pre_inventory": true,
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "prior_coverage": "full no-wait observe_validation owner"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "fbba26bd3beffcbe4439bff03b6812617c058ec2248827058d9f1e975b670557",
+      "git_blob": "962aa3363931e98101cb432752fe689d564660e6",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete file",
+      "prior_coverage": "guide108-170 validation/callback/limits paragraphs"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "7ae74e77ae2e8eadfcf84d6fa5b4c528034572fe1beec94f8e73a095748618fe",
+      "git_blob": "db147f8431d338484864c2baa64f51da194ad03b",
+      "changed_from6bf": true,
+      "same_as_pre_inventory": false,
+      "coverage": "Fresh complete changed DeformLevel::new103-181; sole comment change, all production/test bytes otherwise exact6bf; prior complete source read carried.",
+      "prior_coverage": null
+    }
+  ],
+  "sdk_sources": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-hal-29.0.4/src/gles/device.rs",
+      "sha256": "7ad87896ba806fcce14ea63d8900e3262b3ac36d3861c3569de9f8576e3b76d9",
+      "read_lines": "1590-1618",
+      "proof": "Native None timeout maps to u32MAX nanoseconds; browser clamp0 is not permission for synchronous waits.",
+      "current_sha256": "7ad87896ba806fcce14ea63d8900e3262b3ac36d3861c3569de9f8576e3b76d9",
+      "same_as_pre_inventory": true,
+      "current_coverage": "Exact source proof/hash carried frompre-repair; no new whole-SDK-file read"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-hal-29.0.4/src/gles/fence.rs",
+      "sha256": "a2e7b6abd2fd4a438de90b9f58452c64cd8bba83999c90fd6390e3db128b9c6c",
+      "read_lines": "100-155",
+      "proof": "Native fence client_wait_sync further clamps to i32MAX; TIMEOUT_EXPIRED/WAIT_FAILED ->false.",
+      "current_sha256": "a2e7b6abd2fd4a438de90b9f58452c64cd8bba83999c90fd6390e3db128b9c6c",
+      "same_as_pre_inventory": true,
+      "current_coverage": "Exact source proof/hash carried frompre-repair; no new whole-SDK-file read"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+      "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "read_lines": "827-974",
+      "proof": "Maintain waits latest observed successful submission; unsatisfied fence with nonempty queue ->Timeout despite None API timeout.",
+      "current_sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "same_as_pre_inventory": true,
+      "current_coverage": "Exact source proof/hash carried frompre-repair; no new whole-SDK-file read"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/life.rs",
+      "sha256": "44bd34cf5ab1c1a21729f2188df6d2ca0238f11c5f723380c8a4a16fbbd90b88",
+      "read_lines": "128-151",
+      "proof": "WaitIdleError::Timeout/WrongSubmissionIndex converted into actual PollError.",
+      "current_sha256": "44bd34cf5ab1c1a21729f2188df6d2ca0238f11c5f723380c8a4a16fbbd90b88",
+      "same_as_pre_inventory": true,
+      "current_coverage": "Exact source proof/hash carried frompre-repair; no new whole-SDK-file read"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "read_lines": "1847-1918",
+      "proof": "Native pop removes correct thread-local top scope synchronously and returns ready(scope.error); poll returns actual mapped PollError, other errors follow fatal policy.",
+      "current_sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "same_as_pre_inventory": true,
+      "current_coverage": "Native guard/ready pop portions freshly reread; other exact SDK source proof carried"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "read_lines": "850-878",
+      "proof": "Guard !Send/!Sync; pop closes immediately; Drop pops without waiting.",
+      "current_sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "same_as_pre_inventory": true,
+      "current_coverage": "Native guard/ready pop portions freshly reread; other exact SDK source proof carried"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "read_lines": "294-333",
+      "proof": "PollError Debug/Error but not Clone; retain actual error rather than reconstructing it from text.",
+      "current_sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "same_as_pre_inventory": true,
+      "current_coverage": "Exact source proof/hash carried frompre-repair; no new whole-SDK-file read"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/build.rs",
+      "sha256": "cf1df048074f80a58bd40f4eefe2b1d6bfa2b92b022dd9d216ed789885ce5b60",
+      "read_lines": "1-19",
+      "proof": "send_sync holds on native and configured fragile non-atomic wasm; ErrorSource/anyhow Send+Sync consequences inspected directly in api/device.rs764-837. No atomics/browser runtime validation claimed."
+    }
+  ],
+  "site_accounting": [
+    {
+      "id": "W01",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "function": "ComputePipeline::create_native",
+      "owner": "root",
+      "current_contract": "Native(Arc actual wgpu error); per-entry Observed outcome and Compiled state",
+      "repair_acceptance": "Progress must escape before cache publication; remove prior same-entry DeviceHandled value; native-only rejection caching unchanged.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "febc4863e0972c69efdffea504d3bdc2e11ca9df928c6d03e365c9cd88014d7a",
+      "poll_line_at6bf": 183
+    },
+    {
+      "id": "W02",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "function": "ComputeShader::new",
+      "owner": "root",
+      "current_contract": "ShaderError::Native(Arc actual wgpu error)",
+      "repair_acceptance": "No shader/source/module/device aggregate returned on Progress.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "poll_line_at6bf": 42
+    },
+    {
+      "id": "W03",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "function": "ReflectedInterface::new",
+      "owner": "root",
+      "current_contract": "ComputePipelineError::Native(Arc actual wgpu error)",
+      "repair_acceptance": "Do not publish reflected interface/layout candidate on Progress.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "poll_line_at6bf": 102
+    },
+    {
+      "id": "W04",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "function": "ComputePass::record",
+      "owner": "root",
+      "current_contract": "ComputePassError::Native(Arc actual wgpu error)",
+      "repair_acceptance": "Return Progress before standalone dispatch can submit; caller-owned encoder can already contain commands, no rollback promise.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "poll_line_at6bf": 73
+    },
+    {
+      "id": "W05",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "function": "uniform_buffer::create allocation observation",
+      "owner": "root",
+      "current_contract": "Nested Buffer::new Result; outer native scope; body Result applied after scope",
+      "repair_acceptance": "Resolve earlier operation error and typed later observation together; drain scope even when body failed; no write after failed allocation.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "poll_line_at6bf": 57
+    },
+    {
+      "id": "W06",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "function": "uniform_buffer::create write observation",
+      "owner": "root",
+      "current_contract": "Nested Buffer::write Result; outer native scope; body Result applied after scope",
+      "repair_acceptance": "Resolve earlier operation error and typed later observation together; do not return uniform buffer after Progress.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "poll_line_at6bf": 72
+    },
+    {
+      "id": "W07",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "function": "create_group",
+      "owner": "root",
+      "current_contract": "ComputePassError::Native(Arc actual wgpu error)",
+      "repair_acceptance": "Drop candidate bind group on Progress; group collection propagates error.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "poll_line_at6bf": 80
+    },
+    {
+      "id": "W08",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "function": "Texture2d::create",
+      "owner": "root",
+      "current_contract": "anyhow actual wgpu error plus exact WGPU Texture2d Creation Error context",
+      "repair_acceptance": "Preserve native-only direct cause/context; typed Progress before texture/view/device metadata publication.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "a77ff3b04d06f2e44f8fa68c52fb5f6f75364646b1a33af6789955b0f6c6c058",
+      "poll_line_at6bf": 159
+    },
+    {
+      "id": "W09",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "function": "Texture3d::new",
+      "owner": "root",
+      "current_contract": "anyhow actual wgpu error plus exact WGPU Texture3d Creation Error context",
+      "repair_acceptance": "Preserve native-only direct cause/context; typed Progress before aggregate publication.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "d8e5f582e90cb905a5451d798eb86e4b43ff9687b58466bd5d0146fc1dac56ab",
+      "poll_line_at6bf": 110
+    },
+    {
+      "id": "W10",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "function": "TextureCube::new",
+      "owner": "root",
+      "current_contract": "anyhow actual wgpu error plus exact WGPU TextureCube Creation Error context",
+      "repair_acceptance": "Preserve native-only direct cause/context; typed Progress before aggregate publication.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "aa6e5dff4b2578cdcd992e69425955b885373bb8172bce6bba1e784c367df692",
+      "poll_line_at6bf": 137
+    },
+    {
+      "id": "W11",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "function": "Texture2d::select_view",
+      "owner": "root",
+      "current_contract": "TextureViewError::Texture2d requested original format and Box actual error",
+      "repair_acceptance": "Keep cached branch untouched/no poll; dynamic view Progress retains requested format and operation context, no candidate return.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "poll_line_at6bf": 59
+    },
+    {
+      "id": "W12",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "function": "Texture3d::select_view",
+      "owner": "root",
+      "current_contract": "TextureViewError::Texture3d requested original format and Box actual error",
+      "repair_acceptance": "Keep cached branch untouched/no poll; dynamic view Progress retains requested format and operation context.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "poll_line_at6bf": 59
+    },
+    {
+      "id": "W13",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "function": "TextureCube::select_view",
+      "owner": "root",
+      "current_contract": "TextureViewError::TextureCube requested original format and Box actual error",
+      "repair_acceptance": "Keep cached branch and effective linear storage format untouched; typed Progress retains original requested format.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "poll_line_at6bf": 64
+    },
+    {
+      "id": "W14",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "function": "TextureCube::face_view_with_format",
+      "owner": "root",
+      "current_contract": "anyhow actual native error plus WGPU TextureCube Face View Error context; optional context",
+      "repair_acceptance": "Only native Some(context) with blocking policy observes/waits; None path unchanged; preserve face/dimension/layer/request admission.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "poll_line_at6bf": 123
+    },
+    {
+      "id": "W15",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "function": "TextureCube::view_2d_array",
+      "owner": "root",
+      "current_contract": "TextureViewError::CubeArray requested stored format and Box actual error",
+      "repair_acceptance": "Preserve native-only source/display and selected linear format; typed Progress before candidate return.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "poll_line_at6bf": 162
+    },
+    {
+      "id": "W16",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "function": "TextureSrgbConverter::new",
+      "owner": "root",
+      "current_contract": "ComputePipelineError::Native; ComputeShader::new already fallible before outer scope",
+      "repair_acceptance": "No converter pipeline/layout/device aggregate returned on Progress.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "poll_line_at6bf": 91
+    },
+    {
+      "id": "W17",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "function": "TextureSrgbConverter::convert finish observation",
+      "owner": "root",
+      "current_contract": "ComputePassError::Native after encoder.finish before queue.submit",
+      "repair_acceptance": "Finish-stage observation failure closes scope and prevents conversion submission.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "poll_line_at6bf": 160
+    },
+    {
+      "id": "W18",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "function": "TextureSrgbConverter::convert submission observation",
+      "owner": "root",
+      "current_contract": "ComputePassError::Native after queue.submit",
+      "repair_acceptance": "Progress can report after real submission; do not claim output rollback, no execution, GPU completion or global health.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Root implementation source-reviewed, no new owned finding",
+      "same_source_as6bf": false,
+      "current_sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "poll_line_at6bf": 172
+    },
+    {
+      "id": "W19",
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "function": "KernelBatch::dispatch cached record observation",
+      "owner": "780",
+      "current_contract": "Prepared::record operation Result resolved before captured native error; dispatch count after both",
+      "repair_acceptance": "Peer must consume shared observation resolver preserving operation precedence/Both; no dispatch counter increment on Progress; encoder may already contain commands.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Required peer migration still pending; old discarded-poll body unchanged at8cdc",
+      "same_source_as6bf": true,
+      "current_sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "poll_line_at6bf": 283
+    },
+    {
+      "id": "W20",
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "function": "FastPath::prepare",
+      "owner": "780",
+      "current_contract": "ComputePassError::Native; arena slot may already be committed before outer scope",
+      "repair_acceptance": "Do not publish Prepared on Progress; document retained consumed arena slot, not falsely claim whole prepare rollback.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Required peer migration still pending; old discarded-poll body unchanged at8cdc",
+      "same_source_as6bf": true,
+      "current_sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "poll_line_at6bf": 242
+    },
+    {
+      "id": "W21",
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "function": "CompiledLayout::new",
+      "owner": "780",
+      "current_contract": "ComputePipelineError::Native; candidate native layout/pipeline",
+      "repair_acceptance": "Do not return compiled fast layout or publish KernelCache value on Progress.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Required peer migration still pending; old discarded-poll body unchanged at8cdc",
+      "same_source_as6bf": true,
+      "current_sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "poll_line_at6bf": 47
+    },
+    {
+      "id": "W22",
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "function": "UniformArena::allocate new chunk",
+      "owner": "780",
+      "current_contract": "ComputePassError::Native; chunk push/used reset after scope",
+      "repair_acceptance": "Progress must precede new chunk publication/used reset; existing-chunk no-scope path unchanged.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Required peer migration still pending; old discarded-poll body unchanged at8cdc",
+      "same_source_as6bf": true,
+      "current_sha256": "c9488a11c8a8c9c481f6b948041544dea9ec19a9405405ec969f51c4e2d2db2d",
+      "poll_line_at6bf": 68
+    },
+    {
+      "id": "W23",
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "function": "KernelBatch::copy_buffer",
+      "owner": "780",
+      "current_contract": "ComputePassError::Native after recording native copy",
+      "repair_acceptance": "Preserve logical byte/zero/native recording contract; return Progress without claiming recorded copy rollback or completion.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "post_status": "Required peer migration still pending; old discarded-poll body unchanged at8cdc",
+      "same_source_as6bf": true,
+      "current_sha256": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9",
+      "poll_line_at6bf": 66
+    }
+  ],
+  "all13_revalidation": [
+    {
+      "lens": "producer-propagation",
+      "pre_contract": "SDK Poll Result -> owning scope outcome -> Shader/Pipeline/Pass/Texture errors -> Result propagation/cache/Prepared/counters/texture metadata",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "All23 exact sites and five owner-dependent functions consume shared contract; every relevant publication gated.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "existing-type-owners",
+      "pre_contract": "SDK PollError/wgpuError/guard, existing ShaderError/ComputePipelineError/ComputePassError/TextureViewError and globals completion/callback owners",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "No duplicate poll owner, no error text conversion, no independent peer error family.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "admission-contracts",
+      "pre_contract": "Loose device+guard could disagree; owning scope pairs actual device and guard. Existing view missing/cache/device/effective-format branches precede native scope.",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "No borrowed/browser wait, no fake device identity, cached branch does no new poll; scope same-thread LIFO retained.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "invariant-operations",
+      "pre_contract": "Poll ->pop ->return/cache/chunks/counters/submission; body failures may precede later poll failure",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "Error cannot mark Compiled, publish candidate/dispatch count or successful source cache; submitted conversion remains honestly described.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "aggregate-states",
+      "pre_contract": "Progress relates actual poll error to optional same-scope native error; Both relates earlier body to later observation; scope relates exact device and guard",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "Every representable new error has its required cause; both secondary errors accessible without flattening first source.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "type-ownership",
+      "pre_contract": "Root globals/helper+GPU receivers/error/cache; peer KernelBatch/FastPath/compile/arena/copy functions",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "Peer explicitly accepts canonical API and returns integrated exact source; final complete wave after integration.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "redundant-authority",
+      "pre_contract": "CachedPipeline Observed versus DeviceHandled plus requested observation policy and live progress result",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "Retry after Progress re-enters native admission; no stale DeviceHandled or ObservedProgress hit.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "behavior-preservation",
+      "pre_contract": "Existing wait-then-pop order, native error Display/downcast/request identity, cached/missing branches and empty batches",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "Ordinary Native identity/messages unchanged; error precedence explicit; no added completion waits on submit/observe_validation.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "enum-shapes",
+      "pre_contract": "Native(wgpuError) versus Progress{poll,nativeOption}; OperationAndObservation{operation,observation}",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "No progress Boolean beside unrelated causes, no nativeNone masquerading as success; original operation error is primary in Both.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "derivability",
+      "pre_contract": "Guard already non-Send/non-Sync; PollError lacks Clone; existing GPU error manual Display/Error preserve stable semantics and std-only deps",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "Traits preserve concrete SDK causes and existing bounds; no unsafe Send/Sync or string-backed substitute.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "type-granularity",
+      "pre_contract": "Scope owner + observation result + operation-specific errors + generic resolver used by three actual body-Result paths",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "API has actual root uniform/peer record consumers and distinct contexts remain in owning errors.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "magic-strings",
+      "pre_contract": "Native labels, exact diagnostic messages/context, pipeline selected-entry cache key and policy documentation",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "No string classification of Timeout/native errors; native request/entry identity retained; incorrect no-timeout prose corrected.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    },
+    {
+      "lens": "magic-numbers",
+      "pre_contract": "Wait timeout None, actual SDK u32MAX then i32MAX nanoseconds, ErrorFilter Validation, policy predicate and scope stack indices",
+      "source_contract_revalidation": "Revalidated at8cdc across root18 source/error/cache/cfg/identity and prior source-backed dependencies; no new owned actionable finding. Five peer site implementations remain required and prevent whole-family clearance.",
+      "acceptance": "No added duration/retry numeric policy; borrowing/browser false semantics preserved; all numeric descriptor/shader values unchanged.",
+      "discovery": "complete within bounded family",
+      "root_repair": "source-reviewed",
+      "peer_repair": "pending",
+      "validation": "source only; required final hosted gates and integrated same-revision review pending"
+    }
+  ],
+  "findings": [],
+  "prior_findings": [
+    {
+      "id": "SV1",
+      "status": "Root18 source repair addressed; peer5 same discarded-poll sites remain required known dependency, not a new root defect."
+    },
+    {
+      "id": "SV2",
+      "status": "Source documentation corrected: SDK no explicit timeout request, backend failure possible."
+    },
+    {
+      "id": "binding6 wording P3",
+      "status": "Corrected in DeformLevel::new: other bindings retain their own allocation ranges, no false claim binding6 uniform belongs to simulation source."
+    }
+  ],
+  "contracts_revalidated": [
+    "ValidationScope owns exact ArcDevice/guard, native-only; false policy lazily returnsNone. finish does exactly one wait then always pop on Ok/Err. No extra wait is inserted in immediate observe_validation, submit, mapping cleanup, callback or explicit-completion owners.",
+    "SDK native pop is ready and closes synchronously; wrapper relies on guard non-Send/non-Sync and Drop pop, with no unsafe trait override. Thread-local LIFO contract remains SDK enforced.",
+    "All18 root observations map through finish and reject Progress before candidate return. Ordinary Native unwrapped into old Shader/Pipeline/Pass Arc variants, texture Box variants with original requested format/operation, and actual wgpuError anyhow plus identical existing creation/face context; no ValidationScopeError wrapper changes ordinary immediate downcast identity.",
+    "Progress retains actual PollError and optional actual native error. Its source deliberately prioritizes captured native error when present; otherwise poll. Both remain publicly accessible typed fields; a linear Error::source chain cannot expose both branches.",
+    "resolve_observation drains before resolution, preserves original operation unchanged when observation succeeds, maps observation-only to old Native/newProgress, and stores Both with operation error chain as primary source and typed observation public field. Static allocation and upload both consume it; wasm shadow declarations disappear cleanly under cfg.",
+    "Progress never inserted into CachedPipeline::Observed. get_or_create removes any prior same-entry DeviceHandled entry then returnsErr. Ordinary native-only rejection remains observed cached. Initially Prepared compile stays Prepared on failure; preexisting Compiled marker can remain but compiled() re-enters absent cache admission before returning a handle. No false global reset claim.",
+    "Cached-format branch remains no-poll/cache-first; missing/uninitialized/device checks, effective storage-linear formats and actual descriptors unchanged. Optional cube context uses and_then(new), preserving None and borrowed behavior.",
+    "Shader/source/reflect/layout/native op ordering and sRGB math unchanged. Converter finish failure stops submission; post-submit observation can fail after work was submitted, matching explicit no-rollback documentation.",
+    "Configured native and fragile non-atomic wasm error-source Send+Sync satisfy new anyhow/Arc error payload shape by SDK source reasoning; no local compilation or unsupported atomic-wasm claim.",
+    "Existing source-cache success-only publication and operation consumers retain actual lower causes; peer cached arena/Prepared/copy/counters still require owned integration."
+  ],
+  "fixture_identity": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "fixture_module_exact6bf": true,
+      "sha256": "95bf9f3e1fae987397535afaf6cc2bd43b5caff9b555880cd16997d3a6511329"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "fixture_module_exact6bf": true,
+      "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e"
+    }
+  ],
+  "conversion_shader_identity": {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+    "constant_exact6bf": true,
+    "sha256": "3c1a7e203c1209414fd1e838f4e69849d46fff4d7b89ec0980ec49cfda77fe29"
+  },
+  "required_dependencies": [
+    "#780 must integrate five KernelBatch/FastPath/CompiledLayout/UniformArena/copy sites with owning scope/resolver, preserving operation/counter/arena/callback semantics, then full23 family reviewed together.",
+    "Other canonical API/producer/caller, simulation source/binding/card and manifest-lock migrations remain required; no source-complete claim.",
+    "Independent Rule/Comment reviews, global all13 audit and required hosted project checks must pass on same final pushed revision."
+  ],
+  "limits": [
+    "New113-line scope owner fully read; every changed source/doc function and all18 root sites freshly read. Whole-file versus affected-function versus exact carried source coverage is explicit.",
+    "No project execution/check/build/test/scanner/generator/runtime, source edits, push or CI; no tests/cases/helpers/assertions/doctests added by this review.",
+    "22 changed paths and42 source accounts do not imply every unrelated function reread or full algorithm/native-runtime acceptance.",
+    "No new owned correctness finding is bounded source evidence, not whole23-family/global13/compilation/fullPR/final clearance."
+  ]
+}

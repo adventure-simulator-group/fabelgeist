@@ -1,0 +1,80 @@
+{
+  "root_before": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "canonical": "4ddddf5856d269d36cf898d59f34af7a30186479",
+  "accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a",
+      "canonical_committed_exact": true,
+      "executable_source_exact_c665": true,
+      "root_before_sha256": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs",
+      "sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+      "canonical_committed_exact": true,
+      "executable_source_exact_c665": true,
+      "root_before_sha256": null
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "canonical_committed_exact": true,
+      "executable_source_exact_c665": true,
+      "root_before_sha256": null
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "84e709e87c44bce9a1944ff54427c5b7f84cfb30eb94ff1346f8e3c181b4c5cf",
+      "canonical_committed_exact": true,
+      "executable_source_exact_c665": true,
+      "root_before_sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "sha256": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee",
+      "canonical_committed_exact": true,
+      "executable_source_exact_c665": true,
+      "root_before_sha256": null
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "e2a6fab2ecfbae1ae85e86dd40677284d6d03a50747810242247a2be2fbcf194",
+      "canonical_committed_exact": true,
+      "executable_source_exact_c665": true,
+      "root_before_sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53",
+      "canonical_committed_exact": true,
+      "executable_source_exact_c665": true,
+      "root_before_sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531",
+      "canonical_committed_exact": true,
+      "executable_source_exact_c665": true,
+      "root_before_sha256": "68d980d533f30f094dc511d8e0eef78f92090b3d51d9754c28e57f190b80c864"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd",
+      "canonical_committed_exact": true,
+      "executable_source_exact_c665": true,
+      "root_before_sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "sha256": "3a2e06f64636fadaceac6bb7c0af36cfb12416a4d55a5f203e17b6551455e8ef",
+      "canonical_committed_exact": true,
+      "executable_source_exact_c665": true,
+      "root_before_sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec"
+    }
+  ],
+  "only_ten_received_paths_changed": true,
+  "all_files_exact_canonical": true,
+  "shader_and_fixture": "All7native strings unchanged; existing fixture type/API adapters only, no new cases/helpers/assertions.",
+  "validation": "Source identity plus git diff --check only. No project execution or compile/global clearance."
+}

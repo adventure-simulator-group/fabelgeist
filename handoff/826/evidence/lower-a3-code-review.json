@@ -1,0 +1,640 @@
+{
+  "kind": "independent bounded receiving successor Code Review",
+  "head": "a3a1b01a4cd24dbda2555023decd07b33a47b199",
+  "tree": "6a66a60068f59453f1fb768b31fd006cf163c8d6",
+  "parent": "2f3880bfabd08674857bd47015e7c47287a691dc",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "tracked_status": "",
+  "changed_paths": [
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs"
+  ],
+  "source_files": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "sha256": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "sha256": "591b2acc0e91118d14df8eb16d27966145ecdd661c8917dc58352ddec320ec9d",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+      "sha256": "32201338d839719acd4a4637a5b0f672f8b2cadb4871e9947f122d4c2c211bfa",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/max.rs",
+      "sha256": "20d4849e3e5a1f7a9c067e9d92e8e0f79d09ec97ef5b9df490089d44f1f44e4b",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/min.rs",
+      "sha256": "091d1b1b38e44416d173a3f75e18ac32f93aadc3f5a75889ecad82902bace38a",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+      "sha256": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "6bf063f459f8ea3c1944e15f02cd400ab871758cca56932bf524942c74fc4bcc",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "430f00e3fea4ee0874aebd8e0e6636409939155c6276b36f14251a4a8e51de34",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "cca61ee4d5350156906388314a6a5b8820b9289c6fc03f4513bc33a592ce5637",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "d02f984a15784102744f40c632cf64656798d7bbcb83f9e8a68d819cbe0c50bf",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "f374b7a0f7816531b43160e4aade0b76afb2321f89bcd961063a5e1f4c76ddfe",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "687cb7389a908c3aac29e65c79f6c990a7f1f2f0cce22d90f968a1d39fec5672",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": false,
+      "coverage": "fresh complete file and diff read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "2bda8179b7fad1936a5d5c2b742497a0c66da546de1cee15a732d63918bdd832",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "e108018175277b49b433da794fa6702ca07210a729103bd07a69d904d0b85bbb",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": false,
+      "coverage": "fresh complete file and diff read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "6e2670fe84e2a52c6a3564e86e21afea029ca881107b7d239503c08e65779bcd",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "d120392d88da0c15cf1db7f0439245c6a4a3afb8fa0830e96531497fb8e2494f",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "dde02c3c137d5ac3722f28e2eab7db9eb82506ef0b64d182dd52a42b4876bbb5",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/guides.rs",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "51aa86bfd6b6d5036da4ce6c3687a8c165546f519924b4a4e97030067776d842",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+      "sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/neighborhood.rs",
+      "sha256": "367a67ea53436f6c23cec55a0eb5be29abb7d3fc06301d1c59ac824bf7910086",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/wireframe.rs",
+      "sha256": "d4125195ebe6bc5992b01556401a06aa85eef7664e998aa1e35aef426a379f85",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+      "sha256": "6bdba5ebaf3c2f90c51ee7a6f35bba9214605cb9ab80cdbf4b9b6a94eef19fa5",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "working_matches_pin": true,
+      "byte_identical_to_2f": true,
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed"
+    }
+  ],
+  "source_map_sha256": "be5b70c2dda120d6d36f08c7cfa7477e17abf53c56afceb141b217f86752d7ce",
+  "exact_delta_proofs": {
+    "exact_two_changed_paths": true,
+    "entry_all_bytes_after_intro_exact": true,
+    "texture_all_bytes_except_unit_item_position_exact": true,
+    "unit_item_count_before": 1,
+    "unit_item_count_after": 1,
+    "other_73_reviewed_source_files_exact": true
+  },
+  "contracts_revalidated": [
+    "Changed entry module intro now accurately includes source-order First. Enum, resolve body, lifetime signature, exact Compute-stage Named matching and owned missing-name error are exact2f bytes.",
+    "TextureBinaryOp unit declaration moves before implementation blocks. Every impl/function/numerical shader string/test/doctest byte in the two files is unchanged; exact transformations verified, no token-equivalence assumption needed. Explicit Named(\"main\") source/interface/cache behavior remains same.",
+    "Selected-entry identity remains admitted by resolve and cloned into private Arc ComputeReflection; compile/compiled/validate_interface consistently use same owned name. Borrowed selector cannot escape into reflection; resource and sampling-set union remains all cached compute entries, with same unsupported/immediate/sparse/image/uniform handling.",
+    "Per-name cached native Result still retains Arc native causes, rejection remains rejection across clones, and observing contexts recreate earlier DeviceHandled entries instead of inheriting unchecked success. Exact-device guard/policy bytes unchanged. Lazy/static compilation and same-name native descriptor remain unchanged.",
+    "Complete previous lower receiver source/policy graph reconciled to this same head: allocation/write Validation/error sources, exact context/queue preconditions, MappingExtent alignment and same range for map/view/staging, zero/host T admission/allocation/copy, failure/cancel/cleanup ordering and borrowed cleanup-only exception, explicit WorkCompletionError marker/poll/callback and browser limits all exact unchanged function bytes.",
+    "Armor/Metal source owners, staging session/ticket/prefix/status admission and facade submit-before-read remain exact. Original fixed fixtures and six operand adaptation state unchanged. Pending owner canonical/producer/caller/lock APIs remain source-incomplete, not accepted by this bounded review."
+  ],
+  "findings": [],
+  "required_dependencies": [
+    {
+      "id": "D780-canonical",
+      "status": "REQUIRED unresolved root integration",
+      "source": "facade.rs imports QueryCount/PointSelection/MeshVertexCount; metal imports BufferElementCount/Stride and MetalTextureSize; staging record/read new signatures",
+      "detail": "Exact peer42d/2bb7/90b/6f signatures were read and match receiver uses. Root still has old canonical files, so frozen receiving root cannot compile alone. This is a source proof of open integration, not acceptance or suppression of mismatch."
+    },
+    {
+      "id": "D780-staging-callers",
+      "status": "REQUIRED unresolved producer migration",
+      "source": "part.rs finish/PartSlots, body.rs finish, bracer.rs read_async, breastplate/mod.rs read_async",
+      "detail": "Old callers pass tickets by value, assume Copy/get and infallible status/prefix; now need borrowed Clone tickets, explicit counts and ?. All actual bodies inspected for these relationships. No shims or synthesized missing bytes."
+    },
+    {
+      "id": "D780-metal-and-application",
+      "status": "REQUIRED unresolved whole caller/error/cache family",
+      "source": "metal/bake.rs textures/bake/scratch/dispatch and existing metal/tests; creator armor_gpu/metal_gpu cached String",
+      "detail": "Root receiver changes to anyhow, MetalTextureSize, count/stride/InvocationCount need agreed owner migration through bake/material/Engraving/application. Cached errors must remain structured; ignored bake submit is still old source and cannot be declared repaired here."
+    },
+    {
+      "id": "D780-manifest-lock",
+      "status": "REQUIRED unresolved lock integration",
+      "source": "armor Cargo.toml vs Cargo.lock armor dependency entry4844-4862",
+      "detail": "Root added anyhow and fabelgeist-mesh; frozen lock armor entry still omits both. Must reconcile in combined integration before locked hosted checks; no local Cargo execution run."
+    },
+    {
+      "id": "D774-M06/F19",
+      "status": "REQUIRED connected remaining family",
+      "source": "retained fitting/cache error and extraction output owner obligations",
+      "detail": "Human authorization resolved. Exact lower receipt does not clear fitting status/frame/cache source erasures, extraction completeness or all owner producer families."
+    },
+    {
+      "id": "D780-completion-callers",
+      "status": "REQUIRED explicitly assigned producer/publication migration",
+      "source": "shell.rs step_interleaved:294, project_host_contacts:369; garment-fit lib.rs step_and_wait:602",
+      "detail": "All3 distinct complete control flows inspected. Current old calls discard new WorkCompletionError and continue Ok/loop publication. #780 explicitly owns these complete functions; migrate propagation and dependent state at owner before integration. This is known pending caller work, not a new completion receiver implementation defect."
+    },
+    {
+      "id": "D780-selected-entry-family",
+      "status": "REQUIRED pending complete caller/shape/reflection migration",
+      "source": "root kernel/mod.rs:97-117 and kernel/fast.rs:85; exact6f resource_pipeline.rs:56-66; constructor search across Map/Gather/Scatter/Stencil/Stream/Reduce/Scan/extraction/other definitions",
+      "detail": "Current old Kernel prepares with two args and independently chooses first compute shape/name; FastPath still names removed shader::ReflectionData. Exact6f ResourcePipeline chooses first entry and old MissingEntryPoint unit variant. Owner must consume canonical ComputeEntryPoint/ComputeReflection and derive Kernel/FastPath/ResourcePipeline shape/name from same selected entry, explicit generated main where required, preserving lazy/folded/callback policies. Old unintegrated callsites and old G2 paths are required open dependencies, not accepted working source or new receiver defect."
+    }
+  ],
+  "sdk_sources_unchanged_contracts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+      "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "coverage": "actual selected-entry native validation and lower lifecycle relevant bodies"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "coverage": "actual selected-entry native validation and lower lifecycle relevant bodies"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "coverage": "actual selected-entry native validation and lower lifecycle relevant bodies"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "coverage": "actual selected-entry native validation and lower lifecycle relevant bodies"
+    }
+  ],
+  "language_sources": [
+    {
+      "url": "https://doc.rust-lang.org/reference/lifetime-elision.html",
+      "proof": "Reference function output lifetime and reference-receiver rules; only by-reference Self receiver gets self-elision."
+    },
+    {
+      "url": "https://github.com/rust-lang/rust/blob/main/compiler/rustc_resolve/src/late.rs",
+      "proof": "resolve_fn_params/find_lifetime_for_self: self with no reference-derived candidate resets receiver parameter candidate; subsequent module reference supplies elided output lifetime. Read source only, no compiler check."
+    }
+  ],
+  "limits": [
+    "No new owned receiving finding identified. Review is bounded to receiving responsibilities and exact unchanged-source contract reconciliation, not wholePR/all13/source compilation/final clearance.",
+    "Required #780 constructor/shape/reflection/FastPath/ResourcePipeline, lower canonical/caller/completion-publication, material/application/cache and manifest-lock integrations remain open.",
+    "Root newly owns complete HairRenderer family again, but no renderer source changed here; renderer implementation/review is explicitly outside this receiving verdict.",
+    "No source edits/project execution/scanners/build/check/tests/runtime/generator/push/CI. No new tests/cases/helpers/assertions/doctests.",
+    "Final complete all13 waves, all three independent reviews and required hosted checks must pass on same final pushed revision."
+  ]
+}

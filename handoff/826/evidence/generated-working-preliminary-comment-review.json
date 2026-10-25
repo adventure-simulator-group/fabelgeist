@@ -1,0 +1,454 @@
+{
+  "review": "Preliminary independent Comment Review of frozen generated working stages",
+  "root_head": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+  "root_tree": "0dc7e004af324c2faa953fb0e5fe087f01fd1b54",
+  "snapshot_is_commit": false,
+  "snapshot_status": "Immutable reviewer snapshot of current generated working stages. Stencil intentionally incomplete/unwired. No implementation/wholefamily clearance.",
+  "manifest": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/manifest.json",
+  "manifest_sha256": "6c24dbbf3b0686d0d6c3e2854cae67675576a384fd9cbb014f25e94c3cdddaaf",
+  "main_pin": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "source_accounting": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "2adb5bdbf1a5c51d2ce03beb053adf32ec04ab9dff66cb7f53c71478daed1250",
+      "lines": 171,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/advect/mod.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "01092c3bb1a65371abcac81f02a760383cd6d7c2e3f4ebc034acbd2e1b14a597",
+      "lines": 134,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/advect/program.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "b1dc0a1ba64595020dbf99cde90c4c4ad7fb5416fdd7a4ad3f3fd8301ec53ae5",
+      "lines": 119,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/divergence/mod.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "bf653378a5813637849cfb784d057ce2acb80a77d161c30b158d4f95a94d8576",
+      "lines": 106,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/divergence/program.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "lines": 138,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/gather/mod.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "c056f476e4d33b188c54ed645b850b4afc0a5bf0487745a1d214544491150482",
+      "lines": 118,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/gather/program.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "lines": 7,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/gather/recipe.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "e0a0dd570601e4c7f120010ac9c296d41c931a5470d383771d385b856829cd7a",
+      "lines": 106,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/gather/signature.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "lines": 47,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "e9cd69ca457db66b05a6e2361f3aad04ef4fa5297f58a30f9aa1e30b124257ec",
+      "lines": 148,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/gradient/mod.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "7a70603a06d077d90434afd382e0ed7faef6f249637671ba588a19c3af2237d1",
+      "lines": 119,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/gradient/program.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "lines": 114,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/map/bindings.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/map/mod.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "50e80d915551dd5295f328d6c5e6fe640e9faea59a017d9ba2af69e8d11dd7f6",
+      "lines": 108,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/map/program.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "lines": 9,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/map/recipe.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "0e15fa901648d8badde1d065e92696fd7e71004da5b5d4dc9baf78a77f941f01",
+      "lines": 122,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/map/signature.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Exact prior complete source coverage carried by SHA-256 identity; not claimed as fresh body read",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-current-comment-review.json",
+      "prior_coverage": "Fresh full frozen file read, including existing inline fixtures where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Exact prior complete source coverage carried by SHA-256 identity; not claimed as fresh body read",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-current-comment-review.json",
+      "prior_coverage": "Carried exact prior full source read; no claim of fresh full reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "lines": 170,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "lines": 27,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/resource_recipe.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "lines": 123,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/scatter.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "392d7c8dda64c3c2c32bda1278186ef38a07c5decb29ba39116fab51aee890ea",
+      "lines": 107,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/scatter/program.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "545195e4d259a62c699b8387e799dacffe18c8a3bc9d67b0e85c7b3a08f042b8",
+      "lines": 121,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/scatter/signature.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "255e7a7c4a80fc287b6875abf597b88db8c35f300f0a089e0ccaac481c5f2bd9",
+      "lines": 113,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/source_parameter.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "lines": 1082,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/stencil.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Exact prior complete source coverage carried by SHA-256 identity; not claimed as fresh body read",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-current-comment-review.json",
+      "prior_coverage": "Carried exact prior full source read; no claim of fresh full reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "b2e2ba463e723bb8b407cd742d2d65af48ae0bc8f65a2a20308386d2d796cf55",
+      "lines": 70,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "f299cc60f805ad792f0300fc302f4f70169226b6f97070e6cc574459a604a6ae",
+      "lines": 175,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/stencil/signature.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "65c821db83cd3035a1991c9380fdc597b40d45b83cf3814b72dcfd41cb68a157",
+      "lines": 37,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/stream/call.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "lines": 110,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/stream/mod.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/stream/program.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "c83884bd5e3824084db9bf526a124d291bce253e7c273323fe046ddb9c307e00",
+      "lines": 110,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/stream/signature.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "lines": 69,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "b6b96c0ab4c31b52e195e84bcee0c9a02da03a9cc6815ac6e919552d8a466727",
+      "lines": 216,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "lines": 109,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "0bc0ab81d3dbc848835fc577e2cf7cba11d2d9a00c3456b31805fbc7b564a903",
+      "lines": 252,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "lines": 87,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Fresh full frozen source read, including all comments and existing fixture bodies where present"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97,
+      "snapshot_file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-working-preliminary-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "manifest_matches": true,
+      "complete_source_coverage": true,
+      "coverage": "Exact prior complete source coverage carried by SHA-256 identity; not claimed as fresh body read",
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-current-comment-review.json",
+      "prior_coverage": "Carried exact prior full source read; no claim of fresh full reread"
+    }
+  ],
+  "coverage_totals": {
+    "snapshot_files": 38,
+    "fresh_full_files": 34,
+    "exact_prior_full_source_carries": 4,
+    "all_manifest_hashes_match": true
+  },
+  "dependency_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "matches_919_git_bytes": true,
+      "coverage": "Fresh full dependency source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "matches_919_git_bytes": true,
+      "coverage": "Prior complete native source review carried by exact commit identity; policy not freshly reread in this wave"
+    }
+  ],
+  "scope_context": "The earlier generated-current-comment-review accounts all27 owning+38 reference files of the c665/started-Map packet. That historical packet is not current combined caller coverage. Only explicitly hash-identical source bodies are carried here. All38 files of this new frozen snapshot are accounted; actual remaining caller/export/lock/native/physical integration remains incomplete.",
+  "owning_actionable_comment_findings": [],
+  "retained_owner_findings": [
+    {
+      "id": "GENERATED-CURRENT-C1",
+      "deduplicates": "SP-C1",
+      "owner": "#780 Scan",
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "line": 31,
+      "status": "Required owner dependency; outside current38 snapshot. Earlier completed-auxiliary wording finding is not closed by this wave.",
+      "remedy": "Auxiliary storage with its exact admitted record population."
+    }
+  ],
+  "contracts": [
+    {
+      "area": "Lexical grammar and native validity",
+      "evidence": "NativeParameter splits top-level commas, retains original declarations, rejects duplicate names and classifies exact known outer resource protocols. ShaderParameter and per-algorithm role schemas retain source projections; comments correctly reserve full source/identifier validity to later shader admission. This is not a general WGSL parser. parse_base_type only projects a complete textual envelope; malformed/custom source can remain text.",
+      "disposition": "No substantive comment mismatch established; no full admission-clearance claim."
+    },
+    {
+      "area": "Mutable source and cache",
+      "evidence": "Map/Gather/Scatter/Stream code remains public mutable and is reparsed in constructors/execute/build. Successful cache constructors key exact source, canonical recipe, actual native Device and effective mutable native observation flag. Native constructor Result::Ok is policy-bounded and not an observed-success/browser/global-health guarantee. Racing constructors remain possible.",
+      "disposition": "No immutable-definition/no-reparse/exactly-once/global-success prose promise in reviewed source."
+    },
+    {
+      "area": "Fluid units and arithmetic",
+      "evidence": "Advect dt multiplies velocity divided by texture dimensions; texels per caller time unit and matching dt are algebraically accurate. Gradient centered pressure differences are multiplied by supplied half_inverse_cell_size; its 1/(2*dx) comment states caller frame convention, not enforcement. Divergence differences adjacent texture cells and applies caller half_inverse_cell_size; unit-spaced grid describes texel-coordinate neighbors, not proof of SI or unit coefficient. No fluid caller establishing stricter physical policy was supplied.",
+      "disposition": "No numeric or unit policy introduced. If future owner adds physical-spacing claims, coefficient/velocity frame must be made explicit."
+    },
+    {
+      "area": "Fluid native literal preservation",
+      "evidence": "Fresh full source reads of three definition and three program files. Root source-only comparison record reports exact authored literal-token multisets/counts46Advect/51Gradient/48Divergence, and its program hashes match this manifest. This is static preservation evidence; generator execution, final native source assembly equivalence and runtime behavior were not checked.",
+      "proof": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/generated-fluid-native-source-comparison.json",
+      "disposition": "Retained numerical WGSL literal source accurately described; no blanket behavior/physical integration clearance."
+    },
+    {
+      "area": "Private algorithm program stages",
+      "evidence": "Map/Gather/Scatter/Stream role vectors preserve authored order/declarations; owned modules strip protocol-only resources and emit selected arguments/bindings. ResourcePipeline obtains workgroup shape and controlling layout from the same pipeline source; buffer record population uses reflected array stride, texture addressing retains separately admitted scalar-projection requirements. Stream uses inclusive-offset population for buffer launch and input axes for textures; comments place count/offset population and writer bounds obligations on caller.",
+      "disposition": "Documented source intent fits bounded implementation. Physical secondary-resource compatibility, unsupported role combinations, source dimensions, usage/device/binding relationships and full callable closure remain implementation/integration dependencies."
+    },
+    {
+      "area": "Stencil",
+      "evidence": "New NeighborhoodParameter and StencilSignature modules were freshly fully read. One optional neighborhood and derived optional center are represented, aliases center/val recognized, protocol dimensions1D..4D classified, other digit-dimension protocol forms rejected. Stencil.rs old full source is exact earlier read; it remains unwired to these new files.",
+      "disposition": "No whole Stencil completion claim. Wiring, generated source/physical admission, error propagation and full consumer migration required before clearance."
+    },
+    {
+      "area": "Dead API cleanup snapshot limit",
+      "evidence": "Frozen GPU signature.rs still contains ResourceBaseType::element_size and its heuristic Custom fallback. Subsequent working-tree cleanup is not included by implication in this frozen report.",
+      "disposition": "No claim that later cleanup is reviewed. Reflected ResourcePipeline layout is the reviewed launch authority."
+    }
+  ],
+  "fixtures": {
+    "map_helper_and_cases": "Exact prior complete source SHA-256 carry; no current fixture body change.",
+    "gather": "Fresh full47-line fixture read and complete old/current diff: removes unused context acquisition, changes constructor/parser/getter APIs only. All existing cases, inputs, expected outputs and assertion/helper counts retained.",
+    "stream": "Fresh full69-line fixture read and complete old/current diff: only constructor removes context argument. Existing case, helper, inputs, outputs and assertion retained.",
+    "stencil": "Exact earlier complete1082-line source carry includes existing fixtures. No newly authored cases/helpers/assertions.",
+    "execution": "No fixtures, doctests, native generators or runtime were executed."
+  },
+  "required_dependencies": [
+    "#780 Scan C1 owner repair and exact receiving verification remain required. Do not independently edit its claimed source.",
+    "Stencil schema/program/receiver wiring and native/physical admission are incomplete.",
+    "Complete Map/Gather/Scatter/Stream/fluid native/physical source, dimensions, resource/device/usage/binding/cache/producer/caller and export closure, preserving agreed canonical owners/contracts.",
+    "Root native observer/finish/submit policy remains actual mutable blocking_validation plus browser cfg; recorder success does not prove GPU completion, global health or rollback.",
+    "Canonical caller/producer integration, retained #774/#780 families, Cargo/lock composition, whole13-lens revalidation, independent Code/Rule/Comment reviews and required hosted checks must pass on the same final pushed revision."
+  ],
+  "limits": [
+    "Source-only independent preliminary review. No source edits, project execution/check/build/lint/test/scanner/generator/runtime, new tests/cases/helpers/assertions/doctests, push/CI/external posts.",
+    "Hashes prove frozen identity, not semantic correctness. The38-file dirty snapshot is not the919 commit tree and is not automatically the later working tree.",
+    "Earlier65-file packet reference accounting remains historical bounded evidence, not fresh current full caller graph coverage. No compilation/native acceptance/GPU completion/global/family/final clearance."
+  ],
+  "verdict": "No new substantive owning Comment finding in the accounted frozen38-file snapshot. Required owner and integration paths remain open; this is preliminary source review only.",
+  "subsequent_draft_exclusion": "After frozen snapshot review, Root reported revised Divergence::execute coefficient/frame wording plus new Stencil NeighborhoodParameter::declare and boundary.rs extraction. Those subsequent draft bodies were not read or hash-credited in this review; full post-integration review remains required."
+}

@@ -1,0 +1,482 @@
+{
+  "status": "Independent checkpoint Rule Review; owned rule findings; no compile/combined/all13/hosted clearance",
+  "revision": "d4491e9de215ba1b607fd2989cbfd5e3cbbdd21d",
+  "tree": "c770dc8e66ecac829c48bc443fa8523c71bf330e",
+  "parent": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "full_changed_paths": [
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "parent_sha256": "c3269a597f4399ec46bb77e79211dbffec578862002f0565cdd74814572a7fd1",
+      "lines": 28
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "parent_sha256": "1e14c8d0441364e441ccc57365bdddfe9c895a633be80ce0bdf91c0f45b95b1a",
+      "lines": 42
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "6380742b0f418cba2ea1d9877a1d317bc98a745fd124b81f7202be540c74882c",
+      "parent_sha256": null,
+      "lines": 191
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "parent_sha256": "8dee677fcdf79dbea5c29ec06b65413435faef45bb0d8d0da7a35516f25e4a2c",
+      "lines": 147
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "parent_sha256": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f",
+      "lines": 185
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "parent_sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+      "lines": 135
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "aa38e9640ca2497f775ca2473fab3abb5c9ad1b4f61d802bf19392cab6c76c73",
+      "parent_sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "lines": 140
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "a8a5e6ac4681e816e8552f131b2ce473374f00331882b2cfc1701f884be432bf",
+      "parent_sha256": null,
+      "lines": 109
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "7964e89e9fb86421c7bcc666c08a41624e7137eba10a8f957a2fd0f7cdc30a16",
+      "parent_sha256": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02",
+      "lines": 96
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "1cb09276b24651ec9615fc38b06ec00bb914cea4c90a19abfa7075965606fc24",
+      "parent_sha256": null,
+      "lines": 71
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "894dc9a35df33e92adf8775157dcf437560ea4bd38d48fbeb194567bd79b3314",
+      "parent_sha256": null,
+      "lines": 82
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "832f538deb18739e9269845dce9c3175456d38e2f18e78d9ad42578ecf365a13",
+      "parent_sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "lines": 96
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "42c9416f47cf2fe3f86aec080228bd1fcf74f94d823f9aded45cfda43ede2a20",
+      "parent_sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "lines": 58
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "b3cacb2e746e2324be8c2eb24866bf69c618e1848e696159766abdc3028aec3d",
+      "parent_sha256": null,
+      "lines": 125
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "parent_sha256": null,
+      "lines": 30
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "c941a02e6f60f88d14f192ace09933c960bc21edc0b4d871a73475ad921ada63",
+      "parent_sha256": "d49de805d236d9c346364eb4c10d35cf54051e439b0725959f89ba3022c4aee7",
+      "lines": 221
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "coverage": "full current source and actual receiving delta read",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "parent_sha256": null,
+      "lines": 24
+    }
+  ],
+  "canonical_peer_receipts": [
+    {
+      "ref": "2bb7ce67fabf3ca7b2999b109fa990ca32480dfd",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "coverage": "complete named canonical responsibility or relevant producer/native slices as stated in Markdown"
+    },
+    {
+      "ref": "42d781f3dd02934894f090ca7710c5397522b2c1",
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "046df19dc9c3aef3625ad107b895954592d0b80e560a7290ee1825eff029d3a3",
+      "coverage": "complete named canonical responsibility or relevant producer/native slices as stated in Markdown"
+    },
+    {
+      "ref": "90b7dd361ed7307a6ffd9179424bb9fd8eeb1dbc",
+      "path": "crates/fabelgeist-armor/src/material/tile.rs",
+      "sha256": "a094fe52ceba98b71a00ae2fa974ba24cf769131e3c265373727f353f3885869",
+      "coverage": "complete named canonical responsibility or relevant producer/native slices as stated in Markdown"
+    },
+    {
+      "ref": "90b7dd361ed7307a6ffd9179424bb9fd8eeb1dbc",
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "2648f8d588cd504279ab53827a07232182766291b697abc36eec7796a6c46bdd",
+      "coverage": "complete named canonical responsibility or relevant producer/native slices as stated in Markdown"
+    },
+    {
+      "ref": "90b7dd361ed7307a6ffd9179424bb9fd8eeb1dbc",
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "9f1498efd55a23cebbb5a37888336a8879b02313487377d84a0d987c7f981dfc",
+      "coverage": "complete named canonical responsibility or relevant producer/native slices as stated in Markdown"
+    },
+    {
+      "ref": "6f6d77878daad401abe414da83e17c71d4ad8091",
+      "path": "crates/fabelgeist-compute/src/mesh_query/selection.rs",
+      "sha256": "0a76b1bcb0e0afa465c2f48fff6b21ec5aba0cf1c5bbddd7ad01947e01d4b248",
+      "coverage": "complete named canonical responsibility or relevant producer/native slices as stated in Markdown"
+    },
+    {
+      "ref": "6f6d77878daad401abe414da83e17c71d4ad8091",
+      "path": "crates/fabelgeist-compute/src/mesh_query/output.rs",
+      "sha256": "f1a09a4e792855ad311f29c4b6921ebcde7f18136038d1a0301049450608d83c",
+      "coverage": "complete named canonical responsibility or relevant producer/native slices as stated in Markdown"
+    }
+  ],
+  "affected_unchanged_sources": [
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "parent_sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "parent_sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "parent_sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "parent_sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs",
+      "sha256": "bf81803801df60f8387489c31ab851af7f62c1df5cee4611a055d628c5bec616",
+      "parent_sha256": "bf81803801df60f8387489c31ab851af7f62c1df5cee4611a055d628c5bec616",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/plates.rs",
+      "sha256": "626dd0cc8823b5542b30fd320294e8109b996c5e4117ec73e513b82b8f909a84",
+      "parent_sha256": "626dd0cc8823b5542b30fd320294e8109b996c5e4117ec73e513b82b8f909a84",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "parent_sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "parent_sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "parent_sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "parent_sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "parent_sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "parent_sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "parent_sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "parent_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "parent_sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "parent_sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "parent_sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "parent_sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "parent_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "parent_sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+      "parent_sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "parent_sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "parent_sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "12b74ba27f4c750bc807ba7c39553fe6f130179bb71ae3679d296cbaab947cd8",
+      "parent_sha256": "12b74ba27f4c750bc807ba7c39553fe6f130179bb71ae3679d296cbaab947cd8",
+      "unchanged": true,
+      "coverage": "fresh source-linked receiving slices or independently byte-verified prior lower-read receipt; no full unrelated body credit"
+    }
+  ],
+  "native_receipts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "coverage": "cited actual native/Error/cleanup/cfg/SendSync slices only"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "coverage": "cited actual native/Error/cleanup/cfg/SendSync slices only"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/surface.rs",
+      "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "coverage": "cited actual native/Error/cleanup/cfg/SendSync slices only"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "coverage": "cited actual native/Error/cleanup/cfg/SendSync slices only"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core/thread_id.rs",
+      "sha256": "20d1aa5017ab143cf5439f84e8db8a7e0eea576a107b1c8ef4b46e02fd7ec79a",
+      "coverage": "cited actual native/Error/cleanup/cfg/SendSync slices only"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/build.rs",
+      "sha256": "cf1df048074f80a58bd40f4eefe2b1d6bfa2b92b022dd9d216ed789885ce5b60",
+      "coverage": "cited actual native/Error/cleanup/cfg/SendSync slices only"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/global.rs",
+      "sha256": "8d8554b2400b46b595af68b0d2fab472da06b8c11fa1823299728b5bc2cf2caa",
+      "coverage": "cited actual native/Error/cleanup/cfg/SendSync slices only"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/resource.rs",
+      "sha256": "9e317487575483203979a334e29c73f6da5ceb2a7c2f51ba6bbcc69ee802bee1",
+      "coverage": "cited actual native/Error/cleanup/cfg/SendSync slices only"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/mod.rs",
+      "sha256": "35abefc2b7a2f1f6224f797385f7c77d3edce74c7fa664c1c13bea597eb98c9f",
+      "coverage": "cited actual native/Error/cleanup/cfg/SendSync slices only"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-0.2.126/src/lib.rs",
+      "sha256": "b41c47675d6cc4c1ef423341b6b28b932ddf11bdff477f191129305c2cafc972",
+      "coverage": "cited actual native/Error/cleanup/cfg/SendSync slices only"
+    }
+  ],
+  "test_population": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "test_module_sha256": "75d40104efc2a3594d8d7f691778bbc35ebd69bac510af5fd3ca0e32bdb2f41a",
+      "parent_sha256": "75d40104efc2a3594d8d7f691778bbc35ebd69bac510af5fd3ca0e32bdb2f41a",
+      "exact": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "test_module_sha256": "da0a0a2579c0eef6f564ed552f548145ffe1d2dce11b35308c80a12dbd695064",
+      "parent_sha256": "da0a0a2579c0eef6f564ed552f548145ffe1d2dce11b35308c80a12dbd695064",
+      "exact": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "test_module_sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "parent_sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "exact": true
+    }
+  ],
+  "device_part_exact_parent": {
+    "exact": true,
+    "sha256": "99f15ec09032e7caeb309e90448afdedef712b3a76fd6c61e8fa6ff07aeaab58",
+    "parent_sha256": "99f15ec09032e7caeb309e90448afdedef712b3a76fd6c61e8fa6ff07aeaab58"
+  },
+  "findings": [
+    {
+      "id": "D449-UNIT-01",
+      "severity": "P2",
+      "kind": "owned lower migration gap",
+      "locations": [
+        "gpu/buffer/read.rs:22-31",
+        "gpu/buffer/readback.rs:11-20"
+      ],
+      "rule": "crates/AGENTS.md31-57; canonical byte owner through internal composite helper",
+      "trace": "BufferByteLength stripped to u64 for internal Readback<T>::new, then reconstructed for error context. Actual host ports are checkedusize/Vecreservation/pointercopy; retain canonical leaf until that conversion. Generic hostusizecounts stay intrinsic, not u32 storagecount.",
+      "remedy": "Direct ByteLength helper input, existing fixture literal API adaptation preserving values/cases/assertions; no generic dualraw compatibility overload"
+    },
+    {
+      "id": "D449-RESULT-02",
+      "severity": "P3",
+      "kind": "new/cohesive owning-result rule gap",
+      "locations": [
+        "armor/gpu/facade.rs:33-190",
+        "gpu/buffer/mapping.rs:20-93",
+        "gpu/buffer/readback.rs:11-30"
+      ],
+      "rule": "crates/AGENTS.md118-122",
+      "trace": "Facade fallible APIs shareGenerateError; mapping/readback operations shareBufferReadError but noowningResult alias. FrameworkoneshotResult<(),wgpuBufferAsyncError> must stay explicit, mixedpublicanyhow/nativehelper errors notcollapsed.",
+      "remedy": "Use/reuse cohesive owningaliases withoutwideningfailure types"
+    },
+    {
+      "id": "D449-ORDER-03",
+      "severity": "P3",
+      "kind": "existing affected source rule gap, not new behavior regression",
+      "locations": [
+        "gpu/buffer/definition.rs:8-39"
+      ],
+      "rule": "crates/AGENTS.md90-94",
+      "trace": "GENERAL_USAGE aftertypes; BufferUse/UsageSelection enums before BufferDefinitionstruct.",
+      "remedy": "Orderconst,struct,enums,impls without altering nativeflags/defaults"
+    }
+  ],
+  "positive_contracts": [
+    "SourcecanonicalBufferusagequery removesduplicatedusageauthority",
+    "Readlogicalextent<=actualallocation,preallocateTbeforemappedview,exclusivealias/docprecondition,zeroafterlayoutadmission, typedMapping/Poll/Channel/Native/HostReserve causes",
+    "MappingRequest cleanupownedbeforeerror-scope inspection; nativecleanupscope evenborrowed, sameThreadstd; typedReleaseObligation, actualunmapresetswrapperstate; primaryresultpreserved forvalidationcleanup",
+    "ContextconstructorsretainAdapter/Device/CreateSurface SDKcauses; CanvaskeepsactualJsValue; supportednonatomicJsValueSendSynccomesactual0.2.126source, no newunsafe",
+    "Stagingticket Arc session identity, exactsourceorder, checkedhostprefix wholecount/short/ZST/allocation errors, logicalzeros; changedcontractno silentbytemuckpartialpadding",
+    "Armorfullu64ByteLengthminu32word andBufferLabel; MetalcanonicalCount/u32stride andInvocationCount +typedMetalDeviceError; existingGenerateError::Readback retainscause",
+    "Facadebuild/nearest andstaginghandlefalliblesubmitbeforeread/publication; nativeobservationpolicydoesnotpromisecompletion; providerhandledborrowed/browserpreserved"
+  ],
+  "required_dependencies": [
+    "Consume exactcanonical2bb7count/90bMetalSize/42dReadback/6fQueryTypes beforecompilation",
+    "780allArmor/Metal/staging/sourcecount/caller/fixtureAPIadaptations; currentoldget/valuetickets/prefixResult/Copyderive/rawscratchsites unresolved",
+    "780material/Engraving/bake preservesactualcauses andsuccessfulnativeoutputs",
+    "780applicationworker/model/outfit/errorcachechain removesString/Error::msg erasure andpreservesfailure/readiness distinctions",
+    "ArmorCargoedgesanyhow+mesh require780canonicalCargo.lock update; rootlockunchanged REQUIRED",
+    "Requiredhostedbaseline reduction gates andfullfinalsamepushedrevisionreviews/CI notrun"
+  ],
+  "limits": [
+    "No source edits/projectchecks/scanners/build/tests/runtime/generators/pushCI/newtests/helpers/assertions/doctests",
+    "All17currentowningfilesfullread; supportingwideconsumersslicesnotwholeapplicationread",
+    "Futurecompilecannotbeinferred; source intentionallyunintegrateddependencycheckpoint",
+    "Nativeerrorthreads/cleanup andWasmtraits basedonpinnedsource, no platformexecution; browseratomicsunsupported/unverified",
+    "No original826testfixture/doctest/workflow deletion in17pathdelta"
+  ],
+  "head_at_write": "d4491e9de215ba1b607fd2989cbfd5e3cbbdd21d",
+  "tracked_status_at_write": []
+}

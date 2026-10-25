@@ -1,0 +1,977 @@
+{
+  "kind": "Independent PRE-INTEGRATION focused Code Review discovery input; not family/all127/final clearance",
+  "candidate": "6f6d77878daad401abe414da83e17c71d4ad8091",
+  "root": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "root_current_head": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "root_git_status": "",
+  "candidate_vs_root_changed_paths": 127,
+  "candidate_vs_root_diff_sha256": "63f37fcd6be9ada656d8c71a2354019274398ef548afdb00b88902d403482f27",
+  "coverage_record_count": 76,
+  "coverage": [
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "candidate_sha256": "c45ded414d485b61d6a4f5ffd269ecef203f2c2ccb48d72591ea2a9c88581402",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ResourcePipeline::new/pipeline/workgroup_shape/storage_stride/workgroups",
+        "DispatchResource::layout",
+        "ResourceLayout::resource_type"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "candidate_sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "SecondaryResources::from and sorted SecondaryResource identity"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "candidate_sha256": "402503b196696994620d914c07a6175cfa34468e988c7e211b67c0aa91874cf4",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "Stride::try_from/byte_length",
+        "Count::from_extent/is_empty/is_single/byte_length and InvocationCount/WorkgroupCount conversions"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/capacity.rs",
+      "candidate_sha256": "79d9d026debd8f149f80f1c8a7a8e1df362e310e8b5387dc4e25f1eac7032176",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "BufferCapacityChange complete enum"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "candidate_sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "root_sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "Buffer::binding_resource logical/native admission and error"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "candidate_sha256": "949b9a749edab5e37a710f6b33e4270e0235538833b7d78bb6874810361bb473",
+      "root_sha256": "f374b7a0f7816531b43160e4aade0b76afb2321f89bcd961063a5e1f4c76ddfe",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "InvocationCount::from",
+        "WorkgroupShape::try_from/covering/covering_x/workgroup_count_x/covering_folded_x",
+        "WorkgroupShapeError and Debug/Display"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "candidate_sha256": "11d9cb92749cc9e59c634b98a1ac4f46c27493668304c6030c668a0cf3bbc6cf",
+      "root_sha256": "2ad51b8c638245db350d8814c93f5338929b8604267169499ca850814d75b57b",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "WorkgroupCount::from/native_groups",
+        "Grid::from/folded_x/occupancy/record"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "candidate_sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "TextureAddressing::combine/admit_extent",
+        "TextureAddressError::source/Display",
+        "ResourceFetch::new/code/addressing"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "candidate_sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "CoordinateParameter::new/from_native/name/shape",
+        "CoordinateShape::from_native_type/value_type",
+        "CoordinateParameterError source"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "candidate_sha256": "3eadd2c0c942a47e1f0918fb0b0a84f79d287ad856acb46e64ad905abf1e47b2",
+      "root_sha256": "7ab3a1fe9e5c19e58ba3f9b6e6494ded69096cc71579c3b5c2f8f3b2f28be1ac",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ResourceBaseType methods",
+        "clean_type_name/split_wgsl_template_args/parse_base_type",
+        "parse_binary_op_signature/parse_compare_signature"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "candidate_sha256": "ac39f719b3d1e6421b7ac33b884d65bf75c539877a7de876e88039a3b9cfb3ae",
+      "root_sha256": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ResourceDescriptor::from_resource/native binding emitters/base_type_str",
+        "generate_prologue/generate_fetch and ResourceFetch requirement"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/workgroup.rs",
+      "candidate_sha256": "ffa8f8f0beb9bf408f7a259919960bdd22329afd9c20141b151e9c4b16c9c0ee",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "WorkgroupDeclarationError::at_entry_point and source ownership"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "candidate_sha256": "7194450243b12da9d02e05402ecc658f4d986194d27d32a65dea0e79ca242a2b",
+      "root_sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "Kernel::new/groups_for/workgroup_shape/groups_folded/run and KernelCache",
+        "KernelBatch production construction/dispatch/dispatch_folded/dispatch_items/submit/callback graph"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "candidate_sha256": "b69e247c2901c30dfca74a0ab5c2010120b874f8c6e41c0615fbd4bb0b9e9c33",
+      "root_sha256": "d974254605f81879bed0add0bcba13bb61170b84f345185be75216e99dcb02c8",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "MapDefinition::parse_signature/build_pipeline/get_or_create_pipeline",
+        "Map::execute/execute_with_parameters"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "candidate_sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "MapRecipe complete record"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "candidate_sha256": "db8b670389c9434ce6d26f78cbf531b1607c728e3293ad696cf6bc0faed41953",
+      "root_sha256": "e1596d8da320d3a162ec4326e60ceffef4973d102f085f92c5e17356d8a19623",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "GatherDefinition::parse_signature/build_pipeline/get_or_create_pipeline",
+        "Gather::execute/execute_with_parameters"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "candidate_sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "GatherRecipe complete record"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "candidate_sha256": "3ea0087a0d2787d77f1c0a5e13b48087977dd12b6c5839e78d85c95adf16a36f",
+      "root_sha256": "cdc33d82be5c30c9b6af391982c781fd50cd244dd9a018db03f95a90830314ff",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ScatterDefinition::parse_signature/build_pipeline/get_or_create_pipeline",
+        "Scatter::execute",
+        "ScatterRecipe complete record"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "candidate_sha256": "bcc74d148e928447c1bfaa8003fb245036143b300321664bf0cbd9c4976ffba3",
+      "root_sha256": "ae37884158e7bdd3c45b6821ff2d127a5e3fdbd7e8be8b30c4d273480d5b6d71",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "StencilDefinition constructors/parse_signature/full build_pipeline/get_or_create_pipeline",
+        "Stencil::execute/execute_with_parameters",
+        "sanitize_type_name/get_swizzle"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "candidate_sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "StencilRecipe complete record"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "candidate_sha256": "f02113333c06b10f9b121e52ce5f24cc0dca43540534e2e00133811287d8765a",
+      "root_sha256": "ac67a2f7413430d43cca9c43066d47ce55c4e743ff787d8d7115ceb43a924d0c",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "StreamDefinition::parse_signature/build_pipeline/get_or_create_pipeline",
+        "Stream::execute controlling offsets versus input"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "candidate_sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "StreamSignature::call_arguments all coordinate/resource/value branches"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "candidate_sha256": "8861897e0095e3ef4556acefb7ce8061efdfafbd6cb60962aa6e2ca474fa5a81",
+      "root_sha256": "ad6e3def79c9310934148627ecad10bb08ca71baaa585897559999d7a1d169b6",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ScanDefinition::get_or_create_pipelines",
+        "ScanPipelines::admit_shape/level and ScanLevel bridges",
+        "Scan::execute recursive allocation/dispatch/unwind"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "candidate_sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "scan_blocks_code and add_offsets_code complete WGSL emitters"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "candidate_sha256": "eb9b7b489756c292fe3a69424f51fb26133e590aab7df683bc2329f43527968a",
+      "root_sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ScanElementCount/ScanBlockCount methods",
+        "PrefixSumScratch::new/ensure",
+        "PrefixSum::with_cache/record/record_level/run"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum/wgsl.rs",
+      "candidate_sha256": "465992e2c83348d4a8b7c718370920a545f9724978deb6ba2b98193e36e5dccd",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "scan_blocks_code/add_offsets_code/block_index_code full folded/workgroup guard emitters"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "candidate_sha256": "a4a05200962d36cff2cae288c1de7e66e1614ccbdf2197410c80406f9da2d57e",
+      "root_sha256": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ReduceDefinition::new/get_or_create_pipeline full generated program",
+        "ReductionPipeline layout storage and source-cache publication"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/layout.rs",
+      "candidate_sha256": "19f555f68f33ff087db6fb06d6a5f37bb4ca784708e74739098c7c99b2c0de15",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ReductionElements::from_resource/reduced/covering_workgroups/byte_length"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/execution.rs",
+      "candidate_sha256": "fdf743edb8382f0bae0750c6255d89a22855f9be09f50179981ffd8f26964435",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "Reduce::execute",
+        "ReduceScratchpad::prepare/scratch_buffer",
+        "ReductionPlan::new/record"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+      "candidate_sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ExtractionGrid::try_from/ensure_sdf/initial_cell_ids/insert/admit_triangle_prefix/admit_contour_prefix",
+        "ExtractionIndexCapacity admissions/bytes/PassParameter",
+        "VertexOutputLayout::new/storage_bytes/packed_attribute_bytes",
+        "EmissionKind primitive/indirect widths"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/output.rs",
+      "candidate_sha256": "f6565ab370ac8f8a5646c9853258d062ad6d2f50ba16c64478e58dd1fa774fc7",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ExtractedVertices/TriangleExtraction/IndexedExtraction constructors and immutable getters"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+      "candidate_sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "VertexOutputLayout::project entire allocation/dispatch/publication"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "candidate_sha256": "b8eb21640952e6eea6eaae6e5ca716a0ed81bb73a3ab53df4195c49b36d491f2",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "DEINTERLEAVE complete source and deinterleave constructor",
+        "indirect_source complete publication emitter"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "candidate_sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "root_sha256": "102937a8cee5211a52a5fd4a72548d64d6020ddf8e674dde8ef03a8e05ddc714",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "MarchingCubesDefinition::new",
+        "MarchingCubes::execute entire count/scan/sync/stream/project graph"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+      "candidate_sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "COUNT/STREAM/PARAMS and count/stream emitters complete"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "candidate_sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "root_sha256": "fd6684fbe63e2641aea1a50abccb504ad774aebf000ba782d6852dcd35514eb6",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "DualContouringDefinition::new and state relationships"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "candidate_sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "root_sha256": "2d85bb7c8a1674a8918169e0bf10ec8b5e2ffed332713b418fcda7faea3e283f",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "FrontMode encoding",
+        "DualContouring::execute/execute_advancing_front/execute_internal entire phase graph"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+      "candidate_sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "PARAMS and reexport ownership"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+      "candidate_sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "VERTEX_COUNT/INDEX_COUNT complete native source and emitters"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+      "candidate_sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "QUAD_SUPPORT/INDEX_STREAM complete source and index_stream emitter"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+      "candidate_sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "VERTEX_STREAM complete source and vertex_stream emitter"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advancing_front.rs",
+      "candidate_sha256": "1fb5d31a84b338cc62518bf00e2430c0735e6f7bcffe8228e7e5642fb9d1d104",
+      "root_sha256": "4b879434d1de07e42472e4948f96674071c6d6f86e298fa579af9a98c040ce93",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "AdvancingFront::execute full canonical delegation"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "candidate_sha256": "210d69c52c956bf08c4741ae6524ee7b5c185fae123cfd4e4297ea3c92ae0e67",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "MeshVertex/Triangle/CornerCount checked constructors/operations/native and host adapters"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/count/gpu.rs",
+      "candidate_sha256": "b6a122d26c719fbed79a0d50f14c25b26b9890b33aa76a0aeda3f9cf83e8221f",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "All typed count to InvocationCount/PassParameter adapters"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/quantities.rs",
+      "candidate_sha256": "9527dace22a827c16ef4d1c8ad1fab21f692f58a7ea7ac89347f63cc4de793d2",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "Query/CandidateCount admissions/conversions",
+        "QueryLayout::try_from/word_bytes/weight_bytes"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/selection.rs",
+      "candidate_sha256": "0a76b1bcb0e0afa465c2f48fff6b21ec5aba0cf1c5bbddd7ad01947e01d4b248",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "PointSelection/TriangleSelection::bind",
+        "bind_all/bind_candidates and enum payloads"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/output.rs",
+      "candidate_sha256": "f1a09a4e792855ad311f29c4b6921ebcde7f18136038d1a0301049450608d83c",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "QueryHits::new/getters/read and exact capacities"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+      "candidate_sha256": "b8ddcee5609c637aab7a5bd5964eb26649e97d3e0bd3906401344db0851d3701",
+      "root_sha256": "32201338d839719acd4a4637a5b0f672f8b2cadb4871e9947f122d4c2c211bfa",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "MeshQuery::with_cache/parameters/record_nearest_points/record_closest_triangles/record_ray_triangles"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/wgsl.rs",
+      "candidate_sha256": "4a77a89395c7354e9c2e23bb8417bd75ca3f0db1a735fcc40a7d27d10db82c44",
+      "root_sha256": "3447a8e6c61a925d5915f7f3f7a5bb147a225a03aa10f630951755825a9088a5",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "TARGETS/TRIANGLES and nearest_points/closest_triangles/ray_triangles complete native source"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+      "candidate_sha256": "ce90f4e7b373f0be541369c169f8144827fbe9519d666b4e32c219e76554c76d",
+      "root_sha256": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "VertexNormalKernels::with_cache/record",
+        "corners_code/ranges_code/gather_code/counted full production emitters"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/vertex_normals/output.rs",
+      "candidate_sha256": "9fbbbc30cfd521726ab9bef324e82b2f4d5c98a9704ebac5da9f674ee3a02261",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "VertexNormals::new/read/getters",
+        "NormalLayoutError exact native products/source"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/sort/quantities.rs",
+      "candidate_sha256": "ae35c1089ff9353846f021e15346d4372e5b1ccf4d5e8f14744e837e08543103",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "Mesh count bridges, item/tile layout and key-width/whole-digit schedule methods"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/gpu/layout.rs",
+      "candidate_sha256": "78be61f5938b91a627569e36f7d7e3b5d43ca811a0d5aef9a9d23dcad1cd2528",
+      "root_sha256": null,
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "MeshTriangleCount -> BvhPrimitiveCount",
+        "BvhLayout checked native node/atomic product admission and methods"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-physics/src/mesh.rs",
+      "candidate_sha256": "4973beac6341c8087f1e8f4d4bf632d82bb7f51722ffc93a26cb88c1f409fb5a",
+      "root_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "candidate_equals_root": false,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "MeshCollider::new/write_positions/record_bounds/record_rebuild/refit/rebuild/refit",
+        "Mesh count producers, native buffers and packed positions"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "candidate_sha256": "99a42845d64d2256870d952e264b1d57fbf2add013e6e6ab4ab22f952df96777",
+      "root_sha256": "99a42845d64d2256870d952e264b1d57fbf2add013e6e6ab4ab22f952df96777",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ComputePipeline entire immutable definition/cache/compile/selected-entry/native construction owner"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "candidate_sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "root_sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ComputeShader::new immutable source/module/device constructor and getters"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "candidate_sha256": "d6d50cd02eba48905f36c9fa34512daa36e094446c2baa58f1163c57d5ae3c68",
+      "root_sha256": "d6d50cd02eba48905f36c9fa34512daa36e094446c2baa58f1163c57d5ae3c68",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ReflectedInterface::new complete compute-entry union and first-entry default",
+        "GroupBuilder::reflect/entry"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "candidate_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "root_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "GroupBuilder::uniform complete immediate-member/byte-span metadata owner"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "candidate_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "root_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "GroupBuilder::image and storage_access complete image role owner"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "candidate_sha256": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24",
+      "root_sha256": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "ComputePass::dispatch/record complete admission/record/finalization owner"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "candidate_sha256": "955f5bb0e7dc346933dab81076091f23ba15158a268849dcc0121858fc648658",
+      "root_sha256": "955f5bb0e7dc346933dab81076091f23ba15158a268849dcc0121858fc648658",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "create_bind_groups/create_group/add_buffers/select_textures/add_samplers complete interface assembly"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "candidate_sha256": "6531a6cac487b5a8649caeb8835197c208ba8b19ea8c13e152f686b0f1404a8f",
+      "root_sha256": "6531a6cac487b5a8649caeb8835197c208ba8b19ea8c13e152f686b0f1404a8f",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "create full checked extent/pack/allocate/upload sequence"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+      "candidate_sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "root_sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "pack_uniforms/write_value/write_bytes/write_vector/write_matrix entire provided-variant packer"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "candidate_sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "root_sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "FastPath::new/prepare and Prepared::record entire admission/resource/native sequence"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "candidate_sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "root_sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "CompiledLayout::new entire native compilation"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "candidate_sha256": "c9488a11c8a8c9c481f6b948041544dea9ec19a9405405ec969f51c4e2d2db2d",
+      "root_sha256": "c9488a11c8a8c9c481f6b948041544dea9ec19a9405405ec969f51c4e2d2db2d",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "UniformArena::allocate entire checked slot/chunk owner"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+      "candidate_sha256": "0d9175592d18179ab5b8ae11985ce9ca7623d800be55ba9a1db8c08b3c65cd76",
+      "root_sha256": "0d9175592d18179ab5b8ae11985ce9ca7623d800be55ba9a1db8c08b3c65cd76",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "write_uniform entire narrower provided-variant packer"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "candidate_sha256": "5600af987b9f0edf639896585aa820fc98d351daa64b81c9e84d8a51222a81b7",
+      "root_sha256": "5600af987b9f0edf639896585aa820fc98d351daa64b81c9e84d8a51222a81b7",
+      "candidate_equals_root": true,
+      "read_scope": "Complete production body/module, including named emitter bodies; inline test bodies not reviewed as test acceptance",
+      "function_coverage": [
+        "parse_naga/validate_naga and canonical reflected metadata records"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+      "candidate_sha256": "d6bb7c7743a55599345b221d241ce7182c9b0208543a106976e2e407d14b18ac",
+      "root_sha256": "d6bb7c7743a55599345b221d241ce7182c9b0208543a106976e2e407d14b18ac",
+      "candidate_equals_root": true,
+      "read_scope": "Count-table values read fully; large TRI/EDGE authored tables were identity-checked, not freshly reread in entirety",
+      "function_coverage": [
+        "TRI_COUNT_TABLE complete 256-entry tail, actual maximum15 and multiples3; TRI/EDGE sources byte-identical root"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "candidate_sha256": "c04feb5e8852212086b588c9946c8b191bb96ff90814d1278192e7b4bce73d07",
+      "root_sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+      "candidate_equals_root": false,
+      "read_scope": "Complete relevant declarations/dependency clauses; no whole downstream module or Cargo execution claim",
+      "function_coverage": [
+        "Export/module declarations for all new APIs"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "candidate_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "root_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "candidate_equals_root": true,
+      "read_scope": "Complete relevant declarations/dependency clauses; no whole downstream module or Cargo execution claim",
+      "function_coverage": [
+        "Shared owner reexports"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "candidate_sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "root_sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "candidate_equals_root": true,
+      "read_scope": "Complete relevant declarations/dependency clauses; no whole downstream module or Cargo execution claim",
+      "function_coverage": [
+        "Canonical GPU owner reexports"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "candidate_sha256": "cf4f072e78c52e8b68b9ded20f68bba68be8698a820b651310d605d6779f1232",
+      "root_sha256": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02",
+      "candidate_equals_root": false,
+      "read_scope": "Complete relevant declarations/dependency clauses; no whole downstream module or Cargo execution claim",
+      "function_coverage": [
+        "Imports/exports and Buffer fields/new"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "candidate_sha256": "9951797fc00589d2ce5106c921d2788568e3d10bfa1cbcbf6344c6e5f191c8ae",
+      "root_sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+      "candidate_equals_root": false,
+      "read_scope": "Complete relevant declarations/dependency clauses; no whole downstream module or Cargo execution claim",
+      "function_coverage": [
+        "Count module/reexports"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "candidate_sha256": "486924bad91b9cb881237079144ba6350d8313841760f25c187beae5b4b59ada",
+      "root_sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "candidate_equals_root": false,
+      "read_scope": "Complete relevant declarations/dependency clauses; no whole downstream module or Cargo execution claim",
+      "function_coverage": [
+        "Mesh gpu feature dependency and no direct cycle"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "candidate_sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "root_sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "candidate_equals_root": true,
+      "read_scope": "Complete relevant declarations/dependency clauses; no whole downstream module or Cargo execution claim",
+      "function_coverage": [
+        "GPU feature dependencies; no compute backedge"
+      ]
+    }
+  ],
+  "unreviewed_candidate_difference_paths": [
+    ".github/workflows/rust-quality.yml",
+    "Cargo.lock",
+    "crates/adventuresim-character-creator/src/device_underlayer/gap.rs",
+    "crates/adventuresim-character-creator/src/device_underlayer/weld.rs",
+    "crates/adventuresim-character-creator/src/device_underlayer/workspace.rs",
+    "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+    "crates/fabelgeist-bvh/Cargo.toml",
+    "crates/fabelgeist-bvh/src/aabb.rs",
+    "crates/fabelgeist-bvh/src/gpu/mod.rs",
+    "crates/fabelgeist-bvh/src/gpu/storage.rs",
+    "crates/fabelgeist-bvh/src/gpu/tests.rs",
+    "crates/fabelgeist-bvh/src/morton.rs",
+    "crates/fabelgeist-cloth/src/cloth/tests.rs",
+    "crates/fabelgeist-compute/src/advect/mod.rs",
+    "crates/fabelgeist-compute/src/boundary.rs",
+    "crates/fabelgeist-compute/src/distance_field.rs",
+    "crates/fabelgeist-compute/src/divergence/mod.rs",
+    "crates/fabelgeist-compute/src/gradient/mod.rs",
+    "crates/fabelgeist-compute/src/host_float/tests.rs",
+    "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+    "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+    "crates/fabelgeist-compute/src/readback.rs",
+    "crates/fabelgeist-compute/src/sort/README.md",
+    "crates/fabelgeist-compute/src/sort/contract_tests.rs",
+    "crates/fabelgeist-compute/src/sort/mod.rs",
+    "crates/fabelgeist-compute/src/sort/native-admission.json",
+    "crates/fabelgeist-compute/src/sort/native-cases.json",
+    "crates/fabelgeist-compute/src/sort/tests.rs",
+    "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+    "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+    "crates/fabelgeist-garment-fit/src/lib.rs",
+    "crates/fabelgeist-gpu/README.md",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+    "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+    "crates/fabelgeist-gpu/tests/texture_views.rs",
+    "crates/fabelgeist-hair/src/gpu/buffers.rs",
+    "crates/fabelgeist-hair/src/gpu/error.rs",
+    "crates/fabelgeist-hair/src/gpu/lods.rs",
+    "crates/fabelgeist-hair/src/gpu/mod.rs",
+    "crates/fabelgeist-hair/src/gpu/readback.rs",
+    "crates/fabelgeist-hair/src/gpu/sim.rs",
+    "crates/fabelgeist-hair/src/gpu/sim/collision_progress.rs",
+    "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+    "crates/fabelgeist-hair/src/render/mod.rs",
+    "crates/fabelgeist-physics/Cargo.toml",
+    "crates/fabelgeist-physics/src/contact.rs",
+    "crates/fabelgeist-shell/src/lib.rs",
+    "crates/fabelgeist-shell/src/outer_layer.rs",
+    "crates/fabelgeist-shell/src/selfcollision.rs",
+    "crates/fabelgeist-shell/src/selfcollision/layout.rs",
+    "crates/fabelgeist-shell/src/shell.rs",
+    "crates/fabelgeist-shell/src/wgsl.rs",
+    "crates/fabelgeist-spatial-hash/src/gpu.rs",
+    "crates/fabelgeist-spatial-hash/src/gpu/recorded.rs",
+    "crates/fabelgeist-spatial-hash/src/host.rs",
+    "crates/fabelgeist-spatial-hash/src/layout.rs",
+    "crates/fabelgeist-spatial-hash/src/lib.rs",
+    "crates/fabelgeist-xpbd/src/constraint.rs",
+    "crates/fabelgeist-xpbd/src/lib.rs",
+    "crates/fabelgeist-xpbd/src/particles.rs",
+    "crates/fabelgeist-xpbd/src/particles/count.rs",
+    "crates/fabelgeist-xpbd/src/particles/packed.rs",
+    "crates/fabelgeist-xpbd/src/particles/tests.rs",
+    "crates/fabelgeist-xpbd/src/solver.rs",
+    "crates/fabelgeist-xpbd/src/tests/mod.rs",
+    "rust-quality-baseline.toml"
+  ],
+  "findings": [
+    {
+      "id": "G1",
+      "priority": "P1",
+      "lineage": "Candidate-introduced concrete Rust API/compile defect",
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "lines": [
+        34,
+        35
+      ],
+      "scenario": "New deinterleave constructor passes const DEINTERLEAVE:&str to unchanged ComputeShader::new(context,code:String). Both extraction definition constructors call it; Rust does not implicitly allocate String.",
+      "proof": [
+        "Canonical compute_shader.rs:16 requires String",
+        "DEINTERLEAVE is const &str; call at extraction/wgsl.rs:35",
+        "MarchingCubesDefinition::new and DualContouringDefinition::new invoke shared_wgsl::deinterleave"
+      ],
+      "minimum_connected_repair": "Convert fixed built-in source to owned String at the canonical constructor boundary; no new shader wrapper, overload or type owner.",
+      "runtime_evidence": "None; source type mismatch only"
+    },
+    {
+      "id": "G2",
+      "priority": "P2",
+      "lineage": "Retained affected-source correctness gap, also present in root1f7; not newly introduced by candidate",
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "lines": [
+        56,
+        63
+      ],
+      "scenario": "Generated-program wrappers paste authored code before generated main, but unchanged canonical reflection/compiled selects first compute entry. An earlier valid authored compute entry runs instead of map/reduce/scan generated main. Scan only checks shape, so an earlier entry with expected256 shape is accepted too.",
+      "proof": [
+        "reduce/mod.rs:118-160 places self.code before @compute main; new pipeline at184-186",
+        "scan/wgsl.rs:17-20 places operator before generated main",
+        "pipeline/reflection.rs:23-27 chooses first compute entry; pipeline/mod.rs:98,128-131 compiles/dispatches that default",
+        "ResourcePipeline::new:56-63 certifies first-entry shape, not generated program identity",
+        "ScanPipelines::admit_shape checks dimensions only"
+      ],
+      "minimum_connected_repair": "At generated-program admission bind/validate the generated main identity through canonical contracts or reject authored alternate compute entries with a typed cause. Cover ResourcePipeline producers and Reduce/Scan together. Shared pipeline changes require existing owner agreement; do not implement a second native constructor.",
+      "runtime_evidence": "None; exact source order/selection trace"
+    },
+    {
+      "id": "G3",
+      "priority": "P2",
+      "lineage": "Retained Reduce affected-source correctness gap, same fetch switches in root1f7",
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "lines": [
+        91,
+        109
+      ],
+      "scenario": "A parsed vec3<f32> operator over Texture2d/3d emits an unswizzled textureLoad vec4<f32> into shared_data:array<vec3<f32>>, so native WGSL type validation rejects the admitted recipe. Padded vec3 storage-buffer stride support does not fix the texture branch.",
+      "proof": [
+        "ResourceBaseType includes Vec3, parse_binary_op_signature admits it",
+        "Texture descriptor emits sampled f32 texture; textureLoad returns four components",
+        "Reduce switch has scalar .x and vec2 .xy but vec3 falls through to empty swizzle",
+        "shared_data type comes from same parsed ty and assignment at132-133"
+      ],
+      "minimum_connected_repair": "Own the correct three-component projection or an explicit typed unsupported-shape admission contract at the Reduce texture producer; retain actual source/cause and canonical stride/cache ownership.",
+      "runtime_evidence": "None; generated native type mismatch reasoning"
+    }
+  ],
+  "non_findings_source_proofs": [
+    "Native stride comes from controlling runtime Array::stride, trailing bytes floor complete records; host product of u32 count/stride fits u64; real TryFromIntError retained",
+    "TextureAddressing distinguishes coordinate, max linear index and population; requirements combine; no flat-volume cap on coordinate-only textures",
+    "ResourceRecipe SecondaryResources sorts names; named Map/Stencil/Gather/Scatter keys cover emitted descriptors and source/cache policy",
+    "Reduction scratch exact live per-level bytes and actual-device identity avoid stale larger arrayLength on reuse; final copy uses canonical ranged request",
+    "ExtractionGrid checks nonzero lattice, matching Texture3d extent, population and worst-case written prefixes; complete triangle/quad budgets bound indirect publication",
+    "Cell vertex IDs only publish after accepted vertex write; quad counting/emission share quad_is_written; unwritten sentinel excluded",
+    "Packed attributes and normal/query/collider derived products checked in u64 before native word bounds; mesh quantities do not claim arbitrary index membership",
+    "Root pipeline/reflection/static/fast owner bodies remain byte-identical and use canonical typed words/layout/source identity; no competing constructor needed",
+    "Folded-zero grid reaches empty-first Batch admission; native nonzero WorkgroupShape preserves shape/launch vocabulary"
+  ],
+  "required_remaining": [
+    "G1 compile/API repair before accepting extraction source",
+    "G2/G3 explicit inventory/owner resolution; retained lineage is not permission to silently defer affected paths",
+    "E1/M1 and all unresolved #780 caller/retained #774/F19 families",
+    "Root incoming candidate all13 ledger remains incomplete and is not delegated/cleared by this report",
+    "Independent complete integrated reviews and hosted gates on final same pushed SHA"
+  ],
+  "limits": [
+    "Exact git show candidate only; no live owner source",
+    "No tests, cases, helpers, assertions, doctests, scanner, build/check/generator/runtime/project execution",
+    "No source edits or competing repair",
+    "No push/CI/external posting",
+    "Ignored JSON/Markdown only",
+    "Coverage excludes remaining listed candidate differences; no whole127 or wholefamily acceptance"
+  ],
+  "authority_update": {
+    "human_authorization": "Explicit coordinated #780/#826 takeover of remaining #774 ownership is now authorized; missing human authorization is resolved.",
+    "source": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6372371468",
+    "remaining_gate": "Exact whole-function #780/#826 split, owner handover/receiving contracts and implementation remain incomplete; no formerly claimed source edits by this read-only reviewer.",
+    "immutable_candidate_unchanged": true
+  }
+}

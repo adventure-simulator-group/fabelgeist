@@ -1,0 +1,30 @@
+{
+  "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+  "tree": "f8c67de65206ca90efe21e54c6c9e2e9bafa9cc3",
+  "parent": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "d840e177522b7d59f70ae3373c25707b3cc0d1ac06c93939da1ca6cb126b261f",
+      "working_and_commit_exact": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "5630af2ffd526d8dcc22aff829309aa31fb634de49ec9b795e03021a468bdcaf",
+      "working_and_commit_exact": true
+    }
+  ],
+  "scope": "Two whole owned sources; latest override of TextureValue file in ccb51 and Staging file in3e74. All other protected native/generated source remains exact prior receipt.",
+  "reviews": [
+    "receiving-result-style-pre-all13",
+    "receiving-result-style-pre-code-review",
+    "receiving-result-style-pre-rule-review",
+    "receiving-result-style-pre-comment-review",
+    "receiving-result-style-post-all13",
+    "receiving-result-style-post-code-review",
+    "receiving-result-style-post-rule-review",
+    "receiving-result-style-post-comment-review"
+  ],
+  "contract": "TryFrom explicit Result<Self,Self::Error>; preserve TextureValueResult nontrait owner. StagingResult only prefix/status; facade GenerateError distinct. Exactinverseproof recovers allother originalbytes afterlistedformatter-onlyreflows.",
+  "limits": "Focused all13/3 sourceclear only, no compile/runtime/globalclearance. CanonicalReadback/callers/native remainingreceivingfindings/finalgraph13/3/hosted samefinalpushedSHA stillrequired. No newtest/case/helper/assertion; no localprojectexecution/push/CI/merge."
+}

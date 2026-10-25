@@ -1,0 +1,289 @@
+{
+  "review": "Independent Comment Review: Cube native program family",
+  "head": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+  "tree": "87974137ac3b0a67af59b9474f25d92218daa422",
+  "parent": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "canonical_format_pin": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "changed_paths": [
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs"
+  ],
+  "source_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+      "git_blob": "8fb02301015a9993dcd6441dc3f65643473de92b",
+      "lines": 421,
+      "coverage": "Fresh full file source read",
+      "role": "Changed/new owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "git_blob": "5a991b44701159ad24536aae902769843661a1fe",
+      "lines": 35,
+      "coverage": "Fresh full file source read",
+      "role": "Changed/new owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+      "git_blob": "c0eef53ba913e83db7a958511a86024f363d6a0b",
+      "lines": 266,
+      "coverage": "Fresh full file source read",
+      "role": "Changed/new owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+      "git_blob": "f91c8772f7fe6d1a4581f8d39cfa8eb026f5c2bc",
+      "lines": 315,
+      "coverage": "Fresh full file source read",
+      "role": "Changed/new owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+      "git_blob": "c9733401ec5a2de9d1403c672f5b3e5f8beba7e8",
+      "lines": 213,
+      "coverage": "Fresh full file source read",
+      "role": "Changed/new owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "4f45dd45651aac781e71120454d88879e337bd5e1180fc622198cf296ad35326",
+      "git_blob": "87d68fa3a453d79fb06caec93da5c59fb71429e8",
+      "lines": 89,
+      "coverage": "Fresh full file source read",
+      "role": "Changed/new owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "git_blob": "7cc31a110891b2f9e86b257cb8fcb8e642f3feed",
+      "lines": 202,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "git_blob": "404a765e9377d7b74ca267ae1be9c3ce03b17190",
+      "lines": 93,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "git_blob": "869996dde8ec479ce068ef764b95671d5a656a77",
+      "lines": 165,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "git_blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "lines": 24,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "git_blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "lines": 43,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "git_blob": "24a5ea1e0349615d342a475a764347d7870162a6",
+      "lines": 113,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "git_blob": "f34c5730daeac1577440c03c76310b203576ce9a",
+      "lines": 150,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "git_blob": "5dd651ef83440a5d5c9e84635d8ae455e61fc4ff",
+      "lines": 244,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "git_blob": "fa1918181857ed22a3276fa8c3fb922bfeeae21c",
+      "lines": 70,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "e1512db4360eeb726fefb21b212022961909efcc28950e0bd36cdc79e0ee4985",
+      "git_blob": "6331189bee8a9b095eb6c1bfeaf6b1c86b6511f5",
+      "lines": 272,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "git_blob": "178d76c5e0efcca7eee0cbbfbc32208a6d5830d8",
+      "lines": 187,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "git_blob": "277e2530407fdc4216dc79bdad4f1285dad6afd2",
+      "lines": 18,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "7fb81a38c012a749919c9addd0d99a42386e333e227042d87bd58c270dc5b9b7",
+      "git_blob": "3c13cb2da4da7a40878ecb8baf048d910f68db82",
+      "lines": 26,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "git_blob": "58d988813cefd13442b07f2551b840f7d5cd6fa5",
+      "lines": 43,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "sha256": "25af127253b18860f351048e1732765bdd5d487d5100e9e347fd3a8124b4b6c0",
+      "git_blob": "9d9e09283739a0979907a26b2e9828ebeac91a09",
+      "lines": 197,
+      "coverage": "Fresh full file source read",
+      "role": "Affected unchanged dependency/documentation"
+    }
+  ],
+  "source_proof_hash_matches": {
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": true,
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": true,
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": true,
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs": true,
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs": true,
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs": true
+  },
+  "canonical_format_identity": {
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": true,
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": true
+  },
+  "raw_wgsl_proof": [
+    {
+      "program": "sampled blit",
+      "sha256": "3868ce90f3715d5892338fcbda342a593c7b9b47ce1564974aa9968b9035652d",
+      "byte_identical_parent": true
+    },
+    {
+      "program": "face compute",
+      "sha256": "98054195e43ffc709dfac604e490c31654d652810938a21a4ab08474c1bab220",
+      "byte_identical_parent": true
+    },
+    {
+      "program": "all-face compute",
+      "sha256": "5b2209ba6881852f19dfdc694f77dfd50e3e0dce205df9642fb3dd8116e82a15",
+      "byte_identical_parent": true
+    }
+  ],
+  "raw_block_counts": {
+    "parent": 3,
+    "successor": 3
+  },
+  "fixtures": "No changed path contains fixtures/tests/assertions/doctests. No tests were added or executed. Existing native WGSL source preserved exactly.",
+  "contracts": [
+    {
+      "area": "Immediate construction/recording",
+      "evidence": "shader.rs:record_shader calls context.observe_validation around shader, uniform, layout, pipeline, encoder and completed pass recording. Blit does likewise around record_blit; direct copy observes encoder creation and copy recording. Helper reads only Validation under native policy and contains no device.poll.",
+      "disposition": "No actionable comment mismatch. Separate submit scopes remain necessary for deferred encoder validation."
+    },
+    {
+      "area": "Finalization/submission",
+      "evidence": "Every successful observer path calls existing context.submit. Its logical-Device/paired-Queue preconditions, per-phase Validation scopes, no-completion-wait statement and browser/borrowed limitations remain explicit. Native errors are wrapped in ComputePassError::Native with original wgpu::Error exposed by source.",
+      "disposition": "No claim of GPU completion, rollback, global health or universal native success."
+    },
+    {
+      "area": "Format/error ordering",
+      "evidence": "Raw shader methods obtain view_2d_array first: absent allocation then wrong Device then native view observation. Only after that do they request exact effective storage spelling. That one effective format also enters native storage layout. Unsupported spelling returns StorageFormatError retaining exact format; no fallback. Earlier view/native observation error can precede unsupported-spelling error.",
+      "disposition": "Precise bounded source contract; no claim unsupported format always wins before every native view operation."
+    },
+    {
+      "area": "Blit/copy admission",
+      "evidence": "set_side_texture checks destination allocation and Device before direct-copy eligibility, then source Device. Fallback blit selects source view before target face view. Native physical usage and format support remain SDK validation responsibilities. Layout/group records retain exact native association; ComputeBindGroup has only reflected index/group and a compute-pass binding adapter.",
+      "disposition": "Preserved admission priority and responsibility ownership; no duplicated generic compute layout authority."
+    },
+    {
+      "area": "Missing/cache states",
+      "evidence": "Cached-format whole views retain cache-first behavior; raw Cube render requires retained allocation through view_2d_array. Face views retain native Device provenance and requested/effective-format behavior. Cache removal and allocation removal remain distinct.",
+      "disposition": "No new absence-state claim, cache repair or independent format authority."
+    },
+    {
+      "area": "Programs/uniforms/dispatch",
+      "evidence": "All three authored raw WGSL strings match parent exactly. Native face uniform timef32/faceu32/twozero remains16bytes; all-face uniform fourf32 remains16bytes. Workgroups remain ceil(size/8) by ceil(size/8), depth1 or six CubeFace values. Blit filter/sampler/REPLACE/Load/Store/triangle policy unchanged.",
+      "disposition": "Source identity and descriptor read only, not executed behavior or visual validation."
+    },
+    {
+      "area": "Public API and fixtures",
+      "evidence": "Public TextureCube methods remain inherent methods and consuming wrappers return target after raw method success. Methods moved into responsibility modules without forwarding compatibility APIs. Six changed paths contain no test module/cases/assertions/doctests; existing shader templates are byte-preserved.",
+      "disposition": "No new fixture or runtime verdict. Broader fallible storage-format caller migration remains required."
+    }
+  ],
+  "findings": [],
+  "limits": [
+    "This is independent source-only Comment Review of this exact six-path Cube family and materially affected dependency prose. No actionable comment finding was identified in this bounded scope.",
+    "The formerly known immediate Cube native-construction/recording gap is addressed structurally under existing policy, but no native execution or hosted result is claimed.",
+    "Existing view creation still uses its pre-existing ValidationScope wait policy. The new immediate observer adds no device poll; this is not a claim the entire public Cube operation never waits.",
+    "Borrowed contexts/browser builds remain device-handled. A normal return there is no synchronous validation verdict; other error classes remain device-configured, and submitted work may outlive the call.",
+    "Full canonical storage/projection caller integration, held extraction tranche, other producer/error/cache/native families and previous SP-C1/C2/C3 findings outside this six-path delta remain required; this Cube verdict does not clear them.",
+    "No source edits, local project execution/check/build/lint/test/scanner/generator/runtime, test/case/helper/assertion/doctest additions, push, hosted CI or external post performed.",
+    "Root still owns complete all13 discovery/receiving waves, final independent Code/Rule/Comment reviews and required hosted checks on the same final pushed revision; no global/family/compiled/final PR clearance."
+  ],
+  "verdict": "No actionable Comment Review finding in bounded exact Cube source scope; broader integration/final clearance remains incomplete."
+}

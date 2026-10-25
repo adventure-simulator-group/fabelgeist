@@ -1,0 +1,199 @@
+{
+  "review": "Independent bounded Code Review: incoming sole shell UV authority",
+  "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "tree": "57cea419b31eac49981a90599b87e6990b407bcc",
+  "base": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "source_manifest_sha256": "08108d5f1591fd9dddd27d21d0c0d4e7d1c6977f3208699ede02e464da98e0c3",
+  "scope": "Six incoming Creator files; Root has not copied. Source/Git review only. Not whole material/native/physical integration or final PR clearance.",
+  "verdict": "No actionable correctness finding in the six-file delta and traced sole-UV consumer closure.",
+  "findings": [],
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad",
+      "manifest_matches": true,
+      "export_matches_git": true,
+      "lines": 62,
+      "coverage": "fresh complete source and complete parent diff"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+      "manifest_matches": true,
+      "export_matches_git": true,
+      "lines": 111,
+      "coverage": "fresh complete source and complete parent diff"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+      "manifest_matches": true,
+      "export_matches_git": true,
+      "lines": 162,
+      "coverage": "fresh complete source and complete parent diff"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "a542629ff77155448219d508e544a55f2da0c3f024f7454fb2c26a597f1da13a",
+      "manifest_matches": true,
+      "export_matches_git": true,
+      "lines": 250,
+      "coverage": "fresh complete source and complete parent diff"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "bc324c39eaed75e445e0b5247a8ce1adcd1cc336525d221ba6f174aacfb2cbd8",
+      "manifest_matches": true,
+      "export_matches_git": true,
+      "lines": 344,
+      "coverage": "fresh complete source and complete parent diff"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368",
+      "manifest_matches": true,
+      "export_matches_git": true,
+      "lines": 1785,
+      "coverage": "fresh complete source and complete parent diff"
+    }
+  ],
+  "dependency_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "parent_identical": true,
+      "coverage": "fresh complete; actual ordered used-vertex remap and returned sole UV column"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+      "parent_identical": true,
+      "coverage": "fresh complete including fixtures; armor/clothing producers and component material overrides"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "0b57ba3d094cdb3ac0ea1e872f7177837ffae8c16be441a1dbcb823d220b26dc",
+      "parent_identical": true,
+      "coverage": "fresh complete; mail and ordinary garment UV column"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "parent_identical": true,
+      "coverage": "fresh complete; card UV producer and surface maps"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "parent_identical": true,
+      "coverage": "fresh complete; payloads, image cache, material override and publication policy"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "43e385b5074a6c8884aabe7f27f70c016f9b16b16e19a0020d58cd01090de0b8",
+      "parent_identical": true,
+      "coverage": "fresh complete; unchanged shared map fixture APIs/oracles"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/assembly.rs",
+      "sha256": "69228ac01428944c7113f479834ac9179928ab25512d652a741cd799c562b494",
+      "parent_identical": true,
+      "coverage": "fresh complete; metadata, nodes and unchanged compaction fixture"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/morphs.rs",
+      "sha256": "49339af440cea4592fc08969075def3ca3380fe9a495d0b77180049f879ceee3",
+      "parent_identical": true,
+      "coverage": "fresh complete; admission before compaction and remapped morph writer"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/buffer.rs",
+      "sha256": "c92b80be46c77268cf276c3686aaedbd70bba5be1e4f7d5eaef7041f865be104",
+      "parent_identical": true,
+      "coverage": "fresh complete; f32 little-endian serialization and view alignment"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "sha256": "3f0d6674ab64abd4e90c50836ccc7028edb39f616d8758b2c6ff25e8380d9059",
+      "parent_identical": true,
+      "coverage": "fresh complete; external public API fixture"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "00f657217f6dc1b7b5677176fad2153836a7aabc133a1c7b518bba391a607c16",
+      "parent_identical": true,
+      "coverage": "fresh complete; selected trim UV producer and existing fixture population"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "d71953e80a22f666f64d7733ae41279fe18700e1f6b0531ee1cfd404f4c95559",
+      "parent_identical": true,
+      "coverage": "fresh scoped lines 140-360; SelectedTrim, construction, trim and selected fit call flow; not whole file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "parent_identical": true,
+      "coverage": "fresh scoped lines 1-180; actual export feature/module boundary"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "566a69fc6cd50bd7d7ea5c0347567c39f2bdc37e9f8004675dc5328e3751e12e",
+      "parent_identical": true,
+      "coverage": "fresh scoped lines 65-90; binary imports; not whole main"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "1346098aa561b83aa6d045c8744f19edc6605674fd0bbf313af4dcfc4ef595e5",
+      "parent_identical": true,
+      "coverage": "fresh complete; feature and bin declarations and existing dependencies"
+    }
+  ],
+  "contracts": [
+    {
+      "contract": "One UV authority",
+      "evidence": "export/rigged.rs:23-34 removes UV-bearing surface pair. surface stores only borrowed ShellTextures; texcoords is the sole optional per-position column. All actual surface assignments found at the exact revision are maps-only. No compatibility alias or stale-UV fallback remains."
+    },
+    {
+      "contract": "Admission before remap or output",
+      "evidence": "export.rs:600 calls validate before CompactShell::new or buffer publication. validation.rs:51-70 checks both surface maps nonempty, either map family requires texcoords, and any supplied texcoords must be finite and position-sized. Both missing and mismatched columns fail before compactor indexing. Untextured shells can still omit UVs."
+    },
+    {
+      "contract": "Exactly one synchronized remap",
+      "evidence": "export/compact.rs:24-74 derives sorted used vertices from validated faces and uses the same order for geometry, texcoords, skin and morphs. rigged():85-108 returns self.texcoords.as_deref(), while carrying only source.surface maps; no unremapped source UV can be recovered by the writer."
+    },
+    {
+      "contract": "Writer consumes admitted compact UVs",
+      "evidence": "export/shell.rs:53-60 reads only shell.texcoords, serializes its rows via f32_bytes, and counts the same rows in TEXCOORD_0. apply_shell_textures still consumes only maps; existing map precedence, pointer-identity cache, samplers, PBR factors and standalone/shared file policies are unchanged."
+    },
+    {
+      "contract": "Actual producers fit final API",
+      "evidence": "character_morphs::rigged_armor sets texcoords to armor.texcoords for every component. Character catalog_shells and equipment armor attach only maps. Character trim explicitly selects SelectedTrim.texcoords before attaching maps. Mail, hair, textile and untextured clothing producers retain their existing sole-column routes. Public existing fixtures use maps-only plus explicit UVs."
+    },
+    {
+      "contract": "Lifetime and geometry relationships",
+      "evidence": "RiggedShell surface and texcoords both borrow stable producer owners. CompactShell owns selected UVs and returns a borrow tied to self; ShellTextures remains borrowed from the source for synchronous export. No mutable or escaping UV reference is introduced. Face/skin/morph admission remains unchanged."
+    },
+    {
+      "contract": "Bounded behavior preservation",
+      "evidence": "For existing matching UVs, map/image selection and all serialized f32 numerical rules are unchanged. Surface-only callers must now provide texcoords explicitly; no backward compatibility promise. Removing fallback fixes compact shells that formerly retained source-size UVs. When both map families are present, the existing override policy remains; this review does not claim a new multi-chart material feature."
+    }
+  ],
+  "fixture_provenance": {
+    "whole_export_exact_after_two_existing_fixture_operand_adaptations": true,
+    "existing_test_attributes_unchanged": true,
+    "existing_assert_macro_lines_unchanged": true,
+    "no_new_test_code": "full six-file diff contains only two existing fixture field operand adaptations; no test, case, helper or assertion addition"
+  },
+  "required_dependencies": [
+    "Receive the six mutually dependent API/caller/fixture files as an agreed composition; Root older surface-pair callers cannot be treated as a compile-clear final graph.",
+    "Canonical material/color/component appearance/closed recipes/units/counts/seeds/native causes and wider producer/bake/caller/body/physical/generated composition remain open. This receipt changes none of those owners.",
+    "Final same pushed revision Code, Rule, Comment review and hosted project gates remain required. No source-only receipt substitutes for them."
+  ],
+  "validation_limits": [
+    "No production source edits, copying, project commands, build, check, lint, test, scanner, generator, runtime, new fixture/case/helper/assertion/doctest, push or CI.",
+    "Six whole files were freshly read, including the 1785-line export file and its existing fixtures. Dependency coverage is individually labelled; scoped reads do not imply whole-file clearance.",
+    "Whole-crate git grep established actual RiggedShell/surface uses; this was source search, not a project scanner. Package comparison notes were consulted after independent source reasoning, not accepted as a verdict.",
+    "No universal image-schema/PBR/native/browser/physical or whole-PR/compilation clearance."
+  ]
+}

@@ -1,0 +1,964 @@
+{
+  "kind": "Pre-repair complete thirteen-lens renderer simulation receiving discovery",
+  "root": "48e5995839d008ef3373343919d17915357544bc",
+  "root_tree": "532b456ee225747cbaa22ed05da8643147df82fd",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "host_shape": "a2ca851015b9649097635f9f580e409028682ffa",
+  "host_frame": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+  "native_reference": "0df94b91011a415be93c14174d4233b09eb01c00",
+  "card_reference": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+  "extends": "target/pr826-audit/renderer-source-pre-repair-review.json",
+  "governing": [
+    "AGENTS.md",
+    "crates/AGENTS.md",
+    "bespoke-audit and all13 named skills fully read"
+  ],
+  "status": {
+    "discovery": "complete at these exact pins for whole renderer source/simulation receiving family, including host source gap now closed",
+    "repair": "RS1/2/3/6 required unimplemented; RS4/5 receiving fixed2e2/currentrootexact",
+    "validation": "not performed",
+    "global": "incomplete; no final clearance"
+  },
+  "receipts": [
+    {
+      "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-host-shape-a2ca85101/manifest.json",
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "files": [
+        {
+          "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+          "sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/strands.rs",
+          "sha256": "3ab9c91b1153b1f7a21e2dd57e9f53c5a6f4b220abde40f9ef666c4b60c4d336",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/lod.rs",
+          "sha256": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+          "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+          "sha256": "b900f53dd9b2751914c9b756562e8d9a54465c958b53709b2052d3f70cb7e788",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/sim.rs",
+          "sha256": "3e2784bef61f86973ae6de8cc995023a4d95787bb958638f799e4c3abc6646e5",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/cards/build.rs",
+          "sha256": "43a2bfd975e30c60f0738e6a4c746b99ce16f42b74ccf794bf150f75f113e506",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+          "sha256": "ba42c5f262f91abcd074353ea1c9bc7b17f513bde0310c88e13b8743bc007633",
+          "manifest_match": true,
+          "git_match": true
+        }
+      ]
+    },
+    {
+      "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-host-frame-a6a37a8f5/manifest.json",
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "files": [
+        {
+          "path": "crates/fabelgeist-hair/src/sim.rs",
+          "sha256": "61f1db429d25290869a495bcfa270d73d92a203fb5de405f255384f9e8081632",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/sim/build.rs",
+          "sha256": "badb20a3e56c8fe3a51a2c629a6bf9b5fcdbac0c9f9f52774ebabcf660d18d5d",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/sim/frame.rs",
+          "sha256": "0bec2f5a59de545d2968c962ab28be07e91d685dc097fa0a17af5db09312adc3",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/sim/pose.rs",
+          "sha256": "0cc72e5d058745c9d41c7de3f31fba92c839ae85845dd599bcf3c1fe50c892f4",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/sim/settings.rs",
+          "sha256": "8f900903b50fd6f9ba4ca81c01c2205a4be919589899569594db60a4041d3b32",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+          "sha256": "413f88a20d71eac80a2028f44826ba8f910df760078175d6eba83321233943bc",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+          "sha256": "432b9250fbd2810918ab7ca663e1596d715b4cd6a7f4491b109b3dfd6cc8fe6e",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+          "sha256": "09689764502410c3fcd3bede867e66b30941a329ebfc280438f822c9b928c3cd",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/sim/inspect.rs",
+          "sha256": "f019273dd3c0d3c216f8e2b48b7ecf49fd9d8333f5b26f81b8e3f936777d1597",
+          "manifest_match": true,
+          "git_match": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+          "sha256": "2b2bc94e4178a098e4ae5dac1794f82380d037922fce244ce833a0d73482b7fe",
+          "manifest_match": true,
+          "git_match": true
+        }
+      ]
+    }
+  ],
+  "source_accounts": [
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim.rs",
+      "sha256": "61f1db429d25290869a495bcfa270d73d92a203fb5de405f255384f9e8081632",
+      "blob": "65838b653b19250d926537b38e0bc66012bf9cac",
+      "bytes": 19549,
+      "coverage": "fresh complete file, including existing fixtures; gpu/mod truncated first output reread450-1400 to complete all bytes"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/build.rs",
+      "sha256": "badb20a3e56c8fe3a51a2c629a6bf9b5fcdbac0c9f9f52774ebabcf660d18d5d",
+      "blob": "58a7c859cd4849226b37c426f6b5991544bbc2b4",
+      "bytes": 5681,
+      "coverage": "fresh complete file, including existing fixtures; gpu/mod truncated first output reread450-1400 to complete all bytes"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/frame.rs",
+      "sha256": "0bec2f5a59de545d2968c962ab28be07e91d685dc097fa0a17af5db09312adc3",
+      "blob": "d1c286216c360f4b44ead2c9146e7b206e01217d",
+      "bytes": 2279,
+      "coverage": "fresh complete file, including existing fixtures; gpu/mod truncated first output reread450-1400 to complete all bytes"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/pose.rs",
+      "sha256": "0cc72e5d058745c9d41c7de3f31fba92c839ae85845dd599bcf3c1fe50c892f4",
+      "blob": "813c25d410836e3118c6ac2ae52d99f1fbe7d9b5",
+      "bytes": 2919,
+      "coverage": "fresh complete file, including existing fixtures; gpu/mod truncated first output reread450-1400 to complete all bytes"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/settings.rs",
+      "sha256": "8f900903b50fd6f9ba4ca81c01c2205a4be919589899569594db60a4041d3b32",
+      "blob": "59c19a1e86df3dacaea6b3942da11fecbd5fa79a",
+      "bytes": 6217,
+      "coverage": "fresh complete file, including existing fixtures; gpu/mod truncated first output reread450-1400 to complete all bytes"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "413f88a20d71eac80a2028f44826ba8f910df760078175d6eba83321233943bc",
+      "blob": "baadee8e758d7e1421a5d163b03aa24998273fbe",
+      "bytes": 10485,
+      "coverage": "fresh complete file, including existing fixtures; gpu/mod truncated first output reread450-1400 to complete all bytes"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+      "sha256": "432b9250fbd2810918ab7ca663e1596d715b4cd6a7f4491b109b3dfd6cc8fe6e",
+      "blob": "383c28525f5085b9a62e89374da99cff0bc13d86",
+      "bytes": 5844,
+      "coverage": "fresh complete file, including existing fixtures; gpu/mod truncated first output reread450-1400 to complete all bytes"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+      "sha256": "09689764502410c3fcd3bede867e66b30941a329ebfc280438f822c9b928c3cd",
+      "blob": "875c41896dd953f2359fff69f381c77e1cd633da",
+      "bytes": 13906,
+      "coverage": "fresh complete file, including existing fixtures; gpu/mod truncated first output reread450-1400 to complete all bytes"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/inspect.rs",
+      "sha256": "f019273dd3c0d3c216f8e2b48b7ecf49fd9d8333f5b26f81b8e3f936777d1597",
+      "blob": "722b2174507b6ebd999c4d4583444a1dbd566c09",
+      "bytes": 2684,
+      "coverage": "fresh complete file, including existing fixtures; gpu/mod truncated first output reread450-1400 to complete all bytes"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "2b2bc94e4178a098e4ae5dac1794f82380d037922fce244ce833a0d73482b7fe",
+      "blob": "a547702e0da223a416ef9bf638ee6699773592ea",
+      "bytes": 56137,
+      "coverage": "fresh complete file, including existing fixtures; gpu/mod truncated first output reread450-1400 to complete all bytes"
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+      "sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+      "blob": "57e1111f34bd5ebc3fe7fa7a8189c809cc89bcc1",
+      "bytes": 4353,
+      "coverage": "fresh complete owning file"
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "blob": "bbfa2d7a1e6898a76c0c36aeee38400005a9c1f6",
+      "bytes": 7849,
+      "coverage": "fresh complete owning file"
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+      "blob": "02b2e0f2b7c1791778d6f6a15a687a13ac893e29",
+      "bytes": 10189,
+      "coverage": "fresh complete owning file"
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "sha256": "3ab9c91b1153b1f7a21e2dd57e9f53c5a6f4b220abde40f9ef666c4b60c4d336",
+      "blob": "9755cbeb163bc184e67e76e3d2da2433ec8d14e6",
+      "bytes": 14937,
+      "coverage": "fresh source/collection definitions and admission adapters1-240; unrelated numerical fields after240 excluded"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "7ae74e77ae2e8eadfcf84d6fa5b4c528034572fe1beec94f8e73a095748618fe",
+      "blob": "db147f8431d338484864c2baa64f51da194ad03b",
+      "bytes": 9412,
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "05d2a47057f3095bc11a8ad025e1a228f24c50df6436638456c17cd094dc55c2",
+      "blob": "36d40a4a9f69e26fa5ff94cff1c3657e8417ba71",
+      "bytes": 7949,
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "blob": "3ad944451601f5e4c5dd22d8a5f8d10f133e807e",
+      "bytes": 2796,
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "sha256": "ecf639b3dbaa36c40ff7e4da238127e4b11cda20daf7d76a7db1659a1f83652d",
+      "blob": "9ab61aa49b894b75c415359593d79d4d81e08f30",
+      "bytes": 7145,
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "blob": "a72ae87020859dad8df9e6707f6e9345d0c554cd",
+      "bytes": 5612,
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "blob": "8703b271bea75fe54bf54909ab2507d0b8178af8",
+      "bytes": 5139,
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+      "blob": "45e9cee3aab008fed716a8f228af89829b93d775",
+      "bytes": 2535,
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "b2a3f5faf5a38924ad0a6f02aef901e915a08f121a72cebbaa8b14bdd79c06df",
+      "blob": "20328ca3d4d695897d6ee7b979a6d21e0ec9dae8",
+      "bytes": 71130,
+      "coverage": "whole current file read at2e2; exact48e identity carried; fresh Dynamics/DeformGpu and complete nine source/dynamics replacement methods185-234,912-1207 plus population1710-1775"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "blob": "61e51831f880ba6b888ba3642d2f844968be1e86",
+      "bytes": 5770,
+      "coverage": "fresh FrameProjection/Globals construction1-160; tiny LightUniform tail carried prior source"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-hair/src/render/meshes.rs",
+      "sha256": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+      "blob": "50adc65cccb80a5386909e8a36bf74495b992e36",
+      "bytes": 6110,
+      "coverage": "complete2e2 read carried by exact48e byte identity; RS4/5 receiving evidence"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "blob": "25d33aac2c69a5a469c19138a7ae4fc9290b9584",
+      "bytes": 3578,
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "blob": "5529d7804de9cb3235d2fcdf1e82030922385127",
+      "bytes": 4021,
+      "coverage": "fresh complete production body1-200; external test module not read"
+    },
+    {
+      "revision": "48e5995839d008ef3373343919d17915357544bc",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "blob": "260c12d12fc0ca89d801a97f42d5ab4427cc0107",
+      "bytes": 1771,
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/grid.rs",
+      "sha256": "c09704f7670decebc3e4eb9ff4ea525870f197f4302a4e16407c5e298f988996",
+      "blob": "2918d213e6ad929fbf1048be5e6dc435db778f25",
+      "bytes": 6191,
+      "coverage": "fresh complete file including retained fixture"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "blob": "d291a2c969f6ba78254d7a22598e52a4e093dfc2",
+      "bytes": 3550,
+      "coverage": "fresh count/points/neighbor/seed leaf definitions1-110"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/binding.rs",
+      "sha256": "c5459f6db0f1b23d67efb540f90f14140a65d958b4bf251dbd945150e551bed0",
+      "blob": "65c3fe50dcd20a789b74ec666f2a9e962ea2c0f2",
+      "bytes": 2394,
+      "coverage": "fresh complete immutable native source/receiver proof"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425",
+      "blob": "01eaeadcf00caffd787ca4855c1828786be791ff",
+      "bytes": 1544,
+      "coverage": "fresh complete immutable native source/receiver proof"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "1c6a3dfe68c68c02c79ebf1157be9981e4c2a31f8a7667dd64148e30386bd70d",
+      "blob": "9d9f3ac446d60c47face64c7428dae0d4830a732",
+      "bytes": 3049,
+      "coverage": "fresh complete immutable native source/receiver proof"
+    }
+  ],
+  "carried_source_identity": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "exact_2e2": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/meshes.rs",
+      "exact_2e2": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "exact_2e2": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "exact_2e2": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "exact_2e2": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "exact_2e2": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "exact_2e2": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "exact_2e2": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "RS1",
+      "status": "required unresolved receiver source migration",
+      "locations": [
+        "crates/fabelgeist-hair/src/render/mod.rs:set_groom/set_gpu_groom/set_dynamics/set_gpu_dynamics/set_moved",
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6:source/binding"
+      ],
+      "contract": "Installed source is actual first Arc<StrandLevel> or Arc<GpuLevel>, separate from fitted resident layouts. Source, layout, rest/current/binding and update route must belong together.",
+      "counterexample": "Install groomA then equal-count sameDevice simB; current receiver binds simB without checking actual source. Host updates from another sim sharing source/shape can combine current positions with a different rest/binding.",
+      "repair": "Retain actual source payload on successful groom publication. Host set_dynamics(SimFrame) admits sourceArc; set_simulated(SimFrame) also requires actual retained SimBinding Arc. Native set_gpu_dynamics(&GpuSim) and clean set_moved(&GpuSim) check source/layout/Device and retained native ports. No synthetic brand, mutable pose-only compatibility setter or recreated source.",
+      "acceptance": "Different actual sources or different host binding/native port populations fail before writes/Pending/head/moving changes. Switching installed groom resets dynamics only at successful scene publication."
+    },
+    {
+      "id": "RS2",
+      "status": "required unresolved receiving layout/range migration",
+      "locations": [
+        "crates/fabelgeist-hair/src/render/deformation.rs:DeformationBuffers/DeformLevel::new",
+        "crates/fabelgeist-hair/src/render/levels.rs",
+        "crates/fabelgeist-hair/src/sim/build.rs@a6",
+        "crates/fabelgeist-hair/src/gpu/sim/inspect.rs@a6"
+      ],
+      "contract": "Max resident strands across all levels is the host ids/weights prefix required by any main/shadow/blend deformation. Simulated rest/current use complete simulated shape, not drawn/resident count.",
+      "counterexample": "Fine level fits fewer strands than coarse level; binding sized from first level leaves coarse main/shadow/blend reading absent records. Current full-allocation bindings also discard logical extents and may exceed storage limits even when useful prefix fits.",
+      "repair": "Compute maximum resident count across all resident levels; require within full source population. Pack/copy that ids/weights prefix without cropping simulated guide population. Carry StrandShape then admitted StrandLayout and BufferByteLength. Admit native ids/weights prefix covering every resident level, actual sim rest/current layout, positive floors, Device/usage/physical/maxbuffer/storage limits and UBO96bytes before records. Bind explicit exact ranges slots0/1resident,2/3simulated,4/5required drawn prefix,6params,7actual body Buffer.size.",
+      "acceptance": "Every active or later selected resident level can address ids/weights; zero logical data retains separate positive binding floor; no raw-size==zero assertion on padded producer buffers. Concrete layout/prefix/host conversion causes preserved."
+    },
+    {
+      "id": "RS3",
+      "status": "required unresolved mode/frame/publication migration",
+      "locations": [
+        "crates/fabelgeist-hair/src/render/mod.rs:Dynamics/set_simulated/bind_dynamics/clear_dynamics",
+        "crates/fabelgeist-hair/src/render/deformation.rs:record/publish"
+      ],
+      "contract": "Host-owned writable guide position target and native simulation-owned target are distinct modes; frames carry coherent rest/current/pose from actual simulation.",
+      "counterexample": "Current set_simulated can write arbitrary short/long host data into GPU-owned current buffer; short writes leave stale suffix. Pose-only set_moved cannot establish which native sim moved.",
+      "repair": "Use payload-bearing host/native mode, host bindingArc versus native retained ports. Proposed APIs set_dynamics(SimFrame),set_simulated(SimFrame),set_gpu_dynamics(&GpuSim)->Result,set_moved(&GpuSim)->Result,clear_dynamics()->Result. Complete structural admission/host allocation before writes; construct native candidates and reuse previousDynamics rest handles; publish dynamics/head/moving/Pending only after normal submission boundary. Validate all clear copy ranges/usages before recording; discard candidates on admission errors. Host set_dynamics/set_simulated are fallible Result APIs too. Absent clear_dynamics returns idempotent Ok; native scene admission errors are distinct from provider-handled failures.",
+      "acceptance": "Wrong mode/source/frame/shape returns error with old logical state untouched. Normal successful update marks all level obligations Pending; frame publish marks only recorded/no-work levels Current after normalqueue return. Host xyz uses head/world coordinates appropriately and vec4w1 adapter; no new pose/physics normalization. Native provider-handled failure/queued writes supply no rollback/completion guarantee."
+    },
+    {
+      "id": "RS6",
+      "status": "required unresolved quantity propagation",
+      "locations": [
+        "crates/fabelgeist-hair/src/render/mod.rs:Dynamics.body/DeformLevel.sim_points/bind_dynamics",
+        "crates/fabelgeist-hair/src/render/deformation.rs:DeformationBuffers.sim_points",
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6",
+        "crates/fabelgeist-hair/src/strands/shape.rs@a2"
+      ],
+      "contract": "Canonical StrandShape/StrandLayout own correlated point/population facts; Metres is existing signed distance leaf with no added numerical policy.",
+      "repair": "Carry canonical shape and Metres through candidate, retained source/mode and per-level deformation inputs; derive native u32 only at DeformGpu/descriptor upload. Body capacity comes from authoritative optional native Buffer.size; root owns no duplicate17-record ABI. Host body remains absent under existing behavior; collision_offset does not manufacture a Head collider.",
+      "acceptance": "No raw independent sim_points/bodyfloat or tuple protocol between renderer application APIs; actual native POD/range boundary performs needed narrowing/encoding without re-admission loops or novel sign/finite/orthonormal policy."
+    }
+  ],
+  "closed_prior_findings": [
+    {
+      "ids": [
+        "RS4",
+        "RS5"
+      ],
+      "source": "cards-2e2-comment-review.json +currentexactidentity",
+      "disposition": "Canonical CardLayout/CardDrawMesh and typed actual FramePopulation receiver implemented; no unqualified producer/global clearance"
+    }
+  ],
+  "all13": [
+    {
+      "lens": "producer-propagation",
+      "sources": [
+        "crates/fabelgeist-hair/src/lod.rs@a2:HairLods::build/levels/StrandLevel::new",
+        "crates/fabelgeist-hair/src/sim/build.rs@a6",
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6",
+        "crates/fabelgeist-hair/src/gpu/sim/inspect.rs@a6",
+        "crates/fabelgeist-hair/src/render/mod.rs:912-1207",
+        "crates/fabelgeist-hair/src/render/deformation.rs"
+      ],
+      "contracts": [
+        "Actual first Arc captures source; sampled Arc is independent actual resampling level; frame refers to actual HairSim."
+      ],
+      "inventory_trace": [
+        "Strands raw columns -> StrandShape::try_from -> sealed StrandLevel Arc/HairLods shared shuffle -> HairSim selected sampled shape/rest -> immutable SimBinding Arc -> SimFrame -> proposed renderer host mode -> perlevel native deformation; native GpuLods firstArc -> GpuSim source/layout/ports -> native renderer mode -> DeformGpu.",
+        "Current renderer stops producer guarantee at raw binding/points/Vec4 parameters; get/setgroom accesses old public fields and must use canonical readonly getters."
+      ],
+      "dispositions": [
+        "RS1/2/3/6 remain connected migrations; cards/FramePopulation retained exact2e2. Native body producer proof is actual Buffer.size; no reconstructed head ABI."
+      ],
+      "connected_repairs": [
+        "Groom/source publication, both simulation admission/update routes, clear/rest and native/POD adapters in one receiver family."
+      ],
+      "dependencies": [
+        "Canonical shape a2 and finalframe a6 source received but integration not compiled; full native producer/caller graph owner780 required."
+      ],
+      "acceptance_criteria": [
+        "No raw tuple/rest/pose update compatibility API; retain actual Arc and shapes through state; every count escape terminates at actual host slicing or native descriptor/POD."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "existing-type-owners",
+      "sources": [
+        "crates/fabelgeist-hair/src/strands/shape.rs@a2",
+        "crates/fabelgeist-hair/src/gpu/layout.rs@a2",
+        "crates/fabelgeist-hair/src/parameters.rs",
+        "crates/fabelgeist-math/src/units.rs",
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6",
+        "crates/fabelgeist-hair/src/render/levels.rs"
+      ],
+      "contracts": [
+        "Host shape admits usize collections; native layout adds u32 limits; count and point leaves admit zero; Metres distinguishes signed distance without policy."
+      ],
+      "inventory_trace": [
+        "Match sim_pointsu32 to PointsPerStrand via canonical shape; bodyOptionf32 to optional native body plus Metres; byte capacities to BufferByteLength; source to real host/native Arc variants; update input to SimFrame or GpuSim.",
+        "FramePopulation already uses StrandCount/PointsPerStrand/MeshTriangleCount; head/card topology owners remain canonical."
+      ],
+      "dispositions": [
+        "Reuse exact owners; native shape adds useful boundary and must not duplicate host shape. No missing owner requires parallel source/binding brands."
+      ],
+      "connected_repairs": [
+        "RS1/2/6 and controlled renderer candidate/error module."
+      ],
+      "dependencies": [
+        "Canonical unconditional strands module exports and gpu layout adapter integrated together; existing native modules owned780."
+      ],
+      "acceptance_criteria": [
+        "No equivalent RendererStrandShape/Metres/CardLayout type, no host shape mislabeled native-admitted; narrow only exact buffer/native numeric operations."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "admission-contracts",
+      "sources": [
+        "crates/fabelgeist-hair/src/strands/shape.rs@a2:all constructors/TryFrom",
+        "crates/fabelgeist-hair/src/lod.rs@a2:StrandLevel/HairLods",
+        "crates/fabelgeist-hair/src/sim/build.rs@a6:all constructors",
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6",
+        "crates/fabelgeist-hair/src/render/mod.rs:setgroom/dynamics/update/clear",
+        "crates/fabelgeist-hair/src/gpu/sim.rs@a6:make_sim"
+      ],
+      "contracts": [
+        "Sealed host record constructors admit columns/sample count; nonempty points>=2; empty arbitrary source stride but HairSim numerical stride>=2. SimFrame cannot independently forge population/rest/pose."
+      ],
+      "inventory_trace": [
+        "Enumerated StrandShape new/check_positions/prefix/limited_to/TryFrom, StrandLevelnew, HairLodsbuild, HairSimnew/from_level/privatefrom_sources, privateSimBindingbuild, privateSimFrame::new/frame, nativeGpuSim makeSim/simulate/resimulate, rendererbothgroom installs/bothset/update/clear routes.",
+        "Equal counts/device are representable wrong-source counterexamples; frame from same source different binding is separate. Empty source/frame valid; no missing-element branch for sealed first level required."
+      ],
+      "dispositions": [
+        "RS1/2/3; no derive field bypass in sealed peer records. Public raw Rigid/SimSettings deliberately not geometric validators; broader physics/grid admission owner780 remains required."
+      ],
+      "connected_repairs": [
+        "Admit actual source/mode, frame/binding, all counts/ranges and native capabilities before writes/publication."
+      ],
+      "dependencies": [
+        "Exact host/native source producers; receiving readonly exports; provider policy preconditions exact Device pairedQueue."
+      ],
+      "acceptance_criteria": [
+        "Reject wrong-source/mode/layout/extent with typed causes; preserve valid empty and same-binding moved-frame; no synthetic source clone admitted by equality alone."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "invariant-operations",
+      "sources": [
+        "crates/fabelgeist-hair/src/strands/shape.rs@a2:prefix/limited_to/samples",
+        "crates/fabelgeist-hair/src/gpu/layout.rs@a2:for_host_level/fit_level_binding",
+        "crates/fabelgeist-hair/src/render/mod.rs:bind/clear/setSimulated",
+        "crates/fabelgeist-hair/src/render/deformation.rs:deform/new",
+        "crates/fabelgeist-hair/src/sim/build.rs@a6"
+      ],
+      "contracts": [
+        "Shape product checked; native prefix monotonic; simulation rods doubled host work checked and guide count fits u32."
+      ],
+      "inventory_trace": [
+        "Resident truncation perlevel -> maximum over all levels -> ids/weights prefix bytes checked; source/layout exactsim samples separate. Native stridelimits -> explicit ranges. Current casts binding.points/sim.points and entire native allocations lose contract.",
+        "Oldrestclone versus initial residentcopy, clearcopy exactlogicalbytes, paramswrite after grid admission, callback/no-work update publication inspected. Host rest/current Vec3 packing must reserve fallibly before native views/writes."
+      ],
+      "dispositions": [
+        "RS2/3/6; valid zero avoids shader indexing, positive binding floors independent. Storage owner already COPY_SRC|COPY_DST; missing-copy hypothesis withdrawn."
+      ],
+      "connected_repairs": [
+        "Check every extent/capability and host allocation before record/write, preserve oldrest and candidate temporal state on structural errors."
+      ],
+      "dependencies": [
+        "SourceBuffer.size authoritative; no physical-grid arithmetic rewrite at renderer."
+      ],
+      "acceptance_criteria": [
+        "No u32/usize overflow before admission, no fresh padded bytes copied into logical rest, no state commit on structural failure, no false rollback after provider-handled writes."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "aggregate-states",
+      "sources": [
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6:SimBinding/SimFrame",
+        "crates/fabelgeist-hair/src/sim/build.rs@a6:from_sources",
+        "crates/fabelgeist-hair/src/render/mod.rs:Dynamics/DeformLevel",
+        "crates/fabelgeist-hair/src/render/deformation.rs:buffers/record/publish",
+        "crates/fabelgeist-hair/src/render/head.rs"
+      ],
+      "contracts": [
+        "Source/sample/binding/rest/current/pose correspond; resident and simulated populations distinct; historical rest tied installed groom."
+      ],
+      "inventory_trace": [
+        "Canonical SimBinding(source,sampled,layout,guides,weights) private and full drawnsource cardinality; SimFrame holds HairSim borrow. Renderer currently stores nativehandles without associations. Maxresidentprefix can differ from firstlevel while source Arc stays original.",
+        "Native rest/current/ids/weights/body/Device/layout must enter one admitted candidate. Head immutableSurface/cover exactArc and FrameProgress/History remain separate retained aggregates."
+      ],
+      "dispositions": [
+        "RS1/2/3; cards canonical topology+ports already fixed."
+      ],
+      "connected_repairs": [
+        "Controlled candidate constructor returns correlated resources; replace source/mode/dynamics atomically at logical publication."
+      ],
+      "dependencies": [
+        "Hostframe lifetime cannot be retained beyond borrowed sim; retain immutable Arc metadata and owned native buffers, not fake SimFrame snapshot."
+      ],
+      "acceptance_criteria": [
+        "No independently mutable count/format/source fields, no wrongbinding newpositions, no crop simulated guide count to drawn prefix; sourceAssociation identity independent native fit."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "type-ownership",
+      "sources": [
+        "crates/fabelgeist-hair/src/strands/shape.rs@a2",
+        "crates/fabelgeist-hair/src/gpu/layout.rs@a2",
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6",
+        "crates/fabelgeist-hair/src/render/deformation.rs",
+        "crates/fabelgeist-hair/src/render/levels.rs",
+        "crates/fabelgeist-hair/src/render/meshes.rs"
+      ],
+      "contracts": [
+        "Host producers own shape/frame; GPU producers own native source/layout; renderer owns drawfit/range/state and concrete receiving errors."
+      ],
+      "inventory_trace": [
+        "Unconditional StrandShape below host/native consumers; nativeStrandLayout adds SDKwidth/ribbonextent. SimBinding/frame remain sim owner; renderer mode stores canonicalsource/Arc identity. ExistingBuffer prefix/bytes/nativeDevice used.",
+        "Card46b owner stayspeer; rendererCardDrawMesh only native port plus canonicaltopology. Bodyheadshape general ABI peer, root Buffer.size receiver."
+      ],
+      "dispositions": [
+        "RS1/2/3/6 cannot be solved by duplicate types or edits to peer shared producer functions."
+      ],
+      "connected_repairs": [
+        "Focused renderer source/dynamics admission owner and clean public receiving APIs; migrate hostreadonly calls asonefamily."
+      ],
+      "dependencies": [
+        "Root explicit whole renderer transfer; canonical780 receipts, #895/#774 retained ownership limits."
+      ],
+      "acceptance_criteria": [
+        "One definition per shape/count/frame/unit/topology, coherent dependency direction, no generic observer/helper duplication or independently changed peer physics."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "redundant-authority",
+      "sources": [
+        "crates/fabelgeist-hair/src/render/mod.rs:Dynamics/DeformLevel/population",
+        "crates/fabelgeist-hair/src/render/deformation.rs:inputs",
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6",
+        "crates/fabelgeist-hair/src/gpu/sim/inspect.rs@a6"
+      ],
+      "contracts": [
+        "Counts derive canonicalshape; immutable binding identifies host rest population; actual source identity not derivable from fitted count."
+      ],
+      "inventory_trace": [
+        "Remove sim_pointsu32 copy if complete shape retained; bodyflag derives payloadpresence; Native POD derives from retained shapeMetres. Genuine historical perlevelrest and Pending/Current obligations retained.",
+        "FramePopulation/card_quads repair removed independent rawcount authority at2e2; new sourceArc is necessary authority not duplicate residentlayout. Head/frames/history intentionally observations/caches not currentgeometry aliases."
+      ],
+      "dispositions": [
+        "RS1/3/6; no redundant owner finding in canonical host shape/frame accessors."
+      ],
+      "connected_repairs": [
+        "Derive uniforms/counts from admitted records; coordinated invalidation source change clearsdynamics, movement doesnotreset runningmean exceptexistingpolicy."
+      ],
+      "dependencies": [
+        "Latestframe collision_offset maychange via publicsettings; update/bodyassociation must avoid retaining stale primitive copy without explicit policy."
+      ],
+      "acceptance_criteria": [
+        "No raw cardstats or independent simpoints drift; historical rest survives sameinstalledsource resimulation, reset onlysuccessfulgroomreplacement orclear."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "behavior-preservation",
+      "sources": [
+        "crates/fabelgeist-hair/src/render/mod.rs:all old receiving functions/render",
+        "crates/fabelgeist-hair/src/render/deform.wgsl",
+        "crates/fabelgeist-hair/src/sim/build.rs@a6",
+        "crates/fabelgeist-hair/src/sim/pose.rs@a6",
+        "crates/fabelgeist-hair/src/render/frame_state.rs",
+        "crates/fabelgeist-hair/src/render/draws.rs"
+      ],
+      "contracts": [
+        "Preserve native deformWGSLmath, root/random/indexorder, head/worldframes, same-source rest and temporal mean semantics."
+      ],
+      "inventory_trace": [
+        "Old binding/resttuple -> coherentframe isauthorizedAPI replacement, not fallback; bare set_moved(pose) -> actualGpuSim explicitlyagreed. Source capturefirst vs sampledpointcount can differ and is not error.",
+        "Empty0guides/stride>=2; nonemptyminimum1guide; native restoriginal w retained and hostVec3 adapterw1. Host body remains absent, no new physical collider. Movement keepsmean temporalfilter; actualframepose updates before next render afteradmission.",
+        "Nativeproviderhandled errors stilldevicepolicy; Result receiver no allGPUerrors, completion, rollback orperformance promise."
+      ],
+      "dispositions": [
+        "RS1/2/3/6 intendedmigration; RS4/5 alreadyexplicitauthorizedschema. Existing fixturesPODshaders retained; no tests added."
+      ],
+      "connected_repairs": [
+        "Clean receiving API and doc updates, previousrest reused; numericalmath functions/solver kernels untouched."
+      ],
+      "dependencies": [
+        "Existing sampledsharedshuffle proof; peer host/native solver broadphysics work not accepted by read-onlyrendererreview."
+      ],
+      "acceptance_criteria": [
+        "No geometry/RNG/cardcoverage/floatclamp/pose normalization changes, no oldrest recapture from deformeddata, no silent accepted foreignframe, no stalepartialhostupload."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "enum-shapes",
+      "sources": [
+        "crates/fabelgeist-hair/src/render/mod.rs:Dynamics/has_dynamics/body/moving",
+        "crates/fabelgeist-hair/src/render/deformation.rs:DeformationState",
+        "crates/fabelgeist-hair/src/render/frame_state.rs:History/FrameProgress",
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6"
+      ],
+      "contracts": [
+        "Mode choice owns relevant payload; absence, updateobligation and temporalhistory are independent dimensions."
+      ],
+      "inventory_trace": [
+        "Replace host-or-native meaning of sameguide_now with Host(bindingArc,ownedwritebuffer,shape/source) versus Native(sourceArc,ports,layout/body) payload. Installedsource Host/Native/None reflects actual capture. body Option nativepayload+Metres, no separateboolean besidebuffer.",
+        "Keep Pending/Current enum; HistoryEmpty/Current and genuine moving predicate. has_dynamics derived Option presence isordinary predicate, not another carriedmode. FramePopulation variants owntypedpayload alreadyfixed."
+      ],
+      "dispositions": [
+        "RS1/3/6; no need enum for arithmetic indices or all flags in preexistingphysicalsolver."
+      ],
+      "connected_repairs": [
+        "Private payload-bearing modes with narrow update methods; no rawhostwritingGPUmode or posetag independentnativeports."
+      ],
+      "dependencies": [
+        "Root owns Renderer, peer ownsSimFrame/GpuSim; no mutationthroughmetadataaccessors."
+      ],
+      "acceptance_criteria": [
+        "Wrong-mode route impossible internally or typedrejected at public boundary; no parallel booleans permitting hostpayload/native mode combination."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "derivability",
+      "sources": [
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6:SimFrame derive",
+        "crates/fabelgeist-hair/src/strands/shape.rs@a2",
+        "crates/fabelgeist-hair/src/sim/pose.rs@a6",
+        "crates/fabelgeist-hair/src/render/frame_state.rs",
+        "crates/fabelgeist-hair/src/render/levels.rs:error impl",
+        "crates/fabelgeist-hair/src/render/meshes.rs:error impl"
+      ],
+      "contracts": [
+        "BorrowedFrame Copy/Clone doesnot duplicate mutableHairSim; numericshape derives only admitted privateleaves; source identity remains Arcptr_eq not valueEq."
+      ],
+      "inventory_trace": [
+        "Inventory newcanonical shape/samplecount/attribute/error derive; SimFrame Copy, SimBinding noCloneEqneeded; HairSimprivatebuilder; RigidDefaultidentity semantic andcannotderive zero. Existing thiserror sourcecarriers appropriate. Renderer From<receivingError>HairGpuErrorBackend is semantic errorboundary, not redundant mechanicalserialization.",
+        "No serialization for liveborrowedframes or nativehandles; no unsafeSend/Sync proposal. Context/Buffer earlier wrappers outsidethisrepair unchanged."
+      ],
+      "dispositions": [
+        "No actionable extra traitboilerplatefinding; preserve checked constructors and directsourcechains; RS6 shape reuse avoids rawtraitaliases."
+      ],
+      "connected_repairs": [
+        "Derive simple receiving enums/errors where equivalent, keep semanticidentity/default/source behavior explicit."
+      ],
+      "dependencies": [
+        "Existing thiserror dependency and canonical derives available; no new library/scanner."
+      ],
+      "acceptance_criteria": [
+        "No derive openspublicfields/deserializationbypass or invents valueequality for actualsource identity; no newwire/schema adapters."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "type-granularity",
+      "sources": [
+        "crates/fabelgeist-hair/src/strands/shape.rs@a2",
+        "crates/fabelgeist-hair/src/gpu/layout.rs@a2",
+        "crates/fabelgeist-hair/src/sim/frame.rs@a6",
+        "crates/fabelgeist-hair/src/render/deformation.rs",
+        "crates/fabelgeist-hair/src/render/meshes.rs"
+      ],
+      "contracts": [
+        "Host/native shape distinction earnsnativewidth boundary; Frame borrowedcoherence vs Bindingimmutableidentity distinct; residentdrawprefix vs simulatedguidepopulation distinct."
+      ],
+      "inventory_trace": [
+        "Native SimLayout reuseStrandLayout and hostStrandShape; no wrapperperbindingbytechannel. Rendercandidate owns actualstorage ranges and mode, notuniversalGPUresourcebrand. RenderCardDrawMesh layout+ports doesusefulbindingwork notduplicatetopology.",
+        "Rigidmat4 SDKadapterneeded, Metres leaf unitdistinctionusefulwithoutfinitevalidator; remainingphysicalunits rawsettingsoutside receiving."
+      ],
+      "dispositions": [
+        "RS1/2/3/6 remove overlybroadrawtuple/current buffer; no furthermissingowner."
+      ],
+      "connected_repairs": [
+        "Use minimumcoherent source/mode/candidate types and canonical byteleaves; retain actualsource separately from fittedlayout."
+      ],
+      "dependencies": [
+        "Peer hostshape unconditionalexport, nativeadapterfeature; no new abstractquantityframework."
+      ],
+      "acceptance_criteria": [
+        "No overvalidated geometry/strictphysicalpolicy, no merge of hostshape/nativeadmission or sourceidentity/layout equality."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "magic-strings",
+      "sources": [
+        "crates/fabelgeist-hair/src/render/mod.rs:labels/methoddocs",
+        "crates/fabelgeist-hair/src/render/deformation.rs:bindings/entry/labels",
+        "crates/fabelgeist-hair/src/sim/build.rs@a6:errorattributes",
+        "crates/fabelgeist-hair/src/sim/settings.rs@a6:SimLevel::name",
+        "crates/fabelgeist-hair/src/gpu/sim.rs@a6:params names",
+        "crates/fabelgeist-hair/src/gpu/mod.rs@a6:WGSLcatalog/fixtures"
+      ],
+      "contracts": [
+        "Closed state/errors typed; rawprose/labels/nativebindingnames terminate at genuine text/native boundaries."
+      ],
+      "inventory_trace": [
+        "Allrenderer rest/bind/guide/params/head labels are SDKdiagnostics; exact deform entrypoint and WGSLuniform names are nativeidentity/adapters. ErrorDisplay ispresentation, neverbranchtext. SimLevelname high/medium/low/custom isexistingpresentation notidentity.",
+        "Nativeinsert_rigid/from parametername tables mapfixedWGSLABIfields; renderer source mustcompareArc/nativehandles notlabels orgeneratedsource strings. Testsdiagnostics/fixtureprose retained asauthoredtext."
+      ],
+      "dispositions": [
+        "No new rawstringclassificationdefect; RS1 sourceassociation cannotbesolvedbydebuglabel equality. SCOPE48C1/C2 separateunresolvedKernelprosefindingsnotpartRendererimplementation."
+      ],
+      "connected_repairs": [
+        "New receivingerrors use typedvariants and nativeactualcauses; source identityusescanonicalArc/nativeports."
+      ],
+      "dependencies": [
+        "Shared nativeparam/stringclassifiers owned780; no independently editedshaderkernel names."
+      ],
+      "acceptance_criteria": [
+        "No branch on Display,errorprose,label,filesystempath; no redundant stringbrand for source ormode."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    },
+    {
+      "lens": "magic-numbers",
+      "sources": [
+        "crates/fabelgeist-hair/src/render/mod.rs:Dynamics/bind/DeformGpu",
+        "crates/fabelgeist-hair/src/render/deformation.rs:slots/POD",
+        "crates/fabelgeist-hair/src/render/deform.wgsl",
+        "crates/fabelgeist-hair/src/sim/build.rs@a6",
+        "crates/fabelgeist-hair/src/sim/settings.rs@a6",
+        "crates/fabelgeist-hair/src/gpu/mod.rs@a6:head_shape",
+        "crates/fabelgeist-hair/src/gpu/sim.rs@a6"
+      ],
+      "contracts": [
+        "Everycount/stride/byte/offset role has owner or actual numeric adapter; physicalsolverconstants remain separatelyowned policies."
+      ],
+      "inventory_trace": [
+        "Root sim_points rawu32/bodyf32/17*16 dummy aresemanticgaps RS6; canonicalPointsPerStrand/Metres and actual optionalBuffer.size replaceapplicationtransport. Perbinding0..7/fourids/nativeVec4 sizes/POD96/64workgroup declaration are inspected actualWGSLABI boundaries; zero data vsonebindingfloor distinct.",
+        "Hostnewminimum0/1guide andpoint2 positivechunkstride, checked2xrodslots/u32guide count arecanonicalproducerpolicy. ExistingSimSettings physicalmaterial/substep/wind/grid/count leaf catalogs remainpeerphysics scope, alltenfile readnot numericalacceptance. PointGrid nearest4/spacing/tolerances remainsunchangedproducerkernel and requiredpeerphysicalgrid work; notcopiedtorenderer.",
+        "Framecoverage/random/camera/frustum/motion/mean constants existingmath/renderpolicy unchanged; no literal-onlywrapper proliferation."
+      ],
+      "dispositions": [
+        "RS2/6 narrow at actual native upload/byte slicing. No independentlyowned17policy; no duplicatedGuideNeighborCount replacing fixedvec4ABI."
+      ],
+      "connected_repairs": [
+        "Carry count/point/Metres/byte leaves end-to-end, derive PODscalar once and nativebuffer ranges from actualowner."
+      ],
+      "dependencies": [
+        "Peer explicitphysical/gridproducer pass and finalsameSHA checks required; rootreceiver cannotassertphysicalpolicyclearance."
+      ],
+      "acceptance_criteria": [
+        "No raw semantics retainedinapplicationstate exceptactualmatrix/native POD; no new finite/signbounds or changed numericalorders/tolerances/mips/RNG."
+      ],
+      "discovery": "complete for pinned whole renderer receiving source family",
+      "repair": "required/unimplemented where linked RS1/2/3/6; RS4/5 receiving fixed at2e2",
+      "validation": "not performed; final exact-source wave/reviews/hosted gates required"
+    }
+  ],
+  "source_agreements": [
+    "Root sole implementation; no formerlyclaimed producer/sharedfunctions edited.",
+    "Clean agreed receiving APIs, no raw compatibility shims.",
+    "SourceArc firstlevel independent sampledlevel/nativefit; maxallresidentpopulation forhostbindingprefix.",
+    "HostbindingArc identifiesrest/currentpopulation; nativeupdatescheckactualports pluslayout/source/Device.",
+    "ActualoptionalbodyBuffer.size, no17ABIduplication; hostbodyabsencepreserved."
+  ],
+  "dependencies": [
+    {
+      "owner": "780",
+      "required": "Integrate exacthostshape/frame/native/card sources and allretainedproducers/callers/physicalgrid/Creator/lock. Alltenframe files read is source evidence, notproducerphysicsclearance. Peer owns all Creator adapters; no independent root edits to those shared producers."
+    },
+    {
+      "owner": "826",
+      "required": "Implement RS1/2/3/6 entireRendererfamily only after all13inventory; complete newwholewave and independentreviews; no silentlydeferredroute."
+    },
+    {
+      "owner": "774/895",
+      "required": "Retained774families/globalconstraints remain; ZIP/NumPy895 untouched."
+    },
+    {
+      "owner": "826 final",
+      "required": "All13+all3independentreviews+requiredhostedgates samefinalpushedSHA; no merge."
+    }
+  ],
+  "limits": [
+    "Ignored reports only; no sourceedit/projectexecution/build/check/lint/tests/scanner/generator/runtime/pushCI. No tests/cases/helpers/assertions authored or executed.",
+    "Full10hostframe files freshlyread, includingretainedfixtures; shapedefinitions and nativecoupledcontracts explicitlyaccounted. PriorwholeRendererread carriedonlybyexactbyteidentity withfreshremainingfunctionread.",
+    "No nativehealth/rollback/completion/physicalgeometry/art/performance/hardware/browser/compile/finalclaim.",
+    "A source-backed incomplete broaderpeerfamily remainsrequiredbeforeglobalclearance; this complete receiving discovery doesnotrepresentparentwholePRall13clear."
+  ],
+  "agreed_api": [
+    "set_dynamics(SimFrame) -> Result<()>",
+    "set_simulated(SimFrame) -> Result<()>",
+    "set_gpu_dynamics(&GpuSim) -> Result<()>",
+    "set_moved(&GpuSim) -> Result<()>",
+    "clear_dynamics() -> Result<()>; absent is idempotent Ok, present path preflights every copy before recording"
+  ]
+}

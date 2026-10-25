@@ -1,0 +1,216 @@
+{
+  "review": "Independent lower d449 Comment Review",
+  "head": "d4491e9de215ba1b607fd2989cbfd5e3cbbdd21d",
+  "tree": "c770dc8e66ecac829c48bc443fa8523c71bf330e",
+  "parent": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "tracked_worktree": "clean",
+  "checkpoint_only": true,
+  "final_clearance": false,
+  "coverage": {
+    "files": [
+      {
+        "path": "crates/fabelgeist-armor/Cargo.toml",
+        "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/error.rs",
+        "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+        "sha256": "6380742b0f418cba2ea1d9877a1d317bc98a745fd124b81f7202be540c74882c",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+        "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+        "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+        "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+        "sha256": "aa38e9640ca2497f775ca2473fab3abb5c9ad1b4f61d802bf19392cab6c76c73",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+        "sha256": "a8a5e6ac4681e816e8552f131b2ce473374f00331882b2cfc1701f884be432bf",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "sha256": "7964e89e9fb86421c7bcc666c08a41624e7137eba10a8f957a2fd0f7cdc30a16",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+        "sha256": "1cb09276b24651ec9615fc38b06ec00bb914cea4c90a19abfa7075965606fc24",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+        "sha256": "894dc9a35df33e92adf8775157dcf437560ea4bd38d48fbeb194567bd79b3314",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "sha256": "832f538deb18739e9269845dce9c3175456d38e2f18e78d9ad42578ecf365a13",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "sha256": "42c9416f47cf2fe3f86aec080228bd1fcf74f94d823f9aded45cfda43ede2a20",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+        "sha256": "b3cacb2e746e2324be8c2eb24866bf69c618e1848e696159766abdc3028aec3d",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+        "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "sha256": "c941a02e6f60f88d14f192ace09933c960bc21edc0b4d871a73475ad921ada63",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+        "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+        "coverage": "Complete current file read; 17-path receiving delta reviewed"
+      }
+    ],
+    "affected_unchanged": [
+      {
+        "path": "crates/fabelgeist-gpu/README.md",
+        "coverage": "Fresh full read",
+        "sha256": "2950b32efa885b1c1cad27e6ed1939afd3a809fc0dce1b65e6870f624c34c2cd"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+        "coverage": "Previously full-read exact unchanged source; fresh receiving-call excerpts",
+        "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+        "coverage": "Previously full-read exact unchanged source; retained cache-source dependency",
+        "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+        "coverage": "Previously full-read exact unchanged source; fresh cache excerpt",
+        "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+        "coverage": "Targeted creation/layout/format source read; not whole file",
+        "sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa"
+      }
+    ],
+    "carried_evidence": "Prior exact-root source/guide/SDK receiver and lower consumer coverage carried only where source is unchanged; not a fresh read of all incoming210 paths.",
+    "sdk": "wgpu/wgpu-core/wgpu-types29.0.4; wasm-bindgen0.2.126 pinned Cargo.lock",
+    "sdk_fresh_reads": [
+      "api/device.rs thread-local scoped-device error contract",
+      "backend/wgpu_core.rs queue write errors routed through queue sink; buffer map/unmap errors through buffer sink",
+      "wgpu-core/resource.rs native unmap Idle->NotMapped and Waiting->MapAborted",
+      "api/queue.rs data copied into staging during write_buffer, execution begins on later submit",
+      "wasm-bindgen0.2.126 JsValue Send/Sync only cfg not target_feature atomics"
+    ],
+    "sdk_carried": "API Buffer map-request wrapper/unmap reset, ErrorScopeGuard traits, Core ready scope-pop future, Validation-only filters, finish/queue deferred validation, poll snapshot/callback dispatch and WebGPU event-loop semantics from earlier exact SDK source-backed review."
+  },
+  "findings": [
+    {
+      "id": "D449-C1",
+      "priority": "P2",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:45",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:51",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:71",
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:52"
+      ],
+      "issue": "Queue-writing public APIs do not state exact logical Device/Queue/destination provenance. New observation scopes context.device, but SDK queue write failures route through queue's sink. Externally constructible context/buffer handles do not prove their pairing.",
+      "remedy": "Document write/write_at/from_upload preconditions: destination belongs to context.device and context.queue is paired with that same logical Device. Canonical from_parts/context docs may own the pair contract with API links. State no runtime branding/provenance check is performed.",
+      "constructor_disposition": "Buffer::new only creates on context.device; do not invent a queue requirement for this device-only operation. Document allocation origin/validation-policy meaning and that creation Ok does not certify arbitrary context.queue pairing.",
+      "acceptance": "Public docs accurately distinguish caller preconditions, observed Validation and borrowed/browser device-handled paths; no runtime query/brand requirement added."
+    },
+    {
+      "id": "D449-C2",
+      "priority": "P2",
+      "locations": [
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs:72"
+      ],
+      "issue": "Rationale says Texture3d presentation renders into this sRGB format. Current tracked source has no context.blitter consumer; Texture2d's actual blit constructs its own Blitter. The named behavior cannot be established from current code.",
+      "remedy": "Remove or qualify the unsupported named consumer rationale. A public optional Blitter configured for sRGB does not prove a current Texture3d presentation path.",
+      "acceptance": "Comment describes actual supported behavior/policy without inventing an unchanged consumer."
+    },
+    {
+      "id": "D449-C3",
+      "priority": "P2",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs:13",
+        "crates/fabelgeist-gpu/README.md:3"
+      ],
+      "issue": "Borrowed bytes are said to be retained through queue submission. BufferUpload is consumed by write_buffer; SDK copies host data into staging during that call and permits discarding it before later Queue::submit.",
+      "remedy": "Say native element bytes are borrowed through the write call. Distinguish that CPU copy from the queued GPU transfer starting at later submission.",
+      "acceptance": "Both owning type prose and directly affected buffer guide state the actual lifetime; no host source retention or completion guarantee invented."
+    }
+  ],
+  "verified_no_additional_owned_wording_findings": [
+    "Buffer read documents same logical device/paired queue, external unmapped/exclusive mapping ownership, producing-submit handling, logical zero/host-layout/padding and native/browser progress.",
+    "Typed destination allocation occurs before mapped view. AnyBitPattern, aligned destination and initialize-before-set_len safety explanation match code. try_reserve preserves actual allocation source.",
+    "MappingRequest owns callback/cancel cleanup; no SDK scope guard is stored across await. Successful views are dropped before release. Drop's native Validation-only cleanup exception is documented even for borrowed contexts and does not poll or promise an operation verdict.",
+    "Native failed map wrapper requested state and native Idle NotMapped cause justify cleanup-only scope. Other classes/later health/universal runtime success are not promised.",
+    "observe_validation closure/scope synchronous and thread-local; no poll or completion wait. Read completion separately calls explicit native Wait; browser awaits callback.",
+    "Logical zero returns empty after host-layout admission; physical padding excluded. Native capability/alignment remains native admission, not silently padded.",
+    "Source-preserving BufferReadError, GenerateErrorGpu(anyhow), Readback/Staging causes and MetalDeviceError reflect actual source carriers rather than declaring irrecoverable device loss.",
+    "Armor module no exactly-once/arbitrary resource concurrency promise; Metal constructor docs say six handles reused. Armour scratch uses byte min4; Metal scratch counts native words with min1.",
+    "Staging session identity, exact-count prefix, ZST/foreign/short failure, status one-word admission and missing-byte rejection agree with source; no synthesized missing payload.",
+    "Initialization preserves actual native adapter/device/surface errors and original opaque JS Canvas cause. JsValue is not a standard Error source; no fabricated source claimed. No atomic-Wasm compile assurance.",
+    "Current inline test bodies/oracles and existing BufferUpload doctest remain unchanged by source diff; no new cases/helpers/assertions introduced by this repair."
+  ],
+  "peer_contracts": [
+    {
+      "pin": "42d781f3dd02934894f090ca7710c5397522b2c1",
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "046df19dc9c3aef3625ad107b895954592d0b80e560a7290ee1825eff029d3a3",
+      "status": "Exact retained-device record(batch,sources)/read() contract already independently read/verified; root staging consumes it but peer source not yet integrated."
+    },
+    {
+      "pin": "87e28123e55479e32783c6a7f1559151277f6589",
+      "scope": "BufferElementCount/Stride and QueryCount/PointSelection receiving contracts",
+      "status": "Targeted actual source inspected. Earlier word-count snapshot lacked From<u32>; later material/count owner source adds that bridge. Complete canonical handoff/integration required."
+    },
+    {
+      "pin": "5b03044ce073b63143c4f45001fe8f4309c41023",
+      "path": "crates/fabelgeist-armor/src/material/tile.rs",
+      "sha256": "a094fe52ceba98b71a00ae2fa974ba24cf769131e3c265373727f353f3885869",
+      "status": "Actual owner source inspected: MetalTextureSize admits32..1024, native population/word layout uses canonical count. Later stride source includes From<u32>, checked_mul and native scalar adapters. This inspection does not accept/integrate the complete later owner export."
+    }
+  ],
+  "required_dependencies": [
+    "#780 full producer/parameter/copy/submit/count/query/material/Engraving/error/cache/caller/lock integration remains required. Current d449 is not compile/source-family complete.",
+    "Old metal bake still has raw/String/scratch/submit receiving calls, body/part staged-ticket consumers still old API, application caches still stringify. Canonical owner fixes must land before whole-family native cause claims.",
+    "Existing other unchanged policy/completion/consumer wording outside lower17 remains tracked in earlier reports; no root/owner issue waived by local no-additional-findings disposition.",
+    "Incoming210 all-thirteen inventory is incomplete and not delegated to this Comment Review. Repeat complete integrated reviews and final same-pushed-SHA hosted gates."
+  ],
+  "limits": [
+    "No source edits, project checks/builds/tests/scanners/generators/runtime, new cases/helpers/assertions, push/CI/external posts.",
+    "Source-only SDK evidence; no compiled native/wasm, browser, hardware-wide, performance, global completion or rollback verdict.",
+    "Frozen checkpoint review only; three concrete comment findings remain and future integrated final reviews required."
+  ]
+}

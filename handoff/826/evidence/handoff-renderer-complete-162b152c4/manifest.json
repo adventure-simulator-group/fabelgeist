@@ -1,0 +1,75 @@
+{
+  "revision": "162b152c47ea3824b4bbcdea01215fe5342f71f0",
+  "same_renderer_revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+  "files": {
+    "crates/fabelgeist-hair/src/render/atlas.rs": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+    "crates/fabelgeist-hair/src/render/deform.wgsl": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+    "crates/fabelgeist-hair/src/render/deformation.rs": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+    "crates/fabelgeist-hair/src/render/draws.rs": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+    "crates/fabelgeist-hair/src/render/frame_state.rs": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+    "crates/fabelgeist-hair/src/render/frame_uniforms.rs": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+    "crates/fabelgeist-hair/src/render/hair.wgsl": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+    "crates/fabelgeist-hair/src/render/head.rs": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+    "crates/fabelgeist-hair/src/render/levels.rs": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+    "crates/fabelgeist-hair/src/render/math.rs": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+    "crates/fabelgeist-hair/src/render/meshes.rs": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+    "crates/fabelgeist-hair/src/render/mod.rs": "052eb05f205e18ce867d925db0db38571dcc98c92f6d4230d715e326b347dfd4",
+    "crates/fabelgeist-hair/src/render/post.wgsl": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+    "crates/fabelgeist-hair/src/render/readback.rs": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+    "crates/fabelgeist-hair/src/render/simulation.rs": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+    "crates/fabelgeist-hair/src/render/simulation/buffers.rs": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+    "crates/fabelgeist-hair/src/render/simulation/error.rs": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+    "crates/fabelgeist-hair/src/render/simulation/frames.rs": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8"
+  },
+  "required_canonical_shape": "a2ca851015b9649097635f9f580e409028682ffa",
+  "required_canonical_frame": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+  "required_canonical_card": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+  "required_canonical_native": "0df94b91011a415be93c14174d4233b09eb01c00",
+  "reference_files": {
+    "crates/fabelgeist-hair/Cargo.toml": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17"
+  },
+  "reviews": "All3 independent exactf905 source reviews complete noactionablefinding; allrendererbytes exact162; no finalglobal/compile/hostedclearance",
+  "limits": "Full renderer sources supplied, not full surrounding producer/caller/Creator/lock graph. Source-only, no compile/projectexecution/push/CI/globalclearance.",
+  "math_and_shader_equivalence": {
+    "crates/fabelgeist-hair/src/render/deform.wgsl": {
+      "same_f905": true,
+      "same_pinned_main": true,
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b"
+    },
+    "crates/fabelgeist-hair/src/render/hair.wgsl": {
+      "same_f905": true,
+      "same_pinned_main": true,
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330"
+    },
+    "crates/fabelgeist-hair/src/render/math.rs": {
+      "same_f905": true,
+      "same_pinned_main": true,
+      "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9"
+    },
+    "crates/fabelgeist-hair/src/render/post.wgsl": {
+      "same_f905": true,
+      "same_pinned_main": true,
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770"
+    }
+  },
+  "review_receipts": {
+    "code": {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/renderer-f905-code-review.json",
+      "sha256": "dc19387928576177ad4386f39de7651a9b063d7e58cbe30aaf5d34dfb80c2b46",
+      "verdict": "No actionable bounded receiving finding; source only, global/canonicalgraph/hostedgatespending"
+    },
+    "rule": {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/renderer-f905-rule-review.json",
+      "sha256": "63fe67a9b9e892cf4f8618f5440ba6e3b473cf96167d7954127843dda5232338",
+      "verdict": "No actionable bounded receiving finding; source only, global/canonicalgraph/hostedgatespending"
+    },
+    "comment": {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/renderer-f905-comment-review.json",
+      "sha256": "14a870987a035870ebceff2a659883086f039968307087e082ebe04bb1fe8425",
+      "verdict": "No actionable bounded receiving finding; source only, global/canonicalgraph/hostedgatespending"
+    }
+  }
+}

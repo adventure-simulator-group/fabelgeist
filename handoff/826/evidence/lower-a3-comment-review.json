@@ -1,0 +1,237 @@
+{
+  "review": "Independent lower a3 Comment Review",
+  "head": "a3a1b01a4cd24dbda2555023decd07b33a47b199",
+  "tree": "6a66a60068f59453f1fb768b31fd006cf163c8d6",
+  "parent": "2f3880bfabd08674857bd47015e7c47287a691dc",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "tracked_worktree": "clean",
+  "checkpoint_only": true,
+  "final_clearance": false,
+  "coverage": {
+    "changed": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+        "sha256": "687cb7389a908c3aac29e65c79f6c990a7f1f2f0cce22d90f968a1d39fec5672",
+        "coverage": "Fresh complete file and exact parent diff read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+        "sha256": "e108018175277b49b433da794fa6702ca07210a729103bd07a69d904d0b85bbb",
+        "coverage": "Fresh complete file and exact parent diff read"
+      }
+    ],
+    "unchanged_receiver": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+        "sha256": "2bda8179b7fad1936a5d5c2b742497a0c66da546de1cee15a732d63918bdd832",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+        "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+        "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+        "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+        "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+        "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+        "sha256": "d120392d88da0c15cf1db7f0439245c6a4a3afb8fa0830e96531497fb8e2494f",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+        "sha256": "cca61ee4d5350156906388314a6a5b8820b9289c6fc03f4513bc33a592ce5637",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "sha256": "430f00e3fea4ee0874aebd8e0e6636409939155c6276b36f14251a4a8e51de34",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "sha256": "dde02c3c137d5ac3722f28e2eab7db9eb82506ef0b64d182dd52a42b4876bbb5",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/texture-views.md",
+        "sha256": "610d980a0657a3f089b0178979f77f22ce6cb529e46f37ca9c3ecd495709e206",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+        "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+        "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+        "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/README.md",
+        "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+        "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+        "sha256": "6bf063f459f8ea3c1944e15f02cd400ab871758cca56932bf524942c74fc4bcc",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+        "sha256": "d02f984a15784102744f40c632cf64656798d7bbcb83f9e8a68d819cbe0c50bf",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+        "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+        "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+        "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+        "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+        "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+        "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/error.rs",
+        "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/readback.rs",
+        "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-shell/src/shell.rs",
+        "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+        "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/Cargo.toml",
+        "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+        "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+        "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+        "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+        "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+        "sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+        "coverage": "Byte-identical at a3 to exact2f/f0 source accounting; coverage carried, no fresh whole-body claim"
+      }
+    ],
+    "preservation_proof": {
+      "entry": "All bytes after first module-doc line exactly match parent.",
+      "texture": "Removing the single exact TextureBinaryOp unit struct item from both blobs produces byte-identical files. Every method, shader string, source comment, example/test/doctest byte is unchanged.",
+      "other_paths": "Git parent diff contains exactly the two named paths; all previously accounted receiver paths independently hash-match2f/f0."
+    },
+    "carried_contracts": "2f selected identity/union layouts/native cache and f0 lower mapping/completion/provenance source analyses retained at exact identical source. This is not fresh whole-body coverage of incoming210 or HairRenderer."
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "id": "2F-C1",
+      "disposition": "Resolved: module introduction explicitly includes source-order First and Named variant remains exact/no fallback."
+    }
+  ],
+  "verified_contracts": [
+    "First still resolves first compute-stage entry in source order; Named exact selection unchanged.",
+    "ComputeReflection selected identity and compile/compiled/validate_interface use are byte-identical; shared resource/sampling union and native outcome policy unchanged.",
+    "TextureBinaryOpDefinition still authors main and explicitly selects Named(main). TextureBinaryOp item now precedes impls with all method/shader bytes preserved.",
+    "Lower receiving buffer read/upload/provenance, native cleanup, completion callback/backend limits and cause contracts remain exact f0/2f source."
+  ],
+  "required_dependencies": [
+    "#780 must migrate all other ComputePipeline new/prepare consumers to required selector and FastPath to ComputeReflection. Current root Kernel constructor still two-argument prepare; fast.rs still names removed ReflectionData. ResourcePipeline/shape/producer families not cleared.",
+    "Current grouped Readback old API/blanket no-stall docs, completion Result callers/garment completion claims and body/part/Metal/application error/cache chains remain required as in f0 report.",
+    "No complete incoming210/all13 integrated inventory or final three-review/hosted-gate clearance. Finish family migrations before push/CI; this report authorizes none.",
+    "HairRenderer family ownership has transferred, but this two-file receiving review excludes it. No renderer edits or renderer acceptance is asserted."
+  ],
+  "limits": [
+    "No source edits, local project execution/checks/build/tests/scanners/generators/runtime, new tests/cases/helpers/assertions, push/CI/external posts.",
+    "Source checkpoint only; no native/Wasm compilation, browser runtime/performance/global-health or whole-family verdict.",
+    "Prior recorder-scope native acceptance assurance remains withdrawn; nothing in entry selection reestablishes it.",
+    "No new tests, cases, helpers, assertions, examples or doctests. Final same-pushed-SHA independent reviews and hosted gates remain required."
+  ]
+}

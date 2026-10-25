@@ -1,0 +1,1554 @@
+{
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/6",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/1",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/1",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/7",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/7",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/15",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/9",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/61",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/8",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/0",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/8",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-prefix-d9-rule-review.json",
+      "field": "/fresh_unchanged_consumer_reads/4",
+      "coverage": "Whole current unchanged affected consumer/owner re-read; exact73 identity"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/2",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/related_sources/3",
+      "coverage": "Complete native upload representation, existing doctest and immediate observe_validation consumer read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/57",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/9",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/39",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/43",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/37",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/86",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/10",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/38",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/42",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-prefix-d9-rule-review.json",
+      "field": "/fresh_unchanged_consumer_reads/2",
+      "coverage": "Whole current unchanged affected consumer/owner re-read; exact73 identity"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/36",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/85",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "storage-projection-canonical-rule-review.json",
+      "field": "/reference_accounting/5",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/11",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/1",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-prefix-d9-rule-review.json",
+      "field": "/fresh_unchanged_consumer_reads/0",
+      "coverage": "Whole current unchanged affected consumer/owner re-read; exact73 identity"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/full_changed_paths/1",
+      "coverage": "Full exact frozen source and complete delta read; render/mod.rs1-2306 without sampling or hash-as-body credit"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/53",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/related_sources/0",
+      "coverage": "Complete unchanged logical Buffer::read + staging receiver, source1-76 read"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/12",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/3",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/3",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/13",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/2",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/2",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/14",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/0",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/0",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/15",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/19",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/28",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/16",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/14",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/18",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/12",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/62",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/17",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/21",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/25",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/19",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/68",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/18",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "cached-view-8c600-rule-review.json",
+      "field": "/dependency_source/3",
+      "coverage": "Complete actual47f source reading from immediately preceding independent Cube wave retained after exact8c identity and current cross-file relationship verification; not fresh unread-body credit."
+    },
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/affected_unchanged_dependencies/6",
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/5",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/40",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "lower-f0-rule-review.json",
+      "field": "/additional_source_connections/6",
+      "coverage": "Whole lower error/facade/staging/submission/validation bodies, or exact three shell/garment completion caller functions and immediate publication transitions"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/44",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/38",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/related_sources/6",
+      "coverage": "Complete no-completion-wait finalization/submission owner read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/6",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/87",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/related_sources/10",
+      "coverage": "Exact prior complete no-wait finalization/submission cause owner retained"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/19",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "cached-view-8c600-rule-review.json",
+      "field": "/dependency_source/2",
+      "coverage": "Complete actual47f source reading from immediately preceding independent Cube wave retained after exact8c identity and current cross-file relationship verification; not fresh unread-body credit."
+    },
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/affected_unchanged_dependencies/5",
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/22",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "lower-f0-rule-review.json",
+      "field": "/additional_source_connections/5",
+      "coverage": "Whole lower error/facade/staging/submission/validation bodies, or exact three shell/garment completion caller functions and immediate publication transitions"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/26",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/20",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/related_sources/5",
+      "coverage": "Complete immediate no-wait owner read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/69",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/related_sources/9",
+      "coverage": "Exact prior complete immediate paired-device no-wait observation owner retained"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/validation_scope.rs": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/20",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/affected_unchanged_dependencies/7",
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/4",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/18",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/5",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/27",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/Cargo.toml": [
+    {
+      "report": "armor-metal-d7da-rule-review.json",
+      "field": "/source_coverage/21",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/18",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/41",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/45",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/39",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/related_sources/9",
+      "coverage": "Complete native std and Wasm feature/target/dependency configuration read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/19",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/88",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "storage-projection-canonical-rule-review.json",
+      "field": "/reference_accounting/1",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": [
+    {
+      "report": "cached-view-8c600-rule-review.json",
+      "field": "/changed_source/0",
+      "coverage": "Fresh complete exact pinned8c file body/comments/any inline fixture read."
+    },
+    {
+      "report": "root-baseline-d7da-rule-review.json",
+      "field": "/source_coverage/0",
+      "coverage": "Complete source read"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs": [
+    {
+      "report": "cached-view-8c600-rule-review.json",
+      "field": "/changed_source/1",
+      "coverage": "Fresh complete exact pinned8c file body/comments/any inline fixture read."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs": [
+    {
+      "report": "cached-view-8c600-rule-review.json",
+      "field": "/dependency_source/0",
+      "coverage": "Fresh complete source body read."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs": [
+    {
+      "report": "cached-view-8c600-rule-review.json",
+      "field": "/dependency_source/1",
+      "coverage": "Fresh complete source body read."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/11",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/22",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs": [
+    {
+      "report": "cached-view-8c600-rule-review.json",
+      "field": "/dependency_source/4",
+      "coverage": "Complete actual47f source reading from immediately preceding independent Cube wave retained after exact8c identity and current cross-file relationship verification; not fresh unread-body credit."
+    },
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/affected_unchanged_dependencies/4",
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/7",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/2",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/8",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/16",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs": [
+    {
+      "report": "cached-view-8c600-rule-review.json",
+      "field": "/dependency_source/5",
+      "coverage": "Complete actual47f source reading from immediately preceding independent Cube wave retained after exact8c identity and current cross-file relationship verification; not fresh unread-body credit."
+    },
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/affected_unchanged_dependencies/2",
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/related_sources/1",
+      "coverage": "Complete selected view authority/admission/read-only consumer source read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/131",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs": [
+    {
+      "report": "cached-view-8c600-rule-review.json",
+      "field": "/dependency_source/6",
+      "coverage": "Complete actual47f source reading from immediately preceding independent Cube wave retained after exact8c identity and current cross-file relationship verification; not fresh unread-body credit."
+    },
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/affected_unchanged_dependencies/3",
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/16",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/25",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": [
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/changed_source/0",
+      "coverage": "Complete exact canonical format/storage source freshly read in preceding canonical tranche wave, identical pinned47f bytes independently verified and current export/native consumer relationships reviewed. No unread body credited from hashes."
+    },
+    {
+      "report": "storage-projection-canonical-rule-review.json",
+      "field": "/source_accounting/13",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": [
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/changed_source/1",
+      "coverage": "Complete exact canonical format/storage source freshly read in preceding canonical tranche wave, identical pinned47f bytes independently verified and current export/native consumer relationships reviewed. No unread body credited from hashes."
+    },
+    {
+      "report": "storage-projection-canonical-rule-review.json",
+      "field": "/source_accounting/14",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs": [
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/changed_source/2",
+      "coverage": "Complete pinned47f file body/comments read, including all authored WGSL literals."
+    },
+    {
+      "report": "root-baseline-d7da-rule-review.json",
+      "field": "/source_coverage/5",
+      "coverage": "Complete source read"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": [
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/changed_source/3",
+      "coverage": "Complete pinned47f file body/comments read, including all authored WGSL literals."
+    },
+    {
+      "report": "root-baseline-d7da-rule-review.json",
+      "field": "/source_coverage/1",
+      "coverage": "Complete source read"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs": [
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/changed_source/4",
+      "coverage": "Complete pinned47f file body/comments read, including all authored WGSL literals."
+    },
+    {
+      "report": "root-baseline-d7da-rule-review.json",
+      "field": "/source_coverage/6",
+      "coverage": "Complete source read"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs": [
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/changed_source/5",
+      "coverage": "Complete pinned47f file body/comments read, including all authored WGSL literals."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs": [
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/affected_unchanged_dependencies/0",
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/15",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/24",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs": [
+    {
+      "report": "cube-native-47f37-rule-review.json",
+      "field": "/affected_unchanged_dependencies/8",
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/53",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/57",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/51",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "root-baseline-d7da-rule-review.json",
+      "field": "/source_coverage/2",
+      "coverage": "Complete source read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/98",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs": [
+    {
+      "report": "deformation-10cc-rule-review.json",
+      "field": "/full_changed_paths/0",
+      "coverage": "Completecurrentpinnedproductionresponsibilityandexact211->10ccdiff reviewed"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/127",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/shader.rs": [
+    {
+      "report": "deformation-10cc-rule-review.json",
+      "field": "/supporting_sources/0",
+      "coverage": "Wholeparse_naga/detect/validate/errorroleowner1-103read;onlyparsingusednewnativehelper"
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/4",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/12",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/6",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/58",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs": [
+    {
+      "report": "deformation-10cc-rule-review.json",
+      "field": "/supporting_sources/2",
+      "coverage": "WholecanonicalNamed/Firstresolver1-40read"
+    },
+    {
+      "report": "dispatch-65e-rule-review.json",
+      "field": "/affected_receivers/5",
+      "coverage": "WholecanonicalFirst/Namedresolver1-40"
+    },
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/12",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "lower-8d-rule-review.json",
+      "field": "/full_changed_paths/0",
+      "coverage": "Full current file and exact complete delta read"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/6",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/0",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/13",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/56",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs": [
+    {
+      "report": "deformation-10cc-rule-review.json",
+      "field": "/supporting_sources/3",
+      "coverage": "Canonicalempty/livefoldedshape63-115fresh;priorwholebodyexact"
+    },
+    {
+      "report": "dispatch-51b-rule-review.json",
+      "field": "/full_reviewed_dispatch_paths/2",
+      "coverage": "Wholecurrentpinnedbodyre-read; complete65->51andactualparentcf->51diffs reviewed"
+    },
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/9",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/10",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/34",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "storage-projection-canonical-rule-review.json",
+      "field": "/reference_accounting/7",
+      "coverage": "Exact identity/context verified; prior explicitly bounded Root contract readings retained only for declared native Grid/Shape/Pipeline/export responsibilities. Not fresh complete immutable reference-body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs": [
+    {
+      "report": "deformation-10cc-rule-review.json",
+      "field": "/supporting_sources/4",
+      "coverage": "ActualreceivingDevicelimit/nativeadapterwholepriorbodyexact"
+    },
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/8",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "levels-211-rule-review.json",
+      "field": "/unchanged_source_receipts/0",
+      "coverage": "Whole priorgridbodypluscompletefc23docdelta read;51P3guardroute repaired"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/9",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/33",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "storage-projection-canonical-rule-review.json",
+      "field": "/reference_accounting/6",
+      "coverage": "Exact identity/context verified; prior explicitly bounded Root contract readings retained only for declared native Grid/Shape/Pipeline/export responsibilities. Not fresh complete immutable reference-body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs": [
+    {
+      "report": "deformation-10cc-rule-review.json",
+      "field": "/supporting_sources/8",
+      "coverage": "Actualbinding_resourceownerpriorwholebodyread/currentexact;logicalzerorejectionadapter-specific"
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/37",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/41",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-prefix-d9-rule-review.json",
+      "field": "/fresh_unchanged_consumer_reads/3",
+      "coverage": "Whole current unchanged affected consumer/owner re-read; exact73 identity"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/35",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/84",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json": [
+    {
+      "report": "dispatch-51b-rule-review.json",
+      "field": "/full_reviewed_dispatch_paths/3",
+      "coverage": "Wholecurrentpinnedbodyre-read; complete65->51andactualparentcf->51diffs reviewed"
+    },
+    {
+      "report": "dispatch-65e-rule-review.json",
+      "field": "/full_changed_paths/3",
+      "coverage": "Wholepinnedbody andcompleteexactdiff read;tests/datareadasexistingfrozenfixturesonly"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/35",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs": [
+    {
+      "report": "dispatch-51b-rule-review.json",
+      "field": "/full_reviewed_dispatch_paths/4",
+      "coverage": "Wholecurrentpinnedbodyre-read; complete65->51andactualparentcf->51diffs reviewed"
+    },
+    {
+      "report": "dispatch-65e-rule-review.json",
+      "field": "/full_changed_paths/4",
+      "coverage": "Wholepinnedbody andcompleteexactdiff read;tests/datareadasexistingfrozenfixturesonly"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/36",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/prelude.rs": [
+    {
+      "report": "dispatch-65e-rule-review.json",
+      "field": "/affected_receivers/8",
+      "coverage": "Wholeexports"
+    },
+    {
+      "report": "renderer-complete-2b646-rule-review.json",
+      "field": "/fresh_actual_dependency_source/2",
+      "coverage": "Complete public export chain"
+    },
+    {
+      "report": "renderer-complete-954-rule-review.json",
+      "field": "/actual_dependency_source/2",
+      "coverage": "Prior explicitly bounded body read, exact identity and current path relationships verified; not fresh whole-file credit. Complete public export chain"
+    },
+    {
+      "report": "renderer-complete-9b9-rule-review.json",
+      "field": "/actual_dependency_source/2",
+      "coverage": "Prior explicitly bounded body read, exact identity and current path relationships verified; not fresh whole-file credit. Complete public export chain"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/122",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "storage-projection-canonical-rule-review.json",
+      "field": "/reference_accounting/11",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/mod.rs": [
+    {
+      "report": "dispatch-65e-rule-review.json",
+      "field": "/affected_receivers/9",
+      "coverage": "Wholepublicownerexports"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/123",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs": [
+    {
+      "report": "head-04-rule-review.json",
+      "field": "/full_changed_paths/1",
+      "coverage": "Complete current body and full exact diff read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/45",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/mod.rs": [
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/3",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/17",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/4",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/26",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs": [
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/6",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "root-baseline-d7da-rule-review.json",
+      "field": "/source_coverage/4",
+      "coverage": "Complete source read"
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/3",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/7",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/17",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs": [
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/10",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "scope-34f-rule-review.json",
+      "field": "/full_changed_paths/1",
+      "coverage": "Complete pinned file and complete exact parent delta read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/11",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/133",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs": [
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/11",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "scope-34f-rule-review.json",
+      "field": "/full_changed_paths/0",
+      "coverage": "Complete pinned file and complete exact parent delta read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/12",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/132",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs": [
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/13",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/4",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/14",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/18",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs": [
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/14",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/7",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/15",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/19",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs": [
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/15",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/51",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/55",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/49",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/16",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/97",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs": [
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/canonical_scope_grid_error_integration_continuity/16",
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/related_sources/0",
+      "coverage": "Complete source/device/policy key and success-only publication owner read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/fresh_integration_source/17",
+      "coverage": "Complete pinned integration file read."
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/130",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs": [
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/additional_fresh_affected_source/0",
+      "coverage": "Complete source read to verify static/cached provided-value policy comparison."
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/1",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/15",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs": [
+    {
+      "report": "kernel-162-rule-review.json",
+      "field": "/additional_fresh_affected_source/1",
+      "coverage": "Complete source read to verify static/cached provided-value policy comparison."
+    }
+  ],
+  "crates/fabelgeist-gpu/README.md": [
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/6",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/14",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/8",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/60",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/resource.rs": [
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/36",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/40",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/34",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/83",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/related_sources/1",
+      "coverage": "Complete unchanged GpuResource::read/write/variants/constructors read"
+    }
+  ],
+  "crates/fabelgeist-gpu/tests/texture_views.rs": [
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/44",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/48",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/42",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/91",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/tests/fixtures/texture_views.json": [
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/45",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/49",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/43",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/92",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs": [
+    {
+      "report": "lower-a3-rule-review.json",
+      "field": "/unchanged_receiving_source_receipts/50",
+      "coverage": "Independent exact pinned byte identity with prior stated source granularity; current owner/admission/native/consumer relationship reconciled, no fresh unread whole-body credit"
+    },
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/54",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/unchanged_source_receipts/48",
+      "coverage": "Exact prior source-read granularity preserved; not fresh whole-body coverage"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/96",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/callback_progress.rs": [
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/3",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/full_changed_paths/3",
+      "coverage": "Full exact frozen source and complete delta read; render/mod.rs1-2306 without sampling or hash-as-body credit"
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/related_sources/7",
+      "coverage": "Complete callback ready-first/nonblocking/browser yield owner read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/54",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/related_sources/8",
+      "coverage": "Exact prior complete ready-first poll/cancel/browser-yield owner/source proof retained"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs": [
+    {
+      "report": "policy-73b-rule-review.json",
+      "field": "/unchanged_source_receipts/5",
+      "coverage": "Exact prior declared source-read granularity retained, no fresh unread whole-body credit"
+    },
+    {
+      "report": "renderer-197-rule-review.json",
+      "field": "/full_changed_paths/5",
+      "coverage": "Full exact frozen source and complete delta read; render/mod.rs1-2306 without sampling or hash-as-body credit"
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/related_sources/8",
+      "coverage": "Complete explicit completion owner/cause policy read"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/55",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs": [
+    {
+      "report": "root-baseline-d7da-rule-review.json",
+      "field": "/source_coverage/3",
+      "coverage": "Complete source read"
+    },
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/0",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/14",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs": [
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/8",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/20",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs": [
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/9",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/21",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs": [
+    {
+      "report": "scope-8cdc-rule-review.json",
+      "field": "/full_changed_paths/13",
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/23",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs": [
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/4",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/4",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs": [
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/5",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/5",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs": [
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/6",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/6",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs": [
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/8",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/8",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs": [
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/9",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/9",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs": [
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/12",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/12",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/texture-views.md": [
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/13",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    },
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/full_changed_paths/13",
+      "coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed"
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs": [
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/111",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs": [
+    {
+      "report": "scope-five-48e-rule-review.json",
+      "field": "/retained_source_receipts/112",
+      "coverage": "Prior explicitly bounded source reading retained only; exact bytes verified; not fresh full body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs": [
+    {
+      "report": "storage-projection-canonical-rule-review.json",
+      "field": "/reference_accounting/2",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs": [
+    {
+      "report": "storage-projection-canonical-rule-review.json",
+      "field": "/reference_accounting/3",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/mod.rs": [
+    {
+      "report": "storage-projection-canonical-rule-review.json",
+      "field": "/reference_accounting/10",
+      "coverage": "Exact identity/context verified; prior explicitly bounded Root contract readings retained only for declared native Grid/Shape/Pipeline/export responsibilities. Not fresh complete immutable reference-body credit."
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs": [
+    {
+      "report": "texture-7889-rule-review.json",
+      "field": "/related_sources/3",
+      "coverage": "Complete current six-face owner/index/admission/labels read"
+    }
+  ]
+}

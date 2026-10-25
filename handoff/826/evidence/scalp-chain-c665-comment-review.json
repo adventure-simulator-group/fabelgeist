@@ -1,0 +1,511 @@
+{
+  "review": "Independent Comment Review: incoming nine-file Scalp chain family",
+  "head": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "tree": "12f2d808ab9d659999aaec627e02e594897c8beb",
+  "parent": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+  "root_context": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "manifest": {
+    "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-scalp-chain-c6659f6cf/manifest.json",
+    "sha256": "548c82e6dc6d2851887410f05543262dac72ec969e262e4c288c6db615581f20"
+  },
+  "owning_source_accounting": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a",
+      "git_blob": "890ad9dd550d92f552ab0a4948b1a1cc4c771ca0",
+      "lines": 179,
+      "coverage": "Fresh whole file source read; full render fixture read in contiguous1-260 and261-512 sections",
+      "manifest_sha256": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+      "git_blob": "c6e15bedf0f788809f0f541f3307e248dd6158e6",
+      "lines": 168,
+      "coverage": "Fresh whole file source read; full render fixture read in contiguous1-260 and261-512 sections",
+      "manifest_sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "git_blob": "b69f5388ad0adfe66771304281848b966bce57a0",
+      "lines": 133,
+      "coverage": "Fresh whole file source read; full render fixture read in contiguous1-260 and261-512 sections",
+      "manifest_sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "a9be367893c88b158dac2f0368c4ef28d521e59290a428b08753c342881225bd",
+      "git_blob": "5da5d4a78c18d88011e671849a3717a335104162",
+      "lines": 299,
+      "coverage": "Fresh whole file source read; full render fixture read in contiguous1-260 and261-512 sections",
+      "manifest_sha256": "a9be367893c88b158dac2f0368c4ef28d521e59290a428b08753c342881225bd",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee",
+      "git_blob": "5a2cb603783dbe497d93e31472547dac0de24db8",
+      "lines": 41,
+      "coverage": "Fresh whole file source read; full render fixture read in contiguous1-260 and261-512 sections",
+      "manifest_sha256": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "02378baa2d1ed60f1c8337c24b9e0e5872b240203fc5f7944f3f8eb93744d2f6",
+      "git_blob": "fe556b1f44a067680cd3eb244d4ceb3c0cbbbaf1",
+      "lines": 144,
+      "coverage": "Fresh whole file source read; full render fixture read in contiguous1-260 and261-512 sections",
+      "manifest_sha256": "02378baa2d1ed60f1c8337c24b9e0e5872b240203fc5f7944f3f8eb93744d2f6",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53",
+      "git_blob": "66d805bcb881aea5855e546463398b80e1dba4a1",
+      "lines": 149,
+      "coverage": "Fresh whole file source read; full render fixture read in contiguous1-260 and261-512 sections",
+      "manifest_sha256": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531",
+      "git_blob": "a8f5fd54eb89af73e00c3434e54010153a6c2621",
+      "lines": 512,
+      "coverage": "Fresh whole file source read; full render fixture read in contiguous1-260 and261-512 sections",
+      "manifest_sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd",
+      "git_blob": "348b05adc432d9056d27e93a0fd92c083f4a8217",
+      "lines": 155,
+      "coverage": "Fresh whole file source read; full render fixture read in contiguous1-260 and261-512 sections",
+      "manifest_sha256": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd",
+      "manifest_matches": true
+    }
+  ],
+  "dependency_source_accounting": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "git_blob": "227580d2237949e034721cb423c307a31a33e31a",
+      "lines": 400,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+      "git_blob": "78a4297864fedd71e6558cebf709d9e666d9a7db",
+      "lines": 226,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "d6c46f6ef0b1f037cc45648c2baac76b9e383aad331cf1c3757f1e1150702b43",
+      "git_blob": "d251f905c4517547af11f9c7cc73e32c77045433",
+      "lines": 234,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "git_blob": "ce1c5be604c0b070a767130eeed4f4dbe65285ce",
+      "lines": 76,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_shade.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "4bee07accb46e2b52d29da58644b4b620c69f55278774fcd1fff1d591d4c8779",
+      "git_blob": "9b067ae10cad8a8149259339d3b602f444758be2",
+      "lines": 71,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "git_blob": "c7ea9cdb3014f1fc5c29fcdad844115c9c2dfd2f",
+      "lines": 53,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "git_blob": "85f7391b45d6a6e300dc7a9f8bd939e1dc250a93",
+      "lines": 117,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+      "git_blob": "24d41bd345670b61d0d9d6935dfc51925de8ebf2",
+      "lines": 50,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "git_blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "lines": 76,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "git_blob": "3e3f5421736c5c8604c994b4cd4342ee85e0bf6d",
+      "lines": 86,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "git_blob": "bbfa2d7a1e6898a76c0c36aeee38400005a9c1f6",
+      "lines": 216,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "git_blob": "ef08a970b02ec606113d7c3302e0b5ef5f774e30",
+      "lines": 141,
+      "coverage": "Fresh complete source dependency/receiver read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "f163ffb8a42b0ad714ea0d96f2c7ef1a191da8d085d01310e143f941a63caf22",
+      "git_blob": "1f6602ff99e79c5a4a4866d353298b711fd429cd",
+      "lines": 1380,
+      "coverage": "Fresh lines1-88 intro/docs/example only; complete module reviewed earlier but no fresh whole-module claim here"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "1945aa84edf49348310989955b6f814cc19ae8cceaf87d85400f4bce8cf9a296",
+      "git_blob": "828d3ff930aec104a35acdc5ce937a86a073e1cc",
+      "lines": 225,
+      "coverage": "Fresh lines160-235 including complete scalp_images function; other Root geometry/strip bodies not fresh-read in this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "git_blob": "b9f5cf8040c0200cc774f92d5e4f2b5018e61132",
+      "lines": 142,
+      "coverage": "Fresh complete peer helper and exact Rootcac-to-peer diff read after identity mismatch; not carried as unchanged",
+      "current_peer_equals_root_cac": false,
+      "root_report": "target/pr826-audit/gpu-complete-cac5a7c33-comment-review.json",
+      "root_full_account": {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+        "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+        "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+        "git_blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+        "lines": 153,
+        "coverage": "Exact bfce prior full-source account carried, no fresh whole-body read claimed",
+        "same_bytes_as_bfce": true,
+        "prior_full_account": {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+          "revision": "bfcecec05c1e5cd9d55af31419d605420a4d08c5",
+          "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+          "git_blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+          "coverage": "Carried complete3e74 full source account by exact identity; no fresh whole-body read claimed",
+          "unchanged_from3e74": true,
+          "prior_full_account": {
+            "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+            "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+            "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+            "git_blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+            "lines": 153,
+            "coverage": "Prior full source read carried by exact current identity; not fresh whole-body read in this wave",
+            "reference_manifest_sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+            "manifest_matches": true,
+            "carried_evidence": {
+              "report": "target/pr826-audit/texture-7889-comment-review.json",
+              "report_sha256": "2fad7d791c3b46936c0550e137de82454ef27b636ff54feec82a33613f2d863b",
+              "original_source_account": {
+                "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+                "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+                "blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+                "bytes": 5475,
+                "coverage": "complete fresh file read",
+                "unchanged_from_parent": false
+              },
+              "original_report_pin_fields": {
+                "pin": "7889102242f9ca698f4a01bb4607eb14ec72e2bb",
+                "tree": "75e332dc604d48f8fe1aa335f4150132da648068",
+                "base": "990430b77a9f63548ffcb642074185f61ddb3322"
+              }
+            },
+            "coverage_status": "complete carried full read + exact identity",
+            "disposition": "No new actionable comment mismatch; prior native/provider/packing/fixture limits preserved, no Code/all13/runtime clearance"
+          }
+        }
+      },
+      "difference": "Peer uses pub(super) rather than Root pub(in crate::data::gpu); mapping also lacks Root poll_complete used by shared texture readback. Buffer read/completion semantics otherwise inspected; preserve Root exact helpers during composition."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "git_blob": "4990e9220d5350750000826ce2954be77ae85146",
+      "lines": 101,
+      "coverage": "Fresh complete peer helper and exact Rootcac-to-peer diff read after identity mismatch; not carried as unchanged",
+      "current_peer_equals_root_cac": false,
+      "root_report": "target/pr826-audit/gpu-complete-cac5a7c33-comment-review.json",
+      "root_full_account": {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+        "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+        "git_blob": "ea288ba56153fa4bb97fd996348980e46a685c70",
+        "lines": 101,
+        "coverage": "Exact bfce prior full-source account carried, no fresh whole-body read claimed",
+        "same_bytes_as_bfce": true,
+        "prior_full_account": {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+          "revision": "bfcecec05c1e5cd9d55af31419d605420a4d08c5",
+          "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+          "git_blob": "ea288ba56153fa4bb97fd996348980e46a685c70",
+          "coverage": "Carried complete3e74 full source account by exact identity; no fresh whole-body read claimed",
+          "unchanged_from3e74": true,
+          "prior_full_account": {
+            "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+            "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+            "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+            "git_blob": "ea288ba56153fa4bb97fd996348980e46a685c70",
+            "lines": 101,
+            "coverage": "Prior full source read carried by exact current identity; not fresh whole-body read in this wave",
+            "reference_manifest_sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+            "manifest_matches": true,
+            "carried_evidence": {
+              "report": "target/pr826-audit/texture-7889-comment-review.json",
+              "report_sha256": "2fad7d791c3b46936c0550e137de82454ef27b636ff54feec82a33613f2d863b",
+              "original_source_account": {
+                "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+                "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+                "blob": "ea288ba56153fa4bb97fd996348980e46a685c70",
+                "bytes": 3392,
+                "coverage": "complete fresh file read",
+                "unchanged_from_parent": false
+              },
+              "original_report_pin_fields": {
+                "pin": "7889102242f9ca698f4a01bb4607eb14ec72e2bb",
+                "tree": "75e332dc604d48f8fe1aa335f4150132da648068",
+                "base": "990430b77a9f63548ffcb642074185f61ddb3322"
+              }
+            },
+            "coverage_status": "complete carried full read + exact identity",
+            "disposition": "No new actionable comment mismatch; prior native/provider/packing/fixture limits preserved, no Code/all13/runtime clearance"
+          }
+        }
+      },
+      "difference": "Peer uses pub(super) rather than Root pub(in crate::data::gpu); mapping also lacks Root poll_complete used by shared texture readback. Buffer read/completion semantics otherwise inspected; preserve Root exact helpers during composition."
+    }
+  ],
+  "native_evidence_carried_by_identity": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "lines": 70,
+      "coverage": "Carried complete Root native account by exact byte identity; no fresh full helper claim unless also listed above",
+      "current_peer_equals_root_cac": true,
+      "root_report": "target/pr826-audit/gpu-complete-cac5a7c33-comment-review.json",
+      "root_full_account": {
+        "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+        "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+        "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+        "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+        "lines": 70,
+        "coverage": "Exact bfce prior full-source account carried, no fresh whole-body read claimed",
+        "same_bytes_as_bfce": true,
+        "prior_full_account": {
+          "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+          "revision": "bfcecec05c1e5cd9d55af31419d605420a4d08c5",
+          "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+          "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+          "coverage": "Carried complete3e74 full source account by exact identity; no fresh whole-body read claimed",
+          "unchanged_from3e74": true,
+          "prior_full_account": {
+            "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+            "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+            "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+            "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+            "lines": 70,
+            "coverage": "Prior full source read carried by exact current identity; not fresh whole-body read in this wave",
+            "reference_manifest_sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+            "manifest_matches": true,
+            "carried_evidence": {
+              "report": "target/pr826-audit/texture-7889-comment-review.json",
+              "report_sha256": "2fad7d791c3b46936c0550e137de82454ef27b636ff54feec82a33613f2d863b",
+              "original_source_account": {
+                "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+                "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+                "blob": "88c78315164873623ac06f15c0a836f91460f547",
+                "bytes": 2363,
+                "coverage": "complete fresh file read",
+                "unchanged_from_parent": true
+              },
+              "original_report_pin_fields": {
+                "pin": "7889102242f9ca698f4a01bb4607eb14ec72e2bb",
+                "tree": "75e332dc604d48f8fe1aa335f4150132da648068",
+                "base": "990430b77a9f63548ffcb642074185f61ddb3322"
+              }
+            },
+            "coverage_status": "complete carried full read + exact identity",
+            "disposition": "No new actionable comment mismatch; prior native/provider/packing/fixture limits preserved, no Code/all13/runtime clearance"
+          }
+        }
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "git_blob": "3e3f5421736c5c8604c994b4cd4342ee85e0bf6d",
+      "lines": 86,
+      "coverage": "Carried complete Root native account by exact byte identity; no fresh full helper claim unless also listed above",
+      "current_peer_equals_root_cac": true,
+      "root_report": "target/pr826-audit/gpu-complete-cac5a7c33-comment-review.json",
+      "root_full_account": {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+        "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+        "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+        "git_blob": "3e3f5421736c5c8604c994b4cd4342ee85e0bf6d",
+        "lines": 86,
+        "coverage": "Exact bfce prior full-source account carried, no fresh whole-body read claimed",
+        "same_bytes_as_bfce": true,
+        "prior_full_account": {
+          "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+          "revision": "bfcecec05c1e5cd9d55af31419d605420a4d08c5",
+          "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+          "git_blob": "3e3f5421736c5c8604c994b4cd4342ee85e0bf6d",
+          "coverage": "Carried complete3e74 full source account by exact identity; no fresh whole-body read claimed",
+          "unchanged_from3e74": true,
+          "prior_full_account": {
+            "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+            "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+            "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+            "git_blob": "3e3f5421736c5c8604c994b4cd4342ee85e0bf6d",
+            "lines": 86,
+            "coverage": "Prior full source read carried by exact current identity; not fresh whole-body read in this wave",
+            "reference_manifest_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+            "manifest_matches": true,
+            "carried_evidence": {
+              "report": "target/pr826-audit/scope-8cdc-comment-review.json",
+              "report_sha256": "cf5b9dfdb19c87bb4aabb1671eb9844440cf0f316b23a8017e4c6e07fedb4392",
+              "original_source_account": {
+                "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+                "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+                "bytes": 3251,
+                "lines": 86,
+                "coverage": "complete fresh pinned source read"
+              },
+              "original_report_pin_fields": {
+                "head": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+                "tree": "934eb5dd2adbbbd85faa7a1cdb9b3679db71ace6",
+                "main": "990430b77a9f63548ffcb642074185f61ddb3322"
+              }
+            },
+            "coverage_status": "complete carried full read + exact identity",
+            "disposition": "No new actionable comment mismatch; prior native/provider/packing/fixture limits preserved, no Code/all13/runtime clearance"
+          }
+        }
+      }
+    }
+  ],
+  "actionable_comment_findings": [
+    {
+      "id": "SCALP-C1",
+      "priority": "P2",
+      "owner": "Peer780 canonical Creator HairGpu source; Root coordinates receipt",
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "start": 3,
+      "end": 5,
+      "classification": "Retained unsupported general performance claim; documentation only",
+      "mismatch": "Intro claims compute kernels run about ten times faster than every CPU core without identifying measured hardware, CPU implementation, workload, conditions or a current benchmark source. The existing fixture only emits its own GPU elapsed times. No cross-provider runtime or comparative performance validation was supplied, so this prose exceeds documented validation limits. This is not a claim that kernels are slower.",
+      "evidence": "Complete owning file and existing fixture read; actual fabelgeist-hair GPU intro1-88 describes independent GPU work but supplies no comparative benchmark. Focused owning hair-source search located only this comparison. Source inspection cannot establish the multiplier.",
+      "connected_repair": "Remove the multiplier/general comparison and retain the architectural reason that independent strand sweeps run as compute kernels. Alternatively cite an already existing reproducible bounded observation with exact hardware/workload; no new benchmark/test is requested or authorized by this review.",
+      "acceptance": "The nine-file handoff no longer presents an unqualified GPU/CPU speed ratio; all runtime/shader/fixture inputs/oracles stay unchanged and successor comments re-reviewed."
+    }
+  ],
+  "confirmed_contracts": [
+    {
+      "area": "Fixed positive padded layout",
+      "evidence": "Factory admits fixed2048 base and halves to1. Each positive side uses four-byte texels; row stride max(side,64) yields256-byte alignment because every side is power-of-two. Level offsets/complete byte extent include final row padding, and full extent checked for usize/isize/native u32 words before publication. Private layout/levels prevent arbitrary side/offset construction; readonly ports preserve same chain layout. No arbitrary texture-recipe/device-limit/geometry guarantee inferred."
+    },
+    {
+      "area": "Physical texels versus shadow blocks",
+      "evidence": "ScalpMap mapped_side is square root of estimated mapped area in Metres; texel divides by admitted positive texture side. Physical shadow span and blur radius round using existing metre-to-texel ratio then clamp to at least one texel. ShadowBlockAxisCount ceil(side/block_span) is positive and no larger than2048, separate from texels. Shadow array elements are blocks squared while topmost/bare/finish use visible texel populations. WGSL uses matching block index and guarded64-lane folded item index. No new finite/clamp/tuning policy or geometry rewrite."
+    },
+    {
+      "area": "Native chain provenance and host read",
+      "evidence": "Each chain privately owns Buffer, Arc layout and cloned actual creating Device. Factory allocates full padded extent, native operations finish/submit before successful bake return. Host read explicitly rejects different actual Device before prefix/copy/map work, reads exact admitted prefix and strips each padded row to visibleRGBA. Buffer read retains creating Device/pairedQueue and external mapping obligations, actual causes, native wait/browser yield and no later-health promise. Cardinality does not certify arbitrary source contents or native provider acceptance."
+    },
+    {
+      "area": "Queued Bevy upload",
+      "evidence": "ScalpUploads retains actual chain+image handle until prepared. Image descriptor has admitted base side/mip count and Rgba8Unorm; copied mips use exact layout byte offset/row pitch and visible extent. Texture data is not brought through CPU in this preview upload path. Direct Bevy encoder/queue submit has configured error handling and no synchronous operation verdict, as explicitly documented. Pending is removed after recording, so no rollback/retry/completion guarantee is made. Host read explicit Device guard is a separate stronger boundary, not falsely claimed for Bevy queue copies."
+    },
+    {
+      "area": "Completion and fixture",
+      "evidence": "HairGpu.finish async Result delegates canonical submitted_work_done; native explicit marker index and actual causes, browser callback/rejection caveat and earlier-producing-result requirement retained. Stage now holds two ScalpTextureChain values and completion calls already retain their fallible adapters. Existing settle/capture frame budgets are authored fixture scheduling, not proof that arbitrary file writes or all later GPU work complete. No native/browser/runtime/performance verdict inferred."
+    }
+  ],
+  "assets_receiver_comparison": {
+    "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+    "peer_whole_sha256": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+    "root_whole_sha256": "1945aa84edf49348310989955b6f814cc19ae8cceaf87d85400f4bce8cf9a296",
+    "scalp_images_function_sha256": "016fbca45d4b89614d6052c58cdf31a63838c5b5c09a0703db636e24080ef21e",
+    "scalp_images_body_exact_between_root_and_peer": true,
+    "disposition": "Root whole-file difference concerns other geometry/strip functions; actual scalp_images receiver is already exact and compatible. Do not infer missing scalp receiver from whole hash or overwrite unrelated owner functions."
+  },
+  "fixture_and_shader_provenance": {
+    "reference": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+    "fixture_delta_only_import_and_Stage_payload_adapters": true,
+    "wgsl_exact_parent": true,
+    "wgsl_matches_manifest_reference": true,
+    "peer_assets_matches_manifest_reference": true,
+    "limits": "Complete existing fixture read, no new case/helper/assertion/input/oracle authored or executed. This exact tranche proof does not substitute for complete original main990/#779 provenance across earlier migrations."
+  },
+  "required_dependencies": [
+    "SCALP-C1 needs agreed canonical prose repair/review before this handoff is treated comment-clear; no independent Root edit or blind whole-file overwrite performed.",
+    "Root has not received nine-file handoff. Canonical BufferElementCount/Stride/native layouts and complete producer/caller/geometry/Grid/physical/generated/Readback/lock graph remain required actual composition; this local source review is not compile or full graph acceptance.",
+    "The handoff includes Creator async completion/fixture adapters; the separate canonical fabelgeist-hair GpuGroomer raw finish removal/native module remains part of required whole family migration, not silently cleared merely from these nine files.",
+    "Peer mapping/readback helper hashes differ from Root: visibility is narrower and peer MappingRequest lacks Root poll_complete. Both full peer files/diffs read; they are not handoff files. Preserve Root shared texture-readable visibility/poll_complete and precise native successors; do not copy those unlisted peer GPU helpers.",
+    "Preserve Root precise native observation/progress/default/browser docs. Peer dependency modules inspected as context do not authorize overwriting native source.",
+    "Full all13 integration waves, three independent final reviews and required hosted gates on same final pushed revision remain required; no merge."
+  ],
+  "limits": [
+    "Read-only; no source edits/project execution/check/build/lint/test/scanner/generator/runtime, new fixtures/cases/helpers/assertions/doctests, push/CI or external posts. Only ignored JSON/Markdown reports written.",
+    "All nine owning files and fourteen dependencies full-read; additional Root Assets/native-GPU intro coverage explicitly bounded and native helper evidence carried only by exact identity. Shader addresses source-reviewed, no generated numerical comparison or runtime verification.",
+    "No unsupported provider-independent performance, browser progress from native poll, native global-health, arbitrary later work, calibrated appearance or whole-scene rollback acceptance. No whole PR/global/compiled/hosted/final clearance."
+  ],
+  "verdict": "Complete source Comment coverage of exact incoming nine-file family; layout/device/padding/copy/progress claims hold within stated limits and Root scalp receiver body is exact. One retained unqualified performance comparison needs canonical prose correction; global integration/gates remain incomplete."
+}

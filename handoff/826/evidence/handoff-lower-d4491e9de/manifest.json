@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "at": "2026-10-23T20:02:59.402738+00:00",
+  "parent": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "source": "d4491e9de215ba1b607fd2989cbfd5e3cbbdd21d",
+  "tree": "c770dc8e66ecac829c48bc443fa8523c71bf330e",
+  "status": "Local lower receiving implementation, independent checkpoint reviews and post all13 pending; not compiled/family accepted/final clearance",
+  "files": [
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "6380742b0f418cba2ea1d9877a1d317bc98a745fd124b81f7202be540c74882c"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "aa38e9640ca2497f775ca2473fab3abb5c9ad1b4f61d802bf19392cab6c76c73"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "a8a5e6ac4681e816e8552f131b2ce473374f00331882b2cfc1701f884be432bf"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "7964e89e9fb86421c7bcc666c08a41624e7137eba10a8f957a2fd0f7cdc30a16"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "1cb09276b24651ec9615fc38b06ec00bb914cea4c90a19abfa7075965606fc24"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "894dc9a35df33e92adf8775157dcf437560ea4bd38d48fbeb194567bd79b3314"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "832f538deb18739e9269845dce9c3175456d38e2f18e78d9ad42578ecf365a13"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "42c9416f47cf2fe3f86aec080228bd1fcf74f94d823f9aded45cfda43ede2a20"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "b3cacb2e746e2324be8c2eb24866bf69c618e1848e696159766abdc3028aec3d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "c941a02e6f60f88d14f192ace09933c960bc21edc0b4d871a73475ad921ada63"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b"
+    }
+  ],
+  "patch_sha256": "bb6539982ad8c23e1222ec76667bf63c85d928466cc18035da547fb8e72273b1",
+  "ownership": "Explicit human774 transfer6372371468 and complete826/780 whole-function receiving/caller split in main ledger",
+  "canonical_dependencies": {
+    "counts": "2bb7ce67fabf3ca7b2999b109fa990ca32480dfd",
+    "readback": "42d781f3dd02934894f090ca7710c5397522b2c1",
+    "metal_material": "90b7dd361ed7307a6ffd9179424bb9fd8eeb1dbc",
+    "mesh_query": "6f6d77878daad401abe414da83e17c71d4ad8091"
+  },
+  "integration_instructions": [
+    "Apply owned receiving hunks once, preserving newer peer buffer stride/capacity exports/module declarations and Kernel/cache/count/producer bodies. Do not overwrite whole buffer module with rootold canonical prefix.",
+    "New Armor gpu/facade.rs owns ArmorGpu struct/impl and device_error; gpu/mod.rs reexports them. DevicePart source body is parent-exact, leave peer typed updates intact in rootmodule.",
+    "WgpuContext new/new_compute/open moved to focused initialization module, mode/private target and browser error owner added; from_parts/submitted_work_done/device_descriptor behavior intact; private report/limits functions reordered. Do not restore old cause-erasing constructors.",
+    "Buffer.usage field removed; only current first-party consumer/constructor were owned. Keep native buffer capability authoritative and logical BufferByteLength distinct.",
+    "Staged Clone notCopy, borrowed prefix/status ->Result; get removed, exactcount prefixes for allbody/part/bracer/breastplate/frame/caller paths. StagingError source in GenerateError; do not stringwrap.",
+    "Both scratch APIs use BufferLabel; Armor uses BufferByteLength minnativeu32word, Metal BufferElementCount/fixednativeword stride min1; dispatch InvocationCount; nearest QueryCount/MeshVertexCount/PointSelection::All(payload).",
+    "Armor manifest direct anyhow1.0 +fabelgeist-mesh path; peer owns canonical Cargo.lock matching packageedges, no versionbumps.",
+    "GenerateError::Gpu holds #[source]anyhow::Error; MetalDeviceError retains #[source]anyhow::Error. Finish every former String/cached/reconstructed error path without Error::msg bridges.",
+    "Metal open now uses compute-only context: no unused presentation pipeline setup. Actual adapter/device/surface sources preserved; original browser JS value retained in BrowserContextError, no new atomics guarantee."
+  ],
+  "validation": [
+    "Targeted rustfmt completed; git diff --check passed. No local project checks/build/tests/scanner/generator/runtime, source push or CI request.",
+    "Existing inline Buffer readback/context test modules byte-identical parent; DevicePart body byte-identical; no new cases/helpers/assertions/doctests. Metal tests module unchanged.",
+    "All13 lower receiving discovery recorded before repairs; complete combined candidate210 reconciliation, repeated post waves/independent reviews and required hosted gates still required on final pushed SHA."
+  ],
+  "required_remaining": [
+    "Root source checkpoint independent Code/Rule/Comment and full post all13",
+    "Peer complete canonical/caller/material/count/error/cache/render/Readback producer integration",
+    "Original826tests/doctests/workflow and no-additions provenance disposition preserved",
+    "Required native/Wasm/fmt/lint/quality/baseline/existingtests hosted gates at finalsamepushedSHA, no merge"
+  ]
+}

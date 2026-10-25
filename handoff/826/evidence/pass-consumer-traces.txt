@@ -1,0 +1,766 @@
+crates/fabelgeist-mesh/src/gpu.rs-225-            "depth_samp".to_string(),
+crates/fabelgeist-mesh/src/gpu.rs-226-            PassParameter::from(Sampler::new(context, None, None, None, None, None)?),
+crates/fabelgeist-mesh/src/gpu.rs-227-        );
+crates/fabelgeist-mesh/src/gpu.rs-228-
+crates/fabelgeist-mesh/src/gpu.rs-229-        parameters.insert("projection".to_string(), PassParameter::from(projection));
+crates/fabelgeist-mesh/src/gpu.rs-230-        parameters.insert(
+crates/fabelgeist-mesh/src/gpu.rs-231-            "inv_projection".to_string(),
+crates/fabelgeist-mesh/src/gpu.rs-232-            PassParameter::from(inv_projection),
+crates/fabelgeist-mesh/src/gpu.rs-233-        );
+crates/fabelgeist-mesh/src/gpu.rs-234-        parameters.insert("strength".to_string(), PassParameter::from(strength as f32));
+crates/fabelgeist-mesh/src/gpu.rs-235-
+crates/fabelgeist-mesh/src/gpu.rs-236-        parameters.insert("out_pos".to_string(), buf(out_pos_buf.clone()));
+crates/fabelgeist-mesh/src/gpu.rs-237-
+crates/fabelgeist-mesh/src/gpu.rs-238-        let workgroups = (u64::from(pos_core.size) as u32 / 12).div_ceil(64);
+crates/fabelgeist-mesh/src/gpu.rs:239:        ComputePass::dispatch(
+crates/fabelgeist-mesh/src/gpu.rs-240-            context,
+crates/fabelgeist-mesh/src/gpu.rs-241-            pipeline.clone(),
+crates/fabelgeist-mesh/src/gpu.rs-242-            PassParameters::from(parameters),
+crates/fabelgeist-mesh/src/gpu.rs-243-            workgroups,
+crates/fabelgeist-mesh/src/gpu.rs-244-            1,
+crates/fabelgeist-mesh/src/gpu.rs-245-            1,
+crates/fabelgeist-mesh/src/gpu.rs-246-        )?;
+crates/fabelgeist-mesh/src/gpu.rs-247-
+crates/fabelgeist-mesh/src/gpu.rs-248-        Ok(GpuMesh {
+crates/fabelgeist-mesh/src/gpu.rs-249-            positions: out_pos_buf,
+crates/fabelgeist-mesh/src/gpu.rs-250-            normals: source.normals,
+crates/fabelgeist-mesh/src/gpu.rs-251-            tex_coords: source.tex_coords,
+crates/fabelgeist-mesh/src/gpu.rs-252-            indices: source.indices,
+crates/fabelgeist-mesh/src/gpu.rs-253-            joints: source.joints,
+crates/fabelgeist-mesh/src/gpu.rs-254-            weights: source.weights,
+crates/fabelgeist-mesh/src/gpu.rs-255-            vertex_count: source.vertex_count,
+crates/fabelgeist-mesh/src/gpu.rs-256-            topology: source.topology,
+--
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-170-            "output",
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-171-            match output {
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-172-                GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-173-                _ => return Err(anyhow!("Output must be a Texture2d")),
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-174-            },
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-175-        );
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-176-
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-177-        parameters.insert("amount", amount);
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-178-
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-179-        let (wg_x, wg_y, wg_z) = match output {
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-180-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-181-            _ => unreachable!(),
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-182-        };
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-183-
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs:184:        crate::data::gpu::compute::ComputePass::dispatch(
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-185-            context,
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-186-            pipeline.as_ref().clone(),
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-187-            parameters,
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-188-            wg_x,
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-189-            wg_y,
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-190-            wg_z,
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-191-        )?;
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-192-
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-193-        Ok(())
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-194-    }
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-195-}
+--
+crates/fabelgeist-compute/src/stencil.rs-982-                parameters.insert("input", t.clone());
+crates/fabelgeist-compute/src/stencil.rs-983-            }
+crates/fabelgeist-compute/src/stencil.rs-984-        }
+crates/fabelgeist-compute/src/stencil.rs-985-
+crates/fabelgeist-compute/src/stencil.rs-986-        let (wg_x, wg_y, wg_z) = match output {
+crates/fabelgeist-compute/src/stencil.rs-987-            GpuResource::Buffer(_) => ((output_num_elements as u32).div_ceil(64), 1, 1),
+crates/fabelgeist-compute/src/stencil.rs-988-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/stencil.rs-989-            GpuResource::Texture3d(t) => (
+crates/fabelgeist-compute/src/stencil.rs-990-                t.size.0.div_ceil(8),
+crates/fabelgeist-compute/src/stencil.rs-991-                t.size.1.div_ceil(8),
+crates/fabelgeist-compute/src/stencil.rs-992-                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/stencil.rs-993-            ),
+crates/fabelgeist-compute/src/stencil.rs-994-        };
+crates/fabelgeist-compute/src/stencil.rs-995-
+crates/fabelgeist-compute/src/stencil.rs:996:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/stencil.rs-997-            context,
+crates/fabelgeist-compute/src/stencil.rs-998-            pipeline.clone(),
+crates/fabelgeist-compute/src/stencil.rs-999-            parameters,
+crates/fabelgeist-compute/src/stencil.rs-1000-            wg_x,
+crates/fabelgeist-compute/src/stencil.rs-1001-            wg_y,
+crates/fabelgeist-compute/src/stencil.rs-1002-            wg_z,
+crates/fabelgeist-compute/src/stencil.rs-1003-        )?;
+crates/fabelgeist-compute/src/stencil.rs-1004-
+crates/fabelgeist-compute/src/stencil.rs-1005-        Ok(())
+crates/fabelgeist-compute/src/stencil.rs-1006-    }
+crates/fabelgeist-compute/src/stencil.rs-1007-}
+crates/fabelgeist-compute/src/stencil.rs-1008-
+crates/fabelgeist-compute/src/stencil.rs-1009-#[cfg(test)]
+crates/fabelgeist-compute/src/stencil.rs-1010-mod tests {
+crates/fabelgeist-compute/src/stencil.rs-1011-    use super::*;
+crates/fabelgeist-compute/src/stencil.rs-1012-    use crate::test_utils::*;
+crates/fabelgeist-compute/src/stencil.rs-1013-    use fabelgeist_gpu::prelude::BufferUpload;
+--
+crates/fabelgeist-compute/src/reshape.rs-61-        match input {
+crates/fabelgeist-compute/src/reshape.rs-62-            GpuResource::Buffer(b) => parameters.insert("input", b.clone()),
+crates/fabelgeist-compute/src/reshape.rs-63-            _ => return Err(anyhow::anyhow!("Reshape input must be a buffer")),
+crates/fabelgeist-compute/src/reshape.rs-64-        }
+crates/fabelgeist-compute/src/reshape.rs-65-        match output {
+crates/fabelgeist-compute/src/reshape.rs-66-            GpuResource::Buffer(b) => parameters.insert("output", b.clone()),
+crates/fabelgeist-compute/src/reshape.rs-67-            _ => return Err(anyhow::anyhow!("Reshape output must be a buffer")),
+crates/fabelgeist-compute/src/reshape.rs-68-        }
+crates/fabelgeist-compute/src/reshape.rs-69-
+crates/fabelgeist-compute/src/reshape.rs-70-        let wg_x = match output {
+crates/fabelgeist-compute/src/reshape.rs-71-            GpuResource::Buffer(b) => ((u64::from(b.size) / 4) as u32).div_ceil(64),
+crates/fabelgeist-compute/src/reshape.rs-72-            _ => 1,
+crates/fabelgeist-compute/src/reshape.rs-73-        };
+crates/fabelgeist-compute/src/reshape.rs-74-
+crates/fabelgeist-compute/src/reshape.rs:75:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/reshape.rs-76-            context, pipeline, parameters, wg_x, 1, 1,
+crates/fabelgeist-compute/src/reshape.rs-77-        )?;
+crates/fabelgeist-compute/src/reshape.rs-78-
+crates/fabelgeist-compute/src/reshape.rs-79-        Ok(())
+crates/fabelgeist-compute/src/reshape.rs-80-    }
+crates/fabelgeist-compute/src/reshape.rs-81-}
+--
+crates/fabelgeist-compute/src/scatter.rs-378-                parameters.insert("output", t.clone());
+crates/fabelgeist-compute/src/scatter.rs-379-            }
+crates/fabelgeist-compute/src/scatter.rs-380-        }
+crates/fabelgeist-compute/src/scatter.rs-381-
+crates/fabelgeist-compute/src/scatter.rs-382-        let (wg_x, wg_y, wg_z) = match input {
+crates/fabelgeist-compute/src/scatter.rs-383-            GpuResource::Buffer(_) => ((input_num_elements as u32).div_ceil(64), 1, 1),
+crates/fabelgeist-compute/src/scatter.rs-384-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/scatter.rs-385-            GpuResource::Texture3d(t) => (
+crates/fabelgeist-compute/src/scatter.rs-386-                t.size.0.div_ceil(4),
+crates/fabelgeist-compute/src/scatter.rs-387-                t.size.1.div_ceil(4),
+crates/fabelgeist-compute/src/scatter.rs-388-                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/scatter.rs-389-            ),
+crates/fabelgeist-compute/src/scatter.rs-390-        };
+crates/fabelgeist-compute/src/scatter.rs-391-
+crates/fabelgeist-compute/src/scatter.rs:392:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scatter.rs-393-            context,
+crates/fabelgeist-compute/src/scatter.rs-394-            pipeline.clone(),
+crates/fabelgeist-compute/src/scatter.rs-395-            parameters,
+crates/fabelgeist-compute/src/scatter.rs-396-            wg_x,
+crates/fabelgeist-compute/src/scatter.rs-397-            wg_y,
+crates/fabelgeist-compute/src/scatter.rs-398-            wg_z,
+crates/fabelgeist-compute/src/scatter.rs-399-        )?;
+crates/fabelgeist-compute/src/scatter.rs-400-
+crates/fabelgeist-compute/src/scatter.rs-401-        Ok(())
+crates/fabelgeist-compute/src/scatter.rs-402-    }
+crates/fabelgeist-compute/src/scatter.rs-403-}
+--
+crates/fabelgeist-compute/src/reduce/mod.rs-294-                    parameters.insert("input", t.clone())
+crates/fabelgeist-compute/src/reduce/mod.rs-295-                }
+crates/fabelgeist-compute/src/reduce/mod.rs-296-                fabelgeist_gpu::data::gpu::resource::GpuResource::Texture3d(t) => {
+crates/fabelgeist-compute/src/reduce/mod.rs-297-                    parameters.insert("input", t.clone())
+crates/fabelgeist-compute/src/reduce/mod.rs-298-                }
+crates/fabelgeist-compute/src/reduce/mod.rs-299-            }
+crates/fabelgeist-compute/src/reduce/mod.rs-300-            parameters.insert("output", output_buffer.clone());
+crates/fabelgeist-compute/src/reduce/mod.rs-301-
+crates/fabelgeist-compute/src/reduce/mod.rs-302-            let pipeline = if pass_idx == 0 {
+crates/fabelgeist-compute/src/reduce/mod.rs-303-                &first_pass_pipeline
+crates/fabelgeist-compute/src/reduce/mod.rs-304-            } else {
+crates/fabelgeist-compute/src/reduce/mod.rs-305-                &standard_pipeline
+crates/fabelgeist-compute/src/reduce/mod.rs-306-            };
+crates/fabelgeist-compute/src/reduce/mod.rs-307-
+crates/fabelgeist-compute/src/reduce/mod.rs:308:            fabelgeist_gpu::data::gpu::ComputePass::record(
+crates/fabelgeist-compute/src/reduce/mod.rs-309-                context,
+crates/fabelgeist-compute/src/reduce/mod.rs-310-                pipeline,
+crates/fabelgeist-compute/src/reduce/mod.rs-311-                &parameters,
+crates/fabelgeist-compute/src/reduce/mod.rs-312-                &mut encoder,
+crates/fabelgeist-compute/src/reduce/mod.rs-313-                workgroup_count,
+crates/fabelgeist-compute/src/reduce/mod.rs-314-                1,
+crates/fabelgeist-compute/src/reduce/mod.rs-315-                1,
+crates/fabelgeist-compute/src/reduce/mod.rs-316-            )?;
+crates/fabelgeist-compute/src/reduce/mod.rs-317-
+crates/fabelgeist-compute/src/reduce/mod.rs-318-            current_buffer = Some(output_buffer.clone());
+crates/fabelgeist-compute/src/reduce/mod.rs-319-            current_resource =
+crates/fabelgeist-compute/src/reduce/mod.rs-320-                fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(output_buffer.clone());
+crates/fabelgeist-compute/src/reduce/mod.rs-321-            current_element_count = workgroup_count;
+crates/fabelgeist-compute/src/reduce/mod.rs-322-            pass_idx += 1;
+crates/fabelgeist-compute/src/reduce/mod.rs-323-        }
+crates/fabelgeist-compute/src/reduce/mod.rs-324-
+crates/fabelgeist-compute/src/reduce/mod.rs-325-        let final_buffer = fabelgeist_gpu::data::gpu::Buffer::new(
+--
+crates/fabelgeist-compute/src/map/mod.rs-546-                }
+crates/fabelgeist-compute/src/map/mod.rs-547-            }
+crates/fabelgeist-compute/src/map/mod.rs-548-        }
+crates/fabelgeist-compute/src/map/mod.rs-549-
+crates/fabelgeist-compute/src/map/mod.rs-550-        let (wg_x, wg_y, wg_z) = match output {
+crates/fabelgeist-compute/src/map/mod.rs-551-            GpuResource::Buffer(_) => ((output_num_elements as u32).div_ceil(64), 1, 1),
+crates/fabelgeist-compute/src/map/mod.rs-552-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/map/mod.rs-553-            GpuResource::Texture3d(t) => (
+crates/fabelgeist-compute/src/map/mod.rs-554-                t.size.0.div_ceil(8),
+crates/fabelgeist-compute/src/map/mod.rs-555-                t.size.1.div_ceil(8),
+crates/fabelgeist-compute/src/map/mod.rs-556-                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/map/mod.rs-557-            ),
+crates/fabelgeist-compute/src/map/mod.rs-558-        };
+crates/fabelgeist-compute/src/map/mod.rs-559-
+crates/fabelgeist-compute/src/map/mod.rs:560:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/map/mod.rs-561-            context,
+crates/fabelgeist-compute/src/map/mod.rs-562-            pipeline.clone(),
+crates/fabelgeist-compute/src/map/mod.rs-563-            parameters,
+crates/fabelgeist-compute/src/map/mod.rs-564-            wg_x,
+crates/fabelgeist-compute/src/map/mod.rs-565-            wg_y,
+crates/fabelgeist-compute/src/map/mod.rs-566-            wg_z,
+crates/fabelgeist-compute/src/map/mod.rs-567-        )?;
+crates/fabelgeist-compute/src/map/mod.rs-568-
+crates/fabelgeist-compute/src/map/mod.rs-569-        Ok(())
+crates/fabelgeist-compute/src/map/mod.rs-570-    }
+crates/fabelgeist-compute/src/map/mod.rs-571-}
+crates/fabelgeist-compute/src/map/mod.rs-572-
+crates/fabelgeist-compute/src/map/mod.rs-573-#[cfg(test)]
+crates/fabelgeist-compute/src/map/mod.rs-574-mod tests;
+--
+crates/fabelgeist-compute/src/transpose.rs-61-        match input {
+crates/fabelgeist-compute/src/transpose.rs-62-            GpuResource::Buffer(b) => parameters.insert("input", b.clone()),
+crates/fabelgeist-compute/src/transpose.rs-63-            _ => return Err(anyhow::anyhow!("Transpose input must be a buffer")),
+crates/fabelgeist-compute/src/transpose.rs-64-        }
+crates/fabelgeist-compute/src/transpose.rs-65-        match output {
+crates/fabelgeist-compute/src/transpose.rs-66-            GpuResource::Buffer(b) => parameters.insert("output", b.clone()),
+crates/fabelgeist-compute/src/transpose.rs-67-            _ => return Err(anyhow::anyhow!("Transpose output must be a buffer")),
+crates/fabelgeist-compute/src/transpose.rs-68-        }
+crates/fabelgeist-compute/src/transpose.rs-69-
+crates/fabelgeist-compute/src/transpose.rs-70-        let wg_x = match output {
+crates/fabelgeist-compute/src/transpose.rs-71-            GpuResource::Buffer(b) => ((u64::from(b.size) / 4) as u32).div_ceil(64),
+crates/fabelgeist-compute/src/transpose.rs-72-            _ => 1,
+crates/fabelgeist-compute/src/transpose.rs-73-        };
+crates/fabelgeist-compute/src/transpose.rs-74-
+crates/fabelgeist-compute/src/transpose.rs:75:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/transpose.rs-76-            context, pipeline, parameters, wg_x, 1, 1,
+crates/fabelgeist-compute/src/transpose.rs-77-        )?;
+crates/fabelgeist-compute/src/transpose.rs-78-
+crates/fabelgeist-compute/src/transpose.rs-79-        Ok(())
+crates/fabelgeist-compute/src/transpose.rs-80-    }
+crates/fabelgeist-compute/src/transpose.rs-81-}
+--
+crates/fabelgeist-compute/src/stream/mod.rs-335-        let (workgroups_x, workgroups_y, workgroups_z) = match input {
+crates/fabelgeist-compute/src/stream/mod.rs-336-            GpuResource::Buffer(_b) => (
+crates/fabelgeist-compute/src/stream/mod.rs-337-                ((u64::from(inclusive_offsets.size) / 4) as u32).div_ceil(64),
+crates/fabelgeist-compute/src/stream/mod.rs-338-                1,
+crates/fabelgeist-compute/src/stream/mod.rs-339-                1,
+crates/fabelgeist-compute/src/stream/mod.rs-340-            ),
+crates/fabelgeist-compute/src/stream/mod.rs-341-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/stream/mod.rs-342-            GpuResource::Texture3d(t) => (
+crates/fabelgeist-compute/src/stream/mod.rs-343-                t.size.0.div_ceil(4),
+crates/fabelgeist-compute/src/stream/mod.rs-344-                t.size.1.div_ceil(4),
+crates/fabelgeist-compute/src/stream/mod.rs-345-                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/stream/mod.rs-346-            ),
+crates/fabelgeist-compute/src/stream/mod.rs-347-        };
+crates/fabelgeist-compute/src/stream/mod.rs-348-
+crates/fabelgeist-compute/src/stream/mod.rs:349:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/stream/mod.rs-350-            context,
+crates/fabelgeist-compute/src/stream/mod.rs-351-            pipeline.as_ref().clone(),
+crates/fabelgeist-compute/src/stream/mod.rs-352-            parameters,
+crates/fabelgeist-compute/src/stream/mod.rs-353-            workgroups_x,
+crates/fabelgeist-compute/src/stream/mod.rs-354-            workgroups_y,
+crates/fabelgeist-compute/src/stream/mod.rs-355-            workgroups_z,
+crates/fabelgeist-compute/src/stream/mod.rs-356-        )?;
+crates/fabelgeist-compute/src/stream/mod.rs-357-
+crates/fabelgeist-compute/src/stream/mod.rs-358-        Ok(())
+crates/fabelgeist-compute/src/stream/mod.rs-359-    }
+crates/fabelgeist-compute/src/stream/mod.rs-360-}
+crates/fabelgeist-compute/src/stream/mod.rs-361-
+crates/fabelgeist-compute/src/stream/mod.rs-362-#[cfg(test)]
+crates/fabelgeist-compute/src/stream/mod.rs-363-mod tests;
+--
+crates/fabelgeist-compute/src/gather/mod.rs-402-                parameters.insert("input", t.clone());
+crates/fabelgeist-compute/src/gather/mod.rs-403-            }
+crates/fabelgeist-compute/src/gather/mod.rs-404-        }
+crates/fabelgeist-compute/src/gather/mod.rs-405-
+crates/fabelgeist-compute/src/gather/mod.rs-406-        let (wg_x, wg_y, wg_z) = match output {
+crates/fabelgeist-compute/src/gather/mod.rs-407-            GpuResource::Buffer(_) => ((output_num_elements as u32).div_ceil(64), 1, 1),
+crates/fabelgeist-compute/src/gather/mod.rs-408-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/gather/mod.rs-409-            GpuResource::Texture3d(t) => (
+crates/fabelgeist-compute/src/gather/mod.rs-410-                t.size.0.div_ceil(4),
+crates/fabelgeist-compute/src/gather/mod.rs-411-                t.size.1.div_ceil(4),
+crates/fabelgeist-compute/src/gather/mod.rs-412-                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/gather/mod.rs-413-            ),
+crates/fabelgeist-compute/src/gather/mod.rs-414-        };
+crates/fabelgeist-compute/src/gather/mod.rs-415-
+crates/fabelgeist-compute/src/gather/mod.rs:416:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/gather/mod.rs-417-            context,
+crates/fabelgeist-compute/src/gather/mod.rs-418-            pipeline.clone(),
+crates/fabelgeist-compute/src/gather/mod.rs-419-            parameters,
+crates/fabelgeist-compute/src/gather/mod.rs-420-            wg_x,
+crates/fabelgeist-compute/src/gather/mod.rs-421-            wg_y,
+crates/fabelgeist-compute/src/gather/mod.rs-422-            wg_z,
+crates/fabelgeist-compute/src/gather/mod.rs-423-        )?;
+crates/fabelgeist-compute/src/gather/mod.rs-424-
+crates/fabelgeist-compute/src/gather/mod.rs-425-        Ok(())
+crates/fabelgeist-compute/src/gather/mod.rs-426-    }
+crates/fabelgeist-compute/src/gather/mod.rs-427-}
+crates/fabelgeist-compute/src/gather/mod.rs-428-
+crates/fabelgeist-compute/src/gather/mod.rs-429-#[cfg(test)]
+crates/fabelgeist-compute/src/gather/mod.rs-430-mod tests;
+--
+crates/fabelgeist-compute/src/broadcast.rs-61-        match input {
+crates/fabelgeist-compute/src/broadcast.rs-62-            GpuResource::Buffer(b) => parameters.insert("input", b.clone()),
+crates/fabelgeist-compute/src/broadcast.rs-63-            _ => return Err(anyhow::anyhow!("Broadcast input must be a buffer")),
+crates/fabelgeist-compute/src/broadcast.rs-64-        }
+crates/fabelgeist-compute/src/broadcast.rs-65-        match output {
+crates/fabelgeist-compute/src/broadcast.rs-66-            GpuResource::Buffer(b) => parameters.insert("output", b.clone()),
+crates/fabelgeist-compute/src/broadcast.rs-67-            _ => return Err(anyhow::anyhow!("Broadcast output must be a buffer")),
+crates/fabelgeist-compute/src/broadcast.rs-68-        }
+crates/fabelgeist-compute/src/broadcast.rs-69-
+crates/fabelgeist-compute/src/broadcast.rs-70-        let wg_x = match output {
+crates/fabelgeist-compute/src/broadcast.rs-71-            GpuResource::Buffer(b) => ((u64::from(b.size) / 4) as u32).div_ceil(64),
+crates/fabelgeist-compute/src/broadcast.rs-72-            _ => 1,
+crates/fabelgeist-compute/src/broadcast.rs-73-        };
+crates/fabelgeist-compute/src/broadcast.rs-74-
+crates/fabelgeist-compute/src/broadcast.rs:75:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/broadcast.rs-76-            context, pipeline, parameters, wg_x, 1, 1,
+crates/fabelgeist-compute/src/broadcast.rs-77-        )?;
+crates/fabelgeist-compute/src/broadcast.rs-78-
+crates/fabelgeist-compute/src/broadcast.rs-79-        Ok(())
+crates/fabelgeist-compute/src/broadcast.rs-80-    }
+crates/fabelgeist-compute/src/broadcast.rs-81-}
+--
+crates/fabelgeist-compute/src/gradient/mod.rs-229-        );
+crates/fabelgeist-compute/src/gradient/mod.rs-230-
+crates/fabelgeist-compute/src/gradient/mod.rs-231-        parameters.insert("half_inverse_cell_size", half_inverse_cell_size);
+crates/fabelgeist-compute/src/gradient/mod.rs-232-
+crates/fabelgeist-compute/src/gradient/mod.rs-233-        let (wg_x, wg_y, wg_z) = match output {
+crates/fabelgeist-compute/src/gradient/mod.rs-234-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/gradient/mod.rs-235-            GpuResource::Texture3d(t) => (
+crates/fabelgeist-compute/src/gradient/mod.rs-236-                t.size.0.div_ceil(8),
+crates/fabelgeist-compute/src/gradient/mod.rs-237-                t.size.1.div_ceil(8),
+crates/fabelgeist-compute/src/gradient/mod.rs-238-                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/gradient/mod.rs-239-            ),
+crates/fabelgeist-compute/src/gradient/mod.rs-240-            _ => unreachable!(),
+crates/fabelgeist-compute/src/gradient/mod.rs-241-        };
+crates/fabelgeist-compute/src/gradient/mod.rs-242-
+crates/fabelgeist-compute/src/gradient/mod.rs:243:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/gradient/mod.rs-244-            context,
+crates/fabelgeist-compute/src/gradient/mod.rs-245-            pipeline.as_ref().clone(),
+crates/fabelgeist-compute/src/gradient/mod.rs-246-            parameters,
+crates/fabelgeist-compute/src/gradient/mod.rs-247-            wg_x,
+crates/fabelgeist-compute/src/gradient/mod.rs-248-            wg_y,
+crates/fabelgeist-compute/src/gradient/mod.rs-249-            wg_z,
+crates/fabelgeist-compute/src/gradient/mod.rs-250-        )?;
+crates/fabelgeist-compute/src/gradient/mod.rs-251-
+crates/fabelgeist-compute/src/gradient/mod.rs-252-        Ok(())
+crates/fabelgeist-compute/src/gradient/mod.rs-253-    }
+crates/fabelgeist-compute/src/gradient/mod.rs-254-}
+--
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-241-            (max_vertices as u64 * 12).into(), // vec3 norm
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-242-            fabelgeist_gpu::data::BufferDefinition::storage()
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-243-                .with_label(("dual_contouring_normals").into())
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-244-                .with_usage(BufferUse::CopySource)
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-245-                .with_usage(BufferUse::CopyDestination)
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-246-                .with_usage(BufferUse::Vertex),
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-247-        )?;
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-248-
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-249-        let mut deinterleave_params = PassParameters::new();
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-250-        deinterleave_params.insert("vertices", PassParameter::from(output_vertices));
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-251-        deinterleave_params.insert("out_positions", PassParameter::from(out_positions.clone()));
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-252-        deinterleave_params.insert("out_normals", PassParameter::from(out_normals.clone()));
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-253-
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-254-        let workgroups_x = max_vertices.div_ceil(64);
+crates/fabelgeist-compute/src/dual_contouring/execution.rs:255:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-256-            context,
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-257-            definition.deinterleave_pipeline.clone(),
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-258-            deinterleave_params,
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-259-            workgroups_x,
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-260-            1,
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-261-            1,
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-262-        )?;
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-263-
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-264-        Ok((out_positions, out_normals, output_indices, output_indirect))
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-265-    }
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-266-}
+--
+crates/fabelgeist-compute/src/divergence/mod.rs-190-        );
+crates/fabelgeist-compute/src/divergence/mod.rs-191-
+crates/fabelgeist-compute/src/divergence/mod.rs-192-        parameters.insert("half_inverse_cell_size", half_inverse_cell_size);
+crates/fabelgeist-compute/src/divergence/mod.rs-193-
+crates/fabelgeist-compute/src/divergence/mod.rs-194-        let (wg_x, wg_y, wg_z) = match output {
+crates/fabelgeist-compute/src/divergence/mod.rs-195-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/divergence/mod.rs-196-            GpuResource::Texture3d(t) => (
+crates/fabelgeist-compute/src/divergence/mod.rs-197-                t.size.0.div_ceil(8),
+crates/fabelgeist-compute/src/divergence/mod.rs-198-                t.size.1.div_ceil(8),
+crates/fabelgeist-compute/src/divergence/mod.rs-199-                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/divergence/mod.rs-200-            ),
+crates/fabelgeist-compute/src/divergence/mod.rs-201-            _ => unreachable!(),
+crates/fabelgeist-compute/src/divergence/mod.rs-202-        };
+crates/fabelgeist-compute/src/divergence/mod.rs-203-
+crates/fabelgeist-compute/src/divergence/mod.rs:204:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/divergence/mod.rs-205-            context,
+crates/fabelgeist-compute/src/divergence/mod.rs-206-            pipeline.as_ref().clone(),
+crates/fabelgeist-compute/src/divergence/mod.rs-207-            parameters,
+crates/fabelgeist-compute/src/divergence/mod.rs-208-            wg_x,
+crates/fabelgeist-compute/src/divergence/mod.rs-209-            wg_y,
+crates/fabelgeist-compute/src/divergence/mod.rs-210-            wg_z,
+crates/fabelgeist-compute/src/divergence/mod.rs-211-        )?;
+crates/fabelgeist-compute/src/divergence/mod.rs-212-
+crates/fabelgeist-compute/src/divergence/mod.rs-213-        Ok(())
+crates/fabelgeist-compute/src/divergence/mod.rs-214-    }
+crates/fabelgeist-compute/src/divergence/mod.rs-215-}
+--
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-439-            (max_vertices as u64 * 12).into(), // vec3 norm
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-440-            fabelgeist_gpu::data::BufferDefinition::storage()
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-441-                .with_label(("marching_cubes_normals").into())
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-442-                .with_usage(BufferUse::CopySource)
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-443-                .with_usage(BufferUse::CopyDestination)
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-444-                .with_usage(BufferUse::Vertex),
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-445-        )?;
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-446-
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-447-        let mut deinterleave_params = PassParameters::new();
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-448-        deinterleave_params.insert("vertices", PassParameter::from(output_vertices));
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-449-        deinterleave_params.insert("out_positions", PassParameter::from(out_positions.clone()));
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-450-        deinterleave_params.insert("out_normals", PassParameter::from(out_normals.clone()));
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-451-
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-452-        let workgroups_x = max_vertices.div_ceil(64);
+crates/fabelgeist-compute/src/marching_cubes/mod.rs:453:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-454-            context,
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-455-            definition.deinterleave_pipeline.clone(),
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-456-            deinterleave_params,
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-457-            workgroups_x,
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-458-            1,
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-459-            1,
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-460-        )?;
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-461-
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-462-        Ok((out_positions, out_normals, output_indirect))
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-463-    }
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-464-}
+--
+crates/fabelgeist-compute/src/scan.rs-177-            let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
+crates/fabelgeist-compute/src/scan.rs-178-            parameters.insert("input", input.clone());
+crates/fabelgeist-compute/src/scan.rs-179-            parameters.insert("output", output.clone());
+crates/fabelgeist-compute/src/scan.rs-180-
+crates/fabelgeist-compute/src/scan.rs-181-            let aux = fabelgeist_gpu::data::gpu::Buffer::new(
+crates/fabelgeist-compute/src/scan.rs-182-                context,
+crates/fabelgeist-compute/src/scan.rs-183-                (4u64).into(),
+crates/fabelgeist-compute/src/scan.rs-184-                fabelgeist_gpu::data::BufferDefinition::storage()
+crates/fabelgeist-compute/src/scan.rs-185-                    .with_label(("aux").into())
+crates/fabelgeist-compute/src/scan.rs-186-                    .with_usage(BufferUse::CopySource)
+crates/fabelgeist-compute/src/scan.rs-187-                    .with_usage(BufferUse::CopyDestination),
+crates/fabelgeist-compute/src/scan.rs-188-            )?;
+crates/fabelgeist-compute/src/scan.rs-189-            parameters.insert("aux", aux);
+crates/fabelgeist-compute/src/scan.rs-190-
+crates/fabelgeist-compute/src/scan.rs:191:            fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scan.rs-192-                context,
+crates/fabelgeist-compute/src/scan.rs-193-                scan_blocks_pipeline,
+crates/fabelgeist-compute/src/scan.rs-194-                parameters,
+crates/fabelgeist-compute/src/scan.rs-195-                1,
+crates/fabelgeist-compute/src/scan.rs-196-                1,
+crates/fabelgeist-compute/src/scan.rs-197-                1,
+crates/fabelgeist-compute/src/scan.rs-198-            )?;
+crates/fabelgeist-compute/src/scan.rs-199-        } else {
+crates/fabelgeist-compute/src/scan.rs-200-            let aux = fabelgeist_gpu::data::gpu::Buffer::new(
+crates/fabelgeist-compute/src/scan.rs-201-                context,
+crates/fabelgeist-compute/src/scan.rs-202-                ((num_blocks as u64) * 4).into(),
+crates/fabelgeist-compute/src/scan.rs-203-                fabelgeist_gpu::data::BufferDefinition::storage()
+crates/fabelgeist-compute/src/scan.rs-204-                    .with_label(("aux").into())
+crates/fabelgeist-compute/src/scan.rs-205-                    .with_usage(BufferUse::CopySource)
+crates/fabelgeist-compute/src/scan.rs-206-                    .with_usage(BufferUse::CopyDestination),
+crates/fabelgeist-compute/src/scan.rs-207-            )?;
+crates/fabelgeist-compute/src/scan.rs-208-
+crates/fabelgeist-compute/src/scan.rs-209-            // Pass 1
+crates/fabelgeist-compute/src/scan.rs-210-            let mut parameters_p1 = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
+crates/fabelgeist-compute/src/scan.rs-211-            parameters_p1.insert("input", input.clone());
+crates/fabelgeist-compute/src/scan.rs-212-            parameters_p1.insert("output", output.clone());
+crates/fabelgeist-compute/src/scan.rs-213-            parameters_p1.insert("aux", aux.clone());
+crates/fabelgeist-compute/src/scan.rs-214-
+crates/fabelgeist-compute/src/scan.rs:215:            fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scan.rs-216-                context,
+crates/fabelgeist-compute/src/scan.rs-217-                scan_blocks_pipeline.clone(),
+crates/fabelgeist-compute/src/scan.rs-218-                parameters_p1,
+crates/fabelgeist-compute/src/scan.rs-219-                num_blocks,
+crates/fabelgeist-compute/src/scan.rs-220-                1,
+crates/fabelgeist-compute/src/scan.rs-221-                1,
+crates/fabelgeist-compute/src/scan.rs-222-            )?;
+crates/fabelgeist-compute/src/scan.rs-223-
+crates/fabelgeist-compute/src/scan.rs-224-            // Pass 2
+crates/fabelgeist-compute/src/scan.rs-225-            let mut aux_buffers = vec![aux.clone()];
+crates/fabelgeist-compute/src/scan.rs-226-            let mut current_num_blocks = num_blocks;
+crates/fabelgeist-compute/src/scan.rs-227-
+crates/fabelgeist-compute/src/scan.rs-228-            while current_num_blocks > 1 {
+crates/fabelgeist-compute/src/scan.rs-229-                let next_num_blocks = current_num_blocks.div_ceil(block_size);
+crates/fabelgeist-compute/src/scan.rs-230-                let next_aux = fabelgeist_gpu::data::gpu::Buffer::new(
+crates/fabelgeist-compute/src/scan.rs-231-                    context,
+crates/fabelgeist-compute/src/scan.rs-232-                    ((next_num_blocks as u64) * 4).into(),
+--
+crates/fabelgeist-compute/src/scan.rs-241-                    ((current_num_blocks as u64) * 4).into(),
+crates/fabelgeist-compute/src/scan.rs-242-                    fabelgeist_gpu::data::BufferDefinition::storage()
+crates/fabelgeist-compute/src/scan.rs-243-                        .with_label(("scanned_aux").into())
+crates/fabelgeist-compute/src/scan.rs-244-                        .with_usage(BufferUse::CopySource)
+crates/fabelgeist-compute/src/scan.rs-245-                        .with_usage(BufferUse::CopyDestination),
+crates/fabelgeist-compute/src/scan.rs-246-                )?;
+crates/fabelgeist-compute/src/scan.rs-247-
+crates/fabelgeist-compute/src/scan.rs-248-                let mut parameters_p2 =
+crates/fabelgeist-compute/src/scan.rs-249-                    fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
+crates/fabelgeist-compute/src/scan.rs-250-                let last_aux = aux_buffers.last().unwrap();
+crates/fabelgeist-compute/src/scan.rs-251-                parameters_p2.insert("input", last_aux.clone());
+crates/fabelgeist-compute/src/scan.rs-252-                parameters_p2.insert("output", scanned_aux.clone());
+crates/fabelgeist-compute/src/scan.rs-253-                parameters_p2.insert("aux", next_aux.clone());
+crates/fabelgeist-compute/src/scan.rs-254-
+crates/fabelgeist-compute/src/scan.rs:255:                fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scan.rs-256-                    context,
+crates/fabelgeist-compute/src/scan.rs-257-                    scan_blocks_pipeline.clone(),
+crates/fabelgeist-compute/src/scan.rs-258-                    parameters_p2,
+crates/fabelgeist-compute/src/scan.rs-259-                    next_num_blocks,
+crates/fabelgeist-compute/src/scan.rs-260-                    1,
+crates/fabelgeist-compute/src/scan.rs-261-                    1,
+crates/fabelgeist-compute/src/scan.rs-262-                )?;
+crates/fabelgeist-compute/src/scan.rs-263-
+crates/fabelgeist-compute/src/scan.rs-264-                let last_idx = aux_buffers.len() - 1;
+crates/fabelgeist-compute/src/scan.rs-265-                aux_buffers[last_idx] = scanned_aux;
+crates/fabelgeist-compute/src/scan.rs-266-
+crates/fabelgeist-compute/src/scan.rs-267-                aux_buffers.push(next_aux);
+crates/fabelgeist-compute/src/scan.rs-268-                current_num_blocks = next_num_blocks;
+crates/fabelgeist-compute/src/scan.rs-269-            }
+crates/fabelgeist-compute/src/scan.rs-270-
+crates/fabelgeist-compute/src/scan.rs-271-            // Pass 3
+crates/fabelgeist-compute/src/scan.rs-272-            aux_buffers.pop();
+crates/fabelgeist-compute/src/scan.rs-273-
+crates/fabelgeist-compute/src/scan.rs-274-            while let Some(current_aux) = aux_buffers.pop() {
+crates/fabelgeist-compute/src/scan.rs-275-                let mut parameters_p3 =
+crates/fabelgeist-compute/src/scan.rs-276-                    fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
+crates/fabelgeist-compute/src/scan.rs-277-
+crates/fabelgeist-compute/src/scan.rs-278-                if aux_buffers.is_empty() {
+crates/fabelgeist-compute/src/scan.rs-279-                    parameters_p3.insert("output", output.clone());
+crates/fabelgeist-compute/src/scan.rs-280-                    parameters_p3.insert("aux", current_aux.clone());
+crates/fabelgeist-compute/src/scan.rs-281-
+crates/fabelgeist-compute/src/scan.rs:282:                    fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scan.rs-283-                        context,
+crates/fabelgeist-compute/src/scan.rs-284-                        add_aux_pipeline.clone(),
+crates/fabelgeist-compute/src/scan.rs-285-                        parameters_p3,
+crates/fabelgeist-compute/src/scan.rs-286-                        num_blocks,
+crates/fabelgeist-compute/src/scan.rs-287-                        1,
+crates/fabelgeist-compute/src/scan.rs-288-                        1,
+crates/fabelgeist-compute/src/scan.rs-289-                    )?;
+crates/fabelgeist-compute/src/scan.rs-290-                } else {
+crates/fabelgeist-compute/src/scan.rs-291-                    let target = aux_buffers.last().unwrap();
+crates/fabelgeist-compute/src/scan.rs-292-                    parameters_p3.insert("output", target.clone());
+crates/fabelgeist-compute/src/scan.rs-293-                    parameters_p3.insert("aux", current_aux.clone());
+crates/fabelgeist-compute/src/scan.rs-294-
+crates/fabelgeist-compute/src/scan.rs-295-                    let target_blocks = (u64::from(target.size) / 4) as u32;
+crates/fabelgeist-compute/src/scan.rs:296:                    fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scan.rs-297-                        context,
+crates/fabelgeist-compute/src/scan.rs-298-                        add_aux_pipeline.clone(),
+crates/fabelgeist-compute/src/scan.rs-299-                        parameters_p3,
+crates/fabelgeist-compute/src/scan.rs-300-                        target_blocks,
+crates/fabelgeist-compute/src/scan.rs-301-                        1,
+crates/fabelgeist-compute/src/scan.rs-302-                        1,
+crates/fabelgeist-compute/src/scan.rs-303-                    )?;
+crates/fabelgeist-compute/src/scan.rs-304-                }
+crates/fabelgeist-compute/src/scan.rs-305-            }
+crates/fabelgeist-compute/src/scan.rs-306-        }
+crates/fabelgeist-compute/src/scan.rs-307-
+crates/fabelgeist-compute/src/scan.rs-308-        Ok(output)
+crates/fabelgeist-compute/src/scan.rs-309-    }
+crates/fabelgeist-compute/src/scan.rs-310-}
+--
+crates/fabelgeist-compute/src/advect/mod.rs-299-
+crates/fabelgeist-compute/src/advect/mod.rs-300-        parameters.insert("size", size);
+crates/fabelgeist-compute/src/advect/mod.rs-301-        parameters.insert("dt", dt);
+crates/fabelgeist-compute/src/advect/mod.rs-302-
+crates/fabelgeist-compute/src/advect/mod.rs-303-        let (wg_x, wg_y, wg_z) = match output {
+crates/fabelgeist-compute/src/advect/mod.rs-304-            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/advect/mod.rs-305-            GpuResource::Texture3d(t) => (
+crates/fabelgeist-compute/src/advect/mod.rs-306-                t.size.0.div_ceil(8),
+crates/fabelgeist-compute/src/advect/mod.rs-307-                t.size.1.div_ceil(8),
+crates/fabelgeist-compute/src/advect/mod.rs-308-                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/advect/mod.rs-309-            ),
+crates/fabelgeist-compute/src/advect/mod.rs-310-            _ => unreachable!(),
+crates/fabelgeist-compute/src/advect/mod.rs-311-        };
+crates/fabelgeist-compute/src/advect/mod.rs-312-
+crates/fabelgeist-compute/src/advect/mod.rs:313:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/advect/mod.rs-314-            context,
+crates/fabelgeist-compute/src/advect/mod.rs-315-            pipeline.as_ref().clone(),
+crates/fabelgeist-compute/src/advect/mod.rs-316-            parameters,
+crates/fabelgeist-compute/src/advect/mod.rs-317-            wg_x,
+crates/fabelgeist-compute/src/advect/mod.rs-318-            wg_y,
+crates/fabelgeist-compute/src/advect/mod.rs-319-            wg_z,
+crates/fabelgeist-compute/src/advect/mod.rs-320-        )?;
+crates/fabelgeist-compute/src/advect/mod.rs-321-
+crates/fabelgeist-compute/src/advect/mod.rs-322-        Ok(())
+crates/fabelgeist-compute/src/advect/mod.rs-323-    }
+crates/fabelgeist-compute/src/advect/mod.rs-324-}
+--
+crates/fabelgeist-compute/src/kernel/fast.rs-1-//! The cached dispatch path.
+crates/fabelgeist-compute/src/kernel/fast.rs-2-//!
+crates/fabelgeist-compute/src/kernel/fast.rs:3://! [`ComputePass::record`] builds a uniform buffer and a bind group for every
+crates/fabelgeist-compute/src/kernel/fast.rs-4-//! dispatch. That is fine at a handful of dispatches per frame, which is what
+crates/fabelgeist-compute/src/kernel/fast.rs-5-//! the other primitives here do. A solver is different: an XPBD step is
+crates/fabelgeist-compute/src/kernel/fast.rs-6-//! substeps times constraint colours, comfortably five hundred dispatches in a
+crates/fabelgeist-compute/src/kernel/fast.rs-7-//! frame, and allocating two GPU objects for each of them costs more in CPU
+crates/fabelgeist-compute/src/kernel/fast.rs-8-//! time than the shaders cost on the GPU -- and, run at speed, exhausts the
+crates/fabelgeist-compute/src/kernel/fast.rs-9-//! allocator outright.
+crates/fabelgeist-compute/src/kernel/fast.rs-10-//!
+crates/fabelgeist-compute/src/kernel/fast.rs-11-//! So a [`Kernel`](super::Kernel) builds its own pipeline with a
+crates/fabelgeist-compute/src/kernel/fast.rs-12-//! **dynamic-offset** uniform and a ring of uniform slots, written by offset,
+crates/fabelgeist-compute/src/kernel/fast.rs-13-//! so the per-dispatch values cost a `write_buffer` into memory that already
+crates/fabelgeist-compute/src/kernel/fast.rs-14-//! exists rather than a fresh allocation.
+crates/fabelgeist-compute/src/kernel/fast.rs-15-//!
+crates/fabelgeist-compute/src/kernel/fast.rs-16-//! # The bind group is *not* cached, deliberately
+crates/fabelgeist-compute/src/kernel/fast.rs-17-//!
+crates/fabelgeist-compute/src/kernel/fast.rs-18-//! Caching it is the obvious next step and it is wrong. Reusing one bind group
+crates/fabelgeist-compute/src/kernel/fast.rs-19-//! across consecutive compute passes makes wgpu's resource tracker treat the
+crates/fabelgeist-compute/src/kernel/fast.rs-20-//! buffers as already in the right state, and it stops emitting the barrier
+crates/fabelgeist-compute/src/kernel/fast.rs-21-//! between them -- so a dispatch can start reading what the previous one has
+crates/fabelgeist-compute/src/kernel/fast.rs-22-//! not finished writing. It shows up as a solver that is subtly, intermittently
+crates/fabelgeist-compute/src/kernel/fast.rs-23-//! wrong: in the case that found this, a refit BVH that had lost a few
+crates/fabelgeist-compute/src/kernel/fast.rs-24-//! primitives, failing about two runs in three.
+crates/fabelgeist-compute/src/kernel/fast.rs-25-//!
+crates/fabelgeist-compute/src/kernel/fast.rs-26-//! Creating the bind group per dispatch re-registers the resources and the
+crates/fabelgeist-compute/src/kernel/fast.rs-27-//! barrier comes back. Measured on a full garment step, that costs six per
+crates/fabelgeist-compute/src/kernel/fast.rs-28-//! cent -- 4.7 ms a frame against 4.4 -- which is not a trade worth making.
+crates/fabelgeist-compute/src/kernel/fast.rs-29-//! The expensive part was never the bind group; it was allocating a uniform
+crates/fabelgeist-compute/src/kernel/fast.rs-30-//! *buffer* per dispatch, and the ring is what fixes that.
+crates/fabelgeist-compute/src/kernel/fast.rs-31-//!
+crates/fabelgeist-compute/src/kernel/fast.rs-32-//! Kernels whose shape this cannot serve -- more than one bind group, or any
+crates/fabelgeist-compute/src/kernel/fast.rs-33-//! texture or sampler binding -- have no fast path and fall back to
+crates/fabelgeist-compute/src/kernel/fast.rs:34://! `ComputePass::record`, which still handles everything.
+crates/fabelgeist-compute/src/kernel/fast.rs-35-
+crates/fabelgeist-compute/src/kernel/fast.rs-36-use crate::prelude::*;
+crates/fabelgeist-compute/src/kernel/fast.rs-37-use fabelgeist_gpu::data::gpu::buffer::Buffer;
+crates/fabelgeist-compute/src/kernel/fast.rs-38-use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
+crates/fabelgeist-compute/src/kernel/fast.rs-39-use fabelgeist_gpu::data::gpu::shader::{BufferBinding, UniformMember};
+crates/fabelgeist-compute/src/kernel/fast.rs-40-
+crates/fabelgeist-compute/src/kernel/fast.rs-41-/// Bytes in each buffer of a batch's [`UniformArena`].
+crates/fabelgeist-compute/src/kernel/fast.rs-42-const CHUNK_BYTES: u64 = 64 * 1024;
+crates/fabelgeist-compute/src/kernel/fast.rs-43-
+crates/fabelgeist-compute/src/kernel/fast.rs-44-/// The largest uniform block the cached path packs without allocating.
+crates/fabelgeist-compute/src/kernel/fast.rs-45-///
+crates/fabelgeist-compute/src/kernel/fast.rs-46-/// Every kernel here passes a few scalars and at most a vector or two. A
+crates/fabelgeist-compute/src/kernel/fast.rs-47-/// kernel wanting more than this is refused a fast path rather than silently
+crates/fabelgeist-compute/src/kernel/fast.rs-48-/// allocating per dispatch, which is the cost this whole module exists to
+crates/fabelgeist-compute/src/kernel/fast.rs-49-/// avoid.
+crates/fabelgeist-compute/src/kernel/fast.rs-50-const MAX_UNIFORM_BYTES: usize = 256;
+crates/fabelgeist-compute/src/kernel/fast.rs-51-
+--
+crates/fabelgeist-compute/src/kernel/fast.rs-357-            PassParameter::Vec3(v) => put(&[v.x, v.y, v.z]),
+crates/fabelgeist-compute/src/kernel/fast.rs-358-            PassParameter::Vec4(v) => put(&[v.x, v.y, v.z, v.w]),
+crates/fabelgeist-compute/src/kernel/fast.rs-359-            PassParameter::Mat4(m) => {
+crates/fabelgeist-compute/src/kernel/fast.rs-360-                let mut values = Vec::with_capacity(16);
+crates/fabelgeist-compute/src/kernel/fast.rs-361-                for column in 0..4 {
+crates/fabelgeist-compute/src/kernel/fast.rs-362-                    for row in 0..4 {
+crates/fabelgeist-compute/src/kernel/fast.rs-363-                        values.push(m.columns[column][row]);
+crates/fabelgeist-compute/src/kernel/fast.rs-364-                    }
+crates/fabelgeist-compute/src/kernel/fast.rs-365-                }
+crates/fabelgeist-compute/src/kernel/fast.rs-366-                put(&values);
+crates/fabelgeist-compute/src/kernel/fast.rs-367-            }
+crates/fabelgeist-compute/src/kernel/fast.rs-368-            other => {
+crates/fabelgeist-compute/src/kernel/fast.rs-369-                return Err(anyhow!(
+crates/fabelgeist-compute/src/kernel/fast.rs-370-                    "Kernel: uniform `{}` is a {:?}, which the cached dispatch path does not pack; \
+crates/fabelgeist-compute/src/kernel/fast.rs:371:                     use ComputePass::record for this kernel",
+crates/fabelgeist-compute/src/kernel/fast.rs-372-                    member.name,
+crates/fabelgeist-compute/src/kernel/fast.rs-373-                    std::mem::discriminant(other)
+crates/fabelgeist-compute/src/kernel/fast.rs-374-                ));
+crates/fabelgeist-compute/src/kernel/fast.rs-375-            }
+crates/fabelgeist-compute/src/kernel/fast.rs-376-        }
+crates/fabelgeist-compute/src/kernel/fast.rs-377-    }
+crates/fabelgeist-compute/src/kernel/fast.rs-378-    Ok(())
+crates/fabelgeist-compute/src/kernel/fast.rs-379-}
+--
+crates/fabelgeist-compute/src/kernel/mod.rs-1-//! A raw compute kernel, and a batch that records many of them into one submit.
+crates/fabelgeist-compute/src/kernel/mod.rs-2-//!
+crates/fabelgeist-compute/src/kernel/mod.rs-3-//! The other primitives in this module each impose a shape: `Map` is one input
+crates/fabelgeist-compute/src/kernel/mod.rs-4-//! to one output, `Reduce` folds, `Stencil` walks a neighbourhood. A solver
+crates/fabelgeist-compute/src/kernel/mod.rs-5-//! does not fit any of them -- an XPBD constraint projection reads positions,
+crates/fabelgeist-compute/src/kernel/mod.rs-6-//! inverse masses, rest lengths and a constraint list, and writes back into
+crates/fabelgeist-compute/src/kernel/mod.rs-7-//! positions and Lagrange multipliers, all in one pass. So this is the escape
+crates/fabelgeist-compute/src/kernel/mod.rs-8-//! hatch: hand it WGSL with named storage buffers and it binds them by name,
+crates/fabelgeist-compute/src/kernel/mod.rs-9-//! using the same reflection [`ComputePipeline`] already does for every other
+crates/fabelgeist-compute/src/kernel/mod.rs-10-//! primitive.
+crates/fabelgeist-compute/src/kernel/mod.rs-11-//!
+crates/fabelgeist-compute/src/kernel/mod.rs-12-//! The second half matters more than the first. Every other primitive here
+crates/fabelgeist-compute/src/kernel/mod.rs:13://! calls [`ComputePass::dispatch`], which finishes an encoder and submits it. A
+crates/fabelgeist-compute/src/kernel/mod.rs-14-//! cloth step is hundreds of dispatches (substeps x constraint colours), and
+crates/fabelgeist-compute/src/kernel/mod.rs-15-//! hundreds of submits per frame is a lost frame. [`KernelBatch`] records into
+crates/fabelgeist-compute/src/kernel/mod.rs-16-//! a single encoder and submits once.
+crates/fabelgeist-compute/src/kernel/mod.rs-17-
+crates/fabelgeist-compute/src/kernel/mod.rs-18-mod fast;
+crates/fabelgeist-compute/src/kernel/mod.rs-19-
+crates/fabelgeist-compute/src/kernel/mod.rs-20-use crate::prelude::*;
+crates/fabelgeist-compute/src/kernel/mod.rs-21-use std::collections::HashMap;
+crates/fabelgeist-compute/src/kernel/mod.rs-22-use std::sync::{Arc, RwLock};
+crates/fabelgeist-compute/src/kernel/mod.rs-23-
+crates/fabelgeist-compute/src/kernel/mod.rs-24-// Validation scopes on one device must not interleave during compilation.
+crates/fabelgeist-compute/src/kernel/mod.rs-25-static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
+crates/fabelgeist-compute/src/kernel/mod.rs-26-
+crates/fabelgeist-compute/src/kernel/mod.rs-27-/// The most workgroups one dispatch dimension may hold.
+crates/fabelgeist-compute/src/kernel/mod.rs-28-pub const MAX_GROUPS: u32 = 65_535;
+crates/fabelgeist-compute/src/kernel/mod.rs-29-
+crates/fabelgeist-compute/src/kernel/mod.rs-30-/// The flat item index of an invocation dispatched by
+--
+crates/fabelgeist-compute/src/kernel/mod.rs-149-    pub fn run(
+crates/fabelgeist-compute/src/kernel/mod.rs-150-        &self,
+crates/fabelgeist-compute/src/kernel/mod.rs-151-        context: &WgpuContext,
+crates/fabelgeist-compute/src/kernel/mod.rs-152-        parameters: PassParameters,
+crates/fabelgeist-compute/src/kernel/mod.rs-153-        groups: [u32; 3],
+crates/fabelgeist-compute/src/kernel/mod.rs-154-    ) -> Result<()> {
+crates/fabelgeist-compute/src/kernel/mod.rs-155-        let pipeline = {
+crates/fabelgeist-compute/src/kernel/mod.rs-156-            let _compiling = COMPILING
+crates/fabelgeist-compute/src/kernel/mod.rs-157-                .lock()
+crates/fabelgeist-compute/src/kernel/mod.rs-158-                .unwrap_or_else(|poisoned| poisoned.into_inner());
+crates/fabelgeist-compute/src/kernel/mod.rs-159-            let mut pipeline = self.pipeline.clone();
+crates/fabelgeist-compute/src/kernel/mod.rs-160-            pipeline.compile(context)?;
+crates/fabelgeist-compute/src/kernel/mod.rs-161-            pipeline
+crates/fabelgeist-compute/src/kernel/mod.rs-162-        };
+crates/fabelgeist-compute/src/kernel/mod.rs:163:        ComputePass::dispatch(
+crates/fabelgeist-compute/src/kernel/mod.rs-164-            context, pipeline, parameters, groups[0], groups[1], groups[2],
+crates/fabelgeist-compute/src/kernel/mod.rs-165-        )
+crates/fabelgeist-compute/src/kernel/mod.rs-166-    }
+crates/fabelgeist-compute/src/kernel/mod.rs-167-}
+crates/fabelgeist-compute/src/kernel/mod.rs-168-
+crates/fabelgeist-compute/src/kernel/mod.rs-169-/// Compiles each distinct kernel source once and hands out clones after that.
+crates/fabelgeist-compute/src/kernel/mod.rs-170-///
+crates/fabelgeist-compute/src/kernel/mod.rs-171-/// Kernels here are generated -- a constraint kernel is a template with the
+crates/fabelgeist-compute/src/kernel/mod.rs-172-/// fabric model pasted into it -- so the same source comes back around every
+crates/fabelgeist-compute/src/kernel/mod.rs-173-/// frame and for every solver instance. Compiling it once per source rather
+crates/fabelgeist-compute/src/kernel/mod.rs-174-/// than once per call is the difference between a stutter and a steady frame.
+crates/fabelgeist-compute/src/kernel/mod.rs-175-#[derive(Clone, Debug, Default)]
+crates/fabelgeist-compute/src/kernel/mod.rs-176-pub struct KernelCache {
+crates/fabelgeist-compute/src/kernel/mod.rs-177-    kernels: Arc<RwLock<HashMap<String, Arc<Kernel>>>>,
+crates/fabelgeist-compute/src/kernel/mod.rs-178-}
+crates/fabelgeist-compute/src/kernel/mod.rs-179-
+crates/fabelgeist-compute/src/kernel/mod.rs-180-impl KernelCache {
+--
+crates/fabelgeist-compute/src/kernel/mod.rs-264-                let prepared = fast.prepare(self.context, parameters, &mut self.uniforms)?;
+crates/fabelgeist-compute/src/kernel/mod.rs-265-                let mut pass = self
+crates/fabelgeist-compute/src/kernel/mod.rs-266-                    .encoder
+crates/fabelgeist-compute/src/kernel/mod.rs-267-                    .begin_compute_pass(&wgpu::ComputePassDescriptor {
+crates/fabelgeist-compute/src/kernel/mod.rs-268-                        label: Some("Kernel Pass"),
+crates/fabelgeist-compute/src/kernel/mod.rs-269-                        timestamp_writes: None,
+crates/fabelgeist-compute/src/kernel/mod.rs-270-                    });
+crates/fabelgeist-compute/src/kernel/mod.rs-271-                pass.set_pipeline(&prepared.pipeline);
+crates/fabelgeist-compute/src/kernel/mod.rs-272-                match prepared.dynamic_offset {
+crates/fabelgeist-compute/src/kernel/mod.rs-273-                    Some(offset) => pass.set_bind_group(0, &prepared.bind_group, &[offset]),
+crates/fabelgeist-compute/src/kernel/mod.rs-274-                    None => pass.set_bind_group(0, &prepared.bind_group, &[]),
+crates/fabelgeist-compute/src/kernel/mod.rs-275-                }
+crates/fabelgeist-compute/src/kernel/mod.rs-276-                pass.dispatch_workgroups(groups[0], groups[1], groups[2]);
+crates/fabelgeist-compute/src/kernel/mod.rs-277-            }
+crates/fabelgeist-compute/src/kernel/mod.rs:278:            None => ComputePass::record(
+crates/fabelgeist-compute/src/kernel/mod.rs-279-                self.context,
+crates/fabelgeist-compute/src/kernel/mod.rs-280-                &kernel.pipeline,
+crates/fabelgeist-compute/src/kernel/mod.rs-281-                parameters,
+crates/fabelgeist-compute/src/kernel/mod.rs-282-                &mut self.encoder,
+crates/fabelgeist-compute/src/kernel/mod.rs-283-                groups[0],
+crates/fabelgeist-compute/src/kernel/mod.rs-284-                groups[1],
+crates/fabelgeist-compute/src/kernel/mod.rs-285-                groups[2],
+crates/fabelgeist-compute/src/kernel/mod.rs-286-            )?,
+crates/fabelgeist-compute/src/kernel/mod.rs-287-        }
+crates/fabelgeist-compute/src/kernel/mod.rs-288-
+crates/fabelgeist-compute/src/kernel/mod.rs-289-        self.dispatches += 1;
+crates/fabelgeist-compute/src/kernel/mod.rs-290-        Ok(self)
+crates/fabelgeist-compute/src/kernel/mod.rs-291-    }
+crates/fabelgeist-compute/src/kernel/mod.rs-292-
+crates/fabelgeist-compute/src/kernel/mod.rs-293-    /// Record one dispatch covering `items` invocations however many there
+crates/fabelgeist-compute/src/kernel/mod.rs-294-    /// are, folded as [`Kernel::groups_folded`] describes.
+crates/fabelgeist-compute/src/kernel/mod.rs-295-    pub fn dispatch_folded(
+--
+crates/fabelgeist-compute/src/matmul.rs-67-        match input_b {
+crates/fabelgeist-compute/src/matmul.rs-68-            GpuResource::Buffer(b) => parameters.insert("input_b", b.clone()),
+crates/fabelgeist-compute/src/matmul.rs-69-            _ => return Err(anyhow::anyhow!("MatMul input_b must be a buffer")),
+crates/fabelgeist-compute/src/matmul.rs-70-        }
+crates/fabelgeist-compute/src/matmul.rs-71-        match output {
+crates/fabelgeist-compute/src/matmul.rs-72-            GpuResource::Buffer(b) => parameters.insert("output", b.clone()),
+crates/fabelgeist-compute/src/matmul.rs-73-            _ => return Err(anyhow::anyhow!("MatMul output must be a buffer")),
+crates/fabelgeist-compute/src/matmul.rs-74-        }
+crates/fabelgeist-compute/src/matmul.rs-75-
+crates/fabelgeist-compute/src/matmul.rs-76-        let wg_x = match output {
+crates/fabelgeist-compute/src/matmul.rs-77-            GpuResource::Buffer(b) => ((u64::from(b.size) / 4) as u32).div_ceil(64),
+crates/fabelgeist-compute/src/matmul.rs-78-            _ => 1,
+crates/fabelgeist-compute/src/matmul.rs-79-        };
+crates/fabelgeist-compute/src/matmul.rs-80-
+crates/fabelgeist-compute/src/matmul.rs:81:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/matmul.rs-82-            context, pipeline, parameters, wg_x, 1, 1,
+crates/fabelgeist-compute/src/matmul.rs-83-        )?;
+crates/fabelgeist-compute/src/matmul.rs-84-
+crates/fabelgeist-compute/src/matmul.rs-85-        Ok(())
+crates/fabelgeist-compute/src/matmul.rs-86-    }
+crates/fabelgeist-compute/src/matmul.rs-87-}

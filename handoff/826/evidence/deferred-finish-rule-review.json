@@ -1,0 +1,2925 @@
+{
+  "status": "PRE-REPAIR discovery input only; R1 unresolved; no implementation/final clearance",
+  "head": "5a34b608ccacc1950313b501d30b036f0a4f8b5b",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "single_agreed_api": "WgpuContext::submit(&self, CommandEncoder) -> std::result::Result<SubmissionIndex, wgpu::Error>",
+  "root_receiver_scope": [
+    "WgpuContext submit owner module and export",
+    "KernelBatch::submit canonical Native mapping and callbacks only after Ok",
+    "ComputePass::dispatch consumes context submission"
+  ],
+  "caller_owner": "780 owns all caller propagation; exact retained774 functions require coordinated handoff, no competing whole-function edit",
+  "inventory": {
+    "path": "target/pr826-audit/deferred-submission-source-inventory.txt",
+    "sha256": "79e8834bb17ce7c6eea10e20e30940b42276e527bc43a3e90f51bc4492acef7a",
+    "entries": 115,
+    "counts": {
+      "batch_submit": 90,
+      "raw_provider_submit": 23,
+      "direct_record": 2
+    },
+    "every_inventory_line_verified_against_current_source": true
+  },
+  "claim_files": [
+    {
+      "path": "target/pr826-audit/774-records/records/parallel-ownership/camera_targeting-claims.json",
+      "sha256": "dd13ce8bbca4e5328a43b900a6e7c10b578c3510730a5ba98b44728fefc8360b",
+      "owner": "/root/camera_targeting"
+    },
+    {
+      "path": "target/pr826-audit/774-records/records/parallel-ownership/native_reports-claims.json",
+      "sha256": "d3d70a94e655bf2149866786c65fb68c26d2dd935425b4b177db1c62b3dbd8e1",
+      "owner": "/root/native_reports"
+    },
+    {
+      "path": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "sha256": "dc8cd207f817478e08854ab7703b357000cc5deee5905d922e99a8dc2ed67d64",
+      "owner": "/root/rig_garments"
+    },
+    {
+      "path": "target/pr826-audit/774-records/records/parallel-ownership/root-claims.json",
+      "sha256": "8866397f9b55ef55ac35a1cfdccff7948fcda0ea5fa9bed74051f9ee4c9529ea",
+      "owner": "/root"
+    }
+  ],
+  "relevant_exact_path_claims": [
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/34",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_fit.rs",
+        "functions": [
+          "Fitted::placement",
+          "fit_recipe",
+          "fit_recipe_async",
+          "record_recipe",
+          "assemble_recipe"
+        ],
+        "requirements": [
+          "P14 canonical catalogue-bound item/placement relationship through runtime/design/fitting/asset lookup; no arbitrary item/placement pairs",
+          "P09 shared rig column/skin contracts remain reserved for closure before touching shared functions"
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/40",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+        "functions": [
+          "FittedUnderlayer::joint_indices",
+          "fit",
+          "fit_async",
+          "Fit::{run,record_skin}",
+          "read_skin"
+        ],
+        "requirements": [
+          "P14 carry canonical CatalogItem/CatalogPlacement to design, generation and fitting; metadata/native output alone projects exact IDs; preserve same-function P09 contracts before commit"
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/65",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+      "claim": {
+        "file": "crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+        "functions": [
+          "wrapped_waist_assembly_fits_completed_fauld_and_morph",
+          "wrapped_tassets_reject_nonpositive_final_section_radii",
+          "wrapped_tassets_fit_final_height_with_rigid_separate_thigh_ownership"
+        ],
+        "requirements": [
+          "P14 existing recipe literal admission and exact unsided fitting role operands only; preserve native fixture values/assertions/order"
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/71",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "claim": {
+        "file": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+        "functions": [
+          "DeviceBreastplate::rig_joints",
+          "DeviceBreastplate::{record,read_async}"
+        ],
+        "requirements": [
+          "P09 canonical packed rig influences with native layout preserved and all-slot checked admission; typed producer-to-receiver closure",
+          "same rig columns checked at actual aggregate native boundary"
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/80",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_frames.rs",
+        "functions": [
+          "DeviceWearer::{record,record_thumb_frame} whole-joint membership table native upload"
+        ],
+        "requirements": [
+          "P09/P10 canonical ordered-rig columns and influences; actual native conversion only; preserve f32/order behavior and existing fixture inputs/assertions"
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/132",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+        "functions": [
+          "bib_seats_on_lower_equipment_in_the_canonical_wearer_frame"
+        ],
+        "requirements": [
+          "P09 existing fixture API adaptation as explicitly resolved by root: literal authored skin extent, unchanged rows/weights/geometry/count/order/assertions; no claim unused empty rig metadata proves identity/coherence"
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/133",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+        "functions": [
+          "intermediate_neck_bulge_and_shared_bib_seam_clear_the_measured_body",
+          "bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge"
+        ],
+        "requirements": [
+          "P09 existing fixture API adaptation as explicitly resolved by root: literal authored skin extent, unchanged rows/weights/geometry/count/order/assertions; no claim unused empty rig metadata proves identity/coherence"
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/146",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_frames.rs",
+        "functions": [
+          "Wearer::upload"
+        ],
+        "requirements": [
+          "P09 actual upload boundary checks source name extent against admitted skin bound; retain typed region-mask column until GPU endpoint. Equal counts do not assert rig identity."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/147",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_fit.rs",
+        "functions": [
+          "Realization::upload"
+        ],
+        "requirements": [
+          "P09 actual upload boundary checks source name extent against admitted skin bound; retain typed region-mask column until GPU endpoint. Equal counts do not assert rig identity."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/153",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_bracer.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_bracer.rs",
+        "functions": [
+          "ForearmSide::joint",
+          "generate_bracer_on_device_async"
+        ],
+        "requirements": [
+          "P09/P10/P14 connected producer-to-receiver type and existing fixture API closure"
+        ],
+        "recorded_during_reconciliation": true
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/154",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_torso.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_torso.rs",
+        "functions": [
+          "TorsoSurfaceInput::{joint_indices,joint_names,global_joint_states,check,joints_named}",
+          "generate_breastplate_on_device_async"
+        ],
+        "requirements": [
+          "P09/P10/P14 connected producer-to-receiver type and existing fixture API closure"
+        ],
+        "recorded_during_reconciliation": true
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/266",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "claim": {
+        "file": "crates/fabelgeist-hair/src/gpu/grow.rs",
+        "functions": [
+          "GpuGroomer::grow_look",
+          "GpuGroomer::grow"
+        ],
+        "audit_refs": [
+          "RIG-OWNER-F004"
+        ],
+        "trace_refs": [
+          "RIG-OWNER-HAIR-018"
+        ],
+        "status": "ownership only; all13 initial source discovery freeze",
+        "authority": "Root explicit whole first-traced guide record/function transfer2026-10-21 after rig current-lens owner proof; no existing exact overlapping claim in current claim metadata. No source change authorized before all13gate.",
+        "requirements": [
+          "Complete existing PointsPerStrand/Ratio/Seed propagation for host/GPU highlevel guide APIs, retained Guides recipe and Groom.points once for every reached hair/P09-consumer requirement; original family exit classification remains root ledger authority, no family completion/reopen inferred.",
+          "Preserve HairSeed signed32 native role vs Seed full64 role. Existing Look word() as u64 signextends negativei32; backing canonical Seed zeroextends32. Owning checked-to-checked conversion must preserve old signextended full64 word, not use backing directly or re-admit primitive at caller.",
+          "Preserve exact guide_key native Murmur fold, CPU/GPU random bits/draw order, native WGSL HairdoGpu layout and data, max2/resampling count policy, errors and all existing fixture input/count/order/assertions. No RNG substitution or equivalent wrappers."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/270",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "claim": {
+        "file": "crates/fabelgeist-armor/src/gpu/mod.rs",
+        "functions": [
+          "device_error",
+          "ArmorGpu::{new,open,open_async,build_in,upload,scratch,read,read_async,nearest_points}"
+        ],
+        "audit_refs": [
+          "RIG-OWNER-F007",
+          "RIG-OWNER-F008",
+          "RIG-OWNER-F009"
+        ],
+        "trace_refs": [
+          "RIG-OWNER-ARMOR-CONSTRUCTION-021",
+          "RIG-OWNER-KERNEL-BYTES-022",
+          "RIG-OWNER-NATIVE-CAUSE-023"
+        ],
+        "status": "ownership only; all13 initial source discovery freeze",
+        "authority": "Root explicit accepted first trace2026-10-21; native_reports overlap check confirms no prior exact kernel/WgpuContext ownership; metadata fullclaim scan found no Buffer::read exactclaim. Native canonical token/kernel/callback/harness callerowners retain their functions.",
+        "requirements": [
+          "Complete once every reached P01/P09\u2013P14 generation/nativebyte/cause requirement; familyexit classification stays root ledger authority, no automatic family completion/reopen.",
+          "Use canonical existing BufferByteLength/Offset for actual byte quantity/address retained allocator/copy graph; preserve allu64/zero, alignments,max/nonzero SDK policy, arithmetic/narrowing/order, buffers/barriers/thread/lifetime/fixture inputs and assertions. Actual SDK create_buffer/write_buffer/copy/set_bind_group words are real ports.",
+          "Retain available anyhowError/SDK cause through ArmorGenerateError/device_error, Buffer read and WgpuContext internal APIs to actual terminal error publication. wgpu29 Error cfgSendSync vs BufferAsyncError/RequestDeviceError/CreateSurfaceError actualtraits and wasmJsValue constraints require final design fit; no automatic Arc<wgpuError>, duplicate generic wrapper, or format/reparse.",
+          "Discovery only. No source changes, local project checks/tests/agents/publication; actual error representation choice waits all13 inventory."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/272",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "claim": {
+        "file": "crates/fabelgeist-compute/src/kernel/mod.rs",
+        "functions": [
+          "KernelBatch::copy_buffer (existing bytes length owner)",
+          "KernelBatch::dispatch (Prepared dynamic offset native port only)"
+        ],
+        "audit_refs": [
+          "RIG-OWNER-F007",
+          "RIG-OWNER-F008",
+          "RIG-OWNER-F009"
+        ],
+        "trace_refs": [
+          "RIG-OWNER-ARMOR-CONSTRUCTION-021",
+          "RIG-OWNER-KERNEL-BYTES-022",
+          "RIG-OWNER-NATIVE-CAUSE-023"
+        ],
+        "status": "ownership only; all13 initial source discovery freeze",
+        "authority": "Root explicit accepted first trace2026-10-21; native_reports overlap check confirms no prior exact kernel/WgpuContext ownership; metadata fullclaim scan found no Buffer::read exactclaim. Native canonical token/kernel/callback/harness callerowners retain their functions.",
+        "requirements": [
+          "Complete once every reached P01/P09\u2013P14 generation/nativebyte/cause requirement; familyexit classification stays root ledger authority, no automatic family completion/reopen.",
+          "Use canonical existing BufferByteLength/Offset for actual byte quantity/address retained allocator/copy graph; preserve allu64/zero, alignments,max/nonzero SDK policy, arithmetic/narrowing/order, buffers/barriers/thread/lifetime/fixture inputs and assertions. Actual SDK create_buffer/write_buffer/copy/set_bind_group words are real ports.",
+          "Retain available anyhowError/SDK cause through ArmorGenerateError/device_error, Buffer read and WgpuContext internal APIs to actual terminal error publication. wgpu29 Error cfgSendSync vs BufferAsyncError/RequestDeviceError/CreateSurfaceError actualtraits and wasmJsValue constraints require final design fit; no automatic Arc<wgpuError>, duplicate generic wrapper, or format/reparse.",
+          "Discovery only. No source changes, local project checks/tests/agents/publication; actual error representation choice waits all13 inventory."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/273",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "claim": {
+        "file": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "functions": [
+          "Buffer::read native/wasm cause retention and connected native readback error signature"
+        ],
+        "audit_refs": [
+          "RIG-OWNER-F007",
+          "RIG-OWNER-F008",
+          "RIG-OWNER-F009"
+        ],
+        "trace_refs": [
+          "RIG-OWNER-ARMOR-CONSTRUCTION-021",
+          "RIG-OWNER-KERNEL-BYTES-022",
+          "RIG-OWNER-NATIVE-CAUSE-023"
+        ],
+        "status": "ownership only; all13 initial source discovery freeze",
+        "authority": "Root explicit accepted first trace2026-10-21; native_reports overlap check confirms no prior exact kernel/WgpuContext ownership; metadata fullclaim scan found no Buffer::read exactclaim. Native canonical token/kernel/callback/harness callerowners retain their functions.",
+        "requirements": [
+          "Complete once every reached P01/P09\u2013P14 generation/nativebyte/cause requirement; familyexit classification stays root ledger authority, no automatic family completion/reopen.",
+          "Use canonical existing BufferByteLength/Offset for actual byte quantity/address retained allocator/copy graph; preserve allu64/zero, alignments,max/nonzero SDK policy, arithmetic/narrowing/order, buffers/barriers/thread/lifetime/fixture inputs and assertions. Actual SDK create_buffer/write_buffer/copy/set_bind_group words are real ports.",
+          "Retain available anyhowError/SDK cause through ArmorGenerateError/device_error, Buffer read and WgpuContext internal APIs to actual terminal error publication. wgpu29 Error cfgSendSync vs BufferAsyncError/RequestDeviceError/CreateSurfaceError actualtraits and wasmJsValue constraints require final design fit; no automatic Arc<wgpuError>, duplicate generic wrapper, or format/reparse.",
+          "Discovery only. No source changes, local project checks/tests/agents/publication; actual error representation choice waits all13 inventory."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/274",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "claim": {
+        "file": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "functions": [
+          "WgpuContext::{new,new_compute,open} original SDK error cause and native/wasm contract"
+        ],
+        "audit_refs": [
+          "RIG-OWNER-F007",
+          "RIG-OWNER-F008",
+          "RIG-OWNER-F009"
+        ],
+        "trace_refs": [
+          "RIG-OWNER-ARMOR-CONSTRUCTION-021",
+          "RIG-OWNER-KERNEL-BYTES-022",
+          "RIG-OWNER-NATIVE-CAUSE-023"
+        ],
+        "status": "ownership only; all13 initial source discovery freeze",
+        "authority": "Root explicit accepted first trace2026-10-21; native_reports overlap check confirms no prior exact kernel/WgpuContext ownership; metadata fullclaim scan found no Buffer::read exactclaim. Native canonical token/kernel/callback/harness callerowners retain their functions.",
+        "requirements": [
+          "Complete once every reached P01/P09\u2013P14 generation/nativebyte/cause requirement; familyexit classification stays root ledger authority, no automatic family completion/reopen.",
+          "Use canonical existing BufferByteLength/Offset for actual byte quantity/address retained allocator/copy graph; preserve allu64/zero, alignments,max/nonzero SDK policy, arithmetic/narrowing/order, buffers/barriers/thread/lifetime/fixture inputs and assertions. Actual SDK create_buffer/write_buffer/copy/set_bind_group words are real ports.",
+          "Retain available anyhowError/SDK cause through ArmorGenerateError/device_error, Buffer read and WgpuContext internal APIs to actual terminal error publication. wgpu29 Error cfgSendSync vs BufferAsyncError/RequestDeviceError/CreateSurfaceError actualtraits and wasmJsValue constraints require final design fit; no automatic Arc<wgpuError>, duplicate generic wrapper, or format/reparse.",
+          "Discovery only. No source changes, local project checks/tests/agents/publication; actual error representation choice waits all13 inventory."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/289",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_frames.rs",
+        "functions": [
+          "FrameFailure whole typed cause owner",
+          "DeviceFrame::{check_status,check,read,read_async} whole frame failure integration",
+          "DeviceWearer::{read_frame,read_frame_async} whole receiving functions"
+        ],
+        "requirements": [
+          "RIG-OWNER-F014/DEVICE-FIT-030: retain actual FrameFailure+FitRegion classification through existing internal results; preserve stable bit priority, reflected frames and actual native readback order. Existing ordered joint contract remains part of same functions; no source repair before all13 inventories."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/294",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+        "functions": [
+          "DeviceWearer::{record_bib_fit,record_bib_measure} whole typed padding receiverfunctions"
+        ],
+        "requirements": [
+          "RIG-OWNER-F015: carry canonical checked physicalpadding until actualWord::F nativepacking; keepbody/lower-equipment framepolicy and everyexistingfixturecase/assertion.",
+          "Discoverymetadata only; no source edits before all13 initialpasses."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/295",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+        "functions": [
+          "DeviceWearer::{record_gorget_support,record_collar_fit} whole typed padding receiverfunctions"
+        ],
+        "requirements": [
+          "RIG-OWNER-F015: complete sharedsupport graph with bib/collar checkedphysicaloffsets across all affectedgarment families. Preservepasses/order/tolerance andeveryexistingfixture.",
+          "Discoverymetadata only; no source edits before all13 initialpasses."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/296",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+        "functions": [
+          "Fit::{shells,run} whole typed layer offset producer/receiver integration",
+          "check_status whole existing FitFailure cause retention"
+        ],
+        "requirements": [
+          "RIG-OWNER-UNDERLAYER-NATIVE-033/F015: retain authoredclearance/thickness incanonical continuousoffsets throughhostrecord tonativepacking; preserveexactvalue/order and all originalfixturelimits. Existing fitting/rigskin functions remain singlewholeowner.",
+          "Discoverymetadata only; no source edits before all13 initialpasses."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/302",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "claim": {
+        "file": "crates/adventuresim-character-creator/src/device_fit.rs",
+        "functions": [
+          "fit_recipe_async whole suspended support height producer",
+          "suspended_waist whole connected typed height/geometry/error result repair"
+        ],
+        "requirements": [
+          "RIG-OWNER-WRAPPED-ASSEMBLY-034 extends existingwholefit owner with allP09/P12/adjacentheightrequirements together. Existing source ?/DevicePiece return mismatch retainedoriginalPPblocker; final repair mustpropagateResult<DevicePiece> andoriginaltypedskin cause, nocase/helper/assertion additions orpartialadapter. Rootcanonicalheight/numericoperationsdependency. Sourcefrozen beforeall13passes."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/359",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "claim": {
+        "file": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "functions": [
+          "ComputePass::record wholevalidationcause receivingcontract"
+        ],
+        "audit_refs": [
+          "RIG-OWNER-PIPELINE-CAUSE-088",
+          "RIG-OWNER-ARMOR-NATIVE-MATERIAL-087"
+        ],
+        "status": "ownership only; all13 initial source freeze",
+        "authority": "First-traced whole connected cause/identity receiving function; exactpathandfile claim scan found no competingbody. Native confirmsGPU lowererror scopes unclaimed; root/camera explicitly confirmWebcharacter transfer. Family status execution-ledger.json.",
+        "requirements": [
+          "Preserveavailableoriginaltypedcause throughretainedfirstpartystate toactualterminaloutput; nativeJsValue/ErrorSendSync traitpolicy explicit,noformat-reparseorprimitiveforwardingadapter.",
+          "Onewholefunctionrepairforallaffectedfamilies; cameraSpacetimeError/queryadapters andnativecanonicalphysics/address/clock callers retainowners; preserve exactfailureclassification/FP/RNG/order/fixtures."
+        ]
+      }
+    },
+    {
+      "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+      "json_pointer": "/claims/362",
+      "owner": "/root/rig_garments",
+      "claimed_path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "claim": {
+        "file": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+        "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+        "functions": [
+          "textures/bake",
+          "record_finish/record_scratches/record_ornament/record_image/record_cut_slopes"
+        ],
+        "audit_refs": [
+          "RIG-OWNER-PIPELINE-CAUSE-088",
+          "RIG-OWNER-ARMOR-NATIVE-MATERIAL-087"
+        ],
+        "status": "ownership only; all13 initial source freeze",
+        "authority": "First-traced whole connected cause/identity receiving function; exactpathandfile claim scan found no competingbody. Native confirmsGPU lowererror scopes unclaimed; root/camera explicitly confirmWebcharacter transfer. Family status execution-ledger.json.",
+        "requirements": [
+          "Preserveavailableoriginaltypedcause throughretainedfirstpartystate toactualterminaloutput; nativeJsValue/ErrorSendSync traitpolicy explicit,noformat-reparseorprimitiveforwardingadapter.",
+          "Onewholefunctionrepairforallaffectedfamilies; cameraSpacetimeError/queryadapters andnativecanonicalphysics/address/clock callers retainowners; preserve exactfailureclassification/FP/RNG/order/fixtures."
+        ]
+      }
+    }
+  ],
+  "caller_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "line": 130,
+      "operation": "let index = self.queue.submit([]);",
+      "kind": "raw_provider_submit",
+      "function": "submitted_work_done",
+      "function_start": 123,
+      "signature": "pub async fn submitted_work_done(&self)",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; path has neighboring774 claims, no exact function match",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/274",
+          "functions": [
+            "WgpuContext::{new,new_compute,open} original SDK error cause and native/wasm contract"
+          ]
+        }
+      ],
+      "before": "        {\n            // Wait for this point in the queue only. A submission index\n            // returns once earlier work finishes even while a renderer keeps\n            // submitting, and without a sleep's timer granularity, which on\n            // Windows is the system tick rather than a millisecond.",
+      "after": "            let _ = self.device.poll(wgpu::PollType::Wait {\n                submission_index: Some(index),\n                timeout: None,\n            });\n        }"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "line": 30,
+      "operation": "context.queue.submit(std::iter::once(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "dispatch",
+      "function_start": 16,
+      "signature": "pub fn dispatch(         context: &WgpuContext,         pipeline_def: ComputePipeline,         parameters: PassParameters,         groups: WorkgroupGrid,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "root agreed core receiver",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/359",
+          "functions": [
+            "ComputePass::record wholevalidationcause receivingcontract"
+          ]
+        }
+      ],
+      "before": "                label: Some(\"ComputePass Encoder\"),\n            });\n\n        Self::record(context, &pipeline_def, &parameters, &mut encoder, groups)?;\n",
+      "after": "        Ok(())\n    }\n\n    pub fn record(\n        context: &WgpuContext,"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "line": 65,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "read",
+      "function_start": 44,
+      "signature": "pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/273",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "Buffer::read native/wasm cause retention and connected native readback error signature"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "            // 2. Copy data to staging buffer\n            let mut encoder = context\n                .device\n                .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });\n            encoder.copy_buffer_to_buffer(&self.buffer, 0, &staging_buffer, 0, size);",
+      "after": "            (Arc::new(staging_buffer), true)\n        };\n\n        #[allow(unused_mut)]\n        let (tx, mut rx) = futures_channel::oneshot::channel();"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "line": 179,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "read",
+      "function_start": 131,
+      "signature": "pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                height,\n                depth_or_array_layers: depth,\n            },\n        );\n",
+      "after": "\n        #[allow(unused_mut)]\n        let (tx, mut rx) = futures_channel::oneshot::channel();\n        {\n            let slice = staging_buffer.slice(..);"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "line": 169,
+      "operation": "context.queue.submit(Some(commands));",
+      "kind": "raw_provider_submit",
+      "function": "convert",
+      "function_start": 103,
+      "signature": "pub fn convert(&self, context: &WgpuContext, src: &Texture2d, dst: &Texture2d) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        }\n        #[cfg(not(target_arch = \"wasm32\"))]\n        let scope = context\n            .blocking_validation\n            .then(|| device.push_error_scope(wgpu::ErrorFilter::Validation));",
+      "after": "        #[cfg(not(target_arch = \"wasm32\"))]\n        if let Some(scope) = scope {\n            let _ = device.poll(wgpu::PollType::wait_indefinitely());\n            if let Some(cause) = pollster::block_on(scope.pop()) {\n                return Err(ComputePassError::Native(Arc::new(cause)).into());"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "line": 373,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "set_side_texture",
+      "function_start": 325,
+      "signature": "pub fn set_side_texture(         &self,         context: &WgpuContext,         face: CubeFace,         texture: &TextureView,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                    width: self.size,\n                    height: self.size,\n                    depth_or_array_layers: 1,\n                },\n            );",
+      "after": "            return Ok(());\n        }\n\n        self.blit_texture_to_face(context, face, texture)\n    }"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "line": 545,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "blit_texture_to_face",
+      "function_start": 379,
+      "signature": "pub fn blit_texture_to_face(         &self,         context: &WgpuContext,         face: CubeFace,         texture: &TextureView,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            pass.set_pipeline(&pipeline);\n            pass.set_bind_group(0, &bind_group, &[]);\n            pass.draw(0..3, 0..1);\n        }\n",
+      "after": "        Ok(())\n    }\n\n    pub fn size(&self) -> f32 {\n        self.size as f32"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "line": 722,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "render_face_shader_raw",
+      "function_start": 563,
+      "signature": "pub fn render_face_shader_raw(         &self,         context: &WgpuContext,         face: CubeFace,         shader_src: &str,         time: f32,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            pass.set_bind_group(0, &bind_group, &[]);\n            let workgroup_count = self.size.div_ceil(8);\n            pass.dispatch_workgroups(workgroup_count, workgroup_count, 1);\n        }\n",
+      "after": "        Ok(())\n    }\n\n    pub fn render_shader(\n        context: &WgpuContext,"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "line": 886,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "render_shader_raw",
+      "function_start": 735,
+      "signature": "pub fn render_shader_raw(         &self,         context: &WgpuContext,         shader_src: &str,         time: f32,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            pass.set_bind_group(0, &bind_group, &[]);\n            let workgroup_count = self.size.div_ceil(8);\n            pass.dispatch_workgroups(workgroup_count, workgroup_count, 6);\n        }\n",
+      "after": "        Ok(())\n    }\n}"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "line": 317,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "read",
+      "function_start": 269,
+      "signature": "pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                height,\n                depth_or_array_layers: 1,\n            },\n        );\n",
+      "after": "\n        #[allow(unused_mut)]\n        let (tx, mut rx) = futures_channel::oneshot::channel();\n        {\n            let slice = staging_buffer.slice(..);"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "line": 498,
+      "operation": "context.queue.submit(std::iter::once(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "blit",
+      "function_start": 483,
+      "signature": "pub fn blit(&self, context: &WgpuContext, target: &Texture2d) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            .device\n            .create_command_encoder(&wgpu::CommandEncoderDescriptor {\n                label: Some(\"Texture2d Blit Encoder\"),\n            });\n        blitter.blit(&context.device, &mut encoder, source_view, target_view);",
+      "after": "        Ok(())\n    }\n    pub fn clear(\n        context: &WgpuContext,\n        target: Texture2d,"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "line": 585,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "clear_raw",
+      "function_start": 512,
+      "signature": "pub fn clear_raw(&self, context: &WgpuContext, color: crate::data::vector::Vec4) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                    occlusion_query_set: None,\n                    multiview_mask: None,\n                });\n            }\n        }",
+      "after": "        Ok(())\n    }\n}\n\n#[cfg(test)]"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "line": 179,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "clear_raw",
+      "function_start": 115,
+      "signature": "pub fn clear_raw(&self, context: &WgpuContext, color: Vec4) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                    occlusion_query_set: None,\n                    multiview_mask: None,\n                });\n            }\n        }",
+      "after": "        Ok(())\n    }\n    pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {\n        let (width, height) = self.size;\n        if width == 0 || height == 0 {"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "line": 238,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "read",
+      "function_start": 182,
+      "signature": "pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                height,\n                depth_or_array_layers: 1,\n            },\n        );\n",
+      "after": "\n        #[allow(unused_mut)]\n        let (tx, mut rx) = futures_channel::oneshot::channel();\n        {\n            let slice = staging_buffer.slice(..);"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+      "line": 513,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "run",
+      "function_start": 507,
+      "signature": "pub fn run(&mut self, context: &WgpuContext, motion: Option<Matrix4>) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        let motion = motion.unwrap_or(STILL);\n        let mut batch = KernelBatch::labelled(context, \"stereo depth\");\n        for stage in Stage::ALL {\n            self.record(stage, &mut batch, &motion)?;\n        }",
+      "after": "        if self.temporal.is_some() {\n            self.front = 1 - self.front;\n        }\n        self.frames += 1;\n        Ok(())"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "line": 344,
+      "operation": "context.queue.submit(std::iter::once(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "execute",
+      "function_start": 195,
+      "signature": "pub fn execute(         context: &WgpuContext,         definition: &ReduceDefinition,         input: &fabelgeist_gpu::data::gpu::resource::GpuResource,         scratchpad: &mut ReduceScratchpad,     ) -> Result<fabelgeist_gpu::data::gpu::Buffer>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            &final_buffer.buffer,\n            0,\n            element_size,\n        );\n",
+      "after": "\n        Ok(final_buffer)\n    }\n}\n"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "line": 316,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "run",
+      "function_start": 307,
+      "signature": "pub fn run(         &self,         context: &WgpuContext,         data: &Buffer,         scratch: &PrefixSumScratch,         count: ScanElementCount,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        scratch: &PrefixSumScratch,\n        count: ScanElementCount,\n    ) -> Result<()> {\n        let mut batch = KernelBatch::labelled(context, \"PrefixSum\");\n        self.record(&mut batch, data, scratch, count)?;",
+      "after": "        Ok(())\n    }\n}\n\n#[cfg(test)]"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "line": 78,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "nearest_points_match_a_host_search",
+      "function_start": 58,
+      "signature": "async fn nearest_points_match_a_host_search() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            candidates: None,\n            count: targets.len() as u32,\n        },\n        &hits,\n    )?;",
+      "after": "    let found = hits.read(&context, queries.len() as u32).await?;\n    for (point, hit) in queries.iter().zip(found) {\n        let expected = (0..targets.len())\n            .min_by(|a, b| squared(*point, targets[*a]).total_cmp(&squared(*point, targets[*b])))\n            .unwrap();"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "line": 114,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "candidates_narrow_a_point_search",
+      "function_start": 93,
+      "signature": "async fn candidates_narrow_a_point_search() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            candidates: Some(&candidate_buffer),\n            count: candidates.len() as u32,\n        },\n        &hits,\n    )?;",
+      "after": "    for (point, hit) in queries.iter().zip(hits.read(&context, 100).await?) {\n        let expected = candidates\n            .iter()\n            .min_by(|a, b| {\n                squared(*point, targets[**a as usize])"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "line": 148,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "ties_go_to_the_lowest_index",
+      "function_start": 129,
+      "signature": "async fn ties_go_to_the_lowest_index() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            candidates: None,\n            count: targets.len() as u32,\n        },\n        &hits,\n    )?;",
+      "after": "    assert_eq!(hits.read(&context, 1).await?[0].target, Some(1));\n    Ok(())\n}\n\n#[tokio::test]"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "line": 179,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "closest_points_lie_on_the_surface",
+      "function_start": 154,
+      "signature": "async fn closest_points_lie_on_the_surface() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            candidates: None,\n            count: triangles.len() as u32,\n        },\n        &hits,\n    )?;",
+      "after": "    for (point, hit) in queries.iter().zip(hits.read(&context, 500).await?) {\n        let triangle = triangles[hit.target.unwrap() as usize];\n        let closest: [f32; 3] = std::array::from_fn(|axis| {\n            (0..3)\n                .map(|corner| hit.weights[corner] * positions[triangle[corner] as usize][axis])"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "line": 229,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "rays_find_the_first_and_last_crossing",
+      "function_start": 197,
+      "signature": "async fn rays_find_the_first_and_last_crossing() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                candidates: None,\n                count: triangles.len() as u32,\n            },\n            &hits,\n        )?;",
+      "after": "        let found = hits.read(&context, 3).await?;\n        for (hit, distance) in found.iter().zip(expected) {\n            assert!(\n                (hit.distance - distance).abs() < 0.01,\n                \"{crossing:?}: {hit:?}\""
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+      "line": 321,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "run",
+      "function_start": 310,
+      "signature": "pub fn run(         &self,         context: &WgpuContext,         keys: &Buffer,         values: &Buffer,         scratch: &mut SortScratch,         count: u32,         bits: u32,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        count: u32,\n        bits: u32,\n    ) -> Result<()> {\n        let mut batch = KernelBatch::labelled(context, \"RadixSort\");\n        self.record(&mut batch, keys, values, scratch, count, bits)?;",
+      "after": "        Ok(())\n    }\n}\n\n#[cfg(test)]"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "line": 355,
+      "operation": "let index = self.context.queue.submit(Some(self.encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "submit",
+      "function_start": 354,
+      "signature": "pub fn submit(self) -> wgpu::SubmissionIndex",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "root agreed core receiver",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/272",
+          "functions": [
+            "KernelBatch::copy_buffer (existing bytes length owner)",
+            "KernelBatch::dispatch (Prepared dynamic offset native port only)"
+          ]
+        }
+      ],
+      "before": "    }\n\n    /// Finish the encoder and submit. Returns the submission index, which the\n    /// caller can wait on if it needs the results back on the host.\n    pub fn submit(self) -> wgpu::SubmissionIndex {",
+      "after": "        for work in self.after_submit {\n            work();\n        }\n        index\n    }"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/tests.rs",
+      "line": 94,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "run",
+      "function_start": 41,
+      "signature": "async fn run(inputs: &[[f32; 4]], expressions: &[&str]) -> Result<Vec<f32>>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        Buffer::from_upload(&context, BufferUpload::from_elements(inputs), definition)?,\n    );\n    parameters.insert(\"outputs\", outputs.clone());\n    let mut batch = KernelBatch::new(&context);\n    batch.dispatch_items(&kernel, &parameters, inputs.len() as u32)?;",
+      "after": "    outputs.read(&context).await\n}\n\n/// How many results differ from `expected` in any bit, per expression.\nfn mismatches("
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+      "line": 434,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "normals",
+      "function_start": 408,
+      "signature": "async fn normals(         positions: &[[f32; 3]],         triangles: &[[u32; 3]],         weighting: NormalWeighting,     ) -> Result<(Vec<[f32; 3]>, u32)>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            &triangle_buffer,\n            positions.len() as u32,\n            triangles.len() as u32,\n            &mut output,\n        )?;",
+      "after": "        output.read(&context, positions.len() as u32).await\n    }\n\n    #[tokio::test]\n    async fn area_weighted_normals_match_a_host_sum() -> Result<()> {"
+    },
+    {
+      "path": "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+      "line": 73,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "every_thread_sees_its_own_uniforms",
+      "function_start": 37,
+      "signature": "fn every_thread_sees_its_own_uniforms() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                    parameters.insert(\"pad0\", 0u32);\n                    parameters.insert(\"pad1\", 0u32);\n                    barrier.wait();\n                    let mut batch = KernelBatch::new(context);\n                    batch.dispatch_items(kernel, &parameters, count).unwrap();",
+      "after": "                    let read: Vec<u32> = pollster::block_on(output.read(context)).unwrap();\n                    let bad = read.iter().filter(|v| **v != value).count();\n                    wrong.fetch_add(bad, std::sync::atomic::Ordering::Relaxed);\n                }\n            });"
+    },
+    {
+      "path": "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+      "line": 122,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "a_long_open_batch_keeps_its_uniforms",
+      "function_start": 92,
+      "signature": "fn a_long_open_batch_keeps_its_uniforms() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            for round in 0..3_000u32 {\n                let mut batch = KernelBatch::new(&context);\n                batch\n                    .dispatch_items(&kernel, &parameters(&other, round), 64)\n                    .unwrap();",
+      "after": "            }\n        });\n    });\n    open.submit();\n    let read: Vec<u32> = pollster::block_on(held.read(&context))?;"
+    },
+    {
+      "path": "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+      "line": 126,
+      "operation": "open.submit();",
+      "kind": "batch_submit",
+      "function": "a_long_open_batch_keeps_its_uniforms",
+      "function_start": 92,
+      "signature": "fn a_long_open_batch_keeps_its_uniforms() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                    .unwrap();\n                batch.submit();\n            }\n        });\n    });",
+      "after": "    let read: Vec<u32> = pollster::block_on(held.read(&context))?;\n    assert!(read[..64].iter().all(|v| *v == 7), \"{:?}\", &read[..4]);\n    Ok(())\n}"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "line": 101,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "generate_min",
+      "function_start": 29,
+      "signature": "pub fn generate_min(         context: &WgpuContext,         definition: &MapDefinition,         parameters: Option<PassParameters>,         io: &Texture3d,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                width: io.extent().width,\n                height: io.extent().height,\n                depth_or_array_layers: io.extent().depth_or_array_layers,\n            },\n        );",
+      "after": "\n        let input_res = GpuResource::Texture3d(temp_tex);\n        let io_res = GpuResource::Texture3d(io.clone());\n\n        Map::execute_with_parameters(context, &wrapped_def, Some(&input_res), &io_res, parameters)?;"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "line": 192,
+      "operation": "context.queue.submit(Some(encoder.finish()));",
+      "kind": "raw_provider_submit",
+      "function": "generate_smooth_min",
+      "function_start": 110,
+      "signature": "pub fn generate_smooth_min(         context: &WgpuContext,         definition: &MapDefinition,         parameters: Option<PassParameters>,         k: f32,         io: &Texture3d,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                width: io.extent().width,\n                height: io.extent().height,\n                depth_or_array_layers: io.extent().depth_or_array_layers,\n            },\n        );",
+      "after": "\n        let input_res = GpuResource::Texture3d(temp_tex);\n        let io_res = GpuResource::Texture3d(io.clone());\n\n        let mut final_params = parameters.unwrap_or_default();"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "line": 248,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "every_buffer_comes_back_in_order",
+      "function_start": 231,
+      "signature": "async fn every_buffer_comes_back_in_order() -> anyhow::Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            definition.clone(),\n        )?;\n        let c = Buffer::from_upload(&context, BufferUpload::from_elements(&[0.5f32]), definition)?;\n        let mut batch = KernelBatch::new(&context);\n        let readback = Readback::record(&context, &mut batch, &[&a, &b, &c])?;",
+      "after": "        let results = readback.read(&context).await?;\n        assert_eq!(bytemuck::cast_slice::<u8, u32>(&results[0]), &[1, 2, 3]);\n        assert_eq!(results[1], [7, 8, 9, 10, 11, 12, 13, 14]);\n        assert_eq!(bytemuck::cast_slice::<u8, f32>(&results[2]), &[0.5]);\n        Ok(())"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "line": 274,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "a_pending_readback_arrives_without_waiting",
+      "function_start": 257,
+      "signature": "async fn a_pending_readback_arrives_without_waiting() -> anyhow::Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        )?;\n        let mut batch = KernelBatch::new(&context);\n        let pending = Readback::record_pending(&context, &mut batch, &[&a, &b])?;\n        // Nothing has been submitted, so nothing can have come back.\n        assert!(pending.try_read(&context)?.is_none());",
+      "after": "        let started = std::time::Instant::now();\n        let results = loop {\n            if let Some(results) = pending.try_read(&context)? {\n                break results;\n            }"
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "line": 216,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "step_interleaved",
+      "function_start": 199,
+      "signature": "pub fn step_interleaved(         &self,         context: &WgpuContext,         particles: &Particles,         constraints: &mut [&mut ConstraintSet],         hook: &mut impl SubstepHook,         delta: f32,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        let substep = delta / self.settings.substeps as f32;\n\n        for _ in 0..self.settings.substeps {\n            let mut batch = KernelBatch::labelled(context, \"xpbd substep\");\n            self.record_substep(&mut batch, particles, constraints, hook, substep)?;",
+      "after": "        }\n        Ok(())\n    }\n\n    /// Step on a batch of its own and submit."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "line": 232,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "step",
+      "function_start": 222,
+      "signature": "pub fn step(         &self,         context: &WgpuContext,         particles: &Particles,         constraints: &mut [&mut ConstraintSet],         hook: &mut impl SubstepHook,         delta: f32,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        hook: &mut impl SubstepHook,\n        delta: f32,\n    ) -> Result<()> {\n        let mut batch = KernelBatch::labelled(context, \"xpbd step\");\n        self.record_step(&mut batch, particles, constraints, hook, delta)?;",
+      "after": "        Ok(())\n    }\n\n    fn record_predict(\n        &self,"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "line": 73,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "read_staged_async",
+      "function_start": 67,
+      "signature": "pub async fn read_staged_async(         &self,         staging: Staging<'_>,     ) -> Result<StagedResults, GenerateError>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        &self,\n        staging: Staging<'_>,\n    ) -> Result<StagedResults, GenerateError> {\n        let mut batch = self.batch(\"armor readback\");\n        let readback = Readback::record(self.context(), &mut batch, &staging.buffers)?;",
+      "after": "        let bytes = readback.read(self.context()).await?;\n        Ok(StagedResults { bytes })\n    }\n}"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "line": 280,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "build_in",
+      "function_start": 264,
+      "signature": "pub fn build_in(         &self,         frames: &[PartFrame],         record: impl FnOnce(&mut KernelBatch, &[&Buffer]) -> Result<DevicePart, GenerateError>,     ) -> Result<BuiltPart, GenerateError>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/270",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "device_error",
+            "ArmorGpu::{new,open,open_async,build_in,upload,scratch,read,read_async,nearest_points}"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "            .collect::<Result<Vec<_>, _>>()?;\n        let buffers = buffers.iter().collect::<Vec<_>>();\n        let mut batch = self.batch(\"armor in host frames\");\n        let mut part = record(&mut batch, &buffers)?;\n        part.record_shells(self, &mut batch)?;",
+      "after": "        part.read(self)\n    }\n\n    /// Upload plain data into a new storage buffer.\n    pub fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer, GenerateError> {"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "line": 351,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "nearest_points",
+      "function_start": 322,
+      "signature": "pub fn nearest_points(         &self,         queries: &[[f32; 3]],         targets: &[[f32; 3]],     ) -> Result<Vec<u32>, GenerateError>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/270",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "device_error",
+            "ArmorGpu::{new,open,open_async,build_in,upload,scratch,read,read_async,nearest_points}"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "                    count: targets.len() as u32,\n                },\n                &hits,\n            )\n            .map_err(device_error)?;",
+      "after": "        let mut nearest: Vec<u32> = self.read(&hits.nearest)?;\n        nearest.truncate(queries.len());\n        Ok(nearest)\n    }\n}"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "line": 38,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "generate_limb_armor_on",
+      "function_start": 24,
+      "signature": "pub fn generate_limb_armor_on(     gpu: &ArmorGpu,     design: &LimbArmorDesign,     fit: &PartFrame, ) -> Result<BuiltPart, GenerateError>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        )))?;\n        let mut batch = gpu.batch(\"pauldron\");\n        let carrier = super::pauldron::DevicePauldronCarrier::record(gpu, &mut batch, d, &frame)?;\n        let mut part = carrier.record_plates(gpu, &mut batch, d)?;\n        part.record_shells(gpu, &mut batch)?;",
+      "after": "        if gpu.read::<u32>(&carrier.status)?[0] != 0 {\n            return Err(GenerateError::InvalidSurface);\n        }\n        return part.read(gpu);\n    }"
+    },
+    {
+      "path": "crates/fabelgeist-armor/tests/garment_armor.rs",
+      "line": 205,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "tasset_carriers",
+      "function_start": 198,
+      "signature": "fn tasset_carriers(design: &GarmentArmorDesign, fit: &PartFrame) -> Vec<Vec<[f32; 3]>>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        .upload(BufferUpload::from_elements(&frame_words(fit)))\n        .unwrap();\n    let mut batch = gpu().batch(\"tasset carriers\");\n    let mut part = record_tassets(gpu(), &mut batch, design, &frame).unwrap();\n    part.record_shells(gpu(), &mut batch).unwrap();",
+      "after": "    let carriers: Vec<[f32; 3]> = gpu().read(part.carriers()).unwrap();\n    (0..part.shell_count())\n        .map(|shell| {\n            let range = part.shell_carriers(shell);\n            carriers[range.start as usize..range.end as usize].to_vec()"
+    },
+    {
+      "path": "crates/fabelgeist-physics/src/mesh.rs",
+      "line": 172,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "rebuild",
+      "function_start": 169,
+      "signature": "pub fn rebuild(&mut self, context: &WgpuContext) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "    }\n\n    pub fn rebuild(&mut self, context: &WgpuContext) -> Result<()> {\n        let mut batch = KernelBatch::labelled(context, \"mesh collider rebuild\");\n        self.record_rebuild(&mut batch)?;",
+      "after": "        Ok(())\n    }\n\n    pub fn refit(&mut self, context: &WgpuContext) -> Result<()> {\n        let mut batch = KernelBatch::labelled(context, \"mesh collider refit\");"
+    },
+    {
+      "path": "crates/fabelgeist-physics/src/mesh.rs",
+      "line": 179,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "refit",
+      "function_start": 176,
+      "signature": "pub fn refit(&mut self, context: &WgpuContext) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "    }\n\n    pub fn refit(&mut self, context: &WgpuContext) -> Result<()> {\n        let mut batch = KernelBatch::labelled(context, \"mesh collider refit\");\n        self.record_refit(&mut batch)?;",
+      "after": "        Ok(())\n    }\n\n    /// The WGSL for the resolve kernel, with this mesh's traversal pasted in.\n    pub(crate) fn kernel_source() -> String {"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "line": 82,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "bake",
+      "function_start": 31,
+      "signature": "pub(super) fn bake(     gpu: &MetalGpu,     metal: &Metal,     size: u32,     engraving: Option<(&Engraving, &Cut<'_>)>, ) -> Result<MetalTextures, String>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/362",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "textures/bake",
+            "record_finish/record_scratches/record_ornament/record_image/record_cut_slopes"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "    bake.insert(\"normal\", normal.clone());\n    bake.insert(\"metal_roughness\", metal_roughness.clone());\n    bake.insert(\"depth\", depth.clone());\n    bake.insert(\"finish\", finish);\n    gpu.dispatch(&mut batch, &gpu.bake, &bake, texels)?;",
+      "after": "    let bytes = |buffer: &Buffer| -> Result<Vec<u8>, String> {\n        let words: Vec<u32> = gpu.read(buffer)?;\n        Ok(bytemuck::cast_slice(&words[..texels as usize]).to_vec())\n    };\n    Ok(MetalTextures {"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "line": 161,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "build",
+      "function_start": 150,
+      "signature": "pub(crate) fn build(         self,         gpu: &ArmorGpu,         design: &[f32],         frame: &PartFrame,     ) -> Result<BuiltPart, GenerateError>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        frame.validate()?;\n        let frames = gpu.upload(BufferUpload::from_elements(&frame_words(frame)))?;\n        let mut batch = gpu.batch(\"armor part\");\n        let mut part = self.record(gpu, &mut batch, design, &[&frames])?;\n        part.record_shells(gpu, &mut batch)?;",
+      "after": "        part.read(gpu)\n    }\n}\n\n/// A part's own frame -- identity axes at the origin with `half_extents` --"
+    },
+    {
+      "path": "crates/fabelgeist-physics/src/contact.rs",
+      "line": 218,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "push_out",
+      "function_start": 207,
+      "signature": "pub fn push_out(         &self,         context: &WgpuContext,         particles: &Particles,         search_radius: f32,         passes: u32,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "    ) -> Result<()> {\n        let mut batch = KernelBatch::labelled(context, \"push out\");\n        for _ in 0..passes {\n            self.record_push_out(&mut batch, particles, search_radius)?;\n        }",
+      "after": "        Ok(())\n    }\n}\n\nimpl SubstepHook for Collisions {"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime.rs",
+      "line": 45,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "record",
+      "function_start": 37,
+      "signature": "pub(super) async fn record(         gpu: &ArmorGpu,         mut batch: KernelBatch<'_>,         design: &AnimeDesign,         source: Shell,         input: CourseInputs<'_>,     ) -> Result<Articulated, GenerateError>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        design: &AnimeDesign,\n        source: Shell,\n        input: CourseInputs<'_>,\n    ) -> Result<Articulated, GenerateError> {\n        let sampler = CourseSampler::new(gpu, &mut batch, &source, &input, design)?;",
+      "after": "        let layout = sampler.layout(gpu, design).await?;\n        let mut batch = gpu.batch(\"triangulated armor courses\");\n        let sampled = sampler.finish(gpu, &mut batch, &layout)?;\n        batch.submit();\n        Ok(Articulated {"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime.rs",
+      "line": 49,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "record",
+      "function_start": 37,
+      "signature": "pub(super) async fn record(         gpu: &ArmorGpu,         mut batch: KernelBatch<'_>,         design: &AnimeDesign,         source: Shell,         input: CourseInputs<'_>,     ) -> Result<Articulated, GenerateError>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        let sampler = CourseSampler::new(gpu, &mut batch, &source, &input, design)?;\n        batch.submit();\n        let layout = sampler.layout(gpu, design).await?;\n        let mut batch = gpu.batch(\"triangulated armor courses\");\n        let sampled = sampler.finish(gpu, &mut batch, &layout)?;",
+      "after": "        Ok(Articulated {\n            shell: sampled.shell,\n            skin: sampled.skin,\n            correspondence: Self {\n                source,"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "line": 116,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "body_support_uses_the_outer_envelope_and_preserves_the_chart_ray",
+      "function_start": 13,
+      "signature": "fn body_support_uses_the_outer_envelope_and_preserves_the_chart_ray()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            (\"status\", &status),\n        ],\n        count as u32,\n    )\n    .unwrap();",
+      "after": "    assert_eq!(gpu.read::<u32>(&status).unwrap()[0], 0);\n    for point in gpu.read::<[f32; 3]>(&positions).unwrap() {\n        assert!(\n            (point[0] - 0.02).abs() < 1e-6,\n            \"fitting changed the chart angle\""
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "line": 241,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck",
+      "function_start": 131,
+      "signature": "fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            (\"status\", &status),\n        ],\n        count as u32,\n    )\n    .unwrap();",
+      "after": "    assert_eq!(gpu.read::<u32>(&status).unwrap()[0], 0);\n    let required = gpu.read::<f32>(&support_radii).unwrap();\n    let actual = gpu.read::<[f32; 3]>(&positions).unwrap();\n    assert!(required[spike] > 0.3, \"fixture did not need fitting\");\n    for (i, point) in actual.iter().enumerate() {"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "line": 313,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "apply_support",
+      "function_start": 273,
+      "signature": "fn apply_support(     gpu: &ArmorGpu,     plate: &fabelgeist_gpu::prelude::Buffer,     points: &[[f32; 3]],     support: &[f32],     envelope: &[f32],     radial_fit: RadialFit,     width: usize, ) -> (Vec<[f32; 3]>, u32)",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            (\"status\", &status),\n        ],\n        count as u32,\n    )\n    .unwrap();",
+      "after": "    (\n        gpu.read(&positions).unwrap(),\n        gpu.read::<u32>(&status).unwrap()[0],\n    )\n}"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "line": 366,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "rear_enclosure_preserves_the_actual_preceding_lap",
+      "function_start": 332,
+      "signature": "fn rear_enclosure_preserves_the_actual_preceding_lap()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            &[(\"plate\", &plate), (\"front\", &front), (\"positions\", &back)],\n            rows as u32,\n        )\n        .unwrap();\n    }",
+      "after": "    let lapped = gpu.read::<[f32; 3]>(&back).unwrap();\n    assert!(lapped[width - 1][0] >= 0.157 - 1e-6);\n    let support = vec![0.2; lapped.len()];\n    let (actual, status) = apply_support(\n        &gpu,"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "line": 483,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "body_seating_retains_authored_skirt_flare_without_moving_the_waist",
+      "function_start": 412,
+      "signature": "fn body_seating_retains_authored_skirt_flare_without_moving_the_waist()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                (\"status\", &status),\n            ],\n            count as u32,\n        )\n        .unwrap();",
+      "after": "        assert_eq!(gpu.read::<u32>(&status).unwrap()[0], 0);\n        let support = gpu.read::<f32>(&support).unwrap();\n        let measured = gpu.upload(BufferUpload::from_elements(&support)).unwrap();\n        let envelope = gpu\n            .scratch(count as u64 * 4, \"measured skirt envelope\")"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "line": 505,
+      "operation": "smoothing.submit();",
+      "kind": "batch_submit",
+      "function": "body_seating_retains_authored_skirt_flare_without_moving_the_waist",
+      "function_start": 412,
+      "signature": "fn body_seating_retains_authored_skirt_flare_without_moving_the_waist()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            },\n            &[(\"support_radii\", &measured), (\"envelope\", &envelope)],\n            count as u32,\n        )\n        .unwrap();",
+      "after": "        let envelope = gpu.read::<f32>(&envelope).unwrap();\n        let input = vec![[0.0_f32, 1.1, -0.4]; count];\n        let (actual, status) = apply_support(\n            &gpu,\n            &plate,"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs",
+      "line": 144,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem",
+      "function_start": 12,
+      "signature": "fn deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                ],\n                count,\n            )\n            .unwrap();\n        }",
+      "after": "        assert_eq!(\n            gpu.read::<u32>(&status).unwrap()[0] == 0,\n            valid,\n            \"metal separation guard did not match the generated courses\"\n        );"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "line": 34,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "armscye_width_moves_its_boundary_without_moving_the_neck_or_waist",
+      "function_start": 7,
+      "signature": "fn armscye_width_moves_its_boundary_without_moving_the_neck_or_waist()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                },\n                &[(\"plate\", &plate), (\"points\", &points)],\n                1,\n            )\n            .unwrap();",
+      "after": "            cases.push(gpu.read::<[f32; 3]>(&points).unwrap());\n        }\n        for narrowed in &cases[..3] {\n            assert_eq!(narrowed[0], cases[3][0], \"inner neckline moved\");\n            assert_eq!(narrowed[1], cases[3][1], \"neck/armscye junction moved\");"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "line": 83,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "armscye_trim_preserves_the_retained_carrier_sections",
+      "function_start": 56,
+      "signature": "fn armscye_trim_preserves_the_retained_carrier_sections()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                },\n                &[(\"plate\", &plate), (\"points\", &points)],\n                1,\n            )\n            .unwrap();",
+      "after": "            cases.push(gpu.read::<[f32; 3]>(&points).unwrap());\n        }\n        assert_eq!(cases[0], cases[2]);\n        assert_eq!(cases[1], cases[2]);\n    }"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "line": 137,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "flank_return_preserves_the_neckline_at_coupled_neck_depths",
+      "function_start": 108,
+      "signature": "fn flank_return_preserves_the_neckline_at_coupled_neck_depths()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                    },\n                    &[(\"plate\", &plate), (\"points\", &points)],\n                    1,\n                )\n                .unwrap();",
+      "after": "                cases.push(gpu.read::<[f32; 3]>(&points).unwrap());\n            }\n            for narrowed in &cases[..2] {\n                assert_eq!(narrowed[..2], cases[2][..2], \"neckline moved\");\n            }"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "line": 213,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "coupled_flank_and_armscye_controls_cannot_reverse_chart_columns",
+      "function_start": 170,
+      "signature": "fn coupled_flank_and_armscye_controls_cannot_reverse_chart_columns()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                },\n                &[(\"plate\", &plate), (\"points\", &points)],\n                1,\n            )\n            .unwrap();",
+      "after": "            let points = gpu.read::<[f32; 3]>(&points).unwrap();\n            for (row, strip) in points.as_chunks::<49>().0.iter().enumerate() {\n                for (column, pair) in strip.windows(2).enumerate() {\n                    if pair[0][1] <= pair[0][2].min(pair[1][2]) {\n                        assert!("
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "line": 117,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "record",
+      "function_start": 103,
+      "signature": "pub async fn record(         gpu: &ArmorGpu,         mut batch: KernelBatch<'_>,         design: &BreastplateDesign,         torso: TorsoBody<'_>,         status: &Buffer,     ) -> Result<Self, GenerateError>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/71",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "DeviceBreastplate::rig_joints",
+            "DeviceBreastplate::{record,read_async}"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "            return Err(GenerateError::InvalidSurface);\n        }\n        let mut plates = Plates::new(gpu, design)?;\n        let fitted = fit::record_fitted(gpu, &mut batch, design, &torso, &plates, status)?;\n        let mut extrusions = plates.record_extrusions(gpu, &mut batch, &fitted.plate, status)?;",
+      "after": "        plates.remesh(gpu, status, &mut extrusions).await?;\n        let mut batch = gpu.batch(\"triangulated breastplate\");\n        extrusions.record_miters(gpu, &mut batch, &plates, status)?;\n        let shell = plates.record_shell(\n            gpu,"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "line": 138,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "record",
+      "function_start": 103,
+      "signature": "pub async fn record(         gpu: &ArmorGpu,         mut batch: KernelBatch<'_>,         design: &BreastplateDesign,         torso: TorsoBody<'_>,         status: &Buffer,     ) -> Result<Self, GenerateError>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/71",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "DeviceBreastplate::rig_joints",
+            "DeviceBreastplate::{record,read_async}"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "            &extrusions,\n            &shell,\n        )?;\n        let (shell, skin, articulation) = match &design.construction {\n            BreastplateConstruction::Solid => {",
+      "after": "                (shell, correspondence.skin, None)\n            }\n            BreastplateConstruction::Anime(design) => {\n                let articulated = anime::Articulation::record(\n                    gpu,"
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "line": 312,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "build",
+      "function_start": 304,
+      "signature": "pub fn build(         &mut self,         context: &WgpuContext,         primitive_bounds: &Buffer,         count: u32,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        primitive_bounds: &Buffer,\n        count: u32,\n    ) -> Result<()> {\n        let mut batch = KernelBatch::labelled(context, \"GpuBvh build\");\n        self.record_build(&mut batch, primitive_bounds, count)?;",
+      "after": "        Ok(())\n    }\n\n    /// Read the hierarchy back as host-side nodes. For tests and debugging --\n    /// it stalls on the device."
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/gpu/tests.rs",
+      "line": 271,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "refit_tracks_moved_primitives",
+      "function_start": 249,
+      "signature": "async fn refit_tracks_moved_primitives() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            BufferUpload::from_elements(&packed),\n            BufferDefinition::storage().with_usage(BufferUse::CopySource),\n        )?;\n        let mut batch = KernelBatch::new(&context);\n        bvh.record_refit(&mut batch, &buffer)?;",
+      "after": "\n        let nodes = bvh.read_nodes(&context).await?;\n        let right_children = bvh.read_right_children(&context).await?;\n        let indices = bvh.read_indices(&context).await?;\n"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/skirt_construction.rs",
+      "line": 111,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "joined_fixture",
+      "function_start": 14,
+      "signature": "fn joined_fixture(     gpu: &ArmorGpu,     body_width: f32,     front_drop: f32,     hanging_intervals: usize,     seam_layout: SkirtSeamLayout,     finishing: bool, ) -> Result<BuiltPart>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        design.profile = fabelgeist_armor::SkirtProfile::Straight;\n    }\n    let mut batch = gpu.batch(\"continuous dress integration\");\n    let mut part = record_skirt(gpu, &mut batch, &design, &frame, Some(&attachment))?;\n    part.record_shells(gpu, &mut batch)?;",
+      "after": "    Ok(part.read(gpu)?)\n}\n\nfn assert_closed_connected(part: &BuiltPart, component: &fabelgeist_armor::ArmorComponent) {\n    let first = component.vertices.start;"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/body_cloth_layers.rs",
+      "line": 62,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "generate",
+      "function_start": 10,
+      "signature": "fn generate(gpu: &ArmorGpu, width: f32) -> Result<BuiltPart>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "    );\n    let fit = gpu.upload(BufferUpload::from_elements(&fit))?;\n    let mut batch = gpu.batch(\"layered cloth shell integration\");\n    let mut part = record_body_cloth(gpu, &mut batch, &layers, &fit)?;\n    part.record_shells(gpu, &mut batch)?;",
+      "after": "    Ok(part.read(gpu)?)\n}\n\n#[test]\nfn hidden_laminates_survive_thickening_and_refit_without_filling_the_opening() -> Result<()> {"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/skirt_surface.rs",
+      "line": 44,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "generate_in_span",
+      "function_start": 17,
+      "signature": "fn generate_in_span(gpu: &ArmorGpu, design: &SkirtDesign, half_height: f32) -> Result<BuiltPart>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "    }\n    let frame = gpu.upload(BufferUpload::from_elements(&fit))?;\n    let mut batch = gpu.batch(\"skirt carrier integration\");\n    let mut part = record_skirt(gpu, &mut batch, design, &frame, None)?;\n    part.record_shells(gpu, &mut batch)?;",
+      "after": "    Ok(part.read(gpu)?)\n}\n\nfn hem_radius(part: &BuiltPart) -> f32 {\n    part.positions"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_appearance.rs",
+      "line": 40,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "generated",
+      "function_start": 15,
+      "signature": "fn generated(gpu: &ArmorGpu, placed: bool, limb: bool) -> Result<BuiltPart>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        record_puff_and_slash(gpu, &mut batch, &PuffAndSlashDesign::default(), &fit)?\n    } else {\n        record_skirt(gpu, &mut batch, &SkirtDesign::default(), &fit, None)?\n    };\n    part.record_shells(gpu, &mut batch)?;",
+      "after": "    Ok(part.read(gpu)?)\n}\n\n#[test]\nfn curved_ornament_parameters_change_the_shared_baked_surface() -> Result<()> {"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_treatment.rs",
+      "line": 37,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "finished",
+      "function_start": 14,
+      "signature": "fn finished(gpu: &ArmorGpu, pattern: &PuffAndSlashPattern) -> Result<[BuiltPart; 2]>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        },\n        &fit,\n        None,\n    )?;\n    skirt.record_shells(gpu, &mut batch)?;",
+      "after": "    let skirt = skirt.read(gpu)?;\n    let mut batch = gpu.batch(\"limb textile regression\");\n    let mut limb = record_puff_and_slash(\n        gpu,\n        &mut batch,"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_treatment.rs",
+      "line": 50,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "finished",
+      "function_start": 14,
+      "signature": "fn finished(gpu: &ArmorGpu, pattern: &PuffAndSlashPattern) -> Result<[BuiltPart; 2]>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            ..Default::default()\n        },\n        &fit,\n    )?;\n    limb.record_shells(gpu, &mut batch)?;",
+      "after": "    Ok([skirt, limb.read(gpu)?])\n}\n\nfn assert_closed(part: &BuiltPart) {\n    assert!("
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "line": 244,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "step",
+      "function_start": 235,
+      "signature": "pub fn step(         &mut self,         context: &WgpuContext,         solver: &Solver,         collisions: &mut Collisions,         delta: f32,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        collisions: &mut Collisions,\n        delta: f32,\n    ) -> Result<()> {\n        let mut batch = KernelBatch::labelled(context, \"cloth step\");\n        self.record_step(&mut batch, solver, collisions, delta)?;",
+      "after": "        Ok(())\n    }\n\n    /// Step with one submission per substep -- see\n    /// [`Solver::step_interleaved`]."
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "line": 286,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "step_interleaved",
+      "function_start": 253,
+      "signature": "pub async fn step_interleaved(         &mut self,         context: &WgpuContext,         solver: &Solver,         collisions: &mut Collisions,         delta: f32,     ) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                &self.particles,\n                &mut [&mut self.stretch, &mut self.seams, &mut self.bending],\n                &mut hook,\n                substep,\n            )?;",
+      "after": "            if interval > 0 && ((index + 1) % interval == 0 || index + 1 == count) {\n                self.project_host_contacts(context, schedule, interval_start.take().as_deref())\n                    .await?;\n            }\n        }"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "line": 132,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "sample",
+      "function_start": 80,
+      "signature": "pub(crate) fn sample(         gpu: &HairGpu,         body: &BodySurface<'_>,         [lo, hi]: [Vec3; 2],     ) -> Result<Self>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                \"pad0\" => 0u32,\n                \"pad1\" => 0u32,\n            }),\n            cells.div_ceil(4),\n        )?;",
+      "after": "        Ok(Self { buffer })\n    }\n\n    /// No body at all: everything is far outside it.\n    pub(super) fn nowhere(context: &WgpuContext) -> Result<Self> {"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "line": 215,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "build",
+      "function_start": 172,
+      "signature": "fn build(         &self,         gpu: &HairGpu,         kernel: &Kernel,         mut p: super::Params,         strips: u32,         source_rows: u32,         pieces: u32,     ) -> Result<GpuGeometry>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        p.insert(\"lie_flat_reach\", LIE_FLAT_REACH);\n        p.insert(\"pad0\", 0u32);\n        p.insert(\"pad1\", 0u32);\n        let mut batch = KernelBatch::labelled(context, \"hair strips\");\n        batch.dispatch_folded(kernel, &p, strips)?;",
+      "after": "        Ok(geometry)\n    }\n}\n\nimpl GpuGeometry {"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "line": 197,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "carry",
+      "function_start": 161,
+      "signature": "fn carry(&self, gpu: &HairGpu, groomed: &GpuGroom, field: &BodyField) -> Result<Carried>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        carry.insert(\"steps\", ROOT_STEPS);\n        carry.insert(\"pad0\", 0u32);\n        carry.insert(\"pad1\", 0u32);\n        let mut batch = KernelBatch::labelled(context, \"hair carry\");\n        batch.dispatch_folded(&gpu.place.carry, &carry, count)?;",
+      "after": "        Ok(carried)\n    }\n\n    /// `carried`, the strands of `groomed` as carried, moved as the\n    /// character's body moves the guides more than the bust does."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "line": 235,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "drape",
+      "function_start": 203,
+      "signature": "fn drape(         &self,         gpu: &HairGpu,         groomed: &GpuGroom,         carried: &Buffer,         field: &BodyField,     ) -> Result<Buffer>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                \"step\" => step,\n                \"pad0\" => 0u32,\n            },\n            guides * points,\n        )?;",
+      "after": "\n        // Each guide's equilibrium against its body and against nothing.\n        let settle = Settle::default();\n        let load = Vec3::new(0.0, -STANDARD_GRAVITY, 0.0);\n        let nowhere = BodyField::nowhere(context)?;"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "line": 298,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "drape",
+      "function_start": 203,
+      "signature": "fn drape(         &self,         gpu: &HairGpu,         groomed: &GpuGroom,         carried: &Buffer,         field: &BodyField,     ) -> Result<Buffer>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                \"hold_start\" => hold_start,\n                \"hold_full\" => hold_full,\n            },\n            count,\n        )?;",
+      "after": "        Ok(draped)\n    }\n\n    /// The box the carried roots are in, from the box `bust` the groomed\n    /// ones are in, and as far again as a root may be lifted."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "line": 213,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "bake",
+      "function_start": 172,
+      "signature": "pub(in crate::hair) fn bake(         gpu: &HairGpu,         groom: &GpuGroom,         bust: &Head,         map: &ScalpMap,     ) -> Result<Self>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            bare_reach,\n        };\n        grid.draw(gpu, &mut batch, groom, bust, map, [&topmost, &shadowed])?;\n        grid.bare(gpu, &mut batch, [&topmost, &shadowed], &bare)?;\n        baked.finish(gpu, &mut batch, &topmost, &bare[0])?;",
+      "after": "        Ok(baked)\n    }\n\n    /// The shade texture's chain: shade as grey, coverage as alpha.\n    pub fn shade(&self) -> &Buffer {"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "line": 445,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "longest",
+      "function_start": 428,
+      "signature": "pub(crate) fn longest(gpu: &HairGpu, groom: &GpuGroom) -> Result<f32>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            \"pad0\" => 0u32,\n            \"pad1\" => 0u32,\n        },\n        groom.strands,\n    )?;",
+      "after": "    let words: Vec<u32> = pollster::block_on(out.read(context))?;\n    Ok(f32::from_bits(words.first().copied().unwrap_or(0)))\n}"
+    },
+    {
+      "path": "crates/fabelgeist-spatial-hash/src/gpu.rs",
+      "line": 388,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "gpu_neighbour_counts_match_the_host_grid",
+      "function_start": 346,
+      "signature": "async fn gpu_neighbour_counts_match_the_host_grid() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        parameters.insert(\"table_size\", grid.table_size());\n        parameters.insert(\"inverse_cell\", grid.inverse_cell());\n        parameters.insert(\"radius\", radius);\n        grid.bind(&mut parameters);\n        batch.dispatch_items(&kernel, &parameters, points.len() as u32)?;",
+      "after": "\n        let gpu: Vec<u32> = counts.read(&context).await?;\n        let host = HashGrid::new(points.iter().map(|p| [p[0], p[1], p[2]]), radius);\n        for (i, p) in points.iter().enumerate() {\n            let mut n = 0;"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "line": 130,
+      "operation": "queue.submit([encoder.finish()]);",
+      "kind": "raw_provider_submit",
+      "function": "upload",
+      "function_start": 85,
+      "signature": "fn upload(     uploads: Res<ScalpUploads>,     images: Res<RenderAssets<GpuImage>>,     device: Res<RenderDevice>,     queue: Res<RenderQueue>, )",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        }\n        copied = true;\n        false\n    });\n    if copied {",
+      "after": "    }\n}\n\n/// Copies the scalp's baked textures into their images on the GPU.\npub(super) struct ScalpUploadPlugin;"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "line": 200,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "run",
+      "function_start": 158,
+      "signature": "async fn run(&self) -> Result<FittedUnderlayer>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/40",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "FittedUnderlayer::joint_indices",
+            "fit",
+            "fit_async",
+            "Fit::{run,record_skin}",
+            "read_skin"
+          ]
+        },
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/296",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "Fit::{shells,run} whole typed layer offset producer/receiver integration",
+            "check_status whole existing FitFailure cause retention"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "            constrained\n        } else {\n            neutral\n        };\n        ws.record_standoff(&mut batch, &base_positions, &directions, &links)?;",
+      "after": "\n        // Bone proportion translations keep the wearer's offset vectors.\n        for positions in &samples {\n            let mut batch = gpu.batch(\"underlayer proportion sample\");\n            ws.record_weld(&mut batch, positions, &links)?;"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "line": 207,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "run",
+      "function_start": 158,
+      "signature": "async fn run(&self) -> Result<FittedUnderlayer>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/40",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "FittedUnderlayer::joint_indices",
+            "fit",
+            "fit_async",
+            "Fit::{run,record_skin}",
+            "read_skin"
+          ]
+        },
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/296",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "Fit::{shells,run} whole typed layer offset producer/receiver integration",
+            "check_status whole existing FitFailure cause retention"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "        // Bone proportion translations keep the wearer's offset vectors.\n        for positions in &samples {\n            let mut batch = gpu.batch(\"underlayer proportion sample\");\n            ws.record_weld(&mut batch, positions, &links)?;\n            ws.record_standoff(&mut batch, positions, &directions, &links)?;",
+      "after": "        }\n\n        let mut realizations = vec![Realization {\n            positions: base_positions,\n            directions,"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "line": 223,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "run",
+      "function_start": 158,
+      "signature": "async fn run(&self) -> Result<FittedUnderlayer>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/40",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "FittedUnderlayer::joint_indices",
+            "fit",
+            "fit_async",
+            "Fit::{run,record_skin}",
+            "read_skin"
+          ]
+        },
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/296",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "Fit::{shells,run} whole typed layer offset producer/receiver integration",
+            "check_status whole existing FitFailure cause retention"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "            let mut batch = gpu.batch(\"underlayer morph sample\");\n            ws.record_weld(&mut batch, &positions, &links)?;\n            ws.record_constraints(&mut batch, &positions, 0)?;\n            ws.record_directions(&mut batch, &normals, &links, sets, &directions)?;\n            ws.record_standoff(&mut batch, &positions, &directions, &links)?;",
+      "after": "            realizations.push(Realization {\n                positions,\n                directions,\n            });\n        }"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "line": 296,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "shells",
+      "function_start": 233,
+      "signature": "async fn shells(         &self,         ws: &Workspace<'_>,         realizations: &[Realization],     ) -> Result<FittedUnderlayer>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/296",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "Fit::{shells,run} whole typed layer offset producer/receiver integration",
+            "check_status whole existing FitFailure cause retention"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/40",
+          "functions": [
+            "FittedUnderlayer::joint_indices",
+            "fit",
+            "fit_async",
+            "Fit::{run,record_skin}",
+            "read_skin"
+          ]
+        }
+      ],
+      "before": "                0,\n                &all_status.buffer,\n                index * 4,\n                4,\n            );",
+      "after": "        }\n        let skin = match self.domain {\n            Some(domain) => Some(self.record_skin(ws, domain)?),\n            None => None,\n        };"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "line": 346,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "record_skin",
+      "function_start": 332,
+      "signature": "fn record_skin(&self, ws: &Workspace, domain: SurfaceDomain) -> Result<(Buffer, Buffer)>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/40",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "FittedUnderlayer::joint_indices",
+            "fit",
+            "fit_async",
+            "Fit::{run,record_skin}",
+            "read_skin"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/296",
+          "functions": [
+            "Fit::{shells,run} whole typed layer offset producer/receiver integration",
+            "check_status whole existing FitFailure cause retention"
+          ]
+        }
+      ],
+      "before": "        };\n        let joints = gpu.scratch(count * INFLUENCES as u64 * 4, \"underlayer joints\")?;\n        let floats = gpu.scratch(count * SKIN_FLOATS as u64 * 4, \"underlayer skin\")?;\n        let mut batch = gpu.batch(\"underlayer skin\");\n        ws.record_skin(&mut batch, &sources, &joints, &floats)?;",
+      "after": "        Ok((joints, floats))\n    }\n}\n\n/// Each realization's shell, read back in order, checked finite and with"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "line": 142,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "read_frame_async",
+      "function_start": 139,
+      "signature": "pub async fn read_frame_async(&self, region: FitRegion) -> Result<fabelgeist_armor::PartFrame>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/289",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "FrameFailure whole typed cause owner",
+            "DeviceFrame::{check_status,check,read,read_async} whole frame failure integration",
+            "DeviceWearer::{read_frame,read_frame_async} whole receiving functions"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/80",
+          "functions": [
+            "DeviceWearer::{record,record_thumb_frame} whole-joint membership table native upload"
+          ]
+        },
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/146",
+          "functions": [
+            "Wearer::upload"
+          ]
+        }
+      ],
+      "before": "    }\n\n    pub async fn read_frame_async(&self, region: FitRegion) -> Result<fabelgeist_armor::PartFrame> {\n        let mut batch = self.gpu.batch(\"armor frame\");\n        let frame = self.record_frame(&mut batch, region)?;",
+      "after": "        DeviceFrame::check_status(self.gpu.read_async::<u32>(&frame.status).await?[0], region)?;\n        frame.read_async(self.gpu).await\n    }\n\n    /// Record the fitting of `region`'s frame."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "line": 1392,
+      "operation": "self.queue.submit([encoder.finish()]);",
+      "kind": "raw_provider_submit",
+      "function": "bind_dynamics",
+      "function_start": 1304,
+      "signature": "fn bind_dynamics(         &mut self,         ids: Arc<wgpu::Buffer>,         weights: Arc<wgpu::Buffer>,         guide_rest_buffer: Arc<wgpu::Buffer>,         guide_now: Arc<wgpu::Buffer>,         sim_points: u32,         body: Option<(Arc<wgpu::Buffer>, f32)>,     )",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                    group,\n                    sim_points,\n                }\n            })\n            .collect();",
+      "after": "        self.dynamics = Some(Dynamics {\n            _ids: ids,\n            _weights: weights,\n            _guide_rest: guide_rest_buffer,\n            guide_now,"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "line": 1443,
+      "operation": "self.queue.submit([encoder.finish()]);",
+      "kind": "raw_provider_submit",
+      "function": "clear_dynamics",
+      "function_start": 1429,
+      "signature": "pub fn clear_dynamics(&mut self)",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                &level.positions,\n                0,\n                level.positions.size(),\n            );\n        }",
+      "after": "        self.head_matrix = IDENTITY;\n        self.generation += 1;\n    }\n\n    /// Whether physics is on."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "line": 2184,
+      "operation": "self.queue.submit([encoder.finish()]);",
+      "kind": "raw_provider_submit",
+      "function": "render",
+      "function_start": 1686,
+      "signature": "pub fn render(         &mut self,         camera: &Camera,         lighting: &Lighting,         material: &HairMaterial,         policy: &LodPolicy,     ) -> Result<FrameInfo>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            });\n            pass.set_pipeline(&self.pipelines.tonemap);\n            pass.set_bind_group(0, source, &[]);\n            pass.draw(0..3, 0..1);\n        }",
+      "after": "        self.frames += 1;\n        Ok(FrameInfo {\n            representation,\n            pixels,\n            frames: self.frames,"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "line": 2249,
+      "operation": "self.queue.submit([encoder.finish()]);",
+      "kind": "raw_provider_submit",
+      "function": "read_rgba",
+      "function_start": 2219,
+      "signature": "pub fn read_rgba(&self) -> Result<(u32, u32, Vec<u8>)>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                width,\n                height,\n                depth_or_array_layers: 1,\n            },\n        );",
+      "after": "        let (tx, rx) = std::sync::mpsc::channel();\n        buffer.slice(..).map_async(wgpu::MapMode::Read, move |r| {\n            let _ = tx.send(r);\n        });\n        self.device.poll(wgpu::PollType::wait_indefinitely())?;"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_torso.rs",
+      "line": 252,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "generate_breastplate_on_device_async",
+      "function_start": 165,
+      "signature": "pub async fn generate_breastplate_on_device_async(     gpu: &ArmorGpu,     design: &BreastplateDesign,     input: TorsoSurfaceInput<'_>, ) -> Result<GeneratedArmor>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/154",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "TorsoSurfaceInput::{joint_indices,joint_names,global_joint_states,check,joints_named}",
+            "generate_breastplate_on_device_async"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "    .await?;\n    for morph in input.morphs {\n        let positions = gpu.upload(BufferUpload::from_elements(&morph.positions))?;\n        let mut batch = gpu.batch(\"breastplate morph\");\n        breastplate.record_morph(gpu, &mut batch, &positions)?;",
+      "after": "    }\n\n    torso_failure(gpu.read_async::<u32>(&status).await?[0])?;\n    let names = input\n        .morphs"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "line": 193,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "intermediate_neck_bulge_and_shared_bib_seam_clear_the_measured_body",
+      "function_start": 129,
+      "signature": "fn intermediate_neck_bulge_and_shared_bib_seam_clear_the_measured_body()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/133",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "intermediate_neck_bulge_and_shared_bib_seam_clear_the_measured_body",
+            "bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/295",
+          "functions": [
+            "DeviceWearer::{record_gorget_support,record_collar_fit} whole typed padding receiverfunctions"
+          ]
+        }
+      ],
+      "before": "            &[read(\"fit\", &fit), write(\"points\", &result)],\n            &[],\n            Grid::Singles(1),\n        )\n        .unwrap();",
+      "after": "        let support = gpu.read::<f32>(&fit).unwrap();\n        assert_eq!(support[15], 0.0, \"final sampled support failed readiness\");\n        let points = gpu.read::<[f32; 3]>(&result).unwrap();\n        for point in &points[..3] {\n            assert!(point[2] >= 0.072 - 1e-6, \"{point:?}\");"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "line": 312,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge",
+      "function_start": 210,
+      "signature": "fn bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/133",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "intermediate_neck_bulge_and_shared_bib_seam_clear_the_measured_body",
+            "bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/295",
+          "functions": [
+            "DeviceWearer::{record_gorget_support,record_collar_fit} whole typed padding receiverfunctions"
+          ]
+        }
+      ],
+      "before": "            &[read(\"fit\", &fit), write(\"points\", &result)],\n            &[],\n            Grid::Singles(1),\n        )\n        .unwrap();",
+      "after": "        let support = gpu.read::<f32>(&fit).unwrap();\n        assert_eq!(support[15], 0.0, \"final sampled support failed readiness\");\n        let points = gpu.read::<[f32; 3]>(&result).unwrap();\n        let bib = points[5];\n        assert!("
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "line": 351,
+      "operation": "failure.submit();",
+      "kind": "batch_submit",
+      "function": "bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge",
+      "function_start": 210,
+      "signature": "fn bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/133",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "intermediate_neck_bulge_and_shared_bib_seam_clear_the_measured_body",
+            "bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/295",
+          "functions": [
+            "DeviceWearer::{record_gorget_support,record_collar_fit} whole typed padding receiverfunctions"
+          ]
+        }
+      ],
+      "before": "            &[write(\"fit\", &unresolved)],\n            &[Word::F(\"support_tolerance\", SUPPORT_TOLERANCE_METRES)],\n            Grid::Singles(1),\n        )\n        .unwrap();",
+      "after": "        assert_eq!(gpu.read::<f32>(&unresolved).unwrap()[15], 1.0);\n    }\n\n    const EVALUATE_SIDE: &str = r#\"\n@compute @workgroup_size(1)"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_projection.rs",
+      "line": 150,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "near_edge_on_projections_reject_exterior_queries_without_depth_extrapolation",
+      "function_start": 75,
+      "signature": "fn near_edge_on_projections_reject_exterior_queries_without_depth_extrapolation()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        parameters.insert(\"results\", output.clone());\n        let mut batch = gpu.batch(\"projection containment\");\n        batch\n            .dispatch_items(&kernel, &parameters, queries.len() as u32)\n            .unwrap();",
+      "after": "        let results = gpu.read::<[f32; 4]>(&output).unwrap();\n        for (index, (actual, expected)) in results.iter().copied().zip(expected).enumerate() {\n            if let Some(depth) = expected {\n                assert_eq!(actual[1], 1.0, \"query {index}: {actual:?}\");\n                // Seven determinant operations, normalization and a three-term"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "line": 394,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "cut_scalp",
+      "function_start": 136,
+      "signature": "pub fn cut_scalp(&mut self, head: &Head, cell: f32) -> Result<GpuScalp>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            p.insert(\"scalp_points\", points.clone());\n            p.insert(\"offsets\", offsets.clone());\n            p.insert(\"boundary\", out.clone());\n            batch.dispatch_folded(&self.kernels.nets_boundary, &p, uses)?;\n        }",
+      "after": "\n        Ok(GpuScalp {\n            triangles,\n            vertices,\n            area,"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_kernel.rs",
+      "line": 273,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "shader_normalization_preserves_direction_across_finite_scales",
+      "function_start": 238,
+      "signature": "fn shader_normalization_preserves_direction_across_finite_scales()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        parameters.insert(\"directions\", output.clone());\n        let mut batch = gpu.batch(\"normalization scales\");\n        batch\n            .dispatch_items(&kernel, &parameters, vectors.len() as u32)\n            .unwrap();",
+      "after": "        let directions = gpu.read::<[f32; 4]>(&output).unwrap();\n        assert_eq!(directions[0], [0.0; 4]);\n        // Division and square root may round each unit-vector component twice.\n        let component_roundoff = 2.0 * (0.8_f32.next_up() - 0.8);\n        for direction in &directions[1..] {"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+      "line": 115,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "apply",
+      "function_start": 86,
+      "signature": "pub fn apply(&mut self, groom: &GpuGroom, ops: &[Op], body: &Buffer) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            mapped: false,\n        };\n        let mut batch = KernelBatch::labelled(&context, \"hair operations\");\n        self.record_ops(&mut batch, ops, &mut set, body)?;\n        set.settle(&mut batch)?;",
+      "after": "        Ok(())\n    }\n\n    /// Where each of `count` strands of `points` points in `positions`\n    /// comes to rest under `load` against `body`, as [`crate::ops::Settle`]"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+      "line": 171,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "equilibrium",
+      "function_start": 124,
+      "signature": "pub fn equilibrium(         &mut self,         positions: &Buffer,         count: u32,         points: u32,         settle: &crate::ops::Settle,         load: Vec3,         body: &Buffer,     ) -> Result<Buffer>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                \"pad2\" => 0u32,\n                \"pad3\" => 0u32,\n            },\n            count,\n        )?;",
+      "after": "        Ok(solved)\n    }\n}"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "line": 336,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "grow",
+      "function_start": 122,
+      "signature": "pub fn grow(         &mut self,         groom: &Groom,         guides: Guides,         head: &Head,         scalp: &GpuScalp,     ) -> Result<GpuGroom>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/266",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "GpuGroomer::grow_look",
+            "GpuGroomer::grow"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "        )?;\n\n        // Everything after.\n        self.record_ops(&mut batch, &groom.ops[at + 1..], &mut strands, &head_shape)?;\n        strands.settle(&mut batch)?;",
+      "after": "\n        Ok(GpuGroom {\n            strands: count,\n            points,\n            positions: strands.positions.own,"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "line": 540,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "read_words",
+      "function_start": 524,
+      "signature": "fn read_words(&mut self, batch: KernelBatch, words: &[(Buffer, u32)]) -> Result<Vec<u32>>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                &out.buffer,\n                k as u64 * 4,\n                4,\n            );\n        }",
+      "after": "        let values: Vec<u32> = pollster::block_on(out.read(&self.context))?;\n        if values.len() < words.len() {\n            return Err(HairGpuError::ShortReadback {\n                expected: (words.len() * std::mem::size_of::<u32>()).into(),\n                actual: (values.len() * std::mem::size_of::<u32>()).into(),"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "line": 250,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "resimulate",
+      "function_start": 197,
+      "signature": "pub fn resimulate(         &mut self,         old: &GpuSim,         lods: &GpuLods,         head: Option<&Head>,         settings: SimSettings,     ) -> Result<GpuSim>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        };\n        insert_rigid(&mut p, &old.head);\n        batch.dispatch_folded(&self.kernels.sim_transfer, &p, sim.count * sim.points)?;\n        sim.record_shape(self, &mut batch)?;\n        sim.record_orient(self, &mut batch, &old.head)?;",
+      "after": "        sim.head = old.head;\n        sim.time = old.time;\n        sim.h_last = old.h_last;\n        Ok(sim)\n    }"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "line": 505,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "reset",
+      "function_start": 487,
+      "signature": "pub fn reset(&mut self, groomer: &GpuGroomer, head: Rigid) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        insert_rigid(&mut p, &head);\n        let mut batch = KernelBatch::labelled(context, \"hair sim reset\");\n        batch.dispatch_folded(&groomer.kernels.sim_reset, &p, count)?;\n        self.record_shape(groomer, &mut batch)?;\n        self.record_orient(groomer, &mut batch, &head)?;",
+      "after": "        Ok(())\n    }\n\n    /// The rods' rest solved for the settings, if they changed.\n    fn record_shape(&mut self, groomer: &GpuGroomer, batch: &mut KernelBatch) -> Result<()> {"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "line": 657,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "step",
+      "function_start": 564,
+      "signature": "pub fn step(&mut self, groomer: &GpuGroomer, dt: f32, head: Rigid) -> Result<()>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            self.time += h * inner as f32;\n        }\n        if !s.strand_collision {\n            self.have_before = false;\n        }",
+      "after": "        self.head = head;\n        Ok(())\n    }\n\n    /// The colliding strands' collisions, the head at `head`: their samples"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "line": 794,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "set_state",
+      "function_start": 778,
+      "signature": "pub(crate) fn set_state(         &self,         groomer: &GpuGroomer,         positions: &[[f32; 4]],         previous: &[[f32; 4]],     ) -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            groomer.context(),\n            fabelgeist_gpu::prelude::BufferUpload::from_elements(previous),\n        )?;\n        let mut batch = KernelBatch::labelled(groomer.context(), \"hair sim state\");\n        self.record_orient(groomer, &mut batch, &self.head)?;",
+      "after": "        Ok(())\n    }\n}"
+    },
+    {
+      "path": "crates/fabelgeist-cloth/src/cloth/tests.rs",
+      "line": 630,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "coincident_non_neighbours_separate_and_pinned_particles_stay_fixed",
+      "function_start": 614,
+      "signature": "async fn coincident_non_neighbours_separate_and_pinned_particles_stay_fixed() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        &[vec![], vec![]],\n        0.005,\n    )?;\n    let mut batch = KernelBatch::labelled(&harness.context, \"coincident contact\");\n    collision.record(&mut batch, &particles, true)?;",
+      "after": "    let p = particles.read_positions(&harness.context).await?;\n    assert!(p[0].length() < 1e-6);\n    assert!((p[1] - p[0]).length() > 0.0099);\n    Ok(())\n}"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_bracer.rs",
+      "line": 113,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "generate_bracer_on_device_async",
+      "function_start": 53,
+      "signature": "pub async fn generate_bracer_on_device_async(     gpu: &ArmorGpu,     design: &BracerDesign,     input: ForearmSurfaceInput<'_>, ) -> Result<GeneratedArmor>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/153",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "ForearmSide::joint",
+            "generate_bracer_on_device_async"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "            atlas: &atlas,\n            body: &body,\n        },\n        &status,\n    )?;",
+      "after": "    for morph in input.morphs {\n        let positions = gpu.upload(BufferUpload::from_elements(&morph.positions))?;\n        let normals = gpu.upload(BufferUpload::from_elements(&morph.normals))?;\n        let mut batch = gpu.batch(\"bracer morph\");\n        bracer.record_morph("
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_bracer.rs",
+      "line": 126,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "generate_bracer_on_device_async",
+      "function_start": 53,
+      "signature": "pub async fn generate_bracer_on_device_async(     gpu: &ArmorGpu,     design: &BracerDesign,     input: ForearmSurfaceInput<'_>, ) -> Result<GeneratedArmor>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/153",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "ForearmSide::joint",
+            "generate_bracer_on_device_async"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "            BracerBody {\n                positions: &positions,\n                normals: &normals,\n            },\n        )?;",
+      "after": "    }\n\n    let bits = gpu.read_async::<u32>(&status).await?[0];\n    if bits & STATUS_COINCIDENT_LANDMARKS != 0 {\n        bail!(\"MHR forearm landmarks coincide\");"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "line": 240,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "lods_against",
+      "function_start": 115,
+      "signature": "pub fn lods_against(         &mut self,         groom: &GpuGroom,         center: Vec3,         settings: &LodSettings,         body: Option<&Buffer>,     ) -> Result<GpuLods>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "            cards.push(built);\n            batch = next;\n        }\n\n        let cover = self.record_cover(&mut batch, groom, bounds)?;",
+      "after": "\n        let [w, h] = settings.atlas_size;\n        let key = (settings.atlas_variants, [w, h]);\n        let atlas = match &self.atlas {\n            Some((v, size, atlas)) if (*v, *size) == key => atlas.clone(),"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_coif.rs",
+      "line": 365,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "fitted_coif_carrier",
+      "function_start": 352,
+      "signature": "pub fn fitted_coif_carrier(     gpu: &ArmorGpu,     wearer: &Wearer<'_>,     design: &CoifDesign, ) -> Result<(PartFrame, CoifCarrier)>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        body: &body,\n        host: wearer,\n    };\n    let mut batch = gpu.batch(\"coif carrier\");\n    let recording = device.record_fitted_coif(&mut batch, design)?;",
+      "after": "    let (frame, region) = &recording.frames[0];\n    frame.check(gpu, *region)?;\n    Ok((frame.read(gpu)?, CoifCarrier::read(gpu, &recording.part)?))\n}\n"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "line": 532,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "coif_mesh",
+      "function_start": 520,
+      "signature": "fn coif_mesh() -> GarmentMesh",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "        let placement = gpu\n            .upload(BufferUpload::from_elements(&frame_words(&frame)))\n            .unwrap();\n        let mut batch = gpu.batch(\"coif carrier test\");\n        let part = record_coif(gpu, &mut batch, &design, &fit, &placement).unwrap();",
+      "after": "        let carrier = CoifCarrier::read(gpu, &part).unwrap();\n        surface_mesh(&frame, &carrier, Fabric::CHAINMAIL.density).unwrap()\n    }\n\n    #[test]"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "line": 274,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "bib_seats_on_lower_equipment_in_the_canonical_wearer_frame",
+      "function_start": 172,
+      "signature": "fn bib_seats_on_lower_equipment_in_the_canonical_wearer_frame()",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/132",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "bib_seats_on_lower_equipment_in_the_canonical_wearer_frame"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/294",
+          "functions": [
+            "DeviceWearer::{record_bib_fit,record_bib_measure} whole typed padding receiverfunctions"
+          ]
+        }
+      ],
+      "before": "                    &[read(\"fit\", &fit), write(\"points\", &output)],\n                    &[],\n                    Grid::Singles(1),\n                )\n                .unwrap();",
+      "after": "                fitted.push(gpu.read::<[f32; 3]>(&output).unwrap());\n            }\n            assert!(\n                fitted[1][..33]\n                    .iter()"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "line": 173,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "fit_piece_async",
+      "function_start": 127,
+      "signature": "pub async fn fit_piece_async(     gpu: &ArmorGpu,     body: &FitBody<'_>,     wearer: &Realization<'_>,     morphs: &[(&str, Realization<'_>)],     record: impl Fn(&DeviceWearer, &mut KernelBatch, Option<&str>) -> Result<DeviceRecording>, ) -> Result<DevicePiece>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; path has neighboring774 claims, no exact function match",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/34",
+          "functions": [
+            "Fitted::placement",
+            "fit_recipe",
+            "fit_recipe_async",
+            "record_recipe",
+            "assemble_recipe"
+          ]
+        },
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/147",
+          "functions": [
+            "Realization::upload"
+          ]
+        },
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/302",
+          "functions": [
+            "fit_recipe_async whole suspended support height producer",
+            "suspended_waist whole connected typed height/geometry/error result repair"
+          ]
+        }
+      ],
+      "before": "                device,\n                recording.part.positions(),\n                recording.part.vertex_count(),\n            )?);\n        }",
+      "after": "        recordings.push(recording);\n    }\n    let names = morphs.iter().map(|(name, _)| *name).collect::<Vec<_>>();\n    let skin = skin.context(\"wearer has no staged skin\")?;\n    readback::read(gpu, &recordings, &skin, &names).await"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+      "line": 144,
+      "operation": "batch.submit();",
+      "kind": "batch_submit",
+      "function": "wrapped_tassets_reject_nonpositive_final_section_radii",
+      "function_start": 93,
+      "signature": "fn wrapped_tassets_reject_nonpositive_final_section_radii() -> Result<()>",
+      "fixture_or_test_context": true,
+      "ownership_disposition": "retained exact774 whole function;780 coordinates handoff",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/65",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "wrapped_waist_assembly_fits_completed_fauld_and_morph",
+            "wrapped_tassets_reject_nonpositive_final_section_radii",
+            "wrapped_tassets_fit_final_height_with_rigid_separate_thigh_ownership"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "            &design,\n            [&left, &right],\n            [&statuses[0], &statuses[1]],\n        )?;\n        part.record_shells(gpu, &mut batch)?;",
+      "after": "        let result = part.read(gpu);\n        if valid {\n            assert!(result.is_ok());\n        } else {\n            assert!("
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "line": 310,
+      "operation": "fabelgeist_gpu::data::gpu::ComputePass::record(",
+      "kind": "direct_record",
+      "function": "execute",
+      "function_start": 195,
+      "signature": "pub fn execute(         context: &WgpuContext,         definition: &ReduceDefinition,         input: &fabelgeist_gpu::data::gpu::resource::GpuResource,         scratchpad: &mut ReduceScratchpad,     ) -> Result<fabelgeist_gpu::data::gpu::Buffer>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "780 caller propagation; no exact774 claim located in four archives",
+      "exact_function_claims": [],
+      "neighboring_path_claims": [],
+      "before": "                &first_pass_pipeline\n            } else {\n                &standard_pipeline\n            };\n",
+      "after": "                context,\n                pipeline,\n                &parameters,\n                &mut encoder,\n                fabelgeist_gpu::data::WorkgroupGrid::from([workgroup_count, 1, 1]),"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "line": 294,
+      "operation": "None => ComputePass::record(",
+      "kind": "direct_record",
+      "function": "dispatch",
+      "function_start": 249,
+      "signature": "pub fn dispatch(         &mut self,         kernel: &Kernel,         parameters: &PassParameters,         groups: WorkgroupGrid,     ) -> Result<&mut Self>",
+      "fixture_or_test_context": false,
+      "ownership_disposition": "root agreed core receiver",
+      "exact_function_claims": [
+        {
+          "archive": "target/pr826-audit/774-records/records/parallel-ownership/rig_garments-claims.json",
+          "json_pointer": "/claims/272",
+          "owner": "/root/rig_garments",
+          "functions": [
+            "KernelBatch::copy_buffer (existing bytes length owner)",
+            "KernelBatch::dispatch (Prepared dynamic offset native port only)"
+          ]
+        }
+      ],
+      "neighboring_path_claims": [],
+      "before": "                #[cfg(not(target_arch = \"wasm32\"))]\n                if let Some(cause) = native_error {\n                    return Err(ComputePassError::Native(Arc::new(cause)).into());\n                }\n            }",
+      "after": "                self.context,\n                &kernel.pipeline,\n                parameters,\n                &mut self.encoder,\n                groups,"
+    }
+  ],
+  "source_fingerprints": [
+    {
+      "path": "crates/adventuresim-character-creator/src/device_bracer.rs",
+      "sha256": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_coif.rs",
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_kernel.rs",
+      "sha256": "7484d47aa4568e2fc5b3fed2daba4888a9f0d637e6af199bca5e4f85f218d60f"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "sha256": "efabd4be63cf20343ef960668d702d3525aa9ac0b5b0e591efcc54efa38a1a92"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "sha256": "a16e662e70c17cde92374f377722bfe4e19440f3673a91b97f86d2e69960b099"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_projection.rs",
+      "sha256": "9e52d00ac15a857a4516fef35e94758bc61262edf250f23a42f2d249f1713ef3"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_torso.rs",
+      "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/body_cloth_layers.rs",
+      "sha256": "de7fe94a71246b0953ae4d8c416c71458c04577c04a179e40f19bbbc31539b39"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/skirt_construction.rs",
+      "sha256": "a1ec603ea2f3a48d91c136f5db6bedb408fc342a6bcc17c306d0a45ff3fdd872"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/skirt_surface.rs",
+      "sha256": "6be4bdd141d88d087e4e53c63b87a81abb09e34f15541005b7320fb0da5d2560"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_appearance.rs",
+      "sha256": "2e1613f877cb04558ff0524ed8f83feb75eb0ec8d3655c45b8c3efd10e323840"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_treatment.rs",
+      "sha256": "584a09367f17674a14660adb1e8469da6e050cce200ab4f6f83433725d7b2ae2"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+      "sha256": "d914bedbc8e9a85e064c5ea5d7638598277248b68a0da29587eb637350461144"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime.rs",
+      "sha256": "a41d7583511916f837e5a9402fe4658589c54e4cfe15fa29cb04dd6a585ca000"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs",
+      "sha256": "05f22ce898989bd0fd60a8820b40ebb7c2d7edfa5a3cf81b0bc2c12b59490965"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "sha256": "1e8220ba0622d5c485c9397aec607d945e9aac92e8e7c26b6a5b5de0365f5026"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "sha256": "961d47635ad3f0bea6e01267b36a4d5574ea7204876f1fedccbbdc427ef3a921"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "sha256": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e"
+    },
+    {
+      "path": "crates/fabelgeist-armor/tests/garment_armor.rs",
+      "sha256": "82c80b000c0ec0926356bd5dfdb2ea3880b2e0294eb7b9cf771a8d4f215fe963"
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "sha256": "591b2acc0e91118d14df8eb16d27966145ecdd661c8917dc58352ddec320ec9d"
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/gpu/tests.rs",
+      "sha256": "85811b6011b987ade76feadef1481d898b159d429f5ac443f2e3a3cb3c0111ea"
+    },
+    {
+      "path": "crates/fabelgeist-cloth/src/cloth/tests.rs",
+      "sha256": "5262ec58f985121e0e11d2db11221b795d41268242028aed3eee900623d90fe1"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "sha256": "0b46bdcd4dfba732411b2922b12c0526a6109c8c2b47102d3c9844e80ff4a47c"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/tests.rs",
+      "sha256": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "08fc1088252b1f0337d747aa8288f930b222fa3905bfcb0e8f1c9447cc815fa5"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "sha256": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "sha256": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+      "sha256": "0875af22982b215bebcf4fa357f966b369bd3b901abb5bc168e9b5285fd130e6"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+      "sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+      "sha256": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced"
+    },
+    {
+      "path": "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+      "sha256": "4fd6d01a795959004f9193d79f5502469c35aa84961dacb49dc6f6d20594727a"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "0de7bed006752d346fa4cf6c7763cca9ccbaed89dbf4809ec56aa123836f5f27"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "sha256": "339eb4bc4fecb2b3bf33e8b486b0a42214398ce4a391687745cce49464b267d9"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "01e776aa79ad686723af71aff644feae92ce5294fd92df8378d3b12b8fda642f"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "3d25dc0035dbbd9460bde6ae307b5338e0bf1a7b621fe1b9be93a33da235c834"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "e5112ab6bf1035c3bb5dceb8c6611d75a8c477b55e7c6ba5221226112b51c077"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "99ed61259eca72b2d3e88923bd098df3d454754f3fedbd35a41b1809298e3f89"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "64b53f0c6c350b1de37be00b9ce3de2fff5261912a7514322940b15ff6e2079b"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+      "sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "eda4c9002081e8d83174e01bca0caddda93d9f90301d48b5ac2a5eb29033ce4c"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "51aa86bfd6b6d5036da4ce6c3687a8c165546f519924b4a4e97030067776d842"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "25b0b9a2168d3aafa49b08f1ed5b6b3438a9e2e6b3925df6c47aa09a47d05017"
+    },
+    {
+      "path": "crates/fabelgeist-physics/src/contact.rs",
+      "sha256": "a68dc722ac5181a1f310a1a1b13f9c694574799f3952a9ef19de71f3c018cceb"
+    },
+    {
+      "path": "crates/fabelgeist-physics/src/mesh.rs",
+      "sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc"
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2"
+    },
+    {
+      "path": "crates/fabelgeist-spatial-hash/src/gpu.rs",
+      "sha256": "eb46b3a71f1237af1fad8cd3af122dd885552800b24faf8e89312ec9d6e70ba3"
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde"
+    }
+  ],
+  "root_pre_repair_snapshot": {
+    "file_count": 126,
+    "mismatches": [],
+    "discovery": "incomplete; newfullall13 inventorybeforeanyrepair required",
+    "ownership_gate": "OPEN latestexplicit780agreement forrootcontexthelper+Batchsubmit+standaloneComputePassdispatch; allcallerResult/metadata/callback/fixturemigration780 withretained774claimsrespected. Crosseddesignrepliesresolvedbeforeanysourceedit; onlydefinitivecontextcontractwillbeimplemented afterall13gate."
+  },
+  "limits": [
+    "No source edits or project execution",
+    "No tests/cases/helpers/assertions/doctests added",
+    "Nearest signature identification excludes inline string expressions; known embedded-WGSL/nested-function cases manually corrected",
+    "Exact archival claim matches do not imply family implementation or validation status",
+    "Path-only matches explicitly do not grant whole-function ownership",
+    "No current all13 or postrepair clearance"
+  ],
+  "authorization_precedence": {
+    "current_design": "Latest parent assignment explicitly agrees one WgpuContext::submit native-error API, fallible batch submit and standalone dispatch reuse; no ComputePass submit helper",
+    "current_implementation_gate": "Root all13 source discovery remains incomplete before edits",
+    "caller_policy": "780 owns all caller repairs and coordinates exact retained774 handoffs; no independent repair in claimed whole functions",
+    "historical_metadata": "Archived claims and copied root ledger gate text are source evidence, not authority overriding later human/core transfer or current agreed signature"
+  },
+  "contract_constraints": [
+    "Finish observed before queue submission; submit separately observed; no callback on Err",
+    "Observed validation acceptance differs from completion and device-handled Ok",
+    "Actual SDK error stays concrete through canonical higher-layer mapping; no String or Arc<str> erasure",
+    "Real native per-thread scope key requires wgpu Cargo feature std; scope guard remains same-thread !Send/!Sync and native waits cfg excluded on Wasm",
+    "Wgpu Error Send/Sync is conditional; configured fragile non-atomic Wasm does not establish atomics support",
+    "Encoder originating-device identity remains actual caller precondition, not proved by bare SDK encoder argument",
+    "Raw marker submit and external RenderDevice/RenderQueue ports require distinct explicit dispositions, no fake context/second helper",
+    "Existing fixture API/error adaptation only, unchanged cases/inputs/counts/assertions; no new test helpers"
+  ],
+  "discovery_erratum_std_feature": {
+    "revision": "5a34b608ccacc1950313b501d30b036f0a4f8b5b",
+    "previous_assurance": "Unconditional native thread-local scope statement withdrawn",
+    "provider_source": "wgpu29 backend/wgpu_core/thread_id.rs:7-29 uses cfg(feature=\"std\"), distinct from native cfg(std) build alias",
+    "pinned_declarations": "Direct GPU/compute/math wgpu declarations omit std; isolated-library behavior cannot depend on unrelated feature unification",
+    "pre_repair_extension": "Explicitly enable std on native GPU wgpu dependency; root inventory expanded from126to128paths including GPU manifest andCargo.lock",
+    "unchanged_limits": [
+      "same-thread non-Send scope guard",
+      "Wasm feature-specific SendSync/provenance limits",
+      "no source edits or checks"
+    ]
+  }
+}

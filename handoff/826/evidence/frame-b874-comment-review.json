@@ -1,0 +1,222 @@
+{
+  "review": "Independent frameb874 Comment Review",
+  "head": "b874e611826c27085da897903cacfc31998d0210",
+  "tree": "271b944ed1843f9e858c65da4947e854743e98ed",
+  "parent": "6b22364249ae1503fe070dd7b5ce64b8e6e0e25d",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "source_mode": "Immutable pinned git objects",
+  "checkpoint_only": true,
+  "final_clearance": false,
+  "coverage": {
+    "changed": [
+      {
+        "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+        "sha256": "8c1ea8b0eb26329986ba65b3699a55bc94d2c9974fd05f59e218afb07bfdb3da",
+        "lines": 66,
+        "coverage": "Fresh complete pinned source and full3-path exact delta; renderer contiguous1-700/701-1400/1401-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+        "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+        "lines": 192,
+        "coverage": "Fresh complete pinned source and full3-path exact delta; renderer contiguous1-700/701-1400/1401-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/mod.rs",
+        "sha256": "3005c29d443d07f6a444db94305bba085cb67e4f3ad73d84686a4c90768225e9",
+        "lines": 2103,
+        "coverage": "Fresh complete pinned source and full3-path exact delta; renderer contiguous1-700/701-1400/1401-end"
+      }
+    ],
+    "affected_unchanged": [
+      {
+        "path": "crates/fabelgeist-hair/Cargo.toml",
+        "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/cards.rs",
+        "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+        "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+        "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/cards/atlas/paint.rs",
+        "sha256": "daa74c09fa86ca04b709dcc9efed9b35d35a392aeb43db10086fa09cd27a50fb",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+        "sha256": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+        "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/head.rs",
+        "sha256": "b9fccf7ea25d3cce7dc5dfdb0f91dda22362f10d0c5c4120d9e42c729c3c38c4",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+        "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/draws.rs",
+        "sha256": "2bda8e84908f751c80409eefcca90f33632c6024052a544c09f4c66622b1a307",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+        "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/dataset.rs",
+        "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod.rs",
+        "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+        "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+        "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+        "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+        "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+        "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+        "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+        "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/readback.rs",
+        "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/math.rs",
+        "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-color/src/pixel.rs",
+        "sha256": "9b7d1004ee1879e113be545a891967a8f30d6ced8086fba84ee7f279997d333b",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-color/src/wgpu.rs",
+        "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-determinism/src/seed.rs",
+        "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/rng.rs",
+        "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+        "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+        "coverage": "Exact6b/04/D9/73b source identity; recorded previous full or bounded evidence carried, no fresh full-body claim"
+      }
+    ],
+    "fixture_sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+    "shaders": [
+      {
+        "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+        "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+        "coverage": "Exact unchanged shader identity, earlier partial/full scope carried"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+        "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+        "coverage": "Exact unchanged shader identity, earlier partial/full scope carried"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+        "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+        "coverage": "Exact unchanged shader identity, earlier partial/full scope carried"
+      }
+    ],
+    "limits": "Full3files/currentrenderer and exact preserved associated contract graph. Not a fresh complete incoming/native/creator/caller or whole SDK investigation."
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "id": "6B-C1",
+      "status": "Resolved: constructor distinguishes returned host atlas admission/allocation failures from device-handled native pipeline/resource/queue failures."
+    }
+  ],
+  "verified_contracts": [
+    "FrameProgress is a local temporal candidate. prepare_frame observes current last/count/history/moving, resets only candidate when view differs or needed history absent; does not publish these fields. Same complete view early return preserves existing committed state.",
+    "Accumulation uses candidate frames/history for jitter/weight and alternate history slot; candidate history becomes Current only locally until normal queue.submit return. publish_frame then commits last/count-next/history and clears moving.",
+    "RecordedDeformations retains at most3 main/shadow/blend level indices and deduplicates actualselected levels. record path now &self; no pending acknowledgements are published until postsubmit publish_deformations. Pending unused levels remain pending.",
+    "Callsite finishes/submits the complete frame, then publishes deformation and temporal state. Early Result exit/unwind before that call leaves these acknowledgements unpublished. This is normal-return/API ordering, not synchronous native error observation or GPUcompletion. Native configured error handler can return without proving acceptance; no state contract is enlarged to actual GPUhealth.",
+    "New publish comments explicitly say submitted commands, not completedGPUwork. They make no GPUWait/performance/globalrollback assertion. Other native resource/shadow/queue side effects before publication are not claimed transactional.",
+    "Frame finite-input checks precede candidate preparation, exact view/policy comparisons and history-empty/current logic remain intact. Source item order keeps responsibilities with own docs and original fixture module last.",
+    "Constructor host-atlas/nativepolicy correction agrees with actualAtlas.transparent/UploadedAtlas.Result versus device-handled calls. Exactdevice/queue/source/coverage/preallocation contracts unchanged where hashed.",
+    "Original renderer2tests/validatehelper/5assertions and allshader bytes preserved; no new cases/helpers/assertions/doctests."
+  ],
+  "required_dependencies": [
+    "HostLOD and GPU atlas producer/cache callers still use old paint fields/signatures and must consume full canonical settings/seed/mips API; no compile/source-family-complete claim. Explicit family transfer does not make these pending paths complete.",
+    "Native hair/card/simulation source/count/layout admission, cardquads population/geometryproducer/creator and lock integration remain required under root/#780 agreements. Existing set_groom prefixfit prose must be revalidated with full native-strand admission: current upload still forces one strand even if perstrand bytes exceedlimit.",
+    "Accepted peer SurfaceRenderLayout/GpuHeadCover/GpuLodsdevice and later descriptor contracts remain integration dependencies. Atlas admission does not prove shader buffers/resource lifetime or physical geometry.",
+    "Rootall13 inventory, full integrated three independent reviews and required hosted checks on same final pushed revision remain outstanding.895ZIPNumPy/774retained families unchanged."
+  ],
+  "errata_carried": "Earlier detached-Wasm-readonly rationale and recorder-scope native acceptance assurances remain withdrawn as documented in197/frozen deferred-submission reports.",
+  "limits": [
+    "No source edits/project execution/checks/builds/tests/scanners/generators/runtime/new tests/cases/helpers/assertions/doctests/push/CI/external posts.",
+    "No native/Wasmcompile/browser/hardware/artistic/performance/globalhealth/rollback or universalallocation verdict.",
+    "No new findings in frame/publication repair; retained uploadfit prose/native-family and producer/creator/caller/lock issues remain required. Bounded checkpoint, no integrated/fullPR/all13/finalclearance."
+  ]
+}

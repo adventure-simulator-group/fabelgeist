@@ -1,0 +1,969 @@
+{
+  "review": "Independent read-only PRE-REPAIR all13 renderer source/device/simulation/card inventory",
+  "root": "1b42bcfff0099a6066d67fc4859e535591b39789",
+  "root_tree": "42cd2a30839e358f243cb3bef3b75d78a36c62af",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "canonical_native": "0df94b91011a415be93c14174d4233b09eb01c00",
+  "canonical_native_tree": "73d34fc808d82e5dce79d8441fbba2990fd079ec",
+  "discovery": "INCOMPLETE for whole requested family: exact host SimFrame/source receipt still pending; native + card renderer admission discovery complete across all13 lenses",
+  "repair": "not started; root sole implementation owner",
+  "validation": "not run; no local project execution",
+  "source_coverage": [
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "86f0e714e3e5f41e6cb59a299114e43cd12a678bbf70f508f8681c610af87478",
+      "bytes": 72002,
+      "coverage": "Fresh complete named set_groom/set_gpu_groom/upload_cards/set_dynamics/set_gpu_dynamics/bind_dynamics/set_simulated/set_moved/clear_dynamics/primitives plus Dynamics/DeformLevel/GpuMesh/FrameInfo definitions and draw consumers; remainder exact carried6bf full Renderer evidence"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "05d2a47057f3095bc11a8ad025e1a228f24c50df6436638456c17cd094dc55c2",
+      "bytes": 7949,
+      "coverage": "complete fresh"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "7ae74e77ae2e8eadfcf84d6fa5b4c528034572fe1beec94f8e73a095748618fe",
+      "bytes": 9412,
+      "coverage": "complete prior8cdc plus exact identity; fresh full receiving DeformLevel/new/record/publish/deform functions"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "sha256": "b9fccf7ea25d3cce7dc5dfdb0f91dda22362f10d0c5c4120d9e42c729c3c38c4",
+      "bytes": 7071,
+      "coverage": "complete fresh"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "bytes": 5139,
+      "coverage": "complete fresh"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "bytes": 5612,
+      "coverage": "complete fresh"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "bytes": 2796,
+      "coverage": "complete fresh"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb",
+      "bytes": 10518,
+      "coverage": "complete fresh including existing fixture; card source pending successor"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/sim.rs",
+      "sha256": "fb1ff8533a78fe122a0d19f28b64f6f757b55898aded84056dbe0fef816e6079",
+      "bytes": 31275,
+      "coverage": "fresh owning module/Rigid functions1-138 and SimBinding/HairSim/from_level260-460; remaining host solver outside this bounded receiver and awaiting exact host source receipt"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "bytes": 3550,
+      "coverage": "fresh1-120 count/point/neighbor/seed roles; other policies outside scoped receiver"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "bytes": 3578,
+      "coverage": "complete fresh; existing Metres/Ratio numerical leaves add no validation policy"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "bytes": 4021,
+      "coverage": "complete fresh native capability owner"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+      "bytes": 631,
+      "coverage": "complete fresh root owner export status"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "bytes": 9673,
+      "coverage": "fresh1-180 existing mesh admission example, not full unrelated mesh processing"
+    },
+    {
+      "revision": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "path": "crates/fabelgeist-hair/src/render/math.rs",
+      "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+      "bytes": 2595,
+      "coverage": "fresh1-70 native matrix representation; no unrelated camera-math audit"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "1c6a3dfe68c68c02c79ebf1157be9981e4c2a31f8a7667dd64148e30386bd70d",
+      "bytes": 3049,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/levels.rs",
+      "sha256": "650943d671d88ceb81a808c6e1f94eddb4780e018518f930fce3d3b1bf4bac3b",
+      "bytes": 2777,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c77d68591854015441a69a653f7fc1ed0bd7f44f88ac35cb1e7facf061eb7d9",
+      "bytes": 15297,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "5ae5a922ea1e5a8d28c918ddfc36deb028ee2d3c7e8f85bd3cb660db99533ec0",
+      "bytes": 10436,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/binding.rs",
+      "sha256": "c5459f6db0f1b23d67efb540f90f14140a65d958b4bf251dbd945150e551bed0",
+      "bytes": 2394,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/inspect.rs",
+      "sha256": "2ef2f3a867fe2c3d9f999b7818e1ec85841dacba3aee8c2535d15fc5b1316639",
+      "bytes": 2700,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+      "sha256": "241410f12cc5c1530467ea5bda1a8dc7bd8dc8c226151a0226c704b3e2970e89",
+      "bytes": 13897,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425",
+      "bytes": 1544,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/density.rs",
+      "sha256": "3e2fdda60c4b86a8b581252240b5d806979cb4c5eee5d161ff7171169f77dbe2",
+      "bytes": 2185,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+      "sha256": "0c022821ae66bce06e2f98737ca5022172da41b480fb379e5c806a62a6a185f6",
+      "bytes": 5787,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/collision_progress.rs",
+      "sha256": "46a0df1b1a9cc38290b50525b4b57f7c3224442a8c5735a178da6c99a5fdf7ae",
+      "bytes": 1425,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "sha256": "6ebf50208593b3f1c16352bc3665e35f74cb0b01c83db56807bf3c0b83da568a",
+      "bytes": 3065,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/groom.rs",
+      "sha256": "111756fbfda767a55148c514a229722b027e180d86ae64689214c74ed3f1b708",
+      "bytes": 7314,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/head.rs",
+      "sha256": "8007a20dddb728fae9bce4f80cbfab46ba06795e047cf0a49cbd50b4a7b1bdf5",
+      "bytes": 3718,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "a41dc00ddbefcd0d358db6e8bac67466d57a0331ce91ee214cb8ba070d465c2a",
+      "bytes": 2979,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/surface/render_layout.rs",
+      "sha256": "a494654990087180a401c2f0f80b258d3c01ae652d66d6f12017a657c04c969c",
+      "bytes": 2987,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "2883a6d8baa2934fcd41d27b8af312abe2a8a581de78f961c1593b45d257bab1",
+      "bytes": 55480,
+      "coverage": "fresh module exports/native head_shape encoder132-235; no full unrelated groomer/tests review"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs",
+      "sha256": "05e3c529151d982db674bce7bf65db2e3126946cb848148d7c50d3047915ced6",
+      "bytes": 57666,
+      "coverage": "fresh complete sim_bind function, sim_rest function, shared kernel construction lines1-191; remaining physics WGSL outside renderer input/source contract"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "a4cd680b59ae0b7c37be4829566c1f975805e08ef83d766c1f3812411025ab04",
+      "bytes": 8433,
+      "coverage": "fresh module/StrandLevel/HairLods declarations1-116 and counts212-237; pending host capture successor, no claim complete host builder receipt"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "bytes": 4021,
+      "coverage": "complete fresh canonical native storage capability owner"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "sha256": "210d69c52c956bf08c4741ae6524ee7b5c185fae123cfd4e4297ea3c92ae0e67",
+      "bytes": 3602,
+      "coverage": "complete fresh canonical existing mesh topology quantity owner"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-mesh/src/count/gpu.rs",
+      "sha256": "a354473daa3c85ba7553322360de24dde42cfa72782d310324007d0f56426a34",
+      "bytes": 2140,
+      "coverage": "complete fresh native byte/parameter conversion owner"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "9951797fc00589d2ce5106c921d2788568e3d10bfa1cbcbf6344c6e5f191c8ae",
+      "bytes": 713,
+      "coverage": "fresh export introduction1-60"
+    }
+  ],
+  "receipt_identity": [
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "a41dc00ddbefcd0d358db6e8bac67466d57a0331ce91ee214cb8ba070d465c2a",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/levels.rs",
+      "sha256": "650943d671d88ceb81a808c6e1f94eddb4780e018518f930fce3d3b1bf4bac3b",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "1c6a3dfe68c68c02c79ebf1157be9981e4c2a31f8a7667dd64148e30386bd70d",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c77d68591854015441a69a653f7fc1ed0bd7f44f88ac35cb1e7facf061eb7d9",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "2883a6d8baa2934fcd41d27b8af312abe2a8a581de78f961c1593b45d257bab1",
+      "matches_git_0df": true,
+      "coverage": "fresh module exports/native head_shape encoder132-235; no full unrelated groomer/tests review"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/binding.rs",
+      "sha256": "c5459f6db0f1b23d67efb540f90f14140a65d958b4bf251dbd945150e551bed0",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+      "sha256": "0c022821ae66bce06e2f98737ca5022172da41b480fb379e5c806a62a6a185f6",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/density.rs",
+      "sha256": "3e2fdda60c4b86a8b581252240b5d806979cb4c5eee5d161ff7171169f77dbe2",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+      "sha256": "241410f12cc5c1530467ea5bda1a8dc7bd8dc8c226151a0226c704b3e2970e89",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/inspect.rs",
+      "sha256": "2ef2f3a867fe2c3d9f999b7818e1ec85841dacba3aee8c2535d15fc5b1316639",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "5ae5a922ea1e5a8d28c918ddfc36deb028ee2d3c7e8f85bd3cb660db99533ec0",
+      "matches_git_0df": true,
+      "coverage": "complete fresh canonical immutable source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs",
+      "sha256": "05e3c529151d982db674bce7bf65db2e3126946cb848148d7c50d3047915ced6",
+      "matches_git_0df": true,
+      "coverage": "fresh complete sim_bind function, sim_rest function, shared kernel construction lines1-191; remaining physics WGSL outside renderer input/source contract"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "a4cd680b59ae0b7c37be4829566c1f975805e08ef83d766c1f3812411025ab04",
+      "matches_git_0df": true,
+      "coverage": "fresh module/StrandLevel/HairLods declarations1-116 and counts212-237; pending host capture successor, no claim complete host builder receipt"
+    }
+  ],
+  "carried_identity": {
+    "root_renderer_matches_6bf": true,
+    "note": "Previous complete Renderer read carried only where exact identity; named functions/records and affected draw/head/frame consumers freshly read now."
+  },
+  "findings": [
+    {
+      "id": "RS1",
+      "classification": "actionable migration gap",
+      "priority": "P1",
+      "locations": [
+        "render/mod.rs:907 set_groom",
+        "render/mod.rs:968 set_gpu_groom",
+        "render/mod.rs:1108 set_gpu_dynamics",
+        "render/mod.rs:181 Dynamics",
+        "gpu/sim.rs@0df:60 source",
+        "gpu/sim/inspect.rs@0df:18 source()"
+      ],
+      "contract": "Installed groom and simulation must share the actual first source capture and exact logical wgpu Device. Resident prefixes are not source identity.",
+      "counterexample": "Install GPU groom A then a same-device simulation created from independent groom B with identical counts. Raw resources are accepted and B binding indices deform A. Current receiver also lacks a native simulation device check.",
+      "repair": "Retain the actual first Arc<GpuLevel> source anchor separately from fitted resident layouts. Compare Arc::ptr_eq with canonical sim.source and logical Device before native binding/copy/state replacement. Carry corresponding actual first Arc<StrandLevel> for host source once canonical receipt arrives. Consume canonical getters, remove old fields/signatures and update all caller families; no compatibility path or duplicate source type.",
+      "dependencies": [
+        "0df canonical native producer integration",
+        "host SimFrame/source receipt"
+      ],
+      "acceptance": "Same captured source across resimulation admitted even when resident truncation differs; foreign same-count or same-device captures rejected before replacing state. Empty actual capture retains valid identity; no source is a typed absence. Device equality is logical wgpu identity, not backend/adapter or arbitrary Arc<Device> pointer equality.",
+      "native_discovery": "complete",
+      "repair_status": "not started by reviewer",
+      "validation": "not run"
+    },
+    {
+      "id": "RS2",
+      "classification": "actionable migration gap",
+      "priority": "P1",
+      "locations": [
+        "render/mod.rs:1064 set_dynamics",
+        "render/mod.rs:1123 bind_dynamics",
+        "render/deformation.rs:105 DeformLevel::new",
+        "render/levels.rs:174 validate_level_buffer",
+        "render/deform.wgsl:18-64",
+        "gpu/sim/binding.rs@0df",
+        "gpu/sim/rods.rs@0df"
+      ],
+      "contract": "Every native shader slot must receive a positive physical binding for its exact admitted logical source/layout population, with correct Device, usage and receiving limits.",
+      "counterexample": "Public old SimBinding can have mismatched vector lengths/points0 or huge narrowing and guide_rest can be shorter than count*points. Existing bind_dynamics binds entire allocations with no logical/source/shape admission. Native current producer is better but its guarantees are discarded.",
+      "repair": "Retain canonical simulated StrandLayout and actual source population through renderer inputs/state; reuse BufferByteLength/StrandCount/PointsPerStrand and native shape/binding projections. Admit logical and physical prefixes for source-sized ids/weights and simulation-sized rest/now; slots0/1 remain resident positions prefixes. Admit storage limits/usages and rest copy endpoints before recording. Read exact producer body-header owner for body extent; do not invent a renderer duplicate layout or read back GPU ids.",
+      "dependencies": [
+        "0df producer private layout/device/buffer construction",
+        "host binding/frame receipt",
+        "canonical head_shape encoding/receiving body contract"
+      ],
+      "producer_proof": "0df RodBuffers creates rest/position from layout.positions_bytes; BindingBuffers creates count*16 bytes from the full drawn source; both sources device-checked and prefixes admitted. BufferDefinition::storage includes STORAGE|COPY_SRC|COPY_DST. storage floors raw buffer logical size to16 even for layout-zero; receiver must prefix logical0 and independently bind positive floor, not require raw size==0. GpuLevel/GpuSim metadata private externally; GPU contents and resource lifetime remain mutable SDK state, not geometry/global-health certification.",
+      "acceptance": "Exact typed data-prefix and positive binding-floor calculations; zero work legal; nonempty guide points>=2 and address products checked by existing StrandLayout; parameter writers narrow only at WGSL DTO. Native rejection follows current provider policy; no new wait or success/rollback/completion promise.",
+      "native_discovery": "complete",
+      "repair_status": "not started",
+      "validation": "not run",
+      "body_owner_disposition": "Root consumes actual body Buffer.size as uploaded logical extent and explicit positive native prefix. General body ABI/header provenance remains peer owner; do not duplicate current17vec4 policy in renderer."
+    },
+    {
+      "id": "RS3",
+      "classification": "actionable state/API gap",
+      "priority": "P1",
+      "locations": [
+        "render/mod.rs:181 Dynamics",
+        "render/mod.rs:1188 set_simulated",
+        "render/mod.rs:1199 set_moved",
+        "render/mod.rs:1211 clear_dynamics",
+        "render/deformation.rs:22 DeformationBuffers"
+      ],
+      "contract": "Update route, actual source capture, guide population and retained update obligation must remain associated; admission failures must precede writes and logical publication.",
+      "counterexample": "After installing GPU-backed dynamics, public set_simulated can overwrite its guide buffer with arbitrary host records and no frame/source or exact size association. A short slice leaves stale trailing data; a long slice can trigger provider failure before Pending/head changes are coupled. This is semantic source-mode/extent failure, not a canonical missing COPY_DST defect.",
+      "repair": "Payload-bearing host/GPU dynamics source mode retaining actual capture, canonical layout and resources. Consume canonical source-bound SimFrame for host updates, route pose-only GPU updates through its admitted source metadata, validate before write/Pending/moving/head state. New Result/admission APIs must propagate through all callers; no raw compatibility overload. Preserve candidate replacement/clear until normal submit return, retained original rest and explicit no-work settlement.",
+      "dependencies": [
+        "host SimFrame exact receipt pending",
+        "0df source/layout getters"
+      ],
+      "acceptance": "Foreign/source-mismatched or wrongly sized host frames rejected without write/clock/Pending publication; successful same-source updates keep temporal filtering behavior. GPU data is never forced through host copies/readback. Missing dynamics/source disposition and zero populations explicit. Canonical buffers have COPY_DST already; no fabricated capability bug.",
+      "native_discovery": "complete",
+      "host_discovery": "incomplete exact receipt",
+      "repair_status": "not started",
+      "validation": "not run"
+    },
+    {
+      "id": "RS4",
+      "classification": "actionable card migration/dependency",
+      "priority": "P1",
+      "locations": [
+        "cards.rs:83 CardMesh",
+        "render/mod.rs:1029 upload_cards",
+        "render/mod.rs:985 native cards",
+        "render/mod.rs:215 GpuMesh",
+        "gpu/lods/records.rs@0df:24 GpuCards"
+      ],
+      "contract": "Generic triangle topology counts, membership, native bytes/device and generated strip quantities must not be conflated.",
+      "counterexample": "Manual CardMesh can contain one triangle, incomplete corner records, invalid indices or counts narrowing past u32; upload_cards does no admission and always derives native count by as cast. Canonical0df GpuCards still exposes public raw cards/segments/buffers, so top-level first-level device identity does not itself prove arbitrary card native handles.",
+      "repair": "Consume exact46b CardLayout/CardStripLayout/CardMesh/GpuCards APIs; reuse MeshVertex/Triangle/Corner owners. Admit actual vertex/index positive binding prefixes and VERTEX/INDEX usage + max_buffer_size. Preserve zero logical draws despite one-native-record floors. Do not apply strand STORAGE binding limit to generic card vertex/index rendering. Native generation has its own STORAGE policy.",
+      "dependencies": [
+        "Integrate exact46b whole card producer/creator/caller family",
+        "Host source/SimFrame receipt remains separate"
+      ],
+      "acceptance": "No triangle-pair assumption for arbitrary CardMesh. Checked native narrowing and index membership; logical empty remains empty; generated geometry/shader/fixture inputs/oracles preserved. All currently public/native/raw construction routes inventoried at exact canonical receipt before repair.",
+      "discovery": "complete native/card receiving inventory at46b; host source family separately incomplete",
+      "repair_status": "not started",
+      "validation": "not run",
+      "canonical_successor_evidence": "46b seals CardMesh data/topology, CardLayout counts, generated CardStripLayout and GpuCards buffers/device. CardMesh direct generic admission checks triples/counts/membership; Default is valid empty generic; build creates sealed generated strips; no replacement setters/deserialize bypass. Existing0df raw source evidence remains historical root migration trigger."
+    },
+    {
+      "id": "RS5",
+      "classification": "actionable count authority + behavior decision",
+      "priority": "P2",
+      "locations": [
+        "render/mod.rs:115 FrameInfo",
+        "render/mod.rs:285 card_quads",
+        "render/mod.rs:917 host indices.len()/6",
+        "render/mod.rs:992 native cards.quads",
+        "render/mod.rs:1763 primitives",
+        "render/draws.rs:135 draw_gpu",
+        "gpu/lods/records.rs@0df:67 quads/index_count"
+      ],
+      "contract": "Displayed population and native draw count derive from the same admitted owner, with explicit unit. Logical source counts and resident draw prefixes remain intentionally different.",
+      "counterexample": "A valid arbitrary one-triangle card mesh draws3corners but reports0quad primitives; independent card_quads vector duplicates/assumes topology. FrameInfo.primitives usize mixes StrandCount with card quantities. Native cards*segments*6 can overflow before native draw.",
+      "repair": "Carry canonical layout in resident card state and derive native draw/stat populations; remove independent card_quads authority. Agree generic triangle vs generated-quad reporting explicitly and propagate typed count role to FrameInfo or final display adapter. Keep logical LodCounts for policy and clamp per-resident StrandLayout at draw boundary, rather than substituting fitted counts as source identity.",
+      "dependencies": [
+        "Integrate exact46b CardLayout/CardMesh/GpuCards",
+        "Update all existing FrameInfo consumers to canonical agreed schema"
+      ],
+      "acceptance": "FrameInfo actual primary resident population uses agreed typed enum; draw/transition/shadow/RNG/math unaffected. Population derives from canonical resident layout; source logical LodCounts remain separate. No independent raw parallel authority or triangle-pair assumption.",
+      "discovery": "complete receiving/stat disposition at exact46b + explicit FramePopulation agreement",
+      "repair_status": "not started",
+      "validation": "not run",
+      "behavior_disposition": "Explicit schema replacement agreed by root: FramePopulation Empty / Strands{StrandCount,PointsPerStrand} / CardTriangles(MeshTriangleCount), actual primary resident population. Generic1triangle -> CardTriangles(1); generated strip reports actual admitted triangle population. Remove rawprimitives/card_quads; do not infer generic strip counts."
+    },
+    {
+      "id": "RS6",
+      "classification": "actionable producer propagation / quantity ownership",
+      "priority": "P2",
+      "locations": [
+        "render/mod.rs:194 DeformLevel.sim_points",
+        "render/mod.rs:1129 bind_dynamics sim_points",
+        "render/mod.rs:190 body Option<f32>",
+        "render/deformation.rs:31 DeformationBuffers.sim_points",
+        "parameters.rs:PointsPerStrand",
+        "fabelgeist-math/src/units.rs:14 Metres"
+      ],
+      "contract": "Retained counts and distances keep canonical quantity owners; raw words belong only to native shader DTO and SDK descriptors.",
+      "repair": "Carry admitted simulated StrandLayout/PointsPerStrand through input/state and use native_points only when filling DeformGpu. Reuse Metres for retained body offset rather than duplicate renderer distance type. Body absence/native placeholder correlation can remain controlled Option construction or be payload enum if source-state extraction requires it; no gratuitous enum replacing a native bool word.",
+      "acceptance": "No silent narrowing/wrapping or units loss between application APIs. Native DTO fields, fixed slots, explicit array indexes and shader tags remain raw at real boundary. Metres is a unit leaf, not a finite/positive validator; preserve existing allowed signs and do not invent physical geometry validation. Actual finite-pose rejection currently belongs to Globals validation; any earlier finiteness strengthening must be explicitly agreed.",
+      "native_discovery": "complete",
+      "repair_status": "not started",
+      "validation": "not run"
+    }
+  ],
+  "intentional_or_retained": [
+    {
+      "id": "A1",
+      "locations": [
+        "render/deformation.rs:105-176",
+        "render/mod.rs:1123-1183,1211-1225"
+      ],
+      "disposition": "intentional existing corrected rest/publication contract",
+      "evidence": "Resident data bytes govern copy capture/restore; binding bytes remain positive for logical zero; old rest clone shares allocation, retaining historical pre-deformation contents. Replacement/clear publish only after normal queue.submit return; frame candidates settle after submission, no GPU completion or rollback guarantee. Do not replace historical rest with mutable source positions."
+    },
+    {
+      "id": "A2",
+      "locations": [
+        "render/levels.rs",
+        "gpu/lods/levels.rs@0df",
+        "gpu/sim/rods.rs@0df",
+        "buffer/definition.rs"
+      ],
+      "disposition": "native producer capability proof",
+      "evidence": "Canonical level/simulation buffers have STORAGE and both copy flags. Earlier reviewer hypothesis of canonical missing COPY_DST explicitly withdrawn. Receiver still needs exact logical/physical prefixes and canonical source association, and manually constructed host inputs need their own admission."
+    },
+    {
+      "id": "A3",
+      "locations": [
+        "render/head.rs",
+        "gpu/head.rs@0df",
+        "surface/render_layout.rs@0df"
+      ],
+      "disposition": "existing association preserved; integration dependency",
+      "evidence": "Head cover checks exact Arc<Surface>, actual logical Device and paired logical/physical extent. Native topology validates normals/index membership, not sampling/physical geometry. set_head replacement resets coverage bare. Reuse canonical Mesh count leaves; no duplicate renderer wrappers."
+    },
+    {
+      "id": "A4",
+      "locations": [
+        "render/frame_state.rs",
+        "render/mod.rs:1748-1759",
+        "render/draws.rs"
+      ],
+      "disposition": "retain temporal policies and no-work handling",
+      "evidence": "FrameProgress is candidate; previously queued/deformation obligations publish after normal submission. moving intentionally maintains temporal filter; history has independent Empty/Current meaning. No new wait, callback, visual/performance or all-native-health claim."
+    },
+    {
+      "id": "A5",
+      "locations": [
+        "gpu/sim.rs@0df",
+        "gpu/sim/execution.rs@0df",
+        "gpu/sim/collision_progress.rs@0df"
+      ],
+      "disposition": "canonical owner evidence, not renderer repair permission",
+      "evidence": "GpuSim retains actual source Arc and private layout; make_sim chooses nonempty-source >=1 guide and >=2 points, empty source stays0. reset/step/resimulate device-check source and retain clocks/history only after submit. Settings/solver physics and geometry remain owner scope; root must not independently rewrite shared producer functions."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Actual source Arc -> private native layout -> Buffer resource -> renderer strips into naked handles/counts -> DeformGpu; host/card old producers separately traced.",
+      "findings_or_retained_dispositions": [
+        "RS1",
+        "RS2",
+        "RS3",
+        "RS4",
+        "RS5",
+        "RS6"
+      ],
+      "accounting": "0df make_sim/BindingBuffers/RodBuffers/record_levels and root nine named receiving APIs; no native input route omitted.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "46b canonical CardSettings/count leaves -> CardWork/CardStripLayout -> CardBuffers/GpuCards -> root stale field access/count casts -> new receiver layout and FramePopulation."
+    },
+    {
+      "lens": "existing-type-owners",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Reuse StrandLayout/StrandCount/PointsPerStrand/BufferByteLength, Metres, canonical Mesh counts, SurfaceRenderLayout. Host/card exact new aggregate owners pending.",
+      "findings_or_retained_dispositions": [
+        "RS2",
+        "RS4",
+        "RS5",
+        "RS6"
+      ],
+      "accounting": "Read canonical mesh counts/native projections and native capability owner; no local duplicate CardLayout/source-identity/length types authorized.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "CardLayout and CardStripLayout are canonical exact46b owners, reusing0df Mesh counts/native bytes. No duplicate renderer card wrappers or quad role inferred for generic triangles."
+    },
+    {
+      "lens": "admission-contracts",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Enumerated both groom setters, both dynamics setters, bind helper, host update, pose update and clear; defaults missing source, empty layouts, same-device foreign source, short/long arrays and native placeholders.",
+      "findings_or_retained_dispositions": [
+        "RS1",
+        "RS2",
+        "RS3",
+        "RS4"
+      ],
+      "accounting": "Native constructors/private fields prove metadata/device, not native acceptance, buffer lifetime or physical geometry. Host/card constructor receipts remain incomplete.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "CardLayout::new, Default/Clone, CardStripLayout::new, sealed CardMesh::from_triangles/build/Default/Clone and sealed GpuCards sole emit_cards constructor read. Readonly getters prevent metadata replacement. Native lifetime/contents still SDK state."
+    },
+    {
+      "lens": "invariant-operations",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Checked native sample products/layout limits, prefix fitting, old-rest clone/copy, set_simulated write, dirty flags, normal-submit candidate publication, card multiplication/as casts.",
+      "findings_or_retained_dispositions": [
+        "RS2",
+        "RS3",
+        "RS4",
+        "RS5",
+        "RS6"
+      ],
+      "accounting": "Rest copy/publication retained A1; no mutation repair without source-bound check before writes. Native clock rollback/completion not invented.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "Checked rows+1, rows*2, cards*per_card, cards*segments*2, triangle*3, native4vec4 writer product and lock/scan addresses; receiver explicit prefix/usage/limit needed. cards() recomputation safe by same constructor proof, not a second mutable count."
+    },
+    {
+      "lens": "aggregate-states",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Source/layout/device/buffers/mode/dirty history and card parallel stats collections; exact body Option/native placeholder correlation.",
+      "findings_or_retained_dispositions": [
+        "RS1",
+        "RS2",
+        "RS3",
+        "RS5"
+      ],
+      "accounting": "Payload source mode needed; body Option built together is controlled, not independently invalid public state. Native provenance distinct from mutable buffer contents.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "CardTopology Triangles(CardLayout) vs Strips(CardStripLayout) owns valid metadata; sealed vectors stay paired. GpuCards private layout/device/buffers produced together; direct triangle list has no card/strip count."
+    },
+    {
+      "lens": "type-ownership",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Actual source identity belongs existing host/GPU source Arc; counts at canonical mesh/hair/math owners, Device at producer; renderer owns resident binding and temporal state only.",
+      "findings_or_retained_dispositions": [
+        "RS1",
+        "RS2",
+        "RS4",
+        "RS6"
+      ],
+      "accounting": "No repair to claimed shared producers; root consumes agreed canonical owners. Exact CardLayout and host frame receipts remain required.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "Canonical CardLayout/count/strip producer files remain780-owned; root consumes getters in whole receiver. Only native per-card Device proof applies to actual card handles, not arbitrary top-level grafting."
+    },
+    {
+      "lens": "redundant-authority",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Full logical source versus resident prefix are independent facts; rest is historical copy. Parallel card_quads/GpuMesh.count and raw sim_points lose single checked authority.",
+      "findings_or_retained_dispositions": [
+        "RS1",
+        "RS5",
+        "RS6"
+      ],
+      "accounting": "Do not collapse historical rest or logical-policy/resident counts; derive card draw/stats from canonical layout and preserve source anchor.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "CardLayout retains vertices+checked corners and derives triangles; CardStripLayout derives cards from admitted vertices/rows. Remove root card_quads and raw count duplication; preserve original source/resident distinction."
+    },
+    {
+      "lens": "behavior-preservation",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Old setters accept raw unrelated/short/malformed inputs; planned checks intentionally reject them. Preserve ordinary generated geometry, native slot order, zero/no-work, source-first failures, retained rest/resimulation and post-normal-submit semantics.",
+      "findings_or_retained_dispositions": [
+        "RS1",
+        "RS2",
+        "RS3",
+        "RS4",
+        "RS5"
+      ],
+      "accounting": "Generic triangle-vs-generated quad stats is unresolved behavior decision; no inferred acceptance. Existing fixture inputs/oracles and all WGSL remain exact, no tests executed.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "FramePopulation change explicitly agreed; generic triangle1 reports1triangle, generated counts report actualtriangles. Existing emitted vertex/index order, RNG streams, shader/POD and authored fixture operands/oracles must remain. Count/overflow rejection and fallible allocation boundaries documented; no runtime/visual verdict."
+    },
+    {
+      "lens": "enum-shapes",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Dynamics None/Some; host/GPU source update capabilities; body Option/placeholder; Pending/Current obligations; Empty/Current frame history and native0/1 tags.",
+      "findings_or_retained_dispositions": [
+        "RS3",
+        "RS6"
+      ],
+      "accounting": "Host/GPU source carries payload, not independent bools. Existing DeformationState/History already correct; body active/native flags only at DTO. No speculative enum-only wrappers.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "Canonical payload CardTopology accurately separates generic and generated metadata. Root FramePopulation typed variants replace naked heterogeneous usize; host/GPU dynamics mode still awaiting host receipt."
+    },
+    {
+      "lens": "derivability",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Existing derive Clone/Copy/POD/default roles; checked TryFrom StrandLayout/SufaceRenderLayout; explicit Error/From adapters; native mesh native_elements/checked arithmetic/Display.",
+      "findings_or_retained_dispositions": [
+        "A1",
+        "A3",
+        "RS4"
+      ],
+      "accounting": "Retain semantic checks/SDK getters/native role index adapters. Existing derives already used where mechanical; no derive alternative prescribed absent exact equivalent crate dependency. Do not add serialization or weaken admission. Host/card new implementations not yet readable.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "CardLayout Default/Clone/Copy and CardCount/Segments derives preserve zero. CardTopology manual Default constructs data-bearing Triangles(default), so ordinary default-variant derive is not equivalent; checked conversions/getters retained. CardError uses thiserror with concrete sources."
+    },
+    {
+      "lens": "type-granularity",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Actual full source Arc vs fitted resident StrandLayout; guide simulation population vs source strands; cardinality vs geometry; generic triangle layout vs generated card strips.",
+      "findings_or_retained_dispositions": [
+        "RS1",
+        "RS2",
+        "RS4",
+        "RS5",
+        "RS6"
+      ],
+      "accounting": "Distinctions prevent real same-count capture/role errors. Reuse basic quantity leaves; no universal source IDs/brand system or bounds imposed just to justify types.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "Generic triangle CardLayout distinct from strip CardStripLayout prevents invalid quad inference; shared Mesh counts mean same native role and are reused. CardCount vs triangle vs corner distinction retained where meaningful."
+    },
+    {
+      "lens": "magic-strings",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Native labels hair*; entry deform; literal slot resource names in canonical producer PassParameters; errors and owning documentation; no carried input string classifications.",
+      "findings_or_retained_dispositions": [
+        "A1",
+        "A3",
+        "RS2",
+        "RS4"
+      ],
+      "accounting": "Strings at SDK labels/WGSL entry/binding adapters and diagnostics are intentional; typed errors govern decisions. No prose dispatch branches. No new source-key strings or duplicate name registry.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "New labels haircard* at SDK resources, errors in CardError stable typed variants, parameter names at WGSL composer. No source string branching or alternative renderer card registry."
+    },
+    {
+      "lens": "magic-numbers",
+      "native_discovery": "complete within exact renderer-native admission scope",
+      "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+      "scope_trace": "Counts/points, bytes, four-guide records, body17vec4, binding slots0..7, native0/1 tags, zero prefixes/positive placeholders, u32 bounds, index triples/quad6, POD layout and error addresses.",
+      "findings_or_retained_dispositions": [
+        "RS2",
+        "RS4",
+        "RS5",
+        "RS6"
+      ],
+      "accounting": "Card/source/Sim retained quantities must use existing owners. Fixed 4lane widths, POD slots and byte/native adapters have explicit SDK/WGSL role. Metres keeps signed values; no new geometric normalization. Solver tuning values outside receiver contract explicitly owner-excluded.",
+      "repair": "not started by this reviewer; root sole implementation owner",
+      "validation": "not run/source only",
+      "card_discovery": "complete exact46b receiving/layout source inventory",
+      "card_evidence": "Mesh topology triples/native u32 limits, fourvec4 writer ABI and64-byte CardVertex, empty positive nativefloors, source/settings card/segment quantities classified at actual owner. VERTEX/INDEX receiver differs from STORAGE generation. CardSettings size/width scalar geometry remains producer-owned numerical policy, no independent renderer rewrite."
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "D-HOST-FRAME",
+      "status": "required incomplete",
+      "required": "Exact reviewed host actual-first Arc<StrandLevel>, source-bound SimBinding/SimFrame APIs, all constructors/mutations/read APIs and native adapters. Do not implement against guessed signature or infer source from values/counts."
+    },
+    {
+      "id": "D-CARD-LAYOUT",
+      "status": "exact source received and inventoried; integration/implementation required",
+      "required": "Consume exact46b canonical CardLayout/CardStripLayout and sealed CardMesh/GpuCards family; FramePopulation schema is explicitly agreed. No pending card signature or stats-policy ambiguity remains in this receiving inventory."
+    },
+    {
+      "id": "D-NATIVE-INTEGRATION",
+      "status": "required",
+      "required": "Integrate0df private GpuLevel/GpuLods/GpuSim/record/getter/device layout family and canonical mesh/surface/body owners before clearance. Actual root still uses old field/method arities."
+    },
+    {
+      "id": "D-OWNERSHIP",
+      "status": "existing agreement applies only as conveyed by root",
+      "required": "Root owns receiver implementation; producer or other shared function changes still require explicit owner agreement. This reviewer changes no source."
+    },
+    {
+      "id": "D-FINAL",
+      "status": "required incomplete",
+      "required": "All13 post-repair full waves, independent Code/Rule/Comment reviews and hosted required checks on same final pushed SHA; no merge."
+    }
+  ],
+  "excluded_or_nonapplicable": [
+    {
+      "scope": "Other GpuSim solver tuning/physics and unreferenced WGSL bodies",
+      "reason": "Owner-owned producer implementation outside renderer source admission; read full Rust allocation/mutation modules to prove fixed source/layout/device, only bind/rest shader functions needed for receiver cardinality proof. No physics/geometry or full producer audit verdict."
+    },
+    {
+      "scope": "New tests, assertions, helper fixtures or runtime/art review",
+      "reason": "Explicit user/parent prohibition; existing inputs/oracles source-identity only."
+    },
+    {
+      "scope": "Arc identity as immutability proof for GPU memory contents",
+      "reason": "Not a valid contract. Source captures retain record/native allocation identity, while native writes/destruction may still occur; provider policy handles SDK errors and no global health is promised."
+    },
+    {
+      "scope": "Canonical missing COPY_DST defect",
+      "reason": "Withdrawn after reading exact BufferDefinition::storage; both copies already included. No such finding retained."
+    },
+    {
+      "scope": "General native body/header ABI",
+      "reason": "Root specifically assigned peer ownership; renderer validates/binds authoritative logical body upload Buffer.size, no duplicate17 policy. Broader producer/header provenance remains required owner work."
+    }
+  ],
+  "first_unfinished_cells": [
+    "Read and inventory exact host SimFrame/source-bound SimBinding and actual-first Arc<StrandLevel> receipt when available; repeat all13 applicable host cells before repair."
+  ],
+  "limits": [
+    "No source edits, local project execution/checks/build/lint/tests/scanners/generators/runtime/push/CI; no tests/cases/helpers/assertions authored. Python used only receipt identity and ignored report serialization.",
+    "Every lens has independent scope/accounting; overlapping findings cross-reference without substituting for lens coverage. Unread pending aggregate sources remain INCOMPLETE rather than deferred/clear.",
+    "Native-only discovery completion is no implemented or validated acceptance and does not authorize skipping missing host/card inventory.",
+    "No global, whole-producer/family, compiled, hosted, all13 final or PR clearance."
+  ],
+  "canonical_cards": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+  "card_receipt_manifest_sha256": "50597cf342412b470420a8fae6f088fc49d50f65038d26e1b88c5fba9cecc1af",
+  "card_source_coverage": [
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "75508eb07b8f3292152f27310bdc7193128efbf211bb4ce49bc55c8a9c3f6987",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/cards/build.rs",
+      "sha256": "ae375dba80589dd2d7773952f3aadee391a4ac82fdefcd76b3387c400975205b",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+      "sha256": "a15b5f567400e7c5428970ec6bef603d18fc37834b4719fff60aea756a2bb9e1",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+      "sha256": "6b7a180a3ee2faa7fc26a79e2ae14ceeac4a54c19f96a308dc57f417c56ea49f",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/cards/mesh.rs",
+      "sha256": "322747ae7f6a10847b6f82813fd1b27cfd8caafb01f4d13aca401dc78346ab21",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "8c9e0cfc1381290739c5cb166996fa345de9def1e25532ad367f1963cfd5c8af",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "44ffb5c296d0d5948e0b64f76f2dea59c4d41238f3ef8deaf6d549007a376f61",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+      "sha256": "77e815b2a949e96a4e90b90acc7f184021d395dcbb1881ee293fa0d94f2c69d6",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/prepare.rs",
+      "sha256": "c94f30467215f10aee321cdfbac303d5dccd4f6f1c8c8d5a5630feb0ed8ed107",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "7814ed1212fc58bea86aebf290862d5937f4e3e20d2b508050d20983948323a8",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "e943f9ba2a9213beb84d843d3c73b2f13f1658add9cb47cbd35daa12f6161647",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "fresh owning exports/records75-140; unrelated GPU builder/tests not full body covered"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/lib.rs",
+      "sha256": "c2df7e182028b42251d7f1c453046962f13ae98e9b4cb0d85795ac7550a15031",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "41f0e66a7ec7906210fd0050ade6a7bc8d96d6742bf8fd6a7150393aff3d5f8a",
+      "matches_manifest": true,
+      "matches_git": true,
+      "coverage": "complete fresh immutable card receipt source read"
+    }
+  ],
+  "frame_population_agreement": {
+    "authority": "Explicit root message conveying earlier user-approved schema replacement",
+    "schema": "FramePopulation::{Empty, Strands { strands: StrandCount, points: PointsPerStrand }, CardTriangles(MeshTriangleCount)}",
+    "semantics": "Actual primary resident population, independent of transition/shadow draws. Generic one triangle reports CardTriangles(1); no generated-strip inference. Source policy Representation remains separately logical; no draw/RNG/math change.",
+    "migration": "Remove raw primitives/card_quads and parallel count authority; carry canonical CardLayout for both host and native card state."
+  },
+  "body_receiving_agreement": {
+    "authority": "Root message with canonical native/Card receipt",
+    "contract": "Peer make_sim uploads actual head_shape vector (currently17vec4). Root consumes actual Buffer.size as authoritative uploaded logical body extent, checks/binds explicit prefix. Peer owns general head/body ABI provenance. Root must not add a duplicate17-word policy or independent shared-function repair."
+  },
+  "card_limits": "Exact manifest/source identity is not a compiled/formatted/linted/project-checked or hosted/native/visual verdict. Canonical unrelated gpu/mod body/test corpus only bounded exports read; no full producer quality clearance."
+}

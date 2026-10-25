@@ -1,0 +1,326 @@
+d7da77bb9:crates/adventuresim-character-creator/src/device_body_cloth.rs:63:        let fit = self.gpu.upload(BufferUpload::from_elements(&words))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_body_cloth.rs:64:        let table = self.gpu.upload(BufferUpload::from_elements(&plan.table))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_boot_layers.rs:39:        let points = gpu.scratch(count as u64 * 16, "boot layer slices")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_bracer.rs:82:    let atlas = gpu.upload(BufferUpload::from_elements(input.texcoords))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_bracer.rs:83:    let status = gpu.scratch(4, "bracer status")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_bracer.rs:85:    let mut batch = gpu.batch("bracer");
+d7da77bb9:crates/adventuresim-character-creator/src/device_bracer.rs:86:    let support = gpu.scratch(vertex_count as u64 * 4, "forearm support")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_bracer.rs:87:    let axial = gpu.scratch(vertex_count as u64 * 4, "forearm axial")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_bracer.rs:93:        &gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/adventuresim-character-creator/src/device_bracer.rs:115:        let positions = gpu.upload(BufferUpload::from_elements(&morph.positions))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_bracer.rs:116:        let normals = gpu.upload(BufferUpload::from_elements(&morph.normals))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_bracer.rs:117:        let mut batch = gpu.batch("bracer morph");
+d7da77bb9:crates/adventuresim-character-creator/src/device_clearance.rs:135:            self.gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/adventuresim-character-creator/src/device_clearance.rs:141:            self.gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/adventuresim-character-creator/src/device_clearance.rs:168:        let support = gpu.scratch(self.body.vertex_count as u64 * 4, "clearance support")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_clearance.rs:176:        let sections = gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/device_clearance.rs:180:        let scratch = gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/device_close_helmet.rs:69:        let fit = gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/device_close_helmet.rs:87:            gpu.upload(BufferUpload::from_elements(&support))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_close_helmet.rs:92:            gpu.upload(BufferUpload::from_elements(&[
+d7da77bb9:crates/adventuresim-character-creator/src/device_close_helmet.rs:102:        parameters.insert("bands", gpu.upload(BufferUpload::from_elements(&bands))?);
+d7da77bb9:crates/adventuresim-character-creator/src/device_cloth_collar.rs:49:        let seating = self.gpu.upload(BufferUpload::from_elements(&vec![
+d7da77bb9:crates/adventuresim-character-creator/src/device_cloth_collar.rs:54:        let status = self.gpu.upload(BufferUpload::from_elements(&[0_u32]))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_cloth_seating.rs:166:            shifts: device.gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/device_cloth_seating.rs:170:            mask: device.gpu.upload(BufferUpload::from_elements(mask))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_cloth_ties.rs:28:        let points = self.gpu.upload(BufferUpload::from_elements(&ties.words))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_coif.rs:229:        let flat: Vec<[f32; 3]> = gpu.read(part.carriers())?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_coif.rs:284:        let fit = gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/device_coif.rs:318:            gpu.upload(BufferUpload::from_elements(&support))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_coif.rs:324:            gpu.upload(BufferUpload::from_elements(&design_words))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_coif.rs:326:        parameters.insert("work", gpu.upload(BufferUpload::from_elements(&work))?);
+d7da77bb9:crates/adventuresim-character-creator/src/device_coif.rs:363:    let mut batch = gpu.batch("coif carrier");
+d7da77bb9:crates/adventuresim-character-creator/src/device_fit.rs:150:        let mut batch = gpu.batch("fitted armor");
+d7da77bb9:crates/adventuresim-character-creator/src/device_fit_readback.rs:28:    let results = gpu.read_staged_async(staging).await?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_foot_frame.rs:170:            frame: gpu.scratch(FRAME_WORDS * 4, "foot frame")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_foot_frame.rs:171:            status: gpu.scratch(4, "foot frame status")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_foot_frame.rs:188:            gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/adventuresim-character-creator/src/device_foot_frame.rs:199:            gpu.upload(BufferUpload::from_elements(&[
+d7da77bb9:crates/adventuresim-character-creator/src/device_foot_sections.rs:56:        let support = gpu.scratch(self.body.vertex_count as u64 * 4, "footwear support")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_foot_sections.rs:68:        parameters.insert("masks", gpu.upload(BufferUpload::from_elements(&masks))?);
+d7da77bb9:crates/adventuresim-character-creator/src/device_foot_sections.rs:88:        let points = gpu.scratch(self.body.vertex_count as u64 * 16, "footwear body points")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_foot_sections.rs:117:    Ok(gpu.upload(BufferUpload::from_elements(&words))?)
+d7da77bb9:crates/adventuresim-character-creator/src/device_foot_sections.rs:170:    let sections = gpu.upload(BufferUpload::from_elements(&words))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_footwear_fit.rs:57:    parameters.insert("radii", gpu.scratch(4, "unused fairing radii")?);
+d7da77bb9:crates/adventuresim-character-creator/src/device_footwear_fit.rs:97:        gpu.scratch(count as u64 * 8, "ankle fairing radii")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_frames.rs:85:        let words: Vec<f32> = gpu.read_async(&self.frame).await?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_frames.rs:140:        let mut batch = self.gpu.batch("armor frame");
+d7da77bb9:crates/adventuresim-character-creator/src/device_frames.rs:179:            frame: gpu.scratch(FRAME_WORDS * 4, "armor frame")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_frames.rs:180:            status: gpu.scratch(4, "armor frame status")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_frames.rs:183:        let reductions = gpu.upload(BufferUpload::from_elements(&[
+d7da77bb9:crates/adventuresim-character-creator/src/device_frames.rs:194:        let owned = gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment.rs:177:        let owned = gpu.upload(BufferUpload::from_elements(owned.as_native_slice()))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment.rs:178:        let support = gpu.scratch(self.body.vertex_count as u64 * 4, "garment support")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment.rs:213:        let fit = self.gpu.scratch(u64::from(words) * 4, "garment fit")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment_kernel.rs:246:        let input = gpu.upload(BufferUpload::from_elements(&vectors)).unwrap();
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment_kernel.rs:269:        let mut batch = gpu.batch("normalization scales");
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment_skirt.rs:95:        let empty = gpu.scratch(4, "no legs")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment_skirt.rs:108:        let candidate_status = gpu.scratch(4, "skirt candidate status")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment_skirt.rs:211:        let shell_of = gpu.upload(BufferUpload::from_elements(&shell_of))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment_skirt.rs:212:        let bounds = gpu.upload(BufferUpload::from_elements(&bounds))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment_torso.rs:343:        let candidate_status = self.gpu.scratch(4, "torso candidate status")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_garment_tube.rs:340:        let indices_buffer = self.gpu.upload(BufferUpload::from_elements(indices))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget.rs:239:        let fit = gpu.scratch(u64::from(GORGET_FIT_WORDS) * 4, "gorget fit")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget.rs:315:        let samples = gpu.scratch(u64::from(self.body.vertex_count) * 12, "gorget samples")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget.rs:334:        let planes = gpu.upload(BufferUpload::from_elements(&planes))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_bib.rs:59:        let triangles = self.gpu.upload(BufferUpload::from_elements(&triangles))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_bib.rs:251:                let fit = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_bib.rs:258:                let mut batch = gpu.batch("gorget lower support test");
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_collar.rs:176:        let fit = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_collar.rs:177:        let samples = gpu.upload(BufferUpload::from_elements(&positions)).unwrap();
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_collar.rs:178:        let result = gpu.scratch(6 * 12, "collar regression samples").unwrap();
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_collar.rs:179:        let mut batch = gpu.batch("collar bulge regression");
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_collar.rs:272:        let fit = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_collar.rs:273:        let samples = gpu.upload(BufferUpload::from_elements(&positions)).unwrap();
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_collar.rs:274:        let result = gpu.scratch(6 * 12, "collar regression samples").unwrap();
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_collar.rs:275:        let mut batch = gpu.batch("collar bulge regression");
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_collar.rs:341:        let mut failure = gpu.batch("unresolved final bib support");
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_projection.rs:121:        let input = gpu.upload(BufferUpload::from_elements(&queries)).unwrap();
+d7da77bb9:crates/adventuresim-character-creator/src/device_gorget_projection.rs:146:        let mut batch = gpu.batch("projection containment");
+d7da77bb9:crates/adventuresim-character-creator/src/device_gown_enclosure.rs:31:        let enclosure = self.gpu.upload(BufferUpload::from_elements(&[0f32; 2]))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_head_frame.rs:168:            frame: gpu.scratch(FRAME_WORDS * 4, "head frame")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_head_frame.rs:169:            status: gpu.scratch(4, "head frame status")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_head_frame.rs:190:            gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/adventuresim-character-creator/src/device_head_frame.rs:201:            gpu.upload(BufferUpload::from_elements(&[
+d7da77bb9:crates/adventuresim-character-creator/src/device_limb.rs:112:            gpu.upload(BufferUpload::from_elements(&shell_of))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_limb.rs:114:        parameters.insert("bounds", gpu.upload(BufferUpload::from_elements(&bounds))?);
+d7da77bb9:crates/adventuresim-character-creator/src/device_pauldron.rs:46:        let triangles = gpu.upload(BufferUpload::from_elements(&triangles))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_pauldron.rs:48:        let ends = gpu.upload(BufferUpload::from_elements(&ends))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_pauldron.rs:49:        let reserve = gpu.scratch(4, "shoulder sampling reserve")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_pauldron.rs:50:        let delta = gpu.scratch(CARRIER_COUNT as u64 * 12, "shoulder clearance")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_pauldron.rs:51:        let next = gpu.scratch(CARRIER_COUNT as u64 * 12, "shoulder clearance smoothing")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_puff.rs:42:        let faces_buffer = gpu.upload(BufferUpload::from_elements(faces))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_puff.rs:43:        let positions = gpu.upload(BufferUpload::from_elements(&support.positions))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_puff.rs:45:        let samples = gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/device_puff.rs:49:        let hulls = gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/device_puff.rs:53:        let sections = gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/device_sabaton.rs:68:        let status = gpu.scratch(4, "sabaton status")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_sabaton.rs:97:            gpu.upload(BufferUpload::from_elements(&profile))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_sabaton.rs:101:            gpu.upload(BufferUpload::from_elements(&shell_of))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_skirt.rs:143:        let positions = gpu.upload(BufferUpload::from_elements(&support.positions))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_skirt.rs:144:        let faces = gpu.upload(BufferUpload::from_elements(&support.faces))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_skirt.rs:146:        let samples = gpu.scratch(bytes, "skirt section samples")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_skirt.rs:147:        let status = gpu.upload(BufferUpload::from_elements(&[0u32, u32::MAX, u32::MAX]))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_skirt_join.rs:24:        let table = self.gpu.upload(BufferUpload::from_elements(&plan.table))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:207:    let atlas = gpu.upload(BufferUpload::from_elements(input.texcoords))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:208:    let atlas_faces = gpu.upload(BufferUpload::from_elements(input.texcoord_faces))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:209:    let status = gpu.scratch(4, "breastplate status")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:211:    let mut batch = gpu.batch("breastplate");
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:212:    let rig = gpu.scratch(TORSO_RIG_WORDS as u64 * 4, "torso rig")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:213:    let semantic = gpu.scratch(vertex_count as u64 * 8, "torso coordinates")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:214:    let support = gpu.scratch(vertex_count as u64 * 4, "front torso support")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:220:        &gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:249:        let positions = gpu.upload(BufferUpload::from_elements(&morph.positions))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:250:        let mut batch = gpu.batch("breastplate morph");
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:291:    let frame = gpu.scratch(TORSO_FRAME_WORDS * 4, "torso frame")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:292:    let widths = gpu.scratch(body.vertex_count as u64 * 4, "front widths")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_torso.rs:293:    let counter = gpu.scratch(4, "front width count")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:174:        let links = gpu.scratch(vertex_count as u64 * 8, "underlayer weld links")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:178:        let base_positions = gpu.upload(BufferUpload::from_elements(body.positions))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:179:        let base_normals = gpu.upload(BufferUpload::from_elements(body.normals))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:180:        let neutral = gpu.scratch(vector_bytes, "underlayer directions")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:181:        let mut batch = gpu.batch("underlayer wearer");
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:188:            let positions = gpu.upload(BufferUpload::from_elements(sample.positions))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:193:            let constrained = gpu.scratch(vector_bytes, "underlayer directions")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:204:            let mut batch = gpu.batch("underlayer proportion sample");
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:215:            let positions = gpu.upload(BufferUpload::from_elements(morph.positions))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:216:            let normals = gpu.upload(BufferUpload::from_elements(morph.normals))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:217:            let directions = gpu.scratch(vector_bytes, "underlayer directions")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:218:            let mut batch = gpu.batch("underlayer morph sample");
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:246:        let indices = gpu.upload(BufferUpload::from_elements(&plan.indices))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:247:        let shell = gpu.scratch(shell_bytes, "underlayer shell")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:251:        let all_positions = gpu.scratch(shell_bytes * total, "underlayer shell positions")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:252:        let all_normals = gpu.scratch(shell_bytes * total, "underlayer shell normals")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:253:        let all_status = gpu.scratch(4 * total, "underlayer normal status")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:255:            let mut batch = gpu.batch("underlayer shell");
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:303:        let status: Vec<u32> = gpu.read_async(&all_status).await?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:304:        let positions: Vec<[f32; 3]> = gpu.read_async(&all_positions).await?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:305:        let vectors: Vec<[f32; 3]> = gpu.read_async(&all_normals).await?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:336:            texcoords: gpu.upload(BufferUpload::from_elements(domain.texcoords))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:337:            joint_indices: gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:340:            joint_weights: gpu.upload(BufferUpload::from_elements(self.body.joint_weights))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:342:        let joints = gpu.scratch(count * INFLUENCES as u64 * 4, "underlayer joints")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:343:        let floats = gpu.scratch(count * SKIN_FLOATS as u64 * 4, "underlayer skin")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:344:        let mut batch = gpu.batch("underlayer skin");
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:389:    let mut joint_indices: Vec<[u32; 8]> = gpu.read_async(joints).await?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer.rs:391:    let floats: Vec<[f32; SKIN_FLOATS]> = gpu.read_async(floats).await?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:66:            faces: gpu.upload(BufferUpload::from_elements(faces))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:67:            incidence: gpu.upload(BufferUpload::from_elements(&incidence(vertex_count, faces)))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:68:            table: gpu.upload(BufferUpload::from_elements(&plan.table))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:69:            sources: gpu.upload(BufferUpload::from_elements(&plan.sources))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:70:            status: gpu.scratch(4, "underlayer status")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:73:            keys: gpu.scratch(capacity as u64 * 4, "underlayer sort keys")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:74:            values: gpu.scratch(capacity as u64 * 4, "underlayer sort values")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:75:            quantized: gpu.scratch(vertices * 12, "underlayer weld keys")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:76:            ranges: gpu.scratch(BUCKETS as u64 * 8, "underlayer grid buckets")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:77:            overflow: gpu.scratch((face_count as u64 + 1) * 4, "underlayer large faces")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:78:            rooms: gpu.scratch(vertices * 8, "underlayer rooms")?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:79:            worklist: gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:83:            constraints: gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs:87:            compression: gpu.upload(BufferUpload::from_elements(&vec![f32::MAX; vertex_count]))?,
+d7da77bb9:crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:245:        let fit = gpu.upload(BufferUpload::from_elements(&support.metadata))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:246:        let status = gpu.scratch(4, "tasset support status")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:247:        let points = gpu.upload(BufferUpload::from_elements(&support.points))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:248:        let triangles = gpu.upload(BufferUpload::from_elements(&support.triangles))?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:254:        let samples = gpu.scratch(bytes, "tasset section samples")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:255:        let hulls = gpu.scratch(bytes, "tasset section hulls")?;
+d7da77bb9:crates/adventuresim-character-creator/src/device_wrapped_tasset.rs:256:        let measured = gpu.scratch(
+d7da77bb9:crates/adventuresim-character-creator/src/garment/fitted.rs:530:        let mut batch = gpu.batch("coif carrier test");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/anatomy.rs:93:            corner_pairs: gpu.upload(BufferUpload::from_elements(&topology.corner_pairs))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/anatomy.rs:94:            pairs: gpu.upload(BufferUpload::from_elements(&topology.pairs))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/anatomy.rs:129:            words: gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/anatomy.rs:137:        let selection = gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/anatomy.rs:141:        let first = gpu.scratch(seams.pair_count as u64 * 4, "first pair corners")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:61:            positions: gpu.upload(BufferUpload::from_elements(surface.positions))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:62:            normals: gpu.upload(BufferUpload::from_elements(surface.normals))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:63:            faces: gpu.upload(BufferUpload::from_elements(surface.faces))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:64:            texcoords: gpu.upload(BufferUpload::from_elements(surface.texcoords))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:65:            joint_indices: gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:68:            joint_weights: gpu.upload(BufferUpload::from_elements(surface.joint_weights))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:69:            joints: gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:134:            texcoords: gpu.scratch(count as u64 * 8, "armor texcoords")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:135:            joint_indices: gpu.scratch(count as u64 * 32, "armor joint indices")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:136:            joint_weights: gpu.scratch(count as u64 * 32, "armor joint weights")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/body.rs:163:        self.finish(&gpu.read_staged(staging)?, slots)
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:103:        let positions = gpu.scratch(vertices as u64 * 12, "bracer positions")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:114:            None => gpu.scratch(4, "unused body normals")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:227:        let axis = gpu.scratch(AXIS_WORDS as u64 * 4, "bracer axis")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:252:            gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:308:            design: gpu.upload(BufferUpload::from_elements(&design_words(design)))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:310:            samples: gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:316:            indices: gpu.scratch(triangle_count as u64 * 12, "bracer indices")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:320:        let body_normals = gpu.scratch(sample_count as u64 * 12, "bracer body normals")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:333:            texcoords: gpu.scratch(vertex_count * 8, "bracer texcoords")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:334:            joint_indices: gpu.scratch(vertex_count * 32, "bracer joint indices")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:335:            joint_weights: gpu.scratch(vertex_count * 32, "bracer joint weights")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/bracer.rs:424:        let results = gpu.read_staged_async(staging).await?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime.rs:47:        let mut batch = gpu.batch("triangulated armor courses");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime.rs:70:        let positions = gpu.scratch(base.count() as u64 * 12, "anime morph")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:38:        let design = gpu.upload(BufferUpload::from_elements(&design_words(design)))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:39:        let bounds = gpu.scratch(32, "anime course bounds")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:46:        let references = gpu.upload(BufferUpload::from_elements(&reference_ids))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:47:        let columns = gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:104:        let results = gpu.read_staged_async(staging).await?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:151:                    &gpu.upload(BufferUpload::from_elements(&layout.bounds))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:155:                    &gpu.upload(BufferUpload::from_elements(&layout.coordinates))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:173:            sources: gpu.upload(BufferUpload::from_elements(&layout.topology.sources))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:174:            indices: gpu.upload(BufferUpload::from_elements(&layout.topology.indices))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:175:            positions: gpu.scratch(count as u64 * 12, "anime positions")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:179:        let links = gpu.scratch(count as u64 * LINK_WORDS * 4, "anime correspondence")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs:180:        let skin = gpu.scratch(count as u64 * SKIN_WORDS as u64 * 4, "anime skin")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:44:        let original = gpu.upload(BufferUpload::from_elements(&original)).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:64:        let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:65:        let bounds = gpu.scratch(32, "test course bounds").unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:100:        let mut batch = gpu.batch("deep lap geometry");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs:134:                        &gpu.upload(BufferUpload::from_elements(&coordinates))
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/arm_trim.rs:34:                    &gpu.upload(BufferUpload::from_elements(&self.topology.columns))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:49:    let plate = gpu.upload(BufferUpload::from_elements(&shape_wgsl::design_words(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:52:    let torso_faces = gpu.upload(BufferUpload::from_elements(torso.torso_faces))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:53:    let body_local = gpu.scratch(torso.body.vertex_count as u64 * 12, "body in wearer frame")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:136:    let bounds = gpu.upload(BufferUpload::from_elements(&[
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:257:        let coarse = gpu.scratch(samples as u64 * COARSE_WORDS as u64 * 4, "regular chart")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:287:                    &gpu.upload(BufferUpload::from_elements(&plate.topology.columns))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:294:        let sections = gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit.rs:360:        let support_radii = self.gpu.scratch(count as u64 * 4, "local torso support")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:37:    let plate = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:59:    let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:69:    let mut batch = gpu.batch("ray-preserving outer support");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:139:    let positions = gpu.upload(BufferUpload::from_elements(&input)).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:150:    let plate = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:170:    let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:177:    let mut batch = gpu.batch("local support enclosure and seam");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:193:                &gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:229:                &gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:283:    let positions = gpu.upload(BufferUpload::from_elements(points)).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:287:    let support = gpu.upload(BufferUpload::from_elements(support)).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:288:    let envelope = gpu.upload(BufferUpload::from_elements(envelope)).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:289:    let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:290:    let mut batch = gpu.batch("final support application fixture");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:315:        gpu.read(&positions).unwrap(),
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:328:    gpu.upload(BufferUpload::from_elements(&words)).unwrap()
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:346:    let front = gpu.upload(BufferUpload::from_elements(&front)).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:347:    let back = gpu.upload(BufferUpload::from_elements(&back)).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:348:    let mut batch = gpu.batch("rear side lap followed by enclosure");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:448:        let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:449:        let mut batch = gpu.batch("body-supported skirt flare");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:471:                    &gpu.upload(BufferUpload::from_elements(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:486:        let measured = gpu.upload(BufferUpload::from_elements(&support)).unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs:490:        let mut smoothing = gpu.batch("actual skirt support dilation");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/miter.rs:41:        let normals = gpu.scratch(faces.len() as u64 * 12, "clipped facet normals")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/miter.rs:50:                ("faces", &gpu.upload(BufferUpload::from_elements(faces))?),
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/miter.rs:56:        let offsets = gpu.scratch(self.count() as u64 * 12, "clipped rim offsets")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/miter.rs:66:                ("ranges", &gpu.upload(BufferUpload::from_elements(&ranges))?),
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/miter.rs:67:                ("incident", &gpu.upload(BufferUpload::from_elements(&ids))?),
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/mod.rs:119:        let mut batch = gpu.batch("triangulated breastplate");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/mod.rs:189:        let positions = gpu.scratch(count as u64 * 12, "breastplate morph positions")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/mod.rs:268:        let results = gpu.read_staged_async(staging).await?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:28:            positions: gpu.scratch(topology.vertex_count() as u64 * 12, label)?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:29:            arm_distances: gpu.scratch(topology.vertex_count() as u64 * 4, "arm trim domain")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:52:        let normals = gpu.scratch(self.count() as u64 * 12, "plate normals")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:68:                    &gpu.upload(BufferUpload::from_elements(&self.topology.columns))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:153:        let results = gpu.read_staged_async(staging).await?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:178:        self.front.positions = gpu.upload(BufferUpload::from_elements(&front.positions))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:179:        self.back.positions = gpu.upload(BufferUpload::from_elements(&back.positions))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:186:        self.coarse.positions = gpu.upload(BufferUpload::from_elements(&coarse))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:187:        extrusions.front = gpu.upload(BufferUpload::from_elements(&front.directions))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:188:        extrusions.back = gpu.upload(BufferUpload::from_elements(&back.directions))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:192:        extrusions.carrier = gpu.upload(BufferUpload::from_elements(&carrier))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:225:            front: gpu.scratch(front.count() as u64 * 12, "front extrusion")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:227:            carrier: gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:252:                    &gpu.upload(BufferUpload::from_elements(&front.topology.columns))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:283:            sources: gpu.upload(BufferUpload::from_elements(&topology.sources))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:284:            indices: gpu.upload(BufferUpload::from_elements(&topology.indices))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:285:            positions: gpu.scratch(count as u64 * 12, "breastplate positions")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:345:        let samples = gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:374:                    &gpu.upload(BufferUpload::from_elements(torso.eligible))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:383:            skin: gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/plates.rs:387:            morph_samples: gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:19:            let points = gpu.scratch(5 * 12, "armscye boundary samples").unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:20:            let mut batch = gpu.batch("independent armscye width");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:68:            let points = gpu.scratch(3 * 12, "retained carrier sections").unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:69:            let mut batch = gpu.batch("armscye only trims the carrier");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:122:                let points = gpu.scratch(5 * 12, "flank boundary samples").unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:123:                let mut batch = gpu.batch("independent flank return");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:198:            let points = gpu.scratch(49 * 33 * 12, "coupled chart ordering").unwrap();
+d7da77bb9:crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs:199:            let mut batch = gpu.batch("chart columns retain their orientation");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/chart.rs:330:        gpu.upload(BufferUpload::from_elements(&slots.columns))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/chart.rs:334:        gpu.upload(BufferUpload::from_elements(&flute_words(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/limb_build.rs:31:        let frame = gpu.upload(BufferUpload::from_elements(&super::recipe::frame_words(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/limb_build.rs:34:        let mut batch = gpu.batch("pauldron");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:38:    let height = gpu.scratch(texels.into(), "metal scratch height")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:39:    let recess = gpu.scratch(texels.into(), "metal recess")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:40:    let slopes = gpu.scratch(u64::from(texels) * 2, "metal slopes")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:41:    let normal = gpu.scratch(texels.into(), "metal normal")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:42:    let metal_roughness = gpu.scratch(texels.into(), "metal roughness")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:43:    let depth = gpu.scratch(texels.into(), "metal depth")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:44:    let finish = gpu.scratch(u64::from(texels) * u64::from(FINISH_WORDS), "metal finish")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:45:    let mut batch = gpu.batch("metal textures");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:84:        let words: Vec<u32> = gpu.read(buffer)?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:207:            (gpu.upload(BufferUpload::from_elements(heights))?, 0u32, 0.0)
+d7da77bb9:crates/fabelgeist-armor/src/gpu/metal/bake.rs:210:            gpu.upload(BufferUpload::from_elements(slopes))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/mod.rs:169:        self.finish(&gpu.read_staged(staging)?, slots)
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:78:            carriers: gpu.scratch(carriers as u64 * 12, "part carriers")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:79:            heights: gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:83:            shells: gpu.upload(BufferUpload::from_elements(&shell_table(&layout)))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:84:            hinges: gpu.scratch(hinges.max(1) as u64 * HINGE_WORDS as u64 * 4, "part hinges")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:85:            status: gpu.scratch(4, "part status")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:86:            shell_of: gpu.upload(BufferUpload::from_elements(&layout.shell_of_carrier()))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:89:            carrier_triangle_shells: gpu.upload(BufferUpload::from_elements(&carrier_shells))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:92:            sources: gpu.upload(BufferUpload::from_elements(&layout.sources()))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:93:            authored_final_indices: gpu.upload(BufferUpload::from_elements(&final_indices))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:94:            final_triangle_shells: gpu.upload(BufferUpload::from_elements(&final_shells))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:95:            final_indices: gpu.scratch(final_indices.len() as u64 * 4, "part triangles")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:96:            walls: gpu.scratch(carriers as u64 * 24, "part walls")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/part.rs:97:            positions: gpu.scratch(finals as u64 * 12, "part positions")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/pauldron.rs:74:            frame_points: gpu.scratch(
+d7da77bb9:crates/fabelgeist-armor/src/gpu/pauldron.rs:78:            status: gpu.scratch(4, "shoulder status")?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/pauldron.rs:99:            gpu.upload(BufferUpload::from_elements(&design_words(design)))?,
+d7da77bb9:crates/fabelgeist-armor/src/gpu/recipe.rs:115:        let design = gpu.upload(BufferUpload::from_elements(design))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/recipe.rs:126:                    let coords = gpu.upload(BufferUpload::from_elements(&coord_shell.coords))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/recipe.rs:157:        let frames = gpu.upload(BufferUpload::from_elements(&frame_words(frame)))?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/recipe.rs:158:        let mut batch = gpu.batch("armor part");
+d7da77bb9:crates/fabelgeist-armor/src/gpu/textile_chart.rs:51:    let bounds = gpu.scratch(8, "textile chart bounds")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/textile_chart.rs:52:    let coordinates = gpu.scratch(u64::from(count) * 8, "textile chart coordinates")?;
+d7da77bb9:crates/fabelgeist-armor/src/gpu/textile_chart.rs:114:    params.insert("points", gpu.upload(BufferUpload::from_elements(points))?);
+d7da77bb9:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs:118:    let design = gpu.upload(BufferUpload::from_elements(words))?;
+d7da77bb9:crates/fabelgeist-armor/tests/gpu_concurrency.rs:30:                    let found = gpu.nearest_points(&queries, targets).unwrap();

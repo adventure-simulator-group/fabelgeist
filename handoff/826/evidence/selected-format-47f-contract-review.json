@@ -1,0 +1,322 @@
+{
+  "review": "Independent selected sampled-format/sRGB producer contract review",
+  "root": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+  "root_tree": "87974137ac3b0a67af59b9474f25d92218daa422",
+  "canonical_peer": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "verdict": "No effective-format getter needed for canonical from_resource -> default sampled whole Texture2d/Texture3d route. Advect2D has a concrete second-decode and quantity-controlled velocity defect in both inspected source pins; repair remains #780-owned.",
+  "source_accounts": [
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "f9895d81a23576a862762eea888c9316facf2ff28bd005c114604a5d3c07d63a",
+      "coverage": "fresh complete source read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "sha256": "a67548746be5f5abcd6d774695abff5b2b8bd8fb0ecab8628080f4a60aebf8e8",
+      "coverage": "fresh complete source read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "coverage": "fresh complete source read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "0ff0d8b9fd6f211ea8a6201e62fbf88efbbe2ca000c60c7f31a1a9b3d12c9f2b",
+      "coverage": "fresh complete source read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "coverage": "fresh complete source read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "coverage": "fresh complete source read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "coverage": "fresh complete source read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "coverage": "fresh complete source read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+      "coverage": "fresh source1\u2013140 including complete from_resource/storage/input binding methods"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "coverage": "fresh actual selected-texture consumer110\u2013148; rest read earlier and same pin"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "coverage": "fresh complete producer and storage/input methods21\u201390; full module read in preinventory"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "4b94a0b3a1a1e51b108608d28ca28fda6178e366ab2c8f49980a4968e2aff721",
+      "coverage": "fresh complete canonical owner source read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "51340cdb4c87b5008f4d45cd65bf25658a254bc9212f3fc031aba1b63207605f",
+      "coverage": "all relevant current shader/functions source and complete Root-to-peer diff; complete canonical counterpart fresh read"
+    }
+  ],
+  "native_source": {
+    "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/texture/format.rs",
+    "sha256": "0a8f0cf2506ae25d2e185e9dbc22edfe292ef82ad392f58b99a7e82ede45e5da",
+    "lines_read": [
+      172,
+      199
+    ],
+    "contract": "sRGB native formats convert sRGB bytes to linear-color floating shader values; this includes their read interpretation, not an Image upload transform"
+  },
+  "admission_routes": [
+    {
+      "route": "Texture2d::default / Texture3d::default",
+      "source": [
+        "2d/mod.rs46\u201356",
+        "3d/mod.rs39\u201349"
+      ],
+      "effect": "No allocation or cached view, zero extent, default nominal format and empty usage. A descriptor can describe the nominal format but does not certify a usable view; later missing-state error remains authoritative."
+    },
+    {
+      "route": "Texture2d::new -> create; Texture3d::new",
+      "source": [
+        "2d/mod.rs59\u2013174",
+        "3d/mod.rs52\u2013124"
+      ],
+      "effect": "Each nonempty allocation owner fixes usage once. STORAGE_BINDING requires supports_storage && !is_srgb. Allocation format is linear_counterpart, but cached view explicitly requests nominal format. Therefore nominal sRGB implies a nominal sRGB sampled view and no storage usage; nominal non-sRGB cached view is likewise nominal."
+    },
+    {
+      "route": "Texture2d image factories",
+      "source": [
+        "2d/mod.rs180\u2013230",
+        "2d/image.rs1\u2013105"
+      ],
+      "effect": "from_image chooses a format then create_from_image. Empty image returns Default; nonempty routes exclusively through create. Image::packed_for explicitly does not apply a transfer function, preserves eight-bit encoding (with BGRA reorder), and documents native sRGB conversion. No alternate Texture2d construction."
+    },
+    {
+      "route": "Texture2d color factories and arithmetic output factories",
+      "source": [
+        "2d/mod.rs233\u2013265",
+        "2d/mod.rs316\u2013384"
+      ],
+      "effect": "from_color/create_from_color and add_raw/mix_raw all allocate through create and then perform operations; no alternate cached-format writer. Color clear/value semantics are separate from the admitted view identity."
+    },
+    {
+      "route": "Clone, GpuResource conversion, mutable/native ports",
+      "source": [
+        "2d/mod.rs19\u201326",
+        "3d/mod.rs12\u201319",
+        "resource.rs entire",
+        "2d/views.rs81\u2013109",
+        "3d/views.rs82\u2013110"
+      ],
+      "effect": "Clone copies exact immutable metadata/Arc identity; GpuResource carries the whole value. clear_cached_view removes view; clear_native_texture removes allocation while leaving cached view; neither mutates nominal format/usage. native/cached getters expose immutable Arc references, not replacement of wrapper state. Native destroy/device loss can invalidate usability, not alter admitted format interpretation."
+    },
+    {
+      "route": "Explicit view_with_format",
+      "source": [
+        "2d/views.rs12\u201365",
+        "3d/views.rs12\u201365"
+      ],
+      "effect": "Returns another Arc view without replacing cached view or mutating metadata. On a linear allocation carrying storage usage, an explicit sRGB request may normalize to linear, but this does not change subsequent default sampling or descriptor-from-whole-resource identity."
+    },
+    {
+      "route": "Descriptor producer and binding consumer",
+      "source": [
+        "compute/mod.rs30\u201344",
+        "resource.rs8\u201310",
+        "reflection/images.rs25\u201364",
+        "selection.rs54\u201386",
+        "bind_group/assembly.rs119\u2013139"
+      ],
+      "effect": "from_resource takes GpuResource, which has only Buffer/whole Texture2d/whole Texture3d, never arbitrary TextureView. Sampled Naga image reflection leaves binding.format=None. Selection therefore requests texture.format(); cached nominal view is selected; returned native dimension/device are checked before use. Storage bindings instead carry Some(actual storage format) and can deliberately select a counterpart; this separate path must not be described as default sampling."
+    }
+  ],
+  "source_proofs": [
+    {
+      "name": "native allocation and impl inventory",
+      "command": [
+        "git",
+        "grep",
+        "-n",
+        "-E",
+        "Texture2d[[:space:]]*\\{|Texture3d[[:space:]]*\\{|\\.format[[:space:]]*=",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6",
+        "--",
+        "crates/fabelgeist-gpu/src"
+      ],
+      "exit_code": 0,
+      "source_matches": [
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs:62:                    if binding.format == Some(texture.format().srgb_counterpart().into()) {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs:71:                    if binding.format == Some(texture.format().srgb_counterpart().into()) {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs:80:                    if binding.format == Some(texture.format().srgb_counterpart().into()) {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs:106:impl super::Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:20:pub struct Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:29:impl PartialEq for Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:41:            && self.format == other.format",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:46:impl Default for Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:58:impl Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:164:        let texture_value = Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs:11:impl Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:13:pub struct Texture3d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:22:impl PartialEq for Texture3d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:34:            && self.format == other.format",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:39:impl Default for Texture3d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:51:impl Texture3d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:114:        let texture_value = Texture3d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs:11:impl Texture3d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs:56:            && texture.format == self.format",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:39:            && self.format == other.format",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:33:            && self.format == other.format",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:63:    Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:68:    Texture3d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:101:                    TextureViewOperation::Texture2d => Self::Texture2d { requested, cause },",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:102:                    TextureViewOperation::Texture3d => Self::Texture3d { requested, cause },",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:134:            Self::Texture2d { requested, cause } => write!(",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:138:            Self::Texture3d { requested, cause } => write!(",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:157:            Self::Texture2d { cause, .. }",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:158:            | Self::Texture3d { cause, .. }"
+      ]
+    },
+    {
+      "name": "format/usage assignments",
+      "command": [
+        "git",
+        "grep",
+        "-n",
+        "-P",
+        "\\.(format|usage)\\s*=(?!=)",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6",
+        "--",
+        "crates/fabelgeist-gpu/src"
+      ],
+      "exit_code": 0,
+      "source_matches": [
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs:87:        self.usage = UsageSelection::Explicit(existing | flags);"
+      ]
+    },
+    {
+      "name": "mutable format/usage reference or set mutation",
+      "command": [
+        "git",
+        "grep",
+        "-n",
+        "-E",
+        "(\\.format|\\.usage)\\.(insert|remove|extend)|&mut[[:space:]]+[^;]*(\\.format|\\.usage)",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6",
+        "--",
+        "crates/fabelgeist-gpu/src"
+      ],
+      "exit_code": 1,
+      "source_matches": []
+    },
+    {
+      "name": "constructors, Self/default, impl inventory",
+      "command": [
+        "git",
+        "grep",
+        "-n",
+        "-E",
+        "impl .*Texture2d|impl .*Texture3d|impl (TryFrom|From|.*Deserialize).*Texture(2|3)d|Self[[:space:]]*\\{",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6",
+        "--",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d"
+      ],
+      "exit_code": 0,
+      "source_matches": [
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs:106:impl super::Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:29:impl PartialEq for Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:46:impl Default for Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:47:    fn default() -> Self {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:48:        Self {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:58:impl Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs:11:impl Texture2d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:22:impl PartialEq for Texture3d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:39:impl Default for Texture3d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:40:    fn default() -> Self {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:41:        Self {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:51:impl Texture3d {",
+        "47f37a07687bc47347cedb9e274c2f273f9deae6:crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs:11:impl Texture3d {"
+      ]
+    }
+  ],
+  "typed_producer_implications": [
+    "Carry existing TextureFormat from the canonical whole-resource producer. For a successfully bound default sampled whole texture, it identifies the selected view interpretation; no primitive string reclassification or extra stored flag is needed.",
+    "Do not globally rename nominal allocation metadata to universal effective format: allocation can be linear while its cached sampled view is sRGB; explicit alternate views and storage bindings have different selection contracts.",
+    "ResourceDescriptor variants and public build_pipeline APIs remain manually constructible. The proof covers descriptors actually produced from canonical whole resources, not a manually mismatched descriptor and pass parameter. Native layout/device/binding checks remain authoritative; a getter would not brand a manual descriptor to a resource.",
+    "Default/missing/cleared/error-handle states do not have a successfully usable sampled view merely because format() returns a value. Preserve existing MissingView/Uninitialized/WrongDevice and provider-handled validation policy.",
+    "No admitted nominal-sRGB plus STORAGE_BINDING whole texture was found. A future constructor/mutator changing that relationship must update the producer/selected-view contract then; inventing a hypothetical admission route is not a reason to add an API now."
+  ],
+  "findings": [
+    {
+      "id": "SF-ADVECT-2D-SRGB",
+      "severity": "P2",
+      "owner": "#780 Advect/generated shader family; review only, no source edit",
+      "source": {
+        "root": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+        "root_path": "crates/fabelgeist-compute/src/advect/mod.rs",
+        "root_lines": [
+          61,
+          70,
+          92,
+          132,
+          134,
+          158,
+          162
+        ],
+        "canonical": "e2162708fcf3885193db434300ed6c2999ab7607",
+        "canonical_lines": [
+          62,
+          71,
+          93,
+          133,
+          135,
+          159,
+          163
+        ]
+      },
+      "scenario": "Canonical execute receives a usable whole nominal-sRGB quantity Texture2d and a plain floating-point velocity Texture2d, with a native-valid floating output. The actual sampled quantity view is sRGB. Native loads already decode RGB into linear values, but sample_bilinear then applies another sRGB->linear transfer. That same quantity-controlled branch also transforms velocity when velocity is linear. Even dt==0 retains the quantity double decode; for nonzero dt the quantity encoding additionally changes the advection trajectory through velocity. This is source reasoning, not an authored/executed test case.",
+      "proof": "wgpu-types29.0.4 texture/format.rs183,193 states Rgba8UnormSrgb/Bgra8UnormSrgb are converted from sRGB bytes to linear-color float in shader. Actual cached/sample view contract and Image::packed_for prevent an unstated raw-byte interpretation here. Advect shared sample_bilinear(texture_2d<f32>) calls textureLoad, bilinearly mixes the fetched values, then conditionally applies the transfer using only the quantity descriptor; both velocity and quantity call it. The 3D branch directly textureLoads both resources and has no additional transform.",
+      "minimum_connected_repair": "#780 should remove or otherwise correct the second-decode/quantity-flag contract at the complete Advect generated shader owner, preserving native sampled-view semantics and existing interpolation/coordinate/dispatch/zero/format errors. No extra effective-format getter or alternative whole-resource descriptor owner is justified by this source. If a distinct raw-encoded source policy is intended, it requires an explicit actual producer/binding policy rather than applying the quantity flag to both resources.",
+      "acceptance": [
+        "Nominal sRGB quantity is transformed once by its actual selected native sampled view.",
+        "Quantity encoding cannot cause an unrelated linear velocity texture to undergo a color transfer.",
+        "2D and3D successful loads follow their actual view encoding; interpolation/coordinate/numerical scheduling stays under the owner\u2019s accepted contract.",
+        "Preserve descriptor/source/device/policy cache identity; classify the input at its true source with existing TextureFormat.",
+        "No new tests/cases/helpers/assertions/compatibility alias; only authorized existing checks at final integration."
+      ]
+    }
+  ],
+  "limits": [
+    "Read-only pinned source/Git and SDK documentation only; no source edits, local project checks/builds/scanners/tests/runtime/generators or new tests/cases/helpers/assertions.",
+    "Source searches are constrained Git provenance/admission inventories, not executed project scanners. Unsafe memory fabrication is outside admitted safe routes.",
+    "Native format behavior is supported by SDK source, not a runtime/GPU reproduction. No global GPU validity, browser synchronous validation or post-destroy usability guarantee.",
+    "Root47f is deliberately unintegrated with required canonical descriptor/caller migration. This contract does not imply compilation or final thirteen-lens/wholePR/hosted clearance."
+  ]
+}

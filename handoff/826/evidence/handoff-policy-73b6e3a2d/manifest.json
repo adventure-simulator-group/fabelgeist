@@ -1,0 +1,93 @@
+{
+  "head": "73b6e3a2ddf319dec749e3b1ff4a25e99b9c6612",
+  "base": "197eb8982c554203ac8652178cabe611d3652896",
+  "scope": "Canonical featurefreepolicy/count/quality/catalog, dataset policy producer and agreedHairmeshmanifest. RootRenderer files not handed off until fullfamilycomplete.",
+  "files": [
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "503d2fbd7648483a96ada49bccd5247e7cdfc4227ee8ce697e72726bbded413d"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "sha256": "9247453d3663cb3a1be622133a7e9246df7d07ef46de6cabc2763b176c30fec0"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "497f4f3034cc1b9ec3d29319cf8f83ae8650a8e315e4d1902c7a8a9ec233031a"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "fc38d908be6be1c94313213b0e6ceba2044000830ad556b1149b1a53c88482bb"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023"
+    }
+  ],
+  "all_reviewed_source": [
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "503d2fbd7648483a96ada49bccd5247e7cdfc4227ee8ce697e72726bbded413d"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "sha256": "9247453d3663cb3a1be622133a7e9246df7d07ef46de6cabc2763b176c30fec0"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "497f4f3034cc1b9ec3d29319cf8f83ae8650a8e315e4d1902c7a8a9ec233031a"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "fc38d908be6be1c94313213b0e6ceba2044000830ad556b1149b1a53c88482bb"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "f523a641bd99ff3aa3f29ea82062643213212d2f258da56c918fff2333a8f105"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "fbb5778112ab2b01410355c79b089d0ef4f16bb6503d41fd3815ef4f13db189e"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "48018bf76f888e585b06342fa9ec81323dab503e61a2eadf2ed2e845f8a18856"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "sha256": "57bfcc948df176ba35f9da2138223650f4ee8c70f36e9c98341a8d93f1e7db88"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "9d965e07f084299117c19862949de72abde482281dc80cba85c0ee62d423fd9e"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f"
+    }
+  ],
+  "patch_sha256": "17854da083341709f0f84412171870584774597c3f6f73fe764266d05312a0c9",
+  "composition": "lod.rs HairLods/StrandLevel/LodSettings producer bodies bytepreserved from197; #780owns canonicalcounts caller adaptation, not Root. Source imports/exports/extraction rootowned.",
+  "api": "as agreed; Counts select(requestedIndex)->Option<Index>; PolicyResult<T>; LodPolicyError adds StrandsWithoutLevels; allrenderedFrameInfo pixel/frame fields typed; Sample::policy(AccumulationFrames) only affectspolicyproducer; noZIPNumPychanges",
+  "validation": "Source rustfmt/diffcheck/exactfixtureprovenance only. Three independent73breviews inprogress. No compile/projectchecks/newtests/pushCI. Native physical layouts/headsource/callers/lock integration required."
+}

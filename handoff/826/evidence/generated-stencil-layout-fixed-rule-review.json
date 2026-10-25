@@ -1,0 +1,1422 @@
+{
+  "snapshot": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/manifest.json",
+  "manifest_sha256": "4425ccae9bfdd13b35af0201ba3344541f3ceadec559a25d8ead1ddbae4f50c8",
+  "base_head": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+  "previous_snapshot": "../generated-working-stencil-layout-snapshot/manifest.json",
+  "prior_full_body_receipt": "generated-stencil-layout-post-all13.json, all50 bodies freshly read there; current44 exact identities carried only after current contract/source-path revalidation",
+  "scope": "Frozen working source receipt, not committed source/compile/global clearance",
+  "owned_source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "lines": 130,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F1",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/advect/mod.rs",
+      "read_range": "1-130",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/advect/mod.rs",
+        "sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "lines": 147,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F2",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/advect/program.rs",
+      "read_range": "1-147",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/advect/program.rs",
+        "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "lines": 115,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F3",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/divergence/mod.rs",
+      "read_range": "1-115",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/divergence/mod.rs",
+        "sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "lines": 119,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F4",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/divergence/program.rs",
+      "read_range": "1-119",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/divergence/program.rs",
+        "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "lines": 138,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F5",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/gather/mod.rs",
+      "read_range": "1-138",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gather/mod.rs",
+        "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "lines": 131,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F6",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/gather/program.rs",
+      "read_range": "1-131",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gather/program.rs",
+        "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "lines": 7,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F7",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/gather/recipe.rs",
+      "read_range": "1-7",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gather/recipe.rs",
+        "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "e638381ad701a4b95e91bc4e3128d8c84526fa81cab3e535895aba1af3c3f975",
+      "lines": 106,
+      "manifest_match": true,
+      "same_prior": false,
+      "id": "F8",
+      "coverage": "fresh complete body",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/gather/signature.rs",
+      "read_range": "1-106",
+      "prior_full_body_receipt": null
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "lines": 47,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F9",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "read_range": "1-47",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gather/tests/mod.rs",
+        "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "lines": 139,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F10",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/gradient/mod.rs",
+      "read_range": "1-139",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gradient/mod.rs",
+        "sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "lines": 132,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F11",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/gradient/program.rs",
+      "read_range": "1-132",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/gradient/program.rs",
+        "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "lines": 114,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F12",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/map/bindings.rs",
+      "read_range": "1-114",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/bindings.rs",
+        "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F13",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/map/mod.rs",
+      "read_range": "1-228",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/mod.rs",
+        "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "lines": 121,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F14",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/map/program.rs",
+      "read_range": "1-121",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/program.rs",
+        "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "lines": 9,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F15",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/map/recipe.rs",
+      "read_range": "1-9",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/recipe.rs",
+        "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "lines": 125,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F16",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/map/signature.rs",
+      "read_range": "1-125",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/signature.rs",
+        "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F17",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "read_range": "1-42",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/tests/helper.rs",
+        "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F18",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "read_range": "1-296",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/map/tests/mod.rs",
+        "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_parameters.rs",
+      "sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "lines": 85,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F19",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/resource_parameters.rs",
+      "read_range": "1-85",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/resource_parameters.rs",
+        "sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "lines": 191,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F20",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "read_range": "1-191",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/resource_pipeline.rs",
+        "sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "lines": 27,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F21",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/resource_recipe.rs",
+      "read_range": "1-27",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/resource_recipe.rs",
+        "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "lines": 123,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F22",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/scatter.rs",
+      "read_range": "1-123",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/scatter.rs",
+        "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "lines": 120,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F23",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/scatter/program.rs",
+      "read_range": "1-120",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/scatter/program.rs",
+        "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "lines": 122,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F24",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/scatter/signature.rs",
+      "read_range": "1-122",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/scatter/signature.rs",
+        "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_error.rs",
+      "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "lines": 209,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F25",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/source_error.rs",
+      "read_range": "1-209",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/source_error.rs",
+        "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "lines": 122,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F26",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/source_parameter.rs",
+      "read_range": "1-122",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/source_parameter.rs",
+        "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "lines": 178,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F27",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil.rs",
+      "read_range": "1-178",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil.rs",
+        "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "sha256": "bce3a66580252ce1353e2ae500dc11ea596deea17d46155a2f4fd9584365846d",
+      "lines": 184,
+      "manifest_match": true,
+      "same_prior": false,
+      "id": "F28",
+      "coverage": "fresh complete body",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "read_range": "1-184",
+      "prior_full_body_receipt": null
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "lines": 148,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F29",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "read_range": "1-148",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+        "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "lines": 35,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F30",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "read_range": "1-35",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+        "sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "lines": 56,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F31",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "read_range": "1-56",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+        "sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "lines": 48,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F32",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "read_range": "1-48",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+        "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "lines": 131,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F33",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "read_range": "1-131",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+        "sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "sha256": "818c4f3b02ca461da41b87e7249fe143cefde84345e4540d2e9e1f68137c4a7d",
+      "lines": 326,
+      "manifest_match": true,
+      "same_prior": false,
+      "id": "F34",
+      "coverage": "fresh complete body",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "read_range": "1-326",
+      "prior_full_body_receipt": null
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "sha256": "b0a8b0dc7dc823fb4f24d86350eed7184344e713b65734d7424a3fd3c6f7465b",
+      "lines": 55,
+      "manifest_match": true,
+      "same_prior": false,
+      "id": "F35",
+      "coverage": "fresh complete body",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "read_range": "1-55",
+      "prior_full_body_receipt": null
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "lines": 146,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F36",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "read_range": "1-146",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+        "sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "lines": 135,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F37",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/program.rs",
+      "read_range": "1-135",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/program.rs",
+        "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F38",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "read_range": "1-11",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/recipe.rs",
+        "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "04af568622f691ab9b1b50eea9d3fc38ca514e55fd2ad81ea50caaf23ee6586a",
+      "lines": 182,
+      "manifest_match": true,
+      "same_prior": false,
+      "id": "F39",
+      "coverage": "fresh complete body",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/signature.rs",
+      "read_range": "1-182",
+      "prior_full_body_receipt": null
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/tests.rs",
+      "sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "lines": 147,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F40",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stencil/tests.rs",
+      "read_range": "1-147",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stencil/tests.rs",
+        "sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "bdebde0792dd5c21e33d8acc172f6bc001f5470ed65beccfaab044a33f4999f8",
+      "lines": 50,
+      "manifest_match": true,
+      "same_prior": false,
+      "id": "F41",
+      "coverage": "fresh complete body",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stream/call.rs",
+      "read_range": "1-50",
+      "prior_full_body_receipt": null
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "lines": 110,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F42",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stream/mod.rs",
+      "read_range": "1-110",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stream/mod.rs",
+        "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F43",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stream/program.rs",
+      "read_range": "1-123",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stream/program.rs",
+        "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "cc7727ee7caed96373fcf49f63b22e670f24458cd447d715492fbe1b80805796",
+      "lines": 113,
+      "manifest_match": true,
+      "same_prior": false,
+      "id": "F44",
+      "coverage": "fresh complete body",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stream/signature.rs",
+      "read_range": "1-113",
+      "prior_full_body_receipt": null
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "lines": 69,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F45",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "read_range": "1-69",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-compute/src/stream/tests/mod.rs",
+        "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "lines": 225,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F46",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "read_range": "1-225",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+        "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "lines": 109,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F47",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "read_range": "1-109",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+        "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "lines": 250,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F48",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "read_range": "1-250",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+        "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "lines": 87,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F49",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "read_range": "1-87",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+        "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "lines": 26,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F50",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "read_range": "1-26",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+        "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97,
+      "manifest_match": true,
+      "same_prior": true,
+      "id": "F51",
+      "coverage": "qualified exact own full-body carry from generated-stencil-layout-post-all13.json; current consumer/contract revalidated",
+      "source_location": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "read_range": "1-97",
+      "prior_full_body_receipt": {
+        "path": "target/pr826-audit/generated-working-stencil-layout-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+        "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+        "coverage": "fresh full body, every line; re-read even when same919"
+      }
+    }
+  ],
+  "supplementary_source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "coverage": "exact current Root body carry only if same_prior; prior full-body source revalidated native binding/cache/scope/submission/export dependency",
+      "lines": 76,
+      "same_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "coverage": "exact current Root body carry only if same_prior; prior full-body source revalidated native binding/cache/scope/submission/export dependency",
+      "lines": 82,
+      "same_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "coverage": "exact current Root body carry only if same_prior; prior full-body source revalidated native binding/cache/scope/submission/export dependency",
+      "lines": 113,
+      "same_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "coverage": "exact current Root body carry only if same_prior; prior full-body source revalidated native binding/cache/scope/submission/export dependency",
+      "lines": 44,
+      "same_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "coverage": "exact current Root body carry only if same_prior; prior full-body source revalidated native binding/cache/scope/submission/export dependency",
+      "lines": 47,
+      "same_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "coverage": "exact current Root body carry only if same_prior; prior full-body source revalidated native binding/cache/scope/submission/export dependency",
+      "lines": 18,
+      "same_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "coverage": "exact current Root body carry only if same_prior; prior full-body source revalidated native binding/cache/scope/submission/export dependency",
+      "lines": 33,
+      "same_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+      "coverage": "exact current Root body carry only if same_prior; prior full-body source revalidated native binding/cache/scope/submission/export dependency",
+      "lines": 87,
+      "same_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "coverage": "exact current Root body carry only if same_prior; prior full-body source revalidated native binding/cache/scope/submission/export dependency",
+      "lines": 16,
+      "same_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "coverage": "exact immutable prior peer d000 whole-body receipt, not latest peer or received Root",
+      "lines": 117
+    }
+  ],
+  "reference_accounts": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full TOML package/dependency bookkeeping, not source or implementation clearance",
+      "carried_contract": "Reference-only complete TOML package/dependency bookkeeping; both lock compositions remain peer-owned and required. Hash/source identity is not lock-generation or resolution acceptance.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full TOML package/dependency bookkeeping, not source or implementation clearance",
+      "carried_contract": "Reference-only complete TOML package/dependency bookkeeping; both lock compositions remain peer-owned and required. Hash/source identity is not lock-generation or resolution acceptance.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete canonical Clamp/Wrap enum/default; exact current mathematical policy, not a bool.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "sha256": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete actual Map wrappers and native copy orchestration. Dirty accessors preserve verbatim declarations/names for wrapper parameters; generation/min/smooth-min source parameters/call arguments remain authored. #780 retains whole functions and caller integration. No proven immediate record-time native copy error counterexample asserted.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete 2D/3D init/step/distance orchestration and existing tests: Map reserved coordinates/size, ordinary step, ping-pong and sentinels preserved. Not a fresh proof of all distance-field numerical policies.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete canonical counts/capacity/Scan/Buffer copies/Stream execution; exact constructor/call adapters remain peer-owned. Full geometric/QEF policy outside this receipt.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete DC types/constructors, Gather counts, Stream metadata-only output pointer; parse signatures use authored globals.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+      "sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete native count source; existing global/input/table protocol and source math frozen, no added generated fn argument.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+      "sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete native index writer source; offset/index/resource-pointer metadata-only Stream call, authored global output preserved.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+      "sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete native module composition/count/index/vertex exports; source identifiers native ABI.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+      "sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete native vertex/QEF source as parameter-protocol receiver; actual reflected custom record stride, never Custom4 guess. No general QEF correctness clearance.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+      "sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete shared checked extraction grid/counts/protocol plus visible fixtures. Positive native texture volume and canonical mesh/scan quantities; table/output/all broader geometry files not included or cleared.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+      "sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete source grid/scalar projection ownership: typed extraction axis/grid/count and conversion errors. Does not make shared Map/Stencil signed grid admission complete.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete existing native source composition/indirect Map with already-authored globals. Do not synthesize captured globals as function parameters.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole compositional exports, new source_parameter module and remaining interleaved item-order debt. #780 retains whole lib composition; coordinate final direct exports.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete MC constructor/cache/execution +counts and native Stream writer orchestration. No implicit primary value for metadata-only writers. Tables/output excluded from full geometry correctness.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+      "sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete MC native source strings, existing pointer/index/offset protocols and authored globals. Native math/instructions frozen.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/perlin_noise.rs",
+      "sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete Map generator definition/execution; no primary input, ordinary unsigned octaves remains uniform, not a selected coordinate.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete caller-facing canonical exports; #780 retains composition, no duplicate/replacement aliases.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete canonical Scan quantities/recursive auxiliary allocation/copies/native grid and public execution plus tests. Peer-owned source. Submitted auxiliary is not completed GPU work; known inaccurate completion comment remains peer correction.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete native guarded Scan program,256 native workgroup geometry, lane barriers/zero behavior; preserve canonical algorithm.",
+      "root_present": false,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/simplex_noise.rs",
+      "sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete Map generator definition/execution and native source; no primary input, actual uniforms/results retained.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete existing shared fixture helper/native POD expansion/readback/format populations; byte-identical c665, no test authoring or execution.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Complete GPU manifest: explicit native wgpu std and target-qualified browser feature policy. No direct thiserror dependency in candidate; manual native error derives require an explicit manifest/lock decision.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole canonical pass error ownership and nested native/progress causes; no new shared owner. Exact Root native integration required.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole peer reference: typed dispatch entry and native scope boundaries; differs actual Root scope implementation (ignored poll in old reference), NOT replacement authority.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole peer reference source parse/native creation; differs Root progress/ValidationScope implementation. Preserve Root source/native cause and policy.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole First/Named source identity resolution; reuse canonical selected Naga entry before shape admission, no duplicate finder.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole old peer cache/native pipeline reference; differs Root progress/scopes/docs/imports. Canonical source/device/policy success-only cache contract does not authorize overwriting Root completed native body.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole actual used-resource/reflection/static packing protocol reference; native Root scope body differs. Preserve existing provided-variant packing and canonical byte metadata.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole native image comparison/multisampled/storage access mapping and unsupported used handle rejection. Interface role distinctions retained.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole existing uniform member metadata/span/typed-byte owner; native ordinals and supported old variant policy remain same contract.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole exact device+validation-policy+source+complete recipe identity; builds outside mutex, publishes success only, CachePoisoned canonical cause. Mechanical generic Default intentionally avoids generic Default bounds.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole native GpuResource kind, binding/readback/cause facade; actual receiving texture default-view/format/device admission belongs Root completed native graph.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole native/browser combined validation/progress policy; reference docs differ Root current-flag wording. Preserve Root actual progress failure and policy controls; no new wait.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole canonical submitted work callback/wait marker: native wait is completion, browser callback has documented weaker policy. This is not implicit dispatch completion.",
+      "root_present": true,
+      "root_equal": true,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole actual finish + queue submission helper source/error split; reference docs differ Root configured-policy wording. Source copy finalization error belongs here; no speculative immediate error counterexample.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "manifest_matches": true,
+      "prior_full_receipt_matches": true,
+      "prior_coverage": "full fresh body read",
+      "carried_contract": "Whole immediate observe_validation, no polling/wait; reference docs differ Root current-flag routing. Keep pub(crate) API ownership; no external shim.",
+      "root_present": true,
+      "root_equal": false,
+      "coverage": "exact own prior reference-body carry; current Root equivalence only where root_equal; lock files bookkeeping only",
+      "fixed_snapshot_hash_revalidated": true
+    }
+  ],
+  "source_identity_checks": {
+    "all51_manifest_hashes_match": true,
+    "exactly7changed_and44carried": true,
+    "fixture_files_all_byte_identical": true,
+    "no_added_fixture_file": true,
+    "all_current_native_supplementary_equal": true
+  },
+  "resolved_findings": [
+    {
+      "id": "GSL-C1",
+      "status": "source-resolved",
+      "evidence": "cover_output separately checks actual output extents in emitted dimension then limits storage coverage to sampled axes selected from actual input kind; Texture2d Three projection coversXY and SignedCoordinate retainsZ+i32 arithmetic."
+    },
+    {
+      "id": "GS-STATE1",
+      "status": "source-resolved",
+      "evidence": "Three unit cases and complete fresh construction/call consumer reads; actual declarations and all active payload consumers remain; unchanged native program and fixture bytes."
+    },
+    {
+      "id": "GENERATED-STENCIL-C1",
+      "status": "source-resolved",
+      "evidence": "secondary_resources Rustdoc accurately says collects supplied resource descriptors and uses authored roles for buffer element-type projection; function body unchanged except Center match in another function."
+    }
+  ],
+  "findings": [],
+  "dependencies": [
+    "#780 canonical lib/prelude exports/module registration for source_error/resource_parameters/source_parameter, ResourcePipeline/BoundaryMode and GPU units are not yet received. Root current lib does not register the new private owners. No compatibility wrapper should restore removed Definition::parse_signature.",
+    "Canonical BufferElementStride/Count and their producer/caller/lock graph remain unreceived. Exact peer d000 stride owner was fully read: nonzero stride, checked byte-extent quotient ->u32 count, zero valid, real padding, actual host32/64 adapter. No duplicate count/stride owner may be added.",
+    "Scan/Reduce/MC/DC/DistanceField/JFA/noise/extraction and other actual recipients remain #780-owned integration obligations. Earlier reference bodies are exact immutable prior receipts, not automatically current Root bodies or a complete received graph.",
+    "Preserve Root native ComputePass/validation scopes/finalization/submission/bindings and native cause/provider policy. Do not copy stale peer native references over current Root helpers.",
+    "The51-file receiving increment has no new owned finding after source revalidation, but this is not a complete canonical integration or compilation verdict. All previously named unreceived graph obligations remain required work, not silently deferred paths.",
+    "Whole connected generated/source/physical/canonical family, all final thirteen lenses and independent Code/Rule/Comment/hosted project checks/baseline reductions on one pushed SHA remain required. No final clearance."
+  ],
+  "governing_rules": [
+    "Root/crates/Armor/Creator applicable AGENTS",
+    "rule-review/SKILL.md + bespoke reference",
+    "bespoke-audit and all13 focused lens contracts, including audit-derivability"
+  ],
+  "limits": [
+    "Fresh full seven changed bodies1016 lines, including new focused error file;44 exact own prior full-body carries5170 lines, total51 sources6186 lines. No prior verdict adopted as current proof.",
+    "Every one of51 frozen hashes and all38 reference hashes independently reverified. Five existing fixture/helper files byte-identical to prior50; all program.rs and neighborhood emission helper bodies unchanged; changed bindings has only the documented role-pattern/Rustdoc adaptation.",
+    "Supplementary current Root native/cache/scope/submission/binding/lib/prelude/Cargo bodies all remain exact own prior full-body hashes; immutable peer d000 canonical stride receipt remains unreceived, not latest-peer clearance. Only source reference records marked root_equal cover that current Root identity.",
+    "No source edits/copy, project checker/scanner/clone/build/lint/test/generator/runtime/native source emission/push/CI. No new fixtures/cases/helpers/assertions/doctests.",
+    "Source-only numerical and protocol reasoning: no hardware/browser/numerical/artistic/compiled acceptance. Current unreceived canonical registration/stride/callers/Reduce/physical/locks remain incomplete implementation obligations.",
+    "All51 file ceilings and changed function ceilings bounded by raw source inspection/identity, no quality-scanner clone; only final hosted checks and relevant baseline reductions can establish required validation."
+  ],
+  "correctness_verdict": "No actionable owned finding identified in the bounded51 current receiving sources after revalidation; GSL-C1, GS-STATE1 and Comment C1 source-resolved.",
+  "completeness_verdict": "Partial/incomplete canonical graph. No whole generated-family/PR or final all13/hosted clearance.",
+  "current_contract_revalidation": [
+    "Emitted coordinates/fetch/boundary/grid vs actual per-source coverage and actual output cardinality",
+    "Unit role construction plus all direct role consumers and exact declaration getters",
+    "Same source native entry/reflection/stride/grid/cache identity and actual context submission/binding/progress policy",
+    "Error/Result alias one owner and reachability/public/private/module/item order",
+    "Existing fixture/body/native source identities and no-growth ceilings",
+    "All13 semantic review contracts with explicit unreceived source dependencies"
+  ]
+}

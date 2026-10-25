@@ -1,0 +1,867 @@
+{
+  "kind": "independent Code Review of Armor read provenance Rustdoc clarification",
+  "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "tree": "a83c132e94bab1db7691468d553465081b7432fb",
+  "parent": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "review_base": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "verdict": "no actionable finding in bounded documentation change; AM-DOC-1 satisfied; connected producer acceptance remains incomplete",
+  "findings": [],
+  "changed_paths": [
+    "crates/fabelgeist-armor/src/gpu/facade.rs",
+    "crates/fabelgeist-armor/src/gpu/staging.rs"
+  ],
+  "all_diff_changes_rustdoc": true,
+  "changed_diff_lines": 21,
+  "all_non_rustdoc_bytes_identical": true,
+  "all_other_prior_source_accounts_exact": true,
+  "working_proof_hashes_match": true,
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_body_cloth.rs",
+      "sha256": "0860e2ba7922026cc0cb51dd6b106f6b43b3d72465fcafb0e54f638212ecc97b",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_boot_layers.rs",
+      "sha256": "1c9d5ce243e3f4ae2c44c34461e7ae7d5f59ee2464651bac81c4e90ae18b0e6c",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_bracer.rs",
+      "sha256": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_clearance.rs",
+      "sha256": "c281c89fa8c8f954309b110c0b7a90899e2c948ee8021b52732a4ba76c25192a",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_close_helmet.rs",
+      "sha256": "10baf11ddce9d828fc75b6a8971ee6baeee9a09bbdf9d9aab2f3f053b57f67df",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_cloth_collar.rs",
+      "sha256": "3e4a0390fc05b8d8fb98b1e1d25f63f739e2be6b4ab608808ee738da9d6d69ca",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_cloth_seating.rs",
+      "sha256": "f73836244a90809c21590ec46ea9e964f4d1e7a69599d1ff6c180427c65b6217",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_cloth_ties.rs",
+      "sha256": "12ee1e304a350676e0e940ef24e9958215fce17e37a36fb8c4ecd9cbab87c1ed",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_coif.rs",
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "complete CoifCarrier::read and fitted_coif_carrier; native recording source excerpts, not full module",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_foot_frame.rs",
+      "sha256": "646358891b65b2efa4bb01c0c6ee805b0c111adc1eff16949499a91436d131a5",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_foot_sections.rs",
+      "sha256": "43e6ef537032e0b98f260630a6d174d8d9b13226c31ee172162a50b37e8fd131",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+      "sha256": "a5ff6c930746498007808fb52e47a2ef6971347270a35ce8e0eeec3c03c77b1e",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment.rs",
+      "sha256": "895213b60ba9bc4762eeefb0a1b73958013e271dd9a8818448ffbb3caaf62973",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_kernel.rs",
+      "sha256": "7484d47aa4568e2fc5b3fed2daba4888a9f0d637e6af199bca5e4f85f218d60f",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+      "sha256": "3acbc3c2ff55ab00d9db818a502874cedb6878b2e93d4a880cfbb864332affa0",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_torso.rs",
+      "sha256": "1e18fa755a6820a35e6fbd3ac25599f1f43e0b80f583d1dbe944f8584c8187c8",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_tube.rs",
+      "sha256": "f3a62a48644dc5a0e6e24709857dc95742ba1eaafa24535bb77ca0aa61bd3106",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget.rs",
+      "sha256": "ba644b18ad4daf9cdbfa3caf009737c018ee220b98b321e5338bad8e38539e95",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "sha256": "efabd4be63cf20343ef960668d702d3525aa9ac0b5b0e591efcc54efa38a1a92",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "sha256": "a16e662e70c17cde92374f377722bfe4e19440f3673a91b97f86d2e69960b099",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_projection.rs",
+      "sha256": "9e52d00ac15a857a4516fef35e94758bc61262edf250f23a42f2d249f1713ef3",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gown_enclosure.rs",
+      "sha256": "c9a6ffa1dd49fe499505b9e2b123da6f4249122c809965dc15b60987f12981de",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_head_frame.rs",
+      "sha256": "0ba82a07830e04fce84a96018b01826029ddf86029936f1a328c91e41330406c",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_limb.rs",
+      "sha256": "e0d892a94ac4639bcb6d76efd6ffe7b88eaab221e530f54832fba6daafd8355d",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_pauldron.rs",
+      "sha256": "1658ee585c660bba599df7864f5d6e8fad945fa6050ff005d5245a2822da4d27",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_puff.rs",
+      "sha256": "332c9cecb9f25766df08df7e219829fc9aeb94172123f124cb5e57ae64c94f15",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_sabaton.rs",
+      "sha256": "8fcb742478e7290f631ddf10606731015b79c3c2495b9a04a540a34f173724f6",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_skirt.rs",
+      "sha256": "d0346804abe6333c4a55a61184d7011400677f0eb4912db5ed411968fbed86e8",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_skirt_join.rs",
+      "sha256": "64a9be41bc342854b19912b45b9705724b877afdd224b1b1b807a95e087d43c6",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_torso.rs",
+      "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "complete production through fit/run/shells/read_skin/check_status, not unrelated fixture suffix",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer/workspace.rs",
+      "sha256": "7e94d4b4a91f817e93d5b64d77f218425609896af1cada1ab2ef7aa2b1f6160a",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_wrapped_tasset.rs",
+      "sha256": "dc575790bf67f066d6c4dfd64c61f158383fc04efb95bc5dfd3633fe2ce17033",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete owned file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete owned file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/anatomy.rs",
+      "sha256": "5f35b514cf75ef2240d775a8fba069e0812fb7ba59b3aeab3b60e77e30918290",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "source ownership records and full read/read_async/deltas bodies, not all native recording functions",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime.rs",
+      "sha256": "a41d7583511916f837e5a9402fe4658589c54e4cfe15fa29cb04dd6a585ca000",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs",
+      "sha256": "bf81803801df60f8387489c31ab851af7f62c1df5cee4611a055d628c5bec616",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs",
+      "sha256": "05f22ce898989bd0fd60a8820b40ebb7c2d7edfa5a3cf81b0bc2c12b59490965",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/arm_trim.rs",
+      "sha256": "3f546b9455c4e9fb7c1d6eb7e4cb6fb236b80c9cf23dc1d13731431df2409684",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit.rs",
+      "sha256": "0fb7bb9002fdfcc18544f819f58724d08ba4db0d2b830c82227fd4f00f078219",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "sha256": "1e8220ba0622d5c485c9397aec607d945e9aac92e8e7c26b6a5b5de0365f5026",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/miter.rs",
+      "sha256": "1a78232fff2d53e2638825cba1c1ac15f83a29ad511bcedd9cb479d8350a5f15",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/plates.rs",
+      "sha256": "626dd0cc8823b5542b30fd320294e8109b996c5e4117ec73e513b82b8f909a84",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "sha256": "961d47635ad3f0bea6e01267b36a4d5574ea7204876f1fedccbbdc427ef3a921",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/chart.rs",
+      "sha256": "c8a582694544c0d94a6e1c77a7ffc592e381c7645cc6139db94b43b188298f7a",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "identical_to_d7da": false,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete owned file",
+      "current_read_boundary": "fresh complete diff and four public Rustdoc blocks; underlying Buffer read and context from_parts docs/implementation reread"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete owned file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/ornament.rs",
+      "sha256": "6a9f887c5c746b8b70fc8a3c9741ffa1a68dd3580a61483ca88fbc244dcb4152",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "sha256": "6ec6867195a91d26c804bd15de978e0e438e243c269705945f553f1f41f0113d",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "sha256": "b7eedf258c742117f1e6dbcb5abfeb71614f57e3001a6bd335b88c160ffca0ee",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/wgsl.rs",
+      "sha256": "90083b6c258f47bcf6e52babf50abc2cda917c32ea982b0404edcd75b8157f83",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete owned file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/pauldron.rs",
+      "sha256": "941b424f604c4fec00e1b408cfc88a31540522830f0e5936078674a541c3a78b",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "sha256": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "identical_to_d7da": false,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete owned file",
+      "current_read_boundary": "fresh complete diff and four public Rustdoc blocks; underlying Buffer read and context from_parts docs/implementation reread"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/textile_chart.rs",
+      "sha256": "1c65de848c323eb0fbf7847f59bbe93f8b0405c191d70d37ca081b9c67eedde6",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "all matching allocation/batch edge locations inventoried; full peer numerical body not newly read or accepted",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/tests/gpu_concurrency.rs",
+      "sha256": "32eacb59babbd46f3f97684dd0b4b27b1a0b3b60345789ea91f273df360d1b8a",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "sha256": "ce8d9e4f67af04002edcb5f6bf9663adc038d652f47bc2ef21dbad8b9f47122f",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+      "sha256": "32201338d839719acd4a4637a5b0f672f8b2cadb4871e9947f122d4c2c211bfa",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "query records, with_cache, parameters and complete nearest-point receiver, other native record prefix; not whole numerical kernel source",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+      "sha256": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "NormalWeighting, complete shared-kernel constructor and record method; not full shader/test module",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "complete package/dependencies/target features/lint source",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "complete production prefix through constructors/write/from_upload/traits; test module declaration only",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "identical_to_d7da": true,
+      "excluding_rustdoc_bytes_identical": true,
+      "prior_read_boundary": "fresh complete file",
+      "current_read_boundary": "exact identity carry of recorded prior coverage; no fresh whole-body read claimed"
+    }
+  ],
+  "contracts": [
+    {
+      "method": "ArmorGpu::read",
+      "source": "facade.rs:131\u2013145",
+      "conclusion": "Explicitly requires supplied buffer on facade device and context queue paired with that device. Producing-submit handling preserved; external alias/mapping contract referenced via Buffer::read. Native blocking and browser async-choice wording unchanged in meaning."
+    },
+    {
+      "method": "ArmorGpu::read_async",
+      "source": "facade.rs:147\u2013154",
+      "conclusion": "Title names own device/paired queue, body docs require buffer on that device, prior submit handling and Buffer::read mapping ownership. Actual method body still awaits canonical Buffer.read without validation/branding additions."
+    },
+    {
+      "method": "ArmorGpu::read_staged",
+      "source": "staging.rs:117\u2013126",
+      "conclusion": "All source buffers must be on facade device, with paired context queue; actual GPU copies require availability under existing mapping ownership. No stronger exclusive-read/alias guarantee introduced. Producing submit errors handled before call."
+    },
+    {
+      "method": "ArmorGpu::read_staged_async",
+      "source": "staging.rs:128\u2013145",
+      "conclusion": "Same device/paired queue and copy availability obligations, submission-first wording and native/browser progress preserved. Private grouped staging allocation mapped, no request to map sources independently."
+    },
+    {
+      "owner": "Buffer::read/from_parts",
+      "conclusion": "Fresh pinned source verifies exact creating-device+paired-queue/external mapping obligations and no-query limitations. The docs clarify application preconditions; they do not add automatic same-device enforcement or alter device-handled validation policy."
+    }
+  ],
+  "prior_all13_disposition": "All six Root owner responsibilities revalidated through exact source identity except the four authorized Rustdoc blocks. Distinct prior admission/readback bodies and all thirteen bounded lens contracts remain current. No broader peer numerical clearance inherited.",
+  "required_dependencies": [
+    {
+      "id": "AM-D1",
+      "owner": "#780 grouped readback",
+      "status": "required incomplete integration",
+      "source": "Root compute/readback.rs vs immutable3ee counterpart",
+      "detail": "Root Readback::record still requires context and read(context), whereas Root Staging intentionally consumes canonical batch-derived record(batch,buffers)/read(). Canonical source retains actual poll/channel/map/copy/allocation causes, own device and checked total host extent. Complete owner receipt and all callers/fixtures remain required."
+    },
+    {
+      "id": "AM-D2",
+      "owner": "#780 armor/fitting producers and callers",
+      "status": "required incomplete integration",
+      "source": "Root PartBuild/Correspondence/bracer/breastplate/anime/plates/Creator fitting bodies",
+      "detail": "Old infallible get/by-value status/prefix and Copy-bearing PartSlots conflict with session-bearing non-Copy tickets and fallible borrowed prefix/status. Canonical PartBuild/Correspondence stage/finish read as receiving context; no duplicate get or compatibility forwarder allowed. Every actual status/prefix result must propagate before geometry publication."
+    },
+    {
+      "id": "AM-D3",
+      "owner": "#780 metal material/engraving/bake/callers",
+      "status": "required incomplete integration",
+      "source": "Root metal/bake.rs/material.rs/Creator texture export/preview vs3ee typed counterparts",
+      "detail": "Root facade consumes canonical MetalTextureSize, BufferElementCount/Stride, InvocationCount and fallible map owner, while Root material/bake still uses raw sides/counts/String errors/public maps and ignores submit. Canonical typed material/size/maps and bake source read; complete recipe/admission/engraving/consumer integration remains required. Preserve32\u20131024 accepted sides, nonfinite rejection, packing order and original WGSL numerics."
+    },
+    {
+      "id": "AM-D4",
+      "owner": "#780 count/layout/query/normals/mesh/Grid producers",
+      "status": "required incomplete integration",
+      "source": "MeshQuery quantities/output/selection canonical3ee and current native receiver edges",
+      "detail": "ArmorGpu nearest_points consumes QueryCount/MeshVertexCount/PointSelection::All/QueryHits::nearest canonical API absent current Root. Canonical query layout checks triple-word addressing and capacity before allocation; nonempty target selection checks its triple words. Normals/count/layout/storage/dispatch producers remain owner work. No new parallel type definitions or independently edited shared functions."
+    },
+    {
+      "id": "AM-D5",
+      "owner": "#780 Creator caches and publication callers",
+      "status": "required owner repair in progress",
+      "source": "Creator armor_gpu/metal_gpu plus earlier two hair initialization caches",
+      "detail": "Both current armor and metal initialization caches store String; peer explicitly owns all four cache cause repairs. Current body/limb/recipe/fit/coif/underlayer producers also ignore fallible submit before dependent reads/publication. Enumerated actual bodies and historical source accounts retain these required migration gaps; later readback does not certify a failed producing submit."
+    },
+    {
+      "id": "AM-D6",
+      "owner": "#780 complete numerical producer graph and final composition",
+      "status": "acceptance explicitly incomplete",
+      "source": "armor-metal-d7da-call-source-inventory.txt",
+      "detail": "326 allocation/batch/read edges across60 files are exhaustively enumerated for this pattern census; broad unreceived numerical producer bodies are not semantically cleared by this receiving audit. Per-file read boundaries and historical identity receipts are explicit. Full canonical composition, public exports/manifests/locks, required hosted gates and final same-SHA reviews remain required."
+    }
+  ],
+  "limits": [
+    "Read-only source/Git/textual identity review; only ignored reports written.",
+    "No checker/scanner/baseline generator/build/compile/lint/test/runtime executed by reviewer; supplied proof reports Root individual rustfmt and diff check only, not hosted project gates.",
+    "No production signatures/bodies, native commands, shader text, fixture values/cases/assertions, Cargo files, error types, validators or alias guarantees changed.",
+    "326-edge/60-path unreceived numerical producer graph remains explicitly incomplete; final canonical source/API/manifest/lock integration and same-final-SHA hosted checks/reviews remain required.",
+    "No whole family, compilation, project quality, all-lens global or final PR clearance."
+  ]
+}

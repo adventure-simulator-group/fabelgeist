@@ -1,0 +1,326 @@
+{
+  "kind": "Source-backed complete bounded thirteen-lens pre-receive inventory",
+  "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+  "tree": "f9764699a468d5bf8ebc56075df4138ddbc87a01",
+  "root_pin": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-material-cause-receivers-99d70e7c3/manifest.json",
+  "source": [
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "raw_lines": 187,
+      "coverage": "Fresh complete source including inline fixture plus exact owning-parent diff",
+      "manifest_export_git_match": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "raw_lines": 288,
+      "coverage": "Fresh complete source including inline fixture plus exact owning-parent diff",
+      "manifest_export_git_match": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "raw_lines": 342,
+      "coverage": "Fresh complete source including inline fixture plus exact owning-parent diff",
+      "manifest_export_git_match": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "raw_lines": 142,
+      "coverage": "Fresh complete source including inline fixture plus exact owning-parent diff",
+      "manifest_export_git_match": true
+    }
+  ],
+  "closure": [
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_material.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "52ebd2ffe14baf52f9e8bdd18ecf23fb26b94b1cf52c655fbc58074cd18471b7",
+      "coverage": "Full source: fixed authored mail map selection and metadata"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "89e313508ced73bcd3f9dfe8e60ba2026dbb11d0d19fb178654e60423afd26b0",
+      "coverage": "Full source: actual native MetalImages cause and publication owner"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df",
+      "coverage": "25-140 Exhibit shape/errors and340-405 actual publication error recipient plus410-550 constructor/fitting worker; other numerical/layout source not full fresh coverage"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_ui.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada",
+      "coverage": "105-135,167-185,307-326 actual error viewmodel presentation"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "coverage": "104-205 actual typed ClothingError signature/admission and first generation stage; not full clothing numerical generator"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_ui.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "coverage": "Exact99 terminal export/UI body carried only where prior29 source identity verified"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "coverage": "Exact99 whole source identity versus reviewed29 cache owner; prior full source receipt carried"
+    }
+  ],
+  "discovery": "Complete four-file/cause/publication scope and13 individual cells before any reviewer receipt",
+  "repair": "CC-C1 correction available in immutable candidate, not received into Root by reviewer",
+  "validation": "Source only, no project execution or final clearance",
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "source_contract": "Metal initialization Arc cause -> MetalImages::new -> EquipmentMaps -> Studio/Armory result -> final status; ClothingError -> garment exporter -> result.",
+      "disposition": "Five Error::msg adapters removed: twoStudio,twoArmory,onegarment.",
+      "connected_repairs": "CC-C1 resolved at candidate only; no source receipt.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "Actual source chain must survive all intermediate errors; canonical shared implementation/callers required.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contract": "Keep GpuInitializationError/MetalDeviceError/ClothingError and native image decode errors, adding contextual anyhow only.",
+      "disposition": "No new error owner/helper/alias or primitive error substitution.",
+      "connected_repairs": "MailImages constructor reuses actual fallible decode result.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "Receive actual canonical error/type exports; no duplicate definitions.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contract": "MailImages::new requires color bytes, decodes color/normal/optionalocclusion before Asset insertion or cache publication.",
+      "disposition": "Malformed or absent data returns error with context; no expect fallback or invented defaults.",
+      "connected_repairs": "Both former production expects replaced by existing Result/Option admission.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "No handles or Some cache state published if any decode fails; successful protocols/nativeflags unchanged.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contract": "All three decodes finish before images.add; self.mail.insert only after constructor Ok; metal Vec.push occurs only after native material returns Ok.",
+      "disposition": "Fallible boundaries retain complete usable cached values.",
+      "connected_repairs": "No attempt at scene-wide rollback; prior command/cache state may remain on later operation failure.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "Preserve narrowly owned publication proof; broader generator/state migrations not certified.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contract": "MailImages owns all map handles as one record; BakedMetal binds recipe/image handles/liveness; actual authored source maps constant across mail designs.",
+      "disposition": "Existing Option cache correctly memoizes one authored atlas; enum payloads/texture metadata remain paired.",
+      "connected_repairs": "New aggregate admission prevents partially decoded cache.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "Actual Color/Normal/occlusion source roles and metadata remain correct; no mismatched runtime atlas key introduced.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "type-ownership",
+      "source_contract": "Peer owns complete four source functions; Root native facade/context ownership stays untouched.",
+      "disposition": "Shared error propagation consumes existing imports and preserves actual sources.",
+      "connected_repairs": "PreviewScene impl moved before functions to repair changedfile order.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "No blind native source overwrite or independent shared repair; wholefile receipt exact except authorized composition.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contract": "One actual error chain remains authority until final UI; no MessageError<anyhow> mirror; one mail cache stores only completehandles.",
+      "disposition": "Source correction removes redundant opaque message wrapper.",
+      "connected_repairs": "Armory display String is terminal viewmodel text, never error-classified by prose.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "Do not infer blanket initialization retries or successful render from cached text; first outcome policy retained.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contract": "Same success material/sampler/sRGB/occlusion/visibility/export behavior; decode failure becomes fallible instead of panic.",
+      "disposition": "Only intentional failures/source visibility change. Existing Armory fixture exactparent.",
+      "connected_repairs": "Scene commands/generatedfiles are not made transactional by this change.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "No new tests/cases/helpers/assertions/doctests; no visual/native/GLB runtime claim.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contract": "SurfaceAlpha/Sides -> actual Bevy alpha/culling roles; optionalocclusion has no independent status; BakedMetal.used is ordinary named livenesspredicate.",
+      "disposition": "No semantic flag vocabulary added; Result owns new decodefailure.",
+      "connected_repairs": "No unnecessary enum/helper or compatibility variant.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "Preserve per-map roles and optional payloads without encoding status in strings.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "derivability",
+      "source_contract": "EquipmentMaps derivesDefault/Resource; existing handle records no artificial Default/Clone; no new custom error boilerplate.",
+      "disposition": "MailImages::new validation cannot be replaced by default/derive.",
+      "connected_repairs": "Actual anyhow Context retains native error; no handwritten lossy Error implementation.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "No Serialize/Default bypass around complete image admission.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "type-granularity",
+      "source_contract": "Material/cache/handle roles reuse canonical types; native decoder srgb bool, asset handles and render metadata are actual framework ports.",
+      "disposition": "No bespoke wrapper for final diagnostic prose or source-specific native flag.",
+      "connected_repairs": "Existing unchanged procedural geometry and UI ordinal roles are outside this cause repair, not claimed migrated.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "Do not manufacture framework brands; finish outstanding canonical producer graph before global acceptance.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "magic-strings",
+      "source_contract": "PNG extension literal is native image decoder token; authoredpaths own sourceassets; static context text not branched on.",
+      "disposition": "Five message repacks removed; final Studio.status/Armory viewmodel display still formatting.",
+      "connected_repairs": "CC-C1 repaired and analogous three paths source-retaining.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "Native/Clothing causes remain traversable until final display boundary; no String replacement in worker/cache.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contract": "sRGB flags fixednative maproles; same alphaMask0.5, channel indices, authoredlight/camera/UI and GLB/nativeindex primitives remain unchanged.",
+      "disposition": "No new numeric policy/units or widened layout/count acceptance.",
+      "connected_repairs": "No source-level arithmetic repair needed by this correction.",
+      "dependencies": [
+        "Other generated/bake/count and physical/source producer families remain required",
+        "Receive canonical Armor/Metal/material/Clothing/query/Readback exports and all actual callers",
+        "Preserve Root native WgpuContext/Buffer/renderer/Cube source and current read docs; this handoff changes no native owner",
+        "Reconcile actual final manifests/both locks and relevant hosted baseline reductions",
+        "Same final pushed SHA complete13 wave, independent Code/Rule/Comment reviews and hosted checks still required"
+      ],
+      "acceptance": "Broader count/layout/byte/shader producer migrations and native feature closure remain required, not silently waived.",
+      "discovery": "complete bounded scope",
+      "repair": "candidate only/unreceived",
+      "validation": "source only/not executed"
+    }
+  ],
+  "findings": [],
+  "candidate_resolution": {
+    "CC-C1": "At exact99d, Studio material and trim apply with_context directly, Armory uses ?/transpose? directly, garment generation typed ClothingError uses ? directly. No Error::msg adapters remain in four selected files. Historical29 CC-C1 remains valid at29.",
+    "mail_publication": "Underlayer material returns constant authored images; decode three images locally, then add assets, returnSelf and insert into mail cache. No partial Asset insertion on a decode error. Missingrequiredcolor has logical contextual error; native Image decode retains actual error cause.",
+    "presentation_limits": "Armory::refresh formats full error into Exhibit.fitted display-result at385; Armory UI consumes error text for labels/hover, not error-code branching. This existing terminal presentation model is not a reusable native cache. Studio formats at final status. Equipment generation returns actual errors to caller; filesystem/scene transaction policy unchanged."
+  },
+  "fixtures": {
+    "armory_inline_fixture_exact_parent": true,
+    "new_tests_cases_helpers_assertions_doctests": false,
+    "no_production_expect_added": "Two removed MailImages admission expects, none added",
+    "new_unsafe": false,
+    "WGSL_POD_changes": false
+  },
+  "no_growth": "All four complete files below500 raw lines; new MailImages constructor37 raw lines<100; moved PreviewScene function onlyloses2lines; other functions unchanged orshrink. Existing unrelated long functions not enlarged; no new/raised baseline or suppression.",
+  "execution": "No source edit, local project scanner/check/build/lint/test/generator/runtime/pushCI. Only source/Git/manifest/text bookkeeping. Reports ignored."
+}

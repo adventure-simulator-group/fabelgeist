@@ -1,0 +1,146 @@
+{
+  "review": "Independent Comment Review, bounded dispatch-grid checkpoint",
+  "head": "65e8aebedb6490bc2945eac6d48479ea6a2cd10a",
+  "tree": "24cf778b808d5be97c829afcc4c6bebbdbcfa64a",
+  "parent": "b874e611826c27085da897903cacfc31998d0210",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "source_policy": "All source inspected from immutable git objects; working shape.rs changed during review and was excluded. No source edits or project execution.",
+  "changed_files": [
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs"
+  ],
+  "source_coverage": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "e24033e11fd0b6b2406e21ceb0e97ab5570fe29cdb747b4294b73b24afe92c32",
+      "bytes": 3281,
+      "read": "complete pinned source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "bytes": 2645,
+      "read": "complete pinned source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "a1dacd4308f0c64a86d6c03201c8e49bc4d1988b988c94ca9572bd3d315b86cd",
+      "bytes": 4904,
+      "read": "complete pinned source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "bytes": 2319,
+      "read": "complete pinned source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "bytes": 1531,
+      "read": "complete pinned source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "bytes": 14604,
+      "read": "complete pinned source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "bytes": 1911,
+      "read": "complete pinned source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "1d6d8fdb930ec1e7cef5c99cd16aac39ae33e5868c1d219860c043de70f3c2c6",
+      "bytes": 3320,
+      "read": "complete pinned source"
+    }
+  ],
+  "fixture_provenance": {
+    "compared_pin": "9a91b1203d6b9571fde84b67acf06b5b472db393",
+    "reported_95f_pin": "Short token 95f did not resolve locally; full pin requested from parent. No unsupported identity claim.",
+    "files": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+        "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+        "identical_to_9a91": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+        "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+        "identical_to_9a91": true
+      }
+    ],
+    "compile_fail_doc_sha256": "db91bfdcfe05d8aaf42cf948efbb58fa306a53c83a002133fa2c0d260191ff3e",
+    "compile_fail_doc_identical_9a91": true,
+    "retained_cases": "36 covering records, 6 occupancy records; two existing tests and four assertion macro sites; all existing exact bytes; no execution."
+  },
+  "sdk_support": [
+    {
+      "path": "wgpu-types-29.0.4/src/limits.rs",
+      "lines": "214-229",
+      "coverage": "bounded source read: declaration dimensions/product separate from per-dispatch axes; default65535 not universal device maximum"
+    },
+    {
+      "path": "wgpu-core-29.0.4/src/command/compute.rs",
+      "lines": "835-864",
+      "coverage": "bounded source read: state/binding readiness plus receiving Device per-axis comparison; no completion verdict"
+    }
+  ],
+  "findings": [
+    {
+      "id": "65E-C1",
+      "priority": "P3",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "line": 15,
+      "claim": "A native dispatch exceeds the allocating device's per-axis group limit.",
+      "mismatch": "The grid allocates no native resource. validate_device receives the dispatch device, which is the authority for this error; allocating device could imply a different resource lineage.",
+      "remedy": "A native dispatch exceeds the receiving device's per-axis group limit.",
+      "scope": "Documentation precision only; receiver implementation already uses the correct device."
+    }
+  ],
+  "verified_contracts": [
+    "Grid folding constructs geometry only and points to declared-shape/padded-address admission.",
+    "Shape admission checks nonzero declaration dimensions; per-shape device limits remain native pipeline responsibility.",
+    "covering accepts invocation counts on three axes; workgroup_count_x and covering_x use ceiling division with y/z group counts one, including multidimensional declarations.",
+    "covering_folded_x requires a one-dimensional declaration and bounds the entire padded flattened address span to at most 2^32 lanes; it does not admit arbitrary shader semantics.",
+    "validate_device compares all axes with receiving Device max_compute_workgroups_per_dimension; no broader pipeline/resource/native-submission or completion promise.",
+    "Lower record checks groups before pipeline and bindings; native encoding may remain deferred until finalization. Standalone dispatch delegates submission policy and explicitly disclaims GPU completion.",
+    "WorkgroupGrid record is a raw native adapter requiring caller admission. The 65535 folding constant is project layout policy, not an assertion that all devices have that maximum.",
+    "Kernel batch callbacks remain host submission callbacks, not GPU completion; provider-handled Ok is not observed native acceptance."
+  ],
+  "required_dependencies": [
+    {
+      "id": "planned-folded-count",
+      "status": "Open, parent acknowledged",
+      "contract": "Typed WorkgroupCount folded projection for scan must be completed and source/docs re-reviewed; not provided by current shape-only folded operation."
+    },
+    {
+      "id": "planned-empty-dispatch",
+      "status": "Open, parent acknowledged",
+      "contract": "Current covering_folded_x rejects a multidimensional shape before observing zero invocations. Required no-work behavior preserving multidimensional declarations remains pending."
+    },
+    {
+      "id": "D780",
+      "status": "Required incomplete owner integration",
+      "contract": "Kernel/Prefix/FastPath and all related producer/count/layout/native receiver/caller/cache/lock migrations remain required. Current Kernel groups_folded retains raw count/geometry and blanket 65535 wording; do not infer it consumes the new checked shape boundary."
+    },
+    {
+      "id": "final-gates",
+      "status": "Required incomplete",
+      "contract": "Complete parent all13 waves, independent Code/Rule/Comment reviews and required hosted gates on the same final pushed SHA. This source checkpoint is not final or integrated clearance."
+    }
+  ],
+  "limits": [
+    "No project checks, tests, builds, scanners, generators, runtime, push, CI or external posts.",
+    "No new tests/cases/helpers/assertions/doctests authored. Fixture provenance is source identity, not executed validation.",
+    "SDK receiver boundaries were read in bounded sections; prior detailed scope/finalization policy evidence is carried with its limits, not claimed as a fresh complete SDK audit.",
+    "No complete producer/native family, all13 or whole-PR clearance."
+  ]
+}

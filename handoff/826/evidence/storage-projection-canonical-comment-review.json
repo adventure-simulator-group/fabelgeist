@@ -1,0 +1,612 @@
+{
+  "review": "Independent Comment Review: planned canonical storage/projection receiving",
+  "canonical_revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "canonical_tree": "e6b07a044278929c6f766c2a664fcfc6d0e3d561",
+  "root_reference_revision": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+  "root_reference_tree": "84b9787789f790aa58887b55787319439865997a",
+  "main_revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "fixture_origin_revision": "71f9cab8a5f97760e2e61ca4c74876b715f8aebc",
+  "manifest_receipts": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-storage-projection-family-e2162708f/manifest.json",
+      "sha256": "2ba6361a9d803893cd3dac7fdf32ef513dc3b96117d497e19b6b4a220ad55906",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-storage-projection-supplement-e2162708f/manifest.json",
+      "sha256": "9753537a30b4f6c453f9ff04bdb9acf4f0234fe109fd3585d557e8d7032de205",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-resource-recipes-complete-e2162708f/manifest.json",
+      "sha256": "ff14958c0c79d74581e4774267a16963f29d405d68b228e275b8e12d91c717ed",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607"
+    }
+  ],
+  "listed_included_file_count": 32,
+  "listed_included_full_read_count": 32,
+  "source_accounting": [
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "4b94a0b3a1a1e51b108608d28ca28fda6178e366ab2c8f49980a4968e2aff721",
+      "git_blob": "747d04f2c78bed6abad8aa165315e73f2c302404",
+      "lines": 321,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+      "git_blob": "002a3ef9f4510897149a079f3a08757c1d4b7597",
+      "lines": 218,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+      "git_blob": "9dffb2824a36dba73fc77a7f09a38169fe1dc590",
+      "lines": 371,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+      "git_blob": "d9d65bbfb57e689fa2602fdffc606e0eee267ac1",
+      "lines": 247,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "6bac7f1ff95532004d88a383de80e559f550f4e8d3223d5adbbffd50a8907071",
+      "git_blob": "3f92e8c8010a0515d5ed18e037efcbb2381de226",
+      "lines": 495,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "sha256": "e97b56c90018e2382c2715260d0608d334eff6d141bc7dd8bb8fe6f708ed20ce",
+      "git_blob": "8aa1e610be00e8549b562a972b1b089b28867f7e",
+      "lines": 189,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+      "git_blob": "168aa10f577bb188ce2380beaa17beffa8113d6a",
+      "lines": 335,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "git_blob": "205304c8a79a86121c5114c910520d8413bc7316",
+      "lines": 1082,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+      "git_blob": "cb79f02ff76a251efca8e43edf0e47236e885f1f",
+      "lines": 331,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "git_blob": "e94d1ae036a3c83a8f9c949e085aaa9108f43f29",
+      "lines": 216,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "991f1eebf5b1a9cf7f8fa7314793b2610a78fa7f5b01236a19c84ea9f73773fd",
+      "git_blob": "8bbfb7d444a79d5ead2d23731ad6a6b94c386bcc",
+      "lines": 228,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "git_blob": "ad423d4ee3669f721767c8b800ba709be6071842",
+      "lines": 88,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "git_blob": "ff22c894c99a44a65c690e52ca97d2c606c0cdaf",
+      "lines": 97,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+      "git_blob": "8fb02301015a9993dcd6441dc3f65643473de92b",
+      "lines": 421,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "git_blob": "5a991b44701159ad24536aae902769843661a1fe",
+      "lines": 35,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "1b980d4e70b78653c3c8c246e2cf7da33f4bc5cec208060e5ef4acbf059ba24e",
+      "git_blob": "b3da65112e95e568269aff3768b7b1a40ee11800",
+      "lines": 898,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Only render_face_shader_raw/render_shader_raw proposed receipt; all other functions context, preserve Root native functions"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "git_blob": "21e877cdf9eb4aaa8ba9ca0c069dd9fff2329876",
+      "lines": 103,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "git_blob": "261af2e00390d39f38a51819c4cff4a2a37474eb",
+      "lines": 170,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "git_blob": "8241141d295757f9ab6e313dde4f519e151577a7",
+      "lines": 27,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "git_blob": "618eb61516661039c0b3dc006c169676477d6c1a",
+      "lines": 302,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "c04feb5e8852212086b588c9946c8b191bb96ff90814d1278192e7b4bce73d07",
+      "git_blob": "b80a1fb664f8b8231c05c3f48bca94e273cf4645",
+      "lines": 101,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Mixed composition context; no wholesale overwrite authority"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "git_blob": "e2a307cc9cb615953ae49f446b5272282e0cb3a0",
+      "lines": 16,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Mixed composition context; no wholesale overwrite authority"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/kernel/workgroup.rs",
+      "sha256": "ffa8f8f0beb9bf408f7a259919960bdd22329afd9c20141b151e9c4b16c9c0ee",
+      "git_blob": "e1b2d14c1e659e5c8b08c5a9dc82eb44bf2d957e",
+      "lines": 21,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "git_blob": "36d0580b8a4d9980cc4bacba0d39801716c3cdce",
+      "lines": 9,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "git_blob": "7b2723edfa2ebfb49f54bdb2516001ce3fd28d75",
+      "lines": 7,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "git_blob": "4e608e8ef20d02397c284c3d78656eef91cc91df",
+      "lines": 11,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "git_blob": "a1d6e394d59b7b790a2017e4f5ecb2c8a85c180b",
+      "lines": 43,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/reduce/execution.rs",
+      "sha256": "fdf743edb8382f0bae0750c6255d89a22855f9be09f50179981ffd8f26964435",
+      "git_blob": "a79819e034cdbff458e644130e17e7062b18c915",
+      "lines": 176,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/reduce/layout.rs",
+      "sha256": "19f555f68f33ff087db6fb06d6a5f37bb4ca784708e74739098c7c99b2c0de15",
+      "git_blob": "3de8e68044dc07c938226f7039e58c29622f9dd6",
+      "lines": 49,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/reduce/error.rs",
+      "sha256": "8dfa0b2e6cbfe706b8e070c9b18e1abf4029d45cc1147a58a5e7b2967071e578",
+      "git_blob": "63a389a82be3ae7bb6251f93777e7e6b083688b3",
+      "lines": 6,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "git_blob": "fec95d728b37d3d29514287ca421583c735c91ba",
+      "lines": 93,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "git_blob": "85f7391b45d6a6e300dc7a9f8bd939e1dc250a93",
+      "lines": 117,
+      "coverage": "Full file source read; source-only comment/contract review",
+      "manifest_hash_matches": true,
+      "ownership": "Listed canonical source for planned receiving, subject to ownership/composition constraints"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "git_blob": "5dd651ef83440a5d5c9e84635d8ae455e61fc4ff",
+      "lines": 244,
+      "coverage": "Full source context read; no overwrite authority",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "git_blob": "58d988813cefd13442b07f2551b840f7d5cd6fa5",
+      "lines": 43,
+      "coverage": "Full source context read; no overwrite authority",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "git_blob": "5d5eb3c72af4212be2c0a02e557d49b3853bb010",
+      "lines": 42,
+      "coverage": "Full source context read; no overwrite authority",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "git_blob": "fa04b886db9c36beccd4ebf8be9f38945936e55d",
+      "lines": 129,
+      "coverage": "Full source context read; no overwrite authority",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "git_blob": "c7ea9cdb3014f1fc5c29fcdad844115c9c2dfd2f",
+      "lines": 53,
+      "coverage": "Full source context read; no overwrite authority",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "git_blob": "67157c88e19ad022429436075bcc52d2e29671e4",
+      "lines": 109,
+      "coverage": "Full source context read; no overwrite authority",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "git_blob": "ef08a970b02ec606113d7c3302e0b5ef5f774e30",
+      "lines": 141,
+      "coverage": "Full source context read; no overwrite authority",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "git_blob": "bd469197cddcb269b54c6160fe677601999b7a98",
+      "lines": 201,
+      "coverage": "Manifest identity checked only; current Root owner fully read separately, no fresh canonical-body-read claim",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "86e926ab47cd284d07a0e14265aaf7b5ba3ce1b6cc5e2aff66328e05f67aee02",
+      "git_blob": "8f679a45e9a08631e2ddc5dd989ac29d300a9db1",
+      "lines": 113,
+      "coverage": "Full source context read; no overwrite authority",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "git_blob": "218f094989dc24da7e6611f73fbf65a976cae7be",
+      "lines": 17,
+      "coverage": "Full source context read; no overwrite authority",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "git_blob": "ff679ab14a5f2826ae5b1214865dd250e6800035",
+      "lines": 5,
+      "coverage": "Full source context read; no overwrite authority",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "git_blob": "0eac254b821e75e05ef833ad6cc522b208deceb3",
+      "lines": 167,
+      "coverage": "Affected select_textures function fully read; not whole-file fresh coverage"
+    },
+    {
+      "revision": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "git_blob": "404a765e9377d7b74ca267ae1be9c3ce03b17190",
+      "lines": 93,
+      "coverage": "Full source context read"
+    },
+    {
+      "revision": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "git_blob": "cc33b13da290260740b8622fdd4362c5fd45e59e",
+      "lines": 112,
+      "coverage": "Full source context read"
+    },
+    {
+      "revision": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "git_blob": "501981744498df2ead4adea27bf1fe6353f4f630",
+      "lines": 212,
+      "coverage": "Full source context read"
+    },
+    {
+      "revision": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "git_blob": "5ffbc0c6b0dcaa45d1b74e9fc36f0cb14480f75f",
+      "lines": 82,
+      "coverage": "Full source context read"
+    }
+  ],
+  "fixture_provenance": [
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "307a22684a265bcbdd41fc0b7b038b9cdec839b1988eed7f66b8390fee2e6a5d",
+      "git_blob": "4979aa652b5d5b1805f63ec81af28472e4b52035",
+      "lines": 42,
+      "coverage": "Full existing fixture source read, no execution",
+      "byte_identical_main990": true,
+      "byte_identical_77971f": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "git_blob": "c8617b7280d5f4356c31193cae559b10ce03bc80",
+      "lines": 296,
+      "coverage": "Full existing fixture source read, no execution",
+      "byte_identical_main990": true,
+      "byte_identical_77971f": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "git_blob": "17fbace773aa69c13ee5173bbaba59721b4d953e",
+      "lines": 48,
+      "coverage": "Full existing fixture source read, no execution",
+      "byte_identical_main990": true,
+      "byte_identical_77971f": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+      "sha256": "d0d3dffc4a91c467d5fdab631a26961745163417f8b7818ae760a3702ea24d8f",
+      "git_blob": "4011d1d4479f6f23c5d1554e6832c7125fdc3ec7",
+      "lines": 164,
+      "coverage": "Full existing fixture source read, no execution",
+      "byte_identical_main990": true,
+      "byte_identical_77971f": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "git_blob": "56f625cb63ddfbc26f396421f14de2df59a4a35d",
+      "lines": 69,
+      "coverage": "Full existing fixture source read, no execution",
+      "byte_identical_main990": true,
+      "byte_identical_77971f": true
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "coverage": "Whole inline existing fixture read",
+      "fixture_sha256": "b3bc1b05e65f8231ccbf5a128f7da4c012028216971bc8b1ab254e36d4a52a2e",
+      "comparison": "Exact diff against both main990 and #77971f: helper argument u32 -> BoundaryMode and existing macro default 0 -> BoundaryMode::Clamp with formatting only. Cases, shaders, data, expected results and assertions unchanged."
+    }
+  ],
+  "sdk_source": {
+    "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/texture/format.rs",
+    "sha256": "0a8f0cf2506ae25d2e185e9dbc22edfe292ef82ad392f58b99a7e82ede45e5da",
+    "version": "29.0.4",
+    "coverage": "Full relevant TextureFormat conversion documentation at101-120, not entire SDK file"
+  },
+  "held_paths": [
+    "crates/fabelgeist-compute/src/extraction/wgsl.rs"
+  ],
+  "findings": [
+    {
+      "id": "SP-C1",
+      "priority": 3,
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "line": 31,
+      "claim": "A completed auxiliary scan and its exact allocated record population.",
+      "evidence": "ScannedAuxiliary first holds raw auxiliary block totals at lines230-233 before the recursive scan; it also holds next_aux raw totals at267-270. Dispatch submission does not itself promise GPU completion.",
+      "remedy": "Auxiliary storage with its exact admitted record population.",
+      "owner": "Canonical Compute owner / agreed receiving repair",
+      "acceptance": "Neutral wording covers raw and scanned states and does not promise GPU completion."
+    },
+    {
+      "id": "SP-C2",
+      "priority": 3,
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "line": 197,
+      "claim": "No modification to user's code needed; paste it directly because it contains no banned types",
+      "evidence": "parse_signature preserves Custom resource types; no banned-type validation establishes this guarantee before appending self.code.",
+      "remedy": "Append the authored map program unchanged.",
+      "owner": "Canonical Compute owner / agreed receiving repair",
+      "acceptance": "Describe append behavior without inventing an admission guarantee."
+    },
+    {
+      "id": "SP-C3",
+      "priority": 2,
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "line": 134,
+      "claim": "textureLoad does not perform automatic conversion for sRGB formats",
+      "evidence": "Pinned wgpu-types29.0.4 texture/format.rs:101-120 states shader loads convert UnormSrgb to linear intensity. Root selected views are linear for storage-inheriting sRGB resources but can remain sRGB for sampled-only resources. The explicit conversion is gated by declared quantity format and sample_bilinear is used for both velocity and quantity.",
+      "remedy": "Remove the universal textureLoad claim. A behavior-descriptive sentence could say: Apply the existing explicit conversion when the quantity is declared sRGB. This alone does not resolve selected-view semantics; the Code/behavior owner must reconcile the explicit conversion with actual selected formats before clearance.",
+      "owner": "Canonical Advect owner with Root selected-view boundary agreement; connected Code/behavior issue",
+      "acceptance": "Documentation matches the agreed actual-view conversion policy. Resolve possible double conversion for sampled sRGB and global quantity flag effects on velocity; preserve intended numeric behavior explicitly, without independently changing shader math or adding tests."
+    }
+  ],
+  "contracts_checked": [
+    "Storage format spelling is fallible and uses canonical color PixelFormat; unsupported formats retain actual format in StorageFormatError, with no rgba32float fallback. Native feature/usage acceptance remains provider responsibility.",
+    "TextureValue borrows canonical ResourceBaseType, checks scalar/lane projection for textures, preserves the separate general Custom-buffer path, and pads texture stores to four lanes.",
+    "CoordinateParameter admits only u32/vec2<u32>/vec3<u32>. Generated ResourceFetch retains source plus required addressing projection. LinearIndex admits population minus one; LinearPopulation admits whole population; Coordinates does not impose a flat-u32 population cap.",
+    "ResourcePipeline retains actual selected entry and declared WorkgroupShape and controlling reflected array stride or image axes. Storage record count uses logical bytes divided by native array stride, not payload size. Geometry admission is separate from actual Device and native pipeline/submission validation.",
+    "Source-cache identity includes actual Device, observation policy, source and typed recipe. Secondary resources sort named descriptors. Construction can race; no exactly-once or universal observed-success contract is established by Result::Ok.",
+    "Scan admits both authored256-wide native stages before caching and retains reflected stride. Empty input aliases input. Auxiliary records follow actual x-workgroup count; intermediate writes have live-prefix guards.",
+    "Reduce uses actual reflected stride and logical live extents, maintains Device-associated scratch, and copies a whole result stride through ranged copy; retained single/empty-buffer policy and texture rejection are distinct.",
+    "Cube shader functions derive storage spelling/native binding from effective selected format. Their native construction/recording gap remains an acknowledged required Root repair, separate from finish/submission handling."
+  ],
+  "limits": [
+    "Planned receiving review only. No claim these canonical files have been integrated with Root native implementations.",
+    "ALL extraction is held and excluded, including extraction/wgsl.rs. Mixed lib/prelude/buffer/Cube paths require function-level composition and preservation of Root native source.",
+    "Known Cube native construction/recording observation gap remains required before Root return handoff; this report does not waive it.",
+    "Three substantive comment findings remain, including a connected sRGB behavior ambiguity requiring owner resolution.",
+    "No source edits, new tests/cases/helpers/assertions/doctests, project execution, checks, build, lint, scanners, generators, runtime, push, CI or external posting performed.",
+    "Existing fixture source/provenance was inspected only; no fresh compiled, native runtime, browser or hosted result is claimed.",
+    "Whole producer/caller/error/cache/lock and final integration graph, thirteen-lens receiving waves, all three independent final reviews and required hosted checks on one final pushed SHA remain required."
+  ],
+  "verdict": "Three actionable source-comment findings; required connected behavior and native scope work remains. No receiving/global/final clearance."
+}

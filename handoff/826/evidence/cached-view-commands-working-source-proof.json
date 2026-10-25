@@ -1,0 +1,48 @@
+{
+  "base": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "60b53619b5d5590c6ebbeb15ca547b2ee4c026c092bc4ac7e9938dec6f674077",
+      "whole_equal_parent": false,
+      "existing_fixture_suffix_exact": true,
+      "fixture_sha256": "dbfb98db3fb3bdfdd6dca813bdb01af838ee77c03c83368d2509fefd2d1f6b34"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "c30ddad210dd9cbbacce5e1d8a1039aedd92a3a0d1a0a8f55adb7ab9330afdcb",
+      "whole_equal_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+      "sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+      "whole_equal_parent": true
+    }
+  ],
+  "trace": [
+    "2d.blit view/deviceadmission exactsameprefix, unchangedBlitternew/blit+encoderprogram nowinsideimmediateobserver; submit unchanged",
+    "2d.clear delegatesexistingas_view exactFromcopiescachedArc/device/metadata; View.clear admitsviewthendevice samepriority; noallocationrequirement",
+    "Old2d integermax_val match bothselectedanddefault255; same View integer*255 arithmetic/order; same depthzeroRGB=>1elsex; channel f32->f64 same",
+    "AllViewclear nativepayload descriptors exactprior except indentation/observerstructure, allsame labels;2dclear labels now canonicalViewclearlabels",
+    "Immediateobserver encloses nativecreate/record, infallibleclosure alwaysnormallydrains; no extra poll/wait/completion orrollbackpromise",
+    "No tests/cases/helpers/assertions authored; existing2dfixturebytes exact; Blitterwholemodule/shaderstrings unchanged"
+  ],
+  "limits": "Only sourcebookkeeping, individualrustfmt skip_children andgitdiffcheck; no project execution orglobalclearance",
+  "fixture_provenance": [
+    {
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "existing_fixture_suffix_exact": true,
+      "sha256": "dbfb98db3fb3bdfdd6dca813bdb01af838ee77c03c83368d2509fefd2d1f6b34"
+    },
+    {
+      "revision": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+      "existing_fixture_suffix_exact": true,
+      "sha256": "dbfb98db3fb3bdfdd6dca813bdb01af838ee77c03c83368d2509fefd2d1f6b34"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "existing_fixture_suffix_exact": true,
+      "sha256": "dbfb98db3fb3bdfdd6dca813bdb01af838ee77c03c83368d2509fefd2d1f6b34"
+    }
+  ]
+}

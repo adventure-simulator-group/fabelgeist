@@ -1,0 +1,40 @@
+{
+  "head": "cf7646a96ac5ba89696eac925f14593e0b13c884",
+  "parent_checkpoint": "65e8aebed",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "e24033e11fd0b6b2406e21ceb0e97ab5570fe29cdb747b4294b73b24afe92c32",
+      "role": "whole transferred canonicaldefinition"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7b6ff3634e3e8aa44495bdbd6757dfd73e5eea9e0e3d534d1837e0d466d0ca13",
+      "role": "whole transferred canonicaldefinition"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "role": "lower receiving function or exact pre-existingfixture"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "role": "lower receiving function or exact pre-existingfixture"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "role": "lower receiving function or exact pre-existingfixture"
+    }
+  ],
+  "api": [
+    "WorkgroupGrid::validate_device(&Device)->Result<Self,WorkgroupGridError>",
+    "WorkgroupShape::covering_folded_x(InvocationCount)->Result<Grid,FoldedDispatchError>",
+    "WorkgroupShape::folded_workgroups_x(WorkgroupCount)->Result<Grid,FoldedDispatchError>"
+  ],
+  "contract": "Native axes checked against actualDevice, no queuecompletionclaim. Bothfoldedprojections share empty-first no-work, then1Ddeclaration and allpaddedu32laneaddress admission, existing65535rowpacking unchanged. Ordinarycovering/covering_x semantics preserved.",
+  "consumer_ownership": "Peer wholeKernel/Prefix/FastPath callers pending: KernelBatch.dispatch validate_device afteremptyguard beforeprepare, groups_folded fallible, scan canonicaltypedgroup projection uses actualshader width, notBLOCK proxy. Root Renderer receiving forthcoming.",
+  "fixtures": "EXACT95f9 pre-existing canonical2tests and42nativecase records; no new authoredtests/cases/helpers/assertions/doctests.",
+  "review": "65e independentreviews underway; successor empty-first/groupinput fixes now sourceonly, no finalclearance or projectchecks/push"
+}

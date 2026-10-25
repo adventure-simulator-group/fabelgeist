@@ -1,0 +1,466 @@
+{
+  "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "tree": "57cea419b31eac49981a90599b87e6990b407bcc",
+  "base": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "root_head_at_dispatch": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+  "root_state": "Root has not received packet; generated implementation ongoing and excluded",
+  "candidate_source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad",
+      "lines": 62,
+      "manifest_match": true,
+      "git_match": true,
+      "id": "U1",
+      "coverage": "fresh complete body, including existing fixture blocks; immutable export and Git identity independently verified"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+      "lines": 111,
+      "manifest_match": true,
+      "git_match": true,
+      "id": "U2",
+      "coverage": "fresh complete body, including existing fixture blocks; immutable export and Git identity independently verified"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+      "lines": 162,
+      "manifest_match": true,
+      "git_match": true,
+      "id": "U3",
+      "coverage": "fresh complete body, including existing fixture blocks; immutable export and Git identity independently verified"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "a542629ff77155448219d508e544a55f2da0c3f024f7454fb2c26a597f1da13a",
+      "lines": 250,
+      "manifest_match": true,
+      "git_match": true,
+      "id": "U4",
+      "coverage": "fresh complete body, including existing fixture blocks; immutable export and Git identity independently verified"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "bc324c39eaed75e445e0b5247a8ce1adcd1cc336525d221ba6f174aacfb2cbd8",
+      "lines": 344,
+      "manifest_match": true,
+      "git_match": true,
+      "id": "U5",
+      "coverage": "fresh complete body, including existing fixture blocks; immutable export and Git identity independently verified"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368",
+      "lines": 1785,
+      "manifest_match": true,
+      "git_match": true,
+      "id": "U6",
+      "coverage": "fresh complete body, including existing fixture blocks; immutable export and Git identity independently verified"
+    }
+  ],
+  "closure_source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "lines": 105,
+      "coverage": "fresh full body",
+      "equal_base": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "lines": 237,
+      "coverage": "fresh full body",
+      "equal_base": true,
+      "root_equal": false
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+      "lines": 389,
+      "coverage": "fresh full body",
+      "equal_base": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "0b57ba3d094cdb3ac0ea1e872f7177837ffae8c16be441a1dbcb823d220b26dc",
+      "lines": 32,
+      "coverage": "fresh full body",
+      "equal_base": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "lines": 144,
+      "coverage": "fresh full body",
+      "equal_base": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/morphs.rs",
+      "sha256": "49339af440cea4592fc08969075def3ca3380fe9a495d0b77180049f879ceee3",
+      "lines": 164,
+      "coverage": "fresh full body",
+      "equal_base": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/assembly.rs",
+      "sha256": "69228ac01428944c7113f479834ac9179928ab25512d652a741cd799c562b494",
+      "lines": 315,
+      "coverage": "fresh full body",
+      "equal_base": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "43e385b5074a6c8884aabe7f27f70c016f9b16b16e19a0020d58cd01090de0b8",
+      "lines": 205,
+      "coverage": "fresh full body",
+      "equal_base": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "lines": 38,
+      "coverage": "fresh full body",
+      "equal_base": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/buffer.rs",
+      "sha256": "c92b80be46c77268cf276c3686aaedbd70bba5be1e4f7d5eaef7041f865be104",
+      "lines": 49,
+      "coverage": "fresh full body",
+      "equal_base": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "sha256": "3f0d6674ab64abd4e90c50836ccc7028edb39f616d8758b2c6ff25e8380d9059",
+      "lines": 110,
+      "coverage": "fresh full body from peer working bytes independently verified equal immutable Git",
+      "working_equal_pin": true,
+      "equal_base": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "39b44062b3a3fb8db93c869721bcd0ede9f01f588cbde35ea6cdf4b9a26377e3",
+      "coverage": "fresh bounded MailSurface API/body lines153-182 only; no inherited whole-body credit",
+      "working_equal_pin": true,
+      "equal_base": true
+    }
+  ],
+  "source_comparisons": {
+    "whole export production and all fixtures exact after sole existing UV field adapter reversal": true,
+    "whole Writer exact after two final API reversals": true,
+    "whole character producer exact after two maps-only API reversals": true,
+    "whole equipment producer exact after maps-only API reversal": true
+  },
+  "governing_rules": [
+    "Root AGENTS.md",
+    "crates/AGENTS.md:21-86,90-104,118-127,166-181",
+    "Armor and Creator AGENTS (API review, no shape/artistic cycle inferred)",
+    "rule-review/SKILL.md",
+    "rule-review/references/bespoke-type-review.md"
+  ],
+  "limits": [
+    "Fresh full source coverage of all six candidates (2714 lines), eleven fresh complete unchanged sources including existing fixture files, and one bounded MailSurface API source receipt only. No main/lib, full garment pipeline or geometry generation body coverage inferred from rg locators.",
+    "Manifest/export/Git hashes independently verified. Four full-file API-reversal comparisons and eleven unchanged source identities independently recorded; peer eleven-comparison receipt remains supplemental.",
+    "Source-only review: no edits/copy/new fixture/case/helper/assertion/doctest, project scanner/check/build/lint/test/generator/runtime/push/CI.",
+    "export.rs production is exactly base; only existing textured fixture two fields changed. Other five files contain no new fixture/case/helper/assertion. Existing imported dependency fixtures were read, not authored or executed.",
+    "Source review is not compiled, browser/native/hardware, numerical or visual acceptance. No current whole83 GPU, complete material graph or global clearance.",
+    "Existing export803/function111/268 baseline ceilings not raised; actual production source of export.rs byte-identical to base and candidate other files under500 raw lines. Final hosted relevant baseline reductions/checks remain required; no local counting scanner run."
+  ],
+  "discovery": "Complete bounded all-thirteen receiving discovery before any Root receipt; implementation completeness not granted",
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "source": "U1-U6; character_morphs, garment/export, character_export/hair",
+      "contract": "RiggedShell.surface now contains maps only. Plate producers retain rigged_armor chart, trim explicitly selects trim chart, garments use own/mail chart and hair uses card UVs. validate -> CompactShell -> Writer uses the same one vertex column.",
+      "disposition": "Sound bounded API increment; physical/material/creator caller graph remains required.",
+      "connected_repairs": "UG1,UG3",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once.",
+        "Preserve image/PBR override order and original fixtures/oracles, resolve changed-owner rule debts without independent shared repair, no new test population/compatibility/scanner or raised ceiling."
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "source": "U1-U3; compact and textures",
+      "contract": "RiggedShell.texcoords is the sole vertex chart. ShellTextures owns image payloads; SurfaceTextures owns its distinct image/alpha/face/sampling policy. No new GPU byte/count owner is imposed on glTF numerical data.",
+      "disposition": "Existing wire and host quantity boundaries require UV-R2; broad material semantic owner work remains.",
+      "connected_repairs": "UG1,UG2",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once.",
+        "Carried validation classifications have stable typed kinds and relevant payloads, retain existing lower causes and error order; checked padding/addition/conversion rejects unencodable total or chunk lengths before creating/truncating output."
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "source": "U3:51-69,97-162; U6 export_rigged_glb",
+      "contract": "Either map family requires Some(texcoords); any provided column, mapped or unmapped, must match position rows and be finite. Public fields are admitted on every export before compaction/output. No other unchecked entry calls Writer from outside private export owner.",
+      "disposition": "Rejects malformed UVs correctly; stable local validation kinds remain UV-R1.",
+      "connected_repairs": "UG1,UG2",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once.",
+        "Carried validation classifications have stable typed kinds and relevant payloads, retain existing lower causes and error order; checked padding/addition/conversion rejects unencodable total or chunk lengths before creating/truncating output."
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "source": "compact.rs:24-104; U2; glb.rs:14-25",
+      "contract": "Compactor uses the same sorted retained source-index set for positions, normals, UVs, skin and morphs; it does not interpolate or rescale UVs. Writer serializes only that compacted UV population. Final native byte padding/total/wire conversion is unchecked existing UV-R2.",
+      "disposition": "UV remap operation coherent; native encoding capacity not clear.",
+      "connected_repairs": "UG1,UG2",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once.",
+        "Carried validation classifications have stable typed kinds and relevant payloads, retain existing lower causes and error order; checked padding/addition/conversion rejects unencodable total or chunk lengths before creating/truncating output."
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "source": "U1,U3; compact.rs; character_morphs",
+      "contract": "Removing surface UV payload prevents two disagreeing chart authorities. Private CompactShell retains the source maps with its remapped chart. Borrow lifetimes preserve source association; validation proves row membership before indexing. Both map payloads may coexist under the old material override order.",
+      "disposition": "No unrequested XOR policy or universal mesh/material certificate added.",
+      "connected_repairs": "UG1,UG3",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once.",
+        "Preserve image/PBR override order and original fixtures/oracles, resolve changed-owner rule debts without independent shared repair, no new test population/compatibility/scanner or raised ceiling."
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "source": "textures.rs; U1-U3",
+      "contract": "Existing GlbOutput and SurfaceAlpha/Sides/Sampling own closed packaging/material roles. Optional texcoords represents actual optional geometry channel; map-required relation is checked at export. bool export_body remains a retained policy field, not migrated by this increment.",
+      "disposition": "No new semantic boolean/role duplication; broader appearance/closed recipe work remains required.",
+      "connected_repairs": "UG1,UG3",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once.",
+        "Preserve image/PBR override order and original fixtures/oracles, resolve changed-owner rule debts without independent shared repair, no new test population/compatibility/scanner or raised ceiling."
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "source": "U1:27-32,U2:53-60; compact.rs:87-92",
+      "contract": "Second UV slice and fallback are removed without an adapter or legacy path. CompactShell retains a source reference for nonvertex metadata, but its returned shell cannot expose old unremapped surface UVs because surface is maps-only.",
+      "disposition": "Source counterexample of stale chart authority closed.",
+      "connected_repairs": "UG1",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once."
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "source": "U4,U5,U6; textures.rs; four exact comparisons",
+      "contract": "Normal successful sources use the same chart and maps. Existing fixture moves the same uvs slice from surface into texcoords. SurfaceTextures then textile finish then ShellTextures application order remains exact; shell maps still override normal and metallic/roughness and roughnessFactor only.",
+      "disposition": "Missing texcoords with maps is intentionally rejected by clean final API; no fallback compatibility retained.",
+      "connected_repairs": "UG1,UG3",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once.",
+        "Preserve image/PBR override order and original fixtures/oracles, resolve changed-owner rule debts without independent shared repair, no new test population/compatibility/scanner or raised ceiling."
+      ]
+    },
+    {
+      "lens": "derivability",
+      "source": "U1, textures.rs, compact.rs",
+      "contract": "No new wrapper/derive/default/serde admission route, Clone of native errors or unsafe trait assertion. ShellTextures remains borrowed maps; SurfaceTextures cloning preserves its existing owned payload semantics.",
+      "disposition": "No dependency/feature/lock mutation within six files. Error derives/owner for UG2 remain to settle.",
+      "connected_repairs": "UG1,UG3",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once.",
+        "Preserve image/PBR override order and original fixtures/oracles, resolve changed-owner rule debts without independent shared repair, no new test population/compatibility/scanner or raised ceiling."
+      ]
+    },
+    {
+      "lens": "magic-strings",
+      "source": "U2,U3,U6; glb/textures/morphs",
+      "contract": "glTF JSON keys, type/semantic/sampler/format constants are actual wire protocol tokens. Names/paths are open identities or presentation. Stable input rejection messages are carried error classifications and remain UV-R1, rather than being exempted as arbitrary text.",
+      "disposition": "No new prose branching introduced; no claim all existing socket/export error roots are migrated.",
+      "connected_repairs": "UG2",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Carried validation classifications have stable typed kinds and relevant payloads, retain existing lower causes and error order; checked padding/addition/conversion rejects unencodable total or chunk lengths before creating/truncating output."
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "source": "U1-U3,U6; buffer/glb/textures",
+      "contract": "f32 vector dimensions and authored numeric fixture/PBR inputs are distinct native/catalog roles. glTF accessor component/target constants and 4-byte alignment are actual protocol ports. Host-to-u32 length narrowing needs actual bound admission UV-R2. Existing material/tolerance/unit and semantic tuple debts are retained.",
+      "disposition": "No new UV scale, clamping, epsilon, count cap or precision policy.",
+      "connected_repairs": "UG2,UG3",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Carried validation classifications have stable typed kinds and relevant payloads, retain existing lower causes and error order; checked padding/addition/conversion rejects unencodable total or chunk lengths before creating/truncating output.",
+        "Preserve image/PBR override order and original fixtures/oracles, resolve changed-owner rule debts without independent shared repair, no new test population/compatibility/scanner or raised ceiling."
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "source": "U1-U6; actual producer and wire owner closure",
+      "contract": "Vertex chart remains with RiggedShell geometry; maps with textures; compaction owns remapping and Writer owns native accessor encoding. No duplicate type/helper/pass-through API. Export/character_export inherited file order and other modified-owner style work remains required.",
+      "disposition": "Selective composition must retain Root native and in-progress generated ownership.",
+      "connected_repairs": "UG1,UG3",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once.",
+        "Preserve image/PBR override order and original fixtures/oracles, resolve changed-owner rule debts without independent shared repair, no new test population/compatibility/scanner or raised ceiling."
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "source": "U1-U3; native Writer/texture carriers",
+      "contract": "One per-vertex UV chart supports the current one TEXCOORD_0 protocol. Surface/material image policy is not collapsed into geometry or another universal checked object. Existing Views/accessor/CatalogMetals tuples and PBR primitive records remain broader named-record migration debt.",
+      "disposition": "This increment closes redundant chart authority without inventing material-specific UV wrappers.",
+      "connected_repairs": "UG1,UG2,UG3",
+      "dependencies": [
+        "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+        "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+        "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+        "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+      ],
+      "acceptance": [
+        "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once.",
+        "Carried validation classifications have stable typed kinds and relevant payloads, retain existing lower causes and error order; checked padding/addition/conversion rejects unencodable total or chunk lengths before creating/truncating output.",
+        "Preserve image/PBR override order and original fixtures/oracles, resolve changed-owner rule debts without independent shared repair, no new test population/compatibility/scanner or raised ceiling."
+      ]
+    }
+  ],
+  "repair_groups": [
+    {
+      "id": "UG1",
+      "repair": "Receive sole vertex UV authority and maps-only surface API through actual producers, validation, compactor and writer.",
+      "acceptance": "Both map payload families require one finite position-sized texcoords column; remove stale surface fallback and no compatibility alias or second UV cache. Preserve plate/trim/garment/hair source association and remap every retained vertex exactly once."
+    },
+    {
+      "id": "UG2",
+      "repair": "Complete local export admission error ownership and native GLB capacity handling with coordinated actual callers.",
+      "acceptance": "Carried validation classifications have stable typed kinds and relevant payloads, retain existing lower causes and error order; checked padding/addition/conversion rejects unencodable total or chunk lengths before creating/truncating output."
+    },
+    {
+      "id": "UG3",
+      "repair": "Compose the complete canonical graph and apply only relevant final baseline reductions.",
+      "acceptance": "Preserve image/PBR override order and original fixtures/oracles, resolve changed-owner rule debts without independent shared repair, no new test population/compatibility/scanner or raised ceiling."
+    }
+  ],
+  "findings": [
+    {
+      "id": "UV-R1",
+      "severity": "P2",
+      "kind": "existing connected admission/type migration gap, not new rejection/corruption regression",
+      "location": "crates/adventuresim-character-creator/src/export/validation.rs:51-66 and remaining validation branches; export/morphs.rs:20-49",
+      "rule": "crates/AGENTS.md:23-35,69-71,85-86",
+      "evidence": "Missing UV, invalid finite/count UV, empty map and other stable validation kinds are constructed solely with anyhow bail/ensure text, carried through public export_rigged_glb and actual export callers. They correctly reject current invalid inputs before output, but do not retain a typed classification.",
+      "consequence": "Applications/retained outcomes can distinguish these declared admission failures only by presentation prose. Actual current fixture rejects_non_normalized_weights checks a message substring; do not author a new fixture.",
+      "repair": "Coordinate one local canonical export admission error owner for validation and shared morph admission; preserve named semantic payloads, actual underlying CharacterLod/rig/native/IO/image sources and contextual identity text. Do not clone per-UV/per-writer error enums or require a universal error spanning unrelated generated/GPU APIs.",
+      "classification_inventory": [
+        "body geometry/normal row population",
+        "body skin rows and rig bounds",
+        "joint columns, wire joint count and parent order",
+        "body face membership and weight normalization",
+        "shell map presence and required UV column",
+        "UV row population and finiteness",
+        "shell name/nonempty geometry/normal rows",
+        "skin pair/fallback eligibility, bounds and row population",
+        "shell weights, face membership and finite geometry/PBR",
+        "ordered morph names and valid named/unique/finite/dimensioned targets",
+        "socket identity uniqueness/nonempty, finite transform and anatomical UV domain/value"
+      ],
+      "dedup": "Application/export admission extension consistent with BA-R1/GW-R1/DENS-R1; broader material causes remain open."
+    },
+    {
+      "id": "UV-R2",
+      "severity": "P2",
+      "kind": "unchanged connected native byte-boundary defect, not introduced by maps-only API",
+      "location": "crates/adventuresim-character-creator/src/export/glb.rs:14-25",
+      "rule": "crates/AGENTS.md:31-57,80-86 and invariant operation/producer propagation contract",
+      "evidence": "The final owner computes aligned usize JSON/BIN populations and total_length, then casts each to u32 without checked admission. Public export accepts arbitrary native geometry/texture populations and has no preceding aggregate <=u32 proof.",
+      "consequence": "A valid binary payload whose total/chunk population exceeds the GLB 32-bit fields is emitted with wrapped lengths; checked usize arithmetic is also absent. Source representability counterexample only: no large allocation or runtime exercise performed.",
+      "repair": "At canonical glb encoding boundary use checked alignment/addition and checked u32 wire conversion for actual total/chunk populations, with a structured capacity error retaining actual quantities. Reject before creating/truncating the destination; preserve I/O/serialization causes and normal successful encoding."
+    }
+  ],
+  "dependencies": [
+    "Complete coordinated material22+6/PBR/color/component appearance/recipe/unit/count/seed/cause graph remains required; six maps-only files do not provide it.",
+    "Receive matching Root-owned Creator composition and canonical async/native/physical/source/generated dependencies without overwriting Root native Buffer/context/MetalGpu or dirty generated work.",
+    "UV-R1 export admission classifications, UV-R2 GLB byte bounds and existing modified-owner order/semantic records/production unwrap obligations require canonical-owner coordination before complete-family clearance.",
+    "Global all13 and independent Code/Rule/Comment plus required hosted checks/baseline export must pass on the same final pushed SHA."
+  ],
+  "correctness": "Sole UV authority and maps-only increment is source-coherent; no newly introduced UV operational counterexample found. Existing connected UV-R2 remains a native capacity defect.",
+  "completeness": "Partial; UV-R1/R2 and named broader semantic/style/dependency/final gates remain required."
+}

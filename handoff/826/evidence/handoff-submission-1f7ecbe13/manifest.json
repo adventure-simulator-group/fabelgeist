@@ -1,0 +1,162 @@
+{
+  "revision": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "receiving_base": "7dee3d5a69fa6e5132efa740d8b0f23a42cb435f",
+  "main_base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "created_at": "2026-10-23T18:31:06.380163+00:00",
+  "status": "SOURCE-REVIEWED RECEIVING CHECKPOINT ONLY: all13/3independentreviews same1f7 no newownedreceiverfinding; authorized for exactlocalintegration by780, NOT wholefamily/sourcecompile/nativeexecution/finalclearance",
+  "files": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/batch_error.rs",
+      "sha256": "17d100ac7cc26a65191ed6c6fb7aaa7756f48cda00d2fc59cff3d831089bc6d9",
+      "base_sha256": "cb3793527b44a96ae64c16459e0e0f656c6e662600002ceb678b1e01573bdac8",
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "sha256": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9",
+      "base_sha256": null,
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "base_sha256": "7464f1edfefdb57ce25bf7ef014baedde10b58ddbe71e3c2cf76ea9687499aeb",
+      "integration": "Reconcile ONLY receiving copy/module/export/fallible Batch and authorized comment hunks; preserve780 newer canonical Kernel fields/workgroup/count/folded/cache bodies"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "base_sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "integration": "Merge native std declaration into780 current manifest preserving its other canonical dependencies"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "1d6d8fdb930ec1e7cef5c99cd16aac39ae33e5868c1d219860c043de70f3c2c6",
+      "base_sha256": "5c4cf07dee49fd2f429712cd22b4d91b7c19b447efcd18b246fb1d64fc30279a",
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24",
+      "base_sha256": "0de7bed006752d346fa4cf6c7763cca9ccbaed89dbf4809ec56aa123836f5f27",
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "537cbf39f00bc36c4f46ff60a6b550037b283eedafcf41d3975274e5f3e61184",
+      "base_sha256": "01e776aa79ad686723af71aff644feae92ce5294fd92df8378d3b12b8fda642f",
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "31fcc315c4314f2d63153aac4b2db696eae5a02d5ce7ae97881460e06a251295",
+      "base_sha256": "3d25dc0035dbbd9460bde6ae307b5338e0bf1a7b621fe1b9be93a33da235c834",
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "f24c36d6dfd3ccb446ff56264c3f9bb6f81f878e2eefcb5741eafcf4cde5a3b1",
+      "base_sha256": "e5112ab6bf1035c3bb5dceb8c6611d75a8c477b55e7c6ba5221226112b51c077",
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "8582bd7ded85294c4a99ebc90c39a80ec4d6eeb00c9a711b6f3ec29dba691f17",
+      "base_sha256": "99ed61259eca72b2d3e88923bd098df3d454754f3fedbd35a41b1809298e3f89",
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "d49de805d236d9c346364eb4c10d35cf54051e439b0725959f89ba3022c4aee7",
+      "base_sha256": "64b53f0c6c350b1de37be00b9ce3de2fff5261912a7514322940b15ff6e2079b",
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "base_sha256": null,
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "610d980a0657a3f089b0178979f77f22ce6cb529e46f37ca9c3ecd495709e206",
+      "base_sha256": "02b9c6fe5419780c4da5b6a10cfc7ace0c852866cc7c687336ee8a91a3190c25",
+      "integration": "Exact reviewed receiving source; compare with780 newer source before integration"
+    }
+  ],
+  "patch_sha256": "9e2ffee556c55b5434eda2dbb1a0acff6e4fdca6c9591d0b730a73cec4b3baf9",
+  "contracts": [
+    "KernelBatch::copy_buffer(&Buffer,&Buffer,BufferCopy)->anyhowResult with canonical source/destination BufferByteOffset and bytes BufferByteLength; checkedlogicalends, no secondcopy backend",
+    "WgpuContext::submit(CommandEncoder)->stdResult<SubmissionIndex,wgpuError> sole actualnativepolicy owner; scopefinish/pop beforequeue, separatesubmit/pop, Validationfilter, sameexistingnativeblocking/browserpolicy, actualcause, noGPUcompletionWait",
+    "Encoder created bycontext.device and queuebelongs tosame logicalwgpuDevice; samebackend/adapterinsufficient; arbitrarypublicproviderpairing ispreconditionnotruntimeproof",
+    "KernelBatch::submit(self)->anyhowResult<SubmissionIndex> mapsnativecauseonceviaComputePassError::NativeArc thenapplicationcallbacksOnlyOk inregistrationorder; Errconsumesbatch/dropscallbacksunrun",
+    "StandaloneComputePassdispatch andtenagreedcontexttexturemethods usecontextowner; converterearliestcreation/finish/queuescopes andcompletionmarker unchanged",
+    "NativeGPUwgpu std explicit for actualcfg(featurestd)ThreadId; nativeErrorSendSync independentlySDKcfg(send_sync), browserfragilenonatomicpolicyunchanged; no unsafe trait additions"
+  ],
+  "native_feature_lock": {
+    "manifest": "crates/fabelgeist-gpu/Cargo.toml native target only std addition",
+    "Cargo.lock_sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+    "lock_disposition": "Unchanged package identities/per-consumerfeaturesnotstored; SDK std forwards existingoptionalfeatureflags, no lockgenerator/resolution/projectexecution performed. Hosted --locked native/Wasm/projectgates remainrequired."
+  },
+  "ownership": "826 exactcore/type/error/export/tencontexttexture receiving subset;780allcanonicalcaller/metadata/fixture/producer families and newerKernel bodies.780explicitlyauthorizesonly3obsoleteKernelcommentlinesremoval. Retained774functionsuntouched. BareHairRenderer/Bevy devicehandledpolicyexplicitagreed and780owningdocsrequired; no fakecontext/newhelper.",
+  "exclusions": [
+    "No retained774 Buffer::read, grow/grow_look, fitting/body/Skin/SurfaceCut/armor/metal/engraving wholefunctionrepairs",
+    "No780producer/count/layout/stride/parser/mode/Reduce/DistanceField/sort/cache family replacement; no895ZIP/NumPy work",
+    "No tests/cases/helpers/assertions/doctests/fixtures/workflow/baselinechanges inthis13pathreceivingdelta",
+    "No localprojectchecks/build/test/scanner/generator/runtime, push, hostedCI orGPUcompletion/hardware/browser/performance verdict"
+  ],
+  "required_dependencies": [
+    "780fullcaller/error/state/fixture migration and safe M1plannedvsacceptedmetadata policies",
+    "Retained774receivingerror API/implementer/combinedrevision; E1armorArcstr/metalString andBufferreadcausegraphs mustfinish",
+    "F19/M06andremainingcanonicalfamilies integrated beforepush/CI",
+    "Finalall13/Code/Rule/Comment andrequiredhostedgates mustpass samefinalpushedSHA, no merge"
+  ],
+  "ledger": "target/pr826-audit/ledger.json submission_successor_wave132paths/all13; pre-repair131paths/all13; sourceaccounting115locations/104functions/67paths",
+  "reviews": "target/pr826-audit/submission-successor-{code,rule,comment}-review.{json,md}; all3required exactrevision before accepting checkpoint",
+  "review_evidence": [
+    {
+      "review": "code",
+      "revision": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+      "path": "target/pr826-audit/submission-successor-code-review.md",
+      "sha256": "cd7bfa068d1a67e839474b61aa258af32f1f2456b6fb3f5fdda38581e0f72cce",
+      "disposition": "No new owned receiver finding; required wholefamily dependenciesopen; source-only, no compile/finalclearance"
+    },
+    {
+      "review": "code",
+      "revision": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+      "path": "target/pr826-audit/submission-successor-code-review.json",
+      "sha256": "7bd0833b6141c92f0e9a1b1af42c2bbb6189f9be7f2f93121f27b909e9bed13d",
+      "disposition": "No new owned receiver finding; required wholefamily dependenciesopen; source-only, no compile/finalclearance"
+    },
+    {
+      "review": "rule",
+      "revision": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+      "path": "target/pr826-audit/submission-successor-rule-review.md",
+      "sha256": "0135a123fa1d006772bb1fb7a84e2c2702c0be3a87832a2055cbe99e4ae217eb",
+      "disposition": "No new owned receiver finding; required wholefamily dependenciesopen; source-only, no compile/finalclearance"
+    },
+    {
+      "review": "rule",
+      "revision": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+      "path": "target/pr826-audit/submission-successor-rule-review.json",
+      "sha256": "d89695f1bb810a790a795fefec332bb6a9ac2f4cc7ebddde3d1a310058d1a9ce",
+      "disposition": "No new owned receiver finding; required wholefamily dependenciesopen; source-only, no compile/finalclearance"
+    },
+    {
+      "review": "comment",
+      "revision": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+      "path": "target/pr826-audit/submission-successor-comment-review.md",
+      "sha256": "6add9488fedb746d5a090266eeaeea74592e1998ed424c9a5febc86503107d45",
+      "disposition": "No new owned receiver finding; required wholefamily dependenciesopen; source-only, no compile/finalclearance"
+    },
+    {
+      "review": "comment",
+      "revision": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+      "path": "target/pr826-audit/submission-successor-comment-review.json",
+      "sha256": "0abb469d534b103611c59b384fe087e54b3a4a0ae87d9e1a0e42ab2d6bca6006",
+      "disposition": "No new owned receiver finding; required wholefamily dependenciesopen; source-only, no compile/finalclearance"
+    }
+  ],
+  "source_fingerprints_verified_at_handoff": true,
+  "tree": "e74f98d27ae13e4907f0052b38b752a981373aef"
+}

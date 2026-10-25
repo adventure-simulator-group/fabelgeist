@@ -1,0 +1,193 @@
+{
+  "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "tree": "868959fcaec6f7b624c0c462c6bea4a6a70528d4",
+  "base": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "scope": "Bounded baseline-only Rule Review; seven removals and all retained baseline records/ceilings",
+  "changed_paths": [
+    "rust-quality-baseline.toml"
+  ],
+  "baseline_before_sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+  "baseline_after_sha256": "fa4fcada546c6e5f6350d0de7cd7d03e88cd5f4b3ec92034e12432f60c6df8dc",
+  "removed_records": [
+    {
+      "table": "files",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "ceiling": 538
+    },
+    {
+      "table": "files",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "ceiling": 899
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "item": "create_bind_groups",
+      "ceiling": 278
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "item": "ComputePass::record",
+      "ceiling": 410
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::blit_texture_to_face",
+      "ceiling": 161
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_face_shader_raw",
+      "ceiling": 149
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_shader_raw",
+      "ceiling": 142
+    }
+  ],
+  "added_or_modified_records": [],
+  "all_surviving_record_bytes_and_order_exact": true,
+  "table_counts": {
+    "files": {
+      "before": 209,
+      "after": 207
+    },
+    "functions": {
+      "before": 484,
+      "after": 479
+    },
+    "findings": {
+      "before": 1369,
+      "after": 1369
+    }
+  },
+  "source_coverage": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "60b53619b5d5590c6ebbeb15ca547b2ee4c026c092bc4ac7e9938dec6f674077",
+      "raw_lines": 461,
+      "exact_parent_identity": true,
+      "coverage": "Complete source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+      "raw_lines": 315,
+      "exact_parent_identity": true,
+      "coverage": "Complete source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "raw_lines": 18,
+      "exact_parent_identity": true,
+      "coverage": "Complete source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "raw_lines": 167,
+      "exact_parent_identity": true,
+      "coverage": "Complete source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "raw_lines": 76,
+      "exact_parent_identity": true,
+      "coverage": "Complete source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "sha256": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+      "raw_lines": 266,
+      "exact_parent_identity": true,
+      "coverage": "Complete source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "sha256": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+      "raw_lines": 213,
+      "exact_parent_identity": true,
+      "coverage": "Complete source read"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/analyze.rs",
+      "sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "raw_lines": 978,
+      "exact_parent_identity": true,
+      "coverage": "Complete validate_debt function225-319 read; whole-file unchanged identity verified only"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+      "sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "raw_lines": 537,
+      "exact_parent_identity": true,
+      "coverage": "Complete count_lines/count_range/meaningful functions425-449 read; whole-file unchanged identity verified only"
+    },
+    {
+      "path": "rust-quality.toml",
+      "sha256": "9a3738a7916a3edb8ebf501345d9815aef9f5fe18458f6ac5231c20a7e7e5030",
+      "raw_lines": 1018,
+      "exact_parent_identity": true,
+      "coverage": "Configured limits lines1-2 freshly read; entire file unchanged identity verified, not complete body-read credit"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "raw_lines": 192,
+      "exact_parent_identity": true,
+      "coverage": "Complete source read"
+    }
+  ],
+  "rules": [
+    "crates/AGENTS.md:166-178 fixed500/100 no-growth and only relevant baseline reductions",
+    "rust-quality.toml:1-2 actual500/100 limits",
+    "analyze.rs:225-319 stale missing/below-limit record rejection",
+    "scan.rs:425-449 meaningful source is subset of raw span"
+  ],
+  "removal_proofs": [
+    {
+      "target": "Texture2d file",
+      "proof": "Whole raw461 lines including tests/comments <500"
+    },
+    {
+      "target": "TextureCube file",
+      "proof": "Whole raw315 lines <500"
+    },
+    {
+      "target": "create_bind_groups",
+      "proof": "Original path18-line module reexports; actual assembly.rs17-42 whole function26 raw lines <100"
+    },
+    {
+      "target": "ComputePass::record",
+      "proof": "Complete owning module76 raw lines <100; record42-75 wholly bounded"
+    },
+    {
+      "target": "TextureCube::blit_texture_to_face",
+      "proof": "No body oldmod; actual blit.rs102-118 whole function17 raw lines <100"
+    },
+    {
+      "target": "TextureCube::render_face_shader_raw",
+      "proof": "No body oldmod; actual shader.rs31-55 whole function25 raw lines <100"
+    },
+    {
+      "target": "TextureCube::render_shader_raw",
+      "proof": "No body oldmod; actual shader.rs67-90 whole function24 raw lines <100"
+    }
+  ],
+  "findings": [],
+  "correctness_verdict": "No actionable finding in bounded seven-deletion baseline change; exact deletion-only mutation independently verified",
+  "completeness_verdict": "Bounded source reduction correct; canonical baseline records, wider graph and final hosted baseline export/checks remain required; no whole-PR/final clearance",
+  "limits": [
+    "No scanner/baseline generator/build/lint/test/runtime/project check executed",
+    "No checker/source/test edits; only ignored review reports written",
+    "Raw line upper bounds establish these seven removals without reproducing scanner; no occurrence counts or remaining debt metrics certified",
+    "All tests/POD/shaders/runtime/source tokens unchanged because baseline is only changed path"
+  ]
+}

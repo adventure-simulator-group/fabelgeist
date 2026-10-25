@@ -1,0 +1,392 @@
+{
+  "review": "Independent Code Review of complete Cube native-program receiving repair",
+  "head": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+  "tree": "87974137ac3b0a67af59b9474f25d92218daa422",
+  "parent": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "canonical_storage_source": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "findings": [],
+  "closed_bounded_findings": [
+    {
+      "id": "SP-CUBE-NATIVE",
+      "status": "source-remedied in all4 Cube native create/record paths; not runtime or global validation",
+      "evidence": "complete changed6 source and unchanged context/view/error source identities + actual SDK timing reconciled"
+    }
+  ],
+  "verdict": "No new actionable Cube implementation finding in bounded receiving source; complete storage/caller graph remains unintegrated and not compilable/accepted as a whole.",
+  "source_accounts": [
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+      "git_blob": "8fb02301015a9993dcd6441dc3f65643473de92b",
+      "lines": 421,
+      "coverage": "fresh complete current file read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "git_blob": "5a991b44701159ad24536aae902769843661a1fe",
+      "lines": 35,
+      "coverage": "fresh complete current file read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "sha256": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+      "git_blob": "c0eef53ba913e83db7a958511a86024f363d6a0b",
+      "lines": 266,
+      "coverage": "fresh complete current file read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+      "git_blob": "f91c8772f7fe6d1a4581f8d39cfa8eb026f5c2bc",
+      "lines": 315,
+      "coverage": "fresh complete current file read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "sha256": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+      "git_blob": "c9733401ec5a2de9d1403c672f5b3e5f8beba7e8",
+      "lines": 213,
+      "coverage": "fresh complete current file read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs",
+      "sha256": "4f45dd45651aac781e71120454d88879e337bd5e1180fc622198cf296ad35326",
+      "git_blob": "87d68fa3a453d79fb06caec93da5c59fb71429e8",
+      "lines": 89,
+      "coverage": "fresh complete current file read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "lines": 202,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "lines": 112,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "lines": 112,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "lines": 93,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "e1512db4360eeb726fefb21b212022961909efcc28950e0bd36cdc79e0ee4985",
+      "lines": 272,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "7fb81a38c012a749919c9addd0d99a42386e333e227042d87bd58c270dc5b9b7",
+      "lines": 26,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "lines": 70,
+      "same_parent": true,
+      "coverage": "fresh complete current file read"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "lines": 24,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "lines": 43,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "lines": 113,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "lines": 150,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "lines": 197,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+      "lines": 211,
+      "same_parent": true,
+      "coverage": "complete relevant current methods/delta inspected; known unintegrated storage caller; no whole-file fresh read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "lines": 212,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "lines": 64,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "lines": 103,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc",
+      "lines": 65,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "lines": 244,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "same_parent": true,
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed"
+    },
+    {
+      "revision": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "lines": 25,
+      "same_parent": true,
+      "coverage": "fresh complete current file read"
+    }
+  ],
+  "source_proof": {
+    "changed_paths": [
+      "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs"
+    ],
+    "canonical_format_identity": {
+      "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": true,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": true
+    },
+    "native_programs": [
+      {
+        "old_index": 0,
+        "sha256": "3868ce90f3715d5892338fcbda342a593c7b9b47ce1564974aa9968b9035652d",
+        "exact_current_match_count": 1
+      },
+      {
+        "old_index": 1,
+        "sha256": "98054195e43ffc709dfac604e490c31654d652810938a21a4ab08474c1bab220",
+        "exact_current_match_count": 1
+      },
+      {
+        "old_index": 2,
+        "sha256": "5b2209ba6881852f19dfdc694f77dfd50e3e0dce205df9642fb3dd8116e82a15",
+        "exact_current_match_count": 1
+      }
+    ],
+    "native_program_count": 3,
+    "unchanged_closure": true,
+    "existing_cube_fixture_population": "Neither old/new production Cube modules add any cfg(test) module or test/case/helper/assertion; exact3 authored shader blocks independently verified. Broader existing fixture provenance remains global dependency."
+  },
+  "contracts": [
+    {
+      "family": "All native phases and actual causes",
+      "evidence": "Both raw methods admit array view first, then canonical effective storage spelling. record_shader observes shader/uniform/layout/group/pipeline/encoder/record through one infallible context.observe_validation closure; scope drain occurs before Result mapping. Both observe and submit map the actual error into ComputePassError::Native(Arc<actual wgpu::Error>); Error::source exposes it. No early fallible return is inside this observation closure, so no OperationAndObservation wrapper is necessary or missing. First captured SDK Validation cause is retained; SDK scopes do not promise to aggregate every native error."
+    },
+    {
+      "family": "Connected blit/copy",
+      "evidence": "blit selects source view, then target face view, then observes all raw shader/sampler/layout/group/render-pipeline/encoder/pass commands and calls submit afterwards. Fast copy retains destination presence/device first; exact size/logical format/layer/no-layer eligibility; then source device; its native encoder/copy phase is immediately observed and submit still owns finish/deferred transfer validation. Fallback branch and all copy origins/extents preserved. Native encoder-state errors can be immediate; actual transfer resource validation may remain deferred to finish, so neither is assumed exclusively."
+    },
+    {
+      "family": "Missing/device/cache/effective-format",
+      "evidence": "Existing array/face/view selectors and selected-view record are byte-identical. Default/no allocation returns Uninitialized before format lookup; wrong context returns WrongDevice before native creation; same logical cached-view behavior on Texture2d/3d/Cube and missing-view state remains unchanged. Raw generated storage spelling and native StorageTexture format both use effective_format(self.format), consistent with selected array view; unsupported exact format returns StorageFormatError, never rgba32float fallback. Blit render target uses that same effective view policy. No successful native allocation/view or cache entry is published on failed observed rendering."
+    },
+    {
+      "family": "Borrowed/browser/provider semantics",
+      "evidence": "observe_validation is unchanged and only pushes/pop scopes when native blocking_validation is enabled. It has no poll or completion wait; browser and borrowed paths retain configured device handling and do not provide a synchronous validation verdict. Existing view ValidationScope may retain its prior wait; no additional rendering wait added. Context.submit remains unchanged with separate finish/queue scopes, actual cause retention, no completion promise and no rollback claim."
+    },
+    {
+      "family": "Native lifetimes, modules and Rust traits",
+      "evidence": "Cube child modules can access existing pub(super) fields and sibling private ancestor methods under normal descendant visibility. Native bindings keep the same layout/group relation; SDK bind groups retain resource ownership after local uniform/sampler handles drop. wgpu error native/wasm trait policy and Cargo dependencies unchanged. Public inherent method APIs remain at TextureCube; no compatibility alias/duplicated compute-pipeline owner added. New source and native resource responsibilities are cohesive; files35/89/213/266/312/421 lines, all below500."
+    },
+    {
+      "family": "Successful numerics and exact source",
+      "evidence": "All3 raw WGSL blocks independently byte-matched exactly once. Face uniform remains f32 time + native u32 CubeFace.index + two f32 zero pads; AllFaces remains four native f32 values. Workgroup math div_ceil8 and dispatch depth1 or existing CubeFace::ALL.len()==6 preserved. Blit filterable sampled2D layout, clamp/linear sampler, full-screen triangle geometry, REPLACE, Load/Store and source/target admission order unchanged. Native resource diagnostic labels are consolidated by the shared render helper; semantic error causes remain actual native objects."
+    }
+  ],
+  "all13_reconciliation": {
+    "preinventory": "target/pr826-audit/cube-native-program-pre-repair-all13.json and storage-projection-pre-receive-all13.json",
+    "status": "all13 bounded source contracts revalidated against current6files + exact lower-owner identities; no Root/global13lens postwave substitution",
+    "explicit_dispositions": [
+      "native observation gap remedied",
+      "canonical storage ownership reused",
+      "provided shader arithmetic/face/layer/native bytes preserved",
+      "manual StorageFormatError derive equivalence recorded; GPU Cargo lacks thiserror, no dependency change required for current behavior",
+      "no new enum/alias needed for direct native dispatch layer count passed only at explicit SDK adapter"
+    ]
+  },
+  "required_dependencies": [
+    {
+      "id": "D-STORAGE-GRAPH",
+      "status": "required incomplete",
+      "evidence": "Current ResourceDescriptor::to_wgsl_storage_format still calls f.to_wgsl_storage_format().to_string() at compute/mod.rs50 even though canonical TextureFormat now returns Result. Current protected TextureBinaryOp builder already expects canonical descriptor Result/typed base_type. Complete agreed descriptor/signature/addressing/ResourcePipeline/recipe/BoundaryMode/stride/caller family must be composed before source/compile acceptance. This is a known unintegrated receiving dependency, not a second independent patch or source-clear exception."
+    },
+    {
+      "id": "D-REDUCE",
+      "status": "required incomplete",
+      "evidence": "Canonical Min/Max empty-result consumers and exact owner receipt remain required as identified in preinventory."
+    },
+    {
+      "id": "D-EXTRACTION",
+      "status": "required separate whole-family receiving",
+      "evidence": "Do not receive isolated extraction WGSL/lib exports; complete producer/caller/count/mesh/creator/manifest-lock and generated-shader families remain held."
+    },
+    {
+      "id": "D-FINAL",
+      "status": "required incomplete",
+      "evidence": "No local checks authorized here; all13 root postwave, three independent final reviews and required hosted checks must agree on same final pushed SHA, no merge."
+    }
+  ],
+  "limits": [
+    "Read-only source/Git/provenance review only. No source edits, local builds/checks/lints/tests/scanners/generators/runtime or new tests/cases/helpers/assertions, push/CI/external posting.",
+    "Existing fixture/source identities are source evidence, not executed behavior. Malformed shader handling is proven against SDK call/scope timing, not runtime reproduced.",
+    "Known unresolved ResourceDescriptor/caller API and global producer/manifest integration are explicitly not acceptance.",
+    "No source compile/whole family/global13lens/wholePR/final clearance."
+  ],
+  "sdk_accounts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "coverage": "fresh exact source spans read",
+      "ranges": [
+        [
+          640,
+          688
+        ],
+        [
+          1034,
+          1098
+        ],
+        [
+          1520,
+          1576
+        ],
+        [
+          1771,
+          1793
+        ],
+        [
+          1832,
+          1896
+        ],
+        [
+          2520,
+          2541
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "coverage": "fresh exact source spans read",
+      "ranges": [
+        [
+          840,
+          885
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/command/transfer.rs",
+      "sha256": "46659ab834a883c87450ec3d71accf1c8664a37abb332b251d421fae96f6c6e8",
+      "coverage": "fresh exact source spans read",
+      "ranges": [
+        [
+          925,
+          960
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/naga-29.0.4/src/front/wgsl/parse/conv.rs",
+      "sha256": "0abbab52e11c74627d0cae7f662084fa016c5b12d57ac73e01a2e95406621cca",
+      "coverage": "fresh exact source spans read",
+      "ranges": [
+        [
+          196,
+          242
+        ]
+      ]
+    }
+  ]
+}

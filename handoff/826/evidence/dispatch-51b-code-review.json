@@ -1,0 +1,140 @@
+{
+  "kind": "independent bounded successor Code Review",
+  "revision": "51b21447649f0aa53be19a20cdfc066863617deb",
+  "tree": "114c758d7049d1af96fc1d257a8be52bd81ea56e",
+  "parent": "cf7646a96ac5ba89696eac925f14593e0b13c884",
+  "review_comparison": "65e8aebedb6490bc2945eac6d48479ea6a2cd10a",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "coverage": [
+    {
+      "revision": "51b21447649f0aa53be19a20cdfc066863617deb",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "27cbe3c532fe09bb5bf7cedff8be79e2a92d701d42fb8e8187582765bf92926f",
+      "git_blob": "15a5d59d8dccf7ad8c9afd9757f705ed439366f3",
+      "coverage": "fresh full-file read"
+    },
+    {
+      "revision": "51b21447649f0aa53be19a20cdfc066863617deb",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "git_blob": "fdbd128d447ef7c6f7930866a398b4f645c72458",
+      "coverage": "fresh full-file read"
+    },
+    {
+      "revision": "51b21447649f0aa53be19a20cdfc066863617deb",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "git_blob": "ef08a970b02ec606113d7c3302e0b5ef5f774e30",
+      "coverage": "fresh full-file read"
+    },
+    {
+      "revision": "51b21447649f0aa53be19a20cdfc066863617deb",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "git_blob": "1d21edb91f8459a0298cd58801875f44e731e069",
+      "coverage": "fresh full-file read"
+    },
+    {
+      "revision": "51b21447649f0aa53be19a20cdfc066863617deb",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "git_blob": "98d8ae5e6b39fd936d4c185874dee12739f62962",
+      "coverage": "fresh full-file read"
+    },
+    {
+      "revision": "51b21447649f0aa53be19a20cdfc066863617deb",
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "coverage": "fresh complete KernelBatch::dispatch and dispatch_folded bodies; other unchanged bodies carried from65e by exact hash",
+      "same_as65e": true
+    },
+    {
+      "revision": "51b21447649f0aa53be19a20cdfc066863617deb",
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "coverage": "fresh Prepared::record body; other unchanged bodies carried from65e by exact hash",
+      "same_as65e": true
+    },
+    {
+      "revision": "51b21447649f0aa53be19a20cdfc066863617deb",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "1d6d8fdb930ec1e7cef5c99cd16aac39ae33e5868c1d219860c043de70f3c2c6",
+      "coverage": "fresh complete file",
+      "same_as65e": true
+    },
+    {
+      "revision": "51b21447649f0aa53be19a20cdfc066863617deb",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "coverage": "fresh complete file",
+      "same_as65e": true
+    }
+  ],
+  "immutable_peer_source": [
+    {
+      "revision": "95f9d31b7d9fbb56aa8330c72fffb46fb8e0c0be",
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "b3fbf299680973c7e45a579f9658891f7d3b09c0fd27abbcd2b52ee14ceea608",
+      "coverage": "complete production source through run; fixture remainder excluded"
+    },
+    {
+      "revision": "95f9d31b7d9fbb56aa8330c72fffb46fb8e0c0be",
+      "path": "crates/fabelgeist-compute/src/prefix_sum/wgsl.rs",
+      "sha256": "465992e2c83348d4a8b7c718370920a545f9724978deb6ba2b98193e36e5dccd",
+      "coverage": "fresh complete file, including both shaders and shared block_index_code"
+    },
+    {
+      "revision": "95f9d31b7d9fbb56aa8330c72fffb46fb8e0c0be",
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "f606388457ecab58ccb272496b1a5ac8361d592446d745b967923d9edd513d02",
+      "coverage": "fresh FOLDED_INDEX_WGSL entire function; prior source proof of groups producers retained"
+    }
+  ],
+  "fixtures": {
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json": {
+      "same_as_canonical95": true,
+      "same_as65e": true,
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3"
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs": {
+      "same_as_canonical95": true,
+      "same_as65e": true,
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5"
+    },
+    "compile_fail_doc": {
+      "same_as_canonical95": true,
+      "sha256": "4606bb287c8b22bccb26d3112516444c42a75cf344c280c34c00beb6c724e8d1"
+    }
+  },
+  "sdk": {
+    "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/command/compute.rs",
+    "sha256": "9dad1d7ebbc9def0cd07b55f5ccd96f3eb764966fca57853ebd0dbab35dfb923",
+    "fresh_coverage": "dispatch835-861 all-axis admission"
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "id": "DG65-C1",
+      "source": "shape.rs85-89 constructs grid and returns Empty before non-linear shape rejection. For zero invocation prefix, ceiling division gives0, fold gives[1,0,1]; all admitted shapes preserve empty outcome."
+    }
+  ],
+  "source_conclusions": [
+    "Full nonempty padded launch x*y*width uses checked u64 and <=2^32 total lane cardinality; maximum flattened address remains <=u32::MAX. Shape y/z1 restrictions and actual receiving-device checks are separate and preserved.",
+    "covering and covering_x unchanged; supplied zero-axis declarations retain exact original error axes; GridResult alias does not change error or API semantics.",
+    "Lower ComputePass::record actual-device check covers every axis, even if another is0, consistent with SDK. Host GridError is concrete through anyhow; actual native recording/submission retains wgpu cause.",
+    "Canonical95 scan shaders have workgroup-uniform block>=block_count return before block*BLOCK+local_id and before all barriers. BLOCK256 and countu32 bound valid block to <2^24 and valid largest lane <=u32MAX. Folded block geometry reaches <65535*257 group IDs, already u32 representable; padding groups return before lane arithmetic or sums writes. Therefore pure typed folded group geometry is sufficient for this actual guarded scan; no speculative public group-input projection is required.",
+    "No new owned actionable implementation finding at this bounded pin."
+  ],
+  "superseded65_dependency": "Earlier proposed shared folded_workgroups_x extension is withdrawn: exact complete native scan guard/producer proof establishes its different safe geometry contract. No duplicate or unused public method is required.",
+  "required_dependencies": [
+    "#780 Kernel groups_folded and all affected callers must consume the fallible canonical projection; current root old raw API is not integrated.",
+    "#780 KernelBatch::dispatch actual-device grid admission after empty guard and before FastPath::prepare remains explicitly pending; no independent shared-function edit.",
+    "Remaining native layout/source/count/producer/creator and manifest-lock migration families remain required; final all13, three independent reviews and hosted gates must pass on one final pushed revision."
+  ],
+  "limits": [
+    "All five dispatch files freshly completely read at exact51b; other source coverage precisely bounded.",
+    "No local project execution/check/build/test/scanner/generator/runtime, source edits, push or CI.",
+    "No new tests/cases/helpers/assertions/doctests. Existing fixture bytes and compile_fail block match canonical95.",
+    "No compilation, whole producer-family, all13, whole-PR or final clearance."
+  ]
+}

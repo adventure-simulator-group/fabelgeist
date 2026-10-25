@@ -1,0 +1,618 @@
+{
+  "review": "Independent bounded Code Review of atlas producer/native receiving checkpoint",
+  "head": "6b22364249ae1503fe070dd7b5ce64b8e6e0e25d",
+  "tree": "4868f4a5c6ee9eef4a85ed9994a02790bc61249b",
+  "parent": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+  "compare": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "changed_count": 9,
+  "changed_paths": [
+    "crates/fabelgeist-hair/Cargo.toml",
+    "crates/fabelgeist-hair/src/cards.rs",
+    "crates/fabelgeist-hair/src/cards/atlas.rs",
+    "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+    "crates/fabelgeist-hair/src/cards/atlas/paint.rs",
+    "crates/fabelgeist-hair/src/render/atlas.rs",
+    "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+    "crates/fabelgeist-hair/src/render/head.rs",
+    "crates/fabelgeist-hair/src/render/mod.rs"
+  ],
+  "sources": [
+    {
+      "path": "Cargo.lock",
+      "git_blob": "c9353ee29066992688d70bace4ca4edbb66739c9",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "lines": 13104,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "git_blob": "e478b093f1b156bf603463336a0ee697a942b608",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "lines": 172,
+      "byte_identical_to_04": true,
+      "coverage": "fresh actual used declarations/Seed bit-word methods/Color channel+RGBA8 native mapping/creator atlas consumer/smoothstep bodies; unrelated remaining implementation not reread"
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "git_blob": "c6250fc277d58266b3c2b99c1e2c95161a65d96a",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "lines": 25,
+      "byte_identical_to_04": true,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "git_blob": "e33f2da7529eab9a20018a6c912b9bcbf115d1cd",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "lines": 24,
+      "byte_identical_to_04": true,
+      "coverage": "fresh actual used declarations/Seed bit-word methods/Color channel+RGBA8 native mapping/creator atlas consumer/smoothstep bodies; unrelated remaining implementation not reread"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/pixel.rs",
+      "git_blob": "06eb3b7b7974ecb3d157a9fe8e296c2cb071c51b",
+      "sha256": "9b7d1004ee1879e113be545a891967a8f30d6ced8086fba84ee7f279997d333b",
+      "lines": 540,
+      "byte_identical_to_04": true,
+      "coverage": "fresh actual used declarations/Seed bit-word methods/Color channel+RGBA8 native mapping/creator atlas consumer/smoothstep bodies; unrelated remaining implementation not reread"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "git_blob": "5dd651ef83440a5d5c9e84635d8ae455e61fc4ff",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "lines": 244,
+      "byte_identical_to_04": true,
+      "coverage": "fresh actual used declarations/Seed bit-word methods/Color channel+RGBA8 native mapping/creator atlas consumer/smoothstep bodies; unrelated remaining implementation not reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "git_blob": "e13b3b8e45b5bade388dcee0a15679ba9cb7370b",
+      "sha256": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9",
+      "lines": 73,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "git_blob": "67b30be6deac7b4173d1a9dd21d0c4dcfd1e87d4",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "lines": 213,
+      "byte_identical_to_04": true,
+      "coverage": "fresh actual used declarations/Seed bit-word methods/Color channel+RGBA8 native mapping/creator atlas consumer/smoothstep bodies; unrelated remaining implementation not reread"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "git_blob": "86c84be288bee51ebd29284ac6de3859157fd748",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "lines": 48,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "git_blob": "c7ea9cdb3014f1fc5c29fcdad844115c9c2dfd2f",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "git_blob": "b9f5cf8040c0200cc774f92d5e4f2b5018e61132",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "lines": 142,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "git_blob": "2904d89894518acc7fdccf7736241db9747014b7",
+      "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+      "lines": 109,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "git_blob": "24d41bd345670b61d0d9d6935dfc51925de8ebf2",
+      "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+      "lines": 50,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "git_blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "git_blob": "ea122dd2d2c44e754af9cd21c8663f164889016d",
+      "sha256": "fd6c4991e13b343c21b396b8aada2480b03508500184761d217c1237bb1c52cb",
+      "lines": 101,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "git_blob": "4990e9220d5350750000826ce2954be77ae85146",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "lines": 101,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "git_blob": "bbeb9f350b0458bdde60cfb41923e7f9bf28b08e",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "lines": 62,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "git_blob": "17b17a3ef59db21e0ef6922e2d1ce9bb4795fd5a",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "lines": 60,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "git_blob": "5ffbc0c6b0dcaa45d1b74e9fc36f0cb14480f75f",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "lines": 82,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "git_blob": "38c52ef4b78ef2f1bc48830bdaa51c8d7c9efdf6",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "lines": 197,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "lines": 70,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "git_blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "lines": 24,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "git_blob": "05fd9cd4bb91ba558a71ba026e7f9290a9beba22",
+      "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+      "lines": 40,
+      "byte_identical_to_04": false,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "git_blob": "e3ff162fa52363b5d222310210f039179abe847b",
+      "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb",
+      "lines": 272,
+      "byte_identical_to_04": false,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+      "git_blob": "26b04d966f2dc24edc32281c0da8562efe6ab765",
+      "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+      "lines": 137,
+      "byte_identical_to_04": false,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+      "git_blob": "ea1c3ceb9e1d9769c273536bf4ac44c128e2f3a2",
+      "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+      "lines": 212,
+      "byte_identical_to_04": false,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/paint.rs",
+      "git_blob": "7046a51774c016349355a53537e13c1d940dc848",
+      "sha256": "daa74c09fa86ca04b709dcc9efed9b35d35a392aeb43db10086fa09cd27a50fb",
+      "lines": 97,
+      "byte_identical_to_04": false,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cover.rs",
+      "git_blob": "1e7f480a47ae3c21c88d7eb55953d88adc1b2959",
+      "sha256": "50287b76df57d36dd9afcab6aa2a578f96e49b421b73e26b536d23c1bc65345f",
+      "lines": 173,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "git_blob": "a75f18b4c2e907e176dfcdb2710fa054bde2bd6a",
+      "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+      "lines": 265,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "git_blob": "f2d57a25a6d4cd258a207b2f7896f6c9e8231c59",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "lines": 47,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "git_blob": "e6ad81ce71830631eef96a4818fedc5922956878",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "lines": 597,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lib.rs",
+      "git_blob": "2b0d300f0e2a6e3a770a16677d9f584afa866c01",
+      "sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+      "lines": 187,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "git_blob": "90c9f9321b5e0d5afc185aa67a5ab4303fc1c346",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "lines": 228,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "git_blob": "688e2eff39375bea5ece98a2f37c448297942690",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "lines": 84,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "git_blob": "9f13386cf4813084b6b9b01341839a3ba31a45be",
+      "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+      "lines": 259,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "git_blob": "4825a3239639eebdc5aaac45a184539be70f4ea0",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+      "lines": 162,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "git_blob": "e808dcc779fdc598a0c2106d1fee8b1c3696c463",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+      "lines": 105,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/material.rs",
+      "git_blob": "e3e96ce1dbbe03f061cf06c800ffc552a7ceba12",
+      "sha256": "20fdf72de21b47f4596eb6538d58a2d89aeb5217a8b797ca53730c769b5d5b1e",
+      "lines": 225,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/ops/mod.rs",
+      "git_blob": "821bdd314616d8df693871c2d086ca00ec3a4a96",
+      "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "lines": 347,
+      "byte_identical_to_04": true,
+      "coverage": "fresh actual used declarations/Seed bit-word methods/Color channel+RGBA8 native mapping/creator atlas consumer/smoothstep bodies; unrelated remaining implementation not reread"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "git_blob": "d291a2c969f6ba78254d7a22598e52a4e093dfc2",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "lines": 140,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+      "git_blob": "f3961f72533979a819a023436fd2324831dddd5f",
+      "sha256": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+      "lines": 83,
+      "byte_identical_to_04": false,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "git_blob": "3ad944451601f5e4c5dd22d8a5f8d10f133e807e",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "lines": 66,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "git_blob": "cf10fd3535500eaae052371eb7fc595e08d47922",
+      "sha256": "f523a641bd99ff3aa3f29ea82062643213212d2f258da56c918fff2333a8f105",
+      "lines": 49,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "git_blob": "f7f39fa464c9c54421fe781db305fea19b84e565",
+      "sha256": "2bda8e84908f751c80409eefcca90f33632c6024052a544c09f4c66622b1a307",
+      "lines": 152,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "git_blob": "556088286e987dc734946da22392bb5a78a0df43",
+      "sha256": "7bc2f7621b735c87bd9ecf1077a89158453a8c01aab0b0f17c88f4098f3a92d9",
+      "lines": 143,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "git_blob": "61e51831f880ba6b888ba3642d2f844968be1e86",
+      "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "lines": 165,
+      "byte_identical_to_04": false,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "git_blob": "379035127cad18258f1f02a9841b8b2ed3abe61f",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "lines": 651,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "git_blob": "a570939f2fdc9e8e21ad6cfcaad31200d591b3f9",
+      "sha256": "b9fccf7ea25d3cce7dc5dfdb0f91dda22362f10d0c5c4120d9e42c729c3c38c4",
+      "lines": 189,
+      "byte_identical_to_04": false,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/math.rs",
+      "git_blob": "cbc045d6a9c1301cb56458d9881fb3840f9f1574",
+      "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+      "lines": 97,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "git_blob": "708b68cb2752c83700757e7b3f433aca3f322125",
+      "sha256": "cd448eb9389b86945618ae9f316bfe60767cad00dfa07e7321b3bbbfbda6abaf",
+      "lines": 2103,
+      "byte_identical_to_04": false,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "git_blob": "7fcdc66435fdd18e7067c142a97b685f120513ef",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "lines": 54,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "git_blob": "17955c221c7bbdb901dc53407059408119b08812",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "lines": 184,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/rng.rs",
+      "git_blob": "8dab19c6a25f37ab5a25319331e80c46adf86b0f",
+      "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+      "lines": 168,
+      "byte_identical_to_04": true,
+      "coverage": "fresh FULL immutable source file, including existing fixture bodies"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/sim.rs",
+      "git_blob": "2a3593291bc0907250bc35bac23245532f2a3809",
+      "sha256": "fb1ff8533a78fe122a0d19f28b64f6f757b55898aded84056dbe0fef816e6079",
+      "lines": 854,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "git_blob": "61b7f7a61600ed97835e4f23d76a78362068058f",
+      "sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "lines": 283,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "git_blob": "25d33aac2c69a5a469c19138a7ae4fc9290b9584",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "lines": 120,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "git_blob": "e8b37ba9e754adea2735690dc7aed1fed802d8b5",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "lines": 25,
+      "byte_identical_to_04": true,
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave"
+    }
+  ],
+  "source_map_sha256": "9adeee22944b6f449f192eb2de3b3b9227b769332e1f24ca9b2812082f66fa50",
+  "findings": [],
+  "contracts_revalidated": [
+    "All9 changed paths fully read from Git6b, including full renderer production and existing fixture (initial long-output truncation repaired by bounded540-1540 source reread). Full atlas layout/paint/mip/uploader ownership covered. CardMesh production method exact parent; changed mixed fixture only one existing case with exact numeric recipe4/32/128/seed1 and same assertions after API inverse. No test execution or new oracle.",
+    "AtlasVariantCount rejects0; AtlasTileSpan rejects0 and uses actual i32::try_from cause for signed raster modulus/height addresses. Positive tile and variant leaves are private, AtlasSettings composite public fields carry these checked owners. Default8/64x256 and transparent1/1x1 use private admitted catalog leaves. Recipe can have native/full width overflow only at composite layout, where checked_mul rejects before allocation.",
+    "AtlasMipLayout admits full atlas width=tilewidth*variants, height, full bytes_per_row=width*sizeof(RgbaTexel) in u32, positive extents, u64 pixel product narrowed to usize, checked byte product and isize addressability. Tile layout is separately admitted. This proves host row/index/stitch extents, each f32 working image byte capacity and height*2 step arithmetic. Smaller dimensions monotonically shrink, so their native row/host products cannot overflow the parent proof. zeroed<T> uses actual try_reserve_exact error then nonallocating resize_with for private known-default arrays/Vecs.",
+    "CardAtlas holds required base plus private smaller Vec, private immutable settings, private mip layout/pixels; no public mutation or missing first level can diverge dimensions/pixels/variant count. AtlasMip read-only getters and pixel_bytes cast expose actual contiguous [u8;4] data. All owned large allocations (base, columns, coverage, shade, depth, output, smaller levels) preserve TryReserveError/host integer causes through AtlasError. Parallel failure returns no CardAtlas candidate; per-variant buffers drop normally. This is not a guarantee against arbitrary allocator/provider internal failure.",
+    "Deterministic paint preserves old per-variant seed word seed XOR(v*0x9E37), canonical Seed::xor_word is exact XOR and to_u64 returns same word. u32 variant product fitsu64; enumerate cannot exceed admitted count. Rng SplitMix initialization/advance and every index/range/next_f32 call order unchanged. Parallel per-column ordering uses enumerated fixed mutable slots rather than completion order; each column stitches its original row range. Raster path, steps, wrapping, coverage winner, tone/depth and byte rounding/truncation are source-equivalent for every previously successful bounded input; only indexing uses admitted hostusize addresses.",
+    "2x2 downsample reads identical four clamped neighbor coordinates, sums each u8 channel in u32 (<=1020), rounds(sum+2)/4 to u8 and retains channel order coverage/shade/depth/coverage. Odd extents retain original floor-halving behavior. Loop has one required base, appends at most11 smaller levels and stops if either axis<=1; it does not extend formerly shorter chains to both-axis1. Native extent floor-shift and max-mip SDK rules match each actual mip; count1..12 never exceeds full-chain max for admitted dimensions.",
+    "UploadedAtlas first checks actual base dimensions against device.max_texture_dimension_2d and converts canonical PixelFormat::Rgba8Unorm via Color::to_wgpu; Color ChannelLayout::Rgba.channels() owns four-channel array shape. Feature edge color/wgpu undergpu makes adapter available only where needed. Every copy uses actual mip extent,row bytes,height,data and ordinal bounded12, with D2/layer1/sample1/COPY_DST|TEXTURE_BINDING. Queue::write_texture does not require encoder-style256-row alignment; admitted tight rows remain valid. Native device/queue pairing and provider-handled validation policy unchanged; no global native-health verdict.",
+    "UploadedAtlas owns native view+exact canonical variant count from same upload; independent renderer atlas_variants field removed. Initial transparent source is zeroRGBA1x1 with one variant. Lighting groups receive that view; Globals.mode.y extracts only that count at native shader boundary. No recomputed row/mip shape or separately mutable source population retained in this received graph.",
+    "Host set_groom now returnsResult and admits/uploads atlas before building candidate strand/card/head/groups/counts/bounds, then publishes allscene fields and invalidates view. GPU set_gpu_groom preserves foreign-device/head/source/cover guards, builds native candidates and atlasResult before logical publication. Atlas admission failure leaves prior logical scene/mean intact; submitted native writes target new private atlas and preserve existing device policy. Remaining native strand/card/sim admission is not silently certified by this candidate ordering.",
+    "04 documentation edits are source-accurate: CPU smoothing prose describes present behavior; set_head distinguishes native allocation handling and old-head preservation on malformed layout; set_gpu_groom documents actual device/source/exactbytes/Nonebare/admission semantics. Its non-doc head source bytes remain exact, prior typedcause/head identity contracts unchanged. Current renderer temporal/finite input/convergence/draw-prefix/head/readback relationships reread and unchanged by atlas publication."
+  ],
+  "fixture_shader_identity": {
+    "card_mesh_impl_exact": true,
+    "card_mesh_impl_sha256": "21a1d5d3c337a40568ee859339f73885de2c5b0fbc256a668cffdbfec3b5152a",
+    "mixed_fixture_cases": 1,
+    "mixed_fixture_assertions_before": 4,
+    "mixed_fixture_assertions_after": 4,
+    "mixed_fixture_exact_after_required_api_inverse": true,
+    "renderer_fixture_exact": true,
+    "head_non_doc_bytes_exact": true,
+    "shaders_exact": {
+      "crates/fabelgeist-hair/src/render/hair.wgsl": true,
+      "crates/fabelgeist-hair/src/render/deform.wgsl": true,
+      "crates/fabelgeist-hair/src/render/post.wgsl": true
+    }
+  },
+  "sdk_sources": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/queue.rs",
+      "sha256": "b3811f0df3ccad53d990bfd66c650759abb67654779b08e160a437b51abd7c71",
+      "coverage": "fresh selected actual queue texture copy/mip extent/row/native mip admission ports, not whole SDK file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/texture.rs",
+      "sha256": "66db776b8e52f7bfb6f768cf4379f2ce4b111aa54487f9f42849a1ac5a356c60",
+      "coverage": "fresh selected actual queue texture copy/mip extent/row/native mip admission ports, not whole SDK file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/origin_extent.rs",
+      "sha256": "31a6956c59c86046aac284bcd6b2d65462554db4ee6552b8fa0f660838113f97",
+      "coverage": "fresh selected actual queue texture copy/mip extent/row/native mip admission ports, not whole SDK file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+      "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "coverage": "fresh selected actual queue texture copy/mip extent/row/native mip admission ports, not whole SDK file"
+    }
+  ],
+  "canonical_peer_sources": [
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-hair/src/gpu/head.rs",
+      "git_blob": "698aa7716ec03cc36891dda8e120c4cf8b1e7337",
+      "sha256": "8007a20dddb728fae9bce4f80cbfab46ba06795e047cf0a49cbd50b4a7b1bdf5",
+      "coverage": "fresh FULL canonical owner file"
+    },
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-hair/src/surface/render_layout.rs",
+      "git_blob": "fa6bd806651b69eadf59990e98fc52ce82942aa7",
+      "sha256": "a494654990087180a401c2f0f80b258d3c01ae652d66d6f12017a657c04c969c",
+      "coverage": "fresh FULL canonical owner file"
+    },
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "git_blob": "983da3e3364bca7baf7f2a7db4ef0056d9d4359b",
+      "sha256": "0c54c21fb94e4b1df748a29cdbef562802d717acfc810211072be30d236a3298",
+      "coverage": "fresh complete relevant exports/declarations/builder base/output-binding bodies; unrelated remaining implementation not claimed reread"
+    },
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "git_blob": "69ffeb9913a3f83cf9dde6c517cb4cfcd4187ece",
+      "sha256": "6b262acb80061a2278ae7fd74d6b04fbe0d744d103ceb412bff1deeb24238557",
+      "coverage": "fresh complete relevant exports/declarations/builder base/output-binding bodies; unrelated remaining implementation not claimed reread"
+    },
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "git_blob": "8238c05d77a6a7b70821e420786cb5a34821164a",
+      "sha256": "210d69c52c956bf08c4741ae6524ee7b5c185fae123cfd4e4297ea3c92ae0e67",
+      "coverage": "fresh FULL canonical owner file"
+    },
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "git_blob": "cdaaae23274ddbd7c39d722828284c4f96fe953e",
+      "sha256": "9951797fc00589d2ce5106c921d2788568e3d10bfa1cbcbf6344c6e5f191c8ae",
+      "coverage": "fresh complete relevant exports/declarations/builder base/output-binding bodies; unrelated remaining implementation not claimed reread"
+    },
+    {
+      "head": "bad382cb2704652c64f6289aa07633f4682a9d57",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "git_blob": "e94d1ae036a3c83a8f9c949e085aaa9108f43f29",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "coverage": "fresh complete relevant exports/declarations/builder base/output-binding bodies; unrelated remaining implementation not claimed reread"
+    },
+    {
+      "head": "bad382cb2704652c64f6289aa07633f4682a9d57",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "git_blob": "8bbfb7d444a79d5ead2d23731ad6a6b94c386bcc",
+      "sha256": "991f1eebf5b1a9cf7f8fa7314793b2610a78fa7f5b01236a19c84ea9f73773fd",
+      "coverage": "fresh FULL canonical owner file"
+    },
+    {
+      "head": "bad382cb2704652c64f6289aa07633f4682a9d57",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "git_blob": "5a991b44701159ad24536aae902769843661a1fe",
+      "sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "coverage": "fresh FULL canonical owner file"
+    }
+  ],
+  "required_dependencies": [
+    {
+      "id": "D780-atlas-propagation",
+      "status": "REQUIRED incomplete",
+      "detail": "Current root LodSettings still has raw atlas_variants/atlas_size; HairLods::build and GpuGroomer::lods_against still call old paint signature/use raw atlas cache key; creator HairGeometry atlas_levels still reads old public fields and recomputes mip sizes. These exact old callers are intentionally pending accepted780 handoff integration. Require canonical AtlasSettings, Seed, fallible results, actual mip metadata and cache key propagation; no source-complete claim or accepted deferral."
+    },
+    {
+      "id": "D780-native-count-source",
+      "status": "REQUIRED incomplete",
+      "detail": "Checked Strand/Card native layouts/count/byte/binding/empty semantics, GpuLods::device actual producer capture, sealed source associations, native simulation id/weight/rest/body/source receiving and allcanonical producer/caller paths remain active root780 work. Peer CardMesh/CardSettings/CardVertex methods remain untouched. This atlas review does not accept their old raw arithmetic."
+    },
+    {
+      "id": "D780-imports-lock-final",
+      "status": "REQUIRED incomplete",
+      "detail": "Canonical Surface/head/count and typed/fallible compute descriptor imports, creator/public Result API adaptations, new Color dependency Cargo.lock, retained774/M06/F19 and other connected families must complete before push or hosted gates. Final all13/reviews/CI same pushed SHA still required."
+    }
+  ],
+  "ledger": "Root atlas_pre_repair all13 entry read after actual code. Explicit780transfer covers complete atlas/paint/mip family and existing mixed fixture API adaptations; CardMesh production functions remain peer owned. Reviewer made no ledger/source edits.",
+  "limits": [
+    "No source edits, project commands/build/check/tests/scanners/generators/runtime, new tests/cases/helpers/assertions/doctests, push or CI. Only source/Git and ignored report accounting.",
+    "All9 changed files read FULL, complete atlas production/mip/nativeupload/candidate renderer paths and usedColor/RNG/Seed/smoothstep ports source-reviewed. Prior unchanged helper/SDK/peer source proof explicitly carried by identity; no prior verdict accepted automatically.",
+    "No new actionable owned atlas finding. This is source reasoning about deterministic bytes and bounds, not rendered/numerical execution evidence or allocation/runtime success. Original valid paint/mip formulas compared directly; no new test vectors/cases executed or written.",
+    "Required old producer/creator/native/source/count/lock/import paths are explicitly incomplete. No family/sourcecompile/13lens/PR/final clearance. All required independent reviews/hosted checks must repeat on same final pushed revision."
+  ]
+}

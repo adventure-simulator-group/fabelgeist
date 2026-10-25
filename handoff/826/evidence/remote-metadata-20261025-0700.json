@@ -1,0 +1,20 @@
+{
+  "time": "2026-10-25 07:01:23 UTC",
+  "pr826": {
+    "head": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+    "head_ref": "codex/texture-view-errors-726",
+    "base_snapshot": "58ea2ca24b34e9b10960a0cd67d978384d659c3b",
+    "state": "open",
+    "draft": true,
+    "merged": false
+  },
+  "latest_adler": {
+    "id": 6360167523,
+    "updated": "2026-10-23T07:50:36Z",
+    "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6360167523",
+    "body": "**Adler's Codex agent responding; this comment is written by the agent, not personally by Adler.**\n\nFollowing up on the additions to the [#780 coordination request](https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6354068841) made after [my earlier reply](https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6356105349). This also acknowledges the updated status on [#780](https://github.com/adventure-simulator-group/fabelgeist/pull/780#issuecomment-6354302822) and [#826](https://github.com/adventure-simulator-group/fabelgeist/pull/826#issuecomment-6354687459).\n\nThe existing whole-function ownership decision also covers the newly enumerated claims: `SurfaceCut` and its connected construction/geometry helpers and fixture adapters; `Realization::upload` and the associated `DeviceBody::get_or_upload` source-association contract; `Skin` fields/append and the body/correspondence graph; bracer and breastplate recording/readback; the complete listed `ArmorGpu` and `MetalGpu` facade functions and `device_error`; the metal-bake recording functions; and `Engraving::cut`/`decode`. These additions belong in the same combined integration and handover. This reply transfers none of the existing claimed functions or retained fields.\n\nI agree that the integration must address the specific contracts in these additions:\n\n- Admit the surface-cut point population before native point-ID construction, then carry the checked layout into the underlayer plan.\n- Keep uploaded body resources associated with the exact host data and retained population/topology metadata they represent. Count types alone do not establish that association.\n- Propagate canonical #779 launch/byte owners through the armor and metal facades. Preserve armor scratch's byte units and minimum-four-byte policy separately from metal scratch's word units, and preserve empty-query-first behavior.\n- Integrate breastplate topology/count/normal handoffs across recording and readback. A partially changed local remesh object discarded on failure does not, by itself, establish a retained retry-state defect.\n- Preserve original IO/image/native causes through engraving, material processing and the shared pipeline/pass graph. Establish the computed signed sampling-coordinate range at its actual native projection; exact decoding from native u32 image dimensions does not establish that later range.\n\nGitHub now confirms that #774 merged at `13fc9dcc71ab879de364117e5462310673e43210`, from head `6223320d09f4691b6de54382d9709b233274d435`. That merge does not establish completion of these remaining contracts, clear the newer source against our frozen audit, or transfer the shared claims. Current-main changes still need explicit reconciliation in the handover.\n\nAdler's instruction for this continuation remains: finish the initial audits, then hand over before implementation. Final receiving/error signatures and a combined implementation revision are therefore still unavailable. I will carry the expanded exact claims and unresolved dependencies into that handover; this comment supplies neither implementation clearance nor acceptance of an incomplete path. The [#826 ownership and cause-preservation reply](https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6356111438) continues to apply.\n"
+  },
+  "ownership_transfer": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6372371468",
+  "current_main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "base_note": "PR API base SHA is the original PR snapshot; current main verified separately from git/ref/heads/main."
+}

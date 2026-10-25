@@ -1,0 +1,183 @@
+{
+  "review": "Independent Comment Review, resident native level checkpoint",
+  "head": "21118b983b27e00d2cc70f45ed345686e0262cc2",
+  "tree": "5a4c0caac1b7a60f4bb39c12fe1b557c87f0ceb6",
+  "parent": "fc23cece6cf1acb2f0f8b873a7e01f4c103f9b75",
+  "comparison": "51b21447649f0aa53be19a20cdfc066863617deb",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "source_coverage": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "bytes": 3504,
+      "lines": 109,
+      "coverage": "complete pinned source read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "9a4cfd422099b6ffde9fb27f49e0c26fccd850684039712cb7e17e28bc7527db",
+      "bytes": 10832,
+      "lines": 308,
+      "coverage": "complete pinned source read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "ab8123dbbeb143b432cf2848147ee23db07ea3b8014d12488202b2d8ee9297fa",
+      "bytes": 61819,
+      "lines": 1565,
+      "coverage": "full relevant module introduction/exports/record declarations lines1-150; remainder only exact diff identity, not full body coverage"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "bytes": 5139,
+      "lines": 152,
+      "coverage": "complete pinned source read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "05d2a47057f3095bc11a8ad025e1a228f24c50df6436638456c17cd094dc55c2",
+      "bytes": 7949,
+      "lines": 224,
+      "coverage": "complete pinned source read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "c9d9b3030f3096bdcefa79f170d8d08bd1a716ec070dd09d11348aabbb212432",
+      "bytes": 76592,
+      "lines": 2029,
+      "coverage": "complete pinned source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+      "bytes": 1769,
+      "lines": 50,
+      "coverage": "complete"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "bytes": 1619,
+      "lines": 48,
+      "coverage": "complete"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "bytes": 1801,
+      "lines": 47,
+      "coverage": "complete"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "bytes": 19834,
+      "lines": 597,
+      "coverage": "bounded lines1-330; current public producer declarations and constructors, not complete family"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "bytes": 7995,
+      "lines": 228,
+      "coverage": "bounded lines40-125; native StrandInfo/host StrandLevel shape"
+    }
+  ],
+  "canonical_layout": {
+    "pin": "95f9d31b7d9fbb56aa8330c72fffb46fb8e0c0be",
+    "byte_identical": true,
+    "sha256": "9a4cfd422099b6ffde9fb27f49e0c26fccd850684039712cb7e17e28bc7527db"
+  },
+  "fixture_identity": {
+    "crates/fabelgeist-hair/src/render/mod.rs": {
+      "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+      "bytes": 940,
+      "identical_previous": true
+    },
+    "crates/fabelgeist-hair/src/gpu/mod.rs": {
+      "sha256": "c03faaa7a7dc20542360981d1b238e35c2ab09dd660194644b9f523c817e7828",
+      "bytes": 37914,
+      "identical_previous": true
+    }
+  },
+  "shaders": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "identical_previous": true,
+      "coverage": "identity reconciliation against prior reviewed source; not fresh full shader read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "identical_previous": true,
+      "coverage": "identity reconciliation against prior reviewed source; not fresh full shader read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "identical_previous": true,
+      "coverage": "identity reconciliation against prior reviewed source; not fresh full shader read"
+    }
+  ],
+  "findings": [
+    {
+      "id": "211-C1",
+      "priority": "P3",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "line": 35,
+      "claim": "a native storage binding still requires nonempty logical bytes",
+      "mismatch": "Native WebGPU validates the positive physical binding range; it has no application logical-prefix field. The new renderer explicitly prefixes to zero logical bytes for empty populations then independently binds positive native placeholder records. Buffer::binding_resource, specifically, rejects a zero logical extent.",
+      "remedy": "Replace the final clause with: `and Buffer::binding_resource still requires nonempty logical bytes.` Use a rustdoc link if desired.",
+      "acceptance": "The adapter-specific restriction is clear without forbidding valid empty-population placeholder bindings."
+    }
+  ],
+  "verified_contracts": [
+    "StrandLayout admits native cardinality and checked byte projections; explicitly excludes device/source identity, buffer capacity, geometry and extra simulation arrays. Native dimensions/sample product/ribbon vertices and full host collection shape are independently checked.",
+    "Native data bytes for a zero population remain zero. Binding projections independently retain one positive vec4/StrandInfo record. upload_level supplies native initialized dummy records without introducing a logical strand.",
+    "Host level admission validates the complete host position cardinality before fitting the resident prefix. Actual position and information binding limits are both applied; zero resident prefix is allowed.",
+    "RenderLevel validates actual physical buffer size, STORAGE usage and min(max_storage_buffer_binding_size,max_buffer_size), then supplies explicit nonzero size rather than entire allocation. It does not query or prove native resource Device identity.",
+    "GPU receiving path first takes canonical resident layout and logical data prefixes, then admits positive native binding extents separately. Current peer producer association remains unintegrated and unproved.",
+    "RenderLevelError preserves StrandLayoutError/BufferPrefixError via thiserror source; native narrowing keeps actual TryFromIntError; HairGpuError Backend retains anyhow error cause graph. Structural/usage/extent failures do not invent SDK causes.",
+    "draw_gpu and final draw ranges use admitted StrandLayout counts, native_draw_vertices is zero for empty populations and checked twice native points otherwise.",
+    "Native create_bind_group/create_buffer_init still follow configured device handling. Return Ok is not synchronous native acceptance or GPU completion. Frame publication remains host submit-return state.",
+    "Dispatch folded_x now describes canonical checked lane flattening and proven block-ordinal-guard alternative as distinct geometry consumers; actual Device bounds remain receiving responsibility."
+  ],
+  "sdk_support": [
+    {
+      "source": "wgpu-29.0.4/src/api/bind_group.rs",
+      "lines": "104-131",
+      "coverage": "bounded fresh read, offset/physical size API has no application logical count"
+    },
+    {
+      "source": "wgpu-core-29.0.4/src/device/resource.rs",
+      "lines": "2882-2962",
+      "coverage": "bounded fresh read, same_device, usage, native positive size/alignment/range/limit/min binding checks"
+    }
+  ],
+  "required_dependencies": [
+    {
+      "id": "D780-level-producer",
+      "status": "Open required integration",
+      "evidence": "Current root gpu/lods.rs still publicly stores raw points/count/positions/infos and no sealed logical Device association or layout/getter API. levels.rs line153 source statement is an agreed receiver precondition, not evidence that current producer already supplies it.",
+      "acceptance": "Integrate agreed sealed GpuLevel/GpuLods API and whole constructor/caller family; verify device association covers every actual level buffer, not only top-level handle."
+    },
+    {
+      "id": "remaining-renderer-family",
+      "status": "Open required",
+      "contract": "Simulation source/rest physical bindings/manual deformation, card native layout/creation and all producer/count/head/caller/lock integration remain required; no full-family acceptance."
+    },
+    {
+      "id": "final-gates",
+      "status": "Open required",
+      "contract": "Parent complete all13 waves and independent reviews/required hosted checks on same final pushed SHA."
+    }
+  ],
+  "limits": [
+    "All source from exact pinned git211; no working source edits. Initial combined output truncated; full Renderer was re-read as four complete bounded chunks, draws and levels separately; gpu/mod coverage explicitly bounded.",
+    "No tests/cases/helpers/assertions/doctests added or run; fixture and shader evidence is exact source identity only.",
+    "No local project execution/check/build/test/scanner/generator/runtime/push/CI.",
+    "No integrated, whole-native-family, compiled, all13, hosted or final whole-PR clearance."
+  ]
+}

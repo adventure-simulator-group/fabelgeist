@@ -1,0 +1,170 @@
+{
+  "review": "Independent Comment Review, canonical rest-prefix checkpoint",
+  "head": "6bf03a8d04bf246c996bbbfa17c1925ebd150c38",
+  "tree": "daddbb27e119b442e4bc77b30de8d0c84b357fd8",
+  "parent": "10cc1a69b1a9a5f4e54daa112477cc56b7487f45",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "coverage": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "86f0e714e3e5f41e6cb59a299114e43cd12a678bbf70f508f8681c610af87478",
+      "bytes": 72002,
+      "lines": 1919,
+      "coverage": "complete fresh pinned source read through EOF in three untruncated sections"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "127174cf7f7a73271a8e356884ec87fb3c4d85e8ec2173a058610c2eea2ff1d8",
+      "bytes": 9418,
+      "lines": 261,
+      "coverage": "complete fresh pinned source read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "05d2a47057f3095bc11a8ad025e1a228f24c50df6436638456c17cd094dc55c2",
+      "bytes": 7949,
+      "lines": 224,
+      "coverage": "complete fresh pinned source read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "9a4cfd422099b6ffde9fb27f49e0c26fccd850684039712cb7e17e28bc7527db",
+      "bytes": 10832,
+      "lines": 308,
+      "coverage": "bounded fresh lines143-224; full file prior211 and unchanged identity proof"
+    }
+  ],
+  "findings": [
+    {
+      "id": "6BF-C1",
+      "priority": "P3",
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "line": 155,
+      "claim": "The remaining resources belong to the simulation source.",
+      "mismatch": "The remaining bindings include binding6, the params Buffer allocated by DeformLevel::new for this renderer level. It does not belong to a simulation source. The statement conflates packaging/allocation ownership and could misdirect the remaining source/extent audit.",
+      "remedy": "Other bindings retain their own allocation ranges.",
+      "acceptance": "Describe None ranges without assigning all those buffers to simulation ownership or implying source validation."
+    }
+  ],
+  "resolved": [
+    {
+      "id": "10CC-C1",
+      "evidence": "RecordedDeformations now includes updates recorded or requiring no work, matching empty-grid settlement."
+    }
+  ],
+  "verified_contracts": [
+    "DeformationBuffers is a borrowed native input record with no shape/source/device/extent admission claim.",
+    "New rest allocation is positions_binding_bytes, positive for an empty population. Initial copy uses only positions_bytes and skips logical zero; final rest/output bind slots0/1 explicitly use positive canonical resident prefix.",
+    "An existing rest buffer is retained by cloning its wgpu handle; it shares the native allocation rather than performing another data copy. Original captured rest semantics remain unchanged.",
+    "bind_dynamics borrows old dynamics while assembling candidate levels and assigns replacement only after queue.submit returns normally. clear_dynamics also borrows old dynamics until its canonical data-prefix restoration commands are submitted normally, then clears state.",
+    "No observed-native-acceptance, GPU completion, global health or all-side-effects rollback guarantee follows from normal submit return. Configured native handling is unchanged.",
+    "Source-derived shape/admitted padded lanes/actual Device grid checks remain before per-deformation params write; post-normal-submit frame/deformation publication unchanged.",
+    "Existing rest cardinality/device/copy capabilities and remaining simulation ranges are not admitted by DeformationBuffers. The current receiver uses all native remaining allocation ranges; no source-complete claim."
+  ],
+  "sdk_evidence": [
+    {
+      "path": "wgpu-29.0.4/src/api/buffer.rs",
+      "lines": "150-205,214-235",
+      "coverage": "bounded fresh source read, Buffer Clone and mapped handle explanation"
+    },
+    {
+      "path": "wgpu-29.0.4/src/dispatch.rs",
+      "lines": "630-680,966",
+      "coverage": "bounded fresh source read, reference dispatch owns shared backend handle via Arc/native Web handle"
+    },
+    {
+      "path": "wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "lines": "457-480",
+      "coverage": "bounded fresh source read, CoreBuffer native id retained; no copy-on-clone claim"
+    }
+  ],
+  "fixture_identity": {
+    "path": "crates/fabelgeist-hair/src/render/mod.rs",
+    "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+    "identical_prior": true,
+    "coverage": "fresh full fixture read; source identity only, not execution"
+  },
+  "pod_identity": [
+    {
+      "item": "Globals",
+      "sha256": "e0003c6f88ffdbc3d27a45fe06e0b88b50de9a095ff2e466faeeee967a5a2215",
+      "identical_prior": true
+    },
+    {
+      "item": "DrawGpu",
+      "sha256": "7e57128d063a7d19d367616d291cb283ae1e038a991524e265e77e6fdd6ae1ed",
+      "identical_prior": true
+    },
+    {
+      "item": "PostGpu",
+      "sha256": "d5b47327cf39b5a88545e9bb5d5c46f7a5cf6ab7ee28a1a113e81c206d07f10a",
+      "identical_prior": true
+    },
+    {
+      "item": "CardDrawGpu",
+      "sha256": "f3bdd58c806c14dc0b5750aa354aa2d68e92cbda64bd9e942f60e4fa149466f7",
+      "identical_prior": true
+    },
+    {
+      "item": "DeformGpu",
+      "sha256": "190035f5eecdfe124e69065c072c80b1864e596d20480e315122de2b6ea9208d",
+      "identical_prior": true
+    }
+  ],
+  "shader_identity_carried": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "identical_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "identical_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "identical_prior": true
+    }
+  ],
+  "unchanged_identity_since_10cc": {
+    "crates/fabelgeist-hair/src/render/deform.wgsl": true,
+    "crates/fabelgeist-hair/src/render/hair.wgsl": true,
+    "crates/fabelgeist-hair/src/render/post.wgsl": true,
+    "crates/fabelgeist-hair/src/render/levels.rs": true,
+    "crates/fabelgeist-hair/src/gpu/layout.rs": true,
+    "crates/fabelgeist-hair/src/gpu/mod.rs": true,
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs": true,
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs": true,
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs": true
+  },
+  "required_dependencies": [
+    {
+      "id": "producer-and-device",
+      "status": "required incomplete",
+      "contract": "Integrate canonical sealed GpuLevel/GpuLods and actual Device associations through all creators/callers. Do not treat top-level device equality as proof for arbitrary mutable/public child buffers."
+    },
+    {
+      "id": "simulation-rest-native",
+      "status": "required incomplete",
+      "contract": "Other simulation resource logical/physical extents, Device/source identity, copy usages and rest association/cardinality/native capability checks remain required, including manual set_dynamics/set_simulated and GpuSim integration."
+    },
+    {
+      "id": "cards-and-integration",
+      "status": "required incomplete",
+      "contract": "Native card layout/creation and all remaining caller/lock producer families remain required."
+    },
+    {
+      "id": "final-gates",
+      "status": "required incomplete",
+      "contract": "Full parent all13 waves, independent Code/Rule/Comment reviews and required hosted checks on same final pushed SHA."
+    }
+  ],
+  "limits": [
+    "Read-only immutable Git source; no source edits, project execution/checks/build/tests/scanners/generators/runtime/push/CI.",
+    "No tests/cases/helpers/assertions/doctests authored or executed. Fixture/POD/shader proof is exact byte identity only.",
+    "Both changed files freshly and completely read; affected level module complete; layout and SDK boundaries bounded, with carried identity evidence explicitly distinguished.",
+    "No integrated/compiled/whole-native-family/all13/hosted/final PR clearance."
+  ]
+}

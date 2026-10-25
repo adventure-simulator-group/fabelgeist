@@ -1,0 +1,191 @@
+{
+  "revision": "bfcecec05c1e5cd9d55af31419d605420a4d08c5",
+  "discovery": "Complete all thirteen lenses for the bounded guide routing/default-policy correction before edit. Whole canonical integration and final gates remain incomplete.",
+  "repair": "Completed at c29beb942 guide or bfcecec05 native cleanup; exact source proof saved.",
+  "validation": "Source-only successor self-review complete; independent83 source successor reviews pending. Global integration and hosted gates incomplete.",
+  "finding": "GPU-DOC-1: guide always-uncaptured-handler claim excludes caller-installed SDK scopes; also clarify mutable observation policy as constructor defaults.",
+  "sources": [
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "25af127253b18860f351048e1732765bdd5d487d5100e9e347fd3a8124b4b6c0",
+      "coverage": "Full guide/native scope and observer; actual context/default construction source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "coverage": "Full guide/native scope and observer; actual context/default construction source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "coverage": "Full guide/native scope and observer; actual context/default construction source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "coverage": "Full guide/native scope and observer; actual context/default construction source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "coverage": "Full guide/native scope and observer; actual context/default construction source read."
+    }
+  ],
+  "sdk": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "lines": "642-675",
+      "contract": "Innermost matching same-thread scope precedes handler/default fatal handling."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/webgpu.rs",
+      "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "lines": "2503-2552",
+      "contract": "Uncaptured callback and WebGPU scope push/pop are separate SDK paths."
+    }
+  ],
+  "cells": [
+    {
+      "lens": "producer-propagation",
+      "source_contract": "Texture2d/3d/Cube selectors create optional ValidationScope; borrowed/browser paths preserve the existing SDK error policy. Guide40-44 is the final public contract recipient.",
+      "disposition_connected_repair": "Correct the guide recipient only; no source, return type or native call changes.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contract": "WgpuContext.blocking_validation and ValidationScope::new already own whether native readback occurs; SDK ErrorSinkRaw owns error routing.",
+      "disposition_connected_repair": "Describe those owners; add no wrapper, error type or alternate observation path.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contract": "Native owned initialization defaults true; from_parts defaults false; public flag can be changed by caller; browser scope code is cfg excluded.",
+      "disposition_connected_repair": "State constructor defaults precisely and retain browser omission. No new guarantee of synchronous native error return.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contract": "SDK native ErrorSinkRaw.handle_error_or_return_handler selects innermost matching same-thread scope before custom handler/default fatal handling; browser forwards push/pop scope to WebGPU.",
+      "disposition_connected_repair": "Replace unconditional uncaptured-handler claim with configured error handling including caller-installed scopes.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contract": "Device, caller scopes and mutable context policy jointly determine observation; borrowed provenance alone is not an immutable observation guarantee.",
+      "disposition_connected_repair": "Use default-policy language; do not certify device health or scope ownership.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "type-ownership",
+      "source_contract": "Root owns the GPU guide and native policy sources; peer canonical source generation remains separate.",
+      "disposition_connected_repair": "Edit only guide prose. Return exact whole guide successor to peer for composition.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contract": "Guide must describe existing policy rather than maintain a second, narrower always-handler model.",
+      "disposition_connected_repair": "One authoritative runtime policy; documentation follows it.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contract": "No runtime token, descriptor, cause chain, fixture, test or numeric policy changes.",
+      "disposition_connected_repair": "Documentation only; retain all native/browser progress and completion limits.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contract": "No flags, enum variants, tagged payloads or transitions change. blocking_validation remains existing public configuration.",
+      "disposition_connected_repair": "No new state/type repair in this wording scope.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "derivability",
+      "source_contract": "No trait, serialization, formatting or error implementation changes.",
+      "disposition_connected_repair": "No boilerplate or derives added.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "type-granularity",
+      "source_contract": "Native readback policy and SDK routing are distinct responsibilities already represented by existing API.",
+      "disposition_connected_repair": "Describe their relation without conflating them or creating another policy type.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "magic-strings",
+      "source_contract": "Error-handler prose and TextureViewError Rustdoc-style Markdown token are documentation, never runtime classification.",
+      "disposition_connected_repair": "Use accurate named existing API and no prose-based branching.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contract": "No constants, quantities, dimensions, workgroups or bounds change.",
+      "disposition_connected_repair": "No numeric or no-growth debt change; Markdown stays wrapped80 columns.",
+      "dependencies": "Exact current native policy remains unchanged; peer composition must retain corrected guide.",
+      "acceptance": "Only accurate wrapped guide prose changes; independent three reviews and all13 successor on exact next source.",
+      "discovery": "Complete for bounded guide wording.",
+      "repair": "Completed as inventoried; no new bounded source finding.",
+      "validation": "Exact delta, source identity and actual contracts rechecked; independent reviews pending, no runtime execution."
+    }
+  ],
+  "limits": [
+    "No runtime error policy change; no native/browser execution or global clearance.",
+    "Canonical generated/scalp/physical/body/armor/caller/lock families and same-final-pushed-SHA hosted gates still required."
+  ],
+  "tree": "d883324471abef0237493a80ee81d9985d68579f",
+  "pre_repair_report": "target/pr826-audit/gpu-guide-routing-3e74-pre-repair-all13.json",
+  "source_proof": "target/pr826-audit/gpu-guide-routing-working-proof.json",
+  "resolved_source_findings": [
+    "GPU-DOC-1",
+    "GPU3E-C1"
+  ]
+}

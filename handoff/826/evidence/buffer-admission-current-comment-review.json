@@ -1,0 +1,423 @@
+{
+  "review": "Independent Comment Review: current Buffer admission before repair",
+  "revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+  "tree": "202fc9f4e0e0721003da587b4a68ffd7e603bf72",
+  "comparison": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "working_tree": "Generated family edits are dirty elsewhere; every accounted file independently matches exact6e56 andCAC native/source bytes",
+  "pre_repair_inventory": {
+    "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-pre-repair-all13.json",
+    "sha256": "1983074d4b868d7b7dce02b04ad5713b8ecaf0b0a2f5bb5ff57c221b31780b9d"
+  },
+  "rule_report": {
+    "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/buffer-admission-current-rule-review.md",
+    "sha256": "1db867e62cb5eed5e51c1baac9d9993c36a5af785a38bf3d034da0cee9ca3277"
+  },
+  "source_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "lines": 47,
+      "pin_blob": "e257aeca1bac850b0c663b85bebbfab692385fa2",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "lines": 49,
+      "pin_blob": "509736b034eeaf6ee79207ee0e127de661336d2d",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "lines": 140,
+      "pin_blob": "5529d7804de9cb3235d2fcdf1e82030922385127",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "pin_blob": "c7ea9cdb3014f1fc5c29fcdad844115c9c2dfd2f",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "lines": 28,
+      "pin_blob": "a3c17d52b6f1ed01c79f8000ec754fb80faddc8c",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "lines": 153,
+      "pin_blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "lines": 111,
+      "pin_blob": "a2062c768f4aed9e06b6deae1ffd268056ca6bc1",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "lines": 50,
+      "pin_blob": "260c12d12fc0ca89d801a97f42d5ab4427cc0107",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "pin_blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "lines": 101,
+      "pin_blob": "80be3838b6f0d44d83caba2b085f4ecb1dcfad21",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "lines": 101,
+      "pin_blob": "ea288ba56153fa4bb97fd996348980e46a685c70",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "lines": 62,
+      "pin_blob": "bbeb9f350b0458bdde60cfb41923e7f9bf28b08e",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "lines": 60,
+      "pin_blob": "17b17a3ef59db21e0ef6922e2d1ce9bb4795fd5a",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "lines": 102,
+      "pin_blob": "b11e72e68a6fe575a93fdffec35fc52c690e348c",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "lines": 73,
+      "pin_blob": "8cfd4abad2635672f3d9f06b0f1d65266324d846",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "lines": 150,
+      "pin_blob": "f34c5730daeac1577440c03c76310b203576ce9a",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "lines": 25,
+      "pin_blob": "756ec7e9799eb039b269e408bd7ebdb4ecc6b655",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "lines": 5,
+      "pin_blob": "ff679ab14a5f2826ae5b1214865dd250e6800035",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "lines": 187,
+      "pin_blob": "626622edf5a1f98619b80792dccf6ddbea00986d",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "lines": 147,
+      "pin_blob": "e5ca2213dd2a00375b4ff6da803954928e127f42",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "lines": 146,
+      "pin_blob": "d71ee78598da8d937dd62f313020a1d585785ef5",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "lines": 42,
+      "pin_blob": "0fc8b8b7b88eb452da7f81aa28d0a9fa51fe1553",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+      "lines": 80,
+      "pin_blob": "45e9cee3aab008fed716a8f228af89829b93d775",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "lines": 47,
+      "pin_blob": "f2d57a25a6d4cd258a207b2f7896f6c9e8231c59",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "lines": 293,
+      "pin_blob": "3fabb1a10172faadd1df9d924852f4ab5fe6c2e1",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+      "sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+      "lines": 584,
+      "pin_blob": "737bfc9a54abaeab3b00d8317a4336d8167609ae",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh complete StereoDepth::upload and documentation lines303-327; context120-165 also read, no full module credit",
+      "whole_file_read": false
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "lines": 797,
+      "pin_blob": "5d342a950d367aa15e53f898cda48ac5bec80098",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh complete read_positions/read_rest/test-only set_state and docs lines764-797; no full simulation module credit",
+      "whole_file_read": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "lines": 17,
+      "pin_blob": "218f094989dc24da7e6611f73fbf65a976cae7be",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "lines": 13,
+      "pin_blob": "c0a37d1c1a1207327bc7855650bcf71193dc84ca",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "lines": 14,
+      "pin_blob": "082854901a81b34ca1c5ed306013d0cbd63c15dd",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh full source read including all source comments/docs and existing fixtures",
+      "whole_file_read": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+      "sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "lines": 93,
+      "pin_blob": "a6481d1d046ab4ac585a2dfd97497efcccb86ada",
+      "working_equals_pin": true,
+      "working_equals_cac": true,
+      "matches_inventory_sha256": true,
+      "coverage": "Fresh complete trimmed function87-93 plus nearby80-86; no full layout module credit",
+      "whole_file_read": false
+    }
+  ],
+  "coverage": {
+    "files": 31,
+    "fresh_full_files": 28,
+    "bounded_complete_relevant_function_reads": 3,
+    "all_working_equals_pin_and_cac": true
+  },
+  "actionable_comment_findings": [
+    {
+      "id": "BUFFER-ADMISSION-C1",
+      "priority": "P3",
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "start": 13,
+      "end": 14,
+      "ownership": "Affected Mesh consumer; coordinate actual #780 receiving ownership, no independent source edit",
+      "claim": "wgpu requires nonzero allocation sizes.",
+      "mismatch": "The pinned native wgpu-core create_buffer explicitly handles desc.size == 0 by allocating physical COPY_BUFFER_ALIGNMENT bytes while retaining the requested logical desc.size. Nonzero rejection here belongs to project Buffer::new admission, not a universal SDK allocation constraint. A nonempty storage/uniform binding is a separate rule and logical zero prefix/read stays legitimate.",
+      "sdk_evidence": {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+        "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+        "full_relevant_body_read": "create_buffer lines1001-1125, including request validation, zero-size physical rounding1077-1079, and logical size retention1123; not complete SDK file"
+      },
+      "suggested_wording": "Buffer::new requires a nonzero allocation request. Empty mesh attributes retain a placeholder allocation with logical length zero.",
+      "acceptance": "Qualify this existing rationale as project Buffer admission/consumer placeholder policy. Preserve empty mesh result, physical placeholder, native/math/runtime behavior and existing fixtures; complete source-backed preinventory/ownership disposition before repair."
+    }
+  ],
+  "rule_finding_disposition": {
+    "id": "BA-R1",
+    "classification": "Existing stable local-error taxonomy gap; not a demonstrated failed rejection/native cause loss",
+    "evidence": "Buffer::new rejects zero at41-42 before allocate_native; write_at checked_after rejects overflow69-71 then logical overrun72-79 before data.write_to. new/from_upload/write delegate through these checks; none of these three local checks has an SDK or std child cause. Existing anyhow carriers can preserve an owning error instance unchanged through GpuResource, uniform observation, Armor/Metal/Hair error wrappers.",
+    "comment_scope": "No preexisting method-doc falsehood in these three rejection paths. New owning error Rustdoc should identify local allocation/write request admission and separate zero allocation, offset overflow and logical overrun. It should not call every failure native/device loss, attach invented causes, redefine BufferByteLength as positive, or describe all public Buffer/Clone/prefix states as nonempty."
+  },
+  "documentation_acceptance": [
+    {
+      "area": "New local error owner",
+      "required": "Document pre-native allocation/write request rejection. Reuse canonical BufferByteLength/BufferByteOffset for named payloads; Display describes actual request and logical capacity. Local variant Error::source is None when no lower cause exists. Do not widen unrelated native/read/prefix/binding causes into this classification."
+    },
+    {
+      "area": "Public methods",
+      "required": "Existing exact logical Device/Queue provenance remains accurate. If adding rejection prose: new rejects zero allocation requests; write_at rejects checked offset addition overflow or end beyond logical length before queue write. Do not claim all SDK validation is performed or that actual alignment/usage/provider errors disappear."
+    },
+    {
+      "area": "Zero and end behavior",
+      "required": "Keep ByteLength zero, checked zero prefix, logical zero read after host-layout admission and separate nonempty binding. No new empty-upload rejection, count/stride wrapper or universal native nonzero promise. Equality at logical end passes existing local bounds; native policy remains separate."
+    },
+    {
+      "area": "Submission/completion/mapping",
+      "required": "Upload borrows until queue copied bytes and transfer begins on subsequent submission; successful local admission or queue call does not promise GPU completion/health. Existing Buffer::read provenance/external mapping obligations, explicit native wait/browser callback, alignment and physical-padding limits remain."
+    },
+    {
+      "area": "Receivers",
+      "required": "Existing anyhow/GenerateError::Gpu/MetalDeviceError/HairGpuError::Backend/operation-and-observation retain concrete typed local error. No independent API/caller change, early String conversion, retry/exactly-once/rollback guarantee or fabricated SDK cause."
+    }
+  ],
+  "fixture_limits": "All existing fixtures in the28full files source-read only, including Buffer/readback/definition/Mesh. No fixture/case/helper/assertion/doctest written or executed. Focused classification should preserve all fixture bytes; final provenance and hosted checks remain required.",
+  "required_dependencies": [
+    "Root owns implementation; BA-R1 structured-error source change is pending complete prior all13 and current Code/Rule/Comment discovery. Extend ownership/source-backed preinventory for Mesh rationale C1 before any edit.",
+    "Preserve canonical peer count/stride and all physical/caller/lock ownership. The159-callsite locator is not body coverage and is not adopted as a whole caller-graph review.",
+    "Re-review actual successor source/error docs and same final pushed revision through all13 lenses, three independent final reviews and required hosted project gates. No merge."
+  ],
+  "limits": [
+    "Read-only source/Git/SDK inspection and ignored report bookkeeping. No source edits, project execution/build/check/lint/scanner/generator/runtime/test/probe, new fixtures/helpers/assertions/doctests, push/CI or external posts.",
+    "28fresh complete files plus3bounded complete relevant-function reads; all31exact current identities match6e56/CAC and ledger. No full Stereo/Sim/Scalp or every one of159callers coverage claim.",
+    "No implementation, compiled, native/browser runtime/global/source-complete/hosted/final PR clearance."
+  ],
+  "verdict": "One affected-consumer documentation finding: Mesh nonzero-allocation rationale attributes local Buffer policy to the SDK. BA-R1 is separately a typed local admission error contract gap; proposed new documentation should preserve local/native/zero/prefix/completion distinctions. No final clearance."
+}

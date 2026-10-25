@@ -1,0 +1,331 @@
+{
+  "review": "Independent Comment Review: incoming Creator cause caches and hair completion",
+  "root_context": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "handoffs": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-creator-cache-causes-29fe6e752/manifest.json",
+      "sha256": "de1c8647fedaf8e098257f0db70d92f744bdc6eeac0e2ea4d29847a095ba9ce3",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "tree": "8777f647ae0a3f2285c4663726937feaa702df5c"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-hair-completion-d7f2691cc/manifest.json",
+      "sha256": "2fd3d6896ff55c4c011fcf5bbcfcb35812b86916c5d11519a1603b6894d27a76",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "tree": "9b35b57bd19d9ef888e4f375a7f3e05d76b20747"
+    }
+  ],
+  "owning_source_accounting": [
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+      "git_blob": "dbda65178a479d6ad3c4b83a703568b2389767dc",
+      "lines": 68,
+      "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+      "manifest_sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "git_blob": "d34a08bd66701061b4233d6ca9f6b30d15c9678a",
+      "lines": 20,
+      "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+      "manifest_sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "git_blob": "ce1c5be604c0b070a767130eeed4f4dbe65285ce",
+      "lines": 76,
+      "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+      "manifest_sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "git_blob": "d49f85196d1643b29dbb4b239bac5da8c5e50caf",
+      "lines": 144,
+      "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+      "manifest_sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "git_blob": "dca5cc787e224d638d22b1dbd0df2917af8bc3b8",
+      "lines": 301,
+      "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+      "manifest_sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "git_blob": "7a4ae72c9805ecd61ea54d61cad5cd40fbd1b017",
+      "lines": 27,
+      "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+      "manifest_sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "aea64b1f78e5def266d32a1ecf4ffce201b11292c344a40ad123fa28118f5644",
+      "git_blob": "1f5108f148a5bccb9b6f2e65e18e0356be81a5be",
+      "lines": 143,
+      "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+      "manifest_sha256": "aea64b1f78e5def266d32a1ecf4ffce201b11292c344a40ad123fa28118f5644",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "f163ffb8a42b0ad714ea0d96f2c7ef1a191da8d085d01310e143f941a63caf22",
+      "git_blob": "1f6602ff99e79c5a4a4866d353298b711fd429cd",
+      "lines": 1380,
+      "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+      "manifest_sha256": "f163ffb8a42b0ad714ea0d96f2c7ef1a191da8d085d01310e143f941a63caf22",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "af7733cf9f722b473e08584c2c35569cc0962376cadc4e73875ba71bef94e739",
+      "git_blob": "96e00c5265625a3e59ab2345ebe6f1c35ca2b7db",
+      "lines": 513,
+      "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+      "manifest_sha256": "af7733cf9f722b473e08584c2c35569cc0962376cadc4e73875ba71bef94e739",
+      "manifest_matches": true
+    }
+  ],
+  "dependency_source_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "git_blob": "3e3f5421736c5c8604c994b4cd4342ee85e0bf6d",
+      "lines": 86,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "lines": 70,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "cc994bdebe62b8e0da1531c60e9e9cbfd2f3357d798678b930f18fb56f84fa16",
+      "git_blob": "7e3b8f6ed49a69c6c0f857ca23575387c87f15c6",
+      "lines": 248,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+      "git_blob": "e8a8b27509222c0d6202b0a49773618e0dafc9b3",
+      "lines": 198,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "57efed82e178fb19ffd93c264126d2070ecabeff0f7a402ef54c797cd75782dc",
+      "git_blob": "5308da7c9d78ba32b68380e49976725956f48e05",
+      "lines": 235,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "89e313508ced73bcd3f9dfe8e60ba2026dbb11d0d19fb178654e60423afd26b0",
+      "git_blob": "80935abba68612275b867ce45c602c6a57542ca6",
+      "lines": 69,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_equipment.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "5bf6b375e4fd7df25eda09134cfbd116ea893e21f87a040af51a1aef467c4d12",
+      "git_blob": "806d4ca111b9bded094233f8aa1d446d86c8803a",
+      "lines": 98,
+      "coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "83895f2f6e29bda031bc1764ed1d51cc133051198e963ead3eb0ee728138ffff",
+      "git_blob": "302ae2835bafb9d1f4e3961a0fe5834d0811c8f5",
+      "lines": 350,
+      "coverage": "Fresh lines125-350: worker start/collect, source propagation and final UI presentation; not full file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_ui.rs",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "git_blob": "5bf09ba91b3c3fb2f4d0c34d938e722af28564cc",
+      "lines": 435,
+      "coverage": "Fresh lines235-275: export call and final error presentation; not full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "dde02c3c137d5ac3722f28e2eab7db9eb82506ef0b64d182dd52a42b4876bbb5",
+      "git_blob": "98562f2b19ead5574e2c92479b4555a7cea435f0",
+      "lines": 185,
+      "coverage": "Fresh full185line peer context read plus exact Rootd7-to-peer diff; NOT byte-identical to Root and NOT included in either nine-file handoff",
+      "root_review_sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "unchanged_from_root_review": false,
+      "prior_coverage": "Fresh lines18-100: policy/from_parts/device preconditions; remaining context source prior exact identity",
+      "note": "Only peer delta is older blocking_validation wording claiming a blocking poll has no timeout and omitting Root qualification that backend can fail the wait. Preserve exact Root wording; do not copy this unowned dependency file. Actual completion helper and other six carried files match Root."
+    }
+  ],
+  "carried_source_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "git_blob": "f4d3ceca542fbcce8114bea1cb6995dc48934fb3",
+      "lines": 124,
+      "coverage": "Carried exact Rootd7 source review by byte identity; not a fresh full read in this wave",
+      "root_review_sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "unchanged_from_root_review": true,
+      "prior_coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "git_blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "lines": 24,
+      "coverage": "Carried exact Rootd7 source review by byte identity; not a fresh full read in this wave",
+      "root_review_sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "unchanged_from_root_review": true,
+      "prior_coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "git_blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "lines": 43,
+      "coverage": "Carried exact Rootd7 source review by byte identity; not a fresh full read in this wave",
+      "root_review_sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "unchanged_from_root_review": true,
+      "prior_coverage": "Fresh full dependency/caller source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "git_blob": "781689c4abe4bff0fbf4d912f597c8fc38a2fa5e",
+      "lines": 179,
+      "coverage": "Carried exact Rootd7 source review by byte identity; not a fresh full read in this wave",
+      "root_review_sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "unchanged_from_root_review": true,
+      "prior_coverage": "Fresh full owning source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "git_blob": "e5ca2213dd2a00375b4ff6da803954928e127f42",
+      "lines": 147,
+      "coverage": "Carried exact Rootd7 source review by byte identity; not a fresh full read in this wave",
+      "root_review_sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "unchanged_from_root_review": true,
+      "prior_coverage": "Fresh full owning source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "git_blob": "0fc8b8b7b88eb452da7f81aa28d0a9fa51fe1553",
+      "lines": 42,
+      "coverage": "Carried exact Rootd7 source review by byte identity; not a fresh full read in this wave",
+      "root_review_sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "unchanged_from_root_review": true,
+      "prior_coverage": "Fresh full owning source read"
+    }
+  ],
+  "sdk_evidence": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/webgpu.rs",
+      "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "coverage": "Fresh lines2710-2740: actual on_submitted_work_done invokes callback on both promise resolution and rejection, logging rejection; not all WebGPU backend read this wave"
+    },
+    {
+      "source": "Pinned wgpu29 native Device::poll/PollType and error-scope policy prior source reviews",
+      "coverage": "Retained SDK semantics reconciled with current full completion and callback helper; no GPU operation executed and no fresh full SDK audit"
+    }
+  ],
+  "contracts": [
+    {
+      "area": "First outcome caching",
+      "evidence": "Armor async OnceCell and Metal/export-hair/preview-kernel OnceLock retain Result. Concrete initializer errors become GpuInitializationError once. Subsequent completed outcomes return retained success or a clone of the recorded failure, with focused operation context. Docs explicitly include failure and do not claim retry or global device health. Cancellation before an async initializer returns is not a recorded completed outcome."
+    },
+    {
+      "area": "Causal error identity",
+      "evidence": "GpuInitializationError owns Arc<anyhow::Error> with #[source]; Clone shares the original object. Display delegates original top-level error, while source chain remains available. Armor/Metal and hair cache accessors use clone/map_err/context rather than format-to-string reconstruction. Preview worker returns anyhow Result; join double-? preserves ordinary worker failure. UI status and export format {error:#} only at final presentation. Export ShellTextures and character_export propagate errors via ?. No new shared-function or duplicate error owner was authored by this review."
+    },
+    {
+      "area": "Completion boundary",
+      "evidence": "HairGpu::finish async Result delegates only to WgpuContext::submitted_work_done. Native helper submits explicit marker under current Validation observation policy then polls its returned index with timeout None; marker/poll causes are retained. Later submissions are not required. Browser helper awaits callback while yielding event loop; callback can follow SDK promise rejection, so Ok establishes callback delivery only on that backend. Paired exact logical Device/Queue remains prerequisite; producing submission results must be handled first. No arbitrary later work, completion of host file output, retries, global health or validation-under-device-handled-policy assurance follows."
+    },
+    {
+      "area": "Removed obsolete poll boundary",
+      "evidence": "GpuGroomer raw finish method that discarded poll Result is absent. Exact incoming Creator wrapper names the canonical completion boundary and exposes failures. Full GpuGroomer existing tests remain source only; module declarations/type/helper moves do not claim new fixture coverage."
+    }
+  ],
+  "fixture_accounting": {
+    "reference": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+    "render_fixture_before_sha256": "f141e4878ee8868ded50d8a481f8f1effb5c1ee4bb382fbcec321918c254c57e",
+    "render_fixture_after_sha256": "af7733cf9f722b473e08584c2c35569cc0962376cadc4e73875ba71bef94e739",
+    "old_finish_statement_occurrences": 2,
+    "only_two_existing_finish_api_adaptations": true,
+    "hair_inline_test_suffix_identical": true,
+    "creator_lib_inline_test_suffix_identical": true,
+    "limits": "Fresh full source read of existing fixtures; no new case, helper, assertion, input, oracle, shader or doctest authored and no test run. Identity against b11 is this tranche proof, not a replacement for complete main990/#779 provenance of all preceding migrations."
+  },
+  "actionable_comment_findings": [],
+  "prior_findings": [
+    {
+      "id": "STRIP-C1",
+      "disposition": "Resolved in exact incoming d7f2691cc receipt only",
+      "evidence": "Old unlimited/everything finish claim and discarded raw PollError removed; canonical fallible completion wrapper and native/browser limitations now explicit. Not yet a Root receiving or final integration verdict."
+    }
+  ],
+  "required_dependencies": [
+    "Root has not copied either handoff. Receive agreed owning files without overwriting Root native implementation, then review actual combined source/export/API/dependency closure.",
+    "Creator typed producers, caller migrations, canonical native/host hair and shared strip families, locks and full cause graph remain required; this nine-file review does not clear unrelated old Root producer/readback/cache gaps.",
+    "Complete all13 integration waves, independent final Code/Rule/Comment Reviews and required hosted project checks must pass on same final pushed revision; do not merge."
+  ],
+  "limits": [
+    "Read-only source review; source unchanged. Only ignored JSON/Markdown report artifacts written. No local project checks/build/lint/tests/scanner/generator/runtime, new tests/cases/helpers/assertions/doctests, push/hostedCI or external posts.",
+    "All9 owning files read fully at immutable pins, dependency coverage distinguished as fresh full/bounded or carried exact identity. Hashing is source bookkeeping, not behavioral validation.",
+    "Provider-handled native/browser errors remain bounded by existing context policy; no global health, rollback, retry, exactly-once construction-under-all-cancellation or arbitrary later work promise.",
+    "No whole PR, combined source-complete, compiled, runtime, hosted, global/final clearance."
+  ],
+  "verdict": "No new actionable source-comment finding in these exact incoming nine files; STRIP-C1 resolved in incoming completion receipt, actual Root integration and final gates remain required.",
+  "integration_restrictions": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "disposition": "Unlisted peer context is not receiving scope; preserve Root native context source and its more precise no-explicit-timeout/backend-error language",
+      "evidence": "Only peer delta is older blocking_validation wording claiming a blocking poll has no timeout and omitting Root qualification that backend can fail the wait. Preserve exact Root wording; do not copy this unowned dependency file. Actual completion helper and other six carried files match Root."
+    }
+  ]
+}

@@ -1,0 +1,1057 @@
+diff --git a/crates/fabelgeist-hair/Cargo.toml b/crates/fabelgeist-hair/Cargo.toml
+index f28b3e1c5..13fbe1be6 100644
+--- a/crates/fabelgeist-hair/Cargo.toml
++++ b/crates/fabelgeist-hair/Cargo.toml
+@@ -7,6 +7,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
+ 
+ [dependencies]
+ fabelgeist-determinism = { path = "../fabelgeist-determinism" }
++fabelgeist-mesh = { path = "../fabelgeist-mesh", default-features = false }
+ fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
+ fabelgeist-bvh = { "default-features" = false, "path" = "../fabelgeist-bvh" }
+ anyhow = { "version" = "1.0" }
+@@ -31,7 +32,7 @@ naga = { "version" = "29.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
+ 
+ [features]
+ default = ["render"]
+-gpu = ["dep:wgpu", "dep:pollster", "dep:fabelgeist-gpu", "dep:fabelgeist-compute", "dep:fabelgeist-spatial-hash"]
++gpu = ["fabelgeist-mesh/gpu", "dep:wgpu", "dep:pollster", "dep:fabelgeist-gpu", "dep:fabelgeist-compute", "dep:fabelgeist-spatial-hash"]
+ render = ["gpu", "dep:image", "dep:futures-channel"]
+ 
+ [lints]
+diff --git a/crates/fabelgeist-hair/src/dataset.rs b/crates/fabelgeist-hair/src/dataset.rs
+index 0d2de8763..fd8efb04b 100644
+--- a/crates/fabelgeist-hair/src/dataset.rs
++++ b/crates/fabelgeist-hair/src/dataset.rs
+@@ -32,7 +32,7 @@
+ 
+ use serde::{Deserialize, Serialize};
+ 
+-use crate::lod::LodPolicy;
++use crate::lod::{AccumulationFrames, LodPolicy};
+ use crate::look::Look;
+ use crate::material::HairMaterial;
+ use crate::presets::Preset;
+@@ -191,9 +191,9 @@ impl Sample {
+     }
+ 
+     /// The policy a sample is drawn with: every strand, accumulated.
+-    pub fn policy(frames: u32) -> LodPolicy {
++    pub fn policy(frames: AccumulationFrames) -> LodPolicy {
+         let mut policy = LodPolicy::cinematic();
+-        policy.quality.accumulate = frames.max(1);
++        policy.quality.accumulate = frames.target();
+         policy
+     }
+ }
+diff --git a/crates/fabelgeist-hair/src/lod.rs b/crates/fabelgeist-hair/src/lod.rs
+index efd144513..23a16096f 100644
+--- a/crates/fabelgeist-hair/src/lod.rs
++++ b/crates/fabelgeist-hair/src/lod.rs
+@@ -32,6 +32,12 @@
+ //! strand, every point, deep opacity shadows, accumulated over jittered
+ //! frames), [`LodPolicy::desktop`] and [`LodPolicy::mobile`].
+ 
++pub use counts::{CardLevelCount, CardLevelIndex, LodCounts, StrandLevelCount, StrandLevelIndex};
++pub use policy::{Band, Blend, Form, LodPolicy, LodPolicyError, PolicyResult, Selection, SimBand};
++pub use quality::{
++    AccumulationFrames, HairShading, PixelSpan, Quality, ShadowMapSize, ShadowQuality,
++};
++
+ use fabelgeist_math::Vec3;
+ use rayon::prelude::*;
+ 
+@@ -40,9 +46,13 @@ use crate::collider::{Collider, keep_clear};
+ use crate::cover::ScalpCover;
+ use crate::occlusion::{Occlusion, OcclusionSettings};
+ use crate::rng;
+-use crate::sim::SimLevel;
+ use crate::strands::{Strands, resample_into};
+ 
++mod counts;
++mod policy;
++mod presets;
++mod quality;
++
+ /// How far off the head a coarse strand's segments are kept, metres: about
+ /// where the groom's own strands lie over the scalp.
+ const STRAND_CLEARANCE: f32 = 0.0012;
+@@ -214,344 +224,3 @@ impl HairLods {
+         }
+     }
+ }
+-
+-/// The sizes of a groom's levels of detail, wherever they were built: the
+-/// host's [`HairLods`] or the GPU's [`crate::gpu::GpuLods`].
+-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+-pub struct LodCounts {
+-    /// The strands of the finest level.
+-    pub strands: usize,
+-    /// The strand levels.
+-    pub levels: usize,
+-    /// The card levels.
+-    pub cards: usize,
+-}
+-
+-/// How the hair is shaded.
+-#[derive(Clone, Copy, Debug, PartialEq)]
+-pub struct Quality {
+-    /// Marschner's three lobes (Karis' fit) with multiple scattering, or
+-    /// Kajiya-Kay with two shifted highlights.
+-    pub marschner: bool,
+-    /// Deep opacity shadows from the key light; without them only the
+-    /// baked occlusion darkens.
+-    pub shadows: bool,
+-    /// Deep opacity map size.
+-    pub shadow_resolution: u32,
+-    /// Frames accumulated with sub-pixel jitter while the view holds still.
+-    pub accumulate: u32,
+-    /// Narrowest a strand is drawn, pixels; narrower strands fade instead.
+-    pub min_pixels: f32,
+-}
+-
+-/// A coarser form fading in under the one a band draws: `amount` of the way
+-/// from the band's own form to `to`.
+-#[derive(Clone, Copy, Debug, PartialEq)]
+-pub struct Blend {
+-    pub to: Representation,
+-    pub amount: f32,
+-}
+-
+-/// What to draw this frame.
+-#[derive(Clone, Copy, Debug, PartialEq)]
+-pub enum Representation {
+-    /// The first `count` strands of `level`, `width_scale` times as wide.
+-    Strands {
+-        level: usize,
+-        count: usize,
+-        width_scale: f32,
+-    },
+-    Cards {
+-        level: usize,
+-    },
+-}
+-
+-/// A band of on-screen sizes and what is drawn in it.
+-#[derive(Clone, Copy, Debug)]
+-pub struct Band {
+-    /// The head is at least this many pixels tall.
+-    pub min_pixels: f32,
+-    pub form: Form,
+-}
+-
+-#[derive(Clone, Copy, Debug, PartialEq)]
+-pub enum Form {
+-    /// A share of the strands at a level.
+-    Strands {
+-        level: usize,
+-        share: f32,
+-    },
+-    Cards {
+-        level: usize,
+-    },
+-}
+-
+-#[derive(Clone, Debug)]
+-pub struct LodPolicy {
+-    pub name: &'static str,
+-    /// From the largest on screen down.
+-    pub bands: Vec<Band>,
+-    pub quality: Quality,
+-    /// Shadows are cast by this strand level and share, whatever is drawn.
+-    pub shadow_level: usize,
+-    pub shadow_share: f32,
+-    /// Over how much of a band's lower edge, as a share of it, the next
+-    /// coarser form fades in: 0.4 fades from 1.4 times the edge down to it.
+-    pub blend: f32,
+-    /// How finely the hair is simulated, by the head's height on screen in
+-    /// pixels, largest first: each level from its height up.
+-    pub sim: Vec<(f32, SimLevel)>,
+-}
+-
+-impl LodPolicy {
+-    /// Every strand at every point, always.
+-    pub fn cinematic() -> Self {
+-        Self {
+-            name: "Cinematic",
+-            bands: vec![Band {
+-                min_pixels: 0.0,
+-                form: Form::Strands {
+-                    level: 0,
+-                    share: 1.0,
+-                },
+-            }],
+-            quality: Quality {
+-                marschner: true,
+-                shadows: true,
+-                shadow_resolution: 2048,
+-                accumulate: 64,
+-                min_pixels: 0.5,
+-            },
+-            shadow_level: 0,
+-            shadow_share: 1.0,
+-            blend: 0.0,
+-            sim: vec![(0.0, SimLevel::HIGH)],
+-        }
+-    }
+-
+-    /// Strands close up, thinning with distance, cards far away. Every
+-    /// strand until the head is under 300 pixels tall -- a head in a
+-    /// medium shot at 1080p -- so what is coarser only shows where too
+-    /// little of it is on screen to tell.
+-    pub fn desktop() -> Self {
+-        Self {
+-            name: "Desktop",
+-            bands: vec![
+-                Band {
+-                    min_pixels: 300.0,
+-                    form: Form::Strands {
+-                        level: 0,
+-                        share: 1.0,
+-                    },
+-                },
+-                Band {
+-                    min_pixels: 150.0,
+-                    form: Form::Strands {
+-                        level: 1,
+-                        share: 0.5,
+-                    },
+-                },
+-                Band {
+-                    min_pixels: 70.0,
+-                    form: Form::Strands {
+-                        level: 2,
+-                        share: 0.2,
+-                    },
+-                },
+-                Band {
+-                    min_pixels: 32.0,
+-                    form: Form::Cards { level: 0 },
+-                },
+-                Band {
+-                    min_pixels: 0.0,
+-                    form: Form::Cards { level: 1 },
+-                },
+-            ],
+-            quality: Quality {
+-                marschner: true,
+-                shadows: true,
+-                shadow_resolution: 1024,
+-                accumulate: 8,
+-                min_pixels: 1.0,
+-            },
+-            shadow_level: 2,
+-            shadow_share: 0.25,
+-            blend: 0.4,
+-            sim: vec![
+-                (260.0, SimLevel::HIGH),
+-                (110.0, SimLevel::MEDIUM),
+-                (0.0, SimLevel::LOW),
+-            ],
+-        }
+-    }
+-
+-    /// A fifth of the strands close up, a tenth further, cards far away;
+-    /// cheap shading and only baked shadowing.
+-    pub fn mobile() -> Self {
+-        Self {
+-            name: "Mobile",
+-            bands: vec![
+-                Band {
+-                    min_pixels: 300.0,
+-                    form: Form::Strands {
+-                        level: 2,
+-                        share: 0.2,
+-                    },
+-                },
+-                Band {
+-                    min_pixels: 140.0,
+-                    form: Form::Strands {
+-                        level: 3,
+-                        share: 0.1,
+-                    },
+-                },
+-                Band {
+-                    min_pixels: 55.0,
+-                    form: Form::Cards { level: 0 },
+-                },
+-                Band {
+-                    min_pixels: 0.0,
+-                    form: Form::Cards { level: 1 },
+-                },
+-            ],
+-            quality: Quality {
+-                marschner: false,
+-                shadows: false,
+-                shadow_resolution: 512,
+-                accumulate: 1,
+-                min_pixels: 1.0,
+-            },
+-            shadow_level: 3,
+-            shadow_share: 0.1,
+-            blend: 0.4,
+-            sim: vec![(220.0, SimLevel::MEDIUM), (0.0, SimLevel::LOW)],
+-        }
+-    }
+-
+-    /// How finely to simulate a head `pixels` tall.
+-    pub fn sim_level(&self, pixels: f32) -> SimLevel {
+-        self.sim
+-            .iter()
+-            .find(|(min, _)| pixels >= *min)
+-            .or(self.sim.last())
+-            .map_or(SimLevel::MEDIUM, |(_, level)| *level)
+-    }
+-
+-    /// [`LodPolicy::sim_level`], staying at `current` until the head is a
+-    /// sixth past the edge it would cross: a level change rebuilds the
+-    /// simulation, and a head resting on an edge should not flicker across
+-    /// it.
+-    pub fn sim_level_from(&self, current: SimLevel, pixels: f32) -> SimLevel {
+-        let wanted = self.sim_level(pixels);
+-        if wanted == current {
+-            return current;
+-        }
+-        let rank = |level: SimLevel| self.sim.iter().position(|(_, l)| *l == level);
+-        let (Some(at), Some(to)) = (rank(current), rank(wanted)) else {
+-            return wanted;
+-        };
+-        // Finer: past the finer level's edge by a sixth; coarser: below the
+-        // current level's edge by a sixth.
+-        let edge = if to < at {
+-            self.sim[to].0 * 7.0 / 6.0
+-        } else {
+-            self.sim[at].0 * 5.0 / 6.0
+-        };
+-        let past = if to < at {
+-            pixels >= edge
+-        } else {
+-            pixels < edge
+-        };
+-        if past { wanted } else { current }
+-    }
+-
+-    /// One band throughout: the given form at every distance, with this
+-    /// policy's shading.
+-    pub fn fixed(&self, form: Form) -> Self {
+-        Self {
+-            bands: vec![Band {
+-                min_pixels: 0.0,
+-                form,
+-            }],
+-            ..self.clone()
+-        }
+-    }
+-
+-    /// What to draw for a head `pixels` tall. Within a band of strands the
+-    /// share rises smoothly towards the next finer band's, so moving in
+-    /// grows the count rather than stepping it.
+-    pub fn select(&self, pixels: f32, lods: LodCounts) -> Representation {
+-        self.select_blended(pixels, lods).0
+-    }
+-
+-    /// What to draw for a head `pixels` tall, and the coarser form fading
+-    /// in under it near the bottom of its band. At the band's lower edge
+-    /// the blend is all the coarser form, which is what the band below
+-    /// draws at its top: the hand-over is continuous.
+-    pub fn select_blended(&self, pixels: f32, lods: LodCounts) -> (Representation, Option<Blend>) {
+-        let at = self.band(pixels);
+-        let form = self.form(at, pixels, lods);
+-        let lo = self.bands[at].min_pixels;
+-        if self.blend <= 0.0 || at + 1 >= self.bands.len() || lo <= 0.0 {
+-            return (form, None);
+-        }
+-        let amount = 1.0 - (pixels - lo) / (lo * self.blend);
+-        if amount <= 0.0 {
+-            return (form, None);
+-        }
+-        let to = self.form(at + 1, lo, lods);
+-        (
+-            form,
+-            Some(Blend {
+-                to,
+-                amount: amount.min(1.0),
+-            }),
+-        )
+-    }
+-
+-    fn band(&self, pixels: f32) -> usize {
+-        self.bands
+-            .iter()
+-            .position(|b| pixels >= b.min_pixels)
+-            .unwrap_or(self.bands.len() - 1)
+-    }
+-
+-    /// Band `at`'s form for a head `pixels` tall.
+-    fn form(&self, at: usize, pixels: f32, lods: LodCounts) -> Representation {
+-        let total = lods.strands;
+-        match self.bands[at].form {
+-            Form::Cards { level } => Representation::Cards {
+-                level: level.min(lods.cards.saturating_sub(1)),
+-            },
+-            Form::Strands { level, share } => {
+-                let mut share = share;
+-                if at > 0
+-                    && let Form::Strands { share: finer, .. } = self.bands[at - 1].form
+-                {
+-                    let lo = self.bands[at].min_pixels;
+-                    let hi = self.bands[at - 1].min_pixels;
+-                    let t = ((pixels - lo) / (hi - lo).max(1.0)).clamp(0.0, 1.0);
+-                    share += (finer - share) * t;
+-                }
+-                let count = ((total as f32 * share).round() as usize).clamp(1.min(total), total);
+-                Representation::Strands {
+-                    level: level.min(lods.levels.saturating_sub(1)),
+-                    count,
+-                    width_scale: total as f32 / count.max(1) as f32,
+-                }
+-            }
+-        }
+-    }
+-
+-    /// The strands that cast shadows: the policy's shadow level and share.
+-    pub fn shadow(&self, lods: LodCounts) -> Representation {
+-        let total = lods.strands;
+-        let count =
+-            ((total as f32 * self.shadow_share).round() as usize).clamp(1.min(total), total);
+-        Representation::Strands {
+-            level: self.shadow_level.min(lods.levels.saturating_sub(1)),
+-            count,
+-            width_scale: total as f32 / count.max(1) as f32,
+-        }
+-    }
+-}
+diff --git a/crates/fabelgeist-hair/src/lod/counts.rs b/crates/fabelgeist-hair/src/lod/counts.rs
+new file mode 100644
+index 000000000..688e2eff3
+--- /dev/null
++++ b/crates/fabelgeist-hair/src/lod/counts.rs
+@@ -0,0 +1,84 @@
++//! Host level populations and ordinals; native resource layouts check their
++//! separate byte and draw limits at the GPU boundary.
++
++use crate::parameters::StrandCount;
++
++/// Populations available to the policy, from the host or GPU groom producer.
++#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
++pub struct LodCounts {
++    pub strands: StrandCount,
++    pub levels: StrandLevelCount,
++    pub cards: CardLevelCount,
++}
++
++/// Number of strand levels, including levels with no strands.
++#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
++pub struct StrandLevelCount(usize);
++
++/// Number of card meshes prepared at different detail levels.
++#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
++pub struct CardLevelCount(usize);
++
++/// An ordinal in the strand-level collection; membership is checked at use.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct StrandLevelIndex(usize);
++
++/// An ordinal in the card-level collection; membership is checked at use.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct CardLevelIndex(usize);
++
++impl StrandLevelCount {
++    pub const fn from_count(count: usize) -> Self {
++        Self(count)
++    }
++
++    /// Collection or numerical selection boundary.
++    pub const fn count(self) -> usize {
++        self.0
++    }
++
++    pub fn select(self, requested: StrandLevelIndex) -> Option<StrandLevelIndex> {
++        self.0
++            .checked_sub(1)
++            .map(|last| StrandLevelIndex(requested.0.min(last)))
++    }
++}
++
++impl CardLevelCount {
++    pub const fn from_count(count: usize) -> Self {
++        Self(count)
++    }
++
++    /// Collection or numerical selection boundary.
++    pub const fn count(self) -> usize {
++        self.0
++    }
++
++    pub fn select(self, requested: CardLevelIndex) -> Option<CardLevelIndex> {
++        self.0
++            .checked_sub(1)
++            .map(|last| CardLevelIndex(requested.0.min(last)))
++    }
++}
++
++impl StrandLevelIndex {
++    pub const fn from_index(index: usize) -> Self {
++        Self(index)
++    }
++
++    /// Index a host collection or cross a native ordinal boundary.
++    pub const fn index(self) -> usize {
++        self.0
++    }
++}
++
++impl CardLevelIndex {
++    pub const fn from_index(index: usize) -> Self {
++        Self(index)
++    }
++
++    /// Index a host collection or cross a native ordinal boundary.
++    pub const fn index(self) -> usize {
++        self.0
++    }
++}
+diff --git a/crates/fabelgeist-hair/src/lod/policy.rs b/crates/fabelgeist-hair/src/lod/policy.rs
+new file mode 100644
+index 000000000..c6f11d045
+--- /dev/null
++++ b/crates/fabelgeist-hair/src/lod/policy.rs
+@@ -0,0 +1,259 @@
++//! Screen-size selection and shading policies for a prepared groom.
++
++use super::{CardLevelIndex, LodCounts, PixelSpan, Quality, StrandLevelIndex};
++use crate::parameters::StrandCount;
++use crate::sim::SimLevel;
++use fabelgeist_math::Ratio;
++
++pub type PolicyResult<T> = std::result::Result<T, LodPolicyError>;
++
++/// A coarser form fading in under the one a band draws: `amount` of the way
++/// from the band's own form to `to`.
++#[derive(Clone, Copy, Debug, PartialEq)]
++pub struct Blend {
++    pub to: Representation,
++    pub amount: Ratio,
++}
++
++/// The representation of the selected band and its coarser transition.
++#[derive(Clone, Copy, Debug, PartialEq)]
++pub struct Selection {
++    pub representation: Representation,
++    pub blend: Option<Blend>,
++}
++
++/// A band of on-screen sizes and what is drawn in it.
++#[derive(Clone, Copy, Debug)]
++pub struct Band {
++    /// The head is at least this many pixels tall.
++    pub min_pixels: PixelSpan,
++    pub form: Form,
++}
++
++#[derive(Clone, Debug)]
++pub struct LodPolicy {
++    pub name: &'static str,
++    /// From the largest on screen down.
++    pub bands: Vec<Band>,
++    pub quality: Quality,
++    /// Shadows are cast by this strand level and share, whatever is drawn.
++    pub shadow_level: StrandLevelIndex,
++    pub shadow_share: Ratio,
++    /// Over how much of a band's lower edge, as a share of it, the next
++    /// coarser form fades in: 0.4 fades from 1.4 times the edge down to it.
++    pub blend: Ratio,
++    /// How finely the hair is simulated, by the head's height on screen in
++    /// pixels, largest first: each level from its height up.
++    pub sim: Vec<SimBand>,
++}
++
++/// Simulation detail selected from an on-screen size threshold.
++#[derive(Clone, Copy, Debug)]
++pub struct SimBand {
++    pub min_pixels: PixelSpan,
++    pub level: SimLevel,
++}
++
++/// What to draw this frame.
++#[derive(Clone, Copy, Debug, PartialEq)]
++pub enum Representation {
++    /// No groom geometry has been prepared.
++    Empty,
++    /// The first `count` strands of `level`, `width_scale` times as wide.
++    Strands {
++        level: StrandLevelIndex,
++        count: StrandCount,
++        width_scale: Ratio,
++    },
++    Cards {
++        level: CardLevelIndex,
++    },
++}
++
++#[derive(Clone, Copy, Debug, PartialEq)]
++pub enum Form {
++    /// A share of the strands at a level.
++    Strands {
++        level: StrandLevelIndex,
++        share: Ratio,
++    },
++    Cards {
++        level: CardLevelIndex,
++    },
++}
++
++/// A policy cannot select a representation from an empty band collection.
++#[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
++pub enum LodPolicyError {
++    #[error("a level-of-detail policy needs at least one band")]
++    EmptyBands,
++    #[error("the selected policy form needs a strand level")]
++    MissingStrandLevels,
++    #[error("the selected policy form needs a card level")]
++    MissingCardLevels,
++    #[error("a nonempty strand population needs a strand level")]
++    StrandsWithoutLevels,
++}
++
++impl LodPolicy {
++    /// How finely to simulate a head `pixels` tall.
++    pub fn sim_level(&self, pixels: PixelSpan) -> SimLevel {
++        self.sim
++            .iter()
++            .find(|band| pixels >= band.min_pixels)
++            .or(self.sim.last())
++            .map_or(SimLevel::MEDIUM, |band| band.level)
++    }
++
++    /// [`LodPolicy::sim_level`], staying at `current` until the head is a
++    /// sixth past the edge it would cross: a level change rebuilds the
++    /// simulation, and a head resting on an edge should not flicker across
++    /// it.
++    pub fn sim_level_from(&self, current: SimLevel, pixels: PixelSpan) -> SimLevel {
++        let wanted = self.sim_level(pixels);
++        if wanted == current {
++            return current;
++        }
++        let rank = |level: SimLevel| self.sim.iter().position(|band| band.level == level);
++        let (Some(at), Some(to)) = (rank(current), rank(wanted)) else {
++            return wanted;
++        };
++        // Finer: past the finer level's edge by a sixth; coarser: below the
++        // current level's edge by a sixth.
++        let edge = if to < at {
++            self.sim[to].min_pixels.pixels() * 7.0 / 6.0
++        } else {
++            self.sim[at].min_pixels.pixels() * 5.0 / 6.0
++        };
++        let past = if to < at {
++            pixels.pixels() >= edge
++        } else {
++            pixels.pixels() < edge
++        };
++        if past { wanted } else { current }
++    }
++
++    /// One band throughout: the given form at every distance, with this
++    /// policy's shading.
++    pub fn fixed(&self, form: Form) -> Self {
++        Self {
++            bands: vec![Band {
++                min_pixels: PixelSpan::from_pixels(0.0),
++                form,
++            }],
++            ..self.clone()
++        }
++    }
++
++    /// What to draw for a head `pixels` tall. Within a band of strands the
++    /// share rises smoothly towards the next finer band's, so moving in
++    /// grows the count rather than stepping it.
++    pub fn select(&self, pixels: PixelSpan, lods: LodCounts) -> PolicyResult<Representation> {
++        Ok(self.select_blended(pixels, lods)?.representation)
++    }
++
++    /// What to draw for a head `pixels` tall, and the coarser form fading
++    /// in under it near the bottom of its band. At the band's lower edge
++    /// the blend is all the coarser form, which is what the band below
++    /// draws at its top: the hand-over is continuous.
++    ///
++    /// Returns [`LodPolicyError::EmptyBands`] when no band is configured.
++    /// An absent requested geometry family is an error when another family
++    /// exists; a groom with no levels selects [`Representation::Empty`].
++    /// Nonempty strand counts require an actual strand level.
++    /// With a nonempty collection, noncomparable pixel heights retain the
++    /// last-band selection used by the numerical policy.
++    pub fn select_blended(&self, pixels: PixelSpan, lods: LodCounts) -> PolicyResult<Selection> {
++        let at = self.band(pixels).ok_or(LodPolicyError::EmptyBands)?;
++        if lods.levels.count() == 0 && lods.strands.count() != 0 {
++            return Err(LodPolicyError::StrandsWithoutLevels);
++        }
++        if lods.levels.count() == 0 && lods.cards.count() == 0 {
++            return Ok(Selection {
++                representation: Representation::Empty,
++                blend: None,
++            });
++        }
++        let form = self.form(at, pixels, lods)?;
++        let lo = self.bands[at].min_pixels;
++        if self.blend.ratio() <= 0.0 || at + 1 >= self.bands.len() || lo.pixels() <= 0.0 {
++            return Ok(Selection {
++                representation: form,
++                blend: None,
++            });
++        }
++        let amount = 1.0 - (pixels.pixels() - lo.pixels()) / (lo.pixels() * self.blend.ratio());
++        if amount <= 0.0 {
++            return Ok(Selection {
++                representation: form,
++                blend: None,
++            });
++        }
++        let to = self.form(at + 1, lo, lods)?;
++        Ok(Selection {
++            representation: form,
++            blend: Some(Blend {
++                to,
++                amount: Ratio::from_ratio(amount.min(1.0)),
++            }),
++        })
++    }
++
++    fn band(&self, pixels: PixelSpan) -> Option<usize> {
++        self.bands
++            .iter()
++            .position(|b| pixels >= b.min_pixels)
++            .or_else(|| self.bands.len().checked_sub(1))
++    }
++
++    /// Band `at`'s form for a head `pixels` tall.
++    fn form(&self, at: usize, pixels: PixelSpan, lods: LodCounts) -> PolicyResult<Representation> {
++        // The policy interpolation kernel counts strands in a float prefix;
++        // convert the admitted population only for this arithmetic.
++        let total = lods.strands.count();
++        match self.bands[at].form {
++            Form::Cards { level } => Ok(Representation::Cards {
++                level: lods
++                    .cards
++                    .select(level)
++                    .ok_or(LodPolicyError::MissingCardLevels)?,
++            }),
++            Form::Strands { level, share } => {
++                let level = lods
++                    .levels
++                    .select(level)
++                    .ok_or(LodPolicyError::MissingStrandLevels)?;
++                let mut share = share.ratio();
++                if at > 0
++                    && let Form::Strands { share: finer, .. } = self.bands[at - 1].form
++                {
++                    let lo = self.bands[at].min_pixels.pixels();
++                    let hi = self.bands[at - 1].min_pixels.pixels();
++                    let t = ((pixels.pixels() - lo) / (hi - lo).max(1.0)).clamp(0.0, 1.0);
++                    share += (finer.ratio() - share) * t;
++                }
++                let count = ((total as f32 * share).round() as usize).clamp(1.min(total), total);
++                Ok(Representation::Strands {
++                    level,
++                    count: StrandCount::from_count(count),
++                    width_scale: Ratio::from_ratio(total as f32 / count.max(1) as f32),
++                })
++            }
++        }
++    }
++
++    /// The strands that cast shadows; empty when no strand level exists.
++    pub fn shadow(&self, lods: LodCounts) -> Representation {
++        let Some(level) = lods.levels.select(self.shadow_level) else {
++            return Representation::Empty;
++        };
++        let total = lods.strands.count();
++        let count = ((total as f32 * self.shadow_share.ratio()).round() as usize)
++            .clamp(1.min(total), total);
++        Representation::Strands {
++            level,
++            count: StrandCount::from_count(count),
++            width_scale: Ratio::from_ratio(total as f32 / count.max(1) as f32),
++        }
++    }
++}
+diff --git a/crates/fabelgeist-hair/src/lod/presets.rs b/crates/fabelgeist-hair/src/lod/presets.rs
+new file mode 100644
+index 000000000..4825a3239
+--- /dev/null
++++ b/crates/fabelgeist-hair/src/lod/presets.rs
+@@ -0,0 +1,162 @@
++//! Authored screen-size and shading policies for the three render targets.
++
++use super::{AccumulationFrames, Band, CardLevelIndex, Form, HairShading, LodPolicy};
++use super::{PixelSpan, Quality, ShadowMapSize, ShadowQuality, SimBand, StrandLevelIndex};
++use crate::sim::SimLevel;
++use fabelgeist_math::Ratio;
++
++impl LodPolicy {
++    /// Every strand at every point, always.
++    pub fn cinematic() -> Self {
++        Self {
++            name: "Cinematic",
++            bands: vec![Band {
++                min_pixels: PixelSpan::from_pixels(0.0),
++                form: Form::Strands {
++                    level: StrandLevelIndex::from_index(0),
++                    share: Ratio::from_ratio(1.0),
++                },
++            }],
++            quality: Quality {
++                shading: HairShading::Marschner,
++                shadows: ShadowQuality::DeepOpacity {
++                    size: ShadowMapSize::from_texels(2048),
++                },
++                accumulate: AccumulationFrames::from_count(64),
++                min_pixels: PixelSpan::from_pixels(0.5),
++            },
++            shadow_level: StrandLevelIndex::from_index(0),
++            shadow_share: Ratio::from_ratio(1.0),
++            blend: Ratio::from_ratio(0.0),
++            sim: vec![SimBand {
++                min_pixels: PixelSpan::from_pixels(0.0),
++                level: SimLevel::HIGH,
++            }],
++        }
++    }
++
++    /// Strands close up, thinning with distance, cards far away. Every
++    /// strand until the head is under 300 pixels tall -- a head in a
++    /// medium shot at 1080p -- so what is coarser only shows where too
++    /// little of it is on screen to tell.
++    pub fn desktop() -> Self {
++        Self {
++            name: "Desktop",
++            bands: vec![
++                Band {
++                    min_pixels: PixelSpan::from_pixels(300.0),
++                    form: Form::Strands {
++                        level: StrandLevelIndex::from_index(0),
++                        share: Ratio::from_ratio(1.0),
++                    },
++                },
++                Band {
++                    min_pixels: PixelSpan::from_pixels(150.0),
++                    form: Form::Strands {
++                        level: StrandLevelIndex::from_index(1),
++                        share: Ratio::from_ratio(0.5),
++                    },
++                },
++                Band {
++                    min_pixels: PixelSpan::from_pixels(70.0),
++                    form: Form::Strands {
++                        level: StrandLevelIndex::from_index(2),
++                        share: Ratio::from_ratio(0.2),
++                    },
++                },
++                Band {
++                    min_pixels: PixelSpan::from_pixels(32.0),
++                    form: Form::Cards {
++                        level: CardLevelIndex::from_index(0),
++                    },
++                },
++                Band {
++                    min_pixels: PixelSpan::from_pixels(0.0),
++                    form: Form::Cards {
++                        level: CardLevelIndex::from_index(1),
++                    },
++                },
++            ],
++            quality: Quality {
++                shading: HairShading::Marschner,
++                shadows: ShadowQuality::DeepOpacity {
++                    size: ShadowMapSize::from_texels(1024),
++                },
++                accumulate: AccumulationFrames::from_count(8),
++                min_pixels: PixelSpan::from_pixels(1.0),
++            },
++            shadow_level: StrandLevelIndex::from_index(2),
++            shadow_share: Ratio::from_ratio(0.25),
++            blend: Ratio::from_ratio(0.4),
++            sim: vec![
++                SimBand {
++                    min_pixels: PixelSpan::from_pixels(260.0),
++                    level: SimLevel::HIGH,
++                },
++                SimBand {
++                    min_pixels: PixelSpan::from_pixels(110.0),
++                    level: SimLevel::MEDIUM,
++                },
++                SimBand {
++                    min_pixels: PixelSpan::from_pixels(0.0),
++                    level: SimLevel::LOW,
++                },
++            ],
++        }
++    }
++
++    /// A fifth of the strands close up, a tenth further, cards far away;
++    /// cheap shading and only baked shadowing.
++    pub fn mobile() -> Self {
++        Self {
++            name: "Mobile",
++            bands: vec![
++                Band {
++                    min_pixels: PixelSpan::from_pixels(300.0),
++                    form: Form::Strands {
++                        level: StrandLevelIndex::from_index(2),
++                        share: Ratio::from_ratio(0.2),
++                    },
++                },
++                Band {
++                    min_pixels: PixelSpan::from_pixels(140.0),
++                    form: Form::Strands {
++                        level: StrandLevelIndex::from_index(3),
++                        share: Ratio::from_ratio(0.1),
++                    },
++                },
++                Band {
++                    min_pixels: PixelSpan::from_pixels(55.0),
++                    form: Form::Cards {
++                        level: CardLevelIndex::from_index(0),
++                    },
++                },
++                Band {
++                    min_pixels: PixelSpan::from_pixels(0.0),
++                    form: Form::Cards {
++                        level: CardLevelIndex::from_index(1),
++                    },
++                },
++            ],
++            quality: Quality {
++                shading: HairShading::KajiyaKay,
++                shadows: ShadowQuality::Baked,
++                accumulate: AccumulationFrames::from_count(1),
++                min_pixels: PixelSpan::from_pixels(1.0),
++            },
++            shadow_level: StrandLevelIndex::from_index(3),
++            shadow_share: Ratio::from_ratio(0.1),
++            blend: Ratio::from_ratio(0.4),
++            sim: vec![
++                SimBand {
++                    min_pixels: PixelSpan::from_pixels(220.0),
++                    level: SimLevel::MEDIUM,
++                },
++                SimBand {
++                    min_pixels: PixelSpan::from_pixels(0.0),
++                    level: SimLevel::LOW,
++                },
++            ],
++        }
++    }
++}
+diff --git a/crates/fabelgeist-hair/src/lod/quality.rs b/crates/fabelgeist-hair/src/lod/quality.rs
+new file mode 100644
+index 000000000..e808dcc77
+--- /dev/null
++++ b/crates/fabelgeist-hair/src/lod/quality.rs
+@@ -0,0 +1,105 @@
++//! Screen-space quantities and the shading choices carried into a renderer.
++
++const MIN_SHADOW_MAP_TEXELS: u32 = 16;
++
++/// A fractional distance on screen, in pixels. Numerical policy calculations
++/// retain signed and non-finite input semantics; render admission checks the
++/// effective finite values before publishing a frame.
++#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd)]
++pub struct PixelSpan(f32);
++
++/// Number of samples in a temporal running mean. Zero is an unrendered mean;
++/// a requested target always requires at least one sample.
++#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
++pub struct AccumulationFrames(u32);
++
++/// Width and height in texels of a square deep-opacity map. The existing
++/// renderer minimum is retained; the native device owns upper size limits.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct ShadowMapSize(u32);
++
++/// How the hair is shaded and accumulated.
++#[derive(Clone, Copy, Debug, PartialEq)]
++pub struct Quality {
++    pub shading: HairShading,
++    pub shadows: ShadowQuality,
++    pub accumulate: AccumulationFrames,
++    /// Narrower strands fade instead of becoming thinner.
++    pub min_pixels: PixelSpan,
++}
++
++/// The real-time hair reflectance model.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum HairShading {
++    /// Marschner's three lobes with multiple scattering, using Karis' fit.
++    Marschner,
++    /// Kajiya-Kay with two shifted highlights.
++    KajiyaKay,
++}
++
++/// Live key-light shadows, or only the groom's baked occlusion.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum ShadowQuality {
++    Baked,
++    DeepOpacity { size: ShadowMapSize },
++}
++
++impl PixelSpan {
++    pub const fn from_pixels(pixels: f32) -> Self {
++        Self(pixels)
++    }
++
++    /// Scalar for a screen-space numerical kernel or native shader uniform.
++    pub const fn pixels(self) -> f32 {
++        self.0
++    }
++}
++
++impl AccumulationFrames {
++    pub const fn from_count(count: u32) -> Self {
++        Self(count)
++    }
++
++    /// Sample count for output or the temporal numerical kernel.
++    pub const fn count(self) -> u32 {
++        self.0
++    }
++
++    pub fn target(self) -> Self {
++        Self(self.0.max(1))
++    }
++
++    pub fn next(self) -> Self {
++        Self(self.0.saturating_add(1))
++    }
++
++    pub fn next_weight(self) -> f32 {
++        1.0 / (u64::from(self.0) + 1) as f32
++    }
++}
++
++impl ShadowMapSize {
++    /// Keep the renderer's minimum of sixteen texels per edge.
++    pub fn from_texels(texels: u32) -> Self {
++        Self(texels.max(MIN_SHADOW_MAP_TEXELS))
++    }
++
++    /// Edge extent at the native texture or numerical-kernel boundary.
++    pub const fn texels(self) -> u32 {
++        self.0
++    }
++}
++
++impl ShadowQuality {
++    pub const fn size(self) -> Option<ShadowMapSize> {
++        match self {
++            Self::Baked => None,
++            Self::DeepOpacity { size } => Some(size),
++        }
++    }
++
++    /// Native shader and pass-enable boundary.
++    pub const fn enabled(self) -> bool {
++        matches!(self, Self::DeepOpacity { .. })
++    }
++}

@@ -1,0 +1,1765 @@
+{
+  "kind": "READ_ONLY_PREINTEGRATION_ALL13_DISCOVERY_NOT_CLEARANCE",
+  "root": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator",
+  "root_head": "ead46619dec5ef45993f63202cb289bd3986b018",
+  "incoming_revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "composition_sha256": "5a1670cc3065b74bd0b9ec62863d0edaee690e52f2dff9c59c60746aa4119e9c",
+  "selected_incoming_count": 91,
+  "native_non_generated_count": 85,
+  "shared_generated_count": 6,
+  "unread_generated": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "e638381ad701a4b95e91bc4e3128d8c84526fa81cab3e535895aba1af3c3f975",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_parameters.rs",
+      "sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_error.rs",
+      "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "sha256": "bce3a66580252ce1353e2ae500dc11ea596deea17d46155a2f4fd9584365846d",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "sha256": "818c4f3b02ca461da41b87e7249fe143cefde84345e4540d2e9e1f68137c4a7d",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "sha256": "b0a8b0dc7dc823fb4f24d86350eed7184344e713b65734d7424a3fd3c6f7465b",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "04af568622f691ab9b1b50eea9d3fc38ca514e55fd2ad81ea50caaf23ee6586a",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/tests.rs",
+      "sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "bdebde0792dd5c21e33d8acc172f6bc001f5470ed65beccfaab044a33f4999f8",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "cc7727ee7caed96373fcf49f63b22e670f24458cd447d715492fbe1b80805796",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944"
+    }
+  ],
+  "packet_manifests": [
+    {
+      "path": "target/pr826-audit/handoff-gpu-complete-cac5a7c33/manifest.json",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "80747dc1b081c7f4c63a1f96361251c8f7a6717c7b344df3197cc7965cc6ee60",
+      "files": 83
+    },
+    {
+      "path": "target/pr826-audit/handoff-buffer-admission-919ba9b94/manifest.json",
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "sha256": "a776175d5e9c7d3f84700f64961381f4a99b1556540e9d69036434ddfee9cd11",
+      "files": 2
+    },
+    {
+      "path": "target/pr826-audit/handoff-armor-read-docs-3e74eea62/manifest.json",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+      "sha256": "fe2857d08c63de2720b3178e847eec9e3f2a20adc79e69bd191afdb4573e6acc",
+      "files": 2
+    },
+    {
+      "path": "target/pr826-audit/handoff-native-baseline-d7da77bb9/manifest.json",
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "sha256": "f39f20068e01c1da5caffec8aba6c664b3cbcd53ca2cda6d9a2872aff4a0ee7e",
+      "files": 1
+    },
+    {
+      "path": "target/pr826-audit/handoff-generated-compute-ccb1b6944/manifest.json",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "65379822010b70c8c34beb478dc299ee193b5267ee6ef97fbf803d2d122f00cb",
+      "files": 51
+    }
+  ],
+  "manifest_limits": "Original five manifest files are not present at their referenced paths in Root; composition metadata and frozen136 source hashes verified directly. Their separate proof/review claims are not reverified or used as clearance.",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "incoming_sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "root_sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "incoming_lines": 187,
+      "root_lines": 179,
+      "receipt": "handoff-armor-read-docs-3e74eea62",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "incoming_sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "root_sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "incoming_lines": 146,
+      "root_lines": 135,
+      "receipt": "handoff-armor-read-docs-3e74eea62",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-R4"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "incoming_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "root_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "incoming_lines": 43,
+      "root_lines": 43,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "incoming_sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+      "root_sha256": "38199fb00b79762a561f7096004f7eda3542a2f1db94d8e2b223f1e46f421752",
+      "incoming_lines": 36,
+      "root_lines": 47,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "incoming_sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "root_sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "incoming_lines": 18,
+      "root_lines": 18,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "incoming_sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "root_sha256": "955f5bb0e7dc346933dab81076091f23ba15158a268849dcc0121858fc648658",
+      "incoming_lines": 167,
+      "root_lines": 172,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "incoming_sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "root_sha256": "6531a6cac487b5a8649caeb8835197c208ba8b19ea8c13e152f686b0f1404a8f",
+      "incoming_lines": 73,
+      "root_lines": 79,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+      "incoming_sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "root_sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "incoming_lines": 120,
+      "root_lines": 120,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/admission_error.rs",
+      "incoming_sha256": "a5a41a86f6c2a1e31715329fe4a234d8d9c30dd4c972660c405e4cbeade13a40",
+      "root_sha256": null,
+      "incoming_lines": 41,
+      "root_lines": null,
+      "receipt": "handoff-buffer-admission-919ba9b94",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_NEW typed local admission owner; preserve Root other buffer APIs",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "incoming_sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "root_sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "incoming_lines": 47,
+      "root_lines": 48,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "incoming_sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "root_sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "incoming_lines": 140,
+      "root_lines": 140,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "incoming_sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "root_sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "incoming_lines": 49,
+      "root_lines": 49,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "incoming_sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "root_sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "incoming_lines": 53,
+      "root_lines": 53,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "incoming_sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "root_sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "incoming_lines": 28,
+      "root_lines": 28,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "incoming_sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "root_sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "incoming_lines": 153,
+      "root_lines": 142,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "incoming_sha256": "abac05c4f4b49a90348a933fb2655b9417c4e52edd52aad390e111d831118e02",
+      "root_sha256": "86e926ab47cd284d07a0e14265aaf7b5ba3ce1b6cc5e2aff66328e05f67aee02",
+      "incoming_lines": 117,
+      "root_lines": 113,
+      "receipt": "handoff-buffer-admission-919ba9b94",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "MUST_COMPOSE canonical Root capacity/stride + incoming admission/visibility",
+      "findings": [
+        "NATIVE-COMPOSE-1"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "incoming_sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "root_sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+      "incoming_lines": 50,
+      "root_lines": 50,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "incoming_sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "root_sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "incoming_lines": 76,
+      "root_lines": 76,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "incoming_sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "root_sha256": "fd6c4991e13b343c21b396b8aada2480b03508500184761d217c1237bb1c52cb",
+      "incoming_lines": 101,
+      "root_lines": 101,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "incoming_sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "root_sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "incoming_lines": 101,
+      "root_lines": 101,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "incoming_sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "root_sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "incoming_lines": 62,
+      "root_lines": 62,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "incoming_sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "root_sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "incoming_lines": 60,
+      "root_lines": 60,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "incoming_sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "root_sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "incoming_lines": 225,
+      "root_lines": 216,
+      "receipt": "handoff-generated-compute-ccb1b6944",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "FINAL_GENERATED_OVERRIDE; preserve actual Root owner/caller composition; peer generated review needed",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "incoming_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "root_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "incoming_lines": 150,
+      "root_lines": 150,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "incoming_sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "root_sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "incoming_lines": 109,
+      "root_lines": 109,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "incoming_sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "root_sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "incoming_lines": 76,
+      "root_lines": 81,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "incoming_sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "root_sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "incoming_lines": 141,
+      "root_lines": 141,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "incoming_sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "root_sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "incoming_lines": 1,
+      "root_lines": 1,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "incoming_sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "root_sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "incoming_lines": 55,
+      "root_lines": 55,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "incoming_sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "root_sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "incoming_lines": 64,
+      "root_lines": 69,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "incoming_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "root_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "incoming_lines": 40,
+      "root_lines": 40,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "incoming_sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "root_sha256": "9ad9d82531693820aff5a33f0b7ee8afdefa9ef4fb790fc87b77977cb9e3fb04",
+      "incoming_lines": 121,
+      "root_lines": 120,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "incoming_sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "root_sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "incoming_lines": 211,
+      "root_lines": 201,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "incoming_sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "root_sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "incoming_lines": 202,
+      "root_lines": 206,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "incoming_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "root_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "incoming_lines": 79,
+      "root_lines": 79,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "incoming_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "root_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "incoming_lines": 55,
+      "root_lines": 55,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "incoming_sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "root_sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "incoming_lines": 109,
+      "root_lines": 103,
+      "receipt": "handoff-generated-compute-ccb1b6944",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "FINAL_GENERATED_OVERRIDE; preserve actual Root owner/caller composition; peer generated review needed",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "incoming_sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "root_sha256": "5cb92b1488c3e0ea14c98488795775c6fe4c190f5c60af878f5a96a36a867a92",
+      "incoming_lines": 250,
+      "root_lines": 253,
+      "receipt": "handoff-generated-compute-ccb1b6944",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "FINAL_GENERATED_OVERRIDE; preserve actual Root owner/caller composition; peer generated review needed",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "incoming_sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "root_sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "incoming_lines": 87,
+      "root_lines": 88,
+      "receipt": "handoff-generated-compute-ccb1b6944",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "FINAL_GENERATED_OVERRIDE; preserve actual Root owner/caller composition; peer generated review needed",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "incoming_sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "root_sha256": null,
+      "incoming_lines": 26,
+      "root_lines": null,
+      "receipt": "handoff-generated-compute-ccb1b6944",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "FINAL_GENERATED_OVERRIDE; preserve actual Root owner/caller composition; peer generated review needed",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "incoming_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "root_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "incoming_lines": 97,
+      "root_lines": 97,
+      "receipt": "handoff-generated-compute-ccb1b6944",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "FINAL_GENERATED_OVERRIDE; preserve actual Root owner/caller composition; peer generated review needed",
+      "findings": [
+        "NATIVE-R4"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "incoming_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "root_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "incoming_lines": 82,
+      "root_lines": 82,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "incoming_sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "root_sha256": "6374f05b0a75509d506cf5af75fd6716cbfba40a8764bfda36bbbc1df8f7cfbe",
+      "incoming_lines": 197,
+      "root_lines": 205,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-R2"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "incoming_sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "root_sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "incoming_lines": 17,
+      "root_lines": 17,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": [
+        "NATIVE-R5"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "incoming_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "root_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "incoming_lines": 42,
+      "root_lines": 42,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": [
+        "NATIVE-R5"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "incoming_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "root_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "incoming_lines": 129,
+      "root_lines": 129,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "incoming_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "root_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "incoming_lines": 102,
+      "root_lines": 102,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs",
+      "incoming_sha256": "604de4f2bb1105ea0d729780e93ce8af38aa16343cf8a7021d4315391e98d5fa",
+      "root_sha256": "604de4f2bb1105ea0d729780e93ce8af38aa16343cf8a7021d4315391e98d5fa",
+      "incoming_lines": 45,
+      "root_lines": 45,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/filter_mode.rs",
+      "incoming_sha256": "ac95b5629dc262b432ed5b277ac88a70f861a93828c0744041994035d9a80d77",
+      "root_sha256": "ac95b5629dc262b432ed5b277ac88a70f861a93828c0744041994035d9a80d77",
+      "incoming_lines": 40,
+      "root_lines": 40,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs",
+      "incoming_sha256": "f0466918aad4e1e36aedb3586691bbe8104055d86a85a6e51e67fba76e84b198",
+      "root_sha256": "acfa2a3f08dd06fa8ddef5f8b981f0f706632cc3619c6914db1b0ce36f13e8f4",
+      "incoming_lines": 53,
+      "root_lines": 52,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "incoming_sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "root_sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "incoming_lines": 103,
+      "root_lines": 103,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "incoming_sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc",
+      "root_sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc",
+      "incoming_lines": 65,
+      "root_lines": 65,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "incoming_sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "root_sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "incoming_lines": 70,
+      "root_lines": 70,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "incoming_sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+      "root_sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+      "incoming_lines": 421,
+      "root_lines": 421,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": [
+        "NATIVE-R1"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "incoming_sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "root_sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "incoming_lines": 35,
+      "root_lines": 35,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "incoming_sha256": "7fb81a38c012a749919c9addd0d99a42386e333e227042d87bd58c270dc5b9b7",
+      "root_sha256": "af62bc5f779bdd68942676c201137eec786b0c405216c1626b4b414cab2fe98f",
+      "incoming_lines": 26,
+      "root_lines": 23,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs",
+      "incoming_sha256": "0e8f2228f77e50b2c97529d2c473639157d1c24b87f15c02feb8f24ed1f95500",
+      "root_sha256": null,
+      "incoming_lines": 107,
+      "root_lines": null,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "incoming_sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "root_sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "incoming_lines": 93,
+      "root_lines": 93,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "incoming_sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "root_sha256": "339eb4bc4fecb2b3bf33e8b486b0a42214398ce4a391687745cce49464b267d9",
+      "incoming_lines": 166,
+      "root_lines": 179,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-R3"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "incoming_sha256": "a67548746be5f5abcd6d774695abff5b2b8bd8fb0ecab8628080f4a60aebf8e8",
+      "root_sha256": "b7a403ce0f4a856e97457918a1b1fe9a0d4e34fc8365ce806107ff48a6d4d049",
+      "incoming_lines": 255,
+      "root_lines": 239,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-R1"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "incoming_sha256": "e7408782d1ee0fc74edb3340badaa4f0acab3f3a1c02e09409b07a08dabfa758",
+      "root_sha256": "537cbf39f00bc36c4f46ff60a6b550037b283eedafcf41d3975274e5f3e61184",
+      "incoming_lines": 460,
+      "root_lines": 643,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-R1",
+        "NATIVE-R2"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "incoming_sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "root_sha256": "a084bd9266444ce4ed50458bfac88cc19e31ba899933eea8ad1ec20f176934ac",
+      "incoming_lines": 112,
+      "root_lines": 115,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "incoming_sha256": "0ff0d8b9fd6f211ea8a6201e62fbf88efbbe2ca000c60c7f31a1a9b3d12c9f2b",
+      "root_sha256": "31fcc315c4314f2d63153aac4b2db696eae5a02d5ce7ae97881460e06a251295",
+      "incoming_lines": 161,
+      "root_lines": 272,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-R1"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "incoming_sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "root_sha256": "2a09fff5d2d38ccd60190e1d41cd806f8298d3c40cb27bccb2a7844febdc7952",
+      "incoming_lines": 112,
+      "root_lines": 115,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "incoming_sha256": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+      "root_sha256": null,
+      "incoming_lines": 266,
+      "root_lines": null,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs",
+      "incoming_sha256": "d03d1c6cb9ab00b4aae865671847228dc2a59bd637c635a5f2b3538d7423dfd5",
+      "root_sha256": "f87b692b2940ed4e0d4cab594bf78080bb75520040d9708e518977570b2edc42",
+      "incoming_lines": 74,
+      "root_lines": 72,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-R1",
+        "NATIVE-R3"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "incoming_sha256": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+      "root_sha256": "1b980d4e70b78653c3c8c246e2cf7da33f4bc5cec208060e5ef4acbf059ba24e",
+      "incoming_lines": 315,
+      "root_lines": 898,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-R1"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "incoming_sha256": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+      "root_sha256": null,
+      "incoming_lines": 213,
+      "root_lines": null,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs",
+      "incoming_sha256": "4f45dd45651aac781e71120454d88879e337bd5e1180fc622198cf296ad35326",
+      "root_sha256": null,
+      "incoming_lines": 89,
+      "root_lines": null,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "incoming_sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "root_sha256": "1a0b48f936366ef8573be58c96d41f8a0d591cae174944a7341e0d7812cf4f95",
+      "incoming_lines": 202,
+      "root_lines": 215,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "incoming_sha256": "c30ddad210dd9cbbacce5e1d8a1039aedd92a3a0d1a0a8f55adb7ab9330afdcb",
+      "root_sha256": "8582bd7ded85294c4a99ebc90c39a80ec4d6eeb00c9a711b6f3ec29dba691f17",
+      "incoming_lines": 281,
+      "root_lines": 360,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-R1"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs",
+      "incoming_sha256": "3aa3c6b11409ec3885e7a8d509d0a98f2b393066ed1ccd9ad21123e6eb694947",
+      "root_sha256": null,
+      "incoming_lines": 184,
+      "root_lines": null,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "incoming_sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "root_sha256": "8c69fd43e818b86bee07c975f463afbbf8d62250a9a86cd65a995237d9ba1dcc",
+      "incoming_lines": 165,
+      "root_lines": 125,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "incoming_sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "root_sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "incoming_lines": 13,
+      "root_lines": 13,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": [
+        "NATIVE-R5"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "incoming_sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "root_sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "incoming_lines": 70,
+      "root_lines": 70,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "incoming_sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "root_sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "incoming_lines": 11,
+      "root_lines": 11,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "incoming_sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "root_sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "incoming_lines": 113,
+      "root_lines": 113,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+      "incoming_sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+      "root_sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+      "incoming_lines": 320,
+      "root_lines": 320,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "incoming_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "root_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "incoming_lines": 86,
+      "root_lines": 86,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "incoming_sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "root_sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "incoming_lines": 124,
+      "root_lines": 124,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "incoming_sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "root_sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "incoming_lines": 30,
+      "root_lines": 30,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "incoming_sha256": "5903e47b681dbb1deeee4219ccf3a10bdb56776d681ab78edd500aa515a5f6c1",
+      "root_sha256": "dde02c3c137d5ac3722f28e2eab7db9eb82506ef0b64d182dd52a42b4876bbb5",
+      "incoming_lines": 188,
+      "root_lines": 185,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "incoming_sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "root_sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "incoming_lines": 44,
+      "root_lines": 43,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "incoming_sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "root_sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "incoming_lines": 25,
+      "root_lines": 24,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "incoming_sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "root_sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "incoming_lines": 14,
+      "root_lines": 14,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "incoming_sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "root_sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "incoming_lines": 5,
+      "root_lines": 5,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/buffer_usage.json",
+      "incoming_sha256": "15232f16dd50015c7c5f683504c0f7be05695d74a39fbebaa7916b4a038166ad",
+      "root_sha256": "15232f16dd50015c7c5f683504c0f7be05695d74a39fbebaa7916b4a038166ad",
+      "incoming_lines": 514,
+      "root_lines": 514,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "ALREADY_IDENTICAL; leave unchanged",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "incoming_sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "root_sha256": null,
+      "incoming_lines": 19,
+      "root_lines": null,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": []
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "incoming_sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "root_sha256": null,
+      "incoming_lines": 201,
+      "root_lines": null,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-R5"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "incoming_sha256": "3d7604f584ef800e7ac26c5e0e963bf30e9a2b2909b2d97e7c9e345eb63e3bfc",
+      "root_sha256": "610d980a0657a3f089b0178979f77f22ce6cb529e46f37ca9c3ecd495709e206",
+      "incoming_lines": 198,
+      "root_lines": 157,
+      "receipt": "handoff-gpu-complete-cac5a7c33",
+      "read_extent": "whole incoming source including existing inline fixtures/docs; current Root differences compared for receiving contract",
+      "disposition": "COPY_CANDIDATE_ONLY after findings/ownership composition; not integration clearance",
+      "findings": [
+        "NATIVE-DOC-1"
+      ]
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "incoming_sha256": "fa4fcada546c6e5f6350d0de7cd7d03e88cd5f4b3ec92034e12432f60c6df8dc",
+      "root_sha256": "bb3a64ed8ec80028324e18ea6eecac8a3a68609eff696b9cf6c58bd556d6fa38",
+      "incoming_lines": 12809,
+      "root_lines": 12828,
+      "receipt": "handoff-native-baseline-d7da77bb9",
+      "read_extent": "complete typed-record TOML metadata comparison",
+      "disposition": "MUST_COMPOSE seven removals only; never wholesale replace",
+      "findings": [
+        "NATIVE-COMPOSE-2"
+      ]
+    }
+  ],
+  "root_dependency_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "read_extent": "whole",
+      "exists": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/capacity.rs",
+      "sha256": "79d9d026debd8f149f80f1c8a7a8e1df362e310e8b5387dc4e25f1eac7032176",
+      "read_extent": "whole",
+      "exists": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425",
+      "read_extent": "whole",
+      "exists": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+      "sha256": "432b9250fbd2810918ab7ca663e1596d715b4cd6a7f4491b109b3dfd6cc8fe6e",
+      "read_extent": "35-85",
+      "exists": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+      "sha256": "abeb15fa7f0450e9807d938e9758918753ef3c6fa0eb4b3162bf4f1832ba3a1d",
+      "read_extent": "1-150,170-215",
+      "exists": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "read_extent": "1-120",
+      "exists": true
+    },
+    {
+      "path": "crates/fabelgeist-color/src/transfer.rs",
+      "sha256": "81b5c5f4a55d8191a178ea71fc618c968db91c2b601fa7b72e0cadf466ecad62",
+      "read_extent": "whole (production+fixtures)",
+      "exists": true
+    },
+    {
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "read_extent": "whole",
+      "exists": true
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "9586a92ca2dcf19911b96b5fd50818df42af552582a7b0955224294ef69b9013",
+      "read_extent": "whole",
+      "exists": true
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "read_extent": "whole",
+      "exists": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_extent": "whole",
+      "exists": true
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_extent": "whole",
+      "exists": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "read_extent": "whole",
+      "exists": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "sha256": "dabc0ed6029883b7507a1df190862761c1f6936fd89f7549832e0bfa7a403bb7",
+      "read_extent": "whole",
+      "exists": true
+    }
+  ],
+  "baseline_comparison": {
+    "files": {
+      "root_count": 208,
+      "incoming_count": 207,
+      "removed": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "ceiling": 899
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+          "ceiling": 538
+        }
+      ],
+      "incoming_only": [
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+          "ceiling": 650
+        }
+      ]
+    },
+    "functions": {
+      "root_count": 482,
+      "incoming_count": 479,
+      "removed": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_shader_raw",
+          "ceiling": 142
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+          "item": "create_bind_groups",
+          "ceiling": 278
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+          "item": "ComputePass::record",
+          "ceiling": 410
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::blit_texture_to_face",
+          "ceiling": 161
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_face_shader_raw",
+          "ceiling": 149
+        }
+      ],
+      "incoming_only": [
+        {
+          "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+          "item": "DualContouringDefinition::new",
+          "ceiling": 442
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+          "item": "MarchingCubesDefinition::new",
+          "ceiling": 224
+        }
+      ]
+    },
+    "findings": {
+      "root_count": 1369,
+      "incoming_count": 1369,
+      "removed": [],
+      "incoming_only": []
+    }
+  },
+  "findings": [
+    {
+      "id": "NATIVE-COMPOSE-1",
+      "priority": 2,
+      "kind": "integration-required",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:5-28",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/capacity.rs"
+      ],
+      "rule": "Canonical lowest shared owner; complete producer propagation; preserve unrelated work.",
+      "evidence": "Incoming Buffer module adds admission_error but omits Root capacity/stride declarations and exports. Root ScalpTextureLayout and Hair rod/collision producers consume BufferElementStride/BufferElementCount; SortScratch.ensure returns BufferCapacityChange. Blind replacement disconnects existing canonical owners.",
+      "repair": "Compose the import/reexport/module union: retain capacity and stride exactly; add admission_error and intended MappingExtent/MappingRequest/Readback crate-GPU visibility. Copy new admission_error.rs; do not create another count/stride/capacity owner or adapter.",
+      "acceptance": "Current Root callers resolve exact original types; only the three old local rejection roots change representation; all buffer allocation/write/prefix/readback bodies retain byte/zero/device/poll contracts."
+    },
+    {
+      "id": "NATIVE-COMPOSE-2",
+      "priority": 2,
+      "kind": "integration-required",
+      "locations": [
+        "rust-quality-baseline.toml"
+      ],
+      "rule": "Apply only relevant reductions; never raise or resurrect ceilings.",
+      "evidence": "Root has 2059 records (208 files,482 functions,1369 findings), incoming 2055 (207,479,1369). Incoming removes seven exact old native records but adds three already removed in Root: Hair gpu/sim.rs650, DualContouringDefinition::new442, MarchingCubesDefinition::new224. Its 2055-survivor statement is relative to donor baseline, not current Root.",
+      "repair": "Remove only seven exact native records from current Root; preserve all other current Root records unchanged, including its three preexisting reductions. No whole incoming baseline replacement.",
+      "acceptance": "Result2052 records (206 files,477 functions,1369 findings), seven removals/no additions/no ceiling changes against this Root; final authoritative hosted baseline export still required."
+    },
+    {
+      "id": "NATIVE-R1",
+      "priority": 2,
+      "kind": "incomplete-semantic-migration",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs:124",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:82-102",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:56",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:61-81,167,280",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs:94,156",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:251",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs:65"
+      ],
+      "rule": "Closed local error classifications have typed owning errors; native source causes remain source errors.",
+      "evidence": "These actual constructors/conversions/reads reject known local states with static strings or anyhow prose while adjacent native buffer/view/pass errors already carry closed roles. For example unsupported PixelFormat conversion is a public static-str error, and invalid native size/unsupported read format cannot be downcast by semantic role.",
+      "repair": "Introduce/reuse focused texture-format, existing size-admission and image-conversion error roles with payloads; convert into existing heterogeneous anyhow boundary as needed. Preserve Display text/error precedence and direct Naga/wgpu/IO error chains. Inventory every actual caller before changing native extent APIs. No new float policy, size type, clamp, exact-byte admission or broad resource framework.",
+      "acceptance": "All enumerated existing guards return inspectable named roles with relevant original dimensions/format. 3D negative/zero max(1) policy, 2D/cube casts and min/max order, uploads trailing-byte behavior, and Image::from_pixels acceptance remain unchanged. No SDK failure is replaced by message-only cause."
+    },
+    {
+      "id": "NATIVE-R2",
+      "priority": 2,
+      "kind": "incomplete-api-and-record-migration",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs:7-10,126-179",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:add_raw,mix_raw"
+      ],
+      "rule": "Closed supported roles in API types; named semantic records; no compatibility adapters.",
+      "evidence": "TextureBinaryOp::execute takes three GpuResource values but rejects every non-Texture2d variant with three prose errors. Only two actual callers already own Texture2d references. Cache key is positional input-A/input-B/output descriptor triple.",
+      "repair": "Change direct execute signature to Texture2d references, migrate its two callers directly, remove impossible variant branches and duplicate wrapping. Replace tuple cache key with named descriptor record. No general-resource overload, temporary primitive adapter, or second implementation.",
+      "acceptance": "Native generated math, input ordering, existing amount float behavior, format descriptors, effective validation policy and device/source cache identity unchanged; wrong dimensionality unrepresentable through this operation."
+    },
+    {
+      "id": "NATIVE-R3",
+      "priority": 2,
+      "kind": "duplicate-canonical-owner",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs:17-21,50-54",
+        "crates/fabelgeist-color/src/transfer.rs:122",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs:15-19",
+        "crates/fabelgeist-color/src/wgpu.rs:203-220"
+      ],
+      "rule": "Reuse canonical shared numerical owner; distinguish native shader boundary from Rust calculation.",
+      "evidence": "Cubemap conversion repeats scalar sRGB decoding twice despite direct Color dependency. Color also exposes enabled wgsl_transfer_functions; converter repeats linear_to_srgb. Canonical WGSL uses max(linear,0) in pow branch; local converter omits it. Existing GPU Cargo enables Color wgpu feature.",
+      "repair": "Reuse Color scalar srgb_to_linear for cubemap Rust branches, retaining clamp/truncation, alpha and BGRA swaps. Reconcile WGSL owner and negative/nonfinite branch semantics explicitly before using shared emitted transfer source; no second independently maintained transfer formula. Do not substitute Image::packed_for, whose no-transfer byte contract differs.",
+      "acceptance": "Actual positive RGB/encoded bytes and alpha policies preserved; incomplete input RGBA groups retain old handling; native shader workgroup/dispatch/layout stays exact except intentional shared function composition; source proof accounts for finite-negative/nonfinite select behavior and shared owner dependency."
+    },
+    {
+      "id": "NATIVE-R4",
+      "priority": 3,
+      "kind": "result-alias-style",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs:32",
+        "crates/fabelgeist-armor/src/gpu/staging.rs:71-75,110"
+      ],
+      "rule": "Trait error parameters explicit; cohesive ordinary same-error APIs use owning alias.",
+      "evidence": "TextureValue TryFrom return is TextureValueResult<Self> although trait sets Self::Error. StagedResults prefix/status are cohesive same-StagingError ordinary methods with explicit repeated Result.",
+      "repair": "TryFrom uses Result<Self,Self::Error>; retain TextureValueResult only for actual ordinary APIs. Add/use StagingResult<T> for prefix/status, preserving GenerateError-returning ArmorGpu methods as their distinct family.",
+      "acceptance": "Signature spelling/declaration only; no error widening/source change, new helper, fixture or assertion."
+    },
+    {
+      "id": "NATIVE-R5",
+      "priority": 3,
+      "kind": "item-order-and-derive",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/mod.rs:1-13",
+        "crates/fabelgeist-gpu/src/data/gpu/mod.rs:1-17",
+        "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs:1-28",
+        "crates/fabelgeist-gpu/tests/texture_views.rs:Method-and-record-declarations"
+      ],
+      "rule": "Imports/reexports before modules; structs before enums; derive equivalent traits when contracts/bounds permit.",
+      "evidence": "Three modules put mod before imports/reexports; texture fixture Method enum precedes structs. PassParameters manual Default is exactly empty IndexMap through new, without extra generic constraints.",
+      "repair": "Move complete declaration/attribute/doc blocks into repository order, preserving cfg and visibility; derive Default on PassParameters and keep new behavior equivalent. Fixture changes limited to ordering existing blocks.",
+      "acceptance": "Exact inverse whole-block source comparison; no fixture case/helper/assertion creation. Do not derive Texture2d/3d/Cube Default: pinned wgpu TextureUsages lacks Default. Do not derive generic ComputeSourceCache Default if it adds Parameters/Value bounds. GPU has no direct thiserror dependency; manual Error impls are not silently derivable through a transitive dependency."
+    },
+    {
+      "id": "NATIVE-DOC-1",
+      "priority": 3,
+      "kind": "durable-doc-scope",
+      "locations": [
+        "crates/fabelgeist-gpu/texture-views.md:192-198"
+      ],
+      "rule": "Root AGENTS: iteration observations/verdicts/transcripts in ignored output; durable guides describe usage/contracts.",
+      "evidence": "Final guide paragraph records earlier software Vulkan observations and current acceptance-run workflow.",
+      "repair": "Keep durable runtime scope and documented limits, retain actual observations in ignored local report rather than durable guide history.",
+      "acceptance": "No claimed hardware/browser/runtime validation inferred from this review or old run; useful API documentation retained."
+    }
+  ],
+  "lenses": [
+    {
+      "order": 1,
+      "lens": "producer-propagation",
+      "contract": "Read authoritative byte/count/stride -> actual scalp layout/readback, Hair rod/collision and SortScratch producer excerpts -> Buffer writes/reads -> pass/native WGSL uploads. Typed launch WorkgroupCount/Grid/Shape and InvocationCount retain distinct roles. Six final shared GPU generated leaves replace older native signature views.",
+      "disposition": "PARTIAL: native source inventory complete; integration and R1/R2 propagation still required. Generated45 and all algorithm producer families are not cleared.",
+      "findings": [
+        "NATIVE-COMPOSE-1",
+        "NATIVE-R1",
+        "NATIVE-R2"
+      ],
+      "connected_repair": "Compose Root count/stride exports, direct Texture2d API/callers, final generated exports without aliases.",
+      "dependencies": "Root capacity/stride and generated51 peer integration; unchanged callers are explicit selected excerpts, not full algorithm verdict.",
+      "acceptance": "No raw adapter loops; actual canonical type identity through retained data and terminal native encoders; generated peer review and joint receiving review required."
+    },
+    {
+      "order": 2,
+      "lens": "existing-type-owners",
+      "contract": "Root BufferByteLength/Offset and ElementCount/Stride own native extents/populations; native Pass owners own dispatch; Color owns Rust/WGSL transfer; TextureFormat/selected view metadata own native format.",
+      "disposition": "ACTIONABLE owner reuse R3; mandatory exports union.",
+      "findings": [
+        "NATIVE-COMPOSE-1",
+        "NATIVE-R3"
+      ],
+      "connected_repair": "Reuse exact Color transfer and existing canonical counts; reconcile WGSL behavior before substitution.",
+      "dependencies": "Color feature wgsl owner enabled by current GPU manifest; shared native functions peer-owned require exact agreement.",
+      "acceptance": "No second count/grid/stride/transfer implementation or temporary primitive wrapper; actual dependency API consumed."
+    },
+    {
+      "order": 3,
+      "lens": "admission-contracts",
+      "contract": "Full read Buffer new/write/from_upload, logical binding/prefix, MappingRequest, image/texture constructors, selected-view device+format admission, pipeline reflection/native compile. Errors typed for bytes/poll/map/channel/native reflection; closed texture local guards still prose.",
+      "disposition": "ACTIONABLE existing admitted-state classifications R1; no invented size policy.",
+      "findings": [
+        "NATIVE-R1"
+      ],
+      "connected_repair": "Typed local format/NaN/current size and unsupported conversion roles; preserve current rejection sequence and native causes.",
+      "dependencies": "Actual native float extent policy distinct pending producer inventory; native SDK errors intentionally heterogeneous.",
+      "acceptance": "Same input acceptance/clamps/casts/trailingbytes/error ordering; no infallible panic path introduced."
+    },
+    {
+      "order": 4,
+      "lens": "invariant-operations",
+      "contract": "Checked byte offset+upload length; row pitch/total copy arithmetic wide and checked; record count*stride wide; WorkgroupGrid folded index proof uses u64; buffer reads reserve before mapped copying; cache publication only success.",
+      "disposition": "Native arithmetic source accounts present; baseline merge and R3 semantics unresolved.",
+      "findings": [
+        "NATIVE-COMPOSE-2",
+        "NATIVE-R3"
+      ],
+      "connected_repair": "Preserve exact existing arithmetic and color conversion channel/rounding policies while composing.",
+      "dependencies": "No execution; exact SDK layout/device rules terminal; broader physical/native Grid algorithms outside reviewed excerpts.",
+      "acceptance": "No wrap/narrow/partial publish regression; baseline seven removals only; sources+hosted checks later."
+    },
+    {
+      "order": 5,
+      "lens": "aggregate-states",
+      "contract": "Selected native views pair handle/effective format/dimension/device. Private texture metadata and allocation/cache states permit cached-view-without-allocation deliberately. Staging session Arc plus ordinal proves member before prefix. MappingRequest owns logical/mapping extents.",
+      "disposition": "No new invalid-state counterexample in inspected records; R2 general resource signature is avoidable state space.",
+      "findings": [
+        "NATIVE-R2"
+      ],
+      "connected_repair": "Use typed Texture2d operation and named descriptors; retain valid texture allocation/cache combinations.",
+      "dependencies": "Do not redesign valid cached-first branch into stricter construction; direct caller/data membership checked.",
+      "acceptance": "Foreign ticket rejects before prefix arithmetic; source/destination cache-absence priority preserved; named cache roles stable."
+    },
+    {
+      "order": 6,
+      "lens": "type-ownership",
+      "contract": "GPU owns SDK buffer/texture/pass/pipeline and resource native schema. Root retains logical ElementCount/Stride/Capacity extensions. Color owns color transfer; Armor staged-session ownership belongs in staging.",
+      "disposition": "Integration boundaries explicit; no wholesale replacement approved.",
+      "findings": [
+        "NATIVE-COMPOSE-1",
+        "NATIVE-R3",
+        "NATIVE-R4"
+      ],
+      "connected_repair": "Union canonical exports and add focused local errors in actual owning modules.",
+      "dependencies": "No direct thiserror in GPU; adding dependency requires coordinated manifest/locks, not assumed derivative availability.",
+      "acceptance": "One lowest owner per meaning; no NativeBuffer facade, duplicate context, count or generated signature type."
+    },
+    {
+      "order": 7,
+      "lens": "redundant-authority",
+      "contract": "Pipeline immutable shader/reflection + cache distinguishes authoritative native rejection from transient validation progress; ComputeSourceCache identity actual device/effective policy/source/parameters. Texture selected metadata private. Signature ShaderParameter keeps name/type once; exact original program source remains source.",
+      "disposition": "Cache/source facts verified locally; duplicate transfer formulas and tuple cache owner remain.",
+      "findings": [
+        "NATIVE-R2",
+        "NATIVE-R3"
+      ],
+      "connected_repair": "Named descriptor key; one canonical transfer source. Preserve source cache failedbuild retry and pipeline progress handling.",
+      "dependencies": "Native provider cache/transient semantics protected; generated parser one-vector state is peer45 scope.",
+      "acceptance": "No failed progress cached as native rejection/success; mutable source cannot keep stale independently authoritative signature."
+    },
+    {
+      "order": 8,
+      "lens": "behavior-preservation",
+      "contract": "Actual callback-ready/canceled before nonblocking poll; browser yields event loop; completion waits exact marker submission index only native; direct SDK causes retained. Static uniform packing whole provided-variant block contract, absent/unsupported skip unchanged. Texture bytes/row order and cached-first selection documented.",
+      "disposition": "Source-preservation acceptance recorded; no runtime/CI verdict.",
+      "findings": [
+        "NATIVE-COMPOSE-1",
+        "NATIVE-COMPOSE-2",
+        "NATIVE-R3"
+      ],
+      "connected_repair": "Compose without overriding Root policy/progress/native causes; reconcile Color formula behavior with explicit source proof.",
+      "dependencies": "Existing fixture provenance exact; no new scenarios allowed; no native/browser/GPU execution performed.",
+      "acceptance": "Whole source comparisons for protected families; exact fixture API-only origins; final joint reviews + hosted final revision gates still required."
+    },
+    {
+      "order": 9,
+      "lens": "enum-shapes",
+      "contract": "WorkgroupShape 1D/2D/3D admitted dimension; Texture selection cube/face/array native roles; validation result capture distinguishes observable/native-vs-progress policy; ResourceBaseType actual open Custom language types.",
+      "disposition": "R1 closed errors/R2 supported Texture2d should use exact types; no synthetic enums for indices/native strings.",
+      "findings": [
+        "NATIVE-R1",
+        "NATIVE-R2"
+      ],
+      "connected_repair": "Named closed local error roles and direct dimension type.",
+      "dependencies": "Actual native format names and WGSL authored strings remain open external language protocol.",
+      "acceptance": "No boolean mirror of payload state; no invented closed set for source identifiers; current valid variants/selection branches retained."
+    },
+    {
+      "order": 10,
+      "lens": "derivability",
+      "contract": "PassParameters default is exactly empty IndexMap; texture defaults choose TextureUsages::empty (no SDK Default); generic cache manual default avoids bounds. Error impls preserve SDK references; GPU has no direct thiserror.",
+      "disposition": "One safe derive candidate; explicit noncandidates source backed.",
+      "findings": [
+        "NATIVE-R5"
+      ],
+      "connected_repair": "Derive PassParameters Default only; retain manual cases unless actual dependency/bounds proof changes.",
+      "dependencies": "Pinned wgpu-types29.0.4 TextureUsages declaration inspected; manifests direct dependencies read.",
+      "acceptance": "Equivalent representation/trait bounds; no source chain loss; do not add helper/test solely for derive."
+    },
+    {
+      "order": 11,
+      "lens": "type-granularity",
+      "contract": "Buffer storage spacing/count/byteoffset/byteextent and invocation/workgroup count distinct; mapping extent/alignment belongs native I/O. Focused pipeline reflection, texture view, readback, cube shader modules extract actual responsibilities.",
+      "disposition": "R2 named role cache; no novel wide framework needed.",
+      "findings": [
+        "NATIVE-R2",
+        "NATIVE-COMPOSE-2"
+      ],
+      "connected_repair": "Named inputA/inputB/output descriptor record; preserve existing focused modules and no-growth baseline.",
+      "dependencies": "Meaningful native numbers at WGSL/SDK adapters not automatically new semantic types; full extent role frontier separate.",
+      "acceptance": "No pass-through modules/temporary primitive adapters/parallel generic resource system; seven relevant baseline reductions, no ceiling growth."
+    },
+    {
+      "order": 12,
+      "lens": "magic-strings",
+      "contract": "Naga/WGSL identifiers, labels, entrypoint names, texture format token mappings and authored source strings are actual native language/API boundaries; local rejection prose remains closed app classification.",
+      "disposition": "R1 errors actionable; durable run-history doc scope actionable.",
+      "findings": [
+        "NATIVE-R1",
+        "NATIVE-DOC-1"
+      ],
+      "connected_repair": "Typed local rejection classifications; durable docs keep API contract, historical observations ignored.",
+      "dependencies": "Do not branch on Display/Debug; retain actual native source/IO context and original cause.",
+      "acceptance": "No new parser for human-facing prose; no replacement native error stringification; exact Display behavior if public contract."
+    },
+    {
+      "order": 13,
+      "lens": "magic-numbers",
+      "contract": "Native byte alignment4/map alignment/texture row256, WGSL layout offsets/workgroup16 and channel constants are owning protocol facts; checked arithmetic consumes byte quantities. Transfer thresholds/exponents already Color-owned. Root record counts distinct from launch sizes.",
+      "disposition": "R3 canonical transfer numerical ownership; broader raw native extents not silently strengthened.",
+      "findings": [
+        "NATIVE-R3",
+        "NATIVE-COMPOSE-1"
+      ],
+      "connected_repair": "Consume canonical color owner; retain native layout/workgroup constants and explicit conversions.",
+      "dependencies": "Native shader formatting and static provided-parameter packing contract intentionally different from declared-schema strict packing.",
+      "acceptance": "No arbitrary epsilon/tolerance/clamp, no count/launch conflation; exact shader/layout policy preserved except explicitly reconciled transfer owner."
+    }
+  ],
+  "verification_limits": [
+    "No production edits, project checks, builds, tests, probes, scanners, generators, push, CI, or external publication.",
+    "All 85 non-generated incoming sources plus six shared GPU generated leaves read; other45 generated files explicitly not reviewed here; peer coverage does not imply this reviewer clearance.",
+    "Root consumer snippets listed with exact extents; complete sorting/scan/extraction/native Hair Grid/physical/material/generated families are not cleared by this native packet review.",
+    "Pinned SDK TextureUsages declaration only inspected; SDK implementation universe and actual browser/device runtime not executed.",
+    "Root changed HEAD during long review; exact completion HEAD and current hash accounts are recorded. Root source account bytes are receiving comparison evidence, not a verdict on unrelated dirty generated edits."
+  ],
+  "baseline_expected_after_relevant_removals": 2052,
+  "fixture_provenance": {
+    "texture_views_tests": "Frozen tests SHA58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c exactly matches existing commit a03ccb5da. Original created d2e9f2f29; a03 delta nine field-access/getter/clear API updates only; four existing tests/cases/helpers/assertions preserved.",
+    "texture_views_fixture": "SHA2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800 exact d2e9f2f29/a03ccb5da. Absence from Root does not make peer-existing fixture newly authored in this repair. No tests executed."
+  }
+}

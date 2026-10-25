@@ -1,0 +1,1863 @@
+{
+  "kind": "Pre-receive13-lens inventory",
+  "root_pin": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "peer_pin": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+  "discovery": "complete for all26 supplied records and individually recorded13-lens pre-receive/dependency inventory; broader connected implementation/source graph remains incomplete and required",
+  "repair": "not started by reviewer; peer/coordinated source work required before family/final clearance",
+  "validation": "not performed; source-only bookkeeping, no project execution",
+  "source": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "raw_lines": 13116,
+      "body_coverage": "Complete TOML package/dependency records parsed and all changed records compared withRoot8c. Lock data bookkeeping, no generator/project execution.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "7e585078424d2838c9d07724cfa687802d6de81a4b1be33ca856b49122075a0c",
+      "raw_lines": 12314,
+      "body_coverage": "Complete TOML package/dependency records parsed and all changed records compared withRoot8c. Lock data bookkeeping, no generator/project execution.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "1346098aa561b83aa6d045c8744f19edc6605674fd0bbf313af4dcfc4ef595e5",
+      "raw_lines": 82,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "ac11b7bb583e07eaa622342d8830d2bf203f8d3666706eb055af056f0abc3bd4",
+      "raw_lines": 138,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "ba9b0696088257a6f3d984edf137b59435823ff73ba1f176a3fa82d96a3915fe",
+      "raw_lines": 166,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "70a93715a6a926de40b3f71c676839e81df669ff56f41dcbbfa1486560603466",
+      "raw_lines": 449,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "818294f1347dd1b4d5bcd5535dae5c0cfe30b75dd1d4380091bf98a06e906b6b",
+      "raw_lines": 204,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs",
+      "sha256": "57f15b94c1f1c08bfcc0e214f95fd19640c418ad76f96d698661717076bcd6e4",
+      "raw_lines": 111,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs",
+      "sha256": "525528762142f6b0e781d6f29ee1b58f66055b6e41873a86c6da96ba14b15e10",
+      "raw_lines": 228,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "d6c46f6ef0b1f037cc45648c2baac76b9e383aad331cf1c3757f1e1150702b43",
+      "raw_lines": 234,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_controls.rs",
+      "sha256": "b412435396639226eabf4bb624b52eaa6c4ec25f1697b3b5987d569d7bf7440a",
+      "raw_lines": 271,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview.rs",
+      "sha256": "83895f2f6e29bda031bc1764ed1d51cc133051198e963ead3eb0ee728138ffff",
+      "raw_lines": 350,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "sha256": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+      "raw_lines": 226,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "f141e4878ee8868ded50d8a481f8f1effb5c1ee4bb382fbcec321918c254c57e",
+      "raw_lines": 513,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "566a69fc6cd50bd7d7ea5c0347567c39f2bdc37e9f8004675dc5328e3751e12e",
+      "raw_lines": 667,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/build.rs",
+      "sha256": "d0e1af5a572ecbdfdebcde495932dae897361eb446f4348824d6bcddd0cd2516",
+      "raw_lines": 179,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+      "sha256": "7affba536778dd1ae65da9b834c2400b2eddd4ce6bc6a7dc7aba5048a5fbf878",
+      "raw_lines": 150,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "16109d7ba1a21b99e1aaebad3835ed0dcd18d540dcd3e2961d9d05f706c857dd",
+      "raw_lines": 259,
+      "body_coverage": "ExactRoot9b/8c context verified. Prior complete renderer18+policy+WGSL source wave carried only after exactbytes/currentrelationship verification; not fresh unread body credit. Context only, no overwrite.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "cf4310e379157eeba6d93dd7b845a2c2fcb00320e93753ea33cf1cb1d0c3236f",
+      "raw_lines": 162,
+      "body_coverage": "ExactRoot9b/8c context verified. Prior complete renderer18+policy+WGSL source wave carried only after exactbytes/currentrelationship verification; not fresh unread body credit. Context only, no overwrite.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "b58937fb5fbf8a8e86962cb4794e98f433b035172890db0724af4da48d63978b",
+      "raw_lines": 651,
+      "body_coverage": "ExactRoot9b/8c context verified. Prior complete renderer18+policy+WGSL source wave carried only after exactbytes/currentrelationship verification; not fresh unread body credit. Context only, no overwrite.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "4e02030b72fe4ebc1a4af8b52dbf0910d7ce7a2f7135ed10c17c4805bf163b16",
+      "raw_lines": 1701,
+      "body_coverage": "ExactRoot9b/8c context verified. Prior complete renderer18+policy+WGSL source wave carried only after exactbytes/currentrelationship verification; not fresh unread body credit. Context only, no overwrite.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "sha256": "b6a30a9372b2584916183463c9c88b45f69dc4f295c9de1c2428875036f73f94",
+      "raw_lines": 26,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "sha256": "e609778b6bd24b4ee231f3d3281d463764a55d5b787f02f4015f4ff7c4b4072b",
+      "raw_lines": 135,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/count/gpu.rs",
+      "sha256": "bcead2da272edc0fbcd1d285004d9671ad310603a5870bf1c7df114be337c4c4",
+      "raw_lines": 95,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/count/strip.rs",
+      "sha256": "dd53d7fa66134977308f2dd0279c5d38bef8e907c739f6098904a40541a37208",
+      "raw_lines": 130,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "a1d2e436ae07dc79d25a7f0b670df3a3d7d3b3554d495db6542bd34f0c63f653",
+      "raw_lines": 28,
+      "body_coverage": "Fresh complete immutableb11 source file body/comments/all inline test regions read. Bake1-240+241-end, Main1-350+351-end; otherfiles complete groupedreads. Truncatedlarge diffs recovered by bounded source-specific reads; not hash-only body credit.",
+      "exact_git_and_manifest": true
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "discovery": "complete scoped source inventory; required external integrations explicitly recorded",
+      "repair": "not started; owner/coordinated work required",
+      "validation": "source-only/no execution",
+      "contract_trace": "Mesh count/strip.rs admits counts/rows -> MeshStripLayout -> CardStripLayout/CardMesh.build and Creator StripSource cards/ribbons -> StripBuffers/GpuGeometry -> Bevy Assets.mesh/native attributes or readback HairGeometry -> export skin and actual UI Form. Source bytes retained through native byte/InvocationCount adapters. Actual count/LOD/layout getters read.",
+      "disposition": "Canonical actual Hair/Host/Gpu/Card/Surface producers remain outside26 receipt; supplied bake/raw dispatch sites require typed InvocationCount producer propagation; actual b11 Kernel expects it. HairGpu/GpuGroomer completion and error caches remain required.",
+      "connected_repairs_dependencies": "Canonical actual Hair/Host/Gpu/Card/Surface producers remain outside26 receipt; supplied bake/raw dispatch sites require typed InvocationCount producer propagation; actual b11 Kernel expects it. HairGpu/GpuGroomer completion and error caches remain required.",
+      "acceptance": "Integrate exact producer/caller definitions and complete all raw bake count launches with canonical source-owned invocation quantities, preserving WGSL/fixtures; no raw overload. Global source/CI acceptance remains open.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "existing-type-owners",
+      "discovery": "complete scoped source inventory; required external integrations explicitly recorded",
+      "repair": "not started; owner/coordinated work required",
+      "validation": "source-only/no execution",
+      "contract_trace": "MeshStripCount/Rows/Layout reuse MeshVertex/Triangle/Corner owners; Card wrapper delegates topology rather than duplicateformula. Creator uses MeshStripLayout for cards+ribbons, existing StrandCount/PointsPerStrand and math units Metres/Ratio. GPUbytes/launch/uniform conversions occur in Mesh gpu owner or direct SDK/Bevy/host geometry boundaries.",
+      "disposition": "No new duplicate strip/count owner found. Native bake Level side/stride/offset and storage(bytes:u64) still retain raw existing physical/kernel contract; these are explicit required physical-family owner dependencies, not claimed migrated by26.",
+      "connected_repairs_dependencies": "No new duplicate strip/count owner found. Native bake Level side/stride/offset and storage(bytes:u64) still retain raw existing physical/kernel contract; these are explicit required physical-family owner dependencies, not claimed migrated by26.",
+      "acceptance": "Preserve shared genericMesh owner/canonical Card wrappers; consume actual lower Buffer/launch owners and finish physical producers under peer ownership, without inventing application duplicate types.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "admission-contracts",
+      "discovery": "complete scoped admission inventory",
+      "repair": "not started/owner work required",
+      "validation": "source-only/no execution",
+      "contract_trace": "MeshStripCount From<u32>/checkedusize/default0; MeshStripRows onlycheckedusize>=2 or checked from_segments/subdivided; MeshStripLayout private fields and checked complete vertex/corner products, no default/serde bypass. CardLayout validates complete triangles/membership; CardStripLayout delegates generic topology; CardMesh::build validates actual StrandShape and complete strip before rows. GpuGeometry/StripBuffers private aggregate stores admitted layout+allocating Device. Metres/Ratio intentionally add units without finite/range policy.",
+      "disposition": "No topology admission bypass found. New Rows usize narrowing discards actual TryFromIntError into Rows{requested}; tracked as SSTR-CAUSE. Actual native buffer/source/count admissions outside26 remain required dependencies, with inspected exact definitions recorded separately.",
+      "connected_repairs_dependencies": "Owning peer must preserve native narrowing cause separately from lower-than2/checked segment overflow policy; consume actual native producer/CardWriter/GpuLods/Hostshape definitions before final integration.",
+      "acceptance": "All successful ranges/zero/card generic-vs-strip behavior preserved; failednativeusize narrowing exposesactualstdcause and requested rows; no invented stricter Metres/Ratio policy or bypassing deserialize.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "invariant-operations",
+      "discovery": "complete scoped operation inventory",
+      "repair": "not started/required owner dependencies",
+      "validation": "source-only/no execution",
+      "contract_trace": "Checked row+1, subdivision NonZero piece multiply+1, stripvertex/corner products before derived arithmetic/faces; count additions/corners checked. Native bytes widenu32 counts beforeconstantrecordmultiply. Creator pieces clamp1..bounded8/16; budget1.5M divided by admitted2edge rows; empty strips preserve0logicalrows with16byte nativebuffer floors and zero dispatch. GPUgeometry published onlyafter falliblebatchsubmit; hostread uses logicalprefix. CardRows equal loops are sealed; finalreserve before publication.",
+      "disposition": "No new native topology/index overflow counterexample found. Geometry numerical literals/WGSL preserved, with full native writer4vec4 admission required in actual Card producer. Existing raw bake physical counts/offsets/storage/finish paths remain explicit required dependencies; no global arithmetic clearance.",
+      "connected_repairs_dependencies": "SSTR-COUNT typedbake dispatch and physicalGrid/storage owner; retain output writer/cardinality proof and actual Device/source definitions; canonical completion/error propagation required.",
+      "acceptance": "No wrappingnativecounts/rowunderflow; source shape nonempty>=2; empty stayslogical0; exactfacewinding/WGSL/data; no publication on synchronous build/submit Err; no promised atomicGPUrollback or completion.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "aggregate-states",
+      "discovery": "complete scoped aggregate inventory",
+      "repair": "not started/dependenciesrequired",
+      "validation": "source-only/no execution",
+      "contract_trace": "MeshStripLayout privatelypairsstrips+rows afterwholeextentcheck; CardStripLayout wraps it; CardMesh sealsgenericTriangles vsStrips. CardRows spine/frames/widths built together atsegments+1 beforeemit. GpuGeometry privatelypairs4buffers/layout/actualDevice; readlogicalprefixes producepairedhostattributes. PlacedHairprivate lods/body/longest fromsameprepare; StripSource isdescriptive nativebundle assembled byoneprivatecaller. HairPreviewworker carriesactualbodyArc/groom/GPU throughPrepared andPlacedStyle; consumers filterbodyArc/groom beforedraw.",
+      "disposition": "No new wrong-pair publication path demonstrated. Public HairGeometry/AtlasLevel are existing unvalidated host/native attribute DTOs, not claimed checked general mesh/mip admissions; current producer ensurespairedactualprefix. Actual body/native/LOD source constructors outside26 are required. Permanent string-error caches erasefailurecause and completionAPI dropspollfailure; not waiver.",
+      "connected_repairs_dependencies": "Retain actual producerArc/Device/source and CardWriter/nativephysical proof; integrate missing closed native/host definitions. Complete SSTR-CACHE/COMPLETION underpeerownership; do not addphonycontext/admission or duplicatebrand.",
+      "acceptance": "No mismatch between retainednativebuffers/layout/actualDevice, no independenttopologyformula/metadataauthority; staleworkerresultneverdrawnforwrongbody; failurecause keptstructured; no promisecheckedexternalDTOmutation.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "type-ownership",
+      "discovery": "complete scoped ownership inventory",
+      "repair": "not started/owner dependencies",
+      "validation": "source-only/no execution",
+      "contract_trace": "Generic two-edge indexed topology livesin lowestsharedfabelgeist-mesh/count/strip; count/gpu owns nativebytes/uniform/InvocationCount ports behindgpu feature. Hair CardStripLayout maps requestedCardCount/CardSegments tothatowner; Creatorconsumes genericlayout directly. NativeGpuGeometry owns allocation+layout, not secondgeometryformula. Existing mathMetres/Ratio andtypedLODordinals reused; no compatibilityalias/duplicatedStripLayout found in suppliedproduction.",
+      "disposition": "Ownerplacement fitsconsumers. Meshlib imports/reexports nowbeforemods, repairing priore216ownerorder debt. Peer retainswholefunctionownership; noindependentrepair here. CandidateCreator/Mesh manifests andlocksneedcoordinatedwholegraphcomposition, notfullsnapshot overwrite.",
+      "connected_repairs_dependencies": "SSTR-CAUSE canonicalMeshleafremedy; retain missingHairCard/Atlas/Host/Native/Surface/Sim/Buffer/Kernel ownerdefinitions+allactualcallerchanges; do not copyRootRenderercontextover8cCube/nativecommands.",
+      "acceptance": "Onecanonicalstripformula, explicitrequested-vs-admittedCard/Rowdistinctions, allrequiredfeatureexports present, nativeGPUmethods cfgonlywhenactualdependencyenabled, no peerownedfunctionduplication.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "redundant-authority",
+      "discovery": "complete scoped retained-authority inventory",
+      "repair": "not started/dependenciesrequired",
+      "validation": "source-only/lockrecordbookkeepingonly",
+      "contract_trace": "Genericstrip owns allvertex/triangle/corner formulas. Cardwrapperderivescounts/segments/layout fromit; CardMesh modeownsitsmetadata. NativeGpuGeometry retainslogicaltopology separatelyfrompadding/actualDevice; readprefixreuseslogicalvertices. HairPreview cacheskeyactualgroom/bodyArc andPreparedkeepsallocatingGPU; displaylabels derivedfromtyped Form/counts. Bothworkspace locksareseparatefeature-resolutionfacts, not requiredbyteidentical.",
+      "disposition": "No competingstripformula orcachedclassificationintroduced. Longest remains existing measured/boundedsubdivisionestimate, notcertifiedpost-deformationhardsegmentlimit. CandidateCreatorlock Armorrecord disagreeswithalready-agreedactualArmor manifestanyhow+mesh; bothcaches flattennativefailure and permanentlyretaintext.",
+      "connected_repairs_dependencies": "Reconcileallchangedlockpackagerecords againstactualmanifestgraph preservingotherownerwork; SSTR-LOCK/SSTR-CACHE required. Preserveimmutableproducer/source associations andRootcontextfilesexact; no blindlock/contextoverwrite.",
+      "acceptance": "Oneformula/sourceauthoritypercurrentfact; logicalcountvsphysicalpadding keptdistinct; actualmanifestedgesmatchbothlockrecords atfinalcomposition; no staleerrorclassification or structuredcauseloss.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "behavior-preservation",
+      "discovery": "complete scoped old/new behavior inventory with stated source limits",
+      "repair": "not started/requiredownerwork",
+      "validation": "source-only/exactliteral+fixturebookkeeping, no execution",
+      "contract_trace": "Main990 old/newCreator strips/groom/geometry/UI/assets/bake andfixture operands read. All4 WGSLrawstrings independently exactmain; genericfaces preserve stripmajor[a,c,b]/[b,c,d] winding. Typedrows preservesnormalpiecepolicy/clamps, Cardordinalfallbackcoarsest and missingstrandNone. Metres/Ratio preservebits; hostprefixread avoidsallocationpadding. Emptygroomdrawn0 nowcorrectlystays0; newoverflow/wrongDevice errors intentionally rejectunrepresentablenativeinputs. Renderer/policy/context exactRoot9b with priorfullbodyreceipt.",
+      "disposition": "No demonstrated unintended normal-range/fixture/nativeinstruction change. Existing finish discard/rawbake dispatch/stringcache issues remainrequired; no compilesuccessclaimed. Invalidnewleafcause currentlylost (SSTR-CAUSE). Largerphysical/nativegeometry/simulationproducer behavior outside26 not certified.",
+      "connected_repairs_dependencies": "Retainall4WGSLstrings/existingfixtureoracles; API-onlyResult/typedordinaladapters allowed; canonicalproducer/source/nativewriter/lockclosure and structuredcause/completionremediesrequired beforefinalclearance.",
+      "acceptance": "Samevalidcounts/roworder/facewinding/variantmapping/UIlabels/outputprotocol; deliberatetypedrejectsemantics forbadnativeextents; no newtests/cases/helper/assertion/doctest; existingtests must runhostedonlyaftercompleteconnectedfamily.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "enum-shapes",
+      "discovery": "complete scoped flags/payload inventory",
+      "repair": "not started/dependenciesopen",
+      "validation": "source-only/no execution",
+      "contract_trace": "CardTopology::Triangles(CardLayout)/Strips(CardStripLayout) keepsgenerictrianglesfromstripcountinference. Form::Strands retainsactualordinal+Ratio share, Cardsactualordinal; noenumforarbitrarynumberindices. NativeRootRendererEmpty/Current/history and source/body enums exactprior9b. HairPreview Optionworker/placed/grown representindependentcached/activefacts andactualworkerpayload, no duplicateinitializedflag. ShownLayershair/scalp areindependentvisibilitycontrols, all4combinationsvalid atUI/Bevyboundary.",
+      "disposition": "No newtag+optionalpayloadbadstateintroduced bysharedstriptranche. Retainedgroom drapespredicate/physicalDraping policy andnativeGrid/body flags remainpartofexplicit broaderphysicalsourceownerinventory, notclaimednewstripstateadmission or silentlycleared. SSTR-CAUSE requiresdifferenterrorpolicy/narrowingroles structured.",
+      "connected_repairs_dependencies": "PreservecanonicalCardTopology/Form/Rootstatepayloads; consumeactualnative/host/source/carddefinitions; resolvebroaderphysicalpoliciesunderowneragreement, no mechanicalenumrename ofindependentUIbools orarbitraryindices.",
+      "acceptance": "GenerictriangleneverfabricatesCardCount; closedmodescarryappropriatepayload; no semanticstatepasseduntypedbetweennewAPIs; nativewirebools/ordinals extractedonlyatactualboundary.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "derivability",
+      "discovery": "complete scoped handwritten-impl inventory",
+      "repair": "not started/no independentderivechange",
+      "validation": "source-only/no checks",
+      "contract_trace": "Native/hostcheckedTryFrom andsemanticquantityports retainedmanual; Rowsmin2/subdivision/extent cannotderiveunvalidatedconstruction. MeshcountsDefault0 valid; Rows/LayoutnoDefault/noDeserialize. thiserror MeshStripError/CardError sourcepayloads deriveError; CardTopology Defaultneedsdata-bearingTriangles(payload), stableRustDefaultderivecannotreplacewithsamepayloadvariant. ThreecountDisplayimpls mechanicallydelegateu32; MeshmanifesthasnostructDisplayderiveowner/dependency requiringanextraabstraction.",
+      "disposition": "No unnecessarynewboilerplatejustifiesbroaderdependency/APIchanges. Nativeconversion/sourceports remainmanualforsemanticrole/cfg. Loss ofactualRowsTryFromIntError isnotfixedbyderivealone; SSTR-CAUSErequired. No serializationaddedtoforceclassifierderive.",
+      "connected_repairs_dependencies": "Retaincheckedconstructorsemantics/errorcontracts; preserveactualstdErrorcauseduringRowstypeadmission; keepallmetadata/sourcewrappersnativefeaturetraitscompatible.",
+      "acceptance": "Equivalentbounds/wire/admissionpreservedifanyderiveused; noDefault/Deserializebypass, no newpublicAPI/serialization purelyforboilerplatereduction.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "type-granularity",
+      "discovery": "complete scoped distinction inventory",
+      "repair": "not started/no newgranularityremedyfound",
+      "validation": "source-only/no execution",
+      "contract_trace": "MeshStripCount distinguishesstripsfromrows/vertices/launches; Rows>=2 givessegmentdenominator; Layoutaddscompletecrossproduct. CardCount/CardSegments arehostrequestedquantities allowing0/unboundedusize, unlikefixedwidthadmittedtopology; CardStripLayoutaddscardsemanticAPI/errorownerwithoutduplicatingformula. GpuGeometrysealednativeallocationrecorddistinctfromhostHairGeometrynativeattributeDTO; actualDevice notsameasbackend/adapter. Formordinals distinctfrommembership; Ratio/Metres keepunitswithoutinventedfinite/rangeproof.",
+      "disposition": "Keepdistinctions: theypreventquantity/role/sourceconfusion. No universalnumericvalidator orduplicatelocalStripLayout warranted. Native fixedattributearrays/SDKflags/Bevyinterop andexistinggeometricmathkernels legitimateprimitiveboundaries; unrelatedunchangedmainbodyLOD/garmentdomain fields areoutofthehairstripsemanticfamily, notwholeCreatorclearance.",
+      "connected_repairs_dependencies": "SameRowcause andactualcanonicalproducer/physical/lockclosuredependencies; no independentwrappers/compatibilityaliases. CorrectMeshsourcegranularityalonecannotclearuncheckedexternalDTOs/physicalfamilies.",
+      "acceptance": "Retainrequested-vs-admitted andcount-vs-launch roles; nocompetingformula, no inventednarrowerinputpolicy, no pass-throughownerwithoutactualsemanticreason.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "magic-strings",
+      "discovery": "complete scoped rawtext role inventory",
+      "repair": "not started/requiredpeerownedcachefamily",
+      "validation": "source-only/no execution",
+      "contract_trace": "NativeWGSL4programstrings/tokens, params! bindingnames, buffernative labels andKernelSource code areactualshader/SDKtextboundaries; existing hostshaderentrymapsclosedtypedForm/Ordinaltotheircatalogtext. UIlabels/hints/status/errorDisplay andvariant_label arepresentationonly, no mutableprosedecision. Image/glTF names/paths/JSON/env/config/Cargopackage/version/dependency strings areactualwire/filesystem/framework inputs. Existingfixtureenvtokens remainexplicitnativefixtureadmission, nopopulationadded.",
+      "disposition": "SSTR-CACHE: export_gpu andStudioHairGpu DeviceKernels OnceLock<Result<HairGpu,String>> flattenactualstructurednative/typedError intoformattedprose beforecache/reconstruction. This isactual retainedcauseloss; unliketerminalUIformatting itoccurs beforeanotheroperation consumesfailure. No newclosedvocabularydrivenbyprosefound.",
+      "connected_repairs_dependencies": "Ownercompletesbothcachecarriers and failure-retention/retrypolicy consistentlywithcanonicalnativeProgress retryable contract; keepterminalpresentationformattingattheboundary, openNativeIDs/code/pathsopen. No messaging/publicationneeded.",
+      "acceptance": "Actualnative+stdlibsource remainsdowncastable/errorchain intact throughcaches intoexport/worker/UI; failuresnotmadepermanentcontrarytoagreedretryableProgress; no Debug/prosecontrolfloworchangedwiretoken.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    },
+    {
+      "lens": "magic-numbers",
+      "discovery": "complete scoped primitive/role inventory with external physical obligations explicit",
+      "repair": "not started/requiredownerfamiliesopen",
+      "validation": "source-only/no project execution",
+      "contract_trace": "NewMeshstrip/count fields/constructors/checkedproducts andnativeu32ports arecanonical; factors2/3/6 defineactualtwoedge/triangle topology; sizeofvec4/u32/CardVertex actualABI and widenedbyte products. Metres/Ratio staythroughgroomstate/policy, extractedonlysubdivisionarithmetic/nativeparams/UIwidget/display. Ordinals admittedatactualenumeration/catalogliteral thenmembershipcheckedbyactualimmutablecollections. Fixedpiecebudget8/16/taper33/spread4 and1.5M budget areexistingexplicitnative numericalpreview policy, no broadvaluevalidationclaimed.4WGSL bodies andnativePOD/tuning unchanged; numericalconditioning/errorbudgetnotnewlycertified. Cargo/locks/features/versions andexistingfixturedata areactualprotocol/authoringboundaries.",
+      "disposition": "SSTR-COUNT: bake nativephysicaltexel/stride/offset/storage producers remainraw and4launchsites handu32tonewInvocationCount API. SSTR-CAUSE: rowsusize narrowingdropsactualstdlibcause. Unrelatedmainbody/garmentphysics domains inspectedasunchangedcontext, notexpandedintonewtypemigration. BroadernativeGrid/body/atlas/readback/tolerancepolicy remainsrequiredownerinventory, notsilentlycleared bypreservedshaderbytes.",
+      "connected_repairs_dependencies": "Completeactualnativephysicalcount/bytes/kernel/shape owners+callerpropagation, retainingsemantics/causes andno rawcompatibilityoverload; preserve4nativeprograms/fixtures unlessseparatelyinventoriedauthorizednumericremedy. Peerownershipmustresolve anysharedchanges.",
+      "acceptance": "No newrawsemanticquantitycrossesapplicationAPIs whenexistingownerfits; nativeABI/numericalprimitiveescapesretainactualrole/unit/frame; overflow/emptybehaviorandoriginalnumericprotocolpreserved; allrequiredphysicaldependenciesresolvedbeforefinalclearance.",
+      "source_locations": {
+        "Mesh owner/admissions/operations": [
+          "crates/fabelgeist-mesh/src/count.rs:15-135",
+          "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+          "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+          "crates/fabelgeist-mesh/src/lib.rs:5-28"
+        ],
+        "Card owner/builder": [
+          "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+          "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+          "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+          "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+          "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+        ],
+        "Creator native strip/host/export": [
+          "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+          "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+          "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+          "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+          "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+        ],
+        "Actual UI/Bevy/fixture": [
+          "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+          "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+          "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+          "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+          "crates/adventuresim-character-creator/src/main.rs:1-667"
+        ],
+        "Native bake/physical incomplete": [
+          "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+          "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+          "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+        ],
+        "Canonical actual missing receipt interfaces": [
+          "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+          "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+          "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+          "crates/fabelgeist-hair/src/lod.rs:34-135",
+          "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+        ]
+      },
+      "source_coverage_limit": "All26 records accounted with actual dependency/source proof granularities below. Required wider producer/physical/native/lock integration remains open; no all13 clearance or claim every wider body was read."
+    }
+  ],
+  "peer_tree": "00cef4ea099f44aaeb42a482e302823e194ef0de",
+  "main_pin": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "original779_pin": "71f9cab8a5f97760e2e61ca4c74876b715f8aebc",
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "revision": "8c600f727d1eecf21dd241f02739b825edef5000",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "8c600f727d1eecf21dd241f02739b825edef5000",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/AGENTS.md",
+      "revision": "8c600f727d1eecf21dd241f02739b825edef5000",
+      "sha256": "b222ba01455443717c807738e311b12d8ded9a33cd95084b35870943357898a7"
+    },
+    {
+      "path": "crates/fabelgeist-armor/AGENTS.md",
+      "revision": "8c600f727d1eecf21dd241f02739b825edef5000",
+      "sha256": "52390164bf3eb74a0160ee3ac19527fd43856aa998920d16824f2f41058cf47f"
+    }
+  ],
+  "skill_sources": [
+    {
+      "path": "/home/brunosegovia/.codex/skills/bespoke-audit/SKILL.md",
+      "sha256": "af8b6781939422e2381f35f44b15ce6d3d7accb608af79482aaa692e93039182"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-producer-propagation/SKILL.md",
+      "sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-existing-type-owners/SKILL.md",
+      "sha256": "0876e49f57d2b5397d23735b9c49916d5d20087b33c110746beaa73c1c8cba3f"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-admission-contracts/SKILL.md",
+      "sha256": "de63b991f5d4a11423f639efc1a5c37b4593a10045ac3d93d88da4c9b95d249f"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-invariant-operations/SKILL.md",
+      "sha256": "94c0fc73e926619b9a9a50ef9f342a0c8f6210840f1aa1f3c5b5d9637994519d"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-aggregate-states/SKILL.md",
+      "sha256": "39d26ba8acbf1007875b37d7e0d6c35766fb246a01852d4237fa741139b12a82"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-ownership/SKILL.md",
+      "sha256": "4e6ed19f7244c134db991a339145858059bb098ac2b804076675c8fe71de87e0"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-redundant-authority/SKILL.md",
+      "sha256": "9cf22aed78c7a55df0493264038f217f4c7d752c554741733cd8ed0795fbfeab"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+      "sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-enum-shapes/SKILL.md",
+      "sha256": "964ebea7b08a545b5abcabf605c22b92ac0dbb09ed79e6f79651ea2f141a3500"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-derivability/SKILL.md",
+      "sha256": "6c0f78f4e40e0432071f2e10db701d3da72efbafec83e2f678e03a550406a599"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-magic-strings/SKILL.md",
+      "sha256": "4288426f134e7b781da6ea3b9167722776db976f577b56e7936e787306fb277c"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+      "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee"
+    }
+  ],
+  "applicable_rule_scope": "Root/crates rules apply. Creator guide points body-equipment work toArmor guide; this hair topology/API/source-only inventory makes no body-equipment shape/design change and requires no art-cycle/runtime work. Generated SpacetimeDB/schema/wiki/strategic/combat paths NA; no source edits authorized here.",
+  "source_locations": {
+    "Mesh owner/admissions/operations": [
+      "crates/fabelgeist-mesh/src/count.rs:15-135",
+      "crates/fabelgeist-mesh/src/count/strip.rs:7-130",
+      "crates/fabelgeist-mesh/src/count/gpu.rs:6-95",
+      "crates/fabelgeist-mesh/src/lib.rs:5-28"
+    ],
+    "Card owner/builder": [
+      "crates/fabelgeist-hair/src/cards/layout.rs:15-150",
+      "crates/fabelgeist-hair/src/cards/build.rs:15-179",
+      "crates/fabelgeist-hair/src/cards/mesh.rs:5-53",
+      "crates/fabelgeist-hair/src/cards/layout/gpu.rs:6-34",
+      "crates/fabelgeist-hair/src/gpu/lods/cards.rs:39-177"
+    ],
+    "Creator native strip/host/export": [
+      "crates/adventuresim-character-creator/src/hair/gpu/strips.rs:57-204",
+      "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs:11-111",
+      "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs:3-228",
+      "crates/adventuresim-character-creator/src/hair/geometry.rs:15-166",
+      "crates/adventuresim-character-creator/src/hair/groom.rs:28-234",
+      "crates/adventuresim-character-creator/src/character_export/hair.rs:25-138"
+    ],
+    "Actual UI/Bevy/fixture": [
+      "crates/adventuresim-character-creator/src/hair_controls.rs:29-271",
+      "crates/adventuresim-character-creator/src/hair_preview.rs:34-350",
+      "crates/adventuresim-character-creator/src/hair_preview/assets.rs:21-226",
+      "crates/adventuresim-character-creator/src/hair_preview/render_test.rs:1-513",
+      "crates/adventuresim-character-creator/src/main.rs:1-667"
+    ],
+    "Native bake/physical incomplete": [
+      "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:142-449",
+      "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:15-151",
+      "crates/fabelgeist-compute/src/kernel/mod.rs:293-299",
+      "crates/fabelgeist-hair/src/gpu/mod.rs:408-414"
+    ],
+    "Canonical actual missing receipt interfaces": [
+      "crates/fabelgeist-hair/src/strands/shape.rs:1-127",
+      "crates/fabelgeist-hair/src/gpu/layout.rs:1-224",
+      "crates/fabelgeist-hair/src/gpu/lods/records.rs:1-130",
+      "crates/fabelgeist-hair/src/lod.rs:34-135",
+      "crates/fabelgeist-hair/src/surface/render_layout.rs:1-99"
+    ]
+  },
+  "findings": [
+    {
+      "id": "SSTR-CAUSE",
+      "priority": 2,
+      "classification": "New canonical strip leaf cause/admission distinction gap",
+      "path": "crates/fabelgeist-mesh/src/count/strip.rs",
+      "line": 59,
+      "rule": "User native/actual-cause contract; crates/AGENTS28-57,69-71; bespoke admission/error preservation",
+      "finding": "MeshStripRows::try_from usize matches Err(TryFromIntError) into Rows{requested}, dropping actual std source. Same variant also describes below2 and checked segment-add overflow; from_segments overflow stores segment input under row wording.",
+      "consequence": "A native-width admission failure has no Error::source and is conflated with row-domain policy, unlike count/Card conversions that preserve source.",
+      "connected_repair": "Canonical owner retains actual narrowingcause/request separately from lowrow and checked segment overflow policy; keep precise requested quantity/diagnostic.",
+      "acceptance": "Native row narrowing exposesactualTryFromIntError inErrorchain; policy failures retain correctrequestedrow/segments; successful ranges and topology unchanged."
+    },
+    {
+      "id": "SSTR-COUNT",
+      "priority": 1,
+      "classification": "Existing required physical/caller migration; supplied26 not self-contained",
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "line": 338,
+      "rule": "crates/AGENTS28-57,69-71 producer propagation; actual KernelBatch signature",
+      "finding": "Grid::bare two launches and GpuScalpTexture::finish main+halvemip launches passu32 texel_count/to.side*to.side to actual b11 dispatch_folded(items:InvocationCount).",
+      "consequence": "Concrete source type mismatch even against own candidate; compile cannot be claimed. Raw nativephysicalGrid/Level/storage producers also remain uncompleted.",
+      "connected_repair": "Owning peer completes exact physical byte/texel/population producer family and all four launch routes with canonical quantity owner; no compatibility raw overload.",
+      "acceptance": "All launch arguments match canonical InvocationCount produced at actual shader/count boundary, with checked actual extent arithmetic and byte units through storage/readback; final same-SHA hosted existing gates."
+    },
+    {
+      "id": "SSTR-CACHE",
+      "priority": 2,
+      "classification": "Existing required Creator/cache native cause chain, not new strip regression",
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "line": 35,
+      "additional_location": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs:18-31",
+      "rule": "User native cause/error-cache completeness; crates/AGENTS85-86 and type ownership propagation",
+      "finding": "Both GPU initialization OnceLocks retain Result<HairGpu,String>, formattingactualerror before cache then reconstructinganyhowmessage.",
+      "consequence": "Native and typed sources cannot be recovered/downcast through export/worker; failure retention may defeat retryable native Progress and requires explicit aligned policy.",
+      "connected_repair": "Peer/coordinated owner closesboth caches and complete export/worker/UI chain with retained actual carrier; define failure cache/retry semantics consistent with canonical source/pipeline progress behavior.",
+      "acceptance": "Actual SDK/stdlibcauses retained through cache/worker/export; terminalUIformatting only, correctfailure/retrypolicy, no duplicateerror/backend owner."
+    },
+    {
+      "id": "SSTR-COMPLETION",
+      "priority": 2,
+      "classification": "Existing required native completion+caller graph outside26",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "line": 409,
+      "additional_location": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:104; hair_preview/render_test.rs:278,345",
+      "rule": "User nativecause and complete caller graph; canonical WgpuContext completion owner",
+      "finding": "Actual candidate GpuGroomer::finish discards pollResult and returns(), Creator HairGpu::finish delegates infallibly, existing fixture calls observe no completion error.",
+      "consequence": "Source completion failures cannot propagate to production/export or adapted existing fixture;26 alone does not finish required owner/native family.",
+      "connected_repair": "Consume agreed canonical context submitted_work_done/error carrier and propagate fallibility through actualGpuGroomer/HairGpu/allcallers underowning agreement; existing fixture API operands only.",
+      "acceptance": "Actual Poll/callback/channel/nativecauses preserved and reported; no addedtest/case/helper/assertion; no secondwait/backend, retain documented cadence/providerlimits."
+    },
+    {
+      "id": "SSTR-LOCK",
+      "priority": 1,
+      "classification": "Required whole-graph lock/manifest composition, no independent lock generation",
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "line": null,
+      "rule": "Actual Cargo direct/path dependency graph; preserve unrelated owner work",
+      "finding": "Candidate Creator lock Armor package still lacks anyhow andfabelgeist-mesh, although actual Root Armor manifest already declaresboth. Root candidate lock includes them. Candidate wholeRoot lock also carries other unfinishedcanonical compute/hair/bvh/physics edge changes outside26.",
+      "consequence": "26-file handoff is not internally complete for both workspaces; blindly accepting lock snapshots could misstate actual dependency graph.",
+      "connected_repair": "Owning peer reconciles exactpackage records against composed actual manifests for both workspace roots, preserving independentowneredges and allresolved versions; finalrequiredhosted locked checks.",
+      "acceptance": "Creator/Mesh andArmor directedges matchactualmanifests ineach relevant lock; all7Root and3Creator changedrecords dispositioned, no unrelateddependency deletion/refresh."
+    },
+    {
+      "id": "SSTR-ORDER",
+      "priority": 3,
+      "classification": "Inherited ordering in modified Creator owning/context source, separate from new correct Mesh order",
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "line": 48,
+      "additional_location": "bake/mod.rs:143,150,264; main.rs:1,269; character_export/hair.rs:34",
+      "rule": "crates/AGENTS90-94",
+      "finding": "Bake hasuseaftermod, Level/Gridstructs andROW_TEXELSconstant afterimpls/functions; main interleavesimports/mods/structs/functions; export_gpu privatefunction precedesimpls.",
+      "consequence": "Applicable changed owning files retain explicit source-order rule debt. Mesh b11lib itself correctly repairs priorcanonical exportorder.",
+      "connected_repair": "Peer/coordinated owning source composition reorders retained declarations withoutfunction/body/fixturechange; no independent sharedfunction edits.",
+      "acceptance": "Imports/reexports beforemods, constants/aliases/structs/enums beforeimpls/functions, tests last; preserve exactfunctions/nativeprograms/fixtures and no-growth."
+    }
+  ],
+  "lock_accounting": [
+    {
+      "path": "Cargo.lock",
+      "changed_package_names": [
+        "adventuresim-character-creator",
+        "fabelgeist-armor",
+        "fabelgeist-bvh",
+        "fabelgeist-compute",
+        "fabelgeist-hair",
+        "fabelgeist-mesh",
+        "fabelgeist-physics"
+      ],
+      "changes": [
+        {
+          "package": "adventuresim-character-creator",
+          "version": "0.1.0",
+          "source": "",
+          "before": {
+            "name": "adventuresim-character-creator",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-core",
+              "adventuresim-world-schema",
+              "anyhow",
+              "async-lock",
+              "base64 0.22.1",
+              "bevy",
+              "bevy_egui",
+              "blake3",
+              "bytemuck",
+              "clap",
+              "derive_more 2.1.1",
+              "egui_extras",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-cloth",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-garment-code",
+              "fabelgeist-garment-fit",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-hair",
+              "fabelgeist-math",
+              "fabelgeist-rig",
+              "fabelgeist-shell",
+              "image",
+              "pollster",
+              "rand 0.9.5",
+              "rayon",
+              "serde",
+              "serde_json",
+              "spade",
+              "thiserror 2.0.20",
+              "tokio"
+            ]
+          },
+          "candidate": {
+            "name": "adventuresim-character-creator",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-core",
+              "adventuresim-world-schema",
+              "anyhow",
+              "async-lock",
+              "base64 0.22.1",
+              "bevy",
+              "bevy_egui",
+              "blake3",
+              "bytemuck",
+              "clap",
+              "derive_more 2.1.1",
+              "egui_extras",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-cloth",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-garment-code",
+              "fabelgeist-garment-fit",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-hair",
+              "fabelgeist-math",
+              "fabelgeist-mesh",
+              "fabelgeist-rig",
+              "fabelgeist-shell",
+              "image",
+              "pollster",
+              "rand 0.9.5",
+              "rayon",
+              "serde",
+              "serde_json",
+              "spade",
+              "thiserror 2.0.20",
+              "tokio",
+              "wgpu"
+            ]
+          }
+        },
+        {
+          "package": "fabelgeist-armor",
+          "version": "0.1.0",
+          "source": "",
+          "before": {
+            "name": "fabelgeist-armor",
+            "version": "0.1.0",
+            "dependencies": [
+              "blake3",
+              "bytemuck",
+              "fabelgeist-compute",
+              "fabelgeist-garment-code",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-rig",
+              "image",
+              "pollster",
+              "postcard",
+              "serde",
+              "serde_json",
+              "spade",
+              "thiserror 2.0.20"
+            ]
+          },
+          "candidate": {
+            "name": "fabelgeist-armor",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "blake3",
+              "bytemuck",
+              "fabelgeist-compute",
+              "fabelgeist-garment-code",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-mesh",
+              "fabelgeist-rig",
+              "image",
+              "pollster",
+              "postcard",
+              "serde",
+              "serde_json",
+              "spade",
+              "thiserror 2.0.20"
+            ]
+          }
+        },
+        {
+          "package": "fabelgeist-bvh",
+          "version": "0.1.0",
+          "source": "",
+          "before": {
+            "name": "fabelgeist-bvh",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "fabelgeist-compute",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "tokio"
+            ]
+          },
+          "candidate": {
+            "name": "fabelgeist-bvh",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "fabelgeist-compute",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-mesh",
+              "tokio"
+            ]
+          }
+        },
+        {
+          "package": "fabelgeist-compute",
+          "version": "0.1.0",
+          "source": "",
+          "before": {
+            "name": "fabelgeist-compute",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "futures-channel",
+              "indexmap 2.14.1",
+              "naga",
+              "pollster",
+              "regex",
+              "serde",
+              "strum 0.27.2",
+              "thiserror 2.0.20",
+              "tokio",
+              "wasm-bindgen-futures",
+              "wgpu"
+            ]
+          },
+          "candidate": {
+            "name": "fabelgeist-compute",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-mesh",
+              "futures-channel",
+              "indexmap 2.14.1",
+              "naga",
+              "pollster",
+              "regex",
+              "serde",
+              "serde_json",
+              "strum 0.27.2",
+              "thiserror 2.0.20",
+              "tokio",
+              "wasm-bindgen-futures",
+              "wgpu"
+            ]
+          }
+        },
+        {
+          "package": "fabelgeist-hair",
+          "version": "0.1.0",
+          "source": "",
+          "before": {
+            "name": "fabelgeist-hair",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "crc32fast",
+              "fabelgeist-bvh",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-spatial-hash",
+              "image",
+              "miniz_oxide 0.8.9",
+              "naga",
+              "pollster",
+              "rayon",
+              "serde",
+              "serde_json",
+              "thiserror 2.0.20",
+              "web-time",
+              "wgpu"
+            ]
+          },
+          "candidate": {
+            "name": "fabelgeist-hair",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "crc32fast",
+              "fabelgeist-bvh",
+              "fabelgeist-color",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-mesh",
+              "fabelgeist-spatial-hash",
+              "futures-channel",
+              "image",
+              "miniz_oxide 0.8.9",
+              "naga",
+              "pollster",
+              "rayon",
+              "serde",
+              "serde_json",
+              "thiserror 2.0.20",
+              "web-time",
+              "wgpu"
+            ]
+          }
+        },
+        {
+          "package": "fabelgeist-mesh",
+          "version": "0.1.0",
+          "source": "",
+          "before": {
+            "name": "fabelgeist-mesh",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "fabelgeist-gpu",
+              "indexmap 2.14.1",
+              "serde",
+              "strum 0.27.2",
+              "tokio",
+              "wgpu"
+            ]
+          },
+          "candidate": {
+            "name": "fabelgeist-mesh",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "fabelgeist-gpu",
+              "indexmap 2.14.1",
+              "serde",
+              "strum 0.27.2",
+              "thiserror 2.0.20",
+              "tokio",
+              "wgpu"
+            ]
+          }
+        },
+        {
+          "package": "fabelgeist-physics",
+          "version": "0.1.0",
+          "source": "",
+          "before": {
+            "name": "fabelgeist-physics",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "fabelgeist-bvh",
+              "fabelgeist-compute",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-xpbd",
+              "tokio"
+            ]
+          },
+          "candidate": {
+            "name": "fabelgeist-physics",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "fabelgeist-bvh",
+              "fabelgeist-compute",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-mesh",
+              "fabelgeist-xpbd",
+              "tokio"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "changed_package_names": [
+        "adventuresim-character-creator",
+        "fabelgeist-hair",
+        "fabelgeist-mesh"
+      ],
+      "changes": [
+        {
+          "package": "adventuresim-character-creator",
+          "version": "0.1.0",
+          "source": "",
+          "before": {
+            "name": "adventuresim-character-creator",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-core",
+              "adventuresim-world-schema",
+              "anyhow",
+              "async-lock",
+              "base64",
+              "bevy",
+              "bevy_egui",
+              "blake3",
+              "burn",
+              "bytemuck",
+              "clap",
+              "derive_more 2.1.1",
+              "egui_extras",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-cloth",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-garment-code",
+              "fabelgeist-garment-fit",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-hair",
+              "fabelgeist-math",
+              "fabelgeist-mhr",
+              "fabelgeist-rig",
+              "fabelgeist-shell",
+              "gltf",
+              "image",
+              "pollster",
+              "rand 0.9.5",
+              "rayon",
+              "serde",
+              "serde_json",
+              "spade",
+              "thiserror 2.0.20",
+              "tokio"
+            ]
+          },
+          "candidate": {
+            "name": "adventuresim-character-creator",
+            "version": "0.1.0",
+            "dependencies": [
+              "adventuresim-core",
+              "adventuresim-world-schema",
+              "anyhow",
+              "async-lock",
+              "base64",
+              "bevy",
+              "bevy_egui",
+              "blake3",
+              "burn",
+              "bytemuck",
+              "clap",
+              "derive_more 2.1.1",
+              "egui_extras",
+              "fabelgeist-armor",
+              "fabelgeist-bvh",
+              "fabelgeist-cloth",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-garment-code",
+              "fabelgeist-garment-fit",
+              "fabelgeist-geometry",
+              "fabelgeist-gpu",
+              "fabelgeist-hair",
+              "fabelgeist-math",
+              "fabelgeist-mesh",
+              "fabelgeist-mhr",
+              "fabelgeist-rig",
+              "fabelgeist-shell",
+              "gltf",
+              "image",
+              "pollster",
+              "rand 0.9.5",
+              "rayon",
+              "serde",
+              "serde_json",
+              "spade",
+              "thiserror 2.0.20",
+              "tokio",
+              "wgpu 29.0.4"
+            ]
+          }
+        },
+        {
+          "package": "fabelgeist-hair",
+          "version": "0.1.0",
+          "source": "",
+          "before": {
+            "name": "fabelgeist-hair",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "crc32fast",
+              "fabelgeist-bvh",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-spatial-hash",
+              "miniz_oxide 0.8.9",
+              "pollster",
+              "rayon",
+              "serde",
+              "serde_json",
+              "thiserror 2.0.20",
+              "web-time",
+              "wgpu 29.0.4"
+            ]
+          },
+          "candidate": {
+            "name": "fabelgeist-hair",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "crc32fast",
+              "fabelgeist-bvh",
+              "fabelgeist-color",
+              "fabelgeist-compute",
+              "fabelgeist-determinism",
+              "fabelgeist-gpu",
+              "fabelgeist-math",
+              "fabelgeist-mesh",
+              "fabelgeist-spatial-hash",
+              "miniz_oxide 0.8.9",
+              "pollster",
+              "rayon",
+              "serde",
+              "serde_json",
+              "thiserror 2.0.20",
+              "web-time",
+              "wgpu 29.0.4"
+            ]
+          }
+        },
+        {
+          "package": "fabelgeist-mesh",
+          "version": "0.1.0",
+          "source": "",
+          "before": {
+            "name": "fabelgeist-mesh",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "fabelgeist-gpu",
+              "indexmap",
+              "serde",
+              "strum 0.27.2",
+              "wgpu 29.0.4"
+            ]
+          },
+          "candidate": {
+            "name": "fabelgeist-mesh",
+            "version": "0.1.0",
+            "dependencies": [
+              "anyhow",
+              "bytemuck",
+              "fabelgeist-gpu",
+              "indexmap",
+              "serde",
+              "strum 0.27.2",
+              "thiserror 2.0.20",
+              "wgpu 29.0.4"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "preservation": {
+    "four_strip_wgsl_raw_literals_exact_main": true,
+    "wgsl_sha256": [
+      "eabb480eeb8e4b5569e50c0ecb928da38a204c8cd588af9fb1626db35f28a8db",
+      "4163b7acf1b39b277d6eacd400ddcf27f217d1a41c8a7249fff4a41a75bd2fa0",
+      "31380496518b1220b21e163ea5d2843bd90452fc4f2c384c32af22873814a09d",
+      "4dfd9d6f4173f8fd3e1929fe90617895b94bcafaa9e2dc8dddc1b7f74ad57cec"
+    ],
+    "render_fixture_diff": "Only two Formordinal display adapters at285-288; all same preexisting case/helpers/oracles. Complete fixture read.",
+    "main_fixture_suffix_exact": true,
+    "root_context_paths_exact": [
+      "crates/fabelgeist-hair/src/lod/policy.rs",
+      "crates/fabelgeist-hair/src/lod/presets.rs",
+      "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "crates/fabelgeist-hair/src/render/mod.rs"
+    ],
+    "no_tests_authored": true,
+    "legacy_native_programs": "Native numerical instructions/tuning retained; source equality is not execution/visual/numericalconditioning proof."
+  },
+  "additional_source_proofs": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "coverage": "Fresh complete actual immutable b11source read; NOT presentin26 receipt and required integration."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "coverage": "Fresh complete actual immutable b11source read; NOT presentin26 receipt and required integration."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+      "coverage": "Fresh complete actual immutable b11source read; NOT presentin26 receipt and required integration."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "coverage": "Fresh complete actual immutable b11source read; NOT presentin26 receipt and required integration."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "7814ed1212fc58bea86aebf290862d5937f4e3e20d2b508050d20983948323a8",
+      "coverage": "Fresh complete actual immutable b11source read; NOT presentin26 receipt and required integration."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "77e815b2a949e96a4e90b90acc7f184021d395dcbb1881ee293fa0d94f2c69d6",
+      "coverage": "Fresh complete actual immutable b11source read; NOT presentin26 receipt and required integration."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/levels.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "650943d671d88ceb81a808c6e1f94eddb4780e018518f930fce3d3b1bf4bac3b",
+      "coverage": "Fresh complete actual immutable b11source read; NOT presentin26 receipt and required integration."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/mesh.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "322747ae7f6a10847b6f82813fd1b27cfd8caafb01f4d13aca401dc78346ab21",
+      "coverage": "Fresh complete actual immutable b11source read; NOT presentin26 receipt and required integration."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "6b7a180a3ee2faa7fc26a79e2ae14ceeac4a54c19f96a308dc57f417c56ea49f",
+      "coverage": "Fresh complete actual immutable b11source read; NOT presentin26 receipt and required integration."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface/render_layout.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "a494654990087180a401c2f0f80b258d3c01ae652d66d6f12017a657c04c969c",
+      "coverage": "Fresh complete actual immutable b11source read; NOT presentin26 receipt and required integration."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+      "coverage": "1-135 owner,exports,hostrecords,StrandLevel constructor; laterbuilderbody notfreshfullread"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "44ffb5c296d0d5948e0b64f76f2dea59c4d41238f3ef8deaf6d549007a376f61",
+      "coverage": "35-200 Grid/currentnativeLOD construction/partialdensity body only; broaderphysicalGrid body required"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "2b2bc94e4178a098e4ae5dac1794f82380d037922fce244ce833a0d73482b7fe",
+      "coverage": "Exact finish408-414 and relevantactual native signatures; notwholecurrentmodule read"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "coverage": "Exactdispatch_folded293-299; priorcompletecanonicalKernelreceipts retained onlydeclaredscope"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+      "coverage": "1-100 owner/recipe/positivevariant/mip getters; remainingbody priorcanonicalreceipt only"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+      "coverage": "1-90 positivevariant owner/admission/errorrecords; broaderlayout/paint receivespriorRootowner source required"
+    }
+  ],
+  "missing_receipt_dependencies": [
+    {
+      "family": "Host/LOD owners",
+      "paths": [
+        "crates/fabelgeist-hair/src/strands.rs",
+        "crates/fabelgeist-hair/src/strands/shape.rs",
+        "crates/fabelgeist-hair/src/parameters.rs",
+        "crates/fabelgeist-hair/src/lod.rs",
+        "crates/fabelgeist-hair/src/lod/counts.rs",
+        "crates/fabelgeist-hair/src/lod/quality.rs",
+        "crates/fabelgeist-hair/src/sim/frame.rs",
+        "crates/fabelgeist-hair/src/sim/binding.rs"
+      ],
+      "status": "Required actual definitions/builders/callers not suppliedby26; someexactsource interfaces/readreceipts known, not wholefamilybody/compileclearance."
+    },
+    {
+      "family": "Native Gpu/Sim/source/Card/Surface owners",
+      "paths": [
+        "crates/fabelgeist-hair/src/gpu/mod.rs",
+        "crates/fabelgeist-hair/src/gpu/layout.rs",
+        "crates/fabelgeist-hair/src/gpu/lods.rs",
+        "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+        "crates/fabelgeist-hair/src/gpu/lods/levels.rs",
+        "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+        "crates/fabelgeist-hair/src/gpu/lods/prepare.rs",
+        "crates/fabelgeist-hair/src/gpu/sim.rs",
+        "crates/fabelgeist-hair/src/gpu/head.rs",
+        "crates/fabelgeist-hair/src/cards.rs",
+        "crates/fabelgeist-hair/src/cards/mesh.rs",
+        "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+        "crates/fabelgeist-hair/src/cards/atlas.rs",
+        "crates/fabelgeist-hair/src/surface.rs",
+        "crates/fabelgeist-hair/src/surface/render_layout.rs"
+      ],
+      "status": "Requiredintegration; actualsealedrecords/admission/source endpoints readasdeclared, manyphysical/nativebuilders/callersstillopen. Do notfabricategetters/typesorclaim26self-contained."
+    },
+    {
+      "family": "Creator lower/error/completion/runtime recipients",
+      "paths": [
+        "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+        "crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+        "crates/adventuresim-character-creator/src/hair/gpu/place.rs",
+        "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+        "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+        "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+        "crates/adventuresim-character-creator/src/hair_preview/strand_shading.rs",
+        "crates/adventuresim-character-creator/src/character_export/mod.rs",
+        "crates/adventuresim-character-creator/src/character_morphs.rs"
+      ],
+      "status": "Requiredwholecaller/physical/cause graph not suppliedby26. Providerpolicy remains actualBevydevice-handled; no syntheticcontext/synchronousvalidationpromise."
+    },
+    {
+      "family": "Shared lower/canonical manifests/locks",
+      "paths": [
+        "crates/fabelgeist-hair/Cargo.toml",
+        "crates/fabelgeist-armor/Cargo.toml",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+        "crates/fabelgeist-compute/src/kernel/mod.rs",
+        "crates/fabelgeist-rig/src/lib.rs",
+        "crates/fabelgeist-math/src/units.rs"
+      ],
+      "status": "Requiredcanonicaltype/export/feature/errorclosure andactualCreator/Rig/Bevy/exportconsumers; preserveRootnativebodiesand independent895ZIP/NumPy/774 work. No unrelatedsharedrepair."
+    }
+  ],
+  "no_growth": "New Mesh/Card/Creator strip files/functions readfully andbelow500/100. Renderer context remains unchangedRootoversizedbaseline debt; relevanthostedreductions/checksrequired. No qualityscanner/baselinegenerator executed or ceilingsraised. LegacyCreator main/test/bake ordering separatelyrecorded; no blanketwholeCreatorRuleclearance.",
+  "source_dispositions": "All26 paths classified individually:2complete lockdata records,4exactRootcontextfiles,20freshwholeother source/manifests. No generatedDB/schema/wiki/artcycle paths. Nativegeometry/math/POD/shaderinstructions andfixturedata intentional; actualmissingproducer/native/physical/caller/lockfamilies required ratherthandeferred.",
+  "correctness_verdict": "One new stripleaf cause/admission distinction finding SSTR-CAUSE. Checked generic topology/zero/rows/index/byte/unit/state routes otherwise have no demonstrated new defect in bounded source. Required existingtype/cause/completion/lock/order gaps remain actionable; no compile/runtimeclaim.",
+  "completeness_verdict": "All13 scoped pre-receive discovery records written before any reviewerauthorizedsource receipt/edit, withindividualcontract/disposition/connectedrepair/dependency/acceptance/status. This is NOT all13 clearance: exactwiderproducer/physical/caller/lock graph is explicitly incomplete/required and26aloneisself-insufficient.",
+  "limits": [
+    "No source edits, no projectbuild/check/lint/test/scanner/generator/runtime/push/CI, no newtest/case/helper/assertion/doctest. Lock parsing/diffs/hashes arebookkeeping only.",
+    "Peer retainswholeimplementationownership; reviewerdoesnotrepairclaimed/sharedfunctions orduplicateowners. Rootisimplementationloop.",
+    "Allsourcecoveragegranularitiesabovearehonest: contextualimmutableRootfullreadreceiptsnotfreshbodycredit, partialforeigninterfacesnotwholemodulecredit, missingreceiptnotwaived.",
+    "Allrequireddependencies, completeglobal13waves, finalindependentCode/Rule/Commentreviews andrequiredexistinghostedgates/reductions ononefinalpushedrevision remainopen. No merge."
+  ],
+  "head_at_report": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "status_at_report": "",
+  "row_cause_successor_receipt": {
+    "revision": "fff01705f4eaae22f98242ce64e538e02ac76e86",
+    "path": "crates/fabelgeist-mesh/src/count/strip.rs",
+    "sha256": "92f8eede012a1018363a73fcd79a8f703862a3f6c40291a30e2cd02264e95ffe",
+    "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-mesh-row-cause-fff01705f/manifest.json",
+    "scope": "Independent complete successor file and exact b11 diff read. All source from subdivided through native layout/count/face implementation byte-identical b11. Other revision paths not granted coverage.",
+    "contract": "MinimumRows retains low-row request; RowAddresses retains actual #[source] TryFromIntError and requested rows; SegmentRows retains checked-add segment request. Old Rows variant removed without compatibility path.",
+    "disposition": "SSTR-CAUSE remains valid at pinned b11; correction candidate verified at fff01705 but not received into Root. Other five findings and complete integration remain required.",
+    "validation": "Source only; no source edit, project check, compile/global/final clearance.",
+    "successor_revision_changed_paths": [
+      "crates/fabelgeist-mesh/src/count/strip.rs"
+    ]
+  },
+  "creator_cache_policy_coordination_addendum": {
+    "policy": "Explicit Root/#780 agreement preserves existing application initialize-once outcome policy while retaining actual reusable errors and documenting it through UI.",
+    "source": "Root d7da ComputePipeline::get_or_create_pipeline docs115-116 (paragraph113-116): uncached Progress/retry promise belongs to this pipeline cache API, not all application initializers. Actual Creator OnceLock/OnceCell outcome caches are separate policy owners.",
+    "disposition": "Historical pinned b11 cause-erasure finding remains valid. Any blanket application retry inference is withdrawn; acceptance is actual reusable source-bearing error plus original initialize-once policy, not conversion to global retries. Four Creator initializers are #780-owned repair dependencies.",
+    "limits": "Coordination/source addendum, no source edit or revised pinned b11 correctness claim."
+  }
+}

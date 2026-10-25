@@ -1,0 +1,1391 @@
+{
+  "review": "Independent pre-receive Comment Review",
+  "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+  "tree": "d5cd6f362a0044c4df16c00d6960a88e23b2b421",
+  "comparison_base": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "root_receiving_anchor": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "manifest": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/root-receiving-manifest.json",
+  "manifest_sha256": "4be1e5f40a4d074209b688aa92486c22449bda44ab7055a39c130d85e599387d",
+  "status": "Bounded source review complete with two connected documentation findings; not received, not full family/global/final clearance",
+  "coverage_summary": {
+    "selected_files": 77,
+    "selected_lines": 42025,
+    "fresh_full_nonlock_files": 75,
+    "fresh_full_nonlock_lines": 16588,
+    "generated_lock_lines": 25437,
+    "generated_lock_coverage": "all comments and complete base-to-pin textual delta; named dependent package records only, remaining unchanged metadata identity-accounted"
+  },
+  "source_accounting": [
+    {
+      "path": "crates/fabelgeist-color/src/encoded.rs",
+      "sha256": "207692aa2840d13ab24b0bd67e5d228df64245ed80345ea91e833ad23ff827a2",
+      "lines": 73,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          73
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "9586a92ca2dcf19911b96b5fd50818df42af552582a7b0955224294ef69b9013",
+      "lines": 26,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          26
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/surface_material.rs",
+      "sha256": "ea2e7125a8a3e4191aac2a1ab33237df671f8cf0aac607ccbef869fd2f7e691e",
+      "lines": 25,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          25
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/body_appearance.rs",
+      "sha256": "b008724145f00db491a58464844d9478f6dc98cb213405155444f151530f5a59",
+      "lines": 11,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          11
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/surface_projection.rs",
+      "sha256": "d0cb73bb8dee9cf7def0509cd17744d40598b5a9cb99dc0a5fceec0ff16bc24d",
+      "lines": 69,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          69
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "b15110d340873bcac7853670061621fefdd69388dec331613c316bf5bbec1bf9",
+      "lines": 241,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          241
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "3014f331d32d092248326e49b6966aca09036b86b68220167f56924abf160d84",
+      "lines": 304,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          304
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "a82f0e3c9912c2ee10b704021d81d667163eb83c6da16804ed8fcc6e23ece052",
+      "lines": 29,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          29
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "89cf06ca88fa0b2863f103f8cf6961345e3c5cfc2c52ad8802bbe3f452d70361",
+      "lines": 83,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          83
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "9ba957e3c79662976f2c48a43ee3b9fdfd5d2e97042f12ffb1f1bada1ea24218",
+      "lines": 133,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          133
+        ]
+      ]
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "ba4082d74f3bdcafdb689588768e1ef4b37041e55493745dcc15e5c541fae33c",
+      "lines": 13119,
+      "packet_matches_exact_commit": true,
+      "coverage": "Generated metadata: complete two-line generated marker/comment census and full textual base-to-pin delta; named Bevy/egui/fabelgeist-color package records read. Remaining unchanged dependency records are identity-accounted, not a fresh whole-lock semantic resolution.",
+      "complete_source_coverage": false,
+      "read_extents": [
+        [
+          1,
+          12
+        ],
+        [
+          1690,
+          1717
+        ],
+        [
+          4508,
+          4545
+        ],
+        [
+          4890,
+          4925
+        ]
+      ],
+      "full_comment_coverage": true,
+      "full_delta_coverage": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "a068c4409c2ddee8160dba37c314676eebaafb33c324984a872a9478ebd3e354",
+      "lines": 12318,
+      "packet_matches_exact_commit": true,
+      "coverage": "Generated metadata: complete two-line generated marker/comment census and full textual base-to-pin delta; named Bevy/egui/fabelgeist-color package records read. Remaining unchanged dependency records are identity-accounted, not a fresh whole-lock semantic resolution.",
+      "complete_source_coverage": false,
+      "read_extents": [
+        [
+          1,
+          12
+        ],
+        [
+          1118,
+          1142
+        ],
+        [
+          4480,
+          4530
+        ],
+        [
+          4928,
+          4965
+        ]
+      ],
+      "full_comment_coverage": true,
+      "full_delta_coverage": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/components.rs",
+      "sha256": "39076111488cb7bfbc945fbbb14171173b6db894259f1c877af261ddde6109fe",
+      "lines": 154,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          154
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile.rs",
+      "sha256": "ed25de57edc90db43b0e8fe878f3f756bbcb3a3ff08e80d28ad92e159517bcb8",
+      "lines": 22,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          22
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_pattern.rs",
+      "sha256": "eb6c1803c7a95f765e79baf0f41e56337a769930576928064e201147ac404ef2",
+      "lines": 358,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          358
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_fastener_mesh.rs",
+      "sha256": "3be02700f47bda936316ff4b2b4936a2ecd0029e974dce44b67d69736c56e374",
+      "lines": 370,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          370
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_hook_mesh.rs",
+      "sha256": "e211ff0798a2b34eac5012a2596e82bd51a6adbee6d4199926da6bb0f5e3ee60",
+      "lines": 144,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          144
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_lacing_mesh.rs",
+      "sha256": "4294792813aa446c4c17a63e278c8270a72049d5bd7e1cca0e4ea2d06bca8aa9",
+      "lines": 127,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          127
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/sewn_eyelet_mesh.rs",
+      "sha256": "609e815e559b85beda642da8d978bfaef834b748b5624d3d088c520afca81be1",
+      "lines": 108,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          108
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_armor.rs",
+      "sha256": "2687088c7d1de1b51bfbd8ca4f77b7e65e91235f5dd5449e8c3060a1c8d5dd61",
+      "lines": 186,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          186
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/waist_support_mesh.rs",
+      "sha256": "59f2203c6a21a59d1dac5abc085be16397b0633ada8245f93f949a9a192b6bfb",
+      "lines": 161,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          161
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "fcf13b47f8b4b88d6aa11e92354548f7d54ae0b08e6d67d2eabff75f17026cb4",
+      "lines": 509,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          509
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "sha256": "bbf7027eaab292a2251507b82e6643c2f32c2df58d1ec27f7e2dbea6e1703379",
+      "lines": 479,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          479
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "sha256": "2148a9c5c4d2edd7732a6f161c25be9be4d7fb93ece96288182ea68a0aaf7430",
+      "lines": 310,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          310
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_layout.rs",
+      "sha256": "e8355470166cde20def8ab479184b5c6f571eda55964be7209ce15f71d4c5c31",
+      "lines": 127,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          127
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/tests.rs",
+      "sha256": "b0a2e919bc35d3820de076231dceb2758c9f5cf07d2670e52618485b6352ef7b",
+      "lines": 276,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          276
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "sha256": "ae0b709910333e1524f9689ccf5cfdfdd2072fffa7f00c768eb5fceda631f00b",
+      "lines": 139,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          139
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_materials.rs",
+      "sha256": "fb59dc33c10a0f7de1957e746e64b9228adb1ecd22e6c464d613811a12df82fb",
+      "lines": 104,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          104
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_relief.rs",
+      "sha256": "4f9bef371feb98e1052fa451496b1798da0cc10b3d182d0a49228699cefba0df",
+      "lines": 102,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          102
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_seams.rs",
+      "sha256": "44111a4747b80f09bbdbdeb501b507c155c62dd99ccf188ed6987d569ff380bb",
+      "lines": 157,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          157
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_appearance.rs",
+      "sha256": "35e7af5d4c6eddea9cc7484f03b4c23e7410581fbc975cc7674d3eef4205d678",
+      "lines": 760,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          760
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/examples/textile_review/mod.rs",
+      "sha256": "026a11e65bd823dd1bd43b045105d732519c34a1a388b0e97a0945ef3ba3ce8a",
+      "lines": 108,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          108
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs",
+      "sha256": "fc202ebb9c155a3deaf8e61d5dd8a9a83710849339a879b08cfc00dbc44138d0",
+      "lines": 458,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          458
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "ff72cece4156ed5f18aa3af3011c590eccae7e45340c755ad32e7b73339cf69e",
+      "lines": 134,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          134
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "sha256": "c9b01e2ab8ba1fb7b0201e0d95ecb41ca101cf0f6bb56adab0ed656f61a59ff6",
+      "lines": 388,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          388
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing_material.rs",
+      "sha256": "392c3f5ab383b7eab671eafcfb84d79bf5a013ee8e21b7acb395f22788d5624a",
+      "lines": 55,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "7c0ab220dff0ffa44df39a73258de057c9b5d7037f694eb2ce32f81d132e5e63",
+      "lines": 171,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          171
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "6ef02db0cef5c45d6560976ce4f3ae011f591d755a9e0313ec3cc75c04f69a3d",
+      "lines": 264,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          264
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "sha256": "5784fb2e5a6b5c72be402465e6d28a84422e5274759c4674f560abe2aa8cebc4",
+      "lines": 259,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          259
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "098f2b193a044af8ad54a0517a96a2308c30ec0fd002c2e7f6905747eb2fd9c1",
+      "lines": 348,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          348
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material/rings.rs",
+      "sha256": "471ad91001a7b09374e81f3e5d774a7fa8f64ac51ca4b7aec860e0433e949d5d",
+      "lines": 258,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          258
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/material_color_controls.rs",
+      "sha256": "0aecd247feea1fc977fdc09c6c4795186438557b2687ae0e1d15bc9389431bfb",
+      "lines": 30,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          30
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "366087f0e3753b4917fc7fb7fe1f5aa1c6bc654dd4fe3ed03d97c7df0f3395e8",
+      "lines": 668,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          668
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_controls.rs",
+      "sha256": "58cb430aed05d49c2d1e9782ff773903f6c26ac15c304e523a4e0a2537ec541d",
+      "lines": 201,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          201
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/construction_controls.rs",
+      "sha256": "cc9d26e5f71807cfa63e701e752330432e109c59f612b20544df220c59b5a9bd",
+      "lines": 93,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          93
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/fabric_controls.rs",
+      "sha256": "4f576fdfae6f68499082f3da87dbba83f1e587242edc969720b1982a89fb66b0",
+      "lines": 71,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "sha256": "f3501d1e062f0d49a606db6aea9c5d5e616405412d2348cba770e437a964ab46",
+      "lines": 697,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          697
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "73b6b6c79dad123790c5136a530112273cc766f8602f07360d36ffe5b1bb8cd6",
+      "lines": 60,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          60
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "4caf4186ff5bdf5bbeef68f6dc21fd1efe09273d6a51a778862c5c3699db34ef",
+      "lines": 103,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          103
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "c2ccb364a4ac459ff340265962f4d5dd1a171be1cf9a8554a5de11a82e558865",
+      "lines": 385,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          385
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "6210517f4a5b5ff82c940bfaddb1581c206b3c92630e45a1e733c2ccf5f23bdd",
+      "lines": 242,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          242
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "dbbb086bd77ecd0153686025543f523cc7787e9a909a030625275c6d124a9b59",
+      "lines": 342,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          342
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "d4d9bf1aea7c1a69e348644cf11a09056260ce34f97b340357aed60c646c4a5a",
+      "lines": 30,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          30
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "c5e9761baffad2f4392216dddc34d97d391a670f3526dc7ea5a1d28bdc29c415",
+      "lines": 146,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          146
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "cba63ede76abdcd13235784a34e03c29e979e09cf0c7dd477a0007a81789233a",
+      "lines": 179,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          179
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "sha256": "7d23fb7284ff564253d0037918527d7fa6877827a573f5c1ed719bc5760893c0",
+      "lines": 226,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          226
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "117a80aebc7a1de9da1a89065490b5407d182b9fbbdae2b70735945084fc353c",
+      "lines": 1765,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          1765
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/assembly.rs",
+      "sha256": "92f6f5351a361dc257d646c8b9b411e53a7af03ea6aef9043536eb2bdb707c72",
+      "lines": 313,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          313
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/morphs.rs",
+      "sha256": "7eede3013d854f1905e7e4806f7914bd978b9a54a0d9201b001578bfa3e63013",
+      "lines": 162,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          162
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "sha256": "2af2db51fbec555697e97ac7e653f95ae09e381dd8acbc9bb110f66b6346c314",
+      "lines": 108,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          108
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "461ae69b0d57a3e9e0c4f412dfbf39ad34864bdc72fe6e5c964d292e50391c89",
+      "lines": 201,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          201
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "sha256": "b17010a478ba122880bf826707227f55e2833023b46ec14cfc6baceb09237847",
+      "lines": 177,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          177
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/bare_body.rs",
+      "sha256": "10911f928ebfe620f5a0e3cfd348c481d7d455a52788cfd1a39e0ff2f02c97ad",
+      "lines": 69,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          69
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/textile_surface.rs",
+      "sha256": "b9942d38d704ecaf44eb150b0821367cfe3f3c77ce9f94ba603c7f714836aaec",
+      "lines": 153,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          153
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "sha256": "c27d902cac7ee61e69322688e8be4404d849c07c982616801ecb7d960f7d0d25",
+      "lines": 137,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          137
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "2f227d4d00ce9a7090f36fc6a4b5f457df9429abf08515e3e037782950496467",
+      "lines": 72,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "859437a4b9cd33e71a2fb2c34106ba80bb92ec545d3382c2a363218b91088659",
+      "lines": 187,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          187
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "65b095038c61727c57b21a007cee9cf6b655b21a64289c90df206b322b623326",
+      "lines": 288,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          288
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "a248f8b0ae468ad6f590396c5f2413900f000b9d86fb41b75225d829b2aa8d87",
+      "lines": 305,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          305
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "a3b88b0fa6ee6b6fd5bbf3c31c6e4091277c46f0294f363b52cdb029235f8ee7",
+      "lines": 165,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          165
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "dc8418b20e33ff08fc66ccfe4c1f9aee75d43c450ade95fd7e86ebf36030dfb4",
+      "lines": 160,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          160
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "e430c45bc2b8f6b87ab984c3b1684a287e124a4275eb29f8ab86906db79093e2",
+      "lines": 117,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          117
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "5d23e1c4decd680acec00f3d2bf5f5a66beac501291d73165cafe7f9ccd26322",
+      "lines": 250,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          250
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/review_export.rs",
+      "sha256": "d0963c6141c5c8ce91bd47ed33a696096bc16d6dd2420896080c389cbf6cd8a4",
+      "lines": 128,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          128
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/review_component.rs",
+      "sha256": "e1d68d890c32b09dbeeb70c5f416438d8882e6a62da3ecc58868631f347af5f4",
+      "lines": 38,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          38
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/finish.rs",
+      "sha256": "042db495d8b465dffdf12366970d62c57f929b796e2e9f8974f5f5bddd3921e4",
+      "lines": 160,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          160
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim.rs",
+      "sha256": "d32e281322f275748d496491151217f53fab6e74b14260ca8766b98bc9aa13a6",
+      "lines": 130,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete source, owning docs/comments and included fixture body read, lines 1 through EOF; no inherited peer review verdict",
+      "complete_source_coverage": true,
+      "read_extents": [
+        [
+          1,
+          130
+        ]
+      ]
+    }
+  ],
+  "affected_receiver_and_sdk_accounting": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "sha256": "85c7d90117d3d5bc30b5239f0863256038074ebfcc4a820a4d8c8e96e3a3c666",
+      "lines": 83,
+      "coverage": "Fresh complete source/docs read",
+      "read_extents": [
+        [
+          1,
+          83
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "lines": 394,
+      "coverage": "Fresh relevant KernelBatch ownership, dispatch, callback and submission bodies/docs; other Kernel constructors not freshly re-reviewed here",
+      "read_extents": [
+        [
+          65,
+          100
+        ],
+        [
+          215,
+          355
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "sha256": "085502d120e5ba4f365bd8015990a4347e758f698a00b1bb530c93ae3066ca9a",
+      "lines": 252,
+      "coverage": "Fresh complete prepare allocation/write/group portion and surrounding docs",
+      "read_extents": [
+        [
+          154,
+          245
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "sha256": "b94c9bc6659a4ca3a7e9ef3bfbe5a52026c70dd86abd4c40f91c5066c9ebde8e",
+      "lines": 149,
+      "coverage": "Fresh complete exact-pin source/docs, including async open/textures/read, native context carrier and cache handles",
+      "read_extents": [
+        [
+          1,
+          149
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/scripts/render_armor_review.py",
+      "sha256": "f6e41c0f0f4ecd90ce83153901ed7b9426acfb5597a8c6cb18a3077a351167c7",
+      "lines": 115,
+      "coverage": "Fresh complete file, JSON material/role/range reader; Blender not executed",
+      "read_extents": [
+        [
+          1,
+          115
+        ]
+      ],
+      "matches_peer_pin": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/crates/fabelgeist-color/src/transfer.rs",
+      "sha256": "81b5c5f4a55d8191a178ea71fc618c968db91c2b601fa7b72e0cadf466ecad62",
+      "lines": 271,
+      "coverage": "Fresh ranges 1\u2013145 only; compared bytes to exact peer pin below",
+      "read_extents": [
+        [
+          1,
+          145
+        ]
+      ],
+      "matches_peer_pin": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/egui-0.34.3/src/ui.rs",
+      "sha256": "30995097d9587e0576344e54f99e5eb33b5aa255167c9f90e3f4efc99ac1606b",
+      "lines": 3254,
+      "coverage": "Actual documented encoded byte picker versus linear float picker",
+      "read_extents": [
+        [
+          2260,
+          2287
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/egui-0.34.3/src/widgets/color_picker.rs",
+      "sha256": "ef6853846e055d2134346b166ea83e75a93b4eddfb20472e4eaee57e083c96d7",
+      "lines": 572,
+      "coverage": "Actual float RGB/Rgba adapter and changed response path",
+      "read_extents": [
+        [
+          510,
+          566
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_color-0.19.1/src/color.rs",
+      "sha256": "02af4493fa9e96eba4a7f79442744ee7386181801561607010c8f83ac120f097",
+      "lines": 951,
+      "coverage": "Native Color::srgba constructor retains encoded channels",
+      "read_extents": [
+        [
+          100,
+          180
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_color-0.19.1/src/srgba.rs",
+      "sha256": "f6bc4fc540e5d861e9b73d7311bb85f3664a1417e72007bc1844e16c6ab6e2b3",
+      "lines": 521,
+      "coverage": "Actual RGB-only transfer and unencoded alpha copy",
+      "read_extents": [
+        [
+          192,
+          225
+        ],
+        [
+          390,
+          405
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gltf-json-1.4.1/src/material.rs",
+      "sha256": "8f3c236581f082e95f46958c40de3373bd0a2761d496f890d358dfc759c43786",
+      "lines": 311,
+      "coverage": "Separate baseColorFactor and baseColorTexture protocol fields; not a full standard conformance review",
+      "read_extents": [
+        [
+          128,
+          158
+        ]
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "family": "Encoded color / recipes",
+      "sources": [
+        "crates/fabelgeist-color/src/encoded.rs",
+        "crates/fabelgeist-armor/src/surface_material.rs",
+        "crates/fabelgeist-armor/src/material.rs"
+      ],
+      "disposition": "Accurate bounded contracts",
+      "detail": "Srgb/Srgba are unbounded float encoded leaves, not finite/range admission. RGB transfer may overflow and alpha is copied. SurfaceMaterial::is_finite checks source scalars, explicitly not decoded factors; ValidatedMetal remains recipe policy."
+    },
+    {
+      "family": "Single component appearance",
+      "sources": [
+        "crates/fabelgeist-armor/src/components.rs",
+        "crates/fabelgeist-armor/src/textile_pattern.rs",
+        "crates/adventuresim-character-creator/src/device_textile_materials.rs",
+        "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs"
+      ],
+      "disposition": "Accurate representation/docs at this pin",
+      "detail": "Mandatory Inherit/Surface/Textile owns one payload. material() derives current textile appearance; textile_mut exposes that same authoritative payload. Default and gilt trim consumers use the typed appearance. Physical textile chart/seam/UV policy is not cleared."
+    },
+    {
+      "family": "Native/framework projections",
+      "sources": [
+        "crates/adventuresim-character-creator/src/surface_projection.rs",
+        "crates/adventuresim-character-creator/src/material_color_controls.rs",
+        "crates/adventuresim-character-creator/src/textile_surface.rs",
+        "crates/adventuresim-character-creator/src/metal_preview.rs"
+      ],
+      "disposition": "Accurate qualified docs",
+      "detail": "Bevy receives encoded RGB via Color::srgba; GLB/review projection decodes RGB, copies alpha and checks resulting finite factors. No implied [0,1] or complete GLB geometry/size admission. Float UI uses linear egui RGB and converts back only on change; old chainmail byte picker is not misrepresented as arbitrary-precision UI."
+    },
+    {
+      "family": "Map precedence / body versus scalp",
+      "sources": [
+        "crates/adventuresim-character-creator/src/body_appearance.rs",
+        "crates/adventuresim-character-creator/src/export/textures.rs",
+        "crates/adventuresim-character-creator/src/export/shell.rs",
+        "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+        "crates/adventuresim-character-creator/src/hair_preview/assets.rs"
+      ],
+      "disposition": "Actual map/factor behavior verified; C2 wording repair required",
+      "detail": "Color maps select white scalar including alpha before linear decode; normal-only maps retain authored color. Existing texture/textile/shell-map override ordering remains; metal map roughness factor is one. Shared skin material is body preview/export, not a promise to unify scalp shading."
+    },
+    {
+      "family": "Review protocol",
+      "sources": [
+        "crates/adventuresim-character-creator/src/review_component.rs",
+        "crates/adventuresim-character-creator/src/review_export.rs",
+        "crates/adventuresim-character-creator/examples/textile_review/mod.rs",
+        "scripts/render_armor_review.py"
+      ],
+      "disposition": "Accurate scalar-only checked protocol docs",
+      "detail": "Both JSON producers TryFrom the shared ReviewComponent and propagate projection errors. material retains base_color/metallic/roughness shape consumed by the unchanged script. Geometry/attachment ranges retain upstream contracts; no filesystem transaction or physical-validity promise."
+    },
+    {
+      "family": "Native bake / cache / completion",
+      "sources": [
+        "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+        "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+        "crates/adventuresim-character-creator/src/device_fit.rs",
+        "crates/adventuresim-character-creator/src/character_export/hair.rs"
+      ],
+      "disposition": "No added completion/global health assurance; C1 rationale repair required",
+      "detail": "Exact peer Metal APIs await readback and preserve source contexts and host_float numerical/device caveats. Export first initialization outcome caching remains explicit, including failure. The packet does not establish all caller submit-error migration or Root native facade integration."
+    }
+  ],
+  "findings": [
+    {
+      "id": "MATERIAL-PBR-EAD-C1",
+      "priority": 3,
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "lines": [
+        145,
+        146
+      ],
+      "claim": "A kernel uniform ring must not wrap within a batch; piece and morphs may exceed it.",
+      "mismatch": "Pinned canonical KernelBatch owns a UniformArena. allocate appends a new chunk when the current chunk is full and retains all chunks; it does not wrap and overwrite earlier dispatch slots. The explanation preserves an obsolete reason for one submission per realization.",
+      "evidence": [
+        "ead466:crates/fabelgeist-compute/src/kernel/fast/arena.rs:41\u201383",
+        "ead466:crates/fabelgeist-compute/src/kernel/mod.rs:85\u201390,245\u2013271"
+      ],
+      "remedy": "Keep batching behavior unchanged. Replace the two-line rationale with \u201cRecord and submit each realization separately.\u201d, or remove it; do not substitute an unmeasured capacity/performance assurance.",
+      "ownership": "Connected Creator documentation; coordinate with #780/Root receiving owner. No source changed.",
+      "acceptance": "Current wording no longer asserts a wrapping uniform ring or fixed dispatch capacity, with batch behavior and all existing fixtures unchanged."
+    },
+    {
+      "id": "MATERIAL-PBR-EAD-C2",
+      "priority": 3,
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "lines": [
+        111,
+        112
+      ],
+      "claim": "glTF takes a texture\u2019s colour as the whole base colour.",
+      "mismatch": "The current exporter explicitly preserves a scalar baseColorFactor and sets it to white when a base-color map is present. The whole-color outcome here depends on that explicit white-factor projection, rather than a protocol rule that the texture replaces the factor.",
+      "evidence": [
+        "ead466:crates/adventuresim-character-creator/src/character_export/hair.rs:90\u201394",
+        "ead466:crates/adventuresim-character-creator/src/export/textures.rs:74\u201382,190\u2013195",
+        "ead466:crates/adventuresim-character-creator/src/export/shell.rs:55\u201372"
+      ],
+      "remedy": "\u201cThe largest atlas level tinted in sRGB, with coverage as alpha. The hair shell uses a white scalar factor so the texture supplies its color and opacity.\u201d Keep tinting/coverage/packing code unchanged.",
+      "ownership": "Connected Creator hair-export documentation, coordinated receiving repair; no source changed.",
+      "acceptance": "Explain the actual white-factor/map relationship without saying that the protocol discards a nonwhite scalar factor."
+    }
+  ],
+  "limits": [
+    "Read-only source and SDK excerpts only. No source edits, execution, compilation, tests, checks, scanners, generators, runtime/rendering, push or hosted CI.",
+    "All 75 non-lock selected files were freshly fully read. Both generated locks have full comment/delta coverage and bounded package-record reads, not fresh semantic resolution of all unchanged dependencies; hashes alone are not read coverage.",
+    "No peer review verdict inherited; earlier material/UV review reports are context, not current read credit. Actual exact SDK source excerpts support terminal color contracts, not device/browser runtime acceptance.",
+    "Known open physical material units/count/seed/closed Engraving/trim/application causes, canonical core/native/generated/count/stride/caller/lock composition, #774 fitting/body/SurfaceCut/cache ownership remain required.",
+    "UV-R1 typed export admission/body finite/native assembly, UV-R2 checked GLB framing/allocation, and DENS-R1 typed missing design remain required. The finite LinearSurfaceMaterial adapter does not resolve these broader paths.",
+    "Potential Open versus cyclic textile seam-policy relation was observed but not independently resolved as a full physical-policy audit; retain in physical family discovery, not a new proved Comment finding.",
+    "Existing fixture bodies were read, and packet fixture deltas from d000 were inspected as field/operand/type adapters; no new test population authored or run. This is not an independent proof of every baseline/original #779 fixture across the entire PR.",
+    "Historical three compute numerical failures and Creator SIGSEGV remain historical validation limits; this packet supplies no new runtime verdict. Final complete all13/all3 and required hosted gates must pass on the same pushed final revision."
+  ]
+}

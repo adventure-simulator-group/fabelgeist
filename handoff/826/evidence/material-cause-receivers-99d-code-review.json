@@ -1,0 +1,241 @@
+{
+  "kind": "independent source-only pre-receive Code Review",
+  "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+  "tree": "f9764699a468d5bf8ebc56075df4138ddbc87a01",
+  "parent": "12a14b478506044f85a062f07aa05855cae0c8c7",
+  "root_reference": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-material-cause-receivers-99d70e7c3/manifest.json",
+  "verdict": "no actionable finding in examined four-file cause/admission correction; Root source receiving and full integration remain required",
+  "findings": [],
+  "changed_files": [
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "git_blob": "c9063f5308cde8e23d8804c2c527b9a4bd560f1a",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "parent_sha256": "622d3df75d402403449d5c22883da9645900fa0e142be0892776bfc1fdaefc17",
+      "root_sha256": "622d3df75d402403449d5c22883da9645900fa0e142be0892776bfc1fdaefc17",
+      "coverage": "fresh complete file including existing inline fixture suffix where present"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "git_blob": "cf049757e77439cd2f64d108a93543cff39c5115",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "parent_sha256": "261ec13966d253893f3de9c3c270b3d53f6571c0ae5b6a129c7a4ff384672a34",
+      "root_sha256": "261ec13966d253893f3de9c3c270b3d53f6571c0ae5b6a129c7a4ff384672a34",
+      "coverage": "fresh complete file including existing inline fixture suffix where present"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "git_blob": "d72ee69624b0ae7659c1d8744d3db0e461169fe4",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "parent_sha256": "1d811e5d3fdcb27db0dac00b6e6a07580a3619c6cf63a7fefbf8efbdae179536",
+      "root_sha256": "1d811e5d3fdcb27db0dac00b6e6a07580a3619c6cf63a7fefbf8efbdae179536",
+      "coverage": "fresh complete file including existing inline fixture suffix where present"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "git_blob": "542df0373ae4e03e230358143e6d7ec8b6c614bc",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "parent_sha256": "72572e3e92d04f3c340c77620ef0cef68c78631e581d3f09de337f8573010667",
+      "root_sha256": "96765318a7cfae5753d210d864fa00f392ed5f0f6a7fd648ff344e5e3edfa4fd",
+      "coverage": "fresh complete file including existing inline fixture suffix where present"
+    }
+  ],
+  "closure_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "89e313508ced73bcd3f9dfe8e60ba2026dbb11d0d19fb178654e60423afd26b0",
+      "unchanged_from_parent": true,
+      "coverage": "complete MetalImages type/new/material"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_material.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "52ebd2ffe14baf52f9e8bdd18ecf23fb26b94b1cf52c655fbc58074cd18471b7",
+      "unchanged_from_parent": true,
+      "coverage": "complete static mail source selector; only one sealed embedded atlas family"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "unchanged_from_parent": true,
+      "coverage": "complete owning initialization-error wrapper and source trait mapping"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "unchanged_from_parent": true,
+      "coverage": "complete initialize-once cache/cause propagation"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+      "unchanged_from_parent": true,
+      "coverage": "cache initializer/open chain and surrounding ownership fields; not entire permit body this wave"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing/error.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+      "unchanged_from_parent": true,
+      "coverage": "complete typed ClothingError/identity owners"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "unchanged_from_parent": true,
+      "coverage": "complete generate_clothing_shells and associated construction prefix, not all numerical helpers/tests"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df",
+      "unchanged_from_parent": true,
+      "coverage": "complete refit UI caller (lines316\u2013403), not entire armory data model"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "f7fa8bef88e0b718991dab2245cce57436b6748186df1769f7fadcef64ceb698",
+      "unchanged_from_parent": true,
+      "coverage": "complete spawn_armor and adjacent spawn_body publication receivers, not entire file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "57efed82e178fb19ffd93c264126d2070ecabeff0f7a402ef54c797cd75782dc",
+      "unchanged_from_parent": true,
+      "coverage": "SurfaceTextures and complete ShellTextures::armor, not all packaging helpers in current wave"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "566a69fc6cd50bd7d7ea5c0347567c39f2bdc37e9f8004675dc5328e3751e12e",
+      "unchanged_from_parent": true,
+      "coverage": "module/import context plus anyhow Context/Result and Bevy imports; main fixture identity only"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "unchanged_from_parent": true,
+      "coverage": "module/public export/offline feature boundary prefix, not entire model types"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "1346098aa561b83aa6d045c8744f19edc6605674fd0bbf313af4dcfc4ef595e5",
+      "unchanged_from_parent": true,
+      "coverage": "complete feature/bin-required-feature/dependency context, tail profile/lint context"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "unchanged_from_parent": true,
+      "coverage": "complete separate MailMaterials material helper and refresh_mail receiver; explicit different generated-weave/cache/sampler owner, not whole drape model"
+    }
+  ],
+  "sdk_accounts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_image-0.19.1/src/image.rs",
+      "sha256": "92666f8786981b9bcb90be80e1a0caaf6e055af99fe71080a600f29c0c876d3f",
+      "coverage": "complete Image::from_buffer PNG conversion and TextureError; source confirms eager decode plus originating ImageError source"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs",
+      "sha256": "c4504c7db4639c5700882fd8133bf257d6755a9dad28b55b6daf02e1fb64be56",
+      "coverage": "complete AsDynError impls; shared Arc<anyhow> error source can dereference to underlying dyn Error"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anyhow-1.0.102/src/error.rs",
+      "sha256": "38aaae2c0067c25137d6528bb1e32dc60122efe285559d50bbca854a0656d8fc",
+      "coverage": "Error Deref target dyn StdError+Send+Sync source identity, targeted trait context"
+    }
+  ],
+  "changed_path_identity": [
+    "crates/adventuresim-character-creator/src/armory_scene.rs",
+    "crates/adventuresim-character-creator/src/equipment_export.rs",
+    "crates/adventuresim-character-creator/src/studio_generation.rs",
+    "crates/adventuresim-character-creator/src/underlayer_preview.rs"
+  ],
+  "all_manifest_hashes_match": true,
+  "all_package_sources_match": true,
+  "contracts": [
+    {
+      "family": "five causal receiver adapters",
+      "sources": [
+        "studio_generation.rs::PreviewScene::spawn_equipment material and trim",
+        "armory_scene.rs::spawn_exhibit material and trim",
+        "equipment_export.rs::EquipmentExporter::garment clothing"
+      ],
+      "conclusion": "Removed exactly five Error::msg adapters. New direct ?/.transpose?/.with_context retains actual anyhow/ClothingError origin and existing contextual labels; successful material/mesh/export ordering unchanged. Actual callers format error at final studio.status/exhibit UI presentation or propagate export Result."
+    },
+    {
+      "family": "mail decode-before-publication",
+      "source": "underlayer_preview.rs::MailImages::new and EquipmentMaps::material",
+      "conclusion": "Require base-color presence, decode color(true sRGB), normal(false), optional occlusion(false) into local Images with original sampler/asset usage. All fallible decode/transposes finish before first images.add; self.mail.insert only evaluates after successful constructor. Failure leaves Assets untouched by this helper and self.mail None. Successful handles publish in original color/normal/occlusion order; material alpha/cull/metallic/roughness choices unchanged."
+    },
+    {
+      "family": "actual typed causes",
+      "sources": [
+        "Bevy Image::from_buffer -> TextureError::ImageError(image::ImageError)",
+        "generate_clothing_shells -> ClothingError",
+        "MetalImages::new -> MetalGpu textures -> owned errors / shared GpuInitializationError"
+      ],
+      "conclusion": "Context attaches labels without String conversion; concrete decode/clothing/native causes remain in chain. GpuInitializationError shares the first failure via Arc rather than inventing retry; not re-reviewed as a whole cache family here."
+    },
+    {
+      "family": "cache/provenance",
+      "source": "underlayer_material.rs::textures; EquipmentMaps begin_generation/metals",
+      "conclusion": "Static mail selector supplies one embedded atlas family; one mail cache remains valid for its actual source. Metal cache publishes BakedMetal only after new images succeed, then marks used. Changed tranche preserves existing generation/retention policy. Separate drape MailMaterials uses generated MailWeave/repeating sampler and is not a recipient of EquipmentMaps fallible API; no consolidation inferred."
+    },
+    {
+      "family": "publication boundary limits",
+      "sources": [
+        "studio_generation.rs::regenerate_mesh",
+        "armory.rs::refit",
+        "preview.rs::spawn_armor",
+        "equipment_export.rs::generate_equipment_assets"
+      ],
+      "conclusion": "Existing multi-piece preview/asset export is not made globally transactional. Earlier successful pieces/assets can remain when later operations fail; this is unchanged by delta. The new atomicity claim is limited to MailImages decoding and mail cache installation, not whole scene rebuild/export rollback."
+    }
+  ],
+  "behavior_proof": {
+    "spawn_equipment_whole_impl_moved_with_only_two_Error_msg_adapters_removed": true,
+    "armory_existing_test_suffix_exact_parent": true,
+    "main_whole_file_exact_parent": true,
+    "all_files_outside_exact_four_path_delta_unchanged": true,
+    "no_authored_test_case_helper_assertion_or_shader_delta": "Exact diff changes production receiver/cause paths and production MailImages constructor only; existing inline fixture suffix exact; no new test anything."
+  },
+  "required_dependencies": [
+    "Root may receive only after separate all-thirteen pre-receive inventory is complete; this review writes no Root source.",
+    "Root currently retains older EquipmentMaps/MetalImages/String/material/map and clothing API contexts. Receive agreed whole functions/files and their canonical source/error/exports together; do not treat this four-file package as a self-contained complete migration.",
+    "All other canonical compute/hair/armor producer/caller/native-count/metadata/manifest-lock composition remains required; no global acceptance inherited from scoped peer reports.",
+    "Final full thirteen lenses, independent Code/Rule/Comment reviews and required hosted project gates must pass on same final pushed revision."
+  ],
+  "limits": [
+    "Only ignored JSON/Markdown reports written. No source edits, tests/cases/helpers/assertions/doctests, project checks/scanner/generator/build/compilation/runtime/push/CI.",
+    "Four source files freshly read in full; unchanged closure and primary-source read boundaries explicit.",
+    "Source review only; no actual PNG decode/native execution, visual render or compile pass claimed.",
+    "No source copying or whole family/global/hosted/final PR clearance."
+  ]
+}

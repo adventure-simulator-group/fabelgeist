@@ -1,0 +1,272 @@
+{
+  "kind": "Independent bounded successor Rule Review",
+  "head": "162b152c47ea3824b4bbcdea01215fe5342f71f0",
+  "tree": "d10f45775592b9733e946662dfc5879a66ed3c1f",
+  "actual_parent": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+  "peer": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "changed_paths": [
+    "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+    "crates/fabelgeist-compute/src/kernel/mod.rs"
+  ],
+  "changed_source": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+      "sha256": "c1e2f58f4f5a2bdb5a220a2e633075fc0fedc981e036958586b411ab050685d5",
+      "peer_manifest_sha256": "c1e2f58f4f5a2bdb5a220a2e633075fc0fedc981e036958586b411ab050685d5",
+      "peer_manifest_verified": true,
+      "exact_peer_bytes": true,
+      "peer_delta": "none",
+      "coverage": "Complete pinned file and exact parent/peer diff read."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+      "peer_manifest_sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "peer_manifest_verified": true,
+      "exact_peer_bytes": false,
+      "peer_delta": "Only inspected rustfmt KernelCache::get closure wrapping; body token sequence unchanged.",
+      "coverage": "Complete pinned file and exact parent/peer diff read."
+    }
+  ],
+  "verified_relationships": {
+    "whole_kernel_noncomment_source_exact_after_removing_only_same_moved_type_definitions": true,
+    "uniform_function_bytes_exact": true,
+    "kernel_context_fixture_and_dispatch_module_declaration_exact": true,
+    "separate_existing_dispatch_fixture_exact": true,
+    "folded_wgsl_bytes_exact": true,
+    "compile_fail_exact": true,
+    "all8_renderer_files_exact": true,
+    "all_retained_integration_exact": true,
+    "baselines_exact": true,
+    "rules_exact": true
+  },
+  "declaration_lines": {
+    "pub struct Kernel {": 60,
+    "pub struct KernelCache": 74,
+    "pub struct KernelBatch": 84,
+    "impl std::fmt::Debug": 93
+  },
+  "resolved_findings": [
+    {
+      "id": "S48-P3",
+      "rule": "crates/AGENTS.md:90-94",
+      "proof": "Kernel60, KernelCache74 and KernelBatch84 now precede first impl93; exact moved struct payloads and every noncomment remaining line preserved."
+    }
+  ],
+  "findings": [],
+  "renderer_source_continuity": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+      "exact_f905": true,
+      "coverage": "Full pinned f905 source reading retained with exact successor identity, not a new whole renderer read."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "sha256": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+      "exact_f905": true,
+      "coverage": "Full pinned f905 source reading retained with exact successor identity, not a new whole renderer read."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+      "exact_f905": true,
+      "coverage": "Full pinned f905 source reading retained with exact successor identity, not a new whole renderer read."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "052eb05f205e18ce867d925db0db38571dcc98c92f6d4230d715e326b347dfd4",
+      "exact_f905": true,
+      "coverage": "Full pinned f905 source reading retained with exact successor identity, not a new whole renderer read."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation.rs",
+      "sha256": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+      "exact_f905": true,
+      "coverage": "Full pinned f905 source reading retained with exact successor identity, not a new whole renderer read."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/buffers.rs",
+      "sha256": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+      "exact_f905": true,
+      "coverage": "Full pinned f905 source reading retained with exact successor identity, not a new whole renderer read."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/error.rs",
+      "sha256": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+      "exact_f905": true,
+      "coverage": "Full pinned f905 source reading retained with exact successor identity, not a new whole renderer read."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/frames.rs",
+      "sha256": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+      "exact_f905": true,
+      "coverage": "Full pinned f905 source reading retained with exact successor identity, not a new whole renderer read."
+    }
+  ],
+  "canonical_scope_grid_error_integration_continuity": [
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/batch_error.rs",
+      "sha256": "17d100ac7cc26a65191ed6c6fb7aaa7756f48cda00d2fc59cff3d831089bc6d9",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_count.rs",
+      "sha256": "095ae805ef6999f6256a8a49b7c75739ae421028abdeddd1b5a3cbb7a6d1535c",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "exact_previous_receipt": true,
+      "coverage": "Previous complete source reading retained after exact hash verification."
+    }
+  ],
+  "additional_fresh_affected_source": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "coverage": "Complete source read to verify static/cached provided-value policy comparison."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+      "sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "coverage": "Complete source read to verify static/cached provided-value policy comparison."
+    }
+  ],
+  "contract_traces": [
+    {
+      "family": "Kernel canonical item ownership",
+      "trace": "Imports/reexports/mods/constants -> Kernel/Cache/Batch structs -> unchanged impls; canonical cache/native scope/Grid/Shape owners retain exact prior bytes.",
+      "verdict": "Explicit item-order rule repaired without duplicating any type or altering admission/producer/consumer bodies."
+    },
+    {
+      "family": "Uniform provided-variant protocol",
+      "trace": "Naga member offset -> existing \u2264256 cached block -> original supported parameter variant writer; missing/unsupported typed errors, supported whole-block nonfit skips -> unchanged native uniform upload. Static packer retains its separately documented broader matrix/value policy.",
+      "verdict": "Documentation now describes actual cached supplied-variant behavior and disclaims reflected-type/span validation. No withdrawn expected-shape rejection or new packing behavior introduced."
+    },
+    {
+      "family": "Renderer/state and cause continuity",
+      "trace": "All8 f905 files byte-identical; actual source/frame/mode/native buffer and post-normal-submit publication contracts retain exact prior source. Scope/Grid/error dependencies verified exact.",
+      "verdict": "Only f905 bounded receiver reading carries; complete canonical producer/caller graph still required."
+    }
+  ],
+  "nogrowth": {
+    "proof": "No function-body changes and identical production noncomment source modulo declaration moves; file meaningful production count unchanged. Baseline/config unchanged; no raised ceilings.",
+    "hosted_reductions": "Required at final integrated revision; no local quality scanner executed."
+  },
+  "required_dependencies": [
+    "Integrate exact a2/a6/native0df/card46b canonical producer and whole caller/source/layout/count/creator/application/error/readback/lock graph; referenced API contracts alone are not compilation.",
+    "Full canonical producer/caller/layout/creator/error/readback/lock integration, all13 waves, independent Code/Rule/Comment reviews and required hosted checks on same final pushed revision remain required.",
+    "S48-P3 is resolved here; no automatic full-PR/family clearance follows from the repair."
+  ],
+  "limits": [
+    "Source only: no source edits/project checks/build/lint/tests/scanners/generators/runtime, no new tests/cases/helpers/assertions/doctests, no push/CI/external posts.",
+    "Complete2files/diffs freshly read; exact8 renderer identities carry prior explicitly bounded source review. No broader fresh full-PR coverage claimed.",
+    "No native SDK/provider behavior, packing/POD/WGSL/fixture/API/cause/cache/counter/publication changes in this successor.",
+    "No compilation/runtime/hosted/global/final clearance; peer canonical sources remain unintegrated."
+  ],
+  "correctness_verdict": "No new actionable Rule finding; S48-P3 resolved by exact declaration move.",
+  "completeness_verdict": "Bounded docs/order successor verified. Complete integrated migration and same-final-pushed-revision reviews/hosted gates remain pending.",
+  "head_at_report": "162b152c47ea3824b4bbcdea01215fe5342f71f0",
+  "status_at_report": ""
+}

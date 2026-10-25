@@ -1,0 +1,177 @@
+{
+  "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "tree": "868959fcaec6f7b624c0c462c6bea4a6a70528d4",
+  "base": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "discovery": "Complete for the seven-entry native size-debt reduction and retained configuration records.",
+  "repair": "Exactly seven obsolete tables removed; no other source or configuration changed.",
+  "validation": "Independent Code, Rule and Comment reviews found no actionable issue in this bounded change. No project scanner, generator, build, test or lint ran locally.",
+  "before_inventory": "root-baseline-8c-pre-repair-all13.json",
+  "source_proof": "root-baseline-working-source-proof.json",
+  "independent_reviews": [
+    "root-baseline-d7da-code-review.json",
+    "root-baseline-d7da-rule-review.json",
+    "root-baseline-d7da-comment-review.json"
+  ],
+  "removed_records": [
+    {
+      "table": "files",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "ceiling": 538
+    },
+    {
+      "table": "files",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "ceiling": 899
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "item": "create_bind_groups",
+      "ceiling": 278
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "item": "ComputePass::record",
+      "ceiling": 410
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::blit_texture_to_face",
+      "ceiling": 161
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_face_shader_raw",
+      "ceiling": 149
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_shader_raw",
+      "ceiling": 142
+    }
+  ],
+  "retained_records": {
+    "population": 2055,
+    "status": "Every surviving byte, record, order, ceiling and occurrence count is unchanged."
+  },
+  "cells": [
+    {
+      "lens": "unfinished producers",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "Baseline producer snapshot filters actual scan findings/functions/files into schema. Source extractions change path+item identities before the retained baseline consumer.",
+      "successor_disposition": "The seven records now follow the actual native owners and extracted bodies. Other canonical records retain their prior bytes and explicit pending dispositions.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "existing owners",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "Config owns500/100 limits; Debt and FindingBaseline already own config schema meaning. Native path/item strings remain external TOML/source identities.",
+      "successor_disposition": "The existing baseline schema and validator remain the sole configuration owners. No parser, semantic type, exception or alternate baseline is introduced.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "admission",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "Serde deny_unknown_fields and Config.validate load same external schema; debt must correspond to actual existing oversized item.",
+      "successor_disposition": "Both file removals have raw-file upper bounds below 500. All five function records have absent old bodies or shortened bodies below 100. The unchanged validator enforces those limits.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "operations",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "Record removal reduces accepted historical debt; no operation may raiseceiling or add new baseline debt to hide growth.",
+      "successor_disposition": "Only whole-table deletion occurs. Complete TOML comparison and independent exact-byte subtraction prove no added record, modified ceiling or changed occurrence count.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "aggregate states",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "A function record is correlated path+item+ceiling; a finding record adds rule+fingerprint+occurrences. Deletion must not leave detached fields.",
+      "successor_disposition": "Every removed path/item/ceiling record corresponds to the exact inventoried source owner. All source files and tests are identical to the parent.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "type ownership",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "Root owns this baseline mutation; #780 owns pending canonical compute/producer families; native functions have moved to actual focused owners.",
+      "successor_disposition": "Root owns the seven native debt deletions. The checker and peer canonical bodies remain unchanged; final canonical baseline composition stays coordinated.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "redundant authority",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "Baseline is a historical ceiling constrained against actual current source, not competing source truth. Config has one limit owner.",
+      "successor_disposition": "Obsolete historical debt is removed rather than retained as another description of current below-limit or moved source. Actual source and unchanged configuration limits remain authoritative.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "behavior preservation",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "Before deletion validator deterministically diagnoses stale/missing/below-limit native debt. After authorized deletion only those exempting records disappear; production behavior unaffected.",
+      "successor_disposition": "Runtime, shader, fixture and dependency behavior is unchanged. The intentional quality outcome removes seven records the existing validator would reject as stale or below limit.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "enum/state shapes",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "Existing Baseline.files/functions/findings tables represent distinct record roles; Debt.item optional is interpreted by each table and validated for function entries.",
+      "successor_disposition": "No baseline status, schema variant or optional payload changes. Seven whole records are removed from the existing valid TOML table forms.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "derivability",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "Existing Baseline/Debt/FindingBaseline deriveSerialize/Deserialize, Config strict loader explicitsemantic validation.",
+      "successor_disposition": "No trait, serialization or handwritten implementation changes. The existing parser and serializer contracts remain intact.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "type granularity",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "File debt differs from function debt and semantic findings; raw file upperbound can prove below-limit file/function but cannot certify other metrics.",
+      "successor_disposition": "No wrapper, alias or exception is added. Structural debt follows the current native file and function responsibility boundaries.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "raw strings",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "All baseline paths/items/rules/fingerprints are exact external source/config keys; native new owner names and diagnostic prose have actual consumers.",
+      "successor_disposition": "The seven path/item strings are exact source keys in the existing configuration protocol. All surviving keys and prose remain byte-identical.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    },
+    {
+      "lens": "raw primitives",
+      "discovery": "Complete at the current pinned configuration and unchanged source.",
+      "source_contract": "500/100 are canonical configured file/function limits, historical ceilings are source metrics, finding occurrences are matching cardinalities;0production may be legitimate structural exemption.",
+      "successor_disposition": "Only obsolete 538/899 and 278/410/161/149/142 ceilings are removed. Actual 500/100 limits and every surviving ceiling remain unchanged.",
+      "repair": "Complete for the seven proposed deletions.",
+      "validation": "Source-only independent review; hosted combined acceptance remains pending."
+    }
+  ],
+  "required_dependencies": [
+    "Final canonical whole producer/storage/extraction/count/mesh/hostcard receiving source is not present at8c. Do not pre-remove future debt or approve unchecked peer family.",
+    "Root must inspect final combined hosted baseline export and apply only relevant reductions. No larger ceilings/new debt additions; unrelated work preserved.",
+    "Required hosted fmt/lint/project checks and independent final reviews on same final pushed revision still pending. This inventory is not final clearance."
+  ],
+  "limits": [
+    "The remaining canonical producer, caller and lock graph is incomplete.",
+    "The combined hosted baseline export and required quality checks remain mandatory.",
+    "No complete PR audit, final three-review or same-final-pushed-revision CI clearance is claimed."
+  ]
+}

@@ -1,0 +1,48 @@
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
+index 0b709922d..38c52ef4b 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
+@@ -50,7 +50,7 @@ impl TextureBinaryOpDefinition {
+ 
+         full_code.push_str(&input_a_res.to_wgsl_input_binding(0, 0, "input_a"));
+         full_code.push_str(&input_b_res.to_wgsl_input_binding(0, 1, "input_b"));
+-        full_code.push_str(&output_res.to_wgsl_output_binding(0, 2, "output"));
++        full_code.push_str(&output_res.to_wgsl_output_binding(0, 2, "output")?);
+ 
+         full_code.push_str("\nstruct Parameters {\n");
+         full_code.push_str("    amount: f32,\n");
+@@ -66,16 +66,16 @@ impl TextureBinaryOpDefinition {
+         );
+ 
+         // Load input_a
+-        let a_base = input_a_res.base_type_str();
+-        if a_base == "f32" {
++        let a_base = input_a_res.base_type();
++        if a_base == ResourceBaseType::F32 {
+             full_code.push_str("    let a = textureLoad(input_a, global_id.xy, 0);\n");
+         } else {
+             full_code.push_str("    let a = vec4<f32>(textureLoad(input_a, global_id.xy, 0));\n");
+         }
+ 
+         // Load input_b
+-        let b_base = input_b_res.base_type_str();
+-        if b_base == "f32" {
++        let b_base = input_b_res.base_type();
++        if b_base == ResourceBaseType::F32 {
+             full_code.push_str("    let b = textureLoad(input_b, global_id.xy, 0);\n");
+         } else {
+             full_code.push_str("    let b = vec4<f32>(textureLoad(input_b, global_id.xy, 0));\n");
+@@ -86,10 +86,10 @@ impl TextureBinaryOpDefinition {
+         full_code.push_str(&format!("    let res = {};\n", self.op_code));
+ 
+         // Store output
+-        let out_base = output_res.base_type_str();
+-        if out_base == "u32" {
++        let out_base = output_res.base_type();
++        if out_base == ResourceBaseType::U32 {
+             full_code.push_str("    textureStore(output, global_id.xy, vec4<u32>(res));\n");
+-        } else if out_base == "i32" {
++        } else if out_base == ResourceBaseType::I32 {
+             full_code.push_str("    textureStore(output, global_id.xy, vec4<i32>(res));\n");
+         } else {
+             full_code.push_str("    textureStore(output, global_id.xy, res);\n");

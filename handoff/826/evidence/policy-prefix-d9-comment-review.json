@@ -1,0 +1,190 @@
+{
+  "review": "Independent policy-prefixd9 Comment Review",
+  "head": "d9c3521f30f52d3437cfef2850203c9df3192b0e",
+  "tree": "660e61a63abe42f2ff07b50114b34729def12ffe",
+  "parent": "73b6e3a2ddf319dec749e3b1ff4a25e99b9c6612",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "source_mode": "Immutable git snapshot; no dependence on later working edits.",
+  "current_head_at_report": "d9c3521f30f52d3437cfef2850203c9df3192b0e",
+  "checkpoint_only": true,
+  "final_clearance": false,
+  "coverage": {
+    "changed": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "sha256": "767b463d19dd0a529cd9cdde4650353fcdda4582dde6800f5c80076652dafd39",
+        "lines": 110,
+        "coverage": "Fresh complete pinned file and entire8-path exact delta read; renderer contiguous1-750/751-1500/1501-end"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+        "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+        "lines": 50,
+        "coverage": "Fresh complete pinned file and entire8-path exact delta read; renderer contiguous1-750/751-1500/1501-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/dataset.rs",
+        "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+        "lines": 265,
+        "coverage": "Fresh complete pinned file and entire8-path exact delta read; renderer contiguous1-750/751-1500/1501-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod.rs",
+        "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+        "lines": 228,
+        "coverage": "Fresh complete pinned file and entire8-path exact delta read; renderer contiguous1-750/751-1500/1501-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+        "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+        "lines": 259,
+        "coverage": "Fresh complete pinned file and entire8-path exact delta read; renderer contiguous1-750/751-1500/1501-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/draws.rs",
+        "sha256": "da27a7100d16631f2277262271fddda6d27995a69c6bee03b5d068c3ca616de3",
+        "lines": 151,
+        "coverage": "Fresh complete pinned file and entire8-path exact delta read; renderer contiguous1-750/751-1500/1501-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+        "sha256": "7bc2f7621b735c87bd9ecf1077a89158453a8c01aab0b0f17c88f4098f3a92d9",
+        "lines": 143,
+        "coverage": "Fresh complete pinned file and entire8-path exact delta read; renderer contiguous1-750/751-1500/1501-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/mod.rs",
+        "sha256": "6d982d2d41a4178dee1673857b42d8255704ae06dae71027f6c5a3e12499263c",
+        "lines": 2206,
+        "coverage": "Fresh complete pinned file and entire8-path exact delta read; renderer contiguous1-750/751-1500/1501-end"
+      }
+    ],
+    "affected_unchanged": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+        "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+        "coverage": "Fresh complete logical binding admission"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+        "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+        "coverage": "Fresh complete logical prefix read admission and alignment consumer"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+        "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+        "coverage": "Fresh complete sole aligned MappingExtent and map/progress/cleanup policy"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+        "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+        "coverage": "Exact73b full-source evidence, byte-identical"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+        "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+        "coverage": "Exact73b full-source evidence, byte-identical"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+        "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+        "coverage": "Exact73b full-source catalog evidence, byte-identical"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+        "sha256": "57bfcc948df176ba35f9da2138223650f4ee8c70f36e9c98341a8d93f1e7db88",
+        "coverage": "Exact73b full-source evidence, byte-identical"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+        "sha256": "f523a641bd99ff3aa3f29ea82062643213212d2f258da56c918fff2333a8f105",
+        "coverage": "Exact73b full-source evidence, byte-identical"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/readback.rs",
+        "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+        "coverage": "Exact73b full-source evidence, byte-identical"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/math.rs",
+        "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+        "coverage": "Exact73b full-source evidence, byte-identical"
+      }
+    ],
+    "fixtures": {
+      "renderer": {
+        "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+        "same_as73b": true
+      },
+      "dataset": {
+        "sha256": "a02817105e57ea1733fbce5f446c1ec4ced8fe43246b1815a29f89f994d2e142",
+        "same_as73b": true
+      }
+    },
+    "shaders": [
+      {
+        "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+        "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+        "coverage": "Parent byte-identical; prior shader source coverage carried with its partial/full limits"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+        "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+        "coverage": "Parent byte-identical; prior shader source coverage carried with its partial/full limits"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+        "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+        "coverage": "Parent byte-identical; prior shader source coverage carried with its partial/full limits"
+      }
+    ],
+    "limits": "Full8changed files and explicit current source consumer graph. Exact unchanged73b policy/quality/count/catalog/remaining renderer helpers retained with honest coverage. No fresh complete wholePR/incoming210/SDK/kernel/caller investigation."
+  },
+  "findings": [
+    {
+      "id": "D9-C1",
+      "priority": "P3",
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "line": 16,
+      "issue": "StrandDraw.instances still claims resident-population bound. DrawPlan::new now deliberately splits logical prefix without renderer/resident access; range may exceed resident level until render clamps it.",
+      "remedy": "Use: Logical u32 instance interval; recording clamps it to the resident population.",
+      "acceptance": "Document logical plan versus native resident admission at actual boundary, matching repaired split-before-clamp behavior."
+    }
+  ],
+  "resolved73b": [
+    {
+      "id": "73B-C1",
+      "status": "Resolved: Empty now describes draw absence, and Representation is publicly reexported."
+    },
+    {
+      "id": "73B-C2",
+      "status": "Resolved: generated[0,1) and suppliedrandom1 exact half-open cuts documented."
+    },
+    {
+      "id": "73B-C3",
+      "status": "Resolved current wording: primary population excludes transition/shadow, current card quads explicit; canonical count-family integration remains required."
+    }
+  ],
+  "verified_contracts": [
+    "Buffer.prefix checks requested bytes against both logical parent and actual native size, returns original native Arc with admitted logical size, and leaves zero valid. It invokes no allocation/copy/map/submit/poll/wait. Error preserves requested/logical/physical checked extents with no fake SDK cause.",
+    "Prefix is not native device/usage/mapping admission. Buffer.binding_resource separately rejects zero and oversized logical bytes; prefix creates no aligned-read duplicate. MappingExtent still solely rounds logical prefix for read, bounds physical, and is reused across staging allocation/copy/map/view. Logical host copy excludes padding.",
+    "Current read retains exact device/queue/exclusive mapping and producing-submit preconditions; zero still checks hostlayout before empty return. Native/browser progress, cleanup-only borrowed exception and actual errors unchanged.",
+    "History now distinguishes Empty from Current(slot). Starting accumulation without current history invalidates last/count/history, yielding first blend weight1; native history slot tracks actual accumulation output. View change/resize/scene invalidation reset history, movement deliberately retains current temporal filter.",
+    "DrawPlan now splits logical prefix before independent resident clamps at recording. handed is clamped to count after float rounding/narrowing; canonical u32 source boundary distinct from resident clamp.",
+    "Policy missing-family/Empty/NaN last-band and named quantity/finite effective frame contracts remain exact current source. Constructor device-handled provenance and provider-limit qualifications remain intact.",
+    "Dataset only moves Sample declaration with docs; methods/source fixture unchanged. Renderer fixture expected44c hash and all shader blobs unchanged."
+  ],
+  "required_dependencies": [
+    "Whole producer/count/head/native layout family is still unfinished: current HairLods::counts still constructs typed LodCounts from raw scalar values without adapters; peer GpuLods/other policy callers and canonical head/count/layout relationships require coordinated receiving migration. No compile/source-family-complete claim.",
+    "Root all13 inventory and owned renderer source/state/admission repairs remain separate; mathematical finiteness does not prove physical geometry validity, resource/device lifetime or native limits.",
+    "#780 caller/constructor/FastPath/ResourcePipeline/groupedReadback/completion/error/cache/lock and producer integration remains required; #895 ZIP/NumPy ownership and required774 retained families unchanged.",
+    "All three final independent reviews and required hosted checks must pass on same final pushed revision after complete family integration.",
+    "Current card populations count quads; canonical card/count/head/physical layout migration still required rather than treated as completed by explanatory prose. Prefix creation alone does not repair these producers."
+  ],
+  "errata_carried": "Earlier detached-Wasm-readonly rationale and recorder-scope native acceptance assurances remain withdrawn as documented in197/frozen deferred-submission reports.",
+  "limits": [
+    "No source edits, project execution/checks/builds/tests/scanners/generators/runtime, new tests/cases/helpers/assertions/doctests, push/CI/external posts.",
+    "Source-only, no native/Wasm compilation, browser/hardware/artistic calibrated rendering, performance/globalhealth/rollback or universal recoverable-allocation verdict.",
+    "One P3 stale range invariant and required families remain open. No compiled/native/browser/performance/integrated/all13/wholePR/final clearance."
+  ]
+}

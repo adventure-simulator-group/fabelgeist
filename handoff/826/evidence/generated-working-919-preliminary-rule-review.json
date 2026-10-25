@@ -1,0 +1,94 @@
+{
+  "title": "Independent preliminary generated working919 Rule Review",
+  "source_account": "generated-working-919-preliminary-all13.json#source_accounting",
+  "checkpoint": "Working captured38sources, not HEAD content; source bodies retained in /tmp/pr826-generated-working-919-snapshot.json",
+  "findings": [
+    {
+      "id": "GW-R1",
+      "priority": 2,
+      "classification": "Existing lower-boundary semantic-error gap retained/extended by new generated stages; no failed native/range check demonstrated",
+      "rule": "crates/AGENTS.md21-70 semantic/error role ownership and typed records;85-86 stable typed error/code from authoritative boundary; bespoke Rule contract reference",
+      "evidence": "Shared declaration admission and local generated signature/resource checks still create bare anyhow prose. These reject stable semantic conditions in reusable parse/new/build/execute APIs before native compilation and final presentation. They discard an inspectable classification and context even though successful signatures now have private typed roles. No existing display-string branch is required to establish the rule gap.",
+      "counterexample": "MapSignature::parse(\"fn other() -> f32 { return 0.0; }\") and duplicate map parameter admission have distinct lower reasons but no owning source-kind variant. Stream offset:f32, Scatter without a value and a plane index controlling a Buffer similarly only return prose. These errors propagate through ordinary anyhow APIs/cache attempts, not terminal UI formatting. No test or probe was executed.",
+      "roots": [
+        {
+          "family": "common declaration lexing",
+          "source": "crates/fabelgeist-compute/src/source_parameter.rs:80-87",
+          "kinds": [
+            "malformed declaration",
+            "duplicate native parameter name"
+          ],
+          "payload": "actual function identifier, original declaration or native parameter name"
+        },
+        {
+          "family": "Map/Gather/Scatter/Stream/Stencil signatures",
+          "source": "crates/fabelgeist-compute/src/{map,gather,scatter,stream}/signature.rs; crates/fabelgeist-compute/src/stencil/signature.rs",
+          "kinds": [
+            "required function/header not matched",
+            "required return type absent",
+            "Scatter input value absent",
+            "Stream offset native type invalid",
+            "multiple Stencil neighborhoods",
+            "multiple explicit center/val roles"
+          ],
+          "payload": "actual algorithm/function, native parameter identifier/type, relevant role/cardinality; keep existing CoordinateParameterError source"
+        },
+        {
+          "family": "coordinate/resource admission",
+          "source": "crates/fabelgeist-compute/src/map/program.rs:26-31; gather/program.rs:106-112; scatter/program.rs:95-100; stream/call.rs:15-21",
+          "kinds": [
+            "plane coordinate with Buffer",
+            "volume coordinate without Texture3d"
+          ],
+          "payload": "existing CoordinateShape and ResourceType plus actual controlling role"
+        },
+        {
+          "family": "fluid resource admission",
+          "source": "crates/fabelgeist-compute/src/{advect,gradient,divergence}/{mod,program}.rs",
+          "kinds": [
+            "velocity/quantity/pressure/output is not a supported texture kind"
+          ],
+          "payload": "actual operation and binding role plus canonical ResourceType; preserve existing error ordering"
+        },
+        {
+          "family": "unwired neighborhood source protocol",
+          "source": "crates/fabelgeist-compute/src/stencil/neighborhood.rs:43,52; stencil/signature.rs:39,160",
+          "kinds": [
+            "unsupported reserved dimension form",
+            "malformed known envelope",
+            "multiple neighborhood or explicit center roles"
+          ],
+          "payload": "actual native type and role context; arbitrary Custom text remains native source, not a new identifier catalog"
+        },
+        {
+          "family": "lower native operator helper",
+          "source": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs:200-204,220-224",
+          "kinds": [
+            "binary/comparison function shape missing"
+          ],
+          "payload": "arbitrary actual native function identifier/required signature shape; this is a GPU native helper, not a Compute algorithm or pipeline entrypoint"
+        }
+      ],
+      "canonical_remedy": "Use one canonical generated-program admission owner for the common Compute lexer, all five local signature families, contextual coordinate/resource checks and fluid admission. Keep algorithm/binding/role distinctions typed where they are closed; retain arbitrary native identifiers/declarations/type text as source payload. Reuse the existing CoordinateShape/ResourceType/native error leaves and preserve actual regex, CoordinateParameterError, TextureValueError, storage-format, Naga/pipeline/native causes rather than formatting them. Do not add one near-identical error enum per algorithm.",
+      "lower_boundary_decision": "The GPU binary/compare helpers also return reusable signature failure prose. Their arbitrary native-function/signature-shape boundary needs its canonical lower native owner/disposition before final clearance. Do not reuse PipelineError::MissingEntryPoint for a non-entry function and do not move Compute-specific Neighborhood/center/algorithm roles into GPU merely to force a universal error enum. If a common native signature owner is placed in GPU, Compute should reuse those common cases and retain only genuinely algorithm-specific admission policy; no duplicated equivalent variants/types. This owner split is a required explicit design/ownership decision before repair, not a silent defer.",
+      "acceptance": [
+        "Complete exact owner/variant/payload inventory before changing any error roots; one shared generated policy owner, no sibling duplicates.",
+        "Every inventoried common/signature/resource/fluid root returns an inspectable stable classification through the existing public anyhow carrier or an appropriate owning Result; useful old Display/error ordering preserved unless explicitly changed.",
+        "Existing actual lower causes remain source-bearing; arbitrary Naga/compiler text remains native diagnostics and is not parsed/reclassified.",
+        "All direct constructors/build/execute/cache/actual wrapper and fixture callers consume the clean API, no compatibility adapters; no new tests/cases/helpers/assertions/doctests.",
+        "Finish Stencil physical/mode/binding/caller integration and final shared exports/locks; fresh all13/three reviews/hosted checks on final pushed revision."
+      ]
+    }
+  ],
+  "correctness": "New role stages source-remedy the known Scatter unsigned/drop and Stream replaced-index/load mismatch; shared parse_base_type vector/texture malformed envelope no longer slices unsafely. No additional concrete runtime defect identified in inspected stage snapshot. Old active Stencil/pending physical family remains incomplete.",
+  "completeness": "GW-R1 actionable semantic-error owner gap; required Stencil/physical/caller/native/helper/lower ownership and final hosted graph remains incomplete. Preliminary source discovery only, not family clearance.",
+  "limits": [
+    "Preliminary working capture on HEAD919ba9b9415c06981ff5dc01d21666f49407eb3e, not a committed source review or whole-family pass. Exact38file identities recorded;29 fresh full captured bodies and9 exact prior full-body carries.",
+    "Root continued implementation during review. Current divergence docs and neighborhood source advanced after captured bytes; newer boundary/declaration work is outside this captured receipt. Typed admission roots inspected remain applicable, but no latest physical/boundary source coverage is implied.",
+    "Whole38frozen reference packet/source-current preinventory already has independent full/bounded accounting; immutable references remain context only, not current Root composed/native approval. Root currently lacks shared module/export/canonical/caller adaptations; DistanceField still references removed MapDefinition::parse_signature. This is known incomplete integration, not a compile result.",
+    "Current old Stencil is not replaced by new signature/neighborhood owners. Its GCR-P4 Buffer coordinate/physical64+i32/grid/mode/binding family remains required. New temporary unwired files do not establish actual admission or final dead-code acceptance.",
+    "Source-count bounds show all new responsibility files below500rawlines and new helpers bounded; no quality checker was run, no baseline was regenerated and required hosted reductions are pending. Current source-format changes/fixtures have not received runtime verification.",
+    "No source edits/project execution/build/lint/check/test/scanner/generator/runtime/probes/newcases/helpers/assertions/doctests/push/CI/externalposts. No whole83 native, global or final-pushed-SHA clearance.",
+    "Before repair GW-R1, Root must record the exact canonical owner split and all closed failure/payload cases under this13extension. Finish whole connected families and peer caller/export/lock integration before push/hostedCI; repeat final13/three independent reviews/required checks on one pushedSHA."
+  ]
+}

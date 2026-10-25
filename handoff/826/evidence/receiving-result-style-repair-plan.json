@@ -1,0 +1,32 @@
+{
+  "snapshot": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "discovery_status": "complete focused all13 plus independent Code/Rule/Comment pre-edit reports",
+  "reports": [
+    "receiving-result-style-pre-all13.json",
+    "receiving-result-style-pre-rule-review.json",
+    "receiving-result-style-pre-code-review.json",
+    "receiving-result-style-pre-comment-review.json"
+  ],
+  "repairs": [
+    {
+      "id": "RRS-1/RS-R1",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "change": "Spell TryFrom return as Result<Self, Self::Error>; retain TextureValueResult for actual nontrait ResourceDescriptor consumer and public export.",
+      "before_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6"
+    },
+    {
+      "id": "RRS-2/RS-S1",
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "change": "Add owning pub type StagingResult<T> = Result<T, StagingError> in aliases position; use in prefix/status only. Keep read_staged/read_staged_async explicit GenerateError.",
+      "before_sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501"
+    }
+  ],
+  "acceptance": [
+    "Exact executable bodies/error variants/messages/native causes/order preserved; signatures only.",
+    "No test/case/helper/assertion added or changed; no local project execution.",
+    "Complete successor all13 plus independent Code/Rule/Comment on exact new hashes.",
+    "Exact two-source commit/packet to780, preserving all other protected source.",
+    "Canonical caller/Readback and other receiving findings remain required; no graph/runtime/global clearance."
+  ],
+  "status": "planned before edits"
+}

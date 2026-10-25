@@ -1,0 +1,70 @@
+{
+  "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "question": "774 frozenComputeReflectiondenseLayout gap @group1 ->slot0 hypothesis",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "exact_prior_full_body_receipt": true,
+      "fresh_focused_read_ranges": [
+        [
+          85,
+          109
+        ]
+      ],
+      "prior_whole_coverage": "gpu-complete-cac5a7c33 Code/Rule/Comment all83bodyaccounts; no claimnewwholebodyreadfromtheseboundedexcerpts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "exact_prior_full_body_receipt": true,
+      "fresh_focused_read_ranges": [
+        [
+          24,
+          24
+        ],
+        [
+          64,
+          89
+        ],
+        [
+          161,
+          186
+        ]
+      ],
+      "prior_whole_coverage": "gpu-complete-cac5a7c33 Code/Rule/Comment all83bodyaccounts; no claimnewwholebodyreadfromtheseboundedexcerpts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "exact_prior_full_body_receipt": true,
+      "fresh_focused_read_ranges": [
+        [
+          15,
+          41
+        ]
+      ],
+      "prior_whole_coverage": "gpu-complete-cac5a7c33 Code/Rule/Comment all83bodyaccounts; no claimnewwholebodyreadfromtheseboundedexcerpts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "exact_prior_full_body_receipt": true,
+      "fresh_focused_read_ranges": [
+        [
+          7,
+          17
+        ]
+      ],
+      "prior_whole_coverage": "gpu-complete-cac5a7c33 Code/Rule/Comment all83bodyaccounts; no claimnewwholebodyreadfromtheseboundedexcerpts."
+    }
+  ],
+  "disposition": "Resolvedinactualunchangedcac5successor: padOptionNone up togroupindex beforeSome; retainOptionpositions inPipelineLayoutDescriptor; bindgroupadapter getsactualreflection.index andComputeBindGroup bindusesactualindex. No duplicateRootsource repair ornewtests.",
+  "trace": [
+    "reflection.rs85-98 BTreeMap(index,group); whilelayouts.len()<index pushNone, thenSome atindex.",
+    "pipeline/mod.rs24 Vec<Option<Arc<BindGroupLayout>>>, prepare75 storesinterface.layouts; create_native168-178 Option::as_deref preservesholes.",
+    "assembly.rs27-38 layout lookup get(reflection.index).and_then(Option::as_deref), returnedgroup retainsindex.",
+    "bind_group.rs15-16 nativepass.set_bind_group(self.index,...)."
+  ],
+  "limits": "Source mechanism resolutiononly, notnewSparseGroupGPUexecution, alluppercachedKernel/reflectioncontractsorwholePRclearance."
+}

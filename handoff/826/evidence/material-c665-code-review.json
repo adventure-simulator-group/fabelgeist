@@ -1,0 +1,940 @@
+{
+  "review": "Independent complete incoming material responsibility Code Review",
+  "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "tree": "12f2d808ab9d659999aaec627e02e594897c8beb",
+  "root_reference": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "manifest_sha256": "4c00725b16e2a58d1a36872864e7a5d4f133705ec8c8eec343719277020b45bf",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "bf177dcb1b678b06f9174b3aa283e4aa7634638681ce88c8722a900052734d72",
+      "blob": "bdb962008bff17f5a8c7d4380645ef9c262d50ae",
+      "lines": 117,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/engraving.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "c612e940bd0898395fad63b7d819dce7b863022f3258ade844f72d8a6a1c3dd2",
+      "blob": "c0760ff12e333453786660a106227b4ce8de3849",
+      "lines": 288,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "678b5940a6ed8ab768eee0cefbe366694b743df49a22e6cb75f8d5e55234a005",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/ornament.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "74d886336dc4fbeeb4f9ff4ec29530a32fef42865dcb7ef2f6b2220b678c1ebf",
+      "blob": "edbd8dc52d704d297e559ba7c35a47184b2d6d69",
+      "lines": 194,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "5aaf7f24806502832feef0cc0a9d5e572e80199b63c1d371b05a14fd6cb361ef",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/finish.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "5ce0e0d224987f30347d1f4ae5feaf79f58a61aa3eec607ca22ee0ad7fe5c34b",
+      "blob": "0b3e5247b2bde487bf36a01d8874b630628b7573",
+      "lines": 156,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "22fcc26e5e46b91b4d5da5b9fff2ffc438e06adbf7d7164fd2c7b0c0334fc04a",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "81abc6494df0d4f051b0c4548517fe80061204de7e90d9d2eb190635a12de5f2",
+      "blob": "38cc5e6e7b95c026557948df4aa0266e6cf5d685",
+      "lines": 128,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "f6f7a3d774d843fe5c0e7cbf2c1d141aebe44d81c23b715ecb5d098c217aae13",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "1f04c47be73adda0a4c4a415677aac0951c7bab9e24a5ad1b8f99058ae342afe",
+      "blob": "9273b648066e83c6afd774050b506f09aca34d6c",
+      "lines": 263,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "731a2fb2b733decd94f6923d84da7a2877ac9265d58e40b16cae34467df1ce3a",
+      "blob": "5d6e0f45c51467492c9f2a8a98186cc22a4cecfa",
+      "lines": 323,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "b7eedf258c742117f1e6dbcb5abfeb71614f57e3001a6bd335b88c160ffca0ee",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+      "blob": "12f8f4fc1c27c050033594a1e948f37e816bb959",
+      "lines": 134,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+      "root_exact": true,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "f821039fd3d4e0ff268640f41084830ffabfd3ecf2b47048789e1615a6602c61",
+      "blob": "b494cb9cb2680ac56efbb94b145c27235ae2da0b",
+      "lines": 259,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "6ec6867195a91d26c804bd15de978e0e438e243c269705945f553f1f41f0113d",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "blob": "d34a08bd66701061b4233d6ca9f6b30d15c9678a",
+      "lines": 20,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "root_exact": true,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "89e313508ced73bcd3f9dfe8e60ba2026dbb11d0d19fb178654e60423afd26b0",
+      "blob": "80935abba68612275b867ce45c602c6a57542ca6",
+      "lines": 69,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "57efed82e178fb19ffd93c264126d2070ecabeff0f7a402ef54c797cd75782dc",
+      "blob": "5308da7c9d78ba32b68380e49976725956f48e05",
+      "lines": 235,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ea4119eb718472a2c1236e7449db2fe319e74489319f2b6720e9f30896aa358b",
+      "blob": "6525a5aae5ceeec72b10014ccba5336799dae935",
+      "lines": 1782,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "a22a46a776d6c5626934f65ac3665e22090c8fb777b6621f6c8191354cd381b1",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "blob": "542df0373ae4e03e230358143e6d7ec8b6c614bc",
+      "lines": 142,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "root_exact": true,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/decoration.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "7b677abc0f1a167c6b25343e2964d611aa479132a32330ebd2bd8b03fbf2619e",
+      "blob": "8257b85076b8af13ab9ddc139b87614839f710e4",
+      "lines": 153,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "48917280f656c78264c9283aca69bdead67c428d80f7d8c46e40dae6ca9f3dcd",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+      "blob": "e8a8b27509222c0d6202b0a49773618e0dafc9b3",
+      "lines": 198,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+      "root_exact": true,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing_material.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "879486f9beb55903e6b6788555437f70413b4449dbf5ebfcf6295b1a81e5d2b5",
+      "blob": "0ced1faa68e1a563757781d7cf59f13869df4c47",
+      "lines": 20,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "bafb2117ada36281130d4dd00bb3862dc6f51840637a74fe1924c5106840668e",
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material/tile.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "a094fe52ceba98b71a00ae2fa974ba24cf769131e3c265373727f353f3885869",
+      "blob": "5f7fda793b36b6179c0e02b0244cba89f1708da5",
+      "lines": 67,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": false,
+      "root_sha256": null,
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/engraving/error.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "0a96086e52a505d0b70fb45480e744c08a6415a804a39dc8880d44748173e83e",
+      "blob": "be319995c19955a358ffc27b2ba27f8f7f7f52b8",
+      "lines": 45,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": false,
+      "root_sha256": null,
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/engraving/decoded_image.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "7ef1b572bf5a5c2e5684487da81194d1793c4025654f099c0898d97dfba064f1",
+      "blob": "1d40424cfc019c3a06e4d6059a44012a82e51570",
+      "lines": 75,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": false,
+      "root_sha256": null,
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material/textures.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "89a5b76b6d0a2783ce6dbacb7329e7a2cda93ddceaf4fc12c060e7ff2c96036e",
+      "blob": "c0659ea0c0629c09a870ab74fd1c9d71c3f59815",
+      "lines": 100,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": false,
+      "root_sha256": null,
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/engraving/sampling.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "d042b91ea2f8b98dd53b7733dd4f5f11a282b4763211f3ca3288b2e18879d548",
+      "blob": "063d412d5453a03c4e0ab85a8629eaf50db6e6cf",
+      "lines": 108,
+      "authority": "whole candidate only; no Root copy authorized",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": false,
+      "root_sha256": null,
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "blob": "e5ca2213dd2a00375b4ff6da803954928e127f42",
+      "lines": 147,
+      "authority": "reference context only; preserve Root ownership",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "root_exact": true,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "blob": "85f7391b45d6a6e300dc7a9f8bd939e1dc250a93",
+      "lines": 117,
+      "authority": "reference context only; preserve Root ownership",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": false,
+      "root_sha256": null,
+      "root_exact": false,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+      "blob": "77d0481d253e5ba433717f35132ed5ee38c22cf3",
+      "lines": 239,
+      "authority": "reference context only; preserve Root ownership",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+      "root_exact": true,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "blob": "0fc8b8b7b88eb452da7f81aa28d0a9fa51fe1553",
+      "lines": 42,
+      "authority": "reference context only; preserve Root ownership",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "root_exact": true,
+      "coverage": "fresh complete immutable source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "blob": "dca5cc787e224d638d22b1dbd0df2917af8bc3b8",
+      "lines": 301,
+      "authority": "reference context only; preserve Root ownership",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "root_exact": true,
+      "coverage": "exact canonical hash revalidated against complete current-cac ten-file full read; source module/exports1-158 freshly reread, remaining full-read coverage carried"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "blob": "7a4ae72c9805ecd61ea54d61cad5cd40fbd1b017",
+      "lines": 27,
+      "authority": "reference context only; preserve Root ownership",
+      "matches_manifest": true,
+      "export_present": true,
+      "export_matches": true,
+      "root_exists": true,
+      "root_sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "root_exact": true,
+      "coverage": "fresh complete immutable source read"
+    }
+  ],
+  "source_proof": "material-c665-source-proof.json",
+  "closure_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "coverage": "fresh complete manifest: image PNG/typed native dependencies and features"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/wgsl.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "90083b6c258f47bcf6e52babf50abc2cda917c32ea982b0404edcd75b8157f83",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "90083b6c258f47bcf6e52babf50abc2cda917c32ea982b0404edcd75b8157f83",
+      "coverage": "fresh complete shared RNG/fence hook source"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/ornament.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "6a9f887c5c746b8b70fc8a3c9741ffa1a68dd3580a61483ca88fbc244dcb4152",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "6a9f887c5c746b8b70fc8a3c9741ffa1a68dd3580a61483ca88fbc244dcb4152",
+      "coverage": "fresh complete motif shader/ABI source; unchanged numerical policy"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/mod.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "coverage": "fresh complete arithmetic source contract and explicit limits"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/arithmetic.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "c1f92194b17274f4c4f616f05402724d6714024a31d791d3af256b08d7b7df51",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "c1f92194b17274f4c4f616f05402724d6714024a31d791d3af256b08d7b7df51",
+      "coverage": "fresh actual fence/mul/div functions1-152; unrelated vector/sqrt remainder not full-file claim"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "root_exists": true,
+      "root_exact": false,
+      "root_sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+      "coverage": "actual typed dispatch_items/folded/submit bodies carried from Scalp complete bounded closure; current Root signature freshly reconciled"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "86e926ab47cd284d07a0e14265aaf7b5ba3ce1b6cc5e2aff66328e05f67aee02",
+      "root_exists": true,
+      "root_exact": false,
+      "root_sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "coverage": "current Root full83 complete body source carried; current public exports freshly read1-33 showing missing stride/count receipt"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "coverage": "complete canonical/Root exact read/staging body carried from full83/Scalp proof"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "root_exists": true,
+      "root_exact": false,
+      "root_sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "coverage": "complete canonical and Root mapping lifecycle carried from full83 and Scalp; Root scoped visibility/poll_complete must survive composition"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "coverage": "complete actual browser callback/poll body carried from full83; same callback event-loop responsibility"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "coverage": "complete current-cac receiving body revalidated by exact peer identity, material/trim receivers freshly reread16-76"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "coverage": "complete current-cac receiving body revalidated by exact peer identity, material/trim receivers freshly reread30-72"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "coverage": "complete ten-file current-cac receiving source carried, ShellTextures/Clothing typed receivers retained"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "cc994bdebe62b8e0da1531c60e9e9cbfd2f3357d798678b930f18fb56f84fa16",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "cc994bdebe62b8e0da1531c60e9e9cbfd2f3357d798678b930f18fb56f84fa16",
+      "coverage": "fresh complete catalog_metals104-126, export_rigged call80-97, surrounding export fields; not whole-file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "93b0aa654eacc98d66c072b54cb1a1d0444b75e6bdc3cc0ecd7d76325f085bd6",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "93b0aa654eacc98d66c072b54cb1a1d0444b75e6bdc3cc0ecd7d76325f085bd6",
+      "coverage": "fresh complete unchanged material/texture shell writer and buffer receiver"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_material.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "52ebd2ffe14baf52f9e8bdd18ecf23fb26b94b1cf52c655fbc58074cd18471b7",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "52ebd2ffe14baf52f9e8bdd18ecf23fb26b94b1cf52c655fbc58074cd18471b7",
+      "coverage": "fresh complete actual single embedded mail family source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "39b44062b3a3fb8db93c869721bcd0ede9f01f588cbde35ea6cdf4b9a26377e3",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "39b44062b3a3fb8db93c869721bcd0ede9f01f588cbde35ea6cdf4b9a26377e3",
+      "coverage": "150-218 distinct procedural MailSurface ownership and pbr, not whole-file audit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/inventory.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "coverage": "complete Article::validate174-201 and source/raw presentation return boundary; rest not full read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "coverage": "complete actual construction180-203 and trim206-226 receiving functions; unchanged numerical fixture helper436-465 inspected, no full-file audit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "c589129c7386c136feaf7f63fc21ed925f81dd035642ea3dacdc92d054659854",
+      "root_exists": true,
+      "root_exact": true,
+      "root_sha256": "c589129c7386c136feaf7f63fc21ed925f81dd035642ea3dacdc92d054659854",
+      "coverage": "complete Construction impl1-62; width/narrowing caller authority, unrelated tiling geometry not fully reread"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee",
+      "root_exists": false,
+      "root_exact": false,
+      "root_sha256": null,
+      "coverage": "fresh prior Scalp complete source plus shared browser blocking host-read line15 reopened by actual SDK proof"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "a9be367893c88b158dac2f0368c4ef28d521e59290a428b08753c342881225bd",
+      "root_exists": true,
+      "root_exact": false,
+      "root_sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "coverage": "fresh prior Scalp complete source, public host read and longest are affected sync-read siblings"
+    }
+  ],
+  "sdk_accounts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/pollster-0.4.0/src/lib.rs",
+      "sha256": "b1513bb40fcbc27805294472b29faa4f37bb450809830ecbc8cf5fb1df3c9ccb",
+      "coverage": "32-76 and111-129: pending future blocks Signal Condvar, does not yield JS event loop"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/webgpu.rs",
+      "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "coverage": "1042-1083: register_then_closures uses same-thread promise.then2;2795-2809 complete native WebBuffer::map_async callback registration"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_image-0.19.1/src/image.rs",
+      "sha256": "92666f8786981b9bcb90be80e1a0caaf6e055af99fe71080a600f29c0c876d3f",
+      "coverage": "1097-1120 complete raw-image constructor: descriptor/byte association matters; canonical MetalTextures owns exact extent"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anyhow-1.0.104/src/error.rs",
+      "sha256": "2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "coverage": "674-694 concrete StdError conversion and retained deref source; complete relevant function branches read in ten-file review"
+    }
+  ],
+  "findings": [
+    {
+      "id": "M665-C1",
+      "priority": 2,
+      "title": "Let Metal host readback yield to browser mapping callbacks",
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "start": 117,
+      "end": 120,
+      "ownership": "Root-owned native facade, exactly identical between canonical c665 and Root cac; connected bake and application callers #780-owned. No edit authority transferred by reference manifest.",
+      "scenario": "On browser WebGPU with an already created valid context/device and MetalGpu::new(context,cache), call the public textures(&Metal::default(),MetalTextureSize::try_from(32)?). Tile output is necessarily nonempty. After its producing submit, bake reads normal/roughness via this synchronous helper.",
+      "proof": "Buffer::read requests map_async and its wasm completion awaits a callback while yielding event-loop tasks. SDK WebBuffer::map_async registers Promise.then2 callbacks that run on the same thread after current execution yields. pollster::block_on sees Pending and waits on a Condvar instead of returning control to the browser; it cannot drive that callback/timer. Thus the public bake cannot finish normally on that route (blocking or unsupported wait panic), despite available typed lower browser progress. This is source proof, not merely absence of a browser runtime run.",
+      "source_chain": [
+        "gpu/metal/mod.rs:79-80 -> bake.rs:13-21 -> bake.rs:79-94 -> gpu/metal/mod.rs:119-120",
+        "gpu/buffer/read.rs:44-45 -> buffer/mapping.rs:110-116 -> globals/callback_progress.rs:62-72",
+        "wgpu-29.0.4/backend/webgpu.rs:1042-1083,2795-2809",
+        "pollster-0.4.0/src/lib.rs:50-68,111-129"
+      ],
+      "actual_application_receivers": [
+        "Creator metal_preview::MetalImages::new -> EquipmentMaps::metal -> Studio spawn_equipment / Armory spawn_exhibit",
+        "Creator export::ShellTextures::armor -> character_export::catalog_metals / equipment exporter",
+        "Public MetalGpu::textures can be called directly after a browser context is supplied; native open() is not needed for the counterexample."
+      ],
+      "affected_sibling": "ScalpTextureChain::read at c665 bake/readback.rs:15 also blocks a nonempty Buffer::read; public GpuScalpTexture::read has no yielding alternative. Its prior bounded layout/fixture/source receipt must not be reused as browser-progress clearance. longest also uses the synchronous helper pattern in the same Creator producer graph.",
+      "minimum_connected_repair": "Root and #780 must agree whole read/textures/bake/caller responsibility before edits and complete all13 discovery for the connected progress family. Propagate lower async readback through the real browser-facing chain so pending map callbacks can run, preserving actual errors, native explicit wait policy and numerical bytes. No string adapter, fake provider policy, silent native-only assumption, blanket unsupported return or compatibility forwarding path.",
+      "acceptance": "A source-backed yielding browser path and complete real caller propagation; preserve existing fixture populations/oracles. Repeat receiving reviews after coordinated changes; hosted build alone is not event-loop progress proof. Final combined gates still required."
+    }
+  ],
+  "contracts": [
+    {
+      "family": "Native tile, record count and map aggregate",
+      "sources": [
+        "material/tile.rs",
+        "material/textures.rs",
+        "gpu/metal/mod.rs:96-114"
+      ],
+      "verdict": "fit within bounded source contracts",
+      "proof": "Only TryFrom32..1024 and PREVIEW1024 admit MetalTextureSize. Squared texels and2/3lane words remain checked native populations; stride4 owns byte extent. Sealed MetalTextures validates all present RGBA8 lengths and finite nonnegative depth scale, readonly getters retain aggregate authority, into_maps ends admission and transfers native payload ownership."
+    },
+    {
+      "family": "Recipe and decoded-source association",
+      "sources": [
+        "material.rs",
+        "engraving.rs",
+        "engraving/decoded_image.rs",
+        "gpu/metal/bake.rs"
+      ],
+      "verdict": "fit within bounded source contracts",
+      "proof": "ValidatedMetal holds immutable borrowed admitted recipe; Cut binds immutable recipe with decoded image or actual ornament. Production derives Cut from that material engraving. Decode validates recipe/source, native image extents and words; raw relief fields cannot be independently relabeled. Missing/read/decode cause retains actual path/origin and native io/ImageError. Standalone existing tests intentionally combine polished base material with an explicitly supplied validated cut; no unjustified material-equality restriction inferred."
+    },
+    {
+      "family": "Signed bilinear and wrap addresses",
+      "sources": [
+        "engraving/sampling.rs",
+        "gpu/metal/textures.rs:105-184"
+      ],
+      "verdict": "fit within bounded source contracts, native host_float documented limits retained",
+      "proof": "Positive image axes admit signed modulo and largest remainder+n without overflow (2*n-1 <=i32MAX). Image word count bounds u32 index arithmetic, including two lanes per normal pixel. Tile first/last pixel centers and exact uploaded sin/cos are used at four affine extrema; host f64 intermediates project to f32 per fenced shader operation; floor and floor+1 admitted as i32 before native use. Native template after source placeholder substitution is byte-exact to Root. No generated shader or numerical runtime was executed."
+    },
+    {
+      "family": "Bake/order/causes and provider limits",
+      "sources": [
+        "gpu/metal/bake.rs",
+        "gpu/metal/mod.rs",
+        "gpu/metal/finish.rs",
+        "gpu/metal/ornament.rs",
+        "gpu/metal/wgsl.rs"
+      ],
+      "verdict": "native source contracts fit; browser progress M665-C1 required",
+      "proof": "Scratch/finish/normal/depth lane counts and positive native buffers fit admitted max side; scratches uses bounded most_steps and density y axis, texture passes use texel invocation population. Native Buffer storage supplies copy capabilities and observed SDK errors remain MetalDeviceError causes. Producing submit handled before exact output read; sealed map packet published after all required reads. Provider features/binding/dispatch limits still native policy, not universal device certification."
+    },
+    {
+      "family": "Material/trim/ornament/decoration consumers",
+      "sources": [
+        "ornament.rs",
+        "trim/finish.rs",
+        "trim.rs",
+        "decoration.rs",
+        "armor_metal.rs",
+        "clothing_material.rs"
+      ],
+      "verdict": "fit within bounded source contracts",
+      "proof": "Parameter bounds, motif numeric ABI and trim periods/narrowing remain same. Typed errors replace text; decoration library publishes after validation and preserves error context. Metal catalog polished values share existing default values, no channel/roughness change. Inventory schema presentation remains String for authored parameter errors, not a swallowed native IO/readback cause. No new file-hot-reload/content-freshness promise is inferred from existing live-material cache."
+    },
+    {
+      "family": "Preview/export/CCR-D1 closure",
+      "sources": [
+        "Creator metal_gpu.rs",
+        "metal_preview.rs",
+        "underlayer_preview.rs",
+        "export/textures.rs",
+        "export.rs"
+      ],
+      "verdict": "canonical receiver closes source gap; Root receipt still required",
+      "proof": "Canonical MetalImages returns anyhow::Result and consumes typed PREVIEW and sealed size/into_maps. Its current Root predecessor still returns String. All cache/native/decode causes can reach typed material receivers once this complete source arrives. Existing map order, linear normal/PBR formats, sampler repeat, parallax role and glTF texture semantics retained. Raw native image packet extent is proven before Bevy constructor. Whole-scene and export-file rollback not promised."
+    },
+    {
+      "family": "Existing fixture population/oracles",
+      "sources": [
+        "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+        "crates/fabelgeist-armor/src/engraving.rs",
+        "crates/fabelgeist-armor/src/ornament.rs",
+        "crates/fabelgeist-armor/src/trim/finish.rs",
+        "crates/adventuresim-character-creator/src/decoration.rs",
+        "crates/adventuresim-character-creator/src/armor_metal.rs",
+        "crates/adventuresim-character-creator/src/export.rs"
+      ],
+      "verdict": "same existing population and assertions, source-only",
+      "proof": "All seven compared fixture owners preserve test-name sets and assertion counts; complete diffs inspect only necessary typed constructor/getter/packet adapters and original values/oracles. Engraving shader template reconstructed as text only is exact to Root; no new test code, generator, check or runtime executed."
+    }
+  ],
+  "related_required_comment_correction": {
+    "owner": "Root native facade and #780 material shader docs coordinated with Comment Review",
+    "source": "gpu/metal/mod.rs:4-7 and material child docs",
+    "issue": "Universal correctly-rounded/device-independence wording must retain host_float limits (subnormals, rare transcendental rounding/host differences, actual device arithmetic assumptions). Root explicitly confirmed this needs followthrough; no performance/device-wide runtime conclusion claimed."
+  },
+  "CCR_D1": {
+    "canonical_source_present": true,
+    "canonical_metal_preview_result": "anyhow::Result<Self>",
+    "canonical_packet": "MetalTextureSize::PREVIEW + MetalTextures.size()/into_maps()",
+    "root_conflict_still_present": "Root metal_preview.rs:18-22 returns Result<Self,String>; received EquipmentMaps::metal uses ? in anyhow result. No family source copy has occurred in this review.",
+    "native_facade_context_exact_root": true,
+    "required_stride_export": "Root GPU buffer module has no stride module/reexports at cac although native Metal facade consumes BufferElementCount/Stride. Agreed exact canonical stride/exports must be received through their family; do not duplicate definitions or change native facade back to primitives."
+  },
+  "verdict": "Not clear: M665-C1 is a concrete required connected Root browser-progress gap. No additional defect identified in typed canonical tile/maps/image/sampling/count source. Canonical CCR-D1 typed receiver source fits, but Root receiving and complete dependencies are still incomplete.",
+  "fixture_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "root_test_names": [
+        "scratches_are_deterministic_and_change_normal_and_roughness",
+        "the_finish_tilts_and_roughens_the_surface_and_still_tiles",
+        "texture_sizes_and_engraving_images_are_checked",
+        "a_groove_cuts_below_the_surface_and_tilts_the_normal_at_its_walls",
+        "a_normal_map_tilts_with_its_turn_and_has_no_depth",
+        "tiling_repeats_the_engraving",
+        "every_ornament_motif_cuts_part_of_its_cell",
+        "fillets_run_along_both_sides_of_the_cell"
+      ],
+      "canonical_test_names": [
+        "scratches_are_deterministic_and_change_normal_and_roughness",
+        "the_finish_tilts_and_roughens_the_surface_and_still_tiles",
+        "texture_sizes_and_engraving_images_are_checked",
+        "a_groove_cuts_below_the_surface_and_tilts_the_normal_at_its_walls",
+        "a_normal_map_tilts_with_its_turn_and_has_no_depth",
+        "tiling_repeats_the_engraving",
+        "every_ornament_motif_cuts_part_of_its_cell",
+        "fillets_run_along_both_sides_of_the_cell"
+      ],
+      "same_test_population": true,
+      "root_assertion_count": 33,
+      "canonical_assertion_count": 33,
+      "same_assertion_count": true,
+      "coverage": "complete source and source delta read; retained operands/getters/admission adapters preserve existing oracle values, no authored cases/helpers/assertions"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/engraving.rs",
+      "root_test_names": [
+        "a_height_map_decodes_white_as_the_untouched_surface",
+        "a_normal_map_decodes_to_its_authored_slopes",
+        "bounds_are_enforced"
+      ],
+      "canonical_test_names": [
+        "a_height_map_decodes_white_as_the_untouched_surface",
+        "a_normal_map_decodes_to_its_authored_slopes",
+        "bounds_are_enforced"
+      ],
+      "same_test_population": true,
+      "root_assertion_count": 10,
+      "canonical_assertion_count": 10,
+      "same_assertion_count": true,
+      "coverage": "complete source and source delta read; retained operands/getters/admission adapters preserve existing oracle values, no authored cases/helpers/assertions"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/ornament.rs",
+      "root_test_names": [
+        "every_default_motif_is_valid_and_named_apart",
+        "out_of_range_ornaments_are_rejected"
+      ],
+      "canonical_test_names": [
+        "every_default_motif_is_valid_and_named_apart",
+        "out_of_range_ornaments_are_rejected"
+      ],
+      "same_test_population": true,
+      "root_assertion_count": 3,
+      "canonical_assertion_count": 3,
+      "same_assertion_count": true,
+      "coverage": "complete source and source delta read; retained operands/getters/admission adapters preserve existing oracle values, no authored cases/helpers/assertions"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/finish.rs",
+      "root_test_names": [
+        "a_narrowed_band_shrinks_its_ornament_with_it",
+        "the_ornament_repeats_once_per_engraving_cell",
+        "a_cell_begins_at_the_origin",
+        "widths_outside_the_supported_band_are_rejected"
+      ],
+      "canonical_test_names": [
+        "a_narrowed_band_shrinks_its_ornament_with_it",
+        "the_ornament_repeats_once_per_engraving_cell",
+        "a_cell_begins_at_the_origin",
+        "widths_outside_the_supported_band_are_rejected"
+      ],
+      "same_test_population": true,
+      "root_assertion_count": 8,
+      "canonical_assertion_count": 8,
+      "same_assertion_count": true,
+      "coverage": "complete source and source delta read; retained operands/getters/admission adapters preserve existing oracle values, no authored cases/helpers/assertions"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/decoration.rs",
+      "root_test_names": [
+        "a_saved_library_reloads_and_recognizes_its_decorations",
+        "plain_and_invalid_decorations_are_not_saved"
+      ],
+      "canonical_test_names": [
+        "a_saved_library_reloads_and_recognizes_its_decorations",
+        "plain_and_invalid_decorations_are_not_saved"
+      ],
+      "same_test_population": true,
+      "root_assertion_count": 7,
+      "canonical_assertion_count": 7,
+      "same_assertion_count": true,
+      "coverage": "complete source and source delta read; retained operands/getters/admission adapters preserve existing oracle values, no authored cases/helpers/assertions"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "root_test_names": [
+        "catalog_polished_steel_is_the_plate_armor_default",
+        "texture_coordinates_repeat_at_the_metal_density",
+        "a_trim_ornament_runs_along_the_edge_at_the_metal_density"
+      ],
+      "canonical_test_names": [
+        "catalog_polished_steel_is_the_plate_armor_default",
+        "texture_coordinates_repeat_at_the_metal_density",
+        "a_trim_ornament_runs_along_the_edge_at_the_metal_density"
+      ],
+      "same_test_population": true,
+      "root_assertion_count": 10,
+      "canonical_assertion_count": 10,
+      "same_assertion_count": true,
+      "coverage": "complete source and source delta read; retained operands/getters/admission adapters preserve existing oracle values, no authored cases/helpers/assertions"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "root_test_names": [
+        "exports_four_normalized_skin_influences_and_a_zero_animation_rig",
+        "rejects_non_normalized_weights",
+        "exports_clothing_as_a_separately_materialed_skinned_primitive",
+        "exports_textured_garment_with_independent_topology_and_skin",
+        "exports_shell_only_equipment_without_character_attachment_geometry",
+        "exports_independent_skinned_armor_topology_with_named_morph_targets",
+        "fitted_socket_resolves_uv_per_lod_and_bootstrap_recovers_the_anchor"
+      ],
+      "canonical_test_names": [
+        "exports_four_normalized_skin_influences_and_a_zero_animation_rig",
+        "rejects_non_normalized_weights",
+        "exports_clothing_as_a_separately_materialed_skinned_primitive",
+        "exports_textured_garment_with_independent_topology_and_skin",
+        "exports_shell_only_equipment_without_character_attachment_geometry",
+        "exports_independent_skinned_armor_topology_with_named_morph_targets",
+        "fitted_socket_resolves_uv_per_lod_and_bootstrap_recovers_the_anchor"
+      ],
+      "same_test_population": true,
+      "root_assertion_count": 64,
+      "canonical_assertion_count": 64,
+      "same_assertion_count": true,
+      "coverage": "complete source and source delta read; retained operands/getters/admission adapters preserve existing oracle values, no authored cases/helpers/assertions"
+    }
+  ],
+  "source_identity_results": {
+    "all28_manifest_export_match": true,
+    "engraving_shader_template_exact_after_textual_placeholder_expansion": true,
+    "no_added_test_names_or_assertion_counts": true,
+    "root_native_facade_reference_exact": true
+  },
+  "required_dependencies": [
+    "Complete Root all13 pre-receive and connected browser-progress inventory; ownership agreement before Root native/helper or #780 bake/caller edits.",
+    "Receive agreed material/tile/maps/error/engraving/sampling/preview/export whole candidate sources and exact owning module exports; six references do not authorize blind native overwrite.",
+    "Receive canonical BufferElementCount/Stride and actual exports through the agreed Root-owned adoption. Existing typed InvocationCount KernelBatch::dispatch_items receiver already matches; do not invent a raw compatibility path.",
+    "Preserve Root Buffer/mapping/readback/context/validation/error successors; native Metal facade reference is byte-exact current Root but has the real blocking gap.",
+    "Scalp host read and longest are affected sync-map siblings; prior Scalp source proofs are still useful but browser progress remains reopened. Broader Creator/groom/physical source/caller and final lock composition remain incomplete.",
+    "Repeat independent Code/Rule/Comment and complete all13 final waves after integration; final required hosted checks and reviews must agree on one final pushed SHA."
+  ],
+  "limits": [
+    "Source/Git/hash/TOML/text bookkeeping only; no source edits or copy.",
+    "No project build/check/compile/lint/test/scanner/generator/numerical or browser/native runtime, push or hosted CI.",
+    "No tests/cases/helpers/assertions/doctests authored. All22 whole candidates read; five references freshly read and exact Creator library reference carried from prior full current-cac reading with fresh module/exports read.",
+    "No full unreceived physics/rig/geometry/source-producer algorithm clearance; closure account retains its exact full/partial bounds."
+  ]
+}

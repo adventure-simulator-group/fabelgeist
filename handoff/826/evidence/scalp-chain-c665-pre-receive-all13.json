@@ -1,0 +1,443 @@
+{
+  "kind": "Independent complete bounded thirteen-lens PRE-RECEIVE discovery; Root has not copied candidate",
+  "root_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "peer_revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "tree": "12f2d808ab9d659999aaec627e02e594897c8beb",
+  "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-scalp-chain-c6659f6cf/manifest.json",
+  "manifest_sha256": "548c82e6dc6d2851887410f05543262dac72ec969e262e4c288c6db615581f20",
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a",
+      "raw_lines": 179,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs",
+      "sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+      "raw_lines": 168,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "raw_lines": 133,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "a9be367893c88b158dac2f0368c4ef28d521e59290a428b08753c342881225bd",
+      "raw_lines": 299,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "sha256": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee",
+      "raw_lines": 41,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "02378baa2d1ed60f1c8337c24b9e0e5872b240203fc5f7944f3f8eb93744d2f6",
+      "raw_lines": 144,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53",
+      "raw_lines": 149,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531",
+      "raw_lines": 512,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd",
+      "raw_lines": 155,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    }
+  ],
+  "related_source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "coverage": "Fresh complete source1-255 and256-end, all seven WGSL strings/native address expressions"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+      "coverage": "Fresh complete source; scalp_images separately byte-compared Root and peer"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "d6c46f6ef0b1f037cc45648c2baac76b9e383aad331cf1c3757f1e1150702b43",
+      "coverage": "Fresh full source: grow/bake retained Arc chain, placement source identity and all actual scalp recipients"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "83895f2f6e29bda031bc1764ed1d51cc133051198e963ead3eb0ee728138ffff",
+      "coverage": "Fresh complete source1-260 and260-end, worker/Assets/UI transitions"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "coverage": "Fresh full Root source and exact peer equality"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "coverage": "Fresh complete source: StrandLayout admission/native count/byte/kernel ports"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/groom.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "111756fbfda767a55148c514a229722b027e180d86ae64689214c74ed3f1b708",
+      "coverage": "Fresh complete source: actual groom layout/device/buffers and producers"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "coverage": "Fresh complete canonical source: nonzero stride/native count/wide multiplication"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "coverage": "Fresh complete Root and peer source, actual prefix/typed read native map contract"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "coverage": "Fresh complete peer source and Root83 exact full-source carry; unlisted peer native helper must not overwrite Root"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "coverage": "Fresh complete peer production definition/native usage adapter; test module unlisted not credited"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ba9b0696088257a6f3d984edf137b59435823ff73ba1f176a3fa82d96a3915fe",
+      "coverage": "Bounded source1-110 only: AtlasLevel record and current canonical geometry/layout consumers; remainder required unrelated geometry dependency, not full-file coverage"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "coverage": "Fresh complete Root canonical units; no numerical bounds invented"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "coverage": "Fresh complete Root prefix admission, same native Arc and logical/physical bounds"
+    }
+  ],
+  "assets_scalp_images": {
+    "body_exact_Root_peer": true,
+    "body_sha256": "78409a7869b0d699a8d224a6fd905ee1c30552215e2604f865de8b1dbdff8058",
+    "whole_file_exact": false,
+    "disposition": "Whole file differs in unrelated canonical geometry; no wholesale receipt authorized by scalp body proof."
+  },
+  "fixed_recipe_address_accounting": {
+    "levels": [
+      {
+        "side_texels": 2048,
+        "offset_bytes": 0,
+        "row_bytes": 8192,
+        "visible_elements": 4194304
+      },
+      {
+        "side_texels": 1024,
+        "offset_bytes": 16777216,
+        "row_bytes": 4096,
+        "visible_elements": 1048576
+      },
+      {
+        "side_texels": 512,
+        "offset_bytes": 20971520,
+        "row_bytes": 2048,
+        "visible_elements": 262144
+      },
+      {
+        "side_texels": 256,
+        "offset_bytes": 22020096,
+        "row_bytes": 1024,
+        "visible_elements": 65536
+      },
+      {
+        "side_texels": 128,
+        "offset_bytes": 22282240,
+        "row_bytes": 512,
+        "visible_elements": 16384
+      },
+      {
+        "side_texels": 64,
+        "offset_bytes": 22347776,
+        "row_bytes": 256,
+        "visible_elements": 4096
+      },
+      {
+        "side_texels": 32,
+        "offset_bytes": 22364160,
+        "row_bytes": 256,
+        "visible_elements": 1024
+      },
+      {
+        "side_texels": 16,
+        "offset_bytes": 22372352,
+        "row_bytes": 256,
+        "visible_elements": 256
+      },
+      {
+        "side_texels": 8,
+        "offset_bytes": 22376448,
+        "row_bytes": 256,
+        "visible_elements": 64
+      },
+      {
+        "side_texels": 4,
+        "offset_bytes": 22378496,
+        "row_bytes": 256,
+        "visible_elements": 16
+      },
+      {
+        "side_texels": 2,
+        "offset_bytes": 22379520,
+        "row_bytes": 256,
+        "visible_elements": 4
+      },
+      {
+        "side_texels": 1,
+        "offset_bytes": 22380032,
+        "row_bytes": 256,
+        "visible_elements": 1
+      }
+    ],
+    "total_bytes": 22380288,
+    "word_end": 5595072,
+    "bounded_host32_and_native_word32": true,
+    "meaning": "Authored fixed recipe arithmetic bookkeeping, not implementation execution or scanner"
+  },
+  "fixture_own_parent_diff": "diff --git a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\nindex 96e00c526..a8f5fd54e 100644\n--- a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\n+++ b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\n@@ -24,5 +24,5 @@\n use super::*;\n use adventuresim_character_creator::hair::{\n-    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair,\n+    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair, ScalpTextureChain,\n };\n use adventuresim_character_creator::studio_environment;\n@@ -36,5 +36,4 @@ use bevy::window::ExitCondition;\n use bevy::winit::WinitPlugin;\n use fabelgeist_gpu::globals::WgpuContext;\n-use fabelgeist_gpu::prelude::Buffer;\n use fabelgeist_hair::collider::Collider;\n use fabelgeist_hair::{MeshCollider, Preset};\n@@ -365,5 +364,5 @@ struct Stage {\n     atlas: Option<Image>,\n     /// The scalp's baked shade and strands chains.\n-    scalp: Option<[Buffer; 2]>,\n+    scalp: Option<[ScalpTextureChain; 2]>,\n     hairs: Vec<(Form, Mesh, GpuGeometry, Vec<PathBuf>)>,\n     design: HairDesign,\n",
+  "fixture_currentRoot_diff": "diff --git a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\nindex 30c65cdaa..a8f5fd54e 100644\n--- a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\n+++ b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\n@@ -24,5 +24,5 @@\n use super::*;\n use adventuresim_character_creator::hair::{\n-    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair,\n+    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair, ScalpTextureChain,\n };\n use adventuresim_character_creator::studio_environment;\n@@ -36,5 +36,4 @@ use bevy::window::ExitCondition;\n use bevy::winit::WinitPlugin;\n use fabelgeist_gpu::globals::WgpuContext;\n-use fabelgeist_gpu::prelude::Buffer;\n use fabelgeist_hair::collider::Collider;\n use fabelgeist_hair::{MeshCollider, Preset};\n@@ -277,5 +276,5 @@ fn hair_renders() -> Result<()> {\n             continue;\n         };\n-        gpu.finish();\n+        pollster::block_on(gpu.finish())?;\n         let built = started.elapsed();\n         let buried = buried_share(&geometry.read(&gpu)?, &skin);\n@@ -286,6 +285,6 @@ fn hair_renders() -> Result<()> {\n         );\n         let form_name = match form {\n-            Form::Strands { level, .. } => format!(\"strands{level}\"),\n-            Form::Cards { level } => format!(\"cards{level}\"),\n+            Form::Strands { level, .. } => format!(\"strands{}\", level.index()),\n+            Form::Cards { level } => format!(\"cards{}\", level.index()),\n         };\n         // Drawn in the bind pose, skinned as the studio skins it but to one\n@@ -325,5 +324,5 @@ fn hair_renders() -> Result<()> {\n         .add_systems(Update, capture);\n     app.run();\n-    gpu.finish();\n+    pollster::block_on(gpu.finish())?;\n     println!(\"wrote {}\", out.display());\n     Ok(())\n@@ -365,5 +364,5 @@ struct Stage {\n     atlas: Option<Image>,\n     /// The scalp's baked shade and strands chains.\n-    scalp: Option<[Buffer; 2]>,\n+    scalp: Option<[ScalpTextureChain; 2]>,\n     hairs: Vec<(Form, Mesh, GpuGeometry, Vec<PathBuf>)>,\n     design: HairDesign,\n",
+  "wgsl_exact_Root_peer_parent": true,
+  "cells": [
+    {
+      "lens": "existing-type-owners",
+      "contract": "layout.rs4-6 reuses BufferByteLength/Offset/ElementCount/Stride; bake/mod.rs43 Metres/Ratio; grid.rs11 InvocationCount. Fixed texel span and shadow-axis roles are local, not alternate generic byte/count owners.",
+      "source_evidence": "Canonical units retained through layout and physical constants; extract only at WGSL/image/copy ports.",
+      "disposition": "Intentional canonical reuse; no duplicate owner.",
+      "connected_repairs": "Receive existing agreed canonical definitions/exports; preserve Root helpers.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "No duplicate byte/count/Metres/Ratio types or raw caller overloads; all actual receiving imports resolve."
+    },
+    {
+      "lens": "producer-propagation",
+      "contract": "ScalpTextureLayout::new -> Grid -> allocations/dispatch -> private Chain -> host read or Assets/ScalpUpload/Stage. groom.rs83-84 actual producer; assets.rs scalp_images byte-exact Root; Stage payload typed.",
+      "source_evidence": "layout.rs levels/bytes; bake/mod.rs bake/finish; grid.rs draw/bare; readback.rs read; scalp_upload.rs image/upload; preview.rs request/collect.",
+      "disposition": "Complete bounded scalp propagation candidate; broader native/caller composition incomplete.",
+      "connected_repairs": "Receive all9 together plus canonical definitions and exact existing fixture adapters; no raw Buffer fallback.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "No surviving scalp_levels/ScalpLevel old API; same layout reaches allocation, host read and native copy; actual full graph compiles on hosted gates."
+    },
+    {
+      "lens": "admission-contracts",
+      "contract": "Only private fixed factory creates ScalpTextureLayout; ScalpTexelSpan NonZero and at_least_one preserve old saturation/clamp; private Chain constructors pair buffer/layout/device in bake.",
+      "source_evidence": "layout.rs31-71; bake/mod.rs chain closure; readback.rs device mismatch; GpuGroom/StrandLayout actual producer source.",
+      "disposition": "No public mutable field/deserialize bypass for admitted layout/chain; external native buffer aliases explicitly remain access-contract ports.",
+      "connected_repairs": "Preserve actual device check and native alias/mapping policy.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "Wrong host read device fails before mapping; layout cannot be relabeled/replaced through public API; native aliases confer no extra mutation guarantees."
+    },
+    {
+      "lens": "invariant-operations",
+      "contract": "Fixed2048 -> twelve power-of-two mips -> final1; padded row min64 u32 words; wide offsets bounded by checked full bytes; shadow-axis count1..2048 so square fitsu32.",
+      "source_evidence": "layout.rs new/elements/row_elements/native_word_offset; grid.rs covering/elements; readback.rs bounded row slicing; WGSL HALVE index formula.",
+      "disposition": "Unchecked arithmetic justified by fixed private recipe; not a generic arbitrary-dimension layout.",
+      "connected_repairs": "Keep fixed recipe/private fields or revisit all proofs if generalized; no new bounds or policy imposed.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "All twelve offsets/pitches equal old word addresses times4, slices fit exact prefix, row alignment preserved and final padding included."
+    },
+    {
+      "lens": "aggregate-states",
+      "contract": "Chain owns buffer, Arc layout and actual wgpuDevice together; GpuScalpTexture privately owns both chains from one layout/device. Upload owns matching generated Image handle and cloned Chain until native texture exists.",
+      "source_evidence": "bake/mod.rs private aggregates; scalp_upload.rs ScalpUpload,image,upload; groom.rs Arc sharing; Stage Option<[Chain;2]>.",
+      "disposition": "No independently replaceable metadata or availability flags added; native alias write and Bevy provider limits retained.",
+      "connected_repairs": "Preserve device/shared render context caller trace; do not claim upload completion from enqueue/removal.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "Both chains and image mip shape stay matched; readback cause retained; Assets pending entry remains until Image available."
+    },
+    {
+      "lens": "enum-shapes",
+      "contract": "No new semantic Boolean or parallel state flags; Option native Image readiness and ordinary copied predicate remain named native/control predicates; unrelated old HairPigment/form policies unchanged.",
+      "source_evidence": "scalp_upload.rs pending.retain/copy; render_test.rs Stage; bake/mod.rs aggregate structs.",
+      "disposition": "No enum repair indicated for this bounded family.",
+      "connected_repairs": "Keep existing scalar/enum caller domains; no forced wrapper for intrinsic fixed-array roles.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "No uncorrelated layout or role booleans introduced; actual image/chain payload remains one record."
+    },
+    {
+      "lens": "redundant-authority",
+      "contract": "Old recomputed public raw levels recipe removed; one layout controls base/count/bytes/offset/rows and travels with actual allocation. Retained Device is provenance unavailable from raw buffer query, not competing label.",
+      "source_evidence": "layout.rs private levels/stride; bake/mod.rs chain; readback and upload both consume chain.layout().",
+      "disposition": "Single canonical layout authority; immutable ScalpMipLevel copies from identical fixed recipe cause no cross-layout semantic variance.",
+      "connected_repairs": "Do not restore scalp_levels/Level compatibility exports or duplicate local TEXEL_BYTES in upload.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "Only one recipe defines padded addresses; consumers never recompute independent mip offsets/strides."
+    },
+    {
+      "lens": "magic-strings",
+      "contract": "WGSL parameter keys are actual shader grammar/interface ports; allocation labels are open diagnostics; no branch on human error prose. Scalp error uses HairGpuError::DeviceMismatch.",
+      "source_evidence": "grid.rs params compared to unchanged WGSL Params; bake/mod.rs source concatenation/labels; readback.rs typed mismatch.",
+      "disposition": "Intentional native/WGSL protocol strings; SCALP-C1 unsupported performance prose remains separate actionable finding.",
+      "connected_repairs": "Remove or properly bound unsupported10x claim; no benchmark/test authoring requested.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "Source labels/keys match actual shader bindings; no String cause erasure/classification; docs claims reflect evidence."
+    },
+    {
+      "lens": "magic-numbers",
+      "contract": "Metres/Ratio constants retain existing values; SIZE2048 is fixed authored scalp recipe at owner; TEXEL_BYTES derives u32 ABI, ROW_TEXELS derives SDK copy alignment; native64 workgroup grammar unchanged.",
+      "source_evidence": "layout.rs9-13; bake/mod.rs physical constants; grid.rs native parameters; unchanged WGSL.",
+      "disposition": "Named quantities/native boundary grammar justified; no numerical/modeling redesign.",
+      "connected_repairs": "Retain existing shader packing/physical constants and min1 semantics.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "Same physical sampling, padding and pack bits; count/byte types persist until native adapters; no arbitrary epsilon/tolerance change."
+    },
+    {
+      "lens": "type-ownership",
+      "contract": "Canonical generic units remain GPU/Math; ScalpTextureLayout/MipLevel/Span belong to scalp bake; ShadowBlockAxisCount belongs to Grid; Chain owns scalp buffer-layout-device correlation.",
+      "source_evidence": "hair.rs and gpu/mod.rs public exports; layout/grid/bake owner definitions.",
+      "disposition": "Coherent focused modules, no shared type duplication or forwarding alias.",
+      "connected_repairs": "#780 retains implementation ownership; receive exact files; do not independently edit broader owner functions.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "Exports expose one definition, native lower owner helpers preserved and legacy aliases removed."
+    },
+    {
+      "lens": "type-granularity",
+      "contract": "ScalpTexelSpan distinguishes positive texels from positive block population; BufferElementCount native storage population differs from ByteLength and InvocationCount. One span serves side/block/radius same positive texel meaning.",
+      "source_evidence": "grid.rs blocks field/covering; layout.rs span; native conversions at From and copy/WGSL boundaries.",
+      "disposition": "Roles neither collapsed into nakedu32 internal flow nor split into meaningless value-only wrappers.",
+      "connected_repairs": "Use agreed canonical count/dispatch types; no duplicate bespoke kernel/backend types.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "Visible texels dispatch and shadow blocks allocation remain separate; fixed padded storage stride is not visible width."
+    },
+    {
+      "lens": "derivability",
+      "contract": "Clone/Debug/Copy derive only metadata or sharing; no Serialize/Deserialize bypass; ScalpTextureChain Clone shares Buffer and Arc layout plus actualDevice. Existing unit numerics intentionally not validated scalars.",
+      "source_evidence": "layout.rs derives; bake/mod.rs Chain derive; grid.rs ShadowBlockAxisCount derive.",
+      "disposition": "Derives preserve contracts; no unnecessary handwritten serialization/error boilerplate introduced.",
+      "connected_repairs": "Keep Source/error carrier semantics and avoid clonedString substitutions.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "Derived construction cannot create invalid layout/span; no synthetic shape validation imposed on canonicalMetres/Ratio."
+    },
+    {
+      "lens": "behavior-preservation",
+      "contract": "Old fixed mip word addresses and physical sampling values preserved; bytes now include final padded row. Host read strips padding. Longest reads word0 only after exact16byte buffer typed read. Existing fixture changes imports/Stage/type ordinals/asyncfinish operands only.",
+      "source_evidence": "own-parent/currentRoot diffs; layout address comparison; WGSL exactRoot/parent; BufferReadback exactcomplete element guarantee; render_test fullsource.",
+      "disposition": "No new rendering/modeling behavior claimed; native submission means acceptance under configured policy, not completion. Unsupported10x claim remains inherited docs finding.",
+      "connected_repairs": "Correct SCALP-C1 and receive complete existing caller APIs without replacing Root native helpers; preserve existing fixtures.",
+      "dependencies": [
+        "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+        "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+        "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+      ],
+      "acceptance": "Existing cases/oracles/WGSL/POD unchanged; no test additions; hosted required source checks and final sameSHA gates before clearance."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SCALP-C1",
+      "severity": "P2",
+      "location": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:3-5",
+      "governing_rule": "AGENTS.md:50-51 accurate documentation; source-only validation limits",
+      "classification": "Retained wording finding on modified whole owner, deduplicates Comment Review",
+      "consequence": "Unqualified10xCPU speed claim has no bounded hardware/workload/benchmark evidence. Existingfixture timing does not establish comparison.",
+      "repair": "Remove multiplier/comparison or cite existing bounded observation; no new benchmark/test."
+    }
+  ],
+  "dependencies": [
+    "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+    "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+    "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+  ],
+  "correctness": "No additional bounded implementation Rule finding; inherited SCALP-C1 remains actionable. Exact candidate not yet received.",
+  "completeness": "Complete per-lens discovery for nine-source scalp tranche and explicitly covered actual recipients; global native/physical/generated/caller/lock integration incomplete.",
+  "limits": [
+    "No source edits, new fixtures/cases/helpers/assertions/doctests.",
+    "No local project check/build/lint/test/scanner/generator/runtime/push/CI.",
+    "Raw source/hash/manifest/fixed authored address bookkeeping only.",
+    "Not compile, native/browser runtime, calibrated art/performance, wholegraph/global/finalPR clearance."
+  ]
+}

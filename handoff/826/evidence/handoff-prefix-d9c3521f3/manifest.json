@@ -1,0 +1,18 @@
+{
+  "head": "d9c3521f30f52d3437cfef2850203c9df3192b0e",
+  "base": "8b32a1860079c64073028033b9fc4629a64ef451",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "767b463d19dd0a529cd9cdde4650353fcdda4582dde6800f5c80076652dafd39"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0"
+    }
+  ],
+  "patch_sha256": "47c8c07f16c0c407c9765968c63f0161fde672464125db13fa3b3cdffeb6b3f4",
+  "api": "Buffer::prefix(BufferByteLength)->PrefixResult<Self>; BufferPrefixError {requested,logical,physical:BufferByteLength}; zeroallowed,actualArcshared,logical+physicalchecked,noread/wait/allocation",
+  "composition": "buffer/mod adds export+modonly; retain canonical780count/stride/launch exports untouched",
+  "validation": "all13preinventory complete; three independent d9 source reviews inprogress, no runtime/projectchecks/newtests/pushCI; callerfamily780required"
+}

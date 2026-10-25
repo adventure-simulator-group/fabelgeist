@@ -1,0 +1,32 @@
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs
+index 7f9756599..0cd48175d 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs
+@@ -1,4 +1,4 @@
+-//! Entry identity is admitted independently of source declaration order.
++//! Explicit compute entry selection, including source-order first selection.
+ 
+ use super::{ComputePipelineError, ComputePipelineResult};
+ 
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
+index 67d184376..0b709922d 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
+@@ -15,6 +15,8 @@ pub struct TextureBinaryOpDefinition {
+     cache: TexturePipelineCache,
+ }
+ 
++pub struct TextureBinaryOp;
++
+ impl PartialEq for TextureBinaryOpDefinition {
+     fn eq(&self, other: &Self) -> bool {
+         self.op_code == other.op_code
+@@ -120,8 +122,6 @@ impl TextureBinaryOpDefinition {
+     }
+ }
+ 
+-pub struct TextureBinaryOp;
+-
+ impl TextureBinaryOp {
+     pub fn execute(
+         context: &WgpuContext,

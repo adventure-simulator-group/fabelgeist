@@ -1,0 +1,45 @@
+crates/fabelgeist-gpu/src/globals/callback_progress.rs:49:        .poll(wgpu::PollType::Poll)
+crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs:19:        if let Some(cause) = scope.and_then(|scope| pollster::block_on(scope.pop())) {
+crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs:28:        if let Some(cause) = scope.and_then(|scope| pollster::block_on(scope.pop())) {
+crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs:38:        if let Some(cause) = scope.and_then(|scope| pollster::block_on(scope.pop())) {
+crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs:68:                .poll(wgpu::PollType::Wait {
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs:57:        let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs:58:        if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs:72:        let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs:73:        if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs:80:        let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs:81:        if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:183:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:184:            if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs:42:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs:43:            if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:102:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:103:            if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:73:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:74:            if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs:100:                .poll(wgpu::PollType::wait_indefinitely())
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:110:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:111:            if let Some(err) = pollster::block_on(error_scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:203:                        let _ = context.device.poll(wgpu::PollType::Poll);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs:59:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs:60:            if let Some(cause) = pollster::block_on(error_scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs:91:            let _ = device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs:92:            if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs:160:            let _ = device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs:161:            if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs:172:            let _ = device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs:173:            if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:137:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:138:            if let Some(err) = pollster::block_on(error_scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:64:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:65:            if let Some(cause) = pollster::block_on(error_scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:123:            let _ = c.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:124:            if let Some(err) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:162:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:163:            if let Some(cause) = pollster::block_on(scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:159:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:160:            if let Some(err) = pollster::block_on(error_scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:341:                        let _ = context.device.poll(wgpu::PollType::Poll);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs:59:            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs:60:            if let Some(cause) = pollster::block_on(error_scope.pop()) {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:263:                        let _ = context.device.poll(wgpu::PollType::Poll);

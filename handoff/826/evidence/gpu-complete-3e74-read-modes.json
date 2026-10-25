@@ -1,0 +1,595 @@
+{
+  "fresh_full": [
+    "crates/fabelgeist-gpu/Cargo.toml",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/sampler/filter_mode.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+    "crates/fabelgeist-gpu/src/data/mod.rs",
+    "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+    "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+    "crates/fabelgeist-gpu/src/lib.rs",
+    "crates/fabelgeist-gpu/src/prelude.rs",
+    "crates/fabelgeist-gpu/tests/fixtures/buffer_usage.json",
+    "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+    "crates/fabelgeist-gpu/tests/texture_views.rs"
+  ],
+  "carried_full": {
+    "crates/fabelgeist-gpu/README.md": {
+      "report": "lower-f0-code-review.json",
+      "coverage": "fresh complete changed file read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs": {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs": {
+      "report": "shared-strip-creator-canonical-code-review.json",
+      "coverage": "fresh complete file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs": {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs": {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs": {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs": {
+      "report": "policy-prefix-d9-code-review.json",
+      "coverage": "fresh FULL current immutable file source read, including existing fixtures when present",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_73b",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs": {
+      "report": "lower-2f-code-review.json",
+      "coverage": "fresh complete changed file read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs": {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs": {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json": {
+      "report": "dispatch-51b-code-review.json",
+      "coverage": "fresh full-file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs": {
+      "report": "dispatch-51b-code-review.json",
+      "coverage": "fresh full-file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs": {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs": {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs": {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs": {
+      "report": "lower-2f-code-review.json",
+      "coverage": "fresh complete production read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs": {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs": {
+      "report": "head-04-code-review.json",
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_d9",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/shader.rs": {
+      "report": "lower-2f-code-review.json",
+      "coverage": "fresh complete changed file read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs": {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs": {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": {
+      "report": "head-04-code-review.json",
+      "coverage": "fresh FULL canonical owner file",
+      "keys": [
+        "head",
+        "path",
+        "git_blob",
+        "sha256",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs": {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs": {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete new file and every function",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs": {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs": {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "fresh complete current source read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs": {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs": {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs": {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs": {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs": {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs": {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "fresh complete current source read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs": {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete new file and every function",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs": {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/globals/mod.rs": {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs": {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "fresh complete current source read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs": {
+      "report": "lower-d449-code-review.json",
+      "coverage": "fresh full changed file read, all production bodies and existing inline tests source only",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "changed_from_parent",
+        "coverage",
+        "byte_identical_to_parent"
+      ]
+    },
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs": {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    "crates/fabelgeist-gpu/texture-views.md": {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    }
+  }
+}

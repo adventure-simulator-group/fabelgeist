@@ -1,0 +1,612 @@
+{
+  "kind": "Reopened complete renderer integration Rule Review, source only",
+  "head": "2b646df899ee73045795b129bfbade5dec7d4b84",
+  "tree": "8ff9d17406c41db64dd32c901ad1bf054caf5475",
+  "actual_parent": "29422839ddc40f1c904c48d872b47af3b628b2e3",
+  "comparison_base": "162b152c47ea3824b4bbcdea01215fe5342f71f0",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "peer_dependency_pin": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "fresh_all18_source": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+      "sha256": "ced0a6437d99514b8201506e998d66ea89aab6b49fb1d852f868abc859f0ec7f",
+      "raw_lines": 76,
+      "production_meaningful_lines": 67,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": false
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "raw_lines": 66,
+      "production_meaningful_lines": 57,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+      "raw_lines": 299,
+      "production_meaningful_lines": 280,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "ae246a424240ef39d3a652178c14e8eb7ca5731ef13731eb91e8c896eaa7b162",
+      "raw_lines": 152,
+      "production_meaningful_lines": 130,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": false
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "raw_lines": 192,
+      "production_meaningful_lines": 159,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "sha256": "a0dc615037daa6d47efae6b02044ec36b8e286ec9f6d78d07be3ece901f052e7",
+      "raw_lines": 165,
+      "production_meaningful_lines": 152,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": false
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "raw_lines": 651,
+      "production_meaningful_lines": 491,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "sha256": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+      "raw_lines": 195,
+      "production_meaningful_lines": 175,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+      "raw_lines": 224,
+      "production_meaningful_lines": 204,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/math.rs",
+      "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+      "raw_lines": 97,
+      "production_meaningful_lines": 78,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/meshes.rs",
+      "sha256": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+      "raw_lines": 200,
+      "production_meaningful_lines": 186,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "052eb05f205e18ce867d925db0db38571dcc98c92f6d4230d715e326b347dfd4",
+      "raw_lines": 1706,
+      "production_meaningful_lines": 1514,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "raw_lines": 54,
+      "production_meaningful_lines": 42,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "raw_lines": 184,
+      "production_meaningful_lines": 157,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation.rs",
+      "sha256": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+      "raw_lines": 287,
+      "production_meaningful_lines": 246,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/buffers.rs",
+      "sha256": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+      "raw_lines": 238,
+      "production_meaningful_lines": 217,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/error.rs",
+      "sha256": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+      "raw_lines": 75,
+      "production_meaningful_lines": 70,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/frames.rs",
+      "sha256": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+      "raw_lines": 157,
+      "production_meaningful_lines": 140,
+      "coverage": "Fresh complete exact2b file read, including all native shader source and existing test region. Parent mod read contiguous1-430,431-1030,1031-1450,1451-end; no body credit from hashes alone.",
+      "exact_f905": true
+    }
+  ],
+  "fresh_canonical_dependency_source": [
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "8c9e0cfc1381290739c5cb166996fa345de9def1e25532ad367f1963cfd5c8af",
+      "coverage": "Complete canonical error owner; derives and all From source payloads read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/lib.rs",
+      "sha256": "c2df7e182028b42251d7f1c453046962f13ae98e9b4cb0d85795ac7550a15031",
+      "coverage": "Complete canonical module/re-export/feature context and existing docs read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+      "coverage": "Complete dependency/features; render implies gpu/image/futures, gpu enables color/wgpu and mesh/gpu."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+      "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+      "coverage": "Complete canonical CardAtlas/AtlasMip definition and getters read; no duplicate native_extent method."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "75508eb07b8f3292152f27310bdc7193128efbf211bb4ce49bc55c8a9c3f6987",
+      "coverage": "Production exports/CardSettings/CardVertex and beginning existingfixture1-115 only."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "7814ed1212fc58bea86aebf290862d5937f4e3e20d2b508050d20983948323a8",
+      "coverage": "Complete current canonical native strand/card/Lods record getters and immutable device/source fields."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "44ffb5c296d0d5948e0b64f76f2dea59c4d41238f3ef8deaf6d549007a376f61",
+      "coverage": "Complete builder/publication path1-200; later producer routines explicitly not freshly full-read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "coverage": "Complete count/ordinal owner and membership selection read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+      "coverage": "Source1-140 freshly read; exact Root file identity verifies correspondence with Root140-end read, giving complete actual policy responsibility reading."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "sha256": "0c54c21fb94e4b1df748a29cdbef562802d717acfc810211072be30d236a3298",
+      "coverage": "Exports and Surface definition/admission1-90 only; unrelated sampling/math not newly claimed."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/surface/render_layout.rs",
+      "sha256": "a494654990087180a401c2f0f80b258d3c01ae652d66d6f12017a657c04c969c",
+      "coverage": "Complete checked surface layout owner read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+      "sha256": "6b7a180a3ee2faa7fc26a79e2ae14ceeac4a54c19f96a308dc57f417c56ea49f",
+      "coverage": "Complete canonical native byte/binding projection and checked writer admission read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "9951797fc00589d2ce5106c921d2788568e3d10bfa1cbcbf6344c6e5f191c8ae",
+      "coverage": "Complete canonical exports and cfg-gated GPU modules read; count exports unconditional."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "sha256": "210d69c52c956bf08c4741ae6524ee7b5c185fae123cfd4e4297ea3c92ae0e67",
+      "coverage": "Complete canonical native topology count owner read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-mesh/src/count/gpu.rs",
+      "sha256": "a354473daa3c85ba7553322360de24dde42cfa72782d310324007d0f56426a34",
+      "coverage": "Complete GPU byte/invocation projection owner read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-math/src/lib.rs",
+      "sha256": "bd588528cad05e62401905c31645e928a15b1175985219d9d79d21b2b2e81510",
+      "coverage": "Complete actual canonical export owner freshly read; units module has no root wildcard export."
+    }
+  ],
+  "prior_canonical_contract_identity": [
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+      "sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical owning file; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical owning file; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical owning file; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/sim/frame.rs",
+      "sha256": "0bec2f5a59de545d2968c962ab28be07e91d685dc097fa0a17af5db09312adc3",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical owning file; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/sim/build.rs",
+      "sha256": "badb20a3e56c8fe3a51a2c629a6bf9b5fcdbac0c9f9f52774ebabcf660d18d5d",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical owning file; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/sim.rs",
+      "sha256": "61f1db429d25290869a495bcfa270d73d92a203fb5de405f255384f9e8081632",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete production through air; source lines1-350 additionally includes initial fixture region only, not whole remaining test module; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "413f88a20d71eac80a2028f44826ba8f910df760078175d6eba83321233943bc",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical file; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/inspect.rs",
+      "sha256": "f019273dd3c0d3c216f8e2b48b7ecf49fd9d8333f5b26f81b8e3f936777d1597",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical file; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/binding.rs",
+      "sha256": "c5459f6db0f1b23d67efb540f90f14140a65d958b4bf251dbd945150e551bed0",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical file; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical file; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "7814ed1212fc58bea86aebf290862d5937f4e3e20d2b508050d20983948323a8",
+      "same_earlier_exact_contract": false,
+      "coverage": "Changed peer definition freshly read at explicitly recorded current scope above; old body verdict not carried."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/levels.rs",
+      "sha256": "650943d671d88ceb81a808c6e1f94eddb4780e018518f930fce3d3b1bf4bac3b",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical level producer; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "44ffb5c296d0d5948e0b64f76f2dea59c4d41238f3ef8deaf6d549007a376f61",
+      "same_earlier_exact_contract": false,
+      "coverage": "Changed peer definition freshly read at explicitly recorded current scope above; old body verdict not carried."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards/mesh.rs",
+      "sha256": "322747ae7f6a10847b6f82813fd1b27cfd8caafb01f4d13aca401dc78346ab21",
+      "same_earlier_exact_contract": true,
+      "coverage": "Complete canonical sealed-card record file; prior explicitly bounded reading carried after identity comparison, not fresh full read."
+    }
+  ],
+  "fresh_actual_dependency_source": [
+    {
+      "path": "crates/fabelgeist-math/src/lib.rs",
+      "sha256": "bd588528cad05e62401905c31645e928a15b1175985219d9d79d21b2b2e81510",
+      "coverage": "Complete actual exports"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "coverage": "Complete authoritative unit owner, constructors/derives/getters"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "coverage": "Complete public export chain"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+      "coverage": "Complete actual pre-integration exports; missing canonical count module is known required dependency, not a request for duplicate local owner"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "coverage": "Complete public PixelFormat exports and cfg module"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "coverage": "Source1-65 native mapping/cfg context only; to_wgpu mapping identity carried from prior owner receipt"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+      "coverage": "Source1-20 and140-end freshly read; exact canonical first140 identity covers complete current policy body"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+      "coverage": "Complete actual connected authored producer"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+      "coverage": "Source1-105 typed quantity and enum interface/admission; remainder prior source retained, no fresh whole file claim"
+    }
+  ],
+  "changed_paths_since_162": [
+    "crates/fabelgeist-hair/src/render/atlas.rs",
+    "crates/fabelgeist-hair/src/render/draws.rs",
+    "crates/fabelgeist-hair/src/render/frame_uniforms.rs"
+  ],
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71",
+      "matches_prior_receipt": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "R2B-P1",
+      "priority": 1,
+      "class": "Existing connected owning-producer/export closure defect; survives canonical integration",
+      "locations": [
+        {
+          "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+          "line": 6
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+          "line": 6
+        }
+      ],
+      "rule": "crates/AGENTS.md:28-57,69-71; actual owning module/export contract fabelgeist-math/src/lib.rs and units.rs",
+      "finding": "Both actual policy and preset sources still use fabelgeist_math::Ratio. Actual Root and exact peer e216 math lib expose units as a module without re-exporting Ratio at crate root. Ratio is defined at units::Ratio.",
+      "trace": "Preset Ratio values -> policy Form/Blend/Representation fields and selection -> renderer DrawPlan/native width/coverage. Fixing only draws/frame_uniforms leaves owning producers unresolved.",
+      "consequence": "These imports cannot resolve in the composed source graph; canonical e216 has the same policy imports and the same missing root export, so receiving peer sources does not close this defect. Static source proof, no compilation executed.",
+      "correction": "Use the canonical units::Ratio path in both owning policy imports. Preserve producer/body behavior; add no math compatibility alias/re-export.",
+      "ownership": "Root owns whole LOD policy; coordinate any canonical export receipt with peer before edits. Required repair, not accepted deferral."
+    },
+    {
+      "id": "R2B-P2",
+      "priority": 2,
+      "class": "Existing extraction cleanup gap in affected renderer parent",
+      "locations": [
+        {
+          "path": "crates/fabelgeist-hair/src/render/mod.rs",
+          "line": 53
+        }
+      ],
+      "rule": "crates/AGENTS.md:8-20,191-194; existing justfile759/.github/workflows/rust-quality.yml150 warnings-denied Clippy gate",
+      "finding": "The parent still imports wgpu::util::DeviceExt after every DeviceExt call moved to head/levels/meshes/simulation::buffers. Full parent source contains no create_buffer_init/create_texture_with_data call; those focused modules import their own trait.",
+      "consequence": "Unused import remains in production parent and conflicts with required warnings-denied hosted lint acceptance; no actual lint run claimed.",
+      "correction": "Remove this unused parent import without a suppression or forwarding re-export.",
+      "ownership": "Root full Renderer receiver responsibility; no producer function repair required."
+    }
+  ],
+  "resolved_closure_defects": [
+    "Root From<AtlasError> removed; only canonical HairGpuError::Atlas #[from] remains in agreed composition.",
+    "render/draws.rs uses units::Ratio; no root re-export invented.",
+    "render/frame_uniforms.rs uses units::Metres; no math alias or duplicate unit."
+  ],
+  "contract_traces": [
+    {
+      "family": "Host groom and immutable simulation frame",
+      "trace": "a2 HairLods::build creates nonempty levels from one shared shuffled order; private StrandLevel columns carry StrandShape. Root set_groom retains actual first Arc. a6 HairSim builder owns selected sampled Arc, checked layout and immutable SimBinding; SimFrame borrows actual HairSim. set_dynamics checks source Arc, converts actual frame layout at native boundary, requires max resident strands\u2264source strands, preflights and packs complete rest/current slices. set_simulated checks same binding Arc before upload.",
+      "guarantees": "No forgeable raw guide/rest/pose tuple, no host/native mode confusion, no partial host suffix update. Binding prefix max includes every resident main/shadow/blend level; full simulated guide arrays remain independent.",
+      "limits": "Exact peer definitions not all integrated; constructor/caller/lock graph and compile/runtime validation required."
+    },
+    {
+      "family": "Native source, layout and allocation provenance",
+      "trace": "0df GpuLevel fields seal actual Device/layout/Buffer, GpuLods builder retains first Arc. a6 GpuSim::make_sim checks first device, creates binding/rest/current/body resources from actual context and retains same Arc/layout. Root set_gpu_groom checks Device and records actual first Arc. set_gpu_dynamics checks installed Arc/device, complete native ranges/capabilities; set_moved checks same source/layout and each exact buffer Arc plus actual body range before publishing pose/offset.",
+      "guarantees": "Same count or common adapter alone cannot admit foreign capture; a different simulation allocation requires deliberate reinstall. Metres retained until DeformGpu offset extraction.",
+      "limits": "Internal producer sealed provenance is the authority; root does not fake a context or independently certify GPU construction success."
+    },
+    {
+      "family": "Logical data, positive native binding and copy extents",
+      "trace": "Canonical StrandLayout maps bounded u32 samples to BufferByteLength and positive binding floors. SimulationBuffer constructors admit logical prefix, actual physical size, STORAGE capability and min(actual max_buffer_size,max_storage_binding). Host inputs reserve/pack Vec4 bytes before upload; body absent owns one nonaccessed vec4. preflight checks all resident positions/rest and parameter uniform limit before copy/installation/clear.",
+      "guarantees": "No binding to unrelated padded allocation suffix, no clamped-away guide data, copy offsets0 and byte counts are admitted aligned vec4 logical prefixes; private paired rest state retains original undeformed capture during legitimate simulation replacement.",
+      "limits": "Native byte arrays/POD/SDK usage flags are explicit adapters; body ABI belongs to producer actual Buffer.size, not duplicated17-record arithmetic."
+    },
+    {
+      "family": "State, errors and rendering consumers",
+      "trace": "Candidate inputs/level rest resources and bind groups are built before native queue submission, then Dynamics/pose publish. clear absent is idempotent; present preflights then submits before dropping Dynamics/resetting pose. record_deformations uses retained canonical layout and body payload, returns RecordedDeformations; render publishes deformation/frame state only after normal submit.",
+      "guarantees": "Mode/body enums own correlated payloads, typed layout/prefix/allocation causes flow through RenderSimulationError into actual HairGpuError Backend cause chain; no new production unwrap/unsafe/suppression or compatibility path.",
+      "limits": "Bare native Renderer intentionally uses device-handled policy. Normal submit does not imply GPU completion, validation verdict, health, atomic rollback or immutable floating-point geometry."
+    },
+    {
+      "family": "Canonical export and feature closure",
+      "trace": "Hair lib render cfg -> Cargo render implies gpu/image/futures; gpu enables color/wgpu and mesh/gpu. Canonical cards exports Atlas/Vertex/Layout, GPUmod exports native Source/Layout/Sim, Surface exports checked render layout, mesh lib exports native counts, math lib exposes units only. Root18 receiver imports and all explicit error conversions compared with exact peer owner.",
+      "guarantees": "Atlas error conversion now has one canonical derive owner. Fixed draw Ratio and projection Metres consume actual units module; no compatibility re-export added. GPU byte projections and PixelFormat native conversion have owning feature route.",
+      "limits": "Policy and preset Ratio imports remain unresolved (R2B-P1). Actual Root still lacks other received canonical production modules by design, and complete producer/caller/lock integration is required."
+    },
+    {
+      "family": "Error conversion coherence and unchanged consumers",
+      "trace": "Exact peer HairGpuError derives Atlas/Cards/StrandLayout/Readback/Scan/native failures; Root render retains only distinct From<RenderSource/Level/Mesh/Simulation/Readback/Input/Policy/CallbackProgress> conversions. FrameProjection/DrawPlan -> Globals/DrawGpu/CardDrawGpu -> native shaders; frame/native readback retain current result chain.",
+      "guarantees": "Removed Root From<AtlasError> prevents canonical trait collision; no observed further duplicate From pair in explicit receiver impls/peer derives. Existing POD/fixtures/shaders exact.",
+      "limits": "Full Rust trait/type checking not executed; two source-backed closure findings prevent receiving-family Rule clearance."
+    }
+  ],
+  "all_thirteen_relationship_accounting": {
+    "producer-propagation": "Full18 re-read exposes upstream policy/preset import closure defect beyond receiving definitions; canonical shape/frame/bytes/native authority traces remain source-backed but not compiled.",
+    "existing-type-owners": "Canonical StrandShape/StrandLayout/StrandCount/PointsPerStrand/Metres/BufferByteLength reused; SimulationBuffer only represents native resident binding admission.",
+    "admission-contracts": "Both groom installs, both dynamics installs, both updates and clear read; source/mode/binding/actual Device/layout/ports/ranges checked before relevant writes/publication.",
+    "invariant-operations": "Maximum resident binding prefix, checked host/native shape, reserve-before-upload, rest preservation and post-normal-submit state examined; no rollback claim.",
+    "aggregate-states": "GroomSource, DynamicsOrigin and DeformationBody pair authority and payload; complete native input relation retained, same-frame host projection sealed.",
+    "behavior-preservation": "Empty native bindings padded while logical data stayszero; host body absence retained, legitimate same-source simulation switch keeps undeformed rest; first current frame and pose from actual SimFrame.",
+    "enum-shapes": "Host/Native origin and optional body states own relevant payload; SDK/POD booleans converted only at native upload.",
+    "derivability": "Typed thiserror carriers retain actual sources; native non-Clone causes not flattened, manual numeric validation not replaced by bypassing derive.",
+    "type-granularity": "Host shape versus native layout versus counts/bytes/Metres distinguished; no duplicate source brand, no extraneous ABI count.",
+    "magic-strings": "Closed error/buffer roles typed; labels and shader entry literal remain SDK/source identity boundaries, no control flow on prose.",
+    "magic-numbers": "Vec4 strides/floors, native ordinals and fixed POD size are actual SDK/WGSL grammar; body ABI actual producer bytes reused. binding vector multiply bounded by native resident u32 count.",
+    "redundant-authority": "Removed duplicate Atlas conversion; private source/layout/body/frame state still paired. All receiver explicit error conversion targets compared to exact peer enum derives.",
+    "type-ownership": "One canonical Atlas conversion and actual units module ownership checked. R2B-P1 must use correct owner at policy producers; no compatibility exports."
+  },
+  "verification": {
+    "renderer_file_count": 18,
+    "all18_fresh_complete_read": true,
+    "policy_exact_peer": true,
+    "presets_exact_peer": true,
+    "math_lib_exact_peer": true,
+    "fixture_exact_f905": true,
+    "native_pod": [
+      {
+        "name": "Globals",
+        "exact_f905": true,
+        "sha256": "e0003c6f88ffdbc3d27a45fe06e0b88b50de9a095ff2e466faeeee967a5a2215"
+      },
+      {
+        "name": "DrawGpu",
+        "exact_f905": true,
+        "sha256": "7e57128d063a7d19d367616d291cb283ae1e038a991524e265e77e6fdd6ae1ed"
+      },
+      {
+        "name": "PostGpu",
+        "exact_f905": true,
+        "sha256": "d5b47327cf39b5a88545e9bb5d5c46f7a5cf6ab7ee28a1a113e81c206d07f10a"
+      },
+      {
+        "name": "CardDrawGpu",
+        "exact_f905": true,
+        "sha256": "f3bdd58c806c14dc0b5750aa354aa2d68e92cbda64bd9e942f60e4fa149466f7"
+      },
+      {
+        "name": "DeformGpu",
+        "exact_f905": true,
+        "sha256": "190035f5eecdfe124e69065c072c80b1864e596d20480e315122de2b6ea9208d"
+      }
+    ],
+    "shaders": [
+      {
+        "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+        "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+        "exact_f905": true
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+        "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+        "exact_f905": true
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+        "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+        "exact_f905": true
+      }
+    ],
+    "no_tests_added": "All18 source read; only existing parent two tests/helper/five assertions; full fixture body unchanged. No added test/case/helper/assertion/doctest."
+  },
+  "nogrowth": {
+    "renderer_production_meaningful": 1514,
+    "parent_renderer_production_meaningful": 1666,
+    "new_constructor_meaningful": 447,
+    "parent_constructor_meaningful": 446,
+    "unchanged_documented_constructor_ceiling": 492,
+    "constructor_interpretation": "One field line added, remains below unchanged492 baseline; no raised ceiling or violation inferred from this small change. Relevant hosted reductions must use final source.",
+    "new_modules_production_meaningful": {
+      "simulation.rs": 246,
+      "simulation/buffers.rs": 217,
+      "simulation/error.rs": 70,
+      "simulation/frames.rs": 140
+    },
+    "new_functions": "Complete source bounds manually inspected; longest new function set_gpu_dynamics stays below100 rawlines, no added >100 function. Existing Renderer new/render/resize debt remains within unchanged ceilings.",
+    "baseline_unchanged": true,
+    "config_unchanged": true,
+    "method": "Source reading and bounded line arithmetic only; no project scanner/check execution.",
+    "whole18": "Only existing parent exceeds500; all focused modules below500 and new functions below100. Existing new/render/resize within unchanged baselines; only3 latest paths remove conversion/change imports.",
+    "required_hosted_reductions": "Pending on final integrated source; no scanner or project check executed."
+  },
+  "required_dependencies": [
+    "Repair R2B-P1 and R2B-P2 after whole-family inventory, then independently review exact successor; do not declare import/coherence closure from only three addressed sites.",
+    "Integrate exact canonical host/native/mesh/card/surface/source/layout/count/error/readback/producer/caller/Creator/application/lock graph. Current Root missing expected canonical APIs is required integration, not permission for duplicate types or shims.",
+    "Full final all13 waves and all3 independent reviews plus required hosted existing project checks/baseline reductions at same final pushed SHA; no merge."
+  ],
+  "limits": [
+    "Read-only source: no source edits/project checks/build/lint/tests/scanners/generators/runtime/new tests/cases/helpers/assertions/doctests/push/CI/external posts.",
+    "All18 current renderer files freshly read, not hash-only coverage. Canonical dependency reads and carried exact contract ranges distinguished explicitly; no whole unrelated physics/caller/Creator/physical-native integration clearance.",
+    "Static source findings only; no compiler/lint/runtime result asserted. Bare native Renderer/Bevy policy remains device-handled, no sync validation/completion/health/rollback guarantee.",
+    "Prior f905/162 bounded reports remain historical receipts; their narrower no-new-finding verdict did not prove current full import/export closure."
+  ],
+  "correctness_verdict": "Three received corrections verified, but two actionable connected Rule/integration defects remain (R2B-P1/P2). No receiving-family clearance.",
+  "completeness_verdict": "Full18 renderer source and bounded actual canonical/export/feature graph inspected. Overall producer/caller/Creator/physical/lock composition and final hosted reviews/gates remain incomplete.",
+  "head_at_report": "2b646df899ee73045795b129bfbade5dec7d4b84",
+  "status_at_report": ""
+}

@@ -1,0 +1,827 @@
+{
+  "review": "Independent complete successor renderer receiving Comment Review; source only",
+  "pin": "954c388388adb45e19d917d61b7e24e7746616f0",
+  "tree": "289edfd4ce517c3ae5aa8e66f55777ddf2451136",
+  "comparison_base": "2b646df899ee73045795b129bfbade5dec7d4b84",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "canonical_combined_dependency_pin": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "review_scope": "Fresh full18 renderer files; full actual LOD policy/presets/counts/quality/math units; canonical owning API/export/error/feature closure with precisely bounded larger module source. Not four-file-delta-only and not complete producer/Creator/caller graph clearance.",
+  "renderer_paths": [
+    "crates/fabelgeist-hair/src/render/atlas.rs",
+    "crates/fabelgeist-hair/src/render/deform.wgsl",
+    "crates/fabelgeist-hair/src/render/deformation.rs",
+    "crates/fabelgeist-hair/src/render/draws.rs",
+    "crates/fabelgeist-hair/src/render/frame_state.rs",
+    "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+    "crates/fabelgeist-hair/src/render/hair.wgsl",
+    "crates/fabelgeist-hair/src/render/head.rs",
+    "crates/fabelgeist-hair/src/render/levels.rs",
+    "crates/fabelgeist-hair/src/render/math.rs",
+    "crates/fabelgeist-hair/src/render/meshes.rs",
+    "crates/fabelgeist-hair/src/render/mod.rs",
+    "crates/fabelgeist-hair/src/render/post.wgsl",
+    "crates/fabelgeist-hair/src/render/readback.rs",
+    "crates/fabelgeist-hair/src/render/simulation.rs",
+    "crates/fabelgeist-hair/src/render/simulation/buffers.rs",
+    "crates/fabelgeist-hair/src/render/simulation/error.rs",
+    "crates/fabelgeist-hair/src/render/simulation/frames.rs"
+  ],
+  "source_accounts": [
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+      "blob": "7f681106813e39d11c52dadb63b7b33d4b712470",
+      "bytes": 2687,
+      "sha256": "ced0a6437d99514b8201506e998d66ea89aab6b49fb1d852f868abc859f0ec7f",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "blob": "3ad944451601f5e4c5dd22d8a5f8d10f133e807e",
+      "bytes": 2796,
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "blob": "4d317ead0052b0de8baa0a37df596b44c6757d1f",
+      "bytes": 10489,
+      "sha256": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "blob": "7c7d97b1dad90091bf5ad8605336016be7468691",
+      "bytes": 5146,
+      "sha256": "ae246a424240ef39d3a652178c14e8eb7ca5731ef13731eb91e8c896eaa7b162",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "blob": "a72ae87020859dad8df9e6707f6e9345d0c554cd",
+      "bytes": 5612,
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "blob": "21e902ded95f2194ecfa539548171c83da5aeac3",
+      "bytes": 5777,
+      "sha256": "a0dc615037daa6d47efae6b02044ec36b8e286ec9f6d78d07be3ece901f052e7",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "blob": "e74a31571f52531c0b290ae72c6ea3e81d195ff4",
+      "bytes": 26710,
+      "sha256": "b58937fb5fbf8a8e86962cb4794e98f433b035172890db0724af4da48d63978b",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "blob": "2e6c9502deb9feaf20a74dca03692c92e5653141",
+      "bytes": 7173,
+      "sha256": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "blob": "87245c6c79707ef37f3f663c0baa1fffba432a2e",
+      "bytes": 7951,
+      "sha256": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/math.rs",
+      "blob": "cbc045d6a9c1301cb56458d9881fb3840f9f1574",
+      "bytes": 2595,
+      "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/meshes.rs",
+      "blob": "50adc65cccb80a5386909e8a36bf74495b992e36",
+      "bytes": 6110,
+      "sha256": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "blob": "6da34bb1c7c55aaa02201a0d65df942b99cab3d3",
+      "bytes": 64795,
+      "sha256": "d765ade575e6a0eba81e97f801ddbf56ea8d730199d1577fcaeb4d15cb9c43d3",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "blob": "7fcdc66435fdd18e7067c142a97b685f120513ef",
+      "bytes": 1683,
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "blob": "17955c221c7bbdb901dc53407059408119b08812",
+      "bytes": 7133,
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/simulation.rs",
+      "blob": "dae48a116a5833f481d5f39285f2f720d96d24b4",
+      "bytes": 9787,
+      "sha256": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/simulation/buffers.rs",
+      "blob": "7fc0c2c88c1a9cf47b0f131c38e4c667f7c0cf87",
+      "bytes": 7109,
+      "sha256": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/simulation/error.rs",
+      "blob": "9a52577a2bb7e1856eae04249f712d3c914c100b",
+      "bytes": 2508,
+      "sha256": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/render/simulation/frames.rs",
+      "blob": "445e8c98a2961d4452bb322b2ec3bb97119c4b08",
+      "bytes": 5896,
+      "sha256": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+      "coverage": "Fresh complete file read, including comments, implementation and existing inline fixtures/shaders."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/lib.rs",
+      "blob": "6de30bd79c67d0506dc5bdb8655ab3a87d004a24",
+      "bytes": 9511,
+      "sha256": "c2df7e182028b42251d7f1c453046962f13ae98e9b4cb0d85795ac7550a15031",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "blob": "11faf7c5e05e5eb60e967924e9247ea6c749b5d2",
+      "bytes": 3067,
+      "sha256": "8c9e0cfc1381290739c5cb166996fa345de9def1e25532ad367f1963cfd5c8af",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+      "blob": "57e1111f34bd5ebc3fe7fa7a8189c809cc89bcc1",
+      "bytes": 4353,
+      "sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "blob": "02b2e0f2b7c1791778d6f6a15a687a13ac893e29",
+      "bytes": 10189,
+      "sha256": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/sim/frame.rs",
+      "blob": "d1c286216c360f4b44ead2c9146e7b206e01217d",
+      "bytes": 2279,
+      "sha256": "0bec2f5a59de545d2968c962ab28be07e91d685dc097fa0a17af5db09312adc3",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/sim/build.rs",
+      "blob": "58a7c859cd4849226b37c426f6b5991544bbc2b4",
+      "bytes": 5681,
+      "sha256": "badb20a3e56c8fe3a51a2c629a6bf9b5fcdbac0c9f9f52774ebabcf660d18d5d",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/sim/pose.rs",
+      "blob": "813c25d410836e3118c6ac2ae52d99f1fbe7d9b5",
+      "bytes": 2919,
+      "sha256": "0cc72e5d058745c9d41c7de3f31fba92c839ae85845dd599bcf3c1fe50c892f4",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/sim/settings.rs",
+      "blob": "59c19a1e86df3dacaea6b3942da11fecbd5fa79a",
+      "bytes": 6217,
+      "sha256": "8f900903b50fd6f9ba4ca81c01c2205a4be919589899569594db60a4041d3b32",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "blob": "bbfa2d7a1e6898a76c0c36aeee38400005a9c1f6",
+      "bytes": 7849,
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/inspect.rs",
+      "blob": "722b2174507b6ebd999c4d4583444a1dbd566c09",
+      "bytes": 2684,
+      "sha256": "f019273dd3c0d3c216f8e2b48b7ecf49fd9d8333f5b26f81b8e3f936777d1597",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/binding.rs",
+      "blob": "65c3fe50dcd20a789b74ec666f2a9e962ea2c0f2",
+      "bytes": 2394,
+      "sha256": "c5459f6db0f1b23d67efb540f90f14140a65d958b4bf251dbd945150e551bed0",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "blob": "01eaeadcf00caffd787ca4855c1828786be791ff",
+      "bytes": 1544,
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "blob": "9feeb26623e4fed7c66d4ea59758aa07d5ddb881",
+      "bytes": 3374,
+      "sha256": "7814ed1212fc58bea86aebf290862d5937f4e3e20d2b508050d20983948323a8",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "blob": "9da76493a85f859bfd83543330ad26fde1428ad5",
+      "bytes": 4750,
+      "sha256": "75508eb07b8f3292152f27310bdc7193128efbf211bb4ce49bc55c8a9c3f6987",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+      "blob": "57a4d6333851513603349f198516324f6315416e",
+      "bytes": 6210,
+      "sha256": "ba42c5f262f91abcd074353ea1c9bc7b17f513bde0310c88e13b8743bc007633",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+      "blob": "952a4679da8c3615bc94d9d27cf2c73e98804434",
+      "bytes": 1343,
+      "sha256": "6b7a180a3ee2faa7fc26a79e2ae14ceeac4a54c19f96a308dc57f417c56ea49f",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards/mesh.rs",
+      "blob": "88873549acfad07221a299c374ace3498ca376cf",
+      "bytes": 1628,
+      "sha256": "322747ae7f6a10847b6f82813fd1b27cfd8caafb01f4d13aca401dc78346ab21",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+      "blob": "26b04d966f2dc24edc32281c0da8562efe6ab765",
+      "bytes": 4445,
+      "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+      "blob": "ea1c3ceb9e1d9769c273536bf4ac44c128e2f3a2",
+      "bytes": 6577,
+      "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/head.rs",
+      "blob": "698aa7716ec03cc36891dda8e120c4cf8b1e7337",
+      "bytes": 3718,
+      "sha256": "8007a20dddb728fae9bce4f80cbfab46ba06795e047cf0a49cbd50b4a7b1bdf5",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/surface/render_layout.rs",
+      "blob": "fa6bd806651b69eadf59990e98fc52ce82942aa7",
+      "bytes": 2987,
+      "sha256": "a494654990087180a401c2f0f80b258d3c01ae652d66d6f12017a657c04c969c",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "blob": "a547702e0da223a416ef9bf638ee6699773592ea",
+      "bytes": 56137,
+      "sha256": "2b2bc94e4178a098e4ae5dac1794f82380d037922fce244ce833a0d73482b7fe",
+      "coverage": "Fresh75\u2013140 owning module/export/import/StrandGpu closure. Prior1\u2013145 owning docs/example read at identical e216 retained; not fresh full1391-line review."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/sim.rs",
+      "blob": "65838b653b19250d926537b38e0bc66012bf9cac",
+      "bytes": 19549,
+      "sha256": "61f1db429d25290869a495bcfa270d73d92a203fb5de405f255384f9e8081632",
+      "coverage": "Fresh45\u2013220 exports/storage/accessors/reset/step/rest/positions. Other exact immutable e216 source account retained; broader fixture bodies not freshly reviewed."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "blob": "baadee8e758d7e1421a5d163b03aa24998273fbe",
+      "bytes": 10485,
+      "sha256": "413f88a20d71eac80a2028f44826ba8f910df760078175d6eba83321233943bc",
+      "coverage": "Fresh1\u2013285 docs/GpuSim fields/simulate/resimulate/make_sim/publication. Helper tail beyond285 not freshly read; prior exact e216 source account retained."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "blob": "05fd9cd4bb91ba558a71ba026e7f9290a9beba22",
+      "bytes": 1980,
+      "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-math/src/lib.rs",
+      "blob": "a0fa7f12afce66f5b94331b96d00f187c2c492cd",
+      "bytes": 429,
+      "sha256": "bd588528cad05e62401905c31645e928a15b1175985219d9d79d21b2b2e81510",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "blob": "25d33aac2c69a5a469c19138a7ae4fc9290b9584",
+      "bytes": 3578,
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "blob": "f2d57a25a6d4cd258a207b2f7896f6c9e8231c59",
+      "bytes": 1801,
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "blob": "a2062c768f4aed9e06b6deae1ffd268056ca6bc1",
+      "bytes": 3258,
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "blob": "260c12d12fc0ca89d801a97f42d5ab4427cc0107",
+      "bytes": 1771,
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "coverage": "Fresh complete source read in this successor receiving wave."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+      "bytes": 5475,
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "coverage": "Complete prior2b source read carried only after exact2b/current byte identity. Full current renderer/readback and callback owners freshly reconciled; no fresh full mapping body read claimed."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "blob": "8cd21278081604a6457be6caf3f56f32209b02de",
+      "bytes": 9578,
+      "sha256": "16109d7ba1a21b99e1aaebad3835ed0dcd18d540dcd3e2961d9d05f706c857dd",
+      "coverage": "Fresh complete actual root source read with renderer caller/consumer behavior."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "blob": "77b551002a664dee6c1c271a896947831da0aab3",
+      "bytes": 6133,
+      "sha256": "cf4310e379157eeba6d93dd7b845a2c2fcb00320e93753ea33cf1cb1d0c3236f",
+      "coverage": "Fresh complete actual root source read with renderer caller/consumer behavior."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "blob": "688e2eff39375bea5ece98a2f37c448297942690",
+      "bytes": 2336,
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "coverage": "Fresh complete actual root source read with renderer caller/consumer behavior."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "blob": "e808dcc779fdc598a0c2106d1fee8b1c3696c463",
+      "bytes": 3023,
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+      "coverage": "Fresh complete actual root source read with renderer caller/consumer behavior."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "bytes": 2363,
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "coverage": "Fresh complete actual root source read with renderer caller/consumer behavior."
+    },
+    {
+      "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "blob": "3e3f5421736c5c8604c994b4cd4342ee85e0bf6d",
+      "bytes": 3251,
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "coverage": "Fresh complete actual root source read with renderer caller/consumer behavior."
+    }
+  ],
+  "receipt_identity_links": [
+    {
+      "prior_receipt": "a2ca851015b9649097635f9f580e409028682ffa",
+      "canonical": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+      "exact_bytes": true
+    },
+    {
+      "prior_receipt": "a2ca851015b9649097635f9f580e409028682ffa",
+      "canonical": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "exact_bytes": true
+    },
+    {
+      "prior_receipt": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "canonical": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/sim/frame.rs",
+      "exact_bytes": true
+    },
+    {
+      "prior_receipt": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "canonical": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/sim/build.rs",
+      "exact_bytes": true
+    },
+    {
+      "prior_receipt": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "canonical": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "exact_bytes": false,
+      "disposition": "Fresh complete e216 source and exact receipt-to-e216 diff read; not inherited by identity.",
+      "difference": "GpuCards moved from public raw cards/segments/buffers to sealed CardStripLayout/device/buffers plus canonical read-only getters. GpuLevel/source association unchanged; receiver uses the exact new ports."
+    },
+    {
+      "prior_receipt": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "canonical": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/binding.rs",
+      "exact_bytes": true
+    },
+    {
+      "prior_receipt": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "canonical": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+      "exact_bytes": false,
+      "disposition": "Fresh complete e216 source and exact receipt-to-e216 diff read; not inherited by identity.",
+      "difference": "CardError adds concrete Source(StrandShapeError) and checked SourceCount(TryFromIntError); all CardLayout/CardStripLayout construction and getters unchanged. Concrete source chain retained."
+    },
+    {
+      "prior_receipt": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "canonical": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-hair/src/cards/mesh.rs",
+      "exact_bytes": true
+    }
+  ],
+  "renderer_identity": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+      "exact_2b": true,
+      "exact_f905": false,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": true,
+      "exact_main": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "exact_2b": true,
+      "exact_f905": false,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "exact_2b": true,
+      "exact_f905": false,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "exact_2b": false,
+      "exact_f905": false,
+      "present_main": true,
+      "exact_main": false
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/math.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": true,
+      "exact_main": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/meshes.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "exact_2b": false,
+      "exact_f905": false,
+      "present_main": true,
+      "exact_main": false
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": true,
+      "exact_main": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/buffers.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/error.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": false,
+      "exact_main": null
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/frames.rs",
+      "exact_2b": true,
+      "exact_f905": true,
+      "present_main": false,
+      "exact_main": null
+    }
+  ],
+  "fixture_identity": {
+    "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+    "bytes": 940,
+    "existing_cases": 2,
+    "existing_helper": 1,
+    "existing_assert_eq_sites": 5,
+    "execution": "None; source byte comparison only.",
+    "exact_2b": true,
+    "exact_f905": true,
+    "exact_main": true
+  },
+  "pod_identity": [
+    {
+      "name": "Globals",
+      "bytes": 539,
+      "sha256": "e0003c6f88ffdbc3d27a45fe06e0b88b50de9a095ff2e466faeeee967a5a2215",
+      "exact_2b": true,
+      "exact_f905": true,
+      "exact_main": true
+    },
+    {
+      "name": "DrawGpu",
+      "bytes": 133,
+      "sha256": "7e57128d063a7d19d367616d291cb283ae1e038a991524e265e77e6fdd6ae1ed",
+      "exact_2b": true,
+      "exact_f905": true,
+      "exact_main": true
+    },
+    {
+      "name": "PostGpu",
+      "bytes": 40,
+      "sha256": "d5b47327cf39b5a88545e9bb5d5c46f7a5cf6ab7ee28a1a113e81c206d07f10a",
+      "exact_2b": true,
+      "exact_f905": true,
+      "exact_main": true
+    },
+    {
+      "name": "CardDrawGpu",
+      "bytes": 42,
+      "sha256": "f3bdd58c806c14dc0b5750aa354aa2d68e92cbda64bd9e942f60e4fa149466f7",
+      "exact_2b": true,
+      "exact_f905": true,
+      "exact_main": true
+    },
+    {
+      "name": "DeformGpu",
+      "bytes": 143,
+      "sha256": "190035f5eecdfe124e69065c072c80b1864e596d20480e315122de2b6ea9208d",
+      "exact_2b": true,
+      "exact_f905": true,
+      "exact_main": true
+    }
+  ],
+  "findings": [],
+  "contracts": [
+    "Feature closure: render enables gpu plus image and futures-channel; canonical gpu exports GpuLevel/GpuLods/GpuCards/GpuSim/StrandLayout/GpuHeadCover and sim exports SimBinding/SimFrame/Rigid. Actual math root exports no Ratio or Metres; public units module owns both. Fixed imports now use that actual module.",
+    "Atlas conversion closure: renderer owns no duplicate From<AtlasError>. Canonical e216 HairGpuError has Atlas(#[from] AtlasError), retaining concrete source. Current root954 gpu/error.rs is still older without that variant, so receipt composition remains mandatory before build/whole-family clearance; this is not a claim root954 alone compiles.",
+    "Canonical source Arc, binding Arc and logical Device distinguish source association from fitted resident counts and shared native aliases. Host/native dynamics mode and same-handle body/ids/weights/rest/current checks match exact immutable canonical definitions; no native health proof follows from association.",
+    "Checked StrandShape/StrandLayout separate host/native cardinality and logical zero from positive native storage floors. Maximum resident strand count drives host binding prefix, full simulated guide layout drives rest/current. Native usages and actual logical/physical bounds checked before binding; additional hardware acceptance remains configured device handling.",
+    "Host current/rest packing retains xyz and w=1 with fallible host reserve before writes. Metres remains typed until DeformGpu; native body consumes actual Buffer.size rather than cloning a 17-record producer policy. Host body absent. Replacing dynamics reuses actual prior rest allocation.",
+    "FramePopulation reports selected primary resident strands or actual indexed card triangles before stochastic/transition cuts; CardLayout and native byte methods are canonical, while CardDrawMesh only retains native ports. SurfaceRenderLayout admits paired normal/index topology without certifying sampling tables or physical geometry.",
+    "Deformation grid admission precedes parameter writes. Normally returned raw queue.submit precedes logical frame/deformation/rest publication; this provides no rollback, completion or observed native validation guarantee. Native renderer follows its creating device error policy.",
+    "Read_rgba requires previously submitted image state and supported RGBA/BGRA8 format, allocates host image before mapped view, strips padding and swaps BGRA channels. Native wait is explicit; browser callback progress yields. SDK read-only WebGPU view may allocate separately; mapping success does not certify global GPU health.",
+    "Logical Buffer::prefix shares allocation with checked logical/physical bounds, zero valid, no copy/map/submit/wait; renderer separately checks required positive binding floor. Arbitrary external native aliases may mutate or destroy resources and this source review does not prove global validity.",
+    "Fresh full LOD policy/presets source: imports resolve public units::Ratio; Ratio adds no numerical policy. Empty bands, unavailable families and inconsistent nonempty strand state return typed errors; no levels selects Empty; noncomparable pixels select last band. Rendered effective finite data admitted before publication. Card cuts retain exact half-open endpoints.",
+    "Corrected introduction matches explicit stochastic sample_mask and scene alpha_to_coverage=false. Native shader expressions/draws/randomness/lighting/math preserved.",
+    "Original Atlas conversion removal and draws/frame imports remain correct against canonical e216; focused modules retain required DeviceExt imports. Root alone still lacks agreed complete producer/error APIs, so canonical composition remains required."
+  ],
+  "validation_limits": [
+    "All18 renderer files freshly fully read again at954; full3shaders/inline fixtures/current LOD policy/presets/counts/quality and actual math lib/units read. Not limited to four changed files.",
+    "Canonical owning APIs/features/exports/errors freshly reconciled with recorded bounded larger-module coverage. Prior evidence carried only where explicitly identified and exact source recorded. Unrelated physics/Creator/caller implementations not claimed complete.",
+    "Hair WGSL whole bytes differ only by documented single comment line from main/f905/2b. Deform/post exact whole bytes; native instructions preserved. No shader compile/parse/runtime executed.",
+    "No source edits or project execution/check/build/lint/tests/scanners/generators/runtime/push/CI/external posts. No tests/cases/helpers/assertions/doctests added or run.",
+    "SDK29 limits remain earlier source evidence without new native/browser runtime claim. Normal submission/source association does not certify global health or completion.",
+    "Full canonical producer, Creator/caller, error and lock integration, retained ownership dependencies, complete integrated thirteen-lens waves, three independent final reviews and hosted gates on the same final pushed SHA remain required. No whole-graph, compiled, native/browser, hardware, art, performance, global or final clearance."
+  ],
+  "outcome": "No actionable comment/API documentation mismatch found in complete18-file receiving review and recorded canonical dependency closure. RENDER2B-C1 resolved. Required whole graph integration and final gates pending.",
+  "changed_since_2b": [
+    "crates/fabelgeist-hair/src/lod/policy.rs",
+    "crates/fabelgeist-hair/src/lod/presets.rs",
+    "crates/fabelgeist-hair/src/render/hair.wgsl",
+    "crates/fabelgeist-hair/src/render/mod.rs"
+  ],
+  "shader_identity": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "bytes": 26710,
+      "sha256": "b58937fb5fbf8a8e86962cb4794e98f433b035172890db0724af4da48d63978b",
+      "exact_2b": false,
+      "only_documented_one_line_replacement_from_2b": true,
+      "exact_f905": false,
+      "only_documented_one_line_replacement_from_f905": true,
+      "exact_main": false,
+      "only_documented_one_line_replacement_from_main": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "bytes": 2796,
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "exact_2b": true,
+      "exact_f905": true,
+      "exact_main": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "bytes": 1683,
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "exact_2b": true,
+      "exact_f905": true,
+      "exact_main": true
+    }
+  ],
+  "resolved_findings": [
+    {
+      "id": "RENDER2B-C1",
+      "status": "Resolved at954 after fresh full shader/pipeline reading.",
+      "source": "render/hair.wgsl:8; scene multisample flag; strand_fs/coverage_mask output.",
+      "remedy": "Introduction now states stochastic sample mask. Sole byte replacement proves shader instructions preserved."
+    }
+  ],
+  "dependency_identity": [
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "exact_2b": true
+    },
+    {
+      "path": "crates/fabelgeist-math/src/lib.rs",
+      "exact_2b": true
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "exact_2b": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "exact_2b": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "exact_2b": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "exact_2b": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "exact_2b": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "exact_2b": false
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "exact_2b": false
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "exact_2b": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "exact_2b": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "exact_2b": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "exact_2b": true
+    }
+  ]
+}

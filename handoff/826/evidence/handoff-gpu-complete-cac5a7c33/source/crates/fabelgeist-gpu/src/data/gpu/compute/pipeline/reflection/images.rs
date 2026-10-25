@@ -1,0 +1,79 @@
+//! Preserve Naga image roles at the native bind-layout boundary.
+
+use super::GroupBuilder;
+use crate::data::{ComputePipelineResult, TextureBinding, TextureFormat, UnsupportedBindingKind};
+use wgpu::naga::{ImageClass, ImageDimension, ScalarKind, StorageAccess};
+
+impl GroupBuilder {
+    pub(super) fn image(
+        &mut self,
+        name: String,
+        binding: u32,
+        dimension: ImageDimension,
+        arrayed: bool,
+        class: &ImageClass,
+        filterable: bool,
+    ) -> ComputePipelineResult<()> {
+        let dimension = match (dimension, arrayed) {
+            (ImageDimension::D1, _) => wgpu::TextureViewDimension::D1,
+            (ImageDimension::D2, false) => wgpu::TextureViewDimension::D2,
+            (ImageDimension::D2, true) => wgpu::TextureViewDimension::D2Array,
+            (ImageDimension::D3, _) => wgpu::TextureViewDimension::D3,
+            (ImageDimension::Cube, false) => wgpu::TextureViewDimension::Cube,
+            (ImageDimension::Cube, true) => wgpu::TextureViewDimension::CubeArray,
+        };
+        let mut format = None;
+        let ty = match *class {
+            ImageClass::Storage {
+                format: storage,
+                access,
+            } => {
+                let storage = TextureFormat::naga_to_wgpu_format(storage);
+                format = Some(storage);
+                wgpu::BindingType::StorageTexture {
+                    access: storage_access(access),
+                    format: storage,
+                    view_dimension: dimension,
+                }
+            }
+            ImageClass::Sampled { kind, multi } => wgpu::BindingType::Texture {
+                sample_type: match kind {
+                    ScalarKind::Uint => wgpu::TextureSampleType::Uint,
+                    ScalarKind::Sint => wgpu::TextureSampleType::Sint,
+                    ScalarKind::Float => wgpu::TextureSampleType::Float { filterable },
+                    _ => return Err(self.unsupported(binding, UnsupportedBindingKind::Handle)),
+                },
+                multisampled: multi,
+                view_dimension: dimension,
+            },
+            ImageClass::Depth { multi } => wgpu::BindingType::Texture {
+                sample_type: wgpu::TextureSampleType::Depth,
+                multisampled: multi,
+                view_dimension: dimension,
+            },
+            ImageClass::External => {
+                return Err(self.unsupported(binding, UnsupportedBindingKind::ExternalTexture));
+            }
+        };
+        self.entry(binding, ty);
+        self.reflection.texture_bindings.push(TextureBinding {
+            name,
+            binding,
+            format,
+            dimension,
+        });
+        Ok(())
+    }
+}
+
+fn storage_access(access: StorageAccess) -> wgpu::StorageTextureAccess {
+    if access.contains(StorageAccess::ATOMIC) {
+        wgpu::StorageTextureAccess::Atomic
+    } else if access.contains(StorageAccess::LOAD | StorageAccess::STORE) {
+        wgpu::StorageTextureAccess::ReadWrite
+    } else if access.contains(StorageAccess::STORE) {
+        wgpu::StorageTextureAccess::WriteOnly
+    } else {
+        wgpu::StorageTextureAccess::ReadOnly
+    }
+}

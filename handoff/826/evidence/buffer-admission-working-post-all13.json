@@ -1,0 +1,548 @@
+{
+  "title": "Buffer admission working post-repair all13 source review",
+  "head": "6e56adeab1101743941c6d50eef4340008b910ea",
+  "head_tree": "202fc9f4e0e0721003da587b4a68ffd7e603bf72",
+  "checkpoint": "Working two-file fingerprints, not committed source",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "same_pre_repair": true,
+      "prior_sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Existing typed named-binding failures EmptyBufferBinding/BufferExtentExceedsAllocation; logical nonempty check and physical-allocation bound with owning Result alias. Missing optional byte quantities are not a new classification failure.",
+      "lines": 47
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "same_pre_repair": true,
+      "prior_sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole existing usage fixture and diagnostic-label/clone/explicit map selection tests. No fixture edits needed by focused error classification.",
+      "lines": 49
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "same_pre_repair": true,
+      "prior_sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Private diagnostic label/capability selection, explicit BufferUse roles, native allocation observer returns actual wgpu::Error. Native SDK usage bits and byte conversion are boundary adapters.",
+      "lines": 140
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "same_pre_repair": true,
+      "prior_sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Canonical BufferByteLength permits zero, From<u64/usize>/Default; canonical BufferByteOffset START/From<u64>, checked_after returns Option on checked u64 addition. No global positive-byte invariant.",
+      "lines": 53
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "same_pre_repair": true,
+      "prior_sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Open exact diagnostic label, not shader key/error kind; original compile_fail docs untouched.",
+      "lines": 28
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "same_pre_repair": true,
+      "prior_sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Private checked aligned MappingExtent, owned request/release/callback/drop; checked byte arithmetic, actual poll/map/channel/native errors. No changes required for structured write admission.",
+      "lines": 153
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "abac05c4f4b49a90348a933fb2655b9417c4e52edd52aad390e111d831118e02",
+      "same_pre_repair": false,
+      "prior_sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "coverage": "Fresh complete current source plus exact pinned pre-repair diff",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "new rejects zero before native allocation; write delegates START to write_at; checked_after rejects offset overflow, logical end check rejects overrun before write_to; from_upload new plus CopyDestination then write; public Arc+logical extent/Clone/PartialEq and existing unsafe Send/Sync unchanged.",
+      "lines": 117
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "same_pre_repair": true,
+      "prior_sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Existing typed requested/logical/physical ByteLength error with PrefixResult; zero prefix accepted; aliases same native Arc only after both bounds. No allocation/write/wait.",
+      "lines": 50
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "same_pre_repair": true,
+      "prior_sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Public anyhow carrier preserves typed read errors; logical/physical bound, host layout then empty return, direct map vs copy target, native submission/mapping/source failures retained.",
+      "lines": 76
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "same_pre_repair": true,
+      "prior_sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Existing stable host/native/mapping/progress/prefix error categories with byte payloads and actual source chain. New write admission kinds must not be hidden here as read failures.",
+      "lines": 101
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "same_pre_repair": true,
+      "prior_sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Private host allocation/element-size/admitted byte extent/copy; actual TryFromIntError/TryReserveError, existing tests. No fresh execution or unsafe safety expansion.",
+      "lines": 101
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "same_pre_repair": true,
+      "prior_sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole existing upload words/offset/range/overflow/no-mutation and empty-upload fixture bodies; is_err assertions already cover rejection behavior without classifying error kind. Do not add assertions/cases.",
+      "lines": 62
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "same_pre_repair": true,
+      "prior_sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Borrowed exact NoUninit bytes/length/occupancy, explicit empty-word consumer policy, immediate native queue-write observer. No duplicate count/stride or new native payload.",
+      "lines": 60
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "same_pre_repair": true,
+      "prior_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole GpuResource enum facade directly returns Buffer write/read anyhow results; no terminal formatting or classification adapter.",
+      "lines": 102
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "same_pre_repair": true,
+      "prior_sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole actual static uniform allocation/write consumer: zero reflected extent returnsNone, native alignment/limits admission and pack -> Buffer::new/write -> ComputePassError::resolve_observation; operation and observation retained separately.",
+      "lines": 73
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "same_pre_repair": true,
+      "prior_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole operation+observation aggregate retains Arc<anyhow::Error> and native/progress source; local structured admission error can remain nested/downcastable, no new cause erasure.",
+      "lines": 150
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "same_pre_repair": true,
+      "prior_sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole actual native blocking_validation/current-thread immediate scope, no polling; browser/disabled context retains configured handler. Focused local integer failures occur before this boundary.",
+      "lines": 25
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "same_pre_repair": true,
+      "prior_sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole current public export/module closure: Buffer error can be reexported once by owning buffer module through existing wildcard chain. Do not independently repair peer-owned broad module composition.",
+      "lines": 5
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "same_pre_repair": true,
+      "prior_sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole actual Armor/Metal native facade/staging source; upload/scratch/read propagate anyhow through device_error -> GenerateError::Gpu or MetalDeviceError source. Existing canonical count/stride scratch role retained; no raw primitive or string adapter.",
+      "lines": 187
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "same_pre_repair": true,
+      "prior_sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole actual Armor/Metal native facade/staging source; upload/scratch/read propagate anyhow through device_error -> GenerateError::Gpu or MetalDeviceError source. Existing canonical count/stride scratch role retained; no raw primitive or string adapter.",
+      "lines": 147
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "same_pre_repair": true,
+      "prior_sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole actual Armor/Metal native facade/staging source; upload/scratch/read propagate anyhow through device_error -> GenerateError::Gpu or MetalDeviceError source. Existing canonical count/stride scratch role retained; no raw primitive or string adapter.",
+      "lines": 146
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "same_pre_repair": true,
+      "prior_sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole GenerateError::Gpu(#[source] anyhow::Error) preserves lower actual error and type; not terminal UI.",
+      "lines": 42
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+      "same_pre_repair": true,
+      "prior_sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole Hair Scratch/upload/storage: minimum native sentinel/capacity policy, Buffer new/from_upload -> HairGpuError::Backend; cached candidate published only after fallible allocation. Arithmetic/canonical producer family stays peer required, not independently repaired.",
+      "lines": 80
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "same_pre_repair": true,
+      "prior_sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole HairGpuError::Backend(#[from] anyhow::Error) keeps source type and all other canonical error owners; no duplicate Buffer error owner here.",
+      "lines": 47
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "same_pre_repair": true,
+      "prior_sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole MeshData source, including empty upload sentinel logical0, actual upload/read helper and tests. Direct anyhow propagation; broader old primitive mesh producer family remains peer-owned. Existing comment claiming native wgpu universally requiresnonzero is not authority for global byte invariant.",
+      "lines": 293
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+      "sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+      "same_pre_repair": true,
+      "prior_sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "bounded full Stereo::upload function307-326 plus method context",
+      "prior_contract": "Bounded complete actual Stereo upload: validates slice lengths then Buffer writes with ?; no error text conversion. Rest of large pipeline not reaudited.",
+      "lines": 584
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "same_pre_repair": true,
+      "prior_sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "bounded complete test-only set_state and read methods760-804; remainder of simulation not reviewed",
+      "prior_contract": "Bounded actual read methods plus test-only set_state: Buffer write failures propagate ? into HairGpuError. No full simulation body/producer/caller clearance.",
+      "lines": 797
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "same_pre_repair": true,
+      "prior_sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole current public export/module closure: Buffer error can be reexported once by owning buffer module through existing wildcard chain. Do not independently repair peer-owned broad module composition.",
+      "lines": 17
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "same_pre_repair": true,
+      "prior_sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole current public export/module closure: Buffer error can be reexported once by owning buffer module through existing wildcard chain. Do not independently repair peer-owned broad module composition.",
+      "lines": 13
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "same_pre_repair": true,
+      "prior_sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "Whole current public export/module closure: Buffer error can be reexported once by owning buffer module through existing wildcard chain. Do not independently repair peer-owned broad module composition.",
+      "lines": 14
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+      "sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "same_pre_repair": true,
+      "prior_sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "coverage": "Exact-identity prior full or explicitly bounded source carry",
+      "prior_coverage": "bounded complete trimmed function86-93, no full layout-module credit",
+      "prior_contract": "Bounded trimmed helper directly changes logical size to max16; current physical/canonical layout handoff remains #780 dependency. This error-only classification does not change public logical-extent construction.",
+      "lines": 93
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/admission_error.rs",
+      "sha256": "a5a41a86f6c2a1e31715329fe4a234d8d9c30dd4c972660c405e4cbeade13a40",
+      "same_pre_repair": false,
+      "prior_sha256": null,
+      "coverage": "Fresh complete current source, new focused error owner",
+      "lines": 41
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "source_refs": [
+        "B1",
+        "B2",
+        "C1",
+        "C2"
+      ],
+      "contract": "Buffer new/write_at own three local admission classifications; write/from_upload and GpuResource/Armor/Metal/Hair/uniform assembly propagate actual anyhow errors.",
+      "current_source_proof": "All three authoritative local roots now construct BufferAdmissionError before entering anyhow. write/from_upload delegate unchanged; actual consumers keep the same source-bearing carrier.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [
+        "Preserve current canonical count/stride peers and existing native helpers."
+      ],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "contract": "ByteLength owns byte extent incl0, ByteOffset owns address, BufferUpload owns borrowed byte representation; Read/Prefix/Binding errors already own distinct operations.",
+      "current_source_proof": "Reuses BufferByteOffset and BufferByteLength fields; one Buffer-owned admission error. No count/device/positive-byte owner or competing read/prefix/binding error.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [
+        "Peer count/stride ownership unchanged."
+      ],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "admission-contracts",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "contract": "new rejects0; from_upload reaches new before write; write usesSTART; write_at checks sum then logicalend before native call. Prefix/read allow logical0; public Buffer fields andClone are not positive-allocation constructors.",
+      "current_source_proof": "Zero new allocation returns EmptyAllocation; write checked_after overflow retains at+bytes; logical overrun retains at+bytes+capacity. Same zero/end-equality/empty policies; no bypassing alternate method added.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [
+        "Preserve native allocation/queue preconditions, not a new validator."
+      ],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "invariant-operations",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "contract": "checked_after detects u64 addition overflow; write compares end with current logical length before mutation; prefix checks both logical and physical bound.",
+      "current_source_proof": "Same checked_after and end>self.size predicates precede the exact native write call. Eager error payload construction only copies pure byte leaves. No native mutation on local rejection.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [
+        "Existing mutable logical extent/physical producer integration remains peer/root wider obligation."
+      ],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "aggregate-states",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3",
+        "C1"
+      ],
+      "contract": "Error must pair one kind with only its relevant byte request/address/capacity; Buffer allocation+logical size is separate from callback/map ownership.",
+      "current_source_proof": "Payload-bearing variants pair only relevant request fields. EmptyAllocation is an unambiguous unit failure, so no redundant stored zero request is needed. Error is descriptive, not a newly validated Buffer/request aggregate.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [
+        "Existing mapping/session/native/provider invariants unchanged."
+      ],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "type-ownership",
+      "source_refs": [
+        "B1",
+        "B2",
+        "C1",
+        "C2"
+      ],
+      "contract": "Buffer owns these local allocation/write admission failures. Existing higher wrappers retain lower causes. SDK owns native Error, peer owns count/stride producers.",
+      "current_source_proof": "New admission_error.rs owns the local allocation/write classification and Display/Error. Buffer module reexports it before mod declarations; existing downstream wildcard export chain carries it. No cross-owner edits.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [
+        "Coordinate only necessary final export composition; Root owns whole native Buffer functions."
+      ],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "redundant-authority",
+      "source_refs": [
+        "B1",
+        "B2"
+      ],
+      "contract": "The request already has typed offset/upload length/logical size; constructing prose discards classification and typed context rather than storing another useful authority.",
+      "current_source_proof": "Typed fields are the only retained diagnostic request authority; Display formats them directly. No stored message, independent kind flag or raw mirrored offset/length.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3",
+        "C1",
+        "C2"
+      ],
+      "contract": "Existing tests cover exact word preservation, offset-end/overflow rejection and no prior-write mutation; empty upload explicitword policy belongs consumers. Native failures already preserve source.",
+      "current_source_proof": "Exact old three Display spellings preserved. Same native allocation/write call arguments, order, anyhows, provider preconditions, from_upload allocation-before-write and logical-zero prefix/read behavior. Existing fixtures/doctests unchanged.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [
+        "Broader canonical/caller/physical/lock graph and final hosted checks stillopen."
+      ],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "enum-shapes",
+      "source_refs": [
+        "B1",
+        "B2"
+      ],
+      "contract": "Zero allocation, offset arithmetic overflow and logical out-of-bounds are closed carried failure roles with distinct payloads.",
+      "current_source_proof": "EmptyAllocation/WriteOffsetOverflow/WriteOutOfBounds are the actual closed failure roles; typed neighboring payloads eliminate prose classification without introducing optional fields/booleans.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "derivability",
+      "source_refs": [
+        "B1",
+        "B3",
+        "C2"
+      ],
+      "contract": "Local integer-leaf error can derive Clone/Debug/Eq as semantics allow; Error/Display can be manual std implementations without a new dependency. SDK causes remain their actual existing types.",
+      "current_source_proof": "Clone/Copy/Debug/PartialEq/Eq match canonical integer leaves. Small manual Display/Error avoids new dependencies and does not fabricate a source for pure checked arithmetic. No new serialization/unsafe/trait workaround.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [
+        "Any proposed derive dependency must be explicitly coordinated; not needed here."
+      ],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "type-granularity",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "contract": "Three allocation/write rejections form one cohesive local admission family; read/mapping/prefix/binding already have distinct useful errors.",
+      "current_source_proof": "One focused local family is proportionate. Public anyhow remains appropriate for local admission plus actual SDK failures; no new all-error taxonomy or duplicate Result alias is required.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "magic-strings",
+      "source_refs": [
+        "B1",
+        "C1",
+        "C2"
+      ],
+      "contract": "Current anyhow prose encodes stable lower error classification before final presentation; labels and open native binding identifiers are legitimate text.",
+      "current_source_proof": "Diagnostic prose now lives only in Display and never selects behavior. Producer branches select semantic variants; no compatibility string/code adapter.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    },
+    {
+      "lens": "magic-numbers",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "contract": "0/start/end equality and checkedu64 bound are intrinsic byte arithmetic; named empty native word and SDK copy alignment already own their meanings.",
+      "current_source_proof": "Same intrinsic zero/start and checked u64 byte arithmetic. No new cap/alignment/sentinel policy or claim that all ByteLength values must be positive.",
+      "disposition": "Clear for this focused two-file source repair; wider and hosted obligations retained below.",
+      "connected_repair": "BA-R1 resolved at all three local producers",
+      "dependencies": [
+        "Canonical stride/count and physical/native minimum policies remain separately owned."
+      ],
+      "acceptance": "Source acceptance satisfied by current exact two-file change and qualified unchanged consumer identities. Existing hosted verification and final same-pushed-SHA reviews remain pending."
+    }
+  ],
+  "findings": [],
+  "resolved": {
+    "id": "BA-R1",
+    "evidence": "Buffer::new -> EmptyAllocation; write_at checkedNone -> WriteOffsetOverflow{at,bytes}; write_at logicalend -> WriteOutOfBounds{at,bytes,capacity}; actual anyhow carriers/native causes remain unchanged.",
+    "native_cause": "definition.allocate_native and BufferUpload::write_to exact; actual wgpu::Error remains actual source through ?. Local checked errors intentionally have no childcause."
+  },
+  "correctness": "No additional actionable finding in the two-file source repair; same rejection/format/native behavior apart from newly inspectable kind and canonical typed payloads.",
+  "completeness": "Focused source migration complete for BA-R1 with qualified unchanged consumers; overallPR/hosted/finalpushedSHA gates incomplete.",
+  "limits": [
+    "Working source checkpoint only: HEAD6e56adeab1101743941c6d50eef4340008b910ea is not a commit containing the repair. The two current SHA-256 identities, rather than HEAD alone, identify reviewed implementation.",
+    "Two complete files freshly read plus full exact old mod.rs diff. All30 other scoped source accounts byte-identical to the prior31-source discovery, carried only at their original full/bounded coverage. No new body credit from hashes.",
+    "Unrelated dirty generated GPU/signature/addressing changes are outside this review. No complete83-file/global or final source approval is inherited.",
+    "Mesh C1 comment remains unresolved with peer. This Buffer error repair neither changes Mesh source nor proves a universal SDKnonzero allocation requirement. Existing wider canonical count/stride/physical/caller/lock integrations remain required.",
+    "No source edits, project checks/build/lint/test/scanner/generator/runtime/probes/new tests/cases/helpers/assertions/doctests, push/CI or external posts. Existing fixture and codefence byte identities unchanged.",
+    "Actual native allocation/write causes and current provider/std/Wasm policies retain their previously inspected source behavior. Local error leaves contain only existing integer owners; no new platform runtime or SDKtrait assurance is claimed.",
+    "Complete connected families before pushing/requesting hostedCI; repeat final all13 and three independent reviews plus required hostedchecks on one finalpushedSHA. No merge."
+  ]
+}

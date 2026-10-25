@@ -1,0 +1,342 @@
+{
+  "kind": "independent complete renderer Code Review/discovery, unfinished family checkpoint",
+  "head": "197eb8982c554203ac8652178cabe611d3652896",
+  "tree": "dd6cb29d3b60bc9b5053c19bfe72340f7b84434b",
+  "parent": "8d65dd9e24c506f485cec31a30ad998351038c5b",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "tracked_status": "",
+  "changed_paths": [
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+    "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+    "crates/fabelgeist-gpu/src/globals/mod.rs",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+    "crates/fabelgeist-hair/Cargo.toml",
+    "crates/fabelgeist-hair/src/render/deformation.rs",
+    "crates/fabelgeist-hair/src/render/mod.rs",
+    "crates/fabelgeist-hair/src/render/readback.rs"
+  ],
+  "source_files": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": true,
+      "coverage": "selected hair dependency/SDK pin accounting; known owner lock integration pending"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": false,
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": false,
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "fd6c4991e13b343c21b396b8aada2480b03508500184761d217c1237bb1c52cb",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": false,
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": false,
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "f7dde4c1be8af88bdf0bfc2a3e9d2fe3828767fd5be8ac3ed5abcf88e6affc4a",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": false,
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": false,
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": true,
+      "coverage": "current immutable canonical finish/submit contract revalidated"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": true,
+      "coverage": "current immutable context observer contract revalidated"
+    },
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "fbffd8ec6d44c6f3889ecf4a8267e2ec885fd0f966b5c4b07517e808809a1579",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": false,
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": true,
+      "coverage": "fresh full file error/source carrier read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "858dfb6b573d078ef1ecec3d6a2d8a0f16e80b1780e213259d8fe27946a6acc6",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": true,
+      "coverage": "fresh complete declarations/counts/build and all policy selection/shadow bodies through shadow; fixture module not read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": true,
+      "coverage": "fresh full shader source and binding/addressing relationships"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "4c96e9864c8220e1710cf0ff6a138ac897f0099fbf06cefb87ed514f7705cd12",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": false,
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": true,
+      "coverage": "fresh full bindings/Globals/strand_point/vs and named shader ports; remainder hash revalidated unchanged, not full shader numerical review"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/math.rs",
+      "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": true,
+      "coverage": "fresh full file all numerical helpers"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "b75f40cc55cbf486cab3a6ce146d8e73373aa3ab82e96cab8f662b0eee7efd17",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": false,
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": true,
+      "coverage": "fresh full shader source for format/accumulation/tonemap"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "sha256": "bdd1bb89b4dc24ba0ddfda0c3e051d8c80db02cc26c12cea906a530a94040fb5",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": false,
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs"
+    },
+    {
+      "path": "crates/fabelgeist-timer/src/lib.rs",
+      "sha256": "55f4368a1ca7ff76eda3f7ce0f35bce347a1eac6ebb0a3aae2ef5471e182d606",
+      "working_matches_pin": true,
+      "byte_identical_to_parent": true,
+      "coverage": "fresh full source sleep target adapter"
+    }
+  ],
+  "source_map_sha256": "58088633e0a7dadc673a692958c850ad0d4576265dfd3b714e045138cad957f4",
+  "full_materially_distinct_renderer_bodies": [
+    "Camera::view_projection",
+    "Light::from_angles",
+    "Lighting::default",
+    "HairRenderer::new",
+    "atlas_texture",
+    "shadow_maps",
+    "lighting_groups",
+    "rebind_lighting",
+    "set_groom",
+    "set_gpu_groom",
+    "level_groups",
+    "upload_level",
+    "upload_cards",
+    "set_dynamics",
+    "set_gpu_dynamics",
+    "bind_dynamics",
+    "set_simulated",
+    "set_moved",
+    "clear_dynamics",
+    "has_dynamics",
+    "deform",
+    "set_head",
+    "cover_head",
+    "resize",
+    "converged",
+    "render",
+    "primitives",
+    "render_converged",
+    "headless_device",
+    "uniform_entry",
+    "storage_entry",
+    "texture_entry",
+    "sampler_entry",
+    "deform_source",
+    "ReadbackLayout::new",
+    "ReadbackLayout::image",
+    "ReadbackLayout::staging_bytes",
+    "From<RenderReadbackError>",
+    "From<CallbackProgressError>",
+    "HairRenderer::read_rgba",
+    "HairRenderer::map_readback",
+    "HairRenderer::record_deformations"
+  ],
+  "findings": [
+    {
+      "id": "R197-C1",
+      "priority": "P2",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "lines": "1641-1647",
+      "title": "Compare every received policy control before reporting convergence",
+      "scenario": "After a converged desktop render, change only quality.marschner or enabled shadow_resolution1024->2048. min_pixels, shadow representation, accumulate, scene generation and moving remain unchanged, so converged returns true even though render changes Globals.mode[0] or shadow map/texel and must redraw. A caller trusting convergence can keep stale shading. Changed band/blend selection is similarly absent from this predicate.",
+      "proof": "render evaluates policy at1669-1674; allocates shadow maps1699-ish; Globals.mode uses quality.marschner; RenderedView same test1801 does handle these if render is reached. converged fails earlier policy comparison.",
+      "minimum_connected_repair": "Retain/derive an effective policy identity sufficient for converged to compare all actual policy-dependent view/shading inputs, including selected representation/blend and active shadow/shading controls. Ignore ineffective fields such as shadow settings while disabled. Coordinate root still-open policy/empty-LOD admission; no arbitrary whole-policy prose/name comparison.",
+      "classification": "Actionable root-owned policy/shared-state gap in explicitly unfinished family; retained behavior/partial new repair, not a claim that family was complete."
+    },
+    {
+      "id": "R197-C2",
+      "priority": "P2",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "lines": "2166-2177",
+      "title": "Reject render state that can never converge before queuing an unbounded loop",
+      "scenario": "Public Camera.eye containing NaN is admitted. It propagates into Globals (camera and view projection). RenderedView uses float PartialEq; NaN prevents self.last==Some(view) every frame, so render resets frames0 and returns frames1. With quality.accumulate>1, render_converged while frames<wanted never exits and continues queue submissions. The same mechanism applies nonfinite lighting/material/policy/derived state.",
+      "proof": "Public Camera fields at75-79, view Projection331-347; render state/cache at1665-1808 and frames increment2147; render_converged2166-2177. No runtime witness needed: NaN equality and reset/loop control flow establish it.",
+      "minimum_connected_repair": "Admit finite/valid render camera/shading/derived state before cache publication/submission, or return a typed nonprogress error instead of an unbounded convergence loop. Preserve all valid finite numerical shader behavior; canonical state/error owner belongs root open admission family.",
+      "classification": "Actionable root-owned admission/shared-state obligation; not completed by renderer progress/readback repair."
+    }
+  ],
+  "contracts_revalidated": [
+    "Full renderer production body reviewed: constructor layouts/shaders/pipelines/uniforms/samplers/deform module, atlas writes, shadows and lighting rebinding, host/GPU groom intake, level/card uploads, dynamics binding/rest copy/rebinding, simulated movement/clearing/deformation, head/cover, targets/resize, convergence/render/temporal mean/postprocess/primitives/headless constructor and all native helpers.",
+    "Per-level deformation: bind creates Pending for each level; set_moved marks every level Pending; record_deformations visits main, enabled shadow and blend levels, only consumes each pending state once. Hidden levels remain pending until later use; duplicate selected levels do not issue duplicate deform. Camera/policy level switches and blend/shadow re-entry therefore see outstanding update. Checked population/layout/deform addressing still required from canonical producers.",
+    "RenderedView newly includes min_pixels and effective shadow Representation; render compares Globals+representation+blend+effective shadow and scene generation. Disabled shadow selection is correctly excluded. R197-C1 remains specifically converged(policy), not a false claim that render itself omits changed Marschner/active-resolution Globals.",
+    "Frame count uses saturating increment and u64 frames+1 denominator; no u32 overflow in temporal mean. Resize clears last/frames/history so read_rgba rejects resized-but-unrendered output. Dynamics head transform deliberately excluded from still-view equality while moving forces rendering/temporal filtering; clear_dynamics/groom/head changes increment generation.",
+    "Output readback: private output texture is from resize with one layer/sample, nonzero clamped width/height and COPY_SRC. Four supported RGBA/BGRA unorm/sRGB formats classified; unsupported format rejected before GPU work. Checked row4*width and padded-row alignment; padded*height fits u64. Tightly packed image usize narrowing+try_reserve before map; from_raw checked shape; mapped rows exclude padding; BGRA swapsR/B after view drops. No fake absent frame after resize.",
+    "Native readback explicitly Waits for private-copy work then awaits actual mapping callback; browser uses canonical await_browser_callback driving nonblocking Poll plus zero-duration task timer. SDK WebGPU auto-progress/no-op Poll and WebGL provider progress are honored. Mapping/Poll/oneshot/image allocation errors retain actual sources through HairGpuError. Native renderer creation/copy/finish/submit still use documented device error handling; Ok mapping is no global/native observed-validation verdict.",
+    "Private staging cancellation/failure differs shared Buffer mapping: native CoreBuffer Drop invokes global.buffer_drop, which removes hub buffer and performs best-effort native unmap; failed state is not externally reusable. Pending native mapping gets abort cleanup on owned handle drop. Browser drops its private JS handle for provider/GC; SDK WebBuffer Drop has no explicit unmap. No demonstrated public alias poisoning or permanent leak is claimed; no invented duplicate guard requirement.",
+    "Canonical generic poll_callback<T>: ready value or closed receiver checked before device.poll, then one nonblocking Poll and second receive. No Clone/Default/Send bound added to arbitrary T. await_browser_callback calls it and yields through timer DurationZERO only while pending, actual Poll/Canceled sources retained. Channel belongs to exact device is documented precondition, not runtime proof.",
+    "Lower Buffer mapping and WorkCompletion browser consumers preserve original source chains via exhaustive From<CallbackProgressError>. Buffer native complete still performs explicit Wait before ready-first helper: helper itself does not poll already-delivered T, but caller is not promised to skip its explicit readback Wait. Browser shared MappingRequest cancellation guard survives timer await. WorkCompletion browser SDK callback still cannot expose underlying promise rejection and docs retain that limit.",
+    "New render feature includes optional futures-channel; gpu-only build does not require render-only channel import. HairGpuError old typed SDK sources remain and new RenderReadbackError/CallbackProgress conversion retains actual error values. Cargo.lock integration remains known owner dependency.",
+    "No current external HairRenderer runtime callers were found in source search beyond documentation; public API control-flow findings are representable library contracts, not claims about a present application failure. Native/backend capabilities and resource identity remain provider/current owner admission obligations."
+  ],
+  "required_dependencies": [
+    {
+      "id": "D780-layouts",
+      "status": "REQUIRED unresolved canonical producer integration",
+      "source": "render/mod.rs set_groom/set_gpu_groom/level_groups/upload_level/upload_cards/set_dynamics/bind_dynamics/deform/atlas_texture",
+      "detail": "Canonical strand/card/simulation/atlas populations and checked bytes/addressing are pending. Current raw points*count/point bytes/usize->u32/index_count/mip writes cannot be marked admitted. Root receives these contracts and must finish whole family before push; no competing count/stride types or repair."
+    },
+    {
+      "id": "D780-head-association",
+      "status": "REQUIRED unresolved source association",
+      "source": "set_head/cover_head/set_gpu_groom around1070-1100 and1450-1534",
+      "detail": "set_gpu_groom only replaces head_cover on Some; absent incoming cover may retain old head association. set_head replaces head/cover; same-size source association and malformed surface columns are not solved by numeric counts. Canonical head-source agreement/producer identity remains necessary, not cleared."
+    },
+    {
+      "id": "ROOT-policy-empty-state",
+      "status": "REQUIRED owned pre-inventory/repair still pending",
+      "source": "render main fallback when levels empty; LodPolicy band/select_blended/form/shadow; converged/render_converged",
+      "detail": "Policy bands/LOD availability/empty strand upload and effective rendered-state choices are explicitly unfinished. Current LodPolicy::band empty subtract/index and upload_level empty infos slice are actual source gaps needing root coordinated policy/layout resolution; C1/C2 add precise convergence witnesses. No missing path silently deferred as acceptable."
+    },
+    {
+      "id": "D780-lock-callers",
+      "status": "REQUIRED unresolved integration",
+      "source": "hair Cargo.toml futures-channel render dependency plus Cargo.lock and broader previous receiver API callers",
+      "detail": "Manifest-lock and #780 application/material/error/caller/selected-entry/layout migration remain required before compile or hosted CI; this frozen checkpoint is intentionally not standalone source completion."
+    },
+    {
+      "id": "headless-browser-policy",
+      "status": "source-backed platform limit, scope must be explicit",
+      "source": "render/mod.rs headless_device2184-2216",
+      "detail": "Synchronous helper uses pollster::block_on around adapter/device promises. No present caller found; no claim it provides browser event-loop-safe opening. Browser progress improvements apply async readback/callback APIs, not a verified browser headless constructor. Retain this explicit platform limit or resolve at owning admission before broader browser claim."
+    },
+    {
+      "id": "native-renderer-policy",
+      "status": "documented device-handled validation limit",
+      "source": "HairRenderer new/render/bind_dynamics/read_rgba raw native ports",
+      "detail": "No synchronous observed native acceptance/transactional metadata guarantee is inferred. General native error handler policy was explicitly agreed earlier; no duplicate context helper independently introduced."
+    }
+  ],
+  "fixture_shader_identity": {
+    "original_renderer_test_module_exact": true,
+    "existing_test_functions": 2,
+    "existing_validate_helper_count": 1,
+    "existing_assert_eq_count": 5,
+    "shader_files_exact": {
+      "crates/fabelgeist-hair/src/render/hair.wgsl": true,
+      "crates/fabelgeist-hair/src/render/post.wgsl": true,
+      "crates/fabelgeist-hair/src/render/deform.wgsl": true
+    }
+  },
+  "sdk_sources": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "coverage": "selected actual progress/drop/map/image/timer ports, not whole SDK file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "coverage": "selected actual progress/drop/map/image/timer ports, not whole SDK file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "coverage": "selected actual progress/drop/map/image/timer ports, not whole SDK file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/webgpu.rs",
+      "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "coverage": "selected actual progress/drop/map/image/timer ports, not whole SDK file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/global.rs",
+      "sha256": "8d8554b2400b46b595af68b0d2fab472da06b8c11fa1823299728b5bc2cf2caa",
+      "coverage": "selected actual progress/drop/map/image/timer ports, not whole SDK file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/resource.rs",
+      "sha256": "9e317487575483203979a334e29c73f6da5ceb2a7c2f51ba6bbcc69ee802bee1",
+      "coverage": "selected actual progress/drop/map/image/timer ports, not whole SDK file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/image-0.25.10/src/images/buffer.rs",
+      "sha256": "004580ca6f2e48b1eb3b28a0e6c77c09bd113964534a217258233b22d39d711a",
+      "coverage": "selected actual progress/drop/map/image/timer ports, not whole SDK file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gloo-timers-0.3.0/src/future.rs",
+      "sha256": "08143bd3b980ca40031e5ebf2008a50593880c483a71ab899e029cfe8f0071b0",
+      "coverage": "selected actual progress/drop/map/image/timer ports, not whole SDK file"
+    }
+  ],
+  "limits": [
+    "No full renderer-family clearance: two actionable root owned convergence/admission findings and explicit layout/head/empty-policy/integration obligations remain.",
+    "No source edits, local project execution/build/check/tests/scanners/generators/runtime, new tests/cases/helpers/assertions/doctests, push or CI.",
+    "All10 changed files full read, including entire2306-line mod.42 materially distinct renderer function bodies source-accounted. Shader numerical text unchanged; no GPU render/format/browser execution claimed.",
+    "Canonical ready-first helper checked directly; explicit blocking readback Wait is a separate API contract. Do not infer skipped GPU waits at every caller or broader device-health success.",
+    "Final full root all13 waves, independent Code/Rule/Comment reviews and required hosted checks must pass exact same final pushed revision."
+  ]
+}

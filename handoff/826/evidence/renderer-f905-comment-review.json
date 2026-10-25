@@ -1,0 +1,317 @@
+{
+  "review": "Independent bounded Comment Review after receiving repair",
+  "pin": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+  "tree": "0c7403ab013e934273d610de2d381a492b0ea2cb",
+  "base": "48e5995839d008ef3373343919d17915357544bc",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "canonical_pins": {
+    "shape": "a2ca851015b9649097635f9f580e409028682ffa",
+    "frame": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+    "native_reference": "0df94b91011a415be93c14174d4233b09eb01c00"
+  },
+  "changed_paths": [
+    "crates/fabelgeist-hair/src/render/deformation.rs",
+    "crates/fabelgeist-hair/src/render/head.rs",
+    "crates/fabelgeist-hair/src/render/levels.rs",
+    "crates/fabelgeist-hair/src/render/mod.rs",
+    "crates/fabelgeist-hair/src/render/simulation.rs",
+    "crates/fabelgeist-hair/src/render/simulation/buffers.rs",
+    "crates/fabelgeist-hair/src/render/simulation/error.rs",
+    "crates/fabelgeist-hair/src/render/simulation/frames.rs"
+  ],
+  "source_accounts": [
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "bytes": 10489,
+      "sha256": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+      "blob": "4d317ead0052b0de8baa0a37df596b44c6757d1f",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "bytes": 7173,
+      "sha256": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+      "blob": "2e6c9502deb9feaf20a74dca03692c92e5653141",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "bytes": 7951,
+      "sha256": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+      "blob": "87245c6c79707ef37f3f663c0baa1fffba432a2e",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "bytes": 64822,
+      "sha256": "052eb05f205e18ce867d925db0db38571dcc98c92f6d4230d715e326b347dfd4",
+      "blob": "6f6f0fc9a989e050b6041a5497a2abc3bfb84a66",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/simulation.rs",
+      "bytes": 9787,
+      "sha256": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+      "blob": "dae48a116a5833f481d5f39285f2f720d96d24b4",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/simulation/buffers.rs",
+      "bytes": 7109,
+      "sha256": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+      "blob": "7fc0c2c88c1a9cf47b0f131c38e4c667f7c0cf87",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/simulation/error.rs",
+      "bytes": 2508,
+      "sha256": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+      "blob": "9a52577a2bb7e1856eae04249f712d3c914c100b",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/simulation/frames.rs",
+      "bytes": 5896,
+      "sha256": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+      "blob": "445e8c98a2961d4452bb322b2ec3bb97119c4b08",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "bytes": 5612,
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "blob": "a72ae87020859dad8df9e6707f6e9345d0c554cd",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "bytes": 7133,
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "blob": "17955c221c7bbdb901dc53407059408119b08812",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/frame.rs",
+      "bytes": 2279,
+      "sha256": "0bec2f5a59de545d2968c962ab28be07e91d685dc097fa0a17af5db09312adc3",
+      "blob": "d1c286216c360f4b44ead2c9146e7b206e01217d",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/inspect.rs",
+      "bytes": 2684,
+      "sha256": "f019273dd3c0d3c216f8e2b48b7ecf49fd9d8333f5b26f81b8e3f936777d1597",
+      "blob": "722b2174507b6ebd999c4d4583444a1dbd566c09",
+      "coverage": "fresh complete file"
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+      "bytes": 4353,
+      "sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+      "blob": "57e1111f34bd5ebc3fe7fa7a8189c809cc89bcc1",
+      "coverage": "complete read in renderer-host-frame-pre-repair-review, exact immutable source hash carried and current receiving contract reconciled; not claimed freshly reread complete here"
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "bytes": 7849,
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "blob": "bbfa2d7a1e6898a76c0c36aeee38400005a9c1f6",
+      "coverage": "complete read in renderer-host-frame-pre-repair-review, exact immutable source hash carried and current receiving contract reconciled; not claimed freshly reread complete here"
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "bytes": 10189,
+      "sha256": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+      "blob": "02b2e0f2b7c1791778d6f6a15a687a13ac893e29",
+      "coverage": "complete read in renderer-host-frame-pre-repair-review, exact immutable source hash carried and current receiving contract reconciled; not claimed freshly reread complete here"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/build.rs",
+      "bytes": 5681,
+      "sha256": "badb20a3e56c8fe3a51a2c629a6bf9b5fcdbac0c9f9f52774ebabcf660d18d5d",
+      "blob": "58a7c859cd4849226b37c426f6b5991544bbc2b4",
+      "coverage": "complete read in renderer-host-frame-pre-repair-review, exact immutable source hash carried and current receiving contract reconciled; not claimed freshly reread complete here"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/pose.rs",
+      "bytes": 2919,
+      "sha256": "0cc72e5d058745c9d41c7de3f31fba92c839ae85845dd599bcf3c1fe50c892f4",
+      "blob": "813c25d410836e3118c6ac2ae52d99f1fbe7d9b5",
+      "coverage": "complete read in renderer-host-frame-pre-repair-review, exact immutable source hash carried and current receiving contract reconciled; not claimed freshly reread complete here"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/settings.rs",
+      "bytes": 6217,
+      "sha256": "8f900903b50fd6f9ba4ca81c01c2205a4be919589899569594db60a4041d3b32",
+      "blob": "59c19a1e86df3dacaea6b3942da11fecbd5fa79a",
+      "coverage": "complete read in renderer-host-frame-pre-repair-review, exact immutable source hash carried and current receiving contract reconciled; not claimed freshly reread complete here"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "bytes": 10485,
+      "sha256": "413f88a20d71eac80a2028f44826ba8f910df760078175d6eba83321233943bc",
+      "blob": "baadee8e758d7e1421a5d163b03aa24998273fbe",
+      "coverage": "complete read in renderer-host-frame-pre-repair-review, exact immutable source hash carried and current receiving contract reconciled; not claimed freshly reread complete here"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/binding.rs",
+      "bytes": 2394,
+      "sha256": "c5459f6db0f1b23d67efb540f90f14140a65d958b4bf251dbd945150e551bed0",
+      "blob": "65c3fe50dcd20a789b74ec666f2a9e962ea2c0f2",
+      "coverage": "complete read in renderer-host-frame-pre-repair-review, exact immutable source hash carried and current receiving contract reconciled; not claimed freshly reread complete here"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "bytes": 1544,
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425",
+      "blob": "01eaeadcf00caffd787ca4855c1828786be791ff",
+      "coverage": "complete read in renderer-host-frame-pre-repair-review, exact immutable source hash carried and current receiving contract reconciled; not claimed freshly reread complete here"
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "bytes": 3049,
+      "sha256": "1c6a3dfe68c68c02c79ebf1157be9981e4c2a31f8a7667dd64148e30386bd70d",
+      "blob": "9d9f3ac446d60c47face64c7428dae0d4830a732",
+      "coverage": "complete read in renderer-host-frame-pre-repair-review, exact immutable source hash carried and current receiving contract reconciled; not claimed freshly reread complete here"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "bytes": 5139,
+      "sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "blob": "8703b271bea75fe54bf54909ab2507d0b8178af8",
+      "coverage": "prior complete/relevant read carried only after exact current/base byte identity; shader/POD behavior not runtime-validated",
+      "exact_base": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "bytes": 5770,
+      "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "blob": "61e51831f880ba6b888ba3642d2f844968be1e86",
+      "coverage": "prior complete/relevant read carried only after exact current/base byte identity; shader/POD behavior not runtime-validated",
+      "exact_base": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/meshes.rs",
+      "bytes": 6110,
+      "sha256": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+      "blob": "50adc65cccb80a5386909e8a36bf74495b992e36",
+      "coverage": "prior complete/relevant read carried only after exact current/base byte identity; shader/POD behavior not runtime-validated",
+      "exact_base": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+      "bytes": 2851,
+      "sha256": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+      "blob": "f3961f72533979a819a023436fd2324831dddd5f",
+      "coverage": "prior complete/relevant read carried only after exact current/base byte identity; shader/POD behavior not runtime-validated",
+      "exact_base": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "bytes": 2796,
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "blob": "3ad944451601f5e4c5dd22d8a5f8d10f133e807e",
+      "coverage": "prior complete/relevant read carried only after exact current/base byte identity; shader/POD behavior not runtime-validated",
+      "exact_base": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "bytes": 26703,
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "blob": "379035127cad18258f1f02a9841b8b2ed3abe61f",
+      "coverage": "prior complete/relevant read carried only after exact current/base byte identity; shader/POD behavior not runtime-validated",
+      "exact_base": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "bytes": 1683,
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "blob": "7fcdc66435fdd18e7067c142a97b685f120513ef",
+      "coverage": "prior complete/relevant read carried only after exact current/base byte identity; shader/POD behavior not runtime-validated",
+      "exact_base": true
+    }
+  ],
+  "findings": [],
+  "outcome": "No actionable comment/API documentation mismatch found in bounded receiver checkpoint; canonical producer/caller graph not integrated or compiled, no global/final clearance.",
+  "fixture_identity": {
+    "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+    "bytes": 940,
+    "exact_base": true,
+    "cases": 2,
+    "helper": 1,
+    "assertions": 5
+  },
+  "pod_identity": [
+    {
+      "name": "Globals",
+      "sha256": "e0003c6f88ffdbc3d27a45fe06e0b88b50de9a095ff2e466faeeee967a5a2215",
+      "exact_base": true
+    },
+    {
+      "name": "DrawGpu",
+      "sha256": "7e57128d063a7d19d367616d291cb283ae1e038a991524e265e77e6fdd6ae1ed",
+      "exact_base": true
+    },
+    {
+      "name": "PostGpu",
+      "sha256": "d5b47327cf39b5a88545e9bb5d5c46f7a5cf6ab7ee28a1a113e81c206d07f10a",
+      "exact_base": true
+    },
+    {
+      "name": "CardDrawGpu",
+      "sha256": "f3bdd58c806c14dc0b5750aa354aa2d68e92cbda64bd9e942f60e4fa149466f7",
+      "exact_base": true
+    },
+    {
+      "name": "DeformGpu",
+      "sha256": "190035f5eecdfe124e69065c072c80b1864e596d20480e315122de2b6ea9208d",
+      "exact_base": true
+    }
+  ],
+  "contracts": [
+    "Actual installed first Host/Native source Arc retained separately from fitted levels and published with successful scene admission. Host frame source admitted before native allocation; immutable bindingArc checked before update. Native source logicalDevice/layout/ports/body matched before obligation/pose update.",
+    "binding_population takes maximum over every resident level and checks source population. Simulated layout retains full guides, independent drawn prefix. Native resource constructors check logical prefix then positive physical binding floor, actual usage and maxstorage/maxbuffer; params96 checked against maxuniform/maxbuffer. No native hardware acceptance guaranteed.",
+    "pack_positions allocates fallibly before host writes, keeps xyz and w1; frame rest head coordinates, current world coordinates. Host update samebinding fixes exact layout/slice length. Host renderer retains no body collider. No new finite/sign/orthonormal/geometry policy added.",
+    "Optional native body uses producer Buffer.size, not another17-record layout policy. Absent body binds one disabled native storage record. Metres retained until DeformGpu; set_moved reads latest settings offset from same admitted native resource population.",
+    "Old resident rest cloned from prior Dynamics on simulation replacement; initial captures copy logical data only. Positive native floors and complete canonical shape remain separate. Clear absent idempotentOk; present preflight checks endpoints/copyusage before recording.",
+    "Native binding and replacement candidate resources created before logical publication. Bind/clear publish after normal raw queue.submit return under existing configured error policy. Updates mark Pending/pose/moving after identity and host packing admission. No new readback Wait, synchronous native verdict, rollback, completion or global-health claim.",
+    "Existing frame-state and readback docs still distinguish normally submitted commands from completed work. FramePopulation remains before stochastic/transition cuts; card topology/source behavior retained. Render/readback provider handling remains existing policy.",
+    "New public errors retain concrete StrandLayoutError/BufferPrefixError/TryReserveError through thiserror and HairGpuError Backend; wrong source/mode/binding/layout/ports are typed classifications, not Display branching."
+  ],
+  "limits": [
+    "All eight changed files freshly read completely, full current mod.rs in sequential chunks. Fresh unchanged frame/readback and canonicalframe/inspect read; other exact source accounts explicitly carried with coverage limits.",
+    "No source edit, project execution/check/build/lint/tests/scanners/generators/runtime/push/CI. No tests/cases/helpers/assertions/doctests authored or executed.",
+    "Actual complete producer, Creator/caller, physical/grid, lock and canonical composition remains required; source receipt agreement is not integrated graph success. #774 retained families and #895 ownership remain unchanged.",
+    "Separate SCOPE48-C1/C2 owning Kernel wording findings remain required outside this renderer checkpoint; this no-finding verdict does not waive them.",
+    "Final complete thirteen-lens waves, all three independent reviews and hosted gates on same final pushed SHA remain required; no compiled/native-runtime/hardware/browser/art/performance/global/final clearance."
+  ]
+}

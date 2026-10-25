@@ -1,0 +1,1744 @@
+{
+  "kind": "Independent read-only scoped-validation successor Rule Review",
+  "head": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+  "tree": "934eb5dd2adbbbd85faa7a1cdb9b3679db71ace6",
+  "actual_parent": "6bf03a8d04bf246c996bbbfa17c1925ebd150c38",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "full_changed_paths": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "git_blob": "0eac254b821e75e05ef833ad6cc522b208deceb3",
+      "lines": 167,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "git_blob": "8cfd4abad2635672f3d9f06b0f1d65266324d846",
+      "lines": 73,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "git_blob": "f34c5730daeac1577440c03c76310b203576ce9a",
+      "lines": 150,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "git_blob": "85fb926edfa847c942479d7aca00bc3ba46da988",
+      "lines": 76,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "git_blob": "25f4c17425f99c090bec3dc71920d26fc9522b91",
+      "lines": 64,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "9ad9d82531693820aff5a33f0b7ee8afdefa9ef4fb790fc87b77977cb9e3fb04",
+      "git_blob": "7f6d13fbc965d4a8971d7db4ce9214dd589c765a",
+      "lines": 120,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "febc4863e0972c69efdffea504d3bdc2e11ca9df928c6d03e365c9cd88014d7a",
+      "git_blob": "e77a164a66dd36cd560ac6ccf41f3af33ab52f06",
+      "lines": 210,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "git_blob": "17d1fe9e74bdb8ce9c5d7f25f4525ecc0816f6cf",
+      "lines": 202,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc",
+      "git_blob": "f6d30e81ffc826bbe631e8436aaa95f0cbf58c21",
+      "lines": 65,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "git_blob": "607407e57148a21d145f00320434b4409707d1d6",
+      "lines": 166,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "a77ff3b04d06f2e44f8fa68c52fb5f6f75364646b1a33af6789955b0f6c6c058",
+      "git_blob": "6c397088ef329ef378eee8fcc317fdcc104e0a84",
+      "lines": 641,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "git_blob": "cc33b13da290260740b8622fdd4362c5fd45e59e",
+      "lines": 112,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d8e5f582e90cb905a5451d798eb86e4b43ff9687b58466bd5d0146fc1dac56ab",
+      "git_blob": "c1a4ececc468996acfab1a2753e4d43f8a90d823",
+      "lines": 270,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "git_blob": "4c3dcbbfcc0600c16a801b2029e7348b518a8a43",
+      "lines": 112,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "aa6e5dff4b2578cdcd992e69425955b885373bb8172bce6bba1e784c367df692",
+      "git_blob": "649b5ac19540ab354fac90df9829ea41180605fa",
+      "lines": 896,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "git_blob": "7cc31a110891b2f9e86b257cb8fcb8e642f3feed",
+      "lines": 202,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "git_blob": "869996dde8ec479ce068ef764b95671d5a656a77",
+      "lines": 165,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "git_blob": "6424213db5ebbbf06041bdaf2b364ca223cb312f",
+      "lines": 11,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "git_blob": "24a5ea1e0349615d342a475a764347d7870162a6",
+      "lines": 113,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "git_blob": "178d76c5e0efcca7eee0cbbfbc32208a6d5830d8",
+      "lines": 187,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "fbba26bd3beffcbe4439bff03b6812617c058ec2248827058d9f1e975b670557",
+      "git_blob": "962aa3363931e98101cb432752fe689d564660e6",
+      "lines": 175,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "7ae74e77ae2e8eadfcf84d6fa5b4c528034572fe1beec94f8e73a095748618fe",
+      "git_blob": "db147f8431d338484864c2baa64f51da194ad03b",
+      "lines": 261,
+      "coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges"
+    }
+  ],
+  "root_wait_sites": [
+    {
+      "id": "W01",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "function": "ComputePipeline::create_native",
+      "owner": "root",
+      "current_contract": "Native(Arc actual wgpu error); per-entry Observed outcome and Compiled state",
+      "repair_acceptance": "Progress must escape before cache publication; remove prior same-entry DeviceHandled value; native-only rejection caching unchanged.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 191,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W02",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "function": "ComputeShader::new",
+      "owner": "root",
+      "current_contract": "ShaderError::Native(Arc actual wgpu error)",
+      "repair_acceptance": "No shader/source/module/device aggregate returned on Progress.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 40,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W03",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "function": "ReflectedInterface::new",
+      "owner": "root",
+      "current_contract": "ComputePipelineError::Native(Arc actual wgpu error)",
+      "repair_acceptance": "Do not publish reflected interface/layout candidate on Progress.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 101,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W04",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "function": "ComputePass::record",
+      "owner": "root",
+      "current_contract": "ComputePassError::Native(Arc actual wgpu error)",
+      "repair_acceptance": "Return Progress before standalone dispatch can submit; caller-owned encoder can already contain commands, no rollback promise.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 71,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W05",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "function": "uniform_buffer::create allocation observation",
+      "owner": "root",
+      "current_contract": "Nested Buffer::new Result; outer native scope; body Result applied after scope",
+      "repair_acceptance": "Resolve earlier operation error and typed later observation together; drain scope even when body failed; no write after failed allocation.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 55,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W06",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "function": "uniform_buffer::create write observation",
+      "owner": "root",
+      "current_contract": "Nested Buffer::write Result; outer native scope; body Result applied after scope",
+      "repair_acceptance": "Resolve earlier operation error and typed later observation together; do not return uniform buffer after Progress.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 67,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W07",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "function": "create_group",
+      "owner": "root",
+      "current_contract": "ComputePassError::Native(Arc actual wgpu error)",
+      "repair_acceptance": "Drop candidate bind group on Progress; group collection propagates error.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 78,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W08",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "function": "Texture2d::create",
+      "owner": "root",
+      "current_contract": "anyhow actual wgpu error plus exact WGPU Texture2d Creation Error context",
+      "repair_acceptance": "Preserve native-only direct cause/context; typed Progress before texture/view/device metadata publication.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 157,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W09",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "function": "Texture3d::new",
+      "owner": "root",
+      "current_contract": "anyhow actual wgpu error plus exact WGPU Texture3d Creation Error context",
+      "repair_acceptance": "Preserve native-only direct cause/context; typed Progress before aggregate publication.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 108,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W10",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "function": "TextureCube::new",
+      "owner": "root",
+      "current_contract": "anyhow actual wgpu error plus exact WGPU TextureCube Creation Error context",
+      "repair_acceptance": "Preserve native-only direct cause/context; typed Progress before aggregate publication.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 135,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W11",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "function": "Texture2d::select_view",
+      "owner": "root",
+      "current_contract": "TextureViewError::Texture2d requested original format and Box actual error",
+      "repair_acceptance": "Keep cached branch untouched/no poll; dynamic view Progress retains requested format and operation context, no candidate return.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 57,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W12",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "function": "Texture3d::select_view",
+      "owner": "root",
+      "current_contract": "TextureViewError::Texture3d requested original format and Box actual error",
+      "repair_acceptance": "Keep cached branch untouched/no poll; dynamic view Progress retains requested format and operation context.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 57,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W13",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "function": "TextureCube::select_view",
+      "owner": "root",
+      "current_contract": "TextureViewError::TextureCube requested original format and Box actual error",
+      "repair_acceptance": "Keep cached branch and effective linear storage format untouched; typed Progress retains original requested format.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 62,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W14",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "function": "TextureCube::face_view_with_format",
+      "owner": "root",
+      "current_contract": "anyhow actual native error plus WGPU TextureCube Face View Error context; optional context",
+      "repair_acceptance": "Only native Some(context) with blocking policy observes/waits; None path unchanged; preserve face/dimension/layer/request admission.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 114,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W15",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "function": "TextureCube::view_2d_array",
+      "owner": "root",
+      "current_contract": "TextureViewError::CubeArray requested stored format and Box actual error",
+      "repair_acceptance": "Preserve native-only source/display and selected linear format; typed Progress before candidate return.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 149,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W16",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "function": "TextureSrgbConverter::new",
+      "owner": "root",
+      "current_contract": "ComputePipelineError::Native; ComputeShader::new already fallible before outer scope",
+      "repair_acceptance": "No converter pipeline/layout/device aggregate returned on Progress.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 91,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W17",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "function": "TextureSrgbConverter::convert finish observation",
+      "owner": "root",
+      "current_contract": "ComputePassError::Native after encoder.finish before queue.submit",
+      "repair_acceptance": "Finish-stage observation failure closes scope and prevents conversion submission.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 155,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    },
+    {
+      "id": "W18",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "function": "TextureSrgbConverter::convert submission observation",
+      "owner": "root",
+      "current_contract": "ComputePassError::Native after queue.submit",
+      "repair_acceptance": "Progress can report after real submission; do not claim output rollback, no execution, GPU completion or global health.",
+      "discovery": "complete function/control-flow read",
+      "repair": "Implemented receiving increment at pinned8cdc; final integrated acceptance pending",
+      "validation": "pending source successor and hosted final gates",
+      "current_finish_line": 162,
+      "disposition": "Canonical ValidationScope consumed at exact existing native/policy boundary; full containing function inspected"
+    }
+  ],
+  "peer_required_wait_sites": [
+    {
+      "id": "W19",
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "function": "KernelBatch::dispatch cached record observation",
+      "poll_line": 283,
+      "owner": "780",
+      "current_contract": "Prepared::record operation Result resolved before captured native error; dispatch count after both",
+      "repair_acceptance": "Peer must consume shared observation resolver preserving operation precedence/Both; no dispatch counter increment on Progress; encoder may already contain commands.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "current_sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "identical_to_parent": true,
+      "disposition": "Required #780 migration, current function still discards polling result. Not repaired or cleared by root increment. Actual entire scoped function source read."
+    },
+    {
+      "id": "W20",
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "function": "FastPath::prepare",
+      "poll_line": 242,
+      "owner": "780",
+      "current_contract": "ComputePassError::Native; arena slot may already be committed before outer scope",
+      "repair_acceptance": "Do not publish Prepared on Progress; document retained consumed arena slot, not falsely claim whole prepare rollback.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "current_sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "identical_to_parent": true,
+      "disposition": "Required #780 migration, current function still discards polling result. Not repaired or cleared by root increment. Actual entire scoped function source read."
+    },
+    {
+      "id": "W21",
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "function": "CompiledLayout::new",
+      "poll_line": 47,
+      "owner": "780",
+      "current_contract": "ComputePipelineError::Native; candidate native layout/pipeline",
+      "repair_acceptance": "Do not return compiled fast layout or publish KernelCache value on Progress.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "current_sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "identical_to_parent": true,
+      "disposition": "Required #780 migration, current function still discards polling result. Not repaired or cleared by root increment. Actual entire scoped function source read."
+    },
+    {
+      "id": "W22",
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "function": "UniformArena::allocate new chunk",
+      "poll_line": 68,
+      "owner": "780",
+      "current_contract": "ComputePassError::Native; chunk push/used reset after scope",
+      "repair_acceptance": "Progress must precede new chunk publication/used reset; existing-chunk no-scope path unchanged.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "current_sha256": "c9488a11c8a8c9c481f6b948041544dea9ec19a9405405ec969f51c4e2d2db2d",
+      "identical_to_parent": true,
+      "disposition": "Required #780 migration, current function still discards polling result. Not repaired or cleared by root increment. Actual entire scoped function source read."
+    },
+    {
+      "id": "W23",
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "function": "KernelBatch::copy_buffer",
+      "poll_line": 66,
+      "owner": "780",
+      "current_contract": "ComputePassError::Native after recording native copy",
+      "repair_acceptance": "Preserve logical byte/zero/native recording contract; return Progress without claiming recorded copy rollback or completion.",
+      "discovery": "complete function/control-flow read",
+      "repair": "not started by reviewer",
+      "validation": "pending source successor and hosted final gates",
+      "current_sha256": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9",
+      "identical_to_parent": true,
+      "disposition": "Required #780 migration, current function still discards polling result. Not repaired or cleared by root increment. Actual entire scoped function source read."
+    }
+  ],
+  "related_sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "identical_to_parent": true,
+      "coverage": "Complete source/device/policy key and success-only publication owner read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "identical_to_parent": true,
+      "coverage": "Complete selected view authority/admission/read-only consumer source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+      "identical_to_parent": true,
+      "coverage": "Complete new/write/write_at/from_upload production1-125 source read; unchanged tests retain prior receipt"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "identical_to_parent": true,
+      "coverage": "Complete native upload representation, existing doctest and immediate observe_validation consumer read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "identical_to_parent": true,
+      "coverage": "Current allocate_native and immediate observation source122-151 read; other exact prior production granularity retained"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "identical_to_parent": true,
+      "coverage": "Complete immediate no-wait owner read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "identical_to_parent": true,
+      "coverage": "Complete no-completion-wait finalization/submission owner read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "identical_to_parent": true,
+      "coverage": "Complete callback ready-first/nonblocking/browser yield owner read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "identical_to_parent": true,
+      "coverage": "Complete explicit completion owner/cause policy read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "identical_to_parent": true,
+      "coverage": "Complete native std and Wasm feature/target/dependency configuration read"
+    }
+  ],
+  "retained_source_receipts": [
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "9a4cfd422099b6ffde9fb27f49e0c26fccd850684039712cb7e17e28bc7527db",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "05d2a47057f3095bc11a8ad025e1a228f24c50df6436638456c17cd094dc55c2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+      "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+      "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/paint.rs",
+      "sha256": "daa74c09fa86ca04b709dcc9efed9b35d35a392aeb43db10086fa09cd27a50fb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+      "sha256": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "sha256": "b9fccf7ea25d3cce7dc5dfdb0f91dda22362f10d0c5c4120d9e42c729c3c38c4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "fd6c4991e13b343c21b396b8aada2480b03508500184761d217c1237bb1c52cb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs",
+      "sha256": "bf81803801df60f8387489c31ab851af7f62c1df5cee4611a055d628c5bec616",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/plates.rs",
+      "sha256": "626dd0cc8823b5542b30fd320294e8109b996c5e4117ec73e513b82b8f909a84",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "12b74ba27f4c750bc807ba7c39553fe6f130179bb71ae3679d296cbaab947cd8",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/gpu.rs",
+      "sha256": "ad19b002ebc0d537cde1159638577fb53c250193bbb5f78e1bd7109058bbdb5f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_controls.rs",
+      "sha256": "8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cover.rs",
+      "sha256": "50287b76df57d36dd9afcab6aa2a578f96e49b421b73e26b536d23c1bc65345f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "7ab3a1fe9e5c19e58ba3f9b6e6494ded69096cc71579c3b5c2f8f3b2f28be1ac",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/rng.rs",
+      "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/pixel.rs",
+      "sha256": "9b7d1004ee1879e113be545a891967a8f30d6ced8086fba84ee7f279997d333b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "rust-quality.toml",
+      "sha256": "9a3738a7916a3edb8ebf501345d9815aef9f5fe18458f6ac5231c20a7e7e5030",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+      "sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a9ce6fef1d2cdf2d11c06e762e32430e9406445c17aa8aae43cd0fdf2f2ca92c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "86f0e714e3e5f41e6cb59a299114e43cd12a678bbf70f508f8681c610af87478",
+      "matches_prior_receipt": true,
+      "coverage": "Exact prior declared whole/slice body-read granularity retained, not new whole-body credit"
+    }
+  ],
+  "rule_receipts": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71",
+      "matches_prior_receipt": true
+    }
+  ],
+  "sdk_sources": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "read_lines": "775-878",
+      "proof": "Native ErrorSource SendSync conditional, actual Error sources; SDK guard !Send/!Sync and Drop auto-pop; pop immediate"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "read_lines": "1847-1918",
+      "proof": "Correct thread/LIFO scope pop returns ready actual error; Poll maps actual PollError; fatal device errors remain provider policy"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core/thread_id.rs",
+      "sha256": "20d1aa5017ab143cf5439f84e8db8a7e0eea576a107b1c8ef4b46e02fd7ec79a",
+      "read_lines": "whole",
+      "proof": "Actual feature std enables real ThreadId; cfg(std) alias does not imply feature std"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/build.rs",
+      "sha256": "cf1df048074f80a58bd40f4eefe2b1d6bfa2b92b022dd9d216ed789885ce5b60",
+      "read_lines": "whole",
+      "proof": "send_sync native or fragile non-atomic Wasm; cfg std alias distinct from Cargo feature"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "read_lines": "235-333",
+      "proof": "PollError Debug/Error non-Clone actual timeout/index classes; Wait(None) contract"
+    }
+  ],
+  "findings": [
+    {
+      "id": "8CDC-DOC-WRAP-01",
+      "severity": "P3",
+      "classification": "New rule regression, documentation only",
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "lines": [
+        87,
+        90
+      ],
+      "rule": "AGENTS.md:55 wrap Markdown prose at80 columns",
+      "proof": "New prose lines87 and90 are respectively81 and85 characters, outside code blocks/tables/links. Exact source delta confirms both newly authored.",
+      "acceptance": "Reflow both lines without changing text, code fences or contracts."
+    }
+  ],
+  "resolved_findings": [
+    {
+      "id": "6BF-BINDING6-DOC-01",
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "line": 155,
+      "proof": "Other bindings retain their own allocation ranges accurately includes renderer-owned params. Whole current file re-read; only comment changes vs6bf."
+    }
+  ],
+  "contract_traces": [
+    {
+      "family": "Canonical native observation owner",
+      "trace": "WgpuContext actual Arc<Device> + blocking_validation -> native-only ValidationScope::new59-65 paired private Device/SDK guard -> finish73-82 one wait_indefinitely attempt then unconditional normal-result pop -> Native(actual wgpuError) or Progress{actual PollError, optional same-scope nativeError}. Borrowed false returns None and issues no wait; browser sites are cfg-excluded. SDK guard enforces nonSend/nonSync; current-thread/LIFO requirements still apply. No new fake device brand/lock/timeout/retry."
+    },
+    {
+      "family": "Actual causes and standard error admission",
+      "trace": "ValidationProgressError public poll/native payload retains both failures; source47-52 selects captured native when present, actual poll otherwise. Shader/Pipeline/Pass From maps ordinary Native into existing Arc<wgpuError> and Progress into Arc<record> for prior Clone owners. TextureViewError from_observation preserves original requested TextureFormat and closed operation; ordinary Native maps into old Box native variants. into_anyhow89-93 admits actual native directly at existing generic texture/face boundary, preserving ordinary downcast/source/Display context. No error reconstructed from text."
+    },
+    {
+      "family": "Earlier operation plus observation",
+      "trace": "Static uniform create scopes Buffer::new and Buffer::write. Both collect operation Result, always finish outer scope, then resolve_observation (uniform_buffer52-70). Four outcomes: value on both success; exact original operation error if only it fails; contextual oldNative/newProgress if only observation fails; typed OperationAndObservation with original operation source and accessible secondary observation if both fail. Allocation failure cannot proceed to upload or return a uniform candidate. Queue write side effects are not rolled back."
+    },
+    {
+      "family": "Pipeline retained state and caches",
+      "trace": "create_native191-196 returns Progress out of cache construction, retains old ordinaryNative rejected-outcome cache. get_or_create133-141 removes prior same-entry unchecked value on failed observation, returns error before insert. compile149-150 marks Compiled only after success; unsuccessful firstcompile remains Prepared. ComputeSourceCache63 builder? precedes any publication and key owns actual device/source/policy/recipe. No permanent Observed Progress or successful hit after incomplete observation. Existing already-Compiled clone state does not itself certify device health."
+    },
+    {
+      "family": "Texture cache/resource/format relationships",
+      "trace": "All three select_view methods keep stored-format cache-first branch with MissingView before allocation/device, no new poll; alternate branch admits native texture then actual creating Device. Effective storage-linear descriptor conversion preserves original requested format in typed Progress/Native errors. New view candidate returned only after observation. Texture allocations similarly publish resource/cache/logical metadata after finish; context-free face and borrowed/browser provider-handled routes unchanged. Cube face/array descriptor geometry and request ordinals retained."
+    },
+    {
+      "family": "Recording, conversion and excluded clocks",
+      "trace": "ComputePass::record fails observation before standalone dispatch calls context.submit, but caller encoder may already retain recorded commands. Converter uses existing scoped finish then separately scoped submission; post-submit observation failure does not roll back work. Immediate observe_validation and finish/submit helpers still pop without completion waits; callback/readback/completion owners remain distinct, not duplicated by validation scope. Hair comment fix154-155 accurately describes per-binding allocation ownership, all bodies unchanged."
+    },
+    {
+      "family": "Portable cfg and trait evidence",
+      "trace": "ValidationScope and Arc/WgpuContext imports native-only; common error payloads remain available across targets. Native manifest explicitly enables wgpu std, which SDK ThreadId actually checks as feature std. Native ErrorSource is SendSync; configured fragile non-atomic Wasm supplies existing anyhow-compatible native Error bounds. Browser waits absent, no new unsafe trait impl. Browser atomics and unconfigured SDK feature combinations remain unverified/unsupported source limits; no unconditional platform guarantee."
+    }
+  ],
+  "all_thirteen_relationship_accounting": [
+    {
+      "lens": "producer-propagation",
+      "source_refs": [
+        "W01-W23",
+        "CP1-CP4",
+        "CP6"
+      ],
+      "contract_trace": "SDK Poll Result -> owning scope outcome -> Shader/Pipeline/Pass/Texture errors -> Result propagation/cache/Prepared/counters/texture metadata",
+      "disposition_connected_repair": "Repair earliest discarded producer result; propagate canonical outcome through all owner sites, no new local polling wrappers.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "All23 exact sites and five owner-dependent functions consume shared contract; every relevant publication gated.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_refs": [
+        "CP1",
+        "CP2",
+        "CP3",
+        "CP6"
+      ],
+      "contract_trace": "SDK PollError/wgpuError/guard, existing ShaderError/ComputePipelineError/ComputePassError/TextureViewError and globals completion/callback owners",
+      "disposition_connected_repair": "Globals owns common observation; reuse current operation errors for contextual mapping. Completion/Callback errors are different clocks, not interchangeable.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "No duplicate poll owner, no error text conversion, no independent peer error family.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "admission-contracts",
+      "source_refs": [
+        "CP1",
+        "W11-W15"
+      ],
+      "contract_trace": "Loose device+guard could disagree; owning scope pairs actual device and guard. Existing view missing/cache/device/effective-format branches precede native scope.",
+      "disposition_connected_repair": "Admit scope only from native observing context; private pair; preserve early missing/cache/device branch ordering and None cube-face policy.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "No borrowed/browser wait, no fake device identity, cached branch does no new poll; scope same-thread LIFO retained.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "invariant-operations",
+      "source_refs": [
+        "SV1",
+        "CP3",
+        "CP4",
+        "CP5"
+      ],
+      "contract_trace": "Poll ->pop ->return/cache/chunks/counters/submission; body failures may precede later poll failure",
+      "disposition_connected_repair": "Always drain then combine; no Progress publication; preserve actual precommitted states and explicit no-rollback limits.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "Error cannot mark Compiled, publish candidate/dispatch count or successful source cache; submitted conversion remains honestly described.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "aggregate-states",
+      "source_refs": [
+        "CP1",
+        "CP2",
+        "CP3",
+        "CP6"
+      ],
+      "contract_trace": "Progress relates actual poll error to optional same-scope native error; Both relates earlier body to later observation; scope relates exact device and guard",
+      "disposition_connected_repair": "Payload owns correlated causes and original operation/request data, not two independent failure flags.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "Every representable new error has its required cause; both secondary errors accessible without flattening first source.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "type-ownership",
+      "source_refs": [
+        "W01-W23",
+        "CP1-CP4"
+      ],
+      "contract_trace": "Root globals/helper+GPU receivers/error/cache; peer KernelBatch/FastPath/compile/arena/copy functions",
+      "disposition_connected_repair": "Exact ownership coordination required; root must not patch peer functions or duplicate common errors.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "Peer explicitly accepts canonical API and returns integrated exact source; final complete wave after integration.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "redundant-authority",
+      "source_refs": [
+        "W01",
+        "CP4"
+      ],
+      "contract_trace": "CachedPipeline Observed versus DeviceHandled plus requested observation policy and live progress result",
+      "disposition_connected_repair": "Transient progress is not a permanent native outcome. Remove prior unchecked entry under agreed policy; retain only old native-only cached rejection semantics.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "Retry after Progress re-enters native admission; no stale DeviceHandled or ObservedProgress hit.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_refs": [
+        "W01-W23",
+        "CP2",
+        "CP3",
+        "CP5",
+        "CP6"
+      ],
+      "contract_trace": "Existing wait-then-pop order, native error Display/downcast/request identity, cached/missing branches and empty batches",
+      "disposition_connected_repair": "Only lost-progress behavior intentionally changes. Preserve numerical shaders, descriptors, one attempt and all no-wait boundaries.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "Ordinary Native identity/messages unchanged; error precedence explicit; no added completion waits on submit/observe_validation.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "enum-shapes",
+      "source_refs": [
+        "CP2",
+        "CP3"
+      ],
+      "contract_trace": "Native(wgpuError) versus Progress{poll,nativeOption}; OperationAndObservation{operation,observation}",
+      "disposition_connected_repair": "These variants own different valid payloads; optional native is independent evidence only inside failed-progress variant.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "No progress Boolean beside unrelated causes, no nativeNone masquerading as success; original operation error is primary in Both.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "derivability",
+      "source_refs": [
+        "CP1",
+        "CP2"
+      ],
+      "contract_trace": "Guard already non-Send/non-Sync; PollError lacks Clone; existing GPU error manual Display/Error preserve stable semantics and std-only deps",
+      "disposition_connected_repair": "Derive Debug where exact; use Arc for existing Clone operation owners if needed, not fake PollError Clone or new dependency solely for derive. Keep manual source selection for Both/Progress.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "Traits preserve concrete SDK causes and existing bounds; no unsafe Send/Sync or string-backed substitute.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "type-granularity",
+      "source_refs": [
+        "CP1-CP3",
+        "CP6"
+      ],
+      "contract_trace": "Scope owner + observation result + operation-specific errors + generic resolver used by three actual body-Result paths",
+      "disposition_connected_repair": "One common native observation boundary earns its role; keep completion/callback separate. No universal async failure framework or unused policy wrapper.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "API has actual root uniform/peer record consumers and distinct contexts remain in owning errors.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "magic-strings",
+      "source_refs": [
+        "SV2",
+        "CP2",
+        "CP6"
+      ],
+      "contract_trace": "Native labels, exact diagnostic messages/context, pipeline selected-entry cache key and policy documentation",
+      "disposition_connected_repair": "Native labels/open entry names remain actual SDK/text boundaries; preserve Native messages; no branching on text. New progress/both diagnostics own formatting once.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "No string classification of Timeout/native errors; native request/entry identity retained; incorrect no-timeout prose corrected.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    },
+    {
+      "lens": "magic-numbers",
+      "source_refs": [
+        "SV1",
+        "CP1"
+      ],
+      "contract_trace": "Wait timeout None, actual SDK u32MAX then i32MAX nanoseconds, ErrorFilter Validation, policy predicate and scope stack indices",
+      "disposition_connected_repair": "Preserve native SDK wait API and one attempt; do not invent app timeout/retry intervals or convert SDK bounds into new domain policy. Scope stack stays SDK owned.",
+      "dependencies": [
+        "Canonical refined CP1-CP4 implementation and peer acceptance",
+        "No local tests/new fixtures; final same pushed SHA reviews and hosted gates"
+      ],
+      "acceptance": "No added duration/retry numeric policy; borrowing/browser false semantics preserved; all numeric descriptor/shader values unchanged.",
+      "discovery": "Revalidated against exact8cdc source for root18 sites and actual peer5 dependency functions",
+      "repair": "Root increment implemented; five peer wait sites and broader migration required",
+      "validation": "Source-only, no final clearance"
+    }
+  ],
+  "pre_repair_inventory": {
+    "path": "target/pr826-audit/scope-pre-repair-code.json",
+    "sha256": "d79722a576aae641a7b432c258bcac02b7cfc2caea0ab4a41028c448f1d22ace",
+    "pin": "6bf03a8d04bf246c996bbbfa17c1925ebd150c38",
+    "root_sites": 18,
+    "peer_sites": 5,
+    "lenses": 13,
+    "order": "Source inspected first, then all13 pre-repair source-backed contracts/dispositions/acceptance checked; no reliance on prior verdict"
+  },
+  "nogrowth": {
+    "files": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+        "meaningful_production": 158,
+        "previous_meaningful_production": 163,
+        "raw_lines": 167,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+        "meaningful_production": 68,
+        "previous_meaningful_production": 74,
+        "raw_lines": 73,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+        "meaningful_production": 140,
+        "previous_meaningful_production": 97,
+        "raw_lines": 150,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "meaningful_production": 61,
+        "previous_meaningful_production": 66,
+        "raw_lines": 76,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+        "meaningful_production": 59,
+        "previous_meaningful_production": 64,
+        "raw_lines": 64,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+        "meaningful_production": 111,
+        "previous_meaningful_production": 99,
+        "raw_lines": 120,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+        "meaningful_production": 184,
+        "previous_meaningful_production": 175,
+        "raw_lines": 210,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+        "meaningful_production": 188,
+        "previous_meaningful_production": 193,
+        "raw_lines": 202,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+        "meaningful_production": 60,
+        "previous_meaningful_production": 48,
+        "raw_lines": 65,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+        "meaningful_production": 148,
+        "previous_meaningful_production": 161,
+        "raw_lines": 166,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+        "meaningful_production": 525,
+        "previous_meaningful_production": 527,
+        "raw_lines": 641,
+        "existing_file_ceiling": 538,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+        "meaningful_production": 97,
+        "previous_meaningful_production": 100,
+        "raw_lines": 112,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+        "meaningful_production": 235,
+        "previous_meaningful_production": 237,
+        "raw_lines": 270,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+        "meaningful_production": 97,
+        "previous_meaningful_production": 100,
+        "raw_lines": 112,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "meaningful_production": 805,
+        "previous_meaningful_production": 807,
+        "raw_lines": 896,
+        "existing_file_ceiling": 899,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+        "meaningful_production": 182,
+        "previous_meaningful_production": 195,
+        "raw_lines": 202,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+        "meaningful_production": 127,
+        "previous_meaningful_production": 99,
+        "raw_lines": 165,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+        "meaningful_production": 10,
+        "previous_meaningful_production": 6,
+        "raw_lines": 11,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+        "meaningful_production": 90,
+        "previous_meaningful_production": 0,
+        "raw_lines": 113,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "meaningful_production": 107,
+        "previous_meaningful_production": 107,
+        "raw_lines": 187,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+        "meaningful_production": 242,
+        "previous_meaningful_production": 242,
+        "raw_lines": 261,
+        "existing_file_ceiling": null,
+        "assessment": "New/grown file below500 or existing oversized texture file decreases; no ceiling change"
+      }
+    ],
+    "baseline_unchanged": true,
+    "methods": "New ValidationScope::new8/finish12 and resolve_observation15 raw lines; new scope module113 raw/90 meaningful. All new/changed error methods below100; existing large texture functions shrink; pipeline get_or_create increases below100. Source-accounting only, no quality scanner. Required hosted baseline reductions pending."
+  },
+  "existing_fixture_modules": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "dbfb98db3fb3bdfdd6dca813bdb01af838ee77c03c83368d2509fefd2d1f6b34",
+      "identical_to_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "95bf9f3e1fae987397535afaf6cc2bd43b5caff9b555880cd16997d3a6511329",
+      "identical_to_parent": true
+    }
+  ],
+  "doc_fences": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "fence": 0,
+      "sha256": "d7c4371f41784a7174e93696569b6b607feb1b67c3b8c9e86d3f1c404ea7ea0c",
+      "identical_to_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "fence": 0,
+      "sha256": "7d15f260c41df1d91a205d4d9ee125506b28a40703bc709c77ffda3b972037f7",
+      "identical_to_parent": true
+    }
+  ],
+  "test_policy": "No changed test file/case/helper/assertion/doctest population; existing inline modules and all code fences match parent. Original826 fixtures/workflow remain unchanged by this22path increment. No new production unwrap()/expect(), unsafe, compatibility aliases/forwarders or lint suppression introduced.",
+  "required_dependencies": [
+    "Fix new guide line wrapping at next revision.",
+    "Integrate #780 five exact current peer wait functions using shared scope/resolver and agreed state/cause publication rules; current source still discards actual poll results.",
+    "Complete all canonical source/device/physical layout/count/Sim/card/creator/caller/completion/cache/application/lock integrations already required; no independent shared repair or type owner duplication.",
+    "Unchanged Texture2d/Texture3d readback still has text-erased map/channel errors, ignored nonblocking Poll and unchecked row/volume arithmetic. These separate existing readback contracts are outside the18 scoped-wait repair and are explicitly not cleared.",
+    "Complete full13 integrated waves, all three independent reviews and hosted project/baseline/fmt/lint/existing tests CI on same final pushed SHA."
+  ],
+  "limits": [
+    "Source only; all22 pinned files completely read, actual18 scoped functions and required peer5 functions independently inspected. Other retained receipts retain their declared prior read granularity, never hashes as new body-read credit.",
+    "No source edits, project execution/check/build/lint/test/scanner/generator/runtime/push/CI or new tests/cases/helpers/assertions/doctests. Reports only ignored target.",
+    "No scope-wait family/global/fullPR/source-compilation/native-runtime/GPUhealth/completion/final clearance. Native scopes only Validation, no rollback of recorded/submitted operations.",
+    "Native SDK backend/progress/SendSync source evidence does not validate browser runtime/atomics or all hardware features."
+  ],
+  "correctness_verdict": "No new semantic implementation defect found in root receiving scoped-wait increment. New P3 guide wrapping rule regression remains.",
+  "completeness_verdict": "Partial receiving implementation:18 root sites consume canonical contract;5 unchanged peer sites and required broader connected producer/caller/lock/readback/final hosted gates remain open.",
+  "head_at_report": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+  "status_at_report": " M crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs\n M crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs\n M crates/fabelgeist-gpu/texture-views.md\n"
+}

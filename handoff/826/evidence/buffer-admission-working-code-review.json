@@ -1,0 +1,224 @@
+{
+  "title": "Independent post-repair working Buffer admission Code Review",
+  "head": "6e56adeab1101743941c6d50eef4340008b910ea",
+  "head_tree": "202fc9f4e0e0721003da587b4a68ffd7e603bf72",
+  "revision_qualification": "Working two-file source checkpoint; not committed/pushed SHA or wholeGPU/native83 clearance. Generated owned GPU files elsewhere are independently dirty. Exact reviewed bytes are the two SHA256 identities below.",
+  "changed_source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "abac05c4f4b49a90348a933fb2655b9417c4e52edd52aad390e111d831118e02",
+      "lines": 117,
+      "coverage": "Fresh complete working source and current full diff against6e56; source-only."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/admission_error.rs",
+      "sha256": "a5a41a86f6c2a1e31715329fe4a234d8d9c30dd4c972660c405e4cbeade13a40",
+      "lines": 41,
+      "coverage": "Fresh complete working source and current full diff against6e56; source-only."
+    }
+  ],
+  "dependency_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+      "sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+      "sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "exact_pre_review_identity": true,
+      "coverage": "Explicit full/bounded source coverage carried from buffer-admission-current-code-review, retained exact bytes; no fresh whole-body reread."
+    }
+  ],
+  "verdict": "No actionable Code defect found in the bounded two-file change. BA-R1 source classification is repaired; no broader/final clearance.",
+  "verified_contracts": [
+    "BufferAdmissionError owns exactly EmptyAllocation, WriteOffsetOverflow and WriteOutOfBounds. ByteOffset/ByteLength payloads retain request offset, upload bytes and logical capacity where relevant. Fixed zero classification needs no redundant byte field.",
+    "All three prior prose roots now directly carry actual owning error through existing anyhow::Result. No old forwarding API, public carrier widening, count/device owner, manifest dependency or duplicated native error type.",
+    "Allocation-zero predicate precedes allocate_native exactly; write_at checked_after overflow still precedes logical end comparison; equality proceeds and local failure still occurs before native mutation. write still uses START, from_upload still allocates before write and rejects empty upload unless caller chooses existing sentinel policy.",
+    "Only eager construction replaces lazy closure on a pure data.length getter; no fallible/native operation or publication order changes.",
+    "Display strings remain equivalent to original diagnostics, including typed Display of requested bytes/address/capacity. Local validation failures have no fabricated underlying cause; std::error::Error default source is None.",
+    "BufferDefinition allocate_native and BufferUpload write_to are byte-exact pre-review and still return actual wgpu::Error via existing immediate observation. Those SDK errors still flow directly through ?, preserving actual anyhow cause/downcast behavior and current provider policy.",
+    "Prefix zero, exact native Arc association, binding nonempty/physical bounds, read zero/ZST/partial-element/padding, mapping/progress/cancellation and existing session/source wrappers are unchanged exact dependencies.",
+    "Owner export occurs once from buffer module; current data/gpu ->data ->prelude wildcard chain makes error available without aliases or edits to peer-owned exports. Existing fixtures/assertions/helper bodies/doctests and other Buffer source remain byte-exact."
+  ],
+  "findings": [],
+  "acceptance_state": {
+    "BA-R1": "Closed in reviewed working source only.",
+    "two_file_handoff": "Exact hashes support bounded canonical source handoff after all3 scoped reviews; final same-pushed-SHA independent reviews/hosted gates still required.",
+    "retained_open": "Mesh false SDK-universal nonzero allocation comment belongs pending peer correction. All canonical count/stride/device/producer/physical/caller/lock/source/native83/global gates remain independently required."
+  },
+  "limits": [
+    "Two full fresh file reads/diff plus30 exact dependency identities carried from focused31-source review; no full native83 re-clearance, no159-callsite whole-body credit.",
+    "No source edits, copying, project execution/build/check/lint/test/scanner/generator/runtime/probe, new cases/helpers/assertions/doctests, push or CI request. Python performed source/JSON/Git/hash bookkeeping only.",
+    "No actual native/browser result or compilation inference from this source-only classification review."
+  ]
+}

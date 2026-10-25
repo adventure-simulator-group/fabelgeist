@@ -1,0 +1,388 @@
+{
+  "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "tree": "868959fcaec6f7b624c0c462c6bea4a6a70528d4",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "scope": "Independent source-only Rule Review of complete six Root-owned facade/staging/error/session/manifest files plus bounded actual native/canonical/recipient closure",
+  "source_coverage": [
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "raw_lines": 179,
+      "coverage": "Fresh full source and main diff read; no omitted methods/comments/inline tests",
+      "ceiling": "All owning Rust files below200 raw lines; manually read complete methods below100 raw lines, no baseline exception needed"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "raw_lines": 135,
+      "coverage": "Fresh full source and main diff read; no omitted methods/comments/inline tests",
+      "ceiling": "All owning Rust files below200 raw lines; manually read complete methods below100 raw lines, no baseline exception needed"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "raw_lines": 147,
+      "coverage": "Fresh full source and main diff read; no omitted methods/comments/inline tests",
+      "ceiling": "All owning Rust files below200 raw lines; manually read complete methods below100 raw lines, no baseline exception needed"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "raw_lines": 185,
+      "coverage": "Fresh full source and main diff read; no omitted methods/comments/inline tests",
+      "ceiling": "All owning Rust files below200 raw lines; manually read complete methods below100 raw lines, no baseline exception needed"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "raw_lines": 42,
+      "coverage": "Fresh full source and main diff read; no omitted methods/comments/inline tests",
+      "ceiling": "All owning Rust files below200 raw lines; manually read complete methods below100 raw lines, no baseline exception needed"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "raw_lines": 28,
+      "coverage": "Fresh full source and main diff read; no omitted methods/comments/inline tests",
+      "ceiling": "All owning Rust files below200 raw lines; manually read complete methods below100 raw lines, no baseline exception needed"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/frame.rs",
+      "sha256": "3f26803970af96abe7f16ff9d245230a7718e93f657f8868d605623716356c5e",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-armor/src/material/tile.rs",
+      "sha256": "a094fe52ceba98b71a00ae2fa974ba24cf769131e3c265373727f353f3885869",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "1f04c47be73adda0a4c4a415677aac0951c7bab9e24a5ad1b8f99058ae342afe",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+      "sha256": "b8ddcee5609c637aab7a5bd5964eb26649e97d3e0bd3906401344db0851d3701",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-compute/src/mesh_query/quantities.rs",
+      "sha256": "9527dace22a827c16ef4d1c8ad1fab21f692f58a7ea7ac89347f63cc4de793d2",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-compute/src/mesh_query/output.rs",
+      "sha256": "f1a09a4e792855ad311f29c4b6921ebcde7f18136038d1a0301049450608d83c",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-compute/src/mesh_query/selection.rs",
+      "sha256": "0a76b1bcb0e0afa465c2f48fff6b21ec5aba0cf1c5bbddd7ad01947e01d4b248",
+      "coverage": "Fresh complete source read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "coverage": "215-315: complete stage/finish functions plus accessors; preceding constructor/recording/generator bodies not complete coverage"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "coverage": "145-198: complete read/stage/finish functions and adjoining dispatch tail, not complete whole source"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "sha256": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee",
+      "coverage": "180-188: complete native frame_words, not whole recipe"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "sha256": "b7eedf258c742117f1e6dbcb5abfeb71614f57e3001a6bd335b88c160ffca0ee",
+      "coverage": "1-240: shader/source context only; remaining strings not freshly read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "sha256": "6ec6867195a91d26c804bd15de978e0e438e243c269705945f553f1f41f0113d",
+      "coverage": "1-150 only; whole file identity exact main, not fresh full fixture read"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+      "coverage": "323-355: complete callback/submit native boundary, previously full canonical body receipts not a fresh whole file claim"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "cb2e40ae34578f120b979f8be49427c8b364d695883af4fede324ae24cdfa6c2",
+      "coverage": "1-289 complete production responsibilities; inline existing fixture suffix not freshly read"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+      "sha256": "c0eb952568db09be6704bd7fc203309c14902c8865f81381b713e9d697578634",
+      "coverage": "185-335 complete constructor/record responsibilities and surrounding code; not full WGSL/fixtures"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "coverage": "16-40 interface/error/texture recipient only"
+    },
+    {
+      "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "coverage": "57-81 complete opening half of ShellTextures::armor/error boundary only"
+    }
+  ],
+  "rules": [
+    "crates/AGENTS.md:28-57,69-71 canonical leaves, native adapters and one owner",
+    "crates/AGENTS.md:80-84 proven indexing",
+    "crates/AGENTS.md:90-94 item/module order",
+    "crates/AGENTS.md:118-127 owning errors and no production unwrap/expect",
+    "crates/AGENTS.md:166-178 fixed500/100 no-growth and relevant hosted reductions",
+    "Root AGENTS architecture no compatibility shims; ignored review reports; preserve existing contracts",
+    "Armor AGENTS opening scope: maintenance/native API review is not shape/fitting/visual authoring and requires no art cycle"
+  ],
+  "traces": [
+    {
+      "family": "ArmorGpu session",
+      "trace": "facade.rs35-60 opens/accepts one actual context, builds cache/query/two weighting kernels before publishing Self -> buffers uploaded/scratched on same context -> batch submit errors propagated in build_in and nearest_points before read -> Buffer mapping owner and GenerateError::Gpu actual cause. Cache/provider internals require canonical integration; no universal context device identity brand claimed."
+    },
+    {
+      "family": "Armor nearest query",
+      "trace": "empty queries first145-147; nonempty queries plus empty targets typed InvalidSurface148-150; host slices -> checked QueryCount/MeshVertexCount151-152 -> canonical QueryHits layout word proof153 -> PointSelection::All actual target count164 -> typed batch dispatch -> successful submit169 -> native u32 answer prefix170-171. Native u32 output is shader index ABI, not a claimed checked arbitrary index type."
+    },
+    {
+      "family": "Staging session",
+      "trace": "private Arc<StagingSession> allocation owned by Staging/issued Staged tickets/staged results; Arc::ptr_eq plus checked slot access76-82 rejects foreign tickets. Host count*size checked87-93; exact byte prefix94-99, nonzero T83-86 and try_reserve100-105 ensure no partial bytes synthesized. status uses fixed index only after successful one-element prefix111-112. read_staged_async127-133 publishes results only after successful batch submit and mapping. Canonical Readback derives device from batch and retains it across mapping; existing Root Readback old signature remains required receipt."
+    },
+    {
+      "family": "Metal native words",
+      "trace": "MetalTextureSize canonical tile32..1024 -> texels BufferElementCount -> checked words(per-texel) -> private scratch word count + native u32 stride -> u64 byte_length product bounded by two u32 leaves; physical one-word minimum for empty input preserved96-114. Private kernels/context are one complete MetalGpu initialization. InvocationCount goes directly to canonical batch dispatch. Peer validated material/cut/bake flow is required receipt, not duplicated in facade."
+    },
+    {
+      "family": "Actual error causes",
+      "trace": "facade device_error maps Into<anyhow::Error> directly to GenerateError::Gpu #[source]; StagingError::Decode #[from] retains BufferReadError; readback #[from] retains ReadbackError; MetalDeviceError source is actual anyhow::Error, no Display-to-string classification. Owned native progress and encoder finish/submit failures retain SDK errors; downstream Creator string caches still lose them."
+    }
+  ],
+  "new_owned_findings": [],
+  "required_dependencies": [
+    {
+      "id": "AM-D1",
+      "severity": "P1",
+      "owner": "780 canonical and caller integration",
+      "source": "Root facade imports QueryCount/PointSelection/MeshVertexCount; metal imports MetalTextureSize/BufferElementCount/Stride; staging calls Readback::record(batch,buffers)/read(). Existing Root readback.rs83+ still requires context argument; Root canonical owners/exports not all imported. b11 exact definitions read.",
+      "acceptance": "Receive exact complete canonical owners and exports, preserve native root implementations, propagate actual callers; no alias/raw overload or independent duplicate type."
+    },
+    {
+      "id": "AM-D2",
+      "severity": "P1",
+      "owner": "780 generators/material/fitting and Creator callers",
+      "source": "Root part.rs266-299/body.rs182-184 still results.get and by-value/infallible status; bracer425-472,breastplate269-287,anime_sampling105,plates159 and Creator device_fit_readback32 still old staging protocol. Raw gpu.scratch bytes/str label callers remain e.g.part78-97/Creator device_frames179. Root metal bake17/31+ still u32/String/rawscratch/unchecked batch.submit; existing tests still old raw texture API.",
+      "acceptance": "Migrate all actual producer/caller/retained slots/errors through borrowed tickets, checked prefixes/status and canonical bytes/labels/counts. Existing tests only API adaptations, no new cases/helpers/assertions. Never revive get compatibility or old overload."
+    },
+    {
+      "id": "AM-D3",
+      "severity": "P2",
+      "owner": "780 four Creator initialization caches",
+      "source": "Root armor_gpu.rs17-25 OnceCell<Result<ArmorGpu,String>> and metal_gpu.rs11-18 OnceLock<Result<MetalGpu,String>> erase actual errors. Other two hair initializers in b11 inventory remain required.",
+      "acceptance": "Preserve explicit agreed initialize-once outcome policy and retain actual reusable errors through actual UI/cache recipient boundary. Pipeline Progress retry policy is API-specific, not a blanket application retry requirement."
+    },
+    {
+      "id": "AM-D4",
+      "severity": "P1",
+      "owner": "780 canonical lock graph",
+      "source": "Root Armor Cargo declares anyhow and Mesh; current Root Cargo.lock Armor package lacks both direct edges. Prior b11 Creator lock lacks them also, while b11 root lock includes them.",
+      "acceptance": "Reconcile exact final manifests and both locks with all canonical graph receipts; no blind unrelated lock replacement."
+    },
+    {
+      "id": "AM-D5",
+      "severity": "required",
+      "owner": "Root plus780 final graph/hosted gates",
+      "source": "This source review does not compile Root or certify complete physical producers/callers/global thirteen lenses. Exact final hosted baseline reduction export and project gates remain pending.",
+      "acceptance": "Complete connected implementation/receipts; same final pushed SHA independent three reviews, full all13 and required hosted checks."
+    }
+  ],
+  "native_sdk_limits": {
+    "wgpu": "29.0.4",
+    "error_traits": "device.rs774-817: ErrorSource Send+Sync only cfg(send_sync); build.rs native or fragile non-atomic wasm. Root GPU Cargo native std enabled; browser fragile-send-sync-non-atomic-wasm enabled; atomics-Wasm not certified. No blanket portable SendSync assertion.",
+    "scope_thread": "thread_id.rs uses cfg(feature=\"std\"), distinct from SDK cfg(std) alias. Native GPU dependency explicitly enables feature std; same-thread guard preserved.",
+    "provider": "Observed Validation only under owning native blocking policy; borrowed contexts/browser use device handlers. Successful submit not GPU completion; separate mapping drives native/browser progress. Exact Device and paired queue remain API preconditions for foreign buffers/context parts."
+  },
+  "no_growth_and_tests": {
+    "owned_raw_lines": {
+      "crates/fabelgeist-armor/src/gpu/facade.rs": 179,
+      "crates/fabelgeist-armor/src/gpu/staging.rs": 135,
+      "crates/fabelgeist-armor/src/gpu/metal/mod.rs": 147,
+      "crates/fabelgeist-armor/src/gpu/mod.rs": 185,
+      "crates/fabelgeist-armor/src/error.rs": 42,
+      "crates/fabelgeist-armor/Cargo.toml": 28
+    },
+    "DevicePart_body_exact_main": true,
+    "metal_fixture_whole_bytes_exact_main": true,
+    "owned_new_inline_tests_cases_helpers_assertions_doctests": false,
+    "production_unwrap_expect_or_unsafe_in_owned_files": false,
+    "ceiling_raised": false
+  },
+  "coordination": {
+    "3ee": "Exact3ee2c830508e2e34398943fd4cb139033e4a2e4c is held Advect checkpoint, not Armor/Metal source authority; not needed to prove these facade bodies",
+    "fff": "Row-cause correction independently read in prior b11 successor receipt; no Armor/Metal definition changes, unreceived",
+    "ownership": "Root owns reviewed native bodies;780 generators/material/fitting/caller/cache/lock implementation remains required, no independent repairs authorized by this report"
+  },
+  "correctness_verdict": "No new actionable rule finding in complete owned six-file receiving family, given exact canonical interfaces; current source graph demonstrably incomplete as listed, no compilation claim",
+  "completeness_verdict": "Partial migration: required canonical/producer/staging/metal/cache/lock caller graph remains open. No family/global/final clearance.",
+  "execution": "Source reads, Git identities/diffs and TOML dependency bookkeeping only. No project checks/scanner/build/test/generator/runtime/source edit; ignored reports only."
+}

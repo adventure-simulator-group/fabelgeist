@@ -1,0 +1,526 @@
+{
+  "review": "Independent lexical extension pre-repair Comment discovery",
+  "head": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+  "tree": "f8c67de65206ca90efe21e54c6c9e2e9bafa9cc3",
+  "status": "Bounded discovery/wording requirements complete; proposed lexical owner unimplemented, no global clearance",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "lines": 125,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          125
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "e638381ad701a4b95e91bc4e3128d8c84526fa81cab3e535895aba1af3c3f975",
+      "lines": 106,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          106
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "lines": 122,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          122
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "cc7727ee7caed96373fcf49f63b22e670f24458cd447d715492fbe1b80805796",
+      "lines": 113,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          113
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "04af568622f691ab9b1b50eea9d3fc38ca514e55fd2ad81ea50caaf23ee6586a",
+      "lines": 182,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          182
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "lines": 122,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          122
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "lines": 131,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          131
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "lines": 120,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          120
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          123
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "lines": 135,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          135
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "bce3a66580252ce1353e2ae500dc11ea596deea17d46155a2f4fd9584365846d",
+      "lines": 184,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          184
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "lines": 148,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          148
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "lines": 121,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          121
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          228
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "lines": 138,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          138
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "lines": 110,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          110
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "lines": 123,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          123
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "lines": 178,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          178
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "lines": 103,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          103
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "lines": 64,
+      "matches_pinned_git": true,
+      "coverage": "Fresh complete owning source and comments read; external test-module bodies not freshly read in this wave",
+      "read_extents": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "ad6e3def79c9310934148627ecad10bb08ca71baaa585897559999d7a1d169b6",
+      "lines": 291,
+      "matches_pinned_git": true,
+      "coverage": "Fresh bounded binary-signature consumers/cache/launch boundary only; remaining shader/algorithm/fixture bodies unreviewed here",
+      "read_extents": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9",
+      "lines": 351,
+      "matches_pinned_git": true,
+      "coverage": "Fresh bounded binary-signature consumers/cache/launch boundary only; remaining shader/algorithm/fixture bodies unreviewed here",
+      "read_extents": [
+        [
+          1,
+          110
+        ],
+        [
+          188,
+          220
+        ]
+      ]
+    }
+  ],
+  "qualified_prior_full_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "exact_prior_full_source": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/native-receiving-pre-comment-review.json",
+      "prior_account": {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+        "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+        "lines": 250,
+        "matches_pinned_git": true,
+        "coverage": "Fresh complete source/owning docs/comments/included existing fixture read; no execution",
+        "read_extents": [
+          [
+            1,
+            250
+          ]
+        ]
+      },
+      "coverage": "Exact same-pin full source read carried; comparison/binary first-argument projection and Min/Max rewrite contracts revalidated with current extension, not a new full-body read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "exact_prior_full_source": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/native-receiving-pre-comment-review.json",
+      "prior_account": {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+        "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+        "lines": 26,
+        "matches_pinned_git": true,
+        "coverage": "Fresh complete source/owning docs/comments/included existing fixture read; no execution",
+        "read_extents": [
+          [
+            1,
+            26
+          ]
+        ]
+      },
+      "coverage": "Exact same-pin full source read carried; comparison/binary first-argument projection and Min/Max rewrite contracts revalidated with current extension, not a new full-body read"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/min.rs",
+      "sha256": "091d1b1b38e44416d173a3f75e18ac32f93aadc3f5a75889ecad82902bace38a",
+      "exact_prior_full_source": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/native-receiving-pre-comment-review.json",
+      "prior_account": {
+        "path": "crates/fabelgeist-compute/src/reduce/min.rs",
+        "sha256": "091d1b1b38e44416d173a3f75e18ac32f93aadc3f5a75889ecad82902bace38a",
+        "lines": 68,
+        "matches_pinned_git": true,
+        "coverage": "Fresh complete source/owning docs/comments/included existing fixture read; no execution",
+        "read_extents": [
+          [
+            1,
+            68
+          ]
+        ]
+      },
+      "coverage": "Exact same-pin full source read carried; comparison/binary first-argument projection and Min/Max rewrite contracts revalidated with current extension, not a new full-body read"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/max.rs",
+      "sha256": "20d4849e3e5a1f7a9c067e9d92e8e0f79d09ec97ef5b9df490089d44f1f44e4b",
+      "exact_prior_full_source": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/native-receiving-pre-comment-review.json",
+      "prior_account": {
+        "path": "crates/fabelgeist-compute/src/reduce/max.rs",
+        "sha256": "20d4849e3e5a1f7a9c067e9d92e8e0f79d09ec97ef5b9df490089d44f1f44e4b",
+        "lines": 68,
+        "matches_pinned_git": true,
+        "coverage": "Fresh complete source/owning docs/comments/included existing fixture read; no execution",
+        "read_extents": [
+          [
+            1,
+            68
+          ]
+        ]
+      },
+      "coverage": "Exact same-pin full source read carried; comparison/binary first-argument projection and Min/Max rewrite contracts revalidated with current extension, not a new full-body read"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_error.rs",
+      "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "exact_prior_full_source": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/native-receiving-pre-comment-review.json",
+      "prior_account": {
+        "path": "crates/fabelgeist-compute/src/source_error.rs",
+        "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+        "lines": 209,
+        "matches_pinned_git": true,
+        "coverage": "Fresh complete source/owning docs/comments/included existing fixture read; no execution",
+        "read_extents": [
+          [
+            1,
+            209
+          ]
+        ]
+      },
+      "coverage": "Exact same-pin full source read carried; comparison/binary first-argument projection and Min/Max rewrite contracts revalidated with current extension, not a new full-body read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "exact_prior_full_source": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/native-receiving-pre-comment-review.json",
+      "prior_account": {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+        "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+        "lines": 82,
+        "matches_pinned_git": true,
+        "coverage": "Fresh complete source/owning docs/comments/included existing fixture read; no execution",
+        "read_extents": [
+          [
+            1,
+            82
+          ]
+        ]
+      },
+      "coverage": "Exact same-pin full source read carried; comparison/binary first-argument projection and Min/Max rewrite contracts revalidated with current extension, not a new full-body read"
+    }
+  ],
+  "sdk_account": {
+    "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/naga-29.0.4/src/front/wgsl/parse/lexer.rs",
+    "sha256": "7208b9d96e850b285a45fb114b8a40eb74ce2cc143c528a1e967626d8395fcc0",
+    "read_extents": [
+      [
+        284,
+        364
+      ],
+      [
+        414,
+        447
+      ]
+    ],
+    "coverage": "Fresh actual nested block-comment and Unicode line-end/blankspace lexer excerpts; no SDK execution/full lexer audit"
+  },
+  "new_separate_comment_findings": [],
+  "connected_findings": "Known G4/shared unmasked source selection and rewriting weakness; the following requirements define faithful post-repair prose, not separate subjective style findings.",
+  "contract_inventory": [
+    {
+      "id": "LEXICAL-SOURCE-1",
+      "sources": [
+        "GPU signature.rs",
+        "five generated */signature.rs",
+        "source_parameter.rs"
+      ],
+      "existing_contract": "Current regex captures first matching function in original text, including comments. NativeParameter borrows declaration/name/type and SourceParameter retains original trimmed declaration+role. Map/Gather/Stencil require return metadata, Scatter/Stream void-style headers.",
+      "disposition": "Connected pre-repair weakness; shared owner planned, not implemented",
+      "required_wording": "\u201cBorrowed lexical view of one uniquely selected named source function. Comment-masked text preserves original UTF-8 byte offsets; spans identify original source. This is projection metadata, not whole WGSL parsing, type checking or native compilation.\u201d",
+      "acceptance": "One actual lexical owner in GPU; all five and binary/comparison consumers use its selected function. Preserve existing source-role order, source declarations and canonical local error versus later SDK/compiler causes. Reject ambiguous visible duplicate declarations before a one-span rename could make invalid source valid."
+    },
+    {
+      "id": "LEXICAL-SOURCE-2",
+      "sources": [
+        "Naga lexer.rs:296\u2013364,421\u2013447"
+      ],
+      "existing_contract": "Pinned Naga line-comment terminators include LF/VT/FF/CR, NEL and Unicode line/paragraph separators; block comments nest. Existing source regex treats comment text as code.",
+      "disposition": "Source-backed mask semantics; implementation not yet reviewed",
+      "required_wording": "Describe masking comments and retaining source byte positions. Do not call this a complete WGSL lexer or Naga validator; only shared comment/line-end rules are established here.",
+      "acceptance": "Mask preserves byte length and valid source-span boundaries even for multibyte comment text. Naga comment-end characters U+000A\u2013000D/U+0085/U+2028/U+2029 and nested block comments are covered by the actual implementation; no earlier whole-module parse or new numerical/identifier policy is inferred."
+    },
+    {
+      "id": "LEXICAL-SOURCE-3",
+      "sources": [
+        "Gather/Scatter/Stream program.rs",
+        "Stencil bindings.rs",
+        "SourceParameter declarations"
+      ],
+      "existing_contract": "Builders currently independently regex-replace a header, while Stencil neighborhood mode globally replaces raw Neighbors patterns. This can target comments and disagree with the signature capture.",
+      "disposition": "Shared-span rewrites required as part of same family",
+      "required_wording": "Say which selected source span changes: generated algorithms project resource-role parameters or lower neighborhood type syntax; G4 renames only the selected function identifier. Preserve original retained declarations rather than reconstructing their comments from masked text.",
+      "acceptance": "Selection and rewrite share the same original source/span authority. Preserve source outside intended argument/type/name edits, including actual body/comments/globals. Do not describe generated header projection as a byte-identical full header. Non-comment reserved neighborhood lowering must not rewrite commented text or coincidental substrings. Complete post-repair body proof is still required."
+    },
+    {
+      "id": "LEXICAL-SOURCE-4",
+      "sources": [
+        "GPU signature.rs:194\u2013230",
+        "Reduce min.rs/max.rs"
+      ],
+      "existing_contract": "Binary helper and comparison helper project first argument type. Binary regex does not validate equal argument/return types; comparison requires lexical bool return but does not check operand type agreement. Min/Max exact-name substring replacements differ from their parser whitespace acceptance.",
+      "disposition": "ComparisonSignature agreement/API boundary planned; no old parser compatibility forwarder",
+      "required_wording": "\u201cProject the first comparison argument type and retain the selected source for identifier rewriting. Lexical admission does not validate operand agreement, function body or generated WGSL.\u201d Binary direct API likewise documents first-parameter projection.",
+      "acceptance": "ComparisonSignature::parse/value_type/renamed_source consumes shared FunctionSource; remove old parse_compare_signature rather than preserve a forwarding path. Preserve comments/whitespace/body except actual declaration-name span. Ambiguous functions fail rather than selectively rename one into validity. All existing Min/Max callers migrate by the agreed contract."
+    },
+    {
+      "id": "LEXICAL-SOURCE-5",
+      "sources": [
+        "Map/Gather/Scatter/Stream/Stencil definitions",
+        "ComputeShader::new",
+        "shader parse_naga/validate_naga"
+      ],
+      "existing_contract": "Public mutable code is parsed at construction/build/execute; source-aware caches include current code. ComputeShader parses/validates the generated program after bindings/source lowering, retaining actual causes.",
+      "disposition": "Keep lexical and native admissions separate",
+      "required_wording": "A signature/default definition is source-role metadata only; generated programs still undergo Naga parsing/validation and configured native creation. A successful lexical parse or rewrite is not a compiled pipeline or dispatch/native completion verdict.",
+      "acceptance": "Do not move Naga full-module validation earlier to reject supported pre-lowered Resource/Neighbors metadata. No cached signature stale against mutable code; current source participates in both parse and cache recipe. No universal native/browser/health/rollback claim."
+    }
+  ],
+  "limits": [
+    "Read-only pre-repair extension at exact clean19a; no implementation, project execution/check/build/test/scanner/generator/runtime, edits, push or CI.",
+    "No tests/cases/helpers/assertions/probes added. Existing external fixture bodies not freshly reread in this bounded extension; exact preservation and existing API adapters remain required post-repair evidence.",
+    "FunctionSource and ComparisonSignature proposed bodies do not exist at this pin and receive no hypothetical correctness credit. Explicit ownership/API agreements and Root complete pre-repair all13 remain prerequisites.",
+    "Twenty fresh complete source owners, two bounded binary consumer reads and six exact same-pin prior full reads are accounted individually; no hash-only new source coverage.",
+    "Canonical wider Reduce/Scan/resource-descriptor/stride/generated producer/caller/lock composition remains incomplete. Shader source-only review does not prove native generated execution, physical behavior or final acceptance.",
+    "Repeat complete all13 and independent Code/Rule/Comment reviews after the actual connected implementation; final hosted gates must pass on the same final pushed revision."
+  ]
+}

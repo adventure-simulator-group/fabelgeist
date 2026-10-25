@@ -1,0 +1,159 @@
+{
+  "review": "Independent Comment Review of incoming sole-UV authority packet",
+  "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "tree": "57cea419b31eac49981a90599b87e6990b407bcc",
+  "packet_base": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "main_pin": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-uv-authority-d000e848f/manifest.json",
+  "manifest_sha256": "08108d5f1591fd9dddd27d21d0c0d4e7d1c6977f3208699ede02e464da98e0c3",
+  "receiving_status": "Root has not copied; exact incoming source only",
+  "source_accounting": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad",
+      "lines": 62,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-uv-authority-d000e848f/source/crates/adventuresim-character-creator/src/export/rigged.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh full source read including all existing fixtures; complete six-path packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+      "lines": 111,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-uv-authority-d000e848f/source/crates/adventuresim-character-creator/src/export/shell.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh full source read including all existing fixtures; complete six-path packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+      "lines": 162,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-uv-authority-d000e848f/source/crates/adventuresim-character-creator/src/export/validation.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh full source read including all existing fixtures; complete six-path packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "a542629ff77155448219d508e544a55f2da0c3f024f7454fb2c26a597f1da13a",
+      "lines": 250,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-uv-authority-d000e848f/source/crates/adventuresim-character-creator/src/character_export.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh full source read including all existing fixtures; complete six-path packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "bc324c39eaed75e445e0b5247a8ce1adcd1cc336525d221ba6f174aacfb2cbd8",
+      "lines": 344,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-uv-authority-d000e848f/source/crates/adventuresim-character-creator/src/equipment_export.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh full source read including all existing fixtures; complete six-path packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368",
+      "lines": 1785,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-uv-authority-d000e848f/source/crates/adventuresim-character-creator/src/export.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh full source read including all existing fixtures; complete six-path packet-base diff read"
+    }
+  ],
+  "unchanged_relying_source_accounting": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "lines": 105,
+      "identical_to_packet_base": true,
+      "coverage": "Fresh complete unchanged relying source read, including existing fixtures where present"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "lines": 237,
+      "identical_to_packet_base": true,
+      "coverage": "Fresh complete unchanged relying source read, including existing fixtures where present"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+      "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+      "lines": 389,
+      "identical_to_packet_base": true,
+      "coverage": "Fresh complete unchanged relying source read, including existing fixtures where present"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+      "sha256": "0b57ba3d094cdb3ac0ea1e872f7177837ffae8c16be441a1dbcb823d220b26dc",
+      "lines": 32,
+      "identical_to_packet_base": true,
+      "coverage": "Fresh complete unchanged relying source read, including existing fixtures where present"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "lines": 144,
+      "identical_to_packet_base": true,
+      "coverage": "Fresh complete unchanged relying source read, including existing fixtures where present"
+    }
+  ],
+  "coverage_totals": {
+    "fresh_complete_owning_files": 6,
+    "fresh_complete_relying_files": 5,
+    "prior_body_carries": 0,
+    "all6_packet_manifest_git_bytes_match": true
+  },
+  "actionable_comment_findings": [],
+  "contracts": [
+    {
+      "area": "Sole UV authority",
+      "trace": [
+        "export/rigged.rs:24-35",
+        "character_export.rs:168-203",
+        "equipment_export.rs:87-93",
+        "export/shell.rs:53-61"
+      ],
+      "evidence": "RiggedShell.surface now borrows maps only. texcoords is sole per-vertex UV column and remains required for either map payload. Character plate map producer associates only maps with preexisting rigged_armor texcoords; trim explicitly supplies trim.texcoords; equipment producer borrows maps only. Writer emits TEXCOORD_0 only from sole texcoords and has no source-surface UV fallback.",
+      "disposition": "New comments accurately state source authority; no duplicate cached UV slice retained."
+    },
+    {
+      "area": "Admission and compaction",
+      "trace": [
+        "export/validation.rs:51-71",
+        "export.rs:599-623",
+        "export/compact.rs:25-99"
+      ],
+      "evidence": "Export validates before compaction/serialization. Either maps family requires Some UVs; every supplied UV column must be finite and position-sized. Shell maps still require nonempty normal and metal/roughness PNG byte vectors. Compactor remaps UVs with same used-vertex order as positions/normals/skin/morphs, and rigged rebuild returns compacted column. Maps remain source borrowed with no coordinate data.",
+      "disposition": "Unchanged compactor owning docs remain accurate; no compaction-time source-UV fallback. This is a checked export boundary, not proof all public RiggedShell structs are valid at construction."
+    },
+    {
+      "area": "Existing relying producers",
+      "evidence": "rigged_armor supplies armor.texcoords, rigged_clothing supplies no maps/UVs; component maps retain the armor column. DrapedGarment::rigged supplies either own chart or required matching MailSurface chart; hair shell supplies cards.texcoords. Export validation remains the row-count/finite guard. MailSurface correspondence is explicit caller precondition, not newly proved by UV authority refactor.",
+      "disposition": "Reviewed relying docs and source fit sole-column contract. Deeper topology/chart generation or material/native validity not inferred."
+    },
+    {
+      "area": "Image/PBR and failure limits",
+      "evidence": "SurfaceTextures is applied first; optional textile finish then ShellTextures preserves old override order. Maps-only surface does not alter PNG validation/encoding/native baking, shader policy, material color/roughness or texture packaging. Validation errors propagate anyhow before serialization; caller fitting/baking/filesystem publication can occur earlier.",
+      "disposition": "No global rollback, complete PNG decode, image-layout/native health or GPU completion promise in new docs. Larger material/PBR policies remain required."
+    }
+  ],
+  "fixture_accounting": {
+    "source_read": "All export.rs source including existing fixture/helper/assertion bodies freshly read in full.",
+    "complete_packet_diff": "Only one existing textured fixture adapter changes surface from (uvs,maps) to maps and texcoords from None to same uvs. Cases/helpers/input values/oracles/assertions unchanged. No added tests/cases/helpers/assertions/doctests.",
+    "owner_proof": "Earlier eleven preservation comparisons and owner reviews were context only; no independent verdict inherited.",
+    "execution": "No fixtures or project commands executed."
+  },
+  "required_dependencies": [
+    "Exact future Root integration must preserve sole UV authority when later PBR/component/material changes compose these Root-owned Creator files.",
+    "Canonical material/color/component appearance/closed recipe/unit/count/seed/cause families, complete native/body/physical/generated caller/cache/export/lock closure remain required.",
+    "All final13-lens waves, independent Code/Rule/Comment reviews and required hosted checks must pass same final pushed revision."
+  ],
+  "limits": [
+    "Read-only source/Git inspection and ignored bookkeeping only. No source edits, local project execution/check/build/lint/test/scanner/generator/runtime, new tests/cases/helpers/assertions/doctests, push/CI or external posts.",
+    "All6 owning+5 directly relying files fully freshly read. Deeper entire material/geometry/rig/native/application graphs were not reopened; no compilation/native/runtime/global/final clearance.",
+    "Incoming pin is immutable source evidence and does not by itself describe current Root or subsequent peer source."
+  ],
+  "verdict": "No actionable Comment mismatch established in exact six-file UV authority packet and reviewed unchanged relying graph. Bounded source-only result; no whole family or final PR clearance."
+}

@@ -1,0 +1,325 @@
+{
+  "scope": "Only GPU3E-C1 guide error-routing wording correction, not all83-code all13/global clearance",
+  "head": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "tree": "a83c132e94bab1db7691468d553465081b7432fb",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "sources": [
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "25af127253b18860f351048e1732765bdd5d487d5100e9e347fd3a8124b4b6c0",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "coverage": "Carried exact full Rootd7 source account, unchanged manifest; construction defaults reconciled with current public-field and from_parts source."
+    }
+  ],
+  "sdk_source": {
+    "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+    "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+    "fresh_coverage": "lines638-688 complete error routing method/default handler, plus supporting scope search locations",
+    "evidence": "SDK routes Validation to innermost matching scope before custom/default uncaptured handling; no matching scope is required for handler path."
+  },
+  "finding": {
+    "id": "GPU3E-C1",
+    "priority": "P2",
+    "path": "crates/fabelgeist-gpu/texture-views.md",
+    "start": 40,
+    "end": 44,
+    "mismatch": "Guide treats ownership defaults as mandatory readback policy and claims uncaptured-handler-only error delivery. Public blocking_validation can be overridden on native; borrowed/browser scope skipping can leave a matching caller scope to capture the error. Root context docs already state configured-error-handling policy.",
+    "proposed_wording": "Native contexts that own their device read back the validation scope before returning by default. Borrowed contexts disable this blocking readback by default, and browser builds omit it. On these paths, native failures follow the device's configured error handling, including caller-installed scopes, rather than a synchronous `TextureViewError`."
+  },
+  "individual_lenses": [
+    {
+      "lens": "producer-propagation",
+      "source_contract_and_inventory": "SDK creates validation failure -> innermost matching thread-local ErrorScope or configured handler/default -> optional wrapper scope.finish -> TextureViewError. Borrowed wrapper scope is absent, so external SDK scope can receive concrete cause. Context construction initializes the public blocking_validation value; callers can override it on native. Trace actual field value -> wrapper optional scope -> SDK matching scope/handler, not ownership as immutable policy.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "GPU3E-C1 documentation defect; no runtime repair",
+      "connected_repair": "Replace only guide routing claim; preserve complete error/cause producer paths and typed caller propagation.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "No newly promised synchronous error or guaranteed uncaptured delivery. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contract_and_inventory": "SDK ErrorScope/ErrorFilter and device error handling already own routing; ValidationScope::new only decides whether this wrapper installs its own scope. Reuse public WgpuContext.blocking_validation as existing policy owner; constructor ownership descriptions are defaults, not a second policy classifier.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "GPU3E-C1 documentation defect; no runtime repair",
+      "connected_repair": "Use existing configured-error-handling terminology; no new wrapper, policy/type or handler.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "Guide reuses existing owners and does not add alternate routing authority. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contract_and_inventory": "Owned native construction consults blocking_validation; borrowed false/browser cfg skip wrapper verdict scope. Caller may install a matching Validation scope before native view construction. Owned constructors default native flag true; from_parts defaults false. Struct field is public so callers may override either. Browser skips synchronous scope independently of flag.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "GPU3E-C1 documentation defect; no runtime repair",
+      "connected_repair": "Document both pre-existing surrounding-scope and uncaptured/default routes.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "Concrete borrowed-context counterexample is accurately described; wrong-device/cache-first admission remains exact. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contract_and_inventory": "create_view reports SDK failure; ErrorSink::handle_error_or_return_handler searches reverse matching scopes and retains first error there. Only when none matches does handler/default run. A native caller can mutate public blocking_validation without changing native Device identity; guide must say default and leave exact current value authoritative.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "GPU3E-C1 documentation defect; no runtime repair",
+      "connected_repair": "No operation body or error propagation changes; correct guide sentence only.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "Native poll/pop/drop ordering and first-cause retention byte-identical. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contract_and_inventory": "Context blocking flag, actual creating device, active same-thread matching scope stack and configured handler together determine observed route. A false flag alone does not imply uncaptured route. Ownership does not fix flag value: creating device, current public policy, active scopes and handler determine current outcome.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "GPU3E-C1 documentation defect; no runtime repair",
+      "connected_repair": "State the existing complete relationship without adding a brand or scope-stack cache.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "No claim that borrowed/device identity alone proves handler delivery or native acceptance. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "type-ownership",
+      "source_contract_and_inventory": "Root owns guide and lower native observation policy. SDK owns ErrorSink matching. Peer owns ResourceDescriptor/signature/stride/producer integration, outside this prose repair. Root owns policy/default guide; no peer function edit or ownership inference follows from adding by-default precision.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "GPU3E-C1 documentation defect; no runtime repair",
+      "connected_repair": "Root edits one guide sentence after inventory; no shared-function edit or duplicate type.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "Only Root guide changes; required peer ownership/integration remains open. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contract_and_inventory": "Guide says uncaptured-only while actual SDK and Root WgpuContext docs say configured handling with active scopes taking priority. Do not duplicate constructor ownership as immutable observation authority; current field value and browser cfg remain authoritative.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "GPU3E-C1 documentation defect; no runtime repair",
+      "connected_repair": "Align prose with actual native owner; do not duplicate the routing policy in code or tests.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "Guide and authoritative context/SDK contracts agree for installed and absent outer scopes. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contract_and_inventory": "Before and after proposed change have identical runtime paths. Existing borrowed outer-scope error capture and default fatal/handler paths remain supported. Native policy overrides remain supported exactly; no default flag, constructor, scope installation or handling behavior changes.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "GPU3E-C1 documentation defect; no runtime repair",
+      "connected_repair": "Documentation correction only; preserve descriptors, requests, messages, causes, waits, native bits and all fixture bytes.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "Complete successor diff only changes that prose (plus justified80column reflow); no behavior/API/schema change. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contract_and_inventory": "Existing native ErrorFilter selects class; TextureViewError variants classify observed wrapper failures; optional wrapper scope is independent of external scopes. Public Boolean remains existing policy field, distinct from ownership and external scope state; no enum migration for this prose-only correction.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "Non-applicable code/type/numeric repair for this wording-only scope; existing contracts preserved",
+      "connected_repair": "No enum/flag/schema repair needed for bounded wording.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "Existing variants/flags/payloads unchanged; no invented new observed error state. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "derivability",
+      "source_contract_and_inventory": "No trait or serialization implementation participates in the inaccurate prose; SDK/typed error source implementations remain owner-authoritative. Public-field/constructor defaults remain unchanged; no trait or derive participates in correction.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "Non-applicable code/type/numeric repair for this wording-only scope; existing contracts preserved",
+      "connected_repair": "Non-applicable to a trait repair; retain all current derives/manual cause implementations.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "No trait/derive/wire/API alteration. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "type-granularity",
+      "source_contract_and_inventory": "Observed wrapper error, external scope capture and uncaptured delivery are distinct outcomes under one configured routing contract. Distinguish construction default, current policy and actual error destination without adding new role/type.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "GPU3E-C1 documentation defect; no runtime repair",
+      "connected_repair": "Preserve distinctions in words; no new Runtime/ErrorScope wrapper needed.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "No collapse into global validation success or handler-only classification. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "magic-strings",
+      "source_contract_and_inventory": "The three guide lines are contributor documentation; uncaptured-error handler and TextureViewError identify concrete SDK/error interfaces. No program branches on guide prose. Both default-policy qualifiers and configured-error-handling statement are prose only; no new runtime labels/classifiers.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "GPU3E-C1 documentation defect; no runtime repair",
+      "connected_repair": "Change human-facing routing text at Markdown boundary; preserve literal native diagnostics and lookup keys.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "No raw-string classifier/diagnostic/key changes; only inaccurate explanation corrected. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contract_and_inventory": "Target prose contains no numerical policy. SDK filter matching and thread identity do not require numeric repair; waits/poll timeout and view arithmetic stay unchanged. Native default true/from_parts false are existing policy Boolean values; no default-value or numeric changes.",
+      "locations": [
+        "texture-views.md:40-45",
+        "globals/validation_scope.rs:ValidationScope::new",
+        "globals/wgpu_context/mod.rs:blocking_validation",
+        "texture_2d/views.rs:select_view",
+        "texture_3d/views.rs:select_view",
+        "texture_cube/views.rs:view_with_format/face/array",
+        "SDK29 backend/wgpu_core.rs:638-675"
+      ],
+      "disposition": "Non-applicable code/type/numeric repair for this wording-only scope; existing contracts preserved",
+      "connected_repair": "No numeric change applicable. Preserve all native/time/count/format/byte policies and fixture values.",
+      "dependencies": "Root must preserve native policy/source/cause functions; final canonical producer/API/lock integration and hosted gates remain independently required.",
+      "acceptance": "No changed numeric token, shader, input, case, helper, assertion or polling cadence. Native constructor policy is described as a default; public native override remains accurate and browser omission explicit.",
+      "discovery": "complete for exact bounded sentence and routing contract",
+      "repair": "not started",
+      "validation": "source inspected only; no executed checks"
+    }
+  ],
+  "discovery": "complete13 for bounded documentation repair; broader all13 source inventory is Root-owned and this report does not supersede it",
+  "repair": "not started; source unchanged during review",
+  "validation": "source-only identities/reads, no project execution",
+  "limits": "All13 focused skills consulted; no source edits/new tests/cases/helpers/assertions/build/check/scanner/generator/runtime/push/CI. Existing exact prior source reads carried where cited in full83 report; SDK actual routing method freshly read. Root sole implementation owner. No final clearance."
+}

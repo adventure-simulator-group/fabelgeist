@@ -1,0 +1,68 @@
+crates/fabelgeist-compute/src/scatter.rs:296:                return layouter[base].size as u64;
+crates/fabelgeist-compute/src/scatter.rs:357:                u64::from(b.size) / input_size.max(&1)
+crates/fabelgeist-compute/src/scatter.rs:361:                (t.size.0 * t.size.1) as u64
+crates/fabelgeist-compute/src/scatter.rs:365:                (t.size.0 * t.size.1 * t.size.2) as u64
+crates/fabelgeist-compute/src/scatter.rs:384:            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/scatter.rs:386:                t.size.0.div_ceil(4),
+crates/fabelgeist-compute/src/scatter.rs:387:                t.size.1.div_ceil(4),
+crates/fabelgeist-compute/src/scatter.rs:388:                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/stencil.rs:843:                return layouter[base].size as u64;
+crates/fabelgeist-compute/src/stencil.rs:940:                        .insert(name.clone(), ResourceDescriptor::Texture2d(t.format));
+crates/fabelgeist-compute/src/stencil.rs:944:                        .insert(name.clone(), ResourceDescriptor::Texture3d(t.format));
+crates/fabelgeist-compute/src/stencil.rs:962:                u64::from(b.size) / output_size.max(&1)
+crates/fabelgeist-compute/src/stencil.rs:966:                (t.size.0 * t.size.1) as u64
+crates/fabelgeist-compute/src/stencil.rs:970:                (t.size.0 * t.size.1 * t.size.2) as u64
+crates/fabelgeist-compute/src/stencil.rs:988:            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/stencil.rs:990:                t.size.0.div_ceil(8),
+crates/fabelgeist-compute/src/stencil.rs:991:                t.size.1.div_ceil(8),
+crates/fabelgeist-compute/src/stencil.rs:992:                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/reduce/mod.rs:180:            element_size = layouter[base].size as u64;
+crates/fabelgeist-compute/src/reduce/mod.rs:217:                (u64::from(b.size) / element_size.max(1)).max(1) as u32
+crates/fabelgeist-compute/src/reduce/mod.rs:219:            fabelgeist_gpu::data::gpu::resource::GpuResource::Texture2d(t) => t.size.0 * t.size.1,
+crates/fabelgeist-compute/src/reduce/mod.rs:221:                t.size.0 * t.size.1 * t.size.2
+crates/fabelgeist-compute/src/reduce/mod.rs:242:                u64::from(buf.size) < required_size
+crates/fabelgeist-compute/src/map/mod.rs:394:                return layouter[base].size as u64;
+crates/fabelgeist-compute/src/map/mod.rs:498:                            .insert(name.clone(), ResourceDescriptor::Texture2d(t.format));
+crates/fabelgeist-compute/src/map/mod.rs:502:                            .insert(name.clone(), ResourceDescriptor::Texture3d(t.format));
+crates/fabelgeist-compute/src/map/mod.rs:523:                u64::from(b.size) / output_size.max(&1)
+crates/fabelgeist-compute/src/map/mod.rs:527:                (t.size.0 * t.size.1) as u64
+crates/fabelgeist-compute/src/map/mod.rs:531:                (t.size.0 * t.size.1 * t.size.2) as u64
+crates/fabelgeist-compute/src/map/mod.rs:552:            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/map/mod.rs:554:                t.size.0.div_ceil(8),
+crates/fabelgeist-compute/src/map/mod.rs:555:                t.size.1.div_ceil(8),
+crates/fabelgeist-compute/src/map/mod.rs:556:                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/gather/mod.rs:308:                return layouter[base].size as u64;
+crates/fabelgeist-compute/src/gather/mod.rs:381:                u64::from(b.size) / output_size.max(&1)
+crates/fabelgeist-compute/src/gather/mod.rs:385:                (t.size.0 * t.size.1) as u64
+crates/fabelgeist-compute/src/gather/mod.rs:389:                (t.size.0 * t.size.1 * t.size.2) as u64
+crates/fabelgeist-compute/src/gather/mod.rs:408:            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/gather/mod.rs:410:                t.size.0.div_ceil(4),
+crates/fabelgeist-compute/src/gather/mod.rs:411:                t.size.1.div_ceil(4),
+crates/fabelgeist-compute/src/gather/mod.rs:412:                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/advect/mod.rs:157:            full_code.push_str("    let normalized_pos = coords / _params.size.xy;\n");
+crates/fabelgeist-compute/src/advect/mod.rs:172:            full_code.push_str("    let normalized_pos = coords / _params.size.xyz;\n");
+crates/fabelgeist-compute/src/advect/mod.rs:240:                GpuResource::Texture2d(t) => ResourceBaseType::from_texture_format(t.format),
+crates/fabelgeist-compute/src/advect/mod.rs:241:                GpuResource::Texture3d(t) => ResourceBaseType::from_texture_format(t.format),
+crates/fabelgeist-compute/src/advect/mod.rs:248:                GpuResource::Texture2d(t) => ResourceBaseType::from_texture_format(t.format),
+crates/fabelgeist-compute/src/advect/mod.rs:249:                GpuResource::Texture3d(t) => ResourceBaseType::from_texture_format(t.format),
+crates/fabelgeist-compute/src/advect/mod.rs:289:                fabelgeist_gpu::data::vector::Vec4::new(t.size.0 as f32, t.size.1 as f32, 1.0, 1.0)
+crates/fabelgeist-compute/src/advect/mod.rs:292:                t.size.0 as f32,
+crates/fabelgeist-compute/src/advect/mod.rs:293:                t.size.1 as f32,
+crates/fabelgeist-compute/src/advect/mod.rs:294:                t.size.2 as f32,
+crates/fabelgeist-compute/src/advect/mod.rs:304:            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/advect/mod.rs:306:                t.size.0.div_ceil(8),
+crates/fabelgeist-compute/src/advect/mod.rs:307:                t.size.1.div_ceil(8),
+crates/fabelgeist-compute/src/advect/mod.rs:308:                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/stream/mod.rs:337:                ((u64::from(inclusive_offsets.size) / 4) as u32).div_ceil(64),
+crates/fabelgeist-compute/src/stream/mod.rs:341:            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/stream/mod.rs:343:                t.size.0.div_ceil(4),
+crates/fabelgeist-compute/src/stream/mod.rs:344:                t.size.1.div_ceil(4),
+crates/fabelgeist-compute/src/stream/mod.rs:345:                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/divergence/mod.rs:195:            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/divergence/mod.rs:197:                t.size.0.div_ceil(8),
+crates/fabelgeist-compute/src/divergence/mod.rs:198:                t.size.1.div_ceil(8),
+crates/fabelgeist-compute/src/divergence/mod.rs:199:                t.size.2.div_ceil(4),
+crates/fabelgeist-compute/src/gradient/mod.rs:234:            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+crates/fabelgeist-compute/src/gradient/mod.rs:236:                t.size.0.div_ceil(8),
+crates/fabelgeist-compute/src/gradient/mod.rs:237:                t.size.1.div_ceil(8),
+crates/fabelgeist-compute/src/gradient/mod.rs:238:                t.size.2.div_ceil(4),

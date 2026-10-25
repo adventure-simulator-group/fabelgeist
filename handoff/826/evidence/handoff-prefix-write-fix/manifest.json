@@ -1,0 +1,13 @@
+{
+  "head": "abcdb2d906f2bf8138f733fb01c48a46da8cf076",
+  "base": "d9c3521f30f52d3437cfef2850203c9df3192b0e",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9"
+    }
+  ],
+  "patch_sha256": "4ae7da8a02687513cd4cd5fffc4bc1de99e384a34c0eca16674ff189f1362e3b",
+  "scope": "Whole RootownedBufferwrite now shares canonical write_at START logicalextent admission; no duplicatecheck/compatibilityalias. OthernativeAPI unchanged; preservepeerbufferexports.",
+  "validation": "Source-only; d9threeindependentfindings repaired; complete successorreview/family/hostedgates required. No newtests."
+}

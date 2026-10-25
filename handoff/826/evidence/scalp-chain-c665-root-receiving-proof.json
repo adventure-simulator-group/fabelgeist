@@ -1,0 +1,71 @@
+{
+  "root_before": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "peer_revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "manifest_sha256": "548c82e6dc6d2851887410f05543262dac72ec969e262e4c288c6db615581f20",
+  "accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a",
+      "root_before_sha256": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c",
+      "coverage": "Root fresh complete source read; independent full source all13, Code, Rule and Comment receipts saved before copy."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs",
+      "sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+      "root_before_sha256": null,
+      "coverage": "Root fresh complete source read; independent full source all13, Code, Rule and Comment receipts saved before copy."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "root_before_sha256": null,
+      "coverage": "Root fresh complete source read; independent full source all13, Code, Rule and Comment receipts saved before copy."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "a9be367893c88b158dac2f0368c4ef28d521e59290a428b08753c342881225bd",
+      "root_before_sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "coverage": "Root fresh complete source read; independent full source all13, Code, Rule and Comment receipts saved before copy."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "sha256": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee",
+      "root_before_sha256": null,
+      "coverage": "Root fresh complete source read; independent full source all13, Code, Rule and Comment receipts saved before copy."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "02378baa2d1ed60f1c8337c24b9e0e5872b240203fc5f7944f3f8eb93744d2f6",
+      "root_before_sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "coverage": "Root fresh complete source read; independent full source all13, Code, Rule and Comment receipts saved before copy."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53",
+      "root_before_sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "coverage": "Root fresh complete source read; independent full source all13, Code, Rule and Comment receipts saved before copy."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531",
+      "root_before_sha256": "68d980d533f30f094dc511d8e0eef78f92090b3d51d9754c28e57f190b80c864",
+      "coverage": "Root fresh complete source read; independent full source all13, Code, Rule and Comment receipts saved before copy."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd",
+      "root_before_sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63",
+      "coverage": "Root fresh complete source read; independent full source all13, Code, Rule and Comment receipts saved before copy."
+    }
+  ],
+  "actual_assets_scalp_recipient_equal": true,
+  "actual_assets_scalp_recipient_sha256": "319634cd42afae504d1fe7381b0e8ae4717afdff9cd8bddbd6f9a6d036122355",
+  "whole_assets_differences": "Only separate held hair geometry/strip functions/documentation; no missing scalp receiver. Earlier speculative multi-argument/old-field claim withdrawn after exact body comparison.",
+  "wgsl_exact_root": true,
+  "status": "No source copied; SCALP-C1 pending exact owner corrected-source receipt.",
+  "required_dependencies": [
+    "Canonical Buffer/count/stride and native Hair groom/layout/completion family; old Root interfaces not compilation-clear.",
+    "Keep exact latest Root native GPU helpers; unlisted peer native helpers are old context, not a source receipt.",
+    "Whole generated/extraction/physical/body/Armor/material/readback/caller/lock graph and final same-SHA hosted gates remain required."
+  ]
+}

@@ -1,0 +1,415 @@
+{
+  "review": "Independent pre-integration Comment Review discovery",
+  "status": "INCOMPLETE bounded discovery; not acceptance, integration or whole-family clearance",
+  "owner_candidate": "6f6d77878daad401abe414da83e17c71d4ad8091",
+  "owner_tree": "beae5d0e429160fbfb457b27f5a55c2c729b1d6f",
+  "root": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "root_tracked_worktree": "clean; candidate read through Git objects",
+  "root_inventory_status": "ledger.incoming_combined_candidate INCOMPLETE 210-path union, 127 differing paths; root all-thirteen discovery not delegated to this review",
+  "source_accounting": {
+    "paths_fingerprinted": 59,
+    "full_source_reads": 46,
+    "targeted_reads": 13,
+    "files": [
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+        "sha256": "7194450243b12da9d02e05402ecc658f4d986194d27d32a65dea0e79ca242a2b",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/readback.rs",
+        "sha256": "3e46d8b12a9694b43a9fd8bd82dfc8ebf90c8ed1b85fed9e4498b32101d4cf47",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/sort/README.md",
+        "sha256": "552269b866131ed678a29050983c7851c93a03fbc254a33006e455c32bdb512d",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/README.md",
+        "sha256": "22e3aad4a89f950fce04fb918ea3bfef56f0aff0bf3b90c0410684c8f522b822",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+        "sha256": "402503b196696994620d914c07a6175cfa34468e988c7e211b67c0aa91874cf4",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+        "sha256": "11d9cb92749cc9e59c634b98a1ac4f46c27493668304c6030c668a0cf3bbc6cf",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+        "sha256": "949b9a749edab5e37a710f6b33e4270e0235538833b7d78bb6874810361bb473",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+        "sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+        "sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+        "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+        "sha256": "c45ded414d485b61d6a4f5ffd269ecef203f2c2ccb48d72591ea2a9c88581402",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/sort/quantities.rs",
+        "sha256": "ae35c1089ff9353846f021e15346d4372e5b1ccf4d5e8f14744e837e08543103",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+        "sha256": "abeb15fa7f0450e9807d938e9758918753ef3c6fa0eb4b3162bf4f1832ba3a1d",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+        "sha256": "a4a05200962d36cff2cae288c1de7e66e1614ccbdf2197410c80406f9da2d57e",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/reduce/layout.rs",
+        "sha256": "19f555f68f33ff087db6fb06d6a5f37bb4ca784708e74739098c7c99b2c0de15",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/reduce/execution.rs",
+        "sha256": "fdf743edb8382f0bae0750c6255d89a22855f9be09f50179981ffd8f26964435",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/gpu/sim/collision_progress.rs",
+        "sha256": "46a0df1b1a9cc38290b50525b4b57f7c3224442a8c5735a178da6c99a5fdf7ae",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+        "sha256": "1efd56c58cdc296fcc86a7cfe002317ce505a5cd5be260fed7a3056406bc41e2",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+        "sha256": "488d227f4cc9cd180c319aa9e8224e5596c53cfdc4ddb5be4b0d77cfbbc6b393",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/gpu/readback.rs",
+        "sha256": "4d2777d1fd61cd9dc4f23018d3a1ba0c29d1028a1cbda565d26c27202fc9b914",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-bvh/src/gpu/layout.rs",
+        "sha256": "78be61f5938b91a627569e36f7d7e3b5d43ca811a0d5aef9a9d23dcad1cd2528",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-bvh/src/gpu/storage.rs",
+        "sha256": "651dadd94a08b4693a704545b23f38a1ee7abab95126d46bfdaef84e3821efbe",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-spatial-hash/src/gpu/recorded.rs",
+        "sha256": "1a58eb8132a7a7696e6db747cb01a32cdeeb96a1ae2f157b8df75481ed527349",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+        "sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/extraction/output.rs",
+        "sha256": "f6565ab370ac8f8a5646c9853258d062ad6d2f50ba16c64478e58dd1fa774fc7",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+        "sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/mesh_query/quantities.rs",
+        "sha256": "9527dace22a827c16ef4d1c8ad1fab21f692f58a7ea7ac89347f63cc4de793d2",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/mesh_query/selection.rs",
+        "sha256": "0a76b1bcb0e0afa465c2f48fff6b21ec5aba0cf1c5bbddd7ad01947e01d4b248",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-mesh/src/count.rs",
+        "sha256": "210d69c52c956bf08c4741ae6524ee7b5c185fae123cfd4e4297ea3c92ae0e67",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-mesh/src/count/gpu.rs",
+        "sha256": "b6a122d26c719fbed79a0d50f14c25b26b9890b33aa76a0aeda3f9cf83e8221f",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+        "sha256": "b8ddcee5609c637aab7a5bd5964eb26649e97d3e0bd3906401344db0851d3701",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/mesh_query/output.rs",
+        "sha256": "f1a09a4e792855ad311f29c4b6921ebcde7f18136038d1a0301049450608d83c",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/vertex_normals/output.rs",
+        "sha256": "9fbbbc30cfd521726ab9bef324e82b2f4d5c98a9704ebac5da9f674ee3a02261",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-spatial-hash/src/layout.rs",
+        "sha256": "dc6fd69fe9942a9b8893f1c26ef0b62f7fbb519029bfc2755cf91410c1761930",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-spatial-hash/src/gpu.rs",
+        "sha256": "aa12cd73c6c5d9a359d11dff87dd200af5e8b16b6f32094ce6f3e070da42b50d",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+        "sha256": "306433ee13fb6f3dc49bff34dcd50c1f386158b801fe51bf35efbd27edfcfe2a",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+        "sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+        "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+        "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+        "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+        "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/stream/call.rs",
+        "sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/boundary.rs",
+        "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+        "sha256": "eb9b7b489756c292fe3a69424f51fb26133e590aab7df683bc2329f43527968a",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+        "sha256": "b8eb21640952e6eea6eaae6e5ca716a0ed81bb73a3ab53df4195c49b36d491f2",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "sha256": "a51cef002a72d6b3390dbb07768c3bbed0cc0b886ea5c91cdb7c925febf7a534",
+        "coverage": "targeted candidate contract/comment and relevant code read; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/mod.rs",
+        "sha256": "c01bb52676fb770b06b05d089b1c02e1aa734b6167d1a0494298667b8c6559e0",
+        "coverage": "targeted candidate contract/comment and relevant code read; not entire file"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+        "sha256": "3b0756f8287d6c95da9e9ab146be7ab5792c584fa232481cde0b6470d549320d",
+        "coverage": "targeted candidate contract/comment and relevant code read; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/mesh_query/wgsl.rs",
+        "sha256": "4a77a89395c7354e9c2e23bb8417bd75ca3f0db1a735fcc40a7d27d10db82c44",
+        "coverage": "targeted candidate contract/comment and relevant code read; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/map/mod.rs",
+        "sha256": "b69e247c2901c30dfca74a0ab5c2010120b874f8c6e41c0615fbd4bb0b9e9c33",
+        "coverage": "targeted candidate contract/comment and relevant code read; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+        "sha256": "db8b670389c9434ce6d26f78cbf531b1607c728e3293ad696cf6bc0faed41953",
+        "coverage": "targeted candidate contract/comment and relevant code read; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/stencil.rs",
+        "sha256": "bcc74d148e928447c1bfaa8003fb245036143b300321664bf0cbd9c4976ffba3",
+        "coverage": "targeted candidate contract/comment and relevant code read; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+        "sha256": "f02113333c06b10f9b121e52ce5f24cc0dca43540534e2e00133811287d8765a",
+        "coverage": "targeted candidate contract/comment and relevant code read; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/scan.rs",
+        "sha256": "8861897e0095e3ef4556acefb7ce8061efdfafbd6cb60962aa6e2ca474fa5a81",
+        "coverage": "targeted candidate contract/comment and relevant code read; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+        "sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+        "coverage": "targeted candidate contract/comment and relevant code read; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+        "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+        "coverage": "full candidate source read"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+        "sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+        "coverage": "targeted native emission bounds and comments; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+        "sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+        "coverage": "targeted native emission bounds and comments; not entire file"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+        "sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+        "coverage": "targeted native emission bounds and comments; not entire file"
+      }
+    ],
+    "guide": {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "610d980a0657a3f089b0178979f77f22ce6cb529e46f37ca9c3ecd495709e206",
+      "coverage": "Candidate hash independently matches root guide already fully read; core view/pass/helper paths unchanged by Git path comparison, so root SDK/native receiver evidence carried without new runtime assurances."
+    },
+    "integration_exclusion_diff_reads": [
+      ".github/workflows/rust-quality.yml",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "crates/fabelgeist-gpu/tests/fixtures/texture_views.json"
+    ],
+    "new_test_constraint_spot_reads": [
+      "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+      "crates/fabelgeist-compute/src/sort/contract_tests.rs",
+      "compile_fail docs in kernel/mod.rs, compute/pass/shape.rs and sort/quantities.rs"
+    ],
+    "limits": "Fingerprinted files are not a census of all 210 union paths or all candidate comments. Targeted reads are identified honestly; integration exclusions and constraint spot reads are not full reviews of every fixture."
+  },
+  "new_unique_findings": [
+    {
+      "id": "C-CANDIDATE-CONTEXT-REGRESSION",
+      "priority": "P2",
+      "locations": [
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:278-283",
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:300"
+      ],
+      "mismatch": "Candidate restores previously withdrawn assertion that enabling borrowed-device waiting inevitably hangs until watchdog DEVICE_REMOVED. The fixed snapshot semantics of Wait and helper scope pop do not establish that consequence.",
+      "evidence": "Candidate diff reverts root 1f7 policy/test rationale; pinned SDK receiver contract remains the reviewed root one. Completion wait targets a submission snapshot, and finalization/submission helper scope reads add no GPU wait.",
+      "remedy": "Exclude this regression and preserve root's existing borrowed-context validation policy wording and assertion diagnostic. No assertion/oracle/input change is needed.",
+      "ownership": "Root preservation exclusion plus owner candidate reconciliation",
+      "deduplication": "New candidate regression of earlier repaired C1; not a new SDK behavior finding."
+    },
+    {
+      "id": "C-MESH-TIE-EXPLANATION",
+      "priority": "P2",
+      "locations": [
+        "crates/fabelgeist-compute/src/mesh_query/wgsl.rs:8-10"
+      ],
+      "mismatch": "Comment explains lowest-target tie result by ascending target visitation and strictly-better replacement. Candidate lists may be arbitrary, and all three kernels now explicitly replace equal distance/t with smaller target ID.",
+      "evidence": "target_id returns candidates[slot]; nearest and closest compare equal distance plus id<best, ray compares equal t plus id<best.",
+      "remedy": "Say ties use an explicit comparison of target indices, independent of candidate-list order. Targets are visited in supplied candidate order or ascending full-target order.",
+      "ownership": "#780 mesh-query owner",
+      "deduplication": "New unique stale mechanism explanation; lowest-target behavior itself matches the new code."
+    },
+    {
+      "id": "C-REDUCE-RESULT-EXTENT",
+      "priority": "P3",
+      "locations": [
+        "crates/fabelgeist-compute/src/reduce/mod.rs:22",
+        "crates/fabelgeist-compute/src/reduce/execution.rs:35-40"
+      ],
+      "mismatch": "Unconditional one-returned-native-record description omits zero/single-complete-record buffer early return, which clones the whole original Buffer and may retain zero logical records or trailing bytes; <=1 texture populations are rejected.",
+      "remedy": "Document that larger inputs reduce to one native record; buffer inputs with at most one complete record are returned unchanged, while such texture inputs are rejected.",
+      "ownership": "#780 reduction owner",
+      "deduplication": "New documentation qualification, not a request to change the admitted behavior."
+    }
+  ],
+  "known_open_findings": [
+    {
+      "id": "D780-READBACK-F9",
+      "locations": [
+        "crates/fabelgeist-compute/src/readback.rs:10-14",
+        "crates/fabelgeist-compute/src/readback.rs:176-187"
+      ],
+      "status": "Partially repaired; still open",
+      "details": "record_pending now documents discard after submission failure or discarded batch at149-150, and existing local tests propagate submit Result. Module still promises CPU never stalls; read API omits producing-batch helper-Ok prerequisite and native Wait behavior.",
+      "remedy": "State caller must handle producing batch submission before read, helper Ok is policy-relative, native read blocks on device polling despite async signature, and pending mode polls for a later mapping callback without a global no-stall guarantee."
+    },
+    {
+      "id": "D780-KERNEL-WORDING",
+      "locations": [
+        "crates/fabelgeist-compute/src/kernel/mod.rs:12-16",
+        "crates/fabelgeist-compute/src/kernel/mod.rs:68-70"
+      ],
+      "status": "Open known owner dependency",
+      "details": "Blanket every-other-primitive standalone submit and every noncached dispatch uniform allocation/performance claims remain. PrefixSum and RadixSort batch; zero-uniform static paths need no uniform buffer.",
+      "remedy": "Describe actual batching and cached/static resource behavior without blanket latency or allocation claims."
+    }
+  ],
+  "contracts_observed": [
+    "Sorting count/key-width separation, no-op priority, eight-bit digit schedule and copy-back order match inspected docs; README retains native device-limit caveat.",
+    "BufferElementStride, BufferElementCount and workgroup/InvocationCount docs distinguish payload, stride, byte extent and launch role; nonzero shape admission leaves native provider limits separate.",
+    "SecondaryResources sorts binding names into cache recipe identity; coordinate shape/addressing contracts match checked scalar projection logic; not all generated programs freshly read.",
+    "Extraction docs distinguish physical capacity from written prefix and complete primitive publication; shared indirect rounding and inspected emit guards align with documented budgets.",
+    "Mesh populations and target selections explicitly leave index membership/attribute contents caller-owned.",
+    "RecordedHashGrid explicitly is a recorded binding, not a submission receipt; mutable native contents and retained original allocation after builder reallocation are documented.",
+    "Bvh recorded_layout updates on recording and storage count docs call it the last recorded build, not observed submission.",
+    "GpuSim clock, shape and collision history locals publish after batch.submit returns Ok; this is helper-policy-relative, not GPU completion or global observed native acceptance.",
+    "Hair read_words performs checked word-to-byte copies, one grouped Readback mapping and submit propagation; no success claimed for actual runtime.",
+    "Bare HairRenderer and Bevy additions explicitly document device-handled validation. Rendering/constructor Ok is not native validation or GPU completion; readback separately retains poll/map/channel errors.",
+    "Root core view/native-pass/helper guide source is preserved by exact candidate comparisons except context test-comment regression. No old recorder-scope acceptance assurance restored."
+  ],
+  "integration_guards": [
+    "Do not import candidate root texture-view test/fixture/doctest/workflow removals wholesale; unchanged guide public-test claims would otherwise lose their evidence.",
+    "Candidate adds tests/cases/compile_fail examples relative to root. Rule/owner export reconciliation must honor user's existing-tests-only constraint; this review neither imports nor adds them.",
+    "GpuBvh::build and PrefixSum::run still ignore fallible batch.submit Result in candidate; sent to root code/producer audit. Their native failure behavior is not cleared by comments.",
+    "Remaining #780 and retained #774/F19 integrations, full root 210-path/thirteen-lens pre-inventory, independent final reviews and final-pushed-SHA hosted checks remain required."
+  ],
+  "limits": [
+    "No source edits, source integration, project checks/builds/tests/scanners/generators/runtime, new tests/helpers/assertions, push, hosted CI or external posts.",
+    "Git object reads and hashes only. No compile or runtime acceptance claim.",
+    "Historical review receipts are not substituted for candidate source reads; unchanged root SDK/core evidence is explicitly carried.",
+    "Root all-thirteen inventory remains incomplete; no whole-candidate, whole-family or whole-PR clearance."
+  ]
+}

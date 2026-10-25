@@ -1,0 +1,7 @@
+import json,sys,hashlib,subprocess
+from pathlib import Path
+p=Path('target/pr826-audit/ledger.json');d=json.loads(p.read_text());w=d['cache_integrated_wave'];prior=next(x for x in d['incoming_cache_pre_integration']['lenses'] if x['lens']==sys.argv[1])
+if subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()!=w['revision']:raise SystemExit('revision changed')
+for f in w['files']:
+ if hashlib.sha256(Path(f['path']).read_bytes()).hexdigest()!=f['sha256']:raise SystemExit('source changed '+f['path'])
+r=next(x for x in w['lenses'] if x['lens']==sys.argv[1]);r.update(json.load(sys.stdin));r['discovery']='complete for current snapshot; required owner migration findings remain unresolved';r['repair']='exact cache delta integrated; named dependencies pending';r['validation']='source evidence only; no project execution/push/CI or new tests';r['pre_integration_evidence']=prior['contracts'];r['dependencies']=w['dependencies'];r['acceptance']=prior['acceptance'];old={f['path']:f['sha256'] for f in d['f05_f23_post_repair']['files']};r['file_accounting']=[{'path':f['path'],'sha256':f['sha256'],'disposition':'Exact unchanged source; prior lens contract and current recipients revalidated.' if old.get(f['path'])==f['sha256'] else 'Current integrated source read; see exact cache contract and successor trace. Owner migration gaps remain explicit.'} for f in w['files']];p.write_text(json.dumps(d,indent=2)+'\n');print(r['lens'],'post-integration evidence saved; no clearance')

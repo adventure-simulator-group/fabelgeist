@@ -1,0 +1,979 @@
+{
+  "root_head": "6e56adeab1101743941c6d50eef4340008b910ea",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "published_pr_head": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+  "snapshot_manifest_sha256": "1da74380dd8a3c6a54c24803aea6a48602f4baa12e69adc7a51fee869d5b3373",
+  "discovery": "complete for named generated role/native emission/actual recipient family before any Root copy or repair; global wider graph remains incomplete",
+  "repair": "not started",
+  "validation": "not started; source-only discovery supplies no compilation/runtime/CI clearance",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "55748934ab8638b33ef380aae35e12c0ab61b888158a5e0b5de459c68495ba7a",
+      "actual_sha256": "55748934ab8638b33ef380aae35e12c0ab61b888158a5e0b5de459c68495ba7a",
+      "lines": 299,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+      "actual_sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+      "lines": 218,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+      "actual_sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+      "lines": 371,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "actual_sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "lines": 7,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "actual_sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "lines": 48,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+      "actual_sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+      "lines": 247,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "486b2a0fb53a28e3b45cc4b847784c885a1b2f637220e6bdad8083dee0216a72",
+      "actual_sha256": "486b2a0fb53a28e3b45cc4b847784c885a1b2f637220e6bdad8083dee0216a72",
+      "lines": 110,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "b9f394de465c58404eb5cf84625eb3510d77a80423ea0519ee12ad1836198f87",
+      "actual_sha256": "b9f394de465c58404eb5cf84625eb3510d77a80423ea0519ee12ad1836198f87",
+      "lines": 216,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a7c696dbf294ed783211c1fd401cd59769543cae9733276ef8febc33c563ca0e",
+      "actual_sha256": "a7c696dbf294ed783211c1fd401cd59769543cae9733276ef8febc33c563ca0e",
+      "lines": 113,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "actual_sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "lines": 9,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "d430c50cf3c4c063b75a82a9d9ce18a5dde50d68853c71d31d26d1a3b74c0832",
+      "actual_sha256": "d430c50cf3c4c063b75a82a9d9ce18a5dde50d68853c71d31d26d1a3b74c0832",
+      "lines": 116,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "actual_sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "actual_sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "actual_sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "lines": 170,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "actual_sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "lines": 27,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+      "actual_sha256": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+      "lines": 335,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "5313b40f721b7bc7a2a04993f36823fc4a345d0beacde0edf23a494e34732178",
+      "actual_sha256": "5313b40f721b7bc7a2a04993f36823fc4a345d0beacde0edf23a494e34732178",
+      "lines": 78,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "actual_sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "lines": 1082,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "actual_sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "actual_sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "lines": 43,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+      "actual_sha256": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+      "lines": 331,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "actual_sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "lines": 69,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "actual_sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "lines": 216,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "actual_sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "lines": 103,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "5cb92b1488c3e0ea14c98488795775c6fe4c190f5c60af878f5a96a36a867a92",
+      "actual_sha256": "5cb92b1488c3e0ea14c98488795775c6fe4c190f5c60af878f5a96a36a867a92",
+      "lines": 253,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "actual_sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "lines": 88,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "actual_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97,
+      "root_read": "fresh full current owning source"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "lines": 13116,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "lines": 12316,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "lines": 11,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "sha256": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+      "lines": 287,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "lines": 307,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "lines": 272,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "lines": 71,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+      "sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "lines": 131,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+      "sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "lines": 145,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+      "sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "lines": 27,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+      "sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "lines": 179,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+      "sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "lines": 236,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+      "sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "lines": 54,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "lines": 71,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27",
+      "lines": 102,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "lines": 236,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+      "sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "lines": 174,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/perlin_noise.rs",
+      "sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "lines": 129,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "lines": 16,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "lines": 302,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "lines": 93,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/simplex_noise.rs",
+      "sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "lines": 171,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "lines": 208,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "lines": 150,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "lines": 81,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "lines": 69,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "lines": 40,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "lines": 201,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "lines": 206,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "lines": 79,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "lines": 55,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "lines": 82,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "lines": 102,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "lines": 113,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "lines": 86,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "lines": 43,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "ownership": "Reference only; #780 retains actual caller/export/lock ownership unless separately agreed.",
+      "actual_sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "lines": 24,
+      "root_read": "Per exact fresh/current and qualified source account in generated-current Code and Comment JSON; locks identity-only, no composition clearance"
+    }
+  ],
+  "reports": [
+    "generated-current-code-review.json",
+    "generated-current-code-source-proof.json",
+    "generated-current-comment-review.json",
+    "generated-transfer-c665-map-snapshot/notes/pr780-generated-program-rule-discovery.md",
+    "generated-transfer-c665-map-snapshot/notes/pr780-generated-role-design-rule.md"
+  ],
+  "root_fresh_full_reads": "All27 owning plus full DistanceField/JFA/Perlin/Simplex/MC/DC orchestration/extractionmod/projection/wgsl/lib/prelude/sourcecache/shader/resource/boundary/testutils; other exact reference reads accounted in fresh Code/Comment. Independent current Rule complete13 persistence pending, final review stillrequired.",
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "source_contract_and_disposition": "Current Map private roles reach bindings/program/execute and direct DistanceField declarations/names. Remaining Gather/Scatter/Stream/Stencil retain parallel mutable projections. Complete all four plus actual fixture/MC/DC constructor APIs and canonical exports together.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contract_and_disposition": "Reuse current ShaderParameter, CoordinateParameter/Shape, ResourceBaseType, TextureValue, ResourceFetch, ResourcePipeline, BufferElementCount/Stride and WorkgroupShape/Grid. No duplicate launch/count/parameter owner. Local1..4D neighborhood sample topology is distinct from extraction3D/Scan owner.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contract_and_disposition": "Current Map private role/source associations and duplicate name admission sound; empty Default is deferred source holder. GC-C3 malformed generic and neighborhood substrings panic before native validation. Guard exact complete envelopes without a new general language validator. Other four signatures need private admission and explicit supported role precedence.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contract_and_disposition": "GC-C1 Scatter discards unsigned ordinary value; GC-C2 Stream displaced alias suppresses required inputload. GC-C4 Buffer neighborhood coordinates fail actual flat row/plane decomposition. Full physical grid/input capacity/output prefix/signed arithmetic admission remains required. No tests/probes run.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contract_and_disposition": "One private authored-order role/source vector per family. Actual declared return type retained independently only when source declares one; remaining input/resource types and Stream presence derived from roles. Map primary remains actualinput dependent, no stored compile-state mirror.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contract_and_disposition": "Algorithm-local Index/Size/Value/Resource/Other/Offset/Center/Neighborhood payload roles. Closed neighborhood One..Four distinct from unsigned CoordinateShape. Optional center allowed, explicitcenter/val before fallback, duplicates deliberate errors; arbitrary Custom native names remain open.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contract_and_disposition": "Remove name/declaration/type/index columns and stored flags. Original immutable declaration is required lexical emission, never reparse it in consumers for semantic role. Mutable Definition.code reparsed at use, success source/device/effectivepolicy/recipe cache authoritative. Fluid workgroup covering must read actual generated declaration.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contract_and_disposition": "Preserve current Map optionalprimary/generator/bindings/order/native literals; exact Advect numeric fixes; all existing cases/inputs/oracles and caller native programs. Explicit exceptions GC-C1..4 and duplicate/reserved grammar early rejection. Neighborhood+secondaryBuffer remains an unsupported native program, no new feature. Default64 retained as explicit current policy pending checked physical layout.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "type-ownership",
+      "source_contract_and_disposition": "Explicit user/peer transfer gives Root whole27 with ResourceDescriptor methods and required GPU exports, preserving unrelated native funcs. #780 retains Scan/Reduce/sort/MC/DC/extraction/DistanceField/callers/locks/broad exports. Frozen native references are stale context, preserve Root cac5 exact native progress/error/policy implementations.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "derivability",
+      "source_contract_and_disposition": "Map concrete Default already derives; four remaining and fluid concrete Defaults can derive exact empty/cache/Clamp state. Keep source/boundary-only PartialEq and unconstrained generic cache manual Default. GPU has no directthiserror edge; retain small manualerrors/actualcauses, add cohesive CoordinateParameterResult/TextureAddressResult aliases.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "type-granularity",
+      "source_contract_and_disposition": "Shared native pair only once, local algorithm roles distinct; no all-algorithm role enum or identifier branding. Remove unused AdvectSignature; public APIs update directly with no compatibility aliases/forwarders. Named transient binding partitions are context-selected views, not stored competing authority.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "magic-strings",
+      "source_contract_and_disposition": "Decode exact source protocol outer Resource/ptr/knowntexture and neighborhood forms before wrapper projection; no substring Custom misclassification or branchonprose. Retain original declaration spelling for DistanceField. Current Map false bannedtypes claim already removed; Scan completion adjective owner-routed; stale native reference prose already corrected by Root.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contract_and_disposition": "Native binding indexes, lane padding, workgroup declarations and neighbor offsets are actual shader grammar. Preserve those and native algorithms. Neighborhood dimensions become closed roles, default64 gets policy owner, full signed wrap/add/multiply bounds and reflected scalar projection admission required. No sorting quantity used as genericlaunch or sample count.",
+      "source_scope": "Exact65sourceaccounts plus named actual consumers and current Root native CAC proofs in attached Code/Comment reports",
+      "connected_repairs": [
+        "GC-C1",
+        "GC-C2",
+        "GC-C3",
+        "GC-C4",
+        "Private ordered roles and exact schema across remainingfour",
+        "Default/alias/itemorder/responsibility extraction",
+        "Fluid reflected ResourcePipeline covering",
+        "Canonical actual caller/export/lock closure",
+        "Scan completion wording routed#780"
+      ],
+      "dependencies": [
+        "Root canonical native helpers preserved",
+        "Peer full caller/exports/countstride/locks and extraction families",
+        "Physical neighborhood signed/grid contract must close before clearance",
+        "Remaining wholeHair/body/Armor/material/global graph and hosted gates"
+      ],
+      "acceptance": [
+        "All five complete signatures/builders/execute/descriptor paths plus Stream call helper and DistanceField wrappers consume final direct owners; no public mutable parallel columns or retained flags.",
+        "Unsigned Scatter and Stream precedence defects corrected through admission/load/call, without new Gather value support; original generator/no-input/resource-only/alias/custom programs retain actual protocols.",
+        "Stencil has exact closed neighborhood ownership, optional center/precedence and aliases; unsupported reserved/duplicate role errors explicit, no silent2D fallback.",
+        "Whole native generated templates and actual MC/DC/JFA/noise source/side-effect order preserved except separately inventoried behavioral fixes; fixtures only direct API/import adaptations and moved intact. No new tests/cases/test helpers/assertions/doctests.",
+        "All source-holder defaults/API/order/Result aliases and no-growth responsibilities close directly; generic cache/equality/error causes preserved.",
+        "Fluid launches consume reflected ResourcePipeline shape; DistanceField copy creation/record scope closes before separate submit; borrowed/browser policy and actual typed native/progress causes preserved without inventing completion.",
+        "Independent Code, Rule and Comment reviews of complete resulting family and fresh all-thirteen successor required; final global waves and hosted project gates on one final pushed SHA still mandatory. No partial-family push/CI.",
+        "Close GC-C3 malformed boundary panic and GC-C4 actual Buffer coordinate/grid/signed admission; retain actual error causes."
+      ],
+      "discovery": "complete",
+      "repair": "pending",
+      "validation": "pending"
+    }
+  ],
+  "repair_design_before_edits": "generated-repair-plan-current.json",
+  "withdrawn_finding": "Destroyed DistanceField source copy fails in SDK deferred command encoding/finalization under existing submit scope; no immediate-copy counterexample. Policy strengthening separate, no independentrepair from thatexample.",
+  "limits": [
+    "No complete MC/DCgeometry/table semantics clearance",
+    "Locks identity-only, no composition clearance",
+    "No new tests/cases/helpers/assertions/doctests",
+    "No local project checks/scanner/generator/runtime",
+    "No partial-family push/CI",
+    "Final complete13+independent3+hosted allonefinalpushedSHA"
+  ]
+}

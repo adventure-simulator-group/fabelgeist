@@ -1,0 +1,263 @@
+{
+  "head": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+  "files": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "lines": 130
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "lines": 147
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "lines": 115
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "lines": 119
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "lines": 138
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "lines": 131
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "lines": 7
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "24f641fad466c750cf9e2099a9dd6f22dc2c0ea2f97a055f82ac54439aa059d2",
+      "lines": 109
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "lines": 47
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "lines": 139
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "lines": 132
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "lines": 114
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "lines": 121
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "lines": 9
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "lines": 125
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_parameters.rs",
+      "sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "lines": 85
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "lines": 191
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "lines": 27
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "lines": 123
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "lines": 120
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "lines": 122
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_error.rs",
+      "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "lines": 209
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "lines": 122
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "lines": 178
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "sha256": "df2fabc3d80bed4da87a5597db8a33561fe5f56eb33af11188eec6f08d3f6eb1",
+      "lines": 183
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "lines": 148
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "lines": 35
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "lines": 56
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "lines": 48
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "lines": 131
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "sha256": "327245967671b5bd0b0a986e3cf6af66196096fd7919e60a9212a36b0764ee83",
+      "lines": 352
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "lines": 146
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "lines": 135
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "74fa7308c6373eeb3bf3266020f790705378f0c97c14925cf3607132b020edbe",
+      "lines": 182
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/tests.rs",
+      "sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "lines": 147
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "fd95c53e8c2f3f939ab42216191ae0755bd9bece424f04d8ad15e7d16ba0d225",
+      "lines": 50
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "lines": 110
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "54ace491777db472ea1c66dff8a22b6dcf5cdccb9c54de526d93e6c6971b1bf1",
+      "lines": 116
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "lines": 69
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "lines": 225
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "lines": 109
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "lines": 250
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "lines": 87
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "lines": 26
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97
+    }
+  ],
+  "baseline": "../generated-transfer-c665-map-snapshot",
+  "context": "Full source scope at current working snapshot. Root lib/prelude/canonical Buffer stride/callers remain unreceived from780; no compile or integration clearance. Stencil native grid/admission working implementation now wired.",
+  "preinventory": [
+    "../generated-root-current-pre-repair-all13.json",
+    "../generated-current-pre-repair-all13.json",
+    "../generated-working-919-preliminary-all13.json"
+  ],
+  "proof": "../stencil-working-source-proof.json"
+}

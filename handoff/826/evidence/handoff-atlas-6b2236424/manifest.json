@@ -1,0 +1,31 @@
+{
+  "head": "6b22364249ae1503fe070dd7b5ce64b8e6e0e25d",
+  "base": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+  "files": [
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+      "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+      "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/paint.rs",
+      "sha256": "daa74c09fa86ca04b709dcc9efed9b35d35a392aeb43db10086fa09cd27a50fb"
+    }
+  ],
+  "patch_sha256": "035358c83def8a2125a46da995d1faa8d343ecbd5c36ef66001228984d8781f9",
+  "api": "AcceptedAtlasSettings/positivevariant/i32tile leaves, CardAtlas::paint(settings,Seed)->AtlasResult andtransparent; readonlyvariants/settings/base/levels/mip_count; AtlasMip width_texels/height_texels/bytes_per_row/pixel_bytes. CardAtlas::FORMAT canonicalPixelFormat. No publicrawfields orcompatibilityaliases.",
+  "composition": "cards.rs CardMesh/CardSettings/CardVertexproduction bodies byteexact04. RootmixedcasefixtureonlyAtlasoperand/getterAPIadapters; otherproducerfixtureadmissionspendingexact780API. PreserveproducereditsoutsideRootatlasfamily. Rendererfilesexcludeduntilnativewholefamilycomplete.",
+  "manifest": "AdddirectHairfabelgeist-color default-features=false andexplicitcolor/wgpu ingpufeature;780ownsroot+creatorlockexistingdependencyedges,noresolution/versionchange.",
+  "validation": "Source-only proofCardMeshbodyexact, rastercoreexactafteronehostaddressinverse, mixedexistingfixturecase/oracletokens exactafterrequiredAPIinverse, renderfixture44c/shaders exact. Three independent6breviewsrunning; native/producercallers/finalgatesrequired, no push/CI/newtests."
+}

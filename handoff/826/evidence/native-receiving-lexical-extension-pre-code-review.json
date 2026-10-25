@@ -1,0 +1,836 @@
+{
+  "review": "Independent complete bounded lexical-extension pre-repair Code discovery",
+  "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+  "tree": "f8c67de65206ca90efe21e54c6c9e2e9bafa9cc3",
+  "prior_focused_review": "native-receiving-signature-pre-code-review.json",
+  "source_proof": "target/pr826-audit/native-receiving-lexical-extension-source-proof.json",
+  "source_proof_sha256": "75efc11b6c77394af928f2ec597e25fd5ba62fac2263fdca8b039e8d726b96c3",
+  "discovery": "complete for the named lexical extension responsibilities and its explicit source accounts; repairs not implemented, broader native/generated/numerical/owner graph remains incomplete",
+  "verdict": "Three connected source-backed current defects remain open. One shared GPU lexical owner is appropriate, subject to all source-pairing, intentional lowering, ambiguity and preservation criteria. No source/global/compile/hosted clearance.",
+  "findings": [
+    {
+      "id": "LEX-G1",
+      "severity": "P2",
+      "status": "confirmed current actionable defect",
+      "source": [
+        "map/signature.rs:24-51",
+        "gather/signature.rs:24-70",
+        "scatter/signature.rs:23-73",
+        "stream/signature.rs:24-78",
+        "stencil/signature.rs:26-93"
+      ],
+      "contract": "A named algorithm declaration must be selected from actual native tokens, not comment text.",
+      "scenario": "All five regexes apply captures directly to original source. A leading complete commented signature can provide different parameters/output than the real following declaration; role bindings, call arguments, output types and native resource declarations are then generated from the comment. Missing declarations can also be admitted from comments alone.",
+      "repair": "All five consume the single GPU FunctionSource selection/header/argument/return authority; no private schema regex selects fn declarations from whole source afterward."
+    },
+    {
+      "id": "LEX-G2",
+      "severity": "P2",
+      "status": "confirmed current actionable connected defect",
+      "source": [
+        "gather/program.rs:16-24",
+        "scatter/program.rs:16-24",
+        "stream/program.rs:13-21",
+        "stencil/bindings.rs:112-117"
+      ],
+      "contract": "The rewrite must target the same declaration that supplied the admitted roles.",
+      "scenario": "A leading comment containing only fn gather(decoy) is ignored by the full signature regex (no body brace), but selected by the shorter rewrite regex. A following real gather with a Resource parameter is correctly parsed but never stripped, so generated WGSL retains an invalid metadata type. Scatter/Stream and non-neighborhood Stencil have the same independent shorter-selector structure.",
+      "repair": "Rewrite only the admitted argument span from that same FunctionSource owner. Do not independently search the original source again, and preserve all bytes outside intentional header/type substitutions."
+    },
+    {
+      "id": "LEX-G3",
+      "severity": "P2",
+      "status": "confirmed current actionable connected admission defect",
+      "source": [
+        "source_parameter.rs:57-105",
+        "map/signature.rs:31-48",
+        "gather/signature.rs:31-66",
+        "scatter/signature.rs:30-67",
+        "stream/signature.rs:31-75",
+        "stencil/signature.rs:33-83"
+      ],
+      "contract": "NativeParameter roles must derive from visible tokens while retaining their exact original source association.",
+      "scenario": "The raw argument splitter treats punctuation inside comments as angle depth, argument commas and name/type colons. For example, a valid native comment containing a colon between the parameter identifier and real colon becomes InvalidParameter rather than the actual index/value role. Inline type comments also interfere with exact coordinate/resource/offset classification.",
+      "repair": "Consume paired original and same-byte visible argument slices from the lexical owner; split/classify using visible tokens and derive each original declaration/type/name range from the same offsets. Preserve original diagnostics and declarations rather than substituting the masked source into shaders."
+    }
+  ],
+  "design_acceptance_obligations": [
+    {
+      "id": "LEX-A1",
+      "source": [
+        "source_parameter.rs:77-105",
+        "gather/program.rs:17-23",
+        "scatter/program.rs:17-23",
+        "stream/program.rs:14-20"
+      ],
+      "contract": "A retained declaration ending in // must keep a real line terminator before the comma or closing parenthesis.",
+      "reason": "Current trim and join(\", \") can discard the only newline after a line comment. Once visible-token role lexing admits such valid source, copying a trimmed raw declaration can comment out generated delimiters. Preserve sufficient original trivia or use safe newline separators, without mutating body/comment text outside the admitted span."
+    },
+    {
+      "id": "LEX-A2",
+      "source": [
+        "stencil/bindings.rs:83-97",
+        "stencil/neighborhood.rs:94-140",
+        "stencil/program.rs:23-35"
+      ],
+      "contract": "Retain successful real Neighbors type-envelope uses beyond the selected stencil header.",
+      "reason": "Current replace_all rewrites every real matching NeighborsND<T> occurrence when a neighborhood is present. Helper function parameters/returns, local or global type annotations and constructor uses of the admitted neighborhood type can therefore succeed today. Replacing only the selected argument type would leave unsupported pseudo-generic types in those sources. Use the same comment-aware source/span authority for intentional real reserved-type substitutions; preserve comments and all unrelated source bytes. Do not invent a narrower source restriction without an existing authoritative contract."
+    },
+    {
+      "id": "LEX-A3",
+      "source": [
+        "GPU signature.rs binary/comparison helpers",
+        "peer reduce/min.rs:24",
+        "peer reduce/max.rs:24",
+        "five generated definitions/programs"
+      ],
+      "contract": "Real duplicate target names must remain rejected.",
+      "reason": "Renaming only one declaration or stripping only one duplicate header can turn formerly invalid duplicate declarations into valid separate declarations. The FunctionSource selection must explicitly reject an ambiguous real named declaration set; never choose silently. Same native/comment source identity applies to all seven named protocols."
+    },
+    {
+      "id": "LEX-A4",
+      "source": [
+        "Naga lexer.rs:298-363,421-443",
+        "source_parameter.rs:63-81"
+      ],
+      "contract": "Mask and original source must have identical byte lengths with admitted UTF-8 slice boundaries.",
+      "reason": "Native WGSL consumes nested block comments and line endings U+000A..000D, U+0085, U+2028/U+2029. Pattern blankspace additionally includes U+200E/U+200F. One canonical lexical owner handles these; no second per-algorithm scanner. Original source remains the only emitted authored text."
+    }
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer propagation",
+      "contract": "The GPU lexical owner must reach binary/comparison helpers, all five schema parsers, NativeParameter and every argument/type rewrite, while public definitions/execute/build always use the current public code field.",
+      "disposition": "repair required",
+      "source": "GPU signature; source_parameter; Map/Gather/Scatter/Stream/Stencil entrypoints and private programs"
+    },
+    {
+      "lens": "magic numbers",
+      "contract": "Byte spans and fixed grammar punctuation are native source metadata. std byte ranges are appropriate privately; do not reuse GPU buffer offsets or add a competing count/stride owner. Existing NeighborhoodDimension owns 1..4 dimensions.",
+      "disposition": "intentional source boundary",
+      "source": "FunctionSource proposal; NativeParameter char_indices; NeighborhoodParameter/Dimension"
+    },
+    {
+      "lens": "magic strings",
+      "contract": "One selected native name is authoritative; GeneratedFunction names retain actual algorithm protocol/error messages. Reserved index/size/offset/center/val/resource names retain their semantic role precedence.",
+      "disposition": "preserve with centralized source selection",
+      "source": "all five signature role matches, GeneratedFunction::name and prior native operator error"
+    },
+    {
+      "lens": "existing type owners",
+      "contract": "Keep ResourceBaseType, ShaderParameter, CoordinateParameter/Shape, NeighborhoodParameter and typed GeneratedProgramError. NativeParameter/SourceParameter should consume lexical slices, not introduce a second type grammar or erase original declarations.",
+      "disposition": "reuse required",
+      "source": "complete source_parameter, signature and neighborhood owners"
+    },
+    {
+      "lens": "aggregate states",
+      "contract": "Original borrow, same-length visible mask, unique name/header/argument/return spans and selected declaration form one private immutable admitted source. Each NativeParameter pairs original declaration with the role derived from its visible slice.",
+      "disposition": "proposed owner appropriate; pairing required",
+      "source": "source_parameter.rs and all five SourceParameter::new sites"
+    },
+    {
+      "lens": "admission contracts",
+      "contract": "Real function token/declaration selection ignores complete native comments, rejects ambiguous names and preserves MissingFunction/MissingReturn/InvalidParameter/coordinate/native error ownership. No earlier full Naga parsing of pseudo-types or generated-context globals.",
+      "disposition": "LEX-G1/G3 and A3/A4 open",
+      "source": "fresh parsers and pinned Naga lexer"
+    },
+    {
+      "lens": "invariant operations",
+      "contract": "Rewrites consume admitted spans, preserve UTF-8 boundaries and line-comment terminators, and apply multiple edits without offset drift or overlapping replacements. Emit original retained declarations and intended real neighborhood aliases only.",
+      "disposition": "LEX-G2 and A1/A2/A4 open",
+      "source": "four rewrites, NativeParameter trim, stencil replace_all"
+    },
+    {
+      "lens": "redundant authority",
+      "contract": "No raw whole-source fn regex remains in schemas or programs. A build operation selects once and routes that authority to role parsing and transformation; contextual bindings stay derived from current source/resource recipe. Definition admission and later builds may reselect current mutable code at their separate existing boundaries.",
+      "disposition": "repair required",
+      "source": "definition/build/cache/execute bodies, signature parsers and independent rewrite regexes"
+    },
+    {
+      "lens": "enum shapes",
+      "contract": "Keep ordered Index/Size/Value/Resource and fieldless Other/Offset/Center cases with existing real payloads. Do not collapse source association into semantic booleans or reintroduce independently mutable declarations/roles.",
+      "disposition": "preserve settled GS-STATE1",
+      "source": "five private role enums and SourceParameter"
+    },
+    {
+      "lens": "type granularity",
+      "contract": "FunctionSource is a lexical relationship owner, not an all-purpose WGSL validator. Keep algorithm semantic schemas owned by Compute and native value/coordinate grammar at existing owners; do not add unrelated supported features.",
+      "disposition": "bounded shared abstraction appropriate",
+      "source": "actual parse/role/native assembly split"
+    },
+    {
+      "lens": "type ownership",
+      "contract": "GPU owns one native lexical selection/mask responsibility usable by Compute without a dependency cycle. Compute owns semantic role admission/rewrite policy. Parent reports peer API agreement received; reviewer makes no source edit.",
+      "disposition": "agreed ownership; implementation pending",
+      "source": "GPU/Compute module boundaries and actual source error owners"
+    },
+    {
+      "lens": "derivability",
+      "contract": "Existing derived Eq/Hash on owned schemas and canonical payloads should remain semantically equivalent if storage changes. Prior D2 proof remains valid for Error-only derive, with exact manual Display/source(None) and no new GPU dependency.",
+      "disposition": "preserve; D2 separate pending repair",
+      "source": "current schema derives; prior pinned thiserror proof"
+    },
+    {
+      "lens": "behavior preservation",
+      "contract": "Preserve source-order arguments, explicit-index priority, Stream optional input/offset behavior, Stencil center/val/fallback, Custom types, exact shader math/resources/workgroups/signed-neighborhood bounds, success-only caches and current error order. Do not expand the unsupported neighbor+secondary Buffer path or introduce a new feature promise.",
+      "disposition": "acceptance required; no behavior execution",
+      "source": "fresh private programs/callers plus exact prior neighborhood/layout/fixture source"
+    }
+  ],
+  "acceptance": [
+    "One GPU FunctionSource lexical owner borrows original source and owns exactly one same-byte visible comment mask; all admitted source spans are private, tied to that source and immutable. No second comment scanner/parser in Compute.",
+    "Canonical selection recognizes actual fn/name tokens, native comment trivia and unique real named declaration, not search hits in comments or longer identifiers. Binary and comparison helpers consume it; ComparisonSignature parse/value_type/renamed_source remains the agreed public comparison relationship.",
+    "All five signatures parse that owner\u2019s argument/header/optional-return views. NativeParameter consumes original/visible paired views, classifies only visible tokens, preserves original declaration and typed original diagnostic payloads, and retains source-order roles.",
+    "Gather/Scatter/Stream/non-neighborhood Stencil rewrite the same admitted argument span, never perform another raw fn regex search, and preserve every authored byte outside intentional replacements. Retained line comments cannot consume generated separators/closing syntax.",
+    "Stencil neighborhood lowering reuses the same lexical/source association for real matching reserved-type envelopes, including existing successful helper signatures, local/global type annotations and constructor uses. Comment text and all unrelated body/global text remain exact; generated alias spelling comes from the admitted neighborhood/type owner, not a competing raw regex projection.",
+    "Duplicate real target names reject explicitly; singular edits cannot silently convert invalid duplicate declarations into valid differently named functions. Multiple intended source edits must avoid offset drift and overlap.",
+    "No full Naga parse moves ahead of generated metadata lowering or context binding, because Resource/Neighbors pseudo-types and generated globals make standalone source parsing inappropriate. Native shader/pipeline errors retain actual causes and occur at existing actual admission boundaries.",
+    "Preserve MissingFunction/MissingReturn/InvalidParameter/DuplicateParameter and CoordinateParameter native causes, NativeOperatorSignatureError roles/Display, malformed/unsupported neighborhood policy and settled unit role cases. Do not broaden numeric/source grammar merely to close lexical selection.",
+    "All public definitions retain current-code recipe/cache identity and success-only publication. Input/output/workgroup/packing/count/stride/native progress behavior stays unchanged; remaining owner integration cannot be called cleared.",
+    "Existing five-family fixtures, literals, values, cases, helpers and assertions remain unchanged. No new tests/cases/helpers/assertions/probes; do not claim coverage for absent Scatter or lexical-comment fixtures.",
+    "Read-only pre-repair inventory only. Root complete all13/three independent reviews, connected owner integration and final same-pushed-SHA hosted/baseline gates remain required."
+  ],
+  "source_accounts": [
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "lines": 130,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "lines": 147,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "lines": 115,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "lines": 119,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "lines": 138,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "lines": 131,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "lines": 7,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "e638381ad701a4b95e91bc4e3128d8c84526fa81cab3e535895aba1af3c3f975",
+      "lines": 106,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "lines": 47,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "lines": 139,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "lines": 132,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "lines": 114,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "lines": 121,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "lines": 9,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "lines": 125,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/resource_parameters.rs",
+      "sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "lines": 85,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "lines": 191,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "lines": 27,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "lines": 123,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "lines": 120,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "lines": 122,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/source_error.rs",
+      "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "lines": 209,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "lines": 122,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "lines": 178,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "sha256": "bce3a66580252ce1353e2ae500dc11ea596deea17d46155a2f4fd9584365846d",
+      "lines": 184,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "lines": 148,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "lines": 35,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "lines": 56,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "lines": 48,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "lines": 131,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "sha256": "818c4f3b02ca461da41b87e7249fe143cefde84345e4540d2e9e1f68137c4a7d",
+      "lines": 326,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "sha256": "b0a8b0dc7dc823fb4f24d86350eed7184344e713b65734d7424a3fd3c6f7465b",
+      "lines": 55,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "lines": 146,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "lines": 135,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "04af568622f691ab9b1b50eea9d3fc38ca514e55fd2ad81ea50caaf23ee6586a",
+      "lines": 182,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stencil/tests.rs",
+      "sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "lines": 147,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "bdebde0792dd5c21e33d8acc172f6bc001f5470ed65beccfaab044a33f4999f8",
+      "lines": 50,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "lines": 110,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "cc7727ee7caed96373fcf49f63b22e670f24458cd447d715492fbe1b80805796",
+      "lines": 113,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "lines": 69,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "lines": 225,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "lines": 109,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "lines": 250,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "lines": 87,
+      "prior_exact": true,
+      "read_extent": "fresh complete current source; all actual functions and existing fixtures read",
+      "coverage": "selected lexical/source/role/native emission relationships; no executed numerical acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "lines": 26,
+      "prior_exact": true,
+      "read_extent": "qualified complete-body carry from own generated-stencil-layout-fixed-code-review: exact source hash independently revalidated at current pin",
+      "coverage": "current relying contracts revalidated against fresh signature/native assembly reads; no automatic prior pass or new full-body reread"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "d840e177522b7d59f70ae3373c25707b3cc0d1ac06c93939da1ca6cb126b261f",
+      "lines": 94,
+      "prior_exact": false,
+      "read_extent": "qualified carry from own complete receiving-result-style post review; exact current SHA checked below",
+      "coverage": "unchanged texture-value native type receiver, differing only previously reviewed explicit trait Result signature/formatter delta from older generated snapshot",
+      "matches_own_reviewed_style_sha": true
+    }
+  ],
+  "prior_focused_exact_dependency_accounts": [
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "lines": 33,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "path": "crates/fabelgeist-compute/src/reduce/min.rs",
+      "sha256": "7ea0c2ce5604bb08c70b246318a2e6f3a0b3dcc0197fbabcc29fa868d60b905f",
+      "lines": 71,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source; lexical, error, native assembly/cache and dispatch consequences assessed; not full numerical acceptance",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "path": "crates/fabelgeist-compute/src/reduce/max.rs",
+      "sha256": "4e16a6ef11f3d5f562eeed220aa6bef85607d229b552901baa020ca24dc1c043",
+      "lines": 71,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source; lexical, error, native assembly/cache and dispatch consequences assessed; not full numerical acceptance",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "sha256": "e97b56c90018e2382c2715260d0608d334eff6d141bc7dd8bb8fe6f708ed20ce",
+      "lines": 189,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source; lexical, error, native assembly/cache and dispatch consequences assessed; not full numerical acceptance",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "path": "crates/fabelgeist-compute/src/reduce/execution.rs",
+      "sha256": "fdf743edb8382f0bae0750c6255d89a22855f9be09f50179981ffd8f26964435",
+      "lines": 176,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source; lexical, error, native assembly/cache and dispatch consequences assessed; not full numerical acceptance",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "path": "crates/fabelgeist-compute/src/reduce/layout.rs",
+      "sha256": "19f555f68f33ff087db6fb06d6a5f37bb4ca784708e74739098c7c99b2c0de15",
+      "lines": 49,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source; lexical, error, native assembly/cache and dispatch consequences assessed; not full numerical acceptance",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "path": "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+      "sha256": "d0d3dffc4a91c467d5fdab631a26961745163417f8b7818ae760a3702ea24d8f",
+      "lines": 164,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source; lexical, error, native assembly/cache and dispatch consequences assessed; not full numerical acceptance",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "lines": 302,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source; lexical, error, native assembly/cache and dispatch consequences assessed; not full numerical acceptance",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "lines": 93,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source; lexical, error, native assembly/cache and dispatch consequences assessed; not full numerical acceptance",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh lines 38-85, complete selected Scan source operand and constructor context",
+      "qualification": "Remaining extraction body not reviewed or cleared here.",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh lines 25-70, complete selected Scan source operand and constructor context",
+      "qualification": "Remaining extraction body not reviewed or cleared here.",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh lines 1-70 (complete file)",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh lines 1-90 (complete file)",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh lines 1-110, complete current module/export declarations; unreceived source_error composition remains known required",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.20/src/expand.rs",
+      "sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "lines": 600,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source lines 1-650 (file complete); enum branch 222-506 governs D2",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.20/src/prop.rs",
+      "sha256": "9f350183bae7cb3b82e5cfe893212572c386fa52337cacf9976e0856312a468f",
+      "lines": 146,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source; has_display/has_source/backtrace/from detection",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.20/src/valid.rs",
+      "sha256": "700ac9fd6ecfbefe39b943ecd7c1f99dff8f1412b9aafef3b7c9feace4145c1b",
+      "lines": 248,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh complete source; no display attribute requirement when has_display is false",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.20/src/ast.rs",
+      "sha256": "c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+      "lines": 185,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh lines 1-130; enum/variant attribute inheritance; remaining field conversion not independently needed",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/naga-29.0.4/src/front/wgsl/parse/lexer.rs",
+      "sha256": "7208b9d96e850b285a45fb114b8a40eb74ce2cc143c528a1e967626d8395fcc0",
+      "lines": 1265,
+      "read_extent": "qualified exact-source carry from immediately preceding focused native-receiving-signature pre-review; fresh lines 180-380,395-446, plus exact visibility references 486-504 from source search; complete native comment branch and line-end/blankspace definitions; remaining lexer not cleared",
+      "coverage": "G4 binary/comparison caller/native lexical and D2 source proof remain required; no new source edit or compiled acceptance"
+    }
+  ],
+  "scope_accounting": {
+    "prior_generated_sources": 51,
+    "same_hash_as_own_complete_prior_wave": 50,
+    "only_different_path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+    "different_path_same_as_own_full_result_style_post_review": true,
+    "fresh_complete_current_accounts": 29,
+    "qualified_prior_full_body_carries": "Individual entries enumerate exact hashes and prior review, never inherited verdict. Old lexical misses are expressly reopened here.",
+    "fixture_source": "Fresh complete Map fixture module/helper, Gather fixture module, Stream fixture module, Stencil fixtures. Existing source contains ordinary declarations, Resource parameters and Neighbors1D/2D parameter protocols. No dedicated Scatter fixture module exists in the scoped module. The previous focused report read complete actual Min/Max/Reduce fixtures and both Scan source literals."
+  },
+  "intentional_not_applicable": [
+    "MapBindings fetch string replacements operate on framework-generated fetch snippets, not authored source. They are not duplicate function selection and are outside the requested authored span rewrite repair.",
+    "NeighborhoodFetch::at replaces private generated template placeholders, not authored text. Existing generated shader coordinate/boundary math is retained.",
+    "sanitize_type_name generates a private native alias; it is not source selection. Its alias must remain consistent with intentional real type lowering through the canonical source authority.",
+    "ResourceParameters fluid native binding adapters are source-independent and unchanged. No shared lexical owner migration is needed there.",
+    "No new promise for mixed neighborhood plus secondary Buffer, broader malformed WGSL validation, numeric Custom layout size inference or new source feature support."
+  ],
+  "dependencies": [
+    "Parent states peer API agreement received for this connected lexical family; Root remains sole implementation agent and no edit is performed here.",
+    "Known canonical count/stride/resource pipeline/Reduce/Scan/caller/public module/lock composition remains required; exact prior source carries are bounded semantic coverage, not compilation evidence.",
+    "Error-only derive D2 and binary/comparison G4 from previous report remain pending in the same receiving repair wave, with actual typed errors and no compatibility free comparison path.",
+    "All required final reviews, complete all13, hosted project checks and combined baseline export remain on the same final pushed revision."
+  ],
+  "validation_limits": [
+    "No production edit/copy or local project execution/build/test/lint/check/scanner/generator/runtime/regex-parser/macro probe. Only source/Git fingerprints and ignored reports.",
+    "No test/case/helper/assertion/doctest was authored or modified. Counterexamples/design edges are source reasoning, not runtime evidence.",
+    "Fresh full-body versus exact qualified prior carry is recorded per path; unreceived canonical owner graph and remaining numerical material/native families are not cleared."
+  ]
+}

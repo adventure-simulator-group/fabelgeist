@@ -1,0 +1,531 @@
+{
+  "review": "Independent bounded resident-rest-prefix Code Review",
+  "head": "6bf03a8d04bf246c996bbbfa17c1925ebd150c38",
+  "tree": "daddbb27e119b442e4bc77b30de8d0c84b357fd8",
+  "parent": "10cc1a69b1a9a5f4e54daa112477cc56b7487f45",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "changed_paths": [
+    "crates/fabelgeist-hair/src/render/deformation.rs",
+    "crates/fabelgeist-hair/src/render/mod.rs"
+  ],
+  "sources": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "127174cf7f7a73271a8e356884ec87fb3c4d85e8ec2173a058610c2eea2ff1d8",
+      "git_blob": "3d08b5ee5c2dbfa0f8a17d379d21f1916ba212ac",
+      "lines": 261,
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "86f0e714e3e5f41e6cb59a299114e43cd12a678bbf70f508f8681c610af87478",
+      "git_blob": "1a438b5279fdd27f2763e14664617bee0754641c",
+      "lines": 1919,
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "05d2a47057f3095bc11a8ad025e1a228f24c50df6436638456c17cd094dc55c2",
+      "git_blob": "36d40a4a9f69e26fa5ff94cff1c3657e8417ba71",
+      "lines": 224,
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "git_blob": "3ad944451601f5e4c5dd22d8a5f8d10f133e807e",
+      "lines": 66,
+      "coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "9a4cfd422099b6ffde9fb27f49e0c26fccd850684039712cb7e17e28bc7527db",
+      "coverage": "fresh canonical native count/positions_bytes/positions_binding_bytes/prefix/fitting projection bodies83-248; prior complete source read carried by unchanged bytes"
+    }
+  ],
+  "carried_exact_source_identities": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a9ce6fef1d2cdf2d11c06e762e32430e9406445c17aa8aae43cd0fdf2f2ca92c",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "0cec16cc3e11d085d3a2b3902b4cd810b7d8413eef744b421c03468b5c2dcd57",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "fresh complete file"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/pixel.rs",
+      "sha256": "9b7d1004ee1879e113be545a891967a8f30d6ced8086fba84ee7f279997d333b",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "sha256": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "fd6c4991e13b343c21b396b8aada2480b03508500184761d217c1237bb1c52cb",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+      "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+      "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/paint.rs",
+      "sha256": "daa74c09fa86ca04b709dcc9efed9b35d35a392aeb43db10086fa09cd27a50fb",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cover.rs",
+      "sha256": "50287b76df57d36dd9afcab6aa2a578f96e49b421b73e26b536d23c1bc65345f",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lib.rs",
+      "sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/material.rs",
+      "sha256": "20fdf72de21b47f4596eb6538d58a2d89aeb5217a8b797ca53730c769b5d5b1e",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/ops/mod.rs",
+      "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+      "sha256": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "sha256": "b9fccf7ea25d3cce7dc5dfdb0f91dda22362f10d0c5c4120d9e42c729c3c38c4",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/math.rs",
+      "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/rng.rs",
+      "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/sim.rs",
+      "sha256": "fb1ff8533a78fe122a0d19f28b64f6f757b55898aded84056dbe0fef816e6079",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "prior_coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim"
+    }
+  ],
+  "sdk_sources": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "coverage": "fresh Buffer documentation1-68 and actual Clone handle/inner/shared map-context declaration220-231"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/command/transfer.rs",
+      "sha256": "46659ab834a883c87450ec3d71accf1c8664a37abb332b251d421fae96f6c6e8",
+      "coverage": "fresh copy_buffer_to_buffer962-1087: native identity/device/usage/range/alignment and zero ordering"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+      "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "coverage": "prior levels211 create_buffer_binding positive/range/storage bound proof carried by unchanged actual SDK bytes"
+    }
+  ],
+  "fixtures": {
+    "crates/fabelgeist-hair/src/render/mod.rs": {
+      "exact10cc": true,
+      "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e"
+    },
+    "crates/fabelgeist-hair/src/gpu/mod.rs": {
+      "exact10cc": true,
+      "sha256": "c03faaa7a7dc20542360981d1b238e35c2ab09dd660194644b9f523c817e7828"
+    }
+  },
+  "shaders": [
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+      "exact10cc": true,
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+      "exact10cc": true,
+      "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "exact10cc": true,
+      "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/lod.rs",
+      "exact10cc": true,
+      "sha256": "84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/mod.rs",
+      "exact10cc": true,
+      "sha256": "a15fa14b15efdff7da3bf54a5ce9b5b3f911fa117cb37c5fd3e9d6fad95b7e9b"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/scalp.rs",
+      "exact10cc": true,
+      "sha256": "cc5ad35615a4f666696cf74cfaf49438343456cb5476a7fbfea2b130553e6374"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs",
+      "exact10cc": true,
+      "sha256": "4367a5a90c36960651b65fa738f16cb223984d50bb8c071022533dbf78d0b856"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "exact10cc": true,
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "exact10cc": true,
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "exact10cc": true,
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770"
+    }
+  ],
+  "pod_struct_bodies": {
+    "Globals": {
+      "exact10cc": true,
+      "sha256": "e0003c6f88ffdbc3d27a45fe06e0b88b50de9a095ff2e466faeeee967a5a2215"
+    },
+    "DrawGpu": {
+      "exact10cc": true,
+      "sha256": "7e57128d063a7d19d367616d291cb283ae1e038a991524e265e77e6fdd6ae1ed"
+    },
+    "PostGpu": {
+      "exact10cc": true,
+      "sha256": "d5b47327cf39b5a88545e9bb5d5c46f7a5cf6ab7ee28a1a113e81c206d07f10a"
+    },
+    "CardDrawGpu": {
+      "exact10cc": true,
+      "sha256": "f3bdd58c806c14dc0b5750aa354aa2d68e92cbda64bd9e942f60e4fa149466f7"
+    },
+    "DeformGpu": {
+      "exact10cc": true,
+      "sha256": "190035f5eecdfe124e69065c072c80b1864e596d20480e315122de2b6ea9208d"
+    }
+  },
+  "findings": [],
+  "contracts_revalidated": [
+    "First rest construction allocates positions_binding_bytes (positive16 minimum) and copies exactly positions_bytes, skipping copy for0. Nonempty copied byte extent is a multiple of vec4 stride16, fits the already admitted output and the new rest allocation, and preserves resident bytes/order without copying allocation suffix.",
+    "Only native bindings0(rest)/1(output) are bounded to the canonical resident binding extent. Their positive minimum handles truezero without authorizing an empty SDK storage binding. Remaining simulation inputs deliberately retain whole-buffer binding pending their own checked source owner.",
+    "Replacing dynamics borrows prior rest handles instead of taking old state. wgpu::Buffer::clone shares the actual native handle; it does not allocate or recapture currently deformed data. Private self.levels changes occur only in successful set_groom/set_gpu_groom publication, each resetting dynamics before levels replacement, so retained same-index rest belongs to the same immutable resident level.",
+    "All new per-level candidates and rest-copy commands are prepared while old Dynamics remains present; assignment occurs only after queue.submit returns normally. clear_dynamics likewise borrows current state, restores exactly each logical resident prefix, skips zero copies and removes old state only after normal submission.",
+    "No GPU completion, captured native acceptance or transactional resource rollback is claimed. Native device/usage/destroyed-resource errors retain the existing device-handled policy; native copy SDK still requires actual same-device buffers and COPY_SRC/COPY_DST.",
+    "record_deformations/fallible shape-device admission and frame Pending/history/moving publication semantics remain unchanged from10cc. Empty no-work obligations may be published Current; corrected comment now states this.",
+    "DeformationBuffers is an eight-binding native packaging record, not checked simulation admission. Its raw native sim_points and bare guide/id/weight/body buffers do not prove source association, logical extents or device provenance; required source family must close these before acceptance."
+  ],
+  "required_dependencies": [
+    "Complete source-associated host/GPU simulation admission: guide/ID/weight/body logical extents, guide cardinality/index ranges, actual device and native usages, including resident output COPY_SRC/COPY_DST for nonempty initialization/clear.",
+    "Integrate canonical GpuLevel/GpuLods sealed source/device/layout getters, host leaf/count producers and all callers before compilation/source-complete claims.",
+    "Native card count/physical/source admission and producer/creator/manifest-lock integration remain required.",
+    "#780 Kernel/FastPath fallible projection/cached actual-device guard integration remains required.",
+    "Full all13 review wave, independent Code/Rule/Comment review and hosted checks must pass one final pushed revision."
+  ],
+  "limits": [
+    "Both changed files freshly fully read, including complete renderer file; level receiver and deformation shader freshly fully read. Other fresh partial/carried exact source coverage is explicit.",
+    "Source/Git/provenance only. No source edits, local project execution/check/build/tests/scanners/generators/runtime/push/CI, or new tests/cases/helpers/assertions/doctests.",
+    "No new owned actionable finding is bounded source evidence, not compilation/native runtime/full renderer/all13/wholePR/final clearance."
+  ]
+}

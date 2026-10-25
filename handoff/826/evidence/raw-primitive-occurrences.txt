@@ -1,0 +1,210 @@
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:12:    pub size: (u32, u32, u32),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:18:    fn eq(&self, other: &Self) -> bool {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:38:            size: (0, 0, 0),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:52:        let width = size.x.max(1.0) as u32;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:53:        let height = size.y.max(1.0) as u32;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:54:        let depth = size.z.max(1.0) as u32;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:80:            mip_level_count: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:81:            sample_count: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:127:        Vec3::new(self.size.0 as f32, self.size.1 as f32, self.size.2 as f32)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:138:        let padded_bytes_per_row = (bytes_per_row + align - 1) & !(align - 1);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:139:        let staging_buffer_size = (padded_bytes_per_row * height * depth) as u64;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:157:                mip_level: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:164:                    offset: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:187:        // 2. Poll if on native
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:198:                        fabelgeist_timer::sleep(std::time::Duration::from_millis(1)).await;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:205:        // 3. Await result (only on wasm, since native loop already consumed rx)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:215:            Vec::with_capacity((width * height * depth) as usize * pixel_size as usize);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:219:            for slice_idx in 0..depth {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:220:                for row in 0..height {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:222:                        + row * padded_bytes_per_row) as usize;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:223:                    let end = start + bytes_per_row as usize;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:246:                mip_level: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:252:                offset: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:18:    pub size: (u32, u32),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:24:    fn eq(&self, other: &Self) -> bool {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:44:            size: (0, 0),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:58:            size.unwrap_or_else(|| Vec2::new(256.0, 256.0)),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:72:        let width = size.x as u32;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:73:        let height = size.y as u32;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:75:        if width < 1 || height < 1 {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:120:                depth_or_array_layers: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:122:            mip_level_count: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:123:            sample_count: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:175:        Vec2::new(self.size.0 as f32, self.size.1 as f32)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:200:        if image.width == 0 || image.height == 0 {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:207:        let tex = Texture2d::create(context, Vec2::new(width as f32, height as f32), format)?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:215:                mip_level: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:221:                offset: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:228:                depth_or_array_layers: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:243:            size.unwrap_or_else(|| Vec2::new(256.0, 256.0)),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:244:            color.unwrap_or_else(|| crate::data::vector::Vec4::new(0.0, 0.0, 0.0, 1.0)),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:267:        let padded_bytes_per_row = (bytes_per_row + align - 1) & !(align - 1);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:268:        let staging_buffer_size = (padded_bytes_per_row * height) as u64;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:286:                mip_level: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:293:                    offset: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:301:                depth_or_array_layers: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:316:        // 2. Poll if on native
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:327:                        fabelgeist_timer::sleep(std::time::Duration::from_millis(1)).await;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:334:        // 3. Await result (only on wasm, since native loop already consumed rx)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:343:        let mut result = Vec::with_capacity((width * height) as usize * pixel_size as usize);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:347:            for row in 0..height {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:348:                let start = (row * padded_bytes_per_row) as usize;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:349:                let end = start + bytes_per_row as usize;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:387:                mip_level: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:393:                offset: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:400:                depth_or_array_layers: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:460:        amount: Option<f64>,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:462:        self_tex.add_raw(context, &other, amount.unwrap_or(1.0) as f32)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:468:        amount: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:492:        amount: Option<f64>,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:494:        self_tex.mix_raw(context, &other, amount.unwrap_or(0.5) as f32)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:500:        amount: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:542:            color.unwrap_or_else(|| crate::data::vector::Vec4::new(0.0, 0.0, 0.0, 1.0)),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:558:                let depth_clear_value = if color.x == 0.0 && color.y == 0.0 && color.z == 0.0 {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:559:                    1.0
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:587:                        | TextureFormat::Rgba8Sint => 255.0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:588:                        _ => 255.0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:606:                                r: clear_color.x as f64,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:607:                                g: clear_color.y as f64,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:608:                                b: clear_color.z as f64,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:609:                                a: clear_color.w as f64,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:639:    /// zero and 133 of the 256 moved.
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:643:        let pixels: Vec<u8> = (0..256u32)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:644:            .flat_map(|level| [level as u8, level as u8, level as u8, 255])
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:646:        let image = Image::from_pixels(pixels, 256, 1)?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:658:                .as_chunks::<4>()
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:659:                .0
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:661:                .map(|pixel| pixel[0])
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:663:            let moved: Vec<usize> = (0..256)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:668:                "{format:?} moved {} of 256 levels; the darkest 32 came back as {:?}",
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:670:                &out[..32]
+crates/fabelgeist-gpu/tests/texture_views.rs:28:    cases: [NativeCase; 3],
+crates/fabelgeist-gpu/tests/texture_views.rs:56:                Self::Plane(Texture2d::create(context, Vec2::new(2.0, 2.0), format).unwrap())
+crates/fabelgeist-gpu/tests/texture_views.rs:59:                Self::Volume(Texture3d::new(context, Vec3::new(2.0, 2.0, 2.0), format).unwrap())
+crates/fabelgeist-gpu/tests/texture_views.rs:61:            Method::Cube => Self::Cube(TextureCube::new(context, 2.0, format).unwrap()),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:18:    pub size: u32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:24:    fn eq(&self, other: &Self) -> bool {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:44:            size: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:51:    pub fn new(context: &WgpuContext, size: f32, format: TextureFormat) -> Result<TextureCube> {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:58:        let size = size as u32;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:60:        if size < 1 {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:62:                "Texture size must be at least 1. Got {} (from {:?})",
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:105:                depth_or_array_layers: 6,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:107:            mip_level_count: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:108:            sample_count: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:130:            array_layer_count: Some(6),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:160:        images: [Image; 6],
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:163:        let size = images[0].width;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:167:                    "Cube map images must be square and identical in size. Face 0: {}x{}, Face {}: {}x{}",
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:177:        let tex = TextureCube::new(context, size as f32, format)?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:186:                    mip_level: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:188:                        x: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:189:                        y: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:190:                        z: i as u32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:196:                    offset: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:203:                    depth_or_array_layers: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:224:        size: Option<f64>,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:227:            .map(|s| s as f32)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:228:            .or_else(|| right.as_ref().map(|t| t.size.0 as f32))
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:229:            .or_else(|| left.as_ref().map(|t| t.size.0 as f32))
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:230:            .or_else(|| top.as_ref().map(|t| t.size.0 as f32))
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:231:            .or_else(|| bottom.as_ref().map(|t| t.size.0 as f32))
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:232:            .or_else(|| front.as_ref().map(|t| t.size.0 as f32))
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:233:            .or_else(|| back.as_ref().map(|t| t.size.0 as f32))
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:234:            .unwrap_or(256.0);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:301:            array_layer_count: Some(1),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:349:                mip_level: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:351:                    x: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:352:                    y: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:359:                offset: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:366:                depth_or_array_layers: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:384:            && texture.size.0 == self.size
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:385:            && texture.size.1 == self.size
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:398:                    mip_level: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:404:                    mip_level: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:406:                        x: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:407:                        y: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:415:                    depth_or_array_layers: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:442:                @builtin(position) position: vec4<f32>,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:443:                @location(0) uv: vec2<f32>,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:447:            fn vs_main(@builtin(vertex_index) idx: u32) -> VertexOutput {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:449:                let x = f32(i32(idx & 1u) * 4 - 1);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:450:                let y = f32(i32(idx & 2u) * 2 - 1);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:451:                out.position = vec4<f32>(x, y, 0.0, 1.0);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:452:                out.uv = vec2<f32>(x * 0.5 + 0.5, 1.0 - (y * 0.5 + 0.5));
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:456:            @group(0) @binding(0) var src_tex: texture_2d<f32>;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:457:            @group(0) @binding(1) var src_samp: sampler;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:460:            fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:488:                            binding: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:498:                            binding: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:513:                        binding: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:517:                        binding: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:529:                    immediate_size: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:592:            pass.set_bind_group(0, &bind_group, &[]);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:593:            pass.draw(0..3, 0..1);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:600:    pub fn size(&self) -> f32 {
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:601:        self.size as f32
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:627:            array_layer_count: Some(6),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:651:                array_layer_count: Some(6),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:663:        time: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:673:        time: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:683:            @group(0) @binding(0) var out_cube: texture_storage_2d_array<{}, write>;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:686:                time: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:687:                face: u32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:688:                _pad1: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:689:                _pad2: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:691:            @group(0) @binding(1) var<uniform> uniforms: Uniforms;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:693:            fn get_cube_direction(uv: vec2<f32>, face: u32) -> vec3<f32> {{
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:694:                let u = uv.x * 2.0 - 1.0;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:695:                let v = uv.y * 2.0 - 1.0;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:696:                var dir = vec3<f32>(0.0);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:697:                if (face == 0u) {{ dir = vec3<f32>(1.0, -v, -u); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:698:                else if (face == 1u) {{ dir = vec3<f32>(-1.0, -v, u); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:699:                else if (face == 2u) {{ dir = vec3<f32>(u, 1.0, v); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:700:                else if (face == 3u) {{ dir = vec3<f32>(u, -1.0, -v); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:701:                else if (face == 4u) {{ dir = vec3<f32>(u, -v, 1.0); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:702:                else {{ dir = vec3<f32>(-u, -v, -1.0); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:706:            @compute @workgroup_size(8, 8, 1)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:707:            fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:712:                let uv = (vec2<f32>(id.xy) + 0.5) / vec2<f32>(size);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:733:            0.0f32.to_ne_bytes(),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:734:            0.0f32.to_ne_bytes(),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:753:                            binding: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:763:                            binding: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:782:                        binding: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:786:                        binding: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:798:                    immediate_size: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:824:            pass.set_bind_group(0, &bind_group, &[]);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:825:            let workgroup_count = self.size.div_ceil(8);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:826:            pass.dispatch_workgroups(workgroup_count, workgroup_count, 1);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:837:        time: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:846:        time: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:856:            @group(0) @binding(0) var out_cube: texture_storage_2d_array<{}, write>;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:859:                time: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:860:                _pad0: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:861:                _pad1: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:862:                _pad2: f32,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:864:            @group(0) @binding(1) var<uniform> uniforms: Uniforms;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:866:            fn get_cube_direction(uv: vec2<f32>, face: u32) -> vec3<f32> {{
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:867:                let u = uv.x * 2.0 - 1.0;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:868:                let v = uv.y * 2.0 - 1.0;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:869:                var dir = vec3<f32>(0.0);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:870:                if (face == 0u) {{ dir = vec3<f32>(1.0, -v, -u); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:871:                else if (face == 1u) {{ dir = vec3<f32>(-1.0, -v, u); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:872:                else if (face == 2u) {{ dir = vec3<f32>(u, 1.0, v); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:873:                else if (face == 3u) {{ dir = vec3<f32>(u, -1.0, -v); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:874:                else if (face == 4u) {{ dir = vec3<f32>(u, -v, 1.0); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:875:                else {{ dir = vec3<f32>(-u, -v, -1.0); }}
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:879:            @compute @workgroup_size(8, 8, 1)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:880:            fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:885:                let uv = (vec2<f32>(id.xy) + 0.5) / vec2<f32>(size);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:903:        let uniforms_data = [time, 0.0, 0.0, 0.0];
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:919:                            binding: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:929:                            binding: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:948:                        binding: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:952:                        binding: 1,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:964:                    immediate_size: 0,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:990:            pass.set_bind_group(0, &bind_group, &[]);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:991:            let workgroup_count = self.size.div_ceil(8);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:992:            pass.dispatch_workgroups(workgroup_count, workgroup_count, 6);

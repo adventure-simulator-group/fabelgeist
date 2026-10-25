@@ -1,0 +1,533 @@
+{
+  "root_before": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "peer_base": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "peer_packet_manifest_sha256": "1da74380dd8a3c6a54c24803aea6a48602f4baa12e69adc7a51fee869d5b3373",
+  "frozen_snapshot": "target/pr826-audit/generated-transfer-c665-map-snapshot",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "55748934ab8638b33ef380aae35e12c0ab61b888158a5e0b5de459c68495ba7a",
+      "role": "files",
+      "raw_lines": 299,
+      "root_before_sha256": "51340cdb4c87b5008f4d45cd65bf25658a254bc9212f3fc031aba1b63207605f",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+      "role": "files",
+      "raw_lines": 218,
+      "root_before_sha256": "1337f90480bb3e607df7a6e8610b04e4042fd6d7d81ca64e8f6b03a8931d7dcb",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+      "role": "files",
+      "raw_lines": 371,
+      "root_before_sha256": "e1596d8da320d3a162ec4326e60ceffef4973d102f085f92c5e17356d8a19623",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "role": "files",
+      "raw_lines": 7,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "role": "files",
+      "raw_lines": 48,
+      "root_before_sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+      "role": "files",
+      "raw_lines": 247,
+      "root_before_sha256": "bf2c295f6595fd5b7504f08b4605f2040015e358b4b984f4ecc47c66f237daa0",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "486b2a0fb53a28e3b45cc4b847784c885a1b2f637220e6bdad8083dee0216a72",
+      "role": "files",
+      "raw_lines": 110,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "b9f394de465c58404eb5cf84625eb3510d77a80423ea0519ee12ad1836198f87",
+      "role": "files",
+      "raw_lines": 216,
+      "root_before_sha256": "d974254605f81879bed0add0bcba13bb61170b84f345185be75216e99dcb02c8",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a7c696dbf294ed783211c1fd401cd59769543cae9733276ef8febc33c563ca0e",
+      "role": "files",
+      "raw_lines": 113,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "role": "files",
+      "raw_lines": 9,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "d430c50cf3c4c063b75a82a9d9ce18a5dde50d68853c71d31d26d1a3b74c0832",
+      "role": "files",
+      "raw_lines": 116,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "role": "files",
+      "raw_lines": 42,
+      "root_before_sha256": "307a22684a265bcbdd41fc0b7b038b9cdec839b1988eed7f66b8390fee2e6a5d",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "role": "files",
+      "raw_lines": 296,
+      "root_before_sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "role": "files",
+      "raw_lines": 170,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "role": "files",
+      "raw_lines": 27,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+      "role": "files",
+      "raw_lines": 335,
+      "root_before_sha256": "cdc33d82be5c30c9b6af391982c781fd50cd244dd9a018db03f95a90830314ff",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "5313b40f721b7bc7a2a04993f36823fc4a345d0beacde0edf23a494e34732178",
+      "role": "files",
+      "raw_lines": 78,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "role": "files",
+      "raw_lines": 1082,
+      "root_before_sha256": "ae37884158e7bdd3c45b6821ff2d127a5e3fdbd7e8be8b30c4d273480d5b6d71",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "role": "files",
+      "raw_lines": 11,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "role": "files",
+      "raw_lines": 43,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+      "role": "files",
+      "raw_lines": 331,
+      "root_before_sha256": "ac67a2f7413430d43cca9c43066d47ce55c4e743ff787d8d7115ceb43a924d0c",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "role": "files",
+      "raw_lines": 69,
+      "root_before_sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "role": "files",
+      "raw_lines": 216,
+      "root_before_sha256": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "role": "files",
+      "raw_lines": 103,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "5cb92b1488c3e0ea14c98488795775c6fe4c190f5c60af878f5a96a36a867a92",
+      "role": "files",
+      "raw_lines": 253,
+      "root_before_sha256": "7ab3a1fe9e5c19e58ba3f9b6e6494ded69096cc71579c3b5c2f8f3b2f28be1ac",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "role": "files",
+      "raw_lines": 88,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "role": "files",
+      "raw_lines": 97,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "role": "reference_only",
+      "raw_lines": 13116,
+      "root_before_sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "role": "reference_only",
+      "raw_lines": 12316,
+      "root_before_sha256": "0ba2ba1fd4f6eaa9fbad083857e1e34f6ec6c90d5f0c5ba127163fb8b641946a",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "role": "reference_only",
+      "raw_lines": 11,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "sha256": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+      "role": "reference_only",
+      "raw_lines": 287,
+      "root_before_sha256": "0b46bdcd4dfba732411b2922b12c0526a6109c8c2b47102d3c9844e80ff4a47c",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "role": "reference_only",
+      "raw_lines": 307,
+      "root_before_sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "role": "reference_only",
+      "raw_lines": 272,
+      "root_before_sha256": "2d85bb7c8a1674a8918169e0bf10ec8b5e2ffed332713b418fcda7faea3e283f",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "role": "reference_only",
+      "raw_lines": 71,
+      "root_before_sha256": "fd6684fbe63e2641aea1a50abccb504ad774aebf000ba782d6852dcd35514eb6",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+      "sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "role": "reference_only",
+      "raw_lines": 131,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+      "sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "role": "reference_only",
+      "raw_lines": 145,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+      "sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "role": "reference_only",
+      "raw_lines": 27,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+      "sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "role": "reference_only",
+      "raw_lines": 179,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+      "sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "role": "reference_only",
+      "raw_lines": 236,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+      "sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "role": "reference_only",
+      "raw_lines": 54,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "role": "reference_only",
+      "raw_lines": 71,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27",
+      "role": "reference_only",
+      "raw_lines": 102,
+      "root_before_sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "role": "reference_only",
+      "raw_lines": 236,
+      "root_before_sha256": "102937a8cee5211a52a5fd4a72548d64d6020ddf8e674dde8ef03a8e05ddc714",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+      "sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "role": "reference_only",
+      "raw_lines": 174,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/perlin_noise.rs",
+      "sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "role": "reference_only",
+      "raw_lines": 129,
+      "root_before_sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "role": "reference_only",
+      "raw_lines": 16,
+      "root_before_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "role": "reference_only",
+      "raw_lines": 302,
+      "root_before_sha256": "ad6e3def79c9310934148627ecad10bb08ca71baaa585897559999d7a1d169b6",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "role": "reference_only",
+      "raw_lines": 93,
+      "root_before_sha256": null,
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/simplex_noise.rs",
+      "sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "role": "reference_only",
+      "raw_lines": 171,
+      "root_before_sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "role": "reference_only",
+      "raw_lines": 208,
+      "root_before_sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "role": "reference_only",
+      "raw_lines": 43,
+      "root_before_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "role": "reference_only",
+      "raw_lines": 150,
+      "root_before_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "role": "reference_only",
+      "raw_lines": 81,
+      "root_before_sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "role": "reference_only",
+      "raw_lines": 69,
+      "root_before_sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "role": "reference_only",
+      "raw_lines": 40,
+      "root_before_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "role": "reference_only",
+      "raw_lines": 201,
+      "root_before_sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "role": "reference_only",
+      "raw_lines": 206,
+      "root_before_sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "role": "reference_only",
+      "raw_lines": 79,
+      "root_before_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "role": "reference_only",
+      "raw_lines": 55,
+      "root_before_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "role": "reference_only",
+      "raw_lines": 82,
+      "root_before_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "role": "reference_only",
+      "raw_lines": 102,
+      "root_before_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "role": "reference_only",
+      "raw_lines": 113,
+      "root_before_sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "role": "reference_only",
+      "raw_lines": 86,
+      "root_before_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "role": "reference_only",
+      "raw_lines": 43,
+      "root_before_sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "role": "reference_only",
+      "raw_lines": 24,
+      "root_before_sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "read_coverage": "Not yet complete. Fingerprint is bookkeeping, not source coverage."
+    }
+  ],
+  "discovery": "INCOMPLETE. Exact source/notes snapshot preserved; complete current receivingall13 required before any implementation edit.",
+  "repair": "No transferred repository source changed/copied yet.",
+  "validation": "No project execution. Native83 previous reviews remain bounded; final global gates incomplete.",
+  "authority": "826 owns only explicitly transferred whole families;780 owns retained caller/exports/lock/extraction/etc. Existing Root native ownership remains unchanged despite generic reference-only template labels.",
+  "store_comparison_erratum": "Owner resolved script substitution false-positive without source edits; no store-behavior repair is justified by that old mismatch."
+}

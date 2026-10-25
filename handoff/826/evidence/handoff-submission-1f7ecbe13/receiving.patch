@@ -1,0 +1,568 @@
+diff --git a/crates/fabelgeist-compute/src/kernel/batch_error.rs b/crates/fabelgeist-compute/src/kernel/batch_error.rs
+index a069a1e25..75a702a9a 100644
+--- a/crates/fabelgeist-compute/src/kernel/batch_error.rs
++++ b/crates/fabelgeist-compute/src/kernel/batch_error.rs
+@@ -1,10 +1,11 @@
++use super::BufferCopy;
+ use fabelgeist_gpu::data::gpu::buffer::BufferByteLength;
+ use std::{error::Error, fmt};
+ 
+ #[derive(Debug)]
+ pub enum KernelBatchError {
+     CopyOutOfBounds {
+-        requested: BufferByteLength,
++        copy: BufferCopy,
+         source: BufferByteLength,
+         destination: BufferByteLength,
+     },
+@@ -14,12 +15,13 @@ impl fmt::Display for KernelBatchError {
+     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+         match self {
+             Self::CopyOutOfBounds {
+-                requested,
++                copy,
+                 source,
+                 destination,
+             } => write!(
+                 formatter,
+-                "KernelBatch::copy_buffer: {requested} bytes does not fit {source} -> {destination}"
++                "KernelBatch::copy_buffer: {} bytes at {} -> {} exceeds {source} -> {destination} bytes",
++                copy.bytes, copy.source_offset, copy.destination_offset
+             ),
+         }
+     }
+diff --git a/crates/fabelgeist-compute/src/kernel/copy.rs b/crates/fabelgeist-compute/src/kernel/copy.rs
+new file mode 100644
+index 000000000..e13b3b8e4
+--- /dev/null
++++ b/crates/fabelgeist-compute/src/kernel/copy.rs
+@@ -0,0 +1,73 @@
++//! Ordered byte-range copies inside a compute batch.
++
++use super::{KernelBatch, KernelBatchError};
++use anyhow::Result;
++#[cfg(not(target_arch = "wasm32"))]
++use fabelgeist_gpu::prelude::ComputePassError;
++use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, BufferByteOffset};
++#[cfg(not(target_arch = "wasm32"))]
++use std::sync::Arc;
++
++/// Requested source and destination byte ranges for one buffer copy.
++/// Bounds are admitted against the supplied buffers when the copy is recorded.
++#[derive(Clone, Copy, Debug)]
++pub struct BufferCopy {
++    pub source_offset: BufferByteOffset,
++    pub destination_offset: BufferByteOffset,
++    pub bytes: BufferByteLength,
++}
++
++impl KernelBatch<'_> {
++    /// Copy byte ranges in order with the surrounding batch operations.
++    /// Logical bounds are checked before recording. Native buffer requirements
++    /// follow the context's validation policy, including for zero-byte copies.
++    /// Native encoding errors can remain deferred until batch submission.
++    pub fn copy_buffer(
++        &mut self,
++        source: &Buffer,
++        destination: &Buffer,
++        copy: BufferCopy,
++    ) -> Result<()> {
++        // These comparisons are at the native byte-address receiving boundary.
++        let source_fits = copy
++            .source_offset
++            .checked_after(copy.bytes)
++            .is_some_and(|end| u64::from(end) <= u64::from(source.size));
++        let destination_fits = copy
++            .destination_offset
++            .checked_after(copy.bytes)
++            .is_some_and(|end| u64::from(end) <= u64::from(destination.size));
++        if !source_fits || !destination_fits {
++            return Err(KernelBatchError::CopyOutOfBounds {
++                copy,
++                source: source.size,
++                destination: destination.size,
++            }
++            .into());
++        }
++        #[cfg(not(target_arch = "wasm32"))]
++        let scope = self.context.blocking_validation.then(|| {
++            self.context
++                .device
++                .push_error_scope(wgpu::ErrorFilter::Validation)
++        });
++        self.encoder.copy_buffer_to_buffer(
++            &source.buffer,
++            u64::from(copy.source_offset),
++            &destination.buffer,
++            u64::from(copy.destination_offset),
++            u64::from(copy.bytes),
++        );
++        #[cfg(not(target_arch = "wasm32"))]
++        if let Some(scope) = scope {
++            let _ = self
++                .context
++                .device
++                .poll(wgpu::PollType::wait_indefinitely());
++            if let Some(cause) = pollster::block_on(scope.pop()) {
++                return Err(ComputePassError::Native(Arc::new(cause)).into());
++            }
++        }
++        Ok(())
++    }
++}
+diff --git a/crates/fabelgeist-compute/src/kernel/mod.rs b/crates/fabelgeist-compute/src/kernel/mod.rs
+index 7e13ab6c4..081f961b1 100644
+--- a/crates/fabelgeist-compute/src/kernel/mod.rs
++++ b/crates/fabelgeist-compute/src/kernel/mod.rs
+@@ -19,13 +19,14 @@ use crate::prelude::*;
+ use std::sync::Arc;
+ 
+ pub use batch_error::KernelBatchError;
++pub use copy::BufferCopy;
+ pub use dispatch_count::RecordedDispatchCount;
+ 
+ mod batch_error;
++mod copy;
+ mod dispatch_count;
+ mod fast;
+ 
+-// Validation scopes on one device must not interleave during compilation.
+ static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
+ 
+ /// The most workgroups one dispatch dimension may hold.
+@@ -85,8 +86,6 @@ impl Kernel {
+     /// `@group(0) @binding(n)` declarations; the binding *names* are what a
+     /// dispatch matches its parameters against.
+     pub fn new(context: &WgpuContext, code: impl Into<String>) -> Result<Self> {
+-        // Shader and pipeline creation read back validation error scopes,
+-        // which interleave badly when two threads compile at once.
+         let _compiling = COMPILING
+             .lock()
+             .unwrap_or_else(|poisoned| poisoned.into_inner());
+@@ -215,7 +214,7 @@ pub struct KernelBatch<'a> {
+     encoder: wgpu::CommandEncoder,
+     dispatches: RecordedDispatchCount,
+     uniforms: fast::UniformArena,
+-    /// Run once the batch is submitted, in order.
++    /// Run in order only after the context's submission helper returns `Ok`.
+     after_submit: Vec<Box<dyn FnOnce() + Send + 'a>>,
+ }
+ 
+@@ -244,6 +243,7 @@ impl<'a> KernelBatch<'a> {
+     }
+ 
+     /// Record one dispatch of `kernel` over an explicit workgroup grid.
++    /// Native encoding errors can remain deferred until submission.
+     pub fn dispatch(
+         &mut self,
+         kernel: &Kernel,
+@@ -326,48 +326,6 @@ impl<'a> KernelBatch<'a> {
+         self.dispatch(kernel, parameters, kernel.groups_for(items))
+     }
+ 
+-    /// Copy between buffers inside the batch, so that the copy is ordered
+-    /// against the dispatches around it.
+-    pub fn copy_buffer(
+-        &mut self,
+-        source: &Buffer,
+-        destination: &Buffer,
+-        bytes: BufferByteLength,
+-    ) -> Result<()> {
+-        if bytes > source.size || bytes > destination.size {
+-            return Err(KernelBatchError::CopyOutOfBounds {
+-                requested: bytes,
+-                source: source.size,
+-                destination: destination.size,
+-            }
+-            .into());
+-        }
+-        #[cfg(not(target_arch = "wasm32"))]
+-        let scope = self.context.blocking_validation.then(|| {
+-            self.context
+-                .device
+-                .push_error_scope(wgpu::ErrorFilter::Validation)
+-        });
+-        self.encoder.copy_buffer_to_buffer(
+-            &source.buffer,
+-            0,
+-            &destination.buffer,
+-            0,
+-            u64::from(bytes),
+-        );
+-        #[cfg(not(target_arch = "wasm32"))]
+-        if let Some(scope) = scope {
+-            let _ = self
+-                .context
+-                .device
+-                .poll(wgpu::PollType::wait_indefinitely());
+-            if let Some(cause) = pollster::block_on(scope.pop()) {
+-                return Err(ComputePassError::Native(Arc::new(cause)).into());
+-            }
+-        }
+-        Ok(())
+-    }
+-
+     /// Zero a buffer inside the batch.
+     pub fn clear_buffer(&mut self, buffer: &Buffer) {
+         self.encoder.clear_buffer(&buffer.buffer, 0, None);
+@@ -382,21 +340,27 @@ impl<'a> KernelBatch<'a> {
+         self.dispatches
+     }
+ 
+-    /// Run `work` once the batch has been submitted -- for what has to
+-    /// follow the submission rather than be recorded in it, like asking for a
+-    /// staging buffer to be mapped. Dropped unrun if the batch never is.
++    /// Run `work` after the context's submission helper returns `Ok`, in
++    /// registration order. Drop it unrun if the batch is discarded or
++    /// submission returns `Err`. This is a host submission callback, not a
++    /// GPU-completion callback; it can initiate a staging-buffer mapping.
+     pub fn after_submit(&mut self, work: impl FnOnce() + Send + 'a) {
+         self.after_submit.push(Box::new(work));
+     }
+ 
+-    /// Finish the encoder and submit. Returns the submission index, which the
+-    /// caller can wait on if it needs the results back on the host.
+-    pub fn submit(self) -> wgpu::SubmissionIndex {
+-        let index = self.context.queue.submit(Some(self.encoder.finish()));
++    /// Consume the encoder and submit under the context's validation policy.
++    /// Propagate captured native errors before running application callbacks.
++    /// An `Ok` index is not GPU completion; device-handled paths provide no
++    /// synchronous native validation verdict.
++    pub fn submit(self) -> Result<wgpu::SubmissionIndex> {
++        let index = self
++            .context
++            .submit(self.encoder)
++            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+         for work in self.after_submit {
+             work();
+         }
+-        index
++        Ok(index)
+     }
+ }
+ 
+diff --git a/crates/fabelgeist-gpu/Cargo.toml b/crates/fabelgeist-gpu/Cargo.toml
+index 147cd8b21..58d988813 100644
+--- a/crates/fabelgeist-gpu/Cargo.toml
++++ b/crates/fabelgeist-gpu/Cargo.toml
+@@ -27,7 +27,7 @@ tokio = { "version" = "1", "features" = ["full"] }
+ serde_json = { "version" = "1.0", "features" = ["preserve_order"] }
+ 
+ [target."cfg(not(target_arch = \"wasm32\"))".dependencies]
+-wgpu = { "version" = "29.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"] }
++wgpu = { "version" = "29.0", "default-features" = false, "features" = ["std", "webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"] }
+ pollster = { "version" = "0.4" }
+ 
+ [target."cfg(target_arch = \"wasm32\")".dependencies]
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs
+index b04f07adb..dc498c7b6 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs
+@@ -10,7 +10,7 @@ pub enum ComputeBindingKind {
+     Uniform,
+ }
+ 
+-/// Failures at the native compute binding and recording boundary.
++/// Failures in compute binding, recording, finalization and submission.
+ #[derive(Clone, Debug)]
+ pub enum ComputePassError {
+     MissingParameter {
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs
+index 23f5147ee..c80572338 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs
+@@ -13,6 +13,8 @@ mod shape;
+ pub struct ComputePass;
+ 
+ impl ComputePass {
++    /// Record and submit a standalone dispatch under the context's validation
++    /// policy. Successful submission does not establish GPU completion.
+     pub fn dispatch(
+         context: &WgpuContext,
+         pipeline_def: ComputePipeline,
+@@ -27,10 +29,14 @@ impl ComputePass {
+ 
+         Self::record(context, &pipeline_def, &parameters, &mut encoder, groups)?;
+ 
+-        context.queue.submit(std::iter::once(encoder.finish()));
++        context
++            .submit(encoder)
++            .map_err(|cause| ComputePassError::Native(std::sync::Arc::new(cause)))?;
+         Ok(())
+     }
+ 
++    /// Append a dispatch after admitting its pipeline and bindings. Native
++    /// encoding errors can remain deferred until the encoder is finalized.
+     pub fn record(
+         context: &WgpuContext,
+         pipeline_def: &ComputePipeline,
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs
+index 8287a1c0a..e78afbe36 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs
+@@ -3,6 +3,7 @@ use std::sync::Arc;
+ use anyhow::Result;
+ 
+ use crate::{
++    data::ComputePassError,
+     data::gpu::texture::{TextureFormat, TextureViewError},
+     data::vector::Vec2,
+     globals::WgpuContext,
+@@ -314,7 +315,9 @@ impl Texture2d {
+             },
+         );
+ 
+-        context.queue.submit(Some(encoder.finish()));
++        context
++            .submit(encoder)
++            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+ 
+         #[allow(unused_mut)]
+         let (tx, mut rx) = futures_channel::oneshot::channel();
+@@ -495,7 +498,9 @@ impl Texture2d {
+                 label: Some("Texture2d Blit Encoder"),
+             });
+         blitter.blit(&context.device, &mut encoder, source_view, target_view);
+-        context.queue.submit(std::iter::once(encoder.finish()));
++        context
++            .submit(encoder)
++            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+         Ok(())
+     }
+     pub fn clear(
+@@ -582,7 +587,9 @@ impl Texture2d {
+                 });
+             }
+         }
+-        context.queue.submit(Some(encoder.finish()));
++        context
++            .submit(encoder)
++            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+         Ok(())
+     }
+ }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs
+index 380b5073a..588b61fb0 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs
+@@ -1,5 +1,6 @@
+ use std::sync::Arc;
+ 
++use crate::data::ComputePassError;
+ use crate::data::gpu::texture::{TextureFormat, TextureViewError};
+ use anyhow::Result;
+ 
+@@ -176,7 +177,9 @@ impl Texture3d {
+             },
+         );
+ 
+-        context.queue.submit(Some(encoder.finish()));
++        context
++            .submit(encoder)
++            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+ 
+         #[allow(unused_mut)]
+         let (tx, mut rx) = futures_channel::oneshot::channel();
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs
+index fac9dfb35..5690e5dda 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs
+@@ -3,6 +3,7 @@ use std::sync::Arc;
+ use anyhow::Result;
+ 
+ use crate::{
++    data::ComputePassError,
+     data::gpu::texture::{CubeFace, Image, TextureFormat, TextureView, TextureViewError},
+     globals::WgpuContext,
+ };
+@@ -370,7 +371,9 @@ impl TextureCube {
+                     depth_or_array_layers: 1,
+                 },
+             );
+-            context.queue.submit(Some(encoder.finish()));
++            context
++                .submit(encoder)
++                .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+             return Ok(());
+         }
+ 
+@@ -542,7 +545,9 @@ impl TextureCube {
+             pass.draw(0..3, 0..1);
+         }
+ 
+-        context.queue.submit(Some(encoder.finish()));
++        context
++            .submit(encoder)
++            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+         Ok(())
+     }
+ 
+@@ -719,7 +724,9 @@ impl TextureCube {
+             pass.dispatch_workgroups(workgroup_count, workgroup_count, 1);
+         }
+ 
+-        context.queue.submit(Some(encoder.finish()));
++        context
++            .submit(encoder)
++            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+         Ok(())
+     }
+ 
+@@ -883,7 +890,9 @@ impl TextureCube {
+             pass.dispatch_workgroups(workgroup_count, workgroup_count, 6);
+         }
+ 
+-        context.queue.submit(Some(encoder.finish()));
++        context
++            .submit(encoder)
++            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+         Ok(())
+     }
+ }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs
+index e4a5b85be..92896fb64 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs
+@@ -1,4 +1,5 @@
+ use crate::{
++    data::ComputePassError,
+     data::gpu::texture::{Image, TextureFormat, TextureViewError, TextureViewResult},
+     data::vector::{Vec2, Vec4},
+     globals::WgpuContext,
+@@ -176,7 +177,9 @@ impl TextureView {
+                 });
+             }
+         }
+-        context.queue.submit(Some(encoder.finish()));
++        context
++            .submit(encoder)
++            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+         Ok(())
+     }
+     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
+@@ -235,7 +238,9 @@ impl TextureView {
+             },
+         );
+ 
+-        context.queue.submit(Some(encoder.finish()));
++        context
++            .submit(encoder)
++            .map_err(|cause| ComputePassError::Native(Arc::new(cause)))?;
+ 
+         #[allow(unused_mut)]
+         let (tx, mut rx) = futures_channel::oneshot::channel();
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
+index 70f8a2488..53fd3750c 100644
+--- a/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
+@@ -1,8 +1,10 @@
+ use anyhow::{Result, anyhow};
++pub use blitter::Blitter;
+ use std::sync::Arc;
+ use wgpu::{Adapter, Device, Instance, Queue};
++
+ pub mod blitter;
+-pub use blitter::Blitter;
++mod submission;
+ 
+ #[derive(Clone)]
+ pub struct WgpuContext {
+@@ -15,13 +17,14 @@ pub struct WgpuContext {
+     pub surface: Option<Arc<wgpu::Surface<'static>>>,
+     pub blitter: Option<Arc<Blitter>>,
+     pub blit_lock: Arc<async_lock::Mutex<()>>,
+-    /// Whether shader, pipeline and texture construction synchronously waits
+-    /// for native validation results.
++    /// Whether native construction, encoder finalization and submission
++    /// observe Validation errors synchronously.
+     ///
+     /// Native contexts created here enable this; borrowed contexts disable it
+     /// to avoid blocking their caller on GPU work. A blocking poll waits for
+     /// the latest submission observed when polling begins and has no timeout.
+-    /// When disabled, these constructors install no validation scope, so
++    /// Finalization and submission read their scopes without a completion wait.
++    /// When disabled, these operations install no validation scope, so
+     /// native errors follow the device's configured error handling. Browser
+     /// builds skip synchronous readback. Shader source is separately checked
+     /// by Naga.
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs
+new file mode 100644
+index 000000000..df5473033
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs
+@@ -0,0 +1,43 @@
++use super::WgpuContext;
++
++impl WgpuContext {
++    /// Finish and submit an encoder created by this context's device.
++    ///
++    /// The encoder must be created by this context's device, and the queue
++    /// must belong to that same logical `wgpu::Device`. Sharing a backend or
++    /// adapter is insufficient.
++    /// With native synchronous validation enabled, capture Validation errors
++    /// from finalization before submitting, then capture submission errors
++    /// separately. Preserve the SDK cause without waiting for GPU completion.
++    /// Other error classes follow the device's configured error handling.
++    ///
++    /// Borrowed contexts and browser builds use device error handling instead
++    /// of observing these scopes. On those paths, `Ok` provides no synchronous
++    /// validation verdict. No path promises GPU completion or later device
++    /// health; use a separate completion operation when results are needed.
++    pub fn submit(
++        &self,
++        encoder: wgpu::CommandEncoder,
++    ) -> std::result::Result<wgpu::SubmissionIndex, wgpu::Error> {
++        #[cfg(not(target_arch = "wasm32"))]
++        let scope = self
++            .blocking_validation
++            .then(|| self.device.push_error_scope(wgpu::ErrorFilter::Validation));
++        let commands = encoder.finish();
++        #[cfg(not(target_arch = "wasm32"))]
++        if let Some(cause) = scope.and_then(|scope| pollster::block_on(scope.pop())) {
++            return Err(cause);
++        }
++
++        #[cfg(not(target_arch = "wasm32"))]
++        let scope = self
++            .blocking_validation
++            .then(|| self.device.push_error_scope(wgpu::ErrorFilter::Validation));
++        let index = self.queue.submit([commands]);
++        #[cfg(not(target_arch = "wasm32"))]
++        if let Some(cause) = scope.and_then(|scope| pollster::block_on(scope.pop())) {
++            return Err(cause);
++        }
++        Ok(index)
++    }
++}
+diff --git a/crates/fabelgeist-gpu/texture-views.md b/crates/fabelgeist-gpu/texture-views.md
+index ba34662c7..9ad96d142 100644
+--- a/crates/fabelgeist-gpu/texture-views.md
++++ b/crates/fabelgeist-gpu/texture-views.md
+@@ -127,8 +127,25 @@ native immediate-value commands.
+ Cached kernels keep per-batch uniform slots with checked byte offsets and retain
+ native pipeline/binding causes. Empty launches in a batch skip parameter
+ admission and counter increments. Standalone empty dispatches still admit
+-parameters. Folded launches and callbacks after submission retain their existing
+-ordering. Borrowed contexts and browser builds still provide no synchronous
++parameters. Folded launches retain their existing ordering. Recording a dispatch
++or copy does not establish native encoding acceptance: wgpu can defer validation
++until encoder finalization. `WgpuContext::submit` observes Validation errors from
++finalization before queue submission, then observes submission separately under
++the context's native validation policy. It returns the actual SDK cause without
++waiting for GPU completion. The encoder must be created by the context's device,
++and its queue must belong to that same logical `wgpu::Device`; sharing a backend
++or adapter is insufficient. Native builds explicitly enable wgpu's `std` feature
++so its scope tracking distinguishes threads.
++
++`KernelBatch::submit` and standalone dispatch preserve these causes through
++`ComputePassError::Native`. Batch application callbacks run in registration
++order only after the submission helper returns `Ok`; a discarded or rejected
++batch drops them unrun. These callbacks can initiate mapping, but do not report
++GPU completion. A pending readback obtained before submission must be discarded
++when submission fails; callback removal does not supply a mapping outcome.
++Separate readback or completion operations remain necessary to obtain results.
++This boundary captures the Validation filter, not every possible device error.
++Borrowed contexts and browser builds still provide no synchronous
+ native validation verdict; typed errors cannot recover a cause the device never
+ reported through a read-back scope.
+ 

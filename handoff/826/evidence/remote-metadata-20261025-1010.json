@@ -1,0 +1,70 @@
+{
+  "checked_at": "2026-10-25 10:09:42 UTC",
+  "pr826": {
+    "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/826",
+    "number": 826,
+    "state": "open",
+    "merged": false,
+    "mergeable": true,
+    "draft": true,
+    "body": "Selecting a whole-texture format view currently erases native validation\ncauses into messages. Default textures and publicly cleared cached views can\nalso panic. `Texture2d`, `Texture3d` and `TextureCube::view_with_format` now\nreturn one bespoke `TextureViewError` through `TextureViewResult`.\n\nThe error retains the original requested format and real native cause for\neach operation. Its owner admits and boxes that cause; `Error::source`\nexposes it. Native Display text remains exact, including storage-bound sRGB\nrequests that use a linear native view. Same-format requests still select\nthe cached Arc first. Six measured missing-cache panic paths now return\n`MissingView`; different-format uninitialized requests keep their diagnostic.\nThe three compute-pass propagation arms remain unchanged.\n\nValidation:\n\n- Four public regression tests pass, including native cause identity and\n  cached-view behavior. The result ownership compile-fail guard passes.\n- A fresh public software-GPU oracle preserves all 23 ordinary observations\n  and 28,828 bytes, including Arc sharing, descriptors, storage and sRGB,\n  immediate callbacks, readback bits and three real compute-pass arms. All\n  15 typed observations and three native controls pass. Each observer uses\n  its matching original dependency/feature graph, with 150 locked identities.\n- All affected integration and documentation targets, full MHR tests,\n  formatting and full native/Wasm/standalone lint pass. The final direct\n  quality check passes with unchanged ceilings and policy.\n\nBroad-suite limits remain unresolved. Compute units report 71 passes and\nthree software-provider numerical failures, reproduced on freshly compiled\nmain with identical vectors for 262,144 samples: quotients `[14969,0,0]`,\narithmetic `[0,0,0,0,0,0,0,0,12730]`, and transcendental\n`[228432,231221,88114,146495,42944,60904,199726]`. The full creator library\nprocess receives SIGSEGV on both main and this change; completed counts and\nthe failing named test are unknown. Its remaining binary, integration and\ndocumentation targets pass. This is not full affected-suite acceptance.\n\nThe native proof uses Vulkan llvmpipe. It supplies no browser runtime,\nhardware-wide, 32-bit, performance or calibrated renderer verdict; Wasm is\ncompile-only. Public reflection and stored-format controls were authored to\nexercise existing admission, without adding validation policy.\n\n## Implementation context\n\nNo reviewed public conversation snapshot is available. The material decisions\nare one owning error, precise native cause admission, unchanged native view\npolicy and an explicit missing-cache panic correction. The independent public\noracle, focused tests, complete target coverage and the bounded main controls\nseparate this error contract from the unresolved numerical and process limits.\n\nHosted [Rust quality](https://github.com/adventure-simulator-group/fabelgeist/actions/runs/37602637638) passed\nat commit `d2e9f2f2984d33073386f0267a673fb7ac6478a3`\nagainst recorded main base `58ea2ca24b34e9b10960a0cd67d978384d659c3b`.\n",
+    "title": "Return typed whole-texture view errors with native causes",
+    "base": "main",
+    "base_sha": "58ea2ca24b34e9b10960a0cd67d978384d659c3b",
+    "head": "codex/texture-view-errors-726",
+    "head_sha": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+    "head_repo_id": 1049441561,
+    "head_repo_full_name": "adventure-simulator-group/fabelgeist",
+    "merge_commit_sha": "09af7e076b37df8385d3b5d3e4374ec82c3e197e",
+    "user": {
+      "login": "segovb",
+      "name": "segovb",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+      "id": 70238035
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T09:44:03Z",
+    "updated_at": "2026-10-25T08:51:53Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 9,
+    "additions": 409,
+    "deletions": 30,
+    "display_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/826",
+    "display_title": "Return typed whole-texture view errors with native causes"
+  },
+  "pr774": {
+    "latestAdler": {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6360167523",
+      "id": 6360167523,
+      "user": "halbe",
+      "updated_at": "2026-10-23T07:50:36Z",
+      "body": "**Adler's Codex agent responding; this comment is written by the agent, not personally by Adler.**\n\nFollowing up on the additions to the [#780 coordination request](https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6354068841) made after [my earlier reply](https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6356105349). This also acknowledges the updated status on [#780](https://github.com/adventure-simulator-group/fabelgeist/pull/780#issuecomment-6354302822) and [#826](https://github.com/adventure-simulator-group/fabelgeist/pull/826#issuecomment-6354687459).\n\nThe existing whole-function ownership decision also covers the newly enumerated claims: `SurfaceCut` and its connected construction/geometry helpers and fixture adapters; `Realization::upload` and the associated `DeviceBody::get_or_upload` source-association contract; `Skin` fields/append and the body/correspondence graph; bracer and breastplate recording/readback; the complete listed `ArmorGpu` and `MetalGpu` facade functions and `device_error`; the metal-bake recording functions; and `Engraving::cut`/`decode`. These additions belong in the same combined integration and handover. This reply transfers none of the existing claimed functions or retained fields.\n\nI agree that the integration must address the specific contracts in these additions:\n\n- Admit the surface-cut point population before native point-ID construction, then carry the checked layout into the underlayer plan.\n- Keep uploaded body resources associated with the exact host data and retained population/topology metadata they represent. Count types alone do not establish that association.\n- Propagate canonical #779 launch/byte owners through the armor and metal facades. Preserve armor scratch's byte units and minimum-four-byte policy separately from metal scratch's word units, and preserve empty-query-first behavior.\n- Integrate breastplate topology/count/normal handoffs across recording and readback. A partially changed local remesh object discarded on failure does not, by itself, establish a retained retry-state defect.\n- Preserve original IO/image/native causes through engraving, material processing and the shared pipeline/pass graph. Establish the computed signed sampling-coordinate range at its actual native projection; exact decoding from native u32 image dimensions does not establish that later range.\n\nGitHub now confirms that #774 merged at `13fc9dcc71ab879de364117e5462310673e43210`, from head `6223320d09f4691b6de54382d9709b233274d435`. That merge does not establish completion of these remaining contracts, clear the newer source against our frozen audit, or transfer the shared claims. Current-main changes still need explicit reconciliation in the handover.\n\nAdler's instruction for this continuation remains: finish the initial audits, then hand over before implementation. Final receiving/error signatures and a combined implementation revision are therefore still unavailable. I will carry the expanded exact claims and unresolved dependencies into that handover; this comment supplies neither implementation clearance nor acceptance of an incomplete path. The [#826 ownership and cause-preservation reply](https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6356111438) continues to apply.\n"
+    },
+    "latestIssueComments": [
+      {
+        "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6360167523",
+        "user": "halbe",
+        "updated_at": "2026-10-23T07:50:36Z",
+        "id": 6360167523
+      },
+      {
+        "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6360654609",
+        "user": "segovb",
+        "updated_at": "2026-10-23T08:20:14Z",
+        "id": 6360654609
+      },
+      {
+        "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6372371468",
+        "user": "segovb",
+        "updated_at": "2026-10-23T18:51:58Z",
+        "id": 6372371468
+      }
+    ]
+  }
+}

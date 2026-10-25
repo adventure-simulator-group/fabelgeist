@@ -1,0 +1,7 @@
+import json,sys,hashlib,subprocess
+from pathlib import Path
+p=Path('target/pr826-audit/ledger.json');d=json.loads(p.read_text());w=d['ranged_copy_wave'];name=sys.argv[1]
+if subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()!=w['revision']:raise SystemExit('sourcehead changed')
+for f in w['files']:
+ if hashlib.sha256(Path(f['path']).read_bytes()).hexdigest()!=f['sha256']:raise SystemExit('sourcebytes changed')
+r=next(x for x in w['lenses'] if x['lens']==name);r.update(json.load(sys.stdin));r['discovery']='complete current source inventory; caller migration and other owner findings remain actionable';r['repair']='agreed receiver repaired; connectedownerfamily pending';r['validation']=w['validation'];r['dependencies']=w['dependencies'];r['acceptance']=w['acceptance'];r['pre_repair_contract']=next(x['trace'] for x in d['ranged_copy_pre_repair']['lenses'] if x['lens']==name);r['file_accounting']=[{'path':f['path'],'sha256':f['sha256'],'disposition':'Exact newreceiver/error/export source read; current trace records contract.' if f['path'] in ['crates/fabelgeist-compute/src/kernel/copy.rs','crates/fabelgeist-compute/src/kernel/mod.rs','crates/fabelgeist-compute/src/kernel/batch_error.rs'] else 'Exact unchanged source and lens relationships revalidated; currentcaller/newAPI gaps remain explicit780dependencies, not accepted deferrals.'} for f in w['files']];p.write_text(json.dumps(d,indent=2)+'\n');print(name,'recorded; no wholefamily clearance')

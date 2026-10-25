@@ -1,0 +1,323 @@
+{
+  "kind": "Complete bounded thirteen-lens pre-receive discovery inventory, no implementation receipt",
+  "root_pin": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "cache_pin": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+  "completion_pin": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+  "cache_tree": "8777f647ae0a3f2285c4663726937feaa702df5c",
+  "completion_tree": "9b35b57bd19d9ef888e4f375a7f3e05d76b20747",
+  "manifests": [
+    "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-creator-cache-causes-29fe6e752/manifest.json",
+    "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-hair-completion-d7f2691cc/manifest.json"
+  ],
+  "source": [
+    {
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+      "raw_lines": 68,
+      "manifest_and_export_exact": true,
+      "coverage": "Fresh full body, comments, retained fixtures and exact owning-commit diff read; nativegpu1-245,246-470,470-740,741-1060,1061-end; renderfixture1-265+266-end"
+    },
+    {
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "raw_lines": 20,
+      "manifest_and_export_exact": true,
+      "coverage": "Fresh full body, comments, retained fixtures and exact owning-commit diff read; nativegpu1-245,246-470,470-740,741-1060,1061-end; renderfixture1-265+266-end"
+    },
+    {
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "raw_lines": 76,
+      "manifest_and_export_exact": true,
+      "coverage": "Fresh full body, comments, retained fixtures and exact owning-commit diff read; nativegpu1-245,246-470,470-740,741-1060,1061-end; renderfixture1-265+266-end"
+    },
+    {
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "raw_lines": 144,
+      "manifest_and_export_exact": true,
+      "coverage": "Fresh full body, comments, retained fixtures and exact owning-commit diff read; nativegpu1-245,246-470,470-740,741-1060,1061-end; renderfixture1-265+266-end"
+    },
+    {
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "raw_lines": 301,
+      "manifest_and_export_exact": true,
+      "coverage": "Fresh full body, comments, retained fixtures and exact owning-commit diff read; nativegpu1-245,246-470,470-740,741-1060,1061-end; renderfixture1-265+266-end"
+    },
+    {
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "raw_lines": 27,
+      "manifest_and_export_exact": true,
+      "coverage": "Fresh full body, comments, retained fixtures and exact owning-commit diff read; nativegpu1-245,246-470,470-740,741-1060,1061-end; renderfixture1-265+266-end"
+    },
+    {
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "aea64b1f78e5def266d32a1ecf4ffce201b11292c344a40ad123fa28118f5644",
+      "raw_lines": 143,
+      "manifest_and_export_exact": true,
+      "coverage": "Fresh full body, comments, retained fixtures and exact owning-commit diff read; nativegpu1-245,246-470,470-740,741-1060,1061-end; renderfixture1-265+266-end"
+    },
+    {
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "f163ffb8a42b0ad714ea0d96f2c7ef1a191da8d085d01310e143f941a63caf22",
+      "raw_lines": 1380,
+      "manifest_and_export_exact": true,
+      "coverage": "Fresh full body, comments, retained fixtures and exact owning-commit diff read; nativegpu1-245,246-470,470-740,741-1060,1061-end; renderfixture1-265+266-end",
+      "pretest_raw_line_upper_bound": 459
+    },
+    {
+      "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "af7733cf9f722b473e08584c2c35569cc0962376cadc4e73875ba71bef94e739",
+      "raw_lines": 513,
+      "manifest_and_export_exact": true,
+      "coverage": "Fresh full body, comments, retained fixtures and exact owning-commit diff read; nativegpu1-245,246-470,470-740,741-1060,1061-end; renderfixture1-265+266-end"
+    }
+  ],
+  "discovery_status": "Complete nine-file source inventory and thirteen individual source-backed cells; broader physical/generated/caller integration remains required",
+  "repair_status": "No Root receipt/source edit by reviewer; one connected recipient cause gap remains actionable",
+  "validation_status": "Source only; no project execution/compilation/native/hosted/final clearance",
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "contract": "Four initializers -> cached Result<Facade,GpuInitializationError> -> cloned same Arc cause -> anyhow Context -> workers/export/UI; HairGpu completion -> canonical context -> two old fixture callers.",
+      "disposition": "Cache and completion source propagates new contracts coherently; unchanged StudioGeneration recipient still wraps anyhow as a message.",
+      "connected_repairs": "CC-C1 remove error-as-message repacking in both material and trim paths; finish complete actual caller chain.",
+      "dependencies": "Canonical Armor/Metal/Query/Readback, generated/bake/physical/locks and source counts remain required unreceived families.",
+      "acceptance": "Actual source/downcast chain survives from cached native/material error until final status/CLI display; first outcome policy preserved; all finish consumers handle Result/future without obsolete convenience method.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "existing-type-owners",
+      "contract": "GpuInitializationError is one application initialization cause owner, not a replacement nativeError, GenerateError or WorkCompletionError. Existing Context completion owns marker/poll/callback.",
+      "disposition": "One reused exported Creator owner for all four caches; no duplicate native completion backend/error.",
+      "connected_repairs": "Consume shared owner at all four cache paths; CC-C1 receiver repair remains.",
+      "dependencies": "Root context completion byte-identical peer; source-backed SDK cfg assumptions retained.",
+      "acceptance": "No parallel native/cached error type or rawString error cache in the selected family; final graph resolves actual imports/features.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "admission-contracts",
+      "contract": "GpuInitializationError::new accepts actual Into<anyhow::Error>, stores private Arc; no Display admission; cache admission occurs only initializer completion.",
+      "disposition": "Private cause cannot be rewritten through cache consumers; cloning shares original cause. No Deserialize/Default bypass.",
+      "connected_repairs": "None new in owner; fix source-erasing downstream message adapter.",
+      "dependencies": "Actual initialization errors require Send+Sync per SDK native/fragile non-atomic Wasm policy.",
+      "acceptance": "Derive source chain traversable on supported targets, no assertion of atomicWasm portability; cache records first completed success/failure only.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "invariant-operations",
+      "contract": "Clone increments shared ownership, not recomputation/retry. OnceLock/OnceCell get_or_init retains existing first outcome. Completion marker uses actual retained context.",
+      "disposition": "No numeric mutation/new overflow surface in changed cache/completion paths; FittingSlot bounded counter/Drop body preserved. Native raw-count helpers remain known producer dependencies.",
+      "connected_repairs": "Required wider typed storage/count migration belongs to peer physical family, no independent new wrapper.",
+      "dependencies": "Creator storage(u64,labelstr), native ensure_scan(u32), scratch cardinality production still pending broader families.",
+      "acceptance": "Preserve first-outcome and empty/minimum storage contracts; propagate checked counts at producer authority before final clearance.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "aggregate-states",
+      "contract": "DeviceKernels binds actual Bevy context with its one OnceLock; process Armor/Metal caches retain actual source context; export owns one headless context. Mutex groom scratch serializes retained state.",
+      "disposition": "Private aggregate fields prevent replacing context independently from initialized kernels; worker body Arc/source associations preserved. Completion no longer acquires unrelated groomer lock.",
+      "connected_repairs": "CC-C1 final status recipient; wider source/native association integration required.",
+      "dependencies": "Bevy render_context from_parts keeps actual matching Device/Queue resources and device-handled validation; headless context remains explicit borrowed-policy context.",
+      "acceptance": "No fake context, global synchronization claim, publication before successful initializer or completion-as-device-health claim.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "type-ownership",
+      "contract": "Creator library owns reusable cache failure; binary export/preview imports it; GPU context owns WorkCompletionError; lower Armor/Metal remain Root native owners.",
+      "disposition": "No duplicate native provider owner. HairGpu async finish is application port to private context; obsolete GpuGroomer convenience removed entirely.",
+      "connected_repairs": "No compatibility forwarding API or source owner cloning.",
+      "dependencies": "Manifest native bodies unchanged; library export/module composition must preserve other Root-owned edits during receipt.",
+      "acceptance": "Exact whole-function coordination; no error flattening at ownership transition; receive only agreed source files/composed exports.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "redundant-authority",
+      "contract": "Once cache stores one Result; error clones share Arc actual original. Native completion has one existing context marker/callback owner.",
+      "disposition": "No stored separate display classification or manual duplicated completion poll. First failure intentionally remains authoritative.",
+      "connected_repairs": "CC-C1 removes accidental alternate source authority MessageError<anyhow::Error>.",
+      "dependencies": "Other generated/cache recipes and material error state remain required integration.",
+      "acceptance": "No new retry flags, cached text mirrors, second completion helper/backend or blanket pipeline-to-app retry policy.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "behavior-preservation",
+      "contract": "Preserve initialize-once success/failure, existing FittingSlot scheduling bound4, actual Bevy device-handling policy; completion now async/fallible instead of discarded poll.",
+      "disposition": "Two existing render fixture finish calls adapt only to block_on(...)?; native POD, fixture suffix, no_run example remain exact parent; prior b11 ordinal fixture adapters remain inherited.",
+      "connected_repairs": "Consume actual completion Result without altering cases/oracles; fix receiver chain before family claim.",
+      "dependencies": "Browser callback may run after promise rejection; native marker waits explicit submission point, no unlimited success/health claim.",
+      "acceptance": "No new cases/helpers/assertions/doctests/shader instructions; preserve visual/numerical behavior within documented unexecuted limits.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "enum-shapes",
+      "contract": "Result success/error owns mutually exclusive outcome; OnceCell uninitialized is provider state; cached failure owns Arc cause. WorkCompletionError Marker/Poll/Callback owns corresponding native causes.",
+      "disposition": "No new semantic bool or independent payload fields. Existing ShownLayers and FittingSlot synchronization outside new closed cache vocabulary.",
+      "connected_repairs": "No invented retry enum or alias.",
+      "dependencies": "Native completion enum is canonical unchanged Root source.",
+      "acceptance": "Preserve precise cause variants and single outcome, not independently mutable status and payload.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "derivability",
+      "contract": "Clone/Debug/Error derived; Display manually delegates original formatter to anyhow so alternate formatting and width/precision pass through.",
+      "disposition": "Manual Display is justified: a simple derived error-format string would add formatting semantics and can lose formatter flags. thiserror source uses AsDynError autoderef through Arc<anyhow> to actual StdError.",
+      "connected_repairs": "No unnecessary handwritten Error/source or custom clone; no new blanket serialization.",
+      "dependencies": "Source-read thiserror2.0.20 expand.rs35-65/aserror.rs and anyhow1.0.102 Error Deref686+ support this trait reasoning; not compiled.",
+      "acceptance": "Keep actual source and exact Display; no transparent derive that skips original top cause; supported native/wasm trait closure still hosted-required.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "type-granularity",
+      "contract": "Cache initialization role differs from native operation/device/progress error; reusable Arc<anyhow> is application opaque shared cause.",
+      "disposition": "No extra one-use wrappers for callbacks/count literals; logical caches retain facade types. Existing primitive helpers remain broader migration obligations.",
+      "connected_repairs": "No generic SharedError replacing meaningful native leaves; CC-C1 preserves application-to-UI boundary.",
+      "dependencies": "Entire Creator library contains unchanged recipe/identity roles unrelated to cached failure.",
+      "acceptance": "No independent raw error strings, aliases or new primitive lifetime/state flags; unrelated unchanged recipe expect not newly authored or auto-authorized repair.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "magic-strings",
+      "contract": "Static opening/compiling context labels are diagnostics; error Display is presentation only; export shell/name/native shader parameter strings remain boundary roles.",
+      "disposition": "No branching on mutable prose. Four cached String error carriers removed. StudioGeneration msg(anyhow) is a source-chain hole despite no immediate string conversion.",
+      "connected_repairs": "CC-C1 two source-bearing propagation repairs, final UI uses format!(error:#).",
+      "dependencies": "Actual native shader interfaces/source recipes held to existing owning audits; library recipe String API unchanged/outside cache family.",
+      "acceptance": "Only terminal UI/CLI formatting may flatten for presentation; typed/reusable error remains through all intermediate workers/caches.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    },
+    {
+      "lens": "magic-numbers",
+      "contract": "No new numeric policy in cause/completion changes; existing FittingSlot bound4 named, counter bounded by unique nonClone token. Native POD/layout/bootstrap1024, fixed15 head vec4 records, raw helpers retain existing roles.",
+      "disposition": "POD and counts bodies unchanged by tranche; arbitrary count/byte migration not silently cleared. Fixture numeric catalogs/oracles remain original.",
+      "connected_repairs": "Required storage/count/stride/physical generated producer repair remains outside nine-file implementation, no independent owned changes.",
+      "dependencies": "Canonical StrandLayout, ScanElementCount, SortItemCount, HashPointCount and counts definitions must integrate fully.",
+      "acceptance": "Final bounds proven at producers/native ports; no new constants merely restating values, no fixture numerical changes.",
+      "discovery": "complete for declared bounded source",
+      "implementation": "unreceived; dependencies required",
+      "validation": "not executed"
+    }
+  ],
+  "findings": [
+    {
+      "id": "CC-C1",
+      "priority": "P2",
+      "disposition": "Existing connected recipient gap revealed by complete incoming cache cause migration; outside six exported files and required before family clearance",
+      "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "lines": [
+        130,
+        141
+      ],
+      "contract": "Actual source-bearing initialization failure must survive until final UI; governing crates/AGENTS.md28-57,69-71 canonical producer/consumer semantics plus explicit agreed actual-error retention.",
+      "evidence": "EquipmentMaps::{material,metal} now return anyhow::Result; MetalImages::new -> metal_gpu? propagates GpuInitializationError. PreviewScene::spawn_equipment repacks each anyhow error with Error::msg before with_context. Anyhow1.0.102 error.rs77-81/167-188 creates MessageError<anyhow::Error>, wrapper.rs31 StdError has no source; normal source traversal/downcast to original cache/native error stops.",
+      "remedy": "Propagate existing anyhow error directly through with_context on both material and trim operations; no display/classification/new helper needed. Peer/coordinated whole-function ownership required."
+    }
+  ],
+  "source_closure": {
+    "fresh_full": [
+      "Exact29fe hair_preview.rs, underlayer_preview.rs, metal_preview.rs, studio_cache.rs, studio_generation.rs and character_export.rs complete bodies read (character_export1-245+245-end; studio_generation1-165+163-end)",
+      "Root canonical completion.rs and callback_progress.rs entire; Root facade/staging/metal/error full exact identities carried from just-completed Armor review",
+      "29fe Creator Cargo and HairCargo full source feature declarations"
+    ],
+    "partial": [
+      "29fe export/textures.rs1-113",
+      "29fe armor_metal.rs1-170 only, not fixture suffix",
+      "29fe parametric_equipment source named functions/signatures/contexts only",
+      "29fe device_fit.rs100-183 request/record/submit/readback boundary only",
+      "29fe device_equipment35-101/runtime_equipment138-185/warmup62-93 actual cache caller functions",
+      "29fe studio_ui243-277 terminal export status; main CLI export call reference only"
+    ],
+    "limits": "No claim complete broader generator/caller/physical body coverage from references or hashes. Those remain required independent source integration."
+  },
+  "fixture_and_native_proofs": {
+    "nine_manifest_and_export_hashes_match": true,
+    "completion_context_exact_root": true,
+    "native_gpu_fixture_suffix_exact_parent": true,
+    "render_fixture_exact_parent_after_only_two_finish_call_replacements": true,
+    "creator_lib_recipe_and_tests_suffix_exact_parent": true,
+    "all_other_production_body_or_WGSL_change": "Groomer/Kernels/Scratches/head_shape and imports reordered; old GpuGroomer::finish deleted; no POD/WGSL literal changes. Native raw producer helpers otherwise unchanged; final no-growth baseline reductions still required",
+    "new_tests_cases_helpers_assertions_doctests": false
+  },
+  "native_limits": {
+    "source": "wgpu29.0.4 backend/webgpu.rs2721-2730 delivers callback for resolved and rejected promise; device.rs ErrorSource and SDK build.rs send_sync native/fragile non-atomic Wasm from independently read Armor receipt; current peer GPU Cargo native std and fragile Wasm feature retained.",
+    "completion": "Native explicit queue marker index poll; borrowed native skips synchronous Validation observation; browser awaits event-loop-driven callback with possible Poll/Canceled actual sources, no provider promise error payload available. Producing submit must be handled first.",
+    "trait": "Arc<anyhow::Error> SendSync retains actual provider errors only on established SDK configurations; no atomics-Wasm support certified. Context/Buffer existing unsafe wrappers not new authority or generic proof."
+  },
+  "dependencies_and_acceptance": [
+    "CC-C1 actual recipient remedy required before cause family clearance",
+    "Original initialization once policy preserved; do not broaden to global retries from ComputePipeline Progress promise",
+    "Root-owned native facade/context bodies preserved; no duplicate type/helper/convenience compatibility path",
+    "Generated bake raw counts, native source/physical producers, all actual publication/submit callers, canonical exports and both lock graphs remain required",
+    "Final relevant hosted baseline reduction export, complete same-final-pushedSHA all13 wave, independent Code/Rule/Comment reviews and hosted checks remain open"
+  ],
+  "correctness": "Selected nine-file cause/completion contracts have no newly demonstrated owner-body defect; one actual affected unchanged UI recipient remains actionable. No compilation/native/final verdict.",
+  "execution": "Only source/Git/manifest identity and text bookkeeping. No source edit, scanner/build/check/test/generator/runtime/push/CI. No new fixture authored. Root no receipt by reviewer.",
+  "native_owned_carried_identities": [
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "coverage": "Exact same-pin full Armor/Metal report carried, not reread body claim"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "coverage": "Exact same-pin full Armor/Metal report carried, not reread body claim"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "coverage": "Exact same-pin full Armor/Metal report carried, not reread body claim"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "coverage": "Exact same-pin full Armor/Metal report carried, not reread body claim"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "coverage": "Exact same-pin full Armor/Metal report carried, not reread body claim"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "coverage": "Exact same-pin full Armor/Metal report carried, not reread body claim"
+    }
+  ],
+  "no_growth": "All incoming production files are below500 raw lines excluding actual cfg(test) suffix; complete changed production functions manually read below100 raw lines. Hair native module pretest upper bound recorded. Native old520 ceiling is not raised, relevant deletion/reduction remains final hosted export dependency; renderfixture is existing cfg(test) module. No scanner reproduced."
+}

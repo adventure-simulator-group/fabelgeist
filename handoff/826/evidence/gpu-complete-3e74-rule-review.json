@@ -1,0 +1,1269 @@
+{
+  "kind": "Bounded complete83-file independent Rule Review with declared carried exact-identity source coverage",
+  "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "tree": "a83c132e94bab1db7691468d553465081b7432fb",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "reference": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "manifest": "target/pr826-audit/handoff-gpu-complete-8c600f727/manifest.json",
+  "manifest_sha256": "b39eb60eba8f0da8e93d4c94e10403533470ad3be211ef45a04e8e1fc5241f91",
+  "all83_current_reference_and_inventory_identities_independently_match": true,
+  "tracked_crate_file_set_exact_manifest": true,
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "raw_lines": 43,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "storage-projection-canonical-rule-review.json",
+        "field": "/reference_accounting/1",
+        "original_body_coverage": "Fresh complete source read, context only except separately selected stride source.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+      "raw_lines": 36,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "raw_lines": 18,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "root-baseline-d7da-rule-review.json",
+        "field": "/source_coverage/2",
+        "original_body_coverage": "Complete source read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "raw_lines": 167,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/full_changed_paths/0",
+        "original_body_coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "raw_lines": 73,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+      "sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "raw_lines": 120,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "raw_lines": 48,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "raw_lines": 140,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "armor-metal-d7da-rule-review.json",
+        "field": "/source_coverage/7",
+        "original_body_coverage": "Fresh complete source read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "raw_lines": 49,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "raw_lines": 53,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "storage-projection-canonical-rule-review.json",
+        "field": "/reference_accounting/5",
+        "original_body_coverage": "Fresh complete source read, context only except separately selected stride source.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "raw_lines": 28,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "armor-metal-d7da-rule-review.json",
+        "field": "/source_coverage/9",
+        "original_body_coverage": "Fresh complete source read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "raw_lines": 153,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/0",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "raw_lines": 111,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/1",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "raw_lines": 50,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "raw_lines": 76,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/related_sources/0",
+        "original_body_coverage": "Complete unchanged logical Buffer::read + staging receiver, source1-76 read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "raw_lines": 101,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/2",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "raw_lines": 101,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/3",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "raw_lines": 62,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "raw_lines": 60,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/related_sources/3",
+        "original_body_coverage": "Complete native upload representation, existing doctest and immediate observe_validation consumer read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Buffer logical bytes/offsets/labels/capabilities and actual allocation/mapping/binding/packing; validated native pipeline interface and provided-value protocol preserved."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+      "raw_lines": 211,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Known unreceived canonical ResourceDescriptor/signature/storage/addressing/stride/cache recipe contracts; current incomplete interfaces are required dependencies."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "raw_lines": 150,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-five-48e-rule-review.json",
+        "field": "/fresh_integration_source/8",
+        "original_body_coverage": "Complete pinned integration file read.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Invocation vs workgroup quantities, typed declaration/folded grid and actual device dispatch limits; native recording versus submission distinction."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "raw_lines": 109,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Invocation vs workgroup quantities, typed declaration/folded grid and actual device dispatch limits; native recording versus submission distinction."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "raw_lines": 76,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-five-48e-rule-review.json",
+        "field": "/fresh_integration_source/7",
+        "original_body_coverage": "Complete pinned integration file read.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Invocation vs workgroup quantities, typed declaration/folded grid and actual device dispatch limits; native recording versus submission distinction."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "raw_lines": 141,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Invocation vs workgroup quantities, typed declaration/folded grid and actual device dispatch limits; native recording versus submission distinction."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "raw_lines": 1,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "dispatch-65e-rule-review.json",
+        "field": "/full_changed_paths/3",
+        "original_body_coverage": "Wholepinnedbody andcompleteexactdiff read;tests/datareadasexistingfrozenfixturesonly",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Invocation vs workgroup quantities, typed declaration/folded grid and actual device dispatch limits; native recording versus submission distinction."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "raw_lines": 55,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "dispatch-65e-rule-review.json",
+        "field": "/full_changed_paths/4",
+        "original_body_coverage": "Wholepinnedbody andcompleteexactdiff read;tests/datareadasexistingfrozenfixturesonly",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Invocation vs workgroup quantities, typed declaration/folded grid and actual device dispatch limits; native recording versus submission distinction."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "raw_lines": 64,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Parsed shader/device/entry/reflection/pipeline outcome owner; actual source/native causes and immutable interface/cache relationships retained."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "raw_lines": 40,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Parsed shader/device/entry/reflection/pipeline outcome owner; actual source/native causes and immutable interface/cache relationships retained."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "raw_lines": 121,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Parsed shader/device/entry/reflection/pipeline outcome owner; actual source/native causes and immutable interface/cache relationships retained."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "raw_lines": 212,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Parsed shader/device/entry/reflection/pipeline outcome owner; actual source/native causes and immutable interface/cache relationships retained."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "raw_lines": 202,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Parsed shader/device/entry/reflection/pipeline outcome owner; actual source/native causes and immutable interface/cache relationships retained."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "raw_lines": 79,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Parsed shader/device/entry/reflection/pipeline outcome owner; actual source/native causes and immutable interface/cache relationships retained."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "raw_lines": 55,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Parsed shader/device/entry/reflection/pipeline outcome owner; actual source/native causes and immutable interface/cache relationships retained."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "7ab3a1fe9e5c19e58ba3f9b6e6494ded69096cc71579c3b5c2f8f3b2f28be1ac",
+      "raw_lines": 222,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Known unreceived canonical ResourceDescriptor/signature/storage/addressing/stride/cache recipe contracts; current incomplete interfaces are required dependencies."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "raw_lines": 82,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "raw_lines": 197,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Known unreceived canonical ResourceDescriptor/signature/storage/addressing/stride/cache recipe contracts; current incomplete interfaces are required dependencies."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "raw_lines": 17,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "raw_lines": 42,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "PassParameter provided variant protocol and open shader names at actual WGSL binding boundary; signed inputs retain native32-bit words."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "raw_lines": 129,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "PassParameter provided variant protocol and open shader names at actual WGSL binding boundary; signed inputs retain native32-bit words."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "raw_lines": 102,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Known unreceived canonical ResourceDescriptor/signature/storage/addressing/stride/cache recipe contracts; current incomplete interfaces are required dependencies."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs",
+      "sha256": "604de4f2bb1105ea0d729780e93ce8af38aa16343cf8a7021d4315391e98d5fa",
+      "raw_lines": 45,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Closed native sampler roles and raw SDK factory boundary; RGP1 immediate native failure handling remains actionable."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/filter_mode.rs",
+      "sha256": "ac95b5629dc262b432ed5b277ac88a70f861a93828c0744041994035d9a80d77",
+      "raw_lines": 40,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Closed native sampler roles and raw SDK factory boundary; RGP1 immediate native failure handling remains actionable."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs",
+      "sha256": "acfa2a3f08dd06fa8ddef5f8b981f0f706632cc3619c6914db1b0ce36f13e8f4",
+      "raw_lines": 52,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Closed native sampler roles and raw SDK factory boundary; RGP1 immediate native failure handling remains actionable."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "raw_lines": 103,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Parsed shader/device/entry/reflection/pipeline outcome owner; actual source/native causes and immutable interface/cache relationships retained."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc",
+      "raw_lines": 65,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Parsed shader/device/entry/reflection/pipeline outcome owner; actual source/native causes and immutable interface/cache relationships retained."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "raw_lines": 70,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/related_sources/3",
+        "original_body_coverage": "Complete current six-face owner/index/admission/labels read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+      "raw_lines": 421,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "storage-projection-canonical-rule-review.json",
+        "field": "/source_accounting/13",
+        "original_body_coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "raw_lines": 35,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "storage-projection-canonical-rule-review.json",
+        "field": "/source_accounting/14",
+        "original_body_coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "7fb81a38c012a749919c9addd0d99a42386e333e227042d87bd58c270dc5b9b7",
+      "raw_lines": 26,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/4",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs",
+      "sha256": "0e8f2228f77e50b2c97529d2c473639157d1c24b87f15c02feb8f24ed1f95500",
+      "raw_lines": 107,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/5",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "raw_lines": 93,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/related_sources/1",
+        "original_body_coverage": "Complete selected view authority/admission/read-only consumer source read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "raw_lines": 166,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/full_changed_paths/9",
+        "original_body_coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "sha256": "a67548746be5f5abcd6d774695abff5b2b8bd8fb0ecab8628080f4a60aebf8e8",
+      "raw_lines": 255,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/6",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "60b53619b5d5590c6ebbeb15ca547b2ee4c026c092bc4ac7e9938dec6f674077",
+      "raw_lines": 461,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "root-baseline-d7da-rule-review.json",
+        "field": "/source_coverage/0",
+        "original_body_coverage": "Complete source read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "raw_lines": 112,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/full_changed_paths/11",
+        "original_body_coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "0ff0d8b9fd6f211ea8a6201e62fbf88efbbe2ca000c60c7f31a1a9b3d12c9f2b",
+      "raw_lines": 161,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/8",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "raw_lines": 112,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/full_changed_paths/13",
+        "original_body_coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "sha256": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+      "raw_lines": 266,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "root-baseline-d7da-rule-review.json",
+        "field": "/source_coverage/5",
+        "original_body_coverage": "Complete source read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs",
+      "sha256": "d03d1c6cb9ab00b4aae865671847228dc2a59bd637c635a5f2b3538d7423dfd5",
+      "raw_lines": 74,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/9",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+      "raw_lines": 315,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "root-baseline-d7da-rule-review.json",
+        "field": "/source_coverage/1",
+        "original_body_coverage": "Complete source read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "sha256": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+      "raw_lines": 213,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "root-baseline-d7da-rule-review.json",
+        "field": "/source_coverage/6",
+        "original_body_coverage": "Complete source read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs",
+      "sha256": "4f45dd45651aac781e71120454d88879e337bd5e1180fc622198cf296ad35326",
+      "raw_lines": 89,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "cube-native-47f37-rule-review.json",
+        "field": "/changed_source/5",
+        "original_body_coverage": "Complete pinned47f file body/comments read, including all authored WGSL literals.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "raw_lines": 202,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/full_changed_paths/15",
+        "original_body_coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "c30ddad210dd9cbbacce5e1d8a1039aedd92a3a0d1a0a8f55adb7ab9330afdcb",
+      "raw_lines": 281,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "cached-view-8c600-rule-review.json",
+        "field": "/changed_source/1",
+        "original_body_coverage": "Fresh complete exact pinned8c file body/comments/any inline fixture read.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs",
+      "sha256": "3aa3c6b11409ec3885e7a8d509d0a98f2b393066ed1ccd9ad21123e6eb694947",
+      "raw_lines": 184,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/12",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "raw_lines": 165,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/full_changed_paths/16",
+        "original_body_coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Texture owner controls allocation/cache/format/extent/device, selected views retain actual native geometry; transfer/mapping/cause policies follow exact declared family receipts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "raw_lines": 13,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "raw_lines": 70,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/related_sources/7",
+        "original_body_coverage": "Complete callback ready-first/nonblocking/browser yield owner read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual context/device/paired queue and native/browser policy; immediate scopes, finalization/submission, progress/callback and completion are distinct boundaries."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "raw_lines": 11,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-five-48e-rule-review.json",
+        "field": "/fresh_integration_source/4",
+        "original_body_coverage": "Complete pinned integration file read.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual context/device/paired queue and native/browser policy; immediate scopes, finalization/submission, progress/callback and completion are distinct boundaries."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "raw_lines": 113,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-five-48e-rule-review.json",
+        "field": "/fresh_integration_source/5",
+        "original_body_coverage": "Complete pinned integration file read.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual context/device/paired queue and native/browser policy; immediate scopes, finalization/submission, progress/callback and completion are distinct boundaries."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+      "sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+      "raw_lines": 320,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "cached-view-8c600-rule-review.json",
+        "field": "/dependency_source/0",
+        "original_body_coverage": "Fresh complete source body read.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual context/device/paired queue and native/browser policy; immediate scopes, finalization/submission, progress/callback and completion are distinct boundaries."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "raw_lines": 86,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/related_sources/8",
+        "original_body_coverage": "Complete explicit completion owner/cause policy read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual context/device/paired queue and native/browser policy; immediate scopes, finalization/submission, progress/callback and completion are distinct boundaries."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "raw_lines": 124,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "armor-metal-d7da-rule-review.json",
+        "field": "/source_coverage/16",
+        "original_body_coverage": "Fresh complete source read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual context/device/paired queue and native/browser policy; immediate scopes, finalization/submission, progress/callback and completion are distinct boundaries."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "raw_lines": 30,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "armor-metal-d7da-rule-review.json",
+        "field": "/source_coverage/17",
+        "original_body_coverage": "Fresh complete source read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual context/device/paired queue and native/browser policy; immediate scopes, finalization/submission, progress/callback and completion are distinct boundaries."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "raw_lines": 187,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/full_changed_paths/19",
+        "original_body_coverage": "Complete pinned file and full exact parent delta read; truncated source outputs filled by explicit subsequent ranges",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual context/device/paired queue and native/browser policy; immediate scopes, finalization/submission, progress/callback and completion are distinct boundaries."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "raw_lines": 43,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-five-48e-rule-review.json",
+        "field": "/fresh_integration_source/6",
+        "original_body_coverage": "Complete pinned integration file read.",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual context/device/paired queue and native/browser policy; immediate scopes, finalization/submission, progress/callback and completion are distinct boundaries."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "raw_lines": 24,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "scope-8cdc-rule-review.json",
+        "field": "/related_sources/5",
+        "original_body_coverage": "Complete immediate no-wait owner read",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual context/device/paired queue and native/browser policy; immediate scopes, finalization/submission, progress/callback and completion are distinct boundaries."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "raw_lines": 14,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "raw_lines": 5,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/buffer_usage.json",
+      "sha256": "15232f16dd50015c7c5f683504c0f7be05695d74a39fbebaa7916b4a038166ad",
+      "raw_lines": 514,
+      "matches_8c_reference": true,
+      "changed_from_main": false,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "raw_lines": 19,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "raw_lines": 201,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Fresh complete current source read",
+        "source": "Current turn full source outputs; current working implementation unchanged versus pinned3e/8c; exact bytes independently verified. All fixture lines/JSON records read, not executed."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "25af127253b18860f351048e1732765bdd5d487d5100e9e347fd3a8124b4b6c0",
+      "raw_lines": 197,
+      "matches_8c_reference": true,
+      "changed_from_main": true,
+      "coverage": {
+        "mode": "Carried exact-identity complete source coverage",
+        "report": "texture-7889-rule-review.json",
+        "field": "/full_changed_paths/13",
+        "original_body_coverage": "Complete pinned file and exact full delta read; truncated earlier outputs filled by explicit source ranges; every native/map/typed-host/conversion path reviewed",
+        "qualification": "Prior complete source read retained only after current3e/8c/source hash equality. No fresh unread-body credit or automatic prior verdict."
+      },
+      "contract": "Actual module/feature/export/docs/fixture boundary, no new runtime unit or acceptance policy inferred from text/fixture identity."
+    }
+  ],
+  "fresh_complete_count": 35,
+  "carried_complete_count": 48,
+  "governing_rules": [
+    "Root AGENTS no backward compatibility/shims; source ownership and ignored reports",
+    "crates/AGENTS.md28-57,69-71 canonical units/records/owners and native ports",
+    "crates/AGENTS.md80-84 proven dynamic accesses",
+    "crates/AGENTS.md90-94 imports/reexports before modules and cohesive responsibilities",
+    "crates/AGENTS.md118-127 own Result aliases, errors and no unwrap/expect",
+    "crates/AGENTS.md166-181 fixed500/100 no-growth/relevant baseline reductions/narrow scopes",
+    "User existingtests only, hosted project checks only, no new cases/helpers/assertions"
+  ],
+  "findings": [
+    {
+      "id": "RGP1",
+      "priority": "P2",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs",
+      "line": 32,
+      "classification": "Existing unchanged-main native factory gap; newly identified within explicit83-file scope, required Root repair, not a new regression or waived legacy",
+      "evidence": "SamplerAddressMode admits ClampToBorder. Root context optional_features requests only filterableFloat/blendableFloat/timestamps, so owned context does not enable ADDRESS_MODE_CLAMP_TO_BORDER. SDK core resource.rs2157-2162 requires feature; backend create_sampler1735-1752 sends immediate native failure to handle_error and returns error sampler. Current wrapper publishes Some and Ok without observing it. Default handler can panic; configured handler can receive error while public API reports Ok.",
+      "rule": "Native Result/source contract, canonical context/error ownership and crates126 propagation; not an instruction to enable another device feature.",
+      "remedy": "Observe this native creation through existing context immediate Validation observer before publishing; propagate actual cause under existing owned/borrowed/browser policy, add no poll/nativeowner/helper/featurepolicy."
+    },
+    {
+      "id": "RGP2",
+      "priority": "P3",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "line": 30,
+      "classification": "Root-owned Result API consistency gap, implementation otherwise correct by source",
+      "evidence": "The cohesive binding owner has one fallible API returning Result<BindingResource,BufferBindingError> directly, with no owning alias. Other single-error owners use PrefixResult,ReadResult,ShaderResult,StorageFormatResult,ComputePipelineResult.",
+      "rule": "crates/AGENTS.md118-122",
+      "remedy": "Define and use an owning binding Result alias preserving exactly BufferBindingError, no widened carrier/compatibility forwarding method."
+    },
+    {
+      "id": "RGP3",
+      "priority": "P3",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "line": 8,
+      "classification": "Root stale unused import after reflection extraction; source-backed required lint-gate concern, not compiler-tested",
+      "evidence": "Parent imports TextureFormat but no parent/reflection body uses it. Child reflection/images.rs independently imports TextureFormat at4 and uses it at31. Parent wildcard import does not supply that explicitly imported child symbol.",
+      "rule": "Required repository lint/Clippy -D warnings and unused-import/API hygiene; no suppressions justified.",
+      "remedy": "Remove only stale parent TextureFormat import; preserve canonical reflection bodies."
+    }
+  ],
+  "known_required_peer_dependencies": [
+    {
+      "family": "ResourceDescriptor/signature/storage",
+      "paths": [
+        "src/data/gpu/compute/mod.rs",
+        "src/data/gpu/compute/signature.rs",
+        "src/data/gpu/compute/texture_ops.rs",
+        "src/data/gpu/resource.rs"
+      ],
+      "evidence": "Root old Descriptor storage function calls .to_string() on new StorageFormatResult and lacks canonical base_type/to_wgsl_output_binding fallibility expected by owned TextureBinaryOpDefinition. Root old signature still has raw type/layout and two unwraps; all these are explicitly unreceived peer-owned canonical family, not independent repair opportunity.",
+      "acceptance": "Consume exact canonical TextureValue/ResourceBaseType/storage/addressing/signature/Recipe contracts with whole connected algorithms and callers; preserve Root TextureBinaryOpDefinition.build_pipeline and native bodies by agreed composition."
+    },
+    {
+      "family": "Stride/count/producer/caller",
+      "evidence": "Canonical BufferElementStride/Count, shape/grid callers, grouped readback and lower producer families not all received. Explicit complete graph integration remains required.",
+      "acceptance": "No duplicate owner/raw overload/compatibility shim or hidden skipped path."
+    },
+    {
+      "family": "Final source validation",
+      "evidence": "All83 unchanged8c identities do not establish compilation; current graph has known missing/incompatible interfaces. Global all13/final3/hostedgates and final baseline export remain pending.",
+      "acceptance": "Final checks and independent reviews on same final pushed SHA; no merge."
+    }
+  ],
+  "registry_baseline": {
+    "configured_limits": {
+      "files": 500,
+      "functions": 100
+    },
+    "semantic_registry_gpu_scopes": [
+      {
+        "kind": "boundary_adapter",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/**",
+        "reason": "This subsystem parses and emits an external shader language."
+      }
+    ],
+    "registry_entire_bytes_exact_main": true,
+    "registry_limit": "Inherited broad shader-language boundary scope does not exempt file/function structure or replace semantic body review. No checker/scanner was executed or cloned; no literal occurrence/registry coverage acceptance certified.",
+    "gpu_baseline_records": {
+      "files": [],
+      "functions": [
+        {
+          "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+          "item": "Blitter::new",
+          "ceiling": 188
+        }
+      ],
+      "findings": []
+    },
+    "baseline_exact_d7da": true,
+    "seven_deletions_receipt": "root-baseline-d7da-rule-review.json independently proved relevant7 removal blocks; all retained bytes/ceilings exact. Current source below500 raw for every Rust file; only514-line file is JSON fixture.",
+    "Blitter_source_exact_main": true,
+    "Blitter_function_debt": "Existing188 meaningful-line function record remains supported by prior complete source receipt and unchangedmain blob. No new or raised debt.",
+    "function_limits": "New/modified native methods remain below100 under exact prior full-source/no-growth receipts; this wave carries those declarations after exact body identity and rereads affected responsibilities. No project-wide function-size recomputation or checker clone performed. Final hosted reductions required."
+  },
+  "retained_legacy_distinctions": [
+    "Unchanged-main data/gpu/mod.rs,data/mod.rs,sampler/mod.rs ordering,parameters module ordering and prelude unused_imports allow are explicit legacy source facts. Not introduced by current Root native changes and not independently repaired. Module export composition must satisfy applicable final changed-file rule when those owners are integrated.",
+    "Sampler old primitive f64-to-enum admissions/native flags and unsafe wrappers are recorded as existing native port policy, not proof of unsupported cfgs or a new compatibility API. RGP1 actual native failure path remains required.",
+    "Provided uniform variant policy intentionally preserved: Naga offsets/spans through canonical bytes, static zeros/missing/unsupported skip, cached narrower typed errors; do not reinstate withdrawn type-shape restriction."
+  ],
+  "contract_traces": [
+    "Shader source -> parsed/validated module -> selected entry -> used compute-global union -> immutable reflected group layouts -> selected actual texture/device/buffer binding -> pack provided uniform variants -> native pipeline/recording -> canonical finish/submit; actual causes retained, unsupported immediate/array/external bindings typed rejected.",
+    "Textures own allocation/cache/format/usage/extent/device; matching cachedformat branch precedes allocation/device; alternate descriptor uses effectiveformat but retains requestedformat/error; views and converter consume one selectedhandle/nativegeometry; no new resource authority or rebranding.",
+    "Buffer bytes/offsets/labels/capabilities -> native allocation/upload -> logical prefix/binding -> typed nonzeroelement readback/mapping with actual cause/cleanup -> direct/grouped consumers. Native ArrayStride/count receipt still required elsewhere.",
+    "Source-cache identity actual Device+source+validationpolicy+recipe, successfulbuild publication only; pipeline native outcomes cache completedrejection but not failedprogress; callback/completion/readback remain distinct from submission success."
+  ],
+  "fixtures_and_limits": {
+    "fixture_bodies": "Existing source and fixtures were read or exact complete receipts carried; shape fixture provenance original77971f per dispatch reports; publictexture tests original826 population retained, existing buffer fixtures exactmain. No new authored population in this review.",
+    "SDK": "wgpu/core/types29.0.4 actual sampler API/core/backend source freshly read. Native std feature vs cfg(std), conditional Error SendSync, fragile non-atomicWasm and borrowed/browser device handling carry exact native receipts, no atomicsWasm runtime guarantee.",
+    "no_new_tests_or_source_edits": true,
+    "execution": "No project scanner, checker clone, baseline generator, build, check, lint, test, runtime, push or CI. Only source/Git/TOML/hash/text bookkeeping and ignored reports."
+  },
+  "correctness_verdict": "Three actionable bounded Root findings remain; known peer dependency gaps not mislabeled as new native regressions. No clean receiver/native-family verdict.",
+  "completeness_verdict": "All83 files source-accounted with full fresh or explicit carried identity coverage; this is bounded review coverage, not completed global implementation, compilation or final clearance."
+}

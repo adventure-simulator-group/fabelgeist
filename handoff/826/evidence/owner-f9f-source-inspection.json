@@ -1,0 +1,62 @@
+{
+  "revision": "f9f5159745d43a6aa7585bc027b71f372d6c94e2",
+  "owner": "780 exact immutable source, no livefile substitution",
+  "status": "read-only discovery input; not fullall13/independentreview/sourceintegration/compileclearance",
+  "files": [
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "3e46d8b12a9694b43a9fd8bd82dfc8ebf90c8ed1b85fed9e4498b32101d4cf47"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/readback.rs",
+      "sha256": "4d2777d1fd61cd9dc4f23018d3a1ba0c29d1028a1cbda565d26c27202fc9b914"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "488d227f4cc9cd180c319aa9e8224e5596c53cfdc4ddb5be4b0d77cfbbc6b393"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+      "sha256": "1efd56c58cdc296fcc86a7cfe002317ce505a5cd5be260fed7a3056406bc41e2"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/collision_progress.rs",
+      "sha256": "46a0df1b1a9cc38290b50525b4b57f7c3224442a8c5735a178da6c99a5fdf7ae"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/execution.rs",
+      "sha256": "fdf743edb8382f0bae0750c6255d89a22855f9be09f50179981ffd8f26964435"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "sha256": "402503b196696994620d914c07a6175cfa34468e988c7e211b67c0aa91874cf4"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "949b9a749edab5e37a710f6b33e4270e0235538833b7d78bb6874810361bb473"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "c45ded414d485b61d6a4f5ffd269ecef203f2c2ccb48d72591ea2a9c88581402"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169"
+    }
+  ],
+  "contracts": [
+    "Readback typedstagingranges/allocationcauses/copyrecords preserve canonicalBufferCopy; submitmustprecede read and failedpendinghandlediscard; owning performance/wait docs stillknownrequired atthispin",
+    "Hairread_words groupscanonicalcopy requests thenReadback->submit?->read, concretebounds/mappingerrors; rawword/countproducers remainowneropen",
+    "GpuSim nativeclock/shapecache/head/collisionprogress stagedlocallythenpublishedaftersubmit?; record_shape returnsactualRod andupdatesno retainedcache, resimulate publishesnewlocalonlyafterOk; broadercount/settings/shapekeyfamilies remainexplicitopen",
+    "Reduction usescanonicalKernelBatch sameencoderlabel forrawReductionPlanrecord, finalBufferCopy strideextent thenfalliblesubmit; source scratchallocation cache isnot executioncache",
+    "BufferElementStride NonZeroU32 nativearraystride distinctpayloadsize; BufferElementCount checkedu32 extent/stride quotient, trailingbytesdiscard; recordextentproduct fitsu64 fromtwo u32 leaves",
+    "CoordinateShape SDKunsignedscalar/plane/volume enum, CoordinateParameter pairsnativeidentifier withshape; from_native retainsstrumParseError actualsource",
+    "WorkgroupShape retainsNonZeroU32 axes and typedInvocationCount->WorkgroupCount once; nativegrid boundary only, foldedcanonicalMAXGROUPS/empty policies unchanged",
+    "ResourcePipeline stores immutablepipeline+source-derivedcontrollingarraystride/textureaddressing/nativeWorkgroupShape, actualshader entry point drivesdemand; repeatedparse usescanonicalparse_naga because ComputeShader::module returns nativewgpuShaderModule, notretainedNagaIR. No competingparser/mutablemetadata authorityfound intheseinspectedowners."
+  ],
+  "limits": "No source edits/newtests/helpers/assertions/projectexecution/push/CI. RetainedBuffer::read mappingsourcesand774handover stillrequired; actual780finalsourcepin/fullall13/3reviewsand exactintegration inventory beforeclearance."
+}

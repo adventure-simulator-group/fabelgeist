@@ -1,0 +1,28 @@
+{
+  "base": "c29beb94291b3d73662f556cca755ab301a2b40e",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs",
+      "base_sha256": "acfa2a3f08dd06fa8ddef5f8b981f0f706632cc3619c6914db1b0ce36f13e8f4",
+      "sha256": "f0466918aad4e1e36aedb3586691bbe8104055d86a85a6e51e67fba76e84b198",
+      "raw_lines": 53
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "base_sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "raw_lines": 47
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "base_sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "sha256": "7c75f5003852a7ba4714d34e3e778b52ed7bdfcfea64425937c99e434d86119b",
+      "raw_lines": 211
+    }
+  ],
+  "descriptor_fields_exact_ignoring_indentation": true,
+  "binding_validation_body_exact": true,
+  "pipeline_only_unused_import_removed": true,
+  "changes": "Sampler uses existing immediate native observer and correct item order. Binding private Result alias is transparent. No native feature/default/descriptor/trait/fixture changes.",
+  "validation": "Edited-file rustfmt skip_children and git diff --check only; no project execution/new tests."
+}

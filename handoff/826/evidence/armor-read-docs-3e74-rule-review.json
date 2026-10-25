@@ -1,0 +1,67 @@
+{
+  "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "tree": "a83c132e94bab1db7691468d553465081b7432fb",
+  "base": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "scope": "Bounded documentation-only independent Rule Review of four public read contracts",
+  "source": [
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "body_coverage": "Fresh complete source and exact parent diff read",
+      "all_non_rustdoc_lines_exact": true,
+      "raw_lines": 187
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "body_coverage": "Fresh complete source and exact parent diff read",
+      "all_non_rustdoc_lines_exact": true,
+      "raw_lines": 146
+    }
+  ],
+  "only_changed_paths": [
+    "crates/fabelgeist-armor/src/gpu/facade.rs",
+    "crates/fabelgeist-armor/src/gpu/staging.rs"
+  ],
+  "only_changed_rustdoc": true,
+  "all_other_tree_paths_and_fixture_identities_unchanged": true,
+  "added_doc_max_columns": 79,
+  "contracts": [
+    {
+      "public_api": "ArmorGpu::read",
+      "source": "facade.rs131-144; Buffer::read docs/read implementation; WgpuContext::from_parts47-77",
+      "finding": "Same actual creating Device, paired queue and Buffer direct-read mapping ownership are stated preconditions, not new checked admission. Explicit producing submit and native/browser limits preserved."
+    },
+    {
+      "public_api": "ArmorGpu::read_async",
+      "source": "facade.rs145-153; delegates exact Buffer::read(&self.context)",
+      "finding": "Reuses actual device and direct mapping obligation without new identity fields/aliases or stronger generic guarantee."
+    },
+    {
+      "public_api": "ArmorGpu::read_staged",
+      "source": "staging.rs117-125; canonical b11 Readback::record102-164",
+      "finding": "Sources must belong to actual facade device and be usable by GPU copies. Documents source mapping ownership, does not impose direct-read exclusive mapping rule on every grouped alias."
+    },
+    {
+      "public_api": "ArmorGpu::read_staged_async",
+      "source": "staging.rs127-144; canonical Readback::read198+ retains producing device",
+      "finding": "Submission results handled first; only new grouped staging allocation is mapped through native/browser progress. Ticket/session identity does not certify native provenance."
+    }
+  ],
+  "prior_receipt": "armor-metal-d7da-rule-review.json complete native family and source closure; current exact diff carries all same non-Rustdoc lines and other tree files; no fresh whole-generator body coverage inferred",
+  "rules": [
+    "Root AGENTS documented behavior/API synchronized with actual implementation",
+    "crates/AGENTS.md28-57,69-71 propagate existing semantic/native ownership without duplicate types",
+    "crates/AGENTS.md90-94 ordering unchanged",
+    "crates/AGENTS.md166-178 no-growth fixed500/100; only comments added, meaningful source unchanged"
+  ],
+  "findings": [],
+  "correctness": "No actionable finding in four documentation clarifications; no stronger unsupported device/session/mapping/completion validator promise found",
+  "completeness": "Required canonical Readback/count/type/producer/caller/cache/lock closure and global final gates remain open. This is no compile, native behavior, whole-family or final clearance.",
+  "limits": [
+    "No new validator, type, alias, methods, native runtime tokens, fixture case/helper/assertion/doctest or suppression added",
+    "No source edit by reviewer; only ignored reports written",
+    "No scanner/generator/build/check/lint/test/runtime/push/CI executed",
+    "Native/browser SDK traits and borrowed-provider handling remain qualified as in current canonical owner"
+  ]
+}

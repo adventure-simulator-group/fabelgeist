@@ -1,0 +1,45 @@
+{
+  "base": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "non_comment_lines_exact": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "non_comment_lines_exact": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "non_comment_lines_exact": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "5903e47b681dbb1deeee4219ccf3a10bdb56776d681ab78edd500aa515a5f6c1",
+      "non_comment_lines_exact": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e7408782d1ee0fc74edb3340badaa4f0acab3f3a1c02e09409b07a08dabfa758",
+      "non_comment_lines_exact": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "non_comment_lines_exact": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "3d7604f584ef800e7ac26c5e0e963bf30e9a2b2909b2d97e7c9e345eb63e3bfc",
+      "non_comment_lines_exact": "Markdown prose only"
+    }
+  ],
+  "all_non_comment_runtime_bytes_unchanged": true,
+  "all_other_tracked_paths_unchanged": true,
+  "existing_fixture": "Exact suffix in context and Texture2d; no tests/cases/helpers/assertions/doctests added or changed.",
+  "max_added_line_columns": 79,
+  "validation": "Individual rustfmt skip_children and git diff --check only. No project execution."
+}

@@ -1,0 +1,110 @@
+{
+  "kind": "Separate independent source-only Rule Review after complete pre-receive inventory",
+  "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+  "tree": "f9764699a468d5bf8ebc56075df4138ddbc87a01",
+  "root_pin": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "source": [
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "raw_lines": 187,
+      "coverage": "Fresh complete source including inline fixture plus exact owning-parent diff",
+      "manifest_export_git_match": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "raw_lines": 288,
+      "coverage": "Fresh complete source including inline fixture plus exact owning-parent diff",
+      "manifest_export_git_match": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "raw_lines": 342,
+      "coverage": "Fresh complete source including inline fixture plus exact owning-parent diff",
+      "manifest_export_git_match": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "raw_lines": 142,
+      "coverage": "Fresh complete source including inline fixture plus exact owning-parent diff",
+      "manifest_export_git_match": true
+    }
+  ],
+  "actual_unchanged_receiver_coverage": [
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_material.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "52ebd2ffe14baf52f9e8bdd18ecf23fb26b94b1cf52c655fbc58074cd18471b7",
+      "coverage": "Full source: fixed authored mail map selection and metadata"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "89e313508ced73bcd3f9dfe8e60ba2026dbb11d0d19fb178654e60423afd26b0",
+      "coverage": "Full source: actual native MetalImages cause and publication owner"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df",
+      "coverage": "25-140 Exhibit shape/errors and340-405 actual publication error recipient plus410-550 constructor/fitting worker; other numerical/layout source not full fresh coverage"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_ui.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada",
+      "coverage": "105-135,167-185,307-326 actual error viewmodel presentation"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "coverage": "104-205 actual typed ClothingError signature/admission and first generation stage; not full clothing numerical generator"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_ui.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "coverage": "Exact99 terminal export/UI body carried only where prior29 source identity verified"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "coverage": "Exact99 whole source identity versus reviewed29 cache owner; prior full source receipt carried"
+    }
+  ],
+  "governing_rules": [
+    "crates/AGENTS.md28-57,69-71 canonical error/producer/consumer ownership",
+    "crates/AGENTS.md80-84 admitted data before indexing",
+    "crates/AGENTS.md90-94 item order and cohesive constructor ownership",
+    "crates/AGENTS.md118-127 narrow result propagation/no production unwrapexpect",
+    "crates/AGENTS.md166-178 500/100 no-growth, only relevant final baseline reductions",
+    "Root no compatibility/source duplication; user existingtests only; no art cycle for native/API maintenance"
+  ],
+  "findings": [],
+  "correctness": "No new actionable finding in four full candidate files and bounded actual receiver contracts. CC-C1 correction verified at99d; source-preserving adapters and mail decode-before-publication correct by source.",
+  "completeness": "Candidate bounded cause repair is coherent but unreceived. Broader graph/callers/count/physical/locks plus finalsameSHA reviews/all13/hostedgates remain incomplete andrequired. No global/final clearance.",
+  "evidence": {
+    "CC-C1": "At exact99d, Studio material and trim apply with_context directly, Armory uses ?/transpose? directly, garment generation typed ClothingError uses ? directly. No Error::msg adapters remain in four selected files. Historical29 CC-C1 remains valid at29.",
+    "mail_publication": "Underlayer material returns constant authored images; decode three images locally, then add assets, returnSelf and insert into mail cache. No partial Asset insertion on a decode error. Missingrequiredcolor has logical contextual error; native Image decode retains actual error cause.",
+    "presentation_limits": "Armory::refresh formats full error into Exhibit.fitted display-result at385; Armory UI consumes error text for labels/hover, not error-code branching. This existing terminal presentation model is not a reusable native cache. Studio formats at final status. Equipment generation returns actual errors to caller; filesystem/scene transaction policy unchanged."
+  },
+  "no_growth": "All four complete files below500 raw lines; new MailImages constructor37 raw lines<100; moved PreviewScene function onlyloses2lines; other functions unchanged orshrink. Existing unrelated long functions not enlarged; no new/raised baseline or suppression.",
+  "fixture_proofs": {
+    "armory_inline_fixture_exact_parent": true,
+    "new_tests_cases_helpers_assertions_doctests": false,
+    "no_production_expect_added": "Two removed MailImages admission expects, none added",
+    "new_unsafe": false,
+    "WGSL_POD_changes": false
+  },
+  "native_limits": "No native context/feature/traits change. SDK/provider cfg/std/SendSync/non-atomicWasm and browsercallback limits carry only exact current Root/peer owners; no native execution or compilations certified. Bevy decodeError trait/runtime acceptance source API only, not built.",
+  "execution": "No source edit, local project scanner/check/build/lint/test/generator/runtime/pushCI. Only source/Git/manifest/text bookkeeping. Reports ignored."
+}

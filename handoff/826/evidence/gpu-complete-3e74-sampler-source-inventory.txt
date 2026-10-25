@@ -1,0 +1,37 @@
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/adventuresim-world-import/src/sources/elevation.rs:663:        let mut sampler = Glo30Sampler::new(Path::new("."));
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/adventuresim-world-import/src/sources/route_terrain.rs:50:    let mut sampler = Glo30Sampler::new(elevation_directory);
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-armor/src/gpu/breastplate/anime.rs:44:        let sampler = CourseSampler::new(gpu, &mut batch, &source, &input, design)?;
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-compute/src/advect/mod.rs:220:        _sampler: &fabelgeist_gpu::data::gpu::sampler::Sampler,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs:148:        let PassParameter::Sampler(sampler) =
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs:160:            .ok_or_else(|| ComputePassError::MissingSampler { name: name.clone() })?;
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs:25:    MissingSampler {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs:93:            Self::MissingSampler { name } => write!(
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:166:                wgpu::naga::TypeInner::Sampler { comparison } => {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs:3:    gpu::sampler::Sampler,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:16:pub enum SamplerAddressMode {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:24:impl From<SamplerAddressMode> for wgpu::AddressMode {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:25:    fn from(mode: SamplerAddressMode) -> Self {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:27:            SamplerAddressMode::Repeat => wgpu::AddressMode::Repeat,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:28:            SamplerAddressMode::ClampToEdge => wgpu::AddressMode::ClampToEdge,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:29:            SamplerAddressMode::MirrorRepeat => wgpu::AddressMode::MirrorRepeat,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:30:            SamplerAddressMode::ClampToBorder => wgpu::AddressMode::ClampToBorder,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:35:impl From<f64> for SamplerAddressMode {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:38:            0 => SamplerAddressMode::Repeat,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:39:            1 => SamplerAddressMode::ClampToEdge,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:40:            2 => SamplerAddressMode::MirrorRepeat,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:41:            3 => SamplerAddressMode::ClampToBorder,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs:42:            _ => SamplerAddressMode::Repeat,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs:13:pub struct Sampler {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs:17:impl Sampler {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs:20:        address_mode_u: Option<SamplerAddressMode>,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs:21:        address_mode_v: Option<SamplerAddressMode>,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs:22:        address_mode_w: Option<SamplerAddressMode>,
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs:43:        let sampler_value = Sampler {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs:51:unsafe impl Send for Sampler {}
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs:52:unsafe impl Sync for Sampler {}
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-hair/src/ops/mod.rs:284:            .map(|s| is_guide[s].then(|| CurveSampler::new(strands.strand(s))))
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-hair/src/strands.rs:303:pub struct CurveSampler {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-hair/src/strands.rs:325:impl CurveSampler {
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-hair/src/strands.rs:409:        let sampler = CurveSampler::new(&line(11));
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-mesh/src/gpu.rs:5:    gpu::{buffer::Buffer, parameters::PassParameters, sampler::Sampler, texture::Texture2d},
+3e74eea62f4138fb95e001bf93e9438966d12612:crates/fabelgeist-mesh/src/gpu.rs:231:            PassParameter::from(Sampler::new(context, None, None, None, None, None)?),

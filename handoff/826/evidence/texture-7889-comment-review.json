@@ -1,0 +1,319 @@
+{
+  "kind": "independent checkpoint Comment Review",
+  "pin": "7889102242f9ca698f4a01bb4607eb14ec72e2bb",
+  "tree": "75e332dc604d48f8fe1aa335f4150132da648068",
+  "parent": "1b42bcfff0099a6066d67fc4859e535591b39789",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "governing_sources": [
+    "AGENTS.md",
+    "crates/AGENTS.md",
+    "/home/brunosegovia/.codex/skills/comment-review/SKILL.md"
+  ],
+  "changed_path_count": 14,
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+      "bytes": 5475,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "blob": "a2062c768f4aed9e06b6deae1ffd268056ca6bc1",
+      "bytes": 3258,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "blob": "80be3838b6f0d44d83caba2b085f4ecb1dcfad21",
+      "bytes": 3482,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "blob": "ea288ba56153fa4bb97fd996348980e46a685c70",
+      "bytes": 3392,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "7fb81a38c012a749919c9addd0d99a42386e333e227042d87bd58c270dc5b9b7",
+      "blob": "3c13cb2da4da7a40878ecb8baf048d910f68db82",
+      "bytes": 597,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs",
+      "sha256": "0e8f2228f77e50b2c97529d2c473639157d1c24b87f15c02feb8f24ed1f95500",
+      "blob": "7e0ff2097bc925b6351138cac2a5c627667d40fd",
+      "bytes": 3813,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "sha256": "a67548746be5f5abcd6d774695abff5b2b8bd8fb0ecab8628080f4a60aebf8e8",
+      "blob": "44dc6b667f827523fc706caad40995f27e9a392c",
+      "bytes": 9765,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "f9895d81a23576a862762eea888c9316facf2ff28bd005c114604a5d3c07d63a",
+      "blob": "56649c39848c395c0bfd83031c72514a5f72b2c5",
+      "bytes": 17938,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "0ff0d8b9fd6f211ea8a6201e62fbf88efbbe2ca000c60c7f31a1a9b3d12c9f2b",
+      "blob": "103a3c85704e0dd3fc3157efe01f6cb9fb956226",
+      "bytes": 5193,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs",
+      "sha256": "d03d1c6cb9ab00b4aae865671847228dc2a59bd637c635a5f2b3538d7423dfd5",
+      "blob": "02bc2c757fcc1145a88b215337998adab90ceea9",
+      "bytes": 2647,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "793f48f366253a17281a0ca0ff210b85a697e10429341ac8e634f33acd0d9e01",
+      "blob": "cd3888189b82bb45c5015b5b953d4c7fd4d008d1",
+      "bytes": 31422,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "e1512db4360eeb726fefb21b212022961909efcc28950e0bd36cdc79e0ee4985",
+      "blob": "6331189bee8a9b095eb6c1bfeaf6b1c86b6511f5",
+      "bytes": 9451,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs",
+      "sha256": "3aa3c6b11409ec3885e7a8d509d0a98f2b393066ed1ccd9ad21123e6eb694947",
+      "blob": "7a17ea837eef3e59ad395f1cb2244014c52d5eed",
+      "bytes": 6597,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "25af127253b18860f351048e1732765bdd5d487d5100e9e347fd3a8124b4b6c0",
+      "blob": "9d9e09283739a0979907a26b2e9828ebeac91a09",
+      "bytes": 12314,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "bytes": 3290,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "bytes": 2363,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "bytes": 901,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "bytes": 1911,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "blob": "24a5ea1e0349615d342a475a764347d7870162a6",
+      "bytes": 3615,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "blob": "7cc31a110891b2f9e86b257cb8fcb8e642f3feed",
+      "bytes": 7105,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "blob": "cc33b13da290260740b8622fdd4362c5fd45e59e",
+      "bytes": 3692,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "blob": "4c3dcbbfcc0600c16a801b2029e7348b518a8a43",
+      "bytes": 3702,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "blob": "fa1918181857ed22a3276fa8c3fb922bfeeae21c",
+      "bytes": 1654,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "blob": "b11e72e68a6fe575a93fdffec35fc52c690e348c",
+      "bytes": 2769,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "370add54d9307c5cbd778de771a6e2d98d0b0dbdb7b4e4b02d1245315458b11d",
+      "blob": "e843f894ffd9989bab40db5f82dd1b236a0e229b",
+      "bytes": 21020,
+      "coverage": "fresh lines 1-260: complete represented formats, native conversion and pixel_size; other methods not claimed reread",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "blob": "178d76c5e0efcca7eee0cbbfbc32208a6d5830d8",
+      "bytes": 7484,
+      "coverage": "fresh lines 1-155: context/policy/device queue preconditions; fixture body carried by exact identity",
+      "unchanged_from_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-timer/src/lib.rs",
+      "sha256": "55f4368a1ca7ff76eda3f7ce0f35bce347a1eac6ebb0a3aae2ef5471e182d606",
+      "blob": "085276697615cde5a20438f44d1c72ec233b0223",
+      "bytes": 575,
+      "coverage": "complete fresh file read",
+      "unchanged_from_parent": true
+    }
+  ],
+  "sdk_accounts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/queue.rs",
+      "sha256": "b3811f0df3ccad53d990bfd66c650759abb67654779b08e160a437b51abd7c71",
+      "coverage": "195-247 tight rows/data and native forwarding"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "coverage": "318-343 unmap reset; 528-615 map ownership/request/get_mapped_range"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/queue.rs",
+      "sha256": "b1a943fccedd5882a75252ff3e82a0d4ba8c7d46346041d2dd1bb66c5f5cba34",
+      "coverage": "730-810 immediate queue validation, alignment=false, length minimum and delayed upload"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/command/transfer.rs",
+      "sha256": "46659ab834a883c87450ec3d71accf1c8664a37abb332b251d421fae96f6c6e8",
+      "coverage": "297-433 byte lower-bound and copy format checks"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/webgpu.rs",
+      "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "coverage": "1400-1465 mapped range metadata; 3945-4008 Rust temporary mapping/read-only cleanup"
+    }
+  ],
+  "fixture_identity": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "ed6a6ed2629a5e28fec619c5e7f030309b98af77d33e77afa1fd47782e131c5f",
+      "bytes": 24,
+      "exact_parent_test_block": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "e08c0fc8ff803b26c5e0c6d948a9e3f8bbdd219bd71d50aa2cd5baba0a6d22d0",
+      "bytes": 1386,
+      "exact_parent_test_block": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "sha256": "610fb3e48dae96f1a25d1d7a1d0b3f4158d757e928a50da574753bd874ee5f77",
+      "bytes": 3244,
+      "exact_parent_test_block": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "dbfb98db3fb3bdfdd6dca813bdb01af838ee77c03c83368d2509fefd2d1f6b34",
+      "bytes": 1749,
+      "exact_parent_test_block": true
+    }
+  ],
+  "shader_identity": {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+    "blocks": 3,
+    "all_shader_blocks_exact_parent": true,
+    "sha256_by_block": [
+      "3868ce90f3715d5892338fcbda342a593c7b9b47ce1564974aa9968b9035652d",
+      "98054195e43ffc709dfac604e490c31654d652810938a21a4ab08474c1bab220",
+      "5b2209ba6881852f19dfdc694f77dfd50e3e0dce205df9642fb3dd8116e82a15"
+    ]
+  },
+  "buffer_read_body_unchanged": true,
+  "findings": [],
+  "verdict": "No actionable comment or durable-guide contract mismatch found in the explicitly reviewed texture receiving checkpoint. Not project, native-runtime, whole-family or final clearance.",
+  "contracts": [
+    "Tight upload row width is admitted as u32; full volumes and padded pitches are checked in BufferByteLength. Native queue tight-row upload requires no 256-byte encoder alignment; source bytes may exceed the minimum.",
+    "All three public raw reads share TextureReadSource. 2d/3d native absence and exact Device precede host-layout admission; TextureView empty-first also precedes T admission. Mip zero and retained face origin.z remain unchanged.",
+    "TextureStagingLayout checks full padded allocation against actual max_buffer_size; packed host storage and typed Readback allocation precede mapped view. Linear z-then-row order strips each row padding, retains raw native bits, copies into T-aligned initialized storage.",
+    "Private staging MappingRequest owns cleanup before immediate validation observation can return. Actual native, map, poll and channel errors remain concrete; mapped view drops before release. Error/cancellation Drop unmaps private request with native cleanup-only scope, no wait and no replacement primary error.",
+    "Native textures use ready-first poll_callback and Poll, retain one-millisecond async sleeps while pending. The existing buffer complete native Wait remains separate. Wasm uses ready-first event-loop callback helper; no ErrorScopeGuard crosses await.",
+    "observe_validation and submit use existing same-logical-Device/paired-Queue preconditions; public WgpuContext fields do not prove arbitrary external pairing. Borrowed/native-disabled/browser scopes provide no synchronous native verdict. No operation certifies global health or ignored producer errors.",
+    "Queue writes add no completion Wait. Initial texture construction still uses its existing separate ValidationScope behavior. Earlier per-face uploads may already be queued on later failure; no atomic rollback claim.",
+    "Image::packed_for/create_from_images and set_side_image conversion intentionally differ. Raw read_to_rgba8 forwarding and selected View conversion are retained pre-existing surfaces. Float read_image uses native-endian four-byte chunks, no Vec<u8> alignment requirement.",
+    "Guide remains precise about deferred encoder validation, available Validation filter causes, retryable Progress outcomes, no completion/rollback and final hosted acceptance limits."
+  ],
+  "dependencies": [
+    "Exact host SimFrame/source receipt and renderer RS1-RS6 receiving repairs remain open per renderer-source-pre-repair-review.json; Card46b source receipt does not implement them.",
+    "#780 grouped Readback/Pending, shared producer/cache/caller/lock and validation-site integration remain required canonical dependencies; #774 retained families and #895 ownership remain unchanged.",
+    "Later complete final source waves, independent Code/Rule/Comment Review and required hosted gates must pass on the same final pushed SHA."
+  ],
+  "validation_limits": [
+    "Read-only Git/source/SDK inspection and ignored report bookkeeping only. No source edits, project execution, check/build/lint/test/scanner/generator/runtime, push or CI.",
+    "No tests/cases/helpers/assertions/doctests authored or executed. Existing inline fixture blocks and cube WGSL exact parent byte identities recorded.",
+    "No hardware/browser/native acceptance, memory-failure recovery for SDK internal allocations, arbitrary external alias mapping ownership, global GPU health, source-complete or final clearance claim.",
+    "All 14 changed paths freshly read completely; explicitly bounded unchanged source and SDK reads accounted separately. Full producer/solver unrelated bodies not claimed reviewed."
+  ]
+}

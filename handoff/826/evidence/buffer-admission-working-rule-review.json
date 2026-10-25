@@ -1,0 +1,44 @@
+{
+  "title": "Independent Buffer admission working Rule Review",
+  "checkpoint": {
+    "head": "6e56adeab1101743941c6d50eef4340008b910ea",
+    "head_tree": "202fc9f4e0e0721003da587b4a68ffd7e603bf72",
+    "checkpoint": "Working two-file fingerprints, not committed source"
+  },
+  "two_file_hashes": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "abac05c4f4b49a90348a933fb2655b9417c4e52edd52aad390e111d831118e02",
+      "same_pre_repair": false,
+      "prior_sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "coverage": "Fresh complete current source plus exact pinned pre-repair diff",
+      "prior_coverage": "full fresh body",
+      "prior_contract": "new rejects zero before native allocation; write delegates START to write_at; checked_after rejects offset overflow, logical end check rejects overrun before write_to; from_upload new plus CopyDestination then write; public Arc+logical extent/Clone/PartialEq and existing unsafe Send/Sync unchanged.",
+      "lines": 117
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/admission_error.rs",
+      "sha256": "a5a41a86f6c2a1e31715329fe4a234d8d9c30dd4c972660c405e4cbeade13a40",
+      "same_pre_repair": false,
+      "prior_sha256": null,
+      "coverage": "Fresh complete current source, new focused error owner",
+      "lines": 41
+    }
+  ],
+  "source_account": "buffer-admission-working-post-all13.json#source_accounts",
+  "governing_rules": "crates/AGENTS.md21-70 semantic owner/payload/quantities;80-86 checked arithmetic/stable typed error;90-94 item order;118-122 result ownership;126-127 production unwrap;166-178 no-growth",
+  "findings": [],
+  "resolved": "BA-R1 all three authoritative local producers now use one Buffer-owned error. Same old diagnostics and pre-native rejection semantics; no cause erasure.",
+  "no_growth": "New owner41rawlines, Buffermod117rawlines; all functions below100rawlines by direct full source; no baseline/suppression/manifest changes. Actual32sourceaccount includes unchanged existing unsafe and fixtures, no new unsafe/test population.",
+  "correctness": "No additional actionable finding in the two-file source repair; same rejection/format/native behavior apart from newly inspectable kind and canonical typed payloads.",
+  "completeness": "Focused source migration complete for BA-R1 with qualified unchanged consumers; overallPR/hosted/finalpushedSHA gates incomplete.",
+  "limits": [
+    "Working source checkpoint only: HEAD6e56adeab1101743941c6d50eef4340008b910ea is not a commit containing the repair. The two current SHA-256 identities, rather than HEAD alone, identify reviewed implementation.",
+    "Two complete files freshly read plus full exact old mod.rs diff. All30 other scoped source accounts byte-identical to the prior31-source discovery, carried only at their original full/bounded coverage. No new body credit from hashes.",
+    "Unrelated dirty generated GPU/signature/addressing changes are outside this review. No complete83-file/global or final source approval is inherited.",
+    "Mesh C1 comment remains unresolved with peer. This Buffer error repair neither changes Mesh source nor proves a universal SDKnonzero allocation requirement. Existing wider canonical count/stride/physical/caller/lock integrations remain required.",
+    "No source edits, project checks/build/lint/test/scanner/generator/runtime/probes/new tests/cases/helpers/assertions/doctests, push/CI or external posts. Existing fixture and codefence byte identities unchanged.",
+    "Actual native allocation/write causes and current provider/std/Wasm policies retain their previously inspected source behavior. Local error leaves contain only existing integer owners; no new platform runtime or SDKtrait assurance is claimed.",
+    "Complete connected families before pushing/requesting hostedCI; repeat final all13 and three independent reviews plus required hostedchecks on one finalpushedSHA. No merge."
+  ]
+}

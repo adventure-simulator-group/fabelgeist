@@ -1,0 +1,643 @@
+{
+  "kind": "independent pre-receive Code Review",
+  "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+  "tree": "00cef4ea099f44aaeb42a482e302823e194ef0de",
+  "root_reference": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "verdict": "actionable affected-consumer cause-retention finding; canonical producer/whole graph integration remains required; not clearance",
+  "source_proof": "target/pr826-audit/shared-strip-creator-source-proof.json",
+  "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-shared-strip-creator-b11d6697c/manifest.json",
+  "manifest_accounts": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "0a8dd856b75fa5678304ba4a113e1409112603de",
+      "lines": 13116,
+      "coverage": "targeted package metadata only; not full lock review"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "7e585078424d2838c9d07724cfa687802d6de81a4b1be33ca856b49122075a0c",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "be45ca97181a0e1abc8c446775a0f031c2d5f59f",
+      "lines": 12314,
+      "coverage": "targeted package metadata only; not full lock review"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "1346098aa561b83aa6d045c8744f19edc6605674fd0bbf313af4dcfc4ef595e5",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "b9b4556a98f308966a2ebf78ba253071f57f1ac2",
+      "lines": 82,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "ac11b7bb583e07eaa622342d8830d2bf203f8d3666706eb055af056f0abc3bd4",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "803955460895d6d1ecb228cd7f1ffa1aa5247a10",
+      "lines": 138,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "ba9b0696088257a6f3d984edf137b59435823ff73ba1f176a3fa82d96a3915fe",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "1412257327dc43d2b0dbd7d4574efe07d61c1e2a",
+      "lines": 166,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "70a93715a6a926de40b3f71c676839e81df669ff56f41dcbbfa1486560603466",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "fce490aca3212f17ed5f5ceb91823a65d6bc970f",
+      "lines": 449,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "818294f1347dd1b4d5bcd5535dae5c0cfe30b75dd1d4380091bf98a06e906b6b",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "dde0659b29fb259835b848d48d64c5dc7d45ff4c",
+      "lines": 204,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs",
+      "sha256": "57f15b94c1f1c08bfcc0e214f95fd19640c418ad76f96d698661717076bcd6e4",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "a3a7fc9c2dae980da8d24425da7faa1b98742832",
+      "lines": 111,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs",
+      "sha256": "525528762142f6b0e781d6f29ee1b58f66055b6e41873a86c6da96ba14b15e10",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "e94a4e27bd44c8bb9a635176fb932ab1b844912d",
+      "lines": 228,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "d6c46f6ef0b1f037cc45648c2baac76b9e383aad331cf1c3757f1e1150702b43",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "d251f905c4517547af11f9c7cc73e32c77045433",
+      "lines": 234,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_controls.rs",
+      "sha256": "b412435396639226eabf4bb624b52eaa6c4ec25f1697b3b5987d569d7bf7440a",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "a9016737267d16eea4a8824b96bdc8d542542963",
+      "lines": 271,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview.rs",
+      "sha256": "83895f2f6e29bda031bc1764ed1d51cc133051198e963ead3eb0ee728138ffff",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "302ae2835bafb9d1f4e3961a0fe5834d0811c8f5",
+      "lines": 350,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "sha256": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "78a4297864fedd71e6558cebf709d9e666d9a7db",
+      "lines": 226,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "f141e4878ee8868ded50d8a481f8f1effb5c1ee4bb382fbcec321918c254c57e",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "8e27739c79e2ed8d566f3950539d5687398bfa1b",
+      "lines": 513,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "566a69fc6cd50bd7d7ea5c0347567c39f2bdc37e9f8004675dc5328e3751e12e",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "439b2410f6051777f38676d30cfbae65aca231f8",
+      "lines": 667,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/build.rs",
+      "sha256": "d0e1af5a572ecbdfdebcde495932dae897361eb446f4348824d6bcddd0cd2516",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "e519385e5b2c8fe4634dec2774e1b4465d1aeb7d",
+      "lines": 179,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+      "sha256": "7affba536778dd1ae65da9b834c2400b2eddd4ce6bc6a7dc7aba5048a5fbf878",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "a1cefb6a850bf38ed2138a4d19da805aad5da508",
+      "lines": 150,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "16109d7ba1a21b99e1aaebad3835ed0dcd18d540dcd3e2961d9d05f706c857dd",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "8cd21278081604a6457be6caf3f56f32209b02de",
+      "lines": 259,
+      "identical_to_root9b": true,
+      "coverage": "exact-hash carry from independently reviewed Root9b9; no fresh whole body read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "cf4310e379157eeba6d93dd7b845a2c2fcb00320e93753ea33cf1cb1d0c3236f",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "77b551002a664dee6c1c271a896947831da0aab3",
+      "lines": 162,
+      "identical_to_root9b": true,
+      "coverage": "exact-hash carry from independently reviewed Root9b9; no fresh whole body read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "b58937fb5fbf8a8e86962cb4794e98f433b035172890db0724af4da48d63978b",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "e74a31571f52531c0b290ae72c6ea3e81d195ff4",
+      "lines": 651,
+      "identical_to_root9b": true,
+      "coverage": "exact-hash carry from independently reviewed Root9b9; no fresh whole body read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "4e02030b72fe4ebc1a4af8b52dbf0910d7ce7a2f7135ed10c17c4805bf163b16",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "905d95a3b5b8f50a894fe300eb2c13d71214132a",
+      "lines": 1701,
+      "identical_to_root9b": true,
+      "coverage": "exact-hash carry from independently reviewed Root9b9; no fresh whole body read"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "sha256": "b6a30a9372b2584916183463c9c88b45f69dc4f295c9de1c2428875036f73f94",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "0eb83d39979e9a17fce4747f5a9e5156ff0d14cb",
+      "lines": 26,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "sha256": "e609778b6bd24b4ee231f3d3281d463764a55d5b787f02f4015f4ff7c4b4072b",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "ccabe3b6905df894689eb923d4c76018d977465e",
+      "lines": 135,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/count/gpu.rs",
+      "sha256": "bcead2da272edc0fbcd1d285004d9671ad310603a5870bf1c7df114be337c4c4",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "3b365ef53fb817ab5437dbd2ed1d7859198c0092",
+      "lines": 95,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/count/strip.rs",
+      "sha256": "dd53d7fa66134977308f2dd0279c5d38bef8e907c739f6098904a40541a37208",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "9106c3ad7fd6e41a27fefb871b70010911ec51b8",
+      "lines": 130,
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "a1d2e436ae07dc79d25a7f0b670df3a3d7d3b3554d495db6542bd34f0c63f653",
+      "matches_manifest": true,
+      "package_source_exists": true,
+      "package_source_matches": true,
+      "git_blob": "71dd2926e09c5815276ffcaac4a29dd7d1aa3950",
+      "lines": 28,
+      "coverage": "fresh complete file read"
+    }
+  ],
+  "closure_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "git_blob": "4b54866595d257194a8ddb5dbfe4e2b71cd1154d",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/strand_shading.rs",
+      "sha256": "13592232826ab0676fdf0cf93edd150713c436e3c73f743bd5d828072e1224b9",
+      "git_blob": "28744c5437bc0951df0edf58384e62492865aa14",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "3b0756f8287d6c95da9e9ab146be7ab5792c584fa232481cde0b6470d549320d",
+      "git_blob": "dd7eb3fab8a5faf86f1c4d25c838cad8218f8d6b",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "git_blob": "87a035e57fa2762ffcd462abd2cb8269bdad4e9e",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "7814ed1212fc58bea86aebf290862d5937f4e3e20d2b508050d20983948323a8",
+      "git_blob": "9feeb26623e4fed7c66d4ea59758aa07d5ddb881",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+      "sha256": "6b7a180a3ee2faa7fc26a79e2ae14ceeac4a54c19f96a308dc57f417c56ea49f",
+      "git_blob": "952a4679da8c3615bc94d9d27cf2c73e98804434",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/mesh.rs",
+      "sha256": "322747ae7f6a10847b6f82813fd1b27cfd8caafb01f4d13aca401dc78346ab21",
+      "git_blob": "88873549acfad07221a299c374ace3498ca376cf",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "git_blob": "bbfa2d7a1e6898a76c0c36aeee38400005a9c1f6",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+      "sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+      "git_blob": "57e1111f34bd5ebc3fe7fa7a8189c809cc89bcc1",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+      "sha256": "77e815b2a949e96a4e90b90acc7f184021d395dcbb1881ee293fa0d94f2c69d6",
+      "git_blob": "27a86ff47ab0abc9fa0fe2ad45c05f87069c69d2",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/prepare.rs",
+      "sha256": "c94f30467215f10aee321cdfbac303d5dccd4f6f1c8c8d5a5630feb0ed8ed107",
+      "git_blob": "b00e2435896b0c97110928aaa604e0075563f3ac",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/head.rs",
+      "sha256": "8007a20dddb728fae9bce4f80cbfab46ba06795e047cf0a49cbd50b4a7b1bdf5",
+      "git_blob": "698aa7716ec03cc36891dda8e120c4cf8b1e7337",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "git_blob": "5529d7804de9cb3235d2fcdf1e82030922385127",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+      "git_blob": "24d41bd345670b61d0d9d6935dfc51925de8ebf2",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "git_blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "coverage": "fresh complete file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "sha256": "3ab9c91b1153b1f7a21e2dd57e9f53c5a6f4b220abde40f9ef666c4b60c4d336",
+      "git_blob": "9755cbeb163bc184e67e76e3d2da2433ec8d14e6",
+      "coverage": "lines1\u2013250; Strands shape/attributes/geometry access; not entire file"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/ops/mod.rs",
+      "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "git_blob": "821bdd314616d8df693871c2d086ca00ec3a4a96",
+      "coverage": "lines205\u2013330; complete GuideMap/new/samplers, not all other operations"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "git_blob": "04a7f2e39ed3bfe170999901f2dd2a9b2a0cf40d",
+      "coverage": "lines160\u2013400; complete cache get/run and KernelBatch dispatch/fold/submit methods, not entire file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "dde02c3c137d5ac3722f28e2eab7db9eb82506ef0b64d182dd52a42b4876bbb5",
+      "git_blob": "98562f2b19ead5574e2c92479b4555a7cea435f0",
+      "coverage": "lines1\u2013160; complete fields/from_parts and production initialization prefix, not test module"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "2b2bc94e4178a098e4ae5dac1794f82380d037922fce244ce833a0d73482b7fe",
+      "git_blob": "a547702e0da223a416ef9bf638ee6699773592ea",
+      "coverage": "finish, headless_context and required_limits neighborhood; not complete groomer implementation"
+    }
+  ],
+  "sdk_accounts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_render-0.19.1/src/render_resource/buffer.rs",
+      "sha256": "0b07122d84007a2043ba4a1c26337c42225bab3f5fec985c791378c4a53f16ab",
+      "coverage": "Buffer and From<wgpu::Buffer> native wrapper bodies"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_render-0.19.1/src/renderer/render_device.rs",
+      "sha256": "d5d1d3569583a97a48d8c790e1fa2621e2f049d9771173b3c92731461a4c8370",
+      "coverage": "wgpu_device accessor"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_render-0.19.1/src/renderer/mod.rs",
+      "sha256": "59a4dbad8f6d75a0bae4e59e681eefb4acc116926b0603511dd8beee230d8055",
+      "coverage": "RenderQueue/RenderAdapter/RenderInstance definitions"
+    }
+  ],
+  "findings": [
+    {
+      "id": "SSC-C1",
+      "severity": "P2",
+      "kind": "affected unchanged consumer; native cause loss",
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "lines": [
+        34,
+        38
+      ],
+      "related": [
+        {
+          "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+          "lines": [
+            18,
+            30
+          ]
+        }
+      ],
+      "scenario": "HairGpu::headless actual adapter/device/shader/kernel failure, or StudioHairGpu::kernels HairGpu::new failure. OnceLock stores Result<HairGpu,String>; format destroys the owning error before another anyhow is created from display text. Caller cannot downcast or inspect Error::source for the original concrete error. This occurs before UI/export presentation.",
+      "source_chain": "export_gpu -> HairGpu::headless -> headless_context request_adapter/request_device and HairGpu::new -> GpuGroomer/new KernelSource/cache; StudioHairGpu::kernels -> HairGpu::new -> same kernel family.",
+      "minimum_connected_repair": "Root-owned full initialization cache/functions retain an owning error chain reusable from OnceLock and add context without String reconstitution. Preserve existing initialize-once/error-caching policy unless separately agreed; no requirement to introduce retry. Coordinate any new shared canonical error owner.",
+      "acceptance": "Actual originating native/parser/typed error remains reachable through source/downcast after both cache boundaries on first and repeated failure; successful HairGpu is still initialized once. No added fixture/helper/assertion."
+    }
+  ],
+  "native_contracts": [
+    {
+      "family": "MeshStripLayout",
+      "conclusion": "Complete strips*rows*2 vertices and strips*(rows-1)*6 corners checked in u32 before native use; row>=2, checked subdivision; faces intermediates bounded. Distinct topology quantities and optional gpu projections reuse shared owners."
+    },
+    {
+      "family": "Card host/native",
+      "conclusion": "CardStripLayout delegates uniform strip geometry. Host CardMesh::build admits StrandShape and complete one-strip rows before row allocation, full final population before index flattening. Native CardWork::strips validates compacted cards<=source strands and admit_native_writer checks vec4 word address population before emit. Required canonical producer files are outside manifest."
+    },
+    {
+      "family": "Creator strip execution",
+      "conclusion": "Source groom and selected GpuCards/GpuLevel checked against actual HairGpu device; rows and pieces checked before allocation/native dispatch. Folded dispatch actual count owner and device grid admission consumed from canonical KernelBatch. Batch.submit? precedes geometry publication; canonical callbacks run only after successful context submit."
+    },
+    {
+      "family": "Empty geometry",
+      "conclusion": "Zero strips allocate positive dummy native storage; canonical zero folded grid returns before native preparation; zero vertices remain authoritative. Read validates actual device and Buffer.prefix(logical vertex bytes), allowing zero prefix so dummy allocation is not exposed as a vertex. Faces empty and attributes empty; binding buffers remain valid for Bevy."
+    },
+    {
+      "family": "Bevy bridge",
+      "conclusion": "render_context clones exact actual Bevy RenderDevice, queue, adapter and instance. Local Bevy0.19.1 accessors and Buffer::from native wrapper match direct wgpu29.0.4. Native geometry buffers are not transferred across devices. Device-handled Bevy upload/render policy is explicit; no promised synchronous validation verdict inferred."
+    },
+    {
+      "family": "Numerics/order",
+      "conclusion": "4 WGSL raw strings exact to Root8c. Shared faces preserve strip-major segment winding; row subdivision and ribbon width/taper formulas retained except explicit empty draw no longer invents one strand. Missing strand family returns None, absent card family None, high card ordinal selects coarsest immutable count/collection. Sealed atlas getters supply actual mip extents."
+    }
+  ],
+  "required_dependencies": [
+    {
+      "id": "SSC-D1",
+      "status": "required before receiving-family/global clearance",
+      "detail": "26 files are not a complete callable graph. Root must receive/compose canonical sealed GpuGroom/GpuLods/GpuCards/GpuLevel, StrandShape/StrandLayout/CardMesh/card native projections, head-source/SurfaceRenderLayout, frame/native Sim families and exact public exports/features. Native cards/prepare/head read here establish interface compatibility only, not whole producer acceptance."
+    },
+    {
+      "id": "SSC-D2",
+      "status": "required Root composition",
+      "detail": "Creator whole-function authority is Root. Copy only agreed count/layout/native projections and composed Creator functions/manifests. Do not overwrite Root Buffer/Context/validation scopes/transfer/renderer native methods from peer files; renderer policy/context in package is exact old Root9b receipt, not authority to revert newer renderer source."
+    },
+    {
+      "id": "SSC-D3",
+      "status": "required final locks/gates",
+      "detail": "Both locks are final-peer graph context only. Relevant Bevy/direct GPU dependencies all wgpu29.0.4; Creator lock wgpu30.0.1 is cubecl-wgpu dependency. Whole Root lock overwrite needs complete final graph composition and hosted checks; selected package metadata is not dependency-resolution validation."
+    },
+    {
+      "id": "SSC-D4",
+      "status": "required canonical completion disposition",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "lines": [
+        408,
+        414
+      ],
+      "detail": "GpuGroomer::finish returns () and discards actual poll(wait_indefinitely()) result; Creator HairGpu::finish forwards it. Observed Creator calls are existing ignored render_test lines279/327. This API does not establish successful native completion or preserve PollError; no new production strip-submit defect asserted. Canonical lower producer/completion owner must disposition or migrate this reachable public path before global clearance, using agreed completion owner rather than independent duplicate helper."
+    }
+  ],
+  "provenance": {
+    "raw_wgsl": [
+      {
+        "name": "BINDINGS",
+        "exact_raw_bytes": true,
+        "sha256": "eabb480eeb8e4b5569e50c0ecb928da38a204c8cd588af9fb1626db35f28a8db"
+      },
+      {
+        "name": "CARD_ROWS",
+        "exact_raw_bytes": true,
+        "sha256": "4163b7acf1b39b277d6eacd400ddcf27f217d1a41c8a7249fff4a41a75bd2fa0"
+      },
+      {
+        "name": "RIBBON_ROWS",
+        "exact_raw_bytes": true,
+        "sha256": "31380496518b1220b21e163ea5d2843bd90452fc4f2c384c32af22873814a09d"
+      },
+      {
+        "name": "WRAP",
+        "exact_raw_bytes": true,
+        "sha256": "4dfd9d6f4173f8fd3e1929fe90617895b94bcafaa9e2dc8dddc1b7f74ad57cec"
+      }
+    ],
+    "main_existing_test_suffix_identical_to_root8c": true,
+    "render_test_only_two_existing_form_name_display_adaptations": true,
+    "render_test_cases_values_oracles_assertions_preserved_by_exact_text_substitution": true,
+    "no_new_test_code_authored_by_reviewer": true
+  },
+  "lock_metadata": [
+    {
+      "path": "Cargo.lock",
+      "packages": [
+        {
+          "name": "adventuresim-character-creator",
+          "version": "0.1.0",
+          "wgpu_dependencies": [
+            "wgpu"
+          ]
+        },
+        {
+          "name": "bevy",
+          "version": "0.19.1",
+          "wgpu_dependencies": []
+        },
+        {
+          "name": "bevy_render",
+          "version": "0.19.1",
+          "wgpu_dependencies": [
+            "wgpu"
+          ]
+        },
+        {
+          "name": "fabelgeist-gpu",
+          "version": "0.1.0",
+          "wgpu_dependencies": [
+            "wgpu"
+          ]
+        },
+        {
+          "name": "fabelgeist-hair",
+          "version": "0.1.0",
+          "wgpu_dependencies": [
+            "wgpu"
+          ]
+        },
+        {
+          "name": "fabelgeist-mesh",
+          "version": "0.1.0",
+          "wgpu_dependencies": [
+            "wgpu"
+          ]
+        },
+        {
+          "name": "wgpu",
+          "version": "29.0.4",
+          "wgpu_dependencies": []
+        }
+      ],
+      "scope": "selected dependency/version relationships only; not approval to overwrite entire lock"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "packages": [
+        {
+          "name": "adventuresim-character-creator",
+          "version": "0.1.0",
+          "wgpu_dependencies": [
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "bevy",
+          "version": "0.19.1",
+          "wgpu_dependencies": []
+        },
+        {
+          "name": "bevy_render",
+          "version": "0.19.1",
+          "wgpu_dependencies": [
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "cubecl-wgpu",
+          "version": "0.11.0-pre.2",
+          "wgpu_dependencies": [
+            "wgpu 30.0.1"
+          ]
+        },
+        {
+          "name": "fabelgeist-gpu",
+          "version": "0.1.0",
+          "wgpu_dependencies": [
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "fabelgeist-hair",
+          "version": "0.1.0",
+          "wgpu_dependencies": [
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "fabelgeist-mesh",
+          "version": "0.1.0",
+          "wgpu_dependencies": [
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "wgpu",
+          "version": "29.0.4",
+          "wgpu_dependencies": []
+        },
+        {
+          "name": "wgpu",
+          "version": "30.0.1",
+          "wgpu_dependencies": []
+        }
+      ],
+      "scope": "selected dependency/version relationships only; not approval to overwrite entire lock"
+    }
+  ],
+  "limits": [
+    "Source/Git/textual hash and lock metadata only. No project execution/build/check/lint/test/scanner/generator/runtime or edits.",
+    "20 manifest source files fresh complete read;4 context files exact-hash carried from prior fresh Root9b renderer review;2 lockfiles targeted metadata only. Additional closure scopes recorded individually, including partial reads.",
+    "No all13 inventory delegation/clearance claimed; independent Rule reviewer owns its own full preinventory.",
+    "Canonical host/frame/native/card/Surface source integration and complete producer/caller API/feature closure remain required. No whole PR, compile, CI, final or global clearance."
+  ]
+}

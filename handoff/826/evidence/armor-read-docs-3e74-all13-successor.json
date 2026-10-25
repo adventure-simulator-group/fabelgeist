@@ -1,0 +1,136 @@
+{
+  "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "discovery": "Complete for the four public read documentation contracts and exact lower dependencies. Broader producer/caller acceptance remains incomplete.",
+  "repair": "Completed: four public read Rustdoc blocks clarify existing provenance and mapping preconditions.",
+  "validation": "Independent Code, Rule and Comment reviews found no actionable bounded finding. Source-only; full integration and hosted gates remain required.",
+  "sources": {
+    "crates/fabelgeist-armor/src/gpu/facade.rs": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+    "crates/fabelgeist-armor/src/gpu/staging.rs": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501"
+  },
+  "cells": [
+    {
+      "lens": "producer-propagation",
+      "source_contract": "ArmorGpu::read/read_async and read_staged/read_staged_async pass external Buffer ports through the facade context to the existing direct/grouped readback owners.",
+      "disposition_connected_repair_acceptance": "Document the same-device and paired-queue preconditions at all four public recipients; numerical producer migrations remain required separately.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contract": "Buffer::read owns direct mapping and source-device requirements; WgpuContext::from_parts owns the device/queue pairing precondition. Grouped Readback owns staging copies.",
+      "disposition_connected_repair_acceptance": "Reuse these contracts and links. Add no device brand, buffer metadata or speculative validation API.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contract": "Buffer exposes no creating-device query. Direct reads require the exact source device/paired queue and exclusive mapping access; grouped reads require sources usable for actual GPU copies.",
+      "disposition_connected_repair_acceptance": "Clarify caller obligations without claiming a new check or applying direct-read exclusive mapping guarantees to arbitrary grouped aliases.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contract": "All read method bodies, tickets, prefixes, native copies, submission handling and decoders remain unchanged.",
+      "disposition_connected_repair_acceptance": "Only Rustdoc is edited. Keep exact native progress, producing-submission and mapping behavior.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contract": "The facade context contains device and queue; an external Buffer port can belong to another device. Staging session tickets prove result identity, not creating-device identity.",
+      "disposition_connected_repair_acceptance": "State the actual relationship required by the lower operation; do not imply session identity certifies native device provenance.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "type-ownership",
+      "source_contract": "Root owns the facade/staging documentation; peer780 owns grouped Readback and remaining producers/callers.",
+      "disposition_connected_repair_acceptance": "Edit only the two Root files, preserve shared lower bodies and report all canonical integration dependencies.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contract": "There is one creating device and its paired queue. Facade docs currently leave this relationship implicit in module prose and the Buffer::read link.",
+      "disposition_connected_repair_acceptance": "Make that same existing authority explicit; add no second stored fact or alternate policy.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contract": "This clarification describes current preconditions. It does not reject additional inputs, change errors, synchronize extra work or alter browser handling.",
+      "disposition_connected_repair_acceptance": "All production tokens and existing fixtures must remain identical; no tests, cases, helpers or assertions are added.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contract": "No flags, roles, optional payloads or states change. Existing staging sessions and typed error variants are untouched.",
+      "disposition_connected_repair_acceptance": "No enum/schema repair is needed for this documentation-only scope.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "derivability",
+      "source_contract": "No trait, serializer or error implementation changes. Existing native causes and error derivations remain intact.",
+      "disposition_connected_repair_acceptance": "No manual boilerplate or derives are introduced.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "type-granularity",
+      "source_contract": "Direct and grouped reads have different mapping mechanisms but share device/queue obligations.",
+      "disposition_connected_repair_acceptance": "Document each actual boundary precisely rather than introducing another wrapper or conflating alias guarantees.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "magic-strings",
+      "source_contract": "New prose and Rustdoc method links are presentation/documentation text, never classifiers or runtime keys.",
+      "disposition_connected_repair_acceptance": "Use exact existing type/method names and make no behavioral branch depend on prose.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contract": "No numeric values, bounds, labels, byte layouts or count conversions change.",
+      "disposition_connected_repair_acceptance": "All numeric contracts and no-growth ceilings remain unchanged.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Satisfied for this bounded documentation scope; implementation and fixture bytes unchanged.",
+      "validation": "Rechecked source contracts, exact non-Rustdoc identity, and all three independent receipts at 3e74eea62f4138fb95e001bf93e9438966d12612"
+    }
+  ],
+  "finding": "No actionable finding in four documentation clarifications. Canonical integration and whole-PR acceptance remain incomplete.",
+  "acceptance": [
+    "Read/read_async explicitly retain Buffer::read mapping and producing-submission requirements.",
+    "Grouped sources belong to the facade device and are available for their actual GPU copies; do not invent blanket alias/exclusive-read guarantees.",
+    "All non-documentation Rust tokens and existing fixtures remain identical.",
+    "Repeat all13 and independent Code/Rule/Comment review after the edit.",
+    "Canonical readback/producers/callers/locks and final hosted gates remain required."
+  ],
+  "tree": "a83c132e94bab1db7691468d553465081b7432fb",
+  "pre_repair_report": "target/pr826-audit/armor-read-docs-d7da-pre-repair-all13.json",
+  "independent_reviews": [
+    "armor-read-docs-3e74-code-review.json",
+    "armor-read-docs-3e74-rule-review.json",
+    "armor-read-docs-3e74-comment-review.json"
+  ],
+  "source_proof": "target/pr826-audit/armor-read-docs-working-source-proof.json",
+  "resolved_findings": [
+    "AM-DOC-1"
+  ],
+  "remaining_findings": []
+}

@@ -1,0 +1,68 @@
+diff --git a/crates/fabelgeist-hair/src/dataset.rs b/crates/fabelgeist-hair/src/dataset.rs
+index fd8efb04b..a75f18b4c 100644
+--- a/crates/fabelgeist-hair/src/dataset.rs
++++ b/crates/fabelgeist-hair/src/dataset.rs
+@@ -57,6 +57,17 @@ pub struct Shot {
+     pub skin: [f32; 3],
+ }
+ 
++/// One draw of the dataset.
++#[derive(Clone, Debug, Serialize, Deserialize)]
++pub struct Sample {
++    pub index: u64,
++    pub seed: u64,
++    pub preset: Preset,
++    pub look: Look,
++    pub material: HairMaterial,
++    pub shot: Shot,
++}
++
+ impl Shot {
+     pub fn random(rng: &mut Rng) -> Self {
+         let skin_tone = rng.next_f32();
+@@ -88,17 +99,6 @@ impl Shot {
+     }
+ }
+ 
+-/// One draw of the dataset.
+-#[derive(Clone, Debug, Serialize, Deserialize)]
+-pub struct Sample {
+-    pub index: u64,
+-    pub seed: u64,
+-    pub preset: Preset,
+-    pub look: Look,
+-    pub material: HairMaterial,
+-    pub shot: Shot,
+-}
+-
+ impl Sample {
+     /// Sample `index` of a dataset seeded `seed`, from `presets`.
+     pub fn draw(seed: u64, index: u64, presets: &[Preset]) -> Self {
+diff --git a/crates/fabelgeist-hair/src/lod.rs b/crates/fabelgeist-hair/src/lod.rs
+index 23a16096f..90c9f9321 100644
+--- a/crates/fabelgeist-hair/src/lod.rs
++++ b/crates/fabelgeist-hair/src/lod.rs
+@@ -33,7 +33,9 @@
+ //! frames), [`LodPolicy::desktop`] and [`LodPolicy::mobile`].
+ 
+ pub use counts::{CardLevelCount, CardLevelIndex, LodCounts, StrandLevelCount, StrandLevelIndex};
+-pub use policy::{Band, Blend, Form, LodPolicy, LodPolicyError, PolicyResult, Selection, SimBand};
++pub use policy::{
++    Band, Blend, Form, LodPolicy, LodPolicyError, PolicyResult, Representation, Selection, SimBand,
++};
+ pub use quality::{
+     AccumulationFrames, HairShading, PixelSpan, Quality, ShadowMapSize, ShadowQuality,
+ };
+diff --git a/crates/fabelgeist-hair/src/lod/policy.rs b/crates/fabelgeist-hair/src/lod/policy.rs
+index c6f11d045..9f13386cf 100644
+--- a/crates/fabelgeist-hair/src/lod/policy.rs
++++ b/crates/fabelgeist-hair/src/lod/policy.rs
+@@ -57,7 +57,7 @@ pub struct SimBand {
+ /// What to draw this frame.
+ #[derive(Clone, Copy, Debug, PartialEq)]
+ pub enum Representation {
+-    /// No groom geometry has been prepared.
++    /// No geometry is selected for this draw.
+     Empty,
+     /// The first `count` strands of `level`, `width_scale` times as wide.
+     Strands {

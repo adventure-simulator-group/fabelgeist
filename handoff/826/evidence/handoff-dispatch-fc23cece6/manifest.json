@@ -1,0 +1,29 @@
+{
+  "head": "fc23cece6cf1acb2f0f8b873a7e01f4c103f9b75",
+  "supersedes": "51b214476 manifest grid docs only; productionAPI unchanged",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3"
+    }
+  ],
+  "composition": "Receive whole owned grid/shape; lowerComputePass.record let groups=groups.validate_device(&context.device)? beforepipeline. Existingfixturefiles byte-exactoriginal779.",
+  "reviews": "51b Code no new owned defect, Comment no new owned finding, Rule P3 mandatoryShape docs excludesacceptedguardedblockscan, fixedfc23. fc23 included in ongoing211 Rule/Comment/Code source reviews. No finalclearance/projectexecution.",
+  "consumer_dependencies": "Kernel.groups_folded Result +dispatch_folded ?; KernelBatch.dispatch actualDeviceguard afteremptybeforeFastPath.prepare; guardedscan typedgeometry accepted."
+}

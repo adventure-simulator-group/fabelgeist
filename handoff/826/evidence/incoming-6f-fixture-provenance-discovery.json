@@ -1,0 +1,319 @@
+{
+  "review": "Independent incoming fixture provenance and comment discovery",
+  "status": "Bounded discovery only; no integration, compile, execution or clearance",
+  "root": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "candidate": "6f6d77878daad401abe414da83e17c71d4ad8091",
+  "candidate_tree": "beae5d0e429160fbfb457b27f5a55c2c729b1d6f",
+  "published_780": "e14407cc494615f0b16522fb7aa7672a3589a3c3",
+  "initial_826": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+  "governing_rules": {
+    "sources": [
+      "AGENTS.md",
+      "crates/AGENTS.md",
+      "/home/brunosegovia/.codex/skills/comment-review/SKILL.md"
+    ],
+    "sha256": [
+      "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "31dc8dc28441a5b643e534a631b5d50444fb1b4d48a305c91e8a32519a2827a4"
+    ],
+    "constraints": "Read-only independent review; no new tests/cases/helpers/assertions, project execution or source edits."
+  },
+  "coverage": {
+    "complete_candidate_files": 9,
+    "both_complete_diff_sources_read": true,
+    "diff_sha256": {
+      "published780": "70aeb83d7ff3ce1d81d4d2b27c43eae9421805e6a33d30c1aa17595299be4561",
+      "initial826": "a9b450c7d38c29d738a0f828a598d5d26d6397458f1bb03ee9f85f196ccc4c34"
+    },
+    "test_function_count": 58,
+    "ignored_test_count": 1,
+    "assertion_macro_source_occurrences": 105,
+    "count_scope": "Static source macro/test inventory after reading every candidate file in full; no test discovery/execution or project scanner.",
+    "files": [
+      {
+        "path": "crates/fabelgeist-bvh/src/gpu/tests.rs",
+        "sha256": {
+          "candidate": "8b27bf87639624397bd5df117313e4cf040c01da27635a9bd40b37466c8ac51c",
+          "published_780": "85811b6011b987ade76feadef1481d898b159d429f5ac443f2e3a3cb3c0111ea",
+          "initial_826": "85811b6011b987ade76feadef1481d898b159d429f5ac443f2e3a3cb3c0111ea"
+        },
+        "coverage": "Complete candidate source and both exact baseline diffs read",
+        "test_names": [
+          "builds_a_sound_hierarchy",
+          "a_single_primitive_is_its_own_root",
+          "node_bounds_contain_their_children",
+          "traversal_finds_every_overlap",
+          "handles_coincident_primitives",
+          "handles_a_flat_scene",
+          "refit_tracks_moved_primitives",
+          "agrees_with_the_host_tree_on_a_mesh",
+          "rejects_more_primitives_than_it_was_built_for",
+          "wgsl_morton_matches_the_host"
+        ],
+        "assertion_macro_occurrences": 25,
+        "baseline_classification": "API-only adaptations versus both pins; no test/helper/assertion additions",
+        "existing_helpers": [
+          "build",
+          "check_structure",
+          "query_aabb"
+        ]
+      },
+      {
+        "path": "crates/fabelgeist-cloth/src/cloth/tests.rs",
+        "sha256": {
+          "candidate": "65df3d9cb0b9c6a90c346b7c020a2038e282efe257392c201d79de8471ac110e",
+          "published_780": "5262ec58f985121e0e11d2db11221b795d41268242028aed3eee900623d90fe1",
+          "initial_826": "5262ec58f985121e0e11d2db11221b795d41268242028aed3eee900623d90fe1"
+        },
+        "coverage": "Complete candidate source and both exact baseline diffs read",
+        "test_names": [
+          "a_sheet_falls_and_settles_on_the_ground",
+          "a_falling_sheet_does_not_stretch",
+          "a_pinned_sheet_hangs",
+          "bending_stiffness_changes_the_drape",
+          "seams_pull_panels_together",
+          "self_collision_keeps_layers_apart",
+          "layers_merge_without_self_collision",
+          "a_sheet_drapes_over_a_sphere",
+          "resets_to_the_flat_layout",
+          "rejects_an_empty_garment",
+          "bend_scaling_grid",
+          "interleaved_submission_gives_the_same_result",
+          "coincident_non_neighbours_separate_and_pinned_particles_stay_fixed",
+          "interactive_step_blocks_a_triangle_interior_crossing"
+        ],
+        "assertion_macro_occurrences": 29,
+        "baseline_classification": "API-only adaptations versus both pins; no test/helper/assertion additions",
+        "existing_helpers": [
+          "Harness::new",
+          "Harness::collisions",
+          "Harness::solver",
+          "square",
+          "sheet"
+        ]
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/host_float/tests.rs",
+        "sha256": {
+          "candidate": "c502ca8e0d2330e3c2fc68c19a5f0663b34ad633a25ccfe230156898740a0baa",
+          "published_780": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+          "initial_826": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75"
+        },
+        "coverage": "Complete candidate source and both exact baseline diffs read",
+        "test_names": [
+          "quotients_and_roots_are_correctly_rounded",
+          "arithmetic_rounds_in_the_hosts_order",
+          "transcendentals_are_correctly_rounded",
+          "the_zero_hook_is_required"
+        ],
+        "assertion_macro_occurrences": 4,
+        "baseline_classification": "API-only adaptations versus both pins; no test/helper/assertion additions",
+        "existing_helpers": [
+          "Words::next",
+          "Words::uniform",
+          "Words::normal",
+          "run",
+          "mismatches"
+        ]
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+        "sha256": {
+          "candidate": "428dfdd9b144dadea94fd095a7e9ae29ccb4e81654aabda6d6f1749a47cd0d86",
+          "published_780": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3",
+          "initial_826": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3"
+        },
+        "coverage": "Complete candidate source and both exact baseline diffs read",
+        "test_names": [
+          "nearest_points_match_a_host_search",
+          "candidates_narrow_a_point_search",
+          "ties_go_to_the_lowest_index",
+          "closest_points_lie_on_the_surface",
+          "rays_find_the_first_and_last_crossing"
+        ],
+        "assertion_macro_occurrences": 10,
+        "baseline_classification": "API-only adaptations versus both pins; no test/helper/assertion additions",
+        "existing_helpers": [
+          "points",
+          "sphere",
+          "squared",
+          "buffer"
+        ]
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/sort/native-admission.json",
+        "sha256": {
+          "candidate": "448862aee964f732172a95137b226995e0e078823431e18e56ddd21f0b86f2f0",
+          "published_780": "448862aee964f732172a95137b226995e0e078823431e18e56ddd21f0b86f2f0",
+          "initial_826": null
+        },
+        "coverage": "Complete candidate source and both exact baseline diffs read",
+        "test_names": [],
+        "assertion_macro_occurrences": 0,
+        "baseline_classification": "Unchanged published780 data; new file versus initial826",
+        "existing_helpers": []
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/sort/tests.rs",
+        "sha256": {
+          "candidate": "1f0618102980298b3499376edc79913764ab2d534a6de9738ce2261600b2ad6f",
+          "published_780": "1f0618102980298b3499376edc79913764ab2d534a6de9738ce2261600b2ad6f",
+          "initial_826": "60e3c4541c2597b08537f54d485057aba9d5f528c8d3139e9c5832809c045ffd"
+        },
+        "coverage": "Complete candidate source and both exact baseline diffs read",
+        "test_names": [
+          "sorts_a_single_partial_tile",
+          "sorts_exactly_one_tile",
+          "sorts_many_tiles",
+          "sorts_a_ragged_tail",
+          "sorts_all_equal_keys",
+          "sorts_presorted_and_reversed",
+          "sorts_thirty_bit_keys",
+          "sorts_on_the_high_byte_alone",
+          "accepts_degenerate_counts",
+          "rejects_a_scratch_that_is_too_small",
+          "pass_count_rounds_up_to_whole_digits"
+        ],
+        "assertion_macro_occurrences": 10,
+        "baseline_classification": "Unchanged published780 Rust fixtures; API-only adaptation versus initial826",
+        "existing_helpers": [
+          "keys",
+          "sorted",
+          "reference",
+          "check"
+        ]
+      },
+      {
+        "path": "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+        "sha256": {
+          "candidate": "a88c245c53e9fdd84bbd5f1853961ceeb28e7948dbf0b754dfac755f71168e7d",
+          "published_780": "4fd6d01a795959004f9193d79f5502469c35aa84961dacb49dc6f6d20594727a",
+          "initial_826": "4fd6d01a795959004f9193d79f5502469c35aa84961dacb49dc6f6d20594727a"
+        },
+        "coverage": "Complete candidate source and both exact baseline diffs read",
+        "test_names": [
+          "every_thread_sees_its_own_uniforms",
+          "a_long_open_batch_keeps_its_uniforms"
+        ],
+        "assertion_macro_occurrences": 2,
+        "baseline_classification": "API-only adaptations versus both pins; no test/helper/assertion additions",
+        "existing_helpers": [
+          "FILL constant and existing parameters closure; no separate helper function"
+        ]
+      },
+      {
+        "path": "crates/fabelgeist-xpbd/src/particles/tests.rs",
+        "sha256": {
+          "candidate": "191f5aff7677a381524039fab36c532bd8fa1d236f9d3ee52d9d41d713357545",
+          "published_780": "cef67f5ffe3abeb5c15a073ad7a3df24fa37d878c0cfda411aab007f5acac462",
+          "initial_826": "cef67f5ffe3abeb5c15a073ad7a3df24fa37d878c0cfda411aab007f5acac462"
+        },
+        "coverage": "Complete candidate source and both exact baseline diffs read",
+        "test_names": [
+          "preserves_original_particle_words_and_admission_priority"
+        ],
+        "assertion_macro_occurrences": 7,
+        "baseline_classification": "API-only adaptations versus both pins; no test/helper/assertion additions",
+        "existing_helpers": [
+          "ParticleSnapshot::capture"
+        ]
+      },
+      {
+        "path": "crates/fabelgeist-xpbd/src/tests/mod.rs",
+        "sha256": {
+          "candidate": "d378d5ecb21ef239d0a84bd69a3b671b87fb172cee98196d91282d82cbb6ae01",
+          "published_780": "b601e2d28a80c9b6237c50aa1c2af080e390e29c5ec35e930a8fa5f20bc8db1f",
+          "initial_826": "b601e2d28a80c9b6237c50aa1c2af080e390e29c5ec35e930a8fa5f20bc8db1f"
+        },
+        "coverage": "Complete candidate source and both exact baseline diffs read",
+        "test_names": [
+          "matches_the_host_solver_on_a_chain",
+          "matches_the_host_solver_with_compliance",
+          "matches_the_host_solver_across_repeated_sweeps",
+          "pinned_particles_never_move",
+          "free_fall_matches_the_analytic_drop",
+          "a_stiff_chain_holds_its_length",
+          "compliance_orders_the_stretch",
+          "a_colored_grid_solves_without_racing",
+          "rejects_mismatched_inputs",
+          "handles_empty_constraint_sets",
+          "the_substep_hook_runs_every_substep"
+        ],
+        "assertion_macro_occurrences": 18,
+        "baseline_classification": "API-only adaptations versus both pins; no test/helper/assertion additions",
+        "existing_helpers": [
+          "Reference::step",
+          "chain",
+          "run",
+          "assert_close"
+        ]
+      }
+    ]
+  },
+  "per_file_contracts": [
+    "BVH: 10 existing tests, same scattered/mesh/Morton seeds and populations; existing build helper gains admitted count/layout and checked launch conversions. All structure/traversal/bounds/readback comparisons and 8 refit rounds preserved.",
+    "Cloth: 14 existing tests including ignored bend_scaling_grid; only SelfCollision population and true->GridUpdate::Rebuild adapter changes. Fabric/settings/input geometries and all thresholds/assertions preserved.",
+    "Host float: 4 existing tests; same SAMPLES=2^18, fixed seeds, expressions, f64 reference/tolerance, zero-hook rejection. Only checked InvocationCount boundary adapted.",
+    "Mesh query: 5 existing tests; same points/spheres, candidate-list members/order, query counts, tie array, ray cases and expected tolerances. All/Candidates enums and quantity adapters replace old fields.",
+    "Native admission JSON: 5 published growth requests plus byte/scratch error messages and zero dispatch snapshot. Byte-identical published780; absent initial826. Data is evidence input, not an executed observation by this review.",
+    "Sort: 11 existing tests and unchanged helpers; same size/seed/bitwidth, stable reference, degenerate/rejection inputs. Existing six pass-count comparisons now use digits().count() versus same expected values. Unchanged published780 file.",
+    "Concurrent kernels: 2 existing tests; 32 threads x8 rounds and long batch versus3000 peer batches preserved; same FILL/input shader/expected uniform outputs. Only dispatch count adapters changed.",
+    "Particle snapshot: 1 existing JSON-driven test/helper; three requested populations0/1/4, six states and three diagnostics per case remain. No state words or expected diagnostics changed.",
+    "XPBD solver: 11 existing tests and four helpers; no math/settings/tolerance/assertion additions. Existing reference consumes ColorRange/slot API with the same half-open range iteration, and ConstraintEdges/ColorCount/ConstraintCount adapters replace raw boundaries."
+  ],
+  "external_provenance": {
+    "particle_fixture": "crates/fabelgeist-xpbd/tests/fixtures/particles.json",
+    "status": "Source metadata and complete identity comparison checked; not claimed as an additional full body read.",
+    "details": "4 position words and4 mass words; requested0/1/4, each6 states/3 diagnostics. Independent Git path diffs prove byte-identical to both initial826 and published780. Candidate SHA-256 fca0ccd51e05872da019e8c187e2e20733b1a4129ec0f3813b5c019a6b76c7ba.",
+    "supporting_targeted_reads": [
+      "ColorRange::slots and Coloring::colors in candidate coloring.rs",
+      "GridUpdate enum in candidate selfcollision.rs",
+      "RecordedDispatchCount declaration"
+    ],
+    "not_reviewed": "Every other imported fixture or helper module outside the assigned nine is not freshly full-read here."
+  },
+  "source_findings": [
+    {
+      "id": "F-API-COUNT",
+      "priority": "P2",
+      "location": "crates/fabelgeist-compute/src/sort/tests.rs:158-161",
+      "issue": "Existing expected raw0 remains against RecordedDispatchCount, whose equality is only same-type. The fixture API migration remains incomplete.",
+      "remedy": "Adapt the existing zero expected type to canonical RecordedDispatchCount while retaining exactly the same zero oracle; no new assertion/case."
+    },
+    {
+      "id": "F-COMMENT-RING",
+      "priority": "P2",
+      "location": "crates/fabelgeist-compute/tests/concurrent_kernels.rs:34-35",
+      "issue": "Retained comment claims shared ring slots, while current cached dispatch owns per-batch chunks/slots. Busy-loop prose8-10 also cannot guarantee runtime overlap from source alone.",
+      "remedy": "Describe independent concurrently recorded batches retaining their own uniform values. Do not change shader/input/case counts or claim an unmeasured enforced workload."
+    },
+    {
+      "id": "F-COMMENT-BARRIER",
+      "priority": "P2",
+      "location": "crates/fabelgeist-bvh/src/gpu/tests.rs:243-248",
+      "issue": "Retained refit comment attributes behavior to resource re-registration/barrier mechanism and says eight rounds prevent lucky escape. Existing observable checks establish neither mechanism nor probabilistic impossibility.",
+      "remedy": "Describe repeated moved-geometry traversal comparisons and the limited intermittent-regression purpose; preserve all eight rounds and assertions."
+    },
+    {
+      "id": "F-COMMENT-TIE-COUNT",
+      "priority": "P3",
+      "location": "crates/fabelgeist-compute/src/mesh_query/tests.rs:134-135",
+      "issue": "Comment says four copies of the same point, but the unchanged five-point array contains three zero points.",
+      "remedy": "Correct prose to three copies, first at index1; preserve exact fixture array and expected target."
+    }
+  ],
+  "retained_dependencies": [
+    "Numerous candidate fixture submissions still discard new fallible KernelBatch::submit result. Required existing-caller migration; comments/identity do not prove native acceptance.",
+    "No new Rust test functions, named helpers or assertion occurrences in assigned9 relative to either baseline. Assertion operands change only required types/adapters, not logical expected values.",
+    "native-admission.json is preexisting published780 evidence but new versus initial826. Root integration ledger must record this exact provenance and cannot call all nine fixtures unchanged against both baselines.",
+    "Other candidate new test/helper/case/compile-fail files remain outside this nine-file receipt and require independent export-constraint reconciliation.",
+    "Full all-thirteen root inventory and final integrated Code/Rule/Comment reviews and same-final-pushed-SHA hosted checks remain outstanding."
+  ],
+  "limits": [
+    "Full file reads and both complete exact diffs were used as coverage; searches/hashes only corroborate identities/counts.",
+    "No source edits, new tests/cases/helpers/assertions, project checks/builds/test execution/scanners/generators/runtime, push/CI/external posts.",
+    "Typed adapters checked as source; no compile or behavioral passing claim.",
+    "No whole-family/PR clearance, native acceptance, hardware/browser/performance or GPU-completion verdict."
+  ]
+}

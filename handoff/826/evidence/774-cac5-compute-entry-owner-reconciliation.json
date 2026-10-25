@@ -1,0 +1,33 @@
+{
+  "id": "SEGO774-826-CAC5-COMPUTE-ENTRY-RECONCILIATION",
+  "at": "2026-10-25T08:43:06.858868+00:00",
+  "candidate": "SEGO-CONT06-Q004",
+  "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "source_receipts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "personally_read_ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "source": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-gpu-complete-cac5a7c33/source/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "personally_read_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "source": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-gpu-complete-cac5a7c33/source/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs"
+    }
+  ],
+  "result": "Exact frozen stage-owner mismatch is resolved in successor source. ComputeReflection19\u201322 has compute entry_point and shared bind_groups only; ReflectedInterface33\u201337 resolves ComputeEntryPoint and103\u2013107 stores selected compute name. ComputePipeline prepare64\u201378 retains that source, compiled102\u2013111/compile148\u2013152 consume same entry, validate_interface155\u2013158 resolves it as compute. No render vertex/fragment placeholder state in actual compute definition.",
+  "disposition": "No duplicate Root repair or ownership hold. Frozen defect evidence retained; this exact successor mechanism credited, not whole826/all13/final integration acceptance.",
+  "limits": "Neither GPU execution nor other reflected uniform/image/cache/native contracts cleared by this bounded ownership proof."
+}

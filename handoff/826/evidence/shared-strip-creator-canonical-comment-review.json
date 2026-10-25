@@ -1,0 +1,493 @@
+{
+  "review": "Independent Comment Review: planned shared-strip/Creator receipt",
+  "canonical_revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+  "canonical_tree": "00cef4ea099f44aaeb42a482e302823e194ef0de",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "original779": "71f9cab8a5f97760e2e61ca4c74876b715f8aebc",
+  "root_reference": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "manifest": {
+    "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-shared-strip-creator-b11d6697c/manifest.json",
+    "sha256": "9e037d46a0f7804fe0906d4cabc9c4b02c93f781817adc2faaeae91dd2157a58"
+  },
+  "listed_source_accounting": [
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "git_blob": "0a8dd856b75fa5678304ba4a113e1409112603de",
+      "lines": 13116,
+      "coverage": "Generated lock identity plus complete text diff from pinned main; not a fresh full body read or dependency-resolution check",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "7e585078424d2838c9d07724cfa687802d6de81a4b1be33ca856b49122075a0c",
+      "git_blob": "be45ca97181a0e1abc8c446775a0f031c2d5f59f",
+      "lines": 12314,
+      "coverage": "Generated lock identity plus complete text diff from pinned main; not a fresh full body read or dependency-resolution check",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "1346098aa561b83aa6d045c8744f19edc6605674fd0bbf313af4dcfc4ef595e5",
+      "git_blob": "b9b4556a98f308966a2ebf78ba253071f57f1ac2",
+      "lines": 82,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "ac11b7bb583e07eaa622342d8830d2bf203f8d3666706eb055af056f0abc3bd4",
+      "git_blob": "803955460895d6d1ecb228cd7f1ffa1aa5247a10",
+      "lines": 138,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "ba9b0696088257a6f3d984edf137b59435823ff73ba1f176a3fa82d96a3915fe",
+      "git_blob": "1412257327dc43d2b0dbd7d4574efe07d61c1e2a",
+      "lines": 166,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "70a93715a6a926de40b3f71c676839e81df669ff56f41dcbbfa1486560603466",
+      "git_blob": "fce490aca3212f17ed5f5ceb91823a65d6bc970f",
+      "lines": 449,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "818294f1347dd1b4d5bcd5535dae5c0cfe30b75dd1d4380091bf98a06e906b6b",
+      "git_blob": "dde0659b29fb259835b848d48d64c5dc7d45ff4c",
+      "lines": 204,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs",
+      "sha256": "57f15b94c1f1c08bfcc0e214f95fd19640c418ad76f96d698661717076bcd6e4",
+      "git_blob": "a3a7fc9c2dae980da8d24425da7faa1b98742832",
+      "lines": 111,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips/wgsl.rs",
+      "sha256": "525528762142f6b0e781d6f29ee1b58f66055b6e41873a86c6da96ba14b15e10",
+      "git_blob": "e94a4e27bd44c8bb9a635176fb932ab1b844912d",
+      "lines": 228,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "d6c46f6ef0b1f037cc45648c2baac76b9e383aad331cf1c3757f1e1150702b43",
+      "git_blob": "d251f905c4517547af11f9c7cc73e32c77045433",
+      "lines": 234,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair_controls.rs",
+      "sha256": "b412435396639226eabf4bb624b52eaa6c4ec25f1697b3b5987d569d7bf7440a",
+      "git_blob": "a9016737267d16eea4a8824b96bdc8d542542963",
+      "lines": 271,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair_preview.rs",
+      "sha256": "83895f2f6e29bda031bc1764ed1d51cc133051198e963ead3eb0ee728138ffff",
+      "git_blob": "302ae2835bafb9d1f4e3961a0fe5834d0811c8f5",
+      "lines": 350,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "sha256": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+      "git_blob": "78a4297864fedd71e6558cebf709d9e666d9a7db",
+      "lines": 226,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "f141e4878ee8868ded50d8a481f8f1effb5c1ee4bb382fbcec321918c254c57e",
+      "git_blob": "8e27739c79e2ed8d566f3950539d5687398bfa1b",
+      "lines": 513,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "566a69fc6cd50bd7d7ea5c0347567c39f2bdc37e9f8004675dc5328e3751e12e",
+      "git_blob": "439b2410f6051777f38676d30cfbae65aca231f8",
+      "lines": 667,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/cards/build.rs",
+      "sha256": "d0e1af5a572ecbdfdebcde495932dae897361eb446f4348824d6bcddd0cd2516",
+      "git_blob": "e519385e5b2c8fe4634dec2774e1b4465d1aeb7d",
+      "lines": 179,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+      "sha256": "7affba536778dd1ae65da9b834c2400b2eddd4ce6bc6a7dc7aba5048a5fbf878",
+      "git_blob": "a1cefb6a850bf38ed2138a4d19da805aad5da508",
+      "lines": 150,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "16109d7ba1a21b99e1aaebad3835ed0dcd18d540dcd3e2961d9d05f706c857dd",
+      "git_blob": "8cd21278081604a6457be6caf3f56f32209b02de",
+      "lines": 259,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true,
+      "ownership": "Context receipt, preserve Root renderer implementation",
+      "byte_identical_root8c600": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "cf4310e379157eeba6d93dd7b845a2c2fcb00320e93753ea33cf1cb1d0c3236f",
+      "git_blob": "77b551002a664dee6c1c271a896947831da0aab3",
+      "lines": 162,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true,
+      "ownership": "Context receipt, preserve Root renderer implementation",
+      "byte_identical_root8c600": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "b58937fb5fbf8a8e86962cb4794e98f433b035172890db0724af4da48d63978b",
+      "git_blob": "e74a31571f52531c0b290ae72c6ea3e81d195ff4",
+      "lines": 651,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true,
+      "ownership": "Context receipt, preserve Root renderer implementation",
+      "byte_identical_root8c600": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "4e02030b72fe4ebc1a4af8b52dbf0910d7ce7a2f7135ed10c17c4805bf163b16",
+      "git_blob": "905d95a3b5b8f50a894fe300eb2c13d71214132a",
+      "lines": 1701,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true,
+      "ownership": "Context receipt, preserve Root renderer implementation",
+      "byte_identical_root8c600": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "sha256": "b6a30a9372b2584916183463c9c88b45f69dc4f295c9de1c2428875036f73f94",
+      "git_blob": "0eb83d39979e9a17fce4747f5a9e5156ff0d14cb",
+      "lines": 26,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "sha256": "e609778b6bd24b4ee231f3d3281d463764a55d5b787f02f4015f4ff7c4b4072b",
+      "git_blob": "ccabe3b6905df894689eb923d4c76018d977465e",
+      "lines": 135,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-mesh/src/count/gpu.rs",
+      "sha256": "bcead2da272edc0fbcd1d285004d9671ad310603a5870bf1c7df114be337c4c4",
+      "git_blob": "3b365ef53fb817ab5437dbd2ed1d7859198c0092",
+      "lines": 95,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-mesh/src/count/strip.rs",
+      "sha256": "dd53d7fa66134977308f2dd0279c5d38bef8e907c739f6098904a40541a37208",
+      "git_blob": "9106c3ad7fd6e41a27fefb871b70010911ec51b8",
+      "lines": 130,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "a1d2e436ae07dc79d25a7f0b670df3a3d7d3b3554d495db6542bd34f0c63f653",
+      "git_blob": "71dd2926e09c5815276ffcaac4a29dd7d1aa3950",
+      "lines": 28,
+      "coverage": "Fresh complete source/manifest read, including owning prose and existing fixtures",
+      "manifest_hash_matches": true
+    }
+  ],
+  "dependency_source_accounting": [
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "git_blob": "87a035e57fa2762ffcd462abd2cb8269bdad4e9e",
+      "lines": 138,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "git_blob": "4b54866595d257194a8ddb5dbfe4e2b71cd1154d",
+      "lines": 73,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "44ffb5c296d0d5948e0b64f76f2dea59c4d41238f3ef8deaf6d549007a376f61",
+      "git_blob": "64006cc6984834ca6dfffb41aea28cddafc3a860",
+      "lines": 328,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "7814ed1212fc58bea86aebf290862d5937f4e3e20d2b508050d20983948323a8",
+      "git_blob": "9feeb26623e4fed7c66d4ea59758aa07d5ddb881",
+      "lines": 130,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/cards/mesh.rs",
+      "sha256": "322747ae7f6a10847b6f82813fd1b27cfd8caafb01f4d13aca401dc78346ab21",
+      "git_blob": "88873549acfad07221a299c374ace3498ca376cf",
+      "lines": 54,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+      "sha256": "6b7a180a3ee2faa7fc26a79e2ae14ceeac4a54c19f96a308dc57f417c56ea49f",
+      "git_blob": "952a4679da8c3615bc94d9d27cf2c73e98804434",
+      "lines": 34,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "git_blob": "bbfa2d7a1e6898a76c0c36aeee38400005a9c1f6",
+      "lines": 216,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "git_blob": "688e2eff39375bea5ece98a2f37c448297942690",
+      "lines": 84,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+      "git_blob": "24d41bd345670b61d0d9d6935dfc51925de8ebf2",
+      "lines": 50,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "git_blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "lines": 76,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "git_blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "lines": 43,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "git_blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "lines": 24,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair_preview/strand_shading.rs",
+      "sha256": "13592232826ab0676fdf0cf93edd150713c436e3c73f743bd5d828072e1224b9",
+      "git_blob": "28744c5437bc0951df0edf58384e62492865aa14",
+      "lines": 133,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/adventuresim-character-creator/src/hair_preview/hair_vertices.wgsl",
+      "sha256": "62cbd9e3f606c85f4212494802e2675daa55387a27ac0133c8d79f80c0282b92",
+      "git_blob": "908d6d56c86074346ac57c9f681031e01607580d",
+      "lines": 44,
+      "coverage": "Fresh complete affected dependency source read; no receipt/overwrite authority inferred"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "2b2bc94e4178a098e4ae5dac1794f82380d037922fce244ce833a0d73482b7fe",
+      "git_blob": "a547702e0da223a416ef9bf638ee6699773592ea",
+      "lines": 1391,
+      "coverage": "Bounded fresh source lines1-280 and370-430: source/module/API context, constructor and finish; no full physics-body-read claim"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "git_blob": "04a7f2e39ed3bfe170999901f2dd2a9b2a0cf40d",
+      "lines": 394,
+      "coverage": "Bounded fresh source lines100-235 and330-425: Kernel construction/cache, batch setup, submit and relevant existing fixture"
+    },
+    {
+      "revision": "b11d6697c5b2fc05ca59cf7497f3d6ab626580b5",
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "085502d120e5ba4f365bd8015990a4347e758f698a00b1bb530c93ae3066ca9a",
+      "git_blob": "0b374dcd6a2d7886b0a7115e7540328b1d59ae53",
+      "lines": 252,
+      "coverage": "Bounded fresh source lines65-150: native fast-layout creation and declaration context"
+    }
+  ],
+  "sdk_source_accounting": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "coverage": "Fresh relevant lines85-96: poll Result and WebGPU no-op",
+      "version": "29.0.4"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "coverage": "Fresh relevant lines228-265: Wait latest-submission/no explicit timeout/until error semantics",
+      "version": "29.0.4"
+    }
+  ],
+  "wgsl_provenance": [
+    {
+      "name": "BINDINGS",
+      "sha256": "eabb480eeb8e4b5569e50c0ecb928da38a204c8cd588af9fb1626db35f28a8db",
+      "byte_identical_main": true
+    },
+    {
+      "name": "CARD_ROWS",
+      "sha256": "4163b7acf1b39b277d6eacd400ddcf27f217d1a41c8a7249fff4a41a75bd2fa0",
+      "byte_identical_main": true
+    },
+    {
+      "name": "RIBBON_ROWS",
+      "sha256": "31380496518b1220b21e163ea5d2843bd90452fc4f2c384c32af22873814a09d",
+      "byte_identical_main": true
+    },
+    {
+      "name": "WRAP",
+      "sha256": "4dfd9d6f4173f8fd3e1929fe90617895b94bcafaa9e2dc8dddc1b7f74ad57cec",
+      "byte_identical_main": true
+    }
+  ],
+  "fixture_provenance": [
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "fixture_sha256": "e30fb6c7fb90070c651bffa1f7559af53d1fa5ec44b1f5cb661578ea411b6edb",
+      "byte_identical_main": true,
+      "coverage": "Fresh complete existing fixture read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "fixture_sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+      "byte_identical_main": true,
+      "coverage": "Fresh complete existing fixture read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "f141e4878ee8868ded50d8a481f8f1effb5c1ee4bb382fbcec321918c254c57e",
+      "main_difference_only_two_existing_ordinal_presentation_adapters": true,
+      "origin779_path_exists": false,
+      "provenance": "Existing in pinned main990. Not present at #77971f; do not mislabel as byte-identical779. One existing ignored hair-render case and all inputs/oracles/helpers remain; no new fixtures authored in this tranche."
+    }
+  ],
+  "findings": [
+    {
+      "id": "STRIP-C1",
+      "priority": 2,
+      "status": "Required affected-dependency correction outside26-file manifest",
+      "locations": [
+        {
+          "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+          "line": 100
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+          "line": 408
+        }
+      ],
+      "claim": "Wait, however long it takes, for everything submitted ... to finish; Wait for everything submitted to finish.",
+      "evidence": "Creator HairGpu::finish delegates GpuGroomer::finish. The latter discards device.poll(PollType::wait_indefinitely()) Result. SDK29 requests no explicit timeout but can return an error, and waits only the latest submission observed when polling begins. WebGPU polling is a no-op. Returning unit cannot certify completion.",
+      "remedy": "Document a best-effort native wait for the most recent submission at poll time, with no explicit timeout; state the current API discards polling errors and does not certify GPU completion. Do not promise browser completion. If callers require a completion verdict, request owner-agreed source-preserving fallible API work as a connected repair rather than silently changing this review scope.",
+      "owner": "Existing Creator HairGpu / canonical GpuGroomer finish owners; Root must obtain/record whole-function agreement before shared repair",
+      "acceptance": "Both owning comments agree with actual result handling and native/browser semantics. A completed retained error/progress migration and caller adaptation is required if behavior is intentionally strengthened. No new tests/cases/helpers/assertions."
+    }
+  ],
+  "confirmed_contracts": [
+    "MeshStripRows admits at least two rows; count may be zero. MeshStripLayout checks complete vertex and corner population before arithmetic/index generation. Faces have two triangles per segment with admitted u32 indices. Topology admission does not certify native allocation or arbitrary attribute/index membership.",
+    "CardStripLayout consumes the canonical generic strip topology. CardLayout remains a generic indexed-triangle count contract; direct CardMesh admission checks partial triangles and index membership. Generic triangles acquire no generated-card count. Host generated build clamps segment policy before admitted topology and preserves authored geometric calculations.",
+    "Strip output stores four vec4 attributes per vertex and separate per-row lift scratch. Native minimum allocations permit logical empty topology. GpuGeometry read checks actual device, trims to layout vertex bytes via Buffer.prefix, then reads exact logical arrays; no physical dummy records leak into host geometry.",
+    "StripSource compares allocating groom/card/level device with HairGpu context before construction. Nonempty ribbon prefix uses canonical StrandLayout and typed count; source rows and bounded subdivision retain owning topology. One invocation builds one strip. Batch submit Result propagates before returning produced geometry, without implying GPU completion.",
+    "Creator PlacedHair keeps GpuLods/source/body state together; forms enumerate immutable actual collections. Card ordinal past range chooses coarsest existing cut, missing family/strand ordinal returnsNone. Empty geometry remains separate from missing family. Strand budget uses two-edge row vertex population; physical cards are not generic triangle counts.",
+    "Bevy preview constructs on its paired render Device/Queue and binds resident native buffers directly. Mesh position values are placeholders for vertex count/skinning, and NoFrustumCulling avoids false placeholder bounds. Export reads actual geometry and retains atlas color/coverage channel mapping. Device-handled preview paths do not establish synchronous native validation.",
+    "Current renderer/LOD context is byte-identical to Root8c600 and retains primary resident FramePopulation before stochastic/transition cuts, actual indexed CardTriangles, candidate publication after normal queue submission and explicit native-provider limits. This review did not receive or reauthorize rewriting that context.",
+    "Both manifests expose required mesh/GPU edges and default features as source metadata. Lock hashes and complete diffs were inspected, but final combined package/feature/lock resolution remains pending; no local dependency resolution or project execution occurred."
+  ],
+  "limits": [
+    "Bounded pre-integration source Comment Review only, no Root source copy. All24 nongenerated listed source/manifests fully read; two generated locks reviewed by identity and complete main diff, not claimed as full-body prose reads.",
+    "No actionable comment mismatch identified within listed24 source/manifests. STRIP-C1 remains a required affected unchanged dependency finding; the whole graph is not clear.",
+    "Canonical Host/Native/Hair/Surface producers and error/API owners are still unreceived in Root. Their actual pinned APIs were consulted only as bounded closure context; no whole-producer physics or shared-function clearance is inferred.",
+    "Four strip WGSL strings match pinned main exactly; renderer context matches Root. Existing main fixture suffixes are exact; the existing hair-render fixture changes only two ordinal presentation expressions. #779 lacks that Creator fixture, so no false #779 identity claim is made.",
+    "No source edits, project checks/build/lint/test/scanner/generator/runtime, new tests/cases/helpers/assertions/doctests, push, CI or external post performed. Python/Git used only source identity/comparison/report bookkeeping.",
+    "Renderer math/art/performance claims were reconciled with code, not validated visually or benchmarked. Historical fixture comments and authored shading references do not provide current hardware/browser/rendering acceptance.",
+    "Root all13 preinventory/receiving waves, remaining canonical/native/lower/error/cache/caller/lock integration, independent final Code/Rule/Comment reviews and required hosted checks at one final pushed SHA remain required; no global/family/compiled/final clearance."
+  ],
+  "verdict": "No actionable listed-source finding; one required affected-dependency completion-documentation finding. Planned receiving only, not global/final clearance."
+}

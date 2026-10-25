@@ -1,0 +1,378 @@
+{
+  "review": "Independent incoming Scalp9 Code Review",
+  "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "tree": "12f2d808ab9d659999aaec627e02e594897c8beb",
+  "parent": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+  "root_reference": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "manifest_sha256": "548c82e6dc6d2851887410f05543262dac72ec969e262e4c288c6db615581f20",
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a",
+      "blob": "890ad9dd550d92f552ab0a4948b1a1cc4c771ca0",
+      "lines": 179,
+      "matches_manifest": true,
+      "matches_export": true,
+      "coverage": "fresh complete immutable file and full parent diff read",
+      "root_sha256": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs",
+      "sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+      "blob": "c6e15bedf0f788809f0f541f3307e248dd6158e6",
+      "lines": 168,
+      "matches_manifest": true,
+      "matches_export": true,
+      "coverage": "fresh complete immutable file and full parent diff read",
+      "root_sha256": null
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "blob": "b69f5388ad0adfe66771304281848b966bce57a0",
+      "lines": 133,
+      "matches_manifest": true,
+      "matches_export": true,
+      "coverage": "fresh complete immutable file and full parent diff read",
+      "root_sha256": null
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "a9be367893c88b158dac2f0368c4ef28d521e59290a428b08753c342881225bd",
+      "blob": "5da5d4a78c18d88011e671849a3717a335104162",
+      "lines": 299,
+      "matches_manifest": true,
+      "matches_export": true,
+      "coverage": "fresh complete immutable file and full parent diff read",
+      "root_sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "sha256": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee",
+      "blob": "5a2cb603783dbe497d93e31472547dac0de24db8",
+      "lines": 41,
+      "matches_manifest": true,
+      "matches_export": true,
+      "coverage": "fresh complete immutable file and full parent diff read",
+      "root_sha256": null
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "02378baa2d1ed60f1c8337c24b9e0e5872b240203fc5f7944f3f8eb93744d2f6",
+      "blob": "fe556b1f44a067680cd3eb244d4ceb3c0cbbbaf1",
+      "lines": 144,
+      "matches_manifest": true,
+      "matches_export": true,
+      "coverage": "fresh complete immutable file and full parent diff read",
+      "root_sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53",
+      "blob": "66d805bcb881aea5855e546463398b80e1dba4a1",
+      "lines": 149,
+      "matches_manifest": true,
+      "matches_export": true,
+      "coverage": "fresh complete immutable file and full parent diff read",
+      "root_sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531",
+      "blob": "a8f5fd54eb89af73e00c3434e54010153a6c2621",
+      "lines": 512,
+      "matches_manifest": true,
+      "matches_export": true,
+      "coverage": "fresh complete immutable file and full parent diff read",
+      "root_sha256": "68d980d533f30f094dc511d8e0eef78f92090b3d51d9754c28e57f190b80c864"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd",
+      "blob": "348b05adc432d9056d27e93a0fd92c083f4a8217",
+      "lines": 155,
+      "matches_manifest": true,
+      "matches_export": true,
+      "coverage": "fresh complete immutable file and full parent diff read",
+      "root_sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63"
+    }
+  ],
+  "unchanged_reference_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "matches_manifest": true,
+      "matches_parent": true,
+      "coverage": "fresh complete immutable file read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "sha256": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+      "matches_manifest": true,
+      "matches_parent": true,
+      "coverage": "fresh complete immutable file read"
+    }
+  ],
+  "source_proof": "scalp-chain-c665-source-proof.json",
+  "identity_results": {
+    "only_nine_parent_changed_paths": true,
+    "assets_scalp_images_root_body_exact": true,
+    "existing_fixture_only_three_api_adapters": true,
+    "all_nine_manifest_export_match": true
+  },
+  "closure_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "d6c46f6ef0b1f037cc45648c2baac76b9e383aad331cf1c3757f1e1150702b43",
+      "root_byte_identical": false,
+      "root_sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "coverage": "fresh complete immutable source: actual grow/bake/prepare/PlacedHair chain authority and host receiver"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+      "root_byte_identical": false,
+      "root_sha256": "1945aa84edf49348310989955b6f814cc19ae8cceaf87d85400f4bce8cf9a296",
+      "coverage": "fresh complete immutable source; scalp_images body independently exact Root despite unrelated geometry differences"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "root_byte_identical": true,
+      "root_sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "coverage": "fresh complete immutable source: Bevy actual renderer device/queue and cached HairGpu producer"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "root_byte_identical": true,
+      "root_sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "coverage": "fresh complete immutable source, including allocation observer and storage COPY_SRC/COPY_DST"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "root_byte_identical": false,
+      "root_sha256": null,
+      "coverage": "fresh complete canonical count/stride/PassParameter/Invocation conversions"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "86e926ab47cd284d07a0e14265aaf7b5ba3ce1b6cc5e2aff66328e05f67aee02",
+      "root_byte_identical": false,
+      "root_sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "coverage": "fresh complete immutable source: native allocation/size and public external Buffer contract"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "root_byte_identical": true,
+      "root_sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "coverage": "fresh complete immutable read/staging source; unchanged map/readback owners exact current Root full GPU coverage"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+      "root_byte_identical": false,
+      "root_sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "coverage": "fresh complete immutable canonical source read plus full diff against Root; only prefix doc wording differs, validation body exact"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "root_byte_identical": false,
+      "root_sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "coverage": "fresh complete immutable canonical source read plus full diff against Root; canonical snapshot has older narrower visibility and lacks Root texture poll_complete extension; only existing Buffer read path reused by Scalp, preserve Root successor during integration"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "root_byte_identical": false,
+      "root_sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "coverage": "fresh complete immutable canonical source including existing fixtures plus full diff against Root; typed copy body exact, Root GPU-scoped visibility must survive composition"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "root_byte_identical": true,
+      "root_sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "coverage": "fresh complete immutable source, folded padded geometry"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "root_byte_identical": true,
+      "root_sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "coverage": "current Root full GPU proof carried through exact identity, actual all-axis device limit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "root_byte_identical": false,
+      "root_sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "coverage": "fresh complete immutable canonical source plus full Root diff; runtime body exact, Root updated policy documentation preserved"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "root_byte_identical": false,
+      "root_sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+      "coverage": "fresh complete materially distinct dispatch/folded/submit/after_submit bodies220-350; no full-file reread claim"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/groom.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "111756fbfda767a55148c514a229722b027e180d86ae64689214c74ed3f1b708",
+      "root_byte_identical": false,
+      "root_sha256": null,
+      "coverage": "fresh full actual GpuGroom/Target ownership and readonly layout/device/buffer/read/ensure_device1-122, unrelated remaining owner methods not reread"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "root_byte_identical": false,
+      "root_sha256": "9a4cfd422099b6ffde9fb27f49e0c26fccd850684039712cb7e17e28bc7527db",
+      "coverage": "fresh complete immutable StrandLayout/cardinality/byte/launch source"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "root_byte_identical": true,
+      "root_sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "coverage": "fresh complete source, transparent Metres/Ratio raw-f32 policy; peer source hash identity checked"
+    }
+  ],
+  "sdk_accounts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_image-0.19.1/src/image.rs",
+      "sha256": "92666f8786981b9bcb90be80e1a0caaf6e055af99fe71080a600f29c0c876d3f",
+      "coverage": "1122-1150 complete new_uninit descriptor including COPY_DST|COPY_SRC and no host data"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/command/transfer.rs",
+      "sha256": "46659ab834a883c87450ec3d71accf1c8664a37abb332b251d421fae96f6c6e8",
+      "coverage": "1122-1196 native copy-buffer-to-texture same-device, capabilities, format, row/range validation and zero validation ordering"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/limits.rs",
+      "sha256": "f4f51d4197de591691bdd2cd9a06b82fe604b7c7457eda10aaf9b752bf8a6e26",
+      "coverage": "371-405 and490-506 actual default/downlevel limits; layout is not arbitrary-device admission"
+    }
+  ],
+  "findings": [],
+  "related_open_comment_finding": {
+    "id": "SCALP-C1",
+    "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:4-6",
+    "disposition": "Previously reported Comment Review finding: unsupported ten-times speed claim remains in exact c665 source. This review does not treat it as established native performance evidence or clear it. Peer correction requested by Root."
+  },
+  "contracts": [
+    {
+      "family": "Sealed padded mip layout",
+      "sources": [
+        "bake/layout.rs:50-113",
+        "bake/layout.rs:117-133"
+      ],
+      "contract": "The sole private factory starts at positive fixed2048, halves through1, uses four-byte records and row max(side,64), and retains every byte offset. All arithmetic is bounded by that fixed recipe; complete extent checks usize/isize and u32 word address. Private fields/no alternate factory make zero/empty/forged dimensions unadmitted. All public levels come from that same recipe. No speculative generic arbitrary-size checked-arithmetic change is needed.",
+      "acceptance": "Every copied or read row uses retained side/row/offset and four-byte ABI; positive image side,12mips, native row width <=8192 and complete chain <24MiB."
+    },
+    {
+      "family": "Chain aggregate/device and logical host slices",
+      "sources": [
+        "bake/mod.rs:115-120",
+        "bake/mod.rs:150-191",
+        "bake/readback.rs:9-41"
+      ],
+      "contract": "Both actual native buffers, same layout Arc and real creating Device originate in one successful bake factory. No public field/constructor can relabel identity. Read checks creating device before prefix/native work, then canonical Buffer prefix and read produce exactly layout.bytes u32 records. Every visible host row ends within retained padded chain; copy padding is omitted. External native aliases keep existing access/producing-submission obligations, not arbitrary alias protection.",
+      "acceptance": "Preserve native causes and mismatch-before-copy ordering; no Buffer fake device metadata, duplicate map helper or fallback."
+    },
+    {
+      "family": "Physical records, texels and folded launches",
+      "sources": [
+        "bake/grid.rs:24-61",
+        "bake/grid.rs:69-168",
+        "bake/mod.rs:215-261",
+        "bake/wgsl.rs"
+      ],
+      "contract": "ShadowBlockAxisCount owns per-axis ceil and its square records. Topmost/bare use texels; shadow uses blocks; same four-byte stride scales allocations. DRAW consumes admitted strand count/point layout. BARE/BLUR/FINISH/HALVE dispatch logical texel populations, not padded byte rows. Shader parameters retain original raw numerical values through Metres/Ratio/typed count ports. Shared fold checks padded lanes and receiving device axes.",
+      "acceptance": "Keep WGSL bytes, formulas, four blur passes, mip/channel rounding, indexing and empty launch policy."
+    },
+    {
+      "family": "Native capabilities and provider admission",
+      "sources": [
+        "buffer/definition.rs",
+        "hair_preview/scalp_upload.rs:80-155",
+        "kernel/mod.rs:240-350"
+      ],
+      "contract": "Storage allocation supplies STORAGE|COPY_SRC|COPY_DST; explicit topmost/shadow clears therefore have COPY_DST and host/texture copies have COPY_SRC. Bevy new_uninit supplies texture COPY_DST. Buffer creation/binding/dispatch and SDK range/usage/device limits remain actual provider admission under context/Bevy policy; sealed layout does not certify arbitrary device capacity or WebGL compute support. Fixed base and chain fit SDK default/downlevel dimension/byte limits, but not every reduced custom device.",
+      "acceptance": "No new unconditional hardware/browser/runtime claim, native fallback, error scope or completion wait."
+    },
+    {
+      "family": "Actual Studio/Stage device provenance",
+      "sources": [
+        "hair_preview/gpu.rs",
+        "hair/groom.rs",
+        "hair_preview/assets.rs:177-188",
+        "hair_preview/render_test.rs:193-327,332-446",
+        "hair_preview/scalp_upload.rs"
+      ],
+      "contract": "Studio HairGpu is built from actual Bevy render device/queue. The grow worker uses that GPU; GroomedHair retains baked Arc into PlacedHair; Assets forwards its chains unchanged. Existing Stage obtains same render_context before app cleanup, builds hair on it, retains chains until its same app upload. Private upload has no arbitrary public chain-admission route; native SDK still validates device identity.",
+      "acceptance": "Preserve same-device source association and retained lifetimes; do not claim Chain catches arbitrary external Buffer destruction/alias mutation."
+    },
+    {
+      "family": "Queue, completion and publication",
+      "sources": [
+        "bake/mod.rs:184-191",
+        "bake/mod.rs:278-299",
+        "bake/readback.rs",
+        "hair_preview/scalp_upload.rs:107-155"
+      ],
+      "contract": "Bake/longest handle producing batch submission before return/read. Canonical read keeps explicit native Wait; textures upload uses Bevy raw device-handled policy and removes pending requests when recorded, not after an observed GPU verdict. No failure rollback or global health promise. Longest indexes word0 after a privately fixed16-byte allocation, successful exact read and producing-submit handling, so historical zero fallback is not needed.",
+      "acceptance": "Retain actual submit/map/poll causes on observed paths and explicit Bevy device-handled limit."
+    },
+    {
+      "family": "Existing fixture/provenance",
+      "sources": [
+        "hair_preview/render_test.rs",
+        "bake/wgsl.rs"
+      ],
+      "contract": "Entire existing fixture equals parent after exactly import-add, raw Buffer import removal and Stage field type substitution. No cases/oracles/helpers/assertions changed; unchanged WGSL reference and Assets scalp_images function are independently exact.",
+      "acceptance": "No new fixtures or local execution. Final hosted validation required."
+    }
+  ],
+  "verdict": "No new implementation defect found in the exact nine-file scalp responsibility and traced actual receiving graph. SCALP-C1 comment correction and complete Root pre-receive inventory remain required; no source receipt or global clearance inferred.",
+  "required_dependencies": [
+    "Root has not received these nine sources; Rule Review complete thirteen-lens preinventory and ownership-compatible composition are separate prerequisites.",
+    "Canonical BufferElementCount/Stride and relevant exports, admitted Hair StrandLayout/GpuGroom and producer/count/kernel/cache/completion families must be composed at their agreed exact pins. Preserve Root native Buffer/context/validation/texture successors; no whole GPU crate overwrite.",
+    "Root unchanged Assets scalp_images function is byte-exact and can consume Chain once exports/receiver types arrive; unrelated geometry/hash difference is not permission to overwrite Assets.",
+    "Fixed recipe guarantees host/native address arithmetic only. Arbitrary custom-device limits, native browser behavior, calibration, rendering/performance and whole numerical producer graph remain unvalidated.",
+    "Final complete source waves, three reviews and required hosted checks must all pass on the same final pushed revision; no merge.",
+    "Canonical native reference files are context only. In particular, peer mapping/readback references predate Root texture GPU-scoped visibility and poll_complete; do not copy those older native references over Root. Their Buffer-read bodies support Scalp without any native overwrite."
+  ],
+  "limits": [
+    "Source/Git/hash bookkeeping only. No project execution, build/check/compile/test/lint/scanner/generator/numerical runtime or hosted CI.",
+    "No source copy/edits and no authored tests/cases/helpers/assertions/doctests.",
+    "Fresh complete nine files plus complete indicated unchanged reference/closure files and bounded actual SDK/body ranges. No whole SDK, Bevy engine or unreceived numerical producer review claimed."
+  ],
+  "subsequent_connected_discovery": {
+    "report": "material-c665-code-review.json",
+    "finding": "M665-C1",
+    "status": "Browser progress reopened. Original no-new-implementation finding was bounded by its read coverage and is not current clearance of public synchronous host read. Fixed Chain/layout/native addresses/fixture proofs retained.",
+    "source": "bake/readback.rs:15, public bake/mod.rs read and longest -> pollster pending -> same-thread WebGPU promise callback"
+  }
+}

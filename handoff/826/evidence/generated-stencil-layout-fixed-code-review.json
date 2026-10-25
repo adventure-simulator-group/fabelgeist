@@ -1,0 +1,648 @@
+{
+  "review": "Independent complete source successor Code Review: fixed generated Stencil layout",
+  "snapshot_manifest": "target/pr826-audit/generated-working-stencil-layout-fixed-snapshot/manifest.json",
+  "snapshot_manifest_sha256": "4425ccae9bfdd13b35af0201ba3344541f3ceadec559a25d8ead1ddbae4f50c8",
+  "working_base_head": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+  "previous_snapshot_manifest": "target/pr826-audit/generated-working-stencil-layout-snapshot/manifest.json",
+  "previous_snapshot_manifest_sha256": "fcdac606eb126ad4bca6407958373d671e8d1f10e3fe1831764f509affa6fcf0",
+  "previous_full_review_sha256": "b7f07a21456de1f5c3ab9ed8d4e880b185d959a8efa4fda26c9b4cb3d41385ad",
+  "verdict": "No actionable Code finding in this bounded fifty-one-source successor. GSL-C1 is closed by source proof. Required integration and final gates remain open.",
+  "findings": [],
+  "closed_findings": [
+    {
+      "id": "GSL-C1",
+      "source_status": "closed in frozen source only",
+      "proof": "layout.rs cover_output first checks signed output coordinate extents for every emitted lane, then limits sampled-axis coverage to min(neighborhood axis count, input texture rank). The 4\u00d74 Texture2d -> 4\u00d74\u00d72 Texture3d Neighbors3D trigger now passes x/y coverage and z signed conversion/neighbor bounds; z is omitted only from sampled-axis equality. Existing grid/fetch/coordinate/neighbor source is byte-exact and freshly reread, preserving plane repetition for Clamp and Wrap.",
+      "arithmetic_qualification": "A texture output extent is checked against i32::MAX for each emitted coordinate lane before the sampled-axis loop, including the projected-away z lane. Last valid coordinate is at most extent-1; both +/-1 are representable. For sampled lanes, existing grid extent and Wrap 2*extent-1 checks still prove modulo addition. Ignored z uses grid z=1 so modulo addition cannot overflow after representable coordinate addition. Buffer and Four use their unchanged bounded flattening/unflattening path instead."
+    }
+  ],
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "manifest_matches": true,
+      "lines": 130,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "manifest_matches": true,
+      "lines": 147,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "manifest_matches": true,
+      "lines": 115,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "manifest_matches": true,
+      "lines": 119,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "manifest_matches": true,
+      "lines": 138,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "manifest_matches": true,
+      "lines": 131,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "manifest_matches": true,
+      "lines": 7,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "e638381ad701a4b95e91bc4e3128d8c84526fa81cab3e535895aba1af3c3f975",
+      "manifest_matches": true,
+      "lines": 106,
+      "previous_whole_body_identical": false,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "manifest_matches": true,
+      "lines": 47,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "manifest_matches": true,
+      "lines": 139,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "manifest_matches": true,
+      "lines": 132,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "manifest_matches": true,
+      "lines": 114,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "manifest_matches": true,
+      "lines": 228,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "manifest_matches": true,
+      "lines": 121,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "manifest_matches": true,
+      "lines": 9,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "manifest_matches": true,
+      "lines": 125,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "manifest_matches": true,
+      "lines": 42,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "manifest_matches": true,
+      "lines": 296,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_parameters.rs",
+      "sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "manifest_matches": true,
+      "lines": 85,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "manifest_matches": true,
+      "lines": 191,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "manifest_matches": true,
+      "lines": 27,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "manifest_matches": true,
+      "lines": 123,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "manifest_matches": true,
+      "lines": 120,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "manifest_matches": true,
+      "lines": 122,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_error.rs",
+      "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "manifest_matches": true,
+      "lines": 209,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "manifest_matches": true,
+      "lines": 122,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "manifest_matches": true,
+      "lines": 178,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "sha256": "bce3a66580252ce1353e2ae500dc11ea596deea17d46155a2f4fd9584365846d",
+      "manifest_matches": true,
+      "lines": 184,
+      "previous_whole_body_identical": false,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "manifest_matches": true,
+      "lines": 148,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "manifest_matches": true,
+      "lines": 35,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "manifest_matches": true,
+      "lines": 56,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "manifest_matches": true,
+      "lines": 48,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "manifest_matches": true,
+      "lines": 131,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "sha256": "818c4f3b02ca461da41b87e7249fe143cefde84345e4540d2e9e1f68137c4a7d",
+      "manifest_matches": true,
+      "lines": 326,
+      "previous_whole_body_identical": false,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "sha256": "b0a8b0dc7dc823fb4f24d86350eed7184344e713b65734d7424a3fd3c6f7465b",
+      "manifest_matches": true,
+      "lines": 55,
+      "previous_whole_body_identical": false,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "manifest_matches": true,
+      "lines": 146,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "manifest_matches": true,
+      "lines": 135,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "manifest_matches": true,
+      "lines": 11,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "04af568622f691ab9b1b50eea9d3fc38ca514e55fd2ad81ea50caaf23ee6586a",
+      "manifest_matches": true,
+      "lines": 182,
+      "previous_whole_body_identical": false,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/tests.rs",
+      "sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "manifest_matches": true,
+      "lines": 147,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "bdebde0792dd5c21e33d8acc172f6bc001f5470ed65beccfaab044a33f4999f8",
+      "manifest_matches": true,
+      "lines": 50,
+      "previous_whole_body_identical": false,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "manifest_matches": true,
+      "lines": 110,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "manifest_matches": true,
+      "lines": 123,
+      "previous_whole_body_identical": true,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "cc7727ee7caed96373fcf49f63b22e670f24458cd447d715492fbe1b80805796",
+      "manifest_matches": true,
+      "lines": 113,
+      "previous_whole_body_identical": false,
+      "coverage": "Fresh complete successor source read and complete delta comparison."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "manifest_matches": true,
+      "lines": 69,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "manifest_matches": true,
+      "lines": 225,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "manifest_matches": true,
+      "lines": 109,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "manifest_matches": true,
+      "lines": 250,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "manifest_matches": true,
+      "lines": 87,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "manifest_matches": true,
+      "lines": 26,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "manifest_matches": true,
+      "lines": 97,
+      "previous_whole_body_identical": true,
+      "coverage": "Whole-body coverage carried from the immediately preceding independent full fifty-source review after independently verifying byte identity; current semantic relationship revalidated, no fresh whole-body reread claimed."
+    }
+  ],
+  "coverage": {
+    "sources": 51,
+    "lines": 6186,
+    "changed_or_added_sources": 7,
+    "changed_paths": [
+      "crates/fabelgeist-compute/src/gather/signature.rs",
+      "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "crates/fabelgeist-compute/src/stream/call.rs",
+      "crates/fabelgeist-compute/src/stream/signature.rs"
+    ],
+    "fresh_whole_source_reads": 18,
+    "fresh_whole_source_paths": [
+      "crates/fabelgeist-compute/src/gather/program.rs",
+      "crates/fabelgeist-compute/src/gather/signature.rs",
+      "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "crates/fabelgeist-compute/src/stencil.rs",
+      "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "crates/fabelgeist-compute/src/stencil/program.rs",
+      "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "crates/fabelgeist-compute/src/stream/call.rs",
+      "crates/fabelgeist-compute/src/stream/mod.rs",
+      "crates/fabelgeist-compute/src/stream/program.rs",
+      "crates/fabelgeist-compute/src/stream/signature.rs"
+    ],
+    "unchanged_body_identity_carries": 33,
+    "all_manifest_hashes_match": true,
+    "all_previous_source_paths_accounted": true,
+    "qualification": "Seven complete changed/new files and eleven complete connected unchanged files freshly read. Thirty-three unchanged whole bodies carried from immediately preceding independent full read after exact byte proof. No fresh whole-fifty-one reread claimed."
+  },
+  "dependency_accounts": [
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "coverage": "fresh complete; exact source/device/observed-policy/recipe key and success-only publication",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "coverage": "fresh complete; all-axis device admission and native dispatch geometry",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "coverage": "fresh complete including existing compile_fail; ordinary covering_x versus folded policy",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "coverage": "fresh complete; compile/binding/native scope and standalone submit order",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "coverage": "fresh complete; exact logical runtime-array binding prefix and native allocation bounds",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "coverage": "fresh complete; pipeline device, logical buffers, selected textures and native binding causes",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+      "coverage": "fresh complete; actual old export composition, required receiving dependency remains open",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "coverage": "fresh complete; actual old module composition, no missing canonical imports cleared",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "coverage": "fresh complete; existing generalized fixture resource population/adapters and oracle, no execution",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "coverage": "Fresh complete canonical owner definition read as receiving context only; not production overwrite authority.",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "coverage": "Fresh complete canonical owner definition read as receiving context only; not production overwrite authority.",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "exact_cac5_native_source": true,
+      "coverage": "Carried native behavior review from gpu-complete-cac5a7c33-code-review; independently revalidated exact source identity here. No fresh whole-body reread in this wave.",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "exact_cac5_native_source": true,
+      "coverage": "Carried native behavior review from gpu-complete-cac5a7c33-code-review; independently revalidated exact source identity here. No fresh whole-body reread in this wave.",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "exact_cac5_native_source": true,
+      "coverage": "Carried native parse/validation review from gpu-complete-cac5a7c33-code-review; independently verified exact source identity. No fresh whole-body reread in this wave.",
+      "same_hash_reverified": true,
+      "current_wave_coverage": "Pinned dependency identity carried and independently reverified; admission/call relationships revalidated. No fresh whole-body dependency read in this successor."
+    }
+  ],
+  "current_contract_revalidation": [
+    {
+      "family": "GSL-C1 projected-axis behavior",
+      "status": "Source finding closed",
+      "proof": "layout.rs cover_output first checks signed output coordinate extents for every emitted lane, then limits sampled-axis coverage to min(neighborhood axis count, input texture rank). The 4\u00d74 Texture2d -> 4\u00d74\u00d72 Texture3d Neighbors3D trigger now passes x/y coverage and z signed conversion/neighbor bounds; z is omitted only from sampled-axis equality. Existing grid/fetch/coordinate/neighbor source is byte-exact and freshly reread, preserving plane repetition for Clamp and Wrap."
+    },
+    {
+      "family": "GSL-C1 arithmetic qualification",
+      "status": "Source criterion met",
+      "proof": "A texture output extent is checked against i32::MAX for each emitted coordinate lane before the sampled-axis loop, including the projected-away z lane. Last valid coordinate is at most extent-1; both +/-1 are representable. For sampled lanes, existing grid extent and Wrap 2*extent-1 checks still prove modulo addition. Ignored z uses grid z=1 so modulo addition cannot overflow after representable coordinate addition. Buffer and Four use their unchanged bounded flattening/unflattening path instead."
+    },
+    {
+      "family": "Unit private role variants",
+      "status": "No actionable defect",
+      "proof": "Gather Other, Stencil Center and Stream Offset shed unused ShaderParameter copies. NativeParameter still validates offset u32 and duplicate declarations. Every SourceParameter retains the original declaration string; Getter/call paths use Index/Resource/Value payloads as before. Gather Other retains its existing native declaration without adding unsupported value forwarding. Stencil center is derived from the neighborhood element type and generated center load. Stream input_value selection depends on remaining Value roles, not Offset."
+    },
+    {
+      "family": "Focused error owner and visibility",
+      "status": "No actionable defect",
+      "proof": "The sole NeighborhoodLayoutError/Result owner moves to layout/error.rs and is re-exported through the existing layout and stencil public paths. Existing variants, payloads and error text are retained; SignedCoordinate adds the actual failing axis and extent. Imports resolve to actual shared types; no alias or parallel error definition. Errors still flow through existing anyhow carriers; no native error wrapping/flattening changed."
+    },
+    {
+      "family": "Host grid, reflected input stride and capacity",
+      "status": "Current contracts revalidated",
+      "proof": "Full current ResourcePipeline, Stencil execution and grid/fetch/coordinate modules freshly read. Declared axes continue to match native explicit size shapes, input texture dimensions, output-derived axes and default64 policy. Input Buffer count remains actual logical bytes / same source reflected array stride, with u32 count narrowing, positive grid, widened checked population, signed flattened last-index and flat-divisor bounds. Buffer output unflattening and prefix coverage remain unchanged. Canonical count/stride module integration remains required."
+    },
+    {
+      "family": "Empty output and admission order",
+      "status": "Current contracts revalidated",
+      "proof": "Current execute obtains valid source/pipeline and output workgroups before resource admission. admit_resources still returns before new input/grid admission for output zero. This preserves the limited no-work policy without promising an empty logical native binding succeeds: lower pipeline/binding/native dispatch admission still runs. No new mutation or publication precedes failure."
+    },
+    {
+      "family": "Typed errors, native causes and cache",
+      "status": "Current contracts revalidated by exact identities",
+      "proof": "SourceParameter, GeneratedProgramError, NativeOperatorSignatureError, coordinate/texture value errors, all fluid adapters and resource cache/native helpers remain exact previous source hashes. Actual local payloads and SDK/parser sources are not replaced by display prose. Source/device/policy/recipe cache success-only publication, reflected selected source and native scope/retry behavior retain previous exact source contracts; no new cache failure state or provider wait was introduced."
+    },
+    {
+      "family": "All five algorithms and fluid numerical programs",
+      "status": "Current contracts revalidated",
+      "proof": "Map and Scatter roles/programs/execute remain byte-identical; Gather/Stream full consuming native program modules reread alongside changed roles. Stencil full execution/program/fetch/grid/boundary/neighbors reread. Fluid builders/programs/resource adapters remain byte-exact with current 45/50/47 native literal evidence; no new native arithmetic/source tokens. All existing fixtures are exact immediate predecessor hashes."
+    },
+    {
+      "family": "Collector Rustdoc",
+      "status": "Comment matches source behavior",
+      "proof": "Stencil secondary_resources collects all supplied texture descriptors and uses authored roles only to project Buffer element types. Revised Rustdoc describes that exact distinction without implying it filters every supplied texture by a signature role. This is a source accuracy observation, not independent Comment Review replacement."
+    }
+  ],
+  "preservation": {
+    "all_existing_fixture_files_byte_exact_predecessor": true,
+    "all_frozen_native_program_emitters_exact_except_unit_case_and_doc": "All program/grid/fetch/coordinate/boundary/neighbors source files exact predecessor; bindings.rs changes only Center(_) match spelling and Rustdoc. Complete seven-file diffs reviewed independently.",
+    "no_test_case_helper_assertion_addition": true,
+    "no_native_program_execution": true
+  },
+  "required_dependencies": [
+    "Canonical peer compute lib/prelude/export composition, Buffer stride/count owners, Reduce/other algorithm and caller migrations remain unreceived and required. Their known absence is not reported as a new receiving implementation defect or accepted as clear.",
+    "Full shared producer/native/body/physical/caller composition, manifests/locks, all thirteen lenses and independent final Code/Rule/Comment plus hosted checks on the same final pushed revision remain required."
+  ],
+  "limits": [
+    "Read-only frozen source/Git/hash/text bookkeeping. No production edits or copying, project build/check/lint/test/scanner/generator/runtime/probe, new tests/cases/helpers/assertions/doctests, push or CI.",
+    "Closure of GSL-C1 is source reasoning under exact emitter/layout contracts, not a runtime test result.",
+    "This report revalidates all fifty-one source responsibilities with explicit fresh/carry coverage. It does not certify that the incomplete combined Root working tree compiles or clear the full native/material/generated/application graph.",
+    "Static/fast whole-block provided-variant soft skips and unavailable Buffer device/map-state queries retain settled existing contracts. No extra admission policy or arbitrary alias guarantee introduced."
+  ]
+}

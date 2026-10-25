@@ -1,0 +1,4403 @@
+{
+  "crates/fabelgeist-gpu/Cargo.toml": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Prior explicitly bounded source body/ranges revalidated by exact immutable identity; not freshly reread at954",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "f0 indicated full/selected body coverage revalidated by exact source identity; lower contract re-reasoned, no fresh whole-file claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-d449-code-review.json",
+      "coverage": "fresh full manifest native std/browser cfg and fragile non-atomic policy",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "changed_from_parent",
+        "coverage",
+        "byte_identical_to_parent"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "exact successor source identity revalidated; prior bounded read coverage retained, no fresh whole-body claim",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "complete package/dependencies/target features/lint source",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": "Fresh complete required export/feature/API owner read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "previous indicated complete-body coverage byte-identity revalidated and affected receiving contracts reassessed; no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/README.md": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "f0 indicated full/selected body coverage revalidated by exact source identity; lower contract re-reasoned, no fresh whole-file claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "fresh complete changed file read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs": [
+    {
+      "report": "root-baseline-d7da-code-review.json",
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread",
+      "keys": [
+        "path",
+        "sha256",
+        "same_as_pre_repair_source",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete create_bind_groups/create_group bodies1-82; unchanged helper remainder carried frompre6bf by exact diff/source contract.",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "root-baseline-d7da-code-review.json",
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread",
+      "keys": [
+        "path",
+        "sha256",
+        "same_as_pre_repair_source",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "f0 indicated full/selected body coverage revalidated by exact source identity; lower contract re-reasoned, no fresh whole-file claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "head-04-code-review.json",
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_d9",
+        "coverage"
+      ]
+    },
+    {
+      "report": "policy-prefix-d9-code-review.json",
+      "coverage": "fresh FULL current immutable file source read, including existing fixtures when present",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_73b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-d449-code-review.json",
+      "coverage": "fresh full source admission relationship",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "changed_from_parent",
+        "coverage",
+        "byte_identical_to_parent"
+      ]
+    },
+    {
+      "report": "lower-buffer-pre-code-review.json",
+      "coverage": "full production",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "coverage",
+        "functions"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "atlas-6b-code-review.json",
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_04",
+        "coverage"
+      ]
+    },
+    {
+      "report": "levels-211-code-review.json",
+      "coverage": "Exact immutable identity revalidated against frame-b874 report; prior explicitly bounded full/partial read carried; no fresh whole-file read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "frame-b874-code-review.json",
+      "coverage": "prior6b explicit full/partial coverage carried by exact current immutable blob/hash; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_6b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "previous indicated complete-body coverage byte-identity revalidated and affected receiving contracts reassessed; no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "shared-strip-creator-canonical-code-review.json",
+      "coverage": "fresh complete file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "f0 indicated full/selected body coverage revalidated by exact source identity; lower contract re-reasoned, no fresh whole-file claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "fresh complete changed file read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs": [],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "head-04-code-review.json",
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_d9",
+        "coverage"
+      ]
+    },
+    {
+      "report": "policy-prefix-d9-code-review.json",
+      "coverage": "fresh FULL current immutable file source read, including existing fixtures when present",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_73b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "atlas-6b-code-review.json",
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_04",
+        "coverage"
+      ]
+    },
+    {
+      "report": "levels-211-code-review.json",
+      "coverage": "Exact immutable identity revalidated against frame-b874 report; prior explicitly bounded full/partial read carried; no fresh whole-file read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "frame-b874-code-review.json",
+      "coverage": "prior6b explicit full/partial coverage carried by exact current immutable blob/hash; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_6b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs": [],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs": [
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Prior explicitly bounded source body/ranges revalidated by exact immutable identity; not freshly reread at954",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "complete production prefix through constructors/write/from_upload/traits; test module declaration only",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": {
+        "fresh_range": [
+          1,
+          140
+        ],
+        "contract": "Used receiving API/export/conversion inspected; remaining body not freshly claimed"
+      },
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs": [
+    {
+      "report": "cards-2e2-code-review.json",
+      "coverage": "exact current Git/SHA256 source identity independently revalidated; prior explicit full/partial source proofs carried; no fresh full-body read",
+      "keys": [
+        "revision",
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "coverage",
+        "functions",
+        "unchanged_from_parent",
+        "identity_equal_previous",
+        "prior_revision",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "renderer-f905-code-review.json",
+      "coverage": "Fresh complete affected unchanged file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "same_parent_bytes"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "cards-201c-code-review.json",
+      "coverage": "fresh complete unchanged file",
+      "keys": [
+        "revision",
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "coverage",
+        "functions",
+        "unchanged_from_parent"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "shared-strip-creator-canonical-code-review.json",
+      "coverage": "fresh complete file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    {
+      "report": "head-04-code-review.json",
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_d9",
+        "coverage"
+      ]
+    },
+    {
+      "report": "policy-prefix-d9-code-review.json",
+      "coverage": "fresh FULL current immutable file source read, including existing fixtures when present",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_73b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-197-code-review.json",
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "atlas-6b-code-review.json",
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_04",
+        "coverage"
+      ]
+    },
+    {
+      "report": "levels-211-code-review.json",
+      "coverage": "Exact immutable identity revalidated against frame-b874 report; prior explicitly bounded full/partial read carried; no fresh whole-file read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "frame-b874-code-review.json",
+      "coverage": "prior6b explicit full/partial coverage carried by exact current immutable blob/hash; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_6b",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs": [
+    {
+      "report": "head-04-code-review.json",
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_d9",
+        "coverage"
+      ]
+    },
+    {
+      "report": "policy-prefix-d9-code-review.json",
+      "coverage": "fresh FULL current immutable file source read, including existing fixtures when present",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_73b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "atlas-6b-code-review.json",
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_04",
+        "coverage"
+      ]
+    },
+    {
+      "report": "levels-211-code-review.json",
+      "coverage": "Exact immutable identity revalidated against frame-b874 report; prior explicitly bounded full/partial read carried; no fresh whole-file read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "frame-b874-code-review.json",
+      "coverage": "prior6b explicit full/partial coverage carried by exact current immutable blob/hash; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_6b",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "fresh complete changed file read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "head-04-code-review.json",
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_d9",
+        "coverage"
+      ]
+    },
+    {
+      "report": "policy-prefix-d9-code-review.json",
+      "coverage": "fresh FULL current immutable file source read, including existing fixtures when present",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_73b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "atlas-6b-code-review.json",
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_04",
+        "coverage"
+      ]
+    },
+    {
+      "report": "levels-211-code-review.json",
+      "coverage": "Exact immutable identity revalidated against frame-b874 report; prior explicitly bounded full/partial read carried; no fresh whole-file read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "frame-b874-code-review.json",
+      "coverage": "prior6b explicit full/partial coverage carried by exact current immutable blob/hash; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_6b",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs": [
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Prior explicitly bounded source body/ranges revalidated by exact immutable identity; not freshly reread at954",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "complete relevant current methods/delta inspected; known unintegrated storage caller; no whole-file fresh read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": "Fresh complete required export/feature/API owner read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "fresh complete current source read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Prior explicitly bounded source body/ranges revalidated by exact immutable identity; not freshly reread at954",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": "Fresh complete required export/feature/API owner read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "root-baseline-d7da-code-review.json",
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread",
+      "keys": [
+        "path",
+        "sha256",
+        "same_as_pre_repair_source",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Prior explicitly bounded source body/ranges revalidated by exact immutable identity; not freshly reread at954",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "dispatch-51b-code-review.json",
+      "coverage": "fresh full-file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": "Fresh complete required export/feature/API owner read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json": [
+    {
+      "report": "dispatch-51b-code-review.json",
+      "coverage": "fresh full-file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    {
+      "report": "dispatch-65e-code-review.json",
+      "coverage": "full file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs": [
+    {
+      "report": "dispatch-51b-code-review.json",
+      "coverage": "fresh full-file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    {
+      "report": "dispatch-65e-code-review.json",
+      "coverage": "full file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Prior explicitly bounded source body/ranges revalidated by exact immutable identity; not freshly reread at954",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "fresh full file/diff read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": "Fresh complete required export/feature/API owner read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete ReflectedInterface::new and records1-113; unchanged reflection-builder body scope carried, not fresh whole-file read.",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "fresh complete production read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "fresh complete production read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs": [],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "fresh complete production read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "head-04-code-review.json",
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_d9",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "atlas-6b-code-review.json",
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_04",
+        "coverage"
+      ]
+    },
+    {
+      "report": "levels-211-code-review.json",
+      "coverage": "Exact immutable identity revalidated against frame-b874 report; prior explicitly bounded full/partial read carried; no fresh whole-file read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "frame-b874-code-review.json",
+      "coverage": "prior6b explicit full/partial coverage carried by exact current immutable blob/hash; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_6b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "head-04-code-review.json",
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_d9",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "atlas-6b-code-review.json",
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_04",
+        "coverage"
+      ]
+    },
+    {
+      "report": "levels-211-code-review.json",
+      "coverage": "Exact immutable identity revalidated against frame-b874 report; prior explicitly bounded full/partial read carried; no fresh whole-file read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "frame-b874-code-review.json",
+      "coverage": "prior6b explicit full/partial coverage carried by exact current immutable blob/hash; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_6b",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/mod.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Prior explicitly bounded source body/ranges revalidated by exact immutable identity; not freshly reread at954",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "f0 indicated full/selected body coverage revalidated by exact source identity; lower contract re-reasoned, no fresh whole-file claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-d449-code-review.json",
+      "coverage": "reexport search; source identity only",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "changed_from_parent",
+        "coverage",
+        "byte_identical_to_parent"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": "Fresh complete required export/feature/API owner read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "previous indicated complete-body coverage byte-identity revalidated and affected receiving contracts reassessed; no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs": [],
+  "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs": [],
+  "crates/fabelgeist-gpu/src/data/gpu/resource.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "f0 indicated full/selected body coverage revalidated by exact source identity; lower contract re-reasoned, no fresh whole-file claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-d449-code-review.json",
+      "coverage": "previous lower review complete indicated bodies revalidated byte-for-byte and current receiving contract reassessed; no fresh whole-file read claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "changed_from_parent",
+        "coverage",
+        "byte_identical_to_parent"
+      ]
+    },
+    {
+      "report": "lower-buffer-pre-code-review.json",
+      "coverage": "full production",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "coverage",
+        "functions"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "previous indicated complete-body coverage byte-identity revalidated and affected receiving contracts reassessed; no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs": [],
+  "crates/fabelgeist-gpu/src/data/gpu/sampler/filter_mode.rs": [],
+  "crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs": [],
+  "crates/fabelgeist-gpu/src/data/gpu/shader.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "fresh complete changed file read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": [
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "exact successor source identity revalidated; prior bounded read coverage retained, no fresh whole-body claim",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": [
+    {
+      "report": "head-04-code-review.json",
+      "coverage": "fresh FULL canonical owner file",
+      "keys": [
+        "head",
+        "path",
+        "git_blob",
+        "sha256",
+        "coverage"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "atlas-6b-code-review.json",
+      "coverage": "fresh FULL canonical owner file",
+      "keys": [
+        "head",
+        "path",
+        "git_blob",
+        "sha256",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete new file and every function",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "reviewed_responsibilities"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "exact successor source identity revalidated; prior bounded read coverage retained, no fresh whole-body claim",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": [
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "fresh complete current source read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "root-baseline-d7da-code-review.json",
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread",
+      "keys": [
+        "path",
+        "sha256",
+        "same_as_pre_repair_source",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "exact successor source identity revalidated; prior bounded read coverage retained, no fresh whole-body claim",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "exact successor source identity revalidated; prior bounded read coverage retained, no fresh whole-body claim",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs": [
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "root-baseline-d7da-code-review.json",
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread",
+      "keys": [
+        "path",
+        "sha256",
+        "same_as_pre_repair_source",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": [
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "root-baseline-d7da-code-review.json",
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread",
+      "keys": [
+        "path",
+        "sha256",
+        "same_as_pre_repair_source",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs": [
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "root-baseline-d7da-code-review.json",
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread",
+      "keys": [
+        "path",
+        "sha256",
+        "same_as_pre_repair_source",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs": [
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete current file read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs": [
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "fresh complete current source read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete new file and every function",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "reviewed_responsibilities"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "exact successor source identity revalidated; prior bounded read coverage retained, no fresh whole-body claim",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/data/mod.rs": [
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Prior explicitly bounded source body/ranges revalidated by exact immutable identity; not freshly reread at954",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "dispatch-65e-code-review.json",
+      "coverage": "full file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": "Fresh complete required export/feature/API owner read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/callback_progress.rs": [
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Prior explicitly bounded source body/ranges revalidated by exact immutable identity; not freshly reread at954",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "head-04-code-review.json",
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_d9",
+        "coverage"
+      ]
+    },
+    {
+      "report": "policy-prefix-d9-code-review.json",
+      "coverage": "prior73b full source proof revalidated by exact blob/hash identity; no fresh full reread this wave",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_73b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-197-code-review.json",
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "policy-73b-code-review.json",
+      "coverage": "fresh FULL file, all production and existing fixture bodies",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "atlas-6b-code-review.json",
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_04",
+        "coverage"
+      ]
+    },
+    {
+      "report": "levels-211-code-review.json",
+      "coverage": "Exact immutable identity revalidated against frame-b874 report; prior explicitly bounded full/partial read carried; no fresh whole-file read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "frame-b874-code-review.json",
+      "coverage": "prior6b explicit full/partial coverage carried by exact current immutable blob/hash; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_6b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": "Fresh complete required export/feature/API owner read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/mod.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Fresh complete file read at current pin",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": "Fresh complete required export/feature/API owner read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/validation_scope.rs": [
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "fresh complete current source read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "root-baseline-d7da-code-review.json",
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread",
+      "keys": [
+        "path",
+        "sha256",
+        "same_as_pre_repair_source",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "renderer-197-code-review.json",
+      "coverage": "fresh FULL changed file read, including entire2306-line render/mod.rs",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "f0 indicated full/selected body coverage revalidated by exact source identity; lower contract re-reasoned, no fresh whole-file claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "fresh complete changed file read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "f0 indicated full/selected body coverage revalidated by exact source identity; lower contract re-reasoned, no fresh whole-file claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-d449-code-review.json",
+      "coverage": "fresh full changed file read, all production bodies and existing inline tests source only",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "changed_from_parent",
+        "coverage",
+        "byte_identical_to_parent"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "fresh complete source read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs": [
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Fresh complete affected WgpuContext field policy/type and from_parts1-81; unaffected descriptor/fixture remainder carried exact.",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "scope-five-48e-code-review.json",
+      "coverage": "Fresh complete pinned file read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage",
+        "changed_from_parent",
+        "parent_byte_identical"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "fresh complete production read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "dispatch-51b-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "coverage",
+        "same_as65e"
+      ]
+    },
+    {
+      "report": "lower-d449-code-review.json",
+      "coverage": "previous lower review complete indicated bodies revalidated byte-for-byte and current receiving contract reassessed; no fresh whole-file read claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "changed_from_parent",
+        "coverage",
+        "byte_identical_to_parent"
+      ]
+    },
+    {
+      "report": "dispatch-65e-code-review.json",
+      "coverage": "full file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-buffer-pre-code-review.json",
+      "coverage": "full file",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "coverage",
+        "functions"
+      ]
+    },
+    {
+      "report": "renderer-197-code-review.json",
+      "coverage": "current immutable canonical finish/submit contract revalidated",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "fresh complete current source read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "kernel-162-code-review.json",
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence",
+      "keys": [
+        "path",
+        "sha256",
+        "prior_sha256",
+        "exact_prior",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "fresh complete source read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "scope-8cdc-code-review.json",
+      "coverage": "Prior explicitly bounded source/body coverage carried by exact current immutable hash; no fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "changed_from6bf",
+        "same_as_pre_inventory",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "fresh complete production read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "head-04-code-review.json",
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_d9",
+        "coverage"
+      ]
+    },
+    {
+      "report": "policy-prefix-d9-code-review.json",
+      "coverage": "fresh FULL current immutable file source read, including existing fixtures when present",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_73b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "deformation-10cc-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against levels211 source accounting; earlier explicitly bounded source read carried, no fresh whole-body claim",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "lower-d449-code-review.json",
+      "coverage": "fresh full changed file read, all production bodies and existing inline tests source only",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "changed_from_parent",
+        "coverage",
+        "byte_identical_to_parent"
+      ]
+    },
+    {
+      "report": "cube-47f-code-review.json",
+      "coverage": "fresh complete source already read during immediately preceding immutable954/e216 inventory, and exact successor/parent identity revalidated; no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "lines",
+        "same_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "renderer-197-code-review.json",
+      "coverage": "current immutable context observer contract revalidated",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "rest-6bf-code-review.json",
+      "coverage": "Exact current blob/hash identity revalidated against10cc accounting; earlier explicitly bounded full/partial source read carried, not a fresh whole-body read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "cached-view-8c600-code-review.json",
+      "coverage": "fresh complete current source read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "parent_sha256",
+        "same_parent",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "armor-read-docs-3e74-code-review.json",
+      "coverage": "fresh complete file",
+      "keys": [
+        "path",
+        "sha256",
+        "identical_to_d7da",
+        "excluding_rustdoc_bytes_identical",
+        "prior_read_boundary",
+        "current_read_boundary"
+      ]
+    },
+    {
+      "report": "atlas-6b-code-review.json",
+      "coverage": "prior04 proof revalidated by exact source identity; prior full/partial limits retained; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "git_blob",
+        "sha256",
+        "lines",
+        "byte_identical_to_04",
+        "coverage"
+      ]
+    },
+    {
+      "report": "levels-211-code-review.json",
+      "coverage": "Exact immutable identity revalidated against frame-b874 report; prior explicitly bounded full/partial read carried; no fresh whole-file read",
+      "keys": [
+        "path",
+        "sha256",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "frame-b874-code-review.json",
+      "coverage": "prior6b explicit full/partial coverage carried by exact current immutable blob/hash; no fresh whole-body read this wave",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "byte_identical_to_6b",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "fresh complete source read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/src/lib.rs": [],
+  "crates/fabelgeist-gpu/src/prelude.rs": [
+    {
+      "report": "lower-a3-code-review.json",
+      "coverage": "exact byte-identity revalidation of previous labeled complete/selected function coverage; same-head contracts re-reasoned, no fresh whole-body reread claimed",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_2f",
+        "coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-9b9-code-review.json",
+      "coverage": "exact source identity revalidated against complete 954 receiving review; prior coverage and original partial ranges retained, no new full-body read claimed",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    },
+    {
+      "report": "renderer-complete-954-code-review.json",
+      "coverage": "Fresh complete file read at current pin",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "prior_sha256",
+        "same_prior",
+        "coverage",
+        "prior_coverage"
+      ]
+    },
+    {
+      "report": "lower-2f-code-review.json",
+      "coverage": "f0 indicated full/selected body coverage revalidated by exact source identity; lower contract re-reasoned, no fresh whole-file claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_f0",
+        "changed",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-d449-code-review.json",
+      "coverage": "reexport search; source identity only",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "changed_from_parent",
+        "coverage",
+        "byte_identical_to_parent"
+      ]
+    },
+    {
+      "report": "dispatch-65e-code-review.json",
+      "coverage": "full file",
+      "keys": [
+        "path",
+        "sha256",
+        "git_blob",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-8d-code-review.json",
+      "coverage": "exact source-identity reconciliation of previous labeled source/function coverage; no fresh whole-body read claim",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_a3",
+        "coverage"
+      ]
+    },
+    {
+      "report": "renderer-complete-2b646-code-review.json",
+      "coverage": "Fresh complete required export/feature/API owner read",
+      "keys": [
+        "revision",
+        "path",
+        "sha256",
+        "git_blob",
+        "lines",
+        "coverage"
+      ]
+    },
+    {
+      "report": "lower-f0-code-review.json",
+      "coverage": "fresh complete source read",
+      "keys": [
+        "path",
+        "sha256",
+        "working_matches_pin",
+        "byte_identical_to_parent",
+        "changed",
+        "coverage"
+      ]
+    }
+  ],
+  "crates/fabelgeist-gpu/tests/fixtures/buffer_usage.json": [],
+  "crates/fabelgeist-gpu/tests/fixtures/texture_views.json": [],
+  "crates/fabelgeist-gpu/tests/texture_views.rs": [],
+  "crates/fabelgeist-gpu/texture-views.md": [
+    {
+      "report": "texture-7889-code-review.json",
+      "coverage": "fresh complete current file and full source/control flow review",
+      "keys": [
+        "path",
+        "blob",
+        "sha256",
+        "lines",
+        "changed_from_comparison_base",
+        "coverage",
+        "prior_revision",
+        "prior_identity_equal",
+        "prior_coverage",
+        "reviewed_responsibilities"
+      ]
+    }
+  ]
+}

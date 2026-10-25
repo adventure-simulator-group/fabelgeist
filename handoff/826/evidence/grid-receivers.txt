@@ -1,0 +1,231 @@
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs:184:        crate::data::gpu::compute::ComputePass::dispatch(
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-185-            context,
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-186-            pipeline.as_ref().clone(),
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-187-            parameters,
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-188-            wg_x,
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-189-            wg_y,
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-190-            wg_z,
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-191-        )?;
+crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs-192-
+--
+crates/fabelgeist-compute/src/stencil.rs:996:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/stencil.rs-997-            context,
+crates/fabelgeist-compute/src/stencil.rs-998-            pipeline.clone(),
+crates/fabelgeist-compute/src/stencil.rs-999-            parameters,
+crates/fabelgeist-compute/src/stencil.rs-1000-            wg_x,
+crates/fabelgeist-compute/src/stencil.rs-1001-            wg_y,
+crates/fabelgeist-compute/src/stencil.rs-1002-            wg_z,
+crates/fabelgeist-compute/src/stencil.rs-1003-        )?;
+crates/fabelgeist-compute/src/stencil.rs-1004-
+--
+crates/fabelgeist-compute/src/reshape.rs:75:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/reshape.rs-76-            context, pipeline, parameters, wg_x, 1, 1,
+crates/fabelgeist-compute/src/reshape.rs-77-        )?;
+crates/fabelgeist-compute/src/reshape.rs-78-
+crates/fabelgeist-compute/src/reshape.rs-79-        Ok(())
+crates/fabelgeist-compute/src/reshape.rs-80-    }
+crates/fabelgeist-compute/src/reshape.rs-81-}
+--
+crates/fabelgeist-compute/src/scatter.rs:392:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scatter.rs-393-            context,
+crates/fabelgeist-compute/src/scatter.rs-394-            pipeline.clone(),
+crates/fabelgeist-compute/src/scatter.rs-395-            parameters,
+crates/fabelgeist-compute/src/scatter.rs-396-            wg_x,
+crates/fabelgeist-compute/src/scatter.rs-397-            wg_y,
+crates/fabelgeist-compute/src/scatter.rs-398-            wg_z,
+crates/fabelgeist-compute/src/scatter.rs-399-        )?;
+crates/fabelgeist-compute/src/scatter.rs-400-
+--
+crates/fabelgeist-compute/src/reduce/mod.rs:308:            fabelgeist_gpu::data::gpu::ComputePass::record(
+crates/fabelgeist-compute/src/reduce/mod.rs-309-                context,
+crates/fabelgeist-compute/src/reduce/mod.rs-310-                pipeline,
+crates/fabelgeist-compute/src/reduce/mod.rs-311-                &parameters,
+crates/fabelgeist-compute/src/reduce/mod.rs-312-                &mut encoder,
+crates/fabelgeist-compute/src/reduce/mod.rs-313-                workgroup_count,
+crates/fabelgeist-compute/src/reduce/mod.rs-314-                1,
+crates/fabelgeist-compute/src/reduce/mod.rs-315-                1,
+crates/fabelgeist-compute/src/reduce/mod.rs-316-            )?;
+--
+crates/fabelgeist-compute/src/map/mod.rs:560:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/map/mod.rs-561-            context,
+crates/fabelgeist-compute/src/map/mod.rs-562-            pipeline.clone(),
+crates/fabelgeist-compute/src/map/mod.rs-563-            parameters,
+crates/fabelgeist-compute/src/map/mod.rs-564-            wg_x,
+crates/fabelgeist-compute/src/map/mod.rs-565-            wg_y,
+crates/fabelgeist-compute/src/map/mod.rs-566-            wg_z,
+crates/fabelgeist-compute/src/map/mod.rs-567-        )?;
+crates/fabelgeist-compute/src/map/mod.rs-568-
+--
+crates/fabelgeist-compute/src/transpose.rs:75:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/transpose.rs-76-            context, pipeline, parameters, wg_x, 1, 1,
+crates/fabelgeist-compute/src/transpose.rs-77-        )?;
+crates/fabelgeist-compute/src/transpose.rs-78-
+crates/fabelgeist-compute/src/transpose.rs-79-        Ok(())
+crates/fabelgeist-compute/src/transpose.rs-80-    }
+crates/fabelgeist-compute/src/transpose.rs-81-}
+--
+crates/fabelgeist-compute/src/stream/mod.rs:349:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/stream/mod.rs-350-            context,
+crates/fabelgeist-compute/src/stream/mod.rs-351-            pipeline.as_ref().clone(),
+crates/fabelgeist-compute/src/stream/mod.rs-352-            parameters,
+crates/fabelgeist-compute/src/stream/mod.rs-353-            workgroups_x,
+crates/fabelgeist-compute/src/stream/mod.rs-354-            workgroups_y,
+crates/fabelgeist-compute/src/stream/mod.rs-355-            workgroups_z,
+crates/fabelgeist-compute/src/stream/mod.rs-356-        )?;
+crates/fabelgeist-compute/src/stream/mod.rs-357-
+--
+crates/fabelgeist-compute/src/gather/mod.rs:416:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/gather/mod.rs-417-            context,
+crates/fabelgeist-compute/src/gather/mod.rs-418-            pipeline.clone(),
+crates/fabelgeist-compute/src/gather/mod.rs-419-            parameters,
+crates/fabelgeist-compute/src/gather/mod.rs-420-            wg_x,
+crates/fabelgeist-compute/src/gather/mod.rs-421-            wg_y,
+crates/fabelgeist-compute/src/gather/mod.rs-422-            wg_z,
+crates/fabelgeist-compute/src/gather/mod.rs-423-        )?;
+crates/fabelgeist-compute/src/gather/mod.rs-424-
+--
+crates/fabelgeist-compute/src/broadcast.rs:75:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/broadcast.rs-76-            context, pipeline, parameters, wg_x, 1, 1,
+crates/fabelgeist-compute/src/broadcast.rs-77-        )?;
+crates/fabelgeist-compute/src/broadcast.rs-78-
+crates/fabelgeist-compute/src/broadcast.rs-79-        Ok(())
+crates/fabelgeist-compute/src/broadcast.rs-80-    }
+crates/fabelgeist-compute/src/broadcast.rs-81-}
+--
+crates/fabelgeist-compute/src/marching_cubes/mod.rs:453:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-454-            context,
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-455-            definition.deinterleave_pipeline.clone(),
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-456-            deinterleave_params,
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-457-            workgroups_x,
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-458-            1,
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-459-            1,
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-460-        )?;
+crates/fabelgeist-compute/src/marching_cubes/mod.rs-461-
+--
+crates/fabelgeist-compute/src/gradient/mod.rs:243:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/gradient/mod.rs-244-            context,
+crates/fabelgeist-compute/src/gradient/mod.rs-245-            pipeline.as_ref().clone(),
+crates/fabelgeist-compute/src/gradient/mod.rs-246-            parameters,
+crates/fabelgeist-compute/src/gradient/mod.rs-247-            wg_x,
+crates/fabelgeist-compute/src/gradient/mod.rs-248-            wg_y,
+crates/fabelgeist-compute/src/gradient/mod.rs-249-            wg_z,
+crates/fabelgeist-compute/src/gradient/mod.rs-250-        )?;
+crates/fabelgeist-compute/src/gradient/mod.rs-251-
+--
+crates/fabelgeist-compute/src/divergence/mod.rs:204:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/divergence/mod.rs-205-            context,
+crates/fabelgeist-compute/src/divergence/mod.rs-206-            pipeline.as_ref().clone(),
+crates/fabelgeist-compute/src/divergence/mod.rs-207-            parameters,
+crates/fabelgeist-compute/src/divergence/mod.rs-208-            wg_x,
+crates/fabelgeist-compute/src/divergence/mod.rs-209-            wg_y,
+crates/fabelgeist-compute/src/divergence/mod.rs-210-            wg_z,
+crates/fabelgeist-compute/src/divergence/mod.rs-211-        )?;
+crates/fabelgeist-compute/src/divergence/mod.rs-212-
+--
+crates/fabelgeist-compute/src/scan.rs:191:            fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scan.rs-192-                context,
+crates/fabelgeist-compute/src/scan.rs-193-                scan_blocks_pipeline,
+crates/fabelgeist-compute/src/scan.rs-194-                parameters,
+crates/fabelgeist-compute/src/scan.rs-195-                1,
+crates/fabelgeist-compute/src/scan.rs-196-                1,
+crates/fabelgeist-compute/src/scan.rs-197-                1,
+crates/fabelgeist-compute/src/scan.rs-198-            )?;
+crates/fabelgeist-compute/src/scan.rs-199-        } else {
+--
+crates/fabelgeist-compute/src/scan.rs:215:            fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scan.rs-216-                context,
+crates/fabelgeist-compute/src/scan.rs-217-                scan_blocks_pipeline.clone(),
+crates/fabelgeist-compute/src/scan.rs-218-                parameters_p1,
+crates/fabelgeist-compute/src/scan.rs-219-                num_blocks,
+crates/fabelgeist-compute/src/scan.rs-220-                1,
+crates/fabelgeist-compute/src/scan.rs-221-                1,
+crates/fabelgeist-compute/src/scan.rs-222-            )?;
+crates/fabelgeist-compute/src/scan.rs-223-
+--
+crates/fabelgeist-compute/src/scan.rs:255:                fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scan.rs-256-                    context,
+crates/fabelgeist-compute/src/scan.rs-257-                    scan_blocks_pipeline.clone(),
+crates/fabelgeist-compute/src/scan.rs-258-                    parameters_p2,
+crates/fabelgeist-compute/src/scan.rs-259-                    next_num_blocks,
+crates/fabelgeist-compute/src/scan.rs-260-                    1,
+crates/fabelgeist-compute/src/scan.rs-261-                    1,
+crates/fabelgeist-compute/src/scan.rs-262-                )?;
+crates/fabelgeist-compute/src/scan.rs-263-
+--
+crates/fabelgeist-compute/src/scan.rs:282:                    fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scan.rs-283-                        context,
+crates/fabelgeist-compute/src/scan.rs-284-                        add_aux_pipeline.clone(),
+crates/fabelgeist-compute/src/scan.rs-285-                        parameters_p3,
+crates/fabelgeist-compute/src/scan.rs-286-                        num_blocks,
+crates/fabelgeist-compute/src/scan.rs-287-                        1,
+crates/fabelgeist-compute/src/scan.rs-288-                        1,
+crates/fabelgeist-compute/src/scan.rs-289-                    )?;
+crates/fabelgeist-compute/src/scan.rs-290-                } else {
+--
+crates/fabelgeist-compute/src/scan.rs:296:                    fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/scan.rs-297-                        context,
+crates/fabelgeist-compute/src/scan.rs-298-                        add_aux_pipeline.clone(),
+crates/fabelgeist-compute/src/scan.rs-299-                        parameters_p3,
+crates/fabelgeist-compute/src/scan.rs-300-                        target_blocks,
+crates/fabelgeist-compute/src/scan.rs-301-                        1,
+crates/fabelgeist-compute/src/scan.rs-302-                        1,
+crates/fabelgeist-compute/src/scan.rs-303-                    )?;
+crates/fabelgeist-compute/src/scan.rs-304-                }
+--
+crates/fabelgeist-compute/src/dual_contouring/execution.rs:255:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-256-            context,
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-257-            definition.deinterleave_pipeline.clone(),
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-258-            deinterleave_params,
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-259-            workgroups_x,
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-260-            1,
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-261-            1,
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-262-        )?;
+crates/fabelgeist-compute/src/dual_contouring/execution.rs-263-
+--
+crates/fabelgeist-compute/src/advect/mod.rs:313:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/advect/mod.rs-314-            context,
+crates/fabelgeist-compute/src/advect/mod.rs-315-            pipeline.as_ref().clone(),
+crates/fabelgeist-compute/src/advect/mod.rs-316-            parameters,
+crates/fabelgeist-compute/src/advect/mod.rs-317-            wg_x,
+crates/fabelgeist-compute/src/advect/mod.rs-318-            wg_y,
+crates/fabelgeist-compute/src/advect/mod.rs-319-            wg_z,
+crates/fabelgeist-compute/src/advect/mod.rs-320-        )?;
+crates/fabelgeist-compute/src/advect/mod.rs-321-
+--
+crates/fabelgeist-compute/src/kernel/mod.rs:155:        ComputePass::dispatch(
+crates/fabelgeist-compute/src/kernel/mod.rs-156-            context, pipeline, parameters, groups[0], groups[1], groups[2],
+crates/fabelgeist-compute/src/kernel/mod.rs-157-        )
+crates/fabelgeist-compute/src/kernel/mod.rs-158-    }
+crates/fabelgeist-compute/src/kernel/mod.rs-159-}
+crates/fabelgeist-compute/src/kernel/mod.rs-160-
+crates/fabelgeist-compute/src/kernel/mod.rs-161-/// Compiles each distinct kernel source once and hands out clones after that.
+crates/fabelgeist-compute/src/kernel/mod.rs-162-///
+crates/fabelgeist-compute/src/kernel/mod.rs-163-/// Kernels here are generated -- a constraint kernel is a template with the
+--
+crates/fabelgeist-compute/src/kernel/mod.rs:270:            None => ComputePass::record(
+crates/fabelgeist-compute/src/kernel/mod.rs-271-                self.context,
+crates/fabelgeist-compute/src/kernel/mod.rs-272-                &kernel.pipeline,
+crates/fabelgeist-compute/src/kernel/mod.rs-273-                parameters,
+crates/fabelgeist-compute/src/kernel/mod.rs-274-                &mut self.encoder,
+crates/fabelgeist-compute/src/kernel/mod.rs-275-                groups[0],
+crates/fabelgeist-compute/src/kernel/mod.rs-276-                groups[1],
+crates/fabelgeist-compute/src/kernel/mod.rs-277-                groups[2],
+crates/fabelgeist-compute/src/kernel/mod.rs-278-            )?,
+--
+crates/fabelgeist-compute/src/matmul.rs:81:        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+crates/fabelgeist-compute/src/matmul.rs-82-            context, pipeline, parameters, wg_x, 1, 1,
+crates/fabelgeist-compute/src/matmul.rs-83-        )?;
+crates/fabelgeist-compute/src/matmul.rs-84-
+crates/fabelgeist-compute/src/matmul.rs-85-        Ok(())
+crates/fabelgeist-compute/src/matmul.rs-86-    }
+crates/fabelgeist-compute/src/matmul.rs-87-}
+--
+crates/fabelgeist-mesh/src/gpu.rs:239:        ComputePass::dispatch(
+crates/fabelgeist-mesh/src/gpu.rs-240-            context,
+crates/fabelgeist-mesh/src/gpu.rs-241-            pipeline.clone(),
+crates/fabelgeist-mesh/src/gpu.rs-242-            PassParameters::from(parameters),
+crates/fabelgeist-mesh/src/gpu.rs-243-            workgroups,
+crates/fabelgeist-mesh/src/gpu.rs-244-            1,
+crates/fabelgeist-mesh/src/gpu.rs-245-            1,
+crates/fabelgeist-mesh/src/gpu.rs-246-        )?;
+crates/fabelgeist-mesh/src/gpu.rs-247-

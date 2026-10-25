@@ -1,0 +1,252 @@
+{
+  "kind": "Independent source-only Cube receiving Rule Review checkpoint",
+  "head": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+  "tree": "87974137ac3b0a67af59b9474f25d92218daa422",
+  "parent": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+  "canonical_format_pin": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "changed_source": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+      "raw_lines": 421,
+      "conservative_meaningful_lines": 401,
+      "coverage": "Complete exact canonical format/storage source freshly read in preceding canonical tranche wave, identical pinned47f bytes independently verified and current export/native consumer relationships reviewed. No unread body credited from hashes."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "raw_lines": 35,
+      "conservative_meaningful_lines": 25,
+      "coverage": "Complete exact canonical format/storage source freshly read in preceding canonical tranche wave, identical pinned47f bytes independently verified and current export/native consumer relationships reviewed. No unread body credited from hashes."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "sha256": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+      "raw_lines": 266,
+      "conservative_meaningful_lines": 249,
+      "coverage": "Complete pinned47f file body/comments read, including all authored WGSL literals."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+      "raw_lines": 315,
+      "conservative_meaningful_lines": 272,
+      "coverage": "Complete pinned47f file body/comments read, including all authored WGSL literals."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "sha256": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+      "raw_lines": 213,
+      "conservative_meaningful_lines": 200,
+      "coverage": "Complete pinned47f file body/comments read, including all authored WGSL literals."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs",
+      "sha256": "4f45dd45651aac781e71120454d88879e337bd5e1180fc622198cf296ad35326",
+      "raw_lines": 89,
+      "conservative_meaningful_lines": 78,
+      "coverage": "Complete pinned47f file body/comments read, including all authored WGSL literals."
+    }
+  ],
+  "affected_unchanged_dependencies": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "exact_parent": true,
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "e1512db4360eeb726fefb21b212022961909efcc28950e0bd36cdc79e0ee4985",
+      "exact_parent": true,
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "exact_parent": true,
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "exact_parent": true,
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "exact_parent": true,
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "exact_parent": true,
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "exact_parent": true,
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "exact_parent": true,
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "exact_parent": true,
+      "coverage": "Fresh complete actual pinned47f receiving dependency source read."
+    }
+  ],
+  "findings": [],
+  "known_repaired_finding": "Unobserved immediate native creation/record phases now observed before separate actual finish/submit scopes in all four copy/blit/face/all-face routes.",
+  "contract_traces": [
+    {
+      "family": "View/native Device and absence admission",
+      "trace": "set_side_texture checks destination native allocation then actual Device; eligible native source requires same extent/format/no layer then actual source Device. Otherwise blit selects source cached view first, then face target with context, preserving precedence. Raw shader methods require view_2d_array: native allocation then actual Device, effective format, scoped view creation. Cleared allocation still rejects native operations; cached-only whole view can remain usable through unchanged selection path.",
+      "limits": "Cached view and allocation ports intentionally separate; no new replacement or field mutation path admitted. Native feature/usage validation remains provider authority."
+    },
+    {
+      "family": "Immediate native observation and actual finish/submit",
+      "trace": "Direct copy and sampled blit enclose encoder/native object creation and command recording in existing WgpuContext::observe_validation. Both raw shader methods use private record_shader that observes shader/module/buffer/layout/group/pipeline/encoder/pass creation and recording before return. After successful immediate observation each path uses existing context.submit to observe encoder.finish and queue.submit separately. Actual wgpu::Error maps into existing ComputePassError::Native(Arc) and Error::source retains it.",
+      "limits": "Only native blocking_validation paths capture Validation errors. Browser/borrowed contexts keep device handling; other error classes unchanged. No poll/wait added, no GPU completion/health/rollback promise; recording alone is not final native acceptance."
+    },
+    {
+      "family": "Stored/effective format authority and numeric shader values",
+      "trace": "Exact canonical TextureFormat storage spelling delegates existing color PixelFormat; missing spelling retains actual format in StorageFormatError. Raw shader methods request same self.effective_format(self.format) for generated WGSL and native StorageTexture layout. Blit pipeline uses this same effective target rule matching face_view. Existing CubeFace remains typed through APIs to native face ordinal; fixed8x8x1 shader, ceil-div8, one/all6 layers,16byte uniform ABI preserved.",
+      "limits": "Native stage, binding, lane/face ordinals and static WGSL tokens are explicit SDK/authoring boundaries. Private source factory storage spelling only comes from admitted format; record_shader raw code/bytes/layers are assembled by two controlled whole native methods, no public arbitrary mode/schema added."
+    },
+    {
+      "family": "Binding aggregate ownership and file boundaries",
+      "trace": "CubeBlitBindings retains fragment sampled layout+actual group, constructs same-source sampler and pipeline; CubeShaderBindings retains compute storage/uniform layout+actual group. Private fields constructed together. Existing ComputeBindGroup owns reflected index+group for ComputePass binding, carries no layout/render stage and does not substitute for either native stage package. Split modules own real sampled blit and authored compute program responsibilities.",
+      "limits": "No duplicated compute pipeline backend/error/Device owner or compatibility forwarder; public existing consuming wrappers preserve target only after raw success."
+    },
+    {
+      "family": "Affected retained consumers and required format migration",
+      "trace": "TextureCube::from_textures/set_side call moved set_side_texture with unchanged API; render_face_shader/render_shader wrappers call same raw signatures; unchanged views/selection/errors/native policy modules stay byteidentical parent. New TextureFormat::to_wgsl_storage_format returns Result, while actual Root compute/mod.rs:50 still calls .to_string() on that Result. Planned canonical ResourceDescriptor and algorithm tranche must close this exact consumer/error propagation family.",
+      "limits": "Known incomplete integration means current Root cannot claim compilation/full family clearance; do not add raw overload/legacy fallback or erase typed format error to hide it."
+    }
+  ],
+  "all_thirteen_relationship_accounting": {
+    "producer-propagation": "Actual native texture/view/format/device -> moved whole methods -> same context native helper/error carrier -> unchanged consuming wrappers; format Result recipient graph explicitly required pending.",
+    "existing-type-owners": "Reuse canonical TextureFormat/StorageFormatResult, CubeFace, ComputePassError and WgpuContext; no invented duplicate byte/count/Device owner.",
+    "admission-contracts": "Destination/source Device, native allocation/cached view and storage-format checks retain observed precedence before relevant native use; immediate and deferred native phases separate.",
+    "invariant-operations": "Native copy origins/onefaceextent, ceildiv8/all6 dispatch and fixed uniform fields unchanged; no new mutation of cached/stored texture metadata.",
+    "aggregate-states": "Private stage binding record pairs exact layout/group; whole native entry methods assemble matching source/uniform/dispatch arguments; existing missing allocation versus missing cache distinction retained.",
+    "behavior-preservation": "All3 exact raw WGSL template literals, same draw/copy/face behavior, ABI and successful-submit publication; unsupported storage fallback removed through canonical typed owner as intentionally planned.",
+    "enum-shapes": "Closed CubeFace retained through API; layers is actual SDK dispatch depth with two private controlled callers, no public semanticbool introduced.",
+    "derivability": "StorageFormatError manual Display/Error coherent; derive simplification optional, not a correctness finding. Existing native-cause carrier remains actual Error source.",
+    "type-granularity": "Bindings are native framework packaging by actual stage/layout ownership, not second reflected group owner. Native local counters/format strings remain at SDK/source emission boundary.",
+    "magic-strings": "Native labels/entries/WGSL grammar/source arguments explicit authoring/runtime boundaries; no control flow on human-facing diagnostics.",
+    "magic-numbers": "WGSL face mapping/8x8/blockdepth/uniform padding/sample state/static triangle count unchanged explicit ABI; no arbitrary new numerical bounds/tolerance.",
+    "redundant-authority": "One self effective-format rule drives matching native storage layout/WGSL/blit target; private immutable bindings derive same native layout used to create group.",
+    "type-ownership": "Canonical color storage vocabulary reused; Root owns context/native Cube methods, peer references not blindly copied; stage split coherent."
+  },
+  "preservation": {
+    "native_programs": [
+      {
+        "name": "sampled blit",
+        "sha256": "3868ce90f3715d5892338fcbda342a593c7b9b47ce1564974aa9968b9035652d",
+        "exact_parent": true
+      },
+      {
+        "name": "face compute",
+        "sha256": "98054195e43ffc709dfac604e490c31654d652810938a21a4ab08474c1bab220",
+        "exact_parent": true
+      },
+      {
+        "name": "all-face compute",
+        "sha256": "5b2209ba6881852f19dfdc694f77dfd50e3e0dce205df9642fb3dd8116e82a15",
+        "exact_parent": true
+      }
+    ],
+    "fixture_changed_paths": [],
+    "fixture_limit": "No changed test/fixture/doctest/assertion source in six-file delta; all inline authored native WGSL independently compared exact. No tests executed.",
+    "format_pair_exact_canonical": true,
+    "native_creation_and_record_added_observation_only": true
+  },
+  "no_growth": {
+    "changed_file_raw_lines": {
+      "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": 421,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": 35,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs": 266,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": 315,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs": 213,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs": 89
+    },
+    "changed_file_conservative_meaningful": {
+      "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": 401,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": 25,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs": 249,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": 272,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs": 200,
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs": 78
+    },
+    "old_cube_raw_lines": 883,
+    "old_cube_conservative_meaningful": 792,
+    "baseline_entries": {
+      "files": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "ceiling": 899
+        }
+      ],
+      "functions": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::blit_texture_to_face",
+          "ceiling": 161
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_face_shader_raw",
+          "ceiling": 149
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_shader_raw",
+          "ceiling": 142
+        }
+      ]
+    },
+    "baseline_exact_parent": true,
+    "method": "Manual complete body review and bounded source line accounting, not a project scanner. All changed production files below500, all new helpers comfortably below100; moved old large methods split. Relevant authoritative hosted baseline reductions still required."
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "relevant": "Canonical owners/records/native boundary28-71; itemorder90-94; constructors/result118-139; no-growth166-178; narrowexpect179-181; no-new-tests182+."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "relevant": "Canonical owners/records/native boundary28-71; itemorder90-94; constructors/result118-139; no-growth166-178; narrowexpect179-181; no-new-tests182+."
+    }
+  ],
+  "pre_repair_inventory": {
+    "path": "target/pr826-audit/cube-native-program-pre-repair-all13.json",
+    "sha256": "4a4ab4ea4dc524590fd3dd79eaaeeb668f26b7e7aa5b70990c7e8fd7da31a4d6",
+    "limits": "Read after source; inventory claims not substituted for independent source review."
+  },
+  "required_dependencies": [
+    "Complete coordinated canonical storage/ResourceDescriptor/algorithm count/layout/recipe/Result consumer graph, incorporating prior canonical Rule findings.",
+    "Preserve Root native APIs/bodies, source cause and device-handled browser/borrowed policy; no compatibility shims/extra waits.",
+    "Complete full producer/caller/Creator/application/physical/source/layout/error/readback/lock integrations, global13 waves, final3reviews/required hosted checks+reductions on same final pushed revision."
+  ],
+  "correctness_verdict": "No new owned Rule defect found in complete six-file Cube receiving responsibility/native closure review. Known immediate native timing gap is repaired in source; no execution verdict.",
+  "completeness_verdict": "Bounded Cube source checkpoint only. Fallible format API consumer migration still visibly incomplete and required; no compilation, full family/global/final clearance.",
+  "limits": [
+    "No source edits or local project execution/build/check/lint/test/scanner/generator/runtime/push/CI/newtests/cases/helpers/assertions/doctests.",
+    "No fresh SDK/hardware/Wasm runtime validation; unchanged scoped native feature/trait limitations retain prior exact declared evidence, not universal success guarantees.",
+    "Current generic scope finish still preserves existing wait cadence; newly added immediate observations call the separate no-poll helper."
+  ],
+  "head_at_report": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+  "status_at_report": ""
+}

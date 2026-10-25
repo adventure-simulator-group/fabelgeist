@@ -1,0 +1,154 @@
+{
+  "revision": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+  "canonical_pin": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "discovery": "complete for enumerated Cube rendering/copy receiving family and selected-view/error dependencies; broader storage/integration audit remains open",
+  "repair": "not started",
+  "validation": "not performed; source-only",
+  "sources": {
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": "793f48f366253a17281a0ca0ff210b85a697e10429341ac8e634f33acd0d9e01",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98"
+  },
+  "read_closure": [
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs (whole current source through bounded reads)",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+    "texture/cube_face.rs",
+    "texture/selection.rs",
+    "globals/wgpu_context/validation.rs",
+    "globals/wgpu_context/submission.rs",
+    "globals/validation_scope.rs",
+    "data/gpu/compute/pass/error.rs",
+    "canonical e216 whole two raw methods, format.rs diff and format/storage.rs",
+    "SDK29 source native error timing reviewed independently by Code reviewer"
+  ],
+  "cells": [
+    {
+      "lens": "producer-propagation",
+      "source_contract": "new/create_from_images/from_textures/set_side -> raw render/blit/copy -> native view+shader/layout+encoder -> submit. Public consuming wrappers return target only after raw success. No extra producer or independent primitive storage-format classifier.",
+      "disposition": "Both raw methods, blit and copy install no observer around native creation/record; fix connected gaps. Canonical effective-format storage spelling must be received first.",
+      "connected_repair_and_acceptance": "Observe each immediate native construction/record phase, then existing submit; preserve wrappers and selected view admission.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contract": "CubeFace::index owns uniform face and copy layer; TextureFormat/effective_format own exact storage view encoding; StorageFormatResult peer owner; context.observe_validation/ComputePassError::Native own observation/native causes.",
+      "disposition": "Reuse these owners; no new format/error/face/count alias or second compute pipeline owner.",
+      "connected_repair_and_acceptance": "Exact canonical format/storage pair; compose native rendering responsibility using existing types.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contract": "view_2d_array and face_view_with_format check allocation then supplied device before creating selected view. Raw methods then need exact effective storage spelling; blit source.selected_view first, target face second; direct copy tests destination then source device.",
+      "disposition": "Preserve missing/wrong-device and source/target precedence; reject unsupported spelling before native creation. Native shader/layout validation currently unobserved.",
+      "connected_repair_and_acceptance": "No native creation before fallible view/format admission; synchronous native cause observable only under existing context policy.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contract": "CubeFace.index0..5; size admitted1..max2d; div_ceil8 bounded; face dispatch depth1 vs all6. Uniform face uses native u32 bytes, time f32 bytes; other uniform fourf32. Copy uses exactsame extent/format/no selected layer.",
+      "disposition": "Preserve all arithmetic/uniform bytes/origins/dispatch. Native encoder recording remains non-transactional.",
+      "connected_repair_and_acceptance": "Immediate infallible observation closure drains before returning; submit only on successful recording observation, no new wait/completion claim.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contract": "View selected from actual allocation+device+effectiveformat; shader spelling and storage binding format must match selected view. Native group depends on its exact layout and uniform buffer, pipeline on same layout/module.",
+      "disposition": "Extract one named native bindings record for layout/group relationship; retain native handles through SDK ownership. Do not add redundant stored format/cache metadata.",
+      "connected_repair_and_acceptance": "One exact effective TextureFormat feeds WGSL spelling and native storage layout; no hidden srgb->linear substitution for nonstorage view.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "type-ownership",
+      "source_contract": "Canonical format/storage/signature belongs780; native context, TextureCube constructors/views/transfers and native observer belong826. Peer explicitly ceded whole two raw methods or one owning generated-cube responsibility.",
+      "disposition": "Owner agreement received; no peer pipeline/shared body edits. Cube blit/copy already826 owned.",
+      "connected_repair_and_acceptance": "Return exact successor source manifest to780; preserve all unrelated canonical and Root native bodies.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contract": "Old raw methods duplicate self.format linear conversion instead of actual effective view format. Generated bindings/constants/math duplicated authored face/all programs intentionally differ in uniforms and layer selection.",
+      "disposition": "Canonical format repair removes disagreement. Preserve two authored programs verbatim; share only native construction/record policy.",
+      "connected_repair_and_acceptance": "No second format fact retained, no independent cached shader/pipeline or replacement count owner.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contract": "Current raw methods permit native panic/external handler before submit capture; after fix synchronous native Validation under existing policy returns retained cause. Borrowed/wasm behavior stays existing handling. Face/all WGSL blocks, uniforms, dispatch, caller publication same. Blit filtering/target blend/Load/store and copy extent unchanged.",
+      "disposition": "Intentional error propagation change only; exact raw shader block proof and native descriptor reconciliation required.",
+      "connected_repair_and_acceptance": "No authored newtests/cases/helpers/assertions; use existing hosted gates only. Shader strings and existing fixture provenance exact.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contract": "Existing CubeFace already closed semantic layer. No semantic bool needed: public face/all methods already select program. Native workgroup depth passed only at immediate SDK adapter.",
+      "disposition": "No new target enum unless it owns actual payload/invariant; prefer no parallel role encoding. Optional device/texture/view state existing constructors/views explicitly admitted.",
+      "connected_repair_and_acceptance": "Do not combine missing native allocation with a fake view or fallback; retain existing checked state priority.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "derivability",
+      "source_contract": "TextureCube derivesClone/Debug, custom PartialEq compares native Arc identity+metadata; Default intentional empty state. CubeFace standard derives existing. New native binding record has no trait obligation. Errors use existing ComputePassError manual cause chain.",
+      "disposition": "No new manual trait/serialization boilerplate; do not change equality or empty state.",
+      "connected_repair_and_acceptance": "Derives/serialization byte behavior unchanged; canonical format error manual Display/Error retained without newGPUdependency.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "type-granularity",
+      "source_contract": "TextureCube wrapper, existing CubeFace and TextureFormat each prevent relevant mixups. A bindings struct can own layout/group lifetime relationship; raw native dimensions/labels at immediate SDK boundary are genuine adapter values.",
+      "disposition": "Avoid one-off alias for WGSL string or labels and duplicated ShaderTarget/face count. Split shader source versus native resources by responsibility; no artificial pass-through layer.",
+      "connected_repair_and_acceptance": "All newfiles <500 meaningful productionlines and functions <100; reduce oldoversized Cube/raw methods, do not raise baseline.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "magic-strings",
+      "source_contract": "Two full authored WGSL format templates; native resource labels; native entrymain; shader binding group/name tokens and handwritten error-free native descriptor strings at SDK protocol boundary. No mutable human prose branching.",
+      "disposition": "Keep authored program source unchanged, exact chosen storage spelling checked; labels may share native rendering vocabulary. No new string classifier.",
+      "connected_repair_and_acceptance": "Source WGSL token/bytes proof; only canonical spelling interpolation gets Result propagation.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contract": "6cube layers via CubeFace::ALL existingowner where semantic;8x8workgroup declaration matched div_ceil8; native uniform16byte record time,face,padding; bindings0/1,entrymain, mip0, sample1; blit triangle3/filter blend semantics.",
+      "disposition": "Preserve authored shader/math/native adapter constants. Do not invent named constants merely restating dimensions/indexes. ReuseCubeFace indexing.",
+      "connected_repair_and_acceptance": "No math/RNG/color conversion/new policy/limits. Keep face origin and all-layer dispatch exact, native observation no extra polling.",
+      "discovery": "complete",
+      "repair": "pending where actionable",
+      "validation": "not performed"
+    }
+  ],
+  "dependencies": [
+    "Canonical format/storage pair exact e216 source authority+comparison verified",
+    "Peer holds all extraction until complete tranche",
+    "Broader generated-resource dependency receiving incomplete; no source push or hosted CI until complete graph",
+    "Existing all13 global ledger and final independent3+hosted sameSHA required"
+  ],
+  "explicit_actionable": [
+    "Raw face/all native construction+record observation gap",
+    "Connected unchanged blit_texture_to_face native construction+record observation gap",
+    "Connected direct set_side_texture copy encode observation gap"
+  ],
+  "first_repair": "Receive exact canonical format/storage owners, extract two raw methods/source/native resources, observe immediate native stages, then repair connected blit/copy after preserved source proof"
+}

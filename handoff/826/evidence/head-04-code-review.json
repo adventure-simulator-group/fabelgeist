@@ -1,0 +1,558 @@
+{
+  "review": "Independent bounded Code Review receiving checkpoint04; no final clearance",
+  "head": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+  "tree": "a3084113b320d4452229aee325c5f057c20e9f4b",
+  "compare": "d9c3521f30f52d3437cfef2850203c9df3192b0e",
+  "parent": "abcdb2d906f2bf8138f733fb01c48a46da8cf076",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "changed_paths": [
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+    "crates/fabelgeist-hair/src/render/draws.rs",
+    "crates/fabelgeist-hair/src/render/head.rs",
+    "crates/fabelgeist-hair/src/render/mod.rs"
+  ],
+  "changed_count": 5,
+  "sources": [
+    {
+      "path": "Cargo.lock",
+      "git_blob": "c9353ee29066992688d70bace4ca4edbb66739c9",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "lines": 13104,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "git_blob": "e13b3b8e45b5bade388dcee0a15679ba9cb7370b",
+      "sha256": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9",
+      "lines": 73,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "git_blob": "86c84be288bee51ebd29284ac6de3859157fd748",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "lines": 48,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "git_blob": "c7ea9cdb3014f1fc5c29fcdad844115c9c2dfd2f",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "git_blob": "b9f5cf8040c0200cc774f92d5e4f2b5018e61132",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "lines": 142,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "git_blob": "2904d89894518acc7fdccf7736241db9747014b7",
+      "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+      "lines": 109,
+      "byte_identical_to_d9": false,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "git_blob": "24d41bd345670b61d0d9d6935dfc51925de8ebf2",
+      "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+      "lines": 50,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "git_blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "git_blob": "ea122dd2d2c44e754af9cd21c8663f164889016d",
+      "sha256": "fd6c4991e13b343c21b396b8aada2480b03508500184761d217c1237bb1c52cb",
+      "lines": 101,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "git_blob": "4990e9220d5350750000826ce2954be77ae85146",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "lines": 101,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "git_blob": "bbeb9f350b0458bdde60cfb41923e7f9bf28b08e",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "lines": 62,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "git_blob": "17b17a3ef59db21e0ef6922e2d1ce9bb4795fd5a",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "lines": 60,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "git_blob": "5ffbc0c6b0dcaa45d1b74e9fc36f0cb14480f75f",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "lines": 82,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "git_blob": "38c52ef4b78ef2f1bc48830bdaa51c8d7c9efdf6",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "lines": 197,
+      "byte_identical_to_d9": false,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "lines": 70,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "git_blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "lines": 24,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "git_blob": "13fbe1be6bb2ec10772b4f46dcdf7d7677a9d964",
+      "sha256": "503d2fbd7648483a96ada49bccd5247e7cdfc4227ee8ce697e72726bbded413d",
+      "lines": 39,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "git_blob": "0aad41c2aafd4794a51a2b9a3bcc9718c29c9259",
+      "sha256": "94362357c99bfe3788518e391eeb66986b7ab8f5bf85608c6e2ffb09b916c2a0",
+      "lines": 375,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cover.rs",
+      "git_blob": "1e7f480a47ae3c21c88d7eb55953d88adc1b2959",
+      "sha256": "50287b76df57d36dd9afcab6aa2a578f96e49b421b73e26b536d23c1bc65345f",
+      "lines": 173,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "git_blob": "a75f18b4c2e907e176dfcdb2710fa054bde2bd6a",
+      "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+      "lines": 265,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "git_blob": "f2d57a25a6d4cd258a207b2f7896f6c9e8231c59",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "lines": 47,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "git_blob": "e6ad81ce71830631eef96a4818fedc5922956878",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "lines": 597,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lib.rs",
+      "git_blob": "2b0d300f0e2a6e3a770a16677d9f584afa866c01",
+      "sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+      "lines": 187,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "git_blob": "90c9f9321b5e0d5afc185aa67a5ab4303fc1c346",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "lines": 228,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "git_blob": "688e2eff39375bea5ece98a2f37c448297942690",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "lines": 84,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "git_blob": "9f13386cf4813084b6b9b01341839a3ba31a45be",
+      "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+      "lines": 259,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "git_blob": "4825a3239639eebdc5aaac45a184539be70f4ea0",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+      "lines": 162,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "git_blob": "e808dcc779fdc598a0c2106d1fee8b1c3696c463",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+      "lines": 105,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/material.rs",
+      "git_blob": "e3e96ce1dbbe03f061cf06c800ffc552a7ceba12",
+      "sha256": "20fdf72de21b47f4596eb6538d58a2d89aeb5217a8b797ca53730c769b5d5b1e",
+      "lines": 225,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "git_blob": "d291a2c969f6ba78254d7a22598e52a4e093dfc2",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "lines": 140,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "git_blob": "3ad944451601f5e4c5dd22d8a5f8d10f133e807e",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "lines": 66,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "git_blob": "cf10fd3535500eaae052371eb7fc595e08d47922",
+      "sha256": "f523a641bd99ff3aa3f29ea82062643213212d2f258da56c918fff2333a8f105",
+      "lines": 49,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "git_blob": "f7f39fa464c9c54421fe781db305fea19b84e565",
+      "sha256": "2bda8e84908f751c80409eefcca90f33632c6024052a544c09f4c66622b1a307",
+      "lines": 152,
+      "byte_identical_to_d9": false,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "git_blob": "556088286e987dc734946da22392bb5a78a0df43",
+      "sha256": "7bc2f7621b735c87bd9ecf1077a89158453a8c01aab0b0f17c88f4098f3a92d9",
+      "lines": 143,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "git_blob": "a520e18e8dc488a95375fa97422a14d0c3dd1e07",
+      "sha256": "57bfcc948df176ba35f9da2138223650f4ee8c70f36e9c98341a8d93f1e7db88",
+      "lines": 165,
+      "byte_identical_to_d9": true,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "git_blob": "379035127cad18258f1f02a9841b8b2ed3abe61f",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "lines": 651,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "git_blob": "ed616b532816bee2e937b135a086aa0af49ef1d6",
+      "sha256": "4106be41a10a356378665afee7bb76927ebb313e0a8069aa363ffe5b3f511fa2",
+      "lines": 189,
+      "byte_identical_to_d9": false,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/math.rs",
+      "git_blob": "cbc045d6a9c1301cb56458d9881fb3840f9f1574",
+      "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+      "lines": 97,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "git_blob": "9e5213d69578429801090259f06dec8c0b329ac2",
+      "sha256": "874cf26eaa4190f64c397e9390d4570412ba064ed083ef9c50582fec78f8c67d",
+      "lines": 2135,
+      "byte_identical_to_d9": false,
+      "coverage": "fresh FULL current immutable source file, including all existing fixtures"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "git_blob": "7fcdc66435fdd18e7067c142a97b685f120513ef",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "lines": 54,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "git_blob": "17955c221c7bbdb901dc53407059408119b08812",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "lines": 184,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/sim.rs",
+      "git_blob": "2a3593291bc0907250bc35bac23245532f2a3809",
+      "sha256": "fb1ff8533a78fe122a0d19f28b64f6f757b55898aded84056dbe0fef816e6079",
+      "lines": 854,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "git_blob": "61b7f7a61600ed97835e4f23d76a78362068058f",
+      "sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "lines": 283,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "git_blob": "25d33aac2c69a5a469c19138a7ae4fc9290b9584",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "lines": 120,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "git_blob": "e8b37ba9e754adea2735690dc7aed1fed802d8b5",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "lines": 25,
+      "byte_identical_to_d9": true,
+      "coverage": "prior d9 coverage revalidated by exact immutable source identity; not a fresh whole-body read this wave; prior partial producer limits remain"
+    }
+  ],
+  "source_map_sha256": "aef43ca05a5d0ddae27c392746efea5b21e12c81684a03e5e5272eeafa19a89c",
+  "canonical_peer_sources": [
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-hair/src/gpu/head.rs",
+      "git_blob": "698aa7716ec03cc36891dda8e120c4cf8b1e7337",
+      "sha256": "8007a20dddb728fae9bce4f80cbfab46ba06795e047cf0a49cbd50b4a7b1bdf5",
+      "coverage": "fresh FULL canonical owner file"
+    },
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-hair/src/surface/render_layout.rs",
+      "git_blob": "fa6bd806651b69eadf59990e98fc52ce82942aa7",
+      "sha256": "a494654990087180a401c2f0f80b258d3c01ae652d66d6f12017a657c04c969c",
+      "coverage": "fresh FULL canonical owner file"
+    },
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "git_blob": "983da3e3364bca7baf7f2a7db4ef0056d9d4359b",
+      "sha256": "0c54c21fb94e4b1df748a29cdbef562802d717acfc810211072be30d236a3298",
+      "coverage": "fresh complete relevant exports/declarations/builder base/output-binding bodies; unrelated remaining implementation not claimed reread"
+    },
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "git_blob": "69ffeb9913a3f83cf9dde6c517cb4cfcd4187ece",
+      "sha256": "6b262acb80061a2278ae7fd74d6b04fbe0d744d103ceb412bff1deeb24238557",
+      "coverage": "fresh complete relevant exports/declarations/builder base/output-binding bodies; unrelated remaining implementation not claimed reread"
+    },
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "git_blob": "8238c05d77a6a7b70821e420786cb5a34821164a",
+      "sha256": "210d69c52c956bf08c4741ae6524ee7b5c185fae123cfd4e4297ea3c92ae0e67",
+      "coverage": "fresh FULL canonical owner file"
+    },
+    {
+      "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+      "path": "crates/fabelgeist-mesh/src/lib.rs",
+      "git_blob": "cdaaae23274ddbd7c39d722828284c4f96fe953e",
+      "sha256": "9951797fc00589d2ce5106c921d2788568e3d10bfa1cbcbf6344c6e5f191c8ae",
+      "coverage": "fresh complete relevant exports/declarations/builder base/output-binding bodies; unrelated remaining implementation not claimed reread"
+    },
+    {
+      "head": "bad382cb2704652c64f6289aa07633f4682a9d57",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "git_blob": "e94d1ae036a3c83a8f9c949e085aaa9108f43f29",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "coverage": "fresh complete relevant exports/declarations/builder base/output-binding bodies; unrelated remaining implementation not claimed reread"
+    },
+    {
+      "head": "bad382cb2704652c64f6289aa07633f4682a9d57",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "git_blob": "8bbfb7d444a79d5ead2d23731ad6a6b94c386bcc",
+      "sha256": "991f1eebf5b1a9cf7f8fa7314793b2610a78fa7f5b01236a19c84ea9f73773fd",
+      "coverage": "fresh FULL canonical owner file"
+    },
+    {
+      "head": "bad382cb2704652c64f6289aa07633f4682a9d57",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "git_blob": "5a991b44701159ad24536aae902769843661a1fe",
+      "sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "coverage": "fresh FULL canonical owner file"
+    }
+  ],
+  "prior_findings": [
+    {
+      "id": "D9-C1",
+      "disposition": "fixed",
+      "source": "buffer/mod.rs write delegates checked write_at START with unchanged native upload/cause"
+    }
+  ],
+  "findings": [],
+  "contracts_revalidated": [
+    "D9-C1 fixed: Buffer::write now invokes write_at(START,data); checked end and logical bound reject oversize prefix uploads before queue write. Valid in-range bytes preserve exact native upload path, alignment/usage/device error handling and source. Empty upload receives same native behavior, no new early zero skip or duplicate bounds owner. Prefix pure logical/physical admission, read padded mapping, binding nonempty checks and actual callback cleanup remain source-identical and revalidated.",
+    "HeadDraw owns actual Arc<Surface>, checked canonical layout, native mesh and coverage as one Option payload. GpuMesh Clone only clones native Arcs/count; cloned HeadDraw retains same immutable source/proof. Public Surface vectors can mutate before capture, so fresh SurfaceRenderLayout::try_from precedes native upload. Retained Arc ownership prevents safe mutable access to captured vectors while installed. No copied HeadSurface or generation-token authority remains.",
+    "Canonical peer bcbc SurfaceRenderLayout validates positions/normals exact pairing, u32 vertex/triangle counts, checked3*triangle native corner count and every vertex index. It does not certify UVs, CDF, finite/physical geometry or arbitrary native resource limits. Receiver uses its vertices/corners directly at host allocation/native draw. SurfaceRenderError is actual #[from]/source of RenderSourceError::Layout, retained through HairGpuError::Backend.",
+    "HeadDraw::new creates exact paired position+normal vertices and original index sequence. Empty logical head uses one dummy24byte vertex, one dummy4byte index and one8byte bare cover, but native indexed draw count remains0. Positive head uses full checked corner count, exact normal pairing and same finite numerical vertex data; no topology fallback. Malformed layout returns before native candidates and keeps previous head/mean unchanged; successful source replacement invalidates actual view/history.",
+    "CPU cover uses ScalpCover::at on the exact captured paired source. That function emits one cover pair per paired point/normal, so validated triangle membership proves all smoothing indices fit. Three original ordered smoothing passes preserve sums/division and valid cover outputs; empty result gets one native dummy cover and zero logical draw. Geometry/sampling internals of ScalpCover are not newly certified.",
+    "GPU coverage admission: actual cover device equality, Arc::ptr_eq exact surface capture and expected vertex_count*size_of([f32;2]) logical bytes all checked. Multiplication fits u64 because native vertex count is u32. Physical allocation must fit expected or minimum8. Read-only canonical GpuHeadCover source/buffer/device getters fit receiver calls. Absent coverage for installed head makes a fresh bare cover, preventing prior groom cover leakage. Present cover without installed head is typed MissingHead. Same-count different Arc is rejected; count is not substituted for identity.",
+    "set_gpu_groom first checks actual agreed GpuLods::device even for coverNone; then head/source/cover extent admission, then constructs candidate level groups/cards/atlas/lighting/bounds before changing dynamics/head_matrix/levels/cards/counts/atlas/head/view. All typed admission errors preserve previous scene. Native creation/write/submit errors still follow explicitly agreed provider policy, so no observed native acceptance or rollback guarantee is inferred. Full canonical GpuLods device/layout/source implementation remains required integration, not source-complete.",
+    "Head shadow and main draws now both consume complete same HeadDraw: mesh buffers/count and cover cannot diverge as separate Options. Empty draw remains0, main pass cover always present for installed head. Bounds/framing/physical geometry and all other strand/card/atlas/simulation producer contracts remain open; new head topology/source check does not silently certify those paths.",
+    "TextureBinaryOp receiving adaptation fits immutable canonical builder bad382cb: output binding returns StorageFormatResult<String> and ? preserves actual StorageFormatError through anyhow; no shader/cache publication occurs on output storage admission failure. Descriptor base_type returns ResourceBaseType, recursively scalar for vector texture formats; direct enum matches preserve float/int load conversion and output store behavior. Named main pipeline selection remains canonical. ComputeSourceCache retains source/opcode/device/validationpolicy/descriptor recipe and success-only publication; failures retain original causes and do not cache unsuccessful candidates.",
+    "Current complete renderer mod reread, including constructor/native pipeline/group/shadow/atlas intake, dynamics/rest/deformation, targets, finite uniform admission, convergence policies, logical prefix transition clamp, temporal Empty/Current behavior, readback-facing state, headless helper and exact existing fixture. Unchanged helper/shader/module proofs are revalidated by exact source hashes with fresh-versus-carried coverage explicit. Policy formulas, finite moving-pose guard, effective quality selection and valid running mean/draw transitions preserve previous repaired contracts; no new actionable receiver finding found."
+  ],
+  "required_dependencies": [
+    {
+      "id": "D780-canonical-head-import",
+      "status": "REQUIRED incomplete integration",
+      "detail": "bcbc canonical GpuHeadCover/SurfaceRenderLayout/mesh count files and exports are not yet imported into root04. GpuLods::device actual context capture is accepted but not implemented at this checkpoint. Receiver contracts fit the pinned head-source APIs; this is not compilation evidence or proof incomplete producer fields are sealed."
+    },
+    {
+      "id": "D780-builder-import",
+      "status": "REQUIRED incomplete integration",
+      "detail": "Root04 compute/mod.rs still has old String output binding/base_type_str while texture_ops consumes agreed fallible/typed canonical API. Independent immutable source proof found at bad382cb; canonical complete family import is mandatory. Deliberate pending receiving dependency, not a new mismatched implementation finding or accepted broken build."
+    },
+    {
+      "id": "D780-native-family",
+      "status": "REQUIRED incomplete",
+      "detail": "Actual checked strand/card/atlas byte and native draw counts, host/GPU HairLods/GpuLods counts, physical mip bounds, native empty strand/binding semantics and source-associated simulation ids/weights/rest/head/device producer graph remain incomplete. CPU set_groom fallible atomic publication also remains owned pending work. Do not infer head topology admission closes these."
+    },
+    {
+      "id": "D780-callers-lock-retained",
+      "status": "REQUIRED incomplete",
+      "detail": "All creator and public caller API adaptation (set_head Arc->Result and set_gpu_groom Result included), canonical producer imports/manifest-lock/cache/application migrations and retained774/M06/F19 paths must complete before any source-complete/push/hosted gate request. Same final pushed SHA reviews/CI still required."
+    }
+  ],
+  "fixture_shader_identity": {
+    "renderer_test_module_exact": true,
+    "renderer_existing_tests": 2,
+    "renderer_existing_assertions": 5,
+    "renderer_existing_helper": 1,
+    "dataset_test_module_exact": true,
+    "buffer_tests_exact": true,
+    "buffer_readback_module_exact": true,
+    "shaders_exact": {
+      "crates/fabelgeist-hair/src/render/hair.wgsl": true,
+      "crates/fabelgeist-hair/src/render/post.wgsl": true,
+      "crates/fabelgeist-hair/src/render/deform.wgsl": true
+    }
+  },
+  "sdk_sources": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "matches_prior_proof": true,
+      "coverage": "Prior d9/197 selected native map/drop/progress/image proof carried by exact SDK hash; no fresh whole-SDK read this wave"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "matches_prior_proof": true,
+      "coverage": "Prior d9/197 selected native map/drop/progress/image proof carried by exact SDK hash; no fresh whole-SDK read this wave"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "matches_prior_proof": true,
+      "coverage": "Prior d9/197 selected native map/drop/progress/image proof carried by exact SDK hash; no fresh whole-SDK read this wave"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/webgpu.rs",
+      "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "matches_prior_proof": true,
+      "coverage": "Prior d9/197 selected native map/drop/progress/image proof carried by exact SDK hash; no fresh whole-SDK read this wave"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/global.rs",
+      "sha256": "8d8554b2400b46b595af68b0d2fab472da06b8c11fa1823299728b5bc2cf2caa",
+      "matches_prior_proof": true,
+      "coverage": "Prior d9/197 selected native map/drop/progress/image proof carried by exact SDK hash; no fresh whole-SDK read this wave"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/resource.rs",
+      "sha256": "9e317487575483203979a334e29c73f6da5ceb2a7c2f51ba6bbcc69ee802bee1",
+      "matches_prior_proof": true,
+      "coverage": "Prior d9/197 selected native map/drop/progress/image proof carried by exact SDK hash; no fresh whole-SDK read this wave"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/image-0.25.10/src/images/buffer.rs",
+      "sha256": "004580ca6f2e48b1eb3b28a0e6c77c09bd113964534a217258233b22d39d711a",
+      "matches_prior_proof": true,
+      "coverage": "Prior d9/197 selected native map/drop/progress/image proof carried by exact SDK hash; no fresh whole-SDK read this wave"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gloo-timers-0.3.0/src/future.rs",
+      "sha256": "08143bd3b980ca40031e5ebf2008a50593880c483a71ab899e029cfe8f0071b0",
+      "matches_prior_proof": true,
+      "coverage": "Prior d9/197 selected native map/drop/progress/image proof carried by exact SDK hash; no fresh whole-SDK read this wave"
+    }
+  ],
+  "ledger": "Root renderer_head_pre_repair all13 entry read after actual source; canonical headsource bcbc receipts and pending native/device/caller integration separated. Reviewer did not edit ledger.",
+  "limits": [
+    "No source edits, local project execution/build/check/tests/scanners/generators/runtime, new tests/cases/helpers/assertions/doctests, push or CI. Only source/Git/provenance and ignored reports.",
+    "All5 changed files freshly read FULL, including complete2135-line renderer mod and new189-line head module; exact line count in per-file accounting. Current policy/count/quality/frame-state/uniform/buffer read/map/prefix/bind and source-cache sources freshly read. Other unchanged helpers/manifests/shaders/prior partial producers carried by exact identity, not misrepresented as fresh whole-body reads.",
+    "No new actionable root receiving defect found in reviewed scope, and D9 logical-write gap repaired. This does not clear incomplete canonical imports/device implementation/native layout/source/count/caller/lock families or guarantee stand-alone root compilation.",
+    "Canonical head/layout/count proof pinned bcbc1129b; canonical typed/fallible builder proof independently pinned bad382cb from repository Git history. This report does not accept unrelated full peer implementation.",
+    "Root full thirteen-lens waves plus independent Code/Rule/Comment reviews and required hosted checks must pass the same final pushed revision; no family/wholePR/final clearance here."
+  ]
+}

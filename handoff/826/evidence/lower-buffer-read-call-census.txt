@@ -1,0 +1,61 @@
+crates/fabelgeist-gpu/src/data/gpu/resource.rs:65:            GpuResource::Buffer(b) => b.read(context).await,
+crates/fabelgeist-gpu/src/data/gpu/resource.rs:66:            GpuResource::Texture2d(t) => t.read(context).await,
+crates/fabelgeist-gpu/src/data/gpu/resource.rs:67:            GpuResource::Texture3d(t) => t.read(context).await,
+crates/fabelgeist-compute/src/reduce/max.rs:51:                let data: Vec<f32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/reduce/max.rs:55:                let data: Vec<u32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/reduce/max.rs:59:                let data: Vec<i32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/reduce/min.rs:51:                let data: Vec<f32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/reduce/min.rs:55:                let data: Vec<u32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/reduce/min.rs:59:                let data: Vec<i32> = buffer.read(context).await?;
+crates/fabelgeist-compute/src/readback.rs:249:        let results = readback.read(&context).await?;
+crates/fabelgeist-compute/src/prefix_sum.rs:361:            let scanned: Vec<u32> = buffer.read(&context).await?;
+crates/fabelgeist-compute/src/prefix_sum.rs:385:        let scanned: Vec<u32> = buffer.read(&context).await?;
+crates/fabelgeist-compute/src/mesh_query/mod.rs:121:        let nearest: Vec<u32> = self.nearest.read(context).await?;
+crates/fabelgeist-compute/src/mesh_query/mod.rs:122:        let weights: Vec<f32> = self.weights.read(context).await?;
+crates/fabelgeist-compute/src/mesh_query/mod.rs:123:        let distances: Vec<f32> = self.distances.read(context).await?;
+crates/fabelgeist-compute/src/vertex_normals.rs:262:        let normals: Vec<[f32; 3]> = self.normals.read(context).await?;
+crates/fabelgeist-compute/src/vertex_normals.rs:263:        let status: Vec<u32> = self.status.read(context).await?;
+crates/fabelgeist-compute/src/vertex_normals.rs:435:        output.read(&context, positions.len() as u32).await
+crates/fabelgeist-spatial-hash/src/gpu.rs:390:        let gpu: Vec<u32> = counts.read(&context).await?;
+crates/fabelgeist-armor/src/gpu/staging.rs:74:        let bytes = readback.read(self.context()).await?;
+crates/fabelgeist-armor/src/gpu/mod.rs:281:        part.read(self)
+crates/fabelgeist-armor/src/gpu/mod.rs:318:        buffer.read(&self.context).await.map_err(device_error)
+crates/fabelgeist-armor/src/gpu/mod.rs:352:        let mut nearest: Vec<u32> = self.read(&hits.nearest)?;
+crates/fabelgeist-armor/src/gpu/metal/mod.rs:105:        pollster::block_on(buffer.read(&self.context)).map_err(device_error)
+crates/fabelgeist-armor/src/gpu/metal/bake.rs:84:        let words: Vec<u32> = gpu.read(buffer)?;
+crates/fabelgeist-hair/src/gpu/scalp.rs:65:            let mut all: Vec<[f32; 4]> = pollster::block_on(buffer.read(context))?;
+crates/fabelgeist-hair/src/gpu/scalp.rs:72:        let mut triangles: Vec<[u32; 4]> = pollster::block_on(self.tri_index.read(context))?;
+crates/fabelgeist-hair/src/gpu/mod.rs:74://! // `HairRenderer::set_gpu_groom(&lods)` draws it; `grown.read(..)` has
+crates/fabelgeist-hair/src/gpu/mod.rs:541:        let values: Vec<u32> = pollster::block_on(out.read(&self.context))?;
+crates/fabelgeist-hair/src/gpu/mod.rs:579:    let positions: Vec<[f32; 4]> = pollster::block_on(positions.read(context))?;
+crates/fabelgeist-hair/src/gpu/mod.rs:580:    let attributes: Vec<StrandGpu> = pollster::block_on(attributes.read(context))?;
+crates/fabelgeist-hair/src/gpu/mod.rs:774:            let gpu = grown.read(groomer.context()).expect("read back");
+crates/fabelgeist-hair/src/gpu/mod.rs:812:                pollster::block_on(lods.cover.as_ref().expect("cover").read(groomer.context()))
+crates/fabelgeist-hair/src/gpu/mod.rs:848:                    .map(|l| pollster::block_on(l.positions.read(context)).expect("read"))
+crates/fabelgeist-hair/src/gpu/mod.rs:853:                    .map(|c| pollster::block_on(c.vertices.read(context)).expect("read"))
+crates/fabelgeist-hair/src/gpu/mod.rs:923:            pollster::block_on(first.positions.read(groomer.context())).expect("read");
+crates/fabelgeist-hair/src/gpu/mod.rs:927:        let ids: Vec<[u32; 4]> = pollster::block_on(gpu.binding().0.read(context)).expect("read");
+crates/fabelgeist-hair/src/gpu/mod.rs:1036:                .read(groomer.context())
+crates/fabelgeist-hair/src/gpu/mod.rs:1108:            let cut = gpu.read(&groomer).expect("read back");
+crates/fabelgeist-hair/src/gpu/sim.rs:767:        Ok(pollster::block_on(self.position.read(groomer.context()))?)
+crates/fabelgeist-hair/src/gpu/sim.rs:772:        Ok(pollster::block_on(self.rest.read(groomer.context()))?)
+crates/fabelgeist-armor/src/gpu/limb_build.rs:42:        return part.read(gpu);
+crates/adventuresim-terrain/src/digest.rs:21:        let read = reader.read(&mut buffer)?;
+crates/fabelgeist-armor/src/gpu/recipe.rs:162:        part.read(gpu)
+crates/fabelgeist-bvh/src/gpu/mod.rs:319:        let raw: Vec<f32> = self.nodes.read(context).await?;
+crates/fabelgeist-bvh/src/gpu/mod.rs:338:        let all: Vec<u32> = self.indices.read(context).await?;
+crates/fabelgeist-bvh/src/gpu/mod.rs:343:        let all: Vec<u32> = self.right_children.read(context).await?;
+crates/adventuresim-world-import/src/manifest/hash.rs:16:        let read = reader.read(&mut buffer)?;
+crates/adventuresim-world-import/src/sources/soil.rs:796:        let n = f.read(&mut b)?;
+crates/adventuresim-world-import/src/sources/potential_vegetation.rs:610:        let read = file.read(&mut buffer)?;
+crates/adventuresim-world-import/src/sources/land_use.rs:117:            let read = reader.read(&mut buffer)?;
+crates/adventuresim-character-creator/src/hair/geometry.rs:43:            Some(geometry) => geometry.read(gpu),
+crates/adventuresim-character-creator/src/hair/gpu/strips.rs:245:            let mut all: Vec<[f32; 4]> = pollster::block_on(buffer.read(context))?;
+crates/fabelgeist-mesh/src/data.rs:37:        buffer.read(context).await
+crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:231:            let texels: Vec<u32> = pollster::block_on(buffer.read(context))?;
+crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:446:    let words: Vec<u32> = pollster::block_on(out.read(context))?;
+crates/adventuresim-character-creator/src/hair/groom.rs:78:            (scalp.read(&groomer)?, grown, bounds)
+crates/adventuresim-character-creator/src/hair_preview/render_test.rs:281:        let buried = buried_share(&geometry.read(&gpu)?, &skin);
+crates/adventuresim-tactical-client/src/animation/clip_revision.rs:25:    let revisions = events.read(&runtime);
+crates/adventuresim-character-creator/src/device_coif.rs:229:        let flat: Vec<[f32; 3]> = gpu.read(part.carriers())?;
+crates/adventuresim-character-creator/src/device_coif.rs:368:    Ok((frame.read(gpu)?, CoifCarrier::read(gpu, &recording.part)?))

@@ -1,0 +1,650 @@
+{
+  "review": "Independent source Code Review: wired generated Stencil layout snapshot",
+  "snapshot_manifest": "target/pr826-audit/generated-working-stencil-layout-snapshot/manifest.json",
+  "snapshot_manifest_sha256": "fcdac606eb126ad4bca6407958373d671e8d1f10e3fe1831764f509affa6fcf0",
+  "working_base_head": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+  "working_base_tree": "0dc7e004af324c2faa953fb0e5fe087f01fd1b54",
+  "baseline_snapshot": "target/pr826-audit/generated-transfer-c665-map-snapshot/manifest.json",
+  "baseline_manifest_sha256": "1da74380dd8a3c6a54c24803aea6a48602f4baa12e69adc7a51fee869d5b3373",
+  "verdict": "One actionable P2 behavior-preservation finding GSL-C1. No whole-family or final clearance.",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "manifest_matches": true,
+      "lines": 130,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "manifest_matches": true,
+      "lines": 147,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "manifest_matches": true,
+      "lines": 115,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "manifest_matches": true,
+      "lines": 119,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "manifest_matches": true,
+      "lines": 138,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "manifest_matches": true,
+      "lines": 131,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "manifest_matches": true,
+      "lines": 7,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "24f641fad466c750cf9e2099a9dd6f22dc2c0ea2f97a055f82ac54439aa059d2",
+      "manifest_matches": true,
+      "lines": 109,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "manifest_matches": true,
+      "lines": 47,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "manifest_matches": true,
+      "lines": 139,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "manifest_matches": true,
+      "lines": 132,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "manifest_matches": true,
+      "lines": 114,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "manifest_matches": true,
+      "lines": 228,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "manifest_matches": true,
+      "lines": 121,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "manifest_matches": true,
+      "lines": 9,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "manifest_matches": true,
+      "lines": 125,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "manifest_matches": true,
+      "lines": 42,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "manifest_matches": true,
+      "lines": 296,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_parameters.rs",
+      "sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "manifest_matches": true,
+      "lines": 85,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "manifest_matches": true,
+      "lines": 191,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "manifest_matches": true,
+      "lines": 27,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "manifest_matches": true,
+      "lines": 123,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "manifest_matches": true,
+      "lines": 120,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "manifest_matches": true,
+      "lines": 122,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_error.rs",
+      "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "manifest_matches": true,
+      "lines": 209,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "manifest_matches": true,
+      "lines": 122,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "manifest_matches": true,
+      "lines": 178,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "sha256": "df2fabc3d80bed4da87a5597db8a33561fe5f56eb33af11188eec6f08d3f6eb1",
+      "manifest_matches": true,
+      "lines": 183,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "manifest_matches": true,
+      "lines": 148,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "manifest_matches": true,
+      "lines": 35,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "manifest_matches": true,
+      "lines": 56,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "manifest_matches": true,
+      "lines": 48,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "manifest_matches": true,
+      "lines": 131,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "sha256": "327245967671b5bd0b0a986e3cf6af66196096fd7919e60a9212a36b0764ee83",
+      "manifest_matches": true,
+      "lines": 352,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "manifest_matches": true,
+      "lines": 146,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "manifest_matches": true,
+      "lines": 135,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "manifest_matches": true,
+      "lines": 11,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "74fa7308c6373eeb3bf3266020f790705378f0c97c14925cf3607132b020edbe",
+      "manifest_matches": true,
+      "lines": 182,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/tests.rs",
+      "sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "manifest_matches": true,
+      "lines": 147,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "fd95c53e8c2f3f939ab42216191ae0755bd9bece424f04d8ad15e7d16ba0d225",
+      "manifest_matches": true,
+      "lines": 50,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "manifest_matches": true,
+      "lines": 110,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "manifest_matches": true,
+      "lines": 123,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "54ace491777db472ea1c66dff8a22b6dcf5cdccb9c54de526d93e6c6971b1bf1",
+      "manifest_matches": true,
+      "lines": 116,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "manifest_matches": true,
+      "lines": 69,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "manifest_matches": true,
+      "lines": 225,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "manifest_matches": true,
+      "lines": 109,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "manifest_matches": true,
+      "lines": 250,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "manifest_matches": true,
+      "lines": 87,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "manifest_matches": true,
+      "lines": 26,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": false,
+      "baseline_same_bytes": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "manifest_matches": true,
+      "lines": 97,
+      "coverage": "Fresh complete frozen source read, including every production body and listed existing fixture body.",
+      "baseline_same_path_present": true,
+      "baseline_same_bytes": true
+    }
+  ],
+  "coverage": {
+    "fresh_complete_sources": 50,
+    "fresh_complete_lines": 6162,
+    "all_frozen_hashes_match": true,
+    "qualification": "All fifty frozen files were read completely. The new neighborhood grid/layout were reread completely after a combined tool output truncated part of that section. No source read follows the live working tree."
+  },
+  "dependency_accounts": [
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "coverage": "fresh complete; exact source/device/observed-policy/recipe key and success-only publication"
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "coverage": "fresh complete; all-axis device admission and native dispatch geometry"
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "coverage": "fresh complete including existing compile_fail; ordinary covering_x versus folded policy"
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "coverage": "fresh complete; compile/binding/native scope and standalone submit order"
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "coverage": "fresh complete; exact logical runtime-array binding prefix and native allocation bounds"
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "coverage": "fresh complete; pipeline device, logical buffers, selected textures and native binding causes"
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+      "coverage": "fresh complete; actual old export composition, required receiving dependency remains open"
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "coverage": "fresh complete; actual old module composition, no missing canonical imports cleared"
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "coverage": "fresh complete; existing generalized fixture resource population/adapters and oracle, no execution"
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "coverage": "Fresh complete canonical owner definition read as receiving context only; not production overwrite authority."
+    },
+    {
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "coverage": "Fresh complete canonical owner definition read as receiving context only; not production overwrite authority."
+    }
+  ],
+  "carried_native_accounts": [
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "exact_cac5_native_source": true,
+      "coverage": "Carried native behavior review from gpu-complete-cac5a7c33-code-review; independently revalidated exact source identity here. No fresh whole-body reread in this wave."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "exact_cac5_native_source": true,
+      "coverage": "Carried native behavior review from gpu-complete-cac5a7c33-code-review; independently revalidated exact source identity here. No fresh whole-body reread in this wave."
+    },
+    {
+      "revision": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "exact_cac5_native_source": true,
+      "coverage": "Carried native parse/validation review from gpu-complete-cac5a7c33-code-review; independently verified exact source identity. No fresh whole-body reread in this wave."
+    }
+  ],
+  "findings": [
+    {
+      "id": "GSL-C1",
+      "severity": "P2",
+      "title": "Preserve texture axes deliberately projected out of neighborhood fetches",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "lines": [
+        126,
+        137
+      ],
+      "scenario": "A valid Neighbors3D<f32> Stencil with Texture2d R32Float input extent 4\u00d74 and Texture3d R32Float output extent 4\u00d74\u00d72, no size/index parameters, e.g. a center-returning source. Both texture resources fit normal device limits.",
+      "trace": [
+        "program.rs emits output Texture3d workgroups and the output bounds guard; coordinates.rs emits vec3<i32>(global_id.xyz).",
+        "grid.rs:83-86 uses vec3<i32>(textureDimensions(input).xy, 1) for this input; fetch.rs:30-35 deliberately uses coordinate.xy for every Texture2d 3D sample. The former frozen source has the same grid, coords, and projection at stencil.rs:489-493,542-546,614-646.",
+        "The earlier program therefore repeats the input plane along output z: z never participates in an input address. The new declared_axes yields [4,4,1,1], and cover_output takes three axes solely from neighborhood dimension. It returns OutputCoverage{Z,required:2,available:1} before dispatch.",
+        "This is a new behavior restriction on an explicit retained cross-kind fetch path, not an unsupported request for a new dimension or arbitrary shader capability."
+      ],
+      "minimum_connected_repair": "Carry the actual input fetch projection into output-axis coverage. Admit only axes that reach the input texture address, while retaining all actual coordinate conversion and neighbor/boundary arithmetic admission before projection. Do not weaken Buffer flattening/capacity or fourth-dimensional flat-prefix checks.",
+      "acceptance": [
+        "The 4\u00d74 Texture2d -> 4\u00d74\u00d72 Texture3d Neighbors3D path remains admitted and preserves plane repetition under Clamp and Wrap.",
+        "Axes participating in emitted i32(global_id), coordinate+1/-1 and modulo/clamp operations remain representable even when a later fetch discards them; allowing projected-away z must not silently admit signed overflow.",
+        "Retain restrictions on actual sampled x/y axes, checked population/divisors, input reflected stride/capacity, Buffer output prefix, empty-output ordering and actual device dispatch limits.",
+        "Keep native numerical/load/projection tokens and existing fixture population; no new tests/cases/helpers/assertions requested or authored.",
+        "Complete the connected pre-repair thirteen-lens inventory before implementation and repeat all relevant source reviews on the repaired frozen successor."
+      ],
+      "parent_coordination": "Root independently acknowledged the trigger and signed-arithmetic qualification during this review. No reviewer source edit."
+    }
+  ],
+  "contracts": [
+    {
+      "family": "Immutable ordered signatures and source admission",
+      "disposition": "No additional finding",
+      "evidence": "Map/Gather/Scatter/Stream/Stencil signatures keep original declarations paired with private role payloads, derive call order from the same record and retain authored output type. Explicit unsigned index is selected before alias fallback. Scatter retains unsigned value; Stream derives input loading from final roles, preserving metadata-only writers. The shared generic envelope and reserved Neighbors envelope use checked string boundaries; malformed incomplete types do not invoke inverted slices. Custom valid names stay native shader concerns."
+    },
+    {
+      "family": "Typed local errors and actual native causes",
+      "disposition": "No additional finding",
+      "evidence": "GeneratedProgramError owns actual local function/binding/resource roles and payloads under unchanged anyhow carriers. NativeOperatorSignatureError owns fixed-arity helper rejections. CoordinateParameterError preserves the actual strum ParseError source. Regex/Naga/native shader/pipeline/device/pass errors propagate via ? rather than text classification or flattening. Current literal comparison counts are 45/50/47; historical 46/51/48 predates local Display extraction and is not current source evidence."
+    },
+    {
+      "family": "Reflected controlling source and cache",
+      "disposition": "No additional finding, required integration still open",
+      "evidence": "ResourcePipeline::new parses the same pipeline source, resolves its admitted selected entry and records actual workgroup shape plus native controlling array stride/image kind. storage_stride_for(Input) parses that same source and reads the actual named input array stride, rather than ResourceBaseType::element_size or guessed Custom size. ComputeSourceCache keys source/actual Device/observation policy/recipe and publishes only successful builds; SecondaryResources ordering is canonical. Host layout failures are checked per actual dispatch and do not add failed entries."
+    },
+    {
+      "family": "Stencil declared axes versus emitted grid",
+      "disposition": "One actionable GSL-C1 restriction",
+      "evidence": "Host and native declarations agree on all explicit size shapes, input texture extents, output-derived axes and DEFAULT_NEIGHBORHOOD_SIDE=64. One-dimensional Buffer size vectors and fourth-dimensional plane size are typed rejected because native expressions do not support those shapes. The discovered defect is coverage of a deliberately projected-away texture axis, not a wrong grid declaration."
+    },
+    {
+      "family": "Stencil Buffer coordinates and physical capacity",
+      "disposition": "No additional finding",
+      "evidence": "Buffer outputs unflatten _global_index for 2D/3D regardless of input kind; Four uses the same flat-prefix path for all outputs. Host output population stays within declared grid. Buffer input capacity derives from logical byte extent divided by actual reflected native stride; maximum signed flattened index is population-1, with widened checked product and explicit u32 divisor bound. Logical bytes remain the later native binding prefix; incomplete trailing bytes do not become another record."
+    },
+    {
+      "family": "Signed arithmetic and boundary admission",
+      "disposition": "Retain while fixing GSL-C1",
+      "evidence": "Positive axes avoid zero modulo/division. Clamp bounds extent to i32::MAX so last+1 is representable. Wrap checks 2*extent-1, covering (coordinate%extent+extent) before final remainder for admitted coordinates. Buffer grid population-1 bounds nonnegative signed flattening intermediates. Four/three flat divisor products are checked before native conversion. See GSL-C1 acceptance for projected-away output coordinates."
+    },
+    {
+      "family": "Texture projections, empty and missing states",
+      "disposition": "One GSL-C1; otherwise bounded contracts retained",
+      "evidence": "Fetch preserves Texture2d xyz/xyzw -> xy and Texture3d xyzw -> xyz, as well as lower-dimensional zero-lane extension. Output-zero returns from added neighborhood resource admission before inspecting input grid/stride. This is not a guarantee that zero logical Buffer bindings succeed: existing pipeline/binding admission still runs. Uninitialized/wrong-device/missing-view/format/usage causes remain lower native owners; no unavailable Buffer device query invented."
+    },
+    {
+      "family": "Fluid kernels and resource adapters",
+      "disposition": "No additional finding in authored numerical source",
+      "evidence": "All six full fluid files freshly read. GeneratedBinding selects actual texture kind, constructs existing coordinate uniforms and preserves error ordering around source build and binding insertion. Native fluid programs and arithmetic remain authored source. Mixed/unsupported dimensional programs are still subject to ordinary native source admission; no new cross-kind fluid feature promised. No sampler/transfer math change was inferred from wrapper refactoring."
+    },
+    {
+      "family": "Existing fixtures and consumers",
+      "disposition": "No new fixture content; canonical graph incomplete",
+      "evidence": "Map test modules are byte-exact baseline. Gather only adapts the removed constructor context and signature getter helper; Stream only adapts its constructor. Stencil existing tests moved intact with constructor/getter adapters and formatting; source strings, operands and oracles remain. Existing run_compute_test and Buffer binding/dispatch receivers were freshly read. Scope includes signatures/actual definitions/built pipelines/execute consumers in all fifty files; unreceived canonical algorithm/caller families remain separate required work."
+    }
+  ],
+  "supplemental_proofs": {
+    "stencil-working-source-proof.json": "69821fb2a954821d880a0b6ad6149e11eb81dbe170dc410e4a0dd392c53ebd72",
+    "generated-fluid-native-source-comparison-current.json": "218ab6e86264c2527616e8f948db7c93a14f04bc1cf16e7579ad0c1a702ba1ff"
+  },
+  "required_dependencies": [
+    "Root complete connected pre-repair thirteen-lens inventory and source repair for GSL-C1, then full successor source reviews.",
+    "Peer #780 canonical compute lib/prelude/module/export composition, Buffer stride/count owners, Reduce/other algorithm and actual caller migrations remain unreceived. Their known missing local types/imports are not mislabeled as new fifty-source defects, and none is cleared by this review.",
+    "Final shared ownership composition, manifests/locks, all thirteen lenses, independent Code/Rule/Comment and hosted project gates on the same final pushed revision remain required."
+  ],
+  "limits": [
+    "Source/Git/text/hash inspection only; no source edits or production copying, project checks/builds/lint/tests/scanners/generators/runtime/probes, new test cases/helpers/assertions/doctests, push or CI.",
+    "No dynamic generated-WGSL evaluation or numerical/GPU run. Counterexample is a source-control-flow proof, not an executed testcase.",
+    "Existing static/fast provided-variant whole-block soft skips remain settled accepted behavior; no stricter packing policy introduced.",
+    "Native scopes, selected texture view/cache/missing/device/format contracts retain exact carried lower-owner evidence where individually labelled; this is not a fresh eighty-three-file GPU review.",
+    "No claim that the incomplete combined working tree compiles, that the full producer graph is accepted, or that whole PR/final/hosted clearance is achieved."
+  ]
+}

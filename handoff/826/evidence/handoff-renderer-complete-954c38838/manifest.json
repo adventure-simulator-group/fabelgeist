@@ -1,0 +1,34 @@
+{
+  "revision": "954c388388adb45e19d917d61b7e24e7746616f0",
+  "base": "2b646df899ee73045795b129bfbade5dec7d4b84",
+  "files": {
+    "crates/fabelgeist-hair/src/render/atlas.rs": "ced0a6437d99514b8201506e998d66ea89aab6b49fb1d852f868abc859f0ec7f",
+    "crates/fabelgeist-hair/src/render/deform.wgsl": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+    "crates/fabelgeist-hair/src/render/deformation.rs": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+    "crates/fabelgeist-hair/src/render/draws.rs": "ae246a424240ef39d3a652178c14e8eb7ca5731ef13731eb91e8c896eaa7b162",
+    "crates/fabelgeist-hair/src/render/frame_state.rs": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+    "crates/fabelgeist-hair/src/render/frame_uniforms.rs": "a0dc615037daa6d47efae6b02044ec36b8e286ec9f6d78d07be3ece901f052e7",
+    "crates/fabelgeist-hair/src/render/hair.wgsl": "b58937fb5fbf8a8e86962cb4794e98f433b035172890db0724af4da48d63978b",
+    "crates/fabelgeist-hair/src/render/head.rs": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+    "crates/fabelgeist-hair/src/render/levels.rs": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+    "crates/fabelgeist-hair/src/render/math.rs": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+    "crates/fabelgeist-hair/src/render/meshes.rs": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+    "crates/fabelgeist-hair/src/render/mod.rs": "d765ade575e6a0eba81e97f801ddbf56ea8d730199d1577fcaeb4d15cb9c43d3",
+    "crates/fabelgeist-hair/src/render/post.wgsl": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+    "crates/fabelgeist-hair/src/render/readback.rs": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+    "crates/fabelgeist-hair/src/render/simulation.rs": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+    "crates/fabelgeist-hair/src/render/simulation/buffers.rs": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+    "crates/fabelgeist-hair/src/render/simulation/error.rs": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+    "crates/fabelgeist-hair/src/render/simulation/frames.rs": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+    "crates/fabelgeist-hair/src/lod/policy.rs": "16109d7ba1a21b99e1aaebad3835ed0dcd18d540dcd3e2961d9d05f706c857dd",
+    "crates/fabelgeist-hair/src/lod/presets.rs": "cf4310e379157eeba6d93dd7b845a2c2fcb00320e93753ea33cf1cb1d0c3236f"
+  },
+  "integration_corrections": [
+    "RootLODpolicy/presets imports use canonical units::Ratio",
+    "Removed unused renderer parent DeviceExt traitimport",
+    "HairWGSL comment accuratelydescribes stochastic samplemask; instructions unchanged",
+    "PriorAtlasduplicateFrom removal anddraw/projectionunitimports retained"
+  ],
+  "review_status": "Complete repeated18renderer+dependencyclosure Code/Rule/Comment reviews running; notscoped4deltapasses",
+  "limits": "Fullcanonicalproducer/caller/Creator/physical/lockgraph+global13/final3/hostedgates pending. Existingtests/fixtures/POD unchanged, shaderonecommentbytechangeonly. No localprojectexecution/push/CI."
+}

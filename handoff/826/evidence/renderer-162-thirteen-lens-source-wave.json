@@ -1,0 +1,262 @@
+{
+  "kind": "Complete thirteen-lens bounded renderer receiving successor source wave",
+  "revision": "162b152c47ea3824b4bbcdea01215fe5342f71f0",
+  "renderer_revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+  "preinventory": "target/pr826-audit/renderer-host-frame-pre-repair-review.json",
+  "files": {
+    "crates/fabelgeist-hair/src/render/readback.rs": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+    "crates/fabelgeist-hair/src/render/deform.wgsl": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+    "crates/fabelgeist-hair/src/render/frame_uniforms.rs": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+    "crates/fabelgeist-hair/src/render/head.rs": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+    "crates/fabelgeist-hair/src/render/post.wgsl": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+    "crates/fabelgeist-hair/src/render/draws.rs": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+    "crates/fabelgeist-hair/src/render/atlas.rs": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+    "crates/fabelgeist-hair/src/render/simulation.rs": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+    "crates/fabelgeist-hair/src/render/frame_state.rs": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+    "crates/fabelgeist-hair/src/render/meshes.rs": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+    "crates/fabelgeist-hair/src/render/hair.wgsl": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+    "crates/fabelgeist-hair/src/render/mod.rs": "052eb05f205e18ce867d925db0db38571dcc98c92f6d4230d715e326b347dfd4",
+    "crates/fabelgeist-hair/src/render/deformation.rs": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+    "crates/fabelgeist-hair/src/render/levels.rs": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+    "crates/fabelgeist-hair/src/render/math.rs": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+    "crates/fabelgeist-hair/src/render/simulation/frames.rs": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+    "crates/fabelgeist-hair/src/render/simulation/error.rs": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+    "crates/fabelgeist-hair/src/render/simulation/buffers.rs": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c"
+  },
+  "all13": [
+    {
+      "lens": "producer-propagation",
+      "sources": [
+        "simulation.rs:set_dynamics/set_gpu_dynamics",
+        "simulation/frames.rs:set_simulated/set_moved",
+        "deformation.rs:deform",
+        "mod.rs:set_groom/set_gpu_groom"
+      ],
+      "source_contract_audit": "Host frame retains canonical StrandShape at producer and admits native StrandLayout once at install; native layout carried into Dynamics then DeformGpu fields. Actual first source and immutable binding/native ports survive every update route. Metres remains typed until native offset encoding. Clean readonly HairLods/StrandLevel getters used; no loose tuple/slice/pose setter remains.",
+      "disposition": "RS1/2/3/6 source repaired; exact canonical host/native producers and all external callers still require final graph integration.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "existing-type-owners",
+      "sources": [
+        "simulation.rs:Dynamics/SimulationInputs",
+        "simulation/error.rs",
+        "simulation/buffers.rs"
+      ],
+      "source_contract_audit": "Reuses canonical StrandCount/StrandLayout/SimFrame/SimBinding/Metres/BufferByteLength/BufferPrefixError; no parallel count, shape, source brand or scalar unit. SimulationBuffer owns positive native binding extent rather than mislabeling zero logical data as positive canonical Buffer data.",
+      "disposition": "No new duplicate owner identified; direct actual prefix/layout/reserve causes preserved through owning receiving error.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "admission-contracts",
+      "sources": [
+        "simulation.rs:set_dynamics/set_gpu_dynamics/binding_population",
+        "simulation/buffers.rs:from_native/upload/preflight/host_limits",
+        "simulation/frames.rs:check_host_source/check_native_source"
+      ],
+      "source_contract_audit": "Both public install routes require installed actual source/mode; native Device checked. Maximum allresident strand count bounded by fullsource, IDs/weights prefix explicit, full simulated guide shape uncut. Native prefix validates logical and physical capacity, storage usage/device limits; host native inputs preflight before allocations; immutable frame guarantees complete rest/current population.",
+      "disposition": "RS1/2 source repaired. Private constructors admit positive binding floor and every public update requires retained provenance; valid logical0 remains separate from native floor.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "invariant-operations",
+      "sources": [
+        "simulation/buffers.rs:pack_positions/preflight",
+        "simulation.rs:bind_dynamics/clear_dynamics",
+        "simulation/frames.rs:publish_simulation_pose",
+        "deformation.rs:record_deformations/publish_deformations"
+      ],
+      "source_contract_audit": "Host Vec3 pack reserves fallibly before native upload and preserves xyz/w1. All level copy endpoints/capabilities checked before encoder mutation, copies use logical resident bytes. Rest reuse retains allocation containing original undeformed capture. Candidate simulation publishes after normal submit; movement marks all obligations Pending, only normally submitted requested/no-work levels become Current.",
+      "disposition": "RS2/3 source repaired; no promise of completion or rollback of provider-handled errors. Source arithmetic bounded by native u32 resident count times vec4 width in u64.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "aggregate-states",
+      "sources": [
+        "simulation.rs:GroomSource/Dynamics/DynamicsOrigin/DeformationBody",
+        "simulation/frames.rs:set_simulated/set_moved",
+        "mod.rs:successful scene publication"
+      ],
+      "source_contract_audit": "Installed actual source Arc separate from fitted resident shape. Host bindingArc fixes rest/current population; native capture requires exact layout and all IDs/weights/rest/current/body ports. Every scene replacement publishes source+levels+dynamics reset together. Historical rest state is intentionally separate from mutable native current positions.",
+      "disposition": "RS1/2/3 source repaired, equal counts/layouts/device alone cannot authorize foreign frames.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "type-ownership",
+      "sources": [
+        "simulation.rs",
+        "simulation/buffers.rs",
+        "deformation.rs",
+        "levels.rs/head.rs"
+      ],
+      "source_contract_audit": "Renderer owns receiving candidates, buffers, drawfit, provenance and structural errors. Host/source/shape/Card/native producers remain canonical #780 definitions. DeformLevel now belongs to deformation owner; simulation resources/update admission extracted from oversized renderer. No shared producer or Creator function changed independently.",
+      "disposition": "No owner inversion/compatibility alias or duplicate producer implementation introduced; surrounding canonical graph remains explicit required dependency.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "redundant-authority",
+      "sources": [
+        "simulation.rs:Dynamics/DeformationBody",
+        "deformation.rs:DeformLevel/deform",
+        "simulation/frames.rs:set_moved"
+      ],
+      "source_contract_audit": "Per-level raw sim_points removed; all native point scalars derive Dynamics canonical layout. Body presence derives closed payload, latest same-simulation Metres offset refreshed at validated update. Actual source Arc is nonderivable necessary association; retained native binding extent and original rest are distinct range/history facts.",
+      "disposition": "RS6 source repaired, no separate body flag/count scalar authority. FramePopulation/CardLayout previous repair unchanged.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "behavior-preservation",
+      "sources": [
+        "simulation/buffers.rs:pack_positions",
+        "simulation.rs:bind_dynamics/clear_dynamics",
+        "deformation.rs:DeformGpu upload",
+        "mod.rs:existing fixture",
+        "deform.wgsl/hair.wgsl/post.wgsl"
+      ],
+      "source_contract_audit": "Existing renderer fixture block, five POD declarations and three WGSL files exact. Native descriptor entries keep same slots and actual admitted prefixes; zero skips shader work, no arbitrary guide crop. Host body remains absent, native body uses actual producer extent. Samegroom resimulation keeps original rest; updates use actual current pose. No RNG, geometry, coverage, tolerances, solver, sign/finite/orthonormal policy added.",
+      "disposition": "Authorized API/source admission changes replace silent arbitrary-slice acceptance with typed errors; existing test population/oracles unchanged, no new tests/cases/helpers/assertions.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "enum-shapes",
+      "sources": [
+        "simulation.rs:GroomSource/DynamicsOrigin/DeformationBody",
+        "simulation/error.rs:SimulationMode/SimulationBufferRole",
+        "deformation.rs:DeformationState"
+      ],
+      "source_contract_audit": "Installed Host/Native owns actual source payload; host origin owns immutable binding, common admitted ports used by private mode-aware operations; no host upload to native mode. Body Absent/Present owns binding/optional Metres payload. Existing Pending/Current and temporal History state remain independent; has_dynamics derives Option presence.",
+      "disposition": "No independent semantic booleans or mode tags paired with externally forgeable payloads; wrong mode is typed error.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "derivability",
+      "sources": [
+        "simulation/error.rs",
+        "simulation.rs:From<RenderSimulationError>",
+        "simulation/buffers.rs"
+      ],
+      "source_contract_audit": "Simple receiving enums derive Debug/Eq and error enum uses thiserror with concrete source fields. Semantic conversion into HairGpuError::Backend preserves owning source chain. No unsafe trait claims, serialization of native handles/borrowed frame, fake Clone or value equality for actual-source identity.",
+      "disposition": "No actionable redundant manual trait/serialization finding. Actual Arc::ptr_eq intentionally not replaceable by derive.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "type-granularity",
+      "sources": [
+        "simulation.rs:Dynamics/SimulationInputs/GroomSource",
+        "simulation/buffers.rs:SimulationBuffer",
+        "simulation/error.rs"
+      ],
+      "source_contract_audit": "Canonical host/native shapes retain distinct width guarantees; source identity distinct from shape and native resident prefix. SimulationBuffer proves a positive native binding with same allocation, while canonical Buffer prefix retains logical extent; not a second general allocation/readback abstraction. Error roles describe actual native input at receiver; no one-wrapper-per-channel types.",
+      "disposition": "No overly narrow/broad/redundant new owner identified; private resource candidate and existing typed leaves cover each contract.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "magic-strings",
+      "sources": [
+        "simulation/buffers.rs:label",
+        "simulation/error.rs:error attributes",
+        "deformation.rs:entrypoint/native labels",
+        "mod.rs:imports/docs"
+      ],
+      "source_contract_audit": "SDK debug labels terminate at native descriptor boundary and do not determine source identity. Stable typed errors/modes/roles drive all decisions; human prose is presentation only. WGSL entrypoint/interface names remain actual native identifiers unchanged. No label/string classification or fake source-name brand.",
+      "disposition": "No actionable raw string finding; canonical Kernel wording successor separately reviewed at same162.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    },
+    {
+      "lens": "magic-numbers",
+      "sources": [
+        "simulation/buffers.rs:binding_bytes/preflight",
+        "simulation.rs:binding_vector_bytes",
+        "deformation.rs:bind/deform",
+        "simulation/frames.rs"
+      ],
+      "source_contract_audit": "Vec4 storage floor derives actual [f32;4] native stride, binding vector bytes from actual [u32;4], parameter bytes from DeformGpu. Native binding slots0..7 are exact shader ABI. All retained populations/points/offsets/bytes use canonical owners; removed duplicate17*16 no-body policy and raw bodyfloat/simpoint transport. Authored frame/physics numerical policy unchanged.",
+      "disposition": "RS2/6 source repaired. Peer broader physical/grid policy remains separate owned required family; no claim that receiver review clears it.",
+      "findings": [],
+      "acceptance": "Bounded source relationships accounted at exact canonical pins; compiled/runtime/fullcanonicalgraph acceptance pending",
+      "dependencies": [
+        "#780 final canonical producer/caller/Creator/physical/lock composition",
+        "#826 fullPR repeatedall13/full3finalreviews/requiredhostedchecks samefinalpushedSHA"
+      ],
+      "status": "Source-accounted bounded receiving family, no new actionable owned finding; not global clearance"
+    }
+  ],
+  "reviews": {
+    "code": "target/pr826-audit/renderer-f905-code-review.json",
+    "rule": "target/pr826-audit/renderer-f905-rule-review.json",
+    "comment": "target/pr826-audit/renderer-f905-comment-review.json"
+  },
+  "limits": "No local project execution/build/tests/lint/scanners/generators/runtime/CI/push. Source formatter/Gitwhitespace/sourceidentity only. Canonical surrounding graph not imported; global wholePR all13/finalreviews/hostedchecks incomplete. Existing test cases unchanged."
+}

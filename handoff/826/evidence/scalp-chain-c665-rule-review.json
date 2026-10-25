@@ -1,0 +1,201 @@
+{
+  "kind": "Separate independent source-only Rule Review following complete bounded all13 discovery",
+  "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "tree": "12f2d808ab9d659999aaec627e02e594897c8beb",
+  "root_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "inventory": "scalp-chain-c665-pre-receive-all13.json",
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a",
+      "raw_lines": 179,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs",
+      "sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+      "raw_lines": 168,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "raw_lines": 133,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "a9be367893c88b158dac2f0368c4ef28d521e59290a428b08753c342881225bd",
+      "raw_lines": 299,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "sha256": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee",
+      "raw_lines": 41,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "02378baa2d1ed60f1c8337c24b9e0e5872b240203fc5f7944f3f8eb93744d2f6",
+      "raw_lines": 144,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53",
+      "raw_lines": 149,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531",
+      "raw_lines": 512,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd",
+      "raw_lines": 155,
+      "coverage": "Fresh complete source including all existing fixture lines and exact owning-parent/currentRoot diffs; not executed",
+      "manifest_export_peerGit_exact": true
+    }
+  ],
+  "related_source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "coverage": "Fresh complete source1-255 and256-end, all seven WGSL strings/native address expressions"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+      "coverage": "Fresh complete source; scalp_images separately byte-compared Root and peer"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "d6c46f6ef0b1f037cc45648c2baac76b9e383aad331cf1c3757f1e1150702b43",
+      "coverage": "Fresh full source: grow/bake retained Arc chain, placement source identity and all actual scalp recipients"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "83895f2f6e29bda031bc1764ed1d51cc133051198e963ead3eb0ee728138ffff",
+      "coverage": "Fresh complete source1-260 and260-end, worker/Assets/UI transitions"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "coverage": "Fresh full Root source and exact peer equality"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "coverage": "Fresh complete source: StrandLayout admission/native count/byte/kernel ports"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/groom.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "111756fbfda767a55148c514a229722b027e180d86ae64689214c74ed3f1b708",
+      "coverage": "Fresh complete source: actual groom layout/device/buffers and producers"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "coverage": "Fresh complete canonical source: nonzero stride/native count/wide multiplication"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "coverage": "Fresh complete Root and peer source, actual prefix/typed read native map contract"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "coverage": "Fresh complete peer source and Root83 exact full-source carry; unlisted peer native helper must not overwrite Root"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "coverage": "Fresh complete peer production definition/native usage adapter; test module unlisted not credited"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+      "sha256": "ba9b0696088257a6f3d984edf137b59435823ff73ba1f176a3fa82d96a3915fe",
+      "coverage": "Bounded source1-110 only: AtlasLevel record and current canonical geometry/layout consumers; remainder required unrelated geometry dependency, not full-file coverage"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "coverage": "Fresh complete Root canonical units; no numerical bounds invented"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "coverage": "Fresh complete Root prefix admission, same native Arc and logical/physical bounds"
+    }
+  ],
+  "rules": [
+    "AGENTS.md:50-55 documentation accuracy/ignoredreports/prose80",
+    "crates/AGENTS.md:28-71 canonical type ownership/propagation/native adapters",
+    "crates/AGENTS.md:80-84 justified bound indexing",
+    "crates/AGENTS.md:90-94 module/item order",
+    "crates/AGENTS.md:118-127 owning error carriers/no productionunwrap",
+    "crates/AGENTS.md:166-181 no-growth and narrow suppression",
+    "User no new tests/cases/helpers/assertions/doctests"
+  ],
+  "findings": [
+    {
+      "id": "SCALP-C1",
+      "severity": "P2",
+      "location": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:3-5",
+      "governing_rule": "AGENTS.md:50-51 accurate documentation; source-only validation limits",
+      "classification": "Retained wording finding on modified whole owner, deduplicates Comment Review",
+      "consequence": "Unqualified10xCPU speed claim has no bounded hardware/workload/benchmark evidence. Existingfixture timing does not establish comparison.",
+      "repair": "Remove multiplier/comparison or cite existing bounded observation; no new benchmark/test."
+    }
+  ],
+  "ownership": "All9 canonical #780 whole source only; Root native/other shared functions untouched and required preserved. No independent repair authorized.",
+  "structure": "New Grid/Layout/readback modules own separate physical sampling/admission/host decode responsibilities; file imports/reexports precede modules, constants/aliases/structs before impls. ScalpUploadPlugin struct/impl moved before private functions. Existing fixture-only order is not new production debt.",
+  "ceilings": "All incoming production files below500 raw lines (largest bake/mod299). New/changed production methods visibly below100 (Grid::draw69-122, bare126-167, factory39lines, bakeunder50, finishunder60). render_test is existing cfgtest module, not new production growth. Baseline/registry not changed by candidate; required final hosted reductions remain pending. No scanner executed.",
+  "traits_and_native": "No new unsafe or SendSync assertion. Chain clones nativeDevice/Buffer/Arc layout; native observer and completion rely on preserved Rootfeature/std/SDKtraits with prior documented browser/atomicWasm limits. No claimed browser synchronous verdict.",
+  "fixture_and_source_preservation": {
+    "fixture_currentRoot_diff": "diff --git a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\nindex 30c65cdaa..a8f5fd54e 100644\n--- a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\n+++ b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\n@@ -24,5 +24,5 @@\n use super::*;\n use adventuresim_character_creator::hair::{\n-    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair,\n+    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair, ScalpTextureChain,\n };\n use adventuresim_character_creator::studio_environment;\n@@ -36,5 +36,4 @@ use bevy::window::ExitCondition;\n use bevy::winit::WinitPlugin;\n use fabelgeist_gpu::globals::WgpuContext;\n-use fabelgeist_gpu::prelude::Buffer;\n use fabelgeist_hair::collider::Collider;\n use fabelgeist_hair::{MeshCollider, Preset};\n@@ -277,5 +276,5 @@ fn hair_renders() -> Result<()> {\n             continue;\n         };\n-        gpu.finish();\n+        pollster::block_on(gpu.finish())?;\n         let built = started.elapsed();\n         let buried = buried_share(&geometry.read(&gpu)?, &skin);\n@@ -286,6 +285,6 @@ fn hair_renders() -> Result<()> {\n         );\n         let form_name = match form {\n-            Form::Strands { level, .. } => format!(\"strands{level}\"),\n-            Form::Cards { level } => format!(\"cards{level}\"),\n+            Form::Strands { level, .. } => format!(\"strands{}\", level.index()),\n+            Form::Cards { level } => format!(\"cards{}\", level.index()),\n         };\n         // Drawn in the bind pose, skinned as the studio skins it but to one\n@@ -325,5 +324,5 @@ fn hair_renders() -> Result<()> {\n         .add_systems(Update, capture);\n     app.run();\n-    gpu.finish();\n+    pollster::block_on(gpu.finish())?;\n     println!(\"wrote {}\", out.display());\n     Ok(())\n@@ -365,5 +364,5 @@ struct Stage {\n     atlas: Option<Image>,\n     /// The scalp's baked shade and strands chains.\n-    scalp: Option<[Buffer; 2]>,\n+    scalp: Option<[ScalpTextureChain; 2]>,\n     hairs: Vec<(Form, Mesh, GpuGeometry, Vec<PathBuf>)>,\n     design: HairDesign,\n",
+    "fixture_parent_diff": "diff --git a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\nindex 96e00c526..a8f5fd54e 100644\n--- a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\n+++ b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs\n@@ -24,5 +24,5 @@\n use super::*;\n use adventuresim_character_creator::hair::{\n-    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair,\n+    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair, ScalpTextureChain,\n };\n use adventuresim_character_creator::studio_environment;\n@@ -36,5 +36,4 @@ use bevy::window::ExitCondition;\n use bevy::winit::WinitPlugin;\n use fabelgeist_gpu::globals::WgpuContext;\n-use fabelgeist_gpu::prelude::Buffer;\n use fabelgeist_hair::collider::Collider;\n use fabelgeist_hair::{MeshCollider, Preset};\n@@ -365,5 +364,5 @@ struct Stage {\n     atlas: Option<Image>,\n     /// The scalp's baked shade and strands chains.\n-    scalp: Option<[Buffer; 2]>,\n+    scalp: Option<[ScalpTextureChain; 2]>,\n     hairs: Vec<(Form, Mesh, GpuGeometry, Vec<PathBuf>)>,\n     design: HairDesign,\n",
+    "wgsl_exact": true,
+    "scalp_images_body_exact": true
+  },
+  "correctness": "No additional bounded implementation Rule finding; inherited SCALP-C1 remains actionable. Exact candidate not yet received.",
+  "completeness": "Complete per-lens discovery for nine-source scalp tranche and explicitly covered actual recipients; global native/physical/generated/caller/lock integration incomplete.",
+  "required_dependencies": [
+    "Receive exact canonical BufferElementCount/Stride, InvocationCount/Grid, native GpuGroom/StrandLayout, KernelBatch fallible submission and all producer/caller/export composition; nine files alone are not self-contained.",
+    "Preserve Root native Buffer prefix/read/mapping/poll_complete/context observer/submission/completion bodies and docs; unlisted peer helper copies do not convey authority.",
+    "Canonical generated/physical geometry, bake/Grid, all caller/lock relationships, final baseline export, full global all13 and final three independent reviews plus required hosted gates remain required."
+  ],
+  "limits": [
+    "No source edits, new fixtures/cases/helpers/assertions/doctests.",
+    "No local project check/build/lint/test/scanner/generator/runtime/push/CI.",
+    "Raw source/hash/manifest/fixed authored address bookkeeping only.",
+    "Not compile, native/browser runtime, calibrated art/performance, wholegraph/global/finalPR clearance."
+  ]
+}

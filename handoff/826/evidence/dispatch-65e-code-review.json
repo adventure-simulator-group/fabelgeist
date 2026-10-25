@@ -1,0 +1,171 @@
+{
+  "kind": "independent bounded checkpoint Code Review",
+  "revision": "65e8aebedb6490bc2945eac6d48479ea6a2cd10a",
+  "tree": "24cf778b808d5be97c829afcc4c6bebbdbcfa64a",
+  "parent": "b874e611826c27085da897903cacfc31998d0210",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "canonical_fixture_revision": "95f9d31b7d9fbb56aa8330c72fffb46fb8e0c0be",
+  "changed_paths": [
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs"
+  ],
+  "coverage": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "e24033e11fd0b6b2406e21ceb0e97ab5570fe29cdb747b4294b73b24afe92c32",
+      "git_blob": "2a2385a30e8ad54748efc9aa24a6914c9730cc96",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "git_blob": "fdbd128d447ef7c6f7930866a398b4f645c72458",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "a1dacd4308f0c64a86d6c03201c8e49bc4d1988b988c94ca9572bd3d315b86cd",
+      "git_blob": "066e4bf6579c0062f7287805fdb108b642184fcb",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "git_blob": "1d21edb91f8459a0298cd58801875f44e731e069",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "git_blob": "98d8ae5e6b39fd936d4c185874dee12739f62962",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "git_blob": "fad9e5b6efd305aaa9a781f2156f58ea134dbf7c",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "git_blob": "ff679ab14a5f2826ae5b1214865dd250e6800035",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "git_blob": "c0a37d1c1a1207327bc7855650bcf71193dc84ca",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "1d6d8fdb930ec1e7cef5c99cd16aac39ae33e5868c1d219860c043de70f3c2c6",
+      "git_blob": "dc498c7b66b048b593fcdf5b98c4c89b75f5ac63",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "git_blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/batch_error.rs",
+      "sha256": "17d100ac7cc26a65191ed6c6fb7aaa7756f48cda00d2fc59cff3d831089bc6d9",
+      "git_blob": "75a702a9a12a68dc89b4a0d4bcba1f6bb473a5cd",
+      "coverage": "full file"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "git_blob": "081f961b1dce8faed1f81e4f619d3b6d51714a34",
+      "coverage": "Complete affected production functions: construction, groups_for/groups_folded, run, KernelBatch dispatch/dispatch_folded/dispatch_items, submit; fixture source not fully reread."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+      "git_blob": "b3d717a3915eb76df19a589887de79d689dfb74e",
+      "coverage": "Complete production source through line317; fixture remainder excluded from fresh full-file claim."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "git_blob": "bd469197cddcb269b54c6160fe677601999b7a98",
+      "coverage": "Actual-device ensure_device and compiled/cache body excerpts; no fresh complete-file claim."
+    }
+  ],
+  "immutable_peer_evidence": [
+    {
+      "revision": "95f9d31b7d9fbb56aa8330c72fffb46fb8e0c0be",
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "f606388457ecab58ccb272496b1a5ac8361d592446d745b967923d9edd513d02",
+      "coverage": "Selected complete groups_for/groups_folded and KernelBatch dispatch_folded bodies"
+    },
+    {
+      "revision": "95f9d31b7d9fbb56aa8330c72fffb46fb8e0c0be",
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "b3fbf299680973c7e45a579f9658891f7d3b09c0fd27abbcd2b52ee14ceea608",
+      "coverage": "Selected ScanBlockCount workgroups producer and dispatch references; not whole-file clearance"
+    }
+  ],
+  "fixture_provenance": {
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json": {
+      "same_as_canonical95": true,
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3"
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs": {
+      "same_as_canonical95": true,
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5"
+    },
+    "existing_compile_fail_doc": {
+      "same_as_canonical95": true,
+      "sha256": "4606bb287c8b22bccb26d3112516444c42a75cf344c280c34c00beb6c724e8d1"
+    }
+  },
+  "sdk_evidence": {
+    "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/command/compute.rs",
+    "sha256": "9dad1d7ebbc9def0cd07b55f5ccd96f3eb764966fca57853ebd0dbab35dfb923",
+    "coverage": "Dispatch835-861 and command-recording1185-1198 excerpts read directly from SDK29.0.4"
+  },
+  "findings": [
+    {
+      "id": "DG65-C1",
+      "priority": "P2",
+      "status": "known_owned_gap_requires_successor",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "lines": [
+        85,
+        86
+      ],
+      "title": "Return an empty folded grid before enforcing a nonempty linear-shape contract",
+      "scenario": "An admitted [64,2,1] shape rejects InvocationCount0 with NonLinearShape before empty [1,0,1] geometry. No launched lane requires a folded index.",
+      "source_proof": "Root KernelBatch::dispatch_folded returns Ok for items0 before shape/resource work. Immutable canonical95 evaluates kernel.groups_folded(items) before dispatch sees occupancy; migration to a fallible projection would reject before that empty guard.",
+      "minimum_connected_repair": "Canonical WorkgroupCount-based folded_workgroups_x returns empty geometry before nonlinear/padded-address checks; covering_folded_x derives count and delegates. Preserve nonempty checks, [1,0,1] geometry, and migrate peer fallible producers.",
+      "acceptance": "Zero work retains no-op admission for every admitted nonzero declaration; nonempty folded launches retain y/z1, padded u32 lane bounds and actual-device admission."
+    }
+  ],
+  "source_conclusions": [
+    "Full padded x*y*width is checked with checked u64 products and at most 2^32 lanes: maximum launched lane index fits u32, including padding.",
+    "Ordinary covering/covering_x retain ceiling division and prior y/z policy. Nonzero declaration admission retains original axes on error.",
+    "Grid device admission checks every actual receiving-device axis including empty launches with another excessive axis. SDK dispatch has the same all-axis check.",
+    "GridError/FoldedDispatchError are pure host admission leaves. Direct anyhow propagation preserves concrete error; actual native recording/submission still retains wgpu::Error.",
+    "Both existing fixture files and compile_fail block are byte-identical to canonical95; no authored tests/cases/helpers/assertions/doctests."
+  ],
+  "required_dependencies": [
+    "Owned empty-first projection and canonical WorkgroupCount-based folded_workgroups_x remain required.",
+    "#780 Kernel/callers must consume fallible canonical projection; current root old raw APIs and peer95 infallible APIs remain intentionally unintegrated.",
+    "#780 cached KernelBatch dispatch requires actual receiving-device grid admission after its empty guard before FastPath preparation; bare Prepared::record cannot supply device provenance.",
+    "#780 PrefixSum actual block-stride/padded-address producer must consume canonical shape projection or explicitly prove its custom stride/overflow contract. Bare folded_x provides geometry only.",
+    "Native strand/card/simulation/head/source, producer/creator, manifest-lock and other connected families remain required. Final independent reviews and hosted gates must pass on one final pushed SHA."
+  ],
+  "limits": [
+    "Source/Git/provenance only; no project checks/build/tests/scanner/generator/runtime, push or CI; no source edits.",
+    "Five changed files and listed full files freshly read; partial coverage expressly identified.",
+    "Other lower-dispatch algorithm callers inventoried by source references to common receiver; no fresh whole-file claim.",
+    "No whole-PR, all13, compilation, whole producer-family or final clearance."
+  ]
+}

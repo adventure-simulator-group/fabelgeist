@@ -1,0 +1,478 @@
+{
+  "status": "bounded PRE-INTEGRATION independentRule/source discovery; both targetbodiesfullread; no implementation/CI/finalclearance",
+  "root": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "candidate": "6f6d77878daad401abe414da83e17c71d4ad8091",
+  "full_source_coverage": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "candidate_sha256": "c01bb52676fb770b06b05d089b1c02e1aa734b6167d1a0494298667b8c6559e0",
+      "root_sha256": "25b0b9a2168d3aafa49b08f1ed5b6b3438a9e2e6b3925df6c47aa09a47d05017",
+      "candidate_lines": 2348,
+      "root_lines": 2342,
+      "coverage": "every candidate source line read, plus complete exact diff; hashes are identity only",
+      "regions": [
+        {
+          "start": 1,
+          "end": 46,
+          "role": "module docs/imports",
+          "read": "full"
+        },
+        {
+          "start": 47,
+          "end": 135,
+          "role": "public camera/light/frame values",
+          "read": "full"
+        },
+        {
+          "start": 136,
+          "end": 238,
+          "role": "native POD and dynamics records",
+          "read": "full"
+        },
+        {
+          "start": 239,
+          "end": 352,
+          "role": "resource/state aggregates",
+          "read": "full"
+        },
+        {
+          "start": 353,
+          "end": 406,
+          "role": "native binding helpers/static shader sources",
+          "read": "full"
+        },
+        {
+          "start": 407,
+          "end": 415,
+          "role": "deform native source assembly",
+          "read": "full"
+        },
+        {
+          "start": 416,
+          "end": 920,
+          "role": "complete constructor/native pipelines/uniforms/default state",
+          "read": "full"
+        },
+        {
+          "start": 921,
+          "end": 967,
+          "role": "atlas texture and mips",
+          "read": "full"
+        },
+        {
+          "start": 968,
+          "end": 1057,
+          "role": "shadow maps/lighting group assembly and replacement",
+          "read": "full"
+        },
+        {
+          "start": 1058,
+          "end": 1145,
+          "role": "CPU/GPU groom replacement",
+          "read": "full"
+        },
+        {
+          "start": 1146,
+          "end": 1244,
+          "role": "level group/CPU strand/card upload",
+          "read": "full"
+        },
+        {
+          "start": 1245,
+          "end": 1305,
+          "role": "host/GPU simulation admission",
+          "read": "full"
+        },
+        {
+          "start": 1306,
+          "end": 1409,
+          "role": "dynamics binding/rest publication",
+          "read": "full"
+        },
+        {
+          "start": 1410,
+          "end": 1456,
+          "role": "simulation movement/clear",
+          "read": "full"
+        },
+        {
+          "start": 1457,
+          "end": 1485,
+          "role": "deform native dispatch",
+          "read": "full"
+        },
+        {
+          "start": 1486,
+          "end": 1576,
+          "role": "head upload/cover smoothing",
+          "read": "full"
+        },
+        {
+          "start": 1577,
+          "end": 1682,
+          "role": "complete target resize/publication",
+          "read": "full"
+        },
+        {
+          "start": 1683,
+          "end": 1825,
+          "role": "convergence/render inputs/native uniform projection",
+          "read": "full"
+        },
+        {
+          "start": 1826,
+          "end": 1963,
+          "role": "accumulation/draw/deformation preparation",
+          "read": "full"
+        },
+        {
+          "start": 1964,
+          "end": 2105,
+          "role": "head/shadow/view native rendering",
+          "read": "full"
+        },
+        {
+          "start": 2106,
+          "end": 2197,
+          "role": "post passes/submission/frame publication",
+          "read": "full"
+        },
+        {
+          "start": 2198,
+          "end": 2221,
+          "role": "primitive reporting/render-converged",
+          "read": "full"
+        },
+        {
+          "start": 2222,
+          "end": 2277,
+          "role": "complete readback",
+          "read": "full"
+        },
+        {
+          "start": 2278,
+          "end": 2316,
+          "role": "headless device acquisition",
+          "read": "full"
+        },
+        {
+          "start": 2317,
+          "end": 2348,
+          "role": "existing shader/ABI tests",
+          "read": "full"
+        }
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "candidate_sha256": "3b0756f8287d6c95da9e9ab146be7ab5792c584fa232481cde0b6470d549320d",
+      "root_sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63",
+      "candidate_lines": 153,
+      "root_lines": 150,
+      "coverage": "every candidate source line read, plus complete exact diff; hashes are identity only",
+      "regions": [
+        {
+          "start": 1,
+          "end": 40,
+          "role": "module docs/native imports/constants/pending record",
+          "read": "full"
+        },
+        {
+          "start": 41,
+          "end": 57,
+          "role": "image/pending publication",
+          "read": "full"
+        },
+        {
+          "start": 58,
+          "end": 84,
+          "role": "uninitialized image descriptor",
+          "read": "full"
+        },
+        {
+          "start": 85,
+          "end": 135,
+          "role": "complete deferred native upload",
+          "read": "full"
+        },
+        {
+          "start": 136,
+          "end": 153,
+          "role": "plugin/scheduling",
+          "read": "full"
+        }
+      ]
+    }
+  ],
+  "additional_source_slices": [
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "candidate_sha256": "858dfb6b573d078ef1ecec3d6a2d8a0f16e80b1780e213259d8fe27946a6acc6",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/sim.rs",
+      "candidate_sha256": "fb1ff8533a78fe122a0d19f28b64f6f757b55898aded84056dbe0fef816e6079",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "candidate_sha256": "94362357c99bfe3788518e391eeb66986b7ab8f5bf85608c6e2ffb09b916c2a0",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "candidate_sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "candidate_sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "candidate_sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "candidate_sha256": "08522824f8f98db561828fecc2ccb68f1c7c3e8bfae6180de1548ce2edb62139",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "candidate_sha256": "a6542bfcec7f20fe9309f69a062f57c1cd9fb609d781d41bee1dc5dbf1af39dd",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "candidate_sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "candidate_sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "candidate_sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "candidate_sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "candidate_sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "candidate_sha256": "1945aa84edf49348310989955b6f814cc19ae8cceaf87d85400f4bce8cf9a296",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "candidate_sha256": "68d980d533f30f094dc511d8e0eef78f92090b3d51d9754c28e57f190b80c864",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "candidate_sha256": "bb3a64ed8ec80028324e18ea6eecac8a3a68609eff696b9cf6c58bd556d6fa38",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/AGENTS.md",
+      "candidate_sha256": "b222ba01455443717c807738e311b12d8ded9a33cd95084b35870943357898a7",
+      "coverage": "cited definitions/producers/receivers/native grammar slices only; not full file except short governing guide"
+    }
+  ],
+  "exact_diff": "incoming-6f-render-exact.diff",
+  "native_format_source": {
+    "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/texture/format.rs",
+    "sha256": "0a8f0cf2506ae25d2e185e9dbc22edfe292ef82ad392f58b99a7e82ede45e5da",
+    "proof": "format1241 Rgba16Float blockcopy8; native capabilityformat987 supportsrendercolor on ordinaryprovider"
+  },
+  "semantic_lens_evidence": [
+    {
+      "lens": "existing-type-owners",
+      "disposition": "Reuse PointsPerStrand/StrandCount wheremeaningfits, canonicalGPUbyte/grid owners atnativeports; lowercache/state isnot certifiable bywrappingrawvalues."
+    },
+    {
+      "lens": "type-ownership",
+      "disposition": "Raw publicLOD/sim/card producers belong780; renderer-specific outputformat/cover/convergence exactsplit coordinatorpending; providerSDKstaysauthoritative."
+    },
+    {
+      "lens": "type-granularity",
+      "disposition": "Do notmerge GPUstoragecount, hostusizecollections, atlasvariants, framecount, shadervertexindex, historyindex or covermembership bysameunderlyinginteger."
+    },
+    {
+      "lens": "magic-numbers",
+      "disposition": "Descriptorbindingordinals/samples/PODsize/triangle4byteunits intrinsicnativeports; counts/products/readbackextents areknownmigration; camera/light/taper/shadowtuning retainedunrelatednumericalpolicies no invented bounds."
+    },
+    {
+      "lens": "magic-strings",
+      "disposition": "All labels,shaderentrynames/include/sourcecomposition areactualSDKWGSLprotocol; no semanticbranchonmutableprose found."
+    },
+    {
+      "lens": "admission-contracts",
+      "disposition": "PublicLODmetadata/empty/matchingbuffers/formatreadback counterexamples above; renderingnewreturnsOk doesnotcertifydevicevalidation byagreedpolicy."
+    },
+    {
+      "lens": "producer-propagation",
+      "disposition": "Fullrendererrecords/nativePODboundary andfixedscalpmipproducer traced; rawcountcarrier family remains780dependency, no receiver-onlycastfix."
+    },
+    {
+      "lens": "aggregate-states",
+      "disposition": "Staleheadcover andconvergence defects; targetsSome onlymeansallocated. Privatehistory0/1 andcarddrawmax2 indices haveconstruction/controlflowproof."
+    },
+    {
+      "lens": "enum-shapes",
+      "disposition": "Representation alreadyownsstrand/cardpayload; GPUbodyflagprojectsOption atrealABI. dirty/moving ordinarypredicates; drawslot/last-viewtupleareexistingrenderroles, notnewcompatibility vocabulary."
+    },
+    {
+      "lens": "invariant-operations",
+      "disposition": "Checkedcount/nativewidth/byte arithmetic requiredknownfamily. Fixed2048scalp chain safe:12mips,5595072words,22380288bytes; no overflowclaimforreachablefixedproducer."
+    },
+    {
+      "lens": "redundant-authority",
+      "disposition": "Shader/nativeformatconstants areconsistentlyreused exceptreadRGBAassumption; sourceLODcounts vsuploadedprefix intentionallydistinct butconsumersclamp. cover/framecache relationships incomplete."
+    },
+    {
+      "lens": "behavior-preservation",
+      "disposition": "Diffdocs only; keepdevicehandledrender/Bevy, exactFP/tuning/LODprefix/blend/accumulation/rowpadding behavior; newnativeformaterror/dispositions ownercoordinated."
+    },
+    {
+      "lens": "derivability",
+      "disposition": "NativePODderive appropriate; FrameInfo/simpletypesderive; resourcegraphsnotserializable/scalaruncheckeddeserialization concerns absent targetfiles. No new boilerplate/test derivedbyreviewer."
+    }
+  ],
+  "findings": [
+    {
+      "id": "RENDER-FORMAT-01",
+      "severity": "P2",
+      "classification": "new discovery of retained advertised-format/readback defect; no candidate production regression",
+      "locations": [
+        "render/mod.rs:423-427",
+        "render/mod.rs:1630-1635",
+        "render/mod.rs:2223-2276"
+      ],
+      "trace": "Native output format is arbitrary suppliedTextureFormat; read_rgba fixes row width*4 and only BGRA swaps. Rgba16Float valid8byte texels copied into256padded row then first4bytes returned asRGBA8. Provider validation does not reject this data interpretation.",
+      "owner": "coordinator must assign exact renderer format/readback wholefunction split with780; no independent repair",
+      "acceptance": "Admit supportedRGBA8/BGRA8 readback formats or own actual conversion; typedunsupportedformat retains actualSDKformat; preserve otherwisevalidrenderoutputusage"
+    },
+    {
+      "id": "RENDER-COUNT-02",
+      "severity": "P2",
+      "classification": "retained constructor/count family; dedupe780",
+      "locations": [
+        "render/mod.rs:1188-1212"
+      ],
+      "trace": "Public emptyStrandLevel(points2,positions[],strands[]) => count0 then strands[..1] panic at1208. CPU HairLods::build on zero strands also produces empty level. Forcedcount1 may also exceed nativebindinglimit whenonewhole strandcannotfit.",
+      "acceptance": "Explicit empty/domain/extent and nativewidth admission with fullproducerpropagation; preserve drawzero and successfulprefixselection"
+    },
+    {
+      "id": "RENDER-COVER-03",
+      "severity": "P2",
+      "classification": "retained aggregate replacement dependency",
+      "locations": [
+        "render/mod.rs:1099-1145",
+        "render/mod.rs:2075-2080"
+      ],
+      "trace": "set_gpu_groom only updates head_cover for Some; replacing oldgroomcoverSome withnewcoverNone retains oldgroomcover, thenhead draws oldbuffer. Newgroomlevel/card/count/atlas state alreadyreplaced.",
+      "acceptance": "Define absence and reset/replace headcover consistently with current head/groom, with owner-agreed fallback/identitypreconditions; do not silentlyretain oldgroomdata"
+    },
+    {
+      "id": "RENDER-STATE-04",
+      "severity": "P2",
+      "classification": "retained M1/convergence aggregate gap",
+      "locations": [
+        "render/mod.rs:1580-1688",
+        "render/mod.rs:1424-1430",
+        "render/mod.rs:1827-1844"
+      ],
+      "trace": "Afterconvergedrender, resize(newdimensions) sets lastNone but keepsframes/generation so converged returnstrue fornewunrenderedtarget. set_moved sets dirty/moving withoutgenerationchange andalso may leaveconvergedtrue.",
+      "acceptance": "Convergence must reflect newtargets andpendingmovement whilepreserving intendedtemporalmeancontinuity; allocatedvsrenderedreadbackpolicy explicit"
+    },
+    {
+      "id": "RENDER-PRODUCERS-05",
+      "severity": null,
+      "classification": "known incomplete780count/byte/constructor family, not separately proven production regression",
+      "locations": [
+        "render/mod.rs:936-956",
+        "render/mod.rs:1176-1189",
+        "render/mod.rs:1242-1315",
+        "render/mod.rs:1475-1484",
+        "render/mod.rs:1525",
+        "render/mod.rs:1872-1912",
+        "render/mod.rs:2013,2040,2092",
+        "render/mod.rs:2229-2265"
+      ],
+      "trace": "usizeas_u32 before checkednativewidth, points*count u32, points*2, readback row/padded*height beforeu64 conversion andsemanticretainedcounts; sourcepublicmetadata lacksnativeextentproof. ExistingPointsPerStrand/StrandCount allowzero/allusize and are not validation alone.",
+      "acceptance": "Canonical owners through internalstate/operations with checkedactualnativegrid/byteports; no ownerduplicates or min/clamp/rounding changes"
+    },
+    {
+      "id": "RENDER-RULE-06",
+      "severity": "P3",
+      "classification": "existing affected rule obligation, no new candidate code regression",
+      "locations": [
+        "render/mod.rs:31-46",
+        "render/mod.rs:59-135",
+        "render/mod.rs:1964"
+      ],
+      "trace": "Module/itemorder violates crates90-94; production expect at1964 violates123-127 eventhoughtargetpresence proved. Existingbaselines grandfatherfile/functionsize, docs-onlydelta doesnot materiallyexpandproduction.",
+      "acceptance": "Within ownedrepairfunctions preserveproof via direct pattern/borrow; no widened suppressions/raisedceilings or gratuitouswholefilerestructuring"
+    }
+  ],
+  "scalp_fixed_producer": {
+    "side": 2048,
+    "mips": 12,
+    "words_in_allocation": 5595072,
+    "allocation_bytes": 22380288,
+    "minimum_row_bytes": 256,
+    "actualcaller": "assets::scalp_images takes GpuScalpTexture shade/strands; existing render_test does same",
+    "provider_policy": "Bevydevicehandled; pendingremovedafterrecordingsubmissionattempt, notGPUcompletionreceipt; no synchronousvalidation mandate",
+    "dependency": "canonicalunit/countandupstreamsuccessfulbakepublication owned780; privateBufferinputnotvalidatedlayoutindependently"
+  },
+  "test_population": "Candidate targetdiff changes docs only; render existing2testfunctions andvalidatehelper unchanged; scalp has no testmodule; no reviewer additions",
+  "baseline": "Existing render ceilingsfile2103/new492/render478/resize103unchanged in candidate; no scanner run, no gatepass claim",
+  "working_tree_note": {
+    "head": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+    "current_status": [
+      " M crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "?? crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "?? crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs"
+    ],
+    "interpretation": "Rootlowerworkinprogressoutsideimmutabletargets; not reviewer edits; no currentwholeworktreecleanclaim",
+    "target_working_bytes_match_root": {
+      "crates/fabelgeist-hair/src/render/mod.rs": true,
+      "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs": true
+    }
+  },
+  "limits": [
+    "Full2targetfiles plusexactdiff only; helper/producerfilesslicesnotwholeallhairreview",
+    "All13lensevidenceforboundedtargetsdoesnotreplace rootfullincominginventory",
+    "Publicsourcecounterexamples notexecuted; noactualexternalHairRendererconsumerfoundbyreposourcequery",
+    "No projectchecks/scanners/build/tests/runtime/generators/pushCI/newtests/helpers/assertions/sourceedits",
+    "Readbackallocatedvsrendered andbrowserblockingpolicy remain explicitlimits; do not claimuninitializedmemory or requirefakecontextnativevalidationhelper"
+  ],
+  "bevy_device_provenance": {
+    "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_render-0.19.1/src/settings.rs",
+    "sha256": "43f11fef2be79d7f34043849db8ef49c460da0534b96baa2abc8b816e68525cf",
+    "range": [
+      184,
+      218
+    ],
+    "proof": "One RenderResources device/queue cloned into mainworld and samepair movedinto renderworld; render_context clonesactualnative resources andscalp_uploadusesprovider resources"
+  },
+  "private_index_proofs": [
+    "Bothgroomsettersresetdynamics beforelevelsreplacement; bind_dynamics buildsonelevelpereachprivatelevel. Thisprovesdeform dynamics.levels[level] afterlevelget andretained rest-by-level association",
+    "history initialized0 andonlywritten1-history =>0/1",
+    "card_draws oneprimary+atmostoneblend =>i<2",
+    "shadow_gpu drawuseslevels.get(level), nolevelreplacement beforedirectshadowindex"
+  ]
+}

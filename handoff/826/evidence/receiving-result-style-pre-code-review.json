@@ -1,0 +1,188 @@
+{
+  "review": "Independent pre-edit receiving Result style Code review",
+  "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "tree": "4cc54cebccefd4eb249900fb22d160cdaba53485",
+  "verdict": "Two bounded repository style findings confirmed. Neither is an independent runtime type/correctness failure; signature-only connected repair can preserve exact behavior. No global or compilation clearance.",
+  "findings": [
+    {
+      "id": "RRS-1",
+      "priority": "P3",
+      "classification": "Repository contract/style; no independent runtime correctness defect",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "line": 32,
+      "title": "Keep the trait result error parameter explicit",
+      "source": "TryFrom declares type Error = TextureValueError, but its method spells TextureValueResult<Self>. The alias expands to std Result<Self,TextureValueError>, so it is semantically the same Rust error type; this review does not call it an ill-typed implementation.",
+      "governing_rule": "crates/AGENTS.md:118-122: cohesive operations use owning aliases, but \"Framework and trait error parameters remain explicit.\"",
+      "minimum_repair": "Spell the trait method result Result<Self, Self::Error> (or std::result::Result<Self, Self::Error> if qualification is useful). Retain TextureValueResult for inherent/local owning operations and existing public export. No forwarding API or type duplication.",
+      "acceptance": [
+        "Trait associated Error remains TextureValueError and every match arm/constructor/error payload, borrow lifetime and return value body stays byte-exact.",
+        "TextureValueResult remains the one owning alias used by ResourceDescriptor and generated texture fetch/store helpers; do not replace those with broad anyhow or duplicate errors.",
+        "load_suffix and store_expression retain exact numerical WGSL tokens and rejection behavior."
+      ]
+    },
+    {
+      "id": "RRS-2",
+      "priority": "P3",
+      "classification": "Repository contract/style; no independent runtime correctness defect",
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "lines": [
+        71,
+        75,
+        110
+      ],
+      "title": "Name the cohesive staged decode result without changing facade errors",
+      "source": "StagedResults::prefix and status both repeat Result<...,StagingError>. This module also houses ArmorGpu::read_staged/read_staged_async with the intentionally different GenerateError carrier.",
+      "governing_rule": "crates/AGENTS.md:118-122 requires an owning Result alias for a cohesive family, and descriptive aliases or explicit standard results when error types differ; it forbids widening solely to shorten signatures.",
+      "minimum_repair": "Define the single owning StagingResult<T> alias for std::result::Result<T,StagingError> in gpu/staging.rs and use it for prefix/status. Keep the ArmorGpu grouped read signatures explicitly Result<StagedResults,GenerateError>; do not shadow them with a StagingError-only generic Result name. The existing public staging module can own the alias without a duplicate facade alias.",
+      "acceptance": [
+        "All prefix/status operation bodies remain byte-exact: session Arc identity then index lookup, ZST check, checked element byte product, actual short-prefix error, fallible reserve and exact native byte copy. Zero-count success and fixed one-word status behavior remain unchanged.",
+        "StagingError remains the same three-case enum; Decode continues to own actual BufferReadError. GenerateError::Staging and GenerateError::Readback retain their actual source conversions; no display-text classifier or native-cause flattening introduced.",
+        "ArmorGpu grouped read context/batch/submit/read/publish order and GenerateError public return family remain unchanged. No validator, device provenance query, alias ownership guarantee or peer caller repair added."
+      ]
+    }
+  ],
+  "source_accounts": [
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "coverage": "Fresh complete source read, including all function/error bodies."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "coverage": "Fresh complete source read, including all function/error bodies."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "coverage": "Fresh complete source read, including all function/error bodies."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "coverage": "Fresh complete source read, including all function/error bodies."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "coverage": "Fresh complete source read, including all function/error bodies."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "coverage": "Fresh complete source read, including all function/error bodies."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "coverage": "Fresh complete source read, including all function/error bodies."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "coverage": "Fresh actual ResourceBaseType/ShaderParameter and TextureValue public re-export body1-145. Remaining parser body is carried from exact generated successor source review below."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "coverage": "Fresh complete direct read/stage/finish consumer methods at155-195 and adjacent kernel source to245, not whole body."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "coverage": "Fresh complete direct stage/finish methods and ticket records235-335, not whole file."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "coverage": "Fresh complete production record/read/error/progress methods1-225; existing cfg(test) bodies not reread here."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "coverage": "Governing Result alias/trait rule118-122 freshly read; full repository guide previously read. No new source rule inferred."
+    }
+  ],
+  "carried_consumer_accounts": [
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "previous_complete_body_exact": true,
+      "coverage": "Whole-body Code coverage carried from immediately preceding fifty-one-source successor review after independent source identity proof; all TextureValue/TextureValueResult call and error routes searched at current pin. No fresh whole-body reread claimed."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "previous_complete_body_exact": true,
+      "coverage": "Whole-body Code coverage carried from immediately preceding fifty-one-source successor review after independent source identity proof; all TextureValue/TextureValueResult call and error routes searched at current pin. No fresh whole-body reread claimed."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "previous_complete_body_exact": true,
+      "coverage": "Whole-body Code coverage carried from immediately preceding fifty-one-source successor review after independent source identity proof; all TextureValue/TextureValueResult call and error routes searched at current pin. No fresh whole-body reread claimed."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "previous_complete_body_exact": true,
+      "coverage": "Whole-body Code coverage carried from immediately preceding fifty-one-source successor review after independent source identity proof; all TextureValue/TextureValueResult call and error routes searched at current pin. No fresh whole-body reread claimed."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "previous_complete_body_exact": true,
+      "coverage": "Whole-body Code coverage carried from immediately preceding fifty-one-source successor review after independent source identity proof; all TextureValue/TextureValueResult call and error routes searched at current pin. No fresh whole-body reread claimed."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "previous_complete_body_exact": true,
+      "coverage": "Whole-body Code coverage carried from immediately preceding fifty-one-source successor review after independent source identity proof; all TextureValue/TextureValueResult call and error routes searched at current pin. No fresh whole-body reread claimed."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "previous_complete_body_exact": true,
+      "coverage": "Whole-body Code coverage carried from immediately preceding fifty-one-source successor review after independent source identity proof; all TextureValue/TextureValueResult call and error routes searched at current pin. No fresh whole-body reread claimed."
+    },
+    {
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "previous_complete_body_exact": true,
+      "coverage": "Whole-body Code coverage carried from immediately preceding fifty-one-source successor review after independent source identity proof; all TextureValue/TextureValueResult call and error routes searched at current pin. No fresh whole-body reread claimed."
+    }
+  ],
+  "contracts": [
+    "TextureValue holds a borrowed scalar ResourceBaseType and closed scalar/pair/triple/quad count. TryFrom accepts only numeric scalar/vector element forms and retains the original rejected element_type clone. Any alias spelling repair must retain exactly the same associated Error and match ordering.",
+    "Generated fetch/store consumers use ? or the existing TextureValueResult alias. Changing only the trait result spelling expands to the same Error type and preserves local TextureValueError identity/downcast path.",
+    "Staging tickets are session-associated Arc identities with immutable index. Returned byte records remain associated to their staging session. No style alias can weaken foreign-ticket/ZST/overflow/short-prefix/host allocation errors or alter zero logical extent handling.",
+    "BufferReadError::Error::source retains actual host integer/allocation, SDK/native mapping/poll/channel causes. StagingError::Decode#[from] and GenerateError::Staging#[from] retain that chain; grouped read errors remain GenerateError, not widened/reclassified by a style alias."
+  ],
+  "required_dependency_limits": [
+    "Root current direct Body/Part/Creator consumers still have the already-known old get/status ticket/result API forms and Readback record/read call signature differences. Their complete canonical #780 receiver/caller family remains required and unreceived; the style remedy neither fixes nor clears that integration. Do not duplicate those functions or add compatibility paths.",
+    "This is the pre-edit bounded result-style review. Complete focused thirteen-lens inventory before repair, then independent successor reviews and final same-pushed-revision source/CI gates remain required.",
+    "No project build/check/lint/test/scanner/generator/runtime/probe, new test/case/helper/assertion/doctest, production source edit/copy, push or CI request occurred."
+  ],
+  "governing_rule_exact_quote": "In a cohesive module whose fallible APIs share one error type, use or reuse an owning Result<T> alias. Where error types differ, preserve the distinctions with descriptive aliases or explicit standard results. Do not widen an error solely to shorten signatures. Framework and trait error parameters remain explicit."
+}

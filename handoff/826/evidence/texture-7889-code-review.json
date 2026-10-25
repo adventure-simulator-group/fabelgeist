@@ -1,0 +1,1104 @@
+{
+  "kind": "independent source-only checkpoint Code Review",
+  "revision": "7889102242f9ca698f4a01bb4607eb14ec72e2bb",
+  "tree": "75e332dc604d48f8fe1aa335f4150132da648068",
+  "comparison_base": "1b42bcfff0099a6066d67fc4859e535591b39789",
+  "pinned_main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "pre_repair_inventory": "target/pr826-audit/texture-readback-pre-repair-code.json",
+  "verdict": "No actionable owned correctness finding in the14-path texture transfer/readback receiving repair; TR1-TR5 addressed in source. Bounded checkpoint only, no compilation or whole-PR clearance.",
+  "changed_paths": [
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs",
+    "crates/fabelgeist-gpu/texture-views.md"
+  ],
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "blob": "56649c39848c395c0bfd83031c72514a5f72b2c5",
+      "sha256": "f9895d81a23576a862762eea888c9316facf2ff28bd005c114604a5d3c07d63a",
+      "lines": 530,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "All items: Default/equality; new/create; from_image/create_from_image; from_color/create_from_color; size/read/read_to_rgba8/to_image/write; to_view/as_view; add/add_raw/mix/mix_raw; blit/clear/clear_raw; existing round-trip fixture read only."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "blob": "103a3c85704e0dd3fc3157efe01f6cb9fb956226",
+      "sha256": "0ff0d8b9fd6f211ea8a6201e62fbf88efbbe2ca000c60c7f31a1a9b3d12c9f2b",
+      "lines": 161,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "All items: Default/equality; new/size/read/write."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "blob": "6331189bee8a9b095eb6c1bfeaf6b1c86b6511f5",
+      "sha256": "e1512db4360eeb726fefb21b212022961909efcc28950e0bd36cdc79e0ee4985",
+      "lines": 272,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "All items: Default/equality; all accessors/selected_view/ensure_device; clear/clear_raw/read/read_to_rgba8/to_image; both From<Texture2d> implementations."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "blob": "cd3888189b82bb45c5015b5b953d4c7fd4d008d1",
+      "sha256": "793f48f366253a17281a0ca0ff210b85a697e10429341ac8e634f33acd0d9e01",
+      "lines": 883,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "All items, read in separate complete 1-380/380-730/731-end chunks: Default/equality/new; create_from_images/from_textures; set_side/set_side_image/set_side_texture/blit_texture_to_face; render_face_shader/raw and render_shader/raw; embedded WGSL and native binding/submit bodies."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "blob": "cc33b13da290260740b8622fdd4362c5fd45e59e",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "lines": 112,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "All view constructors, selection and effective format, cached/native removal, device/extent/format/usage accessors; cube face/array context and layer admission."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "blob": "4c3dcbbfcc0600c16a801b2029e7348b518a8a43",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "lines": 112,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "All view constructors, selection and effective format, cached/native removal, device/extent/format/usage accessors; cube face/array context and layer admission."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "blob": "7cc31a110891b2f9e86b257cb8fcb8e642f3feed",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "lines": 202,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "All view constructors, selection and effective format, cached/native removal, device/extent/format/usage accessors; cube face/array context and layer admission."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "blob": "44dc6b667f827523fc706caad40995f27e9a392c",
+      "sha256": "a67548746be5f5abcd6d774695abff5b2b8bd8fb0ecab8628080f4a60aebf8e8",
+      "lines": 255,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "All Image constructors/packed_for, Texture2d::read_image, and all existing fixture/helper/assertion bytes read only."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs",
+      "blob": "02bc2c757fcc1145a88b215337998adab90ceea9",
+      "sha256": "d03d1c6cb9ab00b4aae865671847228dc2a59bd637c635a5f2b3538d7423dfd5",
+      "lines": 74,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete convert_face_pixels, including every format/transfer branch."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "blob": "e843f894ffd9989bab40db5f82dd1b236a0e229b",
+      "sha256": "370add54d9307c5cbd778de771a6e2d98d0b0dbdb7b4e4b02d1245315458b11d",
+      "lines": 450,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete enum, conversions, native/Naga/storage tokens, all format role/capability predicates, pixel_size/components/counterparts."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "blob": "fa1918181857ed22a3276fa8c3fb922bfeeae21c",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "lines": 70,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete closed face roles, ALL/index/from_index/label and derives."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "blob": "404a765e9377d7b74ca267ae1be9c3ce03b17190",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "lines": 93,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete SelectedTextureView facts/new/validate and PassParameter::texture_binding dispatch."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "blob": "607407e57148a21d145f00320434b4409707d1d6",
+      "sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "lines": 166,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete fixed shader, new, convert; device/missing checks, all native scopes, finish/queue and workgroup semantics."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "blob": "869996dde8ec479ce068ef764b95671d5a656a77",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "lines": 165,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete result/error/operation owners, concrete native/progress conversions, Display/source and existing compile_fail documentation."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "blob": "3c13cb2da4da7a40878ecb8baf048d910f68db82",
+      "sha256": "7fb81a38c012a749919c9addd0d99a42386e333e227042d87bd58c270dc5b9b7",
+      "lines": 26,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete module exports and default-edge owner."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "blob": "a2062c768f4aed9e06b6deae1ffd268056ca6bc1",
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "lines": 111,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete Buffer public carrier, new/from_upload/write/write_at, fields/unsafe SDK traits/equality and module visibility."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "changed_from_comparison_base": false,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete Buffer::read/readback_target: extent/typed-host admission, explicit native wait, private staging/copy/submit, mapped-view ordering."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "blob": "ea288ba56153fa4bb97fd996348980e46a685c70",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "lines": 101,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete canonical Readback<T>::new/copy_from, unsafe initialized aligned host copy; existing fixtures read only."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "lines": 153,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete MappingExtent::for_prefix/bytes and MappingRequest::request/mapped_range/complete/release/Drop."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "blob": "80be3838b6f0d44d83caba2b085f4ecb1dcfad21",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "lines": 101,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete BufferReadError variants, progress conversion, Display/source."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "blob": "c7ea9cdb3014f1fc5c29fcdad844115c9c2dfd2f",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete canonical BufferByteLength/Offset, checked_after and native boundary conversions."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "blob": "5529d7804de9cb3235d2fcdf1e82030922385127",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "lines": 140,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete BufferDefinition capability/label selection, allocate_native immediate observation."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "lines": 70,
+      "changed_from_comparison_base": false,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete actual CallbackProgressError, ready-first poll_callback and cfg browser event-loop await_browser_callback."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "blob": "24a5ea1e0349615d342a475a764347d7870162a6",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "lines": 113,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete native owned waiting scope, actual native/progress errors and direct Native into_anyhow identity."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "lines": 24,
+      "changed_from_comparison_base": false,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete immediate observe_validation; native policy/cfg and no-wait pop."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "lines": 43,
+      "changed_from_comparison_base": false,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete context submit; finish observation before queue observation, exact-device/queue preconditions."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "blob": "3e3f5421736c5c8604c994b4cd4342ee85e0bf6d",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "lines": 86,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete WorkCompletionError and submitted_work_done explicit completion policy and browser limits."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "blob": "178d76c5e0efcca7eee0cbbfbc32208a6d5830d8",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "lines": 187,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete context fields/from_parts/device_descriptor/required_limits/optional_features and retained fixtures."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+      "blob": "85eb2aaca81534376827e4208c2e8bf75d6a9e44",
+      "sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+      "lines": 320,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete raw native Blitter new/blit/blit_3d and shader/binding/SDK trait bodies; device-handled native API, not a texture map owner."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "blob": "b11e72e68a6fe575a93fdffec35fc52c690e348c",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "lines": 102,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete GpuResource enum/base/role/accessors/read/write forwarding and From implementations."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "blob": "38c52ef4b78ef2f1bc48830bdaa51c8d7c9efdf6",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "lines": 197,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete TextureBinaryOpDefinition cache/build/get and execute; shader text and native dispatch route. #780 ownership, no independent repair."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "blob": "ff679ab14a5f2826ae5b1214865dd250e6800035",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "lines": 5,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete canonical public reexports."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "blob": "58d988813cefd13442b07f2551b840f7d5cd6fa5",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete target dependency/features and std/non-atomic-Wasm provider boundary."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "blob": "9d9e09283739a0979907a26b2e9828ebeac91a09",
+      "sha256": "25af127253b18860f351048e1732765bdd5d487d5100e9e347fd3a8124b4b6c0",
+      "lines": 197,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete current file and full source/control flow review",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": false,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete current guide including resource state, format, validation, deferred submission and hosted validation limits."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "blob": "1c3d208bb839f18ce7a742861f365443e786f203",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "lines": 294,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete grouped StagedRange/Readback/PendingReadback/errors/state/poll/lock and retained fixtures. Independent peer-owned mapping family; discovery/ownership dependency only."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "blob": "60321f1c862a0b70c52a66d67cf487fdde61d22c",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "lines": 208,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete existing generic resource upload/read runner plus format/inflate/deflate helpers. Both texture kinds forwarded via GpuResource; no authored or executed fixture changes."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "blob": "638c3a33d54e33a74a6daae57b2159b334d68055",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "lines": 307,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh relevant complete functions; partial file",
+      "reviewed_responsibilities": "Complete two existing texture read/write fixture functions test_distance_field_2d/test_distance_field_3d (245-end); preceding execution tail215-244 read. Other producer bodies not freshly re-read."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "blob": "df15dec4645e666d9c6b1aa4cd2632de1d41cfaf",
+      "sha256": "ae37884158e7bdd3c45b6821ff2d127a5e3fdbd7e8be8b30c4d273480d5b6d71",
+      "lines": 1156,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh relevant complete functions; partial file",
+      "reviewed_responsibilities": "Complete test_2d_stencil_texture/test_resource_based_stencil and enclosing retained macro context1040-end. Non-texture Buffer fixture classified. Production producer implementation not freshly re-read."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+      "blob": "4011d1d4479f6f23c5d1554e6832c7125fdc3ec7",
+      "sha256": "d0d3dffc4a91c467d5fdab631a26961745163417f8b7818ae760a3702ea24d8f",
+      "lines": 164,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh relevant complete functions; partial file",
+      "reviewed_responsibilities": "Complete relevant generalized/min/max/custom-struct/min_texture2d functions1-149. min_texture2d uploads Texture2d then reads resulting Buffer. Later fixture cases not freshly re-read."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/min.rs",
+      "blob": "57012d0987814db1e0139c73ed8adad3615c4fb1",
+      "sha256": "091d1b1b38e44416d173a3f75e18ac32f93aadc3f5a75889ecad82902bace38a",
+      "lines": 68,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete execute/execute_to_number: input can be texture, returned read target is Buffer, no direct texture read. #780 producers/cache owned."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/max.rs",
+      "blob": "5d49f53e6169d495228f5b9247e702ab0a673316",
+      "sha256": "20d4849e3e5a1f7a9c067e9d92e8e0f79d09ec97ef5b9df490089d44f1f44e4b",
+      "lines": 68,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete execute/execute_to_number: input can be texture, returned read target is Buffer, no direct texture read. #780 producers/cache owned."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+      "blob": "737bfc9a54abaeab3b00d8317a4336d8167609ae",
+      "sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+      "lines": 584,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh field/type proof; partial file",
+      "reviewed_responsibilities": "Type/source proof1-210: Views and StereoDepth distance/filtered/history are Buffer, not texture read routes. Remaining function bodies not freshly read."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/tests.rs",
+      "blob": "63ca87b530cf977950663a7e19b2a5cb8606fef7",
+      "sha256": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+      "lines": 271,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh relevant complete function; partial file",
+      "reviewed_responsibilities": "Complete run helper36-96 and support words/mismatches context1-125: outputs is Buffer. Remaining fixtures not freshly read."
+    },
+    {
+      "path": "crates/adventuresim-terrain/src/builder.rs",
+      "blob": "ed1831cabff3dd0557829572522ff362eceaa08f",
+      "sha256": "39502f30860a433c74e3d1309365d46fda323b7406ee627123dfcd50630442a1",
+      "lines": 646,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh exclusion excerpts only",
+      "reviewed_responsibilities": "Explicit TIFF Decoder source proof30-70 and545-578: read_image is not GPU Image/readback. No whole-builder review claim."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "blob": "17955c221c7bbdb901dc53407059408119b08812",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "lines": 184,
+      "changed_from_comparison_base": false,
+      "coverage": "exact Git/SHA256 identity revalidated against pre-repair source account; prior recorded full/partial source proof carried, no fresh whole-body read",
+      "prior_revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+      "prior_identity_equal": true,
+      "prior_coverage": "fresh complete file",
+      "reviewed_responsibilities": "Complete private native output readback layout/errors/read_rgba/map_readback: direct Device/Queue packaged renderer, preserved device-handled policy, explicit native completion wait, canonical browser callback; no WgpuContext texture delegation."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs",
+      "blob": "7a17ea837eef3e59ad395f1cb2244014c52d5eed",
+      "sha256": "3aa3c6b11409ec3885e7a8d509d0a98f2b393066ed1ccd9ad21123e6eb694947",
+      "lines": 184,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete new file and every function",
+      "reviewed_responsibilities": "Complete TextureTransferLayout new/extent/bytes/write/volume; TextureStagingLayout new/bytes/buffer_layout/packed_storage/unpack; owning error variants/Display/source."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs",
+      "blob": "7e0ff2097bc925b6351138cac2a5c627667d40fd",
+      "sha256": "0e8f2228f77e50b2c97529d2c473639157d1c24b87f15c02feb8f24ed1f95500",
+      "lines": 107,
+      "changed_from_comparison_base": true,
+      "coverage": "fresh complete new file and every function",
+      "reviewed_responsibilities": "Complete TextureReadSource/read, TextureReadKind and stage/encoder labels; full native/browser paths, allocation/map/submit/packing/release/cancellation ownership."
+    }
+  ],
+  "sdk_accounts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "lines": 1121,
+      "read_ranges": [
+        [
+          300,
+          337
+        ],
+        [
+          535,
+          620
+        ],
+        [
+          705,
+          760
+        ],
+        [
+          837,
+          862
+        ]
+      ],
+      "proof": "slice nonzero bounds, map_context set before backend/callback, mapped views, reset-before-native unmap and concrete BufferAsyncError traits",
+      "coverage": "fresh listed key function excerpts plus exact SDK SHA256 identity and carried remaining explicit source proof",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory",
+      "fresh_read_ranges": [
+        [
+          300,
+          330
+        ],
+        [
+          560,
+          612
+        ],
+        [
+          839,
+          862
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "lines": 4014,
+      "read_ranges": [
+        [
+          1895,
+          1923
+        ],
+        [
+          2038,
+          2070
+        ],
+        [
+          2190,
+          2275
+        ],
+        [
+          2494,
+          2528
+        ],
+        [
+          2640,
+          2663
+        ]
+      ],
+      "proof": "actual native poll error, immediate queue write/map/unmap error sink, texture copy native boundary and deferred encoder finish",
+      "coverage": "fresh listed key function excerpts plus exact SDK SHA256 identity and carried remaining explicit source proof",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory",
+      "fresh_read_ranges": [
+        [
+          2210,
+          2274
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/resource.rs",
+      "sha256": "9e317487575483203979a334e29c73f6da5ceb2a7c2f51ba6bbcc69ee802bee1",
+      "lines": 2427,
+      "read_ranges": [
+        [
+          590,
+          712
+        ],
+        [
+          783,
+          930
+        ]
+      ],
+      "proof": "mapping state Waiting/Active/Idle; actual checks and callbacks, failed map returns Idle; unmap Waiting abort callback; Idle NotMapped",
+      "coverage": "exact SDK SHA256 identity plus carried explicit source proof; no fresh whole-file read",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/global.rs",
+      "sha256": "8d8554b2400b46b595af68b0d2fab472da06b8c11fa1823299728b5bc2cf2caa",
+      "lines": 2125,
+      "read_ranges": [
+        [
+          250,
+          285
+        ],
+        [
+          2066,
+          2128
+        ]
+      ],
+      "proof": "private native Buffer drop best-effort unmaps; failed map callback may execute synchronously before native error sink return",
+      "coverage": "exact SDK SHA256 identity plus carried explicit source proof; no fresh whole-file read",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/command/transfer.rs",
+      "sha256": "46659ab834a883c87450ec3d71accf1c8664a37abb332b251d421fae96f6c6e8",
+      "lines": 1536,
+      "read_ranges": [
+        [
+          297,
+          520
+        ],
+        [
+          1238,
+          1320
+        ]
+      ],
+      "proof": "wide texture buffer layout, required copy byte validation, 256-byte encoder row alignment, same-device/usage/format checks and validation-before-zero skip",
+      "coverage": "fresh listed key function excerpts plus exact SDK SHA256 identity and carried remaining explicit source proof",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory",
+      "fresh_read_ranges": [
+        [
+          297,
+          385
+        ],
+        [
+          1238,
+          1310
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/queue.rs",
+      "sha256": "b1a943fccedd5882a75252ff3e82a0d4ba8c7d46346041d2dd1bb66c5f5cba34",
+      "lines": 1878,
+      "read_ranges": [
+        [
+          736,
+          875
+        ],
+        [
+          1674,
+          1710
+        ]
+      ],
+      "proof": "queue upload observes exact device/usage/source bytes/ranges immediately; no 256-byte row requirement; native Depth32Float copy destination rejected",
+      "coverage": "fresh listed key function excerpts plus exact SDK SHA256 identity and carried remaining explicit source proof",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory",
+      "fresh_read_ranges": [
+        [
+          736,
+          816
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/transfers.rs",
+      "sha256": "25f47e9cbc5887f849f5eb4d8952d89de6377df40f480ebbea61c58d2e0e7fc6",
+      "lines": 465,
+      "read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "proof": "actual native wide row/image/array byte formulas, checked u64 and last-row padding rule; no dependency on unstable hidden API proposed",
+      "coverage": "exact SDK SHA256 identity plus carried explicit source proof; no fresh whole-file read",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/limits.rs",
+      "sha256": "f4f51d4197de591691bdd2cd9a06b82fe604b7c7457eda10aaf9b752bf8a6e26",
+      "lines": 993,
+      "read_ranges": [
+        [
+          317,
+          318
+        ],
+        [
+          376,
+          377
+        ]
+      ],
+      "proof": "source-located default 8192 2D/2048 3D bounds; numbers inventoried via rg, not whole body review",
+      "coverage": "exact SDK SHA256 identity plus carried explicit source proof; no fresh whole-file read",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/webgpu.rs",
+      "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "lines": 4057,
+      "read_ranges": [
+        [
+          2790,
+          2838
+        ]
+      ],
+      "proof": "map promise callback SDK BufferAsyncError, WebBuffer mapped range record, explicit unmap reset, Drop no-op; no permanent leak assertion",
+      "coverage": "exact SDK SHA256 identity plus carried explicit source proof; no fresh whole-file read",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "lines": 877,
+      "read_ranges": [
+        [
+          82,
+          105
+        ],
+        [
+          839,
+          879
+        ]
+      ],
+      "proof": "native poll versus WebGPU no-op; scope immediate pop and Drop, !Send !Sync",
+      "coverage": "exact SDK SHA256 identity plus carried explicit source proof; no fresh whole-file read",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bytemuck-1.25.2/src/internal.rs",
+      "sha256": "93198f6ba0e5e430c5a33ebe17a738d24a3874a40761614434d976aeef402dc9",
+      "lines": 406,
+      "read_ranges": [
+        [
+          254,
+          266
+        ],
+        [
+          353,
+          378
+        ]
+      ],
+      "proof": "cast_slice panics on partial element/alignment; ZST rules; no inference that Vec<u8> gives stronger T alignment",
+      "coverage": "exact SDK SHA256 identity plus carried explicit source proof; no fresh whole-file read",
+      "prior_identity_equal": true,
+      "prior_source_revision": "installed immutable source used by pre-repair inventory"
+    },
+    {
+      "path": "/home/brunosegovia/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/prelude/v1.rs",
+      "sha256": "393900118db4000a0bd90f7c8f50fcb55475939586f24285ecca70925d6a6a2c",
+      "read_ranges": [
+        [
+          25,
+          27
+        ]
+      ],
+      "coverage": "fresh source grep proof",
+      "proof": "size_of/align_of are actual prelude reexports since Rust1.80; unqualified size_of in new image decode is not a missing import"
+    }
+  ],
+  "fixture_proofs": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "compared_to": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "sha256": "e08c0fc8ff803b26c5e0c6d948a9e3f8bbdd219bd71d50aa2cd5baba0a6d22d0",
+      "unchanged_from_parent": true,
+      "unchanged_from_preinventory": true,
+      "method": "exact existing cfg(test) suffix byte identity; no execution or edits"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "compared_to": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "sha256": "dbfb98db3fb3bdfdd6dca813bdb01af838ee77c03c83368d2509fefd2d1f6b34",
+      "unchanged_from_parent": true,
+      "unchanged_from_preinventory": true,
+      "method": "exact existing cfg(test) suffix byte identity; no execution or edits"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "compared_to": "1b42bcfff0099a6066d67fc4859e535591b39789",
+      "sha256": "610fb3e48dae96f1a25d1d7a1d0b3f4158d757e928a50da574753bd874ee5f77",
+      "unchanged_from_parent": true,
+      "unchanged_from_preinventory": true,
+      "method": "exact existing cfg(test) suffix byte identity; no execution or edits"
+    }
+  ],
+  "cube_wgsl_proof": {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+    "count": 3,
+    "unchanged_from_parent": true,
+    "unchanged_from_preinventory": true,
+    "literal_sha256": [
+      "5b0a5313ab3b66d1de8d7bc5fef8cfd100b5ba6915bc3695fa65e5349ca69084",
+      "fa4c255645bbe0fb9bbde28e71c435f6d8cbaac423493e2f0d8235a6d943b148",
+      "da0aabc7d9973d17d0005d7dbce7a259661680588d43459b27997c27ab89c24c"
+    ],
+    "method": "exact three existing raw WGSL literal byte identities; no execution"
+  },
+  "pre_repair_findings_reconciled": [
+    {
+      "id": "TR1",
+      "status": "addressed in current source",
+      "proof": "TextureReadSource::read admits canonical Readback<T> before native allocation and keeps its aligned Vec<T> reservation. packed_storage reserves tight byte capacity separately before mapping. Readback::copy_from performs initialized byte copy into Vec<T>; no u8-to-T borrowed cast remains. ZST/partial returns BufferReadError. View public empty guard remains before host admission, so empty View<()> still returns empty."
+    },
+    {
+      "id": "TR2",
+      "status": "addressed in current source",
+      "proof": "TextureTransferLayout sealed extent, row, packed byte aggregate: row=u64(width)*u64(pixel_size), safe because the only factors are u32 and maximum 16. NativeRow try_from retains actual TryFromIntError. Checked volume uses u64 height/depth. TextureStagingLayout checks positive transfer bytes, padded pitch and its native u32 field, complete volume and actual device max_buffer_size. packed_storage narrows full padded and packed extents to usize before GPU allocation. unpack gets complete padded extent and checks native row/pitch usize; positive pitch and exact height*depth rows follow sealed construction. No u32 row/volume/index products remain."
+    },
+    {
+      "id": "TR3",
+      "status": "addressed in current source",
+      "proof": "Staging create immediate observe maps BufferReadError::Native; canonical context.submit keeps original ComputePassError::Native Arc cause for finish/submit. MappingExtent bounds actual staging.size and aligned nonzero range; MappingRequest installs private release obligation inside immediate operation before scope result. Native texture code exclusively uses ready-first poll_complete and 1ms sleep; cfg browser uses canonical complete browser branch. Buffer::read explicit native Wait body unchanged. unpacked view is dropped before error propagation/unmap. Drop cleanup preserves first error and resets own request with cleanup-only native scope, no completion wait. Actual Mapping/Poll/Channel/Native error owners and source chains remain."
+    },
+    {
+      "id": "TR4",
+      "status": "addressed in current source",
+      "proof": "All five callers now use TextureTransferLayout::write: 2d write/create_from_image,3d write,cube create_from_images/set_side_image. Native descriptor rows tight and admitted u32, same extent/origin/mip/aspect preserved. Immediate observe_validation only wraps actual queue.write_texture, direct available wgpu error enters anyhow; no wait or length-equality precheck, so supported trailing bytes preserved. Conversion/layout finish before queue operation. Cube sequential upload remains non-atomic, documented."
+    },
+    {
+      "id": "TR5",
+      "status": "addressed in current source",
+      "proof": "Rgba32Float/R32Float read_image decode complete size_of<f32>() chunks with f32::from_ne_bytes, then exact existing narrow/grey/alpha transforms. Constructors/readback guarantee whole native pixel bytes for these formats, so no new partial float path. Image fallback expected byte count uses checked layout rather than u32 product. Cube float conversion reserves from actual input byte count, which bounds complete four-channel group output, preserving transfer operations and channel order; no schema mutation."
+    }
+  ],
+  "current_contracts": [
+    {
+      "contract": "row_and_volume",
+      "proof": "For a nonempty staging record, width, height, depth and pixel_size are positive; row>0, padded pitch>=row, full padded volume is exactly pitch*height*depth. The sum of unpacked rows is exactly packed row*height*depth, so reserved packed capacity covers every extend without allocation while mapped. Full mapped range matches staging.bytes and is mapping-aligned via 256-byte pitch. Last-row allocation padding is allowed by SDK and omitted from output.",
+      "source": "transfer.rs:35-159; texture/readback.rs:34-88"
+    },
+    {
+      "contract": "zero_missing_device",
+      "proof": "Public View retains zero-first; 2d/3d allocate-presence then ensure_device before layout/T. Reads do not require cache, and clear_native_texture does not become readable via cached view. Face reads retain origin.z layer and one-layer extent. Source record zero case is checked and cannot cause zero-length native slice.",
+      "source": "2d/mod.rs:261-279;3d/mod.rs:129-147;view/mod.rs:185-209; exact unchanged views/selection"
+    },
+    {
+      "contract": "map_first_cause",
+      "proof": "Synchronous callback may occur in map_async; request object is already owned when observe_validation inspects native error. On request scope rejection, returned request value is dropped and cleanup resets API requested context; native Idle NotMapped is cleanup-only. Pending/error/cancel paths have no mapped view across await. After success, unpack drops mapped view even before a possible error, then release handles native unmap cause.",
+      "source": "buffer/mapping.rs complete; texture/readback.rs:72-88; SDK api buffer/core mapping"
+    },
+    {
+      "contract": "progress_and_policy",
+      "proof": "Texture native path invokes only poll_complete, never native complete Wait. Ready callback/channel state precedes unrelated later polling. Browser branch drives canonical await_browser_callback; no native waiting guard crosses await. Immediate scopes obey blocking_validation and browser cfg, so borrowed/browser synchronous native verdict limits are unchanged.",
+      "source": "texture/readback.rs:75-82;mapping.rs:120-129;canonical callback/validation/submission complete files"
+    },
+    {
+      "contract": "format_and_consumer",
+      "proof": "Raw reads preserve bytes, native endian representation, z-major order and face selection. Counterpart formats have same byte width. GpuResource routes texture calls to same signatures; existing generic runner typed elements remain complete. Image from_ne_bytes removes alignment dependency only; distinct cube/Image/rgba convenience conversion branches remain.",
+      "source": "fresh current mod/image/cube bodies and exact unchanged format,views,selection,resource and external consumer source accounts"
+    },
+    {
+      "contract": "state_and_cache",
+      "proof": "No new result cache or partially successful Vec publication. Layouts sealed; MappingRequest sole lifecycle owner. Existing cached view/native state and native pipeline cache are unaffected by this14-path repair. Queue/upload errors do not imply rollback of prior queued faces. No readback success certifies ignored producing errors or later device health.",
+      "source": "complete14diff; native context helper source; exact unchanged source/hash proofs"
+    }
+  ],
+  "all13": [
+    {
+      "lens": "producer-propagation",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "All three reads and five upload callers consume the shared receiver directly. GpuResource/Image/cube/fixtures route through existing methods; no shadow legacy path. Peer grouped readback remains separate required owner work.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "existing-type-owners",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "Reuses BufferByteLength,BufferReadError,Readback<T>,MappingExtent/Request and context/callback owners with scope limited to data::gpu. Texture layout adds only the row/volume relationship absent from buffer.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "admission-contracts",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "Sealed layout constructors establish byte bounds before descriptor adapters; complete public existing zero/native/device ordering preserved. Typed host admission before native work; selected format/cache contracts unchanged.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "invariant-operations",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "Checked u64 volume/pitch and explicit native/host narrowing; allocation reserves before map; bounded linear row extraction and canonical typed copy; actual error exits own cleanup.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "aggregate-states",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "TextureTransferLayout owns extent/row/bytes; TextureStagingLayout owns its transfer,pitch,bytes. MappingRequest retains its release enum; cached/native texture state untouched.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "type-ownership",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "Texture module owns native transfer geometry; Buffer owns host/map state; context owns observation. No compute-grouped or ZIP/NumPy source changes.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "redundant-authority",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "Three duplicated native map/host loops removed; one texture source/layout and one canonical mapping/typed destination owner. Native descriptors reconstruct no independent unchecked volume.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "behavior-preservation",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "Preserved tight successful native bytes, 3D order, face index, labels, colour/math, empty-first, native error carrier and 1ms polling; Buffer Wait unchanged. Original fixtures and three WGSL byte-identical.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "enum-shapes",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "TextureReadKind owns closed diagnostic roles and MappingRequest release owns lifecycle, errors own real causes. No boolean or String map-state encodings.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "derivability",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "Copy layout contains only immutable checked facts; staging not exposed or mutated. SDK errors remain real owned types and source chains; no handwritten trait replacement or new clone requirement.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "type-granularity",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "One tight-layout and one staging-layout aggregate distinguish native transfer/staging invariants without per-axis wrapper proliferation. Byte leaves canonical; native extent fields stay framework adapters.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "magic-strings",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "Old mapping/channel strings removed in favor of canonical typed errors. Existing stage/encoder labels moved into closed TextureReadKind adapter; WGSL/source strings unchanged, no text branching.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    },
+    {
+      "lens": "magic-numbers",
+      "status": "no actionable owned correctness finding in bounded current source",
+      "acceptance": "COPY_BYTES_PER_ROW_ALIGNMENT used once in staging admission; public readback no255 mask. Existing1ms native cadence named and preserved. Byte component extraction size_of<f32> matches concrete native encoding.",
+      "prior_inventory_status": "discovery complete for this bounded family; required repairs not clear"
+    }
+  ],
+  "new_findings": [],
+  "retained_adjacent_dispositions": [
+    {
+      "id": "A1",
+      "disposition": "explicit retained pre-existing conversion policy; not normalized by this readback change",
+      "source": "texture_cube/image_data.rs:5-75 vs texture_2d/image.rs:65-96",
+      "evidence": "Cube set_side_image converter applies RGB transfer for plain8bit/Rgba32Float, unlike create_from_images/Image::packed_for. The proposed readback repair must not silently change those successful bytes. This report does not certify universal equivalence between those APIs."
+    },
+    {
+      "id": "A2",
+      "disposition": "explicit retained pre-existing conversion surface; not a universal format conversion claim",
+      "source": "texture_2d/mod.rs:372-379 and texture_view/mod.rs:295-339",
+      "evidence": "2d read_to_rgba8 forwards raw bytes; View branches perform selected conversion/reorder and generic4byte fallback. read_image is its distinct format conversion owner. No format expansion or colour normalization is necessary to retain raw-read successful behavior."
+    },
+    {
+      "id": "A3",
+      "disposition": "raw renderer and Blitter API native policy retained; no synchronous native acceptance claim",
+      "source": "globals/wgpu_context/blitter.rs and hair/render/readback.rs",
+      "evidence": "These operate directly on Device/Queue; source-agreed renderer policy leaves native create/copy/submit to device handling, explicit waits only for output readback. They do not delegate to Texture2d/3d/View read. Do not invent a WgpuContext or duplicate observer."
+    },
+    {
+      "id": "A4",
+      "disposition": "no whole-Image schema mutation",
+      "source": "texture_2d/image.rs:8-96",
+      "evidence": "Image public raw pixels/dimensions and permissive from_pixels remain an existing boundary. Tight upload layout plus SDK source length validation must retain actual failure; no speculative global dimensions/serialization or ZIP/NumPy migration proposed."
+    },
+    {
+      "id": "A5",
+      "disposition": "native invalid/capability states remain provider-observed",
+      "source": "Texture2d::create/Texture3d::new/TextureCube::new and all views",
+      "evidence": "Do not change float size rounding/clamping/NaN or format capability admission to fix readback. Constructors retain Native/Progress observation, borrowed/browser limits and success-only object publication. Readback wide layout does not promise provider allocation success."
+    }
+  ],
+  "required_dependencies": [
+    {
+      "id": "D780-grouped",
+      "owner": "#780",
+      "required": true,
+      "scope": "compute Readback/PendingReadback and grouped after_submit/callback state; shared Kernel/FastPath/cache/caller migration.",
+      "acceptance": "Consume coordinated canonical contracts and immutable peer implementation; do not independently edit or declare these already repaired from root8cdc old source."
+    },
+    {
+      "id": "D895",
+      "owner": "#895",
+      "required": false,
+      "scope": "ZIP/NumPy stack remains offlimits and is not a needed implementation dependency of native texture readback.",
+      "acceptance": "No independent producer/schema/ZIP/NumPy changes."
+    },
+    {
+      "id": "D-native-producers",
+      "owner": "coordinated #780/#826",
+      "required": true,
+      "scope": "Retained renderer native strand/card/simulation source/layout/creator/lock integration and five validation-scope peer sites remain broader open work.",
+      "acceptance": "Bounded texture report never clears remaining parent ledger dependencies."
+    },
+    {
+      "id": "D-final",
+      "owner": "coordinated #826",
+      "required": true,
+      "scope": "Final pushed exact source all13 wave, independent Code/Rule/Comment Review and hosted required checks.",
+      "acceptance": "Same final pushed revision; no source/compile/final clearance from discovery."
+    }
+  ],
+  "limits": [
+    "No source edits, project build/check/lint/test/scanner/generator/runtime or new test/case/helper/assertion/doctest; only ignored report output.",
+    "All14 changed files freshly read in full, including unchanged bodies/native shaders/fixture blocks. Four unchanged canonical Buffer/context/callback files freshly re-read. Other unchanged first-party source contracts revalidated by exact Git/SHA256 identity and prior explicit full/partial coverage, not fresh full reads.",
+    "Installed29.0.4 SDK bytes independently rehashed; listed fresh source excerpts plus carried explicit preinventory source proofs. Std prelude source confirms size_of API, not a compile check.",
+    "No claim of observed numerical/rendering performance, browser/hardware execution, arbitrary external alias mapping safety, permanent native leak, rollback, all native error-class capture or global GPU health.",
+    "Separate #780 grouped readback/cache/producer/validation-wait callers and coordinated native renderer producer/caller/manifest-lock integration remain required; #895 offlimits.",
+    "Final full all13 and independent Code/Rule/Comment reviews plus required hosted checks must pass on same final pushed revision; this source checkpoint has no such clearance."
+  ]
+}

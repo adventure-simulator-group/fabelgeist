@@ -1,0 +1,764 @@
+{
+  "title": "Buffer admission current pre-repair all13 discovery",
+  "revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+  "tree": "202fc9f4e0e0721003da587b4a68ffd7e603bf72",
+  "comparison": "cac5a7c33a83d1c08a5e55d43d912967edf06814; all accounted source identities equal",
+  "discovery_status": "Complete focused all13 inventory before any proposed error-source repair; implementation unchanged/incomplete.",
+  "correctness_verdict": "Existing zero/range/overflow rejection and before-write order preserved; no failed check/native cause loss demonstrated. Stable bespoke error classification is incomplete (BA-R1).",
+  "completeness_verdict": "One actionable existing Buffer-owned error contract gap; other retained producer/canonical/physical/caller/lock/global final gates remain required.",
+  "source_groups": {
+    "B1": {
+      "role": "Complete Buffer methods/all allocation/write admission",
+      "paths": [
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs"
+      ]
+    },
+    "B2": {
+      "role": "Complete byte/offset/upload/definition/label owners",
+      "paths": [
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs"
+      ]
+    },
+    "B3": {
+      "role": "Complete binding/prefix/read/map/host adapters and existing tests",
+      "paths": [
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs"
+      ]
+    },
+    "C1": {
+      "role": "Actual native/anyhow/public export consumers and cause observation",
+      "paths": [
+        "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+        "crates/fabelgeist-gpu/src/prelude.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+        "crates/fabelgeist-gpu/src/data/mod.rs",
+        "crates/fabelgeist-gpu/src/lib.rs"
+      ]
+    },
+    "C2": {
+      "role": "Armor/Metal/Hair/Mesh source wrappers and bounded write/extent consumers",
+      "paths": [
+        "crates/fabelgeist-armor/src/gpu/facade.rs",
+        "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+        "crates/fabelgeist-armor/src/gpu/staging.rs",
+        "crates/fabelgeist-armor/src/error.rs",
+        "crates/fabelgeist-hair/src/gpu/buffers.rs",
+        "crates/fabelgeist-hair/src/gpu/error.rs",
+        "crates/fabelgeist-mesh/src/data.rs",
+        "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+        "crates/fabelgeist-hair/src/gpu/sim.rs",
+        "crates/fabelgeist-hair/src/gpu/scalp/layout.rs"
+      ]
+    }
+  },
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "lines": 47,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Existing typed named-binding failures EmptyBufferBinding/BufferExtentExceedsAllocation; logical nonempty check and physical-allocation bound with owning Result alias. Missing optional byte quantities are not a new classification failure."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "lines": 49,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole existing usage fixture and diagnostic-label/clone/explicit map selection tests. No fixture edits needed by focused error classification."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "lines": 140,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Private diagnostic label/capability selection, explicit BufferUse roles, native allocation observer returns actual wgpu::Error. Native SDK usage bits and byte conversion are boundary adapters."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Canonical BufferByteLength permits zero, From<u64/usize>/Default; canonical BufferByteOffset START/From<u64>, checked_after returns Option on checked u64 addition. No global positive-byte invariant."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "lines": 28,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Open exact diagnostic label, not shader key/error kind; original compile_fail docs untouched."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "lines": 153,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Private checked aligned MappingExtent, owned request/release/callback/drop; checked byte arithmetic, actual poll/map/channel/native errors. No changes required for structured write admission."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "lines": 111,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "new rejects zero before native allocation; write delegates START to write_at; checked_after rejects offset overflow, logical end check rejects overrun before write_to; from_upload new plus CopyDestination then write; public Arc+logical extent/Clone/PartialEq and existing unsafe Send/Sync unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "lines": 50,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Existing typed requested/logical/physical ByteLength error with PrefixResult; zero prefix accepted; aliases same native Arc only after both bounds. No allocation/write/wait."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Public anyhow carrier preserves typed read errors; logical/physical bound, host layout then empty return, direct map vs copy target, native submission/mapping/source failures retained."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "lines": 101,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Existing stable host/native/mapping/progress/prefix error categories with byte payloads and actual source chain. New write admission kinds must not be hidden here as read failures."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "lines": 101,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Private host allocation/element-size/admitted byte extent/copy; actual TryFromIntError/TryReserveError, existing tests. No fresh execution or unsafe safety expansion."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "lines": 62,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole existing upload words/offset/range/overflow/no-mutation and empty-upload fixture bodies; is_err assertions already cover rejection behavior without classifying error kind. Do not add assertions/cases."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "lines": 60,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Borrowed exact NoUninit bytes/length/occupancy, explicit empty-word consumer policy, immediate native queue-write observer. No duplicate count/stride or new native payload."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "lines": 102,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole GpuResource enum facade directly returns Buffer write/read anyhow results; no terminal formatting or classification adapter."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "lines": 73,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole actual static uniform allocation/write consumer: zero reflected extent returnsNone, native alignment/limits admission and pack -> Buffer::new/write -> ComputePassError::resolve_observation; operation and observation retained separately."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "lines": 150,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole operation+observation aggregate retains Arc<anyhow::Error> and native/progress source; local structured admission error can remain nested/downcastable, no new cause erasure."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "lines": 25,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole actual native blocking_validation/current-thread immediate scope, no polling; browser/disabled context retains configured handler. Focused local integer failures occur before this boundary."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "lines": 5,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole current public export/module closure: Buffer error can be reexported once by owning buffer module through existing wildcard chain. Do not independently repair peer-owned broad module composition."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "lines": 187,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole actual Armor/Metal native facade/staging source; upload/scratch/read propagate anyhow through device_error -> GenerateError::Gpu or MetalDeviceError source. Existing canonical count/stride scratch role retained; no raw primitive or string adapter."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "lines": 147,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole actual Armor/Metal native facade/staging source; upload/scratch/read propagate anyhow through device_error -> GenerateError::Gpu or MetalDeviceError source. Existing canonical count/stride scratch role retained; no raw primitive or string adapter."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "lines": 146,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole actual Armor/Metal native facade/staging source; upload/scratch/read propagate anyhow through device_error -> GenerateError::Gpu or MetalDeviceError source. Existing canonical count/stride scratch role retained; no raw primitive or string adapter."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "lines": 42,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole GenerateError::Gpu(#[source] anyhow::Error) preserves lower actual error and type; not terminal UI."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+      "lines": 80,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole Hair Scratch/upload/storage: minimum native sentinel/capacity policy, Buffer new/from_upload -> HairGpuError::Backend; cached candidate published only after fallible allocation. Arithmetic/canonical producer family stays peer required, not independently repaired."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "lines": 47,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole HairGpuError::Backend(#[from] anyhow::Error) keeps source type and all other canonical error owners; no duplicate Buffer error owner here."
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "lines": 293,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole MeshData source, including empty upload sentinel logical0, actual upload/read helper and tests. Direct anyhow propagation; broader old primitive mesh producer family remains peer-owned. Existing comment claiming native wgpu universally requiresnonzero is not authority for global byte invariant."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+      "sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+      "lines": 584,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "bounded full Stereo::upload function307-326 plus method context",
+      "contract": "Bounded complete actual Stereo upload: validates slice lengths then Buffer writes with ?; no error text conversion. Rest of large pipeline not reaudited."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "lines": 797,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "bounded complete test-only set_state and read methods760-804; remainder of simulation not reviewed",
+      "contract": "Bounded actual read methods plus test-only set_state: Buffer write failures propagate ? into HairGpuError. No full simulation body/producer/caller clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "lines": 17,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole current public export/module closure: Buffer error can be reexported once by owning buffer module through existing wildcard chain. Do not independently repair peer-owned broad module composition."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "lines": 13,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole current public export/module closure: Buffer error can be reexported once by owning buffer module through existing wildcard chain. Do not independently repair peer-owned broad module composition."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "lines": 14,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "full fresh body",
+      "contract": "Whole current public export/module closure: Buffer error can be reexported once by owning buffer module through existing wildcard chain. Do not independently repair peer-owned broad module composition."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+      "sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "lines": 93,
+      "same_cac5": true,
+      "working_matches_pin": true,
+      "coverage": "bounded complete trimmed function86-93, no full layout-module credit",
+      "contract": "Bounded trimmed helper directly changes logical size to max16; current physical/canonical layout handoff remains #780 dependency. This error-only classification does not change public logical-extent construction."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "source_refs": [
+        "B1",
+        "B2",
+        "C1",
+        "C2"
+      ],
+      "contract": "Buffer new/write_at own three local admission classifications; write/from_upload and GpuResource/Armor/Metal/Hair/uniform assembly propagate actual anyhow errors.",
+      "disposition": "Existing stable-kind producer migration incomplete; carrier may remain anyhow.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [
+        "Preserve current canonical count/stride peers and existing native helpers."
+      ],
+      "acceptance": "All local producers return owning variants; actual consumer wrappers retain typed source without formatting early."
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "contract": "ByteLength owns byte extent incl0, ByteOffset owns address, BufferUpload owns borrowed byte representation; Read/Prefix/Binding errors already own distinct operations.",
+      "disposition": "Reuse current leaves; no new count/device/positive-byte owner.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [
+        "Peer count/stride ownership unchanged."
+      ],
+      "acceptance": "Error payloads retain canonical byte/offset leaves; no raw u64 request record or duplicate wrapper."
+    },
+    {
+      "lens": "admission-contracts",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "contract": "new rejects0; from_upload reaches new before write; write usesSTART; write_at checks sum then logicalend before native call. Prefix/read allow logical0; public Buffer fields andClone are not positive-allocation constructors.",
+      "disposition": "Three rejection kinds need stable owner; actual checks currently reject correctly.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [
+        "Preserve native allocation/queue preconditions, not a new validator."
+      ],
+      "acceptance": "Same source order, bounds/equality/empty behavior; allocation failure and local rejection not conflated."
+    },
+    {
+      "lens": "invariant-operations",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "contract": "checked_after detects u64 addition overflow; write compares end with current logical length before mutation; prefix checks both logical and physical bound.",
+      "disposition": "Do not change arithmetic or invent std/native source for a checkedNone.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [
+        "Existing mutable logical extent/physical producer integration remains peer/root wider obligation."
+      ],
+      "acceptance": "Typed overflow/overrun failure preserves at/upload bytes/logicalcapacity; no queue write on local failure."
+    },
+    {
+      "lens": "aggregate-states",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3",
+        "C1"
+      ],
+      "contract": "Error must pair one kind with only its relevant byte request/address/capacity; Buffer allocation+logical size is separate from callback/map ownership.",
+      "disposition": "Payload-bearing error variants appropriate; no independent kind flag plus optional fields.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [
+        "Existing mapping/session/native/provider invariants unchanged."
+      ],
+      "acceptance": "No impossible error-kind/payload combination; zero prefix and empty host result remain distinct from rejected allocation."
+    },
+    {
+      "lens": "type-ownership",
+      "source_refs": [
+        "B1",
+        "B2",
+        "C1",
+        "C2"
+      ],
+      "contract": "Buffer owns these local allocation/write admission failures. Existing higher wrappers retain lower causes. SDK owns native Error, peer owns count/stride producers.",
+      "disposition": "One focused local owner; no placement in Armor/Hair/Compute or duplicated native backend.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [
+        "Coordinate only necessary final export composition; Root owns whole native Buffer functions."
+      ],
+      "acceptance": "Direct buffer-owned type export through current chain; no forwarding/deprecated aliases or shared unapproved repairs."
+    },
+    {
+      "lens": "redundant-authority",
+      "source_refs": [
+        "B1",
+        "B2"
+      ],
+      "contract": "The request already has typed offset/upload length/logical size; constructing prose discards classification and typed context rather than storing another useful authority.",
+      "disposition": "Error fields should be the diagnostic authority; do not separately store a mutable formatted message.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [],
+      "acceptance": "Display derives text from typed fields; no duplicated raw capacity/length or stored prose discriminant."
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3",
+        "C1",
+        "C2"
+      ],
+      "contract": "Existing tests cover exact word preservation, offset-end/overflow rejection and no prior-write mutation; empty upload explicitword policy belongs consumers. Native failures already preserve source.",
+      "disposition": "Classify existing outcomes only; no new validation/alignment/timeout/provider policy.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [
+        "Broader canonical/caller/physical/lock graph and final hosted checks stillopen."
+      ],
+      "acceptance": "Existing fixture bodies/oracles/doctests unchanged; no new cases/helpers/assertions; no SDK cause or completion promise invented."
+    },
+    {
+      "lens": "enum-shapes",
+      "source_refs": [
+        "B1",
+        "B2"
+      ],
+      "contract": "Zero allocation, offset arithmetic overflow and logical out-of-bounds are closed carried failure roles with distinct payloads.",
+      "disposition": "An error enum expresses the actual distinctions; ordinary arithmetic predicate bools stay predicates.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [],
+      "acceptance": "Distinct variants with named ByteLength/ByteOffset payloads, no string kind field or neighboring optional record."
+    },
+    {
+      "lens": "derivability",
+      "source_refs": [
+        "B1",
+        "B3",
+        "C2"
+      ],
+      "contract": "Local integer-leaf error can derive Clone/Debug/Eq as semantics allow; Error/Display can be manual std implementations without a new dependency. SDK causes remain their actual existing types.",
+      "disposition": "No manifest/lock change required for typed local error. Do not add Clone to SDK errors or lose source to derive.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [
+        "Any proposed derive dependency must be explicitly coordinated; not needed here."
+      ],
+      "acceptance": "Preserve Error source behavior; local checked validation leaf has no fabricated childcause. No new unsafe or trait workaround."
+    },
+    {
+      "lens": "type-granularity",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "contract": "Three allocation/write rejections form one cohesive local admission family; read/mapping/prefix/binding already have distinct useful errors.",
+      "disposition": "One focused owner is proportionate; no new global Buffer-result taxonomy required.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [],
+      "acceptance": "Do not redefine ByteLength as nonzero or force unrelated causes into one fake enum; anyhow can remain heterogeneous carrier."
+    },
+    {
+      "lens": "magic-strings",
+      "source_refs": [
+        "B1",
+        "C1",
+        "C2"
+      ],
+      "contract": "Current anyhow prose encodes stable lower error classification before final presentation; labels and open native binding identifiers are legitimate text.",
+      "disposition": "BA-R1 actionable under typed-boundary rule even without observed display-string branching.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [],
+      "acceptance": "Variant inspection never depends on diagnostic text; Display still supplies useful human-readable messages at presentation."
+    },
+    {
+      "lens": "magic-numbers",
+      "source_refs": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "contract": "0/start/end equality and checkedu64 bound are intrinsic byte arithmetic; named empty native word and SDK copy alignment already own their meanings.",
+      "disposition": "No new bound/type for numeric0; preserve existing consumer sentinel word policy.",
+      "connected_repair": [
+        "BA-R1"
+      ],
+      "dependencies": [
+        "Canonical stride/count and physical/native minimum policies remain separately owned."
+      ],
+      "acceptance": "No guessed alignment/size cap, no new SDK-universal nonzero claim; byte payload fields use canonical owners."
+    }
+  ],
+  "findings": [
+    {
+      "id": "BA-R1",
+      "priority": 2,
+      "classification": "Newly recognized existing lower-boundary bespoke-error contract gap; not a code regression or failed range rejection",
+      "locations": [
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:41-42",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:69-77"
+      ],
+      "rules": [
+        "crates/AGENTS.md:21-34 (error classification/state/quantities have semantic owners)",
+        "crates/AGENTS.md:42-55 (named typed record fields and existing leaves)",
+        "crates/AGENTS.md:57-70 (closed carried roles, one canonical owner)",
+        "crates/AGENTS.md:85-86 (stable typed error/code from authoritative boundary; presentation once)"
+      ],
+      "evidence": "Zero allocation, offset-add overflow and write beyond logical extent return anyhow! message roots. The lower API does not retain an inspectable closed kind or the named canonical byte/offset request record. GpuResource, static uniform assembly, Armor/Metal/Hair wrappers reuse these errors and preserve the incoming anyhow source; this is not the final UI boundary.",
+      "consequence": "Callers cannot inspect the three Buffer admission failures as owning semantic variants or recover their typed request/capacity context. They would need display prose or an unrelated generic error wrapper to distinguish them. No observed consumer currently branches on prose, and existing tests verify correct rejection; this is a semantic API/completeness finding, not demonstrated memory corruption/native error loss.",
+      "proportionate_repair": "Define one focused Buffer-owned structured admission error with distinct zero-allocation, write-offset-overflow and write-out-of-bounds variants. Carry existing BufferByteLength for requested/upload/logical byte quantities and BufferByteOffset for address; named fields, no count/device wrapper. Keep the existing public anyhow carrier if desired and put the typed error inside it. Actual allocate_native/write_to wgpu::Error sources remain unchanged. Do not force all errors into a read-specific owner or invent a native cause for checked_add returningNone.",
+      "acceptance": [
+        "All three local rejection producers return that owner, with Display rendering the current useful diagnostics from typed fields.",
+        "new/from_upload and write/write_at preserve zero/empty/range/end-equality/no-write-before-failure behavior.",
+        "Actual existing anyhow/GenerateError::Gpu/MetalDeviceError/HairGpuError::Backend/operation-observation wrappers preserve the lower type and source chain; no new String conversion or independent caller repair.",
+        "No new tests/cases/helpers/assertions/doctests. Existing fixtures and API signatures may remain exact; repeat full source review and required hosted gates on final pushed SHA."
+      ],
+      "deduplication": "Not RGP-P1 sampler, RGP-P2 binding Result alias or RGP-P3 stale pipeline import. Neither historical83 Rule report recorded these three local errors. Their same-source no-additional-owned-finding conclusion is reopened for this bounded missed classification; historical reports remain preserved. No duplicate report of already-typed read/prefix/binding errors."
+    }
+  ],
+  "callsite_census": [
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs:44:    let buffer = Buffer::new(",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:56:        self.write_at(context, BufferByteOffset::START, data)",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:8:    let buffer = Buffer::from_upload(&context, upload, BufferDefinition::storage()).unwrap();",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:11:        .write_at(",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:23:            .write_at(&context, 16u64.into(), BufferUpload::from_elements(&[1u32]))",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:28:            .write_at(",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:46:    assert!(Buffer::from_upload(&context, empty, BufferDefinition::storage()).is_err());",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:47:    let binding = Buffer::from_upload(",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs:55:    let binding = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/stencil.rs:1049:        let input_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/stencil.rs:1054:        let output_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::new(",
+    "crates/fabelgeist-compute/src/stencil.rs:1060:        let weights_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/test_utils.rs:118:            TestResourceType::Buffer => Ok(Buffer::from_upload(",
+    "crates/fabelgeist-shell/src/selfcollision.rs:95:            cells: Buffer::new(",
+    "crates/fabelgeist-shell/src/selfcollision.rs:100:            indices: Buffer::new(",
+    "crates/fabelgeist-shell/src/selfcollision.rs:107:            starts: Buffer::new(",
+    "crates/fabelgeist-shell/src/selfcollision.rs:114:            corrections: Buffer::new(",
+    "crates/fabelgeist-shell/src/selfcollision.rs:121:            neighbour_starts: Buffer::from_upload(",
+    "crates/fabelgeist-shell/src/selfcollision.rs:128:            neighbours: Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/scan.rs:158:        let output = fabelgeist_gpu::data::gpu::Buffer::new(",
+    "crates/fabelgeist-compute/src/scan.rs:172:            let aux = fabelgeist_gpu::data::gpu::Buffer::new(",
+    "crates/fabelgeist-compute/src/scan.rs:189:            let aux = fabelgeist_gpu::data::gpu::Buffer::new(",
+    "crates/fabelgeist-compute/src/scan.rs:217:                let next_aux = fabelgeist_gpu::data::gpu::Buffer::new(",
+    "crates/fabelgeist-compute/src/scan.rs:226:                let scanned_aux = fabelgeist_gpu::data::gpu::Buffer::new(",
+    "crates/fabelgeist-compute/src/stereo/pipeline.rs:144:    Buffer::new(",
+    "crates/fabelgeist-compute/src/reduce/mod.rs:250:                *buffer_opt = Some(fabelgeist_gpu::data::gpu::Buffer::new(",
+    "crates/fabelgeist-compute/src/reduce/mod.rs:325:        let final_buffer = fabelgeist_gpu::data::gpu::Buffer::new(",
+    "crates/fabelgeist-compute/src/mesh_query/mod.rs:95:            nearest: Buffer::new(",
+    "crates/fabelgeist-compute/src/mesh_query/mod.rs:100:            weights: Buffer::new(",
+    "crates/fabelgeist-compute/src/mesh_query/mod.rs:105:            distances: Buffer::new(",
+    "crates/fabelgeist-compute/src/mesh_query/mod.rs:154:            all_targets: Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/readback.rs:235:        let a = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/readback.rs:240:        let b = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/readback.rs:245:        let c = Buffer::from_upload(&context, BufferUpload::from_elements(&[0.5f32]), definition)?;",
+    "crates/fabelgeist-compute/src/readback.rs:260:        let a = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/readback.rs:265:        let b = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/prefix_sum.rs:183:            levels.push(Buffer::new(",
+    "crates/fabelgeist-compute/src/prefix_sum.rs:191:            unused: Buffer::new(",
+    "crates/fabelgeist-compute/src/prefix_sum.rs:348:            let buffer = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/prefix_sum.rs:372:        let buffer = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/prefix_sum.rs:395:        let buffer = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/mesh_query/tests.rs:50:    Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/reduce/tests/mod.rs:17:    let in_buf = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/reduce/tests/mod.rs:48:    let in_buf = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/reduce/tests/mod.rs:66:    let in_buf = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/reduce/tests/mod.rs:99:    let in_buf = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/reduce/tests/mod.rs:154:    let in_buf = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/sort/mod.rs:164:            keys: Buffer::new(",
+    "crates/fabelgeist-compute/src/sort/mod.rs:169:            values: Buffer::new(",
+    "crates/fabelgeist-compute/src/sort/mod.rs:174:            histogram: Buffer::new(",
+    "crates/fabelgeist-compute/src/sort/tests.rs:29:    let key_buffer = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/sort/tests.rs:35:        Buffer::from_upload(&context, BufferUpload::from_elements(&values), definition)?;",
+    "crates/fabelgeist-compute/src/sort/tests.rs:143:    let buffer = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/sort/tests.rs:165:    let key_buffer = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/sort/tests.rs:171:        Buffer::from_upload(&context, BufferUpload::from_elements(&data), definition)?;",
+    "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs:51:        let values = Buffer::new(&context, 12u64.into(), BufferDefinition::storage())?;",
+    "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs:52:        let copied = Buffer::new(&context, 12u64.into(), BufferDefinition::storage())?;",
+    "crates/fabelgeist-physics/src/mesh.rs:80:            positions: Buffer::from_upload(",
+    "crates/fabelgeist-physics/src/mesh.rs:87:            triangles: Buffer::from_upload(",
+    "crates/fabelgeist-physics/src/mesh.rs:94:            bounds: Buffer::new(",
+    "crates/fabelgeist-physics/src/contact.rs:51:            collider_buffer: Buffer::new(",
+    "crates/fabelgeist-physics/src/contact.rs:76:            self.collider_buffer = Buffer::new(",
+    "crates/fabelgeist-compute/src/host_float/tests.rs:77:    let outputs = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/host_float/tests.rs:89:        Buffer::from_upload(&context, BufferUpload::from_elements(inputs), definition)?,",
+    "crates/fabelgeist-compute/src/stream/tests/mod.rs:21:    let in_buf = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/stream/tests/mod.rs:26:    let counts_buf = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/stream/tests/mod.rs:31:    let offsets_buf = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/stream/tests/mod.rs:36:    let out_buf = Buffer::new(",
+    "crates/fabelgeist-compute/src/map/tests/mod.rs:202:    let output_buffer = Buffer::new(",
+    "crates/fabelgeist-compute/src/map/tests/mod.rs:230:    let input_buffer = Buffer::new(",
+    "crates/fabelgeist-compute/src/map/tests/mod.rs:239:    let output_buffer = Buffer::new(",
+    "crates/fabelgeist-compute/src/map/tests/mod.rs:274:    let output_buffer = Buffer::new(",
+    "crates/fabelgeist-compute/src/vertex_normals.rs:239:            Buffer::new(",
+    "crates/fabelgeist-compute/src/vertex_normals.rs:416:        let position_buffer = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/vertex_normals.rs:422:            Buffer::from_upload(&context, BufferUpload::from_elements(triangles), definition)?;",
+    "crates/fabelgeist-compute/tests/concurrent_kernels.rs:50:                    let output = Buffer::new(",
+    "crates/fabelgeist-compute/tests/concurrent_kernels.rs:57:                    let input = Buffer::from_upload(",
+    "crates/fabelgeist-compute/tests/concurrent_kernels.rs:95:    let input = Buffer::from_upload(",
+    "crates/fabelgeist-compute/tests/concurrent_kernels.rs:111:    let held = Buffer::new(&context, (256u64).into(), storage.clone())?;",
+    "crates/fabelgeist-compute/tests/concurrent_kernels.rs:116:            let other = Buffer::new(&context, (256u64).into(), storage.clone()).unwrap();",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs:102:        let vertex_counts_buffer = Buffer::new(",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs:119:        let index_counts_buffer = Buffer::new(",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs:142:        let dummy_in = Buffer::new(",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs:150:        let dummy_out = Buffer::new(",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs:158:        let output_indirect = Buffer::new(",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs:179:        let cell_vertex_indices = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs:186:        let output_vertices = Buffer::new(",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs:207:        let output_indices = Buffer::new(",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs:230:        let out_positions = Buffer::new(",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs:239:        let out_normals = Buffer::new(",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs:41:        let tri_table_buffer = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs:46:        let edge_table_buffer = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs:51:        let tri_count_table_buffer = Buffer::from_upload(",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs:316:        let counts_buffer = Buffer::new(",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs:352:        let dummy_in = Buffer::new(",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs:360:        let dummy_out = Buffer::new(",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs:369:        let output_indirect = Buffer::new(",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs:407:        let output_vertices = Buffer::new(",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs:427:        let out_positions = Buffer::new(",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs:437:        let out_normals = Buffer::new(",
+    "crates/fabelgeist-spatial-hash/src/gpu.rs:193:            keys: Buffer::new(",
+    "crates/fabelgeist-spatial-hash/src/gpu.rs:198:            indices: Buffer::new(",
+    "crates/fabelgeist-spatial-hash/src/gpu.rs:203:            ranges: Buffer::new(",
+    "crates/fabelgeist-spatial-hash/src/gpu.rs:361:        let buffer = Buffer::from_upload(",
+    "crates/fabelgeist-spatial-hash/src/gpu.rs:366:        let counts = Buffer::new(",
+    "crates/fabelgeist-hair/src/gpu/buffers.rs:34:            Buffer::new(",
+    "crates/fabelgeist-hair/src/gpu/buffers.rs:53:        return Buffer::from_upload(",
+    "crates/fabelgeist-hair/src/gpu/buffers.rs:60:    Buffer::from_upload(",
+    "crates/fabelgeist-hair/src/gpu/buffers.rs:74:    Buffer::new(",
+    "crates/fabelgeist-hair/src/gpu/lods.rs:571:        let out = Buffer::new(",
+    "crates/fabelgeist-hair/src/gpu/lods/prepare.rs:18:        let vertices = Buffer::new(",
+    "crates/fabelgeist-hair/src/gpu/lods/prepare.rs:25:        let indices = Buffer::new(",
+    "crates/fabelgeist-mesh/src/gpu.rs:86:        let pos_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:94:        let norm_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:102:        let uv_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:110:        let index_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:149:        let out_pos_buf = Buffer::new(",
+    "crates/fabelgeist-mesh/src/gpu.rs:381:        let pos_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:388:        let norm_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:395:        let uv_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:402:        let index_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:487:        let pos_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:494:        let norm_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:501:        let uv_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/gpu.rs:508:        let index_buf = Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/neighborhood.rs:75:        Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/wireframe.rs:71:        Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/wireframe.rs:139:        Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/wireframe.rs:174:        Buffer::from_upload(",
+    "crates/fabelgeist-mesh/src/data.rs:22:        let mut buffer = Buffer::new(context, (16u64).into(), definition)?;",
+    "crates/fabelgeist-mesh/src/data.rs:26:        Buffer::from_upload(context, BufferUpload::from_elements(data), definition)",
+    "crates/fabelgeist-armor/src/gpu/facade.rs:110:        Buffer::from_upload(",
+    "crates/fabelgeist-armor/src/gpu/facade.rs:121:        Buffer::new(",
+    "crates/fabelgeist-armor/src/gpu/metal/mod.rs:88:        Buffer::from_upload(",
+    "crates/fabelgeist-armor/src/gpu/metal/mod.rs:106:        Buffer::new(",
+    "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:123:    Buffer::new(",
+    "crates/adventuresim-character-creator/src/hair/gpu/mod.rs:138:    Buffer::from_upload(",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs:155:            Buffer::new(",
+    "crates/fabelgeist-xpbd/src/particles.rs:46:            positions: Buffer::new(",
+    "crates/fabelgeist-xpbd/src/particles.rs:51:            previous: Buffer::new(",
+    "crates/fabelgeist-xpbd/src/particles.rs:56:            velocities: Buffer::new(",
+    "crates/fabelgeist-xpbd/src/incidence.rs:108:        Buffer::from_upload(",
+    "crates/fabelgeist-xpbd/src/constraint.rs:72:        let lambdas = Buffer::new(",
+    "crates/fabelgeist-xpbd/src/constraint.rs:184:            Buffer::from_upload(context, BufferUpload::from_elements(&[0u32]), definition)?",
+    "crates/fabelgeist-xpbd/src/constraint.rs:186:            Buffer::from_upload(context, BufferUpload::from_elements(values), definition)?",
+    "crates/fabelgeist-xpbd/src/constraint.rs:212:            Buffer::from_upload(context, BufferUpload::from_elements(&[0u32]), definition)?",
+    "crates/fabelgeist-xpbd/src/constraint.rs:214:            Buffer::from_upload(context, BufferUpload::from_elements(values), definition)?",
+    "crates/fabelgeist-bvh/src/gpu/mod.rs:98:            nodes: Buffer::new(",
+    "crates/fabelgeist-bvh/src/gpu/mod.rs:103:            right_children: Buffer::new(",
+    "crates/fabelgeist-bvh/src/gpu/mod.rs:108:            indices: Buffer::new(",
+    "crates/fabelgeist-bvh/src/gpu/mod.rs:113:            parents: Buffer::new(",
+    "crates/fabelgeist-bvh/src/gpu/mod.rs:118:            codes: Buffer::new(",
+    "crates/fabelgeist-bvh/src/gpu/mod.rs:123:            scene_bounds: Buffer::new(",
+    "crates/fabelgeist-bvh/src/gpu/mod.rs:128:            node_bounds: Buffer::new(",
+    "crates/fabelgeist-bvh/src/gpu/tests.rs:14:    let buffer = Buffer::from_upload(",
+    "crates/fabelgeist-bvh/src/gpu/tests.rs:264:        let buffer = Buffer::from_upload(",
+    "crates/fabelgeist-bvh/src/gpu/tests.rs:329:    let buffer = Buffer::from_upload(",
+    "crates/fabelgeist-bvh/src/gpu/tests.rs:367:    let input = Buffer::from_upload(",
+    "crates/fabelgeist-bvh/src/gpu/tests.rs:372:    let output = Buffer::new("
+  ],
+  "callsite_census_limit": "Discovery locator only; no full-body coverage granted to other allocation consumers. Existing anyhow carrier preserved, so no independent caller/schema repair implied. Examples directory absent; first rg request noted this, corrected to crates only.",
+  "limits": [
+    "Source-only focused pre-repair discovery; no implementation/global/compile/final clearance. All13 records completed for this classification with wider current graph explicitly open.",
+    "All31 source identities match exact Root6e56 and cac5 independently;28 full fresh file bodies, three bounded complete relevant-function reads. No fresh whole-module credit for large Stereo/Sim/Scalp files.",
+    "159 located allocation/from_upload/write_at callsites are a discovery census only; no full-body or broader producer correctness credit for all159. Existing anyhow API need not change, so no independent shared caller repair is implied.",
+    "Earlier83 Rule reports source coverage remains preserved; the missed same-source classification is explicitly reopened. No duplicate read/prefix/binding/native sampler findings.",
+    "Local errors occur before native operations independent of provider mode; native currentblocking_validation/browser handler guarantees unchanged. Actual paired-device/queue/mapping alias preconditions remain documented. No new SendSync/platform execution claim from error classification.",
+    "No source edits, tests/cases/helpers/assertions/doctests, local build/check/lint/scanner/generator/runtime/probes, push/CI or external messages. Only source/Git/hash/bookkeeping and ignored reports.",
+    "Root remains implementation owner. Preserve canonical peer count/stride and all physical/caller/lock owner dependencies. Complete connected family/all13/three independent reviews/hosted checks on final pushed SHA; no merge."
+  ]
+}

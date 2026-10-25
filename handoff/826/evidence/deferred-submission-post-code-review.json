@@ -1,0 +1,1482 @@
+{
+  "kind": "Independent source-only post-repair Code Review checkpoint",
+  "head": "f2b5ffb1320bc6d3610e8726ac694546ed1a465b",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "receiving_base": "5a34b608ccacc1950313b501d30b036f0a4f8b5b",
+  "tracked_status": "",
+  "main_changed_path_count": 77,
+  "delta_path_count": 12,
+  "affected_snapshot_path_count": 132,
+  "working_vs_head_mismatches": [],
+  "main_diff_sha256": "316244cf323a98992153d32e1680a8b4c5b8781f77b7257dfd38dbf191d4bb80",
+  "main_changed_map_sha256": "c2df614c5fbbe69ead6670f055280a627a2ee2593e149a3f4d4fcb8cec4be15f",
+  "delta_files": {
+    "crates/fabelgeist-compute/src/kernel/copy.rs": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9",
+    "crates/fabelgeist-compute/src/kernel/mod.rs": "ac6c2e103eddfe55d171bb8e2281f8f1adb361854dca0e29b8b275d3c6709337",
+    "crates/fabelgeist-gpu/Cargo.toml": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs": "1d6d8fdb930ec1e7cef5c99cd16aac39ae33e5868c1d219860c043de70f3c2c6",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": "537cbf39f00bc36c4f46ff60a6b550037b283eedafcf41d3975274e5f3e61184",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs": "31fcc315c4314f2d63153aac4b2db696eae5a02d5ce7ae97881460e06a251295",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": "f24c36d6dfd3ccb446ff56264c3f9bb6f81f878e2eefcb5741eafcf4cde5a3b1",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs": "8582bd7ded85294c4a99ebc90c39a80ec4d6eeb00c9a711b6f3ec29dba691f17",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs": "d49de805d236d9c346364eb4c10d35cf54051e439b0725959f89ba3022c4aee7",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs": "4d68473e0f694bac67644dbb678b77f56fc80cbb1aa50ecbaf52cebc5859dc90",
+    "crates/fabelgeist-gpu/texture-views.md": "ef00a8d297b7264400e980d5151abf49961d0dc637dae03f1219d10775c37c1e"
+  },
+  "affected_files": {
+    ".github/workflows/rust-quality.yml": "12b74ba27f4c750bc807ba7c39553fe6f130179bb71ae3679d296cbaab947cd8",
+    "Cargo.lock": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+    "crates/adventuresim-character-creator/src/device_body.rs": "7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+    "crates/adventuresim-character-creator/src/device_bracer.rs": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+    "crates/adventuresim-character-creator/src/device_coif.rs": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+    "crates/adventuresim-character-creator/src/device_fit.rs": "dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc",
+    "crates/adventuresim-character-creator/src/device_frames.rs": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+    "crates/adventuresim-character-creator/src/device_garment_kernel.rs": "7484d47aa4568e2fc5b3fed2daba4888a9f0d637e6af199bca5e4f85f218d60f",
+    "crates/adventuresim-character-creator/src/device_gorget_bib.rs": "efabd4be63cf20343ef960668d702d3525aa9ac0b5b0e591efcc54efa38a1a92",
+    "crates/adventuresim-character-creator/src/device_gorget_collar.rs": "a16e662e70c17cde92374f377722bfe4e19440f3673a91b97f86d2e69960b099",
+    "crates/adventuresim-character-creator/src/device_gorget_projection.rs": "9e52d00ac15a857a4516fef35e94758bc61262edf250f23a42f2d249f1713ef3",
+    "crates/adventuresim-character-creator/src/device_torso.rs": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+    "crates/adventuresim-character-creator/src/device_underlayer.rs": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+    "crates/adventuresim-character-creator/src/garment/fitted.rs": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+    "crates/adventuresim-character-creator/src/hair/gpu/field.rs": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+    "crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+    "crates/adventuresim-character-creator/src/hair/gpu/strips.rs": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba",
+    "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63",
+    "crates/adventuresim-character-creator/tests/body_cloth_layers.rs": "de7fe94a71246b0953ae4d8c416c71458c04577c04a179e40f19bbbc31539b39",
+    "crates/adventuresim-character-creator/tests/skirt_construction.rs": "a1ec603ea2f3a48d91c136f5db6bedb408fc342a6bcc17c306d0a45ff3fdd872",
+    "crates/adventuresim-character-creator/tests/skirt_surface.rs": "6be4bdd141d88d087e4e53c63b87a81abb09e34f15541005b7320fb0da5d2560",
+    "crates/adventuresim-character-creator/tests/textile_appearance.rs": "2e1613f877cb04558ff0524ed8f83feb75eb0ec8d3655c45b8c3efd10e323840",
+    "crates/adventuresim-character-creator/tests/textile_treatment.rs": "584a09367f17674a14660adb1e8469da6e050cce200ab4f6f83433725d7b2ae2",
+    "crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs": "d914bedbc8e9a85e064c5ea5d7638598277248b68a0da29587eb637350461144",
+    "crates/fabelgeist-armor/src/error.rs": "1e14c8d0441364e441ccc57365bdddfe9c895a633be80ce0bdf91c0f45b95b1a",
+    "crates/fabelgeist-armor/src/gpu/breastplate/anime.rs": "a41d7583511916f837e5a9402fe4658589c54e4cfe15fa29cb04dd6a585ca000",
+    "crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs": "05f22ce898989bd0fd60a8820b40ebb7c2d7edfa5a3cf81b0bc2c12b59490965",
+    "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs": "1e8220ba0622d5c485c9397aec607d945e9aac92e8e7c26b6a5b5de0365f5026",
+    "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+    "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs": "961d47635ad3f0bea6e01267b36a4d5574ea7204876f1fedccbbdc427ef3a921",
+    "crates/fabelgeist-armor/src/gpu/limb_build.rs": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+    "crates/fabelgeist-armor/src/gpu/metal/bake.rs": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+    "crates/fabelgeist-armor/src/gpu/mod.rs": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f",
+    "crates/fabelgeist-armor/src/gpu/recipe.rs": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee",
+    "crates/fabelgeist-armor/src/gpu/staging.rs": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+    "crates/fabelgeist-armor/tests/garment_armor.rs": "82c80b000c0ec0926356bd5dfdb2ea3880b2e0294eb7b9cf771a8d4f215fe963",
+    "crates/fabelgeist-bvh/src/gpu/mod.rs": "591b2acc0e91118d14df8eb16d27966145ecdd661c8917dc58352ddec320ec9d",
+    "crates/fabelgeist-bvh/src/gpu/tests.rs": "85811b6011b987ade76feadef1481d898b159d429f5ac443f2e3a3cb3c0111ea",
+    "crates/fabelgeist-cloth/src/cloth/tests.rs": "5262ec58f985121e0e11d2db11221b795d41268242028aed3eee900623d90fe1",
+    "crates/fabelgeist-compute/src/advect/mod.rs": "51340cdb4c87b5008f4d45cd65bf25658a254bc9212f3fc031aba1b63207605f",
+    "crates/fabelgeist-compute/src/broadcast.rs": "fb226920191ac379fb66281b7289a5b02b30d10a3be9b57f566d7d608eb49c3c",
+    "crates/fabelgeist-compute/src/distance_field.rs": "0b46bdcd4dfba732411b2922b12c0526a6109c8c2b47102d3c9844e80ff4a47c",
+    "crates/fabelgeist-compute/src/distance_field_jfa.rs": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+    "crates/fabelgeist-compute/src/divergence/mod.rs": "1337f90480bb3e607df7a6e8610b04e4042fd6d7d81ca64e8f6b03a8931d7dcb",
+    "crates/fabelgeist-compute/src/dual_contouring/execution.rs": "2d85bb7c8a1674a8918169e0bf10ec8b5e2ffed332713b418fcda7faea3e283f",
+    "crates/fabelgeist-compute/src/gather/mod.rs": "e1596d8da320d3a162ec4326e60ceffef4973d102f085f92c5e17356d8a19623",
+    "crates/fabelgeist-compute/src/gradient/mod.rs": "bf2c295f6595fd5b7504f08b4605f2040015e358b4b984f4ecc47c66f237daa0",
+    "crates/fabelgeist-compute/src/host_float/tests.rs": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+    "crates/fabelgeist-compute/src/kernel/batch_error.rs": "17d100ac7cc26a65191ed6c6fb7aaa7756f48cda00d2fc59cff3d831089bc6d9",
+    "crates/fabelgeist-compute/src/kernel/copy.rs": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9",
+    "crates/fabelgeist-compute/src/kernel/dispatch_count.rs": "095ae805ef6999f6256a8a49b7c75739ae421028abdeddd1b5a3cbb7a6d1535c",
+    "crates/fabelgeist-compute/src/kernel/fast.rs": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+    "crates/fabelgeist-compute/src/kernel/fast/arena.rs": "c9488a11c8a8c9c481f6b948041544dea9ec19a9405405ec969f51c4e2d2db2d",
+    "crates/fabelgeist-compute/src/kernel/fast/compile.rs": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+    "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs": "0d9175592d18179ab5b8ae11985ce9ca7623d800be55ba9a1db8c08b3c65cd76",
+    "crates/fabelgeist-compute/src/kernel/mod.rs": "ac6c2e103eddfe55d171bb8e2281f8f1adb361854dca0e29b8b275d3c6709337",
+    "crates/fabelgeist-compute/src/map/mod.rs": "d974254605f81879bed0add0bcba13bb61170b84f345185be75216e99dcb02c8",
+    "crates/fabelgeist-compute/src/marching_cubes/mod.rs": "102937a8cee5211a52a5fd4a72548d64d6020ddf8e674dde8ef03a8e05ddc714",
+    "crates/fabelgeist-compute/src/matmul.rs": "32d99252dae00d9ceb7f8be4e88ae8dd60c2af7339371a9d9ad723e567b4a720",
+    "crates/fabelgeist-compute/src/mesh_query/tests.rs": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3",
+    "crates/fabelgeist-compute/src/prefix_sum.rs": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+    "crates/fabelgeist-compute/src/readback.rs": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+    "crates/fabelgeist-compute/src/reduce/mod.rs": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9",
+    "crates/fabelgeist-compute/src/reshape.rs": "8660144762264b34a54df0b6c3543f51578290e046645785d46805e95d73fede",
+    "crates/fabelgeist-compute/src/scan.rs": "ad6e3def79c9310934148627ecad10bb08ca71baaa585897559999d7a1d169b6",
+    "crates/fabelgeist-compute/src/scatter.rs": "cdc33d82be5c30c9b6af391982c781fd50cd244dd9a018db03f95a90830314ff",
+    "crates/fabelgeist-compute/src/sort/mod.rs": "0875af22982b215bebcf4fa357f966b369bd3b901abb5bc168e9b5285fd130e6",
+    "crates/fabelgeist-compute/src/sort/tests.rs": "f9a854933d115f0a5931eca96b4afa0f482f6b9c4b25846a814c390f37170243",
+    "crates/fabelgeist-compute/src/stencil.rs": "ae37884158e7bdd3c45b6821ff2d127a5e3fdbd7e8be8b30c4d273480d5b6d71",
+    "crates/fabelgeist-compute/src/stereo/pipeline.rs": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+    "crates/fabelgeist-compute/src/stream/mod.rs": "ac67a2f7413430d43cca9c43066d47ce55c4e743ff787d8d7115ceb43a924d0c",
+    "crates/fabelgeist-compute/src/transpose.rs": "b155a974ba4df5f50c0554a9beb0f7e56ce8771c1fb543b7dbdb656aba9a061e",
+    "crates/fabelgeist-compute/src/vertex_normals.rs": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced",
+    "crates/fabelgeist-compute/tests/concurrent_kernels.rs": "4fd6d01a795959004f9193d79f5502469c35aa84961dacb49dc6f6d20594727a",
+    "crates/fabelgeist-gpu/Cargo.toml": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+    "crates/fabelgeist-gpu/README.md": "2950b32efa885b1c1cad27e6ed1939afd3a809fc0dce1b65e6870f624c34c2cd",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs": "955f5bb0e7dc346933dab81076091f23ba15158a268849dcc0121858fc648658",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs": "6531a6cac487b5a8649caeb8835197c208ba8b19ea8c13e152f686b0f1404a8f",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs": "1d6d8fdb930ec1e7cef5c99cd16aac39ae33e5868c1d219860c043de70f3c2c6",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs": "2ad51b8c638245db350d8814c93f5338929b8604267169499ca850814d75b57b",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs": "f374b7a0f7816531b43160e4aade0b76afb2321f89bcd961063a5e1f4c76ddfe",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs": "707cf73485c1b7b28bd3e54cc5818fae51b67e4994ded26afe4f16f7ce5aaef4",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs": "99a42845d64d2256870d952e264b1d57fbf2add013e6e6ab4ab22f952df96777",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs": "d6d50cd02eba48905f36c9fa34512daa36e094446c2baa58f1163c57d5ae3c68",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs": "254dfc4a82d768bc50ba34bfdda34ebb638dc45ae8a11b8f983b81320118bd88",
+    "crates/fabelgeist-gpu/src/data/gpu/resource.rs": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+    "crates/fabelgeist-gpu/src/data/gpu/shader.rs": "5600af987b9f0edf639896585aa820fc98d351daa64b81c9e84d8a51222a81b7",
+    "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs": "0cec16cc3e11d085d3a2b3902b4cd810b7d8413eef744b421c03468b5c2dcd57",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs": "af62bc5f779bdd68942676c201137eec786b0c405216c1626b4b414cab2fe98f",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs": "339eb4bc4fecb2b3bf33e8b486b0a42214398ce4a391687745cce49464b267d9",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs": "b7a403ce0f4a856e97457918a1b1fe9a0d4e34fc8365ce806107ff48a6d4d049",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": "537cbf39f00bc36c4f46ff60a6b550037b283eedafcf41d3975274e5f3e61184",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs": "a084bd9266444ce4ed50458bfac88cc19e31ba899933eea8ad1ec20f176934ac",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs": "31fcc315c4314f2d63153aac4b2db696eae5a02d5ce7ae97881460e06a251295",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs": "2a09fff5d2d38ccd60190e1d41cd806f8298d3c40cb27bccb2a7844febdc7952",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": "f24c36d6dfd3ccb446ff56264c3f9bb6f81f878e2eefcb5741eafcf4cde5a3b1",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs": "1a0b48f936366ef8573be58c96d41f8a0d591cae174944a7341e0d7812cf4f95",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs": "8582bd7ded85294c4a99ebc90c39a80ec4d6eeb00c9a711b6f3ec29dba691f17",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs": "3aadd0cc8920208397fa499d7e869e7640c5c0335a6442a23d656bdace44b57e",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs": "d49de805d236d9c346364eb4c10d35cf54051e439b0725959f89ba3022c4aee7",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs": "4d68473e0f694bac67644dbb678b77f56fc80cbb1aa50ecbaf52cebc5859dc90",
+    "crates/fabelgeist-gpu/tests/fixtures/texture_views.json": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+    "crates/fabelgeist-gpu/tests/texture_views.rs": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+    "crates/fabelgeist-gpu/texture-views.md": "ef00a8d297b7264400e980d5151abf49961d0dc637dae03f1219d10775c37c1e",
+    "crates/fabelgeist-hair/src/gpu/collide.rs": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+    "crates/fabelgeist-hair/src/gpu/error.rs": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+    "crates/fabelgeist-hair/src/gpu/grow.rs": "eda4c9002081e8d83174e01bca0caddda93d9f90301d48b5ac2a5eb29033ce4c",
+    "crates/fabelgeist-hair/src/gpu/lods.rs": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+    "crates/fabelgeist-hair/src/gpu/mod.rs": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+    "crates/fabelgeist-hair/src/gpu/scalp.rs": "51aa86bfd6b6d5036da4ce6c3687a8c165546f519924b4a4e97030067776d842",
+    "crates/fabelgeist-hair/src/gpu/sim.rs": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+    "crates/fabelgeist-hair/src/render/mod.rs": "25b0b9a2168d3aafa49b08f1ed5b6b3438a9e2e6b3925df6c47aa09a47d05017",
+    "crates/fabelgeist-mesh/src/gpu.rs": "ad19b002ebc0d537cde1159638577fb53c250193bbb5f78e1bd7109058bbdb5f",
+    "crates/fabelgeist-physics/src/contact.rs": "a68dc722ac5181a1f310a1a1b13f9c694574799f3952a9ef19de71f3c018cceb",
+    "crates/fabelgeist-physics/src/mesh.rs": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+    "crates/fabelgeist-shell/src/shell.rs": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+    "crates/fabelgeist-spatial-hash/src/gpu.rs": "eb46b3a71f1237af1fad8cd3af122dd885552800b24faf8e89312ec9d6e70ba3",
+    "crates/fabelgeist-xpbd/src/solver.rs": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde"
+  },
+  "sdk_source_sha256": {
+    "wgpu-29.0.4/src/backend/wgpu_core.rs": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+    "wgpu-29.0.4/src/backend/wgpu_core/thread_id.rs": "20d1aa5017ab143cf5439f84e8db8a7e0eea576a107b1c8ef4b46e02fd7ec79a",
+    "wgpu-29.0.4/src/api/device.rs": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+    "wgpu-29.0.4/src/api/command_encoder.rs": "b5a770f88388e3b1368e4c8adeb65886958353fb6130ac392b1f43e7f7a8bbe7",
+    "wgpu-29.0.4/Cargo.toml": "7bc32ca62312e740926f2cb2548893ba220c37b7eb8d06c59bb1358fbda6462c",
+    "wgpu-29.0.4/build.rs": "cf1df048074f80a58bd40f4eefe2b1d6bfa2b92b022dd9d216ed789885ce5b60",
+    "wgpu-core-29.0.4/src/command/mod.rs": "f995d91f620482e378724e3a3e972e4f1d65502a8c83f43469ce079887a5d8b8",
+    "wgpu-core-29.0.4/src/command/transfer.rs": "46659ab834a883c87450ec3d71accf1c8664a37abb332b251d421fae96f6c6e8",
+    "wgpu-core-29.0.4/src/device/queue.rs": "b1a943fccedd5882a75252ff3e82a0d4ba8c7d46346041d2dd1bb66c5f5cba34"
+  },
+  "prior_inventory_source": "deferred-finish-caller-code-review.json at exact 5a34, independently identity-checked; verdict not inherited",
+  "prior_inventory_occurrences": 115,
+  "prior_function_records": 104,
+  "function_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "function": "WgpuContext::submitted_work_done",
+      "prior_5a34_lines": [
+        130
+      ],
+      "current_lines": [
+        133
+      ],
+      "sha256": "d49de805d236d9c346364eb4c10d35cf54051e439b0725959f89ba3022c4aee7",
+      "disposition": "Unchanged separate native/renderer/completion API; original source/controlflow classification remains, not blanket error-policy clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "function": "ComputePass::dispatch",
+      "prior_5a34_lines": [
+        30
+      ],
+      "current_lines": [
+        33
+      ],
+      "sha256": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24",
+      "disposition": "R1 standalone receiver repaired: local encoder passed through helper; actual cause wrapped without formatting."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "function": "Buffer::read",
+      "prior_5a34_lines": [
+        65
+      ],
+      "current_lines": [
+        65
+      ],
+      "sha256": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02",
+      "disposition": "Unchanged separate native/renderer/completion API; original source/controlflow classification remains, not blanket error-policy clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "function": "Texture3d::read",
+      "prior_5a34_lines": [
+        179
+      ],
+      "current_lines": [
+        181
+      ],
+      "sha256": "31fcc315c4314f2d63153aac4b2db696eae5a02d5ce7ae97881460e06a251295",
+      "disposition": "Agreed context-backed native consumer repaired: encoder from context.device; helper Result mapped to canonical Native before continuation; previous texture state/format/map/clear geometry unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "function": "TextureSrgbConverter::convert",
+      "prior_5a34_lines": [
+        169
+      ],
+      "current_lines": [
+        169
+      ],
+      "sha256": "339eb4bc4fecb2b3bf33e8b486b0a42214398ce4a391687745cce49464b267d9",
+      "disposition": "Unchanged separate native/renderer/completion API; original source/controlflow classification remains, not blanket error-policy clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "function": "TextureCube::set_side_texture",
+      "prior_5a34_lines": [
+        373
+      ],
+      "current_lines": [
+        375
+      ],
+      "sha256": "f24c36d6dfd3ccb446ff56264c3f9bb6f81f878e2eefcb5741eafcf4cde5a3b1",
+      "disposition": "Agreed context-backed native consumer repaired: encoder from context.device; helper Result mapped to canonical Native before continuation; previous texture state/format/map/clear geometry unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "function": "TextureCube::blit_texture_to_face",
+      "prior_5a34_lines": [
+        545
+      ],
+      "current_lines": [
+        549
+      ],
+      "sha256": "f24c36d6dfd3ccb446ff56264c3f9bb6f81f878e2eefcb5741eafcf4cde5a3b1",
+      "disposition": "Agreed context-backed native consumer repaired: encoder from context.device; helper Result mapped to canonical Native before continuation; previous texture state/format/map/clear geometry unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "function": "TextureCube::render_face_shader_raw",
+      "prior_5a34_lines": [
+        722
+      ],
+      "current_lines": [
+        728
+      ],
+      "sha256": "f24c36d6dfd3ccb446ff56264c3f9bb6f81f878e2eefcb5741eafcf4cde5a3b1",
+      "disposition": "Agreed context-backed native consumer repaired: encoder from context.device; helper Result mapped to canonical Native before continuation; previous texture state/format/map/clear geometry unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "function": "TextureCube::render_shader_raw",
+      "prior_5a34_lines": [
+        886
+      ],
+      "current_lines": [
+        894
+      ],
+      "sha256": "f24c36d6dfd3ccb446ff56264c3f9bb6f81f878e2eefcb5741eafcf4cde5a3b1",
+      "disposition": "Agreed context-backed native consumer repaired: encoder from context.device; helper Result mapped to canonical Native before continuation; previous texture state/format/map/clear geometry unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "function": "Texture2d::read",
+      "prior_5a34_lines": [
+        317
+      ],
+      "current_lines": [
+        319
+      ],
+      "sha256": "537cbf39f00bc36c4f46ff60a6b550037b283eedafcf41d3975274e5f3e61184",
+      "disposition": "Agreed context-backed native consumer repaired: encoder from context.device; helper Result mapped to canonical Native before continuation; previous texture state/format/map/clear geometry unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "function": "Texture2d::blit",
+      "prior_5a34_lines": [
+        498
+      ],
+      "current_lines": [
+        502
+      ],
+      "sha256": "537cbf39f00bc36c4f46ff60a6b550037b283eedafcf41d3975274e5f3e61184",
+      "disposition": "Agreed context-backed native consumer repaired: encoder from context.device; helper Result mapped to canonical Native before continuation; previous texture state/format/map/clear geometry unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "function": "Texture2d::clear_raw",
+      "prior_5a34_lines": [
+        585
+      ],
+      "current_lines": [
+        591
+      ],
+      "sha256": "537cbf39f00bc36c4f46ff60a6b550037b283eedafcf41d3975274e5f3e61184",
+      "disposition": "Agreed context-backed native consumer repaired: encoder from context.device; helper Result mapped to canonical Native before continuation; previous texture state/format/map/clear geometry unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "function": "TextureView::clear_raw",
+      "prior_5a34_lines": [
+        179
+      ],
+      "current_lines": [
+        181
+      ],
+      "sha256": "8582bd7ded85294c4a99ebc90c39a80ec4d6eeb00c9a711b6f3ec29dba691f17",
+      "disposition": "Agreed context-backed native consumer repaired: encoder from context.device; helper Result mapped to canonical Native before continuation; previous texture state/format/map/clear geometry unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "function": "TextureView::read",
+      "prior_5a34_lines": [
+        238
+      ],
+      "current_lines": [
+        242
+      ],
+      "sha256": "8582bd7ded85294c4a99ebc90c39a80ec4d6eeb00c9a711b6f3ec29dba691f17",
+      "disposition": "Agreed context-backed native consumer repaired: encoder from context.device; helper Result mapped to canonical Native before continuation; previous texture state/format/map/clear geometry unchanged."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "function": "Reduce::execute",
+      "prior_5a34_lines": [
+        310,
+        344
+      ],
+      "current_lines": [
+        310,
+        344
+      ],
+      "sha256": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9",
+      "disposition": "UNCHANGED REQUIRED #780 direct record consumer: manual finish/queue remains outside context helper."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "function": "DistanceField::generate_min",
+      "prior_5a34_lines": [
+        101
+      ],
+      "current_lines": [
+        101
+      ],
+      "sha256": "0b46bdcd4dfba732411b2922b12c0526a6109c8c2b47102d3c9844e80ff4a47c",
+      "disposition": "Unchanged separate native/renderer/completion API; original source/controlflow classification remains, not blanket error-policy clearance."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "function": "DistanceField::generate_smooth_min",
+      "prior_5a34_lines": [
+        192
+      ],
+      "current_lines": [
+        192
+      ],
+      "sha256": "0b46bdcd4dfba732411b2922b12c0526a6109c8c2b47102d3c9844e80ff4a47c",
+      "disposition": "Unchanged separate native/renderer/completion API; original source/controlflow classification remains, not blanket error-policy clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "function": "upload",
+      "prior_5a34_lines": [
+        130
+      ],
+      "current_lines": [
+        130
+      ],
+      "sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63",
+      "disposition": "Unchanged separate native/renderer/completion API; original source/controlflow classification remains, not blanket error-policy clearance."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "function": "HairRenderer::bind_dynamics",
+      "prior_5a34_lines": [
+        1392
+      ],
+      "current_lines": [
+        1392
+      ],
+      "sha256": "25b0b9a2168d3aafa49b08f1ed5b6b3438a9e2e6b3925df6c47aa09a47d05017",
+      "disposition": "Unchanged separate native/renderer/completion API; original source/controlflow classification remains, not blanket error-policy clearance."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "function": "HairRenderer::clear_dynamics",
+      "prior_5a34_lines": [
+        1443
+      ],
+      "current_lines": [
+        1443
+      ],
+      "sha256": "25b0b9a2168d3aafa49b08f1ed5b6b3438a9e2e6b3925df6c47aa09a47d05017",
+      "disposition": "Unchanged separate native/renderer/completion API; original source/controlflow classification remains, not blanket error-policy clearance."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "function": "HairRenderer::render",
+      "prior_5a34_lines": [
+        2184
+      ],
+      "current_lines": [
+        2184
+      ],
+      "sha256": "25b0b9a2168d3aafa49b08f1ed5b6b3438a9e2e6b3925df6c47aa09a47d05017",
+      "disposition": "Unchanged separate native/renderer/completion API; original source/controlflow classification remains, not blanket error-policy clearance."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "function": "HairRenderer::read_rgba",
+      "prior_5a34_lines": [
+        2249
+      ],
+      "current_lines": [
+        2249
+      ],
+      "sha256": "25b0b9a2168d3aafa49b08f1ed5b6b3438a9e2e6b3925df6c47aa09a47d05017",
+      "disposition": "Unchanged separate native/renderer/completion API; original source/controlflow classification remains, not blanket error-policy clearance."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "function": "KernelBatch::submit",
+      "prior_5a34_lines": [
+        355
+      ],
+      "current_lines": [
+        361
+      ],
+      "sha256": "ac6c2e103eddfe55d171bb8e2281f8f1adb361854dca0e29b8b275d3c6709337",
+      "disposition": "R1 receiver repaired: canonical Native from context helper before callbacks; only Ok then registration-order callbacks."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "function": "KernelBatch::dispatch static branch",
+      "prior_5a34_lines": [
+        294
+      ],
+      "current_lines": [
+        295
+      ],
+      "sha256": "ac6c2e103eddfe55d171bb8e2281f8f1adb361854dca0e29b8b275d3c6709337",
+      "disposition": "Record-only scope unchanged; deferred native errors now observable at repaired Batch submit, not guaranteed by recording Result."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+      "function": "StereoDepth::run",
+      "prior_5a34_lines": [
+        513
+      ],
+      "current_lines": [
+        513
+      ],
+      "sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "function": "PrefixSum::run",
+      "prior_5a34_lines": [
+        316
+      ],
+      "current_lines": [
+        316
+      ],
+      "sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+      "function": "RadixSort::run",
+      "prior_5a34_lines": [
+        321
+      ],
+      "current_lines": [
+        321
+      ],
+      "sha256": "0875af22982b215bebcf4fa357f966b369bd3b901abb5bc168e9b5285fd130e6",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "function": "Solver::step_interleaved",
+      "prior_5a34_lines": [
+        216
+      ],
+      "current_lines": [
+        216
+      ],
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "function": "Solver::step",
+      "prior_5a34_lines": [
+        232
+      ],
+      "current_lines": [
+        232
+      ],
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-physics/src/mesh.rs",
+      "function": "MeshCollider::rebuild",
+      "prior_5a34_lines": [
+        172
+      ],
+      "current_lines": [
+        172
+      ],
+      "sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-physics/src/mesh.rs",
+      "function": "MeshCollider::refit",
+      "prior_5a34_lines": [
+        179
+      ],
+      "current_lines": [
+        179
+      ],
+      "sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-physics/src/contact.rs",
+      "function": "Collisions::push_out",
+      "prior_5a34_lines": [
+        218
+      ],
+      "current_lines": [
+        218
+      ],
+      "sha256": "a68dc722ac5181a1f310a1a1b13f9c694574799f3952a9ef19de71f3c018cceb",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "function": "GpuBvh::build",
+      "prior_5a34_lines": [
+        312
+      ],
+      "current_lines": [
+        312
+      ],
+      "sha256": "591b2acc0e91118d14df8eb16d27966145ecdd661c8917dc58352ddec320ec9d",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "function": "Shell::step",
+      "prior_5a34_lines": [
+        244
+      ],
+      "current_lines": [
+        244
+      ],
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "function": "Shell::step_interleaved",
+      "prior_5a34_lines": [
+        286
+      ],
+      "current_lines": [
+        286
+      ],
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_bracer.rs",
+      "function": "generate_bracer_on_device_async",
+      "prior_5a34_lines": [
+        113,
+        126
+      ],
+      "current_lines": [
+        113,
+        126
+      ],
+      "sha256": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "function": "DeviceWearer::read_frame_async",
+      "prior_5a34_lines": [
+        142
+      ],
+      "current_lines": [
+        142
+      ],
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_torso.rs",
+      "function": "generate_breastplate_on_device_async",
+      "prior_5a34_lines": [
+        252
+      ],
+      "current_lines": [
+        252
+      ],
+      "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "function": "Fit::run",
+      "prior_5a34_lines": [
+        200,
+        207,
+        223
+      ],
+      "current_lines": [
+        200,
+        207,
+        223
+      ],
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "function": "Fit::shells",
+      "prior_5a34_lines": [
+        296
+      ],
+      "current_lines": [
+        296
+      ],
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "function": "Fit::record_skin",
+      "prior_5a34_lines": [
+        346
+      ],
+      "current_lines": [
+        346
+      ],
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "function": "fit_piece_async",
+      "prior_5a34_lines": [
+        173
+      ],
+      "current_lines": [
+        173
+      ],
+      "sha256": "dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_coif.rs",
+      "function": "fitted_coif_carrier",
+      "prior_5a34_lines": [
+        365
+      ],
+      "current_lines": [
+        365
+      ],
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "function": "BodyField::sample",
+      "prior_5a34_lines": [
+        132
+      ],
+      "current_lines": [
+        132
+      ],
+      "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "function": "StripSource::build",
+      "prior_5a34_lines": [
+        215
+      ],
+      "current_lines": [
+        215
+      ],
+      "sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "function": "Draping::carry",
+      "prior_5a34_lines": [
+        197
+      ],
+      "current_lines": [
+        197
+      ],
+      "sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "function": "Draping::drape",
+      "prior_5a34_lines": [
+        235,
+        298
+      ],
+      "current_lines": [
+        235,
+        298
+      ],
+      "sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "function": "GpuScalpTexture::bake",
+      "prior_5a34_lines": [
+        213
+      ],
+      "current_lines": [
+        213
+      ],
+      "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "function": "longest",
+      "prior_5a34_lines": [
+        445
+      ],
+      "current_lines": [
+        445
+      ],
+      "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "function": "ArmorGpu::read_staged_async",
+      "prior_5a34_lines": [
+        73
+      ],
+      "current_lines": [
+        73
+      ],
+      "sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "function": "ArmorGpu::build_in",
+      "prior_5a34_lines": [
+        280
+      ],
+      "current_lines": [
+        280
+      ],
+      "sha256": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "function": "ArmorGpu::nearest_points",
+      "prior_5a34_lines": [
+        351
+      ],
+      "current_lines": [
+        351
+      ],
+      "sha256": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "function": "generate_limb_armor_on",
+      "prior_5a34_lines": [
+        38
+      ],
+      "current_lines": [
+        38
+      ],
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "function": "Recipe::build",
+      "prior_5a34_lines": [
+        161
+      ],
+      "current_lines": [
+        161
+      ],
+      "sha256": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "function": "DeviceBreastplate::record",
+      "prior_5a34_lines": [
+        117,
+        138
+      ],
+      "current_lines": [
+        117,
+        138
+      ],
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime.rs",
+      "function": "Articulation::record",
+      "prior_5a34_lines": [
+        45,
+        49
+      ],
+      "current_lines": [
+        45,
+        49
+      ],
+      "sha256": "a41d7583511916f837e5a9402fe4658589c54e4cfe15fa29cb04dd6a585ca000",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "function": "bake",
+      "prior_5a34_lines": [
+        82
+      ],
+      "current_lines": [
+        82
+      ],
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "function": "GpuGroomer::cut_scalp",
+      "prior_5a34_lines": [
+        394
+      ],
+      "current_lines": [
+        394
+      ],
+      "sha256": "51aa86bfd6b6d5036da4ce6c3687a8c165546f519924b4a4e97030067776d842",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+      "function": "GpuGroomer::apply",
+      "prior_5a34_lines": [
+        115
+      ],
+      "current_lines": [
+        115
+      ],
+      "sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+      "function": "GpuGroomer::equilibrium",
+      "prior_5a34_lines": [
+        171
+      ],
+      "current_lines": [
+        171
+      ],
+      "sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "function": "GpuGroomer::grow",
+      "prior_5a34_lines": [
+        336
+      ],
+      "current_lines": [
+        336
+      ],
+      "sha256": "eda4c9002081e8d83174e01bca0caddda93d9f90301d48b5ac2a5eb29033ce4c",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "function": "GpuGroomer::read_words",
+      "prior_5a34_lines": [
+        540
+      ],
+      "current_lines": [
+        540
+      ],
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "function": "GpuGroomer::resimulate",
+      "prior_5a34_lines": [
+        250
+      ],
+      "current_lines": [
+        250
+      ],
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "function": "GpuSim::reset",
+      "prior_5a34_lines": [
+        505
+      ],
+      "current_lines": [
+        505
+      ],
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "function": "GpuSim::step",
+      "prior_5a34_lines": [
+        657
+      ],
+      "current_lines": [
+        657
+      ],
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "function": "GpuSim::set_state",
+      "prior_5a34_lines": [
+        794
+      ],
+      "current_lines": [
+        794
+      ],
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "function": "GpuGroomer::lods_against",
+      "prior_5a34_lines": [
+        240
+      ],
+      "current_lines": [
+        240
+      ],
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "function": "nearest_points_match_a_host_search",
+      "prior_5a34_lines": [
+        78
+      ],
+      "current_lines": [
+        78
+      ],
+      "sha256": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "function": "candidates_narrow_a_point_search",
+      "prior_5a34_lines": [
+        114
+      ],
+      "current_lines": [
+        114
+      ],
+      "sha256": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "function": "ties_go_to_the_lowest_index",
+      "prior_5a34_lines": [
+        148
+      ],
+      "current_lines": [
+        148
+      ],
+      "sha256": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "function": "closest_points_lie_on_the_surface",
+      "prior_5a34_lines": [
+        179
+      ],
+      "current_lines": [
+        179
+      ],
+      "sha256": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "function": "rays_find_the_first_and_last_crossing",
+      "prior_5a34_lines": [
+        229
+      ],
+      "current_lines": [
+        229
+      ],
+      "sha256": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/tests.rs",
+      "function": "run",
+      "prior_5a34_lines": [
+        94
+      ],
+      "current_lines": [
+        94
+      ],
+      "sha256": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+      "function": "tests::normals",
+      "prior_5a34_lines": [
+        434
+      ],
+      "current_lines": [
+        434
+      ],
+      "sha256": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+      "function": "every_thread_sees_its_own_uniforms worker closure",
+      "prior_5a34_lines": [
+        73
+      ],
+      "current_lines": [
+        73
+      ],
+      "sha256": "4fd6d01a795959004f9193d79f5502469c35aa84961dacb49dc6f6d20594727a",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+      "function": "a_long_open_batch_keeps_its_uniforms worker and main",
+      "prior_5a34_lines": [
+        122,
+        126
+      ],
+      "current_lines": [
+        122,
+        126
+      ],
+      "sha256": "4fd6d01a795959004f9193d79f5502469c35aa84961dacb49dc6f6d20594727a",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "function": "tests::every_buffer_comes_back_in_order",
+      "prior_5a34_lines": [
+        248
+      ],
+      "current_lines": [
+        248
+      ],
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "function": "tests::a_pending_readback_arrives_without_waiting",
+      "prior_5a34_lines": [
+        274
+      ],
+      "current_lines": [
+        274
+      ],
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/tests/garment_armor.rs",
+      "function": "tasset_carriers",
+      "prior_5a34_lines": [
+        205
+      ],
+      "current_lines": [
+        205
+      ],
+      "sha256": "82c80b000c0ec0926356bd5dfdb2ea3880b2e0294eb7b9cf771a8d4f215fe963",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "function": "body_support_uses_the_outer_envelope_and_preserves_the_chart_ray",
+      "prior_5a34_lines": [
+        116
+      ],
+      "current_lines": [
+        116
+      ],
+      "sha256": "1e8220ba0622d5c485c9397aec607d945e9aac92e8e7c26b6a5b5de0365f5026",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "function": "local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck",
+      "prior_5a34_lines": [
+        241
+      ],
+      "current_lines": [
+        241
+      ],
+      "sha256": "1e8220ba0622d5c485c9397aec607d945e9aac92e8e7c26b6a5b5de0365f5026",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "function": "apply_support",
+      "prior_5a34_lines": [
+        313
+      ],
+      "current_lines": [
+        313
+      ],
+      "sha256": "1e8220ba0622d5c485c9397aec607d945e9aac92e8e7c26b6a5b5de0365f5026",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "function": "rear_enclosure_preserves_the_actual_preceding_lap",
+      "prior_5a34_lines": [
+        366
+      ],
+      "current_lines": [
+        366
+      ],
+      "sha256": "1e8220ba0622d5c485c9397aec607d945e9aac92e8e7c26b6a5b5de0365f5026",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "function": "body_seating_retains_authored_skirt_flare_without_moving_the_waist",
+      "prior_5a34_lines": [
+        483,
+        505
+      ],
+      "current_lines": [
+        483,
+        505
+      ],
+      "sha256": "1e8220ba0622d5c485c9397aec607d945e9aac92e8e7c26b6a5b5de0365f5026",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs",
+      "function": "deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem",
+      "prior_5a34_lines": [
+        144
+      ],
+      "current_lines": [
+        144
+      ],
+      "sha256": "05f22ce898989bd0fd60a8820b40ebb7c2d7edfa5a3cf81b0bc2c12b59490965",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "function": "armscye_width_moves_its_boundary_without_moving_the_neck_or_waist",
+      "prior_5a34_lines": [
+        34
+      ],
+      "current_lines": [
+        34
+      ],
+      "sha256": "961d47635ad3f0bea6e01267b36a4d5574ea7204876f1fedccbbdc427ef3a921",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "function": "armscye_trim_preserves_the_retained_carrier_sections",
+      "prior_5a34_lines": [
+        83
+      ],
+      "current_lines": [
+        83
+      ],
+      "sha256": "961d47635ad3f0bea6e01267b36a4d5574ea7204876f1fedccbbdc427ef3a921",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "function": "flank_return_preserves_the_neckline_at_coupled_neck_depths",
+      "prior_5a34_lines": [
+        137
+      ],
+      "current_lines": [
+        137
+      ],
+      "sha256": "961d47635ad3f0bea6e01267b36a4d5574ea7204876f1fedccbbdc427ef3a921",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "function": "coupled_flank_and_armscye_controls_cannot_reverse_chart_columns",
+      "prior_5a34_lines": [
+        213
+      ],
+      "current_lines": [
+        213
+      ],
+      "sha256": "961d47635ad3f0bea6e01267b36a4d5574ea7204876f1fedccbbdc427ef3a921",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/gpu/tests.rs",
+      "function": "refit_tracks_moved_primitives",
+      "prior_5a34_lines": [
+        271
+      ],
+      "current_lines": [
+        271
+      ],
+      "sha256": "85811b6011b987ade76feadef1481d898b159d429f5ac443f2e3a3cb3c0111ea",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/skirt_construction.rs",
+      "function": "joined_fixture",
+      "prior_5a34_lines": [
+        111
+      ],
+      "current_lines": [
+        111
+      ],
+      "sha256": "a1ec603ea2f3a48d91c136f5db6bedb408fc342a6bcc17c306d0a45ff3fdd872",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/body_cloth_layers.rs",
+      "function": "generate",
+      "prior_5a34_lines": [
+        62
+      ],
+      "current_lines": [
+        62
+      ],
+      "sha256": "de7fe94a71246b0953ae4d8c416c71458c04577c04a179e40f19bbbc31539b39",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/skirt_surface.rs",
+      "function": "generate_in_span",
+      "prior_5a34_lines": [
+        44
+      ],
+      "current_lines": [
+        44
+      ],
+      "sha256": "6be4bdd141d88d087e4e53c63b87a81abb09e34f15541005b7320fb0da5d2560",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_appearance.rs",
+      "function": "generated",
+      "prior_5a34_lines": [
+        40
+      ],
+      "current_lines": [
+        40
+      ],
+      "sha256": "2e1613f877cb04558ff0524ed8f83feb75eb0ec8d3655c45b8c3efd10e323840",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_treatment.rs",
+      "function": "finished",
+      "prior_5a34_lines": [
+        37,
+        50
+      ],
+      "current_lines": [
+        37,
+        50
+      ],
+      "sha256": "584a09367f17674a14660adb1e8469da6e050cce200ab4f6f83433725d7b2ae2",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-spatial-hash/src/gpu.rs",
+      "function": "tests::gpu_neighbour_counts_match_the_host_grid",
+      "prior_5a34_lines": [
+        388
+      ],
+      "current_lines": [
+        388
+      ],
+      "sha256": "eb46b3a71f1237af1fad8cd3af122dd885552800b24faf8e89312ec9d6e70ba3",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "function": "tests::intermediate_neck_bulge_and_shared_bib_seam_clear_the_measured_body",
+      "prior_5a34_lines": [
+        193
+      ],
+      "current_lines": [
+        193
+      ],
+      "sha256": "a16e662e70c17cde92374f377722bfe4e19440f3673a91b97f86d2e69960b099",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "function": "tests::bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge",
+      "prior_5a34_lines": [
+        312,
+        351
+      ],
+      "current_lines": [
+        312,
+        351
+      ],
+      "sha256": "a16e662e70c17cde92374f377722bfe4e19440f3673a91b97f86d2e69960b099",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_projection.rs",
+      "function": "tests::near_edge_on_projections_reject_exterior_queries_without_depth_extrapolation",
+      "prior_5a34_lines": [
+        150
+      ],
+      "current_lines": [
+        150
+      ],
+      "sha256": "9e52d00ac15a857a4516fef35e94758bc61262edf250f23a42f2d249f1713ef3",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_kernel.rs",
+      "function": "tests::shader_normalization_preserves_direction_across_finite_scales",
+      "prior_5a34_lines": [
+        273
+      ],
+      "current_lines": [
+        273
+      ],
+      "sha256": "7484d47aa4568e2fc5b3fed2daba4888a9f0d637e6af199bca5e4f85f218d60f",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/fabelgeist-cloth/src/cloth/tests.rs",
+      "function": "coincident_non_neighbours_separate_and_pinned_particles_stay_fixed",
+      "prior_5a34_lines": [
+        630
+      ],
+      "current_lines": [
+        630
+      ],
+      "sha256": "5262ec58f985121e0e11d2db11221b795d41268242028aed3eee900623d90fe1",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "function": "tests::coif_mesh",
+      "prior_5a34_lines": [
+        532
+      ],
+      "current_lines": [
+        532
+      ],
+      "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "function": "tests::bib_seats_on_lower_equipment_in_the_canonical_wearer_frame",
+      "prior_5a34_lines": [
+        274
+      ],
+      "current_lines": [
+        274
+      ],
+      "sha256": "efabd4be63cf20343ef960668d702d3525aa9ac0b5b0e591efcc54efa38a1a92",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+      "function": "wrapped_tassets_reject_nonpositive_final_section_radii",
+      "prior_5a34_lines": [
+        144
+      ],
+      "current_lines": [
+        144
+      ],
+      "sha256": "d914bedbc8e9a85e064c5ea5d7638598277248b68a0da29587eb637350461144",
+      "disposition": "UNCHANGED REQUIRED CALLER INTEGRATION: current submit Result remains ignored, fixture needs existing API adaptation; E1/M1 consequences retained where applicable."
+    }
+  ],
+  "new_helper": {
+    "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+    "signature": "pub fn submit(&self, encoder: wgpu::CommandEncoder) -> std::result::Result<wgpu::SubmissionIndex, wgpu::Error>",
+    "finish_lines": [
+      20,
+      28
+    ],
+    "queue_lines": [
+      30,
+      38
+    ],
+    "provenance": "Caller precondition: encoder from self.device and queue paired to that exact device; same provider alone is insufficient. Migrated internal consumers satisfy encoder construction; aggregate public context identity is not proved by helper.",
+    "filter": "Validation only; nonmatching filters and later health errors retain configured device handling.",
+    "native": "blocking_validation controls scopes; std feature makes scope tracking truly thread-specific; no completion poll.",
+    "wasm": "No native scopes or pollster references remain after cfg; direct finish/queue return Ok with no synchronous validation verdict; pre-existing fragile Send/Sync policy retained."
+  },
+  "owned_actionable_findings": [],
+  "r1_disposition": "Receiver implementation repaired under valid context provenance and stated Validation/native policy; full connected R1 family not clear until caller/manual Reduce integration.",
+  "unresolved_required": [
+    "E1 armor GenerateError and metal String error cause owner integration",
+    "M1 retained GpuSim/Bvh/hash recording-versus-submitted metadata policy",
+    "All existing Batch callers/fixtures must consume Result before continuations",
+    "Owner #780 Reduce/manual record + cache/layout/count/stride/mode/parser/folded/ranged-copy caller families",
+    "Retained #774/F19 source families",
+    "Unrelated raw renderer/native queue validation policies remain explicitly separate and unresolved",
+    "Final all13, three independent reviews and required hosted CI on same final pushed SHA"
+  ],
+  "limits": [
+    "No source edits",
+    "No local project execution/check/build/test/scanner/generator/runtime",
+    "No new tests/cases/helpers/assertions/doctests",
+    "No push or CI",
+    "Only ignored review JSON/Markdown written",
+    "No whole PR or compilation/source-complete clearance"
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "discovery": "Complete for the four public read documentation contracts and exact lower dependencies. Broader producer/caller acceptance remains incomplete.",
+  "repair": "Not started.",
+  "validation": "Source reads only; no project execution.",
+  "sources": {
+    "crates/fabelgeist-armor/src/gpu/facade.rs": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+    "crates/fabelgeist-armor/src/gpu/staging.rs": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342"
+  },
+  "cells": [
+    {
+      "lens": "producer-propagation",
+      "source_contract": "ArmorGpu::read/read_async and read_staged/read_staged_async pass external Buffer ports through the facade context to the existing direct/grouped readback owners.",
+      "disposition_connected_repair_acceptance": "Document the same-device and paired-queue preconditions at all four public recipients; numerical producer migrations remain required separately.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contract": "Buffer::read owns direct mapping and source-device requirements; WgpuContext::from_parts owns the device/queue pairing precondition. Grouped Readback owns staging copies.",
+      "disposition_connected_repair_acceptance": "Reuse these contracts and links. Add no device brand, buffer metadata or speculative validation API.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contract": "Buffer exposes no creating-device query. Direct reads require the exact source device/paired queue and exclusive mapping access; grouped reads require sources usable for actual GPU copies.",
+      "disposition_connected_repair_acceptance": "Clarify caller obligations without claiming a new check or applying direct-read exclusive mapping guarantees to arbitrary grouped aliases.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contract": "All read method bodies, tickets, prefixes, native copies, submission handling and decoders remain unchanged.",
+      "disposition_connected_repair_acceptance": "Only Rustdoc is edited. Keep exact native progress, producing-submission and mapping behavior.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contract": "The facade context contains device and queue; an external Buffer port can belong to another device. Staging session tickets prove result identity, not creating-device identity.",
+      "disposition_connected_repair_acceptance": "State the actual relationship required by the lower operation; do not imply session identity certifies native device provenance.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "type-ownership",
+      "source_contract": "Root owns the facade/staging documentation; peer780 owns grouped Readback and remaining producers/callers.",
+      "disposition_connected_repair_acceptance": "Edit only the two Root files, preserve shared lower bodies and report all canonical integration dependencies.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contract": "There is one creating device and its paired queue. Facade docs currently leave this relationship implicit in module prose and the Buffer::read link.",
+      "disposition_connected_repair_acceptance": "Make that same existing authority explicit; add no second stored fact or alternate policy.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contract": "This clarification describes current preconditions. It does not reject additional inputs, change errors, synchronize extra work or alter browser handling.",
+      "disposition_connected_repair_acceptance": "All production tokens and existing fixtures must remain identical; no tests, cases, helpers or assertions are added.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contract": "No flags, roles, optional payloads or states change. Existing staging sessions and typed error variants are untouched.",
+      "disposition_connected_repair_acceptance": "No enum/schema repair is needed for this documentation-only scope.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "derivability",
+      "source_contract": "No trait, serializer or error implementation changes. Existing native causes and error derivations remain intact.",
+      "disposition_connected_repair_acceptance": "No manual boilerplate or derives are introduced.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "type-granularity",
+      "source_contract": "Direct and grouped reads have different mapping mechanisms but share device/queue obligations.",
+      "disposition_connected_repair_acceptance": "Document each actual boundary precisely rather than introducing another wrapper or conflating alias guarantees.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "magic-strings",
+      "source_contract": "New prose and Rustdoc method links are presentation/documentation text, never classifiers or runtime keys.",
+      "disposition_connected_repair_acceptance": "Use exact existing type/method names and make no behavioral branch depend on prose.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contract": "No numeric values, bounds, labels, byte layouts or count conversions change.",
+      "disposition_connected_repair_acceptance": "All numeric contracts and no-growth ceilings remain unchanged.",
+      "discovery": "Complete for this bounded documentation scope.",
+      "repair": "Pending clarification.",
+      "validation": "Not performed."
+    }
+  ],
+  "finding": "Public facade read documentation should explicitly carry lower same-device/paired-queue preconditions. This is precondition clarity, not a valid-input implementation defect.",
+  "acceptance": [
+    "Read/read_async explicitly retain Buffer::read mapping and producing-submission requirements.",
+    "Grouped sources belong to the facade device and are available for their actual GPU copies; do not invent blanket alias/exclusive-read guarantees.",
+    "All non-documentation Rust tokens and existing fixtures remain identical.",
+    "Repeat all13 and independent Code/Rule/Comment review after the edit.",
+    "Canonical readback/producers/callers/locks and final hosted gates remain required."
+  ]
+}

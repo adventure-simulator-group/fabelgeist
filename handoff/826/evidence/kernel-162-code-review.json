@@ -1,0 +1,389 @@
+{
+  "review": "Independent bounded Code Review, Kernel declaration/documentation successor",
+  "head": "162b152c47ea3824b4bbcdea01215fe5342f71f0",
+  "tree": "d10f45775592b9733e946662dfc5879a66ed3c1f",
+  "actual_parent": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "peer": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "findings": [],
+  "verdict": "No new actionable correctness finding. Two-file executable source stability verified; not whole-graph compilation, global thirteen-lens, whole-PR or hosted clearance.",
+  "changed_source": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+      "sha256": "c1e2f58f4f5a2bdb5a220a2e633075fc0fedc981e036958586b411ab050685d5",
+      "git_blob": "d3edc31a139ce561cb01971ff8084bec5cfe7f72",
+      "peer_sha256": "c1e2f58f4f5a2bdb5a220a2e633075fc0fedc981e036958586b411ab050685d5",
+      "peer_byte_exact": true,
+      "coverage": "Fresh complete pinned current file and complete parent diff read"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+      "git_blob": "10bcf187fa0e6e673069d1772b05d86a44b8d2eb",
+      "peer_sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "peer_byte_exact": false,
+      "coverage": "Fresh complete pinned current file and complete parent diff read"
+    }
+  ],
+  "manifest": {
+    "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-kernel-order-comments-e2162708f/manifest.json",
+    "sha256": "466a4ad0976f7fdf065575e88a5a6cafed1fe9e4b8d28ef6fbe551e72479e211",
+    "checks": [
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+        "recorded": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+        "peer_sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+        "root_sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+        "both_exact": false,
+        "peer_manifest_exact": true,
+        "root_peer_difference": "Only KernelCache::get closure line wrapping, already present in prior Root; executable parent identity proved separately."
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+        "recorded": "c1e2f58f4f5a2bdb5a220a2e633075fc0fedc981e036958586b411ab050685d5",
+        "peer_sha256": "c1e2f58f4f5a2bdb5a220a2e633075fc0fedc981e036958586b411ab050685d5",
+        "root_sha256": "c1e2f58f4f5a2bdb5a220a2e633075fc0fedc981e036958586b411ab050685d5",
+        "both_exact": true,
+        "peer_manifest_exact": true,
+        "root_peer_difference": "none"
+      }
+    ],
+    "disposition": "Manifest hashes match immutable peer source; fast/uniforms is Root byte-exact. Root KernelCache::get retains previous Root closure formatting, the sole Root/peer difference, independently read complete diff; semantic source-equivalent, not all2 byte-exact peer."
+  },
+  "source_equivalence": {
+    "kernel_file_exact_after_only_two_declaration_moves_and_two_prose_replacements": true,
+    "cache_declaration_exact": true,
+    "batch_declaration_exact": true,
+    "write_uniform_signature_and_entire_body_exact": true,
+    "folded_wgsl_exact": true,
+    "context_fixture_tail_exact": true,
+    "compile_fail_exact": true,
+    "whole_kernel_normalized_sha256": "b96d22bf120c81786144832926de63f04ccc0a388b72bac601ccea418362318d",
+    "whole_kernel_baseline_without_moved_types_sha256": "b96d22bf120c81786144832926de63f04ccc0a388b72bac601ccea418362318d"
+  },
+  "renderer_source_identity": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "source_sha256": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+      "prior_sha256": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "source_sha256": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+      "prior_sha256": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "source_sha256": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+      "prior_sha256": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "source_sha256": "052eb05f205e18ce867d925db0db38571dcc98c92f6d4230d715e326b347dfd4",
+      "prior_sha256": "052eb05f205e18ce867d925db0db38571dcc98c92f6d4230d715e326b347dfd4",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation.rs",
+      "source_sha256": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+      "prior_sha256": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/buffers.rs",
+      "source_sha256": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+      "prior_sha256": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/error.rs",
+      "source_sha256": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+      "prior_sha256": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/simulation/frames.rs",
+      "source_sha256": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+      "prior_sha256": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "source_sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "prior_sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "source_sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "prior_sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "source_sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "prior_sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/meshes.rs",
+      "source_sha256": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+      "prior_sha256": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "source_sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "prior_sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "source_sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "prior_sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "source_sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "prior_sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "source_sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "prior_sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "exact_prior": true,
+      "coverage": "Prior fresh f905 complete read revalidated by exact source identity; no fresh whole-body renderer read claimed at162"
+    }
+  ],
+  "all8_renderer_identical": true,
+  "scope_source_identity": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "sha256": "ce8d9e4f67af04002edcb5f6bf9663adc038d652f47bc2ef21dbad8b9f47122f",
+      "prior_sha256": "ce8d9e4f67af04002edcb5f6bf9663adc038d652f47bc2ef21dbad8b9f47122f",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+      "sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+      "prior_sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "6571917ae7c9729230bb8483bc94f56e47b5a83b027c0a5c845ab5064ef24e0a",
+      "prior_sha256": "6571917ae7c9729230bb8483bc94f56e47b5a83b027c0a5c845ab5064ef24e0a",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "sha256": "85c7d90117d3d5bc30b5239f0863256038074ebfcc4a820a4d8c8e96e3a3c666",
+      "prior_sha256": "85c7d90117d3d5bc30b5239f0863256038074ebfcc4a820a4d8c8e96e3a3c666",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "sha256": "27eac828acc971124b7d84558344bf34813821e999bb23d16e4d283ce282894b",
+      "prior_sha256": "27eac828acc971124b7d84558344bf34813821e999bb23d16e4d283ce282894b",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "bcf66a11a928e18d624a83ed29a7d4470256608ab41d022c7c973a317ff5460f",
+      "prior_sha256": "366f3ef2f25bfc6a76712808635ddda592b31ce2485446b4adf80655f2c15b73",
+      "exact_prior": false,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/workgroup.rs",
+      "sha256": "99e5f516fd8606aa8350015dfad9eb5ffbdddfc7a055bea489d714e3ddc73723",
+      "prior_sha256": "99e5f516fd8606aa8350015dfad9eb5ffbdddfc7a055bea489d714e3ddc73723",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "prior_sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "prior_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "prior_sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "prior_sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "prior_sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "prior_sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "prior_sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "prior_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "prior_sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "prior_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "prior_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+      "sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "prior_sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "prior_sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "prior_sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "prior_sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "prior_sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+      "sha256": "c1e2f58f4f5a2bdb5a220a2e633075fc0fedc981e036958586b411ab050685d5",
+      "prior_sha256": "0d9175592d18179ab5b8ae11985ce9ca7623d800be55ba9a1db8c08b3c65cd76",
+      "exact_prior": false,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_count.rs",
+      "sha256": "095ae805ef6999f6256a8a49b7c75739ae421028abdeddd1b5a3cbb7a6d1535c",
+      "prior_sha256": "095ae805ef6999f6256a8a49b7c75739ae421028abdeddd1b5a3cbb7a6d1535c",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/batch_error.rs",
+      "sha256": "17d100ac7cc26a65191ed6c6fb7aaa7756f48cda00d2fc59cff3d831089bc6d9",
+      "prior_sha256": "17d100ac7cc26a65191ed6c6fb7aaa7756f48cda00d2fc59cff3d831089bc6d9",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "prior_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "exact_prior": true,
+      "coverage": "Fresh full2 current reads; remaining exact identity carries prior bounded whole-body source evidence"
+    }
+  ],
+  "uniform_contract": "F05/F23 settled preservation: provided supported variants determine representation; whole value that does not fit block skips without changing destination. No expected-kind gate or new rejection. Initial zero remains zero only where earlier overlapping writes have not changed it. Missing/unsupported fast variants retain typed errors; body is byte-identical.",
+  "source_revalidation": [
+    "Kernel immutable source/entry/shape selection, lazy preparation, cache keys/publication and getters are unchanged. Named shared owners retained; moving complete type declarations before implementations has no name-resolution or lifetime effect.",
+    "Actual-device Grid admission remains before FastPath.prepare and writes; empty-first is unchanged. Five scope calls preserve body/observation order, actual causes, count/chunk publication, existing slot consumption and deferred encoder-validation limits.",
+    "Native-only cache rejection retained; transient Progress avoids publication/removes DeviceHandled entry; prior Compiled marker may remain but compiled() re-enters missing cache admission. All relevant underlying receiver source hashes match independently reviewed scope48e.",
+    "Documentation now accurately limits batching and describes fresh bind group/per-batch uniform slot behavior, including no uniform slot for absent block. Historical oversized supported-variant skips are explicit and executable code unchanged.",
+    "All8 renderer receiver files and8 affected current f905 files byte-identical; canonical host/native source receipt pins and receiving limits therefore unchanged. No fresh whole-renderer reread claimed."
+  ],
+  "required_dependencies": [
+    "Exact hostshape/frame/native/card producer files and their transitive APIs/manifest-lock are not fully imported at this checkpoint. Missing local SimFrame/read-only definitions remain REQUIRED coordinated integration, not an independently owned receiver patch or compilation acceptance.",
+    "All shared producer/count/stride/physical-grid/creator/application caller families remain required. Source reading of native simulation execution/collision is not broad physics admission or policy clearance. No silently deferred incomplete path is accepted.",
+    "Separate Rule/Comment Review and root full thirteen-lens post-wave remain required. All13/all3reviews/required hosted checks must pass on same final pushed SHA; no merge.",
+    "Remaining producer/caller/manifest-lock integration and separate Rule/Comment work not cleared by documentation-only successor. Final same pushed SHA full13/full3reviews/required hosted gates still required."
+  ],
+  "limits": [
+    "Source/Git/provenance/hash comparisons and ignored report writes only; no source edits, local project execution/build/check/lint/test/scanner/generator/runtime/push/CI.",
+    "No new tests/cases/helpers/assertions/doctests. Executable equivalence and fixture identity are textual evidence, not compilation or runtime validation.",
+    "Full2 current Kernel files freshly read. Prior receiving source evidence explicitly carried by exact hashes, not represented as fresh whole-body rereading. No global/final clearance."
+  ]
+}

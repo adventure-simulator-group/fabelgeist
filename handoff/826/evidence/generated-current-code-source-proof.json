@@ -1,0 +1,623 @@
+{
+  "manifest_sha256": "1da74380dd8a3c6a54c24803aea6a48602f4baa12e69adc7a51fee869d5b3373",
+  "base_commit": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "root_native_reference": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "files": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "authority": "files",
+      "sha256": "55748934ab8638b33ef380aae35e12c0ab61b888158a5e0b5de459c68495ba7a",
+      "manifest_matches": true,
+      "lines": 299,
+      "base_git_sha256": "55748934ab8638b33ef380aae35e12c0ab61b888158a5e0b5de459c68495ba7a",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "authority": "files",
+      "sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+      "manifest_matches": true,
+      "lines": 218,
+      "base_git_sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "authority": "files",
+      "sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+      "manifest_matches": true,
+      "lines": 371,
+      "base_git_sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "authority": "files",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "manifest_matches": true,
+      "lines": 7,
+      "base_git_sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "authority": "files",
+      "sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "manifest_matches": true,
+      "lines": 48,
+      "base_git_sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "authority": "files",
+      "sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+      "manifest_matches": true,
+      "lines": 247,
+      "base_git_sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "authority": "files",
+      "sha256": "486b2a0fb53a28e3b45cc4b847784c885a1b2f637220e6bdad8083dee0216a72",
+      "manifest_matches": true,
+      "lines": 110,
+      "base_git_sha256": null,
+      "equals_base_git": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "authority": "files",
+      "sha256": "b9f394de465c58404eb5cf84625eb3510d77a80423ea0519ee12ad1836198f87",
+      "manifest_matches": true,
+      "lines": 216,
+      "base_git_sha256": "6bac7f1ff95532004d88a383de80e559f550f4e8d3223d5adbbffd50a8907071",
+      "equals_base_git": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "authority": "files",
+      "sha256": "a7c696dbf294ed783211c1fd401cd59769543cae9733276ef8febc33c563ca0e",
+      "manifest_matches": true,
+      "lines": 113,
+      "base_git_sha256": null,
+      "equals_base_git": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "authority": "files",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "manifest_matches": true,
+      "lines": 9,
+      "base_git_sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "authority": "files",
+      "sha256": "d430c50cf3c4c063b75a82a9d9ce18a5dde50d68853c71d31d26d1a3b74c0832",
+      "manifest_matches": true,
+      "lines": 116,
+      "base_git_sha256": null,
+      "equals_base_git": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "authority": "files",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "manifest_matches": true,
+      "lines": 42,
+      "base_git_sha256": "307a22684a265bcbdd41fc0b7b038b9cdec839b1988eed7f66b8390fee2e6a5d",
+      "equals_base_git": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "authority": "files",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "manifest_matches": true,
+      "lines": 296,
+      "base_git_sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "authority": "files",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "manifest_matches": true,
+      "lines": 170,
+      "base_git_sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "authority": "files",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "manifest_matches": true,
+      "lines": 27,
+      "base_git_sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "authority": "files",
+      "sha256": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+      "manifest_matches": true,
+      "lines": 335,
+      "base_git_sha256": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "authority": "files",
+      "sha256": "5313b40f721b7bc7a2a04993f36823fc4a345d0beacde0edf23a494e34732178",
+      "manifest_matches": true,
+      "lines": 78,
+      "base_git_sha256": null,
+      "equals_base_git": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "authority": "files",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "manifest_matches": true,
+      "lines": 1082,
+      "base_git_sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "authority": "files",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "manifest_matches": true,
+      "lines": 11,
+      "base_git_sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "authority": "files",
+      "sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "manifest_matches": true,
+      "lines": 43,
+      "base_git_sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "authority": "files",
+      "sha256": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+      "manifest_matches": true,
+      "lines": 331,
+      "base_git_sha256": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "authority": "files",
+      "sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "manifest_matches": true,
+      "lines": 69,
+      "base_git_sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "authority": "files",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "manifest_matches": true,
+      "lines": 216,
+      "base_git_sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "authority": "files",
+      "sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "manifest_matches": true,
+      "lines": 103,
+      "base_git_sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "authority": "files",
+      "sha256": "5cb92b1488c3e0ea14c98488795775c6fe4c190f5c60af878f5a96a36a867a92",
+      "manifest_matches": true,
+      "lines": 253,
+      "base_git_sha256": "991f1eebf5b1a9cf7f8fa7314793b2610a78fa7f5b01236a19c84ea9f73773fd",
+      "equals_base_git": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "authority": "files",
+      "sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "manifest_matches": true,
+      "lines": 88,
+      "base_git_sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "authority": "files",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "manifest_matches": true,
+      "lines": 97,
+      "base_git_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "equals_base_git": true
+    },
+    {
+      "path": "Cargo.lock",
+      "authority": "reference_only",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "manifest_matches": true,
+      "lines": 13116,
+      "base_git_sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "authority": "reference_only",
+      "sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "manifest_matches": true,
+      "lines": 12316,
+      "base_git_sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "authority": "reference_only",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "manifest_matches": true,
+      "lines": 11,
+      "base_git_sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "authority": "reference_only",
+      "sha256": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+      "manifest_matches": true,
+      "lines": 287,
+      "base_git_sha256": "2e0eea32b384b061a6b1bbb3162b077479bfefde32e196a8978e66d6c3b84b69",
+      "equals_base_git": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "authority": "reference_only",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "manifest_matches": true,
+      "lines": 307,
+      "base_git_sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "authority": "reference_only",
+      "sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "manifest_matches": true,
+      "lines": 272,
+      "base_git_sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "authority": "reference_only",
+      "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "manifest_matches": true,
+      "lines": 71,
+      "base_git_sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+      "authority": "reference_only",
+      "sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "manifest_matches": true,
+      "lines": 131,
+      "base_git_sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+      "authority": "reference_only",
+      "sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "manifest_matches": true,
+      "lines": 145,
+      "base_git_sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+      "authority": "reference_only",
+      "sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "manifest_matches": true,
+      "lines": 27,
+      "base_git_sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+      "authority": "reference_only",
+      "sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "manifest_matches": true,
+      "lines": 179,
+      "base_git_sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+      "authority": "reference_only",
+      "sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "manifest_matches": true,
+      "lines": 236,
+      "base_git_sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+      "authority": "reference_only",
+      "sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "manifest_matches": true,
+      "lines": 54,
+      "base_git_sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "authority": "reference_only",
+      "sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "manifest_matches": true,
+      "lines": 71,
+      "base_git_sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "authority": "reference_only",
+      "sha256": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27",
+      "manifest_matches": true,
+      "lines": 102,
+      "base_git_sha256": "c04feb5e8852212086b588c9946c8b191bb96ff90814d1278192e7b4bce73d07",
+      "equals_base_git": false
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "authority": "reference_only",
+      "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "manifest_matches": true,
+      "lines": 236,
+      "base_git_sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+      "authority": "reference_only",
+      "sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "manifest_matches": true,
+      "lines": 174,
+      "base_git_sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/perlin_noise.rs",
+      "authority": "reference_only",
+      "sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "manifest_matches": true,
+      "lines": 129,
+      "base_git_sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "authority": "reference_only",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "manifest_matches": true,
+      "lines": 16,
+      "base_git_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "authority": "reference_only",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "manifest_matches": true,
+      "lines": 302,
+      "base_git_sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "authority": "reference_only",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "manifest_matches": true,
+      "lines": 93,
+      "base_git_sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/simplex_noise.rs",
+      "authority": "reference_only",
+      "sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "manifest_matches": true,
+      "lines": 171,
+      "base_git_sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "authority": "reference_only",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "manifest_matches": true,
+      "lines": 208,
+      "base_git_sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "equals_base_git": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "authority": "reference_only",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "manifest_matches": true,
+      "lines": 43,
+      "base_git_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "equals_base_git": true,
+      "root_cac_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "reference_equals_root_cac": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "authority": "reference_only",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "manifest_matches": true,
+      "lines": 150,
+      "base_git_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "equals_base_git": true,
+      "root_cac_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "reference_equals_root_cac": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "authority": "reference_only",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "manifest_matches": true,
+      "lines": 81,
+      "base_git_sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "equals_base_git": true,
+      "root_cac_sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "reference_equals_root_cac": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "authority": "reference_only",
+      "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "manifest_matches": true,
+      "lines": 69,
+      "base_git_sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "equals_base_git": true,
+      "root_cac_sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "reference_equals_root_cac": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "authority": "reference_only",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "manifest_matches": true,
+      "lines": 40,
+      "base_git_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "equals_base_git": true,
+      "root_cac_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "reference_equals_root_cac": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "authority": "reference_only",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "manifest_matches": true,
+      "lines": 201,
+      "base_git_sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "equals_base_git": true,
+      "root_cac_sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "reference_equals_root_cac": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "authority": "reference_only",
+      "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "manifest_matches": true,
+      "lines": 206,
+      "base_git_sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "equals_base_git": true,
+      "root_cac_sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "reference_equals_root_cac": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "authority": "reference_only",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "manifest_matches": true,
+      "lines": 79,
+      "base_git_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "equals_base_git": true,
+      "root_cac_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "reference_equals_root_cac": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "authority": "reference_only",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "manifest_matches": true,
+      "lines": 55,
+      "base_git_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "equals_base_git": true,
+      "root_cac_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "reference_equals_root_cac": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "authority": "reference_only",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "manifest_matches": true,
+      "lines": 82,
+      "base_git_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "equals_base_git": true,
+      "root_cac_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "reference_equals_root_cac": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "authority": "reference_only",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "manifest_matches": true,
+      "lines": 102,
+      "base_git_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "equals_base_git": true,
+      "root_cac_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "reference_equals_root_cac": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "authority": "reference_only",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "manifest_matches": true,
+      "lines": 113,
+      "base_git_sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "equals_base_git": true,
+      "root_cac_sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "reference_equals_root_cac": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "authority": "reference_only",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "manifest_matches": true,
+      "lines": 86,
+      "base_git_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "equals_base_git": true,
+      "root_cac_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "reference_equals_root_cac": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "authority": "reference_only",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "manifest_matches": true,
+      "lines": 43,
+      "base_git_sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "equals_base_git": true,
+      "root_cac_sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "reference_equals_root_cac": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "authority": "reference_only",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "manifest_matches": true,
+      "lines": 24,
+      "base_git_sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "equals_base_git": true,
+      "root_cac_sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "reference_equals_root_cac": false
+    }
+  ],
+  "hash_verification_is_source_bookkeeping_only": true
+}

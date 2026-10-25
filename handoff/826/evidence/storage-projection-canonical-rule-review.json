@@ -1,0 +1,748 @@
+{
+  "kind": "Independent PRE-INTEGRATION Rule/source discovery, not a received-source or final review",
+  "root_pin": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+  "root_tree": "84b9787789f790aa58887b55787319439865997a",
+  "canonical_pin": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "main_pin": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "original779_provenance_pin": "71f9cab8a5f97760e2e61ca4c74876b715f8aebc",
+  "manifests": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-storage-projection-family-e2162708f/manifest.json",
+      "sha256": "2ba6361a9d803893cd3dac7fdf32ef513dc3b96117d497e19b6b4a220ad55906",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-storage-projection-supplement-e2162708f/manifest.json",
+      "sha256": "9753537a30b4f6c453f9ff04bdb9acf4f0234fe109fd3585d557e8d7032de205",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-resource-recipes-complete-e2162708f/manifest.json",
+      "sha256": "ff14958c0c79d74581e4774267a16963f29d405d68b228e275b8e12d91c717ed",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607"
+    }
+  ],
+  "source_accounting": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "4b94a0b3a1a1e51b108608d28ca28fda6178e366ab2c8f49980a4968e2aff721",
+      "raw_lines": 321,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+      "raw_lines": 218,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+      "raw_lines": 371,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+      "raw_lines": 247,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "6bac7f1ff95532004d88a383de80e559f550f4e8d3223d5adbbffd50a8907071",
+      "raw_lines": 495,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "e97b56c90018e2382c2715260d0608d334eff6d141bc7dd8bb8fe6f708ed20ce",
+      "raw_lines": 189,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+      "raw_lines": 335,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "raw_lines": 1082,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+      "raw_lines": 331,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "raw_lines": 216,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "991f1eebf5b1a9cf7f8fa7314793b2610a78fa7f5b01236a19c84ea9f73773fd",
+      "raw_lines": 228,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "raw_lines": 88,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "raw_lines": 97,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+      "raw_lines": 421,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "raw_lines": 35,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "1b980d4e70b78653c3c8c246e2cf7da33f4bc5cec208060e5ef4acbf059ba24e",
+      "raw_lines": 898,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Complete exact two whole methods render_face_shader_raw568-732/render_shader_raw742-898 and native format/storage/view/submission relationships only. No whole Cube file body credit; preserve Root other methods."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "raw_lines": 103,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "raw_lines": 170,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "raw_lines": 27,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "raw_lines": 71,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "EXCLUDED: source identity only, no body-review/integration credit. Complete extraction family held."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "raw_lines": 302,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "c04feb5e8852212086b588c9946c8b191bb96ff90814d1278192e7b4bce73d07",
+      "raw_lines": 101,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "raw_lines": 16,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/workgroup.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "ffa8f8f0beb9bf408f7a259919960bdd22329afd9c20141b151e9c4b16c9c0ee",
+      "raw_lines": 21,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "raw_lines": 9,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "raw_lines": 7,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "raw_lines": 11,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "raw_lines": 43,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/execution.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "fdf743edb8382f0bae0750c6255d89a22855f9be09f50179981ffd8f26964435",
+      "raw_lines": 176,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/layout.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "19f555f68f33ff087db6fb06d6a5f37bb4ca784708e74739098c7c99b2c0de15",
+      "raw_lines": 49,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/error.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "8dfa0b2e6cbfe706b8e070c9b18e1abf4029d45cc1147a58a5e7b2967071e578",
+      "raw_lines": 6,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "raw_lines": 93,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "raw_lines": 117,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete immutable canonical file body/comments and any inline fixtures read; failed oversized concatenations repaired by complete separate Stencil/Scatter/Stream reads."
+    }
+  ],
+  "reference_accounting": [
+    {
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "raw_lines": 244,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "raw_lines": 43,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-family-e2162708f",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "raw_lines": 42,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "raw_lines": 129,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "raw_lines": 117,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "raw_lines": 53,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "raw_lines": 109,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Exact identity/context verified; prior explicitly bounded Root contract readings retained only for declared native Grid/Shape/Pipeline/export responsibilities. Not fresh complete immutable reference-body credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "raw_lines": 141,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Exact identity/context verified; prior explicitly bounded Root contract readings retained only for declared native Grid/Shape/Pipeline/export responsibilities. Not fresh complete immutable reference-body credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "raw_lines": 201,
+      "exact_manifest_and_git": true,
+      "package": "handoff-storage-projection-supplement-e2162708f",
+      "coverage": "Exact identity/context verified; prior explicitly bounded Root contract readings retained only for declared native Grid/Shape/Pipeline/export responsibilities. Not fresh complete immutable reference-body credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "86e926ab47cd284d07a0e14265aaf7b5ba3ce1b6cc5e2aff66328e05f67aee02",
+      "raw_lines": 113,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "raw_lines": 17,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Exact identity/context verified; prior explicitly bounded Root contract readings retained only for declared native Grid/Shape/Pipeline/export responsibilities. Not fresh complete immutable reference-body credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "raw_lines": 5,
+      "exact_manifest_and_git": true,
+      "package": "handoff-resource-recipes-complete-e2162708f",
+      "coverage": "Fresh complete source read, context only except separately selected stride source."
+    }
+  ],
+  "selected_source_count": 32,
+  "complete_selected_file_bodies": 31,
+  "cube_two_methods_only": true,
+  "extraction_explicitly_held": true,
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "revision": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "9b9d422e011ac23ee1e453483eb4356d0dd14b9f",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71"
+    }
+  ],
+  "findings": [
+    {
+      "id": "SP-P3-ORDER",
+      "priority": 3,
+      "classification": "Inherited ordering retained in modified canonical responsibility files; no functional regression implied",
+      "rule": "crates/AGENTS.md:90-94",
+      "locations": [
+        {
+          "path": "crates/fabelgeist-compute/src/map/mod.rs",
+          "line": 383
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+          "line": 302
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/scatter.rs",
+          "line": 280
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/stencil.rs",
+          "line": 821
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+          "line": 277
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+          "line": 213
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+          "line": 167
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+          "line": 156
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+          "line": 15
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+          "line": 137
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/lib.rs",
+          "line": 28
+        }
+      ],
+      "finding": "Eight algorithm unit structs occur after impls; Advect cache alias occurs after its first struct; signature private helper precedes later public functions. Mixed compute/lib source puts exports after mods and cfg(test) test_utils before exports.",
+      "consequence": "Whole copied canonical files and mixed export composition retain explicit repository ordering violations.",
+      "acceptance": "Owning peer/coordinated whole-file composition moves declarations without changing functions/fixtures; all reexports before mods and test-only module last. Hold extraction exports rather than blindly copying lib context."
+    },
+    {
+      "id": "SP-P2-PARAMETER-RECORD",
+      "priority": 2,
+      "classification": "Existing connected signature migration incompleteness, not newly introduced runtime failure",
+      "rule": "crates/AGENTS.md:28-57,69-71",
+      "locations": [
+        {
+          "path": "crates/fabelgeist-compute/src/map/mod.rs",
+          "line": 20
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/stencil.rs",
+          "line": 25
+        }
+      ],
+      "finding": "MapSignature and StencilSignature still store user parameter records as Vec<(String,ResourceBaseType)> and reconstruct the same positional pairs through uniform/resource partitioning.",
+      "consequence": "The newly typed coordinate/texture projection family leaves connected parameter records positional despite explicit named-record rules. Open native WGSL names and existing ResourceBaseType are valid leaves; no extra identifier wrapper or numeric policy is required.",
+      "acceptance": "Reuse/admit one canonical named parameter record at signature parsing and carry it through all connected parameter partitions/consumers, with coordinated ownership; preserve authored parameter order, open names, complete recipe identity and existing protocol."
+    },
+    {
+      "id": "SP-P2-STENCIL-STATE",
+      "priority": 2,
+      "classification": "Existing connected signature/state migration incompleteness; no claim of current panic from parser-produced values",
+      "rule": "crates/AGENTS.md:28-57,58-65,69-71",
+      "locations": [
+        {
+          "path": "crates/fabelgeist-compute/src/stencil.rs",
+          "line": 17
+        }
+      ],
+      "finding": "StencilSignature carries neighborhood-vs-resource mode as bool, dimension as arbitrary u32, and independent optional center/neighbors names. Mode/dimension/payload drive declaration generation, numerical indexing and unreachable branches downstream.",
+      "consequence": "CoordinateParameter repairs index/size pairing, but the neighboring mode still represents contradictory or unsupported domain combinations and propagates raw dimension classification into the generator. Actual parse-produced dimension is currently bounded1..4, so this is an API/schema and propagation gap rather than a demonstrated parser panic.",
+      "acceptance": "Owning family expresses neighborhood mode/dimension and its required payload with canonical typed roles/record, carrying the admitted shape through code generation; preserve resource mode, authored native dimension grammar, precedence and existing successful behavior. Inspect canonical owners before adding any type."
+    },
+    {
+      "id": "SP-P3-RESULT-ALIAS",
+      "priority": 3,
+      "classification": "New focused-module API consistency gap",
+      "rule": "crates/AGENTS.md:118-122",
+      "locations": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+          "line": 54
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+          "line": 83
+        }
+      ],
+      "finding": "Each focused module owns one fallible carrier but returns explicit Result<_,OwnError> without an owning Result alias, unlike StorageFormatResult/TextureValueResult.",
+      "consequence": "Canonical API ownership does not follow the repository alias rule; no cause or runtime behavior loss asserted.",
+      "acceptance": "Add appropriately descriptive owning Result aliases and compose needed exports; preserve exact structured carriers/source and distinct stride conversion errors."
+    }
+  ],
+  "contract_traces": [
+    {
+      "family": "Exact storage format and value projection",
+      "owner": "TextureFormat -> existing color::PixelFormat::to_wgsl_storage_format; ResourceBaseType -> TextureValue",
+      "trace": "format/storage.rs admits exact actual format or typed StorageFormatError. ResourceDescriptor linearizes only declared storage counterpart; input base_type returns existing enum, no leaking allocated string. TextureValue borrows scalar enum and admits only scalar/numeric2/3/4 vectors, owns lane role; load_suffix/store_expression emit native WGSL tokens. Buffer/custom resource branches do not invoke TextureValue and retain arbitrary CustomBuffer behavior.",
+      "consumers": "Map/Gather/Stencil/Scatter/Reduce/Stream plus Advect/Gradient/Divergence generated bindings and Cube two shader functions.",
+      "limits": "Storage spelling admission is not device feature/usage validation. Native mismatched types remain native checked failures, not silently converted. Existing broader TextureFormat legacy classifiers/conversions not claimed redesigned."
+    },
+    {
+      "family": "Source plus required address projection",
+      "owner": "ResourceFetch and TextureAddressing",
+      "trace": "generate_fetch emits code paired with Coordinates/LinearIndex; Map/Stencil combine all primary/secondary fetches and coordinate arguments, sizeScalar upgrades to LinearPopulation; Gather/Scatter scalar indices and Stream flattening carry corresponding requirement. ResourcePipeline retains same immutable source/reflection-selected shape and native layout. workgroups admits texture independent axes and checked widened population projection only when generated source needs it.",
+      "guarantees": "LinearIndex permits population-1 up to u32MAX; LinearPopulation requires population itself; Coordinates adds no gratuitous flat-volume cap. Actual overflow and u32 conversion causes retained; zero grids remain actual native dispatch policy.",
+      "limits": "No claim all user-authored arbitrary indexing is safe or entire resource relation/capacity is validated. Stream documented counts/offsets/output-writer association preconditions remain."
+    },
+    {
+      "family": "Reflected buffer stride and population",
+      "owner": "Canonical BufferElementStride/BufferElementCount; ResourcePipeline ResourceLayout",
+      "trace": "Native Naga array stride enters nonzero BufferElementStride. Logical Buffer.size/stride yields complete BufferElementCount with checked native u32 admission, discarding partial trailing record as documented. Native count -> InvocationCount -> actual declared WorkgroupShape -> WorkgroupGrid; count*stride uses widened u32*u32 bytes without u64 overflow. PassParameter::Unsigned is direct native uniform count adapter, no extract/re-admit chain.",
+      "guarantees": "Payload size is not used in place of aligned native array stride; named ResourceLayout couples resource kind to relevant stride/addressing; pipeline selects reflected actual named entry and shape.",
+      "limits": "Count does not prove contents/device identity; actual Pipeline/ComputePass/Buffer native providers remain Root-owned and must not be overwritten by package reference."
+    },
+    {
+      "family": "Cache recipes and publication",
+      "owner": "Root ComputeSourceCache + Map/Gather/Scatter/Stencil/Advect/Gradient/Divergence named recipes and SecondaryResources",
+      "trace": "Definition source and full semantic descriptor/boundary recipe enter cache with actual Device and validation policy; SecondaryResources owns sorted native binding names+descriptors. Cached ResourcePipeline/ReductionPipeline/ScanPipelines retain associated immutable layout/shape. Build error never publishes. Native Pipeline own completed failures/progress policy is preserved, not replaced by canonical old reference.",
+      "limits": "Racing builders may duplicate work but share first successful published outcome; source cache does not prove borrowed/device-handled native success. No tuple recipe cache owner duplicated."
+    },
+    {
+      "family": "Reduce scratch, terminal behavior and native causes",
+      "owner": "ReductionElements/ReductionPlan/ReductionBuffers; shared canonical byte/stride/native Batch API",
+      "trace": "Native input resource population checked via reflected output array stride and u32 bounded texture volume. <=1 complete records returns same Buffer; tiny textures retain typed admission failure path. prepare matches actual Device plus exact live scratch byte extent, no oversized arrayLength suffix. First/recurring pipeline use same authored source type; record dispatches each level then final BufferCopy copies exactly one stride; fallible batch.submit propagates actual native cause before result return.",
+      "limits": "Construction of reusable scratch may publish allocation before recording/submission failure; no semantic result-success, rollback or completion claim. Source cache compiled native outcomes retain Root policy."
+    },
+    {
+      "family": "Scan shaped recurrence and existing WGSL",
+      "owner": "ScanPipelines actual native256x1x1 admission, ScanLevel WorkgroupCount, ScannedAuxiliary BufferElementCount",
+      "trace": "Both native selected stages must match authored schedule before caching. Input logical bytes divided by reflected stride; empty returns input. Each level stores paired allocation/live native count; next totals one per workgroup; scratch allocations count*stride, not fixed4. Intermediate add-offset launch preserves prior one-group-per-record schedule with native bounds guards; both native stages pass canonical dispatch Grid/Shape and fallible submit.",
+      "limits": "No native execution/changed numerical semantics claim. Inherited partial-final aux double-write was investigated: only preceding totals feed valid later output, so no observable output defect demonstrated; not an actionable regression finding."
+    },
+    {
+      "family": "Cube native boundary and preserved owners",
+      "owner": "Root TextureCube whole render_face_shader_raw/render_shader_raw methods",
+      "trace": "Both generated WGSL storage spelling and native layout format use self.effective_format(self.format); view_2d_array is existing checked state/view path. Face stays canonical CubeFace until native uniform ordinal; time/POD/native binding numbers are actual shader boundary. Native creation/recording currently require Root planned immediate observe_validation, followed by existing context.submit for actual finish/submit boundary.",
+      "limits": "Known native observation timing finding remains actionable and already inventoried by Root; not duplicated as new finding. No added wait, no independent backend, preserve Root construction/upload/view/transfer/readback methods."
+    }
+  ],
+  "fixture_provenance": [
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "307a22684a265bcbdd41fc0b7b038b9cdec839b1988eed7f66b8390fee2e6a5d",
+      "exact_main": true,
+      "coverage": "Exact byte provenance only; not fresh test-body execution or new full test behavioral coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "exact_main": true,
+      "coverage": "Exact byte provenance only; not fresh test-body execution or new full test behavioral coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "exact_main": true,
+      "coverage": "Exact byte provenance only; not fresh test-body execution or new full test behavioral coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+      "sha256": "d0d3dffc4a91c467d5fdab631a26961745163417f8b7818ae760a3702ea24d8f",
+      "exact_main": true,
+      "coverage": "Exact byte provenance only; not fresh test-body execution or new full test behavioral coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "exact_main": true,
+      "coverage": "Exact byte provenance only; not fresh test-body execution or new full test behavioral coverage."
+    }
+  ],
+  "inline_stencil_fixture": "Fresh complete read and full fixture diff against main: existing helper operand type u32->BoundaryMode and default0->Clamp only; same cases/macros/data/assertions. No new case/helper/assertion/doctest authored.",
+  "native_root_source_reads": [
+    "Complete actual Root ComputeSourceCache, ComputePass and ComputePipeline modules read for actual admission/native cause/publication integration; no copying of peer old native reference authorized. Root texture mod exports confirm StorageFormatResult closure; Root prelude unchangedallow not expanded."
+  ],
+  "no_growth": {
+    "baseline_sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+    "applicable_tracked_baselines": {
+      "files": [
+        {
+          "path": "crates/fabelgeist-compute/src/stencil.rs",
+          "ceiling": 924
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "ceiling": 899
+        }
+      ],
+      "functions": [
+        {
+          "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+          "item": "AdvectDefinition::build_pipeline",
+          "ceiling": 127
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+          "item": "GatherDefinition::build_pipeline",
+          "ceiling": 174
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/map/mod.rs",
+          "item": "MapDefinition::build_pipeline",
+          "ceiling": 233
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+          "item": "Reduce::execute",
+          "ceiling": 131
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+          "item": "ReduceDefinition::get_or_create_pipeline",
+          "ceiling": 120
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/scan.rs",
+          "item": "Scan::execute",
+          "ceiling": 135
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/scatter.rs",
+          "item": "ScatterDefinition::build_pipeline",
+          "ceiling": 160
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/stencil.rs",
+          "item": "StencilDefinition::build_pipeline",
+          "ceiling": 579
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/stencil.rs",
+          "item": "StencilDefinition::parse_signature",
+          "ceiling": 133
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+          "item": "StreamDefinition::build_pipeline",
+          "ceiling": 125
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::blit_texture_to_face",
+          "ceiling": 161
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_face_shader_raw",
+          "ceiling": 149
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_shader_raw",
+          "ceiling": 142
+        }
+      ]
+    },
+    "source_observations": "Only existing Stencil focused selected file exceeds500 under conservative nonblank/noncomment count845<924 baseline; Map428 and format401 below500. All new focused production files/functions inspected below500/100. Scan execute conservative128<135; Map build194<233; Stencil build545<579. Other large generated WGSL builder bodies retain existing authored program scaffolding/ceilings; no baseline raising proposed.",
+    "limits": "Counts are bounded manual source accounting, not authoritative lexical scanner output. Relevant hosted baseline reductions and final complete composed source checks remain required; no quality tool run."
+  },
+  "nonfindings_and_limits": [
+    "Open native shader names, Custom types, WGSL lexical tokens/format literals and native ABI lanes/ordinals/bindings remain actual boundaries; do not replace by invented closed vocabularies or arbitrary wrappers.",
+    "Manual std Error/Display implementations are possible derive simplifications, not new correctness violations by themselves; no source trait or Wasm/native runtime proof added here.",
+    "Main990 contains exact Scan partial-final auxiliary write pattern. Valid prefix outputs do not consume the last partial total; no runtime/output defect established. Preliminary concern withdrawn as actionable defect; no numerical shader rewrite justified by that unproved scenario.",
+    "The now focused existing helper/schema records still require coordinated complete owner remedy for findings; this reviewer has no source repair authorization.",
+    "Supplement extraction/wgsl.rs excluded; compute lib/prelude/Buffer/GPU mod composition preserves Root native bodies and existing fixture populations. No blind full-file overwrite of mixed files or revival of old pipeline/entry APIs.",
+    "No source edits, project execution/checks/build/lint/tests/scanner/generator/runtime/push/CI/new tests/cases/helpers/assertions/doctests occurred. Reports only in ignored output.",
+    "No final combined graph or full producer/caller/Creator/application/physical/lock source closure claim. All13 root inventory is independently owned by Root and Code reviewer discovery is not substituted here."
+  ],
+  "correctness_verdict": "No new canonical storage/value/addressing/stride/count/cache correctness regression demonstrated by bounded source inspection. Known Cube native timing admission remains actionable under Root planned repair; no duplicate finding. API/rule incompleteness findings prevent clean receiving/family clearance.",
+  "completeness_verdict": "Not integrated. Four grouped actionable rule/migration findings require canonical owner/coordinated disposition; actual Root composition must preserve exact native implementations and fixtures. Global13 waves, complete canonical dependency graph, all3 final independent reviews and hosted same-pushed-SHA checks/reductions remain required.",
+  "head_at_report": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+  "status_at_report": ""
+}

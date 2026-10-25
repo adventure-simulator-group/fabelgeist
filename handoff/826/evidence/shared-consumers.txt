@@ -1,0 +1,34 @@
+crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:255:        rpass.set_pipeline(&self.pipeline);
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:14:pub struct ComputePipeline {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:23:impl Default for ComputePipeline {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:36:impl ComputePipeline {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:91:        let layouts: Vec<_> = self.bind_group_layouts.iter().map(|l| l.as_ref()).collect();
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:127:        let naga_res = parse_naga(&self.shader.code, wgpu::naga::ShaderStage::Compute)
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:142:impl ComputePipeline {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:157:            reflection: Some(interface.reflection),
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:165:        if self.pipeline.is_some() {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:169:            .reflection
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:184:        self.pipeline = Some(pipeline);
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs:7:pub struct ComputeShader {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs:12:impl ComputeShader {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs:75:        let definition = ComputeShader {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs:84:impl PartialEq for ComputeShader {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:45:            reflected.push(group.reflection);
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:84:                self.reflection
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:101:                    self.reflection.sampler_bindings.push((name, binding));
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:120:        self.reflection.uniform_binding = Some(binding);
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:122:            self.reflection.uniform_buffer_size = *span;
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:124:                self.reflection.uniform_members.push(UniformMember {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:131:            self.reflection.uniform_buffer_size = ty.inner.size(module.to_ctx());
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:181:        self.reflection.texture_bindings.push(TextureBinding {
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:48:            .pipeline
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:64:        let bind_group_layouts = &pipeline_def.bind_group_layouts;
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:66:            .reflection
+crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs:127:            cpass.set_pipeline(&self.pipeline);
+crates/fabelgeist-compute/src/kernel/fast.rs:228:            pipeline: compiled.pipeline,
+crates/fabelgeist-compute/src/kernel/fast.rs:313:            pipeline: self.pipeline.clone(),
+crates/fabelgeist-compute/src/kernel/mod.rs:66:        self.pipeline.shader.code == other.pipeline.shader.code
+crates/fabelgeist-compute/src/kernel/mod.rs:105:            .zip(pipeline.reflection.as_ref())
+crates/fabelgeist-compute/src/kernel/mod.rs:159:            let mut pipeline = self.pipeline.clone();
+crates/fabelgeist-compute/src/kernel/mod.rs:271:                pass.set_pipeline(&prepared.pipeline);
+crates/fabelgeist-compute/src/kernel/mod.rs:280:                &kernel.pipeline,

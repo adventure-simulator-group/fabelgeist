@@ -1,0 +1,164 @@
+{
+  "revision": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "discovery": "complete forenumerated connected cached-view native blit/clear family andactualdependencyclosure; widerPR remainsincomplete",
+  "repair": "sourcecompleted; existingViewclearcanonicalpolicy and2dimmediateBlitter/nativeobservation; nonewboundedfinding",
+  "validation": "IndependentCodeRuleComment noactionableboundedfindings; sourceonly; nopush/CI/projectexecution/globalclearance",
+  "files": {
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": "60b53619b5d5590c6ebbeb15ca547b2ee4c026c092bc4ac7e9938dec6f674077",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs": "c30ddad210dd9cbbacce5e1d8a1039aedd92a3a0d1a0a8f55adb7ab9330afdcb",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa"
+  },
+  "source_closure": [
+    "WholeTexture2dcurrentbodypreviousreads+nativeblitclearfull",
+    "WholeTextureViewcurrentbodyfreshreads, Fromconversion, selected_view/ensure_device/reademptyroles",
+    "WholeBlittermodulebothnewpipelineprograms+2d/3dblitmethods freshlyread",
+    "CurrentTexture2d/3dconstructor/defaultcache/admission+views/selection (safeinitializednominalsampleproof independentlyconfirmedCode)",
+    "Contextobserve_validation+submit,ComputePassErroractualchain current47f exactpriorreviewed"
+  ],
+  "cells": [
+    {
+      "lens": "producer-propagation",
+      "source_contract": "Texture2d::from_color/create_from_color/clear -> clear_raw and publicblit; TextureView::clear -> clear_raw. Rootactualcachedview consumers call nativeencoder/pass/Blitter before submit scope.",
+      "disposition_connected_repair_acceptance": "Observe nativecreation/record at2d.blit andView.clear; consolidate2d.clear intoexistingviewclear owner, preservingpublicmethods/defaultcolor/cases.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "All existingcolor/clearpublicproducers endatView.clear nativeadapter; 2d.blitwholeBlitternew+encode+record observed, no forgotten recipient oroldparallelclearpolicy."
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contract": "Texture2d::as_view -> From<&Texture2d> copies actualsamecachedArc,metadata/device; existingTextureView::clear_raw owns identicaldepth/integer/nativeclear policy. Blitter alreadyownsnativerender construction. ComputePassError::Native ownsactualSDKcause.",
+      "disposition_connected_repair_acceptance": "Reuse View.clear canonicaloperation, existingBlitterbody unchanged, no newerror/format/clearunits/helpertype.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "ExistingViewconversion/clear reused; Blitterwholebytesunchanged; ComputePassError actualnativecause reused. No newsemantic/helper/errorowner."
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contract": "Blit sourcecachedview then targetcachedview then bothdevicechecks; bothclears viewMissingView thenWrongDevice before nativecreation. NativeErrorScopesubmission onlystarts afterearliernativework.",
+      "disposition_connected_repair_acceptance": "Maintain view/devicepriority; nativeobserve infallibleclosuredrainedbeforeseparatesubmit. EmptyViewread shortcutdoesnotapplyclear; no newearlyOk.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "2d.blit cachedsourceMissingView thentargetMissingView thensourcedevice/targetdevice; clearthroughView sameMissingView thenWrongDevice. Noallocationportrequiredforcache, nocopy/targetmutationbeforesuccessfuladmission."
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contract": "ClearszeroRGB depth1 elsecolor.x; integerchannelsmultiply255 thenf64, otherchannels f64. Bothformatmatch2dbranches are255, Viewpolicy identical. Blitter source/targetresources+pipelines allsamecontextdevice.",
+      "disposition_connected_repair_acceptance": "Canonicaldelegationpreservesfloatoperationorder/values; observeallnativecreateandrecord; context.submitownsfinish/submit unchanged. Noqueuecompletion/rollbackclaim/newwait.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "Viewclear branches retainoldexactnumericsequence, contextobserverinfallibleclosure alwaysnormaldrain, noaddedpoll. Deferredfinishandsubmit remainseparateexistingcontextobservations. Submittedworknotrolledback."
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contract": "CachedArc+metadata+device admittedbyconstructor; From<&Texture2d> exactcopies all andD2/noLayer. clear operatesviewonly, mayworkafterclear_native_texture. Blit effective targetformat matchesview; nativeview/devicechecks do notrequire allocationport.",
+      "disposition_connected_repair_acceptance": "Preserve allocation-independentcachedviewclear; nocreatingreplacementview orrequiringnativeport. No metadatawrites/newcache.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "From<&2d>copiesexactcachedArc/device/format/extent; onlyD2/noLayer tag introducedasbefore. Clearcontinuesafterallocationdetached; nofield/cache/defaultmutation."
+    },
+    {
+      "lens": "type-ownership",
+      "source_contract": "Rootowns nativeTexture2d/View APIs andBlitter reference; #780 owns generatedResourceDescriptor/Advect andsharedproducerfamilies.",
+      "disposition_connected_repair_acceptance": "OnlyRoottwoTexturefiles change; noBlitter/sharedfunctionbodyedit orcanonicalcontractduplication; exactsourcehandoffreturnpeer.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "OnlyRoot2nativeTexturefileschanged; Blitter+peerResourceDescriptor+Advectsourceallunchanged. No sharedfunctionbody edited; returnwhole2filesexactsource."
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contract": "2d andViewclear duplicateidenticaldepth/integer/nativeClearpolicy;2dintegermaxmatch always255. Two versions can drift independently.",
+      "disposition_connected_repair_acceptance": "One View.clear nativeimplementation, 2dsemanticAPIdelegates throughas_view realowningconversion. No compatibilityalias/newAPI/fallback; no paralleltemporarypath.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "Removedduplicate2dclearimplementation andalways255match; oneexistingViewclearpolicy. Public2dsemanticAPIhasbodydelegationthroughrealviewconversion,noaddedAPI/deprecatedalias/fallback."
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contract": "Existing2d/Viewclearpublicnames/defaultcolor/resultpriorities preserved. Native labels aftercanonicalization becomeViewclear labels; noalgorithm/format/encodingchange. Blitter/WGSL/rendertarget/sampling/loading remainbyteexact.",
+      "disposition_connected_repair_acceptance": "Existingfixtureblocks remainbyteexact; nativecauseerrorchangeintentional. No new tests/cases/helpers/assertions; noGPUexecutionbeforefinalhostedchecks.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "Existing2dfixturebytes exactmain990/publishedd2/47f; Blitterwholemoduleexact47f; old2d/View depth+integerclearvaluesoperationorderequivalent. Only2dlabels becomeViewcanonicalclearlabels; intendedcapturednativeValidationerrorbeforeseparatesubmit."
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contract": "Depth/integer classification existingTextureFormat predicatesownactualnativeclearattachment selection; booleans localordinarypredicates. No retainedsemanticflag/newpayloadstate.",
+      "disposition_connected_repair_acceptance": "No extraenum/record; retainactualrole viaTextureFormat, prevent default/missingview receiving fakeclear.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "No newstate/semanticbool; formatdepth/intpredicates classifyactualnativeattachmentslocally. Missingcachedviewportstillearlyerror; emptyreadsremainindependent."
+    },
+    {
+      "lens": "derivability",
+      "source_contract": "No newtrait/serde/errorimpl. Texture2d andTextureView existingDefault/PartialEq/Fromsemantics unchanged.",
+      "disposition_connected_repair_acceptance": "No boilerplate; no derivechanges; nativeobserverResultcarrierexisting.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "No trait/serde/default/equality/Frombodychangesornewmanualimpl; no newerrorcarrier."
+    },
+    {
+      "lens": "type-granularity",
+      "source_contract": "Texture2d publicclear meaningfulsemanticAPI, existingTextureView isconcretecachedviewportowner; conversion alreadyexists. Blitter remainsnativeGPUrenderingowner, no newpass-throughmodule/helper.",
+      "disposition_connected_repair_acceptance": "Consolidateoneoperationinstead ofnewduplicateclearrecord; keep2dfilebelowpriorproductionmeaningfulsize andnohelper>100; baselineceilingneverincreased.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "2dproduction427->359/View259->268 meaningfullinesperindependentRule, clear77<100; nofilesapproach500, noceilingincrease/newwrappermodule. Existingviewclearhasrealsharednativepolicy."
+    },
+    {
+      "lens": "magic-strings",
+      "source_contract": "Nativeencoder/pass labels andSDKentry/shaderprotocol areactualnativeadapters. NoDisplaybranch. Existing Blitterfull WGSLtwo literalprograms unchanged.",
+      "disposition_connected_repair_acceptance": "Keep nativevalidationcauseinComputePassError; labels arediagnosticboundary notnewsemanticregistry, renameonlyinconsolidatedclear.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "NativeadapterlabelsremainexactView/Blitterlabels; noDisplaybranch. AllBlitterWGSLrawstringsunchanged. 2dclearnativeSDKdiagnosticlabelsdeliberatelycanonicalViewlabels."
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contract": "Clear255scale/depthdefault1/zerocomparisons areexistingnativeColorclearadapter policy; preserve exactAPIbehavior, notnewscopeunitpolicy. Blitter triangleStrip4/nativebinding0/1/2/16bytez/WGSLmath authoredadapter.",
+      "disposition_connected_repair_acceptance": "No numericpolicystrengthening/remapping; no epsilon/threshold/RNG; clearfloats/nativepassdescriptors semanticallyexactexceptdiagnosticlabels.",
+      "discovery": "complete",
+      "repair": "Plannedsourcefixcomplete; noadditionalboundedfinding",
+      "validation": "Source-only current8c completeall13+independent3; widercanonical/global/hostedacceptanceremainsopen",
+      "successor_disposition": "Depthblack=>1elsex andinteger*255exactoldbothimplementations; nativef64color/LoadClear/Store semanticsunchanged. Blitterprograms/index/nativebindingnumbersunchanged; nonewthreshold/unit/RNG/timepolicy."
+    }
+  ],
+  "acceptance": [
+    "View+deviceerrorpriorities exact",
+    "Noallocationrequirementaddedforcachedviews",
+    "Allnativecreate/recordobservedbeforeexistingsubmit underexistingcontextpolicy",
+    "Nativefullcausesretained, noextra wait/completion/rollbackpromise",
+    "Existingfixtures/nativealgorithms/Blitterwholebytes unchanged",
+    "All13successor+independentCodeRuleComment required; globalremainingcanonical+CI onefinalSHA remainsopen"
+  ],
+  "ownership": "Rootwhole2d.blit/2d.clear/View.clear existingauthorizednativeownership; sharedBlitterfunctionsread-only",
+  "dependencies": [
+    "Currentglobalcanonicalreceivingincomplete/uncompiled",
+    "Advectsource/colorpolicyrepairownedpeer separately",
+    "No sourcepush orhostedCIuntilcompletegraph"
+  ],
+  "tree": "1c141f5f1a28cb532cb51b472ba7e8fcc01486ae",
+  "wave": "complete successorall13 bounded cachedview native command family",
+  "resolved_findings": [
+    "2d.blit nativeBlitter/encoderrecordphase unobserved before submit",
+    "2d.clear/View.clear immediateencoder/passrecordphase unobserved",
+    "2d/Viewclear samepolicy duplicated; canonicalize existingViewoperation"
+  ],
+  "independent_reviews": [
+    "cached-view-8c600-code-review.json",
+    "cached-view-8c600-rule-review.json",
+    "cached-view-8c600-comment-review.json"
+  ],
+  "source_proof": "cached-view-commands-working-source-proof.json"
+}

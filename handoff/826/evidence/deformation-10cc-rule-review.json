@@ -1,0 +1,1101 @@
+{
+  "kind": "Independentboundedsource-onlydeformationpipeline/dispatchRuleReview",
+  "head": "10cc1a69b1a9a5f4e54daa112477cc56b7487f45",
+  "tree": "2f11b71144a48958f3ad726989f1e5e084b21071",
+  "comparison": "21118b983b27e00d2cc70f45ed345686e0262cc2",
+  "actual_parent": "515815cdbc6e7f4da073185bdead65ac8d2abbc2",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "full_changed_paths": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "lines": 50,
+      "coverage": "Completecurrentpinnedproductionresponsibilityandexact211->10ccdiff reviewed"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a9ce6fef1d2cdf2d11c06e762e32430e9406445c17aa8aae43cd0fdf2f2ca92c",
+      "lines": 1563,
+      "coverage": "Fullheader/importchangesread;entireproduction/functions/testbytesafterStrandGpustartverifiedexact211;priorfullproductionreadretainedwithoutnewtestbodycredit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "56ef91da54bec538732a97614eb09aea0e6234c4670a534f01f99d1df4ba4bb2",
+      "lines": 173,
+      "coverage": "Completecurrentpinnedproductionresponsibilityandexact211->10ccdiff reviewed"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "237c8996563953e404658817eca654443411b4a9c26c5611614cf9bc79447693",
+      "lines": 1960,
+      "coverage": "Wholechangedconstructor/field/bindgroup/caller/publicationrelationshipreviewedagainstpriorwholeRendererbodyread+completeexactdelta;currentrecord/publication/sourcehelpersfresh; nofreshunreadwholebodycredit"
+    }
+  ],
+  "unchanged_source_receipts": [
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "9a4cfd422099b6ffde9fb27f49e0c26fccd850684039712cb7e17e28bc7527db",
+      "lines": 308,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "lines": 152,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "05d2a47057f3095bc11a8ad025e1a228f24c50df6436638456c17cd094dc55c2",
+      "lines": 224,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "lines": 109,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "lines": 81,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "lines": 141,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "lines": 1,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "lines": 55,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "lines": 192,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+      "lines": 40,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb",
+      "lines": 272,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+      "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+      "lines": 137,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+      "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+      "lines": 212,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/paint.rs",
+      "sha256": "daa74c09fa86ca04b709dcc9efed9b35d35a392aeb43db10086fa09cd27a50fb",
+      "lines": 97,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+      "sha256": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+      "lines": 83,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "lines": 165,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "sha256": "b9fccf7ea25d3cce7dc5dfdb0f91dda22362f10d0c5c4120d9e42c729c3c38c4",
+      "lines": 189,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+      "lines": 109,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "lines": 197,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+      "lines": 265,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "lines": 228,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+      "lines": 259,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "lines": 84,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+      "lines": 162,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+      "lines": 105,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "lines": 184,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "lines": 142,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "fd6c4991e13b343c21b396b8aada2480b03508500184761d217c1237bb1c52cb",
+      "lines": 101,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "lines": 70,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "f7dde4c1be8af88bdf0bfc2a3e9d2fe3828767fd5be8ac3ed5abcf88e6affc4a",
+      "lines": 7,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "lines": 86,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "lines": 40,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "lines": 60,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "2bda8179b7fad1936a5d5c2b742497a0c66da546de1cee15a732d63918bdd832",
+      "lines": 107,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "lines": 201,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "lines": 206,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "lines": 103,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "lines": 179,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+      "lines": 36,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "lines": 140,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "lines": 101,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "lines": 124,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "dde02c3c137d5ac3722f28e2eab7db9eb82506ef0b64d182dd52a42b4876bbb5",
+      "lines": 185,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "lines": 28,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "lines": 42,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "lines": 147,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "lines": 185,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "lines": 135,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "lines": 30,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "lines": 24,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "lines": 399,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "lines": 229,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "lines": 332,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "lines": 486,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs",
+      "sha256": "bf81803801df60f8387489c31ab851af7f62c1df5cee4611a055d628c5bec616",
+      "lines": 221,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/plates.rs",
+      "sha256": "626dd0cc8823b5542b30fd320294e8109b996c5e4117ec73e513b82b8f909a84",
+      "lines": 428,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "lines": 62,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "lines": 246,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "lines": 64,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "lines": 18,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "lines": 236,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "lines": 68,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "lines": 293,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "lines": 102,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "lines": 48,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "lines": 28,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "lines": 43,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "lines": 13104,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+      "lines": 12842,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "lines": 201,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "lines": 19,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "12b74ba27f4c750bc807ba7c39553fe6f130179bb71ae3679d296cbaab947cd8",
+      "lines": 410,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "lines": 408,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "lines": 715,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "lines": 69,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "lines": 79,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "lines": 55,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "0cec16cc3e11d085d3a2b3902b4cd810b7d8413eef744b421c03468b5c2dcd57",
+      "lines": 52,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "lines": 18,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "955f5bb0e7dc346933dab81076091f23ba15158a268849dcc0121858fc648658",
+      "lines": 172,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "lines": 57,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "lines": 254,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "lines": 405,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/gpu.rs",
+      "sha256": "ad19b002ebc0d537cde1159638577fb53c250193bbb5f78e1bd7109058bbdb5f",
+      "lines": 528,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "lines": 120,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "lines": 140,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "lines": 597,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "lines": 233,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_controls.rs",
+      "sha256": "8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "lines": 266,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "lines": 25,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "lines": 33,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cover.rs",
+      "sha256": "50287b76df57d36dd9afcab6aa2a578f96e49b421b73e26b536d23c1bc65345f",
+      "lines": 173,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "7ab3a1fe9e5c19e58ba3f9b6e6494ded69096cc71579c3b5c2f8f3b2f28be1ac",
+      "lines": 222,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+      "lines": 211,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "lines": 213,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/rng.rs",
+      "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+      "lines": 168,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-color/src/pixel.rs",
+      "sha256": "9b7d1004ee1879e113be545a891967a8f30d6ced8086fba84ee7f279997d333b",
+      "lines": 540,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "lines": 244,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "lines": 24,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "lines": 25,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "lines": 172,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "rust-quality.toml",
+      "sha256": "9a3738a7916a3edb8ebf501345d9815aef9f5fe18458f6ac5231c20a7e7e5030",
+      "lines": 1018,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+      "lines": 408,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "1d6d8fdb930ec1e7cef5c99cd16aac39ae33e5868c1d219860c043de70f3c2c6",
+      "lines": 103,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "sha256": "339eb4bc4fecb2b3bf33e8b486b0a42214398ce4a391687745cce49464b267d9",
+      "lines": 179,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "f24c36d6dfd3ccb446ff56264c3f9bb6f81f878e2eefcb5741eafcf4cde5a3b1",
+      "lines": 898,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "lines": 5,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "lines": 13,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "lines": 448,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "lines": 66,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+      "sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "lines": 537,
+      "coverage": "Exactpriorwhole/slicereadgranularitycarried;sourceconnectionsreassessedwithoutautomaticverdict",
+      "matches_prior_receipt": true
+    }
+  ],
+  "supporting_sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "lines": 103,
+      "coverage": "Wholeparse_naga/detect/validate/errorroleowner1-103read;onlyparsingusednewnativehelper"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "0cec16cc3e11d085d3a2b3902b4cd810b7d8413eef744b421c03468b5c2dcd57",
+      "lines": 52,
+      "coverage": "WholeactualShaderErrorStdErrorcause1-52read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "lines": 40,
+      "coverage": "WholecanonicalNamed/Firstresolver1-40read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "lines": 141,
+      "coverage": "Canonicalempty/livefoldedshape63-115fresh;priorwholebodyexact"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "lines": 109,
+      "coverage": "ActualreceivingDevicelimit/nativeadapterwholepriorbodyexact"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "lines": 66,
+      "coverage": "Whole66linespriorfresh/currentexact;actualdeformsourceworkgroup64andflatten64matched"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "lines": 192,
+      "coverage": "Whole192linespriorread/currentexact;candidatepublishsiteconnectionfresh"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "lines": 47,
+      "coverage": "WholeHairGpuError/Result/Backendactualsource1-47read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "lines": 48,
+      "coverage": "Actualbinding_resourceownerpriorwholebodyread/currentexact;logicalzerorejectionadapter-specific"
+    }
+  ],
+  "findings": [
+    {
+      "id": "10CC-NOWORK-DOC-01",
+      "severity": "P3",
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "line": 22,
+      "rule": "AGENTS.md documentedsourcerelationshipsynchronizedwithimplementation",
+      "classification": "KnownacceptedCommentReviewissue;noadditionalownedimplementationdefect",
+      "proof": "RecordedDeformationsdocclaimslevelswhosecommandswererecorded. deform146-147returnsOkwithoutencodingforcanonicalemptylayout,thenrecord117-118includeslevelandpublishsettlesPendingafterframeNormalsubmit. Recordincludesno-worksettlementtoo.",
+      "acceptance": "Accuratelydescribecompletedreceivingobligations/recorded-or-no-worklevelset,normalframesubmitpublicationandcompletionlimits;noadditionalstateenum/helper/testneeded."
+    }
+  ],
+  "resolved_findings": [
+    {
+      "id": "211-NOGROWTH-01",
+      "proof": "GpuModmeaningfulproduction522->520bytwoimportcompositions,unchangedceiling520;allproduction/testbodiesfromStrandGpudeclarationexact211."
+    },
+    {
+      "id": "211-ORDER-01",
+      "proof": "Ownedlayoutreexportnowbeforefirstmodule;remainingexistingGpuModinterleaving/functionorderpeer-debtstillrequired."
+    }
+  ],
+  "other_doc_repair": "Buffer::prefixdocnowattributesnonemptylogicalrequirementtoactualBuffer::binding_resourceadapter,allowinglegitimatezero-data/paddedphysicalrenderbindingswithoutglobalnativeban.",
+  "contract_traces": [
+    {
+      "family": "Actualsource/declaration/nativepair",
+      "trace": "deform_source exactWGSLstring ->canonicalparse_naga (syntaxparse,notclaimtypedNaga/Devicevalidation) ->ComputeEntryPoint::Named(deform).resolve sameModule ->WorkgroupShapeTryFromentry.workgroup_size ->samecodeNativeShaderModule/entry.nameNativePipeline ->privateDeformationPipelinepipeline/layout/shape. ActualRendererDeviceconstructsallnativeobjects;noindependenthost64/65535ornewsource/devicebrand."
+    },
+    {
+      "family": "Typedlaunchadmission",
+      "trace": "CanonicalresidentStrandLayout.sample_invocations ->pairedsourceShape.covering_folded_x ->emptyreturnsnoactualdispatch ->liveactualDevicevalidate ->nativeparamswrite ->pipeline/group/Grid.record. Checkedtotal/nativeparamsproductandpaddedspan<=2^32proveunchangedWGSL64flattenaddresses;actualshaderdeclarationandflattenwidthboth64atthispin. OtherSimresource/physical/sourceadmissionsremainrequired."
+    },
+    {
+      "family": "Retainedstate/errorpropagation",
+      "trace": "record_deformations ResultdedupstypedordinalsandpropagatesfirstErr;render1538-1545?dropsunsubmittedencodercandidateanddoesnotpublishanyPending/temporalstate. EarlierQueueparam/globalwritesnotrolledbackandarenotclaimedso. publishdeformations/frameonlyafter1792normalQueue.submit. Emptyobligationmaysettlewithnocomputecommand,accuratelyknownDocgap."
+    },
+    {
+      "family": "Actualcause/SDKpolicy",
+      "trace": "ShaderErrorcontainsactualNagaParseErrorArc/source;MissingEntryPoint,WorkgroupShapeError,FoldedDispatchError,WorkgroupGridError actualerrorsmapthroughanyhowintoHairGpuErrorBackendwithoutDisplayclassification/stringerasure. NativeShader/Pipeline/resource/submiterrorsremainconfiguredDevicehandled;parse/resultOkdoesnotprovefullNaga/nativevalidation/globalhealth/GPUcompletion. Priorfeature-specificWasm/ThreadKeylimitsunchanged,nounconditionalnewtraitassurance."
+    },
+    {
+      "family": "Ownership/granularity",
+      "trace": "DeformationPipelineisnativehairprogram+layout+declaredshapeaggregateinowningdeformationmodule;usescanonicalgenericparser/resolver/shape/gridownerswithoutduplicatingthem. Parentownsimmutableaggregateandlayoutuseinbind_dynamics. Newmethodsbelow100;oldconstructoranddeformresponsibilitycoherentlyextracted. Simulationproducer/rest/cardwholefunctionsremainrequiredseparateagreement."
+    },
+    {
+      "family": "Prefix/headerrepairs",
+      "trace": "GpuModonlyownedreexport/importcompositionchanged;actualprivatefunction/testbodiesidentical. CanonicalBufferprefixoperationstillpureArc/viewnarrowing;doccorrectlyseparateslogicalzeroandbinding_resourcepolicyfrompaddednativebindingminimum."
+    }
+  ],
+  "all_thirteen_relationship_accounting": {
+    "producer-propagation": "Sourceentry->pairedshape->canonicalsamplecount->checkedgrid->actualDevice->nativeparams/record;Resultthroughrenderandsubmittedstate.",
+    "existing-type-owners": "Allparser/Named/WorkgroupShape/Grid/StrandLayout/Errorownersreused;noRenderer-width/groupcapduplicates.",
+    "admission-contracts": "Syntaxparse/selectedentry/nonzeroshapeatconstruction;livepaddedspan/receivingDevicebeforeownparamwrite;emptyworkvalid.",
+    "invariant-operations": "FalliblerecorddoesnotackfirstlevelwhenlaterErr;candidate/history/Pendingremainunpublished;source-nativecountproductchecked.",
+    "aggregate-states": "Privatepipeline/layout/shapeoneactualsource/device;candidateobligationscommitonlynormalQueue.submit,notcompletion.",
+    "type-ownership": "Nativeprogramspecificaggregatecoherent;wholeRootdeformationownership;peerSim/rest/nativeproducerfunctionsnotrepaired.",
+    "redundant-authority": "Removedhost64/65535manualprojection;parsedimmutabledeclarationproofretainedwithnativepipeline;nocachedsecondDeviceauthority.",
+    "behavior-preservation": "Samevalid64/foldgeometry/POD/Shader/numericparams;emptyactualdispatchomittedbutobligationssettle;invalidpadded/Devicegridsreturntypedfailure.",
+    "enum-shapes": "ExistingPending/Current+typedcausevariants;RecordedDeformationsnonspecificworksetdocneedsqualification,nonewtag/enumrequired.",
+    "derivability": "ExistingDeformGpuPODderivesunchanged;newnativeaggregateholdsobjectswithoutunnecessaryserialization/copies;errorsactualsource.",
+    "type-granularity": "SamplesInvocationCountnotWorkgroupCount;actualNativeentrynamegrammartoken;sourceGpuLevel/resident/Simrolesnotconflated.",
+    "magic-strings": "Nameddeformresolvedandnativeentryusesactualresolvedname;labelsnative;noerroprosebranch.",
+    "magic-numbers": "NoRusthostworkgroup64/65535innewlaunch;canonicalownersadmitactualshader64grammar/padding. Headergrowthrestoredwithoutceilings."
+  },
+  "gpu_header_source_body_identical_after_StrandsGpu": true,
+  "gpu_header_counts": {
+    "21118b983b27e00d2cc70f45ed345686e0262cc2": {
+      "rawproductionbeforetests": 654,
+      "meaningful": 522
+    },
+    "10cc1a69b1a9a5f4e54daa112477cc56b7487f45": {
+      "rawproductionbeforetests": 652,
+      "meaningful": 520
+    }
+  },
+  "gpu_ceiling": 520,
+  "existing_test_modules": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "identical": true,
+      "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "identical": true,
+      "sha256": "c03faaa7a7dc20542360981d1b238e35c2ab09dd660194644b9f523c817e7828"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "identical": true,
+      "sha256": "0110eb9fa3beee439fd16da13f7710768a694d4660b8fbfa10686070861381c4"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "identical": true,
+      "sha256": "a02817105e57ea1733fbce5f446c1ec4ced8fe43246b1815a29f89f994d2e142"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "identical": true,
+      "sha256": "ed6a6ed2629a5e28fec619c5e7f030309b98af77d33e77afa1fd47782e131c5f"
+    }
+  ],
+  "native_pod": [
+    {
+      "name": "Globals",
+      "identical": true,
+      "sha256": "e0003c6f88ffdbc3d27a45fe06e0b88b50de9a095ff2e466faeeee967a5a2215"
+    },
+    {
+      "name": "DrawGpu",
+      "identical": true,
+      "sha256": "7e57128d063a7d19d367616d291cb283ae1e038a991524e265e77e6fdd6ae1ed"
+    },
+    {
+      "name": "PostGpu",
+      "identical": true,
+      "sha256": "d5b47327cf39b5a88545e9bb5d5c46f7a5cf6ab7ee28a1a113e81c206d07f10a"
+    },
+    {
+      "name": "CardDrawGpu",
+      "identical": true,
+      "sha256": "f3bdd58c806c14dc0b5750aa354aa2d68e92cbda64bd9e942f60e4fa149466f7"
+    },
+    {
+      "name": "DeformGpu",
+      "identical": true,
+      "sha256": "190035f5eecdfe124e69065c072c80b1864e596d20480e315122de2b6ea9208d"
+    }
+  ],
+  "shaders": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "lines": 651,
+      "coverage": "Exactpreservedshaderbytes;deformcurrentnativeindexcontract source-traced",
+      "identical": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "lines": 54,
+      "coverage": "Exactpreservedshaderbytes;deformcurrentnativeindexcontract source-traced",
+      "identical": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "lines": 66,
+      "coverage": "Exactpreservedshaderbytes;deformcurrentnativeindexcontract source-traced",
+      "identical": true
+    }
+  ],
+  "rule_receipts": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71",
+      "matches_prior_receipt": true
+    }
+  ],
+  "nogrowth": {
+    "deformation_module_lines": 173,
+    "new_method_spans": {
+      "DeformationPipeline::new": "34-89=56",
+      "record_deformations": "93-121=29",
+      "publish_deformations": "124-134=11",
+      "deform": "137-172=36"
+    },
+    "renderer_prior_lines": 2029,
+    "renderer_current_lines": 1960,
+    "source_result": "GpuModceiling520restored;focuseddeformationmodule<500/newmethods<100;largeRenderer/constructorshrink;noceilingraised;hostedbaselinereductionsnotrun"
+  },
+  "ledger_checked_after_source": {
+    "key": "renderer_deformation_dispatch_pre_repair",
+    "head": "21118b983b27e00d2cc70f45ed345686e0262cc2",
+    "lenses": 13,
+    "scope": "Rootdeformationpipeline/nativegrid/statefamily;canonicalSimsource/physicalbindingsdistinctrequiredpath"
+  },
+  "required_dependencies": [
+    "CorrectknownRecordedDeformationsno-workdocatnewpin;workingtreesuccessornotcreditedtocurrent10cc.",
+    "Completehost/GPU Simsource/device/layout/id/weight/rest/currentposition/physicalbinding/copy/clearfamily;newgridvalidationdoesnotproveit.",
+    "ImportagreedreadonlyGpuLevel/GpuLodssealedsource/deviceandallphysicalproducer/caller/creator/Cardlayout/lockcontracts;currentrootcheckpointnotcompile-complete.",
+    "PeerKernelBatchactualDevicepreflightafterintentionalemptyguardbeforeFastPathpreparerequired;canonicalguardedPrefixintegrationpending.",
+    "InheritedbroaderGpuMod/lod/cardsmoduleorder/producerstate/errorfamiliesrequiredpeerintegration;noseparateReviewrepair.",
+    "Completeintegratedall13/threeindependentreviews/requiredhostedbaselinefmtlintexistingtestsCIonsamefinalpushedSHA."
+  ],
+  "limits": [
+    "No sourceedits/projectexecution/scanner/check/build/test/runtime/generator/newtests/cases/helpers/assertions/doctests/pushCI;read-onlysource/Git/hash/reportaccountingonly.",
+    "Whole173linedeformationbody/currentdelta/nativeconsumerconnectionsreviewed;unchangedotherRenderer/GpuModbodycreditexplicitlypriorverifiedwhole/slicegranularity.",
+    "NativeShader/Naga/Devicevalidationconfiguredpolicyunchanged;parseresultnotproviderhealthorGPUcompletion;typedper-levelpreflightdoesnotpromisequeuewriterollback.",
+    "Source-only;no compilation/native/Wasmruntimeclaim. Remainingconcreteproducer/Sim/rest/card/nativepathsnotcleared."
+  ],
+  "correctness_verdict": "NoadditionalownedimplementationRulefinding;both211blockersrepaired. KnownacceptedP3no-workdocumentationgapremainspinned10cc.",
+  "completeness_verdict": "Incomplete:knowndocsuccessorandrequiredphysicalproducer/source/caller/lock/fullfinalgatesopen.",
+  "head_at_report": "6bf03a8d04bf246c996bbbfa17c1925ebd150c38",
+  "status_at_report": []
+}

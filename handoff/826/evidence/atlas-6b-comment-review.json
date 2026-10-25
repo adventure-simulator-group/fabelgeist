@@ -1,0 +1,260 @@
+{
+  "review": "Independent atlas6b Comment Review",
+  "head": "6b22364249ae1503fe070dd7b5ce64b8e6e0e25d",
+  "tree": "4868f4a5c6ee9eef4a85ed9994a02790bc61249b",
+  "parent": "04a68c493d152c5250e17bedd09d33497ab67bf3",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "source_mode": "Pinned immutable git objects; complete affected source read with stated carried limits",
+  "checkpoint_only": true,
+  "final_clearance": false,
+  "coverage": {
+    "changed": [
+      {
+        "path": "crates/fabelgeist-hair/Cargo.toml",
+        "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+        "lines": 40,
+        "coverage": "Fresh complete pinned source; renderer contiguous1-700/701-1400/1401-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/cards.rs",
+        "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb",
+        "lines": 272,
+        "coverage": "Fresh complete pinned source; renderer contiguous1-700/701-1400/1401-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+        "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+        "lines": 137,
+        "coverage": "Fresh complete pinned source; renderer contiguous1-700/701-1400/1401-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+        "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+        "lines": 212,
+        "coverage": "Fresh complete pinned source; renderer contiguous1-700/701-1400/1401-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/cards/atlas/paint.rs",
+        "sha256": "daa74c09fa86ca04b709dcc9efed9b35d35a392aeb43db10086fa09cd27a50fb",
+        "lines": 97,
+        "coverage": "Fresh complete pinned source; renderer contiguous1-700/701-1400/1401-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+        "sha256": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+        "lines": 83,
+        "coverage": "Fresh complete pinned source; renderer contiguous1-700/701-1400/1401-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+        "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+        "lines": 165,
+        "coverage": "Fresh complete pinned source; renderer contiguous1-700/701-1400/1401-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/head.rs",
+        "sha256": "b9fccf7ea25d3cce7dc5dfdb0f91dda22362f10d0c5c4120d9e42c729c3c38c4",
+        "lines": 189,
+        "coverage": "Fresh complete pinned source; renderer contiguous1-700/701-1400/1401-end"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/mod.rs",
+        "sha256": "cd448eb9389b86945618ae9f316bfe60767cad00dfa07e7321b3bbbfbda6abaf",
+        "lines": 2103,
+        "coverage": "Fresh complete pinned source; renderer contiguous1-700/701-1400/1401-end"
+      }
+    ],
+    "affected_unchanged": [
+      {
+        "path": "crates/fabelgeist-color/src/pixel.rs",
+        "sha256": "9b7d1004ee1879e113be545a891967a8f30d6ced8086fba84ee7f279997d333b",
+        "coverage": "Fresh1-72 canonical ChannelLayout::Rgba.channels=4, PixelFormat source mentions; no full PixelFormat audit"
+      },
+      {
+        "path": "crates/fabelgeist-color/src/wgpu.rs",
+        "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+        "coverage": "Fresh71-106 canonical PixelFormat.Rgba8Unorm->wgpuRgba8Unorm boundary"
+      },
+      {
+        "path": "crates/fabelgeist-determinism/src/seed.rs",
+        "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+        "coverage": "Fresh complete Seed/Rng/purpose contracts via local source, immutable pin byte identity checked"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/rng.rs",
+        "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+        "coverage": "Prior complete/targeted exact source Rng::new/nextf32 numerical sequence, immutable pin identity retained"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod.rs",
+        "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+        "coverage": "Prior exact source, old CardAtlas::paint call still requires producer migration"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+        "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+        "coverage": "Prior bounded exact source, old atlas recipe/cache/paint producer still requires owner integration"
+      }
+    ],
+    "prior_receiver": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+        "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/draws.rs",
+        "sha256": "2bda8e84908f751c80409eefcca90f33632c6024052a544c09f4c66622b1a307",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+        "sha256": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/dataset.rs",
+        "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod.rs",
+        "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+        "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+        "sha256": "7bc2f7621b735c87bd9ecf1077a89158453a8c01aab0b0f17c88f4098f3a92d9",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+        "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+        "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+        "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+        "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+        "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+        "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+        "sha256": "f523a641bd99ff3aa3f29ea82062643213212d2f258da56c918fff2333a8f105",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/readback.rs",
+        "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/math.rs",
+        "sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+        "coverage": "Exact04/D9/73b source identity; recorded previous full or bounded coverage carried without fresh full-body claim"
+      }
+    ],
+    "sdk": [
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/queue.rs",
+        "sha256": "b3811f0df3ccad53d990bfd66c650759abb67654779b08e160a437b51abd7c71",
+        "coverage": "Fresh215-243 write_texture same performance semantics aswrite_buffer; prior native immediatehostcopy/later submission evidence retained"
+      }
+    ],
+    "renderer_fixture_sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+    "cardmesh_impl_sha256": "21a1d5d3c337a40568ee859339f73885de2c5b0fbc256a668cffdbfec3b5152a",
+    "cardmesh_impl_byte_identical_to04": true,
+    "mixed_card_fixture": "Original case/helper/assertion sites preserved. CardAtlas call converted from4,32,128,1 to checked settings andSeed1 with unwrap of fallible constructor; getters replace public fields in same length/coverage oracles. No assertion/case/helper added.",
+    "shaders": [
+      {
+        "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+        "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+        "coverage": "Byte-identical parent; earlier source shader scope retained"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+        "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+        "coverage": "Byte-identical parent; earlier source shader scope retained"
+      },
+      {
+        "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+        "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+        "coverage": "Byte-identical parent; earlier source shader scope retained"
+      }
+    ],
+    "limits": "Full9 changedfiles plus named owner/SDK responsibilities. No new full incoming/native-family/creator/caller/lock source-completion review."
+  },
+  "findings": [
+    {
+      "id": "6B-C1",
+      "priority": "P3",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "line": 363,
+      "issue": "Constructor documentation says pipeline/allocation/submission failures follow device handling, but new constructor path returns host allocation and atlas admission errors through CardAtlas.transparent and UploadedAtlas.new. The unqualified allocation statement conflates those with native provider errors.",
+      "remedy": "Say native pipeline/resource creation and queue submission use device configured handling; host allocation and atlas admission errors are returned. Preserve no-global-health/no-observed-validation limitation.",
+      "acceptance": "Actual fallible host/image admission is distinguished from native device-handled validation/creation failures."
+    }
+  ],
+  "resolved04": [
+    {
+      "id": "04-C1",
+      "status": "Resolved: set_gpu_groom docs now state native device/exacthead first/extent admission, absentcover bare and source admission preserving previous scene; native policy qualified."
+    },
+    {
+      "id": "04-C2",
+      "status": "Resolved: set_head allocation policy now explicitly Native; no universal host allocation claim there."
+    }
+  ],
+  "verified_contracts": [
+    "Positive AtlasVariantCount and AtlasTileSpan constructors reject0; tile span also checkedtoi32 for signedraster. Atlaswidth multiply/row bytesu32/hostusize byteisize checked beforehostimage allocation; smaller extents inherit parent checked bounds.",
+    "All explicit image/column/mip scratch Vec reservations use try_reserve_exact, preserve TryReserveError sources and allocate actual initialized elements. This is image-boundary fallibility, not universal Rayon/runtime/native recoverable-memory guarantee.",
+    "CardAtlas stores one checked recipe/base plus readonly smaller mips. Public iterators/getters expose actual retained layouts/bytes; no independent replaceable public width/mip authorities. Transparent singleton supplies initialized RGBA0 before groom installation, so no missing atlas state invented.",
+    "PixelFormat.Rgba8Unorm and ChannelLayout.Rgba4 match retained channels coverage/shade/depth/coverage. Seed.xor_word(v*0x9e37) preserves previous wordmix before same Rng::new and same draw order. No canonical seed derivation sequence replacement.",
+    "Mip loop stops when either whole atlas axis reaches1 or12totallevels; floorhalf/clamped2x2/roundedintegermeans match prior successful path. No fullto1x1 chain or new alpha/linear-colour filtering guarantee.",
+    "Uploader checks base extent against device2Dlimits, uses canonical format nativeadapter, emits retained mips with exact native dimensions/row bytes. Queue must pair exact device by contract; errors use configured native handler, Result image/limit admission not global health or observednativevalidation.",
+    "UploadedAtlas denotes native view plus variant metadata after queue.write_texture calls, not GPUcompletion: pinned SDK treats writes as host copy/pendingGPUtransfer until later submission. Existing docs do not explicitly promise completion or callwait. Later rendering submits commands afterqueuedwrites.",
+    "Setters construct atlas/head/levels/cards/lighting candidates before logical scene publication; admission errors preserve logical previous scene. Native providererrors may still return invalidhandles if handlerreturns, and queuednative sideeffects are not rolledback. Docs retain that nativepolicy qualification.",
+    "Exact head/capture/provenance and current frame/mean/missingrender-target/readback states remain bounded prior source; no wholesale/native family admission claim."
+  ],
+  "required_dependencies": [
+    "HostLOD and GPU atlas producer/cache callers still use old paint fields/signatures and must consume full canonical settings/seed/mips API; no compile/source-family-complete claim. Explicit family transfer does not make these pending paths complete.",
+    "Native hair/card/simulation source/count/layout admission, cardquads population/geometryproducer/creator and lock integration remain required under root/#780 agreements. Existing set_groom prefixfit prose must be revalidated with full native-strand admission: current upload still forces one strand even if perstrand bytes exceedlimit.",
+    "Accepted peer SurfaceRenderLayout/GpuHeadCover/GpuLodsdevice and later descriptor contracts remain integration dependencies. Atlas admission does not prove shader buffers/resource lifetime or physical geometry.",
+    "Rootall13 inventory, full integrated three independent reviews and required hosted checks on same final pushed revision remain outstanding.895ZIPNumPy/774retained families unchanged."
+  ],
+  "errata_carried": "Earlier detached-Wasm-readonly rationale and recorder-scope native acceptance assurances remain withdrawn as documented in197/frozen deferred-submission reports.",
+  "limits": [
+    "No source edits/project execution/checks/builds/tests/scanners/generators/runtime/new cases/helpers/assertions/doctests/push/CI/external posts.",
+    "Source-only no native/Wasmcompile/browser/hardware/artistic/performance/globalhealth/rollback/universalallocation verdict.",
+    "One constructor-wording finding and required producer/native/caller/lock families open; no integrated/fullPR/all13/finalclearance."
+  ]
+}

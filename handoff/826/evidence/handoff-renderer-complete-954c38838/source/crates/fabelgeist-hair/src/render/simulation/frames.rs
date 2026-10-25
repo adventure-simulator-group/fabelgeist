@@ -1,0 +1,157 @@
+//! Frame provenance admission before native writes and pose publication.
+
+use super::{
+    DeformationBody, DynamicsOrigin, GroomSource, RenderSimulationError, SimulationBufferRole,
+    SimulationMode, buffers,
+};
+use crate::gpu::GpuSim;
+use crate::gpu::error::Result;
+use crate::render::{HairRenderer, deformation::DeformationState};
+use crate::sim::{Rigid, SimFrame};
+use std::sync::Arc;
+
+impl GroomSource {
+    fn mode(&self) -> SimulationMode {
+        match self {
+            Self::Host(_) => SimulationMode::Host,
+            Self::Native(_) => SimulationMode::Native,
+        }
+    }
+}
+
+impl HairRenderer {
+    /// Upload current world-space guides and pose from the installed host
+    /// simulation's immutable binding. Foreign frames fail before writing.
+    pub fn set_simulated(&mut self, frame: SimFrame<'_>) -> Result<()> {
+        self.check_host_source(frame)?;
+        let dynamics = self
+            .dynamics
+            .as_ref()
+            .ok_or(RenderSimulationError::MissingDynamics)?;
+        let DynamicsOrigin::Host(binding) = &dynamics.origin else {
+            return Err(RenderSimulationError::Mode {
+                expected: SimulationMode::Host,
+                actual: SimulationMode::Native,
+            }
+            .into());
+        };
+        if !Arc::ptr_eq(binding, frame.binding()) {
+            return Err(RenderSimulationError::ForeignBinding.into());
+        }
+        // The sealed binding fixes layout/rest and both frame slices. Reserve
+        // before writing; no short write can retain another frame's suffix.
+        let positions = buffers::pack_positions(frame.positions())?;
+        if !positions.is_empty() {
+            self.queue.write_buffer(
+                &dynamics.inputs.guide_now.buffer,
+                0,
+                bytemuck::cast_slice(&positions),
+            );
+        }
+        self.publish_simulation_pose(frame.head());
+        Ok(())
+    }
+
+    /// Mark a frame from the same native simulation whose resources were
+    /// installed. Identity admission precedes every deformation obligation,
+    /// body offset and head-pose update. No host upload is performed.
+    pub fn set_moved(&mut self, sim: &GpuSim) -> Result<()> {
+        use SimulationBufferRole as Role;
+        self.check_native_source(sim)?;
+        let dynamics = self
+            .dynamics
+            .as_ref()
+            .ok_or(RenderSimulationError::MissingDynamics)?;
+        if !matches!(dynamics.origin, DynamicsOrigin::Native) {
+            return Err(RenderSimulationError::Mode {
+                expected: SimulationMode::Native,
+                actual: SimulationMode::Host,
+            }
+            .into());
+        }
+        if dynamics.layout != sim.layout() {
+            return Err(RenderSimulationError::ForeignLayout.into());
+        }
+        let inputs = &dynamics.inputs;
+        inputs
+            .ids
+            .check_identity(Role::BindingIndices, sim.binding_ids())?;
+        inputs
+            .weights
+            .check_identity(Role::BindingWeights, sim.binding_weights())?;
+        inputs
+            .guide_rest
+            .check_identity(Role::GuideRest, sim.rest())?;
+        inputs
+            .guide_now
+            .check_identity(Role::GuidePositions, sim.positions())?;
+        match (&inputs.body, sim.body()) {
+            (DeformationBody::Absent(_), None) => {}
+            (DeformationBody::Present { buffer, .. }, Some(body)) => {
+                buffer.check_identity(Role::Body, body)?;
+                if buffer.bytes() != body.size {
+                    return Err(RenderSimulationError::ForeignBuffer { role: Role::Body }.into());
+                }
+            }
+            _ => return Err(RenderSimulationError::ForeignBuffer { role: Role::Body }.into()),
+        }
+        // Settings may change on the same simulation. Keep the unit until the
+        // actual DeformGpu upload, rather than retaining an earlier scalar.
+        if let Some(dynamics) = &mut self.dynamics
+            && let DeformationBody::Present { offset, .. } = &mut dynamics.inputs.body
+        {
+            *offset = sim.settings.collision_offset;
+        }
+        self.publish_simulation_pose(sim.head());
+        Ok(())
+    }
+
+    pub(super) fn check_host_source(&self, frame: SimFrame<'_>) -> Result<()> {
+        let source = self
+            .groom_source
+            .as_ref()
+            .ok_or(RenderSimulationError::MissingGroom)?;
+        let GroomSource::Host(installed) = source else {
+            return Err(RenderSimulationError::Mode {
+                expected: SimulationMode::Host,
+                actual: source.mode(),
+            }
+            .into());
+        };
+        if !Arc::ptr_eq(installed, frame.source()) {
+            return Err(RenderSimulationError::ForeignSource.into());
+        }
+        Ok(())
+    }
+
+    pub(super) fn check_native_source(&self, sim: &GpuSim) -> Result<()> {
+        let source = self
+            .groom_source
+            .as_ref()
+            .ok_or(RenderSimulationError::MissingGroom)?;
+        let GroomSource::Native(installed) = source else {
+            return Err(RenderSimulationError::Mode {
+                expected: SimulationMode::Native,
+                actual: source.mode(),
+            }
+            .into());
+        };
+        if sim.source().device() != self.device.as_ref() {
+            return Err(RenderSimulationError::ForeignDevice.into());
+        }
+        if !Arc::ptr_eq(installed, sim.source()) {
+            return Err(RenderSimulationError::ForeignSource.into());
+        }
+        Ok(())
+    }
+
+    pub(super) fn publish_simulation_pose(&mut self, head: Rigid) {
+        if let Some(dynamics) = &mut self.dynamics {
+            for level in &mut dynamics.levels {
+                level.state = DeformationState::Pending;
+            }
+        }
+        self.head_matrix = head.matrix();
+        self.moving = true;
+    }
+}

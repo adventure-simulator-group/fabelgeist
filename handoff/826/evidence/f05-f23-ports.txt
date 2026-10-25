@@ -1,0 +1,43 @@
+crates/fabelgeist-gpu/src/data/gpu/shader.rs:12:    pub shape: UniformValueShape,
+crates/fabelgeist-gpu/src/data/gpu/shader.rs:40:    pub uniform_buffer_size: u32,
+crates/fabelgeist-gpu/src/data/gpu/shader.rs:63:pub enum UniformValueShape {
+crates/fabelgeist-gpu/src/data/gpu/shader.rs:75:impl UniformValueShape {
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs:8:    let mut data = vec![0u8; reflection.uniform_buffer_size as usize];
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs:20:    let offset = member.offset as usize;
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs:34:            member.size as usize,
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs:35:            (member.size / 3) as usize,
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs:78:    let start = member.offset as usize;
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs:18:    if reflection.uniform_buffer_size == 0 {
+crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs:23:    let bytes = u64::from(reflection.uniform_buffer_size).div_ceil(wgpu::COPY_BUFFER_ALIGNMENT)
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs:33:    UnsupportedUniformType {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs:78:            Self::UnsupportedUniformType {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:4:use crate::data::gpu::shader::{UniformMember, UniformValueShape};
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:33:                    offset: member.offset,
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:50:        self.reflection.uniform_buffer_size = span;
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:68:    ) -> ComputePipelineResult<UniformValueShape> {
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:73:                    ScalarKind::Float => Some(UniformValueShape::Float),
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:74:                    ScalarKind::Uint | ScalarKind::Sint => Some(UniformValueShape::IntegerWord),
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:82:                    VectorSize::Bi => UniformValueShape::Vec2,
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:83:                    VectorSize::Tri => UniformValueShape::Vec3,
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:84:                    VectorSize::Quad => UniformValueShape::Vec4,
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:96:                    VectorSize::Bi => UniformValueShape::Mat2,
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:97:                    VectorSize::Tri => UniformValueShape::Mat3,
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:98:                    VectorSize::Quad => UniformValueShape::Mat4,
+crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs:103:        shape.ok_or_else(|| ComputePipelineError::UnsupportedUniformType {
+crates/fabelgeist-compute/src/kernel/fast.rs:117:        let uniform_size = u64::from(group.uniform_buffer_size);
+crates/fabelgeist-compute/src/kernel/fast/uniforms.rs:28:        let offset = member.offset as usize;
+crates/adventuresim-building-generator/src/viewer/walk_rendering.rs:81:                    member.size,
+crates/adventuresim-building-generator/src/spiral_stairs/tests.rs:115:    (member.size * 0.5 + Vec3::splat(0.0001) - local.abs()).min_element() >= 0.0
+crates/adventuresim-building-generator/src/spiral_stairs/landing_policy.rs:34:                .any(|height| (member.centre.y + member.size.y * 0.5 - height).abs() < 0.001)
+crates/adventuresim-tactical-core/src/scene_input/furniture/reservations.rs:179:                        Vec2::new(member.size_metres.metres().x, member.size_metres.metres().z)
+crates/adventuresim-building-generator/src/spiral_stairs.rs:143:            member.size,
+crates/adventuresim-building-generator/src/spiral_stairs.rs:156:    let half = (rotation * Vec3::X).abs() * member.size.x * 0.5
+crates/adventuresim-building-generator/src/spiral_stairs.rs:157:        + Vec3::Y * member.size.y * 0.5
+crates/adventuresim-building-generator/src/spiral_stairs.rs:158:        + (rotation * Vec3::Z).abs() * member.size.z * 0.5;
+crates/adventuresim-tactical-core/src/city_layout/compiled/property/clearance.rs:29:                    + rotation * (member.size.metres() * Vec3::new(x, 0.0, z) * 0.5);
+crates/adventuresim-tactical-core/src/city_layout/compiled/property/clearance.rs:75:                member.size.metres(),
+crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:130:        let half = member.size_metres.metres().xz().as_dvec2() * 0.5;
+crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:160:            f64::from(member.size_metres.metres().x) * f64::from(member.size_metres.metres().z);
+crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:162:            * f64::from(member.size_metres.metres().x + member.size_metres.metres().z)
+crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:250:    let nominal_base = centre - member.size_metres.metres().y * 0.5;
+crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:251:    let nominal_head = centre + member.size_metres.metres().y * 0.5;

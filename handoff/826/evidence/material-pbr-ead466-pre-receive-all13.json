@@ -1,0 +1,2245 @@
+{
+  "candidate_revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+  "candidate_base": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "root_base": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "frozen_manifest": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/root-receiving-manifest.json",
+  "manifest_sha256": "4be1e5f40a4d074209b688aa92486c22449bda44ab7055a39c130d85e599387d",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-color/src/encoded.rs",
+      "sha256": "207692aa2840d13ab24b0bd67e5d228df64245ed80345ea91e833ad23ff827a2",
+      "lines": 73,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P1",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-color/src/encoded.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "9586a92ca2dcf19911b96b5fd50818df42af552582a7b0955224294ef69b9013",
+      "lines": 26,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P2",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-color/src/lib.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/surface_material.rs",
+      "sha256": "ea2e7125a8a3e4191aac2a1ab33237df671f8cf0aac607ccbef869fd2f7e691e",
+      "lines": 25,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P3",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/surface_material.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/body_appearance.rs",
+      "sha256": "b008724145f00db491a58464844d9478f6dc98cb213405155444f151530f5a59",
+      "lines": 11,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P4",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/body_appearance.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/surface_projection.rs",
+      "sha256": "d0cb73bb8dee9cf7def0509cd17744d40598b5a9cb99dc0a5fceec0ff16bc24d",
+      "lines": 69,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P5",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/surface_projection.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "b15110d340873bcac7853670061621fefdd69388dec331613c316bf5bbec1bf9",
+      "lines": 241,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P6",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/lib.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "3014f331d32d092248326e49b6966aca09036b86b68220167f56924abf160d84",
+      "lines": 304,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P7",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/lib.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "a82f0e3c9912c2ee10b704021d81d667163eb83c6da16804ed8fcc6e23ece052",
+      "lines": 29,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P8",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/Cargo.toml",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "89cf06ca88fa0b2863f103f8cf6961345e3c5cfc2c52ad8802bbe3f452d70361",
+      "lines": 83,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P9",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/Cargo.toml",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "9ba957e3c79662976f2c48a43ee3b9fdfd5d2e97042f12ffb1f1bada1ea24218",
+      "lines": 133,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P10",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-tactical-client/Cargo.toml",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "ba4082d74f3bdcafdb689588768e1ef4b37041e55493745dcc15e5c541fae33c",
+      "lines": 13119,
+      "packet_matches_exact_commit": true,
+      "coverage": "Complete TOML package-record bookkeeping, all records decoded and compared vs d000; direct receiver edges and unchanged package inventory inspected; not line-by-line 25k lock prose",
+      "id": "P11",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/Cargo.lock",
+      "read_ranges": "All decoded package records compared; direct PBR package/dependency edges inspected, no line-by-line lock-body claim",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "a068c4409c2ddee8160dba37c314676eebaafb33c324984a872a9478ebd3e354",
+      "lines": 12318,
+      "packet_matches_exact_commit": true,
+      "coverage": "Complete TOML package-record bookkeeping, all records decoded and compared vs d000; direct receiver edges and unchanged package inventory inspected; not line-by-line 25k lock prose",
+      "id": "P12",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/Cargo.lock",
+      "read_ranges": "All decoded package records compared; direct PBR package/dependency edges inspected, no line-by-line lock-body claim",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/components.rs",
+      "sha256": "39076111488cb7bfbc945fbbb14171173b6db894259f1c877af261ddde6109fe",
+      "lines": 154,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P13",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/components.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile.rs",
+      "sha256": "ed25de57edc90db43b0e8fe878f3f756bbcb3a3ff08e80d28ad92e159517bcb8",
+      "lines": 22,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P14",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/textile.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_pattern.rs",
+      "sha256": "eb6c1803c7a95f765e79baf0f41e56337a769930576928064e201147ac404ef2",
+      "lines": 358,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P15",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/textile_pattern.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_fastener_mesh.rs",
+      "sha256": "3be02700f47bda936316ff4b2b4936a2ecd0029e974dce44b67d69736c56e374",
+      "lines": 370,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P16",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/cloth_fastener_mesh.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_hook_mesh.rs",
+      "sha256": "e211ff0798a2b34eac5012a2596e82bd51a6adbee6d4199926da6bb0f5e3ee60",
+      "lines": 144,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P17",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/cloth_hook_mesh.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_lacing_mesh.rs",
+      "sha256": "4294792813aa446c4c17a63e278c8270a72049d5bd7e1cca0e4ea2d06bca8aa9",
+      "lines": 127,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P18",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/cloth_lacing_mesh.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/sewn_eyelet_mesh.rs",
+      "sha256": "609e815e559b85beda642da8d978bfaef834b748b5624d3d088c520afca81be1",
+      "lines": 108,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P19",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/sewn_eyelet_mesh.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_armor.rs",
+      "sha256": "2687088c7d1de1b51bfbd8ca4f77b7e65e91235f5dd5449e8c3060a1c8d5dd61",
+      "lines": 186,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P20",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/underlayer_armor.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/waist_support_mesh.rs",
+      "sha256": "59f2203c6a21a59d1dac5abc085be16397b0633ada8245f93f949a9a192b6bfb",
+      "lines": 161,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P21",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/waist_support_mesh.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "fcf13b47f8b4b88d6aa11e92354548f7d54ae0b08e6d67d2eabff75f17026cb4",
+      "lines": 509,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P22",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/device_fit.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "sha256": "bbf7027eaab292a2251507b82e6643c2f32c2df58d1ec27f7e2dbea6e1703379",
+      "lines": 479,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P23",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/skin_rules.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "sha256": "2148a9c5c4d2edd7732a6f161c25be9be4d7fb93ece96288182ea68a0aaf7430",
+      "lines": 310,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P24",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_layout.rs",
+      "sha256": "e8355470166cde20def8ab479184b5c6f571eda55964be7209ce15f71d4c5c31",
+      "lines": 127,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P25",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/gpu/breastplate/anime_layout.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/tests.rs",
+      "sha256": "b0a2e919bc35d3820de076231dceb2758c9f5cf07d2670e52618485b6352ef7b",
+      "lines": 276,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P26",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/trim/tests.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "sha256": "ae0b709910333e1524f9689ccf5cfdfdd2072fffa7f00c768eb5fceda631f00b",
+      "lines": 139,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P27",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_materials.rs",
+      "sha256": "fb59dc33c10a0f7de1957e746e64b9228adb1ecd22e6c464d613811a12df82fb",
+      "lines": 104,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P28",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/device_textile_materials.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_relief.rs",
+      "sha256": "4f9bef371feb98e1052fa451496b1798da0cc10b3d182d0a49228699cefba0df",
+      "lines": 102,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P29",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/device_textile_relief.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_seams.rs",
+      "sha256": "44111a4747b80f09bbdbdeb501b507c155c62dd99ccf188ed6987d569ff380bb",
+      "lines": 157,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P30",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/textile_seams.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_appearance.rs",
+      "sha256": "35e7af5d4c6eddea9cc7484f03b4c23e7410581fbc975cc7674d3eef4205d678",
+      "lines": 760,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P31",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/tests/textile_appearance.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/examples/textile_review/mod.rs",
+      "sha256": "026a11e65bd823dd1bd43b045105d732519c34a1a388b0e97a0945ef3ba3ce8a",
+      "lines": 108,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P32",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/examples/textile_review/mod.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs",
+      "sha256": "fc202ebb9c155a3deaf8e61d5dd8a9a83710849339a879b08cfc00dbc44138d0",
+      "lines": 458,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P33",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "ff72cece4156ed5f18aa3af3011c590eccae7e45340c755ad32e7b73339cf69e",
+      "lines": 134,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P34",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/material.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "sha256": "c9b01e2ab8ba1fb7b0201e0d95ecb41ca101cf0f6bb56adab0ed656f61a59ff6",
+      "lines": 388,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P35",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/construction.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing_material.rs",
+      "sha256": "392c3f5ab383b7eab671eafcfb84d79bf5a013ee8e21b7acb395f22788d5624a",
+      "lines": 55,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P36",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/clothing_material.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "7c0ab220dff0ffa44df39a73258de057c9b5d7037f694eb2ce32f81d132e5e63",
+      "lines": 171,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P37",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/armor_metal.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "6ef02db0cef5c45d6560976ce4f3ae011f591d755a9e0313ec3cc75c04f69a3d",
+      "lines": 264,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P38",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "sha256": "5784fb2e5a6b5c72be402465e6d28a84422e5274759c4674f560abe2aa8cebc4",
+      "lines": 259,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P39",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "098f2b193a044af8ad54a0517a96a2308c30ec0fd002c2e7f6905747eb2fd9c1",
+      "lines": 348,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P40",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/garment_material.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material/rings.rs",
+      "sha256": "471ad91001a7b09374e81f3e5d774a7fa8f64ac51ca4b7aec860e0433e949d5d",
+      "lines": 258,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P41",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/garment_material/rings.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/material_color_controls.rs",
+      "sha256": "0aecd247feea1fc977fdc09c6c4795186438557b2687ae0e1d15bc9389431bfb",
+      "lines": 30,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P42",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/material_color_controls.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "366087f0e3753b4917fc7fb7fe1f5aa1c6bc654dd4fe3ed03d97c7df0f3395e8",
+      "lines": 668,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P43",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/main.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_controls.rs",
+      "sha256": "58cb430aed05d49c2d1e9782ff773903f6c26ac15c304e523a4e0a2537ec541d",
+      "lines": 201,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P44",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/metal_controls.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/construction_controls.rs",
+      "sha256": "cc9d26e5f71807cfa63e701e752330432e109c59f612b20544df220c59b5a9bd",
+      "lines": 93,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P45",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/construction_controls.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/fabric_controls.rs",
+      "sha256": "4f576fdfae6f68499082f3da87dbba83f1e587242edc969720b1982a89fb66b0",
+      "lines": 71,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P46",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/fabric_controls.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "sha256": "f3501d1e062f0d49a606db6aea9c5d5e616405412d2348cba770e437a964ab46",
+      "lines": 697,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P47",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/clothing.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "73b6b6c79dad123790c5136a530112273cc766f8602f07360d36ffe5b1bb8cd6",
+      "lines": 60,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P48",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/export/rigged.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "4caf4186ff5bdf5bbeef68f6dc21fd1efe09273d6a51a778862c5c3699db34ef",
+      "lines": 103,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P49",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/export/compact.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "c2ccb364a4ac459ff340265962f4d5dd1a171be1cf9a8554a5de11a82e558865",
+      "lines": 385,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P50",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/character_morphs.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "6210517f4a5b5ff82c940bfaddb1581c206b3c92630e45a1e733c2ccf5f23bdd",
+      "lines": 242,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P51",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/character_export.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "dbbb086bd77ecd0153686025543f523cc7787e9a909a030625275c6d124a9b59",
+      "lines": 342,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P52",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/equipment_export.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "d4d9bf1aea7c1a69e348644cf11a09056260ce34f97b340357aed60c646c4a5a",
+      "lines": 30,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P53",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/garment/export.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "c5e9761baffad2f4392216dddc34d97d391a670f3526dc7ea5a1d28bdc29c415",
+      "lines": 146,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P54",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "cba63ede76abdcd13235784a34e03c29e979e09cf0c7dd477a0007a81789233a",
+      "lines": 179,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P55",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/hair.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "sha256": "7d23fb7284ff564253d0037918527d7fa6877827a573f5c1ed719bc5760893c0",
+      "lines": 226,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P56",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "117a80aebc7a1de9da1a89065490b5407d182b9fbbdae2b70735945084fc353c",
+      "lines": 1765,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P57",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/export.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/assembly.rs",
+      "sha256": "92f6f5351a361dc257d646c8b9b411e53a7af03ea6aef9043536eb2bdb707c72",
+      "lines": 313,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P58",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/export/assembly.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/morphs.rs",
+      "sha256": "7eede3013d854f1905e7e4806f7914bd978b9a54a0d9201b001578bfa3e63013",
+      "lines": 162,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P59",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/export/morphs.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "sha256": "2af2db51fbec555697e97ac7e653f95ae09e381dd8acbc9bb110f66b6346c314",
+      "lines": 108,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P60",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/tests/textile_export.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "461ae69b0d57a3e9e0c4f412dfbf39ad34864bdc72fe6e5c964d292e50391c89",
+      "lines": 201,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P61",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "sha256": "b17010a478ba122880bf826707227f55e2833023b46ec14cfc6baceb09237847",
+      "lines": 177,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P62",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/preview.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/bare_body.rs",
+      "sha256": "10911f928ebfe620f5a0e3cfd348c481d7d455a52788cfd1a39e0ff2f02c97ad",
+      "lines": 69,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P63",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/bare_body.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/textile_surface.rs",
+      "sha256": "b9942d38d704ecaf44eb150b0821367cfe3f3c77ce9f94ba603c7f714836aaec",
+      "lines": 153,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P64",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/textile_surface.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "sha256": "c27d902cac7ee61e69322688e8be4404d849c07c982616801ecb7d960f7d0d25",
+      "lines": 137,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P65",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "2f227d4d00ce9a7090f36fc6a4b5f457df9429abf08515e3e037782950496467",
+      "lines": 72,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P66",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/metal_preview.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "859437a4b9cd33e71a2fb2c34106ba80bb92ec545d3382c2a363218b91088659",
+      "lines": 187,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P67",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/studio_generation.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "65b095038c61727c57b21a007cee9cf6b655b21a64289c90df206b322b623326",
+      "lines": 288,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P68",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/armory_scene.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "a248f8b0ae468ad6f590396c5f2413900f000b9d86fb41b75225d829b2aa8d87",
+      "lines": 305,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P69",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/drape_preview.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "a3b88b0fa6ee6b6fd5bbf3c31c6e4091277c46f0294f363b52cdb029235f8ee7",
+      "lines": 165,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P70",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "dc8418b20e33ff08fc66ccfe4c1f9aee75d43c450ade95fd7e86ebf36030dfb4",
+      "lines": 160,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P71",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/export/validation.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "e430c45bc2b8f6b87ab984c3b1684a287e124a4275eb29f8ab86906db79093e2",
+      "lines": 117,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P72",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/export/shell.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "5d23e1c4decd680acec00f3d2bf5f5a66beac501291d73165cafe7f9ccd26322",
+      "lines": 250,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P73",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/export/textures.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/review_export.rs",
+      "sha256": "d0963c6141c5c8ce91bd47ed33a696096bc16d6dd2420896080c389cbf6cd8a4",
+      "lines": 128,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P74",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/review_export.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/review_component.rs",
+      "sha256": "e1d68d890c32b09dbeeb70c5f416438d8882e6a62da3ecc58868631f347af5f4",
+      "lines": 38,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P75",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/adventuresim-character-creator/src/review_component.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/finish.rs",
+      "sha256": "042db495d8b465dffdf12366970d62c57f929b796e2e9f8974f5f5bddd3921e4",
+      "lines": 160,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P76",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/trim/finish.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim.rs",
+      "sha256": "d32e281322f275748d496491151217f53fab6e74b14260ca8766b98bc9aa13a6",
+      "lines": 130,
+      "packet_matches_exact_commit": true,
+      "coverage": "Fresh complete body/source, every line; initial truncated spans explicitly reread; no hash-as-body carry",
+      "id": "P77",
+      "independent_git_identity": true,
+      "source_location": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/reference-material-pbr-ead46619d/source/crates/fabelgeist-armor/src/trim.rs",
+      "read_ranges": "all source lines",
+      "packet_role": "Frozen canonical candidate, not imported to Root",
+      "contract_disposition": "PBR responsibility traced; inherited physical/count/application/native integration dependencies remain required"
+    }
+  ],
+  "source_groups": [
+    {
+      "name": "encoding/scalar owners",
+      "ids": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P13",
+        "P14",
+        "P15"
+      ],
+      "responsibility": "Encoded Srgb/Srgba and unbounded Ratio leaves; SurfaceMaterial named scalar record; ComponentAppearance required Inherit/Surface/Textile sum; no independent mutable textile/scalar copies."
+    },
+    {
+      "name": "module/Cargo/lock receiving",
+      "ids": [
+        "P6",
+        "P7",
+        "P8",
+        "P9",
+        "P10",
+        "P11",
+        "P12",
+        "P43"
+      ],
+      "responsibility": "Actual exports/features/serde/direct color edges, binary UI registration and complete lock package record populations."
+    },
+    {
+      "name": "component geometry producers",
+      "ids": [
+        "P16",
+        "P17",
+        "P18",
+        "P19",
+        "P20",
+        "P21",
+        "P22",
+        "P23",
+        "P24",
+        "P25",
+        "P30"
+      ],
+      "responsibility": "Keep real geometry/skin/range/role ownership; choose Inherit, Surface or Textile at existing authoritative constructors; no new geometry/native program policy."
+    },
+    {
+      "name": "textile material mutation/receivers",
+      "ids": [
+        "P28",
+        "P29",
+        "P31",
+        "P32",
+        "P64"
+      ],
+      "responsibility": "Apply fresh textile recipes, update relief/needlework charts within sole payload, derive factors/maps at consuming boundary; existing shader/POD/image/UV oracles preserved."
+    },
+    {
+      "name": "catalog/metal/cord/material/UI",
+      "ids": [
+        "P34",
+        "P35",
+        "P36",
+        "P37",
+        "P38",
+        "P39",
+        "P40",
+        "P41",
+        "P42",
+        "P44",
+        "P45",
+        "P46",
+        "P47",
+        "P76",
+        "P77"
+      ],
+      "responsibility": "Typed encoded color/roughness through defaults, catalog metal selection, gilt trim and cord; actual native shader uniform projection extracts ratio only at upload. Physical fields/seed/engraving/trim admission remain required."
+    },
+    {
+      "name": "export/native JSON family",
+      "ids": [
+        "P48",
+        "P49",
+        "P50",
+        "P51",
+        "P52",
+        "P53",
+        "P57",
+        "P58",
+        "P59",
+        "P60",
+        "P61",
+        "P71",
+        "P72",
+        "P73",
+        "P74",
+        "P75"
+      ],
+      "responsibility": "RiggedShell one appearance record, compact carries unchanged owner, current overrides and map/roughness policy, linear terminal factors, two generated review JSON producers and exact source causes."
+    },
+    {
+      "name": "Bevy/runtime/hair native receivers",
+      "ids": [
+        "P26",
+        "P27",
+        "P33",
+        "P54",
+        "P55",
+        "P56",
+        "P62",
+        "P63",
+        "P65",
+        "P66",
+        "P67",
+        "P68",
+        "P69",
+        "P70"
+      ],
+      "responsibility": "Actual Color::srgba versus linear hair shader boundary; shared skin factors, cached Metal/Weave identities, inherited/own textile dispatch, live runtime material partitions and unchanged fixtures."
+    }
+  ],
+  "unchanged_receiver_accounts": [
+    {
+      "path": "crates/fabelgeist-color/src/color.rs",
+      "sha256": "ec95ce41e0de2b14f31c2d8a206461d2ed69f95183e18ae020c7ce956de86c74",
+      "read_ranges": "all",
+      "coverage": "Fresh complete existing generic unencoded Color owner; distinct from explicit encoded Srgb/Srgba, no prior verdict carry"
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "read_ranges": "all",
+      "coverage": "Fresh serde/default-feature boundary"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/transfer.rs",
+      "sha256": "81b5c5f4a55d8191a178ea71fc618c968db91c2b601fa7b72e0cadf466ecad62",
+      "read_ranges": "10-42,90-145",
+      "coverage": "Fresh exact Srgb match dispatch, RGB projection, and scalar forward/reverse transfer expressions; other transfer curves not relevant/reviewed"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "read_ranges": "1-100",
+      "coverage": "Fresh complete Ratio/Metres owner, transparent serde and unit getters; later unrelated units not reread"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "read_ranges": "all",
+      "coverage": "Fresh actual Root synchronous native owner/cause/helper APIs; packet expects separately agreed async successor, required not imported"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+      "sha256": "72974a2d1ab294dcd4b04a06a153d9781a559e9478b7f429ff32909fd6a03f8e",
+      "read_ranges": "all",
+      "coverage": "Fresh actual Root unchanged runtime generated geometry recipient; catalog fallback carries material choice separately"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/outfit.rs",
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "read_ranges": "65-110",
+      "coverage": "Fresh complete clothing_specifications producer and neighboring lining boundary only"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "read_ranges": "all",
+      "coverage": "Fresh current unchanged actual framing/allocation consumer, UV-R2 unresolved"
+    },
+    {
+      "path": "scripts/render_armor_review.py",
+      "sha256": "f6e41c0f0f4ecd90ce83153901ed7b9426acfb5597a8c6cb18a3077a351167c7",
+      "read_ranges": "all",
+      "coverage": "Fresh complete actual generated review JSON consumer, role/material/ranges and base_color reader; source-only, no Blender execution"
+    },
+    {
+      "path": "scripts/render_museum_armor.py",
+      "sha256": "6bd9fd305c94e259b76a706c76ea6a491ab7456c4eae238a464faffee0e59f31",
+      "read_ranges": "1-160,164-180,230-315",
+      "coverage": "Fresh actual Material.parse/vector/number and complete import_review receiver; pose/render remainder not reviewed"
+    },
+    {
+      "path": "scripts/armor_glb.py",
+      "sha256": "b09d4d90d1ee0c4107dbdcdac9aab39cbb017a1b1a3e121fc6838012220ed890",
+      "read_ranges": "1-105",
+      "coverage": "Fresh actual GLB header/chunk/accessor receiver; remaining geometry editing not in scope"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_ranges": "all in existing governing-rule receipt, exact source identity retained",
+      "coverage": "Applicable governing instructions; no geometry/art iteration is introduced by scalar API/serialization audit"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_ranges": "all in existing governing-rule receipt, exact source identity retained",
+      "coverage": "Applicable governing instructions; no geometry/art iteration is introduced by scalar API/serialization audit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/AGENTS.md",
+      "sha256": "52390164bf3eb74a0160ee3ac19527fd43856aa998920d16824f2f41058cf47f",
+      "read_ranges": "all in existing governing-rule receipt, exact source identity retained",
+      "coverage": "Applicable governing instructions; no geometry/art iteration is introduced by scalar API/serialization audit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/AGENTS.md",
+      "sha256": "b222ba01455443717c807738e311b12d8ded9a33cd95084b35870943357898a7",
+      "read_ranges": "all in existing governing-rule receipt, exact source identity retained",
+      "coverage": "Applicable governing instructions; no geometry/art iteration is introduced by scalar API/serialization audit"
+    }
+  ],
+  "source_traces": [
+    {
+      "family": "Scalar encoded/color/ratio authority",
+      "owner": "fabelgeist-color::{Srgb,Srgba}; math::units::Ratio; armor::SurfaceMaterial",
+      "admission": "Leaves intentionally preserve arbitrary floats and transparent scalar/array serde; they do not claim range/finiteness policy. SurfaceMaterial public leaves, is_finite input predicate, native LinearSurfaceMaterial rejects nonfinite decoded RGB and factors. Existing Color lacks encoded authority, so reuse does not mean replacing it with a duplicate general RGBA type.",
+      "producer_retained": "Metal.color/roughness, Lacing, MailWeave, GarmentSpecification, catalog pbr, TextileColor, shared skin, component Surface payload, RiggedShell carry canonical leaves/record. Color leaf constructors used at literal/serde/actual native picker boundaries.",
+      "operations": "Srgb opaque, Srgba rgb/with_alpha preserve encoded RGB and unencoded alpha; exact old shell sRGB transfer formula now canonical. Color picker projects linear floats and writes encoded only on response.changed; roughness extracts at slider boundary.",
+      "consumers": "PassParameters ratio upload, StandardMaterial Color::srgba and raw native factor ports; LinearSurfaceMaterial for GLB/review and explicit native serialization. Hair pigment remains its separately documented linear shader/atlas numerical boundary, not falsely wrapped as encoded Srgb."
+    },
+    {
+      "family": "Single component appearance authority",
+      "owner": "armor::ComponentAppearance::{Inherit,Surface,Textile}",
+      "admission": "Required ArmorComponent.appearance, deny_unknown_fields and no default/fallback compatibility schema. Enum owns neighboring SurfaceMaterial/TextileAppearance payload; private primitive internals of color/ratio remain native/serde boundaries.",
+      "producer_retained": "PartLayout/Anime defaults Inherit; hardware/underlayer Surface; fastener/cord/waist/design textile clone creates sole retained recipe. device_textile_materials assigns recipe; relief updates same payload charts; skin/morph/component roles independent.",
+      "operations": "material() derives fresh scalar factors from TextileAppearance; textile_mut updates canonical recipe directly. split_textile_seams clones component payload with geometry remap; no parallel cached material/textile authority.",
+      "consumers": "Preview and runtime partitions match enum; component_materials resets inherited map/edge fields only for own material then installs current textile maps; ReviewComponent projects selected material. Inherit retains catalog fallback. Remaining physical/count/admission function contracts listed required, not automatically clear."
+    },
+    {
+      "family": "Catalog/default/gilt/shared skin and actual export",
+      "owner": "Creator equipment_pbr/catalog enum, Metal::appearance, Lacing::appearance, body_appearance::SKIN_APPEARANCE",
+      "admission": "Metal/Lacing/MailWeave own existing numerical policies; validated immutable Metal borrow survives baking. Catalog palette authored literal boundaries. SurfaceMaterial unbounded leaves do not invent more restrictive Bevy ranges.",
+      "producer_retained": "Metal default and catalog steel from current appearance; gilt trim uses own Metal with metallic Ratio1; cord nonmetallic; shared skin used preview/bare body/export. Catalog identity and explicit scalar appearance are distinct roles; no requirement that an authored override recompute from catalog identity inferred.",
+      "operations": "Metal uniform roughness extracts once at actual native PassParameters; bake map publication follows submit/read. SurfaceTextures.scalar_appearance white-overrides only when color image exists; normal-only maps preserve authored scalars; shell normal/metal map supplies roughnessFactor1 as existing native multiplication contract.",
+      "consumers": "Bevy encoded path preserved; GLB/review explicit linear protocol projections. Shared skin GLB now decodes same authored encoded source (intentional corrected boundary, not byte-identical old raw factor). Review protocol finite range mismatch remains PBR-R2."
+    },
+    {
+      "family": "Protocols/fixtures/locks",
+      "owner": "Actual GLB Writer/TextureImages, ReviewComponent and two JSON producers; existing Python review readers; Cargo manifests/locks",
+      "admission": "GLB validates geometry/UVs then compacts all columns and writes linear material factors. ReviewComponent checked conversion before serde JSON publication. Museum consumer imposes additional0..1 range contract. Locks same package populations, only direct new color edges in receiver records.",
+      "producer_retained": "Review export plus textile_review write_generated use same adapter; actual Python readers consume material.base_color without second decode. Existing fixture helper arguments/operand paths adapt, not new cases/assertions; no native runtime/generator execution.",
+      "consumers": "Rust gltf existing fixtures, armor_glb header/parser, render_armor_review and Museum native sockets. Full actual reader behavior beyond read source segments not claimed; no Blender/image/model acceptance from source."
+    }
+  ],
+  "actual_lock_record_accounting": {
+    "Cargo.lock": {
+      "new_records": 1126,
+      "base_records": 1126,
+      "added_keys": [],
+      "removed_keys": [],
+      "changed_keys": [
+        [
+          "adventuresim-character-creator",
+          "0.1.0",
+          ""
+        ],
+        [
+          "fabelgeist-armor",
+          "0.1.0",
+          ""
+        ],
+        [
+          "adventuresim-tactical-client",
+          "0.1.0",
+          ""
+        ]
+      ],
+      "pbr_direct_receivers": {
+        "adventuresim-character-creator": [
+          "adventuresim-core",
+          "adventuresim-world-schema",
+          "anyhow",
+          "async-lock",
+          "base64 0.22.1",
+          "bevy",
+          "bevy_egui",
+          "blake3",
+          "bytemuck",
+          "clap",
+          "derive_more 2.1.1",
+          "egui_extras",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-cloth",
+          "fabelgeist-color",
+          "fabelgeist-compute",
+          "fabelgeist-determinism",
+          "fabelgeist-garment-code",
+          "fabelgeist-garment-fit",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-hair",
+          "fabelgeist-math",
+          "fabelgeist-mesh",
+          "fabelgeist-rig",
+          "fabelgeist-shell",
+          "image",
+          "pollster",
+          "rand 0.9.5",
+          "rayon",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20",
+          "tokio",
+          "wgpu"
+        ],
+        "adventuresim-tactical-client": [
+          "adventuresim-building-generator",
+          "adventuresim-character-creator",
+          "adventuresim-core",
+          "adventuresim-plant-generator",
+          "adventuresim-procedural-materials",
+          "adventuresim-procedural-textures",
+          "adventuresim-tactical-core",
+          "adventuresim-tactical-netcode",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "anyhow",
+          "bevy",
+          "bevy_egui",
+          "bevy_eidolon",
+          "bevy_flair",
+          "bevy_mod_outline",
+          "blake3",
+          "bytemuck",
+          "ciborium",
+          "clap",
+          "console_error_panic_hook",
+          "derive_more 2.1.1",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-color",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-math",
+          "fabelgeist-rig",
+          "flate2",
+          "gltf",
+          "pollster",
+          "postcard",
+          "semver",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "strum 0.27.2",
+          "thiserror 2.0.20",
+          "toml",
+          "tracing",
+          "tracing-subscriber",
+          "tracing-tracy",
+          "tracy-client-sys 0.28.0",
+          "wasm-bindgen",
+          "wasm-bindgen-futures",
+          "web-time"
+        ],
+        "fabelgeist-armor": [
+          "anyhow",
+          "blake3",
+          "bytemuck",
+          "fabelgeist-color",
+          "fabelgeist-compute",
+          "fabelgeist-garment-code",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-math",
+          "fabelgeist-mesh",
+          "fabelgeist-rig",
+          "image",
+          "pollster",
+          "postcard",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20"
+        ],
+        "fabelgeist-color": [
+          "bytemuck",
+          "serde",
+          "serde_json",
+          "thiserror 2.0.20",
+          "wgpu"
+        ]
+      }
+    },
+    "crates/adventuresim-character-creator/Cargo.lock": {
+      "new_records": 1064,
+      "base_records": 1064,
+      "added_keys": [],
+      "removed_keys": [],
+      "changed_keys": [
+        [
+          "adventuresim-character-creator",
+          "0.1.0",
+          ""
+        ],
+        [
+          "fabelgeist-armor",
+          "0.1.0",
+          ""
+        ]
+      ],
+      "pbr_direct_receivers": {
+        "adventuresim-character-creator": [
+          "adventuresim-core",
+          "adventuresim-world-schema",
+          "anyhow",
+          "async-lock",
+          "base64",
+          "bevy",
+          "bevy_egui",
+          "blake3",
+          "burn",
+          "bytemuck",
+          "clap",
+          "derive_more 2.1.1",
+          "egui_extras",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-cloth",
+          "fabelgeist-color",
+          "fabelgeist-compute",
+          "fabelgeist-determinism",
+          "fabelgeist-garment-code",
+          "fabelgeist-garment-fit",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-hair",
+          "fabelgeist-math",
+          "fabelgeist-mesh",
+          "fabelgeist-mhr",
+          "fabelgeist-rig",
+          "fabelgeist-shell",
+          "gltf",
+          "image",
+          "pollster",
+          "rand 0.9.5",
+          "rayon",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20",
+          "tokio",
+          "wgpu 29.0.4"
+        ],
+        "fabelgeist-armor": [
+          "anyhow",
+          "blake3",
+          "bytemuck",
+          "fabelgeist-color",
+          "fabelgeist-compute",
+          "fabelgeist-garment-code",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-math",
+          "fabelgeist-mesh",
+          "fabelgeist-rig",
+          "image",
+          "pollster",
+          "postcard",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20"
+        ],
+        "fabelgeist-color": [
+          "bytemuck",
+          "serde",
+          "thiserror 2.0.20",
+          "wgpu 29.0.4"
+        ]
+      }
+    }
+  },
+  "existing_test_population_bookkeeping": [
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "base_test_declarations": [
+        "default_recipe_matches_mhr_layout",
+        "validation_rejects_corrupt_recipe",
+        "canonical_mhr_base_has_zero_coefficients_and_carries_nothing",
+        "plate_construction_round_trips_in_recipe"
+      ],
+      "candidate_test_declarations": [
+        "default_recipe_matches_mhr_layout",
+        "validation_rejects_corrupt_recipe",
+        "canonical_mhr_base_has_zero_coefficients_and_carries_nothing",
+        "plate_construction_round_trips_in_recipe"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 9,
+      "candidate_assertion_token_count": 9,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "base_test_declarations": [
+        "gorget_sheets_share_the_cuirass_support_and_spare_flexible_components",
+        "solid_helmets_follow_the_head_and_cloth_headwear_keeps_its_skin",
+        "cops_follow_the_lower_limb_on_their_side_and_spare_other_components",
+        "a_spaulder_follows_the_arm_and_its_besagew_the_chest",
+        "a_missing_anchor_is_an_error",
+        "fauld_lames_hang_from_the_pelvis_and_tassets_from_their_hip"
+      ],
+      "candidate_test_declarations": [
+        "gorget_sheets_share_the_cuirass_support_and_spare_flexible_components",
+        "solid_helmets_follow_the_head_and_cloth_headwear_keeps_its_skin",
+        "cops_follow_the_lower_limb_on_their_side_and_spare_other_components",
+        "a_spaulder_follows_the_arm_and_its_besagew_the_chest",
+        "a_missing_anchor_is_an_error",
+        "fauld_lames_hang_from_the_pelvis_and_tassets_from_their_hip"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 16,
+      "candidate_assertion_token_count": 16,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/tests.rs",
+      "base_test_declarations": [
+        "the_band_follows_every_edge_at_its_width",
+        "the_trimmed_plate_is_still_closed",
+        "coordinates_run_on_along_a_closed_rim",
+        "cut_vertices_carry_skin_and_morphs",
+        "components_keep_their_own_vertices",
+        "a_piece_without_plate_faces_cannot_be_trimmed"
+      ],
+      "candidate_test_declarations": [
+        "the_band_follows_every_edge_at_its_width",
+        "the_trimmed_plate_is_still_closed",
+        "coordinates_run_on_along_a_closed_rim",
+        "cut_vertices_carry_skin_and_morphs",
+        "components_keep_their_own_vertices",
+        "a_piece_without_plate_faces_cannot_be_trimmed"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 19,
+      "candidate_assertion_token_count": 19,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "base_test_declarations": [
+        "material_parts_preserve_skin_uvs_and_relative_position_when_dropped"
+      ],
+      "candidate_test_declarations": [
+        "material_parts_preserve_skin_uvs_and_relative_position_when_dropped"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 10,
+      "candidate_assertion_token_count": 10,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_appearance.rs",
+      "base_test_declarations": [
+        "curved_ornament_parameters_change_the_shared_baked_surface",
+        "continuous_fabric_keeps_its_repeat_scale_when_clipped_into_bands",
+        "placement_does_not_change_skirt_or_sleeve_fabric_coordinates",
+        "rear_shading_seam_preserves_triangles_skin_and_morph_endpoints",
+        "bounded_layers_composite_into_the_same_preview_and_export_pixels",
+        "sheer_cloth_keeps_opaque_ornament_in_shared_preview_and_portable_pixels",
+        "portable_raster_keeps_narrow_regions_and_small_stripe_duties",
+        "narrow_medallion_trim_retains_detail_through_isotropic_mip_reduction",
+        "fine_gathers_reach_preview_and_export_without_tessellation",
+        "ordinary_skirt_and_slash_sleeve_fit_the_runtime_triangle_budget",
+        "bounded_shirring_changes_exported_normals_and_keeps_the_cloth_color"
+      ],
+      "candidate_test_declarations": [
+        "curved_ornament_parameters_change_the_shared_baked_surface",
+        "continuous_fabric_keeps_its_repeat_scale_when_clipped_into_bands",
+        "placement_does_not_change_skirt_or_sleeve_fabric_coordinates",
+        "rear_shading_seam_preserves_triangles_skin_and_morph_endpoints",
+        "bounded_layers_composite_into_the_same_preview_and_export_pixels",
+        "sheer_cloth_keeps_opaque_ornament_in_shared_preview_and_portable_pixels",
+        "portable_raster_keeps_narrow_regions_and_small_stripe_duties",
+        "narrow_medallion_trim_retains_detail_through_isotropic_mip_reduction",
+        "fine_gathers_reach_preview_and_export_without_tessellation",
+        "ordinary_skirt_and_slash_sleeve_fit_the_runtime_triangle_budget",
+        "bounded_shirring_changes_exported_normals_and_keeps_the_cloth_color"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 80,
+      "candidate_assertion_token_count": 80,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs",
+      "base_test_declarations": [
+        "prepared_device_reuses_pipelines_for_a_new_wearer",
+        "gorget_fits_sparse_body_sections",
+        "puffed_garments_fit_sparse_wearers_without_morph_targets",
+        "puffed_garment_extremes_are_closed_finite_shells",
+        "puffed_sleeve_seats_over_generated_padding"
+      ],
+      "candidate_test_declarations": [
+        "prepared_device_reuses_pipelines_for_a_new_wearer",
+        "gorget_fits_sparse_body_sections",
+        "puffed_garments_fit_sparse_wearers_without_morph_targets",
+        "puffed_garment_extremes_are_closed_finite_shells",
+        "puffed_sleeve_seats_over_generated_padding"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 24,
+      "candidate_assertion_token_count": 24,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "base_test_declarations": [
+        "both_tilings_start_valid",
+        "lacing_needs_holes_it_fits_through",
+        "the_widest_hole_is_allowed_and_no_wider",
+        "trim_keeps_to_the_rim_of_small_plates",
+        "holes_run_in_pairs_from_the_top"
+      ],
+      "candidate_test_declarations": [
+        "both_tilings_start_valid",
+        "lacing_needs_holes_it_fits_through",
+        "the_widest_hole_is_allowed_and_no_wider",
+        "trim_keeps_to_the_rim_of_small_plates",
+        "holes_run_in_pairs_from_the_top"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 14,
+      "candidate_assertion_token_count": 14,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "base_test_declarations": [
+        "catalog_polished_steel_is_the_plate_armor_default",
+        "texture_coordinates_repeat_at_the_metal_density",
+        "a_trim_ornament_runs_along_the_edge_at_the_metal_density"
+      ],
+      "candidate_test_declarations": [
+        "catalog_polished_steel_is_the_plate_armor_default",
+        "texture_coordinates_repeat_at_the_metal_density",
+        "a_trim_ornament_runs_along_the_edge_at_the_metal_density"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 10,
+      "candidate_assertion_token_count": 10,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "base_test_declarations": [
+        "scratches_are_deterministic_and_change_normal_and_roughness",
+        "the_finish_tilts_and_roughens_the_surface_and_still_tiles",
+        "texture_sizes_and_engraving_images_are_checked",
+        "a_groove_cuts_below_the_surface_and_tilts_the_normal_at_its_walls",
+        "a_normal_map_tilts_with_its_turn_and_has_no_depth",
+        "tiling_repeats_the_engraving",
+        "every_ornament_motif_cuts_part_of_its_cell",
+        "fillets_run_along_both_sides_of_the_cell"
+      ],
+      "candidate_test_declarations": [
+        "scratches_are_deterministic_and_change_normal_and_roughness",
+        "the_finish_tilts_and_roughens_the_surface_and_still_tiles",
+        "texture_sizes_and_engraving_images_are_checked",
+        "a_groove_cuts_below_the_surface_and_tilts_the_normal_at_its_walls",
+        "a_normal_map_tilts_with_its_turn_and_has_no_depth",
+        "tiling_repeats_the_engraving",
+        "every_ornament_motif_cuts_part_of_its_cell",
+        "fillets_run_along_both_sides_of_the_cell"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 33,
+      "candidate_assertion_token_count": 33,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "base_test_declarations": [
+        "standard_rings_have_open_holes_steel_color_and_curved_normals",
+        "ring_chart_wraps_across_tile_edges",
+        "ring_geometry_sets_the_texture_tile",
+        "mail_surface_scales_pattern_metres_to_ring_repeats",
+        "weaves_that_cannot_interlink_are_rejected",
+        "dependent_limits_are_valid_for_every_ring"
+      ],
+      "candidate_test_declarations": [
+        "standard_rings_have_open_holes_steel_color_and_curved_normals",
+        "ring_chart_wraps_across_tile_edges",
+        "ring_geometry_sets_the_texture_tile",
+        "mail_surface_scales_pattern_metres_to_ring_repeats",
+        "weaves_that_cannot_interlink_are_rejected",
+        "dependent_limits_are_valid_for_every_ring"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 20,
+      "candidate_assertion_token_count": 20,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "base_test_declarations": [
+        "belt_sides_follow_mhr_anatomical_x",
+        "measured_mhr_garment_drapes_and_exports"
+      ],
+      "candidate_test_declarations": [
+        "belt_sides_follow_mhr_anatomical_x",
+        "measured_mhr_garment_drapes_and_exports"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 9,
+      "candidate_assertion_token_count": 9,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "base_test_declarations": [
+        "anchors_clip_the_requested_fraction",
+        "coordinate_continues_across_multiple_bones",
+        "concavity_relaxation_raises_a_valley_without_moving_its_opening",
+        "concavity_relaxation_does_not_flatten_a_convex_peak",
+        "recomputed_surface_normals_are_unit_length",
+        "placeholder_faces_preserve_source_topology_after_arbitrary_deformation",
+        "offset_garment_positions_weld_split_source_vertices",
+        "catalog_material_class_controls_shell_offset",
+        "absent_landmark_keeps_its_identity_and_error_classification"
+      ],
+      "candidate_test_declarations": [
+        "anchors_clip_the_requested_fraction",
+        "coordinate_continues_across_multiple_bones",
+        "concavity_relaxation_raises_a_valley_without_moving_its_opening",
+        "concavity_relaxation_does_not_flatten_a_convex_peak",
+        "recomputed_surface_normals_are_unit_length",
+        "placeholder_faces_preserve_source_topology_after_arbitrary_deformation",
+        "offset_garment_positions_weld_split_source_vertices",
+        "catalog_material_class_controls_shell_offset",
+        "absent_landmark_keeps_its_identity_and_error_classification"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 20,
+      "candidate_assertion_token_count": 20,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "base_test_declarations": [
+        "skeletal_fit_corrects_surface_without_counting_bone_translation_twice",
+        "flexible_fit_reconstructs_the_direct_endpoint_with_exported_influences"
+      ],
+      "candidate_test_declarations": [
+        "skeletal_fit_corrects_surface_without_counting_bone_translation_twice",
+        "flexible_fit_reconstructs_the_direct_endpoint_with_exported_influences"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 3,
+      "candidate_assertion_token_count": 3,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "base_test_declarations": [
+        "exports_four_normalized_skin_influences_and_a_zero_animation_rig",
+        "rejects_non_normalized_weights",
+        "exports_clothing_as_a_separately_materialed_skinned_primitive",
+        "exports_textured_garment_with_independent_topology_and_skin",
+        "exports_shell_only_equipment_without_character_attachment_geometry",
+        "exports_independent_skinned_armor_topology_with_named_morph_targets",
+        "fitted_socket_resolves_uv_per_lod_and_bootstrap_recovers_the_anchor"
+      ],
+      "candidate_test_declarations": [
+        "exports_four_normalized_skin_influences_and_a_zero_animation_rig",
+        "rejects_non_normalized_weights",
+        "exports_clothing_as_a_separately_materialed_skinned_primitive",
+        "exports_textured_garment_with_independent_topology_and_skin",
+        "exports_shell_only_equipment_without_character_attachment_geometry",
+        "exports_independent_skinned_armor_topology_with_named_morph_targets",
+        "fitted_socket_resolves_uv_per_lod_and_bootstrap_recovers_the_anchor"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 64,
+      "candidate_assertion_token_count": 64,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/assembly.rs",
+      "base_test_declarations": [
+        "compact_components_keep_names_hinges_skin_and_all_morphs"
+      ],
+      "candidate_test_declarations": [
+        "compact_components_keep_names_hinges_skin_and_all_morphs"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 24,
+      "candidate_assertion_token_count": 24,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/morphs.rs",
+      "base_test_declarations": [
+        "rejects_incompatible_channels_and_non_finite_deltas"
+      ],
+      "candidate_test_declarations": [
+        "rejects_incompatible_channels_and_non_finite_deltas"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 3,
+      "candidate_assertion_token_count": 3,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "base_test_declarations": [
+        "portable_sheer_cloth_blends_once_and_retains_opaque_pattern_pixels"
+      ],
+      "candidate_test_declarations": [
+        "portable_sheer_cloth_blends_once_and_retains_opaque_pattern_pixels"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 5,
+      "candidate_assertion_token_count": 5,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "base_test_declarations": [
+        "normal_only_material_preserves_its_authored_metal_properties",
+        "separate_equipment_glbs_share_exact_surface_files_and_material_roles"
+      ],
+      "candidate_test_declarations": [
+        "normal_only_material_preserves_its_authored_metal_properties",
+        "separate_equipment_glbs_share_exact_surface_files_and_material_roles"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 20,
+      "candidate_assertion_token_count": 20,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "base_test_declarations": [
+        "pieces_are_hidden_off_the_armory_tab"
+      ],
+      "candidate_test_declarations": [
+        "pieces_are_hidden_off_the_armory_tab"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 2,
+      "candidate_assertion_token_count": 2,
+      "same_assertion_token_count": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/finish.rs",
+      "base_test_declarations": [
+        "a_narrowed_band_shrinks_its_ornament_with_it",
+        "the_ornament_repeats_once_per_engraving_cell",
+        "a_cell_begins_at_the_origin",
+        "widths_outside_the_supported_band_are_rejected"
+      ],
+      "candidate_test_declarations": [
+        "a_narrowed_band_shrinks_its_ornament_with_it",
+        "the_ornament_repeats_once_per_engraving_cell",
+        "a_cell_begins_at_the_origin",
+        "widths_outside_the_supported_band_are_rejected"
+      ],
+      "same_test_declarations": true,
+      "base_assertion_token_count": 8,
+      "candidate_assertion_token_count": 8,
+      "same_assertion_token_count": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "PBR-R1",
+      "priority": 3,
+      "classification": "Inherited but actionable modified-owner item-order debt; not new PBR runtime regression",
+      "paths": [
+        "crates/fabelgeist-armor/src/gpu/part/layout.rs:13-100",
+        "crates/adventuresim-character-creator/src/device_fit.rs:49-88,429"
+      ],
+      "rule": "crates/AGENTS.md90-94",
+      "evidence": "P24 places Extrusion enum/impl before subsequent structs and constants after structs; P22 places DevicePiece/Fitted structs after earlier impl/functions. Both are modified canonical candidate files, unlike unrelated untouched-main style.",
+      "repair": "Canonical owner must order imports/reexports, mods, constants/aliases, structs, enums, traits, impls and functions before final receiving clearance, preserving whole owned function bodies/fixtures and other source contracts. Coordinate with #780; no independent partial duplicate repair.",
+      "acceptance": "Source-backed exact final whole-file order, unchanged native/body/test semantics and no ceiling increase; not waived by narrow appearance-only line changes."
+    },
+    {
+      "id": "PBR-R2",
+      "priority": 2,
+      "classification": "Required actual review-protocol admission completeness gap; inherited representable-input gap, no new runtime regression demonstrated",
+      "paths": [
+        "crates/adventuresim-character-creator/src/surface_projection.rs:42-55",
+        "crates/adventuresim-character-creator/src/review_component.rs:23-28",
+        "scripts/render_museum_armor.py:23-52,288"
+      ],
+      "rule": "crates/AGENTS.md31-35,49-57; bespoke review admission/actual unchanged consumer contract",
+      "evidence": "Unbounded leaves are intentional. However SurfaceMaterial with opaque white, metallic Ratio::from_ratio(2.0), roughness Ratio::from_ratio(0.5) passes LinearSurfaceMaterial and ReviewComponent because they check only finiteness. Both generated review JSON paths serialize the result. Actual unchanged Museum Material.parse requires every material factor and RGBA channel within0..1 and import_review parses component.material directly, so emitted record is rejected. Encoded values above1 that decode finite produce the same mismatch.",
+      "repair": "Resolve actual review receiver acceptance at its owning boundary with explicit typed failure or a coordinated explicit consumer policy change if extended factors are intended. Preserve unbounded canonical leaves and existing Bevy policy; do not silently clamp all materials, invent a global recipe range, change tests or treat finite as full protocol admission.",
+      "acceptance": "Review producer and actual parser agree for every admitted record; preserved valid old inputs/encoding, typed rejected out-of-protocol data before publication, exact selected policy documented and independently re-reviewed."
+    },
+    {
+      "id": "PBR-R3",
+      "priority": 3,
+      "classification": "Inherited production panic/suppression obligations in modified owners, required canonical cleanup",
+      "paths": [
+        "crates/adventuresim-character-creator/src/lib.rs:189",
+        "crates/fabelgeist-armor/src/gpu/part/layout.rs:140",
+        "crates/adventuresim-character-creator/src/drape_preview.rs:80,96",
+        "crates/adventuresim-character-creator/src/export/assembly.rs:22",
+        "crates/adventuresim-character-creator/src/export/morphs.rs:74",
+        "crates/adventuresim-character-creator/src/clothing.rs:106"
+      ],
+      "rule": "crates/AGENTS.md126-127,179-181",
+      "evidence": "Actual modified source still contains CharacterRecipe default expect, PartLayout mount expect, MailMaps/PNG decode expects, assembly/morphs production unwraps, and production #[allow(clippy::too_many_arguments)]. These are not new PBR introductions; existing claim/integration limitations do not constitute source clearance.",
+      "repair": "Canonical whole-function owners resolve errors/invariants and narrow justified suppression with expect+reason. Preserve actual causes, no fallback/compatibility paths or newly authored tests. Keep required application/native graph connected.",
+      "acceptance": "No remaining in-scope production unwrap/expect; applicable suppression policy and same-head final hosted lint/rule evidence without weakened gates."
+    }
+  ],
+  "required_dependencies": [
+    {
+      "id": "D-PHYSICAL",
+      "owner": "#780 coordinated remaining774",
+      "state": "Required incomplete",
+      "contracts": "Metal and Lacing/Plate/MailWeave physical lengths, angles/density/repeats/counts/seed; Engraving/Ornament/Trim units, checked native image sampling/address range; actual producer/field/default/UI/native uniform propagation. SurfaceMaterial naming does not complete them.",
+      "acceptance": "One canonical leaf per meaning with full producer/retained-state/native operation propagation and native bounds/cause evidence; no duplicate Root units or blanket raw scalar waiver."
+    },
+    {
+      "id": "D-APPLICATION",
+      "owner": "#780 application/model/outfit/export owners",
+      "state": "Required incomplete",
+      "contracts": "MAT-R5 and DENS-R1 typed application admission/default/cache errors, mutable source/body correspondence and lower fitting/submission/readback propagation. P22 still ignores batch.submit Result; PBR copy is not canonical native-caller completion.",
+      "acceptance": "Preserve actual Arc<anyhow> errors and first-outcome initialization policy, no Error::msg/text reclassification before terminal UI, publish candidates after actual operation success."
+    },
+    {
+      "id": "D-EXPORT",
+      "owner": "#780 export/admission/native framing",
+      "state": "Required incomplete",
+      "contracts": "UV-R1 typed complete body/rig/UV/morph/socket/native admission, UV-R2 checked GLB padding/addition/native u32 lengths and allocation before writes; actual Root glb writer still unchecked. PBR-R2 actual review range receiver policy.",
+      "acceptance": "Resolve actual affected unchanged receiver paths before final clearance; native range failures retain typed request/source, no silent truncation or claimed >4GiB runtime experiment."
+    },
+    {
+      "id": "D-NATIVE-CANONICAL",
+      "owner": "Root native + #780 agreed producers/callers/exports/locks",
+      "state": "Required incomplete",
+      "contracts": "Root MetalGpu currently synchronous while P38/P39 expect agreed async native facade/worker family; canonical count/stride/Readback/kernel/Buffer/resource/Creator source and locks not all received. Preserve Root native context/Buffer bodies and integrate only agreed contracts.",
+      "acceptance": "Finish connected migration families before push/hosted request; no raw overloads/compatibility aliases, no duplicate canonical owners, actual device/source/byte/count provenance through final graph."
+    },
+    {
+      "id": "D-STYLE-GROWTH",
+      "owner": "Canonical modified source owners",
+      "state": "Required incomplete",
+      "contracts": "PBR-R1/R3, prior MAT-R2 remaining positional records (CatalogMetals, Views and role tuples) and meaningful primitive units, all affected modified file order and no-growth final baseline reductions.",
+      "acceptance": "Resolve applicable changed-owner rules, use focused modules for added responsibility; apply only relevant final hosted baseline reductions, never raise ceilings."
+    },
+    {
+      "id": "D-FINAL",
+      "owner": "Root coordinator",
+      "state": "Required incomplete",
+      "contracts": "Whole graph source discovery/repeated all13, independent three reviews, hosted compile/lint/existing tests/baseline evidence on one final pushed SHA; historical software-provider numerical/Creator SIGSEGV/browser/hardware limits.",
+      "acceptance": "No new tests/cases/helpers/assertions/doctests, no hidden failure/skip, preserve original826 test/workflow/doc fixtures, no merge; all required gates actually pass on final same pushed SHA."
+    }
+  ],
+  "limits": [
+    "Complete focused pre-receive discovery:75 full source bodies and2 lockfiles via complete package-record bookkeeping. Every frozen entry independently matches actual peer Git. No peer verdict/source note treated as Root body credit; no broad prior carries used.",
+    "This does not establish full connected implementation clearance. D-PHYSICAL/D-APPLICATION/D-EXPORT/D-NATIVE-CANONICAL/D-STYLE-GROWTH/D-FINAL are required, not silently deferred acceptance paths.",
+    "No repository source receipt or edits, no tests/cases/helpers/assertions/doctests authored, and no project command/scanner/checker clone/build/check/lint/test/generator/runtime/native program/Blender/CI/push executed. Reports/reads/Git/hash/TOML/test-population bookkeeping only.",
+    "Twenty current test-declaration-bearing source files retain test identifiers and assertion token counts vs immutable d000, and complete test source/diffs were read. Counts alone are not oracle proof; existing operand/field/helper-argument changes are required API adapters. Final exact all-file fixture/provenance comparison on composed graph still required.",
+    "Native GLB/body/rendering/arithmetic behavior and hardware/browser results have not run; no new current-main controls. Historical three software-provider host_float failures and full Creator lib SIGSEGV remain documented historical limits, not this packet results.",
+    "PBR new focused owner/adapters are small; modified long files remain subject to actual hosted no-growth baseline reductions. Current Root export.rs baseline declares803file/268export_rigged_glb/111bootstrap ceilings; no scanner ran or ceiling was changed. Visible current export function raw range is below268, not a general whole-file count verdict.",
+    "Root actual native MetalGpu remains synchronous and canonical incoming bake expects async successor; required agreed native receipt/API/caller/lock integration prevents a current compile claim. Root native context/Buffer ownership preserved.",
+    "Art/modeling cycle not invoked: scalar semantics/source inspection do not authorize geometry changes or establish visual acceptance. Unrelated ZIP/NumPy/sorting owner families remain untouched."
+  ],
+  "correctness": "No new PBR runtime regression demonstrated by source. Canonical scalar/appearance authority and propagation are coherent; PBR-R2 actual review receiver admission remains an actionable required completeness gap. Modified-owner inherited rule findings PBR-R1/R3 remain required.",
+  "completeness": "All thirteen focused PRE-RECEIVE discovery lenses complete across77 frozen entries/current actual recipients. No repository copy, compilation, entire material/physical/caller/native/core integration or final global clearance.",
+  "lenses": [
+    {
+      "lens": "magic-numbers",
+      "contract": "Encoded palette literal channels and dimensionless Ratio at authored boundaries; native0/1/lane/GLB wire constants stay explicit. Physical/count/seed/angular/trim/range policy fields remain raw and REQUIRED under D-PHYSICAL/D-EXPORT, not waived.",
+      "source": "P1-P5,P14-P15,P34-P46,P54-P57,P71-P77",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "Migrate full physical/producer families before final clearance; do not substitute one universal scalar wrapper or epsilon."
+    },
+    {
+      "lens": "magic-strings",
+      "contract": "Canonical enum roles own ComponentAppearance states; serde variant names and GLB/Bevy/JSON field/type/sampler identifiers are actual wire/framework tokens. UI labels/file paths/catalog IDs remain text. Existing application bare-prose errors remain required D-APPLICATION/D-EXPORT.",
+      "source": "P13,P34-P46,P57-P77; actual Python readers",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "No behavior from mutable display/Debug prose; typed reusable errors/cause chains retained through final receiver, terminal formatting only."
+    },
+    {
+      "lens": "existing-type-owners",
+      "contract": "Reuse encoded color leaves in Color crate, unbounded Ratio in Math and one SurfaceMaterial in Armor. Generic Color, linear hair shading, physical Game Material and encoded Srgb differ in authority; do not conflate them.",
+      "source": "P1-P5,P13-P15,P34-P56; extra Color/Ratio source",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "Canonical exports/dependency features actually close final graph; required count/stride/seed owners consumed without duplicate Root definitions."
+    },
+    {
+      "lens": "type-ownership",
+      "contract": "Surface scalar record shared by Armor components/catalog/clothing; terminal LinearSurfaceMaterial/ReviewComponent belong to actual Creator protocol boundary; actual GPU native helpers remain Root-owned.",
+      "source": "P1-P10,P34-P77; Root MetalGpu source",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "Respect whole-function ownership; compose agreed native/canonical source and complete locks, not blind copy entire packet/export/core."
+    },
+    {
+      "lens": "type-granularity",
+      "contract": "Srgb/Srgba encoding distinction and Ratio unit do not imply a range guarantee. Named SurfaceMaterial replaces positional scalar triples. Required appearance enum owns one mutable recipe. Remaining positional CatalogMetals/Views/domain tuples required D-STYLE-GROWTH.",
+      "source": "P1-P5,P13,P48-P59,P71-P77",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "Keep actual native arrays/indices only at explicit kernels/serialization; no arbitrary number enumeration or parallel leaf copies."
+    },
+    {
+      "lens": "enum-shapes",
+      "contract": "Inherit/Surface/Textile makes invalid independent material/textile combinations unrepresentable; required payload in every component producer. Closed material/alpha/sides/sampling roles remain explicit; native bool predicates/render flags are adapters.",
+      "source": "P13-P33,P48-P77",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "No serde default/dual fields/compatibility fallback; all producers and pattern consumers migrate together, not narrowed annotation-only clearance."
+    },
+    {
+      "lens": "admission-contracts",
+      "contract": "Float leaves transparent serde intentionally unbounded; Metal/Lacing/Mail/Textile own validation. Linear projection rejects overflow/nonfinite actual decoded native factors. Actual Museum receiver range mismatch PBR-R2; all body/export/physical admissions required.",
+      "source": "P1-P5,P13-P15,P34-P46,P71-P75; Museum parser",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "Close actual native-review protocol with typed policy; no automatic clamping or invented global bounds; preserve accepted native Bevy policy."
+    },
+    {
+      "lens": "aggregate-states",
+      "contract": "Component payload is sole material/textile authority, mutable chart updates stay there; mesh/UV/skin/morph correlations retained across seams/compact. Metal validation immutable borrow covers record generation; texture/current recipe caches use source identity. Old incomplete native/count/caller records explicitly required.",
+      "source": "P13-P33,P34-P41,P48-P73",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "No partial source/factor/map mismatch at publication; full actual device/body/shape/caller graph integrated before clearance."
+    },
+    {
+      "lens": "invariant-operations",
+      "contract": "Color extraction and ratio conversion at actual shader/UI/native ports; canonical transfer preserves old shell expression; alpha copied unchanged. Existing physical arithmetic, host/native bounds, checked GLB framing and candidate mutation need D-PHYSICAL/D-EXPORT, not inferred from finite leaves.",
+      "source": "P1,P5,P28-P41,P48-P77",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "No silent saturating/truncating unit repair, no new panics; actual allocation/native arithmetic failure and source causes propagate."
+    },
+    {
+      "lens": "redundant-authority",
+      "contract": "Textile stores one mutable recipe, material derived fresh; Surface stores scalar record, Inherit delegates catalog. Shared body skin one literal owner, terminal projections not retained recipe authority. Cached map recipe keys retained with actual source context.",
+      "source": "P4,P13-P15,P28-P30,P50-P73",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "No separately retained scalar textile snapshot, duplicated skin constants or independent stale format/source counters; native sampled-image factor overrides documented."
+    },
+    {
+      "lens": "producer-propagation",
+      "contract": "Whole packet constructors/defaults/catalog/gilt/UI/retained fields/enum consumers/Bevy/GLB/review producers traced across all75 nonlock bodies. Actual unchanged Python/GLB receivers checked; source closure still needs explicit native/caller/count/physical/export policies.",
+      "source": "All77 accounts + actual unchanged receiver accounts",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "Resolve PBR-R2 and D-* dependencies before complete family claim; verify no old component/schema/type references on final canonical graph."
+    },
+    {
+      "lens": "behavior-preservation",
+      "contract": "Existing encoded palette/serde arrays and ratios retained. Explicit corrections: encoded->linear picker/write-on-change, shared skin decoded at GLB, checked linear review projection. Surface texture white and baked roughness policies preserved. Current tests20declaration-bearing files retain names/assertion counts with API-only fixture adapters.",
+      "source": "All75 nonlock bodies; independent source-diff/test/lock bookkeeping",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "Record intended encoding changes; no new tests/helpers/assertions or altered oracles/skips, no native/render/runtime result from source. Preserve historical validation limits."
+    },
+    {
+      "lens": "derivability",
+      "contract": "Transparent encoded serde and existing Ratio derives preserve unbounded policy; enum/record derives appropriate; terminal structs Serialize only, no bypassing Deserialize. Typed projection errors derive Error; explicit TryFrom uses Self::Error. Applicable modified-owner order/panic/suppression findings R1/R3 and growth reductions remain required.",
+      "source": "P1-P15,P34-P46,P48-P77",
+      "disposition": "Inventory complete; typed PBR increment sound within stated policy, required findings/dependencies remain open",
+      "connected_repairs": [
+        "PBR-R1",
+        "PBR-R2",
+        "PBR-R3"
+      ],
+      "dependencies": [
+        "D-PHYSICAL",
+        "D-APPLICATION",
+        "D-EXPORT",
+        "D-NATIVE-CANONICAL",
+        "D-STYLE-GROWTH",
+        "D-FINAL"
+      ],
+      "acceptance": "No new derive dependency or handwritten trait boilerplate; focused new modules<100lines/functions visibly small; hosted no-growth baseline only reductions, never higher ceiling."
+    }
+  ],
+  "phase": "Complete focused pre-receive all13 inventory, before source copy/repair",
+  "root_observed_at_completion": "19a6b62687713b9ecfa7aa137003f11bd662baf9"
+}

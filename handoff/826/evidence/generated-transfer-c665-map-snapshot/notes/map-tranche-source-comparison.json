@@ -1,0 +1,38 @@
+{
+  "kind": "Exact source and shader-literal comparison, not project test execution",
+  "head": "c6659f6cfa4610f066c659411ade6636e21bd3b5 plus dirty Map tranche",
+  "comparisons": {
+    "index_native_emission_exact_after_accessors_and_source_indent": true,
+    "size_native_emission_exact_after_accessors_and_source_indent": true,
+    "store_native_emission_exact_after_accessors_and_source_indent": true,
+    "all_native_builder_string_values_preserved_as_multiset": true,
+    "entire_distancefield_only_direct_signature_api_changes": true,
+    "entire_existing_fixture_helper_only_direct_signature_access": true,
+    "whole_unchanged_map/tests/mod.rs": true,
+    "whole_unchanged_map/recipe.rs": true,
+    "whole_unchanged_distance_field_jfa.rs": true,
+    "whole_unchanged_simplex_noise.rs": true,
+    "whole_unchanged_perlin_noise.rs": true,
+    "whole_unchanged_marching_cubes/mod.rs": true,
+    "whole_unchanged_marching_cubes/wgsl.rs": true,
+    "whole_unchanged_dual_contouring/mod.rs": true,
+    "whole_unchanged_dual_contouring/execution.rs": true,
+    "gpu_native_existing_source_exact_except_named_leaf_and_helper_order": true
+  },
+  "native_literal_counts": {
+    "before": 47,
+    "after": 47
+  },
+  "sources": {
+    "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs": "5cb92b1488c3e0ea14c98488795775c6fe4c190f5c60af878f5a96a36a867a92",
+    "crates/fabelgeist-compute/src/source_parameter.rs": "5313b40f721b7bc7a2a04993f36823fc4a345d0beacde0edf23a494e34732178",
+    "crates/fabelgeist-compute/src/map/signature.rs": "d430c50cf3c4c063b75a82a9d9ce18a5dde50d68853c71d31d26d1a3b74c0832",
+    "crates/fabelgeist-compute/src/map/bindings.rs": "486b2a0fb53a28e3b45cc4b847784c885a1b2f637220e6bdad8083dee0216a72",
+    "crates/fabelgeist-compute/src/map/program.rs": "a7c696dbf294ed783211c1fd401cd59769543cae9733276ef8febc33c563ca0e",
+    "crates/fabelgeist-compute/src/map/mod.rs": "b9f394de465c58404eb5cf84625eb3510d77a80423ea0519ee12ad1836198f87",
+    "crates/fabelgeist-compute/src/distance_field.rs": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+    "crates/fabelgeist-compute/src/map/tests/helper.rs": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+    "crates/fabelgeist-compute/src/lib.rs": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27"
+  },
+  "scope": "First connected Map tranche only; rest of generated family and all independent implementation/global/hosted acceptance pending"
+}

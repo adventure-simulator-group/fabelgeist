@@ -1,0 +1,171 @@
+{
+  "review": "Independent Comment Review: incoming material cause receivers",
+  "head": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+  "tree": "f9764699a468d5bf8ebc56075df4138ddbc87a01",
+  "parent": "12a14b478506044f85a062f07aa05855cae0c8c7",
+  "root_context": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "manifest": {
+    "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-material-cause-receivers-99d70e7c3/manifest.json",
+    "sha256": "357c72f12e418fcfbaf8cfc60d4534f4ece2b96c1a00a52794f8a294327f1e3d"
+  },
+  "owning_source_accounting": [
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "c9063f5308cde8e23d8804c2c527b9a4bd560f1a",
+      "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "lines": 187,
+      "coverage": "Fresh complete owning file and complete parent diff, including existing inline fixture where present",
+      "manifest_sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "cf049757e77439cd2f64d108a93543cff39c5115",
+      "sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "lines": 288,
+      "coverage": "Fresh complete owning file and complete parent diff, including existing inline fixture where present",
+      "manifest_sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "d72ee69624b0ae7659c1d8744d3db0e461169fe4",
+      "sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "lines": 342,
+      "coverage": "Fresh complete owning file and complete parent diff, including existing inline fixture where present",
+      "manifest_sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "manifest_matches": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "542df0373ae4e03e230358143e6d7ec8b6c614bc",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "lines": 142,
+      "coverage": "Fresh complete owning file and complete parent diff, including existing inline fixture where present",
+      "manifest_sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "manifest_matches": true
+    }
+  ],
+  "dependency_source_accounting": [
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "80935abba68612275b867ce45c602c6a57542ca6",
+      "sha256": "89e313508ced73bcd3f9dfe8e60ba2026dbb11d0d19fb178654e60423afd26b0",
+      "lines": 69,
+      "coverage": "Fresh full dependency source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_material.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "f6a07fa398973e905d665effe83a4175dee6ff89",
+      "sha256": "52ebd2ffe14baf52f9e8bdd18ecf23fb26b94b1cf52c655fbc58074cd18471b7",
+      "lines": 27,
+      "coverage": "Fresh full dependency source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "d34a08bd66701061b4233d6ca9f6b30d15c9678a",
+      "sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "lines": 20,
+      "coverage": "Fresh full dependency source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing/error.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "4ce5f4f2c95f682ad174f937a85bda8b60627706",
+      "sha256": "3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+      "lines": 48,
+      "coverage": "Fresh full dependency source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "e5ca2213dd2a00375b4ff6da803954928e127f42",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "lines": 147,
+      "coverage": "Fresh full dependency source read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "9273b648066e83c6afd774050b506f09aca34d6c",
+      "sha256": "1f04c47be73adda0a4c4a415677aac0951c7bab9e24a5ad1b8f99058ae342afe",
+      "lines": 263,
+      "coverage": "Fresh full dependency source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "9eed3d16b220bc1a02d65242d40fb12eab9d8e6c",
+      "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "lines": 699,
+      "coverage": "Fresh lines100-145: typed generate_clothing_shells signature and early error/source contracts; not whole producer"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "375626a194fc2a2ec88da283f28e9ef0846148c6",
+      "sha256": "aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df",
+      "lines": 485,
+      "coverage": "Fresh lines30-135 and360-405: exhibit/display error storage, material spawn caller and final alternate formatting; not full module"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "git_blob": "439b2410f6051777f38676d30cfbae65aca231f8",
+      "sha256": "566a69fc6cd50bd7d7ea5c0347567c39f2bdc37e9f8004675dc5328e3751e12e",
+      "lines": 667,
+      "coverage": "Fresh lines220-253: equipment export error propagation to CLI result; not full executable"
+    }
+  ],
+  "sdk_support": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_image-0.19.1/src/image.rs",
+      "sha256": "92666f8786981b9bcb90be80e1a0caaf6e055af99fe71080a600f29c0c876d3f",
+      "coverage": "Fresh lines1540-1665 and2245-2308: complete Image::from_buffer implementation and TextureError/image-kind declarations; not complete SDK file",
+      "evidence": "from_buffer returns concrete TextureError, PNG reader.decode propagates image error; context retains cause rather than rebuilding a message."
+    }
+  ],
+  "contracts": [
+    {
+      "area": "Five causal receiver adapters",
+      "evidence": "Studio plate/trim material calls retain original anyhow error with with_context; Armory plate/trim calls and equipment clothing generation propagate concrete errors via ?. Removed Error::msg rewrapping does not alter operation/context text. ClothingError retains typed geometry/rig causes. Final studio status uses alternate cause-chain formatting; armory converts to presentation text in exhibit display outcome; CLI equipment export propagates Result."
+    },
+    {
+      "area": "MailImages admission and publication",
+      "evidence": "Missing base-color bytes return contextual error. Color, normal and optional occlusion decode all complete successfully before any images.add. Only then are handles added and Self returned for EquipmentMaps.mail insertion. Decode error retains actual Bevy TextureError using anyhow Context. Color remains sRGB, normal/occlusion linear. Missing optional occlusion is valid, required color/normal errors are not padded or treated as absent."
+    },
+    {
+      "area": "Material cache contract",
+      "evidence": "Successful steel bake is inserted once while retained/used; failed MetalImages::new is not inserted. begin_generation preserves previously used entries then marks them unused until reused. No exactly-once under all failures/retry or global GPU-health promise exists. Mail success remains retained; failed decode publishes no partial MailImages entry."
+    },
+    {
+      "area": "Native/device limits",
+      "evidence": "MetalImages delegates to shared MetalGpu and uploads returned CPU maps into Bevy assets. Shared GPU cache preserves original initializer cause, focused MetalDeviceError preserves concrete lower error, batch submission/readback results are handled by bake. Receiver patch does not change native observation/completion policy. No contract promises entire scene/export transaction rollback; earlier scene/asset/file changes can remain on later failure."
+    }
+  ],
+  "actionable_comment_findings": [],
+  "fixture_accounting": {
+    "armory_existing_inline_fixture_suffix_identical_to_parent": true,
+    "reference": "12a14b478506044f85a062f07aa05855cae0c8c7",
+    "limit": "Only this receiving delta is accounted here. Existing armory fixture full-read; other three owning files contain no test module. No new tests/cases/helpers/assertions/doctests authored or executed. Complete original main990/#779 provenance remains broader migration responsibility."
+  },
+  "required_dependencies": [
+    "Root receiving remains pending completed pre-inventory and canonical graph composition; none of these four incoming files were copied by this review.",
+    "Preserve Root-owned native context/facade/readback documentation. This manifest is four Creator source files only; peer native dependencies inspected here are contextual and do not authorize overwriting Root.",
+    "Remaining canonical producers/errors/material/cache/caller/locks need actual combined source review. Complete all13 integration waves and three independent final reviews plus required hosted checks on same final pushed revision; do not merge."
+  ],
+  "limits": [
+    "Read-only source inspection and report identity bookkeeping only. No project execution/check/build/lint/test/scanner/generator/runtime, source edits, new fixture/helper/assertion, push/CI or external post.",
+    "All4 owning files full-read. Dependency coverage explicitly full or bounded; no fresh complete clothing, armor math/host_float/WGSL or all-native SDK audit. Broader native deterministic-output and simulation/geometry claims are not newly cleared by this receiving review.",
+    "No whole graph/source-complete, compiled, native/browser runtime, global, hosted or final PR clearance."
+  ],
+  "verdict": "No actionable comment/doc mismatch in exact four-file incoming receiving tranche; fallible decode/cause retention matches code and relevant owner contracts, Root integration and final gates remain required."
+}

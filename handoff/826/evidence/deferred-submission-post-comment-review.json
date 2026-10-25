@@ -1,0 +1,126 @@
+{
+  "review": "Independent post-repair Comment Review",
+  "checkpoint_only": true,
+  "final_clearance": false,
+  "head": "f2b5ffb1320bc6d3610e8726ac694546ed1a465b",
+  "tree": "f515184263ae03e6dc11eeee539f64fd44d7f364",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "preceding_checkpoint": "5a34b608ccacc1950313b501d30b036f0a4f8b5b",
+  "tracked_worktree": "clean before review and report writes",
+  "review_kind": "Source inspection only; no source edits or project execution",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+  "source_accounting": {
+    "repair_delta_paths": 12,
+    "repair_sha256": {
+      "crates/fabelgeist-compute/src/kernel/copy.rs": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9",
+      "crates/fabelgeist-compute/src/kernel/mod.rs": "ac6c2e103eddfe55d171bb8e2281f8f1adb361854dca0e29b8b275d3c6709337",
+      "crates/fabelgeist-gpu/Cargo.toml": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs": "1d6d8fdb930ec1e7cef5c99cd16aac39ae33e5868c1d219860c043de70f3c2c6",
+      "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": "537cbf39f00bc36c4f46ff60a6b550037b283eedafcf41d3975274e5f3e61184",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs": "31fcc315c4314f2d63153aac4b2db696eae5a02d5ce7ae97881460e06a251295",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": "f24c36d6dfd3ccb446ff56264c3f9bb6f81f878e2eefcb5741eafcf4cde5a3b1",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs": "8582bd7ded85294c4a99ebc90c39a80ec4d6eeb00c9a711b6f3ec29dba691f17",
+      "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs": "d49de805d236d9c346364eb4c10d35cf54051e439b0725959f89ba3022c4aee7",
+      "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs": "4d68473e0f694bac67644dbb678b77f56fc80cbb1aa50ecbaf52cebc5859dc90",
+      "crates/fabelgeist-gpu/texture-views.md": "ef00a8d297b7264400e980d5151abf49961d0dc637dae03f1219d10775c37c1e"
+    },
+    "affected_unchanged_sha256": {
+      "crates/fabelgeist-compute/src/readback.rs": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "crates/fabelgeist-compute/src/kernel/fast.rs": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "crates/fabelgeist-compute/src/kernel/dispatch_count.rs": "095ae805ef6999f6256a8a49b7c75739ae421028abdeddd1b5a3cbb7a6d1535c",
+      "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs": "339eb4bc4fecb2b3bf33e8b486b0a42214398ce4a391687745cce49464b267d9",
+      "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02",
+      "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "Cargo.lock": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515"
+    },
+    "native_sdk": "Local Cargo registry source pinned by Cargo.lock: wgpu 29.0.4 and wgpu-core 29.0.4",
+    "sdk_sha256": {
+      "wgpu-29.0.4/src/api/device.rs": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "wgpu-29.0.4/src/api/queue.rs": "b3811f0df3ccad53d990bfd66c650759abb67654779b08e160a437b51abd7c71",
+      "wgpu-29.0.4/src/backend/wgpu_core.rs": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "wgpu-29.0.4/src/backend/wgpu_core/thread_id.rs": "20d1aa5017ab143cf5439f84e8db8a7e0eea576a107b1c8ef4b46e02fd7ec79a",
+      "wgpu-29.0.4/src/backend/webgpu.rs": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "wgpu-core-29.0.4/src/command/mod.rs": "f995d91f620482e378724e3a3e972e4f1d65502a8c83f43469ce079887a5d8b8",
+      "wgpu-core-29.0.4/src/device/queue.rs": "b1a943fccedd5882a75252ff3e82a0d4ba8c7d46346041d2dd1bb66c5f5cba34"
+    }
+  },
+  "actionable_findings": [
+    {
+      "id": "C-SUBMIT-PROVENANCE",
+      "priority": "P2",
+      "ownership": "Root submission helper and guide repair",
+      "locations": [
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs:6",
+        "crates/fabelgeist-gpu/texture-views.md:135"
+      ],
+      "mismatch": "Same native provider is weaker than the logical-device identity required by native queue submission. The first helper sentence gives encoder lineage, but the complete queue/device precondition remains imprecise.",
+      "evidence": "wgpu-core 29.0.4 src/device/queue.rs:1823 calls command_buffer.same_device_as(queue). Encoder finish routes its error to its creating device sink; queue submit routes to the queue sink.",
+      "replacement": "The encoder must be created by context.device, and context.queue must belong to that same logical wgpu::Device. Sharing a backend or physical adapter is insufficient.",
+      "acceptance": "Both locations state exact logical-device lineage without claiming runtime validation of arbitrary public WgpuContext field combinations."
+    },
+    {
+      "id": "C-SCOPE-THREAD-RATIONALE",
+      "priority": "P2",
+      "ownership": "#780 Kernel owner; agreement requested by root",
+      "locations": [
+        "crates/fabelgeist-compute/src/kernel/mod.rs:30",
+        "crates/fabelgeist-compute/src/kernel/mod.rs:90"
+      ],
+      "mismatch": "Comments say one-device validation scopes must not interleave and two compilation threads interleave badly. Native wgpu std is now explicit; SDK error-scope stacks are per thread, so that rationale is false for current native builds.",
+      "evidence": "wgpu 29.0.4 src/api/device.rs:434-435 and src/backend/wgpu_core/thread_id.rs select thread-local stacks under std; the helper guard is !Send/!Sync.",
+      "replacement": "Remove the cross-thread error-scope interleaving explanation. If COMPILING remains, document only its established application-level purpose, such as serializing this module's kernel compilation; do not claim the SDK requires cross-thread scope serialization.",
+      "acceptance": "Both compilation comments no longer claim cross-thread scope interference under native std; owner resolves any remaining lock intent without an unsupported performance or correctness promise."
+    }
+  ],
+  "required_owner_dependencies": [
+    {
+      "id": "D780-KERNEL-DOCS",
+      "locations": [
+        "crates/fabelgeist-compute/src/kernel/mod.rs:12",
+        "crates/fabelgeist-compute/src/kernel/mod.rs:30",
+        "crates/fabelgeist-compute/src/kernel/mod.rs:63",
+        "crates/fabelgeist-compute/src/kernel/mod.rs:90"
+      ],
+      "issue": "Old blanket standalone-submit/uniform-allocation/performance claims remain. Explicit native std now also makes cross-thread scope-interleaving rationale stale: SDK scopes are thread-local.",
+      "remedy": "Owner updates architecture/allocation descriptions to actual current paths and explains any retained compilation lock from an established contract, without claiming native cross-thread scope interleaving."
+    },
+    {
+      "id": "D780-READBACK",
+      "locations": [
+        "crates/fabelgeist-compute/src/readback.rs:10",
+        "crates/fabelgeist-compute/src/readback.rs:121",
+        "crates/fabelgeist-compute/src/readback.rs:149",
+        "crates/fabelgeist-compute/src/readback.rs:248",
+        "crates/fabelgeist-compute/src/readback.rs:274"
+      ],
+      "issue": "Root guide correctly warns to discard pending handles after failed submission, but owning API docs still omit callback-drop/Pending behavior and source still asserts CPU never stalls. Existing test callers ignore the new batch submit Result.",
+      "remedy": "Owner documents helper-Ok mapping initiation, separate mapping completion, discard-on-submit-error/discarded-batch, native blocking wait in Readback::read, and adapts existing callers without adding tests."
+    },
+    {
+      "id": "INTEGRATION",
+      "issue": "Remaining agreed #780 producer/count/cache/layout/parser/mode/caller families and retained #774/F19 paths are required; this bounded checkpoint does not clear them."
+    }
+  ],
+  "assessed_contracts": [
+    "Submit scopes cover encoder.finish and queue.submit separately; captured finalization error returns before queue submission.",
+    "Core error-scope result is immediately ready; helper introduces no device PollType::Wait or GPU completion operation.",
+    "Only Validation filter is captured; other error classes, later device health and device-handled policies are not promised.",
+    "Native explicit std distinguishes per-thread scope stacks; guards are !Send and !Sync and are consumed synchronously.",
+    "Browser helper skips synchronous scopes; WebGPU pop returns a JavaScript promise. No browser runtime verdict.",
+    "KernelBatch application callbacks run in order only after helper Ok, unlike separate native SDK deferred actions or GPU completion callbacks.",
+    "Batch and standalone dispatch preserve actual wgpu cause via ComputePassError::Native; ten texture submission delegations preserve it.",
+    "Recorder Ok and RecordedDispatchCount describe host recording, not final native encoding acceptance or GPU execution.",
+    "Source cache publishes build-closure Ok outcomes, can race, and does not prove browser/device-handled native acceptance.",
+    "Existing converter scope includes immediate binding creation and encoder finalization; later queue scope remains separate."
+  ],
+  "limits": [
+    "No source edits, project checks, builds, tests, scanners, generators, runtime execution, push, CI request or external post.",
+    "No tests, cases, helpers, assertions or doctests added or altered.",
+    "Existing fixtures inspected as source only; no passing test or compile claim.",
+    "This is the twelve-path repair review and affected documentation graph, not a complete final review of all main-to-HEAD paths.",
+    "Earlier recorder-scope acceptance assurances remain withdrawn; this review does not restore those statements.",
+    "Final integrated thirteen-lens and Code/Rule/Comment reviews and hosted checks must agree on the final pushed revision."
+  ]
+}

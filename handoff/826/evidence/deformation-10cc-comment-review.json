@@ -1,0 +1,183 @@
+{
+  "review": "Independent Comment Review, source-derived deformation dispatch checkpoint",
+  "head": "10cc1a69b1a9a5f4e54daa112477cc56b7487f45",
+  "tree": "2f11b71144a48958f3ad726989f1e5e084b21071",
+  "parent": "515815cdbc6e7f4da073185bdead65ac8d2abbc2",
+  "comparison": "21118b983b27e00d2cc70f45ed345686e0262cc2",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "coverage": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "bytes": 1771,
+      "lines": 50,
+      "coverage": "complete pinned file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a9ce6fef1d2cdf2d11c06e762e32430e9406445c17aa8aae43cd0fdf2f2ca92c",
+      "bytes": 61782,
+      "lines": 1563,
+      "coverage": "bounded complete intro/exports/records lines1-150 and full delta; remainder identity only"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "56ef91da54bec538732a97614eb09aea0e6234c4670a534f01f99d1df4ba4bb2",
+      "bytes": 6342,
+      "lines": 173,
+      "coverage": "complete pinned file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "237c8996563953e404658817eca654443411b4a9c26c5611614cf9bc79447693",
+      "bytes": 73730,
+      "lines": 1960,
+      "coverage": "complete pinned file read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "bytes": 2796,
+      "lines": 66,
+      "coverage": "complete fresh source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "bytes": 5069,
+      "lines": 141,
+      "coverage": "complete fresh source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "bytes": 3504,
+      "lines": 109,
+      "coverage": "complete fresh source read including fc23 guarded-block wording"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "bytes": 5612,
+      "lines": 192,
+      "coverage": "bounded fresh lines1-160; publication/temporal admission"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "bytes": 2904,
+      "lines": 103,
+      "coverage": "complete source read; parsing separated from validate_naga"
+    }
+  ],
+  "findings": [
+    {
+      "id": "10CC-C1",
+      "priority": "P3",
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "line": 22,
+      "claim": "Levels whose deformation commands were recorded into the frame encoder.",
+      "mismatch": "The fallible deform function now returns Ok without recording when its sample grid is empty; record_deformations still stores that level, and post-submit publication settles Pending to Current. Thus the record includes legitimate no-work updates, not exclusively recorded commands.",
+      "remedy": "Levels whose deformation update was recorded or required no work.",
+      "acceptance": "Accurately describe no-work settlement while retaining post-normal-submit publication and no GPU completion assurance."
+    }
+  ],
+  "resolved": [
+    {
+      "id": "211-C1",
+      "evidence": "Buffer.prefix now names Buffer::binding_resource as owner of the nonempty logical-prefix rule; no conflicting native placeholder prohibition."
+    },
+    {
+      "id": "fc23-guarded-block-doc",
+      "evidence": "Current grid.rs retains canonical checked lane-flattening projection and proven block-ordinal guard alternative, with receiving-device admission separate. This corrects earlier blanket checked-projection requirement; no unnecessary public count-input extension required."
+    }
+  ],
+  "verified_contracts": [
+    "DeformationPipeline obtains the actual assembled deform_source once, parses it, selects Named(deform), admits that selected entry workgroup dimensions, then uses the same code and entry name for native module/pipeline construction. Parser/entry/shape failures return actual source-bearing causes through anyhow/HairGpuError.",
+    "This host admission is parsing/selected identity/nonzero shape, not a complete native shader or Device validation verdict. Native create methods retain existing configured error policy.",
+    "The unchanged deformation WGSL declares 64x1x1 and flattens id.x+id.y*groups.x*64 before live-prefix guard, so checked covering_folded_x appropriately admits padded addresses.",
+    "For each nonempty deformation, folded shape/address admission and actual receiving Device grid bounds return before that deformation params write and compute pass. Empty sample population returns before those writes/recording.",
+    "record_deformations remains a local deduplicated obligation candidate; Result errors prevent frame submission and publication. Earlier general frame uniforms or other levels may already have queue writes/recording; no all-frame rollback/side-effect-free claim.",
+    "Frame/deformation publication remains after queue.submit returns normally. This is host submission state, not GPU completion or device health, and provider-handled native errors do not become a new observed verdict.",
+    "Shader/POD/fixture inputs and oracles unchanged, module export/import composition does not alter documentation API ownership."
+  ],
+  "fixture_identity": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+      "identical_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "c03faaa7a7dc20542360981d1b238e35c2ab09dd660194644b9f523c817e7828",
+      "identical_prior": true
+    }
+  ],
+  "pod_identity": [
+    {
+      "item": "Globals",
+      "sha256": "e0003c6f88ffdbc3d27a45fe06e0b88b50de9a095ff2e466faeeee967a5a2215",
+      "identical_prior": true
+    },
+    {
+      "item": "DrawGpu",
+      "sha256": "7e57128d063a7d19d367616d291cb283ae1e038a991524e265e77e6fdd6ae1ed",
+      "identical_prior": true
+    },
+    {
+      "item": "PostGpu",
+      "sha256": "d5b47327cf39b5a88545e9bb5d5c46f7a5cf6ab7ee28a1a113e81c206d07f10a",
+      "identical_prior": true
+    },
+    {
+      "item": "CardDrawGpu",
+      "sha256": "f3bdd58c806c14dc0b5750aa354aa2d68e92cbda64bd9e942f60e4fa149466f7",
+      "identical_prior": true
+    },
+    {
+      "item": "DeformGpu",
+      "sha256": "190035f5eecdfe124e69065c072c80b1864e596d20480e315122de2b6ea9208d",
+      "identical_prior": true
+    }
+  ],
+  "shader_identity": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "identical_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "identical_prior": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "identical_prior": true
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "canonical-producer",
+      "status": "required incomplete",
+      "contract": "Sealed GpuLevel/GpuLods actual Device associations and canonical shape/count/layout/getter APIs plus all constructors/callers must integrate; prior211 limits remain."
+    },
+    {
+      "id": "simulation-and-rest",
+      "status": "required incomplete",
+      "contract": "GpuSim/source association, guide/binding/rest logical and physical extents, manual set_dynamics/set_simulated, retained rest buffers and card native integration remain required; new grid admission proves none of them."
+    },
+    {
+      "id": "final-gates",
+      "status": "required incomplete",
+      "contract": "Parent all13 waves, independent Code/Rule/Comment reviews and required hosted gates on same final pushed SHA."
+    }
+  ],
+  "limits": [
+    "No source edits/project checks/build/tests/scanners/generators/runtime/push/CI or new cases/helpers/assertions/doctests.",
+    "Full Renderer freshly read in three untruncated sections through EOF, complete deformation/prefix/shape/grid; GPU producer module explicitly bounded.",
+    "Previous native SDK29 policy evidence carried without claiming fresh complete SDK verification; this change introduces no new observed-validation or completion guarantee.",
+    "Source-only checkpoint; no all13, integrated, compiled, whole-native-family, hosted or final whole-PR clearance."
+  ]
+}

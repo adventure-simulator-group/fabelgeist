@@ -1,0 +1,52 @@
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:266:                                let view_format = wgpu::TextureFormat::from(tex.format);
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:269:                                    if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:272:                                        Some(tex.view_with_format(
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:274:                                            tex.format.srgb_counterpart(),
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:277:                                        tex.view.clone()
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:280:                                    tex.view.clone()
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:283:                                tex.view.clone()
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:288:                            tex.texture.as_ref().map(|t| t.format()),
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:295:                                let view_format = wgpu::TextureFormat::from(tex.format);
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:298:                                    if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:301:                                        Some(tex.view_with_format(
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:303:                                            tex.format.srgb_counterpart(),
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:306:                                        tex.view.clone()
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:309:                                    tex.view.clone()
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:312:                                tex.view.clone()
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:317:                            tex.texture.as_ref().map(|t| t.format()),
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:324:                                let view_format = wgpu::TextureFormat::from(tex.format);
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:326:                                    if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:329:                                        Some(tex.view_with_format(
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:331:                                            tex.format.srgb_counterpart(),
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:334:                                        tex.view.clone()
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:337:                                    tex.view.clone()
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:340:                                tex.view.clone()
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:345:                            tex.texture.as_ref().map(|t| t.format()),
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:350:                        tex.view.clone(),
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:351:                        tex.texture.as_ref().map(|t| t.format()),
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:369:                        if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:375:                        if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:381:                        if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:387:                        && wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:104:///     texture.view_with_format(context, TextureFormat::R32Float)
+crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs:131:            let workgroups_x = src.size.0.div_ceil(16);
+crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs:132:            let workgroups_y = src.size.1.div_ceil(16);
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:336:        if let Some(src_texture) = &texture.texture
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:337:            && texture.size.0 == self.size
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:338:            && texture.size.1 == self.size
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:339:            && texture.format == self.format
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:56:        target.face_view_with_format(Some(context), face, target.format)
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:485:        let target_view = target.view.as_ref().ok_or(TextureViewError::MissingView)?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:486:        let blitter = crate::globals::Blitter::new(&context.device, target.format.into());
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs:66:        let (width, height) = self_view.size;
+crates/fabelgeist-compute/src/distance_field_jfa.rs:16:        let size = input.size();
+crates/fabelgeist-compute/src/distance_field_jfa.rs:128:        let size = input.size;
+crates/fabelgeist-gpu/src/data/gpu/bind_group.rs:197:                    tex.view.as_ref(),
+crates/fabelgeist-gpu/src/data/gpu/bind_group.rs:198:                    tex.texture.as_ref().map(|t| t.format()),
+crates/fabelgeist-gpu/src/data/gpu/bind_group.rs:202:                    tex.view.as_ref(),
+crates/fabelgeist-gpu/src/data/gpu/bind_group.rs:203:                    tex.texture.as_ref().map(|t| t.format()),
+crates/fabelgeist-gpu/src/data/gpu/bind_group.rs:207:                    tex.view.as_ref(),
+crates/fabelgeist-gpu/src/data/gpu/bind_group.rs:208:                    tex.texture.as_ref().map(|t| t.format()),
+crates/fabelgeist-compute/src/scan.rs:158:        let num_elements = (u64::from(input.size) / 4) as u32;
+crates/fabelgeist-compute/src/scan.rs:169:            (u64::from(input.size)).into(),
+crates/fabelgeist-compute/src/scan.rs:295:                    let target_blocks = (u64::from(target.size) / 4) as u32;

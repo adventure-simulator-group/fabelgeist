@@ -1,0 +1,121 @@
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:34:#[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:61:            Self::Uninitialized => formatter.write_str("Texture is not initialized"),
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:62:            Self::MissingView => formatter.write_str("Texture has no view"),
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:65:                "WGPU Texture2d view_with_format Error (requested {requested:?}): {cause}"
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:69:                "WGPU Texture3d view_with_format Error (requested {requested:?}): {cause}"
+crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:73:                "WGPU TextureCube view_with_format Error (requested {requested:?}): {cause}"
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:69:            return Err(anyhow::anyhow!("Texture size contains NaN: {:?}", size));
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:77:                "Texture size must be at least 1x1. Got {}x{} (from {:?})",
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:86:                "Texture size {}x{} exceeds maximum supported dimension {} (from {:?})",
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:116:            label: Some("Texture2d"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:134:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:155:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:159:                return Err(anyhow::anyhow!("WGPU Texture2d Creation Error: {}", err));
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:263:            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:271:            label: Some("Texture2d Staging Buffer"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:280:                label: Some("Texture2d Read Encoder"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:317:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:322:                        res.map_err(|e| anyhow::anyhow!("GPU Mapping error: {:?}", e))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:329:                    Err(_) => return Err(anyhow::anyhow!("Mapping channel closed")),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:335:        #[cfg(target_arch = "wasm32")]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:337:            .map_err(|_| anyhow::anyhow!("Mapping channel closed"))?
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:338:            .map_err(|_| anyhow::anyhow!("GPU Mapping error"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:380:            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:428:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:438:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:473:        let def = TextureBinaryOpDefinition::new("a + b * amount");
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:505:        let def = TextureBinaryOpDefinition::new("mix(a, b, amount)");
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:524:                label: Some("Texture2d Blit Encoder"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:550:            .ok_or_else(|| anyhow::anyhow!("Texture has no view"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:554:                label: Some("Texture2d Clear Encoder"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:564:                    label: Some("Texture2d Clear Depth Pass"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:599:                    label: Some("Texture2d Clear Pass"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:668:                "{format:?} moved {} of 256 levels; the darkest 32 came back as {:?}",
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:49:            return Err(anyhow::anyhow!("Texture size contains NaN: {:?}", size));
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:74:            label: Some("Texture3d"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:88:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:107:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:111:                return Err(anyhow::anyhow!("WGPU Texture3d Creation Error: {}", err));
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:134:            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:142:            label: Some("Texture3d Staging Buffer"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:151:                label: Some("Texture3d Read Encoder"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:188:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:193:                        res.map_err(|e| anyhow::anyhow!("GPU Mapping error: {:?}", e))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:200:                    Err(_) => return Err(anyhow::anyhow!("Mapping channel closed")),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:206:        #[cfg(target_arch = "wasm32")]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:208:            .map_err(|_| anyhow::anyhow!("Mapping channel closed"))?
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:209:            .map_err(|_| anyhow::anyhow!("GPU Mapping error"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:239:            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:286:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:296:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/tests/texture_views.rs:2:#![cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/tests/texture_views.rs:10:#[serde(rename_all = "snake_case")]
+crates/fabelgeist-gpu/tests/texture_views.rs:33:        serde_json::from_str(include_str!("fixtures/texture_views.json")).unwrap()
+crates/fabelgeist-gpu/tests/texture_views.rs:110:        assert_eq!(error.to_string(), "Texture has no view");
+crates/fabelgeist-gpu/tests/texture_views.rs:138:        assert_eq!(error.to_string(), "Texture is not initialized");
+crates/fabelgeist-gpu/tests/texture_views.rs:162:            _ => panic!("wrong public method classification: {error:?}"),
+crates/fabelgeist-gpu/tests/texture_views.rs:170:        assert!(cause.to_string().contains("view of format Rgba8Unorm"));
+crates/fabelgeist-gpu/tests/texture_views.rs:173:        let generic = anyhow::Error::new(error).context("Texture caller");
+crates/fabelgeist-gpu/tests/texture_views.rs:176:        assert_eq!(generic.downcast_ref::<&str>(), Some(&"Texture caller"));
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:55:            return Err(anyhow::anyhow!("Texture size contains NaN: {:?}", size));
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:62:                "Texture size must be at least 1. Got {} (from {:?})",
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:72:                "Texture size {} exceeds maximum supported dimension {} (from {:?})",
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:101:            label: Some("TextureCube"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:115:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:128:            label: Some("TextureCube View"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:135:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:139:                return Err(anyhow::anyhow!("WGPU TextureCube Creation Error: {}", err));
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:167:                    "Cube map images must be square and identical in size. Face 0: {}x{}, Face {}: {}x{}",
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:213:        reason = "the cubemap boundary names its six independently optional faces"
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:279:        #[cfg_attr(target_arch = "wasm32", allow(unused_variables))] context: Option<&WgpuContext>,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:286:            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:293:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:297:            label: Some(&format!("TextureCube Face View ({:?})", face)),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:305:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:309:                return Err(anyhow::anyhow!("WGPU TextureCube Face View Error: {}", err));
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:331:            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:335:                "Image size ({}x{}) must match cubemap face size ({}x{})",
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:381:            .ok_or_else(|| anyhow::anyhow!("Target TextureCube is not initialized"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:393:                        label: Some("TextureCube Set Side Copy Encoder"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:433:            .ok_or_else(|| anyhow::anyhow!("Source TextureView view is not initialized"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:438:            .ok_or_else(|| anyhow::anyhow!("Target TextureCube face view is not initialized"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:440:        let shader_code = r#"
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:463:        "#;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:468:                label: Some("TextureCube Face Blit Shader"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:473:            label: Some("TextureCube Blit Sampler"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:485:                    label: Some("TextureCube Blit Bind Group Layout"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:509:                label: Some("TextureCube Blit Bind Group"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:527:                    label: Some("TextureCube Blit Pipeline Layout"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:540:                label: Some("TextureCube Blit Pipeline"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:544:                    entry_point: Some("vs_main"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:550:                    entry_point: Some("fs_main"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:571:                label: Some("TextureCube Blit Command Encoder"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:576:                label: Some("TextureCube Blit Render Pass"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:621:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:625:            label: Some("TextureCube View"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:632:        #[cfg(not(target_arch = "wasm32"))]
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:649:                label: Some("TextureCube 2D Array View for Storage"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:677:            .ok_or_else(|| anyhow::anyhow!("Failed to create 2D array view"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:680:            r#"
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:717:            "#,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:725:                label: Some("TextureCube Face Shader Renderer"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:741:                label: Some("TextureCube Face Renderer Uniforms"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:750:                    label: Some("TextureCube Face Renderer Bind Group Layout"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:778:                label: Some("TextureCube Face Renderer Bind Group"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:796:                    label: Some("TextureCube Face Renderer Pipeline Layout"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:804:                label: Some("TextureCube Face Renderer Compute Pipeline"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:807:                entry_point: Some("main"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:815:                label: Some("TextureCube Face Renderer Command Encoder"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:820:                label: Some("TextureCube Face Renderer Compute Pass"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:850:            .ok_or_else(|| anyhow::anyhow!("Failed to create 2D array view"))?;
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:853:            r#"
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:890:            "#,
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:898:                label: Some("TextureCube Shader Renderer"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:907:                label: Some("TextureCube Renderer Uniforms"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:916:                    label: Some("TextureCube Renderer Bind Group Layout"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:944:                label: Some("TextureCube Renderer Bind Group"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:962:                    label: Some("TextureCube Renderer Pipeline Layout"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:970:                label: Some("TextureCube Renderer Compute Pipeline"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:973:                entry_point: Some("main"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:981:                label: Some("TextureCube Renderer Command Encoder"),
+crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:986:                label: Some("TextureCube Renderer Compute Pass"),

@@ -1,0 +1,161 @@
+{
+  "kind": "Independent cached-view native command Rule Review checkpoint",
+  "head": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "tree": "1c141f5f1a28cb532cb51b472ba7e8fcc01486ae",
+  "parent": "47f37a07687bc47347cedb9e274c2f273f9deae6",
+  "changed_source": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "60b53619b5d5590c6ebbeb15ca547b2ee4c026c092bc4ac7e9938dec6f674077",
+      "raw_lines": 461,
+      "conservative_production_meaningful": 359,
+      "parent_conservative_production_meaningful": 427,
+      "coverage": "Fresh complete exact pinned8c file body/comments/any inline fixture read.",
+      "fixture_suffix_exact_parent": true,
+      "fixture_sha256": "dbfb98db3fb3bdfdd6dca813bdb01af838ee77c03c83368d2509fefd2d1f6b34"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "c30ddad210dd9cbbacce5e1d8a1039aedd92a3a0d1a0a8f55adb7ab9330afdcb",
+      "raw_lines": 281,
+      "conservative_production_meaningful": 268,
+      "parent_conservative_production_meaningful": 259,
+      "coverage": "Fresh complete exact pinned8c file body/comments/any inline fixture read."
+    }
+  ],
+  "dependency_source": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+      "sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+      "exact_parent": true,
+      "coverage": "Fresh complete source body read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "exact_parent": true,
+      "coverage": "Fresh complete source body read."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "exact_parent": true,
+      "coverage": "Complete actual47f source reading from immediately preceding independent Cube wave retained after exact8c identity and current cross-file relationship verification; not fresh unread-body credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "exact_parent": true,
+      "coverage": "Complete actual47f source reading from immediately preceding independent Cube wave retained after exact8c identity and current cross-file relationship verification; not fresh unread-body credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "exact_parent": true,
+      "coverage": "Complete actual47f source reading from immediately preceding independent Cube wave retained after exact8c identity and current cross-file relationship verification; not fresh unread-body credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "exact_parent": true,
+      "coverage": "Complete actual47f source reading from immediately preceding independent Cube wave retained after exact8c identity and current cross-file relationship verification; not fresh unread-body credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "exact_parent": true,
+      "coverage": "Complete actual47f source reading from immediately preceding independent Cube wave retained after exact8c identity and current cross-file relationship verification; not fresh unread-body credit."
+    }
+  ],
+  "findings": [],
+  "repaired_contracts": [
+    "Unobserved Texture2d.blit native construction/record boundary now uses canonical immediateobserver.",
+    "Unobserved TextureView.clear native encoder/pass boundary now observed.",
+    "Duplicate native Texture2d clear implementation removed in favor of existing lower view operation, preserving cache-only and arithmetic contracts."
+  ],
+  "contract_traces": [
+    {
+      "family": "Cached-view admission and actual Device",
+      "trace": "Texture2d.blit retains source cached view -> target cached view -> source Device -> target Device admission, then uses actual admitted views. TextureView.clear retains cached view -> actual Device admission. Texture2d.clear_raw uses preexisting as_view/From<&Texture2d>, which copies exact cached Arc, Device, size/format/dimension and optional allocation; then the same view admission executes.",
+      "guarantees": "No native allocation port is newly required. A detached allocation with retained valid cached view still reaches native clear/blit. MissingView retains priority over WrongDevice; no contextless replacement or stale new metadata is admitted.",
+      "limits": "Native format/feature/filtering/render-attachment suitability remains checked by actual native provider; no synthetic Device identity or universal runtime guarantee."
+    },
+    {
+      "family": "Native creation/record and deferred finish/submit",
+      "trace": "2d.blit observer encloses whole unchanged Blitter::new, encoder creation, bind group and render recording. Blitter creates both native2D/3D programs, layouts, pipelines and sampler; all are inside the closure. View.clear observer encloses encoder creation and depth/color begin/end pass. After immediate observation drains successfully, both paths call existing context.submit for actual encoder.finish and queue.submit scopes.",
+      "guarantees": "Actual immediate or finish/submit wgpu::Error maps to existing ComputePassError::Native(Arc); Error::source retains SDK cause. Consuming clear/create_from_color wrappers publish target only after raw success.",
+      "limits": "Native blocking_validation captures Validation only. Borrowed/browser paths keep device handling; no added poll, completion, rollback or later-device-health promise."
+    },
+    {
+      "family": "Clear arithmetic and operation ownership",
+      "trace": "Old2d max_val selected integer format arms and default all255.0; existing View.clear uses same componentwise f32 multiplication then f64 SDK color conversion. Both depth paths choose1 for RGB exactzero, otherwisecolor.x, and use Store. Shared View owner now performs one native clear. Existing Texture2d operation delegates through its existing view adapter; no new API/helper/compatibility backend is added.",
+      "guarantees": "Depth/integer/ordinary color branches preserve arithmetic order and native payload. 2d native labels intentionally become existing Viewclear labels. Blit shader/sampler/layout/topology/load/store/draw source is unchanged.",
+      "limits": "Preserves inherited255.0 integer-clear policy; does not claim every native integer format uses its full range or impose a new color normalization policy."
+    },
+    {
+      "family": "Aggregate/resource and module boundaries",
+      "trace": "Texture2d fields and existing From adapters retain independent allocation/cache ports by design. View.clear consumes exact cached native view with associated Device and format; no new retained resources or redundant clear classification. Blitter immutable whole-module bytes remain exactparent; existing3D state/nativeWasm unsafe impls are not expanded or duplicated.",
+      "limits": "No new record/enum/type needed solely to wrap native SDK fields, authored shader tokens or ordinary predicates. Existing provider feature/trait limits stay as previously source-qualified."
+    },
+    {
+      "family": "Unchanged receiving routes and incomplete global graph",
+      "trace": "Texture2d.create_from_color -> clear_raw -> existing Viewclear -> context native observation/submit; public clear consuming wrappers retain success-only target return. TextureView face/other view consumers share the same clear owner. Complete2d/View read/write/format/selection/From bodies read; existing new/create/read/packing APIs outside this two-operation delta unchanged.",
+      "limits": "Canonical fallible storage format/ResourceDescriptor/algorithm migration remains incomplete from prior47 checkpoint; complete producer/caller/Creator/physical/source/error/lock integration and global checks remain required."
+    }
+  ],
+  "all_thirteen_relationship_accounting": {
+    "producer-propagation": "Existing texture/view producer+From adapter -> cached native view admission -> canonical clear or whole unchanged Blitter -> observer/submit -> success-only consuming wrapper; no new primitive internal migration introduced.",
+    "existing-type-owners": "TextureView clear and existing WgpuContext/ComputePassError own native operation/cause; existing TextureFormat and actual Device retained.",
+    "admission-contracts": "Missing-view then Device ordering unchanged, bothsource/targetviews admitted beforeblit; allocation remains optional for cached commands.",
+    "invariant-operations": "Same arithmetic, nativepasspayload, encoderfinalization, no new metadata/resource mutation; consuming wrapper success only.",
+    "aggregate-states": "ExactcachedArc/device/formatFrom relationship retained, no new independently mutable fields or forged replacement.",
+    "behavior-preservation": "Fulltwofiles/diffs and parent arithmetic read; existingfixture exact; Blitter wholebytes exact; only intendednativeobservations/delegation/labels change.",
+    "enum-shapes": "No semantic flag or public mode added; ordinary is_depth/is_uint/is_sint predicates and SDK native flags remain appropriate.",
+    "derivability": "No new trait boilerplate or deserialization/construction route; exactexisting From adapters preserve aggregate metadata.",
+    "type-granularity": "Oneexisting View nativeclear owner avoids duplicatebackend; Texture2d API remains existing higher abstraction operation, not new compatibilityshim.",
+    "magic-strings": "Only existing native labels/sourcegrammar used; no prose branch or stringstatus introduced.",
+    "magic-numbers": "Existing native depth/color255/framebufferpayload arithmetic preserved. No new tolerance/bound/counterowner invented.",
+    "redundant-authority": "Removedduplicateclear arithmetic; Blitter untouched, source/target cachedmetadata remain existingauthority.",
+    "type-ownership": "No new type/helper/alias, native SDK resource owner unchanged; complete existing View From closure read."
+  },
+  "preservation": {
+    "existing2d_fixture_exact_parent": true,
+    "blitter_wholebytes_exact_parent": true,
+    "proof_path": "target/pr826-audit/cached-view-commands-working-source-proof.json",
+    "proof_sha256": "6638d5db0cbaf70a44b00bfb23a974cfa0d7e111daadfa2b4672228cd202343b",
+    "tests": "No test/case/helper/assertion/doctest authored or executed; existing fixture suffix independently compared exact."
+  },
+  "no_growth": {
+    "source_counts": "Conservative nonblank/noncomment counts in changed_source; exclude inline tests. Texture2d427->359, View259->268. Both below500; View.clear body77 meaningfullines and below100raw, othermodifiedfunctionswellbelow100. No newfunction/type/module.",
+    "baseline_same_parent": true,
+    "required": "Relevant authoritative hosted baseline reductions/checks still pending; no project quality scanner executed."
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "revision": "8c600f727d1eecf21dd241f02739b825edef5000",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "relevant": "Ownerreuse/strongtypes/nativeboundaries28-71; ordering90-94; Result/constructors118-139;500/100 no-growth166-178; no newtests182+."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "8c600f727d1eecf21dd241f02739b825edef5000",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "relevant": "Ownerreuse/strongtypes/nativeboundaries28-71; ordering90-94; Result/constructors118-139;500/100 no-growth166-178; no newtests182+."
+    }
+  ],
+  "pre_repair_inventory": {
+    "path": "target/pr826-audit/cached-view-commands-47f-pre-repair-all13.json",
+    "sha256": "e81b18e6a9b3b0d954e14f5d9299974ab86d571fd7383536822d77399ec804cf",
+    "limits": "Root inventory read after source; no replacement for independent source evidence."
+  },
+  "correctness_verdict": "No new owned Rule defect found in full two-file cached-view command and actual dependency review. Native timing coverage, cache-only view behavior and prior clear arithmetic preserve intended contracts by source.",
+  "completeness_verdict": "Bounded receiving checkpoint only. Existing canonical formatResult consumer graph and all broader producer/caller/Creator/physical/source/error/lock migrations remain required, plus final global13/reviews/hosted gates; no compilation or final clearance.",
+  "limits": [
+    "No source edits/projectchecks/build/lint/tests/scanner/generator/runtime/push/CI/newcases/helpers/assertions/doctests.",
+    "SDK/hardware/nativeWasm/browser behavior not newly executed or universally certified; carried exact native policy/error source evidence has previous target/feature qualification.",
+    "Normal submit is not GPU completion/health/rollback; global all13 and final independent Code/Rule/Comment reviews must converge with required hosted checks/reductions on same final pushed revision."
+  ],
+  "head_at_report": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "status_at_report": ""
+}

@@ -1,0 +1,2323 @@
+{
+  "title": "Generated-family current pre-repair all13 discovery",
+  "snapshot": "target/pr826-audit/generated-transfer-c665-map-snapshot/manifest.json",
+  "manifest_sha256": "1da74380dd8a3c6a54c24803aea6a48602f4baa12e69adc7a51fee869d5b3373",
+  "base_commit": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "snapshot_kind": "immutable exported c665 plus started dirty Map; nine paths differ from c665",
+  "ownership": "Root27 whole transferred implementation files; #780 reference38 remains owner unless separately agreed. No source imported/repaired by reviewer.",
+  "correctness": "Not clear: four concrete defects GCR-P1..P4 remain; no additional Map-only defect identified beyond shared native envelope panic.",
+  "completeness": "All13 pre-repair discovery records complete for named family/actual inspected receiver graph; implementation, physical policy and wider canonical/caller/lock closure incomplete.",
+  "source_groups": {
+    "S1": {
+      "role": "Started Map and shared lexical association",
+      "paths": [
+        "crates/fabelgeist-compute/src/map/bindings.rs",
+        "crates/fabelgeist-compute/src/map/mod.rs",
+        "crates/fabelgeist-compute/src/map/program.rs",
+        "crates/fabelgeist-compute/src/map/recipe.rs",
+        "crates/fabelgeist-compute/src/map/signature.rs",
+        "crates/fabelgeist-compute/src/map/tests/helper.rs",
+        "crates/fabelgeist-compute/src/map/tests/mod.rs",
+        "crates/fabelgeist-compute/src/source_parameter.rs"
+      ]
+    },
+    "S2": {
+      "role": "Remaining Gather/Scatter/Stream signature/native producer families",
+      "paths": [
+        "crates/fabelgeist-compute/src/gather/mod.rs",
+        "crates/fabelgeist-compute/src/gather/recipe.rs",
+        "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+        "crates/fabelgeist-compute/src/scatter.rs",
+        "crates/fabelgeist-compute/src/stream/mod.rs",
+        "crates/fabelgeist-compute/src/stream/call.rs",
+        "crates/fabelgeist-compute/src/stream/tests/mod.rs"
+      ]
+    },
+    "S3": {
+      "role": "Stencil topology, resource/neighborhood mode and native programs",
+      "paths": [
+        "crates/fabelgeist-compute/src/stencil.rs",
+        "crates/fabelgeist-compute/src/stencil/recipe.rs"
+      ]
+    },
+    "S4": {
+      "role": "Built-in fluid native programs and numerical ports",
+      "paths": [
+        "crates/fabelgeist-compute/src/advect/mod.rs",
+        "crates/fabelgeist-compute/src/gradient/mod.rs",
+        "crates/fabelgeist-compute/src/divergence/mod.rs"
+      ]
+    },
+    "S5": {
+      "role": "Same-source recipe/stride/shape and shared native vocabulary",
+      "paths": [
+        "crates/fabelgeist-compute/src/resource_pipeline.rs",
+        "crates/fabelgeist-compute/src/resource_recipe.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs"
+      ]
+    },
+    "R1": {
+      "role": "Actual noise/JFA/DistanceField Map consumer wrappers",
+      "paths": [
+        "crates/fabelgeist-compute/src/perlin_noise.rs",
+        "crates/fabelgeist-compute/src/simplex_noise.rs",
+        "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+        "crates/fabelgeist-compute/src/distance_field.rs"
+      ]
+    },
+    "R2": {
+      "role": "Peer Scan/extraction/MC/DC constructor/native caller protocols and composition",
+      "paths": [
+        "crates/fabelgeist-compute/src/boundary.rs",
+        "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+        "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+        "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+        "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+        "crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+        "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+        "crates/fabelgeist-compute/src/extraction/mod.rs",
+        "crates/fabelgeist-compute/src/extraction/projection.rs",
+        "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+        "crates/fabelgeist-compute/src/lib.rs",
+        "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+        "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+        "crates/fabelgeist-compute/src/prelude.rs",
+        "crates/fabelgeist-compute/src/scan.rs",
+        "crates/fabelgeist-compute/src/scan/wgsl.rs",
+        "crates/fabelgeist-compute/src/test_utils.rs"
+      ]
+    },
+    "R3": {
+      "role": "Peer reference native GPU/cache/error/context/manifest and both locks; not replacement authority",
+      "paths": [
+        "Cargo.lock",
+        "crates/adventuresim-character-creator/Cargo.lock",
+        "crates/fabelgeist-gpu/Cargo.toml",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+        "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs"
+      ]
+    }
+  },
+  "source_accounting": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "ownership": "Root transferred",
+      "sha256": "55748934ab8638b33ef380aae35e12c0ab61b888158a5e0b5de459c68495ba7a",
+      "matches_manifest": true,
+      "line_count": 299,
+      "base_identity": true,
+      "base_sha256": "55748934ab8638b33ef380aae35e12c0ab61b888158a5e0b5de459c68495ba7a",
+      "coverage": "full fresh body read",
+      "contract": "Whole builder/cache/execute and repaired native 2D/3D program; BoundaryMode plus complete descriptor recipe. Preserve exact completed source math (including 3D clamp endpoint) and typed native routing. Unused public AdvectSignature/_sampler and raw physical dt contract need explicit disposition; no execute callers found in bounded crates/examples search.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/advect/mod.rs",
+      "read_range": "entire file, lines1-299"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "ownership": "Root transferred",
+      "sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+      "matches_manifest": true,
+      "line_count": 218,
+      "base_identity": true,
+      "base_sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+      "coverage": "full fresh body read",
+      "contract": "Whole built-in 2D/3D builder, BoundaryMode recipe/cache and execute. Native half-inverse-cell-size and signed texture neighbors remain numerical boundary/policy work; do not invent physical bounds.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/divergence/mod.rs",
+      "read_range": "entire file, lines1-218"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "ownership": "Root transferred",
+      "sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+      "matches_manifest": true,
+      "line_count": 371,
+      "base_identity": true,
+      "base_sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+      "coverage": "full fresh body read",
+      "contract": "Full public signature/lexer/parser, global resource stripping, coordinate call, source/recipe cache and output-controlled execute; actual MC/DC consumers retained. Ordered local-role migration and unit-struct order required; no ordinary extra-value support expansion.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/gather/mod.rs",
+      "read_range": "entire file, lines1-371"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "ownership": "Root transferred",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "matches_manifest": true,
+      "line_count": 7,
+      "base_identity": true,
+      "base_sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "coverage": "full fresh body read",
+      "contract": "Complete named input/output recipe, derives coherent Eq/Hash; actual source/device/policy supplied by canonical cache.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/gather/recipe.rs",
+      "read_range": "entire file, lines1-7"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "ownership": "Root transferred",
+      "sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "matches_manifest": true,
+      "line_count": 48,
+      "base_identity": true,
+      "base_sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "coverage": "full fresh body read",
+      "contract": "Entire existing 48-line fixture body; byte-identical c665. Existing cases/oracles/helper population frozen; direct API adaptation only if constructor changes.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "read_range": "entire file, lines1-48"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "ownership": "Root transferred",
+      "sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+      "matches_manifest": true,
+      "line_count": 247,
+      "base_identity": true,
+      "base_sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+      "coverage": "full fresh body read",
+      "contract": "Whole built-in builder/cache/execute. Velocity/pressure/output native inputs plus half-inverse-cell-size and manual workgroup projections; actual frame/unit/aggregate policy unresolved, no new numerical algorithm claim.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/gradient/mod.rs",
+      "read_range": "entire file, lines1-247"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "ownership": "Root transferred",
+      "sha256": "486b2a0fb53a28e3b45cc4b847784c885a1b2f637220e6bdad8083dee0216a72",
+      "matches_manifest": true,
+      "line_count": 110,
+      "base_identity": false,
+      "base_sha256": null,
+      "coverage": "full fresh body read",
+      "contract": "Whole transient borrowed partition: contextual first ordinary primary iff input, remaining resource membership vs uniform, authored binding order, paired fetch/addressing and uniform unpacking. Immutable signature establishes partition invariants; secondary[name] has construction membership proof.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/map/bindings.rs",
+      "read_range": "entire file, lines1-110"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "ownership": "Root transferred",
+      "sha256": "b9f394de465c58404eb5cf84625eb3510d77a80423ea0519ee12ad1836198f87",
+      "matches_manifest": true,
+      "line_count": 216,
+      "base_identity": false,
+      "base_sha256": "6bac7f1ff95532004d88a383de80e559f550f4e8d3223d5adbbffd50a8907071",
+      "coverage": "full fresh body read",
+      "contract": "Whole Definition source/default/semantic equality/build/cache and both execute routes; current source reparsed, recipe includes all descriptors/secondary key, output controls reflected stride/shape. No additional Map-only correctness defect beyond shared GCR-P1. New build42-85 and execute123-212 raw spans are each <=100.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/map/mod.rs",
+      "read_range": "entire file, lines1-216"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "ownership": "Root transferred",
+      "sha256": "a7c696dbf294ed783211c1fd401cd59769543cae9733276ef8febc33c563ca0e",
+      "matches_manifest": true,
+      "line_count": 113,
+      "base_identity": false,
+      "base_sha256": null,
+      "coverage": "full fresh body read",
+      "contract": "Whole index/size/resource-kind emission and texture store projection. Scalar index uses LinearIndex, scalar size uses LinearPopulation, vector lanes/constant native adapters preserved.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/map/program.rs",
+      "read_range": "entire file, lines1-113"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "ownership": "Root transferred",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "matches_manifest": true,
+      "line_count": 9,
+      "base_identity": true,
+      "base_sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "coverage": "full fresh body read",
+      "contract": "Whole named input optional/output/secondary canonical recipe; no independent source/device mirrors.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/map/recipe.rs",
+      "read_range": "entire file, lines1-9"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "ownership": "Root transferred",
+      "sha256": "d430c50cf3c4c063b75a82a9d9ce18a5dde50d68853c71d31d26d1a3b74c0832",
+      "matches_manifest": true,
+      "line_count": 116,
+      "base_identity": false,
+      "base_sha256": null,
+      "coverage": "full fresh body read",
+      "contract": "Whole private ordered SourceParameter<MapParameterRole>, Index/Size/Value payloads, original declarations/names/call queries. Duplicate names rejected in common lexer; index/size exact coordinate admission; ordinary native text remains open native validity concern.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/map/signature.rs",
+      "read_range": "entire file, lines1-116"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "ownership": "Root transferred",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "matches_manifest": true,
+      "line_count": 42,
+      "base_identity": false,
+      "base_sha256": "307a22684a265bcbdd41fc0b7b038b9cdec839b1988eed7f66b8390fee2e6a5d",
+      "coverage": "full fresh body read",
+      "contract": "Whole existing 42-line fixture helper; snapshot-vs-c665 diff only direct MapSignature/accessor adaptation, same function/generic parameters/case invocation/oracle; no new helper.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "read_range": "entire file, lines1-42"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "ownership": "Root transferred",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "matches_manifest": true,
+      "line_count": 296,
+      "base_identity": true,
+      "base_sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "coverage": "full fresh body read",
+      "contract": "Whole existing 296-line fixture body; byte-identical c665, no new case/assertion/helper/doctest.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "read_range": "entire file, lines1-296"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "ownership": "Root transferred",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "matches_manifest": true,
+      "line_count": 170,
+      "base_identity": true,
+      "base_sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "coverage": "full fresh body read",
+      "contract": "Whole same-source pipeline/layout/reflected shape aggregate. Naga Array.stride -> canonical BufferElementStride; Buffer logical bytes -> exact records -> InvocationCount -> WorkgroupGrid. Texture independent axes and generated flat-address requirements differ. Native resource kind error sources preserved.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "read_range": "entire file, lines1-170"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "ownership": "Root transferred",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "matches_manifest": true,
+      "line_count": 27,
+      "base_identity": true,
+      "base_sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "coverage": "full fresh body read",
+      "contract": "Whole deterministic SecondaryResources sorted cache identity; sorting is not authored binding order or semantic role. No duplicate count owner.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/resource_recipe.rs",
+      "read_range": "entire file, lines1-27"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "ownership": "Root transferred",
+      "sha256": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+      "matches_manifest": true,
+      "line_count": 335,
+      "base_identity": true,
+      "base_sha256": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+      "coverage": "full fresh body read",
+      "contract": "Whole signature/parser/transformation/cache/call and input-controlled execute. GCR-P2 known unsigned drop remains; GCR-R1 ordered roles and exact outer resource protocol required.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/scatter.rs",
+      "read_range": "entire file, lines1-335"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "ownership": "Root transferred",
+      "sha256": "5313b40f721b7bc7a2a04993f36823fc4a345d0beacde0edf23a494e34732178",
+      "matches_manifest": true,
+      "line_count": 78,
+      "base_identity": false,
+      "base_sha256": null,
+      "coverage": "full fresh body read",
+      "contract": "Whole NativeParameter borrowed lexical adapter and immutable SourceParameter<Role>. Angle-depth comma split, exactly two colon parts, duplicate name rejection. Does not validate all native grammar; constructor not a universal source validity proof.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/source_parameter.rs",
+      "read_range": "entire file, lines1-78"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "ownership": "Root transferred",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "matches_manifest": true,
+      "line_count": 1082,
+      "base_identity": true,
+      "base_sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "coverage": "full fresh body read",
+      "contract": "Whole 1082 lines including inline fixtures; full Resource/neighborhood parse, all1D..4D field aliases/boundary emit, bindings/call/store/cache/execution. GCR-P1/P4/R1/R2 remain. Prefix/grid/64/i32 policy must finish, builder extraction required before material growth. Existing inline fixture bytes preserved from c665.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/stencil.rs",
+      "read_range": "entire file, lines1-1082"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "ownership": "Root transferred",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "matches_manifest": true,
+      "line_count": 11,
+      "base_identity": true,
+      "base_sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "coverage": "full fresh body read",
+      "contract": "Whole named input/output/secondary/boundary cache recipe, no independent native layout authority.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "read_range": "entire file, lines1-11"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "ownership": "Root transferred",
+      "sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "matches_manifest": true,
+      "line_count": 43,
+      "base_identity": true,
+      "base_sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "coverage": "full fresh body read",
+      "contract": "Whole authored-order native call adapter; reserved offset/index, stripped resource metadata and ordinary in_val. Must consume final admitted roles instead of reparsing raw declarations; GCR-P3 load/call mismatch remains.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/stream/call.rs",
+      "read_range": "entire file, lines1-43"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "ownership": "Root transferred",
+      "sha256": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+      "matches_manifest": true,
+      "line_count": 331,
+      "base_identity": true,
+      "base_sha256": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+      "coverage": "full fresh body read",
+      "contract": "Whole parser/build/cache/execute including offset/count/inclusive-offset writer preconditions. Buffer controlling population is inclusive_offsets; texture axes from input. GCR-P3/R1 required; metadata-only MC/DC writers remain supported.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/stream/mod.rs",
+      "read_range": "entire file, lines1-331"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "ownership": "Root transferred",
+      "sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "matches_manifest": true,
+      "line_count": 69,
+      "base_identity": true,
+      "base_sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "coverage": "full fresh body read",
+      "contract": "Whole existing 69-line fixtures; byte-identical c665, cases and assertions frozen.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "read_range": "entire file, lines1-69"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "ownership": "Root transferred",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "matches_manifest": true,
+      "line_count": 216,
+      "base_identity": true,
+      "base_sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "coverage": "full fresh body read",
+      "contract": "Whole transferred ResourceDescriptor methods plus mixed module/export composition context. Actual buffer declared type vs actual texture format, fallible linear storage view protocol, native bindings/prologue/fetch projections. Only agreed ResourceDescriptor responsibilities may compose; preserve Root native modules/exports.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "read_range": "entire file, lines1-216"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "ownership": "Root transferred",
+      "sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "matches_manifest": true,
+      "line_count": 103,
+      "base_identity": true,
+      "base_sha256": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+      "coverage": "full fresh body read",
+      "contract": "Whole ResourceFetch code+required-address aggregate and checked TextureAddressing combination/admission. u64 checked volume; LinearIndex population-1 vs LinearPopulation full population; actual TryFromIntError retained. No proof for Stencil signed physical grid.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "read_range": "entire file, lines1-103"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "ownership": "Root transferred",
+      "sha256": "5cb92b1488c3e0ea14c98488795775c6fe4c190f5c60af878f5a96a36a867a92",
+      "matches_manifest": true,
+      "line_count": 253,
+      "base_identity": false,
+      "base_sha256": "991f1eebf5b1a9cf7f8fa7314793b2610a78fa7f5b01236a19c84ea9f73773fd",
+      "coverage": "full fresh body read",
+      "contract": "Whole ShaderParameter/native ResourceBaseType/cleaning/parse/operator helpers. Open Custom source remains native. GCR-P1 unchecked inner slicing required. element_size is not reflected native array stride (vec3=12, Custom=4); bounded actual usage search finds no production caller; do not restore it as launch/storage authority.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "read_range": "entire file, lines1-253"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "ownership": "Root transferred",
+      "sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "matches_manifest": true,
+      "line_count": 88,
+      "base_identity": true,
+      "base_sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "coverage": "full fresh body read",
+      "contract": "Whole native-name+unsigned coordinate shape owner, constructors/parse/source Error. Canonical owner reused; dimension4 neighborhood must not be forced into unsigned1..3 coordinate vocabulary. Own Result alias required.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "read_range": "entire file, lines1-88"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "ownership": "Root transferred",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "matches_manifest": true,
+      "line_count": 97,
+      "base_identity": true,
+      "base_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "coverage": "full fresh body read",
+      "contract": "Whole scalar/vector texel numeric lane admission, load suffix/store padding, existing owning Result and source Error. Native lane counts/math intrinsic, unsupported Custom texture projection remains typed rejected.",
+      "source_location": "generated-transfer-c665-map-snapshot/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "read_range": "entire file, lines1-97"
+    },
+    {
+      "path": "Cargo.lock",
+      "ownership": "peer reference only",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "matches_manifest": true,
+      "line_count": 13116,
+      "base_identity": true,
+      "base_sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "coverage": "full TOML package/dependency bookkeeping, not source or implementation clearance",
+      "contract": "Reference-only complete TOML package/dependency bookkeeping; both lock compositions remain peer-owned and required. Hash/source identity is not lock-generation or resolution acceptance.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/Cargo.lock",
+      "read_range": "complete TOML parse of package/dependency records; no claim of hand-reading 25k lock lines"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "ownership": "peer reference only",
+      "sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "matches_manifest": true,
+      "line_count": 12316,
+      "base_identity": true,
+      "base_sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "coverage": "full TOML package/dependency bookkeeping, not source or implementation clearance",
+      "contract": "Reference-only complete TOML package/dependency bookkeeping; both lock compositions remain peer-owned and required. Hash/source identity is not lock-generation or resolution acceptance.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/adventuresim-character-creator/Cargo.lock",
+      "read_range": "complete TOML parse of package/dependency records; no claim of hand-reading 25k lock lines"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "ownership": "peer reference only",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "matches_manifest": true,
+      "line_count": 11,
+      "base_identity": true,
+      "base_sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "coverage": "full fresh body read",
+      "contract": "Complete canonical Clamp/Wrap enum/default; exact current mathematical policy, not a bool.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/boundary.rs",
+      "read_range": "entire file, lines1-11"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "ownership": "peer reference only",
+      "sha256": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+      "matches_manifest": true,
+      "line_count": 287,
+      "base_identity": false,
+      "base_sha256": "2e0eea32b384b061a6b1bbb3162b077479bfefde32e196a8978e66d6c3b84b69",
+      "coverage": "full fresh body read",
+      "contract": "Complete actual Map wrappers and native copy orchestration. Dirty accessors preserve verbatim declarations/names for wrapper parameters; generation/min/smooth-min source parameters/call arguments remain authored. #780 retains whole functions and caller integration. No proven immediate record-time native copy error counterexample asserted.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/distance_field.rs",
+      "read_range": "entire file, lines1-287"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "ownership": "peer reference only",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "matches_manifest": true,
+      "line_count": 307,
+      "base_identity": true,
+      "base_sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "coverage": "full fresh body read",
+      "contract": "Complete 2D/3D init/step/distance orchestration and existing tests: Map reserved coordinates/size, ordinary step, ping-pong and sentinels preserved. Not a fresh proof of all distance-field numerical policies.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "read_range": "entire file, lines1-307"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "ownership": "peer reference only",
+      "sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "matches_manifest": true,
+      "line_count": 272,
+      "base_identity": true,
+      "base_sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "coverage": "full fresh body read",
+      "contract": "Complete canonical counts/capacity/Scan/Buffer copies/Stream execution; exact constructor/call adapters remain peer-owned. Full geometric/QEF policy outside this receipt.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "read_range": "entire file, lines1-272"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "ownership": "peer reference only",
+      "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "matches_manifest": true,
+      "line_count": 71,
+      "base_identity": true,
+      "base_sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "coverage": "full fresh body read",
+      "contract": "Complete DC types/constructors, Gather counts, Stream metadata-only output pointer; parse signatures use authored globals.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "read_range": "entire file, lines1-71"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+      "ownership": "peer reference only",
+      "sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "matches_manifest": true,
+      "line_count": 131,
+      "base_identity": true,
+      "base_sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "coverage": "full fresh body read",
+      "contract": "Complete native count source; existing global/input/table protocol and source math frozen, no added generated fn argument.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+      "read_range": "entire file, lines1-131"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+      "ownership": "peer reference only",
+      "sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "matches_manifest": true,
+      "line_count": 145,
+      "base_identity": true,
+      "base_sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "coverage": "full fresh body read",
+      "contract": "Complete native index writer source; offset/index/resource-pointer metadata-only Stream call, authored global output preserved.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+      "read_range": "entire file, lines1-145"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+      "ownership": "peer reference only",
+      "sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "matches_manifest": true,
+      "line_count": 27,
+      "base_identity": true,
+      "base_sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "coverage": "full fresh body read",
+      "contract": "Complete native module composition/count/index/vertex exports; source identifiers native ABI.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+      "read_range": "entire file, lines1-27"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+      "ownership": "peer reference only",
+      "sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "matches_manifest": true,
+      "line_count": 179,
+      "base_identity": true,
+      "base_sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "coverage": "full fresh body read",
+      "contract": "Complete native vertex/QEF source as parameter-protocol receiver; actual reflected custom record stride, never Custom4 guess. No general QEF correctness clearance.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+      "read_range": "entire file, lines1-179"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+      "ownership": "peer reference only",
+      "sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "matches_manifest": true,
+      "line_count": 236,
+      "base_identity": true,
+      "base_sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "coverage": "full fresh body read",
+      "contract": "Complete shared checked extraction grid/counts/protocol plus visible fixtures. Positive native texture volume and canonical mesh/scan quantities; table/output/all broader geometry files not included or cleared.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/extraction/mod.rs",
+      "read_range": "entire file, lines1-236"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+      "ownership": "peer reference only",
+      "sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "matches_manifest": true,
+      "line_count": 54,
+      "base_identity": true,
+      "base_sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "coverage": "full fresh body read",
+      "contract": "Complete source grid/scalar projection ownership: typed extraction axis/grid/count and conversion errors. Does not make shared Map/Stencil signed grid admission complete.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/extraction/projection.rs",
+      "read_range": "entire file, lines1-54"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "ownership": "peer reference only",
+      "sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "matches_manifest": true,
+      "line_count": 71,
+      "base_identity": true,
+      "base_sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "coverage": "full fresh body read",
+      "contract": "Complete existing native source composition/indirect Map with already-authored globals. Do not synthesize captured globals as function parameters.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "read_range": "entire file, lines1-71"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "ownership": "peer reference only",
+      "sha256": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27",
+      "matches_manifest": true,
+      "line_count": 102,
+      "base_identity": false,
+      "base_sha256": "c04feb5e8852212086b588c9946c8b191bb96ff90814d1278192e7b4bce73d07",
+      "coverage": "full fresh body read",
+      "contract": "Whole compositional exports, new source_parameter module and remaining interleaved item-order debt. #780 retains whole lib composition; coordinate final direct exports.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/lib.rs",
+      "read_range": "entire file, lines1-102"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "ownership": "peer reference only",
+      "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "matches_manifest": true,
+      "line_count": 236,
+      "base_identity": true,
+      "base_sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "coverage": "full fresh body read",
+      "contract": "Complete MC constructor/cache/execution +counts and native Stream writer orchestration. No implicit primary value for metadata-only writers. Tables/output excluded from full geometry correctness.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "read_range": "entire file, lines1-236"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+      "ownership": "peer reference only",
+      "sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "matches_manifest": true,
+      "line_count": 174,
+      "base_identity": true,
+      "base_sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "coverage": "full fresh body read",
+      "contract": "Complete MC native source strings, existing pointer/index/offset protocols and authored globals. Native math/instructions frozen.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+      "read_range": "entire file, lines1-174"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/perlin_noise.rs",
+      "ownership": "peer reference only",
+      "sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "matches_manifest": true,
+      "line_count": 129,
+      "base_identity": true,
+      "base_sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "coverage": "full fresh body read",
+      "contract": "Complete Map generator definition/execution; no primary input, ordinary unsigned octaves remains uniform, not a selected coordinate.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/perlin_noise.rs",
+      "read_range": "entire file, lines1-129"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "ownership": "peer reference only",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "matches_manifest": true,
+      "line_count": 16,
+      "base_identity": true,
+      "base_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "coverage": "full fresh body read",
+      "contract": "Complete caller-facing canonical exports; #780 retains composition, no duplicate/replacement aliases.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/prelude.rs",
+      "read_range": "entire file, lines1-16"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "ownership": "peer reference only",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "matches_manifest": true,
+      "line_count": 302,
+      "base_identity": true,
+      "base_sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "coverage": "full fresh body read",
+      "contract": "Complete canonical Scan quantities/recursive auxiliary allocation/copies/native grid and public execution plus tests. Peer-owned source. Submitted auxiliary is not completed GPU work; known inaccurate completion comment remains peer correction.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/scan.rs",
+      "read_range": "entire file, lines1-302"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "ownership": "peer reference only",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "matches_manifest": true,
+      "line_count": 93,
+      "base_identity": true,
+      "base_sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "coverage": "full fresh body read",
+      "contract": "Complete native guarded Scan program,256 native workgroup geometry, lane barriers/zero behavior; preserve canonical algorithm.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "read_range": "entire file, lines1-93"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/simplex_noise.rs",
+      "ownership": "peer reference only",
+      "sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "matches_manifest": true,
+      "line_count": 171,
+      "base_identity": true,
+      "base_sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "coverage": "full fresh body read",
+      "contract": "Complete Map generator definition/execution and native source; no primary input, actual uniforms/results retained.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/simplex_noise.rs",
+      "read_range": "entire file, lines1-171"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "ownership": "peer reference only",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "matches_manifest": true,
+      "line_count": 208,
+      "base_identity": true,
+      "base_sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "coverage": "full fresh body read",
+      "contract": "Complete existing shared fixture helper/native POD expansion/readback/format populations; byte-identical c665, no test authoring or execution.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-compute/src/test_utils.rs",
+      "read_range": "entire file, lines1-208"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "ownership": "peer reference only",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "matches_manifest": true,
+      "line_count": 43,
+      "base_identity": true,
+      "base_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "coverage": "full fresh body read",
+      "contract": "Complete GPU manifest: explicit native wgpu std and target-qualified browser feature policy. No direct thiserror dependency in candidate; manual native error derives require an explicit manifest/lock decision.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/Cargo.toml",
+      "read_range": "entire file, lines1-43"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "ownership": "peer reference only",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "matches_manifest": true,
+      "line_count": 150,
+      "base_identity": true,
+      "base_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "coverage": "full fresh body read",
+      "contract": "Whole canonical pass error ownership and nested native/progress causes; no new shared owner. Exact Root native integration required.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "read_range": "entire file, lines1-150"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "ownership": "peer reference only",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "matches_manifest": true,
+      "line_count": 81,
+      "base_identity": true,
+      "base_sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "coverage": "full fresh body read",
+      "contract": "Whole peer reference: typed dispatch entry and native scope boundaries; differs actual Root scope implementation (ignored poll in old reference), NOT replacement authority.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "read_range": "entire file, lines1-81"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "ownership": "peer reference only",
+      "sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "matches_manifest": true,
+      "line_count": 69,
+      "base_identity": true,
+      "base_sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "coverage": "full fresh body read",
+      "contract": "Whole peer reference source parse/native creation; differs Root progress/ValidationScope implementation. Preserve Root source/native cause and policy.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "read_range": "entire file, lines1-69"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "ownership": "peer reference only",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "matches_manifest": true,
+      "line_count": 40,
+      "base_identity": true,
+      "base_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "coverage": "full fresh body read",
+      "contract": "Whole First/Named source identity resolution; reuse canonical selected Naga entry before shape admission, no duplicate finder.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "read_range": "entire file, lines1-40"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "ownership": "peer reference only",
+      "sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "matches_manifest": true,
+      "line_count": 201,
+      "base_identity": true,
+      "base_sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "coverage": "full fresh body read",
+      "contract": "Whole old peer cache/native pipeline reference; differs Root progress/scopes/docs/imports. Canonical source/device/policy success-only cache contract does not authorize overwriting Root completed native body.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "read_range": "entire file, lines1-201"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "ownership": "peer reference only",
+      "sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "matches_manifest": true,
+      "line_count": 206,
+      "base_identity": true,
+      "base_sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "coverage": "full fresh body read",
+      "contract": "Whole actual used-resource/reflection/static packing protocol reference; native Root scope body differs. Preserve existing provided-variant packing and canonical byte metadata.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "read_range": "entire file, lines1-206"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "ownership": "peer reference only",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "matches_manifest": true,
+      "line_count": 79,
+      "base_identity": true,
+      "base_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "coverage": "full fresh body read",
+      "contract": "Whole native image comparison/multisampled/storage access mapping and unsupported used handle rejection. Interface role distinctions retained.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "read_range": "entire file, lines1-79"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "ownership": "peer reference only",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "matches_manifest": true,
+      "line_count": 55,
+      "base_identity": true,
+      "base_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "coverage": "full fresh body read",
+      "contract": "Whole existing uniform member metadata/span/typed-byte owner; native ordinals and supported old variant policy remain same contract.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "read_range": "entire file, lines1-55"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "ownership": "peer reference only",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "matches_manifest": true,
+      "line_count": 82,
+      "base_identity": true,
+      "base_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "coverage": "full fresh body read",
+      "contract": "Whole exact device+validation-policy+source+complete recipe identity; builds outside mutex, publishes success only, CachePoisoned canonical cause. Mechanical generic Default intentionally avoids generic Default bounds.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "read_range": "entire file, lines1-82"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "ownership": "peer reference only",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "matches_manifest": true,
+      "line_count": 102,
+      "base_identity": true,
+      "base_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "coverage": "full fresh body read",
+      "contract": "Whole native GpuResource kind, binding/readback/cause facade; actual receiving texture default-view/format/device admission belongs Root completed native graph.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "read_range": "entire file, lines1-102"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "ownership": "peer reference only",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "matches_manifest": true,
+      "line_count": 113,
+      "base_identity": true,
+      "base_sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "coverage": "full fresh body read",
+      "contract": "Whole native/browser combined validation/progress policy; reference docs differ Root current-flag wording. Preserve Root actual progress failure and policy controls; no new wait.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "read_range": "entire file, lines1-113"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "ownership": "peer reference only",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "matches_manifest": true,
+      "line_count": 86,
+      "base_identity": true,
+      "base_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "coverage": "full fresh body read",
+      "contract": "Whole canonical submitted work callback/wait marker: native wait is completion, browser callback has documented weaker policy. This is not implicit dispatch completion.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "read_range": "entire file, lines1-86"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "ownership": "peer reference only",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "matches_manifest": true,
+      "line_count": 43,
+      "base_identity": true,
+      "base_sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "coverage": "full fresh body read",
+      "contract": "Whole actual finish + queue submission helper source/error split; reference docs differ Root configured-policy wording. Source copy finalization error belongs here; no speculative immediate error counterexample.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "read_range": "entire file, lines1-43"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "ownership": "peer reference only",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "matches_manifest": true,
+      "line_count": 24,
+      "base_identity": true,
+      "base_sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "coverage": "full fresh body read",
+      "contract": "Whole immediate observe_validation, no polling/wait; reference docs differ Root current-flag routing. Keep pub(crate) API ownership; no external shim.",
+      "source_location": "generated-transfer-c665-map-snapshot/reference/crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "read_range": "entire file, lines1-24"
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "R1",
+        "R2"
+      ],
+      "contract": "Source -> lexical declaration -> admitted local role -> native type/binding/call -> actual execute descriptor -> source/device/policy/recipe cache -> same-source reflected native layout/dispatch. Current Map and DistanceField use the new owner; four sibling algorithms still produce parallel raw projections.",
+      "disposition": "Current Map is a sound partial shape migration apart from shared panic; whole generated family incomplete. No current-source credit inferred from historical notes.",
+      "connected_repairs": [
+        "GCR-P1",
+        "GCR-P2",
+        "GCR-P3",
+        "GCR-P4",
+        "GCR-R1"
+      ],
+      "dependencies": [
+        "#780 actual DistanceField/MC/DC/Scan/caller/export/lock adapters; Root native helpers preserved"
+      ],
+      "acceptance": [
+        "All actual constructors, parsers, build/cache/execute/call methods and existing fixture accesses consume final direct APIs. No primitive role extraction/re-admission or compatibility alias."
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_refs": [
+        "S1",
+        "S3",
+        "S4",
+        "S5",
+        "R1",
+        "R3"
+      ],
+      "contract": "GPU ShaderParameter/CoordinateParameter/CoordinateShape/ResourceBaseType/TextureValue/ResourceFetch own native leaf and projection meanings. ResourcePipeline consumes canonical BufferElementCount/Stride and WorkgroupShape/Grid. Native Naga Array.stride is actual stride, not ResourceBaseType.element_size.",
+      "disposition": "Reuse these owners. Neighborhood1..4D topology is different from unsigned coordinate1..3D and launch geometry; a checked local topology is justified after complete physical policy, not a duplicate count owner.",
+      "connected_repairs": [
+        "GCR-R1",
+        "GCR-R2",
+        "GCR-P4"
+      ],
+      "dependencies": [
+        "Canonical Buffer count/stride/shape receiving definitions and peer-retained extraction owner"
+      ],
+      "acceptance": [
+        "No competing count/stride/coordinate wrappers; no Custom4/vec3=12 guess for native array storage. Remove/dispose unused element_size/AdvectSignature only from actual inventoried APIs."
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "contract": "Map parse/new/build/execute all reparse source; common lexer records declaration and role immutably, admits duplicate-name failure earlier. Default is an empty source holder, not a compiled program. No signature deserialization route exists. Remaining public fields admit inconsistent role/order state.",
+      "disposition": "Concrete native-envelope panic and old index precedence need correction. Native text/identifier grammar remains Naga authority; parsing is not a blanket native validity promise.",
+      "connected_repairs": [
+        "GCR-P1",
+        "GCR-P2",
+        "GCR-P3",
+        "GCR-R1",
+        "GCR-R2"
+      ],
+      "dependencies": [
+        "Exact reserved protocol decisions and final direct caller updates"
+      ],
+      "acceptance": [
+        "Every construction/default/public mutation path has the intended contract; malformed native forms fail normally without panic. Exact reserved syntax decoded, arbitrary Custom names remain open."
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "contract": "Authored order and final role must agree through input loading/call emission. Addressing combines independent coordinates vs scalar maximum ordinal vs scalar population; widened texture arithmetic retains TryFromIntError. Stencil signed neighborhood topology is a separate calculation.",
+      "disposition": "Scatter/Stream/Buffer neighborhood operations currently violate those relationships. Bound-proven fixed/indexed membership accesses remain valid; do not invent missing-element failures for immutable Map partition membership.",
+      "connected_repairs": [
+        "GCR-P1",
+        "GCR-P2",
+        "GCR-P3",
+        "GCR-P4",
+        "GCR-R2"
+      ],
+      "dependencies": [
+        "Required actual grid/stride/logical prefix/signed arithmetic policy, not just unsigned addressing"
+      ],
+      "acceptance": [
+        "Unflatten Buffer ordinal consistently; grid products, conversions, add/wrap/flatten intermediates and actual input/output prefixes are checked before dispatch. Preserve exact completed Advect math."
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "contract": "Map private ordered declaration/role records retain one schema; transient primary/resource/uniform partitions derive from actual input and secondary membership. Source/recipe pipeline caches pair actual identity and reflected shape/layout. Siblings still expose independent arrays/options/bools.",
+      "disposition": "Current Map aggregate prevents independent mutation; sibling role/state migration and physical topology aggregate remain required. A returned public signature mutation is representable inconsistency, not proof the builder currently consumes that mutation.",
+      "connected_repairs": [
+        "GCR-R1",
+        "GCR-R2",
+        "GCR-P4"
+      ],
+      "dependencies": [
+        "Whole sibling parse/build/cache/execute and physical receiving graph"
+      ],
+      "acceptance": [
+        "No independently stored role flags/order mirrors; optional center remains legitimate. Topology admission relates actual resources/size/counts rather than merely validating each scalar."
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "contract": "GPU owns native leaf/resource/format/address projections; Compute owns source lexer/local algorithm roles/native wrapper transformations. Root now owns all27 transferred files/functions; peer retains Scan/Reduce/MC/DC/extraction/DistanceField/callers/locks/broad lib composition.",
+      "disposition": "Explicit transfer resolves old shared ownership barrier, not implementation completeness. Reference native bodies differ from Root and must not be imported as authority.",
+      "connected_repairs": [
+        "GCR-R1",
+        "GCR-R3"
+      ],
+      "dependencies": [
+        "Agreed peer export/caller receipt and both lock compositions; preserve Root native complete bodies"
+      ],
+      "acceptance": [
+        "Smallest shared owner reused; source modules own real policy/emission responsibilities; no parser pass-through service, duplicate native backend or owner-unapproved shared edits."
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "contract": "Definition.code remains editable authority and is reparsed; cache identity includes exact source, device, validation policy and complete recipe. SecondaryResources sorting gives canonical identity, not binding order. ResourcePipeline reflects controlling stride/shape from the selected compiled source.",
+      "disposition": "Map has no stale separately cached signature. Remaining raw declarations/param_names/index/type flags and Stencil mode/dim are unfinished semantic mirrors. Fluid manual workgroup ceil declarations should consume reflected shape coherently during the agreed transition.",
+      "connected_repairs": [
+        "GCR-R1",
+        "GCR-R2"
+      ],
+      "dependencies": [
+        "Whole fluid ResourcePipeline migration, final canonical source cache and native body composition"
+      ],
+      "acceptance": [
+        "Query/load/call decisions derive from one role vector; authored lexical text is immutable emission data only. Failures never publish successful cache values. No arbitrary manual workgroup tuple beside reflected launch shape."
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "contract": "Preserve generator/no-input Map, ordinary unsigned noise octaves, original DistanceField declarations, JFA sentinels/ping-pong, Gather authored globals, Stream index/offset/pointer-only writers, all neighborhood aliases and optional center, current Clamp/Wrap and completed Advect program math.",
+      "disposition": "GCR-P1..P4 intentional error/correctness repairs must be explicit; duplicate/reserved malformed admission may fail earlier. Do not add unsupported Gather ordinary-value or neighborhood+secondaryBuffer features. Default64 topology is retained pending checked physical contract, not silently removed.",
+      "connected_repairs": [
+        "GCR-P1",
+        "GCR-P2",
+        "GCR-P3",
+        "GCR-P4"
+      ],
+      "dependencies": [
+        "Peer complete actual constructor/caller/fixture adaptations; preserved Root native routing/completion guarantees"
+      ],
+      "acceptance": [
+        "Native program/fixture inputs and oracles unchanged except documented fixes/direct API adapters. No new tests/cases/helpers/assertions/doctests. No new polling, completion promise or SDK error timing inferred from handler alone."
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "contract": "Index/Size/Value/Offset/Resource/Center/Neighborhood are local closed roles with native-name/type payloads. Ordinary has_input predicates may return bool but carried role state needs an enum. CoordinateShape differs from neighborhood dimension4.",
+      "disposition": "Map payload enum appropriate; Stream bools and Stencil bool/raw dimension/options need final payload-bearing admission. Classify exact outer Resource/ptr/known texture form before value cleaning, never Custom substring.",
+      "connected_repairs": [
+        "GCR-R1",
+        "GCR-R2",
+        "GCR-P2",
+        "GCR-P3"
+      ],
+      "dependencies": [
+        "Exact unsupported dimension-shaped/malformed-known neighborhood policy and optional-center precedence"
+      ],
+      "acceptance": [
+        "Enums cannot represent incompatible mode/payload combinations; arbitrary Custom identifiers containing Neighbors remain native unless actual reserved grammar applies. Neighbors5D/malformed known envelope follows ordinary Result rejection."
+      ]
+    },
+    {
+      "lens": "derivability",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "R3"
+      ],
+      "contract": "Map deriveDefault preserves empty code + unconditional canonical cache Default. Sibling Definition Defaults are mechanical; equality intentionally ignores cache (Stencil includes boundary). ComputeSourceCache manual generic Default avoids adding generic bounds. Native error Display/source must remain exact.",
+      "disposition": "Deriving sibling Defaults is useful coherent cleanup, not a separate proven runtime bug. Manual native errors may validly remain because GPU manifest has no direct thiserror edge; derive needs explicit shared manifest/lock decision, not transitive assumption.",
+      "connected_repairs": [],
+      "dependencies": [
+        "Peer-owned GPU manifest/both lock edges if derive selected"
+      ],
+      "acceptance": [
+        "No derive bypasses admission or adds generic Default requirement; code-only equality, Clamp default and actual strum/TryFromIntError causes preserved."
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "contract": "One ShaderParameter for actual native name+value; separate algorithm-specific roles. Immutable original declaration needed for exact pointer/wrapper/custom alias spelling, not duplicate mutable meaning. Local checked1..4D topology may differ legitimately from peer ExtractionGrid3D/Scan and canonical launch quantities.",
+      "disposition": "Avoid generic all-algorithm role enum, identifier branding without bounds, compatibility synonyms or duplicate leaves. Unused AdvectSignature and sampler/element_size surface must receive explicit retain/remove disposition.",
+      "connected_repairs": [
+        "GCR-R1",
+        "GCR-R2"
+      ],
+      "dependencies": [
+        "Direct API caller inventory and agreed physical topology policy"
+      ],
+      "acceptance": [
+        "Each owner has a source-backed invariant/meaning, native packaging makes no false checked provenance claim, and dead compatibility-shaped public APIs are removed directly if truly unused."
+      ]
+    },
+    {
+      "lens": "magic-strings",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "R1",
+        "R2"
+      ],
+      "contract": "Native DSL function/reserved names and outer Resource/ptr/texture/Neighbors grammar are protocol admission. Arbitrary identifiers, custom native types, shader source, variable/binding names, regex syntax and format fragments remain source text; errors are presentation, never state discrimination.",
+      "disposition": "Remaining substring resource/neighborhood classifiers and repeated declaration reparsing are actionable. Map now owns immutable lexical declaration/role association. Exact top-level native lexical admission should not become a speculative general parser.",
+      "connected_repairs": [
+        "GCR-P1",
+        "GCR-R1",
+        "GCR-R2"
+      ],
+      "dependencies": [
+        "Final semantic registry/baseline reconciliation under hosted checks after connected source completion"
+      ],
+      "acceptance": [
+        "Protocol classified once at owner before parse_base_type cleaning; emitter consumes roles. Preserve real spelling in DistanceField wrappers/native source. No behavior based on display/Debug/diagnostic prose."
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "source_refs": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "R1",
+        "R2"
+      ],
+      "contract": "Coordinate lanes, texel padding, zero/one initialization, native bindings, neighbor offsets and shader coefficients are native math/grammar boundaries. Workgroup source declarations remain native, reflected before typed launch. Stencil64 missing-axis grid is actual physical policy; dt/half-inverse-cell-size raw numerical ports need unit/frame disposition.",
+      "disposition": "No tuning/numerical change authorized. Required local topology/signed bounds must be implemented; no universal epsilon/cap guessed. Bounded search found no actual fluid execute callers to establish a stricter physical unit policy.",
+      "connected_repairs": [
+        "GCR-P4",
+        "GCR-R2"
+      ],
+      "dependencies": [
+        "Canonical count/stride/Workgroup owners; explicit actual fluid numerical boundary and reflected-launch transition"
+      ],
+      "acceptance": [
+        "Keep default64 as named actual policy unless separately changed; admit grid/population/neighbor arithmetic, record physical units/frame at numerical handoff, no SortCount as InvocationCount, no raised baseline ceiling."
+      ]
+    }
+  ],
+  "repair_groups": [
+    {
+      "id": "GCR-P1",
+      "priority": 2,
+      "classification": "existing connected correctness defect; independently confirmed, deduplicates GC-C3",
+      "location": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs:168-186; crates/fabelgeist-compute/src/stencil.rs:151-154",
+      "rule": "crates/AGENTS.md:80-84; fallible source admission must not bypass native error boundary",
+      "problem": "parse_base_type slices a vector/texture inner value after only a starts_with guard. vec2< gives [5..4]; vec2<\u00e9 can split a UTF-8 codepoint. The public Map source constructor reaches this before Naga. Stencil separately slices first < through last > without proving their order; Neighbors>bad< reverses them.",
+      "repair": "Check the complete outer envelope and character-boundary-safe extraction before recursion. Preserve open Custom names and existing valid wrappers. Malformed ordinary native text may remain native-rejected Custom text; closed reserved neighborhood syntax may return its typed admission error. Do not create a second WGSL parser.",
+      "acceptance": "All incomplete/reversed/non-ASCII envelopes return the existing fallible/native outcome without panicking; every shared parse_base_type/clean_type_name producer and Stencil neighborhood route uses the final extraction contract."
+    },
+    {
+      "id": "GCR-P2",
+      "priority": 2,
+      "classification": "known existing correctness defect; confirmed still present, deduplicates GC-C1",
+      "location": "crates/fabelgeist-compute/src/scatter.rs:124-144",
+      "rule": "crates/AGENTS.md:30-70; role admission/operation agreement",
+      "problem": "With index:u32, value:u32, out:Resource<u32>, every ordinary unsigned parameter enters the coordinate branch. Once index exists, value is discarded instead of becoming an input value; has_value_param remains false and parsing rejects it.",
+      "repair": "Select explicit supported unsigned index before alias fallback, then classify all remaining ordinary parameters as values in authored order. Preserve an ordinary floating value named index, last-value type behavior, resource metadata/global emission and existing unsupported forms.",
+      "acceptance": "Unsigned input value is loaded and passed after a selected index; no new test cases/helpers/assertions, and actual constructor/call/execute consumers migrate together."
+    },
+    {
+      "id": "GCR-P3",
+      "priority": 2,
+      "classification": "known existing correctness defect; confirmed still present, deduplicates GC-C2",
+      "location": "crates/fabelgeist-compute/src/stream/mod.rs:106-124, 203-227; crates/fabelgeist-compute/src/stream/call.rs:7-42",
+      "rule": "crates/AGENTS.md:30-70; single role authority",
+      "problem": "A value:u32 before a later explicit index:u32 initially becomes the alias index. The later explicit index replaces it, but has_input_val/input type are not recomputed. The builder can omit in_val while call_arguments still emits in_val for the displaced value.",
+      "repair": "Resolve final explicit index/fallback before classifying value roles and derive input-load presence/type from those final roles. Retain offset:u32 and resource-pointer-only/no-value MC/DC writers.",
+      "acceptance": "Parameter ordering cannot remove a required load, and index/offset/resource-only writers remain valid without a synthesized load or new DSL arguments."
+    },
+    {
+      "id": "GCR-P4",
+      "priority": 2,
+      "classification": "existing connected correctness defect; independently confirmed, deduplicates GC-C4",
+      "location": "crates/fabelgeist-compute/src/stencil.rs:483,510,535-539,586-617; crates/fabelgeist-compute/src/resource_pipeline.rs:89-94",
+      "rule": "crates/AGENTS.md:30-55,80-84; coordinate/layout operations preserve frame and logical population",
+      "problem": "Buffer workgroups cover X only. Neighbors2D and Neighbors3D construct coords from global_id.xy/xyz rather than decomposing the flat record ordinal. In the established 64x64 Buffer default with 4096 records, output64 is row1,x0; left should clamp to input64, but emitted coords=(64,0) fetch input63. 3D likewise never reconstructs y/z.",
+      "repair": "Admit the actual/default physical grid against input/output logical records and project each Buffer ordinal through that admitted grid before center and neighbor fetches. Keep texture independent-axis behavior. Settle 64-axis/signed-arithmetic policy in the same connected family.",
+      "acceptance": "Buffer row/plane crossings, Clamp/Wrap and center/neighbors use one layout. Logical prefixes, grid products, signed conversion and neighbor additions are admitted before launch; no new fixture is authored."
+    },
+    {
+      "id": "GCR-R1",
+      "priority": 2,
+      "classification": "existing migration gap in transferred owners; not a new started-Map regression",
+      "location": "crates/fabelgeist-compute/src/gather/mod.rs:13-20; crates/fabelgeist-compute/src/scatter.rs:9-16; crates/fabelgeist-compute/src/stream/mod.rs:9-18; crates/fabelgeist-compute/src/stencil.rs:15-27",
+      "rule": "crates/AGENTS.md:30-70",
+      "problem": "Four signatures still expose independent ordered declarations/names, selected coordinate/type projections and optional flags; Stencil additionally has mode bool, raw dimension, independent center/neighborhood names and positional user tuples. Public mutation can represent contradictions. Build reparses code, so this is not a claim that mutating a returned signature currently reaches the private builder unchecked.",
+      "repair": "Complete private ordered local role records with canonical ShaderParameter/CoordinateParameter leaves, retain immutable authored declarations only for lexical emission, and derive partitions/presence/query projections. Migrate parse/build/execute/call helper/default/direct callers together; no raw-field compatibility API.",
+      "acceptance": "No independently mutable semantic columns or retained presence/mode flags remain. Actual resource membership and contextual primary selection are preserved, and no signature is separately cached beside mutable Definition.code."
+    },
+    {
+      "id": "GCR-R2",
+      "priority": 2,
+      "classification": "existing protocol/migration gap plus required physical-policy decision",
+      "location": "crates/fabelgeist-compute/src/stencil.rs:113-149,177-185,445-527,565-713",
+      "rule": "crates/AGENTS.md:21-70,80-84",
+      "problem": "contains(Neighbors) selects neighborhood mode; unknown names silently retain dim=2, while contains(Neighbors1D..4D) classifies dimensions. This is not an exact closed protocol. Its physical Buffer 64 defaults, optional size projection, signed i32 add/multiply/wrap and logical records are not admitted by unsigned texture flattening. A closed role enum alone would not fix GCR-P4 or certify these ranges.",
+      "repair": "Define exact outer neighborhood protocol and a payload-bearing resource/neighborhood schema, preserving optional center and center/val/fallback precedence. Separately but before family clearance, decide/admit the established grid defaults, prefix populations and signed neighborhood address calculation. No invented epsilon, arbitrary cap or silent default removal.",
+      "acceptance": "Unknown/custom substring names do not silently select a reserved mode; all four actual neighborhood dimensions/aliases are represented, and actual Buffer/texture grid/size/stride bounds resolve as an implemented contract rather than a deferred note."
+    },
+    {
+      "id": "GCR-R3",
+      "priority": 3,
+      "classification": "existing changed-owner rule debt; started Map already repairs its unit-struct order",
+      "location": "crates/fabelgeist-compute/src/gather/mod.rs:302; crates/fabelgeist-compute/src/scatter.rs:280; crates/fabelgeist-compute/src/stream/mod.rs:277; crates/fabelgeist-compute/src/stencil.rs:821; crates/fabelgeist-compute/src/advect/mod.rs:8-15,191; crates/fabelgeist-compute/src/gradient/mod.rs:167; crates/fabelgeist-compute/src/divergence/mod.rs:156; crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs:50-54; crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs:83",
+      "rule": "crates/AGENTS.md:90-94,118-122",
+      "problem": "Seven executor unit structs follow impls; Advect cache alias follows a struct. Cohesive coordinate/address admission modules repeat one explicit error Result instead of their owning aliases. Reference Compute lib source also interleaves exports/modules; composition remains peer-owned.",
+      "repair": "Move whole attached items into required order and introduce/reuse owning error-specific aliases for those modules; preserve mixed ResourcePipeline anyhow results and trait signatures. Coordinate public export changes with peer lib/prelude owner.",
+      "acceptance": "Final owned files follow item order, tests remain last, aliases retain exact errors/source chains, and peer compositional exports satisfy the same rule before integration."
+    }
+  ],
+  "required_dependencies": [
+    {
+      "id": "D1",
+      "owner": "Root",
+      "contract": "Complete four sibling immutable roles, exact protocol admission and shared panic repair; preserve started Map native behavior."
+    },
+    {
+      "id": "D2",
+      "owner": "Root",
+      "contract": "Complete checked local Stencil1..4D topology, actual flat Buffer decomposition, default64/size/input/output logical records and signed arithmetic policy before clearance."
+    },
+    {
+      "id": "D3",
+      "owner": "Root",
+      "contract": "Preserve exact completed Advect native math; finish fluid same-source reflected launch and explicit numerical frame/unit/dead API disposition without inventing bounds."
+    },
+    {
+      "id": "D4",
+      "owner": "#780 coordinated with Root",
+      "contract": "Actual DistanceField/Scan/MC/DC/extraction constructors/caller APIs, broad exports/preludes and both lock compositions; no independent shared repairs."
+    },
+    {
+      "id": "D5",
+      "owner": "Root and #780",
+      "contract": "Compose final canonical counts/stride/ResourceDescriptor/signature/pipeline graph while preserving Root native scope/progress/cause/current-policy bodies."
+    },
+    {
+      "id": "D6",
+      "owner": "Root",
+      "contract": "Relevant baseline reductions and exact semantic registry after coherent extraction; hosted export/checks only when source family complete; no baseline increase."
+    }
+  ],
+  "lock_bookkeeping": [
+    {
+      "path": "Cargo.lock",
+      "candidate_packages": 1126,
+      "root_packages": 1126,
+      "candidate_selected_edges": [
+        {
+          "name": "adventuresim-character-creator",
+          "version": "0.1.0",
+          "dependencies": [
+            "adventuresim-core",
+            "adventuresim-world-schema",
+            "anyhow",
+            "async-lock",
+            "base64 0.22.1",
+            "bevy",
+            "bevy_egui",
+            "blake3",
+            "bytemuck",
+            "clap",
+            "derive_more 2.1.1",
+            "egui_extras",
+            "fabelgeist-armor",
+            "fabelgeist-bvh",
+            "fabelgeist-cloth",
+            "fabelgeist-compute",
+            "fabelgeist-determinism",
+            "fabelgeist-garment-code",
+            "fabelgeist-garment-fit",
+            "fabelgeist-geometry",
+            "fabelgeist-gpu",
+            "fabelgeist-hair",
+            "fabelgeist-math",
+            "fabelgeist-mesh",
+            "fabelgeist-rig",
+            "fabelgeist-shell",
+            "image",
+            "pollster",
+            "rand 0.9.5",
+            "rayon",
+            "serde",
+            "serde_json",
+            "spade",
+            "thiserror 2.0.20",
+            "tokio",
+            "wgpu"
+          ]
+        },
+        {
+          "name": "fabelgeist-armor",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "blake3",
+            "bytemuck",
+            "fabelgeist-compute",
+            "fabelgeist-garment-code",
+            "fabelgeist-geometry",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "fabelgeist-mesh",
+            "fabelgeist-rig",
+            "image",
+            "pollster",
+            "postcard",
+            "serde",
+            "serde_json",
+            "spade",
+            "thiserror 2.0.20"
+          ]
+        },
+        {
+          "name": "fabelgeist-compute",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "bytemuck",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "fabelgeist-mesh",
+            "futures-channel",
+            "indexmap 2.14.1",
+            "naga",
+            "pollster",
+            "regex",
+            "serde",
+            "serde_json",
+            "strum 0.27.2",
+            "thiserror 2.0.20",
+            "tokio",
+            "wasm-bindgen-futures",
+            "wgpu"
+          ]
+        },
+        {
+          "name": "fabelgeist-gpu",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "async-lock",
+            "bytemuck",
+            "fabelgeist-color",
+            "fabelgeist-fs",
+            "fabelgeist-math",
+            "fabelgeist-timer",
+            "futures-channel",
+            "image",
+            "indexmap 2.14.1",
+            "naga",
+            "parking_lot",
+            "pollster",
+            "regex",
+            "serde",
+            "serde_json",
+            "strum 0.27.2",
+            "tokio",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu"
+          ]
+        },
+        {
+          "name": "fabelgeist-hair",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "bytemuck",
+            "crc32fast",
+            "fabelgeist-bvh",
+            "fabelgeist-color",
+            "fabelgeist-compute",
+            "fabelgeist-determinism",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "fabelgeist-mesh",
+            "fabelgeist-spatial-hash",
+            "futures-channel",
+            "image",
+            "miniz_oxide 0.8.9",
+            "naga",
+            "pollster",
+            "rayon",
+            "serde",
+            "serde_json",
+            "thiserror 2.0.20",
+            "web-time",
+            "wgpu"
+          ]
+        },
+        {
+          "name": "thiserror",
+          "version": "1.0.69",
+          "dependencies": [
+            "thiserror-impl 1.0.69"
+          ]
+        },
+        {
+          "name": "thiserror",
+          "version": "2.0.20",
+          "dependencies": [
+            "thiserror-impl 2.0.20"
+          ]
+        },
+        {
+          "name": "wgpu",
+          "version": "29.0.4",
+          "dependencies": [
+            "arrayvec",
+            "bitflags 2.13.1",
+            "bytemuck",
+            "cfg-if",
+            "cfg_aliases",
+            "document-features",
+            "hashbrown 0.16.1",
+            "js-sys",
+            "log",
+            "naga",
+            "portable-atomic",
+            "profiling",
+            "raw-window-handle",
+            "smallvec",
+            "static_assertions",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu-core",
+            "wgpu-hal",
+            "wgpu-types"
+          ]
+        }
+      ],
+      "root_selected_edges": [
+        {
+          "name": "adventuresim-character-creator",
+          "version": "0.1.0",
+          "dependencies": [
+            "adventuresim-core",
+            "adventuresim-world-schema",
+            "anyhow",
+            "async-lock",
+            "base64 0.22.1",
+            "bevy",
+            "bevy_egui",
+            "blake3",
+            "bytemuck",
+            "clap",
+            "derive_more 2.1.1",
+            "egui_extras",
+            "fabelgeist-armor",
+            "fabelgeist-bvh",
+            "fabelgeist-cloth",
+            "fabelgeist-compute",
+            "fabelgeist-determinism",
+            "fabelgeist-garment-code",
+            "fabelgeist-garment-fit",
+            "fabelgeist-geometry",
+            "fabelgeist-gpu",
+            "fabelgeist-hair",
+            "fabelgeist-math",
+            "fabelgeist-rig",
+            "fabelgeist-shell",
+            "image",
+            "pollster",
+            "rand 0.9.5",
+            "rayon",
+            "serde",
+            "serde_json",
+            "spade",
+            "thiserror 2.0.20",
+            "tokio"
+          ]
+        },
+        {
+          "name": "fabelgeist-armor",
+          "version": "0.1.0",
+          "dependencies": [
+            "blake3",
+            "bytemuck",
+            "fabelgeist-compute",
+            "fabelgeist-garment-code",
+            "fabelgeist-geometry",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "fabelgeist-rig",
+            "image",
+            "pollster",
+            "postcard",
+            "serde",
+            "serde_json",
+            "spade",
+            "thiserror 2.0.20"
+          ]
+        },
+        {
+          "name": "fabelgeist-compute",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "bytemuck",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "futures-channel",
+            "indexmap 2.14.1",
+            "naga",
+            "pollster",
+            "regex",
+            "serde",
+            "strum 0.27.2",
+            "thiserror 2.0.20",
+            "tokio",
+            "wasm-bindgen-futures",
+            "wgpu"
+          ]
+        },
+        {
+          "name": "fabelgeist-gpu",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "async-lock",
+            "bytemuck",
+            "fabelgeist-color",
+            "fabelgeist-fs",
+            "fabelgeist-math",
+            "fabelgeist-timer",
+            "futures-channel",
+            "image",
+            "indexmap 2.14.1",
+            "naga",
+            "parking_lot",
+            "pollster",
+            "regex",
+            "serde",
+            "serde_json",
+            "strum 0.27.2",
+            "tokio",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu"
+          ]
+        },
+        {
+          "name": "fabelgeist-hair",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "bytemuck",
+            "crc32fast",
+            "fabelgeist-bvh",
+            "fabelgeist-compute",
+            "fabelgeist-determinism",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "fabelgeist-spatial-hash",
+            "image",
+            "miniz_oxide 0.8.9",
+            "naga",
+            "pollster",
+            "rayon",
+            "serde",
+            "serde_json",
+            "thiserror 2.0.20",
+            "web-time",
+            "wgpu"
+          ]
+        },
+        {
+          "name": "thiserror",
+          "version": "1.0.69",
+          "dependencies": [
+            "thiserror-impl 1.0.69"
+          ]
+        },
+        {
+          "name": "thiserror",
+          "version": "2.0.20",
+          "dependencies": [
+            "thiserror-impl 2.0.20"
+          ]
+        },
+        {
+          "name": "wgpu",
+          "version": "29.0.4",
+          "dependencies": [
+            "arrayvec",
+            "bitflags 2.13.1",
+            "bytemuck",
+            "cfg-if",
+            "cfg_aliases",
+            "document-features",
+            "hashbrown 0.16.1",
+            "js-sys",
+            "log",
+            "naga",
+            "portable-atomic",
+            "profiling",
+            "raw-window-handle",
+            "smallvec",
+            "static_assertions",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu-core",
+            "wgpu-hal",
+            "wgpu-types"
+          ]
+        }
+      ],
+      "same_bytes_root": false,
+      "disposition": "reference only; complete lock resolution remains #780 obligation; no generation/check performed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "candidate_packages": 1064,
+      "root_packages": 1064,
+      "candidate_selected_edges": [
+        {
+          "name": "adventuresim-character-creator",
+          "version": "0.1.0",
+          "dependencies": [
+            "adventuresim-core",
+            "adventuresim-world-schema",
+            "anyhow",
+            "async-lock",
+            "base64",
+            "bevy",
+            "bevy_egui",
+            "blake3",
+            "burn",
+            "bytemuck",
+            "clap",
+            "derive_more 2.1.1",
+            "egui_extras",
+            "fabelgeist-armor",
+            "fabelgeist-bvh",
+            "fabelgeist-cloth",
+            "fabelgeist-compute",
+            "fabelgeist-determinism",
+            "fabelgeist-garment-code",
+            "fabelgeist-garment-fit",
+            "fabelgeist-geometry",
+            "fabelgeist-gpu",
+            "fabelgeist-hair",
+            "fabelgeist-math",
+            "fabelgeist-mesh",
+            "fabelgeist-mhr",
+            "fabelgeist-rig",
+            "fabelgeist-shell",
+            "gltf",
+            "image",
+            "pollster",
+            "rand 0.9.5",
+            "rayon",
+            "serde",
+            "serde_json",
+            "spade",
+            "thiserror 2.0.20",
+            "tokio",
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "fabelgeist-armor",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "blake3",
+            "bytemuck",
+            "fabelgeist-compute",
+            "fabelgeist-garment-code",
+            "fabelgeist-geometry",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "fabelgeist-mesh",
+            "fabelgeist-rig",
+            "image",
+            "pollster",
+            "postcard",
+            "serde",
+            "serde_json",
+            "spade",
+            "thiserror 2.0.20"
+          ]
+        },
+        {
+          "name": "fabelgeist-compute",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "bytemuck",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "futures-channel",
+            "indexmap",
+            "naga 29.0.4",
+            "pollster",
+            "regex",
+            "serde",
+            "strum 0.27.2",
+            "thiserror 2.0.20",
+            "wasm-bindgen-futures",
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "fabelgeist-gpu",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "async-lock",
+            "bytemuck",
+            "fabelgeist-color",
+            "fabelgeist-math",
+            "fabelgeist-timer",
+            "futures-channel",
+            "indexmap",
+            "naga 29.0.4",
+            "parking_lot",
+            "pollster",
+            "regex",
+            "serde",
+            "strum 0.27.2",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "fabelgeist-hair",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "bytemuck",
+            "crc32fast",
+            "fabelgeist-bvh",
+            "fabelgeist-color",
+            "fabelgeist-compute",
+            "fabelgeist-determinism",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "fabelgeist-mesh",
+            "fabelgeist-spatial-hash",
+            "miniz_oxide 0.8.9",
+            "pollster",
+            "rayon",
+            "serde",
+            "serde_json",
+            "thiserror 2.0.20",
+            "web-time",
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "thiserror",
+          "version": "1.0.69",
+          "dependencies": [
+            "thiserror-impl 1.0.69"
+          ]
+        },
+        {
+          "name": "thiserror",
+          "version": "2.0.20",
+          "dependencies": [
+            "thiserror-impl 2.0.20"
+          ]
+        },
+        {
+          "name": "wgpu",
+          "version": "29.0.4",
+          "dependencies": [
+            "arrayvec",
+            "bitflags 2.13.1",
+            "bytemuck",
+            "cfg-if",
+            "cfg_aliases",
+            "document-features",
+            "hashbrown 0.16.1",
+            "js-sys",
+            "log",
+            "naga 29.0.4",
+            "portable-atomic",
+            "profiling",
+            "raw-window-handle",
+            "smallvec",
+            "static_assertions",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu-core 29.0.4",
+            "wgpu-hal 29.0.4",
+            "wgpu-types 29.0.4"
+          ]
+        },
+        {
+          "name": "wgpu",
+          "version": "30.0.1",
+          "dependencies": [
+            "arrayvec",
+            "bitflags 2.13.1",
+            "bytemuck",
+            "cfg-if",
+            "cfg_aliases",
+            "document-features",
+            "hashbrown 0.17.1",
+            "js-sys",
+            "log",
+            "naga 30.0.1",
+            "parking_lot",
+            "portable-atomic",
+            "profiling",
+            "raw-window-handle",
+            "smallvec",
+            "static_assertions",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu-core 30.0.1",
+            "wgpu-hal 30.0.1",
+            "wgpu-types 30.0.1"
+          ]
+        }
+      ],
+      "root_selected_edges": [
+        {
+          "name": "adventuresim-character-creator",
+          "version": "0.1.0",
+          "dependencies": [
+            "adventuresim-core",
+            "adventuresim-world-schema",
+            "anyhow",
+            "async-lock",
+            "base64",
+            "bevy",
+            "bevy_egui",
+            "blake3",
+            "burn",
+            "bytemuck",
+            "clap",
+            "derive_more 2.1.1",
+            "egui_extras",
+            "fabelgeist-armor",
+            "fabelgeist-bvh",
+            "fabelgeist-cloth",
+            "fabelgeist-compute",
+            "fabelgeist-determinism",
+            "fabelgeist-garment-code",
+            "fabelgeist-garment-fit",
+            "fabelgeist-geometry",
+            "fabelgeist-gpu",
+            "fabelgeist-hair",
+            "fabelgeist-math",
+            "fabelgeist-mhr",
+            "fabelgeist-rig",
+            "fabelgeist-shell",
+            "gltf",
+            "image",
+            "pollster",
+            "rand 0.9.5",
+            "rayon",
+            "serde",
+            "serde_json",
+            "spade",
+            "thiserror 2.0.20",
+            "tokio"
+          ]
+        },
+        {
+          "name": "fabelgeist-armor",
+          "version": "0.1.0",
+          "dependencies": [
+            "blake3",
+            "bytemuck",
+            "fabelgeist-compute",
+            "fabelgeist-garment-code",
+            "fabelgeist-geometry",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "fabelgeist-rig",
+            "image",
+            "pollster",
+            "postcard",
+            "serde",
+            "serde_json",
+            "spade",
+            "thiserror 2.0.20"
+          ]
+        },
+        {
+          "name": "fabelgeist-compute",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "bytemuck",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "futures-channel",
+            "indexmap",
+            "naga 29.0.4",
+            "pollster",
+            "regex",
+            "serde",
+            "strum 0.27.2",
+            "thiserror 2.0.20",
+            "wasm-bindgen-futures",
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "fabelgeist-gpu",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "async-lock",
+            "bytemuck",
+            "fabelgeist-color",
+            "fabelgeist-math",
+            "fabelgeist-timer",
+            "futures-channel",
+            "indexmap",
+            "naga 29.0.4",
+            "parking_lot",
+            "pollster",
+            "regex",
+            "serde",
+            "strum 0.27.2",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "fabelgeist-hair",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "bytemuck",
+            "crc32fast",
+            "fabelgeist-bvh",
+            "fabelgeist-compute",
+            "fabelgeist-determinism",
+            "fabelgeist-gpu",
+            "fabelgeist-math",
+            "fabelgeist-spatial-hash",
+            "miniz_oxide 0.8.9",
+            "pollster",
+            "rayon",
+            "serde",
+            "serde_json",
+            "thiserror 2.0.20",
+            "web-time",
+            "wgpu 29.0.4"
+          ]
+        },
+        {
+          "name": "thiserror",
+          "version": "1.0.69",
+          "dependencies": [
+            "thiserror-impl 1.0.69"
+          ]
+        },
+        {
+          "name": "thiserror",
+          "version": "2.0.20",
+          "dependencies": [
+            "thiserror-impl 2.0.20"
+          ]
+        },
+        {
+          "name": "wgpu",
+          "version": "29.0.4",
+          "dependencies": [
+            "arrayvec",
+            "bitflags 2.13.1",
+            "bytemuck",
+            "cfg-if",
+            "cfg_aliases",
+            "document-features",
+            "hashbrown 0.16.1",
+            "js-sys",
+            "log",
+            "naga 29.0.4",
+            "portable-atomic",
+            "profiling",
+            "raw-window-handle",
+            "smallvec",
+            "static_assertions",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu-core 29.0.4",
+            "wgpu-hal 29.0.4",
+            "wgpu-types 29.0.4"
+          ]
+        },
+        {
+          "name": "wgpu",
+          "version": "30.0.1",
+          "dependencies": [
+            "arrayvec",
+            "bitflags 2.13.1",
+            "bytemuck",
+            "cfg-if",
+            "cfg_aliases",
+            "document-features",
+            "hashbrown 0.17.1",
+            "js-sys",
+            "log",
+            "naga 30.0.1",
+            "parking_lot",
+            "portable-atomic",
+            "profiling",
+            "raw-window-handle",
+            "smallvec",
+            "static_assertions",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu-core 30.0.1",
+            "wgpu-hal 30.0.1",
+            "wgpu-types 30.0.1"
+          ]
+        }
+      ],
+      "same_bytes_root": false,
+      "disposition": "reference only; complete lock resolution remains #780 obligation; no generation/check performed"
+    }
+  ],
+  "fixture_proof": [
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "same_c665": true,
+      "whole_diff": ""
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "same_c665": false,
+      "whole_diff": "--- \n+++ \n@@ -13,19 +13,19 @@\n     S: bytemuck::Pod + std::fmt::Debug + Default + Copy + PartialEq,\n {\n     let definition = MapDefinition::new(definition_code)?;\n-    let sig = MapDefinition::parse_signature(definition_code)?;\n+    let sig = MapSignature::parse(definition_code)?;\n \n-    let input_element_type = if sig.user_params.is_empty() {\n-        ResourceBaseType::F32 // Default for generator tests without input data\n-    } else {\n-        sig.user_params[0].1.clone()\n-    };\n+    let input_element_type = sig\n+        .user_parameters()\n+        .next()\n+        .map(|parameter| parameter.value_type().clone())\n+        .unwrap_or(ResourceBaseType::F32); // Default for generator tests without input data\n \n     run_compute_test::<IN, OUT, S, _>(\n         input_data,\n         expected_output,\n         input_element_type,\n-        sig.output_element_type,\n+        sig.output_element_type().clone(),\n         |context, in_res, out_res| Map::execute(context, &definition, Some(&in_res), &out_res),\n     )\n     .await\n"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "same_c665": true,
+      "whole_diff": ""
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "same_c665": true,
+      "whole_diff": ""
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "same_c665": true,
+      "whole_diff": ""
+    }
+  ],
+  "native_reference_identity": [
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "snapshot_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "root_cac5_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "same_root_cac5": true,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "snapshot_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "root_cac5_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "same_root_cac5": true,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "snapshot_sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "root_cac5_sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "same_root_cac5": false,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "snapshot_sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+      "root_cac5_sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "same_root_cac5": false,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "snapshot_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "root_cac5_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "same_root_cac5": true,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "snapshot_sha256": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3",
+      "root_cac5_sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "same_root_cac5": false,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "snapshot_sha256": "28875e4c667ce2a16c41e3640b8948fcba6f90e399b45d649ddb43f0832f8b90",
+      "root_cac5_sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "same_root_cac5": false,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "snapshot_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "root_cac5_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "same_root_cac5": true,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "snapshot_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "root_cac5_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "same_root_cac5": true,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "snapshot_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "root_cac5_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "same_root_cac5": true,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "snapshot_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "root_cac5_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "same_root_cac5": true,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "snapshot_sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "root_cac5_sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "same_root_cac5": false,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "snapshot_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "root_cac5_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "same_root_cac5": true,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "snapshot_sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "root_cac5_sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "same_root_cac5": false,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "snapshot_sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "root_cac5_sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "same_root_cac5": false,
+      "disposition": "reference native body is not receipt authority; preserve Root completed core/policy/cause implementations"
+    }
+  ],
+  "design_receipt": {
+    "path": "target/pr826-audit/generated-repair-plan-current.json",
+    "disposition": "Read after source. Proposed checked local topology is distinct from peer ExtractionGrid3D/Scan; agrees with source ownership. It is a plan, not implementation or acceptance evidence."
+  },
+  "limits": [
+    "Discovery input before Root import/repair; not postrepair/all-PR/all13 implementation clearance. Every lens has a recorded contract/disposition/repair/dependency/acceptance, but material policy/implementation gaps remain required.",
+    "All27 owned and36 non-lock reference files freshly read completely; both locks handled by complete TOML package/dependency bookkeeping only. Historical packet notes not used as current source-body coverage. One shared exact source table below; no sample/hash body credit.",
+    "Root native reference anchor cac5a7c33a83d1c08a5e55d43d912967edf06814 preserves prior complete GPU body receipt; frozen packet reference hashes independently compared to that pin. Moving Root HEAD observed6e56adeab1101743941c6d50eef4340008b910ea is bookkeeping only, not reviewed implementation scope.",
+    "No fresh full body coverage for extraction/output.rs, marching-cubes tables, all extraction fixture files, complete external application graph, full physical/hair/body/material domains or general numerical geometry correctness. Those remain peer-owned required integration/audit dependencies, not clear from orchestration reads.",
+    "Native SDK std/thread-key/Error SendSync and browser policy carry previously source-read29.0.4 evidence; no new platform execution or atomic-Wasm verification. Do not overwrite Root progress/error policy using differing peer reference bodies.",
+    "DistanceField copy record-time immediate native failure not asserted: SDK29 defers actual native encoding/finalization; Root submit covers finish/submit. Peer owns final raw-encoder policy/consumer closure; no speculative observer addition.",
+    "No source edits, project execution, build, lint, tests, probes, quality scanner, generator, runtime, push/CI or external posts. Only source/Git reads, exact identity/TOML bookkeeping and ignored report writes. No new fixture/case/helper/assertion/doctest.",
+    "Complete connected owned repairs and peer caller/export/lock integration before source push/requested hosted CI; final fresh all13, independent Code/Rule/Comment and required hosted checks must pass one final pushed SHA. No merge."
+  ]
+}

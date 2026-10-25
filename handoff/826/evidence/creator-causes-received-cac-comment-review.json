@@ -1,0 +1,318 @@
+{
+  "review": "Independent short confirmation of received ten-file Creator causes family",
+  "head": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+  "tree": "690295efbe39d8e52655dbf37e90316c5657ea15",
+  "receiving_commit": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+  "peer_pin": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+  "manifest": {
+    "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-creator-causes-complete-99d70e7c3/manifest.json",
+    "sha256": "ce6aaebbebb15eee9a8900c8789626c99747ec2ec3bd9bd0e5d79cb90ea0e4dd"
+  },
+  "source_inventory": {
+    "ten_files": 10,
+    "all_manifest_peer_receiving_current_match": true,
+    "all_ten_have_prior_full_owning_source_accounts": true,
+    "receiving_delta_exactly_ten_manifest_paths": true,
+    "receiving_delta_paths": [
+      "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "crates/adventuresim-character-creator/src/lib.rs",
+      "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "crates/adventuresim-character-creator/src/underlayer_preview.rs"
+    ]
+  },
+  "individual_file_accounting": [
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "current_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "receipt_revision": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+      "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+      "git_blob": "dbda65178a479d6ad3c4b83a703568b2389767dc",
+      "lines": 68,
+      "manifest_matches": true,
+      "current_equals_receiving": true,
+      "current_equals_peer99d": true,
+      "coverage": "Prior complete independent owning-file read carried only after exact peer/receiving/current byte identity; not a fresh body review in this receipt confirmation",
+      "prior_full_account": {
+        "path": "target/pr826-audit/creator-cache-completion-canonical-comment-review.json",
+        "report_sha256": "311720d3724659b4f0c575dd61ae86508514aa331348cebb53b2c0323acb06de",
+        "source_account": {
+          "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+          "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+          "sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+          "git_blob": "dbda65178a479d6ad3c4b83a703568b2389767dc",
+          "lines": 68,
+          "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+          "manifest_sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+          "manifest_matches": true
+        }
+      }
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "current_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "receipt_revision": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+      "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "git_blob": "d34a08bd66701061b4233d6ca9f6b30d15c9678a",
+      "lines": 20,
+      "manifest_matches": true,
+      "current_equals_receiving": true,
+      "current_equals_peer99d": true,
+      "coverage": "Prior complete independent owning-file read carried only after exact peer/receiving/current byte identity; not a fresh body review in this receipt confirmation",
+      "prior_full_account": {
+        "path": "target/pr826-audit/creator-cache-completion-canonical-comment-review.json",
+        "report_sha256": "311720d3724659b4f0c575dd61ae86508514aa331348cebb53b2c0323acb06de",
+        "source_account": {
+          "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+          "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+          "sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+          "git_blob": "d34a08bd66701061b4233d6ca9f6b30d15c9678a",
+          "lines": 20,
+          "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+          "manifest_sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+          "manifest_matches": true
+        }
+      }
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "current_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "receipt_revision": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+      "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "git_blob": "ce1c5be604c0b070a767130eeed4f4dbe65285ce",
+      "lines": 76,
+      "manifest_matches": true,
+      "current_equals_receiving": true,
+      "current_equals_peer99d": true,
+      "coverage": "Prior complete independent owning-file read carried only after exact peer/receiving/current byte identity; not a fresh body review in this receipt confirmation",
+      "prior_full_account": {
+        "path": "target/pr826-audit/creator-cache-completion-canonical-comment-review.json",
+        "report_sha256": "311720d3724659b4f0c575dd61ae86508514aa331348cebb53b2c0323acb06de",
+        "source_account": {
+          "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+          "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+          "sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+          "git_blob": "ce1c5be604c0b070a767130eeed4f4dbe65285ce",
+          "lines": 76,
+          "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+          "manifest_sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+          "manifest_matches": true
+        }
+      }
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "current_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "receipt_revision": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+      "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "git_blob": "d49f85196d1643b29dbb4b239bac5da8c5e50caf",
+      "lines": 144,
+      "manifest_matches": true,
+      "current_equals_receiving": true,
+      "current_equals_peer99d": true,
+      "coverage": "Prior complete independent owning-file read carried only after exact peer/receiving/current byte identity; not a fresh body review in this receipt confirmation",
+      "prior_full_account": {
+        "path": "target/pr826-audit/creator-cache-completion-canonical-comment-review.json",
+        "report_sha256": "311720d3724659b4f0c575dd61ae86508514aa331348cebb53b2c0323acb06de",
+        "source_account": {
+          "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+          "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+          "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+          "git_blob": "d49f85196d1643b29dbb4b239bac5da8c5e50caf",
+          "lines": 144,
+          "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+          "manifest_sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+          "manifest_matches": true
+        }
+      }
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "current_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "receipt_revision": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+      "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "git_blob": "dca5cc787e224d638d22b1dbd0df2917af8bc3b8",
+      "lines": 301,
+      "manifest_matches": true,
+      "current_equals_receiving": true,
+      "current_equals_peer99d": true,
+      "coverage": "Prior complete independent owning-file read carried only after exact peer/receiving/current byte identity; not a fresh body review in this receipt confirmation",
+      "prior_full_account": {
+        "path": "target/pr826-audit/creator-cache-completion-canonical-comment-review.json",
+        "report_sha256": "311720d3724659b4f0c575dd61ae86508514aa331348cebb53b2c0323acb06de",
+        "source_account": {
+          "path": "crates/adventuresim-character-creator/src/lib.rs",
+          "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+          "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+          "git_blob": "dca5cc787e224d638d22b1dbd0df2917af8bc3b8",
+          "lines": 301,
+          "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+          "manifest_sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+          "manifest_matches": true
+        }
+      }
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "current_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "receipt_revision": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+      "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "git_blob": "7a4ae72c9805ecd61ea54d61cad5cd40fbd1b017",
+      "lines": 27,
+      "manifest_matches": true,
+      "current_equals_receiving": true,
+      "current_equals_peer99d": true,
+      "coverage": "Prior complete independent owning-file read carried only after exact peer/receiving/current byte identity; not a fresh body review in this receipt confirmation",
+      "prior_full_account": {
+        "path": "target/pr826-audit/creator-cache-completion-canonical-comment-review.json",
+        "report_sha256": "311720d3724659b4f0c575dd61ae86508514aa331348cebb53b2c0323acb06de",
+        "source_account": {
+          "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+          "revision": "29fe6e75275dc722524af5791b2b6ccb38859a0c",
+          "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+          "git_blob": "7a4ae72c9805ecd61ea54d61cad5cd40fbd1b017",
+          "lines": 27,
+          "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+          "manifest_sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+          "manifest_matches": true
+        }
+      }
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "current_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "receipt_revision": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+      "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "git_blob": "c9063f5308cde8e23d8804c2c527b9a4bd560f1a",
+      "lines": 187,
+      "manifest_matches": true,
+      "current_equals_receiving": true,
+      "current_equals_peer99d": true,
+      "coverage": "Prior complete independent owning-file read carried only after exact peer/receiving/current byte identity; not a fresh body review in this receipt confirmation",
+      "prior_full_account": {
+        "path": "target/pr826-audit/material-cause-receivers-99d-comment-review.json",
+        "report_sha256": "11edde10f947e4df47c26ae848e5b2027ce30895aa9736f2b7a0f0229a8f1a5f",
+        "source_account": {
+          "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+          "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+          "git_blob": "c9063f5308cde8e23d8804c2c527b9a4bd560f1a",
+          "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+          "lines": 187,
+          "coverage": "Fresh complete owning file and complete parent diff, including existing inline fixture where present",
+          "manifest_sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+          "manifest_matches": true
+        }
+      }
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "current_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "receipt_revision": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+      "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "git_blob": "cf049757e77439cd2f64d108a93543cff39c5115",
+      "lines": 288,
+      "manifest_matches": true,
+      "current_equals_receiving": true,
+      "current_equals_peer99d": true,
+      "coverage": "Prior complete independent owning-file read carried only after exact peer/receiving/current byte identity; not a fresh body review in this receipt confirmation",
+      "prior_full_account": {
+        "path": "target/pr826-audit/material-cause-receivers-99d-comment-review.json",
+        "report_sha256": "11edde10f947e4df47c26ae848e5b2027ce30895aa9736f2b7a0f0229a8f1a5f",
+        "source_account": {
+          "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+          "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+          "git_blob": "cf049757e77439cd2f64d108a93543cff39c5115",
+          "sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+          "lines": 288,
+          "coverage": "Fresh complete owning file and complete parent diff, including existing inline fixture where present",
+          "manifest_sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+          "manifest_matches": true
+        }
+      }
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "current_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "receipt_revision": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+      "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "git_blob": "d72ee69624b0ae7659c1d8744d3db0e461169fe4",
+      "lines": 342,
+      "manifest_matches": true,
+      "current_equals_receiving": true,
+      "current_equals_peer99d": true,
+      "coverage": "Prior complete independent owning-file read carried only after exact peer/receiving/current byte identity; not a fresh body review in this receipt confirmation",
+      "prior_full_account": {
+        "path": "target/pr826-audit/material-cause-receivers-99d-comment-review.json",
+        "report_sha256": "11edde10f947e4df47c26ae848e5b2027ce30895aa9736f2b7a0f0229a8f1a5f",
+        "source_account": {
+          "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+          "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+          "git_blob": "d72ee69624b0ae7659c1d8744d3db0e461169fe4",
+          "sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+          "lines": 342,
+          "coverage": "Fresh complete owning file and complete parent diff, including existing inline fixture where present",
+          "manifest_sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+          "manifest_matches": true
+        }
+      }
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "current_revision": "cac5a7c33a83d1c08a5e55d43d912967edf06814",
+      "receipt_revision": "6adce5c536749904fd0a722daf9588e1d8eed5d7",
+      "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "git_blob": "542df0373ae4e03e230358143e6d7ec8b6c614bc",
+      "lines": 142,
+      "manifest_matches": true,
+      "current_equals_receiving": true,
+      "current_equals_peer99d": true,
+      "coverage": "Prior complete independent owning-file read carried only after exact peer/receiving/current byte identity; not a fresh body review in this receipt confirmation",
+      "prior_full_account": {
+        "path": "target/pr826-audit/material-cause-receivers-99d-comment-review.json",
+        "report_sha256": "11edde10f947e4df47c26ae848e5b2027ce30895aa9736f2b7a0f0229a8f1a5f",
+        "source_account": {
+          "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+          "revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+          "git_blob": "542df0373ae4e03e230358143e6d7ec8b6c614bc",
+          "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+          "lines": 142,
+          "coverage": "Fresh complete owning file and complete parent diff, including existing inline fixture where present",
+          "manifest_sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+          "manifest_matches": true
+        }
+      }
+    }
+  ],
+  "actionable_comment_findings": [],
+  "received_contracts": [
+    "Four initialization caches retain first completed success/failure; GpuInitializationError clones share actual Arc<anyhow::Error> and source chain, with contextual operation names rather than flattened intermediate errors. No retry/global-health promise.",
+    "Five material/trim/clothing receiver adapters preserve concrete causes via ? or focused Context until actual presentation. Mail color/normal/optional occlusion all decode before any image asset or cache publication. Required missing/decode errors remain errors; optional occlusion absence valid. No scene/export-wide rollback guarantee.",
+    "Original six cache source bodies were fully reviewed at29fe; exact99d bytes equal that source account. Four material receivers were fully reviewed at99d. This report carries those complete earlier source assessments only because every receiving/current byte matches each original account; hash alone without prior body review is not used as coverage."
+  ],
+  "required_dependencies": [
+    "This confirms only exact ten-file receiving identity/source-comment contracts. Broader Creator callers, native/hair/completion/producer/layout/count/Readback/cache/lock graph remains required. The separate three-file hair completion handoff is not included in this ten-file receipt and is not treated as received.",
+    "Native GPU context/facade docs were not overwritten by6ad: receiving diff is exactly ten manifest Creator files. Root native policy successor independently reviewed at currentcac.",
+    "Whole all13 integration waves, final independent Code/Rule/Comment Reviews and hosted gates on same final pushed revision remain required; no merge."
+  ],
+  "limits": [
+    "No source edit, project check/build/lint/test/scanner/generator/runtime, new fixtures/cases/helpers/assertions/doctests, push/CI or external publication. Only ignored receipt report written.",
+    "No fresh full body reads of ten files claimed in this receipt step; each exact source account includes original full independent read evidence. No new actual combined API/feature/dependency/compiled/runtime acceptance inferred.",
+    "Existing fixture bytes match complete peer files. This identity does not substitute for full original main990/#779 fixture provenance across preceding migrations."
+  ],
+  "verdict": "All ten source hashes, peer99d bytes, Root6ad receiving bytes and currentcac bytes agree; all ten have complete earlier independent owning-file reads. No new comment finding; full graph/final gates remain incomplete."
+}

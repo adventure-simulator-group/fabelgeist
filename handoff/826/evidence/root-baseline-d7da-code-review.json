@@ -1,0 +1,289 @@
+{
+  "kind": "independent Code Review of exact baseline reduction",
+  "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "tree": "868959fcaec6f7b624c0c462c6bea4a6a70528d4",
+  "parent": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "review_base": "8c600f727d1eecf21dd241f02739b825edef5000",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "verdict": "no actionable finding in bounded seven-record configuration change; broader source/quality acceptance remains incomplete",
+  "findings": [],
+  "before_sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+  "after_sha256": "fa4fcada546c6e5f6350d0de7cd7d03e88cd5f4b3ec92034e12432f60c6df8dc",
+  "only_changed_paths": [
+    "rust-quality-baseline.toml"
+  ],
+  "exact_diff": "33 deletions, no additions; rust-quality-baseline.toml only",
+  "removed_records": [
+    {
+      "table": "files",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "ceiling": 538
+    },
+    {
+      "table": "files",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "ceiling": 899
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "item": "create_bind_groups",
+      "ceiling": 278
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "item": "ComputePass::record",
+      "ceiling": 410
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::blit_texture_to_face",
+      "ceiling": 161
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_face_shader_raw",
+      "ceiling": 149
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_shader_raw",
+      "ceiling": 142
+    }
+  ],
+  "full_parsed_toml_equals_exact_planned_removals": true,
+  "exact_bytes_equal_seven_whole_block_deletions": true,
+  "retained_records": {
+    "files": {
+      "before": 209,
+      "after": 207,
+      "retained_sequence_sha256": "23dc48174d58347601d83d81066fc84266221c814f9cae7d169e00f236e4afb8",
+      "identical_after_exact_seven_removal": true
+    },
+    "functions": {
+      "before": 484,
+      "after": 479,
+      "retained_sequence_sha256": "88a2af321bdbe42ea2d8ced90c419f172988e8206cb7b9754c252f4883a7130e",
+      "identical_after_exact_seven_removal": true
+    },
+    "findings": {
+      "before": 1369,
+      "after": 1369,
+      "retained_sequence_sha256": "25666a0b8c188b5ff96ef7cbefed69ecf50813c7e53991b782783dafdfec311f",
+      "identical_after_exact_seven_removal": true
+    }
+  },
+  "working_proof_independently_matches": {
+    "before_hash": true,
+    "after_hash": true,
+    "removed_records": true,
+    "all_other_records_exact_verified_independently": true
+  },
+  "source_identities": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "51340cdb4c87b5008f4d45cd65bf25658a254bc9212f3fc031aba1b63207605f",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "sha256": "2d85bb7c8a1674a8918169e0bf10ec8b5e2ffed332713b418fcda7faea3e283f",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "e1596d8da320d3a162ec4326e60ceffef4973d102f085f92c5e17356d8a19623",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "d974254605f81879bed0add0bcba13bb61170b84f345185be75216e99dcb02c8",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "sha256": "102937a8cee5211a52a5fd4a72548d64d6020ddf8e674dde8ef03a8e05ddc714",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "sha256": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "ad6e3def79c9310934148627ecad10bb08ca71baaa585897559999d7a1d169b6",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "cdc33d82be5c30c9b6af391982c781fd50cd244dd9a018db03f95a90830314ff",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "ae37884158e7bdd3c45b6821ff2d127a5e3fdbd7e8be8b30c4d273480d5b6d71",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+      "sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "ac67a2f7413430d43cca9c43066d47ce55c4e743ff787d8d7115ceb43a924d0c",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "60b53619b5d5590c6ebbeb15ca547b2ee4c026c092bc4ac7e9938dec6f674077",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "sha256": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "sha256": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+      "sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "eda4c9002081e8d83174e01bca0caddda93d9f90301d48b5ac2a5eb29033ce4c",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a9ce6fef1d2cdf2d11c06e762e32430e9406445c17aa8aae43cd0fdf2f2ca92c",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "51aa86bfd6b6d5036da4ce6c3687a8c165546f519924b4a4e97030067776d842",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "4e02030b72fe4ebc1a4af8b52dbf0910d7ce7a2f7135ed10c17c4805bf163b16",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/gpu.rs",
+      "sha256": "ad19b002ebc0d537cde1159638577fb53c250193bbb5f78e1bd7109058bbdb5f",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/analyze.rs",
+      "sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/config.rs",
+      "sha256": "39c47caab802ebfd7fac9e7fe4431c95f850b82fe4aed4ad144fc623b474aa83",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+      "sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    },
+    {
+      "path": "rust-quality.toml",
+      "sha256": "9a3738a7916a3edb8ebf501345d9815aef9f5fe18458f6ac5231c20a7e7e5030",
+      "same_as_pre_repair_source": true,
+      "coverage": "exact immutable source identity revalidation of pre-repair coverage; current validate_debt and native bind_group/pass freshly reread"
+    }
+  ],
+  "source_proof_revalidation": {
+    "source_identity_all_exact": true,
+    "raw_file_upper_bounds": {
+      "texture_2d/mod.rs": 461,
+      "texture_cube/mod.rs": 315,
+      "compute/pass/mod.rs": 76
+    },
+    "native_function_owners": "Old bind_group module has no create_bind_groups body; shortened body is assembly.rs:17\u201342. Three Cube methods absent oldmodule and actual extracted blit/shader bodies below100 rawlines, unchanged from prior complete source read. ComputePass::record below100 because entire module76 rawlines.",
+    "enforcement": "Freshly read pinned validate_debt: absent/missing/below-limit records are rejected; retained ceilings still prohibit growth. Configuration file/function limits500/100 and code unchanged.",
+    "behavior": "Git whole-tree diff has only baseline path; no production source, manifest, fixture, shader, helper, assertion or native instruction bytes changed."
+  },
+  "dependencies": [
+    "Prior root-baseline-8c-pre-repair-all13.json retains75 matched current records plus affected unchanged Blitter::new; no extra record removal or future canonical acceptance here.",
+    "Complete canonical producer/caller source composition and exact final surviving metrics remain required.",
+    "Final combined hosted baseline export and required project checks/reviews on same final pushed revision remain required."
+  ],
+  "limits": [
+    "Source/Git/TOML bookkeeping only. No project scanner/baseline generator/build/check/lint/test/generator/runtime executed.",
+    "No source or baseline edits by reviewer; only ignored reports written.",
+    "No claim of full project quality, compilation, all thirteen global lenses, complete producer graph, hosted CI or final PR clearance."
+  ]
+}

@@ -1,0 +1,735 @@
+{
+  "title": "Generated working919 preliminary all13/error-owner extension",
+  "head": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+  "head_tree": "0dc7e004af324c2faa953fb0e5fe087f01fd1b54",
+  "checkpoint": "Working captured38sources, not HEAD content; source bodies retained in /tmp/pr826-generated-working-919-snapshot.json",
+  "source_accounting": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "2adb5bdbf1a5c51d2ce03beb053adf32ec04ab9dff66cb7f53c71478daed1250",
+      "lines": 171,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole builder/cache/execute and repaired native 2D/3D program; BoundaryMode plus complete descriptor recipe. Preserve exact completed source math (including 3D clamp endpoint) and typed native routing. Unused public AdvectSignature/_sampler and raw physical dt contract need explicit disposition; no execute callers found in bounded crates/examples search."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "01092c3bb1a65371abcac81f02a760383cd6d7c2e3f4ebc034acbd2e1b14a597",
+      "lines": 134,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "b1dc0a1ba64595020dbf99cde90c4c4ad7fb5416fdd7a4ad3f3fd8301ec53ae5",
+      "lines": 119,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": false,
+      "prior_contract": "Whole built-in 2D/3D builder, BoundaryMode recipe/cache and execute. Native half-inverse-cell-size and signed texture neighbors remain numerical boundary/policy work; do not invent physical bounds."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "bf653378a5813637849cfb784d057ce2acb80a77d161c30b158d4f95a94d8576",
+      "lines": 106,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "lines": 138,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Full public signature/lexer/parser, global resource stripping, coordinate call, source/recipe cache and output-controlled execute; actual MC/DC consumers retained. Ordered local-role migration and unit-struct order required; no ordinary extra-value support expansion."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "c056f476e4d33b188c54ed645b850b4afc0a5bf0487745a1d214544491150482",
+      "lines": 118,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "lines": 7,
+      "same_frozen": true,
+      "coverage": "Qualified exact full-body carry from own generated-current-pre-repair-all13.json source account",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Complete named input/output recipe, derives coherent Eq/Hash; actual source/device/policy supplied by canonical cache."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "e0a0dd570601e4c7f120010ac9c296d41c931a5470d383771d385b856829cd7a",
+      "lines": 106,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "lines": 47,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Entire existing 48-line fixture body; byte-identical c665. Existing cases/oracles/helper population frozen; direct API adaptation only if constructor changes."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "e9cd69ca457db66b05a6e2361f3aad04ef4fa5297f58a30f9aa1e30b124257ec",
+      "lines": 148,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole built-in builder/cache/execute. Velocity/pressure/output native inputs plus half-inverse-cell-size and manual workgroup projections; actual frame/unit/aggregate policy unresolved, no new numerical algorithm claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "7a70603a06d077d90434afd382e0ed7faef6f249637671ba588a19c3af2237d1",
+      "lines": 119,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "lines": 114,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole transient borrowed partition: contextual first ordinary primary iff input, remaining resource membership vs uniform, authored binding order, paired fetch/addressing and uniform unpacking. Immutable signature establishes partition invariants; secondary[name] has construction membership proof."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole Definition source/default/semantic equality/build/cache and both execute routes; current source reparsed, recipe includes all descriptors/secondary key, output controls reflected stride/shape. No additional Map-only correctness defect beyond shared GCR-P1. New build42-85 and execute123-212 raw spans are each <=100."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "50e80d915551dd5295f328d6c5e6fe640e9faea59a017d9ba2af69e8d11dd7f6",
+      "lines": 108,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole index/size/resource-kind emission and texture store projection. Scalar index uses LinearIndex, scalar size uses LinearPopulation, vector lanes/constant native adapters preserved."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "lines": 9,
+      "same_frozen": true,
+      "coverage": "Qualified exact full-body carry from own generated-current-pre-repair-all13.json source account",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole named input optional/output/secondary canonical recipe; no independent source/device mirrors."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "0e15fa901648d8badde1d065e92696fd7e71004da5b5d4dc9baf78a77f941f01",
+      "lines": 122,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole private ordered SourceParameter<MapParameterRole>, Index/Size/Value payloads, original declarations/names/call queries. Duplicate names rejected in common lexer; index/size exact coordinate admission; ordinary native text remains open native validity concern."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42,
+      "same_frozen": true,
+      "coverage": "Qualified exact full-body carry from own generated-current-pre-repair-all13.json source account",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole existing 42-line fixture helper; snapshot-vs-c665 diff only direct MapSignature/accessor adaptation, same function/generic parameters/case invocation/oracle; no new helper."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296,
+      "same_frozen": true,
+      "coverage": "Qualified exact full-body carry from own generated-current-pre-repair-all13.json source account",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole existing 296-line fixture body; byte-identical c665, no new case/assertion/helper/doctest."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "lines": 170,
+      "same_frozen": true,
+      "coverage": "Qualified exact full-body carry from own generated-current-pre-repair-all13.json source account",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole same-source pipeline/layout/reflected shape aggregate. Naga Array.stride -> canonical BufferElementStride; Buffer logical bytes -> exact records -> InvocationCount -> WorkgroupGrid. Texture independent axes and generated flat-address requirements differ. Native resource kind error sources preserved."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "lines": 27,
+      "same_frozen": true,
+      "coverage": "Qualified exact full-body carry from own generated-current-pre-repair-all13.json source account",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole deterministic SecondaryResources sorted cache identity; sorting is not authored binding order or semantic role. No duplicate count owner."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "lines": 123,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole signature/parser/transformation/cache/call and input-controlled execute. GCR-P2 known unsigned drop remains; GCR-R1 ordered roles and exact outer resource protocol required."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "392d7c8dda64c3c2c32bda1278186ef38a07c5decb29ba39116fab51aee890ea",
+      "lines": 107,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "545195e4d259a62c699b8387e799dacffe18c8a3bc9d67b0e85c7b3a08f042b8",
+      "lines": 121,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "255e7a7c4a80fc287b6875abf597b88db8c35f300f0a089e0ccaac481c5f2bd9",
+      "lines": 113,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole NativeParameter borrowed lexical adapter and immutable SourceParameter<Role>. Angle-depth comma split, exactly two colon parts, duplicate name rejection. Does not validate all native grammar; constructor not a universal source validity proof."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "lines": 1082,
+      "same_frozen": true,
+      "coverage": "Qualified exact full-body carry from own generated-current-pre-repair-all13.json source account",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole 1082 lines including inline fixtures; full Resource/neighborhood parse, all1D..4D field aliases/boundary emit, bindings/call/store/cache/execution. GCR-P1/P4/R1/R2 remain. Prefix/grid/64/i32 policy must finish, builder extraction required before material growth. Existing inline fixture bytes preserved from c665."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "b2e2ba463e723bb8b407cd742d2d65af48ae0bc8f65a2a20308386d2d796cf55",
+      "lines": 70,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": false,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11,
+      "same_frozen": true,
+      "coverage": "Qualified exact full-body carry from own generated-current-pre-repair-all13.json source account",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole named input/output/secondary/boundary cache recipe, no independent native layout authority."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "f299cc60f805ad792f0300fc302f4f70169226b6f97070e6cc574459a604a6ae",
+      "lines": 175,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "65c821db83cd3035a1991c9380fdc597b40d45b83cf3814b72dcfd41cb68a157",
+      "lines": 37,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole authored-order native call adapter; reserved offset/index, stripped resource metadata and ordinary in_val. Must consume final admitted roles instead of reparsing raw declarations; GCR-P3 load/call mismatch remains."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "lines": 110,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole parser/build/cache/execute including offset/count/inclusive-offset writer preconditions. Buffer controlling population is inclusive_offsets; texture axes from input. GCR-P3/R1 required; metadata-only MC/DC writers remain supported."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "c83884bd5e3824084db9bf526a124d291bce253e7c273323fe046ddb9c307e00",
+      "lines": 110,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "New focused parser, local immutable roles or native program responsibility; complete body freshly read, no automatic source-validity claim."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "lines": 69,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole existing 69-line fixtures; byte-identical c665, cases and assertions frozen."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "b6b96c0ab4c31b52e195e84bcee0c9a02da03a9cc6815ac6e919552d8a466727",
+      "lines": 216,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole transferred ResourceDescriptor methods plus mixed module/export composition context. Actual buffer declared type vs actual texture format, fallible linear storage view protocol, native bindings/prologue/fetch projections. Only agreed ResourceDescriptor responsibilities may compose; preserve Root native modules/exports."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "lines": 109,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole ResourceFetch code+required-address aggregate and checked TextureAddressing combination/admission. u64 checked volume; LinearIndex population-1 vs LinearPopulation full population; actual TryFromIntError retained. No proof for Stencil signed physical grid."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "0bc0ab81d3dbc848835fc577e2cf7cba11d2d9a00c3456b31805fbc7b564a903",
+      "lines": 252,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole ShaderParameter/native ResourceBaseType/cleaning/parse/operator helpers. Open Custom source remains native. GCR-P1 unchecked inner slicing required. element_size is not reflected native array stride (vec3=12, Custom=4); bounded actual usage search finds no production caller; do not restore it as launch/storage authority."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "lines": 87,
+      "same_frozen": false,
+      "coverage": "Fresh complete captured body read",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole native-name+unsigned coordinate shape owner, constructors/parse/source Error. Canonical owner reused; dimension4 neighborhood must not be forced into unsigned1..3 coordinate vocabulary. Own Result alias required."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97,
+      "same_frozen": true,
+      "coverage": "Qualified exact full-body carry from own generated-current-pre-repair-all13.json source account",
+      "capture": "Initial working source collection on919ba9b9415c06981ff5dc01d21666f49407eb3e; exact bytes also retained in /tmp/pr826-generated-working-919-snapshot.json",
+      "still_current": true,
+      "prior_contract": "Whole scalar/vector texel numeric lane admission, load suffix/store padding, existing owning Result and source Error. Native lane counts/math intrinsic, unsupported Custom texture projection remains typed rejected."
+    }
+  ],
+  "source_groups": {
+    "P": "Common lexer and shared GPU native vocabulary/error/adapters",
+    "S": "Map/Gather/Scatter/Stream signatures, program/native/execute/cache paths and fixtures",
+    "F": "Advect/Gradient/Divergence native programs, reflected launches, numeric ports/default/API removals",
+    "N": "Old active Stencil plus new unwired signature/neighborhood files; physical integration pending"
+  },
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "Common source declarations -> private ordered local roles -> emitted native source/bindings/call -> actual descriptor/cache/layout/shape -> native dispatch. Typed errors must propagate at the same authoritative path.",
+      "disposition": "Successful role propagation improved; error producer propagation incomplete GW-R1, actual Root wrappers/exports still pending.",
+      "connected_repairs": [
+        "GW-R1"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "All parse/new/build/execute/cache/caller routes retain one canonical admission kind and actual causes; no raw adapter."
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "ShaderParameter/CoordinateParameter/CoordinateShape/ResourceBaseType/TextureValue/ResourceFetch and ResourcePipeline/BufferElementCount/Stride/WorkgroupShape/Grid remain existing owners.",
+      "disposition": "Reused correctly in inspected stages; do not invent count/device/error wrappers per sibling.",
+      "connected_repairs": [
+        "GW-R1"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "Error payloads use existing leaves; neighborhood topology is distinct from launch geometry or unsigned coordinate shape."
+    },
+    {
+      "lens": "admission-contracts",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "Explicit supported index preselection before alias; remaining unsigned values retained; Stream load derives from final roles. Common duplicate names rejected and malformed vector envelopes remain Custom for native admission.",
+      "disposition": "Known Scatter/Stream defects source-remedied in new stages; unwired Stencil cannot be cleared. Closed admission errors still prose.",
+      "connected_repairs": [
+        "GW-R1"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "All alternate constructors/default/source mutation routes accounted; exact reserved errors typed, open native source remains native authoritative."
+    },
+    {
+      "lens": "invariant-operations",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "Read/call roles derive together; actual source shape/stride retained in ResourcePipeline; fluid output workgroups reflected instead of manual repeated geometry.",
+      "disposition": "No additional concrete operational defect identified in inspected current stages; physical Stencil signed/grid/Buffer flattening still required.",
+      "connected_repairs": [
+        "GW-R1",
+        "existing GCR-P4/physical policy"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "No native math/coefficients change; no claimed physical proof from unsigned TextureAddressing or enum-only neighborhood admission."
+    },
+    {
+      "lens": "aggregate-states",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "Signatures own private ordered SourceParameter<Role>; Map contextual partitions derive actual input/resource membership. Code is editable authority, re-parsed and keyed with exact source/device/policy/recipe.",
+      "disposition": "No independently stored sibling role flags; new Stencil schema still detached from old live aggregate.",
+      "connected_repairs": [
+        "GW-R1",
+        "pending Stencil integration"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "Typed failures carry only relevant named context; no parallel message/kind fields or stale cached signature."
+    },
+    {
+      "lens": "type-ownership",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "GPU owns native vocabulary/projections; Compute owns local algorithm roles/lexical transformations; peer retains actual wrappers and broad composition.",
+      "disposition": "One generated admission owner is needed; lower native signature versus algorithm policy boundary must be settled explicitly.",
+      "connected_repairs": [
+        "GW-R1"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "No duplicate sibling error types or Compute role leakage into GPU; no independently repaired peer shared caller."
+    },
+    {
+      "lens": "redundant-authority",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "Final roles determine coordinate/input/resource calls and load presence; complete cache keys retain source mutability. Same-source native reflection determines layout/launch.",
+      "disposition": "Manual fluid workgroup duplication removed; old Stencil parallel raw state remains active pending wiring.",
+      "connected_repairs": [
+        "GW-R1",
+        "pending Stencil integration"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "No mutable duplicate role/name/type/has-value authority, raw workgroup mirror or formatted message stored as semantic state."
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "Keep old successful native programs, authored order/globals, no-input generators and metadata-only Stream writers, exact completed Advect clamp/math.",
+      "disposition": "Scoped source reasoning supports intended role corrections; no whole generated/native or runtime pass.",
+      "connected_repairs": [
+        "GW-R1"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "Preserve actual diagnostics/error order and unsupported-policy decisions; existing fixture adapters only, no new cases/helper/assertions."
+    },
+    {
+      "lens": "enum-shapes",
+      "source_refs": [
+        "P",
+        "S",
+        "N"
+      ],
+      "contract": "Private Index/Size/Value/Resource/Offset roles carry their leaves. Stencil new1..4D schema/center rules are not yet live; native operation failures are also closed carried roles.",
+      "disposition": "Role enums improved; prose failures remain missing typed enum/payload owner.",
+      "connected_repairs": [
+        "GW-R1"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "No bool state mirror or raw diagnostic kind. Preserve optional center and open Custom source outside exact reserved grammar."
+    },
+    {
+      "lens": "derivability",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "Definition deriveDefault preserves empty source/cache/Clamp; manual semantic equality still ignores cache. New native aliases preserve exact errors; no new derives erase causes.",
+      "disposition": "Defaults and aliases source-equivalent; owning generated error may use existing Compute thiserror dependency without adding one.",
+      "connected_repairs": [
+        "GW-R1"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "Do not derive generic cache bounds, Clone on uncloneable native causes, or Deserialize bypasses."
+    },
+    {
+      "lens": "type-granularity",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "Native name/type leaf shared, local algorithm roles distinct; dt/half-inverse coefficient documented real numerical frame; unused Advect metadata/sampler API removed.",
+      "disposition": "No speculative physical bound introduced; one useful generated error owner, with distinct lower native signature layer only if actual contracts require it.",
+      "connected_repairs": [
+        "GW-R1"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "No universal all-layer error enum that forces invalid algorithm payloads into GPU; no equivalent per-algorithm local wrappers."
+    },
+    {
+      "lens": "magic-strings",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "Resource outer syntax decoded exactly before element cleaning. Native function/parameter/source/type text remains actual source protocol. Human diagnostics should only render errors.",
+      "disposition": "Substring Custom classification removed; semantic admission prose remains actionable even without prose-driven branching.",
+      "connected_repairs": [
+        "GW-R1"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "Every closed lower failure classified once; no Debug/message parsing, no invented catalog for arbitrary native names."
+    },
+    {
+      "lens": "magic-numbers",
+      "source_refs": [
+        "P",
+        "S",
+        "F",
+        "N"
+      ],
+      "contract": "Native lane/binding/workgroup/math literals retain native roles; canonical byte/count/shape types reused. Local Stencil64/signed physical policy remains open.",
+      "disposition": "No new tuning/cap/epsilon; future checked topology must close actual grid/population arithmetic before native use.",
+      "connected_repairs": [
+        "GW-R1",
+        "existing physical family"
+      ],
+      "dependencies": [
+        "Complete current Stencil physical/grid/error/mode/binding path and peer caller/lib/prelude/lock integration.",
+        "Retain exact Root native scope/progress/cause/provider bodies and canonical count/stride owners."
+      ],
+      "acceptance": "Retain native shader arithmetic and defaults; no SortCount/InvocationCount mixup, baseline increase or fake generic dimension proof."
+    }
+  ],
+  "findings": [
+    {
+      "id": "GW-R1",
+      "priority": 2,
+      "classification": "Existing lower-boundary semantic-error gap retained/extended by new generated stages; no failed native/range check demonstrated",
+      "rule": "crates/AGENTS.md21-70 semantic/error role ownership and typed records;85-86 stable typed error/code from authoritative boundary; bespoke Rule contract reference",
+      "evidence": "Shared declaration admission and local generated signature/resource checks still create bare anyhow prose. These reject stable semantic conditions in reusable parse/new/build/execute APIs before native compilation and final presentation. They discard an inspectable classification and context even though successful signatures now have private typed roles. No existing display-string branch is required to establish the rule gap.",
+      "counterexample": "MapSignature::parse(\"fn other() -> f32 { return 0.0; }\") and duplicate map parameter admission have distinct lower reasons but no owning source-kind variant. Stream offset:f32, Scatter without a value and a plane index controlling a Buffer similarly only return prose. These errors propagate through ordinary anyhow APIs/cache attempts, not terminal UI formatting. No test or probe was executed.",
+      "roots": [
+        {
+          "family": "common declaration lexing",
+          "source": "crates/fabelgeist-compute/src/source_parameter.rs:80-87",
+          "kinds": [
+            "malformed declaration",
+            "duplicate native parameter name"
+          ],
+          "payload": "actual function identifier, original declaration or native parameter name"
+        },
+        {
+          "family": "Map/Gather/Scatter/Stream/Stencil signatures",
+          "source": "crates/fabelgeist-compute/src/{map,gather,scatter,stream}/signature.rs; crates/fabelgeist-compute/src/stencil/signature.rs",
+          "kinds": [
+            "required function/header not matched",
+            "required return type absent",
+            "Scatter input value absent",
+            "Stream offset native type invalid",
+            "multiple Stencil neighborhoods",
+            "multiple explicit center/val roles"
+          ],
+          "payload": "actual algorithm/function, native parameter identifier/type, relevant role/cardinality; keep existing CoordinateParameterError source"
+        },
+        {
+          "family": "coordinate/resource admission",
+          "source": "crates/fabelgeist-compute/src/map/program.rs:26-31; gather/program.rs:106-112; scatter/program.rs:95-100; stream/call.rs:15-21",
+          "kinds": [
+            "plane coordinate with Buffer",
+            "volume coordinate without Texture3d"
+          ],
+          "payload": "existing CoordinateShape and ResourceType plus actual controlling role"
+        },
+        {
+          "family": "fluid resource admission",
+          "source": "crates/fabelgeist-compute/src/{advect,gradient,divergence}/{mod,program}.rs",
+          "kinds": [
+            "velocity/quantity/pressure/output is not a supported texture kind"
+          ],
+          "payload": "actual operation and binding role plus canonical ResourceType; preserve existing error ordering"
+        },
+        {
+          "family": "unwired neighborhood source protocol",
+          "source": "crates/fabelgeist-compute/src/stencil/neighborhood.rs:43,52; stencil/signature.rs:39,160",
+          "kinds": [
+            "unsupported reserved dimension form",
+            "malformed known envelope",
+            "multiple neighborhood or explicit center roles"
+          ],
+          "payload": "actual native type and role context; arbitrary Custom text remains native source, not a new identifier catalog"
+        },
+        {
+          "family": "lower native operator helper",
+          "source": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs:200-204,220-224",
+          "kinds": [
+            "binary/comparison function shape missing"
+          ],
+          "payload": "arbitrary actual native function identifier/required signature shape; this is a GPU native helper, not a Compute algorithm or pipeline entrypoint"
+        }
+      ],
+      "canonical_remedy": "Use one canonical generated-program admission owner for the common Compute lexer, all five local signature families, contextual coordinate/resource checks and fluid admission. Keep algorithm/binding/role distinctions typed where they are closed; retain arbitrary native identifiers/declarations/type text as source payload. Reuse the existing CoordinateShape/ResourceType/native error leaves and preserve actual regex, CoordinateParameterError, TextureValueError, storage-format, Naga/pipeline/native causes rather than formatting them. Do not add one near-identical error enum per algorithm.",
+      "lower_boundary_decision": "The GPU binary/compare helpers also return reusable signature failure prose. Their arbitrary native-function/signature-shape boundary needs its canonical lower native owner/disposition before final clearance. Do not reuse PipelineError::MissingEntryPoint for a non-entry function and do not move Compute-specific Neighborhood/center/algorithm roles into GPU merely to force a universal error enum. If a common native signature owner is placed in GPU, Compute should reuse those common cases and retain only genuinely algorithm-specific admission policy; no duplicated equivalent variants/types. This owner split is a required explicit design/ownership decision before repair, not a silent defer.",
+      "acceptance": [
+        "Complete exact owner/variant/payload inventory before changing any error roots; one shared generated policy owner, no sibling duplicates.",
+        "Every inventoried common/signature/resource/fluid root returns an inspectable stable classification through the existing public anyhow carrier or an appropriate owning Result; useful old Display/error ordering preserved unless explicitly changed.",
+        "Existing actual lower causes remain source-bearing; arbitrary Naga/compiler text remains native diagnostics and is not parsed/reclassified.",
+        "All direct constructors/build/execute/cache/actual wrapper and fixture callers consume the clean API, no compatibility adapters; no new tests/cases/helpers/assertions/doctests.",
+        "Finish Stencil physical/mode/binding/caller integration and final shared exports/locks; fresh all13/three reviews/hosted checks on final pushed revision."
+      ]
+    }
+  ],
+  "correctness": "New role stages source-remedy the known Scatter unsigned/drop and Stream replaced-index/load mismatch; shared parse_base_type vector/texture malformed envelope no longer slices unsafely. No additional concrete runtime defect identified in inspected stage snapshot. Old active Stencil/pending physical family remains incomplete.",
+  "completeness": "GW-R1 actionable semantic-error owner gap; required Stencil/physical/caller/native/helper/lower ownership and final hosted graph remains incomplete. Preliminary source discovery only, not family clearance.",
+  "limits": [
+    "Preliminary working capture on HEAD919ba9b9415c06981ff5dc01d21666f49407eb3e, not a committed source review or whole-family pass. Exact38file identities recorded;29 fresh full captured bodies and9 exact prior full-body carries.",
+    "Root continued implementation during review. Current divergence docs and neighborhood source advanced after captured bytes; newer boundary/declaration work is outside this captured receipt. Typed admission roots inspected remain applicable, but no latest physical/boundary source coverage is implied.",
+    "Whole38frozen reference packet/source-current preinventory already has independent full/bounded accounting; immutable references remain context only, not current Root composed/native approval. Root currently lacks shared module/export/canonical/caller adaptations; DistanceField still references removed MapDefinition::parse_signature. This is known incomplete integration, not a compile result.",
+    "Current old Stencil is not replaced by new signature/neighborhood owners. Its GCR-P4 Buffer coordinate/physical64+i32/grid/mode/binding family remains required. New temporary unwired files do not establish actual admission or final dead-code acceptance.",
+    "Source-count bounds show all new responsibility files below500rawlines and new helpers bounded; no quality checker was run, no baseline was regenerated and required hosted reductions are pending. Current source-format changes/fixtures have not received runtime verification.",
+    "No source edits/project execution/build/lint/check/test/scanner/generator/runtime/probes/newcases/helpers/assertions/doctests/push/CI/externalposts. No whole83 native, global or final-pushed-SHA clearance.",
+    "Before repair GW-R1, Root must record the exact canonical owner split and all closed failure/payload cases under this13extension. Finish whole connected families and peer caller/export/lock integration before push/hostedCI; repeat final13/three independent reviews/required checks on one pushedSHA."
+  ]
+}

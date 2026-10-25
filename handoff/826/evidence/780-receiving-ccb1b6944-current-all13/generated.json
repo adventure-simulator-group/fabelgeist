@@ -1,0 +1,3876 @@
+{
+  "kind": "Independent source-only pre-integration all13 receiving discovery; no final/scoped whole-family clearance",
+  "root_head_at_finish": "ead46619dec5ef45993f63202cb289bd3986b018",
+  "initial_root_head": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "incoming_revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "incoming_tree": "4cc54cebccefd4eb249900fb22d160cdaba53485",
+  "worktree": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator",
+  "generated_manifest_sha256": "65379822010b70c8c34beb478dc299ee193b5267ee6ef97fbf803d2d122f00cb",
+  "composition_sha256": "5a1670cc3065b74bd0b9ec62863d0edaee690e52f2dff9c59c60746aa4119e9c",
+  "generated_packet_accounts": [
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "lines": 130,
+      "read_extent": [
+        [
+          1,
+          130
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "expected_sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "lines": 147,
+      "read_extent": [
+        [
+          1,
+          147
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "expected_sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "lines": 115,
+      "read_extent": [
+        [
+          1,
+          115
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "expected_sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "lines": 119,
+      "read_extent": [
+        [
+          1,
+          119
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "expected_sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "lines": 138,
+      "read_extent": [
+        [
+          1,
+          138
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "expected_sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "lines": 131,
+      "read_extent": [
+        [
+          1,
+          131
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "expected_sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "lines": 7,
+      "read_extent": [
+        [
+          1,
+          7
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "expected_sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "e638381ad701a4b95e91bc4e3128d8c84526fa81cab3e535895aba1af3c3f975",
+      "lines": 106,
+      "read_extent": [
+        [
+          1,
+          106
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "expected_sha256": "e638381ad701a4b95e91bc4e3128d8c84526fa81cab3e535895aba1af3c3f975",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "lines": 47,
+      "read_extent": [
+        [
+          1,
+          47
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "expected_sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "lines": 139,
+      "read_extent": [
+        [
+          1,
+          139
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "expected_sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "lines": 132,
+      "read_extent": [
+        [
+          1,
+          132
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "expected_sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "lines": 114,
+      "read_extent": [
+        [
+          1,
+          114
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "expected_sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228,
+      "read_extent": [
+        [
+          1,
+          228
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "expected_sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "lines": 121,
+      "read_extent": [
+        [
+          1,
+          121
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/program.rs",
+      "expected_sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "lines": 9,
+      "read_extent": [
+        [
+          1,
+          9
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "expected_sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "lines": 125,
+      "read_extent": [
+        [
+          1,
+          125
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "expected_sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42,
+      "read_extent": [
+        [
+          1,
+          42
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "expected_sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296,
+      "read_extent": [
+        [
+          1,
+          296
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "expected_sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/resource_parameters.rs",
+      "sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "lines": 85,
+      "read_extent": [
+        [
+          1,
+          85
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/resource_parameters.rs",
+      "expected_sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "lines": 191,
+      "read_extent": [
+        [
+          1,
+          191
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "expected_sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "lines": 27,
+      "read_extent": [
+        [
+          1,
+          27
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "expected_sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "lines": 123,
+      "read_extent": [
+        [
+          1,
+          123
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/scatter.rs",
+      "expected_sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "lines": 120,
+      "read_extent": [
+        [
+          1,
+          120
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "expected_sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "lines": 122,
+      "read_extent": [
+        [
+          1,
+          122
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "expected_sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/source_error.rs",
+      "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "lines": 209,
+      "read_extent": [
+        [
+          1,
+          209
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/source_error.rs",
+      "expected_sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "lines": 122,
+      "read_extent": [
+        [
+          1,
+          122
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "expected_sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "lines": 178,
+      "read_extent": [
+        [
+          1,
+          178
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil.rs",
+      "expected_sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "sha256": "bce3a66580252ce1353e2ae500dc11ea596deea17d46155a2f4fd9584365846d",
+      "lines": 184,
+      "read_extent": [
+        [
+          1,
+          184
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "expected_sha256": "bce3a66580252ce1353e2ae500dc11ea596deea17d46155a2f4fd9584365846d",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "lines": 148,
+      "read_extent": [
+        [
+          1,
+          148
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "expected_sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "lines": 35,
+      "read_extent": [
+        [
+          1,
+          35
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "expected_sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "lines": 56,
+      "read_extent": [
+        [
+          1,
+          56
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "expected_sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "lines": 48,
+      "read_extent": [
+        [
+          1,
+          48
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "expected_sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "lines": 131,
+      "read_extent": [
+        [
+          1,
+          131
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "expected_sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "sha256": "818c4f3b02ca461da41b87e7249fe143cefde84345e4540d2e9e1f68137c4a7d",
+      "lines": 326,
+      "read_extent": [
+        [
+          1,
+          326
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "expected_sha256": "818c4f3b02ca461da41b87e7249fe143cefde84345e4540d2e9e1f68137c4a7d",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "sha256": "b0a8b0dc7dc823fb4f24d86350eed7184344e713b65734d7424a3fd3c6f7465b",
+      "lines": 55,
+      "read_extent": [
+        [
+          1,
+          55
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "expected_sha256": "b0a8b0dc7dc823fb4f24d86350eed7184344e713b65734d7424a3fd3c6f7465b",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "lines": 146,
+      "read_extent": [
+        [
+          1,
+          146
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "expected_sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/program.rs",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "lines": 135,
+      "read_extent": [
+        [
+          1,
+          135
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "expected_sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11,
+      "read_extent": [
+        [
+          1,
+          11
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "expected_sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "04af568622f691ab9b1b50eea9d3fc38ca514e55fd2ad81ea50caaf23ee6586a",
+      "lines": 182,
+      "read_extent": [
+        [
+          1,
+          182
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "expected_sha256": "04af568622f691ab9b1b50eea9d3fc38ca514e55fd2ad81ea50caaf23ee6586a",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/tests.rs",
+      "sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "lines": 147,
+      "read_extent": [
+        [
+          1,
+          147
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/tests.rs",
+      "expected_sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "bdebde0792dd5c21e33d8acc172f6bc001f5470ed65beccfaab044a33f4999f8",
+      "lines": 50,
+      "read_extent": [
+        [
+          1,
+          50
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "expected_sha256": "bdebde0792dd5c21e33d8acc172f6bc001f5470ed65beccfaab044a33f4999f8",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "lines": 110,
+      "read_extent": [
+        [
+          1,
+          110
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "expected_sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123,
+      "read_extent": [
+        [
+          1,
+          123
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "expected_sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "cc7727ee7caed96373fcf49f63b22e670f24458cd447d715492fbe1b80805796",
+      "lines": 113,
+      "read_extent": [
+        [
+          1,
+          113
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "expected_sha256": "cc7727ee7caed96373fcf49f63b22e670f24458cd447d715492fbe1b80805796",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "lines": 69,
+      "read_extent": [
+        [
+          1,
+          69
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "expected_sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "lines": 225,
+      "read_extent": [
+        [
+          1,
+          225
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "expected_sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "lines": 109,
+      "read_extent": [
+        [
+          1,
+          109
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "expected_sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "lines": 250,
+      "read_extent": [
+        [
+          1,
+          250
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "expected_sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "lines": 87,
+      "read_extent": [
+        [
+          1,
+          87
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "expected_sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "lines": 26,
+      "read_extent": [
+        [
+          1,
+          26
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "expected_sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97,
+      "read_extent": [
+        [
+          1,
+          97
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "expected_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "hash_matches": true,
+      "ownership": "#826",
+      "read_kind": "Fresh complete current source read in this discovery; no carried verdict."
+    }
+  ],
+  "generated_packet_lines": 6186,
+  "additional_incoming_read_accounts": [
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "read_extent": [
+        [
+          1,
+          43
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/Cargo.toml",
+      "ownership": "#826",
+      "read_kind": "Fresh complete source read or exact current-root byte identity plus complete current-root read"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "lines": 5,
+      "read_extent": [
+        [
+          1,
+          5
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "ownership": "#826",
+      "read_kind": "Fresh complete source read or exact current-root byte identity plus complete current-root read"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "abac05c4f4b49a90348a933fb2655b9417c4e52edd52aad390e111d831118e02",
+      "lines": 117,
+      "read_extent": [
+        [
+          1,
+          117
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "ownership": "#826",
+      "read_kind": "Fresh complete source read or exact current-root byte identity plus complete current-root read"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/admission_error.rs",
+      "sha256": "a5a41a86f6c2a1e31715329fe4a234d8d9c30dd4c972660c405e4cbeade13a40",
+      "lines": 41,
+      "read_extent": [
+        [
+          1,
+          41
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/admission_error.rs",
+      "ownership": "#826",
+      "read_kind": "Fresh complete source read or exact current-root byte identity plus complete current-root read"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "lines": 82,
+      "read_extent": [
+        [
+          1,
+          82
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "ownership": "#826",
+      "read_kind": "Fresh complete source read or exact current-root byte identity plus complete current-root read"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "lines": 76,
+      "read_extent": [
+        [
+          1,
+          76
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "ownership": "#826",
+      "read_kind": "Fresh complete source read or exact current-root byte identity plus complete current-root read"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "lines": 141,
+      "read_extent": [
+        [
+          1,
+          141
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "ownership": "#826",
+      "read_kind": "Fresh complete source read or exact current-root byte identity plus complete current-root read"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "lines": 113,
+      "read_extent": [
+        [
+          1,
+          113
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "ownership": "#826",
+      "read_kind": "Fresh complete source read or exact current-root byte identity plus complete current-root read"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "lines": 44,
+      "read_extent": [
+        [
+          1,
+          44
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "ownership": "#826",
+      "read_kind": "Fresh complete source read or exact current-root byte identity plus complete current-root read"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "lines": 25,
+      "read_extent": [
+        [
+          1,
+          25
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "ownership": "#826",
+      "read_kind": "Fresh complete source read or exact current-root byte identity plus complete current-root read"
+    }
+  ],
+  "root_read_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27",
+      "lines": 102,
+      "read_extent": [
+        [
+          1,
+          102
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "lines": 16,
+      "read_extent": [
+        [
+          1,
+          16
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "lines": 11,
+      "read_extent": [
+        [
+          1,
+          11
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "lines": 302,
+      "read_extent": [
+        [
+          1,
+          302
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "lines": 93,
+      "read_extent": [
+        [
+          1,
+          93
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "sha256": "e97b56c90018e2382c2715260d0608d334eff6d141bc7dd8bb8fe6f708ed20ce",
+      "lines": 189,
+      "read_extent": [
+        [
+          1,
+          189
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/layout.rs",
+      "sha256": "19f555f68f33ff087db6fb06d6a5f37bb4ca784708e74739098c7c99b2c0de15",
+      "lines": 49,
+      "read_extent": [
+        [
+          1,
+          49
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/execution.rs",
+      "sha256": "fdf743edb8382f0bae0750c6255d89a22855f9be09f50179981ffd8f26964435",
+      "lines": 176,
+      "read_extent": [
+        [
+          1,
+          176
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/min.rs",
+      "sha256": "7ea0c2ce5604bb08c70b246318a2e6f3a0b3dcc0197fbabcc29fa868d60b905f",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/max.rs",
+      "sha256": "4e16a6ef11f3d5f562eeed220aa6bef85607d229b552901baa020ca24dc1c043",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "lines": 236,
+      "read_extent": [
+        [
+          1,
+          236
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+      "sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "lines": 174,
+      "read_extent": [
+        [
+          1,
+          174
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "lines": 272,
+      "read_extent": [
+        [
+          1,
+          272
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+      "sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "lines": 27,
+      "read_extent": [
+        [
+          1,
+          27
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+      "sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "lines": 131,
+      "read_extent": [
+        [
+          1,
+          131
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+      "sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "lines": 145,
+      "read_extent": [
+        [
+          1,
+          145
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+      "sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "lines": 179,
+      "read_extent": [
+        [
+          1,
+          179
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+      "sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "lines": 236,
+      "read_extent": [
+        [
+          1,
+          236
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+      "sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "lines": 54,
+      "read_extent": [
+        [
+          1,
+          54
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/output.rs",
+      "sha256": "f6565ab370ac8f8a5646c9853258d062ad6d2f50ba16c64478e58dd1fa774fc7",
+      "lines": 95,
+      "read_extent": [
+        [
+          1,
+          95
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "sha256": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+      "lines": 287,
+      "read_extent": [
+        [
+          1,
+          287
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "lines": 307,
+      "read_extent": [
+        [
+          1,
+          307
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/perlin_noise.rs",
+      "sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "lines": 129,
+      "read_extent": [
+        [
+          1,
+          129
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/simplex_noise.rs",
+      "sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "lines": 171,
+      "read_extent": [
+        [
+          1,
+          171
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "lines": 170,
+      "read_extent": [
+        [
+          1,
+          170
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/mod.rs",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "lines": 86,
+      "read_extent": [
+        [
+          1,
+          86
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "lines": 117,
+      "read_extent": [
+        [
+          1,
+          117
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "86e926ab47cd284d07a0e14265aaf7b5ba3ce1b6cc5e2aff66328e05f67aee02",
+      "lines": 113,
+      "read_extent": [
+        [
+          1,
+          113
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "lines": 81,
+      "read_extent": [
+        [
+          1,
+          81
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "lines": 82,
+      "read_extent": [
+        [
+          1,
+          82
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "lines": 5,
+      "read_extent": [
+        [
+          1,
+          5
+        ]
+      ]
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "lines": 192,
+      "read_extent": [
+        [
+          1,
+          192
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "486924bad91b9cb881237079144ba6350d8313841760f25c187beae5b4b59ada",
+      "lines": 35,
+      "read_extent": [
+        [
+          1,
+          35
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "read_extent": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "ba4082d74f3bdcafdb689588768e1ef4b37041e55493745dcc15e5c541fae33c",
+      "lines": 13119,
+      "read_extent": [
+        [
+          4909,
+          4934
+        ],
+        [
+          5017,
+          5048
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "lines": 1082,
+      "read_extent": [
+        [
+          919,
+          1082
+        ]
+      ]
+    }
+  ],
+  "composition_accounts": [
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "lines": 187,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "expected_sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-armor-read-docs-3e74eea62",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "lines": 146,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "expected_sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-armor-read-docs-3e74eea62",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "lines": 130,
+      "read_extent": [
+        [
+          1,
+          130
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "expected_sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/advect/program.rs",
+      "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "lines": 147,
+      "read_extent": [
+        [
+          1,
+          147
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/advect/program.rs",
+      "expected_sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "lines": 115,
+      "read_extent": [
+        [
+          1,
+          115
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "expected_sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/divergence/program.rs",
+      "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "lines": 119,
+      "read_extent": [
+        [
+          1,
+          119
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/divergence/program.rs",
+      "expected_sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "lines": 138,
+      "read_extent": [
+        [
+          1,
+          138
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "expected_sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gather/program.rs",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "lines": 131,
+      "read_extent": [
+        [
+          1,
+          131
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "expected_sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gather/recipe.rs",
+      "sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "lines": 7,
+      "read_extent": [
+        [
+          1,
+          7
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gather/recipe.rs",
+      "expected_sha256": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gather/signature.rs",
+      "sha256": "e638381ad701a4b95e91bc4e3128d8c84526fa81cab3e535895aba1af3c3f975",
+      "lines": 106,
+      "read_extent": [
+        [
+          1,
+          106
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gather/signature.rs",
+      "expected_sha256": "e638381ad701a4b95e91bc4e3128d8c84526fa81cab3e535895aba1af3c3f975",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "lines": 47,
+      "read_extent": [
+        [
+          1,
+          47
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "expected_sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "lines": 139,
+      "read_extent": [
+        [
+          1,
+          139
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "expected_sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gradient/program.rs",
+      "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "lines": 132,
+      "read_extent": [
+        [
+          1,
+          132
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/gradient/program.rs",
+      "expected_sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "lines": 114,
+      "read_extent": [
+        [
+          1,
+          114
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "expected_sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228,
+      "read_extent": [
+        [
+          1,
+          228
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "expected_sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "lines": 121,
+      "read_extent": [
+        [
+          1,
+          121
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/program.rs",
+      "expected_sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/recipe.rs",
+      "sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "lines": 9,
+      "read_extent": [
+        [
+          1,
+          9
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/recipe.rs",
+      "expected_sha256": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "lines": 125,
+      "read_extent": [
+        [
+          1,
+          125
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "expected_sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42,
+      "read_extent": [
+        [
+          1,
+          42
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "expected_sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296,
+      "read_extent": [
+        [
+          1,
+          296
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "expected_sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/resource_parameters.rs",
+      "sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "lines": 85,
+      "read_extent": [
+        [
+          1,
+          85
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/resource_parameters.rs",
+      "expected_sha256": "7adb4ee8a1c9700e34b85246e60d890c44e34504fec74e312424726759107364",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "lines": 191,
+      "read_extent": [
+        [
+          1,
+          191
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "expected_sha256": "be1947333e9c7e412076674fe073ff1e17261f02a4d757ad4b295ada422649ff",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/resource_recipe.rs",
+      "sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "lines": 27,
+      "read_extent": [
+        [
+          1,
+          27
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/resource_recipe.rs",
+      "expected_sha256": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "lines": 123,
+      "read_extent": [
+        [
+          1,
+          123
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/scatter.rs",
+      "expected_sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/scatter/program.rs",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "lines": 120,
+      "read_extent": [
+        [
+          1,
+          120
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "expected_sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/scatter/signature.rs",
+      "sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "lines": 122,
+      "read_extent": [
+        [
+          1,
+          122
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/scatter/signature.rs",
+      "expected_sha256": "6fbe78a21b4e9f9bdab5486d9320f3c90923f8923cd75088fdc35a51a834a4d7",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/source_error.rs",
+      "sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "lines": 209,
+      "read_extent": [
+        [
+          1,
+          209
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/source_error.rs",
+      "expected_sha256": "5be0e86d52971e11461b1148c710cbc98a8a47628f798c51f68ed6136d17e832",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/source_parameter.rs",
+      "sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "lines": 122,
+      "read_extent": [
+        [
+          1,
+          122
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/source_parameter.rs",
+      "expected_sha256": "7b896ef0e0884eea5e583405df72784da6578f7d10941cd42f042c007668bebf",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "lines": 178,
+      "read_extent": [
+        [
+          1,
+          178
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil.rs",
+      "expected_sha256": "30b16468bef923b7a1642f35e3868ecaf34c61f0bcf1d7cdaabd84aa57655b56",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "sha256": "bce3a66580252ce1353e2ae500dc11ea596deea17d46155a2f4fd9584365846d",
+      "lines": 184,
+      "read_extent": [
+        [
+          1,
+          184
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/bindings.rs",
+      "expected_sha256": "bce3a66580252ce1353e2ae500dc11ea596deea17d46155a2f4fd9584365846d",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "lines": 148,
+      "read_extent": [
+        [
+          1,
+          148
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood.rs",
+      "expected_sha256": "0294ad8985b692be2f40fba2d36a8a37d28970fb538f654e56ba3b94dfa0353e",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "lines": 35,
+      "read_extent": [
+        [
+          1,
+          35
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/boundary.rs",
+      "expected_sha256": "b0909c76e5621b9fd5cc3d9d7a76f3a91b6d59d30e8b83b00432b081a93e6401",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "lines": 56,
+      "read_extent": [
+        [
+          1,
+          56
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/coordinates.rs",
+      "expected_sha256": "22738c1730f5893cd5f0e7aee4110b20366d320afdbad736dd5ec8dfb248f112",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "lines": 48,
+      "read_extent": [
+        [
+          1,
+          48
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "expected_sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "lines": 131,
+      "read_extent": [
+        [
+          1,
+          131
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/grid.rs",
+      "expected_sha256": "2b4589d47565d626f74b5287fb8645ff636ea39129a28f952435f982007a4913",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "sha256": "818c4f3b02ca461da41b87e7249fe143cefde84345e4540d2e9e1f68137c4a7d",
+      "lines": 326,
+      "read_extent": [
+        [
+          1,
+          326
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout.rs",
+      "expected_sha256": "818c4f3b02ca461da41b87e7249fe143cefde84345e4540d2e9e1f68137c4a7d",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "sha256": "b0a8b0dc7dc823fb4f24d86350eed7184344e713b65734d7424a3fd3c6f7465b",
+      "lines": 55,
+      "read_extent": [
+        [
+          1,
+          55
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/layout/error.rs",
+      "expected_sha256": "b0a8b0dc7dc823fb4f24d86350eed7184344e713b65734d7424a3fd3c6f7465b",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "lines": 146,
+      "read_extent": [
+        [
+          1,
+          146
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/neighborhood/neighbors.rs",
+      "expected_sha256": "27389a70b30c76f8555661c3b26cf8cf950880a4507daea8d9774f218078ba82",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/program.rs",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "lines": 135,
+      "read_extent": [
+        [
+          1,
+          135
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "expected_sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11,
+      "read_extent": [
+        [
+          1,
+          11
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "expected_sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/signature.rs",
+      "sha256": "04af568622f691ab9b1b50eea9d3fc38ca514e55fd2ad81ea50caaf23ee6586a",
+      "lines": 182,
+      "read_extent": [
+        [
+          1,
+          182
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/signature.rs",
+      "expected_sha256": "04af568622f691ab9b1b50eea9d3fc38ca514e55fd2ad81ea50caaf23ee6586a",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stencil/tests.rs",
+      "sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "lines": 147,
+      "read_extent": [
+        [
+          1,
+          147
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stencil/tests.rs",
+      "expected_sha256": "10cdf168bb0f690e5bf589b22daa446b60329c4bcf5b651aff1026f2dd8a552a",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "bdebde0792dd5c21e33d8acc172f6bc001f5470ed65beccfaab044a33f4999f8",
+      "lines": 50,
+      "read_extent": [
+        [
+          1,
+          50
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "expected_sha256": "bdebde0792dd5c21e33d8acc172f6bc001f5470ed65beccfaab044a33f4999f8",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "lines": 110,
+      "read_extent": [
+        [
+          1,
+          110
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "expected_sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stream/program.rs",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123,
+      "read_extent": [
+        [
+          1,
+          123
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "expected_sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stream/signature.rs",
+      "sha256": "cc7727ee7caed96373fcf49f63b22e670f24458cd447d715492fbe1b80805796",
+      "lines": 113,
+      "read_extent": [
+        [
+          1,
+          113
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stream/signature.rs",
+      "expected_sha256": "cc7727ee7caed96373fcf49f63b22e670f24458cd447d715492fbe1b80805796",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "lines": 69,
+      "read_extent": [
+        [
+          1,
+          69
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "expected_sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "read_extent": [
+        [
+          1,
+          43
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/Cargo.toml",
+      "expected_sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/README.md",
+      "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+      "lines": 36,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/README.md",
+      "expected_sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "lines": 18,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "expected_sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "lines": 167,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "expected_sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "lines": 73,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "expected_sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+      "sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "lines": 120,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+      "expected_sha256": "2301030d44c5a2b26819c3612a19732a7bfc20e6837ab7ddc0a88f96ddee06d9",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/admission_error.rs",
+      "sha256": "a5a41a86f6c2a1e31715329fe4a234d8d9c30dd4c972660c405e4cbeade13a40",
+      "lines": 41,
+      "read_extent": [
+        [
+          1,
+          41
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/admission_error.rs",
+      "expected_sha256": "a5a41a86f6c2a1e31715329fe4a234d8d9c30dd4c972660c405e4cbeade13a40",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-buffer-admission-919ba9b94",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "lines": 47,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "expected_sha256": "dbca91c1cbc29914eb254809ceb100135006cff7381fb7050bbbd4f0085f0699",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "lines": 140,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "expected_sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "lines": 49,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "expected_sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "expected_sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "lines": 28,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "expected_sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "lines": 153,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "expected_sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "abac05c4f4b49a90348a933fb2655b9417c4e52edd52aad390e111d831118e02",
+      "lines": 117,
+      "read_extent": [
+        [
+          1,
+          117
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "expected_sha256": "abac05c4f4b49a90348a933fb2655b9417c4e52edd52aad390e111d831118e02",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-buffer-admission-919ba9b94",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "lines": 50,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "expected_sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "expected_sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "lines": 101,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "expected_sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "lines": 101,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "expected_sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "lines": 62,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "expected_sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "lines": 60,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "expected_sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "lines": 225,
+      "read_extent": [
+        [
+          1,
+          225
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "expected_sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "lines": 150,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "expected_sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "lines": 109,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "expected_sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "lines": 76,
+      "read_extent": [
+        [
+          1,
+          76
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "expected_sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "lines": 141,
+      "read_extent": [
+        [
+          1,
+          141
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "expected_sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "lines": 1,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "expected_sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "lines": 55,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "expected_sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "lines": 64,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "expected_sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "lines": 40,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "expected_sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "lines": 121,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "expected_sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "lines": 211,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "expected_sha256": "14f70d6c8f3fe4d7bf74bde72f8c09fba8f31484c2454f5ba369c52384e94827",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "lines": 202,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "expected_sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "lines": 79,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "expected_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "lines": 55,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "expected_sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "lines": 109,
+      "read_extent": [
+        [
+          1,
+          109
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs",
+      "expected_sha256": "59b58c24ca9681cbb2a48ec68854ff407ea61398fb50d85d83e1d58c34868330",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "lines": 250,
+      "read_extent": [
+        [
+          1,
+          250
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "expected_sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "lines": 87,
+      "read_extent": [
+        [
+          1,
+          87
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "expected_sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "lines": 26,
+      "read_extent": [
+        [
+          1,
+          26
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/native_operator_error.rs",
+      "expected_sha256": "c21f0a10ae14401b8f7b364c14f98de4e628de2dc5605d82e205fec09c9af99e",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97,
+      "read_extent": [
+        [
+          1,
+          97
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "expected_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-generated-compute-ccb1b6944",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "lines": 82,
+      "read_extent": [
+        [
+          1,
+          82
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "expected_sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "lines": 197,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "expected_sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "lines": 17,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "expected_sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "lines": 42,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "expected_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "lines": 129,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "expected_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "lines": 102,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "expected_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs",
+      "sha256": "604de4f2bb1105ea0d729780e93ce8af38aa16343cf8a7021d4315391e98d5fa",
+      "lines": 45,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/sampler/address_mode.rs",
+      "expected_sha256": "604de4f2bb1105ea0d729780e93ce8af38aa16343cf8a7021d4315391e98d5fa",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/sampler/filter_mode.rs",
+      "sha256": "ac95b5629dc262b432ed5b277ac88a70f861a93828c0744041994035d9a80d77",
+      "lines": 40,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/sampler/filter_mode.rs",
+      "expected_sha256": "ac95b5629dc262b432ed5b277ac88a70f861a93828c0744041994035d9a80d77",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs",
+      "sha256": "f0466918aad4e1e36aedb3586691bbe8104055d86a85a6e51e67fba76e84b198",
+      "lines": 53,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/sampler/mod.rs",
+      "expected_sha256": "f0466918aad4e1e36aedb3586691bbe8104055d86a85a6e51e67fba76e84b198",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "lines": 103,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "expected_sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc",
+      "lines": 65,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "expected_sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "lines": 70,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "expected_sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+      "lines": 421,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "expected_sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "lines": 35,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "expected_sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "7fb81a38c012a749919c9addd0d99a42386e333e227042d87bd58c270dc5b9b7",
+      "lines": 26,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "expected_sha256": "7fb81a38c012a749919c9addd0d99a42386e333e227042d87bd58c270dc5b9b7",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs",
+      "sha256": "0e8f2228f77e50b2c97529d2c473639157d1c24b87f15c02feb8f24ed1f95500",
+      "lines": 107,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs",
+      "expected_sha256": "0e8f2228f77e50b2c97529d2c473639157d1c24b87f15c02feb8f24ed1f95500",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "lines": 93,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "expected_sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "lines": 166,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "expected_sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "sha256": "a67548746be5f5abcd6d774695abff5b2b8bd8fb0ecab8628080f4a60aebf8e8",
+      "lines": 255,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "expected_sha256": "a67548746be5f5abcd6d774695abff5b2b8bd8fb0ecab8628080f4a60aebf8e8",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e7408782d1ee0fc74edb3340badaa4f0acab3f3a1c02e09409b07a08dabfa758",
+      "lines": 460,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "expected_sha256": "e7408782d1ee0fc74edb3340badaa4f0acab3f3a1c02e09409b07a08dabfa758",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "lines": 112,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "expected_sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "0ff0d8b9fd6f211ea8a6201e62fbf88efbbe2ca000c60c7f31a1a9b3d12c9f2b",
+      "lines": 161,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "expected_sha256": "0ff0d8b9fd6f211ea8a6201e62fbf88efbbe2ca000c60c7f31a1a9b3d12c9f2b",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "lines": 112,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "expected_sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "sha256": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+      "lines": 266,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/blit.rs",
+      "expected_sha256": "d6499e275f4e4e5d03e9cfbfa6eb84673080435f48c7daf92843ccccef45feeb",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs",
+      "sha256": "d03d1c6cb9ab00b4aae865671847228dc2a59bd637c635a5f2b3538d7423dfd5",
+      "lines": 74,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs",
+      "expected_sha256": "d03d1c6cb9ab00b4aae865671847228dc2a59bd637c635a5f2b3538d7423dfd5",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+      "lines": 315,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "expected_sha256": "4c556d85a608359f62329c02108249070430615678b25adfaadf761bf08fed9f",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "sha256": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+      "lines": 213,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader.rs",
+      "expected_sha256": "297719623b7aaa94d52e0aff52a5aa81bd825608020ef7dd27f6bbc575033729",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs",
+      "sha256": "4f45dd45651aac781e71120454d88879e337bd5e1180fc622198cf296ad35326",
+      "lines": 89,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/shader/source.rs",
+      "expected_sha256": "4f45dd45651aac781e71120454d88879e337bd5e1180fc622198cf296ad35326",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "lines": 202,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "expected_sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "c30ddad210dd9cbbacce5e1d8a1039aedd92a3a0d1a0a8f55adb7ab9330afdcb",
+      "lines": 281,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "expected_sha256": "c30ddad210dd9cbbacce5e1d8a1039aedd92a3a0d1a0a8f55adb7ab9330afdcb",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs",
+      "sha256": "3aa3c6b11409ec3885e7a8d509d0a98f2b393066ed1ccd9ad21123e6eb694947",
+      "lines": 184,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs",
+      "expected_sha256": "3aa3c6b11409ec3885e7a8d509d0a98f2b393066ed1ccd9ad21123e6eb694947",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "lines": 165,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "expected_sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "lines": 13,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "expected_sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "lines": 70,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "expected_sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "lines": 11,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "expected_sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "lines": 113,
+      "read_extent": [
+        [
+          1,
+          113
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "expected_sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+      "sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+      "lines": 320,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs",
+      "expected_sha256": "ff763087b001d957a2d8bcb14bbd529058804ab1338ee45433b279f15ed8fcaa",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "lines": 86,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "expected_sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "lines": 124,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "expected_sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "lines": 30,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "expected_sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "5903e47b681dbb1deeee4219ccf3a10bdb56776d681ab78edd500aa515a5f6c1",
+      "lines": 188,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "expected_sha256": "5903e47b681dbb1deeee4219ccf3a10bdb56776d681ab78edd500aa515a5f6c1",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "lines": 44,
+      "read_extent": [
+        [
+          1,
+          44
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "expected_sha256": "394821da3d84936474743a838439d5b673ed3a4975665ea70f0ec66a2bee93f9",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "lines": 25,
+      "read_extent": [
+        [
+          1,
+          25
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "expected_sha256": "21b5be4dc71a51156b9a600dd1db823baffb9cdddef8df482e6c6b16207444d1",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "lines": 14,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/src/lib.rs",
+      "expected_sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "lines": 5,
+      "read_extent": [
+        [
+          1,
+          5
+        ]
+      ],
+      "repository_path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "expected_sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "fresh full source"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/tests/fixtures/buffer_usage.json",
+      "sha256": "15232f16dd50015c7c5f683504c0f7be05695d74a39fbebaa7916b4a038166ad",
+      "lines": 514,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/tests/fixtures/buffer_usage.json",
+      "expected_sha256": "15232f16dd50015c7c5f683504c0f7be05695d74a39fbebaa7916b4a038166ad",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "lines": 19,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "expected_sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/tests/texture_views.rs",
+      "sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "lines": 201,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "expected_sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "3d7604f584ef800e7ac26c5e0e963bf30e9a2b2909b2d97e7c9e345eb63e3bfc",
+      "lines": 198,
+      "read_extent": [],
+      "repository_path": "crates/fabelgeist-gpu/texture-views.md",
+      "expected_sha256": "3d7604f584ef800e7ac26c5e0e963bf30e9a2b2909b2d97e7c9e345eb63e3bfc",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-gpu-complete-cac5a7c33",
+      "semantic_coverage": "identity only; unread semantic body"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/source/rust-quality-baseline.toml",
+      "sha256": "fa4fcada546c6e5f6350d0de7cd7d03e88cd5f4b3ec92034e12432f60c6df8dc",
+      "lines": 12809,
+      "read_extent": [],
+      "repository_path": "rust-quality-baseline.toml",
+      "expected_sha256": "fa4fcada546c6e5f6350d0de7cd7d03e88cd5f4b3ec92034e12432f60c6df8dc",
+      "hash_matches": true,
+      "canonical_receipt": "handoff-native-baseline-d7da77bb9",
+      "semantic_coverage": "identity only; unread semantic body"
+    }
+  ],
+  "composition_identity_matches": true,
+  "metadata_provenance": [
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/manifests/handoff-armor-read-docs-3e74eea62/manifest.json",
+      "sha256": "fe2857d08c63de2720b3178e847eec9e3f2a20adc79e69bd191afdb4573e6acc",
+      "lines": 34,
+      "read_extent": [],
+      "coverage": "Manifest keys and selected fields read. Generated51 core contracts, Buffer919 and baseline manifests read; GPU83/Armor metadata only partially read. Embedded source-account tables are not fresh semantic coverage."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/manifests/handoff-buffer-admission-919ba9b94/manifest.json",
+      "sha256": "a776175d5e9c7d3f84700f64961381f4a99b1556540e9d69036434ddfee9cd11",
+      "lines": 30,
+      "read_extent": [],
+      "coverage": "Manifest keys and selected fields read. Generated51 core contracts, Buffer919 and baseline manifests read; GPU83/Armor metadata only partially read. Embedded source-account tables are not fresh semantic coverage."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/manifests/handoff-generated-compute-ccb1b6944/manifest.json",
+      "sha256": "65379822010b70c8c34beb478dc299ee193b5267ee6ef97fbf803d2d122f00cb",
+      "lines": 325,
+      "read_extent": [],
+      "coverage": "Manifest keys and selected fields read. Generated51 core contracts, Buffer919 and baseline manifests read; GPU83/Armor metadata only partially read. Embedded source-account tables are not fresh semantic coverage."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/manifests/handoff-gpu-complete-cac5a7c33/manifest.json",
+      "sha256": "80747dc1b081c7f4c63a1f96361251c8f7a6717c7b344df3197cc7965cc6ee60",
+      "lines": 193,
+      "read_extent": [],
+      "coverage": "Manifest keys and selected fields read. Generated51 core contracts, Buffer919 and baseline manifests read; GPU83/Armor metadata only partially read. Embedded source-account tables are not fresh semantic coverage."
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/manifests/handoff-native-baseline-d7da77bb9/manifest.json",
+      "sha256": "f39f20068e01c1da5caffec8aba6c664b3cbcd53ca2cda6d9a2872aff4a0ee7e",
+      "lines": 62,
+      "read_extent": [],
+      "coverage": "Manifest keys and selected fields read. Generated51 core contracts, Buffer919 and baseline manifests read; GPU83/Armor metadata only partially read. Embedded source-account tables are not fresh semantic coverage."
+    }
+  ],
+  "notes_accounts": [
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-fluid-native-source-comparison-current.json",
+      "sha256": "218ab6e86264c2527616e8f948db7c93a14f04bc1cf16e7579ad0c1a702ba1ff",
+      "lines": 35,
+      "read_extent": [
+        [
+          1,
+          35
+        ]
+      ],
+      "coverage": "read as provenance/dependencies only; no adopted clearance"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-repair-plan-current.json",
+      "sha256": "ca2b3461fa2505b3b930ccd4f40b4d291e7c5c4ac3b2d1dfefa2a7bdd724435e",
+      "lines": 124,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-code-review.json",
+      "sha256": "b7f07a21456de1f5c3ab9ed8d4e880b185d959a8efa4fda26c9b4cb3d41385ad",
+      "lines": 650,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-code-review.md",
+      "sha256": "da6e785eb76db19fad62c6cd971c839f6251dc9b90f996616ef226aa26d2e703",
+      "lines": 72,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-comment-review.json",
+      "sha256": "9e7aa0620282bfff3689da4af2d2c5174d357674eb3f8e92bb7269f2413e5a1c",
+      "lines": 592,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-comment-review.md",
+      "sha256": "c1cfbc8e3679214e2286cc58c73a0404798bda88307edad3062c8b7adb739a10",
+      "lines": 51,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-fixed-all13.json",
+      "sha256": "dc927d6e4bf32a46a36e7da807e7880b147be5c6a0de290d69ccb2ca69fca478",
+      "lines": 1788,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-fixed-all13.md",
+      "sha256": "fbb2246db17c988a91f9ef051ea612dd01d12fdcde4671daf4353ee1647bf8e5",
+      "lines": 168,
+      "read_extent": [
+        [
+          1,
+          168
+        ]
+      ],
+      "coverage": "read as provenance/dependencies only; no adopted clearance"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-fixed-code-review.json",
+      "sha256": "28cd75399055cef9c3f3319675551aa301df858abd942e92e4cf01ad96eaaa02",
+      "lines": 648,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-fixed-code-review.md",
+      "sha256": "88b10227ccbde2330f529cf72ce510bd22c74069103cd5e354e7df2bafab2a02",
+      "lines": 46,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-fixed-comment-review.json",
+      "sha256": "377e1055877b6dbd4ffaad583debb2d33b6b55c46ecf61fe68b355ee5243ae08",
+      "lines": 668,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-fixed-comment-review.md",
+      "sha256": "d2531ae7cf888b514247a3d9c7ba47794c766354c7e39e864b6c33563a99600c",
+      "lines": 44,
+      "read_extent": [
+        [
+          1,
+          44
+        ]
+      ],
+      "coverage": "read as provenance/dependencies only; no adopted clearance"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-fixed-rule-review.json",
+      "sha256": "91725faeccca07b95ac39fc2a5c00cad274f447ddea73070e53c3b632e2a6235",
+      "lines": 1422,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-fixed-rule-review.md",
+      "sha256": "6ad7cef53e65c1024fb601b2ad1972bde0438831f24e88392cad919c96f92dd2",
+      "lines": 87,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-post-all13.json",
+      "sha256": "25f1da55b4a713385cc26dd6f07d0853067704d73197a2e93f9b53a5e3735d9c",
+      "lines": 1490,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-post-all13.md",
+      "sha256": "6b03e7428151534b9b6b645e4a8ffe457100122de2b0f7295ab3c2c8f4ebb4a8",
+      "lines": 181,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-rule-review.json",
+      "sha256": "883e68eaf67c5fbee4599a450f144c5c1a9c833f91e1a3e6e07fd858d4b11055",
+      "lines": 1184,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/generated-stencil-layout-rule-review.md",
+      "sha256": "fd99a58df43f96faff5a6794f4e9f8448186d775ad659c4b914d5d96dc8d36b8",
+      "lines": 108,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    },
+    {
+      "path": "target/pr780-audit/incoming-826-ccb1b6944/generated-notes/stencil-working-source-proof.json",
+      "sha256": "69821fb2a954821d880a0b6ad6149e11eb81dbe170dc410e4a0dd392c53ebd72",
+      "lines": 17,
+      "read_extent": [],
+      "coverage": "name/identity only, contents unread"
+    }
+  ],
+  "independent_fluid_literal_comparisons": [
+    {
+      "family": "advect",
+      "before": {
+        "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+        "sha256": "55748934ab8638b33ef380aae35e12c0ab61b888158a5e0b5de459c68495ba7a",
+        "lines": 299,
+        "read_extent": []
+      },
+      "after": {
+        "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/advect/program.rs",
+        "sha256": "9b8fdcd03904db882c1cf5a470a8cf2bf0c6b18906d32868053736bb7245c583",
+        "lines": 147,
+        "read_extent": [
+          [
+            1,
+            147
+          ]
+        ]
+      },
+      "incoming_literal_occurrences": 45,
+      "all_incoming_literals_exist_with_multiplicity_in_current_root": true,
+      "unmatched_incoming": [],
+      "root_only_literals": [
+        "\"Advect only supports Texture2d or Texture3d\"",
+        "\"velocity\"",
+        "\"quantity\"",
+        "\"output\"",
+        "\"main\"",
+        "\"\"",
+        "\"Quantity must be a texture\"",
+        "\"Quantity must be a texture\"",
+        "\"Output must be a texture\"",
+        "\"Output must be a texture\"",
+        "\"Output must be a texture\"",
+        "\"Velocity must be a texture\"",
+        "\"size\"",
+        "\"dt\""
+      ],
+      "limit": "Static Rust string-token multiset comparison and direct source read, not instruction order/runtime/native shader generation proof."
+    },
+    {
+      "family": "gradient",
+      "before": {
+        "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+        "sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+        "lines": 247,
+        "read_extent": []
+      },
+      "after": {
+        "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/gradient/program.rs",
+        "sha256": "abe90e298f9e600275b4fb939eda8668752e73c3f509ecb101372800226c4af7",
+        "lines": 132,
+        "read_extent": [
+          [
+            1,
+            132
+          ]
+        ]
+      },
+      "incoming_literal_occurrences": 50,
+      "all_incoming_literals_exist_with_multiplicity_in_current_root": true,
+      "unmatched_incoming": [],
+      "root_only_literals": [
+        "\"Gradient only supports Texture2d or Texture3d\"",
+        "\"velocity\"",
+        "\"pressure\"",
+        "\"output\"",
+        "\"main\"",
+        "\"\"",
+        "\"Velocity must be a texture\"",
+        "\"Pressure must be a texture\"",
+        "\"Output must be a texture\"",
+        "\"half_inverse_cell_size\""
+      ],
+      "limit": "Static Rust string-token multiset comparison and direct source read, not instruction order/runtime/native shader generation proof."
+    },
+    {
+      "family": "divergence",
+      "before": {
+        "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+        "sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+        "lines": 218,
+        "read_extent": []
+      },
+      "after": {
+        "path": "target/pr780-audit/incoming-826-ccb1b6944/source/crates/fabelgeist-compute/src/divergence/program.rs",
+        "sha256": "3a1bdc53478c9050161e2367f4c1ffb5de5b4320acbe8ddedda44e9617489e1a",
+        "lines": 119,
+        "read_extent": [
+          [
+            1,
+            119
+          ]
+        ]
+      },
+      "incoming_literal_occurrences": 47,
+      "all_incoming_literals_exist_with_multiplicity_in_current_root": true,
+      "unmatched_incoming": [],
+      "root_only_literals": [
+        "\"Divergence only supports Texture2d or Texture3d\"",
+        "\"velocity\"",
+        "\"output\"",
+        "\"main\"",
+        "\"\"",
+        "\"Velocity must be a texture\"",
+        "\"Output must be a texture\"",
+        "\"half_inverse_cell_size\""
+      ],
+      "limit": "Static Rust string-token multiset comparison and direct source read, not instruction order/runtime/native shader generation proof."
+    }
+  ],
+  "findings": [
+    {
+      "id": "RECEIVE-G1",
+      "priority": 1,
+      "classification": "Required integration work, expected unreceived API mismatch",
+      "sources": [
+        "crates/fabelgeist-compute/src/lib.rs",
+        "crates/fabelgeist-compute/src/marching_cubes/mod.rs:65,73",
+        "crates/fabelgeist-compute/src/dual_contouring/mod.rs:41,42,50,54",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs"
+      ],
+      "contract": "Incoming generated constructors accept authored source only; canonical module and leaf owners must remain reachable without adapters.",
+      "finding": "Six Root MC/DC Gather/Stream constructions still pass context. Root lib lacks source_error and resource_parameters declarations and GeneratedProgramError/Result/Function/FluidOperation/Binding exports. Root Buffer owns capacity and stride modules missing from incoming whole module; incoming adds mapping/readback native reexports and admission_error.",
+      "connected_repair": "Compose broad Root lib/prelude and Buffer module contents, retain Root capacity/stride, receive native mapping/readback visibility/admission error; adapt all six constructors directly. Receive the complete incoming generated51 as one owned packet, never restore Definition::parse_signature.",
+      "dependencies": [
+        "Exact #826 packet receipt and ownership agreement for any claimed-body change",
+        "Root all13 preinventory complete before repair"
+      ],
+      "acceptance": [
+        "All six calls use final signature",
+        "Both Buffer capacity/stride owners and required native reexports remain",
+        "No compatibility forwarding API/temporary primitive adapter",
+        "Required hosted checks on final composed pushed revision"
+      ]
+    },
+    {
+      "id": "RECEIVE-G2",
+      "priority": 2,
+      "classification": "Canonical-owner migration gap in unchanged Root Reduce",
+      "sources": [
+        "crates/fabelgeist-compute/src/reduce/mod.rs:159",
+        "crates/fabelgeist-compute/src/reduce/layout.rs:14",
+        "crates/fabelgeist-compute/src/resource_pipeline.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs"
+      ],
+      "contract": "Actual Naga storage-array stride and complete buffer-record admission have canonical owners; live reduction population remains a distinct useful role.",
+      "finding": "Reduce independently reflects the output Array stride, then separately divides Buffer bytes by stride and narrows to u32. Incoming ResourcePipeline::storage_stride_for(Output) and canonical BufferElementCount::from_extent already own those operations.",
+      "connected_repair": "Have Root Reduce consume the canonical reflected pipeline/stride and buffer-count admission. Preserve the distinct live reduction role for both texture and buffer populations, exact scratch live extents, <=1 behavior, and first/recurring pipeline semantics. Do not mechanically replace texture axes with a Buffer count.",
+      "dependencies": [
+        "Incoming ResourcePipeline storage_stride_for and actual canonical GPU count/stride exports",
+        "Owner coordination before shared native function changes"
+      ],
+      "acceptance": [
+        "No second storage-layout reflection implementation for the same generated source",
+        "Buffer quotient/u32 admission reaches canonical owner",
+        "Same padded strides, supported zero/tiny paths, scratch-device association and arithmetic order",
+        "No new tests/cases/helpers/assertions"
+      ]
+    },
+    {
+      "id": "RECEIVE-G3",
+      "priority": 2,
+      "classification": "Typed local-policy error migration gap",
+      "sources": [
+        "crates/fabelgeist-compute/src/reduce/mod.rs:178",
+        "crates/fabelgeist-compute/src/reduce/layout.rs:26",
+        "crates/fabelgeist-compute/src/reduce/execution.rs:39,154",
+        "crates/fabelgeist-compute/src/reduce/min.rs:65",
+        "crates/fabelgeist-compute/src/reduce/max.rs:65"
+      ],
+      "contract": "Fixed local policy failures are typed at the owning boundary; actual SDK/regex/integer/compiler causes remain intact.",
+      "finding": "Root Reduce/Min/Max still construct fixed local layout/overflow/unsupported-result failures with anyhow! strings. The byte-admission conversion keeps its integer cause, but the policy roots have no stable typed role.",
+      "connected_repair": "Inventory and establish an owning reduction error vocabulary or consume canonical ResourcePipeline failures where those already match. Preserve original SDK and checked narrowing causes, supported input domains and present error order; remove impossible fallbacks only with a source-backed state proof. Do not enlarge #826 GeneratedProgramError without ownership agreement.",
+      "dependencies": [
+        "Complete Root reduction-family preinventory",
+        "Canonical layout receipt"
+      ],
+      "acceptance": [
+        "No fixed local reduction policy root relies on presentation text",
+        "Same original causes reachable via Error::source",
+        "Existing fixture oracles unchanged; hosted checks final SHA"
+      ]
+    },
+    {
+      "id": "RECEIVE-G4",
+      "priority": 2,
+      "classification": "Existing reachable source-API weakness in connected Min/Max wrappers",
+      "sources": [
+        "crates/fabelgeist-compute/src/reduce/min.rs:15,24",
+        "crates/fabelgeist-compute/src/reduce/max.rs:15,24",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs:214"
+      ],
+      "contract": "The signature parser admits native WGSL whitespace between a function name and opening parenthesis. Wrapper renaming must consume that same admitted spelling.",
+      "finding": "parse_compare_signature accepts whitespace after min/max; custom.replace only renames the exact no-space spelling. A valid admitted spaced declaration remains named min/max while the generated reduction calls min_cmp/max_cmp, leaving the wrapper unresolved at native compilation.",
+      "connected_repair": "Reconcile renaming with the canonical admitted function/source owner directly. Preserve accepted whitespace and user identifier/body content; no exact-spelling fallback or duplicate parser. Coordinate any claimed shared signature edit with #826.",
+      "dependencies": [
+        "Explicit ownership agreement if canonical signature/source API must change",
+        "Root all13 repair inventory before editing"
+      ],
+      "acceptance": [
+        "Every lexical form admitted by the canonical signature parser is renamed consistently",
+        "No unintended body/comment/global replacements",
+        "Existing custom-code fixtures preserved; no new fixture/case/assertion"
+      ]
+    },
+    {
+      "id": "RECEIVE-C1",
+      "priority": 3,
+      "classification": "Confirmed comment mismatch in current Root Scan",
+      "sources": [
+        "crates/fabelgeist-compute/src/scan.rs:31",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:18",
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs"
+      ],
+      "contract": "Dispatch records/submits; successful return does not establish GPU completion.",
+      "finding": "ScannedAuxiliary is documented as a completed auxiliary scan immediately after ComputePass::dispatch. Native validation polling, where enabled, does not make this a universal completion guarantee.",
+      "connected_repair": "Describe the submitted/recorded auxiliary output and its allocated population without claiming completion. No completion wait is required to repair this prose.",
+      "dependencies": [
+        "Root comment-repair all13 inventory"
+      ],
+      "acceptance": [
+        "Doc matches dispatch/submission and separate completion contracts",
+        "No native/progress/ordering implementation change needed"
+      ]
+    },
+    {
+      "id": "RECEIVE-D1",
+      "priority": 3,
+      "classification": "Derivability finding, Root-owned",
+      "sources": [
+        "crates/fabelgeist-compute/src/reduce/mod.rs:36",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs:30"
+      ],
+      "contract": "ReduceDefinition fields already implement Default without requiring default cached pipeline values.",
+      "finding": "Manual ReduceDefinition::default mechanically constructs String::new and ComputeSourceCache::default; deriving Default preserves the same fields and bounds because ComputeSourceCache has an intentionally unbounded manual Default.",
+      "connected_repair": "Use derive(Default) for ReduceDefinition while retaining the cache generic manual Default and cache-excluding PartialEq.",
+      "dependencies": [
+        "Root complete reduction preinventory"
+      ],
+      "acceptance": [
+        "Same empty code/default cache and no new ReductionPipeline Default bound"
+      ]
+    },
+    {
+      "id": "RECEIVE-D2",
+      "priority": 3,
+      "classification": "Derivability finding, #826 ownership dependency",
+      "sources": [
+        "crates/fabelgeist-compute/src/source_error.rs:209",
+        "crates/fabelgeist-compute/Cargo.toml",
+        "thiserror-impl-2.0.20/src/expand.rs:222,383"
+      ],
+      "contract": "Deriving Error need not derive or change an explicitly manual Display implementation.",
+      "finding": "GeneratedProgramError has a boilerplate empty std::error::Error impl. Existing Compute thiserror dependency can derive only Error while retaining the complete semantic/manual Display unchanged; no source fields currently exist. Actual pinned macro source emits Display only when display attributes are present.",
+      "connected_repair": "Discuss a narrow derive(Error)-only correction with #826; preserve exact manual Display and cause behavior. This is not permission for Root to edit a claimed source. GPU manual errors do not have an existing thiserror dependency and are not automatically equivalent repairs.",
+      "dependencies": [
+        "Explicit #826 ownership agreement",
+        "Actual macro/source-equivalence review before change"
+      ],
+      "acceptance": [
+        "Same Display behavior including Formatter flags",
+        "Same Error::source(None), no new dependency or generated-message rewrite"
+      ]
+    }
+  ],
+  "all13_preintegration_inventory": [
+    {
+      "sequence": "P1",
+      "lens": "producer-propagation",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "Map primary parameter is chosen from actual input presence; secondary resources from supplied parameters; authored role order survives into declarations/calls. Gather/Scatter/Stream source-only constructors remove unused context. Actual MC/DC counts->Scan->Stream use the same admitted lattice; JFA/noise emit final Map source and named parameters.",
+      "disposition": "Actionable receiving gaps G1/G2/G3/G4; packet source roles followed through all generated definitions/programs; external/downstream closure incomplete.",
+      "connected_repairs": [
+        "RECEIVE-G1",
+        "RECEIVE-G2",
+        "RECEIVE-G3",
+        "RECEIVE-G4"
+      ],
+      "dependencies": "Root MC/DC/lib/Buffer and Reduce closure; #826 owns generated51.",
+      "acceptance_criteria": "Every real producer/caller and retained state uses final owners, no forwarded/primitive adapter, no new fixture population.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P2",
+      "lens": "existing-type-owners",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "BufferElementCount admits complete storage records and valid zero; stride includes native padding; InvocationCount and WorkgroupCount are launch quantities. SortItemCount and ScanElementCount retain different algorithm roles. ResourcePipeline reflects Naga rather than ResourceBaseType::element_size.",
+      "disposition": "Reuse established count/stride, workgroup, coordinate, descriptor and boundary owners; G2 remains actionable.",
+      "connected_repairs": [
+        "RECEIVE-G1",
+        "RECEIVE-G2"
+      ],
+      "dependencies": "Canonical GPU modules/exports; actual protected native83 receipt.",
+      "acceptance_criteria": "Consume exact matching owners while preserving role distinctions; only real native boundaries extract primitive representations.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P3",
+      "lens": "type-ownership",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "Native metadata/TextureValue/CoordinateParameter/ResourceFetch live in GPU; authored algorithm roles/source errors live in Compute; BoundaryMode lives in Root Compute boundary; shared cache is GPU.",
+      "disposition": "Generated51 owners are clear; Root-owned broad API, counts/stride and algorithms unreceived; no takeover authorized.",
+      "connected_repairs": [
+        "RECEIVE-G1",
+        "RECEIVE-G2",
+        "RECEIVE-G4",
+        "RECEIVE-D2"
+      ],
+      "dependencies": "Explicit agreement before any shared #826 function edit; #774 claims not revisited in this scope.",
+      "acceptance_criteria": "One canonical owner per concept; complete library/module/export/dependency composition, preserved unrelated work.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P4",
+      "lens": "type-granularity",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "Coordinates/LinearIndex/LinearPopulation encode different native projections. CoordinateShape is not a workgroup shape. ReductionElements covers live buffer/texture values, not scratch capacity; may reuse Buffer count leaf only at buffer admission. SourceParameter retains declaration with role; unit Center/Offset/Other carry no unused value type.",
+      "disposition": "Useful role distinctions retained; no new universal quantity framework proposed; downstream physical semantics incomplete.",
+      "connected_repairs": [
+        "RECEIVE-G2"
+      ],
+      "dependencies": "Canonical numeric leaves and downstream caller-unit inventory.",
+      "acceptance_criteria": "No erasure of texture-axis vs flat population or sorting vs launch distinction; no duplicate validation merely to create a type.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P5",
+      "lens": "redundant-authority",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "Public mutable authored code is reparsed at build/execute and included in source cache key. Cache key carries real device and observation policy; sorted secondary recipe is stable. ResourcePipeline holds shape/layout from the same private immutable shader. Builtin fluid empty source is valid because every varying descriptor/boundary is in recipe.",
+      "disposition": "Caches/source/schema/pipeline invariants inspected; native/submitted lifetime closure incomplete.",
+      "connected_repairs": [
+        "RECEIVE-G2"
+      ],
+      "dependencies": "Receive exact cache/native pipeline owners; lower provider implementations remain incomplete here.",
+      "acceptance_criteria": "No stale source/role/shape/cache identity; derive native facts from one source without a competing reflection implementation.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P6",
+      "lens": "admission-contracts",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "Default or mutable definitions do not certify authored WGSL; current source is parsed again. NativeParameter checks duplicate names and two-part declarations while native WGSL validity stays compiler-owned. TextureValue accepts numeric scalar/vector lanes; CoordinateParameter admits reserved unsigned shapes; neighborhood admits actual reflected input/output capacities before dispatch.",
+      "disposition": "All51 source admissions inspected; lower native admission/device/usage/texture view closure incomplete.",
+      "connected_repairs": [
+        "RECEIVE-G1",
+        "RECEIVE-G2",
+        "RECEIVE-G4"
+      ],
+      "dependencies": "Protected shader/pipeline/binding/texture owners and actual callers.",
+      "acceptance_criteria": "No broad guessed source validator, unsupported new ceiling, swallowed native cause or admission-bypassing compatibility path.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P7",
+      "lens": "invariant-operations",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "TextureAddressing uses checked u64 population and actual u32 index/population projection. NeighborhoodLayout checks positive axes, clamp extent, wrap2extent-1, signed flattening, divisors and actual sampled/source coverage. Root extraction caps prefix before u32 sums and writer bounds; Scan/Reduce retain exact live scratch extents.",
+      "disposition": "Fresh address arithmetic traced; whole repository physical/native numerical acceptance remains open.",
+      "connected_repairs": [
+        "RECEIVE-G2",
+        "RECEIVE-G3"
+      ],
+      "dependencies": "Native device limits/actual resources plus remaining physical-family review.",
+      "acceptance_criteria": "All published counts/addresses fit actual expressions; preserve native operations/tie/order/valid zero and no guessed payload stride.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P8",
+      "lens": "aggregate-states",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "SourceParameter binds authored spelling to role; private signature lists preserve order. Stream counts and inclusive offsets are separate supplied buffers with documented same-population/capacity obligations. MC/DC construct counts/Scan from same grid and guard whole primitive publication; shared vertex native format matches deinterleave.",
+      "disposition": "Packet private schema/layout/cache state inspected; Stream preconditions followed through MC/DC; external consumers remain incomplete.",
+      "connected_repairs": [
+        "RECEIVE-G1",
+        "RECEIVE-G2"
+      ],
+      "dependencies": "Final actual source receipt and all extraction/downstream fixture callers.",
+      "acceptance_criteria": "Same population/order/capacity authority from producer to native writer, device-associated scratch reuse, no partial host-state claim.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P9",
+      "lens": "enum-shapes",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "BoundaryMode is canonical Clamp/Wrap. ResourceLayout and parameter role enums carry their actual payloads. Stream has_input_value derives from Value roles; Center/Offset/Other are deliberate unit roles. JFA local ping predicate only selects alternating temporary textures.",
+      "disposition": "No new carried semantic bool defect established in generated51; complete wider graph remains open.",
+      "connected_repairs": [
+        "RECEIVE-G1"
+      ],
+      "dependencies": "Boundary export/native source agreement; wider enum-state review outside this packet.",
+      "acceptance_criteria": "No parallel boolean authority or unrelated role collapsed into representation; native booleans/indices remain at true adapters.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P10",
+      "lens": "derivability",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "Cache generic manual Default prevents spurious Parameters/Value Default bounds. Definition PartialEq intentionally ignores cache. TextureValue TryFrom is semantic admission; Display roots can be manual while Error derives independently.",
+      "disposition": "D1 and D2 actionable narrow boilerplate findings; GPU manual implementations not presumed derivable without dependency/equivalence proof.",
+      "connected_repairs": [
+        "RECEIVE-D1",
+        "RECEIVE-D2"
+      ],
+      "dependencies": "Pinned thiserror source and #826 agreement for shared error owner.",
+      "acceptance_criteria": "Equivalent API/bounds/format flags/causes; no new serialization or dependency solely for a derive.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P11",
+      "lens": "magic-numbers",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "Generated workgroup widths are shader declaration policies and reflected launch owners consume them; four texture-store lanes, vector dimensions and binding ordinals are explicit native formats. DEFAULT_NEIGHBORHOOD_SIDE64 owns existing fallback policy. Fluid dt/half-inverse-cell-size docs explain current native texel/time/numerical frame; no physical SI policy invented.",
+      "disposition": "Native generated51 roles reviewed; broad physical/noise/JFA/count/frame occurrence closure incomplete.",
+      "connected_repairs": [
+        "RECEIVE-G2",
+        "RECEIVE-G3"
+      ],
+      "dependencies": "Caller units/parameters, noise and JFA public contract closure; native limits.",
+      "acceptance_criteria": "Every remaining primitive has actual boundary/owner and frame; keep sorting vs launch quantities distinct and preserve supported values.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P12",
+      "lens": "magic-strings",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "WGSL identifiers/type names/declarations/format fragments are explicit source protocol boundaries; closed algorithm/binding/failure classes use enums. No display-text branch introduced. Source code Strings remain open authored input. Min/Max exact replacement currently disagrees with native signature lexical admission.",
+      "disposition": "Typed generated policy roots and open native source text inspected; Root reduction G3/G4 remain.",
+      "connected_repairs": [
+        "RECEIVE-G3",
+        "RECEIVE-G4"
+      ],
+      "dependencies": "Root reduction error vocabulary and canonical source-owner agreement.",
+      "acceptance_criteria": "No presentation string as policy identity; retain native lexical acceptance, wire syntax and exact error causes.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    },
+    {
+      "sequence": "P13",
+      "lens": "behavior-preservation",
+      "source_accounts": "All51 fresh packet accounts plus relevant current Root accounts below; any lower native body absent is explicitly unread.",
+      "contract": "All incoming fluid program string occurrences exist identically in current Root source with multiplicity; root-only strings are diagnostics/binding names/cache/entry tokens. Map fixture files byte-identical to current Root; Gather/Stream changes are final-API-only, Stencil preserves existing moved test scenarios/oracles with getter/constructor adaptation. Clamp upper-endpoint min, fallback64, flat2D/3D coordinates and projected texture lanes inspected directly.",
+      "disposition": "Current incoming bodies/fixtures read, direct fluid literal evidence and fixture diffs reviewed; full base/main/hosted/native behavior clearance not achieved.",
+      "connected_repairs": [
+        "RECEIVE-G1",
+        "RECEIVE-G2",
+        "RECEIVE-G3",
+        "RECEIVE-G4",
+        "RECEIVE-C1"
+      ],
+      "dependencies": "Remaining exact inverse source proofs, actual lower provider/caller receipt, main/PR re-pin, final hosted checks.",
+      "acceptance_criteria": "Preserve all existing scenarios/oracles/native instructions except explicitly inventoried repairs; no new tests/cases/helpers/assertions; complete families before push/CI.",
+      "status": "receiving_inventory_incomplete_not_clear",
+      "remaining_scope": "Unreceived lower native owners, actual complete downstream producer/fixture graph, all relevant main/head contracts and same-revision hosted acceptance remain required."
+    }
+  ],
+  "composition_requirements": [
+    "Startwithcac5GPU83native source, then919Buffer2filetypedlocaladmission replacesoldmod/addserror; preserveeveryothernativeBufferbody.",
+    "ccb51generated overridesonlyoverlappingGPUcompute/mod.rs/signature.rs bytes, newleavesaddressing/signaturechildren; wholeothergeneratedfamilieslatestccb. Do notuseolderfrozenMapstage.",
+    "3e74 ArmorGpu facade/staging docs+actualpaired-device/queue/map-prefix contracts areunchangedRootHead; preserveactualnativeerrors/staging/scratch/session bodies duringphysicalproducercomposition.",
+    "d7da baseline modifiesexact7wholeoldrecords (2df538,Cubef899,bindcreate278,Computepassrecord410,Cubeblit161/face149/all142);2055survivorsunchanged. Mergeonlytheseacceptedremovalswithyourrelevantreductions; no ceilinggrowth; authoritativefinalhostedbaselineexportstillrequired.",
+    "Peer780retains canonicalcounts/stride, broadexports/moduledeclarations,Scan/Reduce/sort/extraction/MC/DC/DistanceField/JFA/noise andactualcallers/locks. Adddeclarations/exports fromccbmanifest, compose919errorwithstrideexports, no independentNativeBuffer/Context/Shader/Pipeline/TextureView/dispatch changes. Coordinateanynecessaryprotectedfunctionedit exactly.",
+    "ConsumeRootnative83insteadoldpeerprotectedreferences; actual ValidationProgress/directSDKcauses/contextblocking-policy/cachetransientretry semantics authoritative.",
+    "Wholeconnectedfamiliesbeforepush/CI; finalsamepushedSHA13+3reviews+requiredhostedchecks; no merge."
+  ],
+  "ownership": "Root owns broad exports/counts/stride/Scan/Reduce/sort/extraction/MC/DC/DistanceField/JFA/noise/callers/locks. #826 owns generated51 and protected native83/Buffer admission. No ownership of #774 claimed functions assumed.",
+  "lock_account": "Incoming GPU Cargo.toml exactly equals current Root Cargo.toml. Compute already depends on thiserror2, GPU/math/mesh, naga29/wgpu29; current Cargo.lock package entries reflect those edges. No generated51 new manifest dependency identified. Full lock resolution/target-feature closure and project check remain unexecuted, incomplete. Preserve unrelated PBR Color edges.",
+  "known_open_prose": "Current Root lib.rs host_float summary remains unqualified while owning host_float/mod.rs Limits states subnormal/fma/trig bounds. This broader known numerical prose family is not cleared by this generated receiving report.",
+  "unread_limits": [
+    "Most lower native83 implementation and tests/config bodies are identity-only in composition_accounts, not fresh semantic coverage.",
+    "Root marching_cubes/tables.rs, Reduce tests/error owner, general test_utils and complete unchanged extraction fixtures/downstream caller fixtures are not fully read here.",
+    "All aliases/macros/reexports/repository-wide consumers beyond explicit named caller map are not exhaustively closed; search results are discovery only.",
+    "Noise/JFA typed physical/frame/count/seed policies need complete outer producer/caller inventory; source-only numerical behavior is not hardware proof.",
+    "Main and PR remote heads were not refreshed in this subtask; final whole-PR review must pin them.",
+    "No project checks, compile/lint/format commands, scans, native shader generation, tests, runtime, new fixtures or CI ran. No source edit, integration, push or external post occurred."
+  ],
+  "verdict": "INCOMPLETE_RECEIVING_DISCOVERY_WITH_ACTIONABLE_FINDINGS; all13 cells explicit, no repairs or global clearance."
+}

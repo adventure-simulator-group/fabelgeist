@@ -1,0 +1,834 @@
+{
+  "kind": "Bounded independent prose-only correction Rule Review",
+  "head": "1b42bcfff0099a6066d67fc4859e535591b39789",
+  "tree": "42cd2a30839e358f243cb3bef3b75d78a36c62af",
+  "actual_parent": "34f3391d898373f2ea8564056e729befb15e9b1f",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "changed_paths": [
+    "crates/fabelgeist-gpu/texture-views.md"
+  ],
+  "guide": {
+    "path": "crates/fabelgeist-gpu/texture-views.md",
+    "sha256": "f81ed9ee35a3eece3c630a1e28698b7de994e1b2b0f4e42e443b842d9529fe8a",
+    "wordstream_identical": true,
+    "code_fences_identical": true,
+    "new_paragraph_lines": "83-91",
+    "new_paragraph_max_columns": 76,
+    "all_prose_over80": []
+  },
+  "findings": [],
+  "resolved_findings": [
+    {
+      "id": "8CDC-DOC-WRAP-01",
+      "proof": "Reflowed paragraph83-91 max columns76; entire guide has no >80 lines. Wordstream and codefence unchanged. Root AGENTS.md55 satisfied."
+    }
+  ],
+  "retained_source_receipts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "a77ff3b04d06f2e44f8fa68c52fb5f6f75364646b1a33af6789955b0f6c6c058",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d8e5f582e90cb905a5451d798eb86e4b43ff9687b58466bd5d0146fc1dac56ab",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "aa6e5dff4b2578cdcd992e69425955b885373bb8172bce6bba1e784c367df692",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "7ae74e77ae2e8eadfcf84d6fa5b4c528034572fe1beec94f8e73a095748618fe",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "9a4cfd422099b6ffde9fb27f49e0c26fccd850684039712cb7e17e28bc7527db",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "05d2a47057f3095bc11a8ad025e1a228f24c50df6436638456c17cd094dc55c2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+      "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+      "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/paint.rs",
+      "sha256": "daa74c09fa86ca04b709dcc9efed9b35d35a392aeb43db10086fa09cd27a50fb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+      "sha256": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "sha256": "b9fccf7ea25d3cce7dc5dfdb0f91dda22362f10d0c5c4120d9e42c729c3c38c4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "bf9d17ffb27331fa41e2f73ae0396f90a5e39c1a884dab13cd23c852f45773a9",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "fd6c4991e13b343c21b396b8aada2480b03508500184761d217c1237bb1c52cb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs",
+      "sha256": "bf81803801df60f8387489c31ab851af7f62c1df5cee4611a055d628c5bec616",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/plates.rs",
+      "sha256": "626dd0cc8823b5542b30fd320294e8109b996c5e4117ec73e513b82b8f909a84",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "12b74ba27f4c750bc807ba7c39553fe6f130179bb71ae3679d296cbaab947cd8",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/gpu.rs",
+      "sha256": "ad19b002ebc0d537cde1159638577fb53c250193bbb5f78e1bd7109058bbdb5f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_controls.rs",
+      "sha256": "8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cover.rs",
+      "sha256": "50287b76df57d36dd9afcab6aa2a578f96e49b421b73e26b536d23c1bc65345f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "7ab3a1fe9e5c19e58ba3f9b6e6494ded69096cc71579c3b5c2f8f3b2f28be1ac",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/rng.rs",
+      "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/pixel.rs",
+      "sha256": "9b7d1004ee1879e113be545a891967a8f30d6ced8086fba84ee7f279997d333b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "rust-quality.toml",
+      "sha256": "9a3738a7916a3edb8ebf501345d9815aef9f5fe18458f6ac5231c20a7e7e5030",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+      "sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a9ce6fef1d2cdf2d11c06e762e32430e9406445c17aa8aae43cd0fdf2f2ca92c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "86f0e714e3e5f41e6cb59a299114e43cd12a678bbf70f508f8681c610af87478",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "matches_prior_receipt": true,
+      "coverage": "Exact unchanged prior whole/slice source-read granularity, not fresh body reading"
+    }
+  ],
+  "existing_fixture_modules": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "dbfb98db3fb3bdfdd6dca813bdb01af838ee77c03c83368d2509fefd2d1f6b34",
+      "matches_prior_receipt": true,
+      "whole_file_identical_to_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "95bf9f3e1fae987397535afaf6cc2bd43b5caff9b555880cd16997d3a6511329",
+      "matches_prior_receipt": true,
+      "whole_file_identical_to_parent": true
+    }
+  ],
+  "production_identity": "Git exact diff contains only owning Markdown guide; every tracked production/body/test/fixture/config/baseline/shader/nativePOD path has identical blob identity versus34f. Scoped129 receipt hashes independently match prior source read granularities. No source/body coverage expansion claimed.",
+  "contract_trace": "Only static-uniform explanatory paragraph reflow changes. Existing owner/admission/body+observation cause/cached completed outcome vs retryable Progress/nativeports/state contracts remain exact source-identical to reviewed34f/8cdc. No policy/API/trait/error/behavior change.",
+  "required_dependencies": [
+    "Integrate #780 five exact current peer wait functions using shared scope/resolver and agreed state/cause publication rules; current source still discards actual poll results.",
+    "Complete all canonical source/device/physical layout/count/Sim/card/creator/caller/completion/cache/application/lock integrations already required; no independent shared repair or type owner duplication.",
+    "Unchanged Texture2d/Texture3d readback still has text-erased map/channel errors, ignored nonblocking Poll and unchecked row/volume arithmetic. These separate existing readback contracts are outside the18 scoped-wait repair and are explicitly not cleared.",
+    "Complete full13 integrated waves, all three independent reviews and hosted project/baseline/fmt/lint/existing tests CI on same final pushed SHA."
+  ],
+  "limits": [
+    "Prose-only correction review; exact diff/context paragraph inspected, entire guide wordstream/fences/width and prior identities verified. This is not a fresh whole-family/all13/PR review.",
+    "Peer5 scoped-wait integration, global producers/callers/lock/native-texture-readback gaps remain required; no source repair on readback credited.",
+    "No source edits, project checks/scans/build/lint/tests/generators/runtime/push/CI or new tests/cases/helpers/assertions/doctests. Ignored reports only.",
+    "Final integrated all13 waves, all3 independent reviews and required hosted project gates/baseline reductions on same final pushed revision remain required."
+  ],
+  "correctness_verdict": "P3 prose-wrap finding resolved; no actionable finding in this bounded prose-only correction.",
+  "completeness_verdict": "No peer/global/native-readback/final clearance; all existing dependencies retained.",
+  "head_at_report": "1b42bcfff0099a6066d67fc4859e535591b39789",
+  "status_at_report": ""
+}

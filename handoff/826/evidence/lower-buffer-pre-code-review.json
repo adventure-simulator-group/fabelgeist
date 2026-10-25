@@ -1,0 +1,504 @@
+{
+  "kind": "read-only pre-repair lower family discovery, not source clearance",
+  "head": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "tracked_status": "",
+  "source_files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "Buffer new/read/write/write_at/from_upload; public aggregate"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "working_matches_pin": true,
+      "coverage": "full file existing tests source only",
+      "functions": "Readback new/copy_from"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "all definition constructors/usage/allocate_native"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "Buffer binding_resource"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "GpuResource read/write/delegation"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "d49de805d236d9c346364eb4c10d35cf54051e439b0725959f89ba3022c4aee7",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "from_parts/open/new/new_compute/submitted_work_done and policy"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "working_matches_pin": true,
+      "coverage": "full file",
+      "functions": "canonical submit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "1e14c8d0441364e441ccc57365bdddfe9c895a633be80ce0bdf91c0f45b95b1a",
+      "working_matches_pin": true,
+      "coverage": "full file",
+      "functions": "GenerateError and actual Readback source chain"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "DevicePart read/stage/finish; ArmorGpu new/open/open_async/build_in/upload/scratch/read/read_async/nearest_points; device_error"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+      "working_matches_pin": true,
+      "coverage": "full file",
+      "functions": "all Staging/StagedResults/ArmorGpu read methods"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "8dee677fcdf79dbea5c29ec06b65413435faef45bb0d8d0da7a35516f25e4a2c",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "all MetalGpu facade methods/device_error"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "textures/bake and all record helpers"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "working_matches_pin": true,
+      "coverage": "full production existing tests source only",
+      "functions": "record/record_pending/read; Pending try_read/is_ready; poll/lock_state"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/min.rs",
+      "sha256": "091d1b1b38e44416d173a3f75e18ac32f93aadc3f5a75889ecad82902bace38a",
+      "working_matches_pin": true,
+      "coverage": "full file",
+      "functions": "Min execute/execute_to_number all three scalar branches"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/max.rs",
+      "sha256": "20d4849e3e5a1f7a9c067e9d92e8e0f79d09ec97ef5b9df490089d44f1f44e4b",
+      "working_matches_pin": true,
+      "coverage": "full file",
+      "functions": "Max execute/execute_to_number all three scalar branches"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+      "sha256": "32201338d839719acd4a4637a5b0f672f8b2cadb4871e9947f122d4c2c211bfa",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "QueryHits new/capacity/read"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+      "sha256": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "VertexNormals new/read"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "upload/read logical zero; MeshData validate/upload; GpuMesh readback"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/neighborhood.rs",
+      "sha256": "367a67ea53436f6c23cec55a0eb5be29abb7d3fc06301d1c59ac824bf7910086",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "MeshNeighborhood build"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/wireframe.rs",
+      "sha256": "d4125195ebe6bc5992b01556401a06aa85eef7664e998aa1e35aef426a379f85",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "all three build/read consumers"
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "sha256": "591b2acc0e91118d14df8eb16d27966145ecdd661c8917dc58352ddec320ec9d",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "build/read_nodes/read_indices/read_right_children"
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "read_positions/read_velocities/read_inverse_masses"
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+      "sha256": "6bdba5ebaf3c2f90c51ee7a6f35bba9214605cb9ab80cdbf4b9b6a94eef19fa5",
+      "working_matches_pin": true,
+      "coverage": "selected complete body",
+      "functions": "project_particles"
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "read_positions/read_mesh"
+    },
+    {
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "step_and_wait/readback_handles/positions"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "working_matches_pin": true,
+      "coverage": "full file",
+      "functions": "HairGpuError Backend source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "read_word/read_words/finish; GpuGroom read; read_strands"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "51aa86bfd6b6d5036da4ce6c3687a8c165546f519924b4a4e97030067776d842",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "GpuScalp read; upload producer also read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+      "sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "working_matches_pin": true,
+      "coverage": "full production",
+      "functions": "trimmed logical size"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/guides.rs",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "working_matches_pin": true,
+      "coverage": "selected complete body",
+      "functions": "GpuGuides read forwards read_strands"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "read_positions/read_rest"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "read/read_async statuses/prefixes/morphs/rig admission"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "read/read_async statuses/prefixes/skin/morphs/rig admission"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "Correspondence read/stage/finish"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "working_matches_pin": true,
+      "coverage": "full file",
+      "functions": "record_limb_armor/generate_limb_armor_on"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "sha256": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee",
+      "working_matches_pin": true,
+      "coverage": "selected complete body",
+      "functions": "PartRecipe build"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "working_matches_pin": true,
+      "coverage": "full file",
+      "functions": "shared armor_gpu/armor_gpu_async cached String"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "working_matches_pin": true,
+      "coverage": "full file",
+      "functions": "shared metal_gpu cached String"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "working_matches_pin": true,
+      "coverage": "selected complete body",
+      "functions": "DeviceFrame check"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba",
+      "working_matches_pin": true,
+      "coverage": "selected complete body",
+      "functions": "GpuGeometry read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "working_matches_pin": true,
+      "coverage": "selected complete bodies",
+      "functions": "GpuScalpTexture read/chain; longest"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "working_matches_pin": true,
+      "coverage": "full file",
+      "functions": "PlacedHair geometry forwarding"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "working_matches_pin": true,
+      "coverage": "selected grow prefix not full body",
+      "functions": "GroomedHair grow scalp read relationship only"
+    }
+  ],
+  "source_map_sha256": "c07419bc13d03c4f6a24fc1eace2edf98dfcbeda97cf0782796e1a5ffe879238",
+  "sdk_sources": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "coverage": "selected exact map/slice/unmap/error/progress bodies, not whole file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "coverage": "selected exact map/slice/unmap/error/progress bodies, not whole file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "coverage": "selected exact map/slice/unmap/error/progress bodies, not whole file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/webgpu.rs",
+      "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "coverage": "selected exact map/slice/unmap/error/progress bodies, not whole file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/resource.rs",
+      "sha256": "9e317487575483203979a334e29c73f6da5ceb2a7c2f51ba6bbcc69ee802bee1",
+      "coverage": "selected exact map/slice/unmap/error/progress bodies, not whole file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/global.rs",
+      "sha256": "8d8554b2400b46b595af68b0d2fab472da06b8c11fa1823299728b5bc2cf2caa",
+      "coverage": "selected exact map/slice/unmap/error/progress bodies, not whole file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+      "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "coverage": "selected exact map/slice/unmap/error/progress bodies, not whole file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/mod.rs",
+      "sha256": "35abefc2b7a2f1f6224f797385f7c77d3edce74c7fa664c1c13bea597eb98c9f",
+      "coverage": "selected exact map/slice/unmap/error/progress bodies, not whole file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "coverage": "selected exact map/slice/unmap/error/progress bodies, not whole file"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/life.rs",
+      "sha256": "44bd34cf5ab1c1a21729f2188df6d2ca0238f11c5f723380c8a4a16fbbd90b88",
+      "coverage": "WaitIdleError/to_poll_error only"
+    }
+  ],
+  "findings": [
+    {
+      "id": "LB1",
+      "severity": "P2",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "lines": "53-75",
+      "title": "Observe native allocation, copy finalization and mapping validation at their actual ports",
+      "scenario": "Invalid staging/copy/map usage/alignment/destroyed native resource emits error through SDK sink before or independently of callback. Raw finish/submit bypasses canonical helper; default native handler may panic, custom handler can leave only lossy callback.",
+      "minimum_connected_repair": "Use context.submit and propagate actual cause before mapping; scope immediate staging allocation/map validation under existing native blocking policy. Preserve other-class/browser/borrowed-device limits."
+    },
+    {
+      "id": "LB2",
+      "severity": "P2",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "lines": "74-113",
+      "title": "Clean mapping state on failure and cancellation",
+      "scenario": "Failed map exits before unmap. Rust map_context remains nonempty though native may be Idle; retry on same MAP_READ buffer asserts already mapped. Dropping wasm future at receiver await leaves original Arc buffer pending/mapped.",
+      "minimum_connected_repair": "Arm request cleanup and release views before unmap. Failed-map unmap must reset Rust wrapper while capturing native Idle/NotMapped Validation without masking primary cause. Exclusive external mapping access is a precondition."
+    },
+    {
+      "id": "LB3",
+      "severity": "P2",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "lines": "45-55",
+      "title": "Handle valid logical zero without empty native slices",
+      "scenario": "Logical zero over nonempty allocation is explicitly valid in binding docs and mesh upload. Nonmappable read creates zero-sized staging then SDK slice(..) panics. Mappable zero maps physical allocation and waits for no requested bytes.",
+      "minimum_connected_repair": "After T admission, return empty for logical zero without native copy/map/slice. Preserve ZST rejection even for zero and logical/native distinction."
+    },
+    {
+      "id": "LB4",
+      "severity": "P2",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "lines": "45-50",
+      "title": "Use native usage and admit logical extent before allocation",
+      "scenario": "Public independently mutable size/usage can disagree with native buffer. Wrong stored usage selects wrong branch; oversized logical extent is host-allocated before native admission. On usize64 u64MAX with u8 Vec::with_capacity deterministically capacity-panics.",
+      "minimum_connected_repair": "Check logical<=native.size before allocation/GPU work; choose native buffer.usage authority. Keep logical extent distinct. If allocating fallibly retain actual TryReserveError. No fake device/map-state query."
+    },
+    {
+      "id": "LB5",
+      "severity": "P2",
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "lines": "359-360",
+      "title": "Preserve native sources through armor and metal facades",
+      "scenario": "Armor device_error Display->Arcstr and Metal Display->String erase parser/pipeline/pass/readback sources before fitting/cache, including any newly typed Buffer failure.",
+      "minimum_connected_repair": "Agreed cause-preserving GenerateError/backend and Metal carrier through full facades; #780 material/application/Engraving/cache consumers must migrate. Existing GenerateError::Readback source chain already works."
+    },
+    {
+      "id": "LB6",
+      "severity": "P2",
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "lines": "73-74",
+      "title": "Stop reading or publishing success after BatchResult Err",
+      "scenario": "read_staged_async ignores submission result then maps staging. Armor build_in:280 and nearest_points:351 continue likewise; metal bake:82 reads outputs and returns MetalTextures after discarded submission failure.",
+      "minimum_connected_repair": "Propagate canonical BatchResult cause before read/success; coordinate #780-owned bake/application and other callers, no competing implementation."
+    },
+    {
+      "id": "LB7",
+      "severity": "P2",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "lines": "225-239",
+      "title": "Preserve adapter and device creation errors at original boundary",
+      "scenario": "WgpuContext::open replaces RequestAdapterError and RequestDeviceError with message-only anyhow. Armor and Metal cannot recover those native sources downstream. Wasm surface error is also replaced.",
+      "minimum_connected_repair": "Preserve real SDK creation errors using existing anyhow context or owning error; coordinate exact open ownership and browser non-Send JS carrier traits."
+    }
+  ],
+  "ownership": "Human transfer resolved issuecomment-6372371468. #826 owns complete Buffer read and lower ArmorGpu/MetalGpu facade/staging/error owners; #780 owns application/material/Engraving/count producers. No reviewer source edits.",
+  "limits": [
+    "No project execution/checks/build/tests/scanner/generator/runtime/push/CI. No new tests/cases/helpers/assertions/doctests.",
+    "No whole PR/source compilation/final clearance; root all13 inventory remains incomplete and not delegated.",
+    "PollError actual API result must survive; this report does not claim each variant is reachable with current Wait(None,None) and Poll calls. Channel-closed retention is defensive; SDK guarantees callback for accepted native invocation.",
+    "Validation-only policy does not promise native OOM/Internal/device loss or late GPU health capture.",
+    "No public creating-device/map-state query; exact logical-device/paired queue and exclusive external MAP_READ mapping remain explicit preconditions, no invented provider/global lock.",
+    "Selected 774 M06/F19/receipts are incomplete supplemental evidence, not imported clearance.",
+    "Producer metadata rollback/freshness and raw renderer/texture mapping APIs are separate owner obligations.",
+    "External armor device_error use sites were searched as receiver census, not all 66 complete caller bodies freshly reviewed here; root all13 receiving graph and #780 migration must cover them. Search output was truncated once and not used to claim complete body coverage."
+  ],
+  "dependencies": [
+    "#780 material/application/Engraving cause-preserving errors/cache and count/stride/metal scratch producer conversion.",
+    "Shared compute Readback copy/native allocation/mapping/cancel remains coordinated #780; its current typed Mapping/Poll chain already survives armor ?.",
+    "M06 fitting FrameFailure/torso/cache worker source erasures and retained F19 output completeness remain required connected dependencies."
+  ],
+  "acceptance": [
+    "Keep public Buffer read anyhow carrier with focused typed source owner; preserve actual SDK/poll/channel/map/host narrowing/allocation sources where available.",
+    "Preserve ZST/partial element rejection, Vec<T> alignment, AnyBitPattern bits, truncated source admission, initialize-after-copy and padding exclusion.",
+    "Admit native extent/usage before host/GPU work; explicit logical-zero empty behavior.",
+    "Allocate typed host output before mapped view; release view before all cleanup.",
+    "Use canonical submission with no added completion wait there; retain native readback Wait/progress and browser event-loop await.",
+    "Failed/cancelled request resets only its own mapping and never masks primary error; no fictitious aggregate provenance or external map-state proof.",
+    "Native synchronous validation scopes obey documented cfg/policy; borrowed/browser paths keep honest device-handled limits.",
+    "Full owning facade/source/cache chains stop on submission failure and retain causes through #780 receiving APIs before family clearance.",
+    "Existing tests only, repeated root all13 waves and independent reviews plus final same-pushed-revision hosted checks remain required."
+  ],
+  "sdk_contract_proofs": [
+    "wgpu api/buffer.rs:312-346: slice rejects empty/out-of-bounds, unmap resets Rust map context then backend; size/usage publicly query native descriptor, no device or map-state getter.",
+    "wgpu api/buffer.rs:566-581 and 777-783: map_async asserts no existing Rust map range, installs range before backend; reset requires all views dropped.",
+    "wgpu-core resource.rs:599-675: map validates alignment, extent, usage, device and destroyed state before Waiting; rejection may leave core Idle.",
+    "wgpu-core device/global.rs:2065-2093: immediate map error invokes callback then returns detailed core cause; backend/wgpu_core.rs:2210-2233 wraps callback to fieldless BufferAsyncError and separately sends detailed error to buffer stored error_sink.",
+    "wgpu-core resource.rs:837-847,906-910: unmap Waiting invokes MapAborted callback; Idle returns NotMapped. backend:2250-2260 reports unmap error through sink. Failed-map cleanup must retain primary error.",
+    "wgpu backend/wgpu_core.rs:1606-1624: allocation error goes to device sink; returned handle is not a Result. Same-thread sink filter picks innermost matching class at640-676; default handler panics691-694.",
+    "wgpu api/device.rs:85-97 and backend/webgpu.rs:2560-2563: native poll progresses callbacks; browser poll no-op with automatic progression. Current read uses Wait(None,None), then Poll; no proven reachability of both current PollError variants claimed.",
+    "wgpu backend/webgpu.rs:2794-2809: mapAsync promise receives fieldless SDK BufferAsyncError on rejection; JS rejection cause already erased by SDK, do not fabricate deeper cause.",
+    "wgpu backend/webgpu.rs:3961-3975 read-only mapping obtains SDK-owned temporary bytes; retain application host allocation-before-view order and do not add output Vec growth while view is held.",
+    "wgpu api/buffer.rs:851-861: actual BufferAsyncError implements Error+Send+Sync; wgpu-types lib.rs:296-322 actual PollError implements Error. Futures oneshot Canceled is actual receiver failure, preserve value rather than format it.",
+    "Canonical context submission.rs:19-45: native/blocking Validation scopes separately observe finish before queue; browser/borrowed context uses device handling. No completion wait in this helper."
+  ],
+  "consumer_trace_dispositions": [
+    {
+      "family": "direct anyhow readers",
+      "functions": "GpuResource read; Min/Max execute_to_number; QueryHits read; VertexNormals read; MeshNeighborhood build; MeshWireframe three builders; GpuBvh three readers; Particle three readers; project_particles; GpuMesh readback; garment positions/readback_handles; shell read_mesh",
+      "trace": "await Buffer::read with ? or same anyhow carrier; stop before host reconstruction/write on error. Existing count/capacity producers still owned #780. Mesh local read explicitly bypasses zero; lower zero fix centralizes correct read behavior without requiring shim."
+    },
+    {
+      "family": "hair typed outer carrier",
+      "functions": "read_strands -> GpuGroom/GpuGuides read; GpuScalp read; sim read_positions/read_rest; GpuGroomer read_words",
+      "trace": "Buffer anyhow error converts through HairGpuError::Backend #[from] without text erasure. read_words ignores submit result before lower read; pending producer propagation is #780 obligation, not newly solved by Buffer change."
+    },
+    {
+      "family": "creator hair anyhow consumers",
+      "functions": "GpuGeometry read; GpuScalpTexture read/chain; longest; PlacedHair geometry; GroomedHair grow selected prefix",
+      "trace": "? preserves cause until later application boundary. longest currently ignores submit before read, existing caller obligation. No full grow-body clearance; later application graph belongs #780."
+    },
+    {
+      "family": "armor staged lower results",
+      "functions": "ArmorGpu read_staged_async -> compute Readback read -> GenerateError::Readback; DevicePart read; Correspondence read/finish; bracer/breastplate read_async",
+      "trace": "Mapping/Poll causes survive existing typed source. BatchResult is currently discarded before map. Success reconstructs statuses/positions/normals/skin/morphs only after read ?; rig errors typed. Do not relabel this as current Arcstr mapping erasure."
+    },
+    {
+      "family": "armor direct reads",
+      "functions": "ArmorGpu read_async/read; nearest_points; DeviceFrame check; generate_limb_armor_on",
+      "trace": "device_error loses underlying anyhow source. nearest_points and limb submit failure also discarded before read; owned split must preserve canonical error through #780 callers. DeviceFrame ordered status->prose fitting loss is separate M06 owner, unchanged by lower repair."
+    },
+    {
+      "family": "metal facade/bake",
+      "functions": "MetalGpu new/open/upload/scratch/read/dispatch/textures -> bake/textures and all record helpers",
+      "trace": "String Result cannot preserve source. Bake validates size32..1024; actual bounded texels/scratch arithmetic fits for ordinary facade. Do not claim arbitrary u64 overflow reachable through current supported size. #780 owns checked count/byte producers and material/Engraving String errors; carrier migration must meet them rather than compete."
+    },
+    {
+      "family": "cached application devices",
+      "functions": "armor_gpu_async; metal_gpu",
+      "trace": "OnceCell/OnceLock retain Result<_,String>, later reconstruct anyhow from prose. Required #780 receiving/cache migration after lower canonical errors, not ownership authorization blocker."
+    }
+  ]
+}

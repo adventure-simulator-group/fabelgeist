@@ -1,0 +1,28 @@
+diff --git a/.github/workflows/rust-quality.yml b/.github/workflows/rust-quality.yml
+index 9f49fcf40..301846f70 100644
+--- a/.github/workflows/rust-quality.yml
++++ b/.github/workflows/rust-quality.yml
+@@ -103,6 +103,23 @@ jobs:
+         run: |
+           cargo test --package adventuresim-world-schema --all-features
+           cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
++      - name: Test whole-texture format views
++        env:
++          XDG_RUNTIME_DIR: ${{ runner.temp }}/texture-view-runtime
++        run: |
++          mkdir -p "$XDG_RUNTIME_DIR" target/texture-view-validation
++          chmod 700 "$XDG_RUNTIME_DIR"
++          git rev-parse HEAD > target/texture-view-validation/source.txt
++          set -o pipefail
++          cargo test --locked --package fabelgeist-gpu --test texture_views -- --test-threads=1 --nocapture 2>&1 | tee target/texture-view-validation/integration.log
++          cargo test --locked --package fabelgeist-gpu --doc 2>&1 | tee target/texture-view-validation/doctests.log
++      - name: Upload texture-view validation evidence
++        if: always()
++        uses: actions/upload-artifact@v7
++        with:
++          name: texture-view-validation-${{ github.run_id }}-${{ github.run_attempt }}
++          path: target/texture-view-validation/
++          if-no-files-found: warn
+       - name: Test resolved Bevy guard
+         run: cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
+       - name: Test checked FBX array encoding

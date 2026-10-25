@@ -1,0 +1,125 @@
+{
+  "review": "Independent Comment Review: four public Armor read Rustdoc clarifications",
+  "head": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "tree": "a83c132e94bab1db7691468d553465081b7432fb",
+  "base": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "changed_paths": [
+    "crates/fabelgeist-armor/src/gpu/facade.rs",
+    "crates/fabelgeist-armor/src/gpu/staging.rs"
+  ],
+  "owning_source_accounting": [
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+      "git_blob": "626622edf5a1f98619b80792dccf6ddbea00986d",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "lines": 187,
+      "coverage": "Fresh complete source read and complete parent diff",
+      "matches_working_proof": true,
+      "non_rustdoc_lines_identical_to_base": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+      "git_blob": "d71ee78598da8d937dd62f313020a1d585785ef5",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "lines": 146,
+      "coverage": "Fresh complete source read and complete parent diff",
+      "matches_working_proof": true,
+      "non_rustdoc_lines_identical_to_base": true
+    }
+  ],
+  "lower_contract_source_accounting": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+      "git_blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "coverage": "Fresh full lower-contract source read; identical to prior Rootd7 by Git blob comparison",
+      "identical_to_base": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+      "git_blob": "0a84a7214904a60b93bf0dfa2bdf9dc356e52675",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "lines": 153,
+      "coverage": "Fresh full lower-contract source read; identical to prior Rootd7 by Git blob comparison",
+      "identical_to_base": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+      "git_blob": "409769c37072d817254c3d3840f14afd1b7fc508",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "lines": 24,
+      "coverage": "Fresh full lower-contract source read; identical to prior Rootd7 by Git blob comparison",
+      "identical_to_base": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+      "git_blob": "df54730333560d8e44f8011d3113e3ddbbd3e2fb",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "lines": 43,
+      "coverage": "Fresh full lower-contract source read; identical to prior Rootd7 by Git blob comparison",
+      "identical_to_base": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+      "git_blob": "178d76c5e0efcca7eee0cbbfbc32208a6d5830d8",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "lines": 187,
+      "coverage": "Fresh lines18-105 policy/from_parts/device descriptor; remainder carried prior exact Rootd7 source identity",
+      "identical_to_base": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+      "git_blob": "1c3d208bb839f18ce7a742861f365443e786f203",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "lines": 294,
+      "coverage": "Fresh complete production readback declarations/record/read/pending/poll/error functions and leading docs; prior full Rootd7 read and existing fixtures carried by exact identity, not fresh whole-file coverage in this wave",
+      "identical_to_base": true
+    }
+  ],
+  "discovery_receipt": "target/pr826-audit/armor-read-docs-d7da-pre-repair-all13.json",
+  "working_proof": "target/pr826-audit/armor-read-docs-working-source-proof.json",
+  "contracts": [
+    {
+      "methods": "ArmorGpu::read/read_async",
+      "evidence": "Both public recipients now explicitly require buffer from facade device and that device paired queue, producing submission result handling, and mapping ownership already required by linked Buffer::read. read uses pollster over read_async; read_async delegates exact lower Buffer::read preserving native cause via device_error. Lower contract requires source unmapped and exclusive mapping access; direct MAP_READ uses original allocation while other sources use aligned staging copies. Logical zero and host layout admission unchanged.",
+      "disposition": "Clarification accurate; no new runtime provenance check, retry, rollback, later-work or global-health promise."
+    },
+    {
+      "methods": "ArmorGpu::read_staged/read_staged_async",
+      "evidence": "Sources must belong to facade device and be available for actual GPU copies with existing mapping ownership; paired queue and successful producing submission handling explicit. Docs describe staging allocation mapping using native progress/browser callbacks. They do not import direct-read exclusive source mapping access as a blanket grouped alias guarantee. Session tickets continue proving result identity only.",
+      "disposition": "Clarification accurate against agreed device-retaining grouped owner contract; actual Root receiver/callee mismatch remains required integration work, not compilation clearance."
+    }
+  ],
+  "actionable_comment_findings": [],
+  "retained_required_dependencies": [
+    {
+      "area": "Canonical Readback API not received",
+      "evidence": "Root staging calls Readback::record(batch,sources) and read() while Root compute/readback.rs still takes context as additional arguments and does not retain actual Device. Receive canonical agreed owner API and complete all callers before graph clearance. This Rustdoc-only patch does not solve or obscure that pre-existing mismatch."
+    },
+    {
+      "area": "Old grouped Readback documentation",
+      "evidence": "Root compute/readback.rs leading prose still claims Buffer::read always stages and CPU never stalls. Owner780 canonical wording/progress/readback family remains required. Four facade Rustdoc clarifications do not give that old prose a pass."
+    },
+    {
+      "area": "Remaining producers/callers and validation",
+      "evidence": "Canonical Armor/Metal producers, cause caches, typed/count/readback/lock/API closure and all13 integration review remain required. Final independent reviews and hosted project gates must pass on same final pushed revision."
+    }
+  ],
+  "limits": [
+    "Source-only; no source edits or local project checks/build/lint/test/scanner/generator/runtime, added cases/helpers/assertions/doctests, push, CI or external post. Only ignored review JSON/Markdown written.",
+    "Both owning files fully read. Lower coverage exact and explicit; no fresh all-SDK audit or GPU execution claimed. Existing bodies, numeric behavior and fixtures unchanged; complete diff consists only four method Rustdoc blocks.",
+    "Applicable Root/crates/Armor instructions applied; no geometry change or visual acceptance cycle involved. This bounded Comment Review does not itself replace all13 ledger or Code/Rule Review.",
+    "No source-complete, compiled, native/browser runtime, global, hosted or final whole-PR clearance."
+  ],
+  "verdict": "No actionable source-comment finding in exact3e74 four-public-method Rustdoc clarification; required unreceived canonical integration and final gates remain open."
+}

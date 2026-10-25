@@ -1,0 +1,1331 @@
+{
+  "kind": "Independent bounded card receiver repair Rule Review",
+  "head": "2e2cda74b681620d3162f30ce26dd8d946b059de",
+  "tree": "1a664b29a9846a5adf021687ab4e2c0c3d674d13",
+  "actual_parent": "201c06038f88cfd9366312947a6ad57a060eb311",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "changed_paths": [
+    "crates/fabelgeist-hair/src/render/mod.rs"
+  ],
+  "changed_source": {
+    "path": "crates/fabelgeist-hair/src/render/mod.rs",
+    "sha256": "b2a3f5faf5a38924ad0a6f02aef901e915a08f121a72cebbaa8b14bdd79c06df",
+    "coverage": "Full current file assessed through prior complete201c body read plus exact current byte mapping, fresh complete declaration-order/header/import/native-stride/fixture review; whole source outside exact enum relocation/import change proven identical, not hash-as-new-body-reading",
+    "raw_lines": 1889,
+    "meaningful_production": 1666,
+    "previous_meaningful_production": 1666,
+    "enum_docs_derive_body_identical": true,
+    "all_remaining_bytes_after_exact_import_restoration_identical": true,
+    "remaining_source_sha256": "debf7854dd656a2f402fb526e06f7fe79f85dd546431fb6b32dfd81975ccf736"
+  },
+  "retained_source_receipts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "sha256": "561a74c4ded95e0500fa43dba219aa345c51cb1209b1552276a400f44fd1f8e0",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "14052b29d35ad284de35cae23f601d54a5ffc99c9e4ccf69faf2fe9505f437e3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "9c13e1f7c57ffa369fa2139a37f7df4d163645fd351beb7fd8c18f1d2c045359",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "7fb81a38c012a749919c9addd0d99a42386e333e227042d87bd58c270dc5b9b7",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/readback.rs",
+      "sha256": "0e8f2228f77e50b2c97529d2c473639157d1c24b87f15c02feb8f24ed1f95500",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "sha256": "a67548746be5f5abcd6d774695abff5b2b8bd8fb0ecab8628080f4a60aebf8e8",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "f9895d81a23576a862762eea888c9316facf2ff28bd005c114604a5d3c07d63a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "0ff0d8b9fd6f211ea8a6201e62fbf88efbbe2ca000c60c7f31a1a9b3d12c9f2b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs",
+      "sha256": "d03d1c6cb9ab00b4aae865671847228dc2a59bd637c635a5f2b3538d7423dfd5",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "793f48f366253a17281a0ca0ff210b85a697e10429341ac8e634f33acd0d9e01",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "e1512db4360eeb726fefb21b212022961909efcc28950e0bd36cdc79e0ee4985",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/transfer.rs",
+      "sha256": "3aa3c6b11409ec3885e7a8d509d0a98f2b393066ed1ccd9ad21123e6eb694947",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "25af127253b18860f351048e1732765bdd5d487d5100e9e347fd3a8124b4b6c0",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "7ae74e77ae2e8eadfcf84d6fa5b4c528034572fe1beec94f8e73a095748618fe",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "9a4cfd422099b6ffde9fb27f49e0c26fccd850684039712cb7e17e28bc7527db",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "05d2a47057f3095bc11a8ad025e1a228f24c50df6436638456c17cd094dc55c2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/Cargo.toml",
+      "sha256": "ac4ba0f97b16faedfa175a5d366122267e2066f857f748a87803db40a3b3ac17",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "8075db395cc247012c6cfc9da7442cd90d066fde42f5b75b2ecccfe1304dc5bb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas.rs",
+      "sha256": "7cb59f0ac4dcfa2ea8643dc6384fdc15652d99d576f26a12fad2b43145cfc74b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/layout.rs",
+      "sha256": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/atlas/paint.rs",
+      "sha256": "daa74c09fa86ca04b709dcc9efed9b35d35a392aeb43db10086fa09cd27a50fb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/atlas.rs",
+      "sha256": "f4a4675b5c5b0c109b8bf167058419d5aab59fe57c1415903c5a2c9319fe4a7f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/dataset.rs",
+      "sha256": "4bffc56dcbce89383c9481573e41eb6bb1eeb65e05748527eb515ee7b4c79b29",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/policy.rs",
+      "sha256": "1fee16f86c637edf13c076263760a857ea847b26cd6e4d39b8a682ee60f14482",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/presets.rs",
+      "sha256": "50647ea9fde28394596e9760d064ed1cc51c58b953335ed774088a344676a853",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/quality.rs",
+      "sha256": "55feeae033a58d406de38719ec35a535380d549af5105f41a378400118b01023",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/readback.rs",
+      "sha256": "e729f9f80d6e21d046fec9219c281bd8958065a4dc773d66926ae4e92fecb25f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "sha256": "0bf57e56179c36d0bf533b46daf1971b4037363b98505b14b55cf6c4ff2f4fdf",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs",
+      "sha256": "2d646038056780254cfafb4d59d6ba66963cf820ca662df217ed58ff7527bde7",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "a53b251926e0429aa78e81daa6118c7a63bac8501e23868c8a89ece90351e8bd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "04677894e5258a965c2b90cf1d252b8690984b62192dbea9e9e4882dd513dbe5",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "sha256": "b17b68012994cda12b0932d58dc72f7a1bc5af97b9889f66c31e95deb023e3dd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "7e0fa5d18fe9771a86c334a4b44c5427f3daf5cfb9318ff046e51dcad2fe44b1",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "0fae346f555f78e5acee52b5631e6b36c62fb78b02daba9b9ff9df1ee590312c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs",
+      "sha256": "84acca71e2e173e327d3bb0b2bca612588b4430bae0942a98a9ad5a312d34398",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "107794671af551bb50abc00162be807be4db527a8dd9059a9cfc10d39a237a7a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/initialization_error.rs",
+      "sha256": "d923a37d0740fed7a02157adbe582af9f76e2f1d7d7db6cd2ee7fdb9ec22f8f4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/validation.rs",
+      "sha256": "33fc03fc33798d1bb62223f97adeb1ce06f802e8a359e98d414d44f1589f800b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs",
+      "sha256": "bf81803801df60f8387489c31ab851af7f62c1df5cee4611a055d628c5bec616",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/plates.rs",
+      "sha256": "626dd0cc8823b5542b30fd320294e8109b996c5e4117ec73e513b82b8f909a84",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "ae5cf106114a0f57712f17a00528f385f34f36ac72209d669048b24b335ebc7d",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+      "sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "sha256": "58e43348ecc8c5bea2cdebc67be84a584982167fcbd3ff1ccad80aae8edb8d0c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "12b74ba27f4c750bc807ba7c39553fe6f130179bb71ae3679d296cbaab947cd8",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+      "sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+      "sha256": "7c79e1c26e7c308c8e8a8e041db1764eeb135a9b2ac7a034c72cc979543d536c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "d2cd499fad77e234828d620839107c91a349c88ae333e64094cc6ad924065d68",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "2f16ae4089af2858a5d9a0a3ab9206a21d080b1ab139a8347746ee027339cbeb",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/gpu.rs",
+      "sha256": "ad19b002ebc0d537cde1159638577fb53c250193bbb5f78e1bd7109058bbdb5f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_controls.rs",
+      "sha256": "8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cover.rs",
+      "sha256": "50287b76df57d36dd9afcab6aa2a578f96e49b421b73e26b536d23c1bc65345f",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "7ab3a1fe9e5c19e58ba3f9b6e6494ded69096cc71579c3b5c2f8f3b2f28be1ac",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "eb4b848022d5440cd2b4f918ce42b6288db281a53f79ef998ca384825baa7746",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/rng.rs",
+      "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/pixel.rs",
+      "sha256": "9b7d1004ee1879e113be545a891967a8f30d6ced8086fba84ee7f279997d333b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/wgpu.rs",
+      "sha256": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "rust-quality.toml",
+      "sha256": "9a3738a7916a3edb8ebf501345d9815aef9f5fe18458f6ac5231c20a7e7e5030",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+      "sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a9ce6fef1d2cdf2d11c06e762e32430e9406445c17aa8aae43cd0fdf2f2ca92c",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+      "sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "cfb85359fdce3b2659be668874700f775c921db354a3b81c854d035a61afdf5e",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "67867c062364057211b4550d8962cfa3abf584049df3fa34e6ead0c435f1de33",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "sha256": "ecf639b3dbaa36c40ff7e4da238127e4b11cda20daf7d76a7db1659a1f83652d",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/meshes.rs",
+      "sha256": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+      "matches_prior_receipt": true,
+      "coverage": "Exact previous declared whole/slice reading carried; native relationships reassessed, not fresh unread body credit"
+    }
+  ],
+  "canonical_receipts": [
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "75508eb07b8f3292152f27310bdc7193128efbf211bb4ce49bc55c8a9c3f6987",
+      "matches_received_source": true,
+      "coverage": "Full production/vocabulary/reexports/CardVertex/Default1-102 and initial fixture source read; remainder fixture bytes only verified, not full test body credit",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/cards/build.rs",
+      "sha256": "ae375dba80589dd2d7773952f3aadee391a4ac82fdefcd76b3387c400975205b",
+      "matches_received_source": true,
+      "coverage": "Complete immutable generated-strip admission/emission implementation read",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+      "sha256": "a15b5f567400e7c5428970ec6bef603d18fc37834b4719fff60aea756a2bb9e1",
+      "matches_received_source": true,
+      "coverage": "Complete immutable canonical counts/generic/strip layout/admission/error source read",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+      "sha256": "6b7a180a3ee2faa7fc26a79e2ae14ceeac4a54c19f96a308dc57f417c56ea49f",
+      "matches_received_source": true,
+      "coverage": "Complete immutable native byte/floor/writer adapters read",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/cards/mesh.rs",
+      "sha256": "322747ae7f6a10847b6f82813fd1b27cfd8caafb01f4d13aca401dc78346ab21",
+      "matches_received_source": true,
+      "coverage": "Complete immutable sealed direct/generator topology source read",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "8c9e0cfc1381290739c5cb166996fa345de9def1e25532ad367f1963cfd5c8af",
+      "matches_received_source": true,
+      "coverage": "Exact canonical receipt identity confirmed; prior inventory declared coverage acknowledged, no fresh unread body credit",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "44ffb5c296d0d5948e0b64f76f2dea59c4d41238f3ef8deaf6d549007a376f61",
+      "matches_received_source": true,
+      "coverage": "Exact canonical receipt identity confirmed; prior inventory declared coverage acknowledged, no fresh unread body credit",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+      "sha256": "77e815b2a949e96a4e90b90acc7f184021d395dcbb1881ee293fa0d94f2c69d6",
+      "matches_received_source": true,
+      "coverage": "Complete immutable CardWork/compaction/emission/actualdevice source read",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/prepare.rs",
+      "sha256": "c94f30467215f10aee321cdfbac303d5dccd4f6f1c8c8d5a5630feb0ed8ed107",
+      "matches_received_source": true,
+      "coverage": "Complete immutable CardBuffers and owning order/density preparation production source read",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "7814ed1212fc58bea86aebf290862d5937f4e3e20d2b508050d20983948323a8",
+      "matches_received_source": true,
+      "coverage": "Complete immutable private GpuCards/GpuLods/GpuLevel + all getters/admission source read",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "e943f9ba2a9213beb84d843d3c73b2f13f1658add9cb47cbd35daa12f6161647",
+      "matches_received_source": true,
+      "coverage": "Exact canonical receipt identity confirmed; prior inventory declared coverage acknowledged, no fresh unread body credit",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/lib.rs",
+      "sha256": "c2df7e182028b42251d7f1c453046962f13ae98e9b4cb0d85795ac7550a15031",
+      "matches_received_source": true,
+      "coverage": "Exact canonical receipt identity confirmed; prior inventory declared coverage acknowledged, no fresh unread body credit",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "41f0e66a7ec7906210fd0050ade6a7bc8d96d6742bf8fd6a7150393aff3d5f8a",
+      "matches_received_source": true,
+      "coverage": "Exact canonical receipt identity confirmed; prior inventory declared coverage acknowledged, no fresh unread body credit",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "sha256": "210d69c52c956bf08c4741ae6524ee7b5c185fae123cfd4e4297ea3c92ae0e67",
+      "coverage": "Complete immutable MeshVertex/Triangle/Corner canonical native role/admission/byte/source adapters read",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-mesh/src/count/gpu.rs",
+      "sha256": "a354473daa3c85ba7553322360de24dde42cfa72782d310324007d0f56426a34",
+      "coverage": "Complete immutable MeshVertex/Triangle/Corner canonical native role/admission/byte/source adapters read",
+      "matches_prior_receipt": true,
+      "current_receipt_status": "Same immutable canonical pin and prior declared read granularity retained; identity verified, not fresh new body credit."
+    }
+  ],
+  "rule_receipts": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a",
+      "matches_prior_receipt": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71",
+      "matches_prior_receipt": true
+    }
+  ],
+  "findings": [],
+  "resolved_findings": [
+    {
+      "id": "201C-CARDVERTEX-IMPORT-01",
+      "proof": "Parent production import55 now imports existing canonical crate::cards::CardVertex. Native stride483 and existing super-glob fixture1887 refer to this admitted canonical owner. Exact source uses/fixture unchanged; no new helper/testcase/assertion."
+    },
+    {
+      "id": "201C-ENUM-ORDER-01",
+      "proof": "All file-level structs finish at HairRenderer302; identical FramePopulation docs/derive/body moved304-317; first impl319. Imports/reexports precede modules/constants; structs precede enum/impls/functions/tests. crates90-94 satisfied."
+    }
+  ],
+  "contract_traces": [
+    {
+      "family": "Canonical import/native ABI",
+      "trace": "Restored canonical CardVertex definition -> size_of<CardVertex> native VertexBufferLayout stride -> unchanged GPU attributes/pipeline and fixtureABI check. Same type already used in immutable mesh receiver upload. No new or duplicate vertex owner."
+    },
+    {
+      "family": "Relocated payload enum",
+      "trace": "FrameInfo.population still refers to same FramePopulation variants/canonical StrandCount/PointsPerStrand/MeshTriangleCount payloads and derives. Whole block exact relocation changes item order only; same primary resident pre-cut reporting producer at1725 and both frame returns unchanged."
+    },
+    {
+      "family": "Immutable card-native family",
+      "trace": "CardDrawMesh private layout/native payload, CPU/upload admission, actual GpuCards Device/prefix/floor/usage/max-buffer checks, bounded draw slices/corner projection and HeadDraw canonical corners are exact201cbytes. Prior complete source proof reconnected to same immutable46b/0df canonical getters/layout/counts; no storage cap misapplied, independent counter, compatibility API or new publication path."
+    }
+  ],
+  "all_thirteen_relationship_accounting": {
+    "scope": "Bounded two-finding repair; prior all13 card receiving source contracts retained at exact unchanged body/getter identities, not new whole-global audit",
+    "prior_report": "target/pr826-audit/cards-201c-rule-review.json",
+    "relationships": [
+      {
+        "lens": "producer-propagation",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Actual source Arc -> private native layout -> Buffer resource -> renderer strips into naked handles/counts -> DeformGpu; host/card old producers separately traced.",
+        "findings_or_retained_dispositions": [
+          "RS1",
+          "RS2",
+          "RS3",
+          "RS4",
+          "RS5",
+          "RS6"
+        ],
+        "accounting": "0df make_sim/BindingBuffers/RodBuffers/record_levels and root nine named receiving APIs; no native input route omitted.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "46b canonical CardSettings/count leaves -> CardWork/CardStripLayout -> CardBuffers/GpuCards -> root stale field access/count casts -> new receiver layout and FramePopulation."
+      },
+      {
+        "lens": "existing-type-owners",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Reuse StrandLayout/StrandCount/PointsPerStrand/BufferByteLength, Metres, canonical Mesh counts, SurfaceRenderLayout. Host/card exact new aggregate owners pending.",
+        "findings_or_retained_dispositions": [
+          "RS2",
+          "RS4",
+          "RS5",
+          "RS6"
+        ],
+        "accounting": "Read canonical mesh counts/native projections and native capability owner; no local duplicate CardLayout/source-identity/length types authorized.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "CardLayout and CardStripLayout are canonical exact46b owners, reusing0df Mesh counts/native bytes. No duplicate renderer card wrappers or quad role inferred for generic triangles."
+      },
+      {
+        "lens": "admission-contracts",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Enumerated both groom setters, both dynamics setters, bind helper, host update, pose update and clear; defaults missing source, empty layouts, same-device foreign source, short/long arrays and native placeholders.",
+        "findings_or_retained_dispositions": [
+          "RS1",
+          "RS2",
+          "RS3",
+          "RS4"
+        ],
+        "accounting": "Native constructors/private fields prove metadata/device, not native acceptance, buffer lifetime or physical geometry. Host/card constructor receipts remain incomplete.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "CardLayout::new, Default/Clone, CardStripLayout::new, sealed CardMesh::from_triangles/build/Default/Clone and sealed GpuCards sole emit_cards constructor read. Readonly getters prevent metadata replacement. Native lifetime/contents still SDK state."
+      },
+      {
+        "lens": "invariant-operations",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Checked native sample products/layout limits, prefix fitting, old-rest clone/copy, set_simulated write, dirty flags, normal-submit candidate publication, card multiplication/as casts.",
+        "findings_or_retained_dispositions": [
+          "RS2",
+          "RS3",
+          "RS4",
+          "RS5",
+          "RS6"
+        ],
+        "accounting": "Rest copy/publication retained A1; no mutation repair without source-bound check before writes. Native clock rollback/completion not invented.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "Checked rows+1, rows*2, cards*per_card, cards*segments*2, triangle*3, native4vec4 writer product and lock/scan addresses; receiver explicit prefix/usage/limit needed. cards() recomputation safe by same constructor proof, not a second mutable count."
+      },
+      {
+        "lens": "aggregate-states",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Source/layout/device/buffers/mode/dirty history and card parallel stats collections; exact body Option/native placeholder correlation.",
+        "findings_or_retained_dispositions": [
+          "RS1",
+          "RS2",
+          "RS3",
+          "RS5"
+        ],
+        "accounting": "Payload source mode needed; body Option built together is controlled, not independently invalid public state. Native provenance distinct from mutable buffer contents.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "CardTopology Triangles(CardLayout) vs Strips(CardStripLayout) owns valid metadata; sealed vectors stay paired. GpuCards private layout/device/buffers produced together; direct triangle list has no card/strip count."
+      },
+      {
+        "lens": "type-ownership",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Actual source identity belongs existing host/GPU source Arc; counts at canonical mesh/hair/math owners, Device at producer; renderer owns resident binding and temporal state only.",
+        "findings_or_retained_dispositions": [
+          "RS1",
+          "RS2",
+          "RS4",
+          "RS6"
+        ],
+        "accounting": "No repair to claimed shared producers; root consumes agreed canonical owners. Exact CardLayout and host frame receipts remain required.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "Canonical CardLayout/count/strip producer files remain780-owned; root consumes getters in whole receiver. Only native per-card Device proof applies to actual card handles, not arbitrary top-level grafting."
+      },
+      {
+        "lens": "redundant-authority",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Full logical source versus resident prefix are independent facts; rest is historical copy. Parallel card_quads/GpuMesh.count and raw sim_points lose single checked authority.",
+        "findings_or_retained_dispositions": [
+          "RS1",
+          "RS5",
+          "RS6"
+        ],
+        "accounting": "Do not collapse historical rest or logical-policy/resident counts; derive card draw/stats from canonical layout and preserve source anchor.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "CardLayout retains vertices+checked corners and derives triangles; CardStripLayout derives cards from admitted vertices/rows. Remove root card_quads and raw count duplication; preserve original source/resident distinction."
+      },
+      {
+        "lens": "behavior-preservation",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Old setters accept raw unrelated/short/malformed inputs; planned checks intentionally reject them. Preserve ordinary generated geometry, native slot order, zero/no-work, source-first failures, retained rest/resimulation and post-normal-submit semantics.",
+        "findings_or_retained_dispositions": [
+          "RS1",
+          "RS2",
+          "RS3",
+          "RS4",
+          "RS5"
+        ],
+        "accounting": "Generic triangle-vs-generated quad stats is unresolved behavior decision; no inferred acceptance. Existing fixture inputs/oracles and all WGSL remain exact, no tests executed.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "FramePopulation change explicitly agreed; generic triangle1 reports1triangle, generated counts report actualtriangles. Existing emitted vertex/index order, RNG streams, shader/POD and authored fixture operands/oracles must remain. Count/overflow rejection and fallible allocation boundaries documented; no runtime/visual verdict."
+      },
+      {
+        "lens": "enum-shapes",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Dynamics None/Some; host/GPU source update capabilities; body Option/placeholder; Pending/Current obligations; Empty/Current frame history and native0/1 tags.",
+        "findings_or_retained_dispositions": [
+          "RS3",
+          "RS6"
+        ],
+        "accounting": "Host/GPU source carries payload, not independent bools. Existing DeformationState/History already correct; body active/native flags only at DTO. No speculative enum-only wrappers.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "Canonical payload CardTopology accurately separates generic and generated metadata. Root FramePopulation typed variants replace naked heterogeneous usize; host/GPU dynamics mode still awaiting host receipt."
+      },
+      {
+        "lens": "derivability",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Existing derive Clone/Copy/POD/default roles; checked TryFrom StrandLayout/SufaceRenderLayout; explicit Error/From adapters; native mesh native_elements/checked arithmetic/Display.",
+        "findings_or_retained_dispositions": [
+          "A1",
+          "A3",
+          "RS4"
+        ],
+        "accounting": "Retain semantic checks/SDK getters/native role index adapters. Existing derives already used where mechanical; no derive alternative prescribed absent exact equivalent crate dependency. Do not add serialization or weaken admission. Host/card new implementations not yet readable.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "CardLayout Default/Clone/Copy and CardCount/Segments derives preserve zero. CardTopology manual Default constructs data-bearing Triangles(default), so ordinary default-variant derive is not equivalent; checked conversions/getters retained. CardError uses thiserror with concrete sources."
+      },
+      {
+        "lens": "type-granularity",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Actual full source Arc vs fitted resident StrandLayout; guide simulation population vs source strands; cardinality vs geometry; generic triangle layout vs generated card strips.",
+        "findings_or_retained_dispositions": [
+          "RS1",
+          "RS2",
+          "RS4",
+          "RS5",
+          "RS6"
+        ],
+        "accounting": "Distinctions prevent real same-count capture/role errors. Reuse basic quantity leaves; no universal source IDs/brand system or bounds imposed just to justify types.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "Generic triangle CardLayout distinct from strip CardStripLayout prevents invalid quad inference; shared Mesh counts mean same native role and are reused. CardCount vs triangle vs corner distinction retained where meaningful."
+      },
+      {
+        "lens": "magic-strings",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Native labels hair*; entry deform; literal slot resource names in canonical producer PassParameters; errors and owning documentation; no carried input string classifications.",
+        "findings_or_retained_dispositions": [
+          "A1",
+          "A3",
+          "RS2",
+          "RS4"
+        ],
+        "accounting": "Strings at SDK labels/WGSL entry/binding adapters and diagnostics are intentional; typed errors govern decisions. No prose dispatch branches. No new source-key strings or duplicate name registry.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "New labels haircard* at SDK resources, errors in CardError stable typed variants, parameter names at WGSL composer. No source string branching or alternative renderer card registry."
+      },
+      {
+        "lens": "magic-numbers",
+        "native_discovery": "complete within exact renderer-native admission scope",
+        "whole_requested_discovery": "incomplete: exact host SimFrame/source capture receipt pending",
+        "scope_trace": "Counts/points, bytes, four-guide records, body17vec4, binding slots0..7, native0/1 tags, zero prefixes/positive placeholders, u32 bounds, index triples/quad6, POD layout and error addresses.",
+        "findings_or_retained_dispositions": [
+          "RS2",
+          "RS4",
+          "RS5",
+          "RS6"
+        ],
+        "accounting": "Card/source/Sim retained quantities must use existing owners. Fixed 4lane widths, POD slots and byte/native adapters have explicit SDK/WGSL role. Metres keeps signed values; no new geometric normalization. Solver tuning values outside receiver contract explicitly owner-excluded.",
+        "repair": "Both201c local regressions resolved at2e2; RS4/5 receiving source relationship retained, canonical integration pending; RS1/2/3/6 remain required incomplete.",
+        "validation": "Bounded exact2e2 repair/source-identity review, no project execution or final clearance.",
+        "card_discovery": "complete exact46b receiving/layout source inventory",
+        "card_evidence": "Mesh topology triples/native u32 limits, fourvec4 writer ABI and64-byte CardVertex, empty positive nativefloors, source/settings card/segment quantities classified at actual owner. VERTEX/INDEX receiver differs from STORAGE generation. CardSettings size/width scalar geometry remains producer-owned numerical policy, no independent renderer rewrite."
+      }
+    ]
+  },
+  "fixture": {
+    "path": "crates/fabelgeist-hair/src/render/mod.rs",
+    "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e",
+    "identical_to_parent": true,
+    "matches_prior_receipt": true,
+    "name_resolution": "Canonical parent import restored; fixture body continuity no longer conceals the specific missing-name regression. No compile/runtime claim."
+  },
+  "native_pod": [
+    {
+      "name": "Globals",
+      "sha256": "e0003c6f88ffdbc3d27a45fe06e0b88b50de9a095ff2e466faeeee967a5a2215",
+      "matches_prior_receipt": true,
+      "identical_to_parent": true
+    },
+    {
+      "name": "DrawGpu",
+      "sha256": "7e57128d063a7d19d367616d291cb283ae1e038a991524e265e77e6fdd6ae1ed",
+      "matches_prior_receipt": true,
+      "identical_to_parent": true
+    },
+    {
+      "name": "PostGpu",
+      "sha256": "d5b47327cf39b5a88545e9bb5d5c46f7a5cf6ab7ee28a1a113e81c206d07f10a",
+      "matches_prior_receipt": true,
+      "identical_to_parent": true
+    },
+    {
+      "name": "CardDrawGpu",
+      "sha256": "f3bdd58c806c14dc0b5750aa354aa2d68e92cbda64bd9e942f60e4fa149466f7",
+      "matches_prior_receipt": true,
+      "identical_to_parent": true
+    },
+    {
+      "name": "DeformGpu",
+      "sha256": "190035f5eecdfe124e69065c072c80b1864e596d20480e315122de2b6ea9208d",
+      "matches_prior_receipt": true,
+      "identical_to_parent": true
+    }
+  ],
+  "shaders": [
+    {
+      "path": "crates/fabelgeist-hair/src/render/hair.wgsl",
+      "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330",
+      "matches_prior_receipt": true,
+      "identical_to_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/post.wgsl",
+      "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770",
+      "matches_prior_receipt": true,
+      "identical_to_parent": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "matches_prior_receipt": true,
+      "identical_to_parent": true
+    }
+  ],
+  "nogrowth": {
+    "renderer_raw_lines": 1889,
+    "renderer_meaningful_production": 1666,
+    "previous_meaningful_production": 1666,
+    "baseline_unchanged": true,
+    "proof": "Entire remaining file bytes identical after moving exact enum/restoring one canonical import; all function bodies unchanged. Existing mesh200/head193 limits unchanged; no growth/ceiling increase; hosted reductions pending."
+  },
+  "required_dependencies": [
+    "RS1/RS2/RS3/RS6 exact hostSim/source-frame/native device-layout/body/rest/copy/retainedmode and canonical units remain required, not deferred clearance.",
+    "Integrate canonical46b/0df card/count/strand/surface/source/groom/caller/creator/error/lock contracts; current branch uncompiled and canonical readonly APIs not all received.",
+    "Five peer scoped validation waits and grouped readback/application/cache/callback families remain required.",
+    "All thirteen integrated waves, three independent reviews and required hosted project/baseline/fmt/lint/existing-tests gates at same final pushed SHA; no merge."
+  ],
+  "limits": [
+    "Repair checkpoint only; complete previous file/body coverage connected to current exact byte mapping and freshly read declaration/import/stride/fixture boundaries. No unread body credit or automatic prior verdict.",
+    "No source edits/project checks/scans/build/lint/tests/generator/runtime/push/CI, and no new fixtures/cases/helpers/assertions/doctests. Ignored reports only.",
+    "Canonical producers/sourceFrame/Sim/body/rest/copy/units and caller/lock/shared peer integrations incomplete. No compile, native, whole-family/global/PR or final clearance.",
+    "Full integrated all13 waves, all3 independent reviews and required hosted gates on same final pushedSHA remain necessary."
+  ],
+  "correctness_verdict": "Both new201c regressions repaired at exact2e2; no actionable owned finding in this bounded successor.",
+  "completeness_verdict": "Only two repair obligations resolved. RS1/2/3/6, canonical integration/peer/global/final hosted dependencies remain required.",
+  "head_at_report": "2e2cda74b681620d3162f30ce26dd8d946b059de",
+  "status_at_report": " M crates/fabelgeist-compute/src/kernel/copy.rs\n M crates/fabelgeist-compute/src/kernel/fast.rs\n M crates/fabelgeist-compute/src/kernel/fast/arena.rs\n M crates/fabelgeist-compute/src/kernel/fast/compile.rs\n M crates/fabelgeist-compute/src/kernel/mod.rs\n?? crates/fabelgeist-compute/src/kernel/dispatch_tests.rs\n?? crates/fabelgeist-compute/src/kernel/workgroup.rs\n"
+}

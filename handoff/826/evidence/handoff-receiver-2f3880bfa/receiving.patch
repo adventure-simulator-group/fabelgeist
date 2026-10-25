@@ -1,0 +1,988 @@
+diff --git a/crates/fabelgeist-armor/src/gpu/facade.rs b/crates/fabelgeist-armor/src/gpu/facade.rs
+index ca7b5f181..781689c4a 100644
+--- a/crates/fabelgeist-armor/src/gpu/facade.rs
++++ b/crates/fabelgeist-armor/src/gpu/facade.rs
+@@ -11,6 +11,8 @@ use fabelgeist_gpu::prelude::{
+ };
+ use fabelgeist_mesh::MeshVertexCount;
+ 
++type Result<T> = std::result::Result<T, GenerateError>;
++
+ /// A compute device and the armor kernels compiled for it.
+ pub struct ArmorGpu {
+     context: WgpuContext,
+@@ -30,7 +32,7 @@ impl std::fmt::Debug for ArmorGpu {
+ 
+ impl ArmorGpu {
+     /// Compile the shared kernels on `context`.
+-    pub fn new(context: WgpuContext) -> Result<Self, GenerateError> {
++    pub fn new(context: WgpuContext) -> Result<Self> {
+         let cache = KernelCache::new();
+         Ok(Self {
+             query: MeshQuery::with_cache(&context, &cache).map_err(device_error)?,
+@@ -48,12 +50,12 @@ impl ArmorGpu {
+     }
+ 
+     /// Open the default adapter's device.
+-    pub fn open() -> Result<Self, GenerateError> {
++    pub fn open() -> Result<Self> {
+         pollster::block_on(Self::open_async())
+     }
+ 
+     /// Open a device without blocking the browser event loop.
+-    pub async fn open_async() -> Result<Self, GenerateError> {
++    pub async fn open_async() -> Result<Self> {
+         Self::new(WgpuContext::new_compute().await.map_err(device_error)?)
+     }
+ 
+@@ -86,15 +88,15 @@ impl ArmorGpu {
+     pub fn build_in(
+         &self,
+         frames: &[PartFrame],
+-        record: impl FnOnce(&mut KernelBatch, &[&Buffer]) -> Result<DevicePart, GenerateError>,
+-    ) -> Result<BuiltPart, GenerateError> {
++        record: impl FnOnce(&mut KernelBatch, &[&Buffer]) -> Result<DevicePart>,
++    ) -> Result<BuiltPart> {
+         let buffers = frames
+             .iter()
+             .map(|frame| {
+                 frame.validate()?;
+                 self.upload(BufferUpload::from_elements(&frame_words(frame)))
+             })
+-            .collect::<Result<Vec<_>, _>>()?;
++            .collect::<Result<Vec<_>>>()?;
+         let buffers = buffers.iter().collect::<Vec<_>>();
+         let mut batch = self.batch("armor in host frames");
+         let mut part = record(&mut batch, &buffers)?;
+@@ -104,7 +106,7 @@ impl ArmorGpu {
+     }
+ 
+     /// Upload plain data into a new storage buffer.
+-    pub fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer, GenerateError> {
++    pub fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer> {
+         Buffer::from_upload(
+             &self.context,
+             data.with_empty_word(),
+@@ -114,11 +116,7 @@ impl ArmorGpu {
+     }
+ 
+     /// Zeroed storage with at least one native u32 word, even for no logical bytes.
+-    pub fn scratch(
+-        &self,
+-        bytes: BufferByteLength,
+-        label: BufferLabel,
+-    ) -> Result<Buffer, GenerateError> {
++    pub fn scratch(&self, bytes: BufferByteLength, label: BufferLabel) -> Result<Buffer> {
+         let minimum = BufferByteLength::from(std::mem::size_of::<u32>());
+         Buffer::new(
+             &self.context,
+@@ -134,26 +132,16 @@ impl ArmorGpu {
+     ///
+     /// Native progress blocks; browser callers use `read_async` to yield to
+     /// mapping callbacks. External mapping ownership follows `Buffer::read`.
+-    pub fn read<T: bytemuck::AnyBitPattern>(
+-        &self,
+-        buffer: &Buffer,
+-    ) -> Result<Vec<T>, GenerateError> {
++    pub fn read<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>> {
+         pollster::block_on(self.read_async(buffer))
+     }
+ 
+-    pub async fn read_async<T: bytemuck::AnyBitPattern>(
+-        &self,
+-        buffer: &Buffer,
+-    ) -> Result<Vec<T>, GenerateError> {
++    pub async fn read_async<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>> {
+         buffer.read(&self.context).await.map_err(device_error)
+     }
+ 
+     /// The nearest of `targets` to each query, ties going to the lowest index.
+-    pub fn nearest_points(
+-        &self,
+-        queries: &[[f32; 3]],
+-        targets: &[[f32; 3]],
+-    ) -> Result<Vec<u32>, GenerateError> {
++    pub fn nearest_points(&self, queries: &[[f32; 3]], targets: &[[f32; 3]]) -> Result<Vec<u32>> {
+         if queries.is_empty() {
+             return Ok(Vec::new());
+         }
+diff --git a/crates/fabelgeist-gpu/README.md b/crates/fabelgeist-gpu/README.md
+index 19bc15034..3526b4861 100644
+--- a/crates/fabelgeist-gpu/README.md
++++ b/crates/fabelgeist-gpu/README.md
+@@ -1,8 +1,10 @@
+ # GPU buffers
+ 
+ `BufferUpload` borrows the native bytes of `NoUninit` host elements through
+-queue submission. `Buffer::from_upload`, `write`, and `write_at` consume that
+-upload. Convert host elements once, where the owning consumer admits them:
++the queue write. The queue copies the bytes before that call returns; the GPU
++transfer begins on a subsequent submission. `Buffer::from_upload`, `write`, and
++`write_at` consume the upload. Convert host elements once, where the owning
++consumer admits them:
+ 
+ ```rust
+ use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload};
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs
+index 97c3ec882..5529d7804 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs
+@@ -4,6 +4,20 @@ use crate::globals::WgpuContext;
+ 
+ use super::{BufferByteLength, BufferLabel};
+ 
++const GENERAL_USAGE: wgpu::BufferUsages = wgpu::BufferUsages::STORAGE
++    .union(wgpu::BufferUsages::UNIFORM)
++    .union(wgpu::BufferUsages::VERTEX)
++    .union(wgpu::BufferUsages::INDEX)
++    .union(wgpu::BufferUsages::INDIRECT)
++    .union(wgpu::BufferUsages::COPY_DST)
++    .union(wgpu::BufferUsages::COPY_SRC);
++
++#[derive(Clone, Debug)]
++pub struct BufferDefinition {
++    label: Option<BufferLabel>,
++    usage: UsageSelection,
++}
++
+ /// Independent uses of one allocation; storage also permits device copies.
+ #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ pub enum BufferUse {
+@@ -24,20 +38,6 @@ enum UsageSelection {
+     Explicit(wgpu::BufferUsages),
+ }
+ 
+-#[derive(Clone, Debug)]
+-pub struct BufferDefinition {
+-    label: Option<BufferLabel>,
+-    usage: UsageSelection,
+-}
+-
+-const GENERAL_USAGE: wgpu::BufferUsages = wgpu::BufferUsages::STORAGE
+-    .union(wgpu::BufferUsages::UNIFORM)
+-    .union(wgpu::BufferUsages::VERTEX)
+-    .union(wgpu::BufferUsages::INDEX)
+-    .union(wgpu::BufferUsages::INDIRECT)
+-    .union(wgpu::BufferUsages::COPY_DST)
+-    .union(wgpu::BufferUsages::COPY_SRC);
+-
+ impl Default for BufferDefinition {
+     fn default() -> Self {
+         Self::all()
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs
+index 829b9aff7..4588a1ff2 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs
+@@ -1,4 +1,4 @@
+-use super::BufferReadError;
++use super::{BufferByteLength, BufferReadError, ReadResult};
+ use crate::globals::WgpuContext;
+ use futures_channel::oneshot;
+ use std::sync::Arc;
+@@ -6,34 +6,72 @@ use std::sync::Arc;
+ /// Owns this operation's mapping request, including callback failure/cancel.
+ pub(super) struct MappingRequest {
+     target: Arc<wgpu::Buffer>,
++    extent: MappingExtent,
+     #[cfg(not(target_arch = "wasm32"))]
+     device: Arc<wgpu::Device>,
+-    completion: oneshot::Receiver<Result<(), wgpu::BufferAsyncError>>,
++    completion: oneshot::Receiver<std::result::Result<(), wgpu::BufferAsyncError>>,
+     release: ReleaseObligation,
+ }
+ 
++/// Nonzero, SDK-aligned range covering a logical prefix within its allocation.
++#[derive(Clone, Copy)]
++pub(super) struct MappingExtent(BufferByteLength);
++
+ enum ReleaseObligation {
+     Required,
+     Complete,
+ }
+ 
++impl MappingExtent {
++    pub(super) fn for_prefix(
++        logical: BufferByteLength,
++        allocated: BufferByteLength,
++    ) -> ReadResult<Option<Self>> {
++        let bytes = u64::from(logical);
++        if bytes == 0 {
++            return Ok(None);
++        }
++        // Offset zero satisfies MAP_ALIGNMENT; mapping lengths and staging
++        // copies both require COPY_BUFFER_ALIGNMENT.
++        let aligned = bytes
++            .div_ceil(wgpu::COPY_BUFFER_ALIGNMENT)
++            .checked_mul(wgpu::COPY_BUFFER_ALIGNMENT)
++            .map(BufferByteLength::from)
++            .ok_or(BufferReadError::MappingExtentOverflow { requested: logical })?;
++        if aligned > allocated {
++            return Err(BufferReadError::ExtentExceedsAllocation {
++                requested: aligned,
++                available: allocated,
++            });
++        }
++        Ok(Some(Self(aligned)))
++    }
++
++    pub(super) fn bytes(self) -> BufferByteLength {
++        self.0
++    }
++}
++
+ impl MappingRequest {
+     pub(super) fn request(
+         context: &WgpuContext,
+         target: Arc<wgpu::Buffer>,
+-    ) -> Result<Self, BufferReadError> {
++        extent: MappingExtent,
++    ) -> ReadResult<Self> {
+         let (sender, receiver) = oneshot::channel();
+         let request = context
+             .observe_validation(|| {
+-                target
+-                    .slice(..)
+-                    .map_async(wgpu::MapMode::Read, move |result| {
++                target.slice(..u64::from(extent.bytes())).map_async(
++                    wgpu::MapMode::Read,
++                    move |result| {
+                         let _ = sender.send(result);
+-                    });
++                    },
++                );
+                 // A callback may already have run. Own cleanup before the
+                 // native scope is inspected or any result can return early.
+                 Self {
+                     target,
++                    extent,
+                     #[cfg(not(target_arch = "wasm32"))]
+                     device: context.device.clone(),
+                     completion: receiver,
+@@ -44,11 +82,13 @@ impl MappingRequest {
+         Ok(request)
+     }
+ 
+-    pub(super) fn buffer(&self) -> &wgpu::Buffer {
+-        &self.target
++    pub(super) fn mapped_range(&self) -> wgpu::BufferView {
++        self.target
++            .slice(..u64::from(self.extent.bytes()))
++            .get_mapped_range()
+     }
+ 
+-    pub(super) async fn complete(&mut self, context: &WgpuContext) -> Result<(), BufferReadError> {
++    pub(super) async fn complete(&mut self, context: &WgpuContext) -> ReadResult<()> {
+         #[cfg(not(target_arch = "wasm32"))]
+         {
+             context
+@@ -85,7 +125,7 @@ impl MappingRequest {
+     }
+ 
+     /// Consume the request after its mapped view has been dropped.
+-    pub(super) fn release(mut self, context: &WgpuContext) -> Result<(), BufferReadError> {
++    pub(super) fn release(mut self, context: &WgpuContext) -> ReadResult<()> {
+         self.release = ReleaseObligation::Complete;
+         context
+             .observe_validation(|| self.target.unmap())
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs
+index 63073c6c3..4514fa063 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs
+@@ -8,6 +8,7 @@ pub use definition::{BufferDefinition, BufferUse};
+ pub use extent::{BufferByteLength, BufferByteOffset};
+ pub use label::BufferLabel;
+ pub use read_error::BufferReadError;
++use read_error::ReadResult;
+ pub use upload::{BufferUpload, BufferUploadOccupancy};
+ 
+ mod binding;
+@@ -27,6 +28,7 @@ pub struct Buffer {
+ }
+ 
+ impl Buffer {
++    /// Allocate on `context.device`; the returned buffer belongs to that device.
+     pub fn new(
+         context: &WgpuContext,
+         bytes: BufferByteLength,
+@@ -42,12 +44,19 @@ impl Buffer {
+         })
+     }
+ 
++    /// Write through the creating device's paired queue.
++    ///
++    /// This buffer must belong to `context.device`, and `context.queue` must
++    /// be paired with that same logical device.
+     pub fn write(&self, context: &WgpuContext, data: BufferUpload<'_>) -> Result<()> {
+         data.write_to(context, &self.buffer, BufferByteOffset::START)?;
+         Ok(())
+     }
+ 
+     /// Write one host upload at a checked byte address within this buffer.
++    ///
++    /// This buffer must belong to `context.device`, and `context.queue` must
++    /// be paired with that same logical device.
+     pub fn write_at(
+         &self,
+         context: &WgpuContext,
+@@ -68,6 +77,9 @@ impl Buffer {
+         Ok(())
+     }
+ 
++    /// Allocate and upload using a device and its paired queue.
++    ///
++    /// `context.queue` must be paired with `context.device`.
+     pub fn from_upload(
+         context: &WgpuContext,
+         data: BufferUpload<'_>,
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs
+index bd626df38..87bc0d6e1 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs
+@@ -1,6 +1,6 @@
+-use super::mapping::MappingRequest;
++use super::mapping::{MappingExtent, MappingRequest};
+ use super::readback::Readback;
+-use super::{Buffer, BufferByteLength, BufferReadError};
++use super::{Buffer, BufferByteLength, BufferReadError, ReadResult};
+ use crate::globals::WgpuContext;
+ use anyhow::Result;
+ use std::sync::Arc;
+@@ -28,21 +28,22 @@ impl Buffer {
+             }
+             .into());
+         }
+-        let readback = Readback::<T>::new(size)?;
+-        if size == 0 {
++        let extent = MappingExtent::for_prefix(self.size, BufferByteLength::from(allocated))?;
++        let readback = Readback::<T>::new(self.size)?;
++        let Some(extent) = extent else {
+             return Ok(readback.copy_from(&[])?);
+-        }
++        };
+         let target = if self.buffer.usage().contains(wgpu::BufferUsages::MAP_READ) {
+             self.buffer.clone()
+         } else {
+-            self.readback_target(context)?
++            self.readback_target(context, extent)?
+         };
+-        let mut mapping = MappingRequest::request(context, target)?;
++        let mut mapping = MappingRequest::request(context, target, extent)?;
+         mapping.complete(context).await?;
+ 
+         // The typed destination was allocated before obtaining this view:
+         // WASM memory growth must not detach it during the copy.
+-        let data = mapping.buffer().slice(..).get_mapped_range();
++        let data = mapping.mapped_range();
+         let values = readback.copy_from(&data);
+         drop(data);
+         let values = values?;
+@@ -50,12 +51,16 @@ impl Buffer {
+         Ok(values)
+     }
+ 
+-    fn readback_target(&self, context: &WgpuContext) -> Result<Arc<wgpu::Buffer>, BufferReadError> {
++    fn readback_target(
++        &self,
++        context: &WgpuContext,
++        extent: MappingExtent,
++    ) -> ReadResult<Arc<wgpu::Buffer>> {
+         let target = context
+             .observe_validation(|| {
+                 context.device.create_buffer(&wgpu::BufferDescriptor {
+                     label: Some("Staging Buffer"),
+-                    size: u64::from(self.size),
++                    size: u64::from(extent.bytes()),
+                     usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
+                     mapped_at_creation: false,
+                 })
+@@ -64,7 +69,7 @@ impl Buffer {
+         let mut encoder = context
+             .device
+             .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
+-        encoder.copy_buffer_to_buffer(&self.buffer, 0, &target, 0, u64::from(self.size));
++        encoder.copy_buffer_to_buffer(&self.buffer, 0, &target, 0, u64::from(extent.bytes()));
+         context.submit(encoder).map_err(BufferReadError::Native)?;
+         Ok(Arc::new(target))
+     }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs
+index 26a4325bd..45e14c774 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs
+@@ -4,9 +4,14 @@ use std::error::Error;
+ use std::fmt;
+ use std::num::TryFromIntError;
+ 
++pub(super) type ReadResult<T> = Result<T, BufferReadError>;
++
+ /// Why a logical buffer prefix could not be read into host elements.
+ #[derive(Debug)]
+ pub enum BufferReadError {
++    MappingExtentOverflow {
++        requested: BufferByteLength,
++    },
+     ExtentExceedsAllocation {
+         requested: BufferByteLength,
+         available: BufferByteLength,
+@@ -31,6 +36,10 @@ pub enum BufferReadError {
+ impl fmt::Display for BufferReadError {
+     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+         match self {
++            Self::MappingExtentOverflow { requested } => write!(
++                formatter,
++                "GPU readback cannot align a {requested}-byte mapping extent"
++            ),
+             Self::ExtentExceedsAllocation {
+                 requested,
+                 available,
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs
+index bdea9b821..4990e9220 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs
+@@ -1,5 +1,5 @@
+ //! Allocate before taking a mapped view; initialize before exposing typed data.
+-use super::{BufferByteLength, BufferReadError};
++use super::{BufferByteLength, BufferReadError, ReadResult};
+ use bytemuck::AnyBitPattern;
+ 
+ pub(super) struct Readback<T> {
+@@ -8,15 +8,15 @@ pub(super) struct Readback<T> {
+ }
+ 
+ impl<T: AnyBitPattern> Readback<T> {
+-    pub(super) fn new(byte_len: u64) -> Result<Self, BufferReadError> {
+-        let byte_len = usize::try_from(byte_len).map_err(BufferReadError::HostAddress)?;
++    pub(super) fn new(bytes: BufferByteLength) -> ReadResult<Self> {
++        let byte_len = usize::try_from(u64::from(bytes)).map_err(BufferReadError::HostAddress)?;
+         let element_size = std::mem::size_of::<T>();
+         if element_size == 0 {
+             return Err(BufferReadError::ZeroSizedElement);
+         }
+         if !byte_len.is_multiple_of(element_size) {
+             return Err(BufferReadError::PartialElement {
+-                bytes: BufferByteLength::from(byte_len),
++                bytes,
+                 element_bytes: element_size,
+             });
+         }
+@@ -27,7 +27,7 @@ impl<T: AnyBitPattern> Readback<T> {
+         Ok(Self { values, byte_len })
+     }
+ 
+-    pub(super) fn copy_from(mut self, bytes: &[u8]) -> Result<Vec<T>, BufferReadError> {
++    pub(super) fn copy_from(mut self, bytes: &[u8]) -> ReadResult<Vec<T>> {
+         // GPU allocations may include trailing alignment padding.
+         if bytes.len() < self.byte_len {
+             return Err(BufferReadError::Truncated {
+@@ -57,15 +57,20 @@ mod tests {
+ 
+     #[test]
+     fn readback_rejects_partial_and_zero_sized_elements() {
+-        assert!(Readback::<u32>::new(3).is_err());
+-        assert!(Readback::<()>::new(0).is_err());
+-        assert!(Readback::<u32>::new(4).unwrap().copy_from(&[0; 3]).is_err());
++        assert!(Readback::<u32>::new(BufferByteLength::from(3u64)).is_err());
++        assert!(Readback::<()>::new(BufferByteLength::from(0u64)).is_err());
++        assert!(
++            Readback::<u32>::new(BufferByteLength::from(4u64))
++                .unwrap()
++                .copy_from(&[0; 3])
++                .is_err()
++        );
+     }
+ 
+     #[test]
+     fn readback_copies_unaligned_bytes_and_preserves_bits() {
+         let bytes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+-        let values = Readback::<u32>::new(8)
++        let values = Readback::<u32>::new(BufferByteLength::from(8u64))
+             .unwrap()
+             .copy_from(&bytes[1..])
+             .unwrap();
+@@ -77,7 +82,7 @@ mod tests {
+             ]
+         );
+         assert!(
+-            Readback::<u32>::new(0)
++            Readback::<u32>::new(BufferByteLength::from(0u64))
+                 .unwrap()
+                 .copy_from(&[])
+                 .unwrap()
+@@ -87,7 +92,7 @@ mod tests {
+ 
+     #[test]
+     fn readback_excludes_gpu_allocation_padding() {
+-        let values = Readback::<u8>::new(3)
++        let values = Readback::<u8>::new(BufferByteLength::from(3u64))
+             .unwrap()
+             .copy_from(&[1, 2, 3, 0])
+             .unwrap();
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs b/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs
+index b4c7a29d2..17b17a3ef 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs
+@@ -4,13 +4,11 @@ use crate::globals::WgpuContext;
+ 
+ use super::{BufferByteLength, BufferByteOffset};
+ 
+-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+-pub enum BufferUploadOccupancy {
+-    Empty,
+-    Populated,
+-}
++const EMPTY_BINDING_WORD: [u8; std::mem::size_of::<u32>()] = [0; std::mem::size_of::<u32>()];
+ 
+-/// Exact `NoUninit` element representation, retained through queue submission.
++/// Exact `NoUninit` element representation, borrowed through the queue write.
++/// The queue copies these bytes before the write returns; their GPU transfer
++/// begins on a subsequent submission.
+ ///
+ /// ```compile_fail
+ /// use crate::prelude::{BufferUpload, BufferByteLength};
+@@ -20,7 +18,11 @@ pub enum BufferUploadOccupancy {
+ #[derive(Clone, Copy, Debug)]
+ pub struct BufferUpload<'a>(&'a [u8]);
+ 
+-const EMPTY_BINDING_WORD: [u8; std::mem::size_of::<u32>()] = [0; std::mem::size_of::<u32>()];
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum BufferUploadOccupancy {
++    Empty,
++    Populated,
++}
+ 
+ impl<'a> BufferUpload<'a> {
+     pub fn from_elements<T: bytemuck::NoUninit>(elements: &'a [T]) -> Self {
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs
+new file mode 100644
+index 000000000..7f9756599
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/entry_point.rs
+@@ -0,0 +1,36 @@
++//! Entry identity is admitted independently of source declaration order.
++
++use super::{ComputePipelineError, ComputePipelineResult};
++
++/// Which compute entry a pipeline definition selects from its shader.
++#[derive(Clone, Copy, Debug)]
++pub enum ComputeEntryPoint<'a> {
++    /// Preserve source order for callers choosing the first compute program.
++    First,
++    /// Select this exact compute entry; absence is an error, with no fallback.
++    Named(&'a str),
++}
++
++impl ComputeEntryPoint<'_> {
++    pub(super) fn resolve(
++        self,
++        module: &wgpu::naga::Module,
++    ) -> ComputePipelineResult<&wgpu::naga::EntryPoint> {
++        module
++            .entry_points
++            .iter()
++            .find(|entry| {
++                entry.stage == wgpu::naga::ShaderStage::Compute
++                    && match self {
++                        Self::First => true,
++                        Self::Named(name) => entry.name == name,
++                    }
++            })
++            .ok_or_else(|| ComputePipelineError::MissingEntryPoint {
++                requested: match self {
++                    Self::First => None,
++                    Self::Named(name) => Some(name.to_owned()),
++                },
++            })
++    }
++}
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs
+index e019e1fef..76dfaa2bb 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs
+@@ -17,7 +17,9 @@ pub enum UnsupportedBindingKind {
+ pub enum ComputePipelineError {
+     Shader(ShaderError),
+     WrongDevice,
+-    MissingEntryPoint,
++    MissingEntryPoint {
++        requested: Option<String>,
++    },
+     NotCompiled,
+     Native(Arc<wgpu::Error>),
+     CachePoisoned,
+@@ -53,7 +55,14 @@ impl fmt::Display for ComputePipelineError {
+             Self::WrongDevice => {
+                 formatter.write_str("ComputePipeline belongs to a different GPU device")
+             }
+-            Self::MissingEntryPoint => formatter.write_str("Compute Shader missing entry point"),
++            Self::MissingEntryPoint {
++                requested: Some(name),
++            } => {
++                write!(formatter, "Compute shader missing entry point `{name}`")
++            }
++            Self::MissingEntryPoint { requested: None } => {
++                formatter.write_str("Compute shader missing a compute entry point")
++            }
+             Self::NotCompiled => {
+                 formatter.write_str("ComputePass: ComputePipeline missing actual WGPU pipeline")
+             }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs
+index 03b246b72..bd469197c 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs
+@@ -1,13 +1,16 @@
+ pub use compute_shader::*;
++pub use entry_point::ComputeEntryPoint;
+ pub use error::*;
++pub use reflection::ComputeReflection;
+ 
+ use crate::data::TextureFormat;
+-use crate::data::gpu::shader::{ReflectionData, parse_naga};
++use crate::data::gpu::shader::parse_naga;
+ use crate::globals::WgpuContext;
+ use std::collections::HashMap;
+ use std::sync::{Arc, Mutex};
+ 
+ mod compute_shader;
++mod entry_point;
+ mod error;
+ mod reflection;
+ 
+@@ -18,7 +21,7 @@ type PipelineCache = HashMap<String, CachedPipeline>;
+ pub struct ComputePipeline {
+     shader: ComputeShader,
+     bind_group_layouts: Vec<Option<Arc<wgpu::BindGroupLayout>>>,
+-    reflection: Arc<ReflectionData>,
++    reflection: Arc<ComputeReflection>,
+     pipeline_cache: Arc<Mutex<PipelineCache>>,
+     state: CompilationState,
+ }
+@@ -45,19 +48,27 @@ impl CachedPipeline {
+ }
+ 
+ impl ComputePipeline {
+-    pub fn new(context: &WgpuContext, shader: ComputeShader) -> ComputePipelineResult<Self> {
+-        let mut pipeline = Self::prepare(context, shader)?;
++    pub fn new(
++        context: &WgpuContext,
++        shader: ComputeShader,
++        entry: ComputeEntryPoint<'_>,
++    ) -> ComputePipelineResult<Self> {
++        let mut pipeline = Self::prepare(context, shader, entry)?;
+         pipeline.compile(context)?;
+         Ok(pipeline)
+     }
+ 
+     /// Reflect bindings without compiling a GPU pipeline. A caller choosing a
+     /// different uniform layout can compile only the dispatch layout it uses.
+-    pub fn prepare(context: &WgpuContext, shader: ComputeShader) -> ComputePipelineResult<Self> {
++    pub fn prepare(
++        context: &WgpuContext,
++        shader: ComputeShader,
++        entry: ComputeEntryPoint<'_>,
++    ) -> ComputePipelineResult<Self> {
+         if shader.device() != context.device.as_ref() {
+             return Err(ComputePipelineError::WrongDevice);
+         }
+-        let interface = reflection::ReflectedInterface::new(context, shader.code())?;
++        let interface = reflection::ReflectedInterface::new(context, shader.code(), entry)?;
+         Ok(Self {
+             shader,
+             bind_group_layouts: interface.layouts,
+@@ -70,7 +81,7 @@ impl ComputePipeline {
+     pub fn shader(&self) -> &ComputeShader {
+         &self.shader
+     }
+-    pub fn reflection(&self) -> &ReflectionData {
++    pub fn reflection(&self) -> &ComputeReflection {
+         &self.reflection
+     }
+     pub fn bind_group_layouts(&self) -> &[Option<Arc<wgpu::BindGroupLayout>>] {
+@@ -95,7 +106,7 @@ impl ComputePipeline {
+         if matches!(self.state, CompilationState::Prepared) {
+             return Err(ComputePipelineError::NotCompiled);
+         }
+-        self.get_or_create_pipeline(context, &self.reflection.vertex_entry_point)
++        self.get_or_create_pipeline(context, &self.reflection.entry_point)
+     }
+ 
+     /// Native validation follows the supplied context's existing blocking policy.
+@@ -127,20 +138,14 @@ impl ComputePipeline {
+     /// share the complete entry-point outcome, including native rejection.
+     pub fn compile(&mut self, context: &WgpuContext) -> ComputePipelineResult<()> {
+         self.ensure_device(context)?;
+-        self.get_or_create_pipeline(context, &self.reflection.vertex_entry_point)?;
++        self.get_or_create_pipeline(context, &self.reflection.entry_point)?;
+         self.state = CompilationState::Compiled;
+         Ok(())
+     }
+ 
+     pub fn validate_interface(&self) -> ComputePipelineResult<()> {
+         let module = parse_naga(self.shader.code(), wgpu::naga::ShaderStage::Compute)?;
+-        if !module
+-            .entry_points
+-            .iter()
+-            .any(|entry| entry.stage == wgpu::naga::ShaderStage::Compute)
+-        {
+-            return Err(ComputePipelineError::MissingEntryPoint);
+-        }
++        ComputeEntryPoint::Named(&self.reflection.entry_point).resolve(&module)?;
+         Ok(())
+     }
+ 
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs
+index e2f648fb9..d8162e0f9 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs
+@@ -7,24 +7,31 @@ mod images;
+ mod uniforms;
+ 
+ pub(super) struct ReflectedInterface {
+-    pub reflection: Arc<ReflectionData>,
++    pub reflection: Arc<ComputeReflection>,
+     pub layouts: Vec<Option<Arc<wgpu::BindGroupLayout>>>,
+ }
+ 
++/// The admitted selected compute entry and the shared resource interface.
++#[derive(Clone, Debug)]
++pub struct ComputeReflection {
++    pub bind_groups: Vec<BindGroupReflection>,
++    pub entry_point: String,
++}
++
+ struct GroupBuilder {
+     reflection: BindGroupReflection,
+     entries: Vec<wgpu::BindGroupLayoutEntry>,
+ }
+ 
+ impl ReflectedInterface {
+-    pub(super) fn new(context: &WgpuContext, code: &str) -> ComputePipelineResult<Self> {
++    pub(super) fn new(
++        context: &WgpuContext,
++        code: &str,
++        entry: ComputeEntryPoint<'_>,
++    ) -> ComputePipelineResult<Self> {
+         let module = parse_naga(code, wgpu::naga::ShaderStage::Compute)?;
+         let info = validate_naga(&module, code)?;
+-        let entry = module
+-            .entry_points
+-            .iter()
+-            .find(|entry| entry.stage == wgpu::naga::ShaderStage::Compute)
+-            .ok_or(ComputePipelineError::MissingEntryPoint)?;
++        let entry = entry.resolve(&module)?;
+         let mut groups = BTreeMap::new();
+         for (handle, variable) in module.global_variables.iter() {
+             let used = module
+@@ -98,10 +105,9 @@ impl ReflectedInterface {
+             }
+         }
+         Ok(Self {
+-            reflection: Arc::new(ReflectionData {
++            reflection: Arc::new(ComputeReflection {
+                 bind_groups: reflected,
+-                fragment_entry_point: String::new(),
+-                vertex_entry_point: entry.name.clone(),
++                entry_point: entry.name.clone(),
+             }),
+             layouts,
+         })
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
+index c9148b4d4..67d184376 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
+@@ -95,7 +95,11 @@ impl TextureBinaryOpDefinition {
+         full_code.push_str("}\n");
+ 
+         let shader = ComputeShader::new(context, full_code)?;
+-        Ok(ComputePipeline::new(context, shader)?)
++        Ok(ComputePipeline::new(
++            context,
++            shader,
++            ComputeEntryPoint::Named("main"),
++        )?)
+     }
+ 
+     pub fn get_or_create_pipeline(
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/shader.rs b/crates/fabelgeist-gpu/src/data/gpu/shader.rs
+index 0a5800aa4..75964215d 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/shader.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/shader.rs
+@@ -45,13 +45,6 @@ pub struct BindGroupReflection {
+     pub buffer_bindings: Vec<BufferBinding>,
+ }
+ 
+-#[derive(Debug, Clone)]
+-pub struct ReflectionData {
+-    pub bind_groups: Vec<BindGroupReflection>,
+-    pub fragment_entry_point: String,
+-    pub vertex_entry_point: String,
+-}
+-
+ /// The language selected at the shader source boundary.
+ #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ pub enum ShaderLanguage {
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs
+new file mode 100644
+index 000000000..6a624bf50
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs
+@@ -0,0 +1,72 @@
++//! Explicit queue completion, separate from command acceptance and readback.
++
++use super::WgpuContext;
++use std::{error::Error, fmt};
++
++type Result<T> = std::result::Result<T, WorkCompletionError>;
++
++/// The stage that prevented observing queue completion.
++#[derive(Debug)]
++pub enum WorkCompletionError {
++    Marker(wgpu::Error),
++    Poll(wgpu::PollError),
++    Callback(futures_channel::oneshot::Canceled),
++}
++
++impl fmt::Display for WorkCompletionError {
++    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self {
++            Self::Marker(cause) => write!(formatter, "GPU completion marker: {cause}"),
++            Self::Poll(cause) => write!(formatter, "GPU completion progress: {cause}"),
++            Self::Callback(cause) => write!(formatter, "GPU completion callback: {cause}"),
++        }
++    }
++}
++
++impl Error for WorkCompletionError {
++    fn source(&self) -> Option<&(dyn Error + 'static)> {
++        match self {
++            Self::Marker(cause) => Some(cause),
++            Self::Poll(cause) => Some(cause),
++            Self::Callback(cause) => Some(cause),
++        }
++    }
++}
++
++impl WgpuContext {
++    /// Wait for work queued before this operation's completion point.
++    ///
++    /// The queue must be paired with this context's exact logical device.
++    /// Native builds submit an empty marker and wait for its explicit index;
++    /// later submissions need not finish. Marker Validation errors follow the
++    /// context's synchronous observation policy; poll errors remain available.
++    ///
++    /// Browser builds await the SDK's queue callback. The WebGPU backend also
++    /// delivers that callback when its underlying promise rejects, logging the
++    /// rejection without exposing it here. `Ok` therefore establishes callback
++    /// delivery only on that backend. Neither path certifies later work or
++    /// global device health. Callers must first handle producing submissions.
++    pub async fn submitted_work_done(&self) -> Result<()> {
++        #[cfg(not(target_arch = "wasm32"))]
++        {
++            let index = self
++                .observe_validation(|| self.queue.submit([]))
++                .map_err(WorkCompletionError::Marker)?;
++            self.device
++                .poll(wgpu::PollType::Wait {
++                    submission_index: Some(index),
++                    timeout: None,
++                })
++                .map_err(WorkCompletionError::Poll)?;
++            Ok(())
++        }
++        #[cfg(target_arch = "wasm32")]
++        {
++            let (sender, receiver) = futures_channel::oneshot::channel();
++            self.queue.on_submitted_work_done(move || {
++                let _ = sender.send(());
++            });
++            receiver.await.map_err(WorkCompletionError::Callback)
++        }
++    }
++}
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs
+index c0260c850..f4d3ceca5 100644
+--- a/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/initialization.rs
+@@ -69,7 +69,6 @@ impl WgpuContext {
+             blocking_validation: !cfg!(target_arch = "wasm32"),
+         };
+         if matches!(mode, ContextMode::Presentation) {
+-            // Texture3d presentation renders into this sRGB target format.
+             context.blitter = Some(Arc::new(
+                 context
+                     .observe_validation(|| {
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
+index c1b2caa05..98562f2b1 100644
+--- a/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
+@@ -1,12 +1,14 @@
+ #[cfg(test)]
+ use anyhow::Result;
+ pub use blitter::Blitter;
++pub use completion::WorkCompletionError;
+ #[cfg(target_arch = "wasm32")]
+ pub use initialization_error::BrowserContextError;
+ use std::sync::Arc;
+ use wgpu::{Adapter, Device, Instance, Queue};
+ 
+ pub mod blitter;
++mod completion;
+ mod initialization;
+ #[cfg(target_arch = "wasm32")]
+ mod initialization_error;
+@@ -44,6 +46,9 @@ pub struct WgpuContext {
+ impl WgpuContext {
+     /// Wrap a device that already exists.
+     ///
++    /// `queue` must be paired with `device` for operations using this context
++    /// to submit work or upload data.
++    ///
+     /// An application that has its own wgpu setup -- a renderer, a compositor
+     /// -- wants the solver on that same device, so that simulated positions
+     /// can be drawn straight from the buffer they were written into rather
+@@ -71,47 +76,6 @@ impl WgpuContext {
+         }
+     }
+ 
+-    /// Wait until a queue marker and all work submitted before it complete.
+-    ///
+-    /// Callers can use this for backpressure before submitting more work.
+-    /// Native builds wait on an explicit submission index; submissions made
+-    /// after that marker need not finish before this call returns. Browser
+-    /// builds wait for the queue's completion callback instead.
+-    pub async fn submitted_work_done(&self) {
+-        #[cfg(not(target_arch = "wasm32"))]
+-        {
+-            // Wait for this point in the queue only. A submission index
+-            // returns once earlier work finishes even while a renderer keeps
+-            // submitting, and without a sleep's timer granularity, which on
+-            // Windows is the system tick rather than a millisecond.
+-            let index = self.queue.submit([]);
+-            let _ = self.device.poll(wgpu::PollType::Wait {
+-                submission_index: Some(index),
+-                timeout: None,
+-            });
+-        }
+-        // WebGPU ignores `Wait`; its callbacks run from the event loop.
+-        #[cfg(target_arch = "wasm32")]
+-        {
+-            let (sender, mut receiver) = futures_channel::oneshot::channel();
+-            self.queue.on_submitted_work_done(move || {
+-                let _ = sender.send(());
+-            });
+-            loop {
+-                let _ = self.device.poll(wgpu::PollType::Poll);
+-                match receiver.try_recv() {
+-                    Ok(Some(())) => return,
+-                    Ok(None) => {
+-                        fabelgeist_timer::sleep(std::time::Duration::from_millis(1)).await;
+-                    }
+-                    // The callback was dropped, which can only happen if the
+-                    // device is going away. Nothing left to wait for.
+-                    Err(_) => return,
+-                }
+-            }
+-        }
+-    }
+-
+     /// What the GPU crates ask of a device: filterable and blendable float textures
+     /// and timestamp queries where the adapter has them, and the adapter's
+     /// own buffer and compute limits, which the kernels need beyond wgpu's

@@ -1,0 +1,848 @@
+{
+  "review": "Independent bounded renderer receiving Code Review; source-only",
+  "head": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+  "tree": "0c7403ab013e934273d610de2d381a492b0ea2cb",
+  "actual_parent": "48e5995839d008ef3373343919d17915357544bc",
+  "base": "48e5995839d008ef3373343919d17915357544bc",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "canonical": {
+    "host_shape": "a2ca851015b9649097635f9f580e409028682ffa",
+    "host_frame": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+    "native_reference": "0df94b91011a415be93c14174d4233b09eb01c00",
+    "card_reference": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc"
+  },
+  "findings": [],
+  "verdict": "No new actionable receiving correctness finding. Conditional source fit against immutable canonical receipts, not compilation, producer physics, whole-PR/all13/global or hosted clearance.",
+  "source_accounts": [
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/deformation.rs",
+      "sha256": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+      "git_blob": "4d317ead0052b0de8baa0a37df596b44c6757d1f",
+      "lines": 299,
+      "coverage": "Fresh complete pinned changed file read, all functions/fixtures/docs"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/head.rs",
+      "sha256": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+      "git_blob": "2e6c9502deb9feaf20a74dca03692c92e5653141",
+      "lines": 195,
+      "coverage": "Fresh complete pinned changed file read, all functions/fixtures/docs"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/levels.rs",
+      "sha256": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+      "git_blob": "87245c6c79707ef37f3f663c0baa1fffba432a2e",
+      "lines": 224,
+      "coverage": "Fresh complete pinned changed file read, all functions/fixtures/docs"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "sha256": "052eb05f205e18ce867d925db0db38571dcc98c92f6d4230d715e326b347dfd4",
+      "git_blob": "6f6f0fc9a989e050b6041a5497a2abc3bfb84a66",
+      "lines": 1706,
+      "coverage": "Fresh complete pinned changed file read, all functions/fixtures/docs"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/simulation.rs",
+      "sha256": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+      "git_blob": "dae48a116a5833f481d5f39285f2f720d96d24b4",
+      "lines": 287,
+      "coverage": "Fresh complete pinned changed file read, all functions/fixtures/docs"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/simulation/buffers.rs",
+      "sha256": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+      "git_blob": "7fc0c2c88c1a9cf47b0f131c38e4c667f7c0cf87",
+      "lines": 238,
+      "coverage": "Fresh complete pinned changed file read, all functions/fixtures/docs"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/simulation/error.rs",
+      "sha256": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+      "git_blob": "9a52577a2bb7e1856eae04249f712d3c914c100b",
+      "lines": 75,
+      "coverage": "Fresh complete pinned changed file read, all functions/fixtures/docs"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/simulation/frames.rs",
+      "sha256": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+      "git_blob": "445e8c98a2961d4452bb322b2ec3bb97119c4b08",
+      "lines": 157,
+      "coverage": "Fresh complete pinned changed file read, all functions/fixtures/docs"
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/frame_state.rs",
+      "sha256": "939c92bd3d64e773ff1d5f5191379ae1b90447b870dea9f3329629e1bc532b3e",
+      "git_blob": "a72ae87020859dad8df9e6707f6e9345d0c554cd",
+      "lines": 192,
+      "coverage": "Fresh complete affected unchanged file read",
+      "same_parent_bytes": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/frame_uniforms.rs",
+      "sha256": "4c75cf6d56cdb8b8f6216033e967f93facc97944e5d2a9e4b79c5c6cb6595a64",
+      "git_blob": "61e51831f880ba6b888ba3642d2f844968be1e86",
+      "lines": 165,
+      "coverage": "Fresh complete affected unchanged file read",
+      "same_parent_bytes": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/draws.rs",
+      "sha256": "5586618b37caa2cf88cd81913d89814ef35d20884ff9a059c7b3275bb0842efe",
+      "git_blob": "8703b271bea75fe54bf54909ab2507d0b8178af8",
+      "lines": 152,
+      "coverage": "Fresh complete affected unchanged file read",
+      "same_parent_bytes": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/meshes.rs",
+      "sha256": "411e1488a75b45c69cee1e6a8d270a21c8e7dc8779d7669a399e8f9cd3209469",
+      "git_blob": "50adc65cccb80a5386909e8a36bf74495b992e36",
+      "lines": 200,
+      "coverage": "Fresh complete affected unchanged file read",
+      "same_parent_bytes": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/render/deform.wgsl",
+      "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b",
+      "git_blob": "3ad944451601f5e4c5dd22d8a5f8d10f133e807e",
+      "lines": 66,
+      "coverage": "Fresh complete affected unchanged file read",
+      "same_parent_bytes": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "git_blob": "f2d57a25a6d4cd258a207b2f7896f6c9e8231c59",
+      "lines": 47,
+      "coverage": "Fresh complete affected unchanged file read",
+      "same_parent_bytes": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs",
+      "sha256": "bb628f72172a5e1920c433889caf7c60602ead3776b76665b2f8f60fdcfeecbf",
+      "git_blob": "260c12d12fc0ca89d801a97f42d5ab4427cc0107",
+      "lines": 50,
+      "coverage": "Fresh complete affected unchanged file read",
+      "same_parent_bytes": true
+    },
+    {
+      "revision": "f905cdeef13c7fae26e54549bf7f13d093d0b2b2",
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "git_blob": "25d33aac2c69a5a469c19138a7ae4fc9290b9584",
+      "lines": 120,
+      "coverage": "Fresh complete affected unchanged file read",
+      "same_parent_bytes": true
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+      "sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+      "git_blob": "57e1111f34bd5ebc3fe7fa7a8189c809cc89bcc1",
+      "lines": 118,
+      "coverage": "Fresh complete canonical owning file read"
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "git_blob": "bbfa2d7a1e6898a76c0c36aeee38400005a9c1f6",
+      "lines": 216,
+      "coverage": "Fresh complete canonical owning file read"
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+      "git_blob": "02b2e0f2b7c1791778d6f6a15a687a13ac893e29",
+      "lines": 292,
+      "coverage": "Fresh complete canonical owning file read"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/frame.rs",
+      "sha256": "0bec2f5a59de545d2968c962ab28be07e91d685dc097fa0a17af5db09312adc3",
+      "git_blob": "d1c286216c360f4b44ead2c9146e7b206e01217d",
+      "lines": 86,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/build.rs",
+      "sha256": "badb20a3e56c8fe3a51a2c629a6bf9b5fcdbac0c9f9f52774ebabcf660d18d5d",
+      "git_blob": "58a7c859cd4849226b37c426f6b5991544bbc2b4",
+      "lines": 135,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/pose.rs",
+      "sha256": "0cc72e5d058745c9d41c7de3f31fba92c839ae85845dd599bcf3c1fe50c892f4",
+      "git_blob": "813c25d410836e3118c6ac2ae52d99f1fbe7d9b5",
+      "lines": 94,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim/settings.rs",
+      "sha256": "8f900903b50fd6f9ba4ca81c01c2205a4be919589899569594db60a4041d3b32",
+      "git_blob": "59c19a1e86df3dacaea6b3942da11fecbd5fa79a",
+      "lines": 174,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "413f88a20d71eac80a2028f44826ba8f910df760078175d6eba83321233943bc",
+      "git_blob": "baadee8e758d7e1421a5d163b03aa24998273fbe",
+      "lines": 315,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/inspect.rs",
+      "sha256": "f019273dd3c0d3c216f8e2b48b7ecf49fd9d8333f5b26f81b8e3f936777d1597",
+      "git_blob": "722b2174507b6ebd999c4d4583444a1dbd566c09",
+      "lines": 89,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+      "sha256": "09689764502410c3fcd3bede867e66b30941a329ebfc280438f822c9b928c3cd",
+      "git_blob": "875c41896dd953f2359fff69f381c77e1cd633da",
+      "lines": 362,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+      "sha256": "432b9250fbd2810918ab7ca663e1596d715b4cd6a7f4491b109b3dfd6cc8fe6e",
+      "git_blob": "383c28525f5085b9a62e89374da99cff0bc13d86",
+      "lines": 150,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/binding.rs",
+      "sha256": "c5459f6db0f1b23d67efb540f90f14140a65d958b4bf251dbd945150e551bed0",
+      "git_blob": "65c3fe50dcd20a789b74ec666f2a9e962ea2c0f2",
+      "lines": 63,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425",
+      "git_blob": "01eaeadcf00caffd787ca4855c1828786be791ff",
+      "lines": 35,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "7814ed1212fc58bea86aebf290862d5937f4e3e20d2b508050d20983948323a8",
+      "git_blob": "9feeb26623e4fed7c66d4ea59758aa07d5ddb881",
+      "lines": 130,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/levels.rs",
+      "sha256": "650943d671d88ceb81a808c6e1f94eddb4780e018518f930fce3d3b1bf4bac3b",
+      "git_blob": "d6b865dd3b6c1ce953bd1ad0e4a1e18e4c5203c2",
+      "lines": 75,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "sha256": "6ebf50208593b3f1c16352bc3665e35f74cb0b01c83db56807bf3c0b83da568a",
+      "git_blob": "2ddbea82928ef59f8b7775d40ca586011f1f20fd",
+      "lines": 92,
+      "coverage": "Fresh complete canonical owning file read; broad physical policy not accepted by this receiving review"
+    },
+    {
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "sha256": "3ab9c91b1153b1f7a21e2dd57e9f53c5a6f4b220abde40f9ef666c4b60c4d336",
+      "git_blob": "9755cbeb163bc184e67e76e3d2da2433ec8d14e6",
+      "lines": 452,
+      "coverage": {
+        "fresh_range": [
+          1,
+          240
+        ],
+        "remaining": "Not freshly read in this task; immutable manifest identity recorded where applicable. No whole-file semantic clearance."
+      }
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/sim.rs",
+      "sha256": "61f1db429d25290869a495bcfa270d73d92a203fb5de405f255384f9e8081632",
+      "git_blob": "65838b653b19250d926537b38e0bc66012bf9cac",
+      "lines": 506,
+      "coverage": {
+        "fresh_range": [
+          1,
+          320
+        ],
+        "remaining": "Not freshly read in this task; immutable manifest identity recorded where applicable. No whole-file semantic clearance."
+      }
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "2b2bc94e4178a098e4ae5dac1794f82380d037922fce244ce833a0d73482b7fe",
+      "git_blob": "a547702e0da223a416ef9bf638ee6699773592ea",
+      "lines": 1391,
+      "coverage": {
+        "fresh_range": [
+          1,
+          480
+        ],
+        "remaining": "Not freshly read in this task; immutable manifest identity recorded where applicable. No whole-file semantic clearance."
+      }
+    },
+    {
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "44ffb5c296d0d5948e0b64f76f2dea59c4d41238f3ef8deaf6d549007a376f61",
+      "git_blob": "64006cc6984834ca6dfffb41aea28cddafc3a860",
+      "lines": 328,
+      "coverage": {
+        "fresh_range": [
+          1,
+          300
+        ],
+        "remaining": "Not freshly read in this task; immutable manifest identity recorded where applicable. No whole-file semantic clearance."
+      }
+    },
+    {
+      "revision": "0df94b91011a415be93c14174d4233b09eb01c00",
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "1c6a3dfe68c68c02c79ebf1157be9981e4c2a31f8a7667dd64148e30386bd70d",
+      "git_blob": "9d9f3ac446d60c47face64c7428dae0d4830a732",
+      "lines": 118,
+      "coverage": "Fresh complete native reference record read; current a6 source supersedes earlier card metadata"
+    }
+  ],
+  "canonical_manifests": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-host-shape-a2ca85101/manifest.json",
+      "sha256": "823536cd5294e375cd2e3918d51abf08eb08f6f18072fafddb9bb0e8dc76ea19",
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "contracts": [
+        "strands::StrandShape/StrandShapeResult/StrandShapeError/StrandSampleCount/StrandAttribute canonical unconditional host shape owner",
+        "gpu::StrandLayout consumes canonical shape and adds native width only; native getters unchanged",
+        "StrandLevel::new(PointsPerStrand,Vec<vec4>,Vec<StrandInfo>)->StrandShapeResult; layout/positions/infos/len/is_empty/bytes readonly",
+        "HairLods::levels()->&[Arc<StrandLevel>],cards/atlas/bounds/center/cover readonly; strand_count()->StrandCount; firstlevel always exists",
+        "SimBinding/SimFrame still pending; current sim caller only readonly API substitutions, do not receive an intermediate host frame API"
+      ],
+      "files": [
+        {
+          "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+          "manifest_sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+          "git_sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/strands.rs",
+          "manifest_sha256": "3ab9c91b1153b1f7a21e2dd57e9f53c5a6f4b220abde40f9ef666c4b60c4d336",
+          "git_sha256": "3ab9c91b1153b1f7a21e2dd57e9f53c5a6f4b220abde40f9ef666c4b60c4d336",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/lod.rs",
+          "manifest_sha256": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+          "git_sha256": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+          "manifest_sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+          "git_sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+          "manifest_sha256": "b900f53dd9b2751914c9b756562e8d9a54465c958b53709b2052d3f70cb7e788",
+          "git_sha256": "b900f53dd9b2751914c9b756562e8d9a54465c958b53709b2052d3f70cb7e788",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/sim.rs",
+          "manifest_sha256": "3e2784bef61f86973ae6de8cc995023a4d95787bb958638f799e4c3abc6646e5",
+          "git_sha256": "3e2784bef61f86973ae6de8cc995023a4d95787bb958638f799e4c3abc6646e5",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/cards/build.rs",
+          "manifest_sha256": "43a2bfd975e30c60f0738e6a4c746b99ce16f42b74ccf794bf150f75f113e506",
+          "git_sha256": "43a2bfd975e30c60f0738e6a4c746b99ce16f42b74ccf794bf150f75f113e506",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+          "manifest_sha256": "ba42c5f262f91abcd074353ea1c9bc7b17f513bde0310c88e13b8743bc007633",
+          "git_sha256": "ba42c5f262f91abcd074353ea1c9bc7b17f513bde0310c88e13b8743bc007633",
+          "exact": true
+        }
+      ],
+      "all_exact": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-host-frame-a6a37a8f5/manifest.json",
+      "sha256": "820d1f537cbf65939ef174e3d3a04a25bdfe0b5e530cd499959b5fa9cc2f6da8",
+      "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+      "contracts": [
+        "sim::{HairSim,SimBinding,SimFrame,SimError,SimResult,SimSettings,SimLevel,Rigid} owning API; frame lifetime borrows actualsim",
+        "HairSim::new(&HairLods,SimSettings)->SimResult<Self>; from_level(Arc<StrandLevel>,SimSettings)->SimResult<Self>; layout()->StrandShape; frame()->SimFrame; no loose tuple/rawpoints/strands/level_points API",
+        "SimFrame Copy: source()->&Arc<StrandLevel> actualdrawnfirst; layout()->StrandShape actualsimulated; binding()->&Arc<SimBinding> actualimmutabledata identity; rest()->&[Vec3] headframe; positions()->&[Vec3] worldframe; head()->Rigid; collision_offset()->Metres",
+        "SimBinding readonly source/sample Arc accessors; layout; guides()->&[[u32;4]] and weights()->&[[f32;4]] fullactualdrawnsourcepopulation; sampled()!=source() allowed asactualnearestpointlevel",
+        "BindingguideprefixIDs selfidentity preserved because sealedHairLods sharedshuffle; othersquery actualdrawnroots againstselectedsampleroots. Singlefrom_level source==sampled actualArc",
+        "SimSettings.guides/collision_strands and SimLevel.strands existingStrandCount; SimSettings.points/SimLevel.points existingPointsPerStrand; SimSettings.collision_offset existingMetres signedf32 no new numericalpolicy. Nativeinspect returnssameleaves, native params/hostRod onlyscalarports",
+        "No syntheticbrand/generation; no bindingcrop ofguidepopulation; receiver maxresident drawnprefix acrosslevels mustfit fullsource; Renderer826 ownsnativebounds/bytes/device/retry/publication",
+        "Pose/settings extracted modules source-preserved; positiveemptystride2/count0; checked doubledpoint/samplework extent; fallibleownedworkarrays; guidecountu32 admittedbeforePointGrid"
+      ],
+      "files": [
+        {
+          "path": "crates/fabelgeist-hair/src/sim.rs",
+          "manifest_sha256": "61f1db429d25290869a495bcfa270d73d92a203fb5de405f255384f9e8081632",
+          "git_sha256": "61f1db429d25290869a495bcfa270d73d92a203fb5de405f255384f9e8081632",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/sim/build.rs",
+          "manifest_sha256": "badb20a3e56c8fe3a51a2c629a6bf9b5fcdbac0c9f9f52774ebabcf660d18d5d",
+          "git_sha256": "badb20a3e56c8fe3a51a2c629a6bf9b5fcdbac0c9f9f52774ebabcf660d18d5d",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/sim/frame.rs",
+          "manifest_sha256": "0bec2f5a59de545d2968c962ab28be07e91d685dc097fa0a17af5db09312adc3",
+          "git_sha256": "0bec2f5a59de545d2968c962ab28be07e91d685dc097fa0a17af5db09312adc3",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/sim/pose.rs",
+          "manifest_sha256": "0cc72e5d058745c9d41c7de3f31fba92c839ae85845dd599bcf3c1fe50c892f4",
+          "git_sha256": "0cc72e5d058745c9d41c7de3f31fba92c839ae85845dd599bcf3c1fe50c892f4",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/sim/settings.rs",
+          "manifest_sha256": "8f900903b50fd6f9ba4ca81c01c2205a4be919589899569594db60a4041d3b32",
+          "git_sha256": "8f900903b50fd6f9ba4ca81c01c2205a4be919589899569594db60a4041d3b32",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+          "manifest_sha256": "413f88a20d71eac80a2028f44826ba8f910df760078175d6eba83321233943bc",
+          "git_sha256": "413f88a20d71eac80a2028f44826ba8f910df760078175d6eba83321233943bc",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+          "manifest_sha256": "432b9250fbd2810918ab7ca663e1596d715b4cd6a7f4491b109b3dfd6cc8fe6e",
+          "git_sha256": "432b9250fbd2810918ab7ca663e1596d715b4cd6a7f4491b109b3dfd6cc8fe6e",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+          "manifest_sha256": "09689764502410c3fcd3bede867e66b30941a329ebfc280438f822c9b928c3cd",
+          "git_sha256": "09689764502410c3fcd3bede867e66b30941a329ebfc280438f822c9b928c3cd",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/sim/inspect.rs",
+          "manifest_sha256": "f019273dd3c0d3c216f8e2b48b7ecf49fd9d8333f5b26f81b8e3f936777d1597",
+          "git_sha256": "f019273dd3c0d3c216f8e2b48b7ecf49fd9d8333f5b26f81b8e3f936777d1597",
+          "exact": true
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+          "manifest_sha256": "2b2bc94e4178a098e4ae5dac1794f82380d037922fce244ce833a0d73482b7fe",
+          "git_sha256": "2b2bc94e4178a098e4ae5dac1794f82380d037922fce244ce833a0d73482b7fe",
+          "exact": true
+        }
+      ],
+      "all_exact": true
+    }
+  ],
+  "carried_canonical_card_sources": [
+    {
+      "path": "crates/fabelgeist-hair/src/cards/build.rs",
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "sha256": "43a2bfd975e30c60f0738e6a4c746b99ce16f42b74ccf794bf150f75f113e506",
+      "byte_exact_card46b": false,
+      "coverage": "Current immutable identity compared against card46b canonical receipt; no fresh complete body read in this task. Prior cards-201c/cards-2e2 reports bound earlier receiving evidence."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+      "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+      "sha256": "ba42c5f262f91abcd074353ea1c9bc7b17f513bde0310c88e13b8743bc007633",
+      "byte_exact_card46b": false,
+      "coverage": "Current immutable identity compared against card46b canonical receipt; no fresh complete body read in this task. Prior cards-201c/cards-2e2 reports bound earlier receiving evidence."
+    }
+  ],
+  "source_proof": {
+    "existing_renderer_fixture": {
+      "exact": true,
+      "sha256": "44c66d149be12de0828289a8461e243c235facb1032230263538ebc471cfda5e"
+    },
+    "pod": {
+      "Globals": {
+        "exact": true,
+        "sha256": "e0003c6f88ffdbc3d27a45fe06e0b88b50de9a095ff2e466faeeee967a5a2215"
+      },
+      "DrawGpu": {
+        "exact": true,
+        "sha256": "7e57128d063a7d19d367616d291cb283ae1e038a991524e265e77e6fdd6ae1ed"
+      },
+      "PostGpu": {
+        "exact": true,
+        "sha256": "d5b47327cf39b5a88545e9bb5d5c46f7a5cf6ab7ee28a1a113e81c206d07f10a"
+      },
+      "CardDrawGpu": {
+        "exact": true,
+        "sha256": "f3bdd58c806c14dc0b5750aa354aa2d68e92cbda64bd9e942f60e4fa149466f7"
+      },
+      "DeformGpu": {
+        "exact": true,
+        "sha256": "190035f5eecdfe124e69065c072c80b1864e596d20480e315122de2b6ea9208d"
+      }
+    },
+    "shaders": {
+      "deform.wgsl": {
+        "exact": true,
+        "sha256": "2d5c548775571bc1218b878303e1fdece0a31976d9d97cab38e7da14b9847d6b"
+      },
+      "hair.wgsl": {
+        "exact": true,
+        "sha256": "84455da0ef19a8af85e8e565aba48ffdaada9344db717c1ac9bdb70ad4c77330"
+      },
+      "post.wgsl": {
+        "exact": true,
+        "sha256": "b172f372370ae20d7bc392540c1f1e526de6735d8d870af4d4698f63da888770"
+      }
+    },
+    "working_receipt_current_hashes": {
+      "crates/fabelgeist-hair/src/render/mod.rs": {
+        "recorded": "052eb05f205e18ce867d925db0db38571dcc98c92f6d4230d715e326b347dfd4",
+        "committed": "052eb05f205e18ce867d925db0db38571dcc98c92f6d4230d715e326b347dfd4",
+        "exact": true
+      },
+      "crates/fabelgeist-hair/src/render/head.rs": {
+        "recorded": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+        "committed": "db18108641e9fd28874236f2a8827c62cc989877f32215a97c6dc9906abe08a1",
+        "exact": true
+      },
+      "crates/fabelgeist-hair/src/render/levels.rs": {
+        "recorded": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+        "committed": "b0894deeae06ed99b55e2aac522e806d241a7827062fc3d92b6e4346adf80fd0",
+        "exact": true
+      },
+      "crates/fabelgeist-hair/src/render/deformation.rs": {
+        "recorded": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+        "committed": "d16ff4a30fd78f3333a1ffda6f48f58aad13dafc1019d0b39606d919ca311885",
+        "exact": true
+      },
+      "crates/fabelgeist-hair/src/render/simulation.rs": {
+        "recorded": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+        "committed": "85c56d293d73fd327e164b1656ac12ea82935b5e62cc0351a519a2cce0d4210c",
+        "exact": true
+      },
+      "crates/fabelgeist-hair/src/render/simulation/buffers.rs": {
+        "recorded": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+        "committed": "41dd184f1c5b749e3177cc664d3dab1a826917172b3460c916e6cd82b03f575c",
+        "exact": true
+      },
+      "crates/fabelgeist-hair/src/render/simulation/error.rs": {
+        "recorded": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+        "committed": "7fecda61235602d534724602ca18d9c1277cd0b7cafdc1e64c0c1848f021c529",
+        "exact": true
+      },
+      "crates/fabelgeist-hair/src/render/simulation/frames.rs": {
+        "recorded": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+        "committed": "a5fa573140cc5649732b7b3073deb1f8d229dd85e4422331ff36c8d0489b33a8",
+        "exact": true
+      }
+    }
+  },
+  "sdk_accounts": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "fresh_ranges": [
+        [
+          329,
+          353
+        ]
+      ],
+      "contract": "Actual native size/usage queries; write stages caller bytes immediately and begins GPU execution at later submission; submit returns index not completion; create_buffer_init pads and unmaps native buffer. Raw renderer uses explicitly agreed device-handled policy."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/queue.rs",
+      "sha256": "b3811f0df3ccad53d990bfd66c650759abb67654779b08e160a437b51abd7c71",
+      "fresh_ranges": [
+        [
+          125,
+          165
+        ],
+        [
+          247,
+          280
+        ]
+      ],
+      "contract": "Actual native size/usage queries; write stages caller bytes immediately and begins GPU execution at later submission; submit returns index not completion; create_buffer_init pads and unmaps native buffer. Raw renderer uses explicitly agreed device-handled policy."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/util/device.rs",
+      "sha256": "347f08d3bc1fdbc2679035120bceb7939792e6c1bfc6a28ca505b05a183a8b02",
+      "fresh_ranges": [
+        [
+          35,
+          82
+        ]
+      ],
+      "contract": "Actual native size/usage queries; write stages caller bytes immediately and begins GPU execution at later submission; submit returns index not completion; create_buffer_init pads and unmaps native buffer. Raw renderer uses explicitly agreed device-handled policy."
+    }
+  ],
+  "function_traces": [
+    {
+      "function": "HairRenderer::set_groom / set_gpu_groom",
+      "contract": "Canonical sealed builders retain first source Arc independently from fitted resident layouts; native actual device checked even without coverage. Host readonly getters fit current a2, native getters fit immutable a6/46b. Candidate scene publication clears old dynamics and retained rest only after admission/construction. At least one level is producer-guaranteed, including logical empty source."
+    },
+    {
+      "function": "HairRenderer::set_dynamics",
+      "contract": "Check installed host source Arc first; admit simulated StrandLayout; derive max ALL resident strand populations for binding prefix; preflight all current/rest copies and limits before input allocation. Immutable frame binding proves guides/weights and full rest/current lengths. Both packed Vec4 arrays reserve fallibly before native upload. Host body stays absent. Queue submit of rest copies precedes Dynamics publication and actual frame head/Pending obligations."
+    },
+    {
+      "function": "HairRenderer::set_simulated",
+      "contract": "Same source then existing dynamics Host mode and exact SimBinding Arc; wrong-mode/foreign frame fails before writes. Sealed frame keeps complete current slice. Fallible pack before one whole-prefix queue write; empty slice skips write. Pose/Pending/moving update follows normal write return. Write is staging, not an immediate submission or GPU-completion guarantee; raw provider policy retained."
+    },
+    {
+      "function": "HairRenderer::set_gpu_dynamics",
+      "contract": "Installed source Native mode, exact source Arc and actual source Device; max-all-resident binding prefix separate from guide population. Each producer Buffer logical prefix plus actual physical floor, usage and storage/device limits checked. Positive body uses actual body.size as authoritative extent; no independent17-record receiver rule. Absent body uses private unaccessed one-vec4 dummy. Rest-copy submission before candidate Dynamics/head publication."
+    },
+    {
+      "function": "HairRenderer::set_moved",
+      "contract": "Same source/Device before mutation; Dynamics native mode, identical layout and actual IDs/weights/rest/current Arc handles, optional body handle/range. Only then update latest collision_offset Metres and head/Pending/moving. Private canonical GpuSim fields tie ports to source and device; no arbitrary alias/lifetime guarantee added."
+    },
+    {
+      "function": "HairRenderer::clear_dynamics",
+      "contract": "Absent idempotent Ok; present preflight checks every resident/rest endpoint before recording any copy. Exact logical positions bytes, zero data skip, positive physical floor remains bound. Normal raw queue submission precedes Dynamics removal/head reset/view invalidation. Provider-handled errors can return normally; no rollback/completion certification."
+    },
+    {
+      "function": "SimulationBuffer / DeformLevel::new / bind_dynamics",
+      "contract": "Private positive explicit binding range distinct from logical prefix; canonical Buffer.prefix admits logical AND physical. Native/storage usage/device-limit checks and copy capability preflight; device identity inherited sealed GpuSim producer plus source check. Existing per-level rest cloned on valid simulation switch; groom replacement resets association. No mutation of prior Dynamics/rest before submit returns."
+    },
+    {
+      "function": "record_deformations / deform / frame publication",
+      "contract": "Only Pending distinct selected main/shadow/blend strand levels, no duplicate work; canonical actual declaration/Grid admission before uniform write. Native guide count/layout and Metres narrow only at unchanged DeformGpu ABI. Existing formulas and shaders exact. Normal renderer submit precedes Current and temporal state publication. Movement preserves running mean policy; actual head Globals validation remains before upload."
+    }
+  ],
+  "all13_bounded_reconciliation": [
+    {
+      "lens": "producer-propagation",
+      "contracts": [
+        "Actual first Arc captures source; sampled Arc is independent actual resampling level; frame refers to actual HairSim."
+      ],
+      "acceptance_criteria": [
+        "No raw tuple/rest/pose update compatibility API; retain actual Arc and shapes through state; every count escape terminates at actual host slicing or native descriptor/POD."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Canonical shape a2 and finalframe a6 source received but integration not compiled; full native producer/caller graph owner780 required."
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "contracts": [
+        "Host shape admits usize collections; native layout adds u32 limits; count and point leaves admit zero; Metres distinguishes signed distance without policy."
+      ],
+      "acceptance_criteria": [
+        "No equivalent RendererStrandShape/Metres/CardLayout type, no host shape mislabeled native-admitted; narrow only exact buffer/native numeric operations."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Canonical unconditional strands module exports and gpu layout adapter integrated together; existing native modules owned780."
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "contracts": [
+        "Sealed host record constructors admit columns/sample count; nonempty points>=2; empty arbitrary source stride but HairSim numerical stride>=2. SimFrame cannot independently forge population/rest/pose."
+      ],
+      "acceptance_criteria": [
+        "Reject wrong-source/mode/layout/extent with typed causes; preserve valid empty and same-binding moved-frame; no synthetic source clone admitted by equality alone."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Exact host/native source producers; receiving readonly exports; provider policy preconditions exact Device pairedQueue."
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "contracts": [
+        "Shape product checked; native prefix monotonic; simulation rods doubled host work checked and guide count fits u32."
+      ],
+      "acceptance_criteria": [
+        "No u32/usize overflow before admission, no fresh padded bytes copied into logical rest, no state commit on structural failure, no false rollback after provider-handled writes."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "SourceBuffer.size authoritative; no physical-grid arithmetic rewrite at renderer."
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "contracts": [
+        "Source/sample/binding/rest/current/pose correspond; resident and simulated populations distinct; historical rest tied installed groom."
+      ],
+      "acceptance_criteria": [
+        "No independently mutable count/format/source fields, no wrongbinding newpositions, no crop simulated guide count to drawn prefix; sourceAssociation identity independent native fit."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Hostframe lifetime cannot be retained beyond borrowed sim; retain immutable Arc metadata and owned native buffers, not fake SimFrame snapshot."
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "contracts": [
+        "Host producers own shape/frame; GPU producers own native source/layout; renderer owns drawfit/range/state and concrete receiving errors."
+      ],
+      "acceptance_criteria": [
+        "One definition per shape/count/frame/unit/topology, coherent dependency direction, no generic observer/helper duplication or independently changed peer physics."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Root explicit whole renderer transfer; canonical780 receipts, #895/#774 retained ownership limits."
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "contracts": [
+        "Counts derive canonicalshape; immutable binding identifies host rest population; actual source identity not derivable from fitted count."
+      ],
+      "acceptance_criteria": [
+        "No raw cardstats or independent simpoints drift; historical rest survives sameinstalledsource resimulation, reset onlysuccessfulgroomreplacement orclear."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Latestframe collision_offset maychange via publicsettings; update/bodyassociation must avoid retaining stale primitive copy without explicit policy."
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "contracts": [
+        "Preserve native deformWGSLmath, root/random/indexorder, head/worldframes, same-source rest and temporal mean semantics."
+      ],
+      "acceptance_criteria": [
+        "No geometry/RNG/cardcoverage/floatclamp/pose normalization changes, no oldrest recapture from deformeddata, no silent accepted foreignframe, no stalepartialhostupload."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Existing sampledsharedshuffle proof; peer host/native solver broadphysics work not accepted by read-onlyrendererreview."
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "contracts": [
+        "Mode choice owns relevant payload; absence, updateobligation and temporalhistory are independent dimensions."
+      ],
+      "acceptance_criteria": [
+        "Wrong-mode route impossible internally or typedrejected at public boundary; no parallel booleans permitting hostpayload/native mode combination."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Root owns Renderer, peer ownsSimFrame/GpuSim; no mutationthroughmetadataaccessors."
+      ]
+    },
+    {
+      "lens": "derivability",
+      "contracts": [
+        "BorrowedFrame Copy/Clone doesnot duplicate mutableHairSim; numericshape derives only admitted privateleaves; source identity remains Arcptr_eq not valueEq."
+      ],
+      "acceptance_criteria": [
+        "No derive openspublicfields/deserializationbypass or invents valueequality for actualsource identity; no newwire/schema adapters."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Existing thiserror dependency and canonical derives available; no new library/scanner."
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "contracts": [
+        "Host/native shape distinction earnsnativewidth boundary; Frame borrowedcoherence vs Bindingimmutableidentity distinct; residentdrawprefix vs simulatedguidepopulation distinct."
+      ],
+      "acceptance_criteria": [
+        "No overvalidated geometry/strictphysicalpolicy, no merge of hostshape/nativeadmission or sourceidentity/layout equality."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Peer hostshape unconditionalexport, nativeadapterfeature; no new abstractquantityframework."
+      ]
+    },
+    {
+      "lens": "magic-strings",
+      "contracts": [
+        "Closed state/errors typed; rawprose/labels/nativebindingnames terminate at genuine text/native boundaries."
+      ],
+      "acceptance_criteria": [
+        "No branch on Display,errorprose,label,filesystempath; no redundant stringbrand for source ormode."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Shared nativeparam/stringclassifiers owned780; no independently editedshaderkernel names."
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "contracts": [
+        "Everycount/stride/byte/offset role has owner or actual numeric adapter; physicalsolverconstants remain separatelyowned policies."
+      ],
+      "acceptance_criteria": [
+        "No raw semantics retainedinapplicationstate exceptactualmatrix/native POD; no new finite/signbounds or changed numericalorders/tolerances/mips/RNG."
+      ],
+      "bounded_disposition": "No new receiving correctness defect found against exact canonical receipts. RS1/2/3/6 receiving source addressed; full producer/caller/lock integration and final source/hosted acceptance remain required.",
+      "dependencies": [
+        "Peer explicitphysical/gridproducer pass and finalsameSHA checks required; rootreceiver cannotassertphysicalpolicyclearance."
+      ]
+    }
+  ],
+  "source_api_reasoning": [
+    "All8 changed source files freshly read completely, including full current renderer. Explicit pub(super)/pub(in crate::render) declarations permit sibling/descendant receiving uses without exposing producer fields. Actual canonical host/native readonly signatures match receiving calls. No duplicate source/count/frame owner introduced.",
+    "Borrowed Dynamics/input references end before mutation by normal lexical/NLL usage; collection constructs native candidates before moving inputs/publishing. Private levels/rest vectors are built one-to-one and replaced together. Enum discriminant check in matches does not bind/move a payload. This is source reasoning, not compiler evidence.",
+    "Typed errors retain concrete StrandLayoutError, BufferPrefixError and TryReserveError through HairGpuError::Backend; native allocation/write/encoder/queue errors remain device-handled under agreed raw Renderer policy. Results do not claim capture of every native error."
+  ],
+  "required_dependencies": [
+    "Exact hostshape/frame/native/card producer files and their transitive APIs/manifest-lock are not fully imported at this checkpoint. Missing local SimFrame/read-only definitions remain REQUIRED coordinated integration, not an independently owned receiver patch or compilation acceptance.",
+    "All shared producer/count/stride/physical-grid/creator/application caller families remain required. Source reading of native simulation execution/collision is not broad physics admission or policy clearance. No silently deferred incomplete path is accepted.",
+    "Separate Rule/Comment Review and root full thirteen-lens post-wave remain required. All13/all3reviews/required hosted checks must pass on same final pushed SHA; no merge."
+  ],
+  "limits": [
+    "Only source/Git/hash/provenance/report operations; no source edits, local build/check/lint/test/scanner/generator/runtime, push or CI. No new tests/cases/helpers/assertions/doctests.",
+    "Peer partial source ranges and prior card identity carry are explicit; full8 current receiving files and affected source contracts freshly read. Immutable manifest hashes independently verified, not treated as complete semantic acceptance of every source body.",
+    "No native-health, browser/hardware, GPU-completion, rollback, physical numerical, performance or whole-graph compilation guarantee."
+  ]
+}

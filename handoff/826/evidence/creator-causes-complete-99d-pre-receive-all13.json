@@ -1,0 +1,275 @@
+{
+  "root_before": "bfcecec05c1e5cd9d55af31419d605420a4d08c5",
+  "peer_revision": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+  "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-creator-causes-complete-99d70e7c3/manifest.json",
+  "manifest_sha256": "ce6aaebbebb15eee9a8900c8789626c99747ec2ec3bd9bd0e5d79cb90ea0e4dd",
+  "accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+      "root_before_sha256": "95f3aa1de6769209e0eab33d42589ec62d340262367e03807e6db66ce52f7ef3",
+      "coverage": "Exact final bytes carried from complete constituent all13 inventories and three independent scoped reviews."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "3759935bfda14dd3ba57883c232764706caa464ab1be27716e8bf7b99e0c9c1f",
+      "root_before_sha256": "200e7d9ba9725a4ec5a6e2a32dd9c95868b355ad3c75bce70287ca56980f62c6",
+      "coverage": "Exact final bytes carried from complete constituent all13 inventories and three independent scoped reviews."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "sha256": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429",
+      "root_before_sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "coverage": "Exact final bytes carried from complete constituent all13 inventories and three independent scoped reviews."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "root_before_sha256": "24e54d50839ce627acfcb1d42d14a2ec5d964d90e4e4c90a1cb28b8e1fd32d80",
+      "coverage": "Exact final bytes carried from complete constituent all13 inventories and three independent scoped reviews."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "root_before_sha256": "fe34032d99c2145bb74dcd9f8228ea479fee4f2e61d3b1b3f41c8b8409e380d1",
+      "coverage": "Exact final bytes carried from complete constituent all13 inventories and three independent scoped reviews."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "root_before_sha256": null,
+      "coverage": "Exact final bytes carried from complete constituent all13 inventories and three independent scoped reviews."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "root_before_sha256": "622d3df75d402403449d5c22883da9645900fa0e142be0892776bfc1fdaefc17",
+      "coverage": "Exact final bytes carried from complete constituent all13 inventories and three independent scoped reviews."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "root_before_sha256": "261ec13966d253893f3de9c3c270b3d53f6571c0ae5b6a129c7a4ff384672a34",
+      "coverage": "Exact final bytes carried from complete constituent all13 inventories and three independent scoped reviews."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "2dfb462b1bfff461281e5bed831553766a392140c2772293f148f74f7d925390",
+      "root_before_sha256": "1d811e5d3fdcb27db0dac00b6e6a07580a3619c6cf63a7fefbf8efbdae179536",
+      "coverage": "Exact final bytes carried from complete constituent all13 inventories and three independent scoped reviews."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "root_before_sha256": "96765318a7cfae5753d210d864fa00f392ed5f0f6a7fd648ff344e5e3edfa4fd",
+      "coverage": "Exact final bytes carried from complete constituent all13 inventories and three independent scoped reviews."
+    }
+  ],
+  "constituent_inventory_reports": [
+    "creator-cache-completion-pre-receive-all13.json",
+    "material-cause-receivers-99d-pre-receive-all13.json"
+  ],
+  "cells": [
+    {
+      "lens": "producer-propagation",
+      "source_contracts": [
+        "Four initializers -> cached Result<Facade,GpuInitializationError> -> cloned same Arc cause -> anyhow Context -> workers/export/UI; HairGpu completion -> canonical context -> two old fixture callers.",
+        "Metal initialization Arc cause -> MetalImages::new -> EquipmentMaps -> Studio/Armory result -> final status; ClothingError -> garment exporter -> result."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_contracts": [
+        "GpuInitializationError is one application initialization cause owner, not a replacement nativeError, GenerateError or WorkCompletionError. Existing Context completion owns marker/poll/callback.",
+        "Keep GpuInitializationError/MetalDeviceError/ClothingError and native image decode errors, adding contextual anyhow only."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "admission-contracts",
+      "source_contracts": [
+        "GpuInitializationError::new accepts actual Into<anyhow::Error>, stores private Arc; no Display admission; cache admission occurs only initializer completion.",
+        "MailImages::new requires color bytes, decodes color/normal/optionalocclusion before Asset insertion or cache publication."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "invariant-operations",
+      "source_contracts": [
+        "Clone increments shared ownership, not recomputation/retry. OnceLock/OnceCell get_or_init retains existing first outcome. Completion marker uses actual retained context.",
+        "All three decodes finish before images.add; self.mail.insert only after constructor Ok; metal Vec.push occurs only after native material returns Ok."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "aggregate-states",
+      "source_contracts": [
+        "DeviceKernels binds actual Bevy context with its one OnceLock; process Armor/Metal caches retain actual source context; export owns one headless context. Mutex groom scratch serializes retained state.",
+        "MailImages owns all map handles as one record; BakedMetal binds recipe/image handles/liveness; actual authored source maps constant across mail designs."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "type-ownership",
+      "source_contracts": [
+        "Creator library owns reusable cache failure; binary export/preview imports it; GPU context owns WorkCompletionError; lower Armor/Metal remain Root native owners.",
+        "Peer owns complete four source functions; Root native facade/context ownership stays untouched."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "redundant-authority",
+      "source_contracts": [
+        "Once cache stores one Result; error clones share Arc actual original. Native completion has one existing context marker/callback owner.",
+        "One actual error chain remains authority until final UI; no MessageError<anyhow> mirror; one mail cache stores only completehandles."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_contracts": [
+        "Preserve initialize-once success/failure, existing FittingSlot scheduling bound4, actual Bevy device-handling policy; completion now async/fallible instead of discarded poll.",
+        "Same success material/sampler/sRGB/occlusion/visibility/export behavior; decode failure becomes fallible instead of panic."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "enum-shapes",
+      "source_contracts": [
+        "Result success/error owns mutually exclusive outcome; OnceCell uninitialized is provider state; cached failure owns Arc cause. WorkCompletionError Marker/Poll/Callback owns corresponding native causes.",
+        "SurfaceAlpha/Sides -> actual Bevy alpha/culling roles; optionalocclusion has no independent status; BakedMetal.used is ordinary named livenesspredicate."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "derivability",
+      "source_contracts": [
+        "Clone/Debug/Error derived; Display manually delegates original formatter to anyhow so alternate formatting and width/precision pass through.",
+        "EquipmentMaps derivesDefault/Resource; existing handle records no artificial Default/Clone; no new custom error boilerplate."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "type-granularity",
+      "source_contracts": [
+        "Cache initialization role differs from native operation/device/progress error; reusable Arc<anyhow> is application opaque shared cause.",
+        "Material/cache/handle roles reuse canonical types; native decoder srgb bool, asset handles and render metadata are actual framework ports."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "magic-strings",
+      "source_contracts": [
+        "Static opening/compiling context labels are diagnostics; error Display is presentation only; export shell/name/native shader parameter strings remain boundary roles.",
+        "PNG extension literal is native image decoder token; authoredpaths own sourceassets; static context text not branched on."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    },
+    {
+      "lens": "magic-numbers",
+      "source_contracts": [
+        "No new numeric policy in cause/completion changes; existing FittingSlot bound4 named, counter bounded by unique nonClone token. Native POD/layout/bootstrap1024, fixed15 head vec4 records, raw helpers retain existing roles.",
+        "sRGB flags fixednative maproles; same alphaMask0.5, channel indices, authoredlight/camera/UI and GLB/nativeindex primitives remain unchanged."
+      ],
+      "disposition": "Six cache/error-owner files plus four cause receivers are exact prior covered final source; historical CC-C1 corrected by99d. Completion-only files/claims from first component are excluded from this receipt.",
+      "discovery": "Complete before receipt for all ten files and actual unchanged recipients; no new file/path introduced beyond recorded constituents.",
+      "connected_repairs": "Receive ten exact whole files as canonical source, preserving first initialization outcome and actual native/Clothing/decode causes. No independent reimplementation.",
+      "dependencies": "Required lower Armor/Metal/material/Clothing/query/readback canonical types/callers, other scalp/generated/physical families, locks and global final gates remain incomplete.",
+      "acceptance": "Ten exact source hashes after copy; native/fixture bytes outside family unchanged; repeat complete family13 plus independent exact-source receipt confirmation; final global source/hosted acceptance on one SHA.",
+      "repair": "Not received.",
+      "validation": "Source-only; no project execution."
+    }
+  ],
+  "discovery": "Complete bounded ten-file pre-receive inventory; exact union of fully reviewed constituent files.",
+  "repair": "Not received.",
+  "validation": "Source-only; runtime/compile/global incomplete.",
+  "ownership": "780 canonical implementation and final lock composition;826 exact source receipt. Manifest ownership labels are shorthand contradicted by agreed split; clarification requested, no scope expansion.",
+  "policy": [
+    "First initialization success/failure retained; no blanket retry.",
+    "All maps decoded before narrow MailImages asset/cache publication; no whole-scene/export transaction promise.",
+    "All native Root functions/source and fixture populations remain untouched."
+  ],
+  "independent_reports": [
+    "material-cause-receivers-99d-code-review.json",
+    "material-cause-receivers-99d-rule-review.json",
+    "material-cause-receivers-99d-comment-review.json",
+    "creator-cache-completion-canonical-comment-review.json"
+  ],
+  "limits": [
+    "No dirty scalp/completion/native/generated/extraction/lock source included.",
+    "Canonical graph, full13/final three reviews/required hosted checks same final pushed SHA remain required; no push or merge."
+  ]
+}

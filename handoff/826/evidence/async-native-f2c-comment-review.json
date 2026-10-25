@@ -1,0 +1,705 @@
+{
+  "review": "Independent Comment Review: async material/scalp and native first-tranche packet",
+  "head": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+  "tree": "1ce59a2d2b8418d5a26fe7dffec5fa96e237633c",
+  "root_context": "6e56adeab1101743941c6d50eef4340008b910ea",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "manifest": {
+    "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-material-async-scalp-first-f2c7422fd/manifest.json",
+    "sha256": "e46e067c156b803d8fe7c170a210bcf4352a89e8074bc6799ac5a4000f7601bf"
+  },
+  "packet_authority": "Progress receipt23files only, NOT completed material/native/global family; no Root copy by review",
+  "source_accounting": [
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "bed056e444caf024bcdb9c4c37064138ea51699f",
+      "sha256": "b94c9bc6659a4ca3a7e9ef3bfbe5a52026c70dd86abd4c40f91c5066c9ebde8e",
+      "manifest_sha256": "b94c9bc6659a4ca3a7e9ef3bfbe5a52026c70dd86abd4c40f91c5066c9ebde8e",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 149,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "22c2833600d25aacf320cd34b8203a8e944236c8",
+      "sha256": "09072dcebe7d27d7866f20305953af487020335484821994e5b90db655683268",
+      "manifest_sha256": "09072dcebe7d27d7866f20305953af487020335484821994e5b90db655683268",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 264,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "aedf07d65b0396689b622bdafede4878b3b168d9",
+      "sha256": "e6e7f6eb9a2ef8dbb4d28132efa4d82f95ef220730cc20d12ccd376c43a14a9d",
+      "manifest_sha256": "e6e7f6eb9a2ef8dbb4d28132efa4d82f95ef220730cc20d12ccd376c43a14a9d",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 323,
+      "coverage": "Verified earlier full source read at exact c665 bytes plus complete fresh c665-to-f2 diff and current affected docs/API context; not a fresh whole-body reread",
+      "complete_current_source_account": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/material-c665-comment-review.json",
+      "c665_sha256": "731a2fb2b733decd94f6923d84da7a2877ac9265d58e40b16cae34467df1ce3a",
+      "prior_full_account": {
+        "path": "crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+        "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+        "git_blob": "5d6e0f45c51467492c9f2a8a98186cc22a4cecfa",
+        "sha256": "731a2fb2b733decd94f6923d84da7a2877ac9265d58e40b16cae34467df1ce3a",
+        "lines": 323,
+        "coverage": "Fresh full source read, including all comments/docs and existing fixtures; export.rs read contiguous lines 1-1782",
+        "manifest_sha256": "731a2fb2b733decd94f6923d84da7a2877ac9265d58e40b16cae34467df1ce3a",
+        "manifest_matches": true
+      },
+      "complete_current_delta_sha256": "0d2124fee6ff004e8f00777f0085c1e0ecb925ede88d5fe59493eabbcefd26be",
+      "delta_scope": "Rustdoc only; entire imports/functions/native shader bodies unchanged"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "c24d1e83999c3338b62e1f512288a65a6240e14d",
+      "sha256": "d49752ba70390e3801be29f335f22fea33532331b7e73c555474f8a55e866741",
+      "manifest_sha256": "d49752ba70390e3801be29f335f22fea33532331b7e73c555474f8a55e866741",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 135,
+      "coverage": "Verified earlier full source read at exact c665 bytes plus complete fresh c665-to-f2 diff and current affected docs/API context; not a fresh whole-body reread",
+      "complete_current_source_account": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/material-c665-comment-review.json",
+      "c665_sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+      "prior_full_account": {
+        "path": "crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+        "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+        "git_blob": "12f8f4fc1c27c050033594a1e948f37e816bb959",
+        "sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+        "lines": 134,
+        "coverage": "Fresh full source read, including all comments/docs and existing fixtures; export.rs read contiguous lines 1-1782",
+        "manifest_sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+        "manifest_matches": true
+      },
+      "complete_current_delta_sha256": "6d1941553170c5ada8fa05eee2164d8a1eae716b4520841eb749900f7b4d17c6",
+      "delta_scope": "Rustdoc only; entire imports/functions/native shader bodies unchanged"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "b24ec098ebddf03d57dd1773b15de6b1bd134fa9",
+      "sha256": "3b90085dce11463f05a859d535dae2006b41e3332441d7f407c8b2b8dd837535",
+      "manifest_sha256": "3b90085dce11463f05a859d535dae2006b41e3332441d7f407c8b2b8dd837535",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 22,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "914da8e21ecbc134a826617607dc42fa7300f49f",
+      "sha256": "09af59779312ad82dd8a82bace7284c98503db7e55eab5018e1deee5dae3bf14",
+      "manifest_sha256": "09af59779312ad82dd8a82bace7284c98503db7e55eab5018e1deee5dae3bf14",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 74,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "6b06ac99e4466aa8f7ad8d0814cb4e493c658005",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "manifest_sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 237,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "740e8b08797585d9ee6ff1a3f89fe52f792665a1",
+      "sha256": "2906c6c5115f7924743595c1808b2337d4b167c27d301436ac22304c75479428",
+      "manifest_sha256": "2906c6c5115f7924743595c1808b2337d4b167c27d301436ac22304c75479428",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 346,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "120260f4bdfd025c42455422b899af39f4c66783",
+      "sha256": "33f6b05450b7b1eb8e1080aa330b35696e6ee4c57da0bb4d208a18f66ebec963",
+      "manifest_sha256": "33f6b05450b7b1eb8e1080aa330b35696e6ee4c57da0bb4d208a18f66ebec963",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 250,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "833abffa69094546e0d30c23552ea3f7bbbd1a2b",
+      "sha256": "82c083e495d9e3b992abf5ad23d3f99f48acc42da6900cd44ca99405140095de",
+      "manifest_sha256": "82c083e495d9e3b992abf5ad23d3f99f48acc42da6900cd44ca99405140095de",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 1785,
+      "coverage": "Verified earlier full source read at exact c665 bytes plus complete fresh c665-to-f2 diff and current affected docs/API context; not a fresh whole-body reread",
+      "complete_current_source_account": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/material-c665-comment-review.json",
+      "c665_sha256": "ea4119eb718472a2c1236e7449db2fe319e74489319f2b6720e9f30896aa358b",
+      "prior_full_account": {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+        "git_blob": "6525a5aae5ceeec72b10014ccba5336799dae935",
+        "sha256": "ea4119eb718472a2c1236e7449db2fe319e74489319f2b6720e9f30896aa358b",
+        "lines": 1782,
+        "coverage": "Fresh full source read, including all comments/docs and existing fixtures; export.rs read contiguous lines 1-1782",
+        "manifest_sha256": "ea4119eb718472a2c1236e7449db2fe319e74489319f2b6720e9f30896aa358b",
+        "manifest_matches": true
+      },
+      "complete_current_delta_sha256": "6550ac55a420593303088212da6e0fc1a821c318fb4011d34f761c244e2d7e6f",
+      "delta_scope": "Sole existing native fixture operand wrapped in pollster::block_on; other source/docs/fixture inputs/oracles unchanged"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "5f32cf25b2e92a7fd2e40a428dca122437bad985",
+      "sha256": "fdc04f19250688292a3a3f1830e0b6ca7cdab927e166dd2940ddd549f6587e9c",
+      "manifest_sha256": "fdc04f19250688292a3a3f1830e0b6ca7cdab927e166dd2940ddd549f6587e9c",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 259,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "547fcfd728a0552acd6dd28a832100b919a63290",
+      "sha256": "dabc0ed6029883b7507a1df190862761c1f6936fd89f7549832e0bfa7a403bb7",
+      "manifest_sha256": "dabc0ed6029883b7507a1df190862761c1f6936fd89f7549832e0bfa7a403bb7",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 41,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "b4d21218998826b019519f2969b114a9e46c4b68",
+      "sha256": "cc92d78b3882a4f18b998cab17b8761098b440b2f0b51e6b3bebeb045c552d35",
+      "manifest_sha256": "cc92d78b3882a4f18b998cab17b8761098b440b2f0b51e6b3bebeb045c552d35",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 298,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "fa8cf90b62a596e73309c5d885916fd3299fbb10",
+      "sha256": "00b9793da951c6356e757893a9f983df9a075e9b93d918d5cbf0d3d00b2b37ef",
+      "manifest_sha256": "00b9793da951c6356e757893a9f983df9a075e9b93d918d5cbf0d3d00b2b37ef",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 235,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "a2539970c0c4bbba50bb51bfa3833c43fbe6d30d",
+      "sha256": "e0c18e02e9345a8e02e21334af5c2ad1a7bc2dbdc19e203915d5af87df8ecb10",
+      "manifest_sha256": "e0c18e02e9345a8e02e21334af5c2ad1a7bc2dbdc19e203915d5af87df8ecb10",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 512,
+      "coverage": "Verified earlier full source read at exact c665 bytes plus complete fresh c665-to-f2 diff and current affected docs/API context; not a fresh whole-body reread",
+      "complete_current_source_account": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/scalp-chain-c665-comment-review.json",
+      "c665_sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531",
+      "prior_full_account": {
+        "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+        "revision": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+        "sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531",
+        "git_blob": "a8f5fd54eb89af73e00c3434e54010153a6c2621",
+        "lines": 512,
+        "coverage": "Fresh whole file source read; full render fixture read in contiguous1-260 and261-512 sections",
+        "manifest_sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531",
+        "manifest_matches": true
+      },
+      "complete_current_delta_sha256": "f6f217ab430385ae6b465765b25c19bbe7a4029ede3455b0334ad828bf4d7784",
+      "delta_scope": "Sole existing native fixture operand wrapped in pollster::block_on; other source/docs/fixture inputs/oracles unchanged"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "accdd78739f44680ef7d1f1e89f0b874adf7ee27",
+      "sha256": "40486b2fcb0f2a2742a0a43ac588c71ba46f47495236def99dd6f0b27c821447",
+      "manifest_sha256": "40486b2fcb0f2a2742a0a43ac588c71ba46f47495236def99dd6f0b27c821447",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 413,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "d7764dfbd94066d1c91ca6fff2860e761dc736c3",
+      "sha256": "b4907574e60ff614aef176c62a138331eb3bc047cb799db0fe6f82d5f92b6c26",
+      "manifest_sha256": "b4907574e60ff614aef176c62a138331eb3bc047cb799db0fe6f82d5f92b6c26",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 470,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow/maps.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "e4fa8afd5baa346f0ecd6c77ab0a9a9fdbe79e1e",
+      "sha256": "7b8b6157448397c687e7da311bb8ca6a933455934080093196854e20c1c0c0bc",
+      "manifest_sha256": "7b8b6157448397c687e7da311bb8ca6a933455934080093196854e20c1c0c0bc",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 93,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "cd81d86d11c9575d6c0b7a21160dfb00d6d5eacd",
+      "sha256": "0cf3b1a2d8fa1e50f2494291f44e803aff7501f7d5f92763c87ef54a5db0ac0d",
+      "manifest_sha256": "0cf3b1a2d8fa1e50f2494291f44e803aff7501f7d5f92763c87ef54a5db0ac0d",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 287,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/head.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "f1939776dcb6391c26123006527ee9b02157e142",
+      "sha256": "c95b6fcaaec095658c85f5c325781ecd1c349ddefb7b7eecd018ab61b500f709",
+      "manifest_sha256": "c95b6fcaaec095658c85f5c325781ecd1c349ddefb7b7eecd018ab61b500f709",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 475,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "a2fea1aec3a9d78350b106bacbe5d314bc494767",
+      "sha256": "e82d568414119b0fd6077ab911224dc9eee4eefb2d6a5cf7ff38c98dea9a78e1",
+      "manifest_sha256": "e82d568414119b0fd6077ab911224dc9eee4eefb2d6a5cf7ff38c98dea9a78e1",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 91,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "fc1c2c6e41faa7750b71d72db4d600df6f96e4a6",
+      "sha256": "f5696d4762b8a0414cd89406639a49edeabbd1acbd330df25eeee220291cac9a",
+      "manifest_sha256": "f5696d4762b8a0414cd89406639a49edeabbd1acbd330df25eeee220291cac9a",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 1381,
+      "coverage": "Verified earlier full source read at exact c665 bytes plus complete fresh c665-to-f2 diff and current affected docs/API context; not a fresh whole-body reread",
+      "complete_current_source_account": true,
+      "prior_report": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/creator-cache-completion-canonical-comment-review.json",
+      "c665_sha256": "f163ffb8a42b0ad714ea0d96f2c7ef1a191da8d085d01310e143f941a63caf22",
+      "prior_full_account": {
+        "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+        "revision": "d7f2691cc83403cd28a70fdbe69ef27b8e38baa3",
+        "sha256": "f163ffb8a42b0ad714ea0d96f2c7ef1a191da8d085d01310e143f941a63caf22",
+        "git_blob": "1f6602ff99e79c5a4a4866d353298b711fd429cd",
+        "lines": 1380,
+        "coverage": "Full file read at exact pin, including existing inline or render fixtures; not executed",
+        "manifest_sha256": "f163ffb8a42b0ad714ea0d96f2c7ef1a191da8d085d01310e143f941a63caf22",
+        "manifest_matches": true
+      },
+      "complete_current_delta_sha256": "116073765d41847fcc373e2b86e8adcdde5c1131617f3cd580f3b1136cc4b606",
+      "delta_scope": "Module introductions only; entire imports/functions/fixtures unchanged"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "e4feae8a0a1172798e60d5afc88a25019de46f6d",
+      "sha256": "7eb85b1be589db745f6411247e2b22ee076a63ebf49f97dcec29fab7caf14043",
+      "manifest_sha256": "7eb85b1be589db745f6411247e2b22ee076a63ebf49f97dcec29fab7caf14043",
+      "packet_matches_git": true,
+      "manifest_matches": true,
+      "lines": 1124,
+      "coverage": "Fresh full pinned file read, including complete existing fixture bodies and native WGSL where present",
+      "complete_current_source_account": true
+    }
+  ],
+  "dependency_source_accounting": [
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_gpu.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "dbda65178a479d6ad3c4b83a703568b2389767dc",
+      "sha256": "52cc794b4d883517856453db0061f5ccda222600c41b61872c1687bcf6082c33",
+      "lines": 68,
+      "coverage": "Fresh complete dependency source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "7a4ae72c9805ecd61ea54d61cad5cd40fbd1b017",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "lines": 27,
+      "coverage": "Fresh complete dependency source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "3265f2d3027514bc234b89e5a05bc1fb39a63933",
+      "sha256": "e2a6fab2ecfbae1ae85e86dd40677284d6d03a50747810242247a2be2fbcf194",
+      "lines": 143,
+      "coverage": "Fresh complete dependency source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "b69f5388ad0adfe66771304281848b966bce57a0",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "lines": 133,
+      "coverage": "Fresh complete dependency source read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "460d3b4ef3870008112c174ebefca8bb24567e84",
+      "sha256": "3a2e06f64636fadaceac6bb7c0af36cfb12416a4d55a5f203e17b6551455e8ef",
+      "lines": 400,
+      "coverage": "Fresh complete dependency source read"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/readback.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "13594623ecf616bd7100492984e3e6a21ee06e21",
+      "sha256": "e78544e5d43fd63fa4be775f79e0488d0e35e952982c7d94ce8d0dac2487d7ea",
+      "lines": 63,
+      "coverage": "Fresh complete dependency source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/callback_progress.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "88c78315164873623ac06f15c0a836f91460f547",
+      "sha256": "6edc84206e79466f1370de25ce9a19d46d9f94d6b209b1c77c42246d8c2ea961",
+      "lines": 70,
+      "coverage": "Fresh complete dependency source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "7574558258557ca7683ddccbb12afe535aebc8db",
+      "sha256": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+      "lines": 76,
+      "coverage": "Fresh complete dependency source read"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mapping.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "b9f5cf8040c0200cc774f92d5e4f2b5018e61132",
+      "sha256": "cfae424a791de8c0101b188e604e68aa84d87482d343bdd665a36eaebaca8622",
+      "lines": 142,
+      "coverage": "Fresh complete dependency source read"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/mod.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "b7452d2bb695dee092394922384c1379aab2dcd3",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "lines": 86,
+      "coverage": "Fresh complete dependency source read"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "04a7f2e39ed3bfe170999901f2dd2a9b2a0cf40d",
+      "sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "lines": 394,
+      "coverage": "Fresh complete KernelBatch labelled/context/dispatch/folded/items/callback/submit functions and docs210-355; not full module"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "0b374dcd6a2d7886b0a7115e7540328b1d59ae53",
+      "sha256": "085502d120e5ba4f365bd8015990a4347e758f698a00b1bb530c93ae3066ca9a",
+      "lines": 252,
+      "coverage": "Fresh complete relevant bind-group/slot upload/scope finishing section190-250; not full module"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "24a5ea1e0349615d342a475a764347d7870162a6",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202",
+      "lines": 113,
+      "coverage": "Fresh ValidationScope::new/finish complete functions50-83; prior policy/progress review not adopted as whole-file current clearance"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "ae94423a315e9705e41c2f2b9d2a0f1c04753d26",
+      "sha256": "3230677fdc88ef49a756064f21ddd21594afe09f2ffc07e9f94ad380758e3634",
+      "lines": 175,
+      "coverage": "Fresh lods function45-80, complete apply/equilibrium methods and docs81-176; not whole header/FieldHeader module"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow/operations.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "22abdb2f225c13860ee11788d9f0c233044ab659",
+      "sha256": "9ee7eb2de02fe9cab5557943bfa6a165916ebcf57253df509b0ad8ce05da2909",
+      "lines": 122,
+      "coverage": "Fresh OperationBindings and complete record_ops definitions1-80; remainder not reviewed"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/render/mod.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "905d95a3b5b8f50a894fe300eb2c13d71214132a",
+      "sha256": "4e02030b72fe4ebc1a4af8b52dbf0910d7ce7a2f7135ed10c17c4805bf163b16",
+      "lines": 1701,
+      "coverage": "Fresh set_gpu_groom signature/early admission and docs945-972 only; no current full renderer clearance"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/guides.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "1ecdda099631c4c7c39712045af00a64730f0b46",
+      "sha256": "f4c9e231efc1a770670e14030140640b5d22d12e26814c7c6613259395e4e71f",
+      "lines": 411,
+      "coverage": "Fresh actual edge_closest caller225-270 (max_distance0.01) and guide_comb dispatch338-365 (one workgroup per guide); not full module"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/hairdo.rs",
+      "revision": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+      "git_blob": "3949e0448856562442d7079cea95529aef6ac02b",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "lines": 710,
+      "coverage": "Fresh actual host edge-root Surface::closest caller205-233; not full hairdo/physics module"
+    }
+  ],
+  "coverage": {
+    "packet_files": 23,
+    "fresh_full_packet_files": 18,
+    "prior_full_plus_complete_current_delta": 5,
+    "all_complete_current_source_accounts": true,
+    "all_packet_git_manifest_matches": true,
+    "fresh_complete_dependency_files": 10,
+    "explicit_bounded_dependency_files": 8
+  },
+  "protected_root_metal_source_proof": [
+    {
+      "item": "new",
+      "root_revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+      "root_sha256": "23c4a735ce1f38f13f4b7abff9344dd8798bd250ae8f5ffa76b77ededd09453f",
+      "incoming_sha256": "23c4a735ce1f38f13f4b7abff9344dd8798bd250ae8f5ffa76b77ededd09453f",
+      "equal": true
+    },
+    {
+      "item": "batch",
+      "root_revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+      "root_sha256": "4540fd5cb300a21a2f445131dc8d52943c10f7b0d30fbac76136788ecf9ccbab",
+      "incoming_sha256": "4540fd5cb300a21a2f445131dc8d52943c10f7b0d30fbac76136788ecf9ccbab",
+      "equal": true
+    },
+    {
+      "item": "upload",
+      "root_revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+      "root_sha256": "37fbdd501d735dccb87c8b53d5cc81e85d3d64c0c74349e49ebe4ef6f728c0a1",
+      "incoming_sha256": "37fbdd501d735dccb87c8b53d5cc81e85d3d64c0c74349e49ebe4ef6f728c0a1",
+      "equal": true
+    },
+    {
+      "item": "scratch",
+      "root_revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+      "root_sha256": "2c1a20a2d18eaaaabebe5ba000eeb1398bbed465758483ff4f10361fcded1daa",
+      "incoming_sha256": "2c1a20a2d18eaaaabebe5ba000eeb1398bbed465758483ff4f10361fcded1daa",
+      "equal": true
+    },
+    {
+      "item": "dispatch",
+      "root_revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+      "root_sha256": "82c574ccfcd4bfe52c63a5e0f5b79f96f9d8b1782c52b79e24da80e1a2d4811f",
+      "incoming_sha256": "82c574ccfcd4bfe52c63a5e0f5b79f96f9d8b1782c52b79e24da80e1a2d4811f",
+      "equal": true
+    },
+    {
+      "item": "device_error",
+      "root_revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+      "root_sha256": "84bbe2df656994e8962c4709eeda07fafc8ea462535079f7f90929078e99df1a",
+      "incoming_sha256": "84bbe2df656994e8962c4709eeda07fafc8ea462535079f7f90929078e99df1a",
+      "equal": true
+    },
+    {
+      "item": "MetalDeviceError",
+      "root_revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+      "root_sha256": "1c5a6d2f02324f77688107f611e7aa332e0b491de3e77c84cc2d27b60471d7a1",
+      "incoming_sha256": "1c5a6d2f02324f77688107f611e7aa332e0b491de3e77c84cc2d27b60471d7a1",
+      "equal": true
+    },
+    {
+      "item": "MetalGpu Debug",
+      "root_revision": "6e56adeab1101743941c6d50eef4340008b910ea",
+      "root_sha256": "934938a0975f25b947f7da9c4bca7e6352a24f6ec57490529063fe5ada84a588",
+      "incoming_sha256": "934938a0975f25b947f7da9c4bca7e6352a24f6ec57490529063fe5ada84a588",
+      "equal": true
+    }
+  ],
+  "actionable_comment_findings": [
+    {
+      "id": "ASYNC-NATIVE-F2-C1",
+      "priority": "P2",
+      "kind": "Retained connected documentation mismatch, not a new regression in packet commits",
+      "locations": [
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+          "start": 120,
+          "end": 123
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+          "start": 82,
+          "end": 85
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+          "start": 120,
+          "end": 124
+        }
+      ],
+      "ownership": "#780 native Hair owner; collide is affected retained consumer outside23packet, coordinate whole-function ownership/preinventory before edits",
+      "mismatch": "Grow still says counts read once and nothing else waits; apply/equilibrium say recorded/submitted and nothing waits. Same-pin observing native KernelBatch::dispatch/fast.prepare drain ValidationScope::finish, which explicitly calls device.poll(wait_indefinitely) when blocking_validation is enabled. The algorithm may avoid another count readback; it cannot promise an absence of waits under the supported policy.",
+      "evidence": [
+        {
+          "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+          "start": 241,
+          "end": 278
+        },
+        {
+          "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+          "start": 223,
+          "end": 240
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+          "start": 58,
+          "end": 82
+        }
+      ],
+      "remedy": "Describe algorithmic recording/readback boundaries without an absolute wait/performance claim. Grow: roots/guides counts are read back together to size what follows; remaining grooming work is recorded and submitted without another count readback. Apply/equilibrium: recorded and submitted under the context validation policy; completion, when needed, is separate. Preserve actual poll/validation/native behavior.",
+      "acceptance": "Current full connected wording family reflects native observation policy and separate completion; no numeric, polling, scope, fixture or benchmark change. Repeat independent exact successor review."
+    },
+    {
+      "id": "ASYNC-NATIVE-F2-C2",
+      "priority": "P3",
+      "kind": "Retained native shader documentation mismatch",
+      "locations": [
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+          "start": 1087,
+          "end": 1088
+        }
+      ],
+      "ownership": "#780 native guide owner",
+      "mismatch": "The docs say1everywhere when there is no edge. With edge>0 and boundary_count==0, code sets e=params.edge and the empty loop leaves that cap;1is the disabled-edge<=0 path, not the general no-boundary path. Uploading a closed Surface can produce no open boundary points, so these are distinct states.",
+      "evidence": [
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+          "start": 1112,
+          "end": 1120
+        },
+        {
+          "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+          "start": 89,
+          "end": 128
+        }
+      ],
+      "remedy": "State that the sampled boundary distance is capped at edge when edge>0; otherwise1is written. An empty boundary retains that cap. Change prose only, preserving actual fading policy.",
+      "acceptance": "Document disabled-edge and empty-boundary states distinctly with current arithmetic/fixtures unchanged."
+    }
+  ],
+  "resolved_prior_findings": [
+    {
+      "id": "MATERIAL-C665-C1",
+      "evidence": "Fresh complete3file c665-to-f2 diff and owning host_float source read: Metal module/textures/finish now qualify intended operation order/fences by numerical/device limits. Executable textures/finish source unchanged.",
+      "disposition": "Bounded wrapper wording resolved in actual packet. Does not clear underlying host_float numerical/performance contract or material six Rule groups."
+    }
+  ],
+  "contracts": [
+    {
+      "area": "Direct async Metal APIs and cache",
+      "evidence": "MetalGpu::open awaits new_compute; textures/bake/private read carry actual futures to Buffer::read, handling producing submit first. Creator async OnceCell retains first completed Result including error, awaits same armor_gpu_async cache, and clones actual retained GpuInitializationError cause. No synchronous Metal overload/compatibility path or retry/device fallback is supplied. Cancellation/entire browser application startup not newly certified."
+    },
+    {
+      "area": "Actual native UI/export/fixture adapters",
+      "evidence": "MetalImages::new blocks explicitly at its documented native UI entry. ShellTextures::armor directly awaits owner/bake before unchanged PNG encoding. Actual character/equipment export and existing export fixture block only at outer synchronous native call. Direct callsite locator read then traced; no browser capability is claimed for offline native flows. All causes retain actual sources through existing Context and typed caches."
+    },
+    {
+      "area": "Async scalp chain and longest readback",
+      "evidence": "Chain read checks exact creating Device, admits canonical logical prefix, awaits Buffer::read, removes per-row physical padding. Public read awaits shade then strands; longest checks submit before await and retains Metres. GroomedHair::grow explicitly remains synchronous native studio/export and retains host counts. Async wrappers yield only when awaited/polled on browser callback path; native progress may block by actual policy."
+    },
+    {
+      "area": "Native scalp publication and closest traversal",
+      "evidence": "Final cut_scalp edge batch now propagates submit()? before publishing GpuScalp; existing two metadata groups retain their actual order/count fields. This is submission outcome, not completion or all-native success. Guide edge closest now evaluates all triangles; unsound first-corner prune is removed and d<=best tie rule retained. No malformed/nonfinite/degenerate source admission or universal CPU/GPU parity proof is inferred."
+    },
+    {
+      "area": "Source claims and documentation placement",
+      "evidence": "Two-batch grooming intro matches actual roots/read-count then groom batch. Guide workgroup description matches workgroup_size8 and workgroup_id.x. Head approximate-field/estimated-normal wording matches its approximate ellipsoid/smooth field and central differences. Guide-map and closest Rustdoc now attach to intended methods. Scratch reuse/growth doc matches source. Retained wait and empty-edge statements remain C1/C2."
+    },
+    {
+      "area": "Scope/native/browser limits",
+      "evidence": "Buffer/read/mapping/callback actual sources preserve logical prefix and exactDevice/pairedQueue/mapping ownership; callback helper first takes delivered result then nonblocking Poll and browserTimerZERO yielding. No SDK scope spans await. No new GPU-completion/global-health/rollback promise is introduced by changed async APIs. Frozen peer native helper policy prose differs from repaired RootCAC; preserve Root native helper implementations on receiving."
+    }
+  ],
+  "connected_code_dependency": [
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+      "line": 172,
+      "evidence": "Complete relevant equilibrium method source read: final batch.submit() is discarded before Ok(solved). This retained outside23packet caller still needs owner handling; cut_scalp submit()? does not close all fallible native callers.",
+      "disposition": "Required #780 native caller dependency, not independently edited or represented as cleared"
+    }
+  ],
+  "fixture_accounting": {
+    "new_or_executed": false,
+    "evidence": "Complete fresh current Metal tests read and complete c665 delta: only direct future block_on adapters. Existing export fixture sole operand adapter and render fixture public read adapter fully diffed; earlier full exact c665 fixture source carried. Head/Surface/GpuGroomer existing fixture source current coverage full fresh or explicitly carried with docs-only delta; original inputs/oracles are not rewritten. No new cases/helpers/assertions/doctests/benchmarks authored.",
+    "limit": "Source evidence only. Packet preservation claim is not a hosted/native runtime/browser result or universal original main/#779 proof for all unreceived canonical migration changes."
+  },
+  "required_dependencies": [
+    "Resolve C1/C2 through owner-approved full connected preinventory and exact successor review. Prior scoped peer CLEAR notes are contextual, not current full-source Comment clearance; retained same-source findings are reopened.",
+    "Material six groups MAT-C1/MAT-R1..R5 remain required; original22+6 definitions/reference receipt is not received simply because async wrappers compile conceptually. Current EngravingOrnament/recipe/map/count/export/validation sources and full coherent caller composition need actual owner receipt/review.",
+    "Scalp chain/layout/grid/device/prefix prerequisites (final4dddd family), native count/Grid/source/device/root/guide/physical and all fallible caller migrations remain required. Async wrappers do not complete full Creator browser grooming or source admission.",
+    "Do not overwrite protected Root Metal new/batch/upload/scratch/dispatch/MetalDeviceError/device_error or other native Buffer/context/progress/cache functions. Compose actual authorized open/textures/read/docs changes with coherent canonical dependencies.",
+    "Both lockfiles/publicexports/features/baseline/full producer/caller graph remain open. Finish connected families before push/hostedCI; all13waves and final Code/Rule/Comment plus required hosted gates on same final pushed SHA, no merge."
+  ],
+  "limits": [
+    "Read-only source/Git/hash/ignored report bookkeeping only; no source edits, project build/check/lint/scanner/generator/runtime/test/probe, new tests/cases/helpers/assertions/doctests/benchmark, push/CI/external posts.",
+    "Every23packetfile has current complete source accounting:18fresh full reads,5verified earlier full reads plus complete current delta/current affected contexts. Older report verdicts are not inherited; exact hashes/full-read boundaries are explicit.10fresh full dependency files and8bounded files; deeper physics/geometry/SDK/application closure not wholly reviewed.",
+    "Root6e56has not received this packet. No completed-family/source-complete/compiled/native/browser/global/hosted/final PR clearance."
+  ],
+  "verdict": "Two retained source-comment findings require owner repairs; bounded async and first native publication/closest changes accurately describe their actual source limits. Prior cross-device wrapper finding is explicitly resolved, wider material/native prerequisites and final gates remain open."
+}
