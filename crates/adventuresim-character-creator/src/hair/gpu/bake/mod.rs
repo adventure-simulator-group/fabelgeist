@@ -6,13 +6,11 @@
 //! strands lying along the skin in the groom's own direction, parted where
 //! the groom parts and spiralling out of its whorl. Each strand's first few
 //! millimetres off the skin are drawn into the scalp's texture
-//! ([`ScalpMap`]) on the bust the hair grew on, the topmost strand over each
+//! ([`ScalpMap`]) on the bust the hair grew on, one selected sample per
 //! texel showing: lighter the further it lies off the skin, darker where it
 //! meets it, and running the way it runs, so the scalp is shaded as the
-//! strands are. Single strands are far finer than a pixel at any distance
-//! the head is seen from, so what shows is locks: strands rooted together
-//! share a tone, lighter or darker than the next lock, and differ a little
-//! among themselves.
+//! strands are. Root-based noise supplies lock tones, with a smaller
+//! variation among individual strands.
 //!
 //! Where no strand lies, the scalp is either in the shadow of hair standing
 //! further off it -- between an afro's coils, below the coils further out --
@@ -24,9 +22,9 @@
 //! its last strands lying over the skin, while a texel or two between coils
 //! shows no skin at all. Shadowed scalp is the hair's colour in shade.
 //!
-//! Every strand draws itself, an invocation each, keeping the topmost strand
-//! over each texel with an atomic maximum: its height off the skin first in
-//! the packed value, then its direction and shade. Then each texel finds
+//! Every strand draws itself, an invocation each. An atomic maximum selects
+//! each texel's largest packed sample: clamped normalized height quantized to
+//! twelve bits first, then direction and shade to break ties. Each texel finds
 //! whether it is bare, the bare share is blurred, the textures are written,
 //! and each smaller mip level is averaged from the one before.
 
@@ -55,11 +53,11 @@ mod wgsl;
 /// curves, and a strand drawn straight between points a centimetre apart
 /// would cut its corners.
 const STEP: Metres = Metres::from_metres(0.002);
-/// How far off the skin a strand is drawn, metres: the layer of hair the
-/// eye meets between cards.
+/// Near-skin threshold for drawing sampled segments, in metres.
+/// Crossing segments are drawn whole; height is clamped for shading.
 const REACH: Metres = Metres::from_metres(0.008);
-/// A strand's shade where it meets the skin, and at [`REACH`] off it, as a
-/// share of the hair's colour.
+/// Base shade shares at the skin and at [`REACH`], before lock and strand
+/// tone variation.
 const AT_SKIN: Ratio = Ratio::from_ratio(0.25);
 const AT_REACH: Ratio = Ratio::from_ratio(0.9);
 /// How much darker a lock may be than the lightest, and a strand than the
@@ -98,7 +96,7 @@ pub struct ScalpTexture {
     /// The scalp's shade as grey, as a share of the hair's colour, and
     /// whether hair covers it as alpha.
     pub shade: Vec<AtlasLevel>,
-    /// The direction the topmost strand runs across the texture, along `u`
+    /// The selected strand sample's direction across the texture, along `u`
     /// and `v`, each from 0 backwards to 1 forwards (a half each where no
     /// strand lies), and the shade again.
     pub strands: Vec<AtlasLevel>,

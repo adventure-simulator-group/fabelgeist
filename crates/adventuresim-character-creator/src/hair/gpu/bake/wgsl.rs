@@ -2,8 +2,8 @@
 //! found and blurred, the textures written, and each mip level averaged
 //! from the one before; and the longest strand measured.
 
-/// A topmost strand's packing: its height, direction and shade in one word,
-/// height first, so the greatest is the topmost. 0 is no strand.
+/// A sample packed by clamped, quantized height, then direction and shade.
+/// Atomic maximum selects this packed order; zero denotes no strand.
 pub(super) const PACKING: &str = r#"
 const HEIGHT_BITS: u32 = 12u;
 const DIRECTION_BITS: u32 = 12u;

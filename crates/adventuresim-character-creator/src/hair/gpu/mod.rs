@@ -1,8 +1,7 @@
 //! The GPU hair is grown and prepared on.
 //!
-//! The hair crate grooms on the GPU ([`GpuGroomer`]): a hundred thousand
-//! strands are a hundred thousand independent sweeps, which compute kernels
-//! run about ten times faster than every core of the CPU. Placing hair on a
+//! The hair crate grooms on the GPU ([`GpuGroomer`]): independent strand
+//! sweeps run as compute kernels. Placing hair on a
 //! character runs there too: the character's body sampled as a distance
 //! field ([`field`]), the strands carried onto its head and draped on it
 //! ([`place`]), and the levels of detail kept clear of it, all colliding
