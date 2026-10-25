@@ -429,16 +429,37 @@ jobs:
       - name: Export existing managed-hazel envelope
         env:
           FABELGEIST_UPDATE_GARDEN_SPECIMEN: "1"
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope -- --exact --color=never --test-threads=1 2>&1 | tee target/procedural-fixtures/envelope-export.log
+          grep -F 'test result: ok. 1 passed;' target/procedural-fixtures/envelope-export.log
+      - name: Refresh scenes that depend on the garden envelope
+        run: |
+          set -euo pipefail
+          cargo run --locked --package adventuresim-tactical-core --bin generate-scene-fixtures -- --fixture garden-review
+          cargo run --locked --package adventuresim-tactical-core --bin generate-scene-fixtures -- --fixture massive-city
+          cargo run --locked --package adventuresim-tactical-core --bin generate-scene-fixtures -- --fixture compound-review
+      - name: Refresh paired prepared city assets
         run: >-
-          cargo test --locked --package adventuresim-tactical-client
-          --bin adventuresim-tactical-client
-          presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope
-          -- --exact --test-threads=1
+          cargo run --locked --package adventuresim-tactical-client
+          --example generate-art-demo-city
+      - name: Refresh stale fixed-exhibit cloud bakes
+        run: |
+          set -euo pipefail
+          if cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_exhibits_embed_complete_nonempty_cloud_bakes -- --exact --color=never --test-threads=1 2>&1 | tee target/procedural-fixtures/cloud-identity-before.log; then
+            grep -F 'test result: ok. 1 passed;' target/procedural-fixtures/cloud-identity-before.log
+          else
+            grep -F 'test result: FAILED. 0 passed; 1 failed;' target/procedural-fixtures/cloud-identity-before.log
+            cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::regenerate_art_demo_cloud_assets -- --exact --ignored --color=never --test-threads=1 2>&1 | tee target/procedural-fixtures/cloud-export.log
+            grep -F 'test result: ok. 1 passed;' target/procedural-fixtures/cloud-export.log
+            cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_exhibits_embed_complete_nonempty_cloud_bakes -- --exact --color=never --test-threads=1 2>&1 | tee target/procedural-fixtures/cloud-identity-after.log
+            grep -F 'test result: ok. 1 passed;' target/procedural-fixtures/cloud-identity-after.log
+          fi
       - name: Export existing art-demo tree impostors
-        run: >-
-          cargo test --locked --package adventuresim-tactical-client --bin art-demo
-          art_demo::scenery::tests::regenerate_art_demo_tree_impostors
-          -- --exact --ignored --test-threads=1
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::regenerate_art_demo_tree_impostors -- --exact --ignored --color=never --test-threads=1 2>&1 | tee target/procedural-fixtures/impostor-export.log
+          grep -F 'test result: ok. 1 passed;' target/procedural-fixtures/impostor-export.log
       - name: Check existing shrub and tree leaf contracts
         run: |
           set -uo pipefail
@@ -453,6 +474,70 @@ jobs:
           name: procedural-fixtures-${{ github.sha }}
           path: |
             content/tactical/garden-hazel-envelope.json
+            assets/tactical-scenes/garden-review.json
+            assets/tactical-scenes/massive-city.json
+            assets/tactical-scenes/compound-review.json
+            assets/art-demo/city-layout.json
+            assets/art-demo/city-furniture.json
             assets/art-demo/oak.tree-impostors
+            assets/clouds/art-demo/
             target/procedural-fixtures/
           if-no-files-found: error
+
+  foliage-portability:
+    if: ${{ !inputs.regenerate_fixtures }}
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Install pinned Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly-2026-07-13
+      - name: Expose the configured bundled Rust linker
+        shell: pwsh
+        run: |
+          $foliageRustRoot = rustc --print sysroot
+          Add-Content -LiteralPath $env:GITHUB_PATH -Value "$foliageRustRoot\lib\rustlib\x86_64-pc-windows-msvc\bin"
+      - name: Cache Rust build artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: rust-quality
+          cache-on-failure: true
+      - name: Verify existing foliage and prepared-asset contracts
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          unset FABELGEIST_UPDATE_GARDEN_SPECIMEN
+          mkdir -p target/foliage-portability
+          git rev-parse HEAD > target/foliage-portability/revision.txt
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::understory::tests::minimal_shrub_cards_ -- --color=never --test-threads=1 2>&1 | tee target/foliage-portability/understory.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/envelope.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::geometry::leaves::tests:: -- --color=never --test-threads=1 2>&1 | tee target/foliage-portability/leaves.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::impostor::raster::tests::coarse_leaf_sampling_preserves_positions_across_every_shoot -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/sampling.log
+          cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/prepared-impostors.log
+      - name: Verify required existing cases executed
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          for name in ("understory", "envelope", "leaves", "sampling", "prepared-impostors"):
+              log = Path(f"target/foliage-portability/{name}.log").read_text(encoding="utf-8")
+              results = re.findall(r"test result: ok\. (\d+) passed;", log)
+              if len(results) != 1 or int(results[0]) == 0:
+                  raise SystemExit(f"Missing or empty required result: {name}")
+          PY
+      - name: Upload foliage portability evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: foliage-portability-${{ github.event.pull_request.head.sha || github.sha }}
+          path: target/foliage-portability/
+          if-no-files-found: warn

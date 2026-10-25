@@ -165,7 +165,8 @@ cargo test -p adventuresim-tactical-client --bin art-demo \
 
 The [garden regeneration guide](../adventuresim-tactical-core/src/city_layout/gardens/README.md#regeneration-and-review)
 also describes the hosted fixture-export workflow, its revision-matched
-artifacts, and the separate full-CI acceptance step.
+artifacts, dependent garden and city refreshes, and the separate Linux and
+focused Windows acceptance checks.
 
 The non-ignored art-demo tests verify that every expected playable and vista
 impostor exists and was baked from the current native source geometry.

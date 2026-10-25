@@ -68,19 +68,24 @@ cargo test -p adventuresim-tactical-client --bin tactical-scene-viewer managed_h
 ```
 
 For hosted regeneration, dispatch the **Rust quality** workflow on the source
-branch with `regenerate_fixtures=true`. This mode runs the existing hazel-envelope
-and art-demo tree-impostor exporters, then the existing shrub and leaf tests.
+branch with `regenerate_fixtures=true`. This mode exports the hazel envelope, then
+refreshes the `garden-review`, `massive-city`, and `compound-review` scenes and the
+paired prepared city and furniture assets. It refreshes fixed-exhibit cloud
+bakes when their existing identity check fails, exports tree impostors, and runs
+the existing shrub and leaf tests.
 Download its `procedural-fixtures-<commit>` artifact into an ignored directory.
-Artifacts are uploaded even if an exporter fails; check that both exporter steps
-succeeded before copying either generated file.
+Artifacts are uploaded even if an exporter fails; check that all required export
+steps succeeded before copying generated files.
 Check that `target/procedural-fixtures/revision.txt` names the source commit being
-reviewed before copying the generated envelope and impostor asset into the
-worktree. Review their changes and commit them with the matching source changes.
+reviewed. Review the generated changes, preserve paired outputs, and copy only
+the changed generated files into the worktree with the matching source changes.
 
 The export mode skips the ordinary quality job. Its result is regeneration
 evidence; it does not establish that the branch passes CI. After committing the
 reviewed output, run the normal workflow without this option on the final commit.
 Existing snapshot failures must still be investigated and resolved.
+The normal workflow includes focused Windows checks of the existing foliage and
+prepared-impostor cases against those same committed assets.
 
 Regenerate scene fixtures and the prepared city layout after layout changes.
 Run the garden core tests and native review. The capture gate checks accepted
