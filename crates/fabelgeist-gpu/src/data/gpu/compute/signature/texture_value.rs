@@ -29,7 +29,7 @@ enum TextureComponents {
 impl<'a> TryFrom<&'a ResourceBaseType> for TextureValue<'a> {
     type Error = TextureValueError;
 
-    fn try_from(element_type: &'a ResourceBaseType) -> TextureValueResult<Self> {
+    fn try_from(element_type: &'a ResourceBaseType) -> Result<Self, Self::Error> {
         let (scalar, components) = match element_type {
             ResourceBaseType::F32 | ResourceBaseType::U32 | ResourceBaseType::I32 => {
                 (element_type, TextureComponents::Scalar)
@@ -49,10 +49,7 @@ impl<'a> TryFrom<&'a ResourceBaseType> for TextureValue<'a> {
                 });
             }
         };
-        Ok(Self {
-            scalar,
-            components,
-        })
+        Ok(Self { scalar, components })
     }
 }
 

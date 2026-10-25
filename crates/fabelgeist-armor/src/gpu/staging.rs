@@ -10,6 +10,8 @@ use fabelgeist_compute::Readback;
 use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, BufferReadError};
 use std::sync::Arc;
 
+pub type StagingResult<T> = Result<T, StagingError>;
+
 /// Buffers waiting to be read back together.
 #[derive(Default)]
 pub struct Staging<'a> {
@@ -68,11 +70,7 @@ impl StagedResults {
     /// Zero elements are valid even when the allocation contains a sentinel
     /// word. Foreign tickets, zero-sized elements and short prefixes fail;
     /// missing bytes are never synthesized by padding or truncation.
-    pub fn prefix<T: bytemuck::Pod>(
-        &self,
-        staged: &Staged,
-        count: usize,
-    ) -> Result<Vec<T>, StagingError> {
+    pub fn prefix<T: bytemuck::Pod>(&self, staged: &Staged, count: usize) -> StagingResult<Vec<T>> {
         if !Arc::ptr_eq(&self.session, &staged.session) {
             return Err(StagingError::InvalidTicket);
         }
@@ -107,7 +105,7 @@ impl StagedResults {
     }
 
     /// Decode the first complete native u32 status word.
-    pub fn status(&self, staged: &Staged) -> Result<u32, StagingError> {
+    pub fn status(&self, staged: &Staged) -> StagingResult<u32> {
         // prefix proves this fixed one-element index before it is used.
         Ok(self.prefix::<u32>(staged, 1)?[0])
     }
