@@ -9,7 +9,7 @@
 //! Copies use Bevy's configured device error handling. This render system does
 //! not observe a synchronous native validation result.
 use super::*;
-use adventuresim_character_creator::hair::scalp_levels;
+use adventuresim_character_creator::hair::{ScalpTextureChain, ScalpTextureLayout};
 use bevy::image::{ImageAddressMode, ImageFilterMode, ImageSampler, ImageSamplerDescriptor};
 use bevy::render::render_asset::RenderAssets;
 use bevy::render::render_resource::{
@@ -19,14 +19,11 @@ use bevy::render::render_resource::{
 use bevy::render::renderer::{RenderDevice, RenderQueue};
 use bevy::render::texture::GpuImage;
 use bevy::render::{Render, RenderApp, RenderSystems};
-use fabelgeist_gpu::prelude::Buffer;
 use std::sync::{Mutex, PoisonError};
 
 /// The most samples the scalp's texture is filtered with along the line
 /// of sight: hardware anisotropic filtering's usual ceiling.
 const SCALP_ANISOTROPY: u16 = 16;
-/// Bytes of a texel.
-const TEXEL_BYTES: u32 = 4;
 
 /// Scalp textures waiting for the renderer to make their images, shared by
 /// the main world, which adds them, and the render world, which copies them.
@@ -36,15 +33,22 @@ pub(crate) struct ScalpUploads(Arc<Mutex<Vec<ScalpUpload>>>);
 struct ScalpUpload {
     /// Held until copied into, so the renderer makes its texture.
     image: Handle<Image>,
-    chain: Buffer,
+    chain: ScalpTextureChain,
 }
+
+/// Copies the scalp's baked textures into their images on the GPU.
+pub(super) struct ScalpUploadPlugin;
 
 impl ScalpUploads {
     /// An image the baked mip `chain` is copied into on the GPU, sampled
     /// anisotropically: its strands lie along the scalp, which the eye
     /// meets at every angle round the head.
-    pub(super) fn image(&self, chain: &Buffer, images: &mut Assets<Image>) -> Handle<Image> {
-        let image = images.add(scalp_image());
+    pub(super) fn image(
+        &self,
+        chain: &ScalpTextureChain,
+        images: &mut Assets<Image>,
+    ) -> Handle<Image> {
+        let image = images.add(scalp_image(chain.layout()));
         self.0
             .lock()
             .unwrap_or_else(PoisonError::into_inner)
@@ -56,10 +60,25 @@ impl ScalpUploads {
     }
 }
 
+impl Plugin for ScalpUploadPlugin {
+    fn build(&self, app: &mut App) {
+        let uploads = ScalpUploads::default();
+        app.insert_resource(uploads.clone());
+        if let Some(render) = app.get_sub_app_mut(RenderApp) {
+            render.insert_resource(uploads).add_systems(
+                Render,
+                upload
+                    .in_set(RenderSystems::PrepareResources)
+                    .after(RenderSystems::PrepareAssets),
+            );
+        }
+    }
+}
+
 /// An empty image the size of the scalp's textures with their whole mip
 /// chain, filtered linearly and anisotropically.
-fn scalp_image() -> Image {
-    let side = scalp_levels().first().map_or(1, |level| level.side);
+fn scalp_image(layout: &ScalpTextureLayout) -> Image {
+    let side = layout.base().side_texels();
     let mut image = Image::new_uninit(
         Extent3d {
             width: side,
@@ -70,7 +89,7 @@ fn scalp_image() -> Image {
         TextureFormat::Rgba8Unorm,
         RenderAssetUsages::RENDER_WORLD,
     );
-    image.texture_descriptor.mip_level_count = scalp_levels().len() as u32;
+    image.texture_descriptor.mip_level_count = layout.levels().len() as u32;
     image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
         address_mode_u: ImageAddressMode::ClampToEdge,
         address_mode_v: ImageAddressMode::ClampToEdge,
@@ -103,14 +122,15 @@ fn upload(
         let Some(image) = images.get(&upload.image) else {
             return true;
         };
-        for (mip, level) in scalp_levels().into_iter().enumerate() {
+        let layout = upload.chain.layout();
+        for (mip, level) in layout.levels().iter().enumerate() {
             encoder.copy_buffer_to_texture(
                 TexelCopyBufferInfo {
-                    buffer: &upload.chain.buffer,
+                    buffer: &upload.chain.buffer().buffer,
                     layout: TexelCopyBufferLayout {
-                        offset: u64::from(level.offset * TEXEL_BYTES),
-                        bytes_per_row: Some(level.stride * TEXEL_BYTES),
-                        rows_per_image: Some(level.side),
+                        offset: u64::from(level.offset()),
+                        bytes_per_row: Some(u64::from(layout.row_bytes(level)) as u32),
+                        rows_per_image: Some(level.side_texels()),
                     },
                 },
                 TexelCopyTextureInfo {
@@ -120,8 +140,8 @@ fn upload(
                     aspect: TextureAspect::All,
                 },
                 Extent3d {
-                    width: level.side,
-                    height: level.side,
+                    width: level.side_texels(),
+                    height: level.side_texels(),
                     depth_or_array_layers: 1,
                 },
             );
@@ -131,23 +151,5 @@ fn upload(
     });
     if copied {
         queue.submit([encoder.finish()]);
-    }
-}
-
-/// Copies the scalp's baked textures into their images on the GPU.
-pub(super) struct ScalpUploadPlugin;
-
-impl Plugin for ScalpUploadPlugin {
-    fn build(&self, app: &mut App) {
-        let uploads = ScalpUploads::default();
-        app.insert_resource(uploads.clone());
-        if let Some(render) = app.get_sub_app_mut(RenderApp) {
-            render.insert_resource(uploads).add_systems(
-                Render,
-                upload
-                    .in_set(RenderSystems::PrepareResources)
-                    .after(RenderSystems::PrepareAssets),
-            );
-        }
     }
 }

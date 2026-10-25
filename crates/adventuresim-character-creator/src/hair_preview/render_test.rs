@@ -23,7 +23,7 @@
 //! `<preset>-hair-only-...`.
 use super::*;
 use adventuresim_character_creator::hair::{
-    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair,
+    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair, ScalpTextureChain,
 };
 use adventuresim_character_creator::studio_environment;
 use bevy::app::{PluginsState, ScheduleRunnerPlugin};
@@ -35,7 +35,6 @@ use bevy::render::view::screenshot::{Screenshot, save_to_disk};
 use bevy::window::ExitCondition;
 use bevy::winit::WinitPlugin;
 use fabelgeist_gpu::globals::WgpuContext;
-use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_hair::collider::Collider;
 use fabelgeist_hair::{MeshCollider, Preset};
 use fabelgeist_math::Vec3 as HairVec3;
@@ -364,7 +363,7 @@ struct Stage {
     cap: Option<Mesh>,
     atlas: Option<Image>,
     /// The scalp's baked shade and strands chains.
-    scalp: Option<[Buffer; 2]>,
+    scalp: Option<[ScalpTextureChain; 2]>,
     hairs: Vec<(Form, Mesh, GpuGeometry, Vec<PathBuf>)>,
     design: HairDesign,
     center: Vec3,

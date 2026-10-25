@@ -20,7 +20,8 @@ use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload};
 use fabelgeist_hair::gpu::{GpuGroomer, headless_context};
 
 pub(crate) use bake::longest;
-pub use bake::{GpuScalpTexture, Level as ScalpLevel, ScalpTexture, levels as scalp_levels};
+pub use bake::{GpuScalpTexture, ScalpMipLevel, ScalpTexture, ScalpTextureChain, ScalpTextureLayout};
+pub(in crate::hair) use bake::ScalpTexelSpan;
 pub(crate) use field::BodyField;
 pub(crate) use place::Draping;
 pub use strips::GpuGeometry;
