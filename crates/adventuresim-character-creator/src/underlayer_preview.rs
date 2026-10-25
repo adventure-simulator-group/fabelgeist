@@ -45,7 +45,7 @@ impl EquipmentMaps {
         material: EquipmentMaterial,
         design: Option<&ParametricDesign>,
         engraving: Option<&Engraving>,
-    ) -> Result<StandardMaterial, String> {
+    ) -> anyhow::Result<StandardMaterial> {
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
         if let Some(metal) = armor_metal::metal(material, engraving) {
             return self.metal(images, &metal, metallic);
@@ -57,35 +57,10 @@ impl EquipmentMaps {
             ..default()
         };
         if let Some(textures) = underlayer_material::textures(design) {
-            let maps = self.mail.get_or_insert_with(|| {
-                let mut load = |bytes, srgb| {
-                    images.add(
-                        Image::from_buffer(
-                            bytes,
-                            ImageType::Extension("png"),
-                            CompressedImageFormats::NONE,
-                            srgb,
-                            ImageSampler::default(),
-                            RenderAssetUsages::default(),
-                        )
-                        .expect("authored mail atlas is a valid PNG"),
-                    )
-                };
-                MailImages {
-                    color: load(
-                        textures
-                            .base_color_png
-                            .as_deref()
-                            .expect("mail supplies a base-color texture"),
-                        true,
-                    ),
-                    normal: load(&textures.normal_png, false),
-                    occlusion: textures
-                        .occlusion_png
-                        .as_deref()
-                        .map(|bytes| load(bytes, false)),
-                }
-            });
+            let maps = match self.mail {
+                Some(ref maps) => maps,
+                None => self.mail.insert(MailImages::new(images, &textures)?),
+            };
             result.base_color = Color::WHITE;
             result.base_color_texture = Some(maps.color.clone());
             result.normal_map_texture = Some(maps.normal.clone());
@@ -111,7 +86,7 @@ impl EquipmentMaps {
         images: &mut Assets<Image>,
         metal: &Metal,
         metallic: f32,
-    ) -> Result<StandardMaterial, String> {
+    ) -> anyhow::Result<StandardMaterial> {
         let index = match self.metals.iter().position(|baked| baked.metal == *metal) {
             Some(index) => index,
             None => {
@@ -126,5 +101,42 @@ impl EquipmentMaps {
         let baked = &mut self.metals[index];
         baked.used = true;
         Ok(baked.images.material(&baked.metal, metallic))
+    }
+}
+
+impl MailImages {
+    fn new(
+        images: &mut Assets<Image>,
+        textures: &adventuresim_character_creator::export::SurfaceTextures,
+    ) -> anyhow::Result<Self> {
+        let decode = |bytes: &[u8], srgb| {
+            Image::from_buffer(
+                bytes,
+                ImageType::Extension("png"),
+                CompressedImageFormats::NONE,
+                srgb,
+                ImageSampler::default(),
+                RenderAssetUsages::default(),
+            )
+            .context("decoding the mail atlas")
+        };
+        let color = decode(
+            textures
+                .base_color_png
+                .as_deref()
+                .context("mail supplies no base-color texture")?,
+            true,
+        )?;
+        let normal = decode(&textures.normal_png, false)?;
+        let occlusion = textures
+            .occlusion_png
+            .as_deref()
+            .map(|bytes| decode(bytes, false))
+            .transpose()?;
+        Ok(Self {
+            color: images.add(color),
+            normal: images.add(normal),
+            occlusion: occlusion.map(|image| images.add(image)),
+        })
     }
 }

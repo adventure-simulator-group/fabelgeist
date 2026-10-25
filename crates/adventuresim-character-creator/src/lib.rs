@@ -4,6 +4,7 @@ use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 pub use adventuresim_core::item_catalog_schema;
 pub use armor_gpu::{FittingSlot, armor_gpu, armor_gpu_async, fitting_slot};
 pub use clothing_material::pbr as equipment_pbr;
+pub use gpu_initialization::GpuInitializationError;
 pub use metal_gpu::metal_gpu;
 use serde::{Deserialize, Serialize};
 
@@ -108,6 +109,7 @@ mod gown_dressing_opening;
 mod gown_ease;
 mod gown_materials;
 mod gown_plan;
+mod gpu_initialization;
 pub mod hair;
 pub mod inventory;
 pub mod item_design;
