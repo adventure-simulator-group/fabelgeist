@@ -109,7 +109,6 @@ impl Surface {
         }
     }
 
-    /// The closest point on the surface within `max_distance`.
     /// Points along the surface's open edges -- for a scalp, its hairline --
     /// no further than `step` apart.
     pub fn boundary(&self, step: f32) -> Vec<Vec3> {
@@ -138,6 +137,7 @@ impl Surface {
         points
     }
 
+    /// The closest point on the surface within `max_distance`.
     pub fn closest(&self, point: Vec3, max_distance: f32) -> Option<SurfacePoint> {
         let (triangle, closest, _) = self.bvh.closest_point(point, max_distance)?;
         let [a, b, c] = self.triangles[triangle as usize].map(|i| self.positions[i as usize]);

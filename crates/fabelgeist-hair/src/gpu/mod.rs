@@ -6,9 +6,10 @@
 //! as compute kernels, and what it grows stays on the GPU: the renderer
 //! draws the levels of detail straight from the buffers the kernels wrote.
 //!
-//! [`GpuGroomer`] holds the kernels, on the compute layer: one
-//! [`KernelBatch`] a groom (every dispatch into one encoder, one submit),
-//! [`PrefixSum`] to compact the roots and the cards, its
+//! [`GpuGroomer`] holds the kernels on the compute layer. A groom first submits
+//! a roots [`KernelBatch`] and reads its counts, then records and submits the
+//! remaining grooming work in another batch. It uses [`PrefixSum`] to compact
+//! the roots and the cards, its
 //! [`RadixSort`] for the shuffled strand order the levels of detail share,
 //! and its spatial hash grid for the roots about each vertex of the head.
 //! The kernels themselves ([`wgsl`]) mirror the host operations in
@@ -67,7 +68,7 @@
 //! let mut groomer = GpuGroomer::new(headless_context()?)?;
 //! let look = Look::new(Preset::Afro);
 //! let head = look.head(&Head::mannequin());
-//! // The scalp, cut once for as long as the hairline stays.
+//! // Reuse the scalp for this head geometry, hairline and sampling recipe.
 //! let scalp = groomer.cut_scalp(&head, 0.004)?;
 //! let grown = groomer.grow_look(&look, &head, &scalp)?;
 //! let lods = groomer.lods(&grown, head.cranium.center, &LodSettings::default())?;

@@ -1,6 +1,6 @@
 //! A scalp on the GPU: what roots and guides are placed on -- cut there from
-//! the head's field ([`GpuGroomer::cut_scalp`]), or uploaded -- kept for as
-//! long as the hairline stays.
+//! the head's field ([`GpuGroomer::cut_scalp`]), or uploaded. A cut scalp can
+//! be reused for the same head geometry, hairline and sampling recipe.
 
 use crate::gpu::error::{HairGpuError, Result};
 use fabelgeist_compute::KernelBatch;
@@ -131,8 +131,8 @@ impl GpuGroomer {
     /// `head`'s scalp, cut on the GPU as [`Head::scalp`] cuts it on the
     /// host -- surface nets over the head's field on a grid of `cell`
     /// metres, the part above the hairline -- to the same triangles and
-    /// vertices in the same order. Two waits, for how many triangles and
-    /// then how many vertices and hairline points.
+    /// vertices in the same order. Two grouped metadata readbacks determine
+    /// first the triangle count, then vertices, area, bounds and hairline counts.
     pub fn cut_scalp(&mut self, head: &Head, cell: f32) -> Result<GpuScalp> {
         let context = self.context.clone();
         let shape = upload(&context, &head_shape(head), "hair head shape".into())?;
@@ -392,7 +392,7 @@ impl GpuGroomer {
             p.insert("boundary", out.clone());
             batch.dispatch_folded(&self.kernels.nets_boundary, &p, uses)?;
         }
-        batch.submit();
+        batch.submit()?;
 
         Ok(GpuScalp {
             triangles,

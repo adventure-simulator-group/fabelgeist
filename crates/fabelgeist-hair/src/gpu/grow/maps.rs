@@ -3,6 +3,7 @@
 use super::*;
 
 impl GpuGroomer {
+    /// A guide map of `set` into its `guide_of`.
     pub(in crate::gpu) fn record_set_map(
         &mut self,
         batch: &mut KernelBatch,

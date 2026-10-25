@@ -4,10 +4,10 @@
 //! keeps it off the body with shrinkwrap modifiers and a cloth simulation.
 //! SMPL-X is not ours to ship, so the bust here is a handful of smoothly
 //! united ellipsoids and capsules of an adult's proportions: cranium, jaw,
-//! nose, ears, neck, shoulders and chest. Being a distance field it is its
-//! own collider -- exact distance and outward direction anywhere, for the
-//! shrinkwrap and the drape -- and [`Head::mesh`] extracts it as triangles
-//! (surface nets) for drawing and for the scalp.
+//! nose, ears, neck, shoulders and chest. Its approximate signed field and
+//! estimated outward normal serve the shrinkwrap and drape as a collider.
+//! [`Head::mesh`] extracts the field as triangles (surface nets) for drawing
+//! and for the scalp.
 //!
 //! The scalp is the part of that mesh above the hairline: a curve around the
 //! head, high on the forehead, over the ears and down to the nape. Its UV map

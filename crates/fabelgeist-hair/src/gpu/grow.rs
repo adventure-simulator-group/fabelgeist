@@ -430,8 +430,6 @@ impl GpuGroomer {
         Ok((n, candidates, candidate_normals, keep))
     }
 
-    /// A guide map of `set` into its `guide_of`.
-
 }
 
 /// A parting as the kernels' parameters.

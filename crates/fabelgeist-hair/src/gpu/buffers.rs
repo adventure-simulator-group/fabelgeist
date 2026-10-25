@@ -8,9 +8,8 @@ use fabelgeist_gpu::prelude::{
 // Native vec4-sized scratch binding: minimum allocation and alignment.
 const SCRATCH_ALIGNMENT_BYTES: u64 = 16;
 
-/// A buffer kept between grooms and grown by half again when too small, as
-/// the solvers keep theirs, so that grooming the same head again
-/// allocates nothing. Only for scratch: what a groom hands out is its own.
+/// Scratch storage reused while requests fit, growing by at least half again
+/// when more capacity is needed. Returned groom buffers have independent ownership.
 #[derive(Default)]
 pub(super) struct Scratch {
     buffer: Option<Buffer>,

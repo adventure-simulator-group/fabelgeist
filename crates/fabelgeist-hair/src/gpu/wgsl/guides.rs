@@ -6,7 +6,7 @@
 //! The greedy pass is sequential by nature; one workgroup runs it, a chunk
 //! of candidates at a time checked in parallel against the roots kept so
 //! far, the few survivors of a chunk settled among themselves in order.
-//! Then every guide is combed by an invocation of its own, drawing from a
+//! Then every guide is combed by a workgroup of its own, drawing from a
 //! [`crate::rng::Stream`] as the host does: its path into a buffer, then
 //! resampled.
 
@@ -182,11 +182,6 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) g
     for (var t = 0u; t < params.triangles; t++) {
         let tri = tri_index[t];
         let a = scalp_points[tri.x].xyz;
-        // A triangle is a few millimetres across: one whose corner is far
-        // cannot be near.
-        if (distance(p, a) > best + 0.03) {
-            continue;
-        }
         let q = closest_on_triangle(p, a, scalp_points[tri.y].xyz, scalp_points[tri.z].xyz);
         let d = distance(p, q);
         if (d <= best) {
